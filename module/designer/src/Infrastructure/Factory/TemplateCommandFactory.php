@@ -14,7 +14,8 @@ use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
 use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
 use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\Designer\Domain\Entity\AbstractTemplateElement;
+use Ergonode\Designer\Domain\Entity\AttributeTemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateElementId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\ValueObject\Position;
@@ -76,14 +77,14 @@ class TemplateCommandFactory
     /**
      * @param TemplateElementTypeModel $model
      *
-     * @return TemplateElement
+     * @return AbstractTemplateElement
      */
-    private function createElement(TemplateElementTypeModel $model): TemplateElement
+    private function createElement(TemplateElementTypeModel $model): AbstractTemplateElement
     {
-        return new TemplateElement(
+        return new AttributeTemplateElement(
+            $model->position,
+            $model->size,
             new TemplateElementId($model->id),
-            new Position((int) $model->x, (int) $model->y),
-            new Size((int) $model->width, (int) $model->height),
             $model->required
         );
     }

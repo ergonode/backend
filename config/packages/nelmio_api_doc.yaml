@@ -13,6 +13,32 @@ nelmio_api_doc:
         security:
             - api_key: []
         definitions:
+            point:
+                type: object
+                properties:
+                    x:
+                        type: int
+                        required: true
+                        description: X posion
+                        example: 0
+                    y:
+                        type: int
+                        required: true
+                        description: Y posion
+                        example: 0
+            size:
+                type: object
+                properties:
+                    width:
+                        type: int
+                        required: true
+                        description: Width
+                        example: 2
+                    height:
+                        type: int
+                        required: true
+                        description: Height
+                        example: 1
             template_element:
                 type: object
                 properties:
@@ -21,26 +47,10 @@ nelmio_api_doc:
                         required: true
                         description: Placed attribute Id
                         example: 67696e17-586b-4ade-b9c1-a4b57ce564a0
-                    x:
-                        type: int
-                        required: true
-                        description: X posion of attribute on template
-                        example: 0
-                    y:
-                        type: int
-                        required: true
-                        description: Y posion of attribute on template
-                        example: 0
-                    width:
-                        type: int
-                        required: true
-                        description: Width of attribute on template
-                        example: 2
-                    height:
-                        type: int
-                        required: true
-                        description: Height of attribute on template
-                        example: 1
+                    position:
+                        $ref: "#/definitions/point"
+                    size:
+                        $ref: "#/definitions/size"
                     required:
                         type: bool
                         required: false

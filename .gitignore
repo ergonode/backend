@@ -2,8 +2,6 @@
 /public/bundles/
 /var/
 /vendor/
-/bin/
-!/bin/console
 /import
 /tmp
 .history

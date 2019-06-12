@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Domain\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\Designer\Domain\Entity\AbstractTemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -48,9 +49,9 @@ class UpdateTemplateCommand
     private $sections;
 
     /**
-     * @var ArrayCollection|TemplateElement[]
+     * @var ArrayCollection|AbstractTemplateElement[]
      *
-     * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\TemplateElement>")
+     * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\AbstractTemplateElement>")
      */
     private $elements;
 
@@ -63,6 +64,8 @@ class UpdateTemplateCommand
      */
     public function __construct(TemplateId $id, string $name, ArrayCollection $elements, ArrayCollection $sections, ?MultimediaId $imageId = null)
     {
+        Assert::allIsInstanceOf($elements, AbstractTemplateElement::class, 'Template elements should by %2$s class. Got: %s');
+
         $this->id = $id;
         $this->name = $name;
         $this->elements = $elements;
@@ -103,7 +106,7 @@ class UpdateTemplateCommand
     }
 
     /**
-     * @return ArrayCollection|TemplateElement[]
+     * @return ArrayCollection|AbstractTemplateElement[]
      */
     public function getElements(): ArrayCollection
     {

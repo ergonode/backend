@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
@@ -18,7 +19,7 @@ class CreateDesignerTemplateCommandTest extends TestCase
 {
     /**
      */
-    public function testResultValues(): void
+    public function testCreateCommand(): void
     {
         $name = 'Any Name';
         $elements = new ArrayCollection();
