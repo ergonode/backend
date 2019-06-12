@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
-use Ergonode\Migration\AbstractErgonodeMigration;
 
 /**
  */

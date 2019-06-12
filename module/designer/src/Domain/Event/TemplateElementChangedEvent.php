@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TemplateElementAddedEvent implements DomainEventInterface
+class TemplateElementChangedEvent implements DomainEventInterface
 {
     /**
      * @var AbstractTemplateElement

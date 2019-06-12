@@ -38,6 +38,14 @@ Ergonode\Designer\Domain\ValueObject\Size:
             - 1
             - 1
 
+Ergonode\Designer\Domain\Entity\AttributeTemplateElement:
+    template_element_{1..8}:
+        __construct:
+            - '@position_<current()>'
+            - '@size'
+            - '<TemplateElementId(<AttributeId(code_<current()>)>)>'
+
+
 Ergonode\Designer\Domain\Entity\TemplateGroupId:
     template_group_id:
         __construct:
@@ -55,14 +63,7 @@ Ergonode\Designer\Domain\Entity\Template:
             - '@template_group_id'
             - 'Template_<current()>'
         __calls:
-            - addElement: ['<TemplateElementId(<AttributeId(code_1)>)>', '@position_1', '@size', true]
-            - addElement: ['<TemplateElementId(<AttributeId(code_2)>)>', '@position_2', '@size', true]
-            - addElement: ['<TemplateElementId(<AttributeId(code_3)>)>', '@position_3', '@size', true]
-            - addElement: ['<TemplateElementId(<AttributeId(code_4)>)>', '@position_4', '@size', true]
-            - addElement: ['<TemplateElementId(<AttributeId(code_5)>)>', '@position_5', '@size', true]
-            - addElement: ['<TemplateElementId(<AttributeId(code_6)>)>', '@position_6', '@size', true]
-            - addElement: ['<TemplateElementId(<AttributeId(code_7)>)>', '@position_7', '@size', true]
-            - addElement: ['<TemplateElementId(<AttributeId(code_8)>)>', '@position_8', '@size', true]
+            - addElement: ['@template_element_1']
             - addSection : [0, 'Section One']
             - addSection : [2, 'Section Two']
             - addSection : [4, 'Section Three']

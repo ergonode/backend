@@ -64,16 +64,17 @@ class TemplateElementAddedEventProjector implements DomainEventProjectorInterfac
 
         $this->connection->beginTransaction();
         try {
+            $element = $event->getElement();
             $this->connection->insert(
                 self::ELEMENT_TABLE,
                 [
                     'template_id' => $aggregateId->getValue(),
-                    'element_id' => $event->getElementId()->getValue(),
-                    'x' => $event->getPosition()->getX(),
-                    'y' => $event->getPosition()->getY(),
-                    'width' => $event->getSize()->getWidth(),
-                    'height' => $event->getSize()->getHeight(),
-                    'required' => $event->isRequired(),
+                    'element_id' => $element->getElementId()->getValue(),
+                    'x' => $element->getPosition()->getX(),
+                    'y' => $element->getPosition()->getY(),
+                    'width' => $element->getSize()->getWidth(),
+                    'height' => $element->getSize()->getHeight(),
+                    'required' => $element->isRequired(),
                 ],
                 [
                     'required' => \PDO::PARAM_BOOL,

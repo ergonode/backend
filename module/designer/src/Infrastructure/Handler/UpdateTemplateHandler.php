@@ -11,7 +11,6 @@ namespace Ergonode\Designer\Infrastructure\Handler;
 
 use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateElementId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Webmozart\Assert\Assert;
 
@@ -43,29 +42,20 @@ class UpdateTemplateHandler
 
         Assert::notNull($template);
 
-        if ($template->getName() !== $command->getName()) {
-            $template->changeName($command->getName());
-        }
+        $template->changeName($command->getName());
 
         foreach ($command->getElements() as $element) {
-            $id = $element->getElementId();
-            $current[$id->getValue()] = $id;
-            if ($template->hasElement($id)) {
-                $template->moveElement($id, $element->getPosition());
-                $template->resizeElement($id, $element->getSize());
-                if ($element->isRequired()) {
-                    $template->makeRequired($id);
-                } else {
-                    $template->makeNonRequired($id);
-                }
+            $current[(string) $element->getPosition()] = $element;
+            if ($template->hasElement($element->getPosition())) {
+                $template->changeElement($element);
             } else {
-                $template->addElement($id, $element->getPosition(), $element->getSize(), $element->isRequired());
+                $template->addElement($element);
             }
         }
 
-        foreach ($template->getElements() as $key => $element) {
-            if (!isset($current[$key])) {
-                $template->removeElement(new TemplateElementId($key));
+        foreach ($template->getElements() as $element) {
+            if (!isset($current[(string) $element->getPosition()])) {
+                $template->removeElement($element->getPosition());
             }
         }
 

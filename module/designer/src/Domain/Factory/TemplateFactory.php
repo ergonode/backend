@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Factory;
 
+use Ergonode\Designer\Domain\Entity\AbstractTemplateElement;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateGroupId;
@@ -21,12 +22,12 @@ use Webmozart\Assert\Assert;
 class TemplateFactory
 {
     /**
-     * @param TemplateId        $id
-     * @param TemplateGroupId   $groupId
-     * @param string            $name
-     * @param TemplateElement[] $elements
-     * @param string[]          $sections
-     * @param MultimediaId|null $imageId
+     * @param TemplateId                $id
+     * @param TemplateGroupId           $groupId
+     * @param string                    $name
+     * @param AbstractTemplateElement[] $elements
+     * @param string[]                  $sections
+     * @param MultimediaId|null         $imageId
      *
      * @return Template
      */
@@ -38,7 +39,7 @@ class TemplateFactory
         array $sections = [],
         ?MultimediaId $imageId = null
     ): Template {
-        Assert::allIsInstanceOf($elements, TemplateElement::class);
+        Assert::allIsInstanceOf($elements, AbstractTemplateElement::class);
 
         $template = new Template(
             $id,
@@ -48,7 +49,7 @@ class TemplateFactory
         );
 
         foreach ($elements as $element) {
-            $template->addElement($element->getElementId(), $element->getPosition(), $element->getSize(), $element->isRequired());
+            $template->addElement($element);
         }
 
         foreach ($sections as $column => $section) {

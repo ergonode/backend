@@ -10,15 +10,15 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
+use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Designer\Domain\Event\TemplateElementMovedEvent;
 
 /**
  */
-class TemplateElementMovedEventProjector implements DomainEventProjectorInterface
+class TemplateElementChangedEventProjector implements DomainEventProjectorInterface
 {
     private const ELEMENT_TABLE = 'designer.template_element';
 
@@ -44,7 +44,7 @@ class TemplateElementMovedEventProjector implements DomainEventProjectorInterfac
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof TemplateElementMovedEvent;
+        return $event instanceof TemplateElementChangedEvent;
     }
 
     /**
@@ -58,21 +58,28 @@ class TemplateElementMovedEventProjector implements DomainEventProjectorInterfac
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
 
-        if (!$event instanceof TemplateElementMovedEvent) {
-            throw new UnsupportedEventException($event, TemplateElementMovedEvent::class);
+        if (!$event instanceof TemplateElementChangedEvent) {
+            throw new UnsupportedEventException($event, TemplateElementChangedEvent::class);
         }
 
         $this->connection->beginTransaction();
         try {
+            $element = $event->getElement();
             $this->connection->update(
                 self::ELEMENT_TABLE,
                 [
-                    'x' => $event->getTo()->getX(),
-                    'y' => $event->getTo()->getY(),
+                    'template_id' => $aggregateId->getValue(),
+                    'element_id' => $element->getElementId()->getValue(),
+                    'width' => $element->getSize()->getWidth(),
+                    'height' => $element->getSize()->getHeight(),
+                    'required' => $element->isRequired(),
                 ],
                 [
-                    'template_id' => $aggregateId->getValue(),
-                    'element_id' => $event->getElementId()->getValue(),
+                    'x' => $element->getPosition()->getX(),
+                    'y' => $element->getPosition()->getY(),
+                ],
+                [
+                    'required' => \PDO::PARAM_BOOL,
                 ]
             );
             $this->connection->commit();
