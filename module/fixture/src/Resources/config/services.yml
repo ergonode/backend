@@ -1,0 +1,19 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\Fixture\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Fixture\Application\Command\:
+        resource: '../../Application/Command/*'
+        tags: ['console.command']
+
+    Ergonode\Fixture\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
+    Ergonode\Fixture\Infrastructure\Faker\:
+        resource: '../../Infrastructure/Faker/*'
+        tags: ['nelmio_alice.faker.provider']

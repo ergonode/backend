@@ -1,0 +1,11 @@
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+    option_value_{1..50}:
+        __construct:
+            -
+                'PL': 'Option_PL_<current()>'
+                'EN': 'Option_EN_<current()>'
+
+Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption:
+    value_{1..50}:
+        __construct:
+            - '@option_value_<current()>'

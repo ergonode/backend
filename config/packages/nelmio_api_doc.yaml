@@ -1,0 +1,268 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: Ergonode
+            description: This is an awesome app!
+            version: Tech Demo
+        securityDefinitions:
+            api_key:
+                type: apiKey
+                description: Your Json Web Token. (Bearer {TOKEN})
+                name: JWTAuthorization
+                in: header
+        security:
+            - api_key: []
+        definitions:
+            template_element:
+                type: object
+                properties:
+                    id:
+                        type: uuid
+                        required: true
+                        description: Placed attribute Id
+                        example: 67696e17-586b-4ade-b9c1-a4b57ce564a0
+                    x:
+                        type: int
+                        required: true
+                        description: X posion of attribute on template
+                        example: 0
+                    y:
+                        type: int
+                        required: true
+                        description: Y posion of attribute on template
+                        example: 0
+                    width:
+                        type: int
+                        required: true
+                        description: Width of attribute on template
+                        example: 2
+                    height:
+                        type: int
+                        required: true
+                        description: Height of attribute on template
+                        example: 1
+                    required:
+                        type: bool
+                        required: false
+                        description: Is attribute required
+                        example: 1
+            template_section:
+                type: object
+                properties:
+                    row:
+                       type: integer
+                       example: 1
+                    title:
+                       type: string
+                       example: "Header 1"
+            account:
+                type: object
+                properties:
+                    email:
+                        type: string
+                        required: true
+                        description: User email/login
+                        example: any-unique-email@test-email.com
+                    firstName:
+                        type: string
+                        required: true
+                        description: User first name
+                        example: Jon
+                    lastName:
+                        type: string
+                        required: true
+                        description: User last name
+                        example: Dove
+                    language:
+                        type: string
+                        required: true
+                        description: User language
+                        example: EN
+                    password:
+                        type: string
+                        equired: true
+                        example: 12345678
+                    passwordRepeat:
+                        type: string
+                        equired: true
+                        example: 12345678
+            category:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        description: Category code (use only when create)
+                        required: true
+                        example: category_code_1
+                    name:
+                        type: object
+                        description: category name
+                        example:
+                            DE: Name DE
+                            EN: Name EN
+            product:
+                type: object
+                properties:
+                    sku:
+                        type: string
+                        required: true
+                        description: product SKU
+                        example: sku_123
+                    templateId:
+                        type: string
+                        required: true
+                        description: Template Id
+                    categortyIds:
+                        type: array
+                        required: false
+                        description: Lista id kategorii
+            template:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                        description: Template name
+                        example: Name
+                    image:
+                        type: string
+                        required: false
+                        description: Multimedia Id
+                    elements:
+                        type: array
+                        items:
+                            $ref: "#/definitions/template_element"
+                    sections:
+                        type: array
+                        items:
+                            $ref: "#/definitions/template_section"
+            translation:
+                type: object
+                properties:
+                    PL:
+                        type: string
+                        required: false
+                        description: PL Translation
+                        example: Translated phase PL
+                    EN:
+                        type: string
+                        required: false
+                        description: EN Translation
+                        example: Translated phase EN
+            option:
+                type: object
+                properties:
+                    key:
+                        type: string
+                        required: true
+                        description: option key
+                        example: key_1
+                    value:
+                        $ref: "#/definitions/translation"
+                example:
+                    key: key_1
+                    translation:
+                        PL: Option PL 1
+                        EN: Option EN 1
+            attribute_parameters:
+                type: object
+                properties:
+                    format:
+                        type: string
+                        required: false
+                        description: Additional format information (If used by attribute)
+                        example: YYYY-MM-DDDD
+            segment:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                        description: segment name
+                        example: segment name
+            attribute:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        required: true
+                        description: attribute code
+                        example: attribute_code_1
+                    type:
+                        type: string
+                        required: true
+                        description: attribute type
+                        example: SELECT
+                    label:
+                        $ref: "#/definitions/translation"
+                    hint:
+                        $ref: "#/definitions/translation"
+                    placeholder:
+                        $ref: "#/definitions/translation"
+                    groups:
+                        type: array
+                        required: true
+                        items:
+                           type: string
+                        example:
+                          - 9b0ceb29-26ac-4852-a602-6e5680a3a029
+                    multilingual:
+                        type: bool
+                        required: true
+                        example: true
+                    parameters:
+                        $ref: "#/definitions/attribute_parameters"
+                    options:
+                        type: array
+                        items:
+                            $ref: "#/definitions/option"
+            configuration_field:
+                type: object
+                properties:
+                    id:
+                        type: string
+                        requred: true
+                        description: id
+                        example: b54f1c5a-5891-4b74-a3c2-18c55af42070
+                    name:
+                        type: string
+                        required: true
+                        description: Mapper name
+                        example: Default mapper
+            error:
+                type: object
+                properties:
+                    code:
+                        type: integer
+                        required: true
+                        descriptin: http error code
+                        example: 401
+                    message:
+                        type: string
+                        required: true
+                        descriptin: error message
+                        example: Bad credentials
+            credentials:
+                type: object
+                properties:
+                    username:
+                        type: string
+                        required: true
+                        description: username
+                        example: test@ergonode.com
+                    password:
+                        type: string
+                        required: true
+                        description: password
+                        example: 123
+            authentication:
+                type: object
+                properties:
+                    token:
+                        type: string
+                        required: true
+                        description: JWT token
+                        example: eyJhbGciOiJSUzI1NiJ9.eyJyb2xlcyI6W10sInVzZXJuYW1lIjoidGVzdEBib2xkLm5ldC5wbCIsImlhdCI6MTUyODQ2MzAwOCwiZXhwIjoxNTI4NTQ5NDA4fQ
+    routes:
+        path_patterns:
+            - ^/api(?!/doc$)

@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\Value\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
+
+    Ergonode\Value\Domain\Service\ValueManipulationService:
+        - '@Ergonode\Value\Domain\Service\Strategy\StringValueUpdateStrategy'
+        - '@Ergonode\Value\Domain\Service\Strategy\CollectionValueUpdateStrategy'
+        - '@Ergonode\Value\Domain\Service\Strategy\TranslatableStringValueUpdateStrategy'
+        - '@Ergonode\Value\Domain\Service\Strategy\TranslatableCollectionValueUpdateStrategy'

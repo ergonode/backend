@@ -1,0 +1,22 @@
+{
+    "name": "ergonode/attribute-unit",
+    "type": "ergonode-module",
+    "description": "Ergonode - Attribute Unit",
+    "homepage": "https://ergonode.com",
+    "license": "OSL-3.0",
+    "require": {
+        "php": "^7.2",
+        "doctrine/collections": "^1.6",
+        "doctrine/dbal": "^2.9",
+        "ergonode/attribute": "^0.1.0",
+        "jms/serializer": "^3.0",
+        "nelmio/api-doc-bundle": "^3.4",
+        "symfony/form": "^4.2",
+        "symfony/http-foundation": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ergonode\\AttributeUnit\\": "src/"
+        }
+    },
+}

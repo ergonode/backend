@@ -1,0 +1,11 @@
+language: php
+
+php:
+  - 7.2
+
+install:
+  - composer install
+
+script:
+  - php bin/phing check:style
+  - php bin/phing test:unit

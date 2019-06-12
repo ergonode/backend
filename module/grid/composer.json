@@ -1,0 +1,20 @@
+{
+    "name": "ergonode/grid",
+    "type": "ergonode-module",
+    "description": "Ergonode - Grid",
+    "homepage": "https://ergonode.com",
+    "license": "OSL-3.0",
+    "require": {
+        "php": "^7.2",
+        "ext-json": "*",
+        "doctrine/collections": "^1.6",
+        "doctrine/dbal": "^2.9",
+        "ergonode/core": "^0.1.0",
+        "symfony/http-foundation": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ergonode\\Grid\\": "src/"
+        }
+    }
+}

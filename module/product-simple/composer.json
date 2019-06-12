@@ -1,0 +1,19 @@
+{
+    "name": "ergonode/product-simple",
+    "type": "ergonode-module",
+    "description": "Ergonode - Product Simple",
+    "homepage": "https://ergonode.com",
+    "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Ergonode\\ProductSimple\\": "src/"
+        }
+    }
+}

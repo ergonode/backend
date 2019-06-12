@@ -1,0 +1,47 @@
+parameters:
+    import_directory: '%kernel.project_dir%/import/'
+
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\Importer\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Importer\Application\:
+        resource: '../../Application/*'
+        exclude: '../../Domain/{Model}'
+
+    Ergonode\Importer\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
+
+    Ergonode\Importer\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Message}'
+
+    Ergonode\Importer\Application\Controller\:
+        resource: '../../Application/Controller/*'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Importer\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Importer\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Importer\Domain\Repository\ImportRepositoryInterface: '@Ergonode\Importer\Persistence\Dbal\Repository\DbalImportRepository'
+    Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface: '@Ergonode\Importer\Persistence\Dbal\Repository\DbalImportLineRepository'
+    Ergonode\Importer\Domain\Query\ImportQueryInterface: '@Ergonode\Importer\Persistence\Dbal\Query\DbalImportQuery'
+
+    Ergonode\Importer\Application\Service\Upload\UploadService:
+        arguments:
+            $targetDirectory: '%import_directory%'
+
+    Ergonode\Importer\Application\Service\ImportService:
+        arguments:
+            $directory: '%import_directory%'

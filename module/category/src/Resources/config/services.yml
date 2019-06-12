@@ -1,0 +1,35 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\Category\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Category\Application\:
+        resource: '../../Application/*'
+        exclude: '../../Domain/{Model}'
+
+    Ergonode\Category\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
+
+    Ergonode\Category\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Message}'
+
+    Ergonode\Category\Application\Controller\:
+        resource: '../../Application/Controller'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Category\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Category\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Category\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\Category\Persistence\Dbal\Repository\DbalCategoryRepository'
+    Ergonode\Category\Domain\Query\CategoryQueryInterface: '@Ergonode\Category\Persistence\Dbal\Query\DbalCategoryQuery'

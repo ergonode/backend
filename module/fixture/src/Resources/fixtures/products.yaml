@@ -1,0 +1,16 @@
+Ergonode\Product\Domain\ValueObject\Sku:
+    sku_{1..1000}:
+        __construct:
+            - 'SKU_<unixTime()>_<current()>'
+
+Ergonode\Product\Domain\Entity\ProductId:
+    product_id_{1..1000}:
+        __construct:
+            - '<Uuid()>'
+
+Ergonode\ProductSimple\Domain\Entity\SimpleProduct:
+    product_{1..1000}:
+        __construct:
+            - '@product_id_<current()>'
+            - '@sku_<current()>'
+            - '@template_id_*'

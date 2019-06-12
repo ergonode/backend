@@ -1,0 +1,42 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\Reader\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Reader\Application\:
+        resource: '../../Application/*'
+        exclude: '../../Domain/{Model}'
+
+    Ergonode\Reader\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
+
+    Ergonode\Reader\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Message}'
+
+    Ergonode\Reader\Application\Controller\:
+        resource: '../../Application/Controller/*'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Reader\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Reader\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface: '@Ergonode\Reader\Persistence\Dbal\Repository\DbalReaderRepository'
+    Ergonode\Reader\Domain\Query\ReaderQueryInterface: '@Ergonode\Reader\Persistence\Dbal\Query\DbalReaderQuery'
+
+    Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider:
+        calls:
+            - method: setReader
+              arguments:
+                - 'csv'
+                - '@Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor'

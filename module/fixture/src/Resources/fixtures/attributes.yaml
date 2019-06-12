@@ -1,0 +1,90 @@
+Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
+    attribute_{1..10}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+
+Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute:
+    attribute_{11..20}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+
+Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute:
+    attribute_{21..25}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+
+Ergonode\AttributeDate\Domain\Entity\DateAttribute:
+    attribute_{26..30}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+            - '<DateFormat()>'
+
+Ergonode\AttributePrice\Domain\Entity\PriceAttribute:
+    attribute_{31..35}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+            - '<Currency()>'
+
+Ergonode\AttributeUnit\Domain\Entity\UnitAttribute:
+    attribute_{36..40}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+            - '<Unit()>'
+
+Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute:
+    attribute_{41..45}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+        __calls:
+            - addOption:
+                - '<OptionKey(key_<current()>)>'
+                - '@value_<current()>'
+
+Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute:
+    attribute_{46..50}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+        __calls:
+            - addOption:
+                - '<OptionKey(key_<current()>)>'
+                - '@value_<current()>'

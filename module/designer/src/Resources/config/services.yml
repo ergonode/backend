@@ -1,0 +1,43 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\Designer\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Designer\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Designer\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Message}'
+
+    Ergonode\Designer\Domain\Factory\:
+        resource: '../../Domain/Factory/*'
+
+    Ergonode\Designer\Domain\Checker\:
+        resource: '../../Domain/Checker/*'
+
+    Ergonode\Designer\Application\Controller\:
+        resource: '../../Application/Controller/*'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Designer\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface: '@Ergonode\Designer\Persistence\Dbal\Repository\DbalTemplateRepository'
+    Ergonode\Designer\Persistence\Dbal\Repository\Decorator\CacheTemplateRepositoryDecorator:
+        decorates: Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface
+        arguments:
+            - '@Ergonode\Designer\Persistence\Dbal\Repository\Decorator\CacheTemplateRepositoryDecorator.inner'
+    Ergonode\Designer\Domain\Repository\TemplateGroupRepositoryInterface: '@Ergonode\Designer\Persistence\Dbal\Repository\DbalTemplateGroupRepository'
+    Ergonode\Designer\Domain\Query\TemplateElementQueryInterface: '@Ergonode\Designer\Persistence\Dbal\Query\DbalTemplateElementQuery'
+    Ergonode\Designer\Domain\Query\TemplateQueryInterface: '@Ergonode\Designer\Persistence\Dbal\Query\DbalTemplateQuery'
+    Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface: '@Ergonode\Designer\Persistence\Dbal\Query\DbalTemplateGroupQuery'

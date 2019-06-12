@@ -1,0 +1,13 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\ProductSimple\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
+
+    Ergonode\ProductSimple\Infrastructure\:
+      resource: '../../Infrastructure/*'
+      exclude: '../../Infrastructure/{Message}'

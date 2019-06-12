@@ -1,0 +1,36 @@
+framework:
+    messenger:
+        buses:
+            messenger.bus.sync:
+                default_middleware: false
+                middleware:
+                    - 'handle_message'
+            messenger.bus.async:
+                default_middleware: false
+                middleware:
+                    - 'send_message'
+                    - 'handle_message'
+        default_bus: messenger.bus.sync
+        transports:
+            import: "%env(MESSENGER_TRANSPORT_IMPORT_DSN)%"
+            channel: "%env(MESSENGER_TRANSPORT_CHANNEL_DSN)%"
+            export: "%env(MESSENGER_TRANSPORT_EXPORT_DSN)%"
+            core: "%env(MESSENGER_TRANSPORT_CORE_DSN)%"
+            event: "%env(MESSENGER_TRANSPORT_DOMAIN_DSN)%"
+        routing:
+            'Ergonode\Importer\Domain\Command\CreateFileImportCommand' : import
+            'Ergonode\Importer\Domain\Command\StartProcessImportCommand' : import
+            'Ergonode\Importer\Domain\Command\CreateImportLineCommand' : import
+            'Ergonode\Importer\Domain\Command\EndProcessImportCommand' : import
+            'Ergonode\Importer\Domain\Command\StopProcessImportCommand' : import
+            'Ergonode\Transformer\Domain\Command\CreateProcessorCommand' : import
+            'Ergonode\Transformer\Domain\Command\CreateTransformerCommand' : import
+            'Ergonode\Transformer\Domain\Command\EndProcessImportLineCommand' : import
+            'Ergonode\Transformer\Domain\Command\GenerateTransformerCommand' : import
+            'Ergonode\Transformer\Domain\Command\ProcessImportLineCommand' : import
+            'Ergonode\Transformer\Domain\Command\StartProcessImportLineCommand' : import
+            'Ergonode\Transformer\Domain\Command\StopProcessImportLineCommand' : import
+            'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': core
+            'Ergonode\Attribute\Domain\Command\DeleteAttributeCommand': core
+            'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': core
+            'Ergonode\Attribute\Domain\Command\AddAttributeOptionCommand': core

@@ -1,0 +1,20 @@
+{
+    "name": "ergonode/migration",
+    "type": "ergonode-module",
+    "description": "Ergonode - Migration",
+    "homepage": "https://ergonode.com",
+    "license": "OSL-3.0",
+    "require": {
+        "php": "^7.2",
+        "doctrine/migrations": "1.8.x",
+        "symfony/config": "^4.2",
+        "symfony/dependency-injection": "^4.2",
+        "symfony/http-kernel": "^4.2",
+        "symfony/yaml": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ergonode\\Migration\\": "src/"
+        }
+    }
+}

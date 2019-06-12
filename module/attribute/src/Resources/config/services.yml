@@ -1,0 +1,48 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\Attribute\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Attribute\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Attribute\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject,Type}'
+
+    Ergonode\Attribute\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Handler,JMS}'
+
+    Ergonode\Attribute\Application\Controller\:
+        resource: '../../Application/Controller'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Attribute\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        exclude: '../../Infrastructure/Handler/{Strategy}'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Attribute\Persistence\Dbal\Repository\DbalAttributeRepository'
+#    Ergonode\Attribute\Persistence\Dbal\Repository\Decorator\CacheAttributeRepositoryDecorator:
+#        decorates: Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface
+#        arguments:
+#            - '@Ergonode\Attribute\Persistence\Dbal\Repository\Decorator\CacheAttributeRepositoryDecorator.inner'
+    Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface: '@Ergonode\Attribute\Persistence\Dbal\Repository\DbalAttributeGroupRepository'
+
+    Ergonode\Attribute\Domain\Query\AttributeQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeQuery'
+    Ergonode\Attribute\Persistence\Dbal\Query\Decorator\CacheAttributeQueryDecorator:
+        decorates: Ergonode\Attribute\Domain\Query\AttributeQueryInterface
+        arguments:
+            - '@Ergonode\Attribute\Persistence\Dbal\Query\Decorator\CacheAttributeQueryDecorator.inner'
+    Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeGroupQuery'
+    Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeGridQuery'
+    Ergonode\Attribute\Domain\Query\AttributeTemplateQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeTemplateQuery'

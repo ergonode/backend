@@ -1,0 +1,21 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\AttributeUnit\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\AttributeUnit\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject,Type}'
+
+    Ergonode\AttributeUnit\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\AttributeUnit\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\AttributeUnit\Domain\Query\UnitQueryInterface: '@Ergonode\AttributeUnit\Persistence\Dbal\Query\DbalUnitQuery'

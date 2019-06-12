@@ -1,0 +1,21 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\AttributePrice\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\AttributePrice\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject,Type}'
+
+    Ergonode\AttributePrice\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\AttributePrice\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\AttributePrice\Domain\Query\CurrencyQueryInterface: '@Ergonode\AttributePrice\Persistence\Dbal\Query\DbalCurrencyQuery'

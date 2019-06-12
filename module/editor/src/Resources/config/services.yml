@@ -1,0 +1,34 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\Editor\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Editor\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Editor\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Message}'
+
+    Ergonode\Editor\Application\Controller\:
+        resource: '../../Application/Controller/*'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Editor\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Editor\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface: '@Ergonode\Editor\Persistence\Repository\DbalProductDraftRepository'
+    Ergonode\Editor\Domain\Repository\ProductDraftValueRepositoryInterface: '@Ergonode\Editor\Persistence\Repository\DbalProductDraftValueRepository'
+    Ergonode\Editor\Domain\Query\ProductTemplateQueryInterface: '@Ergonode\Editor\Persistence\Query\DbalProductTemplateQuery'
+    Ergonode\Editor\Domain\Query\DraftQueryInterface: '@Ergonode\Editor\Persistence\Query\DbalDraftQuery'
+    Ergonode\Editor\Domain\Query\ElementQueryInterface: '@Ergonode\Editor\Persistence\Query\DbalElementQuery'
+    Ergonode\Editor\Domain\Query\CompletenessQueryInterface: '@Ergonode\Editor\Persistence\Query\DbalCompletenessQuery'

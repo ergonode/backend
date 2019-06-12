@@ -1,0 +1,15 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\AttributeDate\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\AttributeDate\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject,Type}'
+
+    Ergonode\AttributeDate\Infrastructure\:
+        resource: '../../Infrastructure/*'

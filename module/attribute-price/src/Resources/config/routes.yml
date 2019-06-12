@@ -1,0 +1,4 @@
+ergonode_attribute_price_dictionary:
+    resource: '../../Application/Controller/Api/Dictionary*'
+    type: annotation
+    prefix: /api/v1/{language}/dictionary

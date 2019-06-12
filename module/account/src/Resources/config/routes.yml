@@ -1,0 +1,9 @@
+ergonode_account_api:
+    resource: '../../Application/Controller/Api/Account*'
+    type: annotation
+    prefix: /api/v1/{language}
+
+ergonode_profile_api:
+    resource: '../../Application/Controller/Api/Profile*'
+    type: annotation
+    prefix: /api/v1/

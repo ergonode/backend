@@ -1,0 +1,35 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\Account\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Account\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Account\Application\Command\:
+        resource: '../../Application/Command/*'
+        tags: ['console.command']
+
+#    Ergonode\Account\Domain\:
+#        resource: '../../Domain/*'
+#        exclude: '../../Domain/{Entity,ValueObject}'
+
+    Ergonode\Account\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Message}'
+
+    Ergonode\Account\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Account\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Account\Domain\Repository\UserRepositoryInterface: '@Ergonode\Account\Persistence\Dbal\Repository\DbalUserRepository'
+    Ergonode\Account\Domain\Query\AccountQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\AccountQuery'
+    Ergonode\Account\Domain\Query\ProfileQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalProfileQuery'

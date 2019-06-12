@@ -1,0 +1,24 @@
+{
+    "name": "ergonode/es",
+    "type": "ergonode-module",
+    "description": "Ergonode - Event Sourcing",
+    "homepage": "https://ergonode.com",
+    "license": "OSL-3.0",
+    "require": {
+        "php": "^7.2",
+        "doctrine/dbal": "^2.9",
+        "ergonode/core": "^0.1.0",
+        "jms/serializer": "^3.0",
+        "symfony/cache": "^4.2",
+        "symfony/config": "^4.2",
+        "symfony/dependency-injection": "^4.2",
+        "symfony/http-kernel": "^4.2",
+        "symfony/security": "^4.2",
+        "symfony/yaml": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ergonode\\EventSourcing\\": "src/"
+        }
+    }
+}

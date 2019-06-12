@@ -1,0 +1,45 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\Core\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Core\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Core\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity, ValueObject}'
+
+    Ergonode\Core\Application\Controller\:
+        resource: '../../Application/Controller'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Core\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
+    Ergonode\Core\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Core\Application\Provider\SimpleDirectoryProvider:
+        arguments:
+            $directory: '%kernel.project_dir%'
+
+    Ergonode\Core\Domain\Query\LanguageQueryInterface: '@Ergonode\Core\Persistence\Dbal\Query\DbalLanguageQuery'
+    Ergonode\Core\Application\Provider\DirectoryProviderInterface: '@Ergonode\Core\Application\Provider\SimpleDirectoryProvider'
+
+#     overriding message serializer
+    messenger.transport.serializer:
+        class: Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer
+
+    Ergonode\Core\Infrastructure\JMS\Serializer\Handler\FormErrorHandler:
+        arguments:
+            - '@translator'
+            - '@Ergonode\Core\Infrastructure\Mapper\FormErrorMapper'
+        tags: ['jms_serializer.subscribing_handler']
+
+    jms_serializer.form_error_handler: '@Ergonode\Core\Infrastructure\JMS\Serializer\Handler\FormErrorHandler'

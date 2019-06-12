@@ -1,0 +1,68 @@
+Ergonode\Designer\Domain\ValueObject\Position:
+    position_1:
+        __construct:
+            - 0
+            - 1
+    position_2:
+        __construct:
+            - 0
+            - 3
+    position_3:
+        __construct:
+            - 1
+            - 1
+    position_4:
+        __construct:
+            - 1
+            - 3
+    position_5:
+        __construct:
+            - 2
+            - 5
+    position_6:
+        __construct:
+            - 2
+            - 7
+    position_7:
+        __construct:
+            - 3
+            - 1
+    position_8:
+        __construct:
+            - 3
+            - 3
+
+Ergonode\Designer\Domain\ValueObject\Size:
+    size:
+        __construct:
+            - 1
+            - 1
+
+Ergonode\Designer\Domain\Entity\TemplateGroupId:
+    template_group_id:
+        __construct:
+            - '<Uuid(418c48d3-d2c3-4c30-b627-93850c38d59c)>'
+
+Ergonode\Designer\Domain\Entity\TemplateId:
+    template_id_{1..10}:
+        __construct:
+            - '<Uuid()>'
+
+Ergonode\Designer\Domain\Entity\Template:
+    template_{1..10}:
+        __construct:
+            - '@template_id_<current()>'
+            - '@template_group_id'
+            - 'Template_<current()>'
+        __calls:
+            - addElement: ['<TemplateElementId(<AttributeId(code_1)>)>', '@position_1', '@size', true]
+            - addElement: ['<TemplateElementId(<AttributeId(code_2)>)>', '@position_2', '@size', true]
+            - addElement: ['<TemplateElementId(<AttributeId(code_3)>)>', '@position_3', '@size', true]
+            - addElement: ['<TemplateElementId(<AttributeId(code_4)>)>', '@position_4', '@size', true]
+            - addElement: ['<TemplateElementId(<AttributeId(code_5)>)>', '@position_5', '@size', true]
+            - addElement: ['<TemplateElementId(<AttributeId(code_6)>)>', '@position_6', '@size', true]
+            - addElement: ['<TemplateElementId(<AttributeId(code_7)>)>', '@position_7', '@size', true]
+            - addElement: ['<TemplateElementId(<AttributeId(code_8)>)>', '@position_8', '@size', true]
+            - addSection : [0, 'Section One']
+            - addSection : [2, 'Section Two']
+            - addSection : [4, 'Section Three']

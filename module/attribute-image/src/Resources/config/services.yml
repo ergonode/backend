@@ -1,0 +1,19 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\AttributeImage\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\AttributeImage\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject,Type}'
+
+    Ergonode\AttributeImage\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
+    Ergonode\AttributeImage\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']

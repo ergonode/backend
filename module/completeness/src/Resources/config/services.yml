@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\Completeness\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Completeness\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Completeness\Application\Controller\:
+        resource: '../../Application/Controller/*'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Completeness\Domain\Query\CompletenessQueryInterface: '@Ergonode\Completeness\Persistence\Query\DbalCompletenessQuery'

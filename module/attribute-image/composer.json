@@ -1,0 +1,20 @@
+{
+    "name": "ergonode/attribute-image",
+    "type": "ergonode-module",
+    "description": "Ergonode - Attribute Image",
+    "homepage": "https://ergonode.com",
+    "license": "OSL-3.0",
+    "require": {
+        "php": "^7.2",
+        "doctrine/collections": "^1.6",
+        "ergonode/attribute": "^0.1.0",
+        "jms/serializer": "^3.0",
+        "nelmio/api-doc-bundle": "^3.4",
+        "symfony/http-foundation": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ergonode\\AttributeImage\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,13 @@
+/.env
+/public/bundles/
+/var/
+/vendor/
+/bin/
+!/bin/console
+/import
+/tmp
+.history
+.idea
+.vscode
+/build
+/phpunit.xml
