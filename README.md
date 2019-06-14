@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://ergonode.com" target="_blank">
-    <img src="https://img.shields.io/badge/version-0.1.0-4c9aff.svg" alt="Version">
+    <img src="https://img.shields.io/badge/version-0.1.1-4c9aff.svg" alt="Version">
   </a>
   <a href="https://ergonode.com" target="_blank">
     <img src="https://img.shields.io/badge/version%20code-Vegas-00bc87.svg" alt="Code Version">
@@ -19,7 +19,7 @@
     <img src="https://img.shields.io/badge/docs-read-ffc108.svg" alt="Docs">
   </a>
   <a href="https://github.com/ergonode/backend/blob/master/LICENSE.txt" target="_blank">
-    <img src="https://img.shields.io/github/license/ergonode/ergonode.svg" alt="License">
+    <img src="https://img.shields.io/github/license/ergonode/backend.svg" alt="License">
   </a>
 </p>
 <br>
