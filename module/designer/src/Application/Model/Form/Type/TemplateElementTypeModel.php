@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Model\Form\Type;
 
+use Ergonode\Designer\Domain\ValueObject\Position;
+use Ergonode\Designer\Domain\ValueObject\Size;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Attribute\Infrastructure\Validator as CustomAssert;
 
@@ -25,40 +27,14 @@ class TemplateElementTypeModel
     public $id;
 
     /**
-     * @var int
-     *
-     * @Assert\Regex(pattern="/^[0-9]*$/", message="Number only")
-     * @Assert\GreaterThanOrEqual(value="0")
-     * @Assert\LessThan(value="4")
+     * @var Position
      */
-    public $x;
+    public $position;
 
     /**
-     * @var int
-     *
-     * @Assert\Regex(pattern="/^[0-9]*$/", message="Number only")
-     * @Assert\GreaterThanOrEqual(value="0")
-     * @Assert\LessThan(value="100")
+     * @var Size
      */
-    public $y;
-
-    /**
-     * @var int
-     *
-     * @Assert\Regex(pattern="/^[0-9]*$/", message="Number only")
-     * @Assert\GreaterThanOrEqual(value="0")
-     * @Assert\LessThan(value="8")
-     */
-    public $width;
-
-    /**
-     * @var int
-     *
-     * @Assert\Regex(pattern="/^[0-9]*$/", message="Number only")
-     * @Assert\GreaterThanOrEqual(value="0")
-     * @Assert\LessThan(value="20")
-     */
-    public $height;
+    public $size;
 
     /**
      * @var bool

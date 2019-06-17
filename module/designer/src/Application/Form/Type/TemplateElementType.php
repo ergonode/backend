@@ -31,17 +31,11 @@ class TemplateElementType extends AbstractType
                 'id',
                 TextType::class
             )->add(
-                'x',
-                TextType::class
+                'position',
+                PositionFormType::class
             )->add(
-                'y',
-                TextType::class
-            )->add(
-                'width',
-                TextType::class
-            )->add(
-                'height',
-                TextType::class
+                'size',
+                SizeFormType::class
             )->add(
                 'required',
                 CheckboxType::class,

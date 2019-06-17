@@ -11,10 +11,8 @@ namespace Ergonode\Designer\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Core\Domain\ValueObject\State;
-use Ergonode\Designer\Domain\Event\TemplateElementBecomeNonRequiredEvent;
-use Ergonode\Designer\Domain\Event\TemplateElementBecomeRequiredEvent;
+use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementRemovedEvent;
-use Ergonode\Designer\Domain\Event\TemplateElementResizedEvent;
 use Ergonode\Designer\Domain\Event\TemplateGroupChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateImageAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateImageChangedEvent;
@@ -30,9 +28,8 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
-use Ergonode\Designer\Domain\Event\TemplateElementMovedEvent;
 use Ergonode\Designer\Domain\ValueObject\Position;
-use Ergonode\Designer\Domain\ValueObject\Size;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -59,7 +56,7 @@ class Template extends AbstractAggregateRoot
     private $groupId;
 
     /**
-     * @var ArrayCollection|TemplateElement[]
+     * @var AbstractTemplateElement[]
      */
     private $elements;
 
@@ -70,6 +67,8 @@ class Template extends AbstractAggregateRoot
 
     /**
      * @var State
+     *
+     * @JMS\Exclude()
      */
     private $state;
 
@@ -109,35 +108,35 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param TemplateElementId $id
+     * @param Position $position
      *
      * @return bool
      */
-    public function hasElement(TemplateElementId $id): bool
+    public function hasElement(Position $position): bool
     {
-        return $this->elements->containsKey($id->getValue());
+        return isset($this->elements[(string) $position]);
     }
 
     /**
-     * @param TemplateElementId $id
+     * @param Position $position
      *
-     * @return TemplateElement
+     * @return AbstractTemplateElement
      */
-    public function getElement(TemplateElementId $id): TemplateElement
+    public function getElement(Position $position): AbstractTemplateElement
     {
-        $this->validateElementExists($id);
+        if (!$this->hasElement($position)) {
+            throw new \InvalidArgumentException(\sprintf('There is no element on position %sx%s', $position->getX(), $position->getY()));
+        }
 
-        return $this->elements->get($id->getValue());
+        return $this->elements[(string) $position];
     }
 
-
-
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|AbstractTemplateElement
      */
     public function getElements(): ArrayCollection
     {
-        return clone $this->elements;
+        return new ArrayCollection($this->elements);
     }
 
     /**
@@ -187,7 +186,9 @@ class Template extends AbstractAggregateRoot
      */
     public function changeName(string $name): void
     {
-        $this->apply(new TemplateNameChangedEvent($this->name, $name));
+        if ($name !== $this->name) {
+            $this->apply(new TemplateNameChangedEvent($this->name, $name));
+        }
     }
 
     /**
@@ -290,80 +291,42 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param TemplateElementId $id
-     * @param Position          $position
-     * @param Size              $size
-     * @param bool              $required
+     * @param AbstractTemplateElement $element
      */
-    public function addElement(TemplateElementId $id, Position $position, Size $size, bool $required = false): void
+    public function addElement(AbstractTemplateElement $element): void
     {
-        if ($this->hasElement($id)) {
-            throw new \InvalidArgumentException(\sprintf('Attribute already %s exists', $id->getValue()));
+        $position = $element->getPosition();
+        if ($this->hasElement($element->getPosition())) {
+            throw new \InvalidArgumentException(\sprintf('There is already element on position %sx%s', $position->getX(), $position->getY()));
         }
 
-        $this->apply(new TemplateElementAddedEvent($id, $position, $size, $required));
+        $this->apply(new TemplateElementAddedEvent($element));
     }
 
     /**
-     * @param TemplateElementId $id
-     * @param Position          $position
+     * @param AbstractTemplateElement $element
      */
-    public function moveElement(TemplateElementId $id, Position $position): void
+    public function changeElement(AbstractTemplateElement $element): void
     {
-        $this->validateElementExists($id);
+        $position = $element->getPosition();
 
-        $element = $this->elements[$id->getValue()];
-
-        if (!$element->getPosition()->isEqual($position)) {
-            $this->apply(new TemplateElementMovedEvent($id, $element->getPosition(), $position));
+        if (!$this->hasElement($element->getPosition())) {
+            throw new \InvalidArgumentException(\sprintf('There is no element on position %sx%s', $position->getX(), $position->getY()));
         }
-    }
 
-    /**
-     * @param TemplateElementId $id
-     * @param Size              $size
-     */
-    public function resizeElement(TemplateElementId $id, Size $size): void
-    {
-        $this->validateElementExists($id);
-
-        $element = $this->elements[$id->getValue()];
-
-        if (!$element->getSize()->isEqual($size)) {
-            $this->apply(new TemplateElementResizedEvent($id, $element->getSize(), $size));
+        if (!$element->isEqual($element)) {
+            $this->apply(new TemplateElementChangedEvent($element));
         }
     }
 
     /**
-     * @param TemplateElementId $id
+     * @param Position $position
      */
-    public function makeRequired(TemplateElementId $id): void
+    public function removeElement(Position $position): void
     {
-        $this->validateElementExists($id);
-        if (!$this->elements[$id->getValue()]->isRequired()) {
-            $this->apply(new TemplateElementBecomeRequiredEvent($id));
-        }
-    }
+        $element = $this->getElement($position);
 
-    /**
-     * @param TemplateElementId $id
-     */
-    public function makeNonRequired(TemplateElementId $id): void
-    {
-        $this->validateElementExists($id);
-        if ($this->elements[$id->getValue()]->isRequired()) {
-            $this->apply(new TemplateElementBecomeNonRequiredEvent($id));
-        }
-    }
-
-    /**
-     * @param TemplateElementId $id
-     */
-    public function removeElement(TemplateElementId $id): void
-    {
-        $this->validateElementExists($id);
-
-        $this->apply(new TemplateElementRemovedEvent($id));
+        $this->apply(new TemplateElementRemovedEvent($element->getPosition()));
     }
 
     /**
@@ -387,23 +350,19 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateElementAddedEvent(TemplateElementAddedEvent $event): void
     {
-        $this->elements->set($event->getElementId()->getValue(), new TemplateElement($event->getElementId(), $event->getPosition(), $event->getSize(), $event->isRequired()));
+        $element = $event->getElement();
+        $position = $element->getPosition();
+        $this->elements[(string) $position] = $event->getElement();
     }
 
     /**
-     * @param TemplateElementMovedEvent $event
+     * @param TemplateElementChangedEvent $event
      */
-    protected function applyTemplateElementMovedEvent(TemplateElementMovedEvent $event): void
+    protected function applyTemplateElementChangedEvent(TemplateElementChangedEvent $event): void
     {
-        $this->elements[$event->getElementId()->getValue()]->setPosition($event->getTo());
-    }
-
-    /**
-     * @param TemplateElementResizedEvent $event
-     */
-    protected function applyTemplateElementResizedEvent(TemplateElementResizedEvent $event): void
-    {
-        $this->elements[$event->getElementId()->getValue()]->setSize($event->getTo());
+        $element = $event->getElement();
+        $position = $element->getPosition();
+        $this->elements[(string) $position] = $event->getElement();
     }
 
     /**
@@ -411,23 +370,8 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateElementRemovedEvent(TemplateElementRemovedEvent $event): void
     {
-        unset($this->elements[$event->getElementId()->getValue()]);
-    }
-
-    /**
-     * @param TemplateElementBecomeRequiredEvent $event
-     */
-    protected function applyTemplateElementBecomeRequiredEvent(TemplateElementBecomeRequiredEvent $event): void
-    {
-        $this->elements[$event->getElementId()->getValue()]->setRequired(true);
-    }
-
-    /**
-     * @param TemplateElementBecomeNonRequiredEvent $event
-     */
-    protected function applyTemplateElementBecomeNonRequiredEvent(TemplateElementBecomeNonRequiredEvent $event): void
-    {
-        $this->elements[$event->getElementId()->getValue()]->setRequired(false);
+        $position = (string) $event->getPosition();
+        unset($this->elements[$position]);
     }
 
     /**
@@ -439,7 +383,7 @@ class Template extends AbstractAggregateRoot
         $this->name = $event->getName();
         $this->imageId = $event->getImageId();
         $this->groupId = $event->getGroupId();
-        $this->elements = new ArrayCollection();
+        $this->elements = [];
         $this->sections = new ArrayCollection();
         $this->state = new State();
     }
@@ -498,16 +442,6 @@ class Template extends AbstractAggregateRoot
     protected function applyTemplateRemovedEvent(TemplateRemovedEvent $event): void
     {
         $this->state = new State(State::STATE_DELETED);
-    }
-
-    /**
-     * @param TemplateElementId $id
-     */
-    private function validateElementExists(TemplateElementId $id): void
-    {
-        if (!$this->hasElement($id)) {
-            throw new \InvalidArgumentException(\sprintf('Attribute %s not found', $id->getValue()));
-        }
     }
 
     /**

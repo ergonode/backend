@@ -63,4 +63,12 @@ class Position
     {
         return $this->y;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return sprintf('%sx%s', $this->x, $this->y);
+    }
 }

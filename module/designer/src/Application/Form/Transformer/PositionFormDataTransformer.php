@@ -44,7 +44,7 @@ class PositionFormDataTransformer implements DataTransformerInterface
     {
         if (is_array($value)) {
             try {
-                return new Position($value['x'], $value['y']);
+                return new Position((int) $value['x'], (int) $value['y']);
             } catch (\InvalidArgumentException $e) {
                 throw new TransformationFailedException(sprintf('invalid size %s value', implode(',', $value)));
             }

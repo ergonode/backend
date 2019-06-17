@@ -44,7 +44,7 @@ class SizeFormDataTransformer implements DataTransformerInterface
     {
         if (is_array($value)) {
             try {
-                return new Size($value['width'], $value['height']);
+                return new Size((int) $value['width'], (int) $value['height']);
             } catch (\InvalidArgumentException $e) {
                 throw new TransformationFailedException(sprintf('invalid size %s value', implode(',', $value)));
             }
