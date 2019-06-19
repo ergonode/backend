@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Domain\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Designer\Domain\Entity\AbstractTemplateElement;
+use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
@@ -42,16 +42,9 @@ class UpdateTemplateCommand
     private $imageId;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|TemplateElement[]
      *
-     * @JMS\Type("ArrayCollection<string>")
-     */
-    private $sections;
-
-    /**
-     * @var ArrayCollection|AbstractTemplateElement[]
-     *
-     * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\AbstractTemplateElement>")
+     * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
     private $elements;
 
@@ -59,17 +52,15 @@ class UpdateTemplateCommand
      * @param TemplateId        $id
      * @param string            $name
      * @param ArrayCollection   $elements
-     * @param ArrayCollection   $sections
      * @param MultimediaId|null $imageId
      */
-    public function __construct(TemplateId $id, string $name, ArrayCollection $elements, ArrayCollection $sections, ?MultimediaId $imageId = null)
+    public function __construct(TemplateId $id, string $name, ArrayCollection $elements, ?MultimediaId $imageId = null)
     {
-        Assert::allIsInstanceOf($elements, AbstractTemplateElement::class, 'Template elements should by %2$s class. Got: %s');
+        Assert::allIsInstanceOf($elements, TemplateElement::class, 'Template elements should by %2$s class. Got: %s');
 
         $this->id = $id;
         $this->name = $name;
         $this->elements = $elements;
-        $this->sections = $sections;
         $this->imageId = $imageId;
     }
 
@@ -98,15 +89,7 @@ class UpdateTemplateCommand
     }
 
     /**
-     * @return ArrayCollection
-     */
-    public function getSections(): ArrayCollection
-    {
-        return $this->sections;
-    }
-
-    /**
-     * @return ArrayCollection|AbstractTemplateElement[]
+     * @return ArrayCollection|TemplateElement[]
      */
     public function getElements(): ArrayCollection
     {

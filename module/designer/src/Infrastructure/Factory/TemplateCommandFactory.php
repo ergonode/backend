@@ -14,18 +14,31 @@ use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
 use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
 use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
-use Ergonode\Designer\Domain\Entity\AbstractTemplateElement;
-use Ergonode\Designer\Domain\Entity\AttributeTemplateElement;
-use Ergonode\Designer\Domain\Entity\TemplateElementId;
+use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\Designer\Domain\ValueObject\Position;
-use Ergonode\Designer\Domain\ValueObject\Size;
+use Ergonode\Designer\Domain\Factory\TemplateElementFactory;
+use Ergonode\Designer\Domain\Provider\TemplateElementFactoryProvider;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 
 /**
  */
 class TemplateCommandFactory
 {
+    /**
+     * @var TemplateElementFactory
+     */
+    private $factory;
+
+    /**
+     * TemplateCommandFactory constructor.
+     *
+     * @param TemplateElementFactory $factory
+     */
+    public function __construct(TemplateElementFactory $factory)
+    {
+        $this->factory = $factory;
+    }
+
     /**
      * @param TemplateFormModel $model
      *
@@ -37,7 +50,6 @@ class TemplateCommandFactory
         return new CreateTemplateCommand(
             $model->name,
             $this->createElements($model),
-            $this->createSections($model),
             $model->image?new MultimediaId($model->image):null
         );
     }
@@ -54,7 +66,6 @@ class TemplateCommandFactory
             $id,
             $model->name,
             $this->createElements($model),
-            $this->createSections($model),
             $model->image?new MultimediaId($model->image):null
         );
     }
@@ -77,30 +88,12 @@ class TemplateCommandFactory
     /**
      * @param TemplateElementTypeModel $model
      *
-     * @return AbstractTemplateElement
+     * @return TemplateElement
      */
-    private function createElement(TemplateElementTypeModel $model): AbstractTemplateElement
+    private function createElement(TemplateElementTypeModel $model): TemplateElement
     {
-        return new AttributeTemplateElement(
-            $model->position,
-            $model->size,
-            new TemplateElementId($model->id),
-            $model->required
-        );
-    }
-
-    /**
-     * @param TemplateFormModel $model
-     *
-     * @return ArrayCollection
-     */
-    private function createSections(TemplateFormModel $model): ArrayCollection
-    {
-        $result = [];
-        foreach ($model->sections as $section) {
-            $result[$section->row] = $section->title;
-        }
-
-        return new ArrayCollection($result);
+        return $this
+            ->factory
+            ->create($model->position, $model->size, $model->type, $model->properties);
     }
 }

@@ -23,7 +23,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
 {
     private const TABLE = 'designer.template';
     private const ELEMENTS_TABLE = 'designer.template_element';
-    private const SECTIONS_TABLE = 'designer.template_section';
     private const FIELDS = [
         't.id',
         't.name',
@@ -73,7 +72,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
 
         if ($result) {
             $result['elements'] = $this->getTemplateElements($id, $language);
-            $result['sections'] = $this->getTemplateSections($id);
 
             return $result;
         }
@@ -123,24 +121,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
             ->setParameter(':language', $language->getCode())
             ->orderBy('te.x', 'ASC')
             ->addOrderBy('te.y', 'ASC')
-            ->execute()
-            ->fetchAll();
-    }
-
-    /**
-     * @param TemplateId $id
-     *
-     * @return array
-     */
-    private function getTemplateSections(TemplateId $id): array
-    {
-        $qb = $this->connection->createQueryBuilder();
-
-        return $qb->select('row, title')
-            ->from(self::SECTIONS_TABLE)
-            ->where($qb->expr()->eq('template_id', ':id'))
-            ->setParameter(':id', $id->getValue())
-            ->orderBy('row', 'ASC')
             ->execute()
             ->fetchAll();
     }

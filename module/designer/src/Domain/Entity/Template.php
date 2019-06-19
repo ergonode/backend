@@ -19,11 +19,7 @@ use Ergonode\Designer\Domain\Event\TemplateImageChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateImageRemovedEvent;
 use Ergonode\Designer\Domain\Event\TemplateNameChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateRemovedEvent;
-use Ergonode\Designer\Domain\Event\TemplateSectionAddedEvent;
-use Ergonode\Designer\Domain\Event\TemplateSectionChangedEvent;
-use Ergonode\Designer\Domain\Event\TemplateSectionRemovedEvent;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
-use Webmozart\Assert\Assert;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
@@ -56,14 +52,11 @@ class Template extends AbstractAggregateRoot
     private $groupId;
 
     /**
-     * @var AbstractTemplateElement[]
+     * @var TemplateElement[]
+     *
+     * @JMS\Type("array<Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
     private $elements;
-
-    /**
-     * @var ArrayCollection|string[]
-     */
-    private $sections;
 
     /**
      * @var State
@@ -120,9 +113,9 @@ class Template extends AbstractAggregateRoot
     /**
      * @param Position $position
      *
-     * @return AbstractTemplateElement
+     * @return TemplateElement
      */
-    public function getElement(Position $position): AbstractTemplateElement
+    public function getElement(Position $position): TemplateElement
     {
         if (!$this->hasElement($position)) {
             throw new \InvalidArgumentException(\sprintf('There is no element on position %sx%s', $position->getX(), $position->getY()));
@@ -132,49 +125,15 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @return ArrayCollection|AbstractTemplateElement
+     * @return ArrayCollection|TemplateElement
      */
     public function getElements(): ArrayCollection
     {
-        return new ArrayCollection($this->elements);
+        return new ArrayCollection(array_values($this->elements));
     }
 
     /**
-     * @param int $row
-     *
-     * @return string
-     */
-    public function getSection(int $row): string
-    {
-        Assert::greaterThanEq($row, 0);
-
-        $this->validateSectionExists($row);
-
-        return (string) $this->sections->get($row);
-    }
-
-    /**
-     * @param int $row
-     *
-     * @return bool
-     */
-    public function hasSection(int $row): bool
-    {
-        Assert::greaterThanEq($row, 0);
-
-        return $this->sections->containsKey($row);
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getSections(): ArrayCollection
-    {
-        return clone $this->sections;
-    }
-
-    /**
-     * @return MultimediaId
+     * @return MultimediaId|null
      */
     public function getImageId(): ?MultimediaId
     {
@@ -251,49 +210,9 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param int    $row
-     * @param string $section
+     * @param TemplateElement $element
      */
-    public function addSection(int $row, string $section): void
-    {
-        if ($this->hasSection($row)) {
-            throw new \InvalidArgumentException(\sprintf('Section for column %s already exists', $row));
-        }
-
-        $this->apply(new TemplateSectionAddedEvent($row, $section));
-    }
-
-    /**
-     * @param int    $row
-     * @param string $section
-     */
-    public function changeSection(int $row, string $section): void
-    {
-        Assert::greaterThanEq($row, 0);
-
-        $this->validateSectionExists($row);
-
-        if ($this->sections[$row] !== $section) {
-            $this->apply(new TemplateSectionChangedEvent($row, $this->sections[$row], $section));
-        }
-    }
-
-    /**
-     * @param int $row
-     */
-    public function removeSection(int $row): void
-    {
-        Assert::greaterThanEq($row, 0);
-
-        $this->validateSectionExists($row);
-
-        $this->apply(new TemplateSectionRemovedEvent($row));
-    }
-
-    /**
-     * @param AbstractTemplateElement $element
-     */
-    public function addElement(AbstractTemplateElement $element): void
+    public function addElement(TemplateElement $element): void
     {
         $position = $element->getPosition();
         if ($this->hasElement($element->getPosition())) {
@@ -304,9 +223,9 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param AbstractTemplateElement $element
+     * @param TemplateElement $element
      */
-    public function changeElement(AbstractTemplateElement $element): void
+    public function changeElement(TemplateElement $element): void
     {
         $position = $element->getPosition();
 
@@ -314,9 +233,7 @@ class Template extends AbstractAggregateRoot
             throw new \InvalidArgumentException(\sprintf('There is no element on position %sx%s', $position->getX(), $position->getY()));
         }
 
-        if (!$element->isEqual($element)) {
-            $this->apply(new TemplateElementChangedEvent($element));
-        }
+        $this->apply(new TemplateElementChangedEvent($element));
     }
 
     /**
@@ -384,32 +301,7 @@ class Template extends AbstractAggregateRoot
         $this->imageId = $event->getImageId();
         $this->groupId = $event->getGroupId();
         $this->elements = [];
-        $this->sections = new ArrayCollection();
         $this->state = new State();
-    }
-
-    /**
-     * @param TemplateSectionAddedEvent $event
-     */
-    protected function applyTemplateSectionAddedEvent(TemplateSectionAddedEvent $event): void
-    {
-        $this->sections->set($event->getRow(), $event->getSection());
-    }
-
-    /**
-     * @param TemplateSectionChangedEvent $event
-     */
-    protected function applyTemplateSectionChangedEvent(TemplateSectionChangedEvent $event): void
-    {
-        $this->sections->set($event->getRow(), $event->getTo());
-    }
-
-    /**
-     * @param TemplateSectionRemovedEvent $event
-     */
-    protected function applyTemplateSectionRemovedEvent(TemplateSectionRemovedEvent $event): void
-    {
-        $this->sections->remove($event->getRow());
     }
 
     /**
@@ -433,7 +325,7 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateImageRemovedEvent(TemplateImageRemovedEvent $event): void
     {
-        $this->imageId = $event->getImageId();
+        $this->imageId = null;
     }
 
     /**
@@ -442,15 +334,5 @@ class Template extends AbstractAggregateRoot
     protected function applyTemplateRemovedEvent(TemplateRemovedEvent $event): void
     {
         $this->state = new State(State::STATE_DELETED);
-    }
-
-    /**
-     * @param int $row
-     */
-    private function validateSectionExists(int $row): void
-    {
-        if (!$this->hasSection($row)) {
-            throw new \InvalidArgumentException(\sprintf('Section at row %s not found', $row));
-        }
     }
 }

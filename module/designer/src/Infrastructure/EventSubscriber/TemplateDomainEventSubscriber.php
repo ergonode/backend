@@ -22,9 +22,6 @@ use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementRemovedEvent;
 use Ergonode\Designer\Domain\Event\TemplateGroupChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateNameChangedEvent;
-use Ergonode\Designer\Domain\Event\TemplateSectionAddedEvent;
-use Ergonode\Designer\Domain\Event\TemplateSectionChangedEvent;
-use Ergonode\Designer\Domain\Event\TemplateSectionRemovedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -57,9 +54,6 @@ class TemplateDomainEventSubscriber implements EventSubscriberInterface
             TemplateElementAddedEvent::class => 'projection',
             TemplateElementChangedEvent::class => 'projection',
             TemplateElementRemovedEvent::class => 'projection',
-            TemplateSectionAddedEvent::class => 'projection',
-            TemplateSectionChangedEvent::class => 'projection',
-            TemplateSectionRemovedEvent::class => 'projection',
             TemplateGroupCreatedEvent::class => 'projection',
             TemplateImageAddedEvent::class => 'projection',
             TemplateImageChangedEvent::class => 'projection',

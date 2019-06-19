@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Application\Form;
 
 use Ergonode\Designer\Application\Form\Type\TemplateElementType;
-use Ergonode\Designer\Application\Form\Type\TemplateSectionType;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -41,14 +40,6 @@ class TemplateForm extends AbstractType
                 CollectionType::class,
                 [
                     'entry_type' => TemplateElementType::class,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                ]
-            )->add(
-                'sections',
-                CollectionType::class,
-                [
-                    'entry_type' => TemplateSectionType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
                 ]

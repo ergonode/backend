@@ -42,29 +42,23 @@ nelmio_api_doc:
             template_element:
                 type: object
                 properties:
-                    id:
-                        type: uuid
-                        required: true
-                        description: Placed attribute Id
-                        example: 67696e17-586b-4ade-b9c1-a4b57ce564a0
                     position:
                         $ref: "#/definitions/point"
                     size:
                         $ref: "#/definitions/size"
-                    required:
-                        type: bool
-                        required: false
-                        description: Is attribute required
-                        example: 1
-            template_section:
-                type: object
-                properties:
-                    row:
-                       type: integer
-                       example: 1
-                    title:
-                       type: string
-                       example: "Header 1"
+                    variant:
+                        type: string
+                        example: attribute
+                    type:
+                        type: string
+                        example: text
+                    properties:
+                        type: array
+                        items:
+                            type: string
+                        example:
+                            attribute_id: attribute_id
+                            required: true
             account:
                 type: object
                 properties:
@@ -142,10 +136,6 @@ nelmio_api_doc:
                         type: array
                         items:
                             $ref: "#/definitions/template_element"
-                    sections:
-                        type: array
-                        items:
-                            $ref: "#/definitions/template_section"
             translation:
                 type: object
                 properties:

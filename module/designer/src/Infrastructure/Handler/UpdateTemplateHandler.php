@@ -59,20 +59,6 @@ class UpdateTemplateHandler
             }
         }
 
-        foreach ($command->getSections() as $column => $section) {
-            if ($template->hasSection($column)) {
-                $template->changeSection($column, $section);
-            } else {
-                $template->addSection($column, $section);
-            }
-        }
-
-        foreach ($template->getSections() as $row => $section) {
-            if (!$command->getSections()->containsKey($row)) {
-                $template->removeSection($row);
-            }
-        }
-
         if ($command->getImageId()) {
             if ($template->getImageId()) {
                 $template->changeImage($command->getImageId());

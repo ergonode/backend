@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -28,13 +29,18 @@ class TemplateElementAddedEventProjector implements DomainEventProjectorInterfac
     private $connection;
 
     /**
-     * TemplateCreateEventProjector constructor.
-     *
-     * @param Connection $connection
+     * @var SerializerInterface
      */
-    public function __construct(Connection $connection)
+    private $serilizer;
+
+    /**
+     * @param Connection          $connection
+     * @param SerializerInterface $serilizer
+     */
+    public function __construct(Connection $connection, SerializerInterface $serilizer)
     {
         $this->connection = $connection;
+        $this->serilizer = $serilizer;
     }
 
     /**
@@ -69,15 +75,11 @@ class TemplateElementAddedEventProjector implements DomainEventProjectorInterfac
                 self::ELEMENT_TABLE,
                 [
                     'template_id' => $aggregateId->getValue(),
-                    'element_id' => $element->getElementId()->getValue(),
                     'x' => $element->getPosition()->getX(),
                     'y' => $element->getPosition()->getY(),
                     'width' => $element->getSize()->getWidth(),
                     'height' => $element->getSize()->getHeight(),
-                    'required' => $element->isRequired(),
-                ],
-                [
-                    'required' => \PDO::PARAM_BOOL,
+                    'properties' => json_encode($element->getProperties()),
                 ]
             );
             $this->connection->commit();

@@ -9,7 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Tests\Domain\Entity;
 
-use Ergonode\Designer\Domain\Entity\AbstractTemplateElement;
+use Doctrine\Common\Collections\ArrayCollection;
+use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateGroupId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
@@ -38,7 +39,7 @@ class TemplateTest extends TestCase
     private $name;
 
     /**
-     * @var AbstractTemplateElement|MockObject
+     * @var TemplateElement|MockObject
      */
     private $element;
 
@@ -49,7 +50,7 @@ class TemplateTest extends TestCase
         $this->id = $this->createMock(TemplateId::class);
         $this->groupId = $this->createMock(TemplateGroupId::class);
         $this->name = 'Any template name';
-        $this->element = $this->createMock(AbstractTemplateElement::class);
+        $this->element = $this->createMock(TemplateElement::class);
         $this->element->method('getPosition')->willReturn(new Position(0,0));
     }
 
@@ -76,8 +77,54 @@ class TemplateTest extends TestCase
         $template->addElement($this->element);
         $this->assertTrue($template->hasElement($this->element->getPosition()));
         $this->assertEquals($template->getElement($this->element->getPosition()), $this->element);
+        $this->assertEquals($template->getElements()->toArray(), [$this->element]);
         $template->removeElement($this->element->getPosition());
         $this->assertFalse($template->hasElement($this->element->getPosition()));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testAddExistsElement(): void
+    {
+        $template = $this->getTemplate();
+
+        $template->addElement($this->element);
+        $template->addElement($this->element);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testChangeElement(): void
+    {
+        $template = $this->getTemplate();
+
+        $template->changeElement($this->element);
+    }
+
+    /**
+     */
+    public function testAddedImageExists(): void
+    {
+        $template = $this->getTemplate();
+        /** @var MultimediaId|MockObject $image */
+        $image = $this->createMock(MultimediaId::class);
+
+        $template->addImage($image);
+        $this->assertEquals($template->getImageId(), $image);
+        $template->removeImage();
+        $this->assertEquals(null, $template->getImageId());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testRemoveNotExistImage(): void
+    {
+        $template = $this->getTemplate();
+        /** @var MultimediaId|MockObject $image */
+        $template->removeImage();
     }
 
     /**
