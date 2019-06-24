@@ -44,7 +44,6 @@ class DbalProductTemplateQuery implements ProductTemplateQueryInterface
         $template = $this->getTemplate($productDraftId);
         $templateId = new TemplateId($template['id']);
         $template['elements'] = $this->getTemplateElements($productDraftId, $templateId, $language);
-        $template['elements'] = array_merge($template['elements'], $this->getTemplateSections($templateId));
 
         return $template;
     }
@@ -141,24 +140,5 @@ class DbalProductTemplateQuery implements ProductTemplateQueryInterface
             ->fetchAll();
 
         return $records;
-    }
-
-    /**
-     * @param TemplateId $templateId
-     *
-     * @return array
-     */
-    private function getTemplateSections(TemplateId $templateId): array
-    {
-        $qb = $this->connection->createQueryBuilder();
-
-        return $qb
-            ->select('0 AS x, row AS y, 1 AS height, 4 AS width, title AS label, \'UI\' AS variant, \'SECTION\' AS type')
-            ->from('designer.template_section')
-            ->where($qb->expr()->eq('template_id', ':templateId'))
-            ->setParameter(':templateId', $templateId->getValue())
-            ->addOrderBy('row', 'ASC')
-            ->execute()
-            ->fetchAll();
     }
 }

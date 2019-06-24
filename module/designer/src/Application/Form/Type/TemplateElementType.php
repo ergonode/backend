@@ -11,7 +11,7 @@ namespace Ergonode\Designer\Application\Form\Type;
 
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,25 +28,23 @@ class TemplateElementType extends AbstractType
     {
         $builder
             ->add(
-                'id',
+                'type',
                 TextType::class
-            )->add(
+            )
+            ->add(
                 'position',
                 PositionFormType::class
-            )->add(
+            )
+            ->add(
                 'size',
                 SizeFormType::class
-            )->add(
-                'required',
-                CheckboxType::class,
+            ) ->add(
+                'properties',
+                CollectionType::class,
                 [
-                    'false_values' => [
-                        '0',
-                        'false',
-                        '',
-                        false,
-                    ],
-                    'empty_data' => false,
+                    'entry_type' => TextType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true,
                 ]
             );
     }
@@ -59,6 +57,7 @@ class TemplateElementType extends AbstractType
         $resolver->setDefaults([
             'data_class' => TemplateElementTypeModel::class,
             'translation_domain' => 'designer',
+            'allow_extra_fields' => true,
         ]);
     }
 }

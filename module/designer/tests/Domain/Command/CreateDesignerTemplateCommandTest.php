@@ -9,6 +9,7 @@ namespace Ergonode\Designer\Tests\Domain\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
+use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -23,14 +24,13 @@ class CreateDesignerTemplateCommandTest extends TestCase
     {
         $name = 'Any Name';
         $elements = new ArrayCollection();
-        $sections = new ArrayCollection();
+        $elements->add($this->createMock(TemplateElement::class));
 
         /** @var TemplateId|MockObject $id */
         $id = $this->createMock(TemplateId::class);
-        $command = new CreateTemplateCommand($name, $elements, $sections);
+        $command = new CreateTemplateCommand($name, $elements);
         $this->assertInstanceOf(TemplateId::class, $id);
         $this->assertSame($name, $command->getName());
         $this->assertSame($elements, $command->getElements());
-        $this->assertSame($sections, $command->getSections());
     }
 }

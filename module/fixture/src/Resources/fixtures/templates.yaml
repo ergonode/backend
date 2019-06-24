@@ -43,7 +43,7 @@ Ergonode\Designer\Domain\Entity\AttributeTemplateElement:
         __construct:
             - '@position_<current()>'
             - '@size'
-            - '<TemplateElementId(<AttributeId(code_<current()>)>)>'
+            - '<AttributeId(code_11)>'
 
 
 Ergonode\Designer\Domain\Entity\TemplateGroupId:
@@ -64,6 +64,3 @@ Ergonode\Designer\Domain\Entity\Template:
             - 'Template_<current()>'
         __calls:
             - addElement: ['@template_element_1']
-            - addSection : [0, 'Section One']
-            - addSection : [2, 'Section Two']
-            - addSection : [4, 'Section Three']

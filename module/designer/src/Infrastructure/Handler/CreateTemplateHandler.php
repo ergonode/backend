@@ -60,7 +60,6 @@ class CreateTemplateHandler
             $groupId,
             $command->getName(),
             $command->getElements()->toArray(),
-            $command->getSections()->toArray(),
             $command->getImageId()
         );
 

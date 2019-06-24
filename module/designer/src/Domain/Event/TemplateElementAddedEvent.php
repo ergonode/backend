@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
-use Ergonode\Designer\Domain\Entity\AbstractTemplateElement;
+use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -18,24 +18,24 @@ use JMS\Serializer\Annotation as JMS;
 class TemplateElementAddedEvent implements DomainEventInterface
 {
     /**
-     * @var AbstractTemplateElement
+     * @var TemplateElement
      *
-     * @JMS\Type("Ergonode\Designer\Domain\Entity\AbstractTemplateElement")
+     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateElement")
      */
     private $element;
 
     /**
-     * @param AbstractTemplateElement $element
+     * @param TemplateElement $element
      */
-    public function __construct(AbstractTemplateElement $element)
+    public function __construct(TemplateElement $element)
     {
         $this->element = $element;
     }
 
     /**
-     * @return AbstractTemplateElement
+     * @return TemplateElement
      */
-    public function getElement(): AbstractTemplateElement
+    public function getElement(): TemplateElement
     {
         return $this->element;
     }

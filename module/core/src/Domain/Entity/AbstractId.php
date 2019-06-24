@@ -89,7 +89,7 @@ abstract class AbstractId
      * @param AbstractId $id
      * @return bool
      */
-    public function equal(AbstractId $id): bool
+    public function isEqual(AbstractId $id): bool
     {
         return $id->getValue() === $this->getValue();
     }

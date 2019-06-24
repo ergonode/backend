@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Tests\Domain\Factory;
 
-use Ergonode\Designer\Domain\Entity\AbstractTemplateElement;
+use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateGroupId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Factory\TemplateFactory;
@@ -37,7 +37,7 @@ class TemplateFactoryTest extends TestCase
     private $name;
 
     /**
-     * @var AbstractTemplateElement|MockObject
+     * @var TemplateElement|MockObject
      */
     private $element;
 
@@ -48,7 +48,7 @@ class TemplateFactoryTest extends TestCase
         $this->id = $this->createMock(TemplateId::class);
         $this->groupId = $this->createMock(TemplateGroupId::class);
         $this->name = 'Any template name';
-        $this->element = $this->createMock(AbstractTemplateElement::class);
+        $this->element = $this->createMock(TemplateElement::class);
         $this->element->method('getPosition')->willReturn(new Position(0,0));
     }
 
@@ -63,6 +63,6 @@ class TemplateFactoryTest extends TestCase
         $this->assertEquals($this->groupId, $template->getGroupId());
         $this->assertEquals($this->name, $template->getName());
         $this->assertCount(1, $template->getElements());
-        $this->assertContainsOnlyInstancesOf(AbstractTemplateElement::class, $template->getElements());
+        $this->assertContainsOnlyInstancesOf(TemplateElement::class, $template->getElements());
     }
 }

@@ -11,7 +11,6 @@ namespace Ergonode\Designer\Application\Model\Form;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
-use Ergonode\Designer\Application\Model\Form\Type\TemplateSectionTypeModel;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -28,6 +27,8 @@ class TemplateFormModel
 
     /**
      * @var string
+     *
+     * @Assert\Uuid()
      */
     public $image;
 
@@ -40,18 +41,9 @@ class TemplateFormModel
     public $elements;
 
     /**
-     * @var ArrayCollection|TemplateSectionTypeModel[]
-     *
-     * @Assert\Valid()
-     * @Assert\Collection()
-     */
-    public $sections;
-
-    /**
      */
     public function __construct()
     {
         $this->elements = new ArrayCollection();
-        $this->sections = new ArrayCollection();
     }
 }

@@ -11,21 +11,11 @@ namespace Ergonode\Designer\Application\Model\Form\Type;
 
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
-use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Attribute\Infrastructure\Validator as CustomAssert;
 
 /**
  */
 class TemplateElementTypeModel
 {
-    /**
-     * @var string
-     *
-     * @Assert\Type(type="string")
-     * @CustomAssert\AttributeExists();
-     */
-    public $id;
-
     /**
      * @var Position
      */
@@ -37,7 +27,12 @@ class TemplateElementTypeModel
     public $size;
 
     /**
-     * @var bool
+     * @var string
      */
-    public $required;
+    public $type;
+
+    /**
+     * @var array
+     */
+    public $properties = [];
 }

@@ -34,22 +34,12 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         $this->addSql(
             'CREATE TABLE designer.template_element (
                     template_id UUID NOT NULL,
-                    element_id UUID NOT NULL,
                     x INTEGER NOT NULL,
                     y INTEGER NOT NULL,
                     width INTEGER NOT NULL,
                     height INTEGER NOT NULL,   
-                    required BOOLEAN DEFAULT FALSE,              
-                    PRIMARY KEY(template_id, element_id)
-                )'
-        );
-
-        $this->addSql(
-            'CREATE TABLE designer.template_section (
-                    template_id UUID NOT NULL,
-                    row INTEGER NOT NULL,
-                    title VARCHAR(255) NOT NULL,
-                    PRIMARY KEY(template_id, row)                   
+                    properties JSONB NOT NULL,             
+                    PRIMARY KEY(template_id, x, y)
                 )'
         );
 

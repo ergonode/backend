@@ -28,8 +28,6 @@ class TemplateElementChangedEventProjector implements DomainEventProjectorInterf
     private $connection;
 
     /**
-     * TemplateCreateEventProjector constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)
@@ -68,18 +66,14 @@ class TemplateElementChangedEventProjector implements DomainEventProjectorInterf
             $this->connection->update(
                 self::ELEMENT_TABLE,
                 [
-                    'template_id' => $aggregateId->getValue(),
-                    'element_id' => $element->getElementId()->getValue(),
                     'width' => $element->getSize()->getWidth(),
                     'height' => $element->getSize()->getHeight(),
-                    'required' => $element->isRequired(),
+                    'properties' => json_encode($element->jsonSerialize()),
                 ],
                 [
+                    'template_id' => $aggregateId->getValue(),
                     'x' => $element->getPosition()->getX(),
                     'y' => $element->getPosition()->getY(),
-                ],
-                [
-                    'required' => \PDO::PARAM_BOOL,
                 ]
             );
             $this->connection->commit();
