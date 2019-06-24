@@ -54,7 +54,8 @@ final class Version20180719132703 extends AbstractErgonodeMigration
 
         $this->addSql(
             'CREATE TABLE designer.element_type (
-                    type VARCHAR(32) NOT NULL,
+                    type VARCHAR(32) NOT NULL,            
+                    variant VARCHAR(32) NOT NULL,        
                     label VARCHAR(32) NOT NULL,
                     min_width INTEGER NOT NULL,
                     min_height INTEGER NOT NULL,
@@ -64,15 +65,16 @@ final class Version20180719132703 extends AbstractErgonodeMigration
                 )'
         );
 
-        $this->addType('TEXT', 'Text');
-        $this->addType('NUMERIC', 'Numeric');
-        $this->addType('TEXTAREA', 'Textarea', 1, 1, 4, 10);
-        $this->addType('DATE', 'Date');
-        $this->addType('SELECT', 'Select');
-        $this->addType('MULTI_SELECT', 'Multi Select');
-        $this->addType('IMAGE', 'Image', 1, 1, 4, 10);
-        $this->addType('PRICE', 'Price');
-        $this->addType('UNIT', 'Unit');
+        $this->addType('TEXT', 'attribute', 'Text');
+        $this->addType('NUMERIC', 'attribute', 'Numeric');
+        $this->addType('TEXTAREA', 'attribute', 'Textarea', 1, 1, 4, 10);
+        $this->addType('DATE', 'attribute', 'Date');
+        $this->addType('SELECT', 'attribute', 'Select');
+        $this->addType('MULTI_SELECT', 'attribute', 'Multi Select');
+        $this->addType('IMAGE', 'attribute', 'Image', 1, 1, 4, 10);
+        $this->addType('PRICE', 'attribute', 'Price');
+        $this->addType('UNIT', 'attribute', 'Unit');
+        $this->addType('SECTION', 'ui', 'Section', 1, 1, 1, 4);
 
         $this->addSql('ALTER TABLE designer.template_element ADD CONSTRAINT template_element_template_id_fk FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE CASCADE;');
 
@@ -97,6 +99,7 @@ final class Version20180719132703 extends AbstractErgonodeMigration
 
     /**
      * @param string $code
+     * @param string $variant
      * @param string $label
      * @param int    $minWidth
      * @param int    $minHeight
@@ -105,12 +108,13 @@ final class Version20180719132703 extends AbstractErgonodeMigration
      */
     private function addType(
         string $code,
+        string $variant,
         string $label,
         int $minWidth = 1,
         int $minHeight = 1,
         int $maxWidth = 4,
         int $maxHeight = 1
     ): void {
-        $this->addSql(\sprintf('INSERT INTO designer.element_type (type, label, min_width, min_height, max_width, max_height) VALUES (\'%s\', \'%s\', %d, %d, %d, %d)', $code, $label, $minWidth, $minHeight, $maxWidth, $maxHeight));
+        $this->addSql(\sprintf('INSERT INTO designer.element_type (type, variant, label, min_width, min_height, max_width, max_height) VALUES (\'%s\',  \'%s\', \'%s\', %d, %d, %d, %d)', $code, $variant, $label, $minWidth, $minHeight, $maxWidth, $maxHeight));
     }
 }
