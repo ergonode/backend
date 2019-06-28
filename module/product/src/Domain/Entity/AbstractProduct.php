@@ -92,6 +92,14 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
+     * @return TemplateId
+     */
+    public function getTemplateId(): TemplateId
+    {
+        return $this->designTemplateId;
+    }
+
+    /**
      * @return Sku
      */
     public function getSku(): Sku

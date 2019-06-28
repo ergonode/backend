@@ -22,8 +22,6 @@ class AttributeCreatedEventProjector implements DomainEventProjectorInterface
 {
     private const ELEMENT_TABLE = 'designer.element';
     private const ELEMENT_LABEL_TABLE = 'designer.element_label';
-    private const ELEMENT_PLACEHOLDER_TABLE = 'designer.element_placeholder';
-    private const ELEMENT_HINT_TABLE = 'designer.element_hint';
 
     /**
      * @var Connection
@@ -31,8 +29,6 @@ class AttributeCreatedEventProjector implements DomainEventProjectorInterface
     private $connection;
 
     /**
-     * TemplateCreateEventProjector constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)
@@ -75,28 +71,6 @@ class AttributeCreatedEventProjector implements DomainEventProjectorInterface
             foreach ($event->getLabel()->getTranslations() as $language => $value) {
                 $this->connection->insert(
                     self::ELEMENT_LABEL_TABLE,
-                    [
-                        'element_id' => $aggregateId->getValue(),
-                        'language' => $language,
-                        'value' => $value,
-                    ]
-                );
-            }
-
-            foreach ($event->getPlaceholder()->getTranslations() as $language => $value) {
-                $this->connection->insert(
-                    self::ELEMENT_PLACEHOLDER_TABLE,
-                    [
-                        'element_id' => $aggregateId->getValue(),
-                        'language' => $language,
-                        'value' => $value,
-                    ]
-                );
-            }
-
-            foreach ($event->getHint()->getTranslations() as $language => $value) {
-                $this->connection->insert(
-                    self::ELEMENT_HINT_TABLE,
                     [
                         'element_id' => $aggregateId->getValue(),
                         'language' => $language,

@@ -118,6 +118,8 @@ nelmio_api_doc:
                         description: Template Id
                     categortyIds:
                         type: array
+                        items:
+                            type: string
                         required: false
                         description: Lista id kategorii
             template:

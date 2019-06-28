@@ -16,7 +16,6 @@ use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateRelat
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Class ErgonodeDesignerBundle
  */
 class ErgonodeDesignerBundle extends AbstractModule
 {

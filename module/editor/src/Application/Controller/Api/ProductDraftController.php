@@ -13,17 +13,19 @@ use Ergonode\Attribute\Domain\Provider\AttributeValidationProvider;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
+use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Application\Form\DraftCreateForm;
 use Ergonode\Editor\Application\Model\DraftCreateFormModel;
 use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
 use Ergonode\Editor\Domain\Command\CreateProductDraftCommand;
 use Ergonode\Editor\Domain\Command\PersistProductDraftCommand;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
-use Ergonode\Editor\Domain\Query\ProductTemplateQueryInterface;
 use Ergonode\Editor\Infrastructure\Grid\ProductDraftGrid;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +33,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -47,11 +50,6 @@ class ProductDraftController extends AbstractApiController
     private $draftQuery;
 
     /**
-     * @var ProductTemplateQueryInterface
-     */
-    private $draftTemplateQuery;
-
-    /**
      * @var MessageBusInterface
      */
     private $messageBus;
@@ -62,28 +60,49 @@ class ProductDraftController extends AbstractApiController
     private $provider;
 
     /**
-     * @param ProductDraftGrid              $productDraftGrid
-     * @param DraftQueryInterface           $draftQuery
-     * @param ProductTemplateQueryInterface $draftTemplateQuery
-     * @param MessageBusInterface           $messageBus
-     * @param AttributeValidationProvider   $provider
+     * @var DraftProvider
+     */
+    private $draftProvider;
+
+    /**
+     * @var ViewTemplateBuilder
+     */
+    private $builder;
+
+    /**
+     * @var TemplateRepositoryInterface
+     */
+    private $templateRepository;
+
+    /**
+     * @param ProductDraftGrid            $productDraftGrid
+     * @param DraftQueryInterface         $draftQuery
+     * @param MessageBusInterface         $messageBus
+     * @param AttributeValidationProvider $provider
+     * @param DraftProvider               $draftProvider
+     * @param ViewTemplateBuilder         $builder
+     * @param TemplateRepositoryInterface $templateRepository
      */
     public function __construct(
         ProductDraftGrid $productDraftGrid,
         DraftQueryInterface $draftQuery,
-        ProductTemplateQueryInterface $draftTemplateQuery,
         MessageBusInterface $messageBus,
-        AttributeValidationProvider $provider
+        AttributeValidationProvider $provider,
+        DraftProvider $draftProvider,
+        ViewTemplateBuilder $builder,
+        TemplateRepositoryInterface $templateRepository
     ) {
         $this->productDraftGrid = $productDraftGrid;
         $this->draftQuery = $draftQuery;
-        $this->draftTemplateQuery = $draftTemplateQuery;
         $this->messageBus = $messageBus;
         $this->provider = $provider;
+        $this->draftProvider = $draftProvider;
+        $this->builder = $builder;
+        $this->templateRepository = $templateRepository;
     }
 
     /**
-     * @Route("/drafts", methods={"GET"})
+     * @Route("/products/drafts", methods={"GET"})
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
@@ -164,7 +183,7 @@ class ProductDraftController extends AbstractApiController
     }
 
     /**
-     * @Route("/drafts/{draft}", methods={"GET"})
+     * @Route("/products/{draft}", methods={"GET"}, requirements={"draft" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
@@ -204,7 +223,7 @@ class ProductDraftController extends AbstractApiController
     }
 
     /**
-     * @Route("/drafts", methods={"POST"})
+     * @Route("/products/drafts", methods={"POST"})
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
@@ -255,14 +274,14 @@ class ProductDraftController extends AbstractApiController
     }
 
     /**
-     * @Route("/drafts/{draft}/persist", methods={"PUT"})
+     * @Route("/products/{product}/draft/persist", methods={"PUT"} ,requirements={"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
-     *     name="draft",
+     *     name="product",
      *     in="path",
      *     type="string",
-     *     description="Product draft id",
+     *     description="Product id",
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -281,14 +300,17 @@ class ProductDraftController extends AbstractApiController
      *     description="Form validation error",
      * )
      *
-     * @param ProductDraft $draft
+     * @param AbstractProduct $product
      *
-     * @ParamConverter(class="Ergonode\Editor\Domain\Entity\ProductDraft")
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
      * @return Response
+     * @throws \Exception
      */
-    public function applyDraft(ProductDraft $draft): Response
+    public function applyDraft(AbstractProduct $product): Response
     {
+        $draft = $this->draftProvider->provide($product);
+
         $command = new PersistProductDraftCommand($draft->getId());
 
         $this->messageBus->dispatch($command);
@@ -297,11 +319,18 @@ class ProductDraftController extends AbstractApiController
     }
 
     /**
-     * @Route("/drafts/{draft}/{attribute}/value", methods={"PUT"})
+     * @Route(
+     *     "/products/{product}/draft/{attribute}/value",
+     *     methods={"PUT"},
+     *     requirements = {
+     *        "product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+     *        "attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+     *     }
+     *  )
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
-     *     name="draft",
+     *     name="product",
      *     in="path",
      *     type="string",
      *     description="Product draft id",
@@ -336,18 +365,22 @@ class ProductDraftController extends AbstractApiController
      *     response=400,
      *     description="Form validation error",
      * )
-     * @param ProductDraft      $draft
+     * @param AbstractProduct   $product
      * @param Language          $language
      * @param AbstractAttribute $attribute
      * @param Request           $request
      *
-     * @ParamConverter(class="Ergonode\Editor\Domain\Entity\ProductDraft")
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      *
      * @return Response
+     *
+     * @throws \Exception
      */
-    public function changeDraftAttribute(ProductDraft $draft, Language $language, AbstractAttribute $attribute, Request $request): Response
+    public function changeDraftAttribute(AbstractProduct $product, Language $language, AbstractAttribute $attribute, Request $request): Response
     {
+        $draft = $this->draftProvider->provide($product);
+
         $value = $request->request->get('value');
 
         $validator = $this->provider->provide($attribute);
@@ -378,7 +411,7 @@ class ProductDraftController extends AbstractApiController
     }
 
     /**
-     * @Route("/drafts/product/{product}", methods={"GET"})
+     * @Route("/products/{product}/draft", methods={"GET"} ,requirements={"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
@@ -404,37 +437,31 @@ class ProductDraftController extends AbstractApiController
      *     response=400,
      *     description="Form validation error",
      * )
-     *
-     * @param string   $product
-     * @param Language $language
+     * @param AbstractProduct $product
+     * @param Language        $language
      *
      * @return Response
+     *
      * @throws \Exception
+     *
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      */
-    public function getProductDraft(string $product, Language $language): Response
+    public function getProductDraft(AbstractProduct $product, Language $language): Response
     {
-        $draftId = $this->draftQuery->getActualDraftId(new ProductId($product));
-        if (null === $draftId) {
-            $command = new CreateProductDraftCommand(new productId($product));
+        $draft = $this->draftProvider->provide($product);
 
-            $this->messageBus->dispatch($command);
-            $draftId = $command->getId();
-        }
-
-        $result = $this->draftQuery->getDraftView($draftId, $language);
-
-        return $this->createRestResponse($result);
+        return $this->createRestResponse($draft);
     }
 
     /**
-     * @Route("/drafts/{draft}/template", methods={"GET"})
+     * @Route("/products/{product}/template", methods={"GET"} ,requirements={"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
-     *     name="draft",
+     *     name="product",
      *     in="path",
      *     type="string",
-     *     description="Draft id",
+     *     description="Get product draft",
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -444,6 +471,7 @@ class ProductDraftController extends AbstractApiController
      *     default="EN",
      *     description="Language Code",
      * )
+     *
      * @SWG\Response(
      *     response=201,
      *     description="Change draft",
@@ -452,16 +480,23 @@ class ProductDraftController extends AbstractApiController
      *     response=400,
      *     description="Form validation error",
      * )
-     *
-     * @param string   $draft
-     * @param Language $language
+     * @param AbstractProduct $product
+     * @param Language        $language
      *
      * @return Response
+     *
+     * @throws \Exception
+     *
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      */
-    public function getDraftTemplate(string $draft, Language $language): Response
+    public function getProductTemplate(AbstractProduct $product, Language $language): Response
     {
-        $result = $this->draftTemplateQuery->getTemplateView(new ProductDraftId($draft), $language);
+        $template = $this->templateRepository->load($product->getTemplateId());
 
-        return $this->createRestResponse($result);
+        Assert::notNull($template);
+
+        $view = $this->builder->build($template, $language);
+
+        return $this->createRestResponse($view);
     }
 }
