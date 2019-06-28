@@ -74,7 +74,7 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         $this->addType('IMAGE', 'attribute', 'Image', 1, 1, 4, 10);
         $this->addType('PRICE', 'attribute', 'Price');
         $this->addType('UNIT', 'attribute', 'Unit');
-        $this->addType('SECTION', 'ui', 'Section', 1, 1, 1, 4);
+        $this->addType('SECTION', 'ui', 'Section');
 
         $this->addSql('ALTER TABLE designer.template_element ADD CONSTRAINT template_element_template_id_fk FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE CASCADE;');
 

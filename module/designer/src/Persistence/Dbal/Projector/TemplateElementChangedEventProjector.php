@@ -15,6 +15,7 @@ use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -28,11 +29,18 @@ class TemplateElementChangedEventProjector implements DomainEventProjectorInterf
     private $connection;
 
     /**
-     * @param Connection $connection
+     * @var SerializerInterface
      */
-    public function __construct(Connection $connection)
+    private $serializer;
+
+    /**
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -68,7 +76,7 @@ class TemplateElementChangedEventProjector implements DomainEventProjectorInterf
                 [
                     'width' => $element->getSize()->getWidth(),
                     'height' => $element->getSize()->getHeight(),
-                    'properties' => json_encode($element->jsonSerialize()),
+                    'properties' => $this->serializer->serialize($element->getProperties(), 'json'),
                 ],
                 [
                     'template_id' => $aggregateId->getValue(),

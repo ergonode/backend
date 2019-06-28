@@ -31,16 +31,16 @@ class TemplateElementAddedEventProjector implements DomainEventProjectorInterfac
     /**
      * @var SerializerInterface
      */
-    private $serilizer;
+    private $serializer;
 
     /**
      * @param Connection          $connection
-     * @param SerializerInterface $serilizer
+     * @param SerializerInterface $serializer
      */
-    public function __construct(Connection $connection, SerializerInterface $serilizer)
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
-        $this->serilizer = $serilizer;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -79,7 +79,7 @@ class TemplateElementAddedEventProjector implements DomainEventProjectorInterfac
                     'y' => $element->getPosition()->getY(),
                     'width' => $element->getSize()->getWidth(),
                     'height' => $element->getSize()->getHeight(),
-                    'properties' => json_encode($element->getProperties()),
+                    'properties' => $this->serializer->serialize($element->getProperties(), 'json'),
                 ]
             );
             $this->connection->commit();

@@ -12,7 +12,8 @@ namespace Ergonode\Completeness\Application\Controller\Api;
 use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
+use Ergonode\Editor\Domain\Provider\DraftProvider;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,15 +29,24 @@ class CompletenessController extends AbstractApiController
     private $query;
 
     /**
-     * @param CompletenessQueryInterface $query
+     * @var DraftProvider
      */
-    public function __construct(CompletenessQueryInterface $query)
+    private $draftProvider;
+
+    /**
+     * @param CompletenessQueryInterface $query
+     * @param DraftProvider              $draftProvider
+     */
+    public function __construct(CompletenessQueryInterface $query, DraftProvider $draftProvider)
     {
         $this->query = $query;
+        $this->draftProvider = $draftProvider;
     }
 
     /**
-     * @Route("/drafts/{draft}/completeness", methods={"GET"})
+     * @Route(
+     *     "/products/{product}/draft/completeness", methods={"GET"}, requirements = {"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+     * )
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
@@ -63,15 +73,19 @@ class CompletenessController extends AbstractApiController
      *     description="Form validation error",
      * )
      *
-     * @param ProductDraft $draft
-     * @param Language     $language
+     * @param AbstractProduct $product
+     * @param Language        $language
      *
      * @return Response
      *
-     * @ParamConverter(class="Ergonode\Editor\Domain\Entity\ProductDraft")
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     *
+     * @throws \Exception
      */
-    public function getCompleteness(ProductDraft $draft, Language $language): Response
+    public function getCompleteness(AbstractProduct $product, Language $language): Response
     {
+        $draft = $this->draftProvider->provide($product);
+
         $result = $this->query->getCompleteness($draft->getId(), $language);
 
         return $this->createRestResponse($result->toArray());

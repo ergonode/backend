@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
-use Ergonode\Migration\AbstractErgonodeMigration;
 
 /**
  * Auto-generated Ergonode Migration Class:
@@ -67,24 +66,6 @@ final class Version20180731143300 extends AbstractErgonodeMigration
                     element_id UUID NOT NULL,
                     language VARCHAR(2) NOT NULL,
                     value VARCHAR(255) DEFAULT NULL,                                                       
-                    PRIMARY KEY(element_id, language)
-                )'
-        );
-
-        $this->addSql(
-            'CREATE TABLE designer.element_placeholder (
-                    element_id UUID NOT NULL,
-                    language VARCHAR(2) NOT NULL,
-                    value text DEFAULT NULL,                                                       
-                    PRIMARY KEY(element_id, language)
-                )'
-        );
-
-        $this->addSql(
-            'CREATE TABLE designer.element_hint (
-                    element_id UUID NOT NULL,
-                    language VARCHAR(2) NOT NULL,
-                    value text DEFAULT NULL,                                                       
                     PRIMARY KEY(element_id, language)
                 )'
         );

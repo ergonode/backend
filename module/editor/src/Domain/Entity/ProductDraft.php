@@ -38,7 +38,7 @@ class ProductDraft extends AbstractAggregateRoot
     /**
      * @var bool
      */
-    private $applying;
+    private $applied;
 
     /**
      * @var ValueInterface[]
@@ -77,9 +77,9 @@ class ProductDraft extends AbstractAggregateRoot
     /**
      * @return bool
      */
-    public function isApplying(): bool
+    public function isApplied(): bool
     {
-        return $this->applying;
+        return $this->applied;
     }
 
     /**
@@ -170,7 +170,7 @@ class ProductDraft extends AbstractAggregateRoot
         $this->id = $event->getId();
         $this->productId = $event->getProductId();
         $this->attributes = [];
-        $this->applying = false;
+        $this->applied = false;
     }
 
     /**
@@ -202,6 +202,6 @@ class ProductDraft extends AbstractAggregateRoot
      */
     protected function applyProductDraftApplied(ProductDraftApplied $event): void
     {
-        $this->applying = true;
+        $this->applied = true;
     }
 }

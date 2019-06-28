@@ -125,7 +125,7 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @return ArrayCollection|TemplateElement
+     * @return ArrayCollection|TemplateElement[]
      */
     public function getElements(): ArrayCollection
     {

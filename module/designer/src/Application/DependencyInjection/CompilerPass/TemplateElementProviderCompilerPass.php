@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\DependencyInjection\CompilerPass;
 
-use Ergonode\Designer\Domain\Provider\TemplateElementFactoryProvider;
+use Ergonode\Designer\Domain\Provider\ViewTemplateElementProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -18,14 +18,14 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class TemplateElementProviderCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'component.template.template_element_factory_interface';
+    public const TAG = 'component.template.view_template_element_strategy_interface';
 
     /**
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container): void
     {
-        if ($container->has(TemplateElementFactoryProvider::class)) {
+        if ($container->has(ViewTemplateElementProvider::class)) {
             $this->processTransformers($container);
         }
     }
@@ -36,7 +36,7 @@ class TemplateElementProviderCompilerPass implements CompilerPassInterface
     private function processTransformers(ContainerBuilder $container): void
     {
         $arguments = [];
-        $definition = $container->findDefinition(TemplateElementFactoryProvider::class);
+        $definition = $container->findDefinition(ViewTemplateElementProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
         foreach ($strategies as $id => $strategy) {
