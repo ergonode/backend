@@ -9,9 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Completeness\Application\Controller\Api;
 
-use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
+use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -24,23 +25,30 @@ use Swagger\Annotations as SWG;
 class CompletenessController extends AbstractApiController
 {
     /**
-     * @var CompletenessQueryInterface
+     * @var CompletenessCalculator
      */
-    private $query;
+    private $calculator;
+
+    /**
+     * @var TemplateRepositoryInterface
+     */
+    private $repository;
 
     /**
      * @var DraftProvider
      */
-    private $draftProvider;
+    private $provider;
 
     /**
-     * @param CompletenessQueryInterface $query
-     * @param DraftProvider              $draftProvider
+     * @param CompletenessCalculator      $calculator
+     * @param TemplateRepositoryInterface $repository
+     * @param DraftProvider               $provider
      */
-    public function __construct(CompletenessQueryInterface $query, DraftProvider $draftProvider)
+    public function __construct(CompletenessCalculator $calculator, TemplateRepositoryInterface $repository, DraftProvider $provider)
     {
-        $this->query = $query;
-        $this->draftProvider = $draftProvider;
+        $this->calculator = $calculator;
+        $this->repository = $repository;
+        $this->provider = $provider;
     }
 
     /**
@@ -84,10 +92,12 @@ class CompletenessController extends AbstractApiController
      */
     public function getCompleteness(AbstractProduct $product, Language $language): Response
     {
-        $draft = $this->draftProvider->provide($product);
+        $draft = $this->provider->provide($product);
+        $template = $this->repository->load($product->getTemplateId());
 
-        $result = $this->query->getCompleteness($draft->getId(), $language);
 
-        return $this->createRestResponse($result->toArray());
+        $result = $this->calculator->calculate($draft, $template, $language);
+
+        return $this->createRestResponse($result);
     }
 }
