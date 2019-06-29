@@ -60,17 +60,19 @@ class ProductAttributeExtension
      */
     public function extend(Record $record, array $data): array
     {
-        foreach ($record->getColumns('values') as $key => $value) {
-            $attributeCode = new AttributeCode($key);
-            if (null !== $value) {
-                $attributeId = AttributeId::fromKey($attributeCode);
-                $attributeType = $this->query->findAttributeType($attributeId);
-                if ($attributeType && in_array($attributeType->getValue(), [SelectAttribute::TYPE, MultiSelectAttribute::TYPE], true)) {
-                    $value = $this->process($attributeId, $value);
-                }
+        if ($record->has('values')) {
+            foreach ($record->getColumns('values') as $key => $value) {
+                $attributeCode = new AttributeCode($key);
+                if (null !== $value) {
+                    $attributeId = AttributeId::fromKey($attributeCode);
+                    $attributeType = $this->query->findAttributeType($attributeId);
+                    if ($attributeType && in_array($attributeType->getValue(), [SelectAttribute::TYPE, MultiSelectAttribute::TYPE], true)) {
+                        $value = $this->process($attributeId, $value);
+                    }
 
-                if ($value) {
-                    $data['attributes'][$attributeCode->getValue()] = $value;
+                    if ($value) {
+                        $data['attributes'][$attributeCode->getValue()] = $value;
+                    }
                 }
             }
         }
