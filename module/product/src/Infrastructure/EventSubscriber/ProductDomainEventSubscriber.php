@@ -11,8 +11,6 @@ namespace Ergonode\Product\Infrastructure\EventSubscriber;
 
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjector;
-use Ergonode\Product\Domain\Event\CategoryTreeCategoryAddedEvent;
-use Ergonode\Product\Domain\Event\CategoryTreeCreatedEvent;
 use Ergonode\Product\Domain\Event\ProductAddedToCategory;
 use Ergonode\Product\Domain\Event\ProductCreated;
 use Ergonode\Product\Domain\Event\ProductRemovedFromCategory;
@@ -54,8 +52,6 @@ class ProductDomainEventSubscriber implements EventSubscriberInterface
             ProductValueRemoved::class => 'projection',
             ProductAddedToCategory::class => 'projection',
             ProductRemovedFromCategory::class => 'projection',
-            CategoryTreeCreatedEvent::class => 'projection',
-            CategoryTreeCategoryAddedEvent::class => 'projection',
         ];
     }
 
