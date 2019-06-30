@@ -20,5 +20,5 @@
         "psr-4": {
             "Ergonode\\AttributePrice\\": "src/"
         }
-    },
+    }
 }
