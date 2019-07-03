@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\ProductSimple\Infrastructure\Action;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Designer\Infrastructure\Generator\DefaultTemplateGenerator;
 use Ergonode\Designer\Infrastructure\Provider\TemplateProvider;
-use Ergonode\Lynka\Infrastructure\Generator\Template\LynkaTemplateGenerator;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Provider\ProductFactoryProvider;
@@ -110,7 +110,7 @@ class ProductSimpleImportAction implements ImportActionInterface
             if ($record->has('template') && null !== $record->get('template')) {
                 $template = $this->templateProvider->provide($record->get('template')->getValue());
             } else {
-                $template = $this->templateProvider->provide(LynkaTemplateGenerator::CODE);
+                $template = $this->templateProvider->provide(DefaultTemplateGenerator::CODE);
             }
 
             $product = $this->productFactoryProvider->provide(SimpleProduct::TYPE)->create(
