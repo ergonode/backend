@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See license.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Category\Infrastructure\Validator;
+
+use Symfony\Component\Validator\Constraint;
+
+/**
+ * @Annotation
+ */
+class CategoryExists extends Constraint
+{
+    /**
+     * @var string
+     */
+    public $message = 'Category {{ value }} not exists.';
+}

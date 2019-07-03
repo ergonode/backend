@@ -1,8 +1,11 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
+
+declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\JMS\Serializer\Handler;
 
@@ -11,7 +14,6 @@ use Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\AttributeCodeHandle
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
-use JMS\Serializer\VisitorInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
