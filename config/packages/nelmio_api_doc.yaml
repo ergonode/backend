@@ -90,6 +90,35 @@ nelmio_api_doc:
                         type: string
                         equired: true
                         example: 12345678
+            tree:
+                type: object
+                properties:
+                    id:
+                        type: string
+                        description: Category tree id
+                        required: true
+                        example: category tree id
+                    name:
+                        type: string
+                        description: Category name
+                        required: true
+                        example: Default
+                    categories:
+                        type: array
+                        items:
+                            $ref: "#/definitions/tree_node"
+            tree_node:
+                type: object
+                properties:
+                    category_id:
+                        type: string
+                        description: Category id
+                        required: true
+                        example: category id
+                    childrens:
+                        type: array
+                        items:
+                            $ref: "#/definitions/tree_node"
             category:
                 type: object
                 properties:

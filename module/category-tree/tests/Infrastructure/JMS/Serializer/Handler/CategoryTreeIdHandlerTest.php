@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Tests\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\CategoryTree\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
-use Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\AttributeGroupIdHandler;
+use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\CategoryTree\Infrastructure\JMS\Serializer\Handler\CategoryTreeIdHandler;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
@@ -18,10 +18,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  */
-class AttributeGroupIdHandlerTest extends TestCase
+class CategoryTreeIdHandlerTest extends TestCase
 {
     /**
-     * @var AttributeGroupIdHandler
+     * @var CategoryTreeIdHandler
      */
     private $handler;
 
@@ -44,7 +44,7 @@ class AttributeGroupIdHandlerTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->handler = new AttributeGroupIdHandler();
+        $this->handler = new CategoryTreeIdHandler();
         $this->serializerVisitor = $this->createMock(SerializationVisitorInterface::class);
         $this->deserializerVisitor = $this->createMock(DeserializationVisitorInterface::class);
         $this->context = $this->createMock(Context::class);
@@ -54,7 +54,7 @@ class AttributeGroupIdHandlerTest extends TestCase
      */
     public function testConfiguration(): void
     {
-        $configurations = AttributeGroupIdHandler::getSubscribingMethods();
+        $configurations = CategoryTreeIdHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
             $this->assertArrayHasKey('direction', $configuration);
             $this->assertArrayHasKey('type', $configuration);
@@ -67,7 +67,7 @@ class AttributeGroupIdHandlerTest extends TestCase
      */
     public function testSerialize(): void
     {
-        $id = AttributeGroupId::generate();
+        $id = CategoryTreeId::generate();
         $result = $this->handler->serialize($this->serializerVisitor, $id, [], $this->context);
 
         $this->assertEquals($id->getValue(), $result);
@@ -77,7 +77,7 @@ class AttributeGroupIdHandlerTest extends TestCase
      */
     public function testDeserialize(): void
     {
-        $id = AttributeGroupId::generate();
+        $id = CategoryTreeId::generate();
         $result = $this->handler->deserialize($this->deserializerVisitor, $id->getValue(), [], $this->context);
 
         $this->assertEquals($id, $result);

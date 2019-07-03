@@ -9,13 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Infrastructure\Handler;
 
-use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
+use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
+use Webmozart\Assert\Assert;
 
 /**
  */
-class CreateTreeCommandHandler
+class UpdateTreeCommandHandler
 {
     /**
      * @var TreeRepositoryInterface
@@ -31,11 +31,15 @@ class CreateTreeCommandHandler
     }
 
     /**
-     * @param CreateTreeCommand $command
+     * @param UpdateTreeCommand $command
      */
-    public function __invoke(CreateTreeCommand $command)
+    public function __invoke(UpdateTreeCommand $command)
     {
-        $tree = new CategoryTree($command->getId(), $command->getName());
+        $tree = $this->repository->load($command->getId());
+
+        Assert::notNull($tree);
+
+        $tree->updateCategories($command->getCategories());
 
         $this->repository->save($tree);
     }

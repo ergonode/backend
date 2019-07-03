@@ -9,17 +9,22 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Application\Controller\Api;
 
+use Ergonode\CategoryTree\Application\Form\TreeForm;
+use Ergonode\CategoryTree\Application\Model\TreeFormModel;
 use Ergonode\CategoryTree\Domain\Command\AddCategoryCommand;
+use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
+use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
-use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
@@ -27,11 +32,6 @@ use Swagger\Annotations as SWG;
  */
 class CategoryTreeController extends AbstractApiController
 {
-    /**
-     * @var TreeQueryInterface
-     */
-    private $query;
-
     /**
      * @var TreeRepositoryInterface
      */
@@ -43,13 +43,13 @@ class CategoryTreeController extends AbstractApiController
     private $messageBus;
 
     /**
-     * @param TreeQueryInterface      $query
      * @param TreeRepositoryInterface $treeRepository
      * @param MessageBusInterface     $messageBus
      */
-    public function __construct(TreeQueryInterface $query, TreeRepositoryInterface $treeRepository, MessageBusInterface $messageBus)
-    {
-        $this->query = $query;
+    public function __construct(
+        TreeRepositoryInterface $treeRepository,
+        MessageBusInterface $messageBus
+    ) {
         $this->treeRepository = $treeRepository;
         $this->messageBus = $messageBus;
     }
@@ -166,7 +166,6 @@ class CategoryTreeController extends AbstractApiController
      *
      * @return Response
      * @throws \Exception
-     * @todo change transactions in future version
      */
     public function addCategory(string $tree, string $category, Request $request): Response
     {
@@ -183,8 +182,74 @@ class CategoryTreeController extends AbstractApiController
     }
 
     /**
+     * @Route("/trees/{tree}", methods={"PUT"})
+     *
+     * @SWG\Tag(name="Tree")
+     *
+     * @SWG\Parameter(
+     *     name="tree",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     description="Id of category tree",
+     * )
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language Code",
+     * )
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="body",
+     *     description="Update category tree",
+     *     required=true,
+     *     @SWG\Schema(ref="#/definitions/tree")
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns import",
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
+     *
+     * @param string  $tree
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function putTree(string $tree, Request $request): Response
+    {
+        try {
+            $model = new TreeFormModel();
+            $form = $this->createForm(TreeForm::class, $model, ['method' => 'PUT']);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                /** @var TreeFormModel $data */
+                $data = $form->getData();
+
+                $command = new UpdateTreeCommand(new CategoryTreeId($tree), $data->name, $data->categories);
+                $this->messageBus->dispatch($command);
+
+                return $this->createRestResponse($data, [], Response::HTTP_CREATED);
+            }
+        } catch (InvalidPropertyPathException $exception) {
+            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
+        } catch (\Throwable $exception) {
+            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return $this->createRestResponse($form, [$form->getErrors()->count()], Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
      * @Route("/trees/{tree}", methods={"GET"})
-     * @Route("/trees/{tree}/{category}", methods={"GET"})
      *
      * @SWG\Tag(name="Tree")
      *
@@ -211,12 +276,6 @@ class CategoryTreeController extends AbstractApiController
      *     required=true,
      *     description="Language",
      * )
-     * @SWG\Parameter(
-     *     name="category",
-     *     in="path",
-     *     type="string",
-     *     description="Parent Category",
-     * )
      * @SWG\Response(
      *     response=200,
      *     description="Returns import",
@@ -226,18 +285,15 @@ class CategoryTreeController extends AbstractApiController
      *     description="Not found",
      * )
      *
-     * @param string   $tree
-     * @param Language $language
-     * @param string   $category
+     * @ParamConverter(class="Ergonode\CategoryTree\Domain\Entity\CategoryTree")
+     *
+     * @param CategoryTree $tree
+     * @param Language     $language
      *
      * @return Response
      */
-    public function getTree(string $tree, Language $language, ?string $category = null): Response
+    public function getTree(CategoryTree $tree, Language $language): Response
     {
-        $categoryId = $category ? new CategoryId($category) : null;
-
-        $result = $this->query->getCategory(new CategoryTreeId($tree), $language, $categoryId);
-
-        return $this->createRestResponse($result);
+        return $this->createRestResponse($tree);
     }
 }

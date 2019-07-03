@@ -33,22 +33,13 @@ class CategoryTreeCreatedEvent implements DomainEventInterface
     private $name;
 
     /**
-     * @var CategoryId|null
-     *
-     * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
+     * @param CategoryTreeId $id
+     * @param string         $name
      */
-    private $categoryId;
-
-    /**
-     * @param CategoryTreeId  $id
-     * @param string          $name
-     * @param CategoryId|null $categoryId
-     */
-    public function __construct(CategoryTreeId $id, string $name, ?CategoryId $categoryId = null)
+    public function __construct(CategoryTreeId $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->categoryId = $categoryId;
     }
 
     /**
@@ -65,13 +56,5 @@ class CategoryTreeCreatedEvent implements DomainEventInterface
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @return CategoryId|null
-     */
-    public function getCategoryId(): ?CategoryId
-    {
-        return $this->categoryId;
     }
 }
