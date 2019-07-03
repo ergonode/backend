@@ -13,7 +13,6 @@ use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\Designer\Infrastructure\Generator\TemplateGeneratorInterface;
 
 /**
  */
@@ -54,9 +53,10 @@ class TemplateProvider
      * @param string $code
      *
      * @return Template
+     *
      * @throws \Exception
      */
-    public function provide(string $code = TemplateGeneratorInterface::DEFAULT): Template
+    public function provide(string $code): Template
     {
         $id = TemplateId::fromKey($code);
         $template = $this->repository->load($id);

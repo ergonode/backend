@@ -98,7 +98,6 @@ class TransformerController extends AbstractApiController
      *     name="type",
      *     in="formData",
      *     type="string",
-     *     enum={"GKN_ATTRIBUTE", "GKN_VALUE", "GKN_ATTRIBUTE_VALUES", "GKN_PRODUCT", "GKN_PRODUCT_ATTRIBUTE", "LYNKA_ATTRIBUTE", "LYNKA_PRODUCT", "LYNKA_CATEGORIES", "LYNKA_INVENTORY_STOCK"},
      *     description="Transformer generator type",
      * )
      *

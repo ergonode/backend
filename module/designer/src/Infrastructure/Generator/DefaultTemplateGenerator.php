@@ -15,9 +15,9 @@ use Ergonode\Designer\Domain\Entity\TemplateId;
 
 /**
  */
-interface TemplateGeneratorInterface
+class DefaultTemplateGenerator implements TemplateGeneratorInterface
 {
-
+    public const CODE = 'DEFAULT';
 
     /**
      * @param TemplateId      $id
@@ -25,10 +25,16 @@ interface TemplateGeneratorInterface
      *
      * @return Template
      */
-    public function getTemplate(TemplateId $id, TemplateGroupId $groupId): Template;
+    public function getTemplate(TemplateId $id, TemplateGroupId $groupId): Template
+    {
+        return new Template($id, $groupId, 'Default');
+    }
 
     /**
      * @return string
      */
-    public function getCode(): string;
+    public function getCode(): string
+    {
+        return self::CODE;
+    }
 }
