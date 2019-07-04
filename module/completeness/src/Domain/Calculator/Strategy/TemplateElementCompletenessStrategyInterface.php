@@ -31,7 +31,7 @@ interface TemplateElementCompletenessStrategyInterface
      * @param Language                                                         $language
      * @param AbstractTemplateElementProperty|AttributeTemplateElementProperty $properties
      *
-     * @return CompletenessElementReadModel
+     * @return CompletenessElementReadModel|null
      */
-    public function calculate(ProductDraft $draft, Language $language, AbstractTemplateElementProperty $properties): CompletenessElementReadModel;
+    public function getElementCompleteness(ProductDraft $draft, Language $language, AbstractTemplateElementProperty $properties): ?CompletenessElementReadModel;
 }

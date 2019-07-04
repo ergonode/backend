@@ -19,6 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -58,10 +59,10 @@ class CompletenessController extends AbstractApiController
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
-     *     name="draft",
+     *     name="product",
      *     in="path",
      *     type="string",
-     *     description="Product draft id",
+     *     description="Product id",
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -94,7 +95,7 @@ class CompletenessController extends AbstractApiController
     {
         $draft = $this->provider->provide($product);
         $template = $this->repository->load($product->getTemplateId());
-
+        Assert::notNull($template, sprintf('Can\'t find template %s', $product->getTemplateId()->getValue()));
 
         $result = $this->calculator->calculate($draft, $template, $language);
 

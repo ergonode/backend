@@ -29,7 +29,7 @@ class AttributeTemplateElementProperty extends AbstractTemplateElementProperty
     /**
      * @var bool
      *
-     * @JMS\Type("boolean")
+     * @JMS\Type("bool")
      */
     private $required;
 
@@ -37,7 +37,7 @@ class AttributeTemplateElementProperty extends AbstractTemplateElementProperty
      * @param AttributeId $attributeId
      * @param bool        $required
      */
-    public function __construct(AttributeId $attributeId, bool $required)
+    public function __construct(AttributeId $attributeId, bool $required = false)
     {
         $this->attributeId = $attributeId;
         $this->required = $required;

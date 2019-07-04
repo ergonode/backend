@@ -58,7 +58,7 @@ class CompletenessReadModel
     /**
      * @param CompletenessElementReadModel $model
      */
-    public function addField(CompletenessElementReadModel $model): void
+    public function addCompletenessElement(CompletenessElementReadModel $model): void
     {
         if ($model->isRequired()) {
             $this->required++;
