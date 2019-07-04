@@ -42,9 +42,14 @@ class CompletenessCalculator
     public function calculate(ProductDraft $draft, Template $template, Language $language): CompletenessReadModel
     {
         $model = new CompletenessReadModel($language);
+
         foreach ($template->getElements() as $element) {
             $properties = $element->getProperties();
-            $model->addField($this->provider->provide($properties->getVariant())->calculate($draft, $language, $properties));
+            $strategy = $this->provider->provide($properties->getVariant());
+            $elementCompleteness = $strategy->getElementCompleteness($draft, $language, $properties);
+            if ($elementCompleteness) {
+                $model->addCompletenessElement($elementCompleteness);
+            }
         }
 
         return $model;

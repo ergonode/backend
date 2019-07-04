@@ -11,6 +11,7 @@ namespace Ergonode\Designer\Application\Model\Form\Type;
 
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
@@ -28,11 +29,15 @@ class TemplateElementTypeModel
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
      */
     public $type;
 
     /**
-     * @var array
+     * @var mixed
+     *
+     * @Assert\Valid()
      */
     public $properties = [];
 }

@@ -17,7 +17,6 @@ use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Factory\TemplateElementFactory;
-use Ergonode\Designer\Domain\Provider\TemplateElementFactoryProvider;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 
 /**
@@ -94,6 +93,6 @@ class TemplateCommandFactory
     {
         return $this
             ->factory
-            ->create($model->position, $model->size, $model->type, $model->properties);
+            ->create($model->position, $model->size, $model->type, (array) $model->properties);
     }
 }
