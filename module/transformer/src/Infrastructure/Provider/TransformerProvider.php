@@ -41,18 +41,20 @@ class TransformerProvider
     }
 
     /**
+     * @param string $name
      * @param string $key
      *
      * @return Transformer
      *
+     * @throws \ReflectionException
      * @throws \Exception
      */
-    public function provide(string $key): Transformer
+    public function provide(string $name, string $key): Transformer
     {
         $id = TransformerId::fromKey($key);
         $transformer = $this->repository->load($id);
         if (null === $transformer) {
-            $transformer = $this->generator->generate($key, $key);
+            $transformer = $this->generator->generate($name, $key);
             $this->repository->save($transformer);
         }
 

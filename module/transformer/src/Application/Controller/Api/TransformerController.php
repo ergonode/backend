@@ -13,6 +13,8 @@ use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Transformer\Domain\Command\CreateTransformerCommand;
 use Ergonode\Transformer\Domain\Command\GenerateTransformerCommand;
 use Ergonode\Transformer\Domain\Entity\Transformer;
+use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,20 +23,26 @@ use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
 /**
- * Class MapperController
  */
 class TransformerController extends AbstractApiController
 {
+    /**
+     * @var TransformerRepositoryInterface
+     */
+    private $repository;
+
     /**
      * @var MessageBusInterface
      */
     private $messageBus;
 
     /**
-     * @param MessageBusInterface $messageBus
+     * @param TransformerRepositoryInterface $repository
+     * @param MessageBusInterface            $messageBus
      */
-    public function __construct(MessageBusInterface $messageBus)
+    public function __construct(TransformerRepositoryInterface $repository, MessageBusInterface $messageBus)
     {
+        $this->repository = $repository;
         $this->messageBus = $messageBus;
     }
 
@@ -128,10 +136,25 @@ class TransformerController extends AbstractApiController
     {
         $name = $request->request->get('name');
         $type = $request->request->get('type');
-        $command = new GenerateTransformerCommand($name, $type, $type);
-        $this->messageBus->dispatch($command);
 
-        return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+        $id = TransformerId::fromKey($type);
+
+        if (!$this->repository->exists($id)) {
+            $command = new GenerateTransformerCommand($name, $type, $type);
+            $this->messageBus->dispatch($command);
+
+            return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+        }
+
+        return $this->createRestResponse(
+            [
+                'code' => Response::HTTP_NOT_ACCEPTABLE,
+                'message' => sprintf('Transformer %s already exists', $name),
+            ],
+            [
+            ],
+            Response::HTTP_NOT_ACCEPTABLE
+        );
     }
 
     /**
