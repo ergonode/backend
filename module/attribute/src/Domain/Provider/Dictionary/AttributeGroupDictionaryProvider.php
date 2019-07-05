@@ -38,7 +38,9 @@ class AttributeGroupDictionaryProvider
         $collection = $this->attributeGroupQuery->getAttributeGroups();
         $result = [];
         foreach ($collection as $element) {
-            $result[$element['id']] = $element['label'];
+            if (isset($element['id'])) {
+                $result[$element['id']] = $element['label'];
+            }
         }
 
         return $result;
