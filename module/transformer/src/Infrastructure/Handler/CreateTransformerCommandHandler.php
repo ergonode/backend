@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Infrastructure\Handler;
 
 use Ergonode\Transformer\Domain\Command\CreateTransformerCommand;
-use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
+use Ergonode\Transformer\Infrastructure\Factory\TransformerFactory;
 
 /**
  */
@@ -20,14 +20,21 @@ class CreateTransformerCommandHandler
     /**
      * @var TransformerRepositoryInterface
      */
-    private $transformerRepository;
+    private $repository;
 
     /**
-     * @param TransformerRepositoryInterface $transformerRepository
+     * @var TransformerFactory
      */
-    public function __construct(TransformerRepositoryInterface $transformerRepository)
+    private $factory;
+
+    /**
+     * @param TransformerRepositoryInterface $repository
+     * @param TransformerFactory             $factory
+     */
+    public function __construct(TransformerRepositoryInterface $repository, TransformerFactory $factory)
     {
-        $this->transformerRepository = $transformerRepository;
+        $this->repository = $repository;
+        $this->factory = $factory;
     }
 
     /**
@@ -35,8 +42,8 @@ class CreateTransformerCommandHandler
      */
     public function __invoke(CreateTransformerCommand $command)
     {
-        $transformer = new Transformer($command->getId(), $command->getName(), $command->getKey());
+        $transformer = $this->factory->create($command->getId(), $command->getName(), $command->getKey());
 
-        $this->transformerRepository->save($transformer);
+        $this->repository->save($transformer);
     }
 }

@@ -46,7 +46,7 @@ class CreateTransformerCommand
      */
     public function __construct(string $name, string $key)
     {
-        $this->id = TransformerId::generate();
+        $this->id = TransformerId::fromKey($key);
         $this->name = $name;
         $this->key = $key;
     }

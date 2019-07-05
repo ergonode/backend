@@ -69,6 +69,18 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
     }
 
     /**
+     * @param TransformerId $id
+     *
+     * @return bool
+     */
+    public function exists(TransformerId $id): bool
+    {
+        $eventStream = $this->eventStore->load($id, self::TABLE);
+
+        return $eventStream->count() > 0;
+    }
+
+    /**
      * @param AbstractAggregateRoot $aggregateRoot
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
