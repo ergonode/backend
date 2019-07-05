@@ -20,7 +20,9 @@ use Ergonode\Grid\DbalDataSet;
  */
 class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
 {
-    private const TABLE = 'attribute_group';
+    private const TABLE_ATTRIBUTE = 'attribute';
+    private const TABLE_ATTRIBUTE_GROUP = 'attribute_group';
+    private const TABLE_ATTRIBUTE_GROUP_ATTRIBUTE = 'attribute_group_attribute';
 
     /**
      * @var Connection
@@ -54,7 +56,12 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
      */
     public function getDataSet(Language $language): DataSetInterface
     {
-        return new DbalDataSet($this->getQuery());
+        $qb = $this->getQuery();
+        $query = $this->connection->createQueryBuilder();
+        $query->select('*')
+             ->from(sprintf('(%s)', $qb->getSQL()), 't');
+
+        return new DbalDataSet($query);
     }
 
     /**
@@ -63,8 +70,10 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('*')
-            ->addSelect('(SELECT count(a.id) FROM attribute a JOIN attribute_group_attribute aga ON aga.attribute_id = a.id WHERE aga.attribute_group_id = g.id) AS elements_count')
-            ->from(self::TABLE, 'g');
+            ->select('count(*) AS elements_count, aga.attribute_group_id AS id, coalesce(ag.label, \'Not in Group\') AS label')
+            ->from(self::TABLE_ATTRIBUTE_GROUP, 'ag')
+            ->rightJoin('ag', self::TABLE_ATTRIBUTE_GROUP_ATTRIBUTE, 'aga', 'ag.id = aga.attribute_group_id')
+            ->rightJoin('aga', self::TABLE_ATTRIBUTE, 'a', 'a.id = aga.attribute_id')
+            ->groupBy('aga.attribute_group_id, ag.label');
     }
 }

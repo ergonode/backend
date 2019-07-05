@@ -5,6 +5,8 @@
  * See license.txt for license details.
  */
 
+declare(strict_types=1);
+
 namespace Ergonode\Attribute\Tests\Domain\Resolver;
 
 use Ergonode\Attribute\Domain\Resolver\TranslatedOptionValueResolver;

@@ -24,7 +24,6 @@ final class Version20180610093112 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
-        $this->addSql('CREATE EXTENSION IF NOT EXISTS "ltree"');
 
         $this->addSql(
             'CREATE TABLE language (

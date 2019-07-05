@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use JMS\Serializer\Annotation as JMS;
 
