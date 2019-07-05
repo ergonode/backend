@@ -72,8 +72,8 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
         return $this->connection->createQueryBuilder()
             ->select('count(*) AS elements_count, aga.attribute_group_id AS id, coalesce(ag.label, \'Not in Group\') AS label')
             ->from(self::TABLE_ATTRIBUTE_GROUP, 'ag')
-            ->rightJoin('ag', self::TABLE_ATTRIBUTE_GROUP_ATTRIBUTE , 'aga', 'ag.id = aga.attribute_group_id')
-            ->rightJoin('aga', self::TABLE_ATTRIBUTE , 'a', 'a.id = aga.attribute_id')
+            ->rightJoin('ag', self::TABLE_ATTRIBUTE_GROUP_ATTRIBUTE, 'aga', 'ag.id = aga.attribute_group_id')
+            ->rightJoin('aga', self::TABLE_ATTRIBUTE, 'a', 'a.id = aga.attribute_id')
             ->groupBy('aga.attribute_group_id, ag.label');
     }
 }

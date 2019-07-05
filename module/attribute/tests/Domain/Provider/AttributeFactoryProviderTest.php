@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See license.txt for license details.
+ */
+
+declare(strict_types=1);
+
+namespace Ergonode\Attribute\Tests\Domain\Provider;
+
+use Ergonode\Attribute\Domain\AttributeFactoryInterface;
+use Ergonode\Attribute\Domain\Provider\AttributeFactoryProvider;
+use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+
+/**
+ */
+class AttributeFactoryProviderTest extends TestCase
+{
+    /**
+     * AttributeType|MockObject
+     */
+    private $type;
+
+    /**
+     */
+    protected function setUp()
+    {
+        $this->type = $this->createMock(AttributeType::class);
+        $this->type->method('getValue')->willReturn('ANY_TYPE');
+    }
+
+    /**
+     */
+    public function testProvideAttributeFactory(): void
+    {
+        /** @var AttributeFactoryInterface|MockObject $factory */
+        $factory = $this->createMock(AttributeFactoryInterface::class);
+        $factory->method('isSupported')->willReturn(true);
+
+        $provider = new AttributeFactoryProvider(...[$factory]);
+        $result = $provider->provide($this->type);
+        $this->assertEquals($factory, $result);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testFalseProvideAttributeFactory(): void
+    {
+        /** @var AttributeFactoryInterface|MockObject $factory */
+        $factory = $this->createMock(AttributeFactoryInterface::class);
+        $factory->method('isSupported')->willReturn(false);
+
+        $provider = new AttributeFactoryProvider(...[$factory]);
+        $provider->provide($this->type);
+    }
+}
