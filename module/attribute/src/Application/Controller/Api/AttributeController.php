@@ -160,11 +160,11 @@ class AttributeController extends AbstractApiController
      */
     public function getAttributes(Language $language, Request $request): Response
     {
-        $pagination = new RequestGridConfiguration($request);
+        $configuration = new RequestGridConfiguration($request);
+        $dataSet = $this->attributeGridQuery->getDataSet($language);
+        $grid = $this->renderGrid($this->attributeGrid, $configuration, $dataSet, $language);
 
-        $result = $this->attributeGrid->render($this->attributeGridQuery->getDataSet($language), $pagination, $language);
-
-        return $this->createRestResponse($result);
+        return $this->createRestResponse($grid);
     }
 
     /**

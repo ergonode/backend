@@ -9,70 +9,79 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Renderer;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\ColumnInterface;
 
 /**
  */
 class ColumnRenderer
 {
     /**
-     * @param ArrayCollection            $columns
-     * @param ArrayCollection            $collection
-     * @param array                      $filters
-     * @param DataSetInterface           $dataSet
-     * @param GridConfigurationInterface $configuration
-     * @param array                      $defaultConfiguration
+     * @var FilterRenderer
+     */
+    private $filterRenderer;
+
+    /**
+     * @param FilterRenderer $filterRenderer
+     */
+    public function __construct(FilterRenderer $filterRenderer)
+    {
+        $this->filterRenderer = $filterRenderer;
+    }
+
+    /**
+     * @param AbstractGrid $grid
+     * @param array        $row
      *
      * @return array
      */
-    public function render(
-        ArrayCollection $columns,
-        ArrayCollection $collection,
-        array $filters,
-        DataSetInterface $dataSet,
-        GridConfigurationInterface $configuration,
-        array $defaultConfiguration
-    ): array {
+    public function render(AbstractGrid $grid, array $row): array
+    {
         $result = [];
-        if (in_array(GridConfigurationInterface::CONFIGURATION_SHOW_CONFIGURATION, $configuration->getShow(), true)) {
-            $result = array_merge(
-                $result,
-                [
-                    'configuration' => array_merge(GridConfigurationInterface::DEFAULT_PARAMETERS, $defaultConfiguration),
-                ]
-            );
+        foreach ($grid->getColumns() as $id => $column) {
+            $result[] = $this->renderColumn($id, $column, $grid->getConfiguration());
         }
 
-        if (in_array(GridConfigurationInterface::CONFIGURATION_SHOW_COLUMN, $configuration->getShow(), true)) {
-            $result = array_merge(
-                $result,
-                [
-                    'columns' => $columns->toArray(),
-                ]
-            );
+        return $result;
+    }
+
+    /**
+     * @param string          $id
+     * @param ColumnInterface $column
+     * @param array           $configuration
+     *
+     * @return array
+     */
+    public function renderColumn(string $id, ColumnInterface $column, array $configuration): array
+    {
+        $result = [];
+        $result['id'] = $id;
+        if ($column->getLanguage()) {
+            $result['id'] = sprintf('%s:%s', $column->getField(), $column->getLanguage()->getCode());
         }
-        if (in_array(GridConfigurationInterface::CONFIGURATION_SHOW_DATA, $configuration->getShow(), true)) {
-            $result = array_merge(
-                $result,
-                [
-                    'collection' => $collection->toArray(),
-                ]
-            );
+        $result['type'] = $column->getType();
+        $result['label'] = $column->getLabel();
+        $result['visible'] = $column->isVisible();
+        if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) && $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true) {
+            $result['editable'] = $column->isEditable();
+        } else {
+            $result['editable'] = false;
         }
 
-        if (in_array(GridConfigurationInterface::CONFIGURATION_SHOW_INFO, $configuration->getShow(), true)) {
-            $result = array_merge(
-                $result,
-                [
-                    'offset' => $configuration->getOffset(),
-                    'limit' => $configuration->getLimit(),
-                    'count' => $dataSet->countItems(),
-                    'filtered' => $dataSet->countItems($filters),
-                    'actions' => $this->getActions(),
-                ]
-            );
+        if ($column->getLanguage()) {
+            $result['language'] = $column->getLanguage()->getCode();
+        }
+
+        if ($column->getFilter()) {
+            $result['filter'] = $this->filterRenderer->render($column->getFilter());
+        }
+
+        if ($column->getWidth()) {
+            $result['width'] = $column->getWidth();
+        }
+
+        foreach ($column->getExtensions() as $key => $value) {
+            $result[$key] = $value;
         }
 
         return $result;

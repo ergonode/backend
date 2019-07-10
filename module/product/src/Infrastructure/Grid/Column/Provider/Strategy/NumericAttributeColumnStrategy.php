@@ -19,6 +19,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\RangeFilter;
+use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
@@ -50,17 +51,19 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
     /**
      * @param AbstractAttribute|AbstractOptionAttribute $attribute
      * @param Language                                  $language
-     * @param array                                     $filter
+     * @param FilterCollection                          $filter
      *
      * @return ColumnInterface
      *
      */
-    public function create(AbstractAttribute $attribute, Language $language, array $filter = []): ColumnInterface
+    public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {
         $range = $this->query->getAttributeValueRange($attribute->getId());
 
-        $filter = new RangeFilter((int) $range['min'], (int) $range['max'], reset($filter));
+        $key = $attribute->getCode()->getValue();
 
-        return new NumericColumn($attribute->getCode()->getValue(), $attribute->getLabel()->get($language), $filter);
+        $filter = new RangeFilter((int) $range['min'], (int) $range['max'], $filter->getString($key));
+
+        return new NumericColumn($key, $attribute->getLabel()->get($language), $filter);
     }
 }

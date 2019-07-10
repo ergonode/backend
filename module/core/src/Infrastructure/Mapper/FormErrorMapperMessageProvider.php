@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Infrastructure\Mapper;
 
 use Symfony\Component\Form\FormError;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */

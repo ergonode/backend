@@ -11,7 +11,7 @@ namespace Ergonode\Core\Infrastructure\Provider;
 
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */

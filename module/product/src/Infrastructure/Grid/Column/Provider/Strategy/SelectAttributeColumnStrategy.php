@@ -18,6 +18,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
@@ -30,18 +31,18 @@ class SelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function isSupported(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() ===  SelectAttribute::TYPE;
+        return $attribute->getType() === SelectAttribute::TYPE;
     }
 
     /**
      * @param AbstractAttribute|AbstractOptionAttribute $attribute
      * @param Language                                  $language
-     * @param array                                     $filter
+     * @param FilterCollection                          $filter
      *
      * @return ColumnInterface
      *
      */
-    public function create(AbstractAttribute $attribute, Language $language, array $filter = []): ColumnInterface
+    public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {
         $options = [];
         foreach ($attribute->getOptions() as $id => $option) {
@@ -53,6 +54,8 @@ class SelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
             }
         }
 
-        return new SelectColumn($attribute->getCode()->getValue(), $attribute->getLabel()->get($language), new MultiSelectFilter($options, $filter));
+        $key = $attribute->getCode()->getValue();
+
+        return new SelectColumn($key, $attribute->getLabel()->get($language), new MultiSelectFilter($options, $filter->getArray($key)));
     }
 }

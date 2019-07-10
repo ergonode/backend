@@ -7,6 +7,7 @@
 namespace Ergonode\Grid;
 
 use Ergonode\Grid\Model\RequestColumn;
+use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
@@ -53,9 +54,9 @@ interface GridConfigurationInterface
     public function getColumns(): array;
 
     /**
-     * @return array
+     * @return FilterCollection
      */
-    public function getFilters(): array;
+    public function getFilters(): FilterCollection;
 
     /**
      * @return array

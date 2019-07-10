@@ -136,12 +136,12 @@ class CategoryController extends AbstractApiController
      */
     public function getCategories(Language $language, Request $request): Response
     {
-        $pagination = new RequestGridConfiguration($request);
+        $configuration = new RequestGridConfiguration($request);
 
         $dataSet = $this->categoryQuery->getDataSet($language);
-        $grid = $this->categoryGrid->render($dataSet, $pagination, $language);
+        $result = $this->renderGrid($this->categoryGrid, $configuration, $dataSet, $language);
 
-        return $this->createRestResponse($grid);
+        return $this->createRestResponse($result);
     }
 
     /**

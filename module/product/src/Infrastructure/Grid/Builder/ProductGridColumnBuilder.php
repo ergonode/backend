@@ -68,12 +68,14 @@ class ProductGridColumnBuilder
     {
         $codes = $this->query->getAllAttributeCodes();
 
+        $filters = $configuration->getFilters();
+
         $result = [];
         $result['id'] = new CheckColumn('id', 'Id');
-        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter());
+        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->getString('index')));
         $result['index']->setWidth(140);
-        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter());
-        $result['template'] = new TextColumn('template', 'Template', new TextFilter());
+        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->getString('sku')));
+        $result['template'] = new TextColumn('template', 'Template', new TextFilter($filters->getString('template')));
         $result['edit'] = new ActionColumn('edit', 'Edit');
 
         foreach ($configuration->getColumns() as $column) {
@@ -85,9 +87,7 @@ class ProductGridColumnBuilder
                 $attribute = $this->repository->load($id);
                 Assert::notNull($attribute, sprintf('Can\'t find attribute witch code %s', $code));
 
-                $filter = isset($configuration->getFilters()[$key]) ? $configuration->getFilters()[$key] : [''];
-
-                $new = $this->provider->provide($attribute, $language, $filter);
+                $new = $this->provider->provide($attribute, $language, $filters);
                 if ($column->getLanguage()) {
                     $new->setLanguage($column->getLanguage());
                 }
