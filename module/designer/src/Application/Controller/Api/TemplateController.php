@@ -154,10 +154,11 @@ class TemplateController extends AbstractApiController
     public function getTemplates(Language $language, Request $request): Response
     {
         $dataSet = $this->designerTemplateQuery->getDataSet();
-        $pagination = new RequestGridConfiguration($request);
-        $collection = $this->templateGrid->render($dataSet, $pagination, $language);
+        $configuration = new RequestGridConfiguration($request);
 
-        return $this->createRestResponse($collection);
+        $result = $this->renderGrid($this->templateGrid, $configuration, $dataSet, $language);
+
+        return $this->createRestResponse($result);
     }
 
     /**

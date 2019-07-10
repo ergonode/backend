@@ -20,6 +20,7 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\FilterInterface;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -44,7 +45,6 @@ class DbalProductDataSet implements DataSetInterface
 
     /**
      * @param ColumnInterface[] $columns
-     * @param FilterInterface[] $filters
      * @param int               $limit
      * @param int               $offset
      * @param string|null       $field
@@ -52,8 +52,10 @@ class DbalProductDataSet implements DataSetInterface
      *
      * @return \Traversable
      */
-    public function getItems(array $columns, array $filters, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable
+    public function getItems(array $columns, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable
     {
+        Assert::allIsInstanceOf($columns, ColumnInterface::class);
+
         $userLanguage = new Language(Language::EN);
         $query = $this->getQuery();
         foreach ($columns as $key => $column) {
@@ -71,7 +73,7 @@ class DbalProductDataSet implements DataSetInterface
         $qb->select('*');
         $qb->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        $this->buildFilters($qb, $filters);
+        $this->buildFilters($qb, $columns);
 
         $qb->setMaxResults($limit);
         $qb->setFirstResult($offset);
@@ -91,6 +93,8 @@ class DbalProductDataSet implements DataSetInterface
      */
     public function countItems(array $filters = []): int
     {
+        Assert::allIsInstanceOf($filters, ColumnInterface::class);
+
         $language = new Language(Language::EN);
         $query = $this->getQuery();
         foreach ($filters as $key => $column) {
@@ -117,19 +121,20 @@ class DbalProductDataSet implements DataSetInterface
 
     /**
      * @param QueryBuilder      $query
-     * @param FilterInterface[] $filters
+     * @param ColumnInterface[] $columns
      */
-    private function buildFilters(QueryBuilder $query, array $filters = []): void
+    private function buildFilters(QueryBuilder $query, array $columns = []): void
     {
-        foreach ($filters as $field => $filter) {
-            if (!empty($filter->getValue())) {
+        foreach ($columns as $field => $column) {
+            $filter = $column->getFilter();
+            if ($filter && !empty($filter->getValue())) {
                 $value = $filter->getValue();
                 if ($filter instanceof TextFilter && !$filter->isEqual()) {
                     $query->andWhere(
                         \sprintf(
                             '"%s"::TEXT ILIKE \'%s\'',
                             $field,
-                            \sprintf('%%%s%%', $this->escape(reset($value)))
+                            \sprintf('%%%s%%', $this->escape($value))
                         )
                     );
                 } elseif ($filter instanceof MultiSelectFilter) {

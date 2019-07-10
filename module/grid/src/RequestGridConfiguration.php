@@ -11,6 +11,7 @@ namespace Ergonode\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Model\RequestColumn;
+use Ergonode\Grid\Request\FilterCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 
@@ -72,7 +73,7 @@ class RequestGridConfiguration implements GridConfigurationInterface
     public function __construct(Request $request)
     {
         $this->columns = [];
-        $this->filters = [];
+
         $this->limit = (int) $request->query->get('limit', self::LIMIT);
         $this->offset = (int) $request->query->get('offset', self::OFFSET);
         $this->field = $request->query->has('field') ? (string) $request->query->get('field') : null;
@@ -91,18 +92,7 @@ class RequestGridConfiguration implements GridConfigurationInterface
         }
 
         $filters = $request->query->get('filter', self::FILTER);
-        if ($filters) {
-            foreach (explode(';', $filters) as $key => $filter) {
-                $data = explode('=', $filter);
-                if (!empty($data)) {
-                    if (!isset($data[1]) || $data[1] === '') {
-                        $this->filters[$data[0]] = null;
-                    } else {
-                        $this->filters[$data[0]] = explode(',', $data[1]);
-                    }
-                }
-            }
-        }
+        $this->filters = new FilterCollection($filters);
 
         $this->show = array_map('trim', explode(',', $request->query->get('show', self::SHOW)));
         Assert::oneOf($this->order, self::ORDER);
@@ -141,9 +131,9 @@ class RequestGridConfiguration implements GridConfigurationInterface
     }
 
     /**
-     * @return array
+     * @return FilterCollection
      */
-    public function getFilters(): array
+    public function getFilters(): FilterCollection
     {
         return $this->filters;
     }

@@ -118,9 +118,9 @@ class TemplateTypeController extends AbstractApiController
     public function getTypes(Language $language, Request $request): Response
     {
         $dataSet = $this->query->getDataSet();
-        $pagination = new RequestGridConfiguration($request);
-        $collection = $this->grid->render($dataSet, $pagination, $language);
+        $configuration = new RequestGridConfiguration($request);
+        $result = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
 
-        return $this->createRestResponse($collection);
+        return $this->createRestResponse($result);
     }
 }

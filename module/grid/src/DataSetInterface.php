@@ -15,7 +15,6 @@ interface DataSetInterface
 {
     /**
      * @param ColumnInterface[] $columns
-     * @param string[]          $values
      * @param int               $limit
      * @param int               $offset
      * @param string|null       $field
@@ -23,12 +22,12 @@ interface DataSetInterface
      *
      * @return \Traversable
      */
-    public function getItems(array $columns, array $values, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable;
+    public function getItems(array $columns, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable;
 
     /**
-     * @param array $filters
+     * @param COlumnInterface[] $columns
      *
      * @return int
      */
-    public function countItems(array $filters = []): int;
+    public function countItems(array $columns = []): int;
 }

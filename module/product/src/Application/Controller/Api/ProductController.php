@@ -12,6 +12,11 @@ namespace Ergonode\Product\Application\Controller\Api;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\Grid\Renderer\ColumnRenderer;
+use Ergonode\Grid\Renderer\FilterRenderer;
+use Ergonode\Grid\Renderer\GridRenderer;
+use Ergonode\Grid\Renderer\InfoRender;
+use Ergonode\Grid\Renderer\RowRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Application\Form\ProductCreateForm;
 use Ergonode\Product\Application\Form\ProductUpdateForm;
@@ -146,7 +151,7 @@ class ProductController extends AbstractApiController
     {
         $configuration = new RequestGridConfiguration($request);
 
-        $grid = $this->productGrid->render($this->dataSet, $configuration, $language);
+        $grid = $this->renderGrid($this->productGrid, $configuration, $this->dataSet, $language);
 
         return $this->createRestResponse($grid);
     }

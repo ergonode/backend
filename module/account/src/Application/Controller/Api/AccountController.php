@@ -182,9 +182,9 @@ class AccountController extends AbstractApiController
      */
     public function getUsers(Language $language, Request $request): Response
     {
-        $pagination = new RequestGridConfiguration($request);
+        $configuration = new RequestGridConfiguration($request);
 
-        $result = $this->grid->render($this->query->getDataSet(), $pagination, $language);
+        $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet(), $language);
 
         return $this->createRestResponse($result);
     }

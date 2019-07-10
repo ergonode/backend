@@ -145,9 +145,9 @@ class ImporterController extends AbstractApiController
      */
     public function getImports(Language $language, Request $request): Response
     {
-        $pagination = new RequestGridConfiguration($request);
+        $configuration = new RequestGridConfiguration($request);
 
-        $result = $this->importGrid->render($this->importQuery->getDataSet(), $pagination, $language);
+        $result = $this->renderGrid($this->importGrid, $configuration, $this->importQuery->getDataSet(), $language);
 
         return $this->createRestResponse($result);
     }

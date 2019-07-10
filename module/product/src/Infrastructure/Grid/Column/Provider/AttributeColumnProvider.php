@@ -14,6 +14,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\TextFilter;
+use Ergonode\Grid\Request\FilterCollection;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 
 /**
@@ -36,11 +37,11 @@ class AttributeColumnProvider
     /**
      * @param AbstractAttribute $attribute
      * @param Language          $language
-     * @param array             $filter
+     * @param FilterCollection  $filter
      *
      * @return ColumnInterface
      */
-    public function provide(AbstractAttribute $attribute, Language $language, array $filter = []): ColumnInterface
+    public function provide(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->isSupported($attribute)) {
@@ -48,11 +49,8 @@ class AttributeColumnProvider
             }
         }
 
-        $value = null;
-        if (!empty($filter)) {
-            $value = reset($filter);
-        }
+        $key = $attribute->getCode()->getValue();
 
-        return new TextColumn($attribute->getCode()->getValue(), $attribute->getLabel()->get($language), new TextFilter($value));
+        return new TextColumn($key, $attribute->getLabel()->get($language), new TextFilter($filter->getString($key)));
     }
 }
