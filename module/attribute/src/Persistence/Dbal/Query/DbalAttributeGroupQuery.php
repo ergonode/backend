@@ -42,9 +42,11 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
      */
     public function getAttributeGroups(): array
     {
-        $qb = $this->getQuery();
+        $query = $this->connection->createQueryBuilder();
+        $query->select('*')
+            ->from(sprintf('(%s)', $this->getSQL()), 't');
 
-        return $qb
+        return $query
             ->execute()
             ->fetchAll();
     }
@@ -56,24 +58,32 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
      */
     public function getDataSet(Language $language): DataSetInterface
     {
-        $qb = $this->getQuery();
         $query = $this->connection->createQueryBuilder();
         $query->select('*')
-             ->from(sprintf('(%s)', $qb->getSQL()), 't');
+            ->from(sprintf('(%s)', $this->getSQL()), 't');
 
         return new DbalDataSet($query);
     }
 
     /**
-     * @return QueryBuilder
+     * @return string
      */
-    private function getQuery(): QueryBuilder
+    private function getSQL(): string
     {
-        return $this->connection->createQueryBuilder()
-            ->select('count(*) AS elements_count, aga.attribute_group_id AS id, coalesce(ag.label, \'Not in Group\') AS label')
-            ->from(self::TABLE_ATTRIBUTE_GROUP, 'ag')
-            ->rightJoin('ag', self::TABLE_ATTRIBUTE_GROUP_ATTRIBUTE, 'aga', 'ag.id = aga.attribute_group_id')
-            ->rightJoin('aga', self::TABLE_ATTRIBUTE, 'a', 'a.id = aga.attribute_id')
-            ->groupBy('aga.attribute_group_id, ag.label');
+        return 'SELECT 
+                count(aga.attribute_group_id) as elements_count,
+                ag.id as id,
+                ag.label
+                FROM attribute_group ag
+                LEFT JOIN attribute_group_attribute aga ON aga.attribute_group_id = ag.id
+                GROUP BY aga.attribute_group_id, ag.label, ag.id
+                UNION
+                SELECT 
+                count(*) as elements_count,
+                null as id,
+                \'Not in group\' as label
+                FROM attribute a
+                LEFT JOIN attribute_group_attribute aga ON aga.attribute_id = a.id
+                WHERE aga.attribute_id IS NULL';
     }
 }
