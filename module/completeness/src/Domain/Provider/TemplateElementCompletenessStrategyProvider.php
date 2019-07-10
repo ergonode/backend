@@ -41,6 +41,6 @@ class TemplateElementCompletenessStrategyProvider
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\'t find Template Element Completeness Strategy for %s', $variant));
+        throw new \RuntimeException(sprintf('Can\'t find Template Element Completeness Strategy for "%s"', $variant));
     }
 }

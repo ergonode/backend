@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Infrastructure\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ergonode\Core\Infrastructure\Mapper\SnakeCaseMapper;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
 use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
@@ -29,13 +30,18 @@ class TemplateCommandFactory
     private $factory;
 
     /**
-     * TemplateCommandFactory constructor.
-     *
-     * @param TemplateElementFactory $factory
+     * @var SnakeCaseMapper
      */
-    public function __construct(TemplateElementFactory $factory)
+    private $mapper;
+
+    /**
+     * @param TemplateElementFactory $factory
+     * @param SnakeCaseMapper        $mapper
+     */
+    public function __construct(TemplateElementFactory $factory, SnakeCaseMapper $mapper)
     {
         $this->factory = $factory;
+        $this->mapper = $mapper;
     }
 
     /**
@@ -91,8 +97,10 @@ class TemplateCommandFactory
      */
     private function createElement(TemplateElementTypeModel $model): TemplateElement
     {
+        $property = $this->mapper->map((array) $model->properties);
+
         return $this
             ->factory
-            ->create($model->position, $model->size, $model->type, (array) $model->properties);
+            ->create($model->position, $model->size, $model->type, $property);
     }
 }

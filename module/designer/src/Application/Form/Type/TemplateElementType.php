@@ -54,7 +54,8 @@ class TemplateElementType extends AbstractType implements EventSubscriberInterfa
             ->add(
                 'size',
                 SizeFormType::class
-            );
+            )
+            ->addEventSubscriber($this);
     }
 
     /**
