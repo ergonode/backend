@@ -17,3 +17,4 @@ services:
 
     Ergonode\Completeness\Domain\Provider\TemplateElementCompletenessStrategyProvider:
         - '@Ergonode\Completeness\Domain\Calculator\Strategy\AttributeTemplateElementCompletenessStrategy'
+        - '@Ergonode\Completeness\Domain\Calculator\Strategy\UiTemplateElementCompletenessStrategy'
