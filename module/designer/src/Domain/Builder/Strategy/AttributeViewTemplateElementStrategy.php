@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Domain\Builder\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
+use Ergonode\Attribute\Domain\Provider\AttributeParametersProvider;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Resolver\TranslatedOptionValueResolver;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -34,13 +35,23 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
     private $resolver;
 
     /**
+     * @var AttributeParametersProvider
+     */
+    private $provider;
+
+    /**
      * @param AttributeRepositoryInterface  $attributeRepository
      * @param TranslatedOptionValueResolver $resolver
+     * @param AttributeParametersProvider   $provider
      */
-    public function __construct(AttributeRepositoryInterface $attributeRepository, TranslatedOptionValueResolver $resolver)
-    {
+    public function __construct(
+        AttributeRepositoryInterface $attributeRepository,
+        TranslatedOptionValueResolver $resolver,
+        AttributeParametersProvider $provider
+    ) {
         $this->attributeRepository = $attributeRepository;
         $this->resolver = $resolver;
+        $this->provider = $provider;
     }
 
     /**
@@ -71,7 +82,7 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
 
         $label = $attribute->getLabel()->has($language) ? $attribute->getLabel()->get($language) : $attribute->getCode()->getValue();
 
-        $parameters = [
+        $properties = [
             'attribute_id' => $attribute->getId()->getValue(),
             'required' => $property->isRequired(),
             'hint' => $attribute->getHint()->get($language),
@@ -79,12 +90,16 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
         ];
 
 
+        if ($parameters = $this->provider->provide($attribute)) {
+            $properties['parameters'] = $parameters;
+        }
+
         if ($attribute instanceof AbstractOptionAttribute) {
             $options = [];
             foreach ($attribute->getOptions() as $key => $option) {
                 $options[$key] = $this->resolver->resolve($option, $language);
             }
-            $parameters['options'] = $options;
+            $properties['options'] = $options;
         }
 
         return new ViewTemplateElement(
@@ -92,7 +107,7 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
             $element->getSize(),
             $label,
             $element->getType(),
-            $parameters
+            $properties
         );
     }
 }
