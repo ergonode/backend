@@ -21,7 +21,7 @@ class ReaderCreatedEvent implements DomainEventInterface
     /**
      * @var ReaderId
      *
-     * @JMS\Type("Ergonode\Importer\Domain\Entity\ReaderId")
+     * @JMS\Type("Ergonode\Reader\Domain\Entity\ReaderId")
      */
     private $id;
 

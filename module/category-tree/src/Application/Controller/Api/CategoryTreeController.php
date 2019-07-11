@@ -14,12 +14,15 @@ use Ergonode\CategoryTree\Application\Model\TreeFormModel;
 use Ergonode\CategoryTree\Domain\Command\AddCategoryCommand;
 use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
+use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
+use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
+use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,15 +46,107 @@ class CategoryTreeController extends AbstractApiController
     private $messageBus;
 
     /**
+     * @var TreeQueryInterface
+     */
+    private $query;
+
+    /**
+     * @var TreeGrid
+     */
+    private $grid;
+
+    /**
      * @param TreeRepositoryInterface $treeRepository
      * @param MessageBusInterface     $messageBus
+     * @param TreeQueryInterface      $query
+     * @param TreeGrid                $grid
      */
     public function __construct(
         TreeRepositoryInterface $treeRepository,
-        MessageBusInterface $messageBus
+        MessageBusInterface $messageBus,
+        TreeQueryInterface $query,
+        TreeGrid $grid
     ) {
         $this->treeRepository = $treeRepository;
         $this->messageBus = $messageBus;
+        $this->query = $query;
+        $this->grid = $grid;
+    }
+
+    /**
+     * @Route("/trees", methods={"GET"})
+     *
+     * @SWG\Tag(name="Tree")
+     * @SWG\Parameter(
+     *     name="limit",
+     *     in="query",
+     *     type="integer",
+     *     required=true,
+     *     default="50",
+     *     description="Number of returned lines",
+     * )
+     * @SWG\Parameter(
+     *     name="offset",
+     *     in="query",
+     *     type="integer",
+     *     required=true,
+     *     default="0",
+     *     description="Number of start line",
+     * )
+     * @SWG\Parameter(
+     *     name="field",
+     *     in="query",
+     *     required=false,
+     *     type="string",
+     *     enum={"sku","name"},
+     *     description="Order field",
+     * )
+     * @SWG\Parameter(
+     *     name="order",
+     *     in="query",
+     *     required=false,
+     *     type="string",
+     *     enum={"ASC","DESC"},
+     *     description="Order",
+     * )
+     * @SWG\Parameter(
+     *     name="show",
+     *     in="query",
+     *     required=false,
+     *     type="string",
+     *     enum={"COLUMN","DATA"},
+     *     description="Specify what response should containts"
+     * )
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language Code",
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns Category  Tree",
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
+     *
+     * @param Language $language
+     * @param Request  $request
+     *
+     * @return Response
+     */
+    public function getCategories(Language $language, Request $request): Response
+    {
+        $configuration = new RequestGridConfiguration($request);
+
+        $dataSet = $this->query->getDataSet($language);
+        $result = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
+
+        return $this->createRestResponse($result);
     }
 
     /**

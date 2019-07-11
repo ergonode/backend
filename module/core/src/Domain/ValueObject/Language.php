@@ -48,6 +48,7 @@ class Language
     public const HI = 'HI';
     public const AR = 'AR';
     public const JA = 'JA';
+    public const UA = 'UA';
 
     public const AVAILABLE = [
         self::PL,
@@ -85,6 +86,7 @@ class Language
         self::HI,
         self::AR,
         self::JA,
+        self::UA,
     ];
 
     /**

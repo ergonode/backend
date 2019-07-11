@@ -35,7 +35,7 @@ class CreateFileImportCommand
     /**
      * @var ReaderId
      *
-     * @JMS\Type("Ergonode\Importer\Domain\Entity\ReaderId")
+     * @JMS\Type("Ergonode\Reader\Domain\Entity\ReaderId")
      */
     private $readerId;
 
