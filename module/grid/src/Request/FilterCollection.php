@@ -17,6 +17,11 @@ class FilterCollection
     public const COMPARISON = '=';
     public const SEPARATOR = ',';
 
+    public const REPLACE = [
+        '%3B' => ';',
+        '%2C' => ',',
+    ];
+
     /**
      * @var array
      */
@@ -37,7 +42,7 @@ class FilterCollection
                     if (!isset($data[1]) || $data[1] === '') {
                         $this->filters[$data[0]] = null;
                     } else {
-                        $this->filters[$data[0]] = $data[1];
+                        $this->filters[$data[0]] = str_replace(array_keys(self::REPLACE), array_values(self::REPLACE), $data[1]);
                     }
                 }
             }
