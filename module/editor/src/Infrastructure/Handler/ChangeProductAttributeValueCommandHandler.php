@@ -11,6 +11,7 @@ namespace Ergonode\Editor\Infrastructure\Handler;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -106,6 +107,10 @@ class ChangeProductAttributeValueCommandHandler
 
         if ($attribute instanceof MultiSelectAttribute) {
             return new CollectionValue($value);
+        }
+
+        if ($attribute instanceof SelectAttribute) {
+            return new StringValue($value);
         }
 
         if ($attribute->isMultilingual()) {
