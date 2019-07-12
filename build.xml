@@ -115,6 +115,14 @@
         </phpcpd>
     </target>
 
+    <target name="check:phpstan" description="Executes unit tests.">
+        <echo msg="phpstan analyse level 1 ..."/>
+        <exec command="bin/phpstan analyse module --level 1"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
+
     <target name="check:cs" description="PHPCS checker">
         <phpcodesniffer haltonerror="true"
                         standard="${project.basedir}/vendor/escapestudios/symfony2-coding-standard/Symfony2"

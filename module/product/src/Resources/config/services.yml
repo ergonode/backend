@@ -33,10 +33,6 @@ services:
 
     Ergonode\Product\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Product\Persistence\Dbal\Repository\DbalProductRepository'
     Ergonode\Product\Domain\Query\ProductQueryInterface: '@Ergonode\Product\Persistence\Dbal\Query\DbalProductQuery'
-    Ergonode\Product\Domain\Query\ProductValueQueryInterface: '@Ergonode\Product\Persistence\Dbal\Query\DbalProductValueQuery'
-
-    Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider:
-        - '@Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\ImageAttributeColumnStrategy'
 
     # Cache Decorators
     Ergonode\Product\Persistence\Dbal\Query\Decorator\CacheProductQueryDecorator:

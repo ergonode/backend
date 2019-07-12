@@ -19,7 +19,7 @@ class TranslatableStringValue extends AbstractValue implements ValueInterface
     public const TYPE = 'translation';
 
     /**
-     * @var string
+     * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */

@@ -75,6 +75,11 @@ interface ColumnInterface
     public function setExtension(string $key, $value): void;
 
     /**
+     * @param bool $editable
+     */
+    public function setEditable(bool $editable): void;
+
+    /**
      * @return array
      */
     public function getExtensions(): array;

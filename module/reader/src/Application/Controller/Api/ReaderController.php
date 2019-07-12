@@ -138,7 +138,7 @@ class ReaderController extends AbstractApiController
     {
         $configuration = new RequestGridConfiguration($request);
 
-        $result = $this->grid->render($this->query->getDataSet(), $configuration, $language);
+        $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet(), $language);
 
         return $this->createRestResponse($result);
     }

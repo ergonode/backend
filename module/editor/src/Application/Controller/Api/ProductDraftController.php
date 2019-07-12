@@ -176,8 +176,8 @@ class ProductDraftController extends AbstractApiController
      */
     public function getDrafts(Language $language, Request $request): Response
     {
-        $pagination = $pagination = new RequestGridConfiguration($request);
-        $result = $this->productDraftGrid->render($this->draftQuery->getDataSet(), $pagination, $language);
+        $configuration = new RequestGridConfiguration($request);
+        $result = $this->renderGrid($this->productDraftGrid, $configuration, $this->draftQuery->getDataSet(), $language);
 
         return $this->createRestResponse($result);
     }

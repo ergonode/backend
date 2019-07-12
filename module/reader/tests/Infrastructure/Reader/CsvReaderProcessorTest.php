@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  */
-class CsvFileReaderTest extends TestCase
+class CsvReaderProcessorTest extends TestCase
 {
     private const FILE_NAME = 'test.csv';
 
@@ -32,8 +32,8 @@ class CsvFileReaderTest extends TestCase
         }
 
         $this->assertCount(2, $result);
-        $this->arrayHasKey('id', $result);
-        $this->arrayHasKey('value', $result);
+        $this->assertArrayHasKey('id', $result);
+        $this->assertArrayHasKey('value', $result);
         $this->assertNotEmpty($result);
     }
 

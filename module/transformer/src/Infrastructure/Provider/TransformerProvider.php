@@ -29,8 +29,6 @@ class TransformerProvider
     private $repository;
 
     /**
-     * TransformerProvider constructor.
-     *
      * @param TransformerGenerator           $generator
      * @param TransformerRepositoryInterface $repository
      */

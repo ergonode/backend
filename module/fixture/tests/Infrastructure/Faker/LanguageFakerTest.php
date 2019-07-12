@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Tests\Infrastructure\Faker;
+namespace Ergonode\Fixture\Tests\Infrastructure\Faker;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Fixture\Infrastructure\Faker\LanguageFaker;

@@ -32,8 +32,8 @@ class TemplateImageChangedEvent implements DomainEventInterface
     private $to;
 
     /**
-     * @param MultimediaId|null $from
-     * @param MultimediaId|null $to
+     * @param MultimediaId $from
+     * @param MultimediaId $to
      */
     public function __construct(MultimediaId $from, MultimediaId $to)
     {

@@ -53,6 +53,8 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
      */
     public function getElementCompleteness(ProductDraft $draft, Language $language, AbstractTemplateElementProperty $properties): ?CompletenessElementReadModel
     {
+        Assert::isInstanceOf($properties, AttributeTemplateElementProperty::class);
+
         $attribute = $this->repository->load($properties->getAttributeId());
         Assert::notNull($attribute, sprintf('Can\'t find attribute %s', $properties->getAttributeId()->getValue()));
         $name = $attribute->getLabel()->has($language) ? $attribute->getLabel()->get($language) : $attribute->getCode()->getValue();

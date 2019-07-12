@@ -25,7 +25,7 @@ interface DataSetInterface
     public function getItems(array $columns, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable;
 
     /**
-     * @param COlumnInterface[] $columns
+     * @param ColumnInterface[] $columns
      *
      * @return int
      */

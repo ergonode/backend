@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
@@ -20,10 +19,6 @@ use Ergonode\Grid\DbalDataSet;
  */
 class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
 {
-    private const TABLE_ATTRIBUTE = 'attribute';
-    private const TABLE_ATTRIBUTE_GROUP = 'attribute_group';
-    private const TABLE_ATTRIBUTE_GROUP_ATTRIBUTE = 'attribute_group_attribute';
-
     /**
      * @var Connection
      */
@@ -38,7 +33,7 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
     }
 
     /**
-     * @return array|null
+     * @return array
      */
     public function getAttributeGroups(): array
     {

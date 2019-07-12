@@ -11,8 +11,6 @@ namespace Ergonode\CategoryTree\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;

@@ -12,7 +12,6 @@ namespace Ergonode\Attribute\Persistence\Dbal\Repository\Decorator;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Symfony\Component\Cache\Adapter\AdapterInterface;
 
 /**
  */
@@ -26,15 +25,14 @@ class CacheAttributeRepositoryDecorator implements AttributeRepositoryInterface
     private $repository;
 
     /**
-     * @var AdapterInterface
+     * @var array
      */
     private $cache;
 
     /**
      * @param AttributeRepositoryInterface $repository
-     * @param AdapterInterface             $cache
      */
-    public function __construct(AttributeRepositoryInterface $repository, AdapterInterface $cache)
+    public function __construct(AttributeRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

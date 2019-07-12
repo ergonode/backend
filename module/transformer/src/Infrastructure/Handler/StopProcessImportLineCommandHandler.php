@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Infrastructure\Handler;
 
 use Ergonode\Transformer\Domain\Command\StopProcessImportLineCommand;
+use Ergonode\Transformer\Domain\Entity\Processor;
 use Ergonode\Transformer\Domain\Repository\ProcessorRepositoryInterface;
 use Webmozart\Assert\Assert;
 
@@ -37,11 +38,11 @@ class StopProcessImportLineCommandHandler
      */
     public function __invoke(StopProcessImportLineCommand $command)
     {
-        $transformer = $this->processorRepository->load($command->getId());
+        $processor = $this->processorRepository->load($command->getId());
 
-        Assert::notNull($transformer);
+        Assert::isInstanceOf($processor, Processor::class);
 
-        $transformer->stop($command->getReason());
-        $this->processorRepository->save($transformer);
+        $processor->stop($command->getReason());
+        $this->processorRepository->save($processor);
     }
 }
