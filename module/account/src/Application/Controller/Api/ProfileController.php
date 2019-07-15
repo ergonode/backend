@@ -29,8 +29,6 @@ class ProfileController extends AbstractApiController
     private $query;
 
     /**
-     * ProfileController constructor.
-     *
      * @param ProfileQueryInterface $query
      */
     public function __construct(ProfileQueryInterface $query)

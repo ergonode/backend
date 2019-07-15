@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command;
 
+use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -54,16 +55,22 @@ class CreateUserCommand
     private $language;
 
     /**
+     * @var RoleId
+     */
+    private $roleId;
+
+    /**
      * @param string            $firstName
      * @param string            $lastName
      * @param string            $email
      * @param Language          $language
      * @param Password          $password
+     * @param RoleId            $roleId
      * @param MultimediaId|null $avatarId
      *
      * @throws \Exception
      */
-    public function __construct(string $firstName, string $lastName, string $email, Language $language, Password $password, ?MultimediaId $avatarId = null)
+    public function __construct(string $firstName, string $lastName, string $email, Language $language, Password $password, RoleId $roleId, ?MultimediaId $avatarId = null)
     {
         $this->id = UserId::generate();
         $this->avatarId = $avatarId;
@@ -72,6 +79,7 @@ class CreateUserCommand
         $this->email = $email;
         $this->password = $password;
         $this->language = $language;
+        $this->roleId = $roleId;
     }
 
     /**
@@ -128,5 +136,13 @@ class CreateUserCommand
     public function getLanguage(): Language
     {
         return $this->language;
+    }
+
+    /**
+     * @return RoleId
+     */
+    public function getRoleId(): RoleId
+    {
+        return $this->roleId;
     }
 }

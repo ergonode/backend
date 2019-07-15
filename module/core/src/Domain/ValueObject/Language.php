@@ -133,6 +133,16 @@ class Language
     }
 
     /**
+     * @param Language $language
+     *
+     * @return bool
+     */
+    public function isEqual(Language $language): bool
+    {
+        return $language->code === $this->code;
+    }
+
+    /**
      * @param string $code
      *
      * @return bool

@@ -18,7 +18,7 @@ use Ergonode\Grid\DbalDataSet;
 
 /**
  */
-class AccountQuery implements AccountQueryInterface
+class DbalAccountQuery implements AccountQueryInterface
 {
     private const TABLE = 'users';
     private const FIELDS = [
@@ -28,6 +28,7 @@ class AccountQuery implements AccountQueryInterface
         'a.username AS email',
         'a.language',
         'a.avatar_id',
+        'a.role_id',
     ];
 
     /**

@@ -12,7 +12,6 @@ namespace Ergonode\Account\Domain\Entity;
 use Ergonode\Core\Domain\Entity\AbstractId;
 
 /**
- * Class userId
  */
 class UserId extends AbstractId
 {

@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Form;
 
 use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
+use Ergonode\Account\Application\Form\Type\RoleIdType;
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -50,6 +51,13 @@ class UserCreateForm extends AbstractType
             ->add(
                 'language',
                 LanguageType::class
+            )
+            ->add(
+                'role_id',
+                RoleIdType::class,
+                [
+                    'property_path' => 'roleId',
+                ]
             );
     }
 

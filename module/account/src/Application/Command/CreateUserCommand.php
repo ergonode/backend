@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Command;
 
+use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Authentication\Entity\User;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -36,13 +38,21 @@ class CreateUserCommand extends Command
     private $messageBus;
 
     /**
+     * @var RoleQueryInterface
+     */
+    private $query;
+
+    /**
      * @param UserPasswordEncoderInterface $encoder
      * @param MessageBusInterface          $messageBus
+     * @param RoleQueryInterface           $query
      */
-    public function __construct(UserPasswordEncoderInterface $encoder, MessageBusInterface $messageBus)
+    public function __construct(UserPasswordEncoderInterface $encoder, MessageBusInterface $messageBus, RoleQueryInterface $query)
     {
         parent::__construct(static::NAME);
+
         $this->encoder = $encoder;
+        $this->query = $query;
         $this->messageBus = $messageBus;
     }
 
@@ -56,26 +66,38 @@ class CreateUserCommand extends Command
         $this->addArgument('last_name', InputArgument::REQUIRED, 'Last name');
         $this->addArgument('password', InputArgument::REQUIRED, 'Password');
         $this->addArgument('language', InputArgument::REQUIRED, 'Language');
+        $this->addArgument('role', InputArgument::OPTIONAL, 'Role', 'Admin');
     }
 
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
+     * @return int|null
+     *
      * @throws \Exception
      */
-    public function execute(InputInterface $input, OutputInterface $output): void
+    public function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $email = $input->getArgument('email');
         $firstName = $input->getArgument('first_name');
         $lastName = $input->getArgument('last_name');
         $password = $input->getArgument('password');
+        $role = $input->getArgument('role');
         $language = new Language($input->getArgument('language'));
         $password = new Password($this->encoder->encodePassword(new User($email, $password), $password));
 
-        $command = new \Ergonode\Account\Domain\Command\CreateUserCommand($firstName, $lastName, $email, $language, $password);
-        $this->messageBus->dispatch($command);
+        $roleId = array_search($role, $this->query->getDictionary(), true);
 
-        $output->writeln('<info>User created.</info>');
+        if ($roleId) {
+            $command = new \Ergonode\Account\Domain\Command\CreateUserCommand($firstName, $lastName, $email, $language, $password, new RoleId($roleId));
+            $this->messageBus->dispatch($command);
+
+            $output->writeln('<info>User created.</info>');
+        }
+
+        $output->writeln(sprintf('<error>Can\'t find role %s</error>', $role));
+
+        return 1;
     }
 }

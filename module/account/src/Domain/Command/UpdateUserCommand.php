@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command;
 
+use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -43,15 +44,22 @@ class UpdateUserCommand
     private $language;
 
     /**
+     * @var RoleId
+     */
+    private $roleId;
+
+    /**
      * @param UserId        $id
      * @param string        $firstName
      * @param string        $lastName
      * @param Language      $language
+     * @param RoleId        $roleId
      * @param Password|null $password
      */
-    public function __construct(UserId $id, string $firstName, string $lastName, Language $language, ?Password $password = null)
+    public function __construct(UserId $id, string $firstName, string $lastName, Language $language, RoleId $roleId, ?Password $password = null)
     {
         $this->id = $id;
+        $this->roleId = $roleId;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->language = $language;
@@ -64,6 +72,14 @@ class UpdateUserCommand
     public function getId(): UserId
     {
         return $this->id;
+    }
+
+    /**
+     * @return RoleId
+     */
+    public function getRoleId(): RoleId
+    {
+        return $this->roleId;
     }
 
     /**

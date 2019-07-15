@@ -3,7 +3,6 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             - {PL : <category()>}
 
-
 Ergonode\Category\Domain\Entity\Category:
     category_{1..10}:
         __construct:

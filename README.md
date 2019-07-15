@@ -153,9 +153,9 @@ bin/phing build
 
 To create user execute console command
 ```
-bin/console ergonode:user:create email name surname password language_code
+bin/console ergonode:user:create email name surname password language_code [role]
 ```
- > eg. *bin/console ergonode:user:create test@ergonode.com John Snow 123 EN*
+ > eg. *bin/console ergonode:user:create test@ergonode.com John Snow 123 EN Admin*
 
 Run build in server
 ```

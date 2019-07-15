@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
-use Ergonode\Migration\AbstractErgonodeMigration;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -27,5 +27,10 @@ final class Version20180619083800 extends AbstractErgonodeMigration
                    PRIMARY KEY(id)
                 )'
         );
+
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CATEGORY_CREATE', 'category']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CATEGORY_READ', 'category']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CATEGORY_UPDATE', 'category']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CATEGORY_DELETE', 'category']);
     }
 }

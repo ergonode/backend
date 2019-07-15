@@ -105,7 +105,6 @@ class AccountController extends AbstractApiController
         $this->encoder = $encoder;
     }
 
-
     /**
      * @Route("/accounts", methods={"GET"})
      *
@@ -279,7 +278,7 @@ class AccountController extends AbstractApiController
                 /** @var CreateUserFormModel $data */
                 $data = $form->getData();
                 $password = $this->encoder->encodePassword(new User($data->email, $data->password), $data->password);
-                $command = new CreateUserCommand($data->firstName, $data->lastName, $data->email, $data->language, new Password($password));
+                $command = new CreateUserCommand($data->firstName, $data->lastName, $data->email, $data->language, new Password($password), $data->roleId);
                 $this->messageBus->dispatch($command);
 
                 return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
@@ -350,7 +349,7 @@ class AccountController extends AbstractApiController
                 /** @var CreateUserFormModel $data */
                 $data = $form->getData();
                 $password = $data->password ? new Password($this->encoder->encodePassword(new User($user->getEmail(), $data->password), $data->password)) : null;
-                $command = new UpdateUserCommand($userId, $data->firstName, $data->lastName, $data->language, $password);
+                $command = new UpdateUserCommand($userId, $data->firstName, $data->lastName, $data->language, $data->roleId, $password);
                 $this->messageBus->dispatch($command);
 
                 return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
