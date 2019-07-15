@@ -19,9 +19,10 @@ class TransformerId extends AbstractId
     public const NAMESPACE = '9bbd658e-f383-4af3-8e07-308bf3375827';
 
     /**
-     * @param string|null $value
+     * @param string $value
      *
      * @return TransformerId
+     *
      * @throws \Exception
      */
     public static function fromKey(string $value): TransformerId

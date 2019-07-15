@@ -18,7 +18,7 @@ use JMS\Serializer\Annotation as JMS;
 class MultilingualOption extends AbstractOption implements OptionInterface
 {
     /**
-     * @var string
+     * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */

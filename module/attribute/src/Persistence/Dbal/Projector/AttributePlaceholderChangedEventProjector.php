@@ -114,7 +114,7 @@ class AttributePlaceholderChangedEventProjector implements DomainEventProjectorI
      * @param string     $field
      * @param AbstractId $attributeId
      *
-     * @return mixed
+     * @return string
      */
     private function getTranslationId(string $field, AbstractId $attributeId): string
     {

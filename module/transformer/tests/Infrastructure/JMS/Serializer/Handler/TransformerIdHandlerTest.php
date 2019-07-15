@@ -1,9 +1,8 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: rafal
- * Date: 31.12.18
- * Time: 13:55
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * See license.txt for license details.
  */
 
 namespace Ergonode\Transformer\Tests\Infrastructure\JMS\Serializer\Handler;
@@ -13,6 +12,7 @@ use Ergonode\Transformer\Infrastructure\JMS\Serializer\Handler\TransformerIdHand
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -68,6 +68,7 @@ class TransformerIdHandlerTest extends TestCase
      */
     public function testSerialize(): void
     {
+        /** @var MockObject|TransformerId $id */
         $id = $this->createMock(TransformerId::class);
         $id->method('getValue')->willReturn(Uuid::NIL);
         $result = $this->handler->serialize($this->serializationVisitor, $id, [], $this->context);

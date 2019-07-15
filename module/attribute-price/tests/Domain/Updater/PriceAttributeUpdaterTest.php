@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-namespace Ergonode\AttributePrice\Tests\Domain\Factory;
+namespace Ergonode\AttributePrice\Tests\Domain\Updater;
 
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
 use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;

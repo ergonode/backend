@@ -45,7 +45,7 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
     /**
      * @param TransformerId $id
      *
-     * @return null|Transformer
+     * @return null|AbstractAggregateRoot|Transformer
      *
      * @throws \ReflectionException
      */

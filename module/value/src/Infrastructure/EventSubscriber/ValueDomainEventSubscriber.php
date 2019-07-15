@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Category\Infrastructure\EventSubscriber;
+namespace Ergonode\Value\Infrastructure\EventSubscriber;
 
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjector;

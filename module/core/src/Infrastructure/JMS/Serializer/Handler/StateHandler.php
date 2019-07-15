@@ -67,7 +67,7 @@ class StateHandler implements SubscribingHandlerInterface
      * @param array                           $type
      * @param Context                         $context
      *
-     * @return Language
+     * @return State
      */
     public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): State
     {

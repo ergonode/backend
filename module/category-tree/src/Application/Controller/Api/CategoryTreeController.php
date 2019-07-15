@@ -143,7 +143,7 @@ class CategoryTreeController extends AbstractApiController
     {
         $configuration = new RequestGridConfiguration($request);
 
-        $dataSet = $this->query->getDataSet($language);
+        $dataSet = $this->query->getDataSet();
         $result = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
 
         return $this->createRestResponse($result);

@@ -1,9 +1,8 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: rafal
- * Date: 31.12.18
- * Time: 13:52
+ * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * See license.txt for license details.
  */
 
 namespace Ergonode\Transformer\Tests\Infrastructure\JMS\Serializer\Handler;

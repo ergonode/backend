@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-namespace Ergonode\AttributeUnit\Tests\Domain\Factory;
+namespace Ergonode\AttributeUnit\Tests\Domain\Updater;
 
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
 use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;

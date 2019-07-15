@@ -45,7 +45,8 @@ class ErgonodeFixtureCommand extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return null|int|void
+     * @return void
+     *
      * @throws \Ergonode\Fixture\Exception\FixtureException
      */
     public function execute(InputInterface $input, OutputInterface $output): void

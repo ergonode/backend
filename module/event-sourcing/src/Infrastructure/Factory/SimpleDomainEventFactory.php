@@ -68,7 +68,7 @@ class SimpleDomainEventFactory implements DomainEventFactoryInterface
      * @param string $class
      * @param string $data
      *
-     * @return mixed
+     * @return DomainEventInterface
      */
     private function getEvent(string $class, string $data): DomainEventInterface
     {

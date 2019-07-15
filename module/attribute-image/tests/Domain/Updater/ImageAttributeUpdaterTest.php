@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-namespace Ergonode\AttributeImage\Tests\Domain\Factory;
+namespace Ergonode\AttributeImage\Tests\Domain\Updater;
 
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
 use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;

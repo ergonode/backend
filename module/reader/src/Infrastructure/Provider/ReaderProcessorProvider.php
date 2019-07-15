@@ -16,7 +16,7 @@ use Ergonode\Reader\Infrastructure\Processor\ReaderProcessorInterface;
 class ReaderProcessorProvider
 {
     /**
-     * @var
+     * @var ReaderProcessorInterface[]
      */
     private $readers = [];
 
