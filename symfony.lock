@@ -413,6 +413,9 @@
     "symfony/event-dispatcher": {
         "version": "v4.1.0"
     },
+    "symfony/expression-language": {
+        "version": "v4.3.2"
+    },
     "symfony/filesystem": {
         "version": "v4.1.0"
     },
@@ -565,6 +568,9 @@
     },
     "symfony/serializer": {
         "version": "v4.1.6"
+    },
+    "symfony/service-contracts": {
+        "version": "v1.1.5"
     },
     "symfony/stopwatch": {
         "version": "v4.1.0"
