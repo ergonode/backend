@@ -7,7 +7,7 @@
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.9",
-        "ergonode/migration": "^0.1.0",
+        "ergonode/migration": "^0.2.0",
         "friendsofsymfony/rest-bundle": "^2.5",
         "jms/serializer": "^3.0",
         "moneyphp/money": "^3.2",
