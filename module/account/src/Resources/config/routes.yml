@@ -1,3 +1,13 @@
+ergonode_privilege_api:
+    resource: '../../Application/Controller/Api/Privilege*'
+    type: annotation
+    prefix: /api/v1/{language}
+
+ergonode_role_api:
+    resource: '../../Application/Controller/Api/Role*'
+    type: annotation
+    prefix: /api/v1/{language}
+
 ergonode_account_api:
     resource: '../../Application/Controller/Api/Account*'
     type: annotation

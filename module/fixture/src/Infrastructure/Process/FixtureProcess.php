@@ -17,7 +17,6 @@ use Faker\Generator;
 use Nelmio\Alice\Loader\NativeLoader;
 
 /**
- * Class FixtureLoader
  */
 class FixtureProcess
 {
@@ -50,12 +49,14 @@ class FixtureProcess
 
 
     /**
+     * @param string|null $group
+     *
      * @throws FixtureException
      */
-    public function process(): void
+    public function process(string $group = null): void
     {
         try {
-            $files = $this->loader->load();
+            $files = $this->loader->load($group);
             $loader = new NativeLoader($this->generator);
 
             $objectSet = $loader->loadFiles($files);

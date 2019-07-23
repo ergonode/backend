@@ -64,7 +64,7 @@ class UserLastNameChangedEventProjector implements DomainEventProjectorInterface
             $this->connection->update(
                 self::TABLE,
                 [
-                    'last_name' => $event->getLastName(),
+                    'last_name' => $event->getTo(),
                 ],
                 [
                     'id' => $aggregateId->getValue(),

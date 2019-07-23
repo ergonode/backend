@@ -11,10 +11,14 @@ namespace Ergonode\Account\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Event\UserCreatedEvent;
+use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
+use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use JMS\Serializer\SerializerInterface;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -28,11 +32,25 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
     private $connection;
 
     /**
-     * @param Connection $connection
+     * @var RoleRepositoryInterface
      */
-    public function __construct(Connection $connection)
+    private $repository;
+
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    /**
+     * @param Connection              $connection
+     * @param RoleRepositoryInterface $repository
+     * @param SerializerInterface     $serializer
+     */
+    public function __construct(Connection $connection, RoleRepositoryInterface $repository, SerializerInterface $serializer)
     {
         $this->connection = $connection;
+        $this->repository = $repository;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -58,6 +76,12 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, UserCreatedEvent::class);
         }
 
+        $role = $this->repository->load($event->getRoleId());
+
+        Assert::notNull($role);
+        /** @var Privilege[] $privileges */
+        $privileges = $role->getPrivileges();
+
         $this->connection->beginTransaction();
         try {
             $this->connection->insert(
@@ -67,7 +91,8 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
                     'first_name' => $event->getFirstName(),
                     'last_name' => $event->getLastName(),
                     'username' => $event->getEmail(),
-                    'roles' => '[]',
+                    'role_id' => $event->getRoleId()->getValue(),
+                    'roles' => $this->serializer->serialize($privileges, 'json'),
                     'language' => $event->getLanguage()->getCode(),
                     'password' => $event->getPassword()->getValue(),
                 ]

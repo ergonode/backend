@@ -22,21 +22,38 @@ class UserLanguageChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
-    private $language;
+    private $from;
 
     /**
-     * @param Language $language
+     * @var Language
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
-    public function __construct(Language $language)
+    private $to;
+
+    /**
+     * @param Language $from
+     * @param Language $to
+     */
+    public function __construct(Language $from, Language $to)
     {
-        $this->language = $language;
+        $this->from = $from;
+        $this->to = $to;
     }
 
     /**
      * @return Language
      */
-    public function getLanguage(): Language
+    public function getFrom(): Language
     {
-        return $this->language;
+        return $this->from;
+    }
+
+    /**
+     * @return Language
+     */
+    public function getTo(): Language
+    {
+        return $this->to;
     }
 }

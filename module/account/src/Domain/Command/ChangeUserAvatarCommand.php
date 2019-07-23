@@ -29,8 +29,6 @@ class ChangeUserAvatarCommand
     /**
      * @param UserId            $id
      * @param MultimediaId|null $avatarId
-     *
-     * @throws \Exception
      */
     public function __construct(UserId $id, ?MultimediaId $avatarId = null)
     {

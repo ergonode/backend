@@ -37,7 +37,16 @@ class CreateUserCommandHandler
      */
     public function __invoke(CreateUserCommand $command)
     {
-        $user = new User($command->getId(), $command->getFirstName(), $command->getLastName(), $command->getEmail(), $command->getLanguage(), $command->getPassword(), $command->getAvatarId());
+        $user = new User(
+            $command->getId(),
+            $command->getFirstName(),
+            $command->getLastName(),
+            $command->getEmail(),
+            $command->getLanguage(),
+            $command->getPassword(),
+            $command->getRoleId(),
+            $command->getAvatarId()
+        );
 
         $this->repository->save($user);
     }

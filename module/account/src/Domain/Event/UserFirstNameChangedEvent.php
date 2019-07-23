@@ -21,21 +21,38 @@ class UserFirstNameChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("string")
      */
-    private $firstName;
+    private $from;
 
     /**
-     * @param string $firstName
+     * @var string
+     *
+     * @JMS\Type("string")
      */
-    public function __construct(string $firstName)
+    private $to;
+
+    /**
+     * @param string $from
+     * @param string $to
+     */
+    public function __construct(string $from, string $to)
     {
-        $this->firstName = $firstName;
+        $this->from = $from;
+        $this->to = $to;
     }
 
     /**
      * @return string
      */
-    public function getFirstName(): string
+    public function getFrom(): string
     {
-        return $this->firstName;
+        return $this->from;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTo(): string
+    {
+        return $this->to;
     }
 }

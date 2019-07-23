@@ -1,8 +1,44 @@
-include:
-    - user.yaml
-    - translation.yaml
-    - options.yaml
-    - attributes.yaml
-    - templates.yaml
-    - categories.yaml
-    - products.yaml
+Ergonode\CategoryTree\Domain\Entity\CategoryTreeId:
+    category_tree_id:
+        __construct:
+            - '<Uuid()>'
+
+Ergonode\CategoryTree\Domain\Entity\CategoryTree:
+    category_tree:
+        __construct:
+            - '@category_tree_id'
+            - 'default'
+            -
+Ergonode\Account\Domain\Entity\RoleId:
+    role_id:
+        __construct:
+            - '<Uuid()>'
+
+Ergonode\Account\Domain\Entity\Role:
+    role_admin:
+        __construct:
+            - '@role_id'
+            - 'Admin'
+            - 'Manages Ergonode system, manages access to all permissions for other users.'
+            - ['<Privilege(ATTRIBUTE_READ)>']
+
+Ergonode\Account\Domain\Entity\UserId:
+    user_id_en:
+        __construct:
+            - '<uuid()>'
+
+Ergonode\Account\Domain\ValueObject\Password:
+    user_en_password:
+        __construct:
+            - 'iBt0Q5mZ++oT3LnTkrazXHUkoiE='
+
+Ergonode\Account\Domain\Entity\User:
+    user_en:
+        __construct:
+            - '@user_id_en'
+            - 'Jon'
+            - 'Dove'
+            - 'test@ergonode.com'
+            - '<language(EN)>'
+            - '@user_en_password'
+            - '@role_id'

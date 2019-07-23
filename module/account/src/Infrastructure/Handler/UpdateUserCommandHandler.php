@@ -42,6 +42,7 @@ class UpdateUserCommandHandler
         $user->changeFirstName($command->getFirstName());
         $user->changeLastName($command->getLastName());
         $user->changeLanguage($command->getLanguage());
+        $user->changeRole($command->getRoleId());
         if ($command->getPassword()) {
             $user->changePassword($command->getPassword());
         }

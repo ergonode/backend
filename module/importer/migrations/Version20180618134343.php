@@ -6,6 +6,7 @@ namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Ergonode\Migration\AbstractErgonodeMigration;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Auto-generated Ergonode Migration Class
@@ -60,5 +61,10 @@ final class Version20180618134343 extends AbstractErgonodeMigration
 
         $this->addSql('CREATE INDEX import_line_import_id_idx ON importer.import_line USING btree (import_id)');
         $this->addSql('ALTER TABLE importer.import_line ADD CONSTRAINT import_line_import_id_fk FOREIGN KEY (import_id) REFERENCES importer.import (id) ON DELETE CASCADE');
+
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'IMPORT_CREATE', 'Import']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'IMPORT_READ', 'Import']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'IMPORT_UPDATE', 'Import']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'IMPORT_DELETE', 'Import']);
     }
 }

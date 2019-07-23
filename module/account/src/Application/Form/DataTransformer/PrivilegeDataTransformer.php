@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See license.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Account\Application\Form\DataTransformer;
+
+use Ergonode\Account\Domain\ValueObject\Privilege;
+use Symfony\Component\Form\DataTransformerInterface;
+use Symfony\Component\Form\Exception\TransformationFailedException;
+
+/**
+ */
+class PrivilegeDataTransformer implements DataTransformerInterface
+{
+    /**
+     * @param Privilege|null $value
+     *
+     * @return null|string
+     */
+    public function transform($value): ?string
+    {
+        if ($value) {
+            if ($value instanceof Privilege) {
+                return $value->getValue();
+            }
+            throw new TransformationFailedException('Invalid Privilege object');
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string|null $value
+     *
+     * @return Privilege|null
+     */
+    public function reverseTransform($value): ?Privilege
+    {
+        if ($value) {
+            try {
+                return new Privilege($value);
+            } catch (\InvalidArgumentException $e) {
+                throw new TransformationFailedException(sprintf('Invalid Language "%s" value', $value));
+            }
+        }
+
+        return null;
+    }
+}

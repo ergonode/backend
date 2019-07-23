@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event;
 
+use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -70,22 +71,39 @@ class UserCreatedEvent implements DomainEventInterface
     private $avatarId;
 
     /**
+     * @var RoleId
+     *
+     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     */
+    private $roleId;
+
+    /**
      * @param UserId            $id
      * @param string            $firstName
      * @param string            $lastName
      * @param string            $email
      * @param Language          $language
      * @param Password          $password
+     * @param RoleId            $roleId
      * @param MultimediaId|null $avatarId
      */
-    public function __construct(UserId $id, string $firstName, string $lastName, string $email, Language $language, Password $password, MultimediaId $avatarId = null)
-    {
+    public function __construct(
+        UserId $id,
+        string $firstName,
+        string $lastName,
+        string $email,
+        Language $language,
+        Password $password,
+        RoleId $roleId,
+        MultimediaId $avatarId = null
+    ) {
         $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
         $this->password = $password;
         $this->language = $language;
+        $this->roleId = $roleId;
         $this->avatarId = $avatarId;
     }
 
@@ -143,5 +161,13 @@ class UserCreatedEvent implements DomainEventInterface
     public function getAvatarId(): ?MultimediaId
     {
         return $this->avatarId;
+    }
+
+    /**
+     * @return RoleId
+     */
+    public function getRoleId(): RoleId
+    {
+        return $this->roleId;
     }
 }

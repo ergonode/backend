@@ -28,6 +28,7 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -78,6 +79,8 @@ abstract class AbstractProduct extends AbstractAggregateRoot
      */
     public function __construct(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = [])
     {
+        Assert::allIsInstanceOf($categories, CategoryCode::class);
+
         $attributes = array_filter(
             $attributes,
             function ($value) {
@@ -185,7 +188,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
      */
     public function getCategories(): array
     {
-        return $this->categories;
+        return  array_values($this->categories);
     }
 
     /**

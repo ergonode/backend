@@ -64,7 +64,7 @@ class UserLanguageChangedEventProjector implements DomainEventProjectorInterface
             $this->connection->update(
                 self::TABLE,
                 [
-                    'language' => $event->getLanguage(),
+                    'language' => $event->getTo()->getCode(),
                 ],
                 [
                     'id' => $aggregateId->getValue(),

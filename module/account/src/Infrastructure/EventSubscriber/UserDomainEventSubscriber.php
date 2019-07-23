@@ -15,6 +15,7 @@ use Ergonode\Account\Domain\Event\UserFirstNameChangedEvent;
 use Ergonode\Account\Domain\Event\UserLanguageChangedEvent;
 use Ergonode\Account\Domain\Event\UserLastNameChangedEvent;
 use Ergonode\Account\Domain\Event\UserPasswordChangedEvent;
+use Ergonode\Account\Domain\Event\UserRoleChangedEvent;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjector;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -48,6 +49,7 @@ class UserDomainEventSubscriber implements EventSubscriberInterface
             UserFirstNameChangedEvent::class => 'projection',
             UserLastNameChangedEvent::class => 'projection',
             UserLanguageChangedEvent::class => 'projection',
+            UserRoleChangedEvent::class => 'projection',
         ];
     }
 

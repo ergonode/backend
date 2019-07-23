@@ -15,6 +15,7 @@ use Ergonode\Account\Domain\Event\UserFirstNameChangedEvent;
 use Ergonode\Account\Domain\Event\UserLanguageChangedEvent;
 use Ergonode\Account\Domain\Event\UserLastNameChangedEvent;
 use Ergonode\Account\Domain\Event\UserPasswordChangedEvent;
+use Ergonode\Account\Domain\Event\UserRoleChangedEvent;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
@@ -56,17 +57,31 @@ class User extends AbstractAggregateRoot
     private $avatarId;
 
     /**
+     * @var RoleId
+     */
+    private $roleId;
+
+    /**
      * @param UserId            $id
      * @param string            $firstName
      * @param string            $lastName
      * @param string            $email
      * @param Language          $language
      * @param Password          $password
+     * @param RoleId            $roleId
      * @param MultimediaId|null $avatarId
      */
-    public function __construct(UserId $id, string $firstName, string $lastName, string $email, Language $language, Password $password, MultimediaId $avatarId = null)
-    {
-        $this->apply(new UserCreatedEvent($id, $firstName, $lastName, $email, $language, $password, $avatarId));
+    public function __construct(
+        UserId $id,
+        string $firstName,
+        string $lastName,
+        string $email,
+        Language $language,
+        Password $password,
+        RoleId $roleId,
+        MultimediaId $avatarId = null
+    ) {
+        $this->apply(new UserCreatedEvent($id, $firstName, $lastName, $email, $language, $password, $roleId, $avatarId));
     }
 
     /**
@@ -110,6 +125,14 @@ class User extends AbstractAggregateRoot
     }
 
     /**
+     * @return RoleId
+     */
+    public function getRoleId(): RoleId
+    {
+        return $this->roleId;
+    }
+
+    /**
      * @return MultimediaId|null
      */
     public function getAvatarId(): ?MultimediaId
@@ -123,7 +146,17 @@ class User extends AbstractAggregateRoot
     public function changeFirstName(string $firstName): void
     {
         if ($this->firstName !== $firstName) {
-            $this->apply(new UserFirstNameChangedEvent($firstName));
+            $this->apply(new UserFirstNameChangedEvent($this->firstName, $firstName));
+        }
+    }
+
+    /**
+     * @param RoleId $roleId
+     */
+    public function changeRole(RoleId $roleId): void
+    {
+        if (!$roleId->isEqual($this->roleId)) {
+            $this->apply(new UserRoleChangedEvent($this->roleId, $roleId));
         }
     }
 
@@ -133,7 +166,7 @@ class User extends AbstractAggregateRoot
     public function changeLastName(string $lastName): void
     {
         if ($this->lastName !== $lastName) {
-            $this->apply(new UserLastNameChangedEvent($lastName));
+            $this->apply(new UserLastNameChangedEvent($this->lastName, $lastName));
         }
     }
 
@@ -142,8 +175,8 @@ class User extends AbstractAggregateRoot
      */
     public function changeLanguage(Language $language): void
     {
-        if ($this->language->getCode() !== $language->getCode()) {
-            $this->apply(new UserLanguageChangedEvent($language));
+        if (!$language->isEqual($this->language)) {
+            $this->apply(new UserLanguageChangedEvent($this->language, $language));
         }
     }
 
@@ -174,6 +207,7 @@ class User extends AbstractAggregateRoot
         $this->email = $event->getEmail();
         $this->language = $event->getLanguage();
         $this->avatarId = $event->getAvatarId();
+        $this->roleId = $event->getRoleId();
     }
 
     /**
@@ -185,11 +219,19 @@ class User extends AbstractAggregateRoot
     }
 
     /**
+     * @param UserRoleChangedEvent $event
+     */
+    protected function applyUserRoleChangedEvent(UserRoleChangedEvent $event): void
+    {
+        $this->roleId = $event->getTo();
+    }
+
+    /**
      * @param UserFirstNameChangedEvent $event
      */
     protected function applyUserFirstNameChangedEvent(UserFirstNameChangedEvent $event): void
     {
-        $this->firstName = $event->getFirstName();
+        $this->firstName = $event->getTo();
     }
 
     /**
@@ -197,7 +239,7 @@ class User extends AbstractAggregateRoot
      */
     protected function applyUserLastNameChangedEvent(UserLastNameChangedEvent $event): void
     {
-        $this->lastName = $event->getLastName();
+        $this->lastName = $event->getTo();
     }
 
     /**
@@ -205,7 +247,7 @@ class User extends AbstractAggregateRoot
      */
     protected function applyUserLanguageChangedEvent(UserLanguageChangedEvent $event): void
     {
-        $this->language = $event->getLanguage();
+        $this->language = $event->getTo();
     }
 
     /**
