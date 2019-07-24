@@ -1,0 +1,6 @@
+"Ergonode\\Product\\Domain\\Event\\ProductAddedToCategory": Product dodany do kategorii "%categoryCode%"
+"Ergonode\\Product\\Domain\\Event\\ProductCreated": Product "%sku%" stworzony
+"Ergonode\\Product\\Domain\\Event\\ProductRemovedFromCategory": Product usunietye z kategorii "%categoryCode%"
+"Ergonode\\Product\\Domain\\Event\\ProductValueAdded": Dodano wartośc atrybutu "%code%"
+"Ergonode\\Product\\Domain\\Event\\ProductValueChanged": Zmieniono wartośc atrybutu "%code%"
+"Ergonode\\Product\\Domain\\Event\\ProductValueRemoved": Usunięto wartość attrybutu "%code%"

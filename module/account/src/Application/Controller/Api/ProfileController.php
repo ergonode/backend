@@ -39,7 +39,7 @@ class ProfileController extends AbstractApiController
     /**
      * @Route("profile", methods={"GET"})
      *
-     * @SWG\Tag(name="Navigation")
+     * @SWG\Tag(name="Profile")
      * @SWG\Response(
      *     response=200,
      *     description="Returns information about current logged user",

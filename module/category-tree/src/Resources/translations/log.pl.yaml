@@ -1,0 +1,4 @@
+"Ergonode\\CategoryTree\\Domain\\Event\\CategoryTreeCategoriesChangedEvent": Zamiana wielu kategorii
+"Ergonode\\CategoryTree\\Domain\\Event\\CategoryTreeCategoryAddedEvent": Dodanie kategorii
+"Ergonode\\CategoryTree\\Domain\\Event\\CategoryTreeCategoryRemovedEvent": Usunięcie kategorii
+"Ergonode\\CategoryTree\\Domain\\Event\\CategoryTreeCreatedEvent": Stworzenie drzewa kategorii
