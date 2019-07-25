@@ -1,0 +1,6 @@
+"Ergonode\\Editor\\Domain\\Event\\ProductDraftApplied": Appliening product draft
+"Ergonode\\Editor\\Domain\\Event\\ProductDraftCreated": Product draft created
+"Ergonode\\Editor\\Domain\\Event\\ProductDraftValueAdded": Value added to draft
+"Ergonode\\Editor\\Domain\\Event\\ProductDraftValueChanged": Draft value changed
+"Ergonode\\Editor\\Domain\\Event\\ProductDraftValueRemoved": Draft value removed
+

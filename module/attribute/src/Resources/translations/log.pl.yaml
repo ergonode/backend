@@ -1,0 +1,12 @@
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeCreatedEvent": Atrybut "%code%" został dodany
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeHintChangedEvent": Wartość podpowiedzi dla atrybutu została zmieniona
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeLabelChangedEvent": Nazwa atrybutu została zmieniona
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributePlaceholderChangedEvent": Wartość wskazówki dla atrybutu została zmieniona
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeArrayParameterChangeEvent": Ustawienia atrybutu zostały zmienione
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeParameterChangeEvent": Ustawienia atrybutu zostały zmieniona
+"Ergonode\\Attribute\\Domain\\Event\\AttributeGroupAddedEvent": Atrybut dodany do grupy
+"Ergonode\\Attribute\\Domain\\Event\\AttributeGroupRemovedEvent": Atrybut usunięty z grupy
+"Ergonode\\Attribute\\Domain\\Event\\AttributeOptionAddedEvent": Opcja atrybutu "%key%" została dodana
+"Ergonode\\Attribute\\Domain\\Event\\AttributeOptionRemovedEvent": Opcja atrybutu "%key%" została zmieniona
+"Ergonode\\Attribute\\Domain\\Event\\AttributeOptionChangedEvent": Opcja atrybutu "%key%" została usunięta
+
