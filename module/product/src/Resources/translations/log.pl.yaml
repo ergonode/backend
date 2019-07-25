@@ -1,6 +1,6 @@
-"Ergonode\\Product\\Domain\\Event\\ProductAddedToCategory": Product dodany do kategorii "%categoryCode%"
-"Ergonode\\Product\\Domain\\Event\\ProductCreated": Product "%sku%" stworzony
-"Ergonode\\Product\\Domain\\Event\\ProductRemovedFromCategory": Product usunietye z kategorii "%categoryCode%"
-"Ergonode\\Product\\Domain\\Event\\ProductValueAdded": Dodano wartośc atrybutu "%code%"
-"Ergonode\\Product\\Domain\\Event\\ProductValueChanged": Zmieniono wartośc atrybutu "%code%"
-"Ergonode\\Product\\Domain\\Event\\ProductValueRemoved": Usunięto wartość attrybutu "%code%"
+"Ergonode\\Product\\Domain\\Event\\ProductAddedToCategory": Produkt dodany do kategorii "%categoryCode%"
+"Ergonode\\Product\\Domain\\Event\\ProductCreated": Produkt "%sku%" utworzony
+"Ergonode\\Product\\Domain\\Event\\ProductRemovedFromCategory": Produkt usunięty z kategorii "%categoryCode%"
+"Ergonode\\Product\\Domain\\Event\\ProductValueAdded": Dodano wartość atrybutu "%code%"
+"Ergonode\\Product\\Domain\\Event\\ProductValueChanged": Zmieniono wartość atrybutu "%code%"
+"Ergonode\\Product\\Domain\\Event\\ProductValueRemoved": Usunięto wartość atrybutu "%code%"

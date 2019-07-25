@@ -1,13 +1,13 @@
 "Ergonode\\Account\\Domain\\Event\\UserAvatarChangedEvent": Awatar użytkownika został zmieniony
-"Ergonode\\Account\\Domain\\Event\\UserCreatedEvent": Użytkownik "%first_name% %last_name%" został stworzony
+"Ergonode\\Account\\Domain\\Event\\UserCreatedEvent": Użytkownik "%first_name% %last_name%" został utworzony
 "Ergonode\\Account\\Domain\\Event\\UserFirstNameChangedEvent": Imię użytkownika zostało zmienione z "%from% na "%to%"
 "Ergonode\\Account\\Domain\\Event\\UserLanguageChangedEvent": Język użytkownika został zmieniony  z "%from% na %to%"
-"Ergonode\\Account\\Domain\\Event\\UserLastNameChangedEvent": Nazwisko użytkonika zostało zmienione z "%from% na "%to%"
+"Ergonode\\Account\\Domain\\Event\\UserLastNameChangedEvent": Nazwisko użytkownika zostało zmienione z "%from% na "%to%"
 "Ergonode\\Account\\Domain\\Event\\UserPasswordChangedEvent": Chaśło użytkownika zostało zmienione
-"Ergonode\\Account\\Domain\\Event\\UserRoleChangedEvent": Rola użytkonika została zmieniona z '%from%' na '%to%'
+"Ergonode\\Account\\Domain\\Event\\UserRoleChangedEvent": Rola użytkonika została zmieniona z "%from%" na "%to%"
 "Ergonode\\Account\\Domain\\Event\\Role\\AddPrivilegeToRoleEvent": Uprawnienie "%privilege%" zostało dodane
 "Ergonode\\Account\\Domain\\Event\\Role\\RemovePrivilegeFromRoleEvent": Uprawnienie "%privilege%" zostało usunięte
-"Ergonode\\Account\\Domain\\Event\\Role\\RoleCreatedEvent": Role "%name%" została utworzona
+"Ergonode\\Account\\Domain\\Event\\Role\\RoleCreatedEvent": Rola "%name%" została utworzona
 "Ergonode\\Account\\Domain\\Event\\Role\\RoleNameChangedEvent": Nazwa roli została zmieniona z "%from%" na "%to%"
-"Ergonode\\Account\\Domain\\Event\\Role\\RolePrivilegesChangedEvent": List uprawnień zosała zmieniona
-"Ergonode\\Account\\Domain\\Event\\Role\\RoleRemovedEvent": Role została usunięta
+"Ergonode\\Account\\Domain\\Event\\Role\\RolePrivilegesChangedEvent": List uprawnień została zmieniona
+"Ergonode\\Account\\Domain\\Event\\Role\\RoleRemovedEvent": Rola została usunięta

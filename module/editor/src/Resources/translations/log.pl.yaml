@@ -1,5 +1,5 @@
-"Ergonode\\Editor\\Domain\\Event\\ProductDraftApplied": Zastosowano zapisano roboczą wersję produktu
-"Ergonode\\Editor\\Domain\\Event\\ProductDraftCreated": Stworozno roboczą wersję produktu
+"Ergonode\\Editor\\Domain\\Event\\ProductDraftApplied": Zastosowano roboczą wersję produktu
+"Ergonode\\Editor\\Domain\\Event\\ProductDraftCreated": Utworzono roboczą wersję produktu
 "Ergonode\\Editor\\Domain\\Event\\ProductDraftValueAdded": Dodano wartość do roboczej wersji produktu
 "Ergonode\\Editor\\Domain\\Event\\ProductDraftValueChanged": Zmieniono wartość w roboczej wersji produktu
 "Ergonode\\Editor\\Domain\\Event\\ProductDraftValueRemoved": Usunieto wartość z roboczej wersji produktu

@@ -3,7 +3,7 @@
 "Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeLabelChangedEvent": Attribute label changed
 "Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributePlaceholderChangedEvent": Attribute placeholder changed
 "Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeArrayParameterChangeEvent": Attribute parameters changed
-"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeParameterChangeEvent": Attribute paramete changed
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeParameterChangeEvent": Attribute parameter changed
 "Ergonode\\Attribute\\Domain\\Event\\AttributeGroupAddedEvent": Attribute added to group
 "Ergonode\\Attribute\\Domain\\Event\\AttributeGroupRemovedEvent": Attribute removed from group
 "Ergonode\\Attribute\\Domain\\Event\\AttributeOptionAddedEvent": Attribute option "%key%" added
