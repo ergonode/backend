@@ -18,6 +18,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
@@ -36,12 +37,12 @@ class MultiSelectAttributeColumnStrategy implements AttributeColumnStrategyInter
     /**
      * @param AbstractAttribute|AbstractOptionAttribute $attribute
      * @param Language                                  $language
-     * @param array                                     $filter
+     * @param FilterCollection                          $filter
      *
      * @return ColumnInterface
      *
      */
-    public function create(AbstractAttribute $attribute, Language $language, array $filter = []): ColumnInterface
+    public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {
         $options = [];
         foreach ($attribute->getOptions() as $id => $option) {
@@ -53,6 +54,8 @@ class MultiSelectAttributeColumnStrategy implements AttributeColumnStrategyInter
             }
         }
 
-        return new MultiSelectColumn($attribute->getCode()->getValue(), $attribute->getLabel()->get($language), new MultiSelectFilter($options, $filter));
+        $key = $attribute->getCode()->getValue();
+
+        return new MultiSelectColumn($key, $attribute->getLabel()->get($language), new MultiSelectFilter($options, $filter->getArray($key)));
     }
 }

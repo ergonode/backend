@@ -15,7 +15,6 @@ use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 
 /**
- * Class PersistProductDraftCommandHandler
  */
 class PersistProductDraftCommandHandler
 {

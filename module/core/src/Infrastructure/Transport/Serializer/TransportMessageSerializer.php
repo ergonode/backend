@@ -11,8 +11,6 @@ namespace Ergonode\Core\Infrastructure\Transport\Serializer;
 
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Messenger\Envelope;
-use Symfony\Component\Messenger\Stamp\SerializerStamp;
-use Symfony\Component\Messenger\Stamp\StampInterface;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface as MessageSerializerInterface;
 
 /**
@@ -74,6 +72,11 @@ class TransportMessageSerializer implements MessageSerializerInterface
         ];
     }
 
+    /**
+     * @param array $encodedEnvelope
+     *
+     * @return array
+     */
     private function decodeStamps(array $encodedEnvelope): array
     {
         $stamps = [];
@@ -82,7 +85,7 @@ class TransportMessageSerializer implements MessageSerializerInterface
                 continue;
             }
 
-            $stamps[] = $this->serializer->deserialize($value, substr($name, \strlen(self::STAMP_HEADER_PREFIX)).'[]', $this->format, $this->context);
+            $stamps[] = $this->serializer->deserialize($value, substr($name, \strlen(self::STAMP_HEADER_PREFIX)).'[]', $this->format);
         }
         if ($stamps) {
             $stamps = array_merge(...$stamps);
@@ -99,23 +102,9 @@ class TransportMessageSerializer implements MessageSerializerInterface
 
         $headers = [];
         foreach ($allStamps as $class => $stamps) {
-            $headers[self::STAMP_HEADER_PREFIX.$class] = $this->serializer->serialize($stamps, $this->format, $this->context);
+            $headers[self::STAMP_HEADER_PREFIX.$class] = $this->serializer->serialize($stamps, $this->format);
         }
 
         return $headers;
-    }
-
-    /**
-     * @param StampInterface[] $stamps
-     */
-    private function findFirstSerializerStamp(array $stamps): ?SerializerStamp
-    {
-        foreach ($stamps as $stamp) {
-            if ($stamp instanceof SerializerStamp) {
-                return $stamp;
-            }
-        }
-
-        return null;
     }
 }

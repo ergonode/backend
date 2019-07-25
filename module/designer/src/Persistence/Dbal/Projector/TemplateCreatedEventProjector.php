@@ -28,8 +28,6 @@ class TemplateCreatedEventProjector implements DomainEventProjectorInterface
     private $connection;
 
     /**
-     * TemplateCreateEventProjector constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)

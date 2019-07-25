@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Infrastructure\EventSubscriber;
 
+use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateImageAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateImageChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateImageRemovedEvent;
@@ -18,16 +19,9 @@ use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjector;
 use Ergonode\Designer\Domain\Event\Group\TemplateGroupCreatedEvent;
 use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
-use Ergonode\Designer\Domain\Event\TemplateElementBecomeNonRequiredEvent;
-use Ergonode\Designer\Domain\Event\TemplateElementBecomeRequiredEvent;
-use Ergonode\Designer\Domain\Event\TemplateElementMovedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementRemovedEvent;
-use Ergonode\Designer\Domain\Event\TemplateElementResizedEvent;
 use Ergonode\Designer\Domain\Event\TemplateGroupChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateNameChangedEvent;
-use Ergonode\Designer\Domain\Event\TemplateSectionAddedEvent;
-use Ergonode\Designer\Domain\Event\TemplateSectionChangedEvent;
-use Ergonode\Designer\Domain\Event\TemplateSectionRemovedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -58,14 +52,8 @@ class TemplateDomainEventSubscriber implements EventSubscriberInterface
             TemplateNameChangedEvent::class => 'projection',
             TemplateGroupChangedEvent::class => 'projection',
             TemplateElementAddedEvent::class => 'projection',
-            TemplateElementResizedEvent::class => 'projection',
-            TemplateElementMovedEvent::class => 'projection',
+            TemplateElementChangedEvent::class => 'projection',
             TemplateElementRemovedEvent::class => 'projection',
-            TemplateElementBecomeRequiredEvent::class => 'projection',
-            TemplateElementBecomeNonRequiredEvent::class => 'projection',
-            TemplateSectionAddedEvent::class => 'projection',
-            TemplateSectionChangedEvent::class => 'projection',
-            TemplateSectionRemovedEvent::class => 'projection',
             TemplateGroupCreatedEvent::class => 'projection',
             TemplateImageAddedEvent::class => 'projection',
             TemplateImageChangedEvent::class => 'projection',

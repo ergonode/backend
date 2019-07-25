@@ -119,9 +119,10 @@ class TemplateGroupController extends AbstractApiController
     public function getGroups(Language $language, Request $request): Response
     {
         $dataSet = $this->query->getDataSet();
-        $pagination = new RequestGridConfiguration($request);
-        $collection = $this->grid->render($dataSet, $pagination, $language);
+        $configuration = new RequestGridConfiguration($request);
 
-        return $this->createRestResponse($collection);
+        $result = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
+
+        return $this->createRestResponse($result);
     }
 }

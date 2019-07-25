@@ -9,8 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\DependencyInjection;
 
+use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateElementProviderCompilerPass;
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateGeneratorStrategyCompilerPass;
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateRelationCheckerCompilerPass;
+use Ergonode\Designer\Domain\Builder\BuilderTemplateElementStrategyInterface;
 use Ergonode\Designer\Domain\Checker\TemplateRelationCheckerInterface;
 use Ergonode\Designer\Infrastructure\Generator\TemplateGeneratorInterface;
 use Symfony\Component\Config\FileLocator;
@@ -42,6 +44,10 @@ class ErgonodeDesignerExtension extends Extension
         $container
             ->registerForAutoconfiguration(TemplateRelationCheckerInterface::class)
             ->addTag(TemplateRelationCheckerCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(BuilderTemplateElementStrategyInterface::class)
+            ->addTag(TemplateElementProviderCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

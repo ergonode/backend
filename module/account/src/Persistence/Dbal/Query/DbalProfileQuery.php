@@ -54,7 +54,7 @@ class DbalProfileQuery implements ProfileQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('u.id, u.first_name, u.last_name, u.username as email, u.language, u.avatar_id')
+            ->select('u.id, u.first_name, u.last_name, u.username AS email, u.language, u.avatar_id')
             ->from(self::TABLE, 'u');
     }
 }

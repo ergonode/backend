@@ -14,6 +14,7 @@ use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -41,13 +42,6 @@ class CreateTemplateCommand
     private $imageId;
 
     /**
-     * @var ArrayCollection|string;
-     *
-     * @JMS\Type("ArrayCollection<string>")
-     */
-    private $sections;
-
-    /**
      * @var ArrayCollection|TemplateElement[]
      *
      * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\TemplateElement>")
@@ -57,16 +51,16 @@ class CreateTemplateCommand
     /**
      * @param string            $name
      * @param ArrayCollection   $elements
-     * @param ArrayCollection   $sections
      * @param MultimediaId|null $imageId
      *
      * @throws \Exception
      */
-    public function __construct(string $name, ArrayCollection $elements, ArrayCollection $sections, ?MultimediaId $imageId = null)
+    public function __construct(string $name, ArrayCollection $elements, ?MultimediaId $imageId = null)
     {
+        Assert::allIsInstanceOf($elements->toArray(), TemplateElement::class, 'Template elements should by %2$s class. Got: %s');
+
         $this->templateId = TemplateId::generate();
         $this->name = $name;
-        $this->sections = $sections;
         $this->elements = $elements;
         $this->imageId = $imageId;
     }
@@ -93,14 +87,6 @@ class CreateTemplateCommand
     public function getImageId(): ?MultimediaId
     {
         return $this->imageId;
-    }
-
-    /**
-     * @return ArrayCollection|string
-     */
-    public function getSections()
-    {
-        return $this->sections;
     }
 
     /**

@@ -27,6 +27,7 @@ use Ergonode\Product\Domain\ValueObject\ProductStatus;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -56,11 +57,15 @@ abstract class AbstractProduct extends AbstractAggregateRoot
 
     /**
      * @var ValueInterface[]
+     *
+     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
     private $attributes;
 
     /**
      * @var string[]
+     *
+     * @JMS\Type("array<string>")
      */
     private $categories;
 
@@ -89,6 +94,14 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     public function getId(): AbstractId
     {
         return $this->id;
+    }
+
+    /**
+     * @return TemplateId
+     */
+    public function getTemplateId(): TemplateId
+    {
+        return $this->designTemplateId;
     }
 
     /**

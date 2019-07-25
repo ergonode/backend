@@ -68,7 +68,8 @@ class TemplateElementRemovedEventProjector implements DomainEventProjectorInterf
                 self::ELEMENT_TABLE,
                 [
                     'template_id' => $aggregateId->getValue(),
-                    'element_id' => $event->getElementId()->getValue(),
+                    'x' => $event->getPosition()->getX(),
+                    'y' => $event->getPosition()->getY(),
                 ]
             );
             $this->connection->commit();

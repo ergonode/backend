@@ -1,25 +1,22 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
+declare(strict_types = 1);
+
 namespace Ergonode\CategoryTree\Domain\Query;
 
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\Grid\DataSetInterface;
 
 /**
  */
 interface TreeQueryInterface
 {
     /**
-     * @param CategoryTreeId  $id
-     * @param Language        $language
-     * @param CategoryId|null $nodeId
-     *
-     * @return array
+     * @return DataSetInterface
      */
-    public function getCategory(CategoryTreeId $id, Language $language, ?CategoryId $nodeId = null): array;
+    public function getDataSet(): DataSetInterface;
 }

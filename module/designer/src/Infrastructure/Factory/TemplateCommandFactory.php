@@ -10,21 +10,40 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Infrastructure\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ergonode\Core\Infrastructure\Mapper\SnakeCaseMapper;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
 use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
 use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\Designer\Domain\Entity\TemplateElementId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\Designer\Domain\ValueObject\Position;
-use Ergonode\Designer\Domain\ValueObject\Size;
+use Ergonode\Designer\Domain\Factory\TemplateElementFactory;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 
 /**
  */
 class TemplateCommandFactory
 {
+    /**
+     * @var TemplateElementFactory
+     */
+    private $factory;
+
+    /**
+     * @var SnakeCaseMapper
+     */
+    private $mapper;
+
+    /**
+     * @param TemplateElementFactory $factory
+     * @param SnakeCaseMapper        $mapper
+     */
+    public function __construct(TemplateElementFactory $factory, SnakeCaseMapper $mapper)
+    {
+        $this->factory = $factory;
+        $this->mapper = $mapper;
+    }
+
     /**
      * @param TemplateFormModel $model
      *
@@ -36,7 +55,6 @@ class TemplateCommandFactory
         return new CreateTemplateCommand(
             $model->name,
             $this->createElements($model),
-            $this->createSections($model),
             $model->image?new MultimediaId($model->image):null
         );
     }
@@ -53,7 +71,6 @@ class TemplateCommandFactory
             $id,
             $model->name,
             $this->createElements($model),
-            $this->createSections($model),
             $model->image?new MultimediaId($model->image):null
         );
     }
@@ -80,26 +97,10 @@ class TemplateCommandFactory
      */
     private function createElement(TemplateElementTypeModel $model): TemplateElement
     {
-        return new TemplateElement(
-            new TemplateElementId($model->id),
-            new Position((int) $model->x, (int) $model->y),
-            new Size((int) $model->width, (int) $model->height),
-            $model->required
-        );
-    }
+        $property = $this->mapper->map((array) $model->properties);
 
-    /**
-     * @param TemplateFormModel $model
-     *
-     * @return ArrayCollection
-     */
-    private function createSections(TemplateFormModel $model): ArrayCollection
-    {
-        $result = [];
-        foreach ($model->sections as $section) {
-            $result[$section->row] = $section->title;
-        }
-
-        return new ArrayCollection($result);
+        return $this
+            ->factory
+            ->create($model->position, $model->size, $model->type, $property);
     }
 }

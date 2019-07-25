@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Domain\Event;
 
-use Ergonode\Attribute\Domain\Entity\ValueId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
@@ -27,7 +26,7 @@ class ProductDraftValueAdded implements DomainEventInterface
     private $attributeCode;
 
     /**
-     * @var ValueId
+     * @var ValueInterface
      *
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\AbstractValue")
      */

@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-namespace Ergonode\AttributeDate\Tests\Domain\Factory;
+namespace Ergonode\AttributeDate\Tests\Domain\Updater;
 
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
 use Ergonode\AttributeDate\Domain\Entity\DateAttribute;

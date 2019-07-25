@@ -9,59 +9,35 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Model\Form\Type;
 
+use Ergonode\Designer\Domain\ValueObject\Position;
+use Ergonode\Designer\Domain\ValueObject\Size;
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Attribute\Infrastructure\Validator as CustomAssert;
 
 /**
  */
 class TemplateElementTypeModel
 {
     /**
+     * @var Position
+     */
+    public $position;
+
+    /**
+     * @var Size
+     */
+    public $size;
+
+    /**
      * @var string
      *
-     * @Assert\Type(type="string")
-     * @CustomAssert\AttributeExists();
+     * @Assert\NotBlank()
      */
-    public $id;
+    public $type;
 
     /**
-     * @var int
+     * @var mixed
      *
-     * @Assert\Regex(pattern="/^[0-9]*$/", message="Number only")
-     * @Assert\GreaterThanOrEqual(value="0")
-     * @Assert\LessThan(value="4")
+     * @Assert\Valid()
      */
-    public $x;
-
-    /**
-     * @var int
-     *
-     * @Assert\Regex(pattern="/^[0-9]*$/", message="Number only")
-     * @Assert\GreaterThanOrEqual(value="0")
-     * @Assert\LessThan(value="100")
-     */
-    public $y;
-
-    /**
-     * @var int
-     *
-     * @Assert\Regex(pattern="/^[0-9]*$/", message="Number only")
-     * @Assert\GreaterThanOrEqual(value="0")
-     * @Assert\LessThan(value="8")
-     */
-    public $width;
-
-    /**
-     * @var int
-     *
-     * @Assert\Regex(pattern="/^[0-9]*$/", message="Number only")
-     * @Assert\GreaterThanOrEqual(value="0")
-     * @Assert\LessThan(value="20")
-     */
-    public $height;
-
-    /**
-     * @var bool
-     */
-    public $required;
+    public $properties = [];
 }

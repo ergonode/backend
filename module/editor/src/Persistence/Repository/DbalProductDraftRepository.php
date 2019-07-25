@@ -84,7 +84,7 @@ class DbalProductDraftRepository implements ProductDraftRepositoryInterface
      */
     public function remove(AbstractAggregateRoot $aggregateRoot)
     {
-        $events = new DomainEventStream([new ProductDraftApplied($aggregateRoot->getId())]);
+        $events = new DomainEventStream([new ProductDraftApplied()]);
 
         $this->eventStore->append($aggregateRoot->getId(), $events);
         foreach ($events as $envelope) {

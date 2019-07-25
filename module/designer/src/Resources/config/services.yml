@@ -14,11 +14,9 @@ services:
         resource: '../../Infrastructure/*'
         exclude: '../../Infrastructure/{Message}'
 
-    Ergonode\Designer\Domain\Factory\:
-        resource: '../../Domain/Factory/*'
-
-    Ergonode\Designer\Domain\Checker\:
-        resource: '../../Domain/Checker/*'
+    Ergonode\Designer\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity, ValueObject}'
 
     Ergonode\Designer\Application\Controller\:
         resource: '../../Application/Controller/*'

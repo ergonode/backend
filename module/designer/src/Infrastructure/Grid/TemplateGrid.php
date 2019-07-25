@@ -16,7 +16,7 @@ use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -33,8 +33,6 @@ class TemplateGrid extends AbstractGrid
     private $query;
 
     /**
-     * DesignerTemplateGrid constructor.
-     *
      * @param TranslatorInterface         $translator
      * @param TemplateGroupQueryInterface $query
      */
@@ -51,11 +49,12 @@ class TemplateGrid extends AbstractGrid
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $collection = $this->query->getDictionary();
+        $filters = $configuration->getFilters();
 
         $this->addColumn('id', new TextColumn('id', $this->trans('Id')));
-        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter()));
-        $this->addColumn('image_id', new TextColumn('image_id', $this->trans('Icon'), new TextFilter()));
-        $this->addColumn('group_id', new TextColumn('group_id', $this->trans('Group'), new SelectFilter($collection)));
+        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name'))));
+        $this->addColumn('image_id', new TextColumn('image_id', $this->trans('Icon'), new TextFilter($filters->getString('image_id'))));
+        $this->addColumn('group_id', new TextColumn('group_id', $this->trans('Group'), new SelectFilter($collection, $filters->getString('group_id'))));
     }
 
     /**

@@ -11,6 +11,7 @@ namespace Ergonode\Designer\Domain\Entity;
 
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
+use Ergonode\Designer\Domain\ValueObject\TemplateElement\AbstractTemplateElementProperty;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -18,49 +19,45 @@ use JMS\Serializer\Annotation as JMS;
 class TemplateElement
 {
     /**
-     * @var TemplateElementId
+     * @var Position
      *
-     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateElementId")
-     */
-    private $elementId;
-
-    /**
      * @JMS\Type("Ergonode\Designer\Domain\ValueObject\Position")
      */
-    private $position;
+    protected $position;
 
     /**
+     * @var Size
+     *
      * @JMS\Type("Ergonode\Designer\Domain\ValueObject\Size")
      */
-    private $size;
+    protected $size;
 
     /**
-     * @var bool
+     * @var AbstractTemplateElementProperty
      *
-     * @JMS\Type("boolean")
+     * @JMS\Type("Ergonode\Designer\Domain\ValueObject\TemplateElement\AbstractTemplateElementProperty")
      */
-    private $required;
+    protected $properties;
 
     /**
-     * @param TemplateElementId $elementId
-     * @param Position          $position
-     * @param Size              $size
-     * @param bool              $required
+     * @var string
+     *
+     * @JMS\Type("string")
      */
-    public function __construct(TemplateElementId $elementId, Position $position, Size $size, bool $required = false)
+    protected $type;
+
+    /**
+     * @param Position                        $position
+     * @param Size                            $size
+     * @param string                          $type
+     * @param AbstractTemplateElementProperty $properties
+     */
+    public function __construct(Position $position, Size $size, string $type, AbstractTemplateElementProperty $properties)
     {
-        $this->elementId = $elementId;
         $this->position = $position;
         $this->size = $size;
-        $this->required = $required;
-    }
-
-    /**
-     * @return TemplateElementId
-     */
-    public function getElementId(): TemplateElementId
-    {
-        return $this->elementId;
+        $this->properties = $properties;
+        $this->type = $type;
     }
 
     /**
@@ -80,34 +77,18 @@ class TemplateElement
     }
 
     /**
-     * @return bool
+     * @return string
      */
-    public function isRequired(): bool
+    public function getType(): string
     {
-        return $this->required;
+        return $this->type;
     }
 
     /**
-     * @param Position $position
+     * @return AbstractTemplateElementProperty
      */
-    public function setPosition(Position $position): void
+    public function getProperties(): AbstractTemplateElementProperty
     {
-        $this->position = $position;
-    }
-
-    /**
-     * @param Size $size
-     */
-    public function setSize(Size $size): void
-    {
-        $this->size = $size;
-    }
-
-    /**
-     * @param bool $required
-     */
-    public function setRequired(bool $required): void
-    {
-        $this->required = $required;
+        return $this->properties;
     }
 }

@@ -128,7 +128,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
     /**
      * @param AttributeId $attributeId
      *
-     * @return array|null
+     * @return AttributeType|null
      */
     public function findAttributeType(AttributeId $attributeId): ?AttributeType
     {

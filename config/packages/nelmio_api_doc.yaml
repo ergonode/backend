@@ -13,48 +13,52 @@ nelmio_api_doc:
         security:
             - api_key: []
         definitions:
-            template_element:
+            point:
                 type: object
                 properties:
-                    id:
-                        type: uuid
-                        required: true
-                        description: Placed attribute Id
-                        example: 67696e17-586b-4ade-b9c1-a4b57ce564a0
                     x:
                         type: int
                         required: true
-                        description: X posion of attribute on template
+                        description: X posion
                         example: 0
                     y:
                         type: int
                         required: true
-                        description: Y posion of attribute on template
+                        description: Y posion
                         example: 0
+            size:
+                type: object
+                properties:
                     width:
                         type: int
                         required: true
-                        description: Width of attribute on template
+                        description: Width
                         example: 2
                     height:
                         type: int
                         required: true
-                        description: Height of attribute on template
+                        description: Height
                         example: 1
-                    required:
-                        type: bool
-                        required: false
-                        description: Is attribute required
-                        example: 1
-            template_section:
+            template_element:
                 type: object
                 properties:
-                    row:
-                       type: integer
-                       example: 1
-                    title:
-                       type: string
-                       example: "Header 1"
+                    position:
+                        $ref: "#/definitions/point"
+                    size:
+                        $ref: "#/definitions/size"
+                    variant:
+                        type: string
+                        example: attribute
+                    type:
+                        type: string
+                        example: text
+                    properties:
+                        type: array
+                        items:
+                            type: string
+                        example:
+                            attribute_id: attribute_id
+                            required: true
             account:
                 type: object
                 properties:
@@ -86,6 +90,35 @@ nelmio_api_doc:
                         type: string
                         equired: true
                         example: 12345678
+            tree:
+                type: object
+                properties:
+                    id:
+                        type: string
+                        description: Category tree id
+                        required: true
+                        example: category tree id
+                    name:
+                        type: string
+                        description: Category name
+                        required: true
+                        example: Default
+                    categories:
+                        type: array
+                        items:
+                            $ref: "#/definitions/tree_node"
+            tree_node:
+                type: object
+                properties:
+                    category_id:
+                        type: string
+                        description: Category id
+                        required: true
+                        example: category id
+                    childrens:
+                        type: array
+                        items:
+                            $ref: "#/definitions/tree_node"
             category:
                 type: object
                 properties:
@@ -114,6 +147,8 @@ nelmio_api_doc:
                         description: Template Id
                     categortyIds:
                         type: array
+                        items:
+                            type: string
                         required: false
                         description: Lista id kategorii
             template:
@@ -132,10 +167,6 @@ nelmio_api_doc:
                         type: array
                         items:
                             $ref: "#/definitions/template_element"
-                    sections:
-                        type: array
-                        items:
-                            $ref: "#/definitions/template_section"
             translation:
                 type: object
                 properties:

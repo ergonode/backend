@@ -10,10 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Domain\Entity;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoriesChangedEvent;
+use Ergonode\CategoryTree\Domain\ValueObject\Node;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryAddedEvent;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -27,18 +30,22 @@ class CategoryTree extends AbstractAggregateRoot
     private $id;
 
     /**
-     * @var CategoryId[]
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var Node[]
      */
     private $categories;
 
     /**
-     * @param CategoryTreeId  $id
-     * @param string          $name
-     * @param CategoryId|null $categoryId
+     * @param CategoryTreeId $id
+     * @param string         $name
      */
-    public function __construct(CategoryTreeId $id, string $name, ?CategoryId $categoryId = null)
+    public function __construct(CategoryTreeId $id, string $name)
     {
-        $this->apply(new CategoryTreeCreatedEvent($id, $name, $categoryId));
+        $this->apply(new CategoryTreeCreatedEvent($id, $name));
     }
 
     /**
@@ -47,6 +54,14 @@ class CategoryTree extends AbstractAggregateRoot
     public function getId(): AbstractId
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**
@@ -63,31 +78,32 @@ class CategoryTree extends AbstractAggregateRoot
     }
 
     /**
+     * @param Node[] $categories
+     */
+    public function updateCategories(array $categories): void
+    {
+        Assert::allIsInstanceOf($categories, Node::class);
+
+        $this->apply(new CategoryTreeCategoriesChangedEvent($categories));
+    }
+
+    /**
      * @param CategoryId $categoryId
      *
      * @return bool
      */
     public function hasCategory(CategoryId $categoryId): bool
     {
-        return array_key_exists($categoryId->getValue(), $this->categories);
-    }
-
-    /**
-     * @param CategoryId $categoryId
-     *
-     * @return CategoryId|null
-     */
-    public function getParent(CategoryId $categoryId): ?CategoryId
-    {
-        if ($this->hasCategory($categoryId)) {
-            if ($this->categories[$categoryId->getValue()] !== null) {
-                return new CategoryId($this->categories[$categoryId->getValue()]);
+        foreach ($this->categories as $category) {
+            if ($category->getCategoryId()->isEqual($categoryId)) {
+                return true;
             }
-
-            return null;
+            if ($category->hasSuccessor($categoryId)) {
+                return true;
+            }
         }
 
-        throw new \InvalidArgumentException(sprintf('Category %s not exits in tree', $categoryId->getValue()));
+        return false;
     }
 
     /**
@@ -97,9 +113,15 @@ class CategoryTree extends AbstractAggregateRoot
     {
         $this->categories = [];
         $this->id = $event->getId();
-        if ($event->getCategoryId()) {
-            $this->categories[$event->getCategoryId()->getValue()] = null;
-        }
+        $this->name = $event->getName();
+    }
+
+    /**
+     * @param CategoryTreeCategoriesChangedEvent $event
+     */
+    protected function applyCategoryTreeCategoriesChangedEvent(CategoryTreeCategoriesChangedEvent $event): void
+    {
+        $this->categories = $event->getCategories();
     }
 
     /**
@@ -107,10 +129,51 @@ class CategoryTree extends AbstractAggregateRoot
      */
     protected function applyCategoryTreeCategoryAddedEvent(CategoryTreeCategoryAddedEvent $event): void
     {
-        if ($event->getParentId()) {
-            $this->categories[$event->getId()->getValue()] = $event->getParentId()->getValue();
+        $parent = $event->getParentId() ? $this->findNode($event->getParentId()) : null;
+        $node = new Node($event->getId());
+        if ($parent) {
+            $parent->addChildren($node);
         } else {
-            $this->categories[$event->getId()->getValue()] = null;
+            $this->categories[] = $node;
         }
+    }
+
+    /**
+     * @param CategoryId $categoryId
+     *
+     * @return Node|null
+     */
+    private function findNode(CategoryId $categoryId): ?Node
+    {
+        foreach ($this->categories as $category) {
+            $node = $this->findSingleNode($categoryId, $category);
+            if ($node) {
+                return $node;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param CategoryId $categoryId
+     * @param Node       $node
+     *
+     * @return Node|null
+     */
+    private function findSingleNode(CategoryId $categoryId, Node $node): ?Node
+    {
+        if ($node->getCategoryId()->isEqual($categoryId)) {
+            return $node;
+        }
+
+        foreach ($node->getChildrens() as $children) {
+            $node = $this->findSingleNode($categoryId, $children);
+            if ($node) {
+                return $node;
+            }
+        }
+
+        return null;
     }
 }

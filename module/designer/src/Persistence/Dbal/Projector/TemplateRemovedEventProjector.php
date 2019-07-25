@@ -22,7 +22,6 @@ class TemplateRemovedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'designer.template';
     private const ELEMENT_TABLE = 'designer.template_element';
-    private const SECTION_TABLE = 'designer.template_section';
 
     /**
      * @var Connection
@@ -65,12 +64,6 @@ class TemplateRemovedEventProjector implements DomainEventProjectorInterface
         try {
             $this->connection->delete(
                 self::ELEMENT_TABLE,
-                [
-                    'template_id' => $aggregateId->getValue(),
-                ]
-            );
-            $this->connection->delete(
-                self::SECTION_TABLE,
                 [
                     'template_id' => $aggregateId->getValue(),
                 ]

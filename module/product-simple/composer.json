@@ -11,6 +11,10 @@
         },
         "sort-packages": true
     },
+    "require": {
+        "php": "^7.2",
+        "ergonode/product": "^0.2.0"
+    },
     "autoload": {
         "psr-4": {
             "Ergonode\\ProductSimple\\": "src/"

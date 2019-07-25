@@ -15,7 +15,7 @@ use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -40,13 +40,14 @@ class ReaderGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $id = new TextColumn('id', $this->trans('Id'), new TextFilter());
-        $id->setWidth(240);
+        $filters = $configuration->getFilters();
+
+        $id = new TextColumn('id', $this->trans('Id'));
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $status = new TextColumn('name', $this->trans('Name'), new TextFilter());
+        $status = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
         $this->addColumn('name', $status);
-        $type = new IntegerColumn('type', $this->trans('Type'), new TextFilter());
+        $type = new IntegerColumn('type', $this->trans('Type'), new TextFilter($filters->getString('type')));
         $this->addColumn('type', $type);
     }
 

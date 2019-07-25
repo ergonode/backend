@@ -5,6 +5,8 @@
  * See license.txt for license details.
  */
 
+declare(strict_types = 1);
+
 namespace Ergonode\Designer\Infrastructure\Generator;
 
 use Ergonode\Designer\Domain\Entity\Template;
@@ -15,7 +17,7 @@ use Ergonode\Designer\Domain\Entity\TemplateId;
  */
 interface TemplateGeneratorInterface
 {
-    public const DEFAULT = 'DEFAULT';
+
 
     /**
      * @param TemplateId      $id

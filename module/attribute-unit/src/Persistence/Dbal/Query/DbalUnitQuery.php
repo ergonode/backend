@@ -19,7 +19,7 @@ class DbalUnitQuery implements UnitQueryInterface
 {
     private const TABLE = 'unit';
     private const FIELDS = [
-        'unit AS id',
+        'upper(unit) AS id',
         'concat(initcap(name), \' (\', unit, \')\') AS label',
     ];
 

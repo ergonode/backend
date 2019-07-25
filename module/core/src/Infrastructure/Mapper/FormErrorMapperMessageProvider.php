@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Infrastructure\Mapper;
 
 use Symfony\Component\Form\FormError;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -36,10 +36,11 @@ class FormErrorMapperMessageProvider
      */
     public function getMessage(FormError $error): string
     {
+        $parameters = $error->getMessageParameters();
         if (null !== $error->getMessagePluralization()) {
-            return $this->translator->transChoice($error->getMessageTemplate(), $error->getMessagePluralization(), $error->getMessageParameters());
+            $parameters = array_merge($parameters, ['%count%' => $error->getMessagePluralization()]);
         }
 
-        return $this->translator->trans($error->getMessageTemplate(), $error->getMessageParameters());
+        return $this->translator->trans($error->getMessageTemplate(), $parameters);
     }
 }

@@ -17,7 +17,7 @@ use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -45,19 +45,20 @@ class AccountGrid extends AbstractGrid
 
     /**
      * @param GridConfigurationInterface $configuration
-     * @param Language                   $langauge
+     * @param Language                   $language
      */
-    public function init(GridConfigurationInterface $configuration, Language $langauge): void
+    public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $languages = $this->provider->getLanguages($langauge);
+        $languages = $this->provider->getLanguages($language);
+        $filters = $configuration->getFilters();
 
         $id = new TextColumn('id', $this->trans('Id'));
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('email', new TextColumn('email', $this->trans('Email'), new TextFilter()));
-        $this->addColumn('first_name', new TextColumn('first_name', $this->trans('First Name'), new TextFilter()));
-        $this->addColumn('last_name', new TextColumn('last_name', $this->trans('Last Name'), new TextFilter()));
-        $this->addColumn('language', new TextColumn('language', $this->trans('Language'), new SelectFilter($languages)));
+        $this->addColumn('email', new TextColumn('email', $this->trans('Email'), new TextFilter($filters->getString('email'))));
+        $this->addColumn('first_name', new TextColumn('first_name', $this->trans('First Name'), new TextFilter($filters->getString('first_name'))));
+        $this->addColumn('last_name', new TextColumn('last_name', $this->trans('Last Name'), new TextFilter($filters->getString('last_name'))));
+        $this->addColumn('language', new TextColumn('language', $this->trans('Language'), new SelectFilter($languages, $filters->getString('language'))));
         $this->addColumn('edit', new ActionColumn('edit'));
     }
 

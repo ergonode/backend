@@ -9,10 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
+use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Designer\Domain\Entity\TemplateElementId;
-use Ergonode\Designer\Domain\ValueObject\Position;
-use Ergonode\Designer\Domain\ValueObject\Size;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,76 +18,25 @@ use JMS\Serializer\Annotation as JMS;
 class TemplateElementAddedEvent implements DomainEventInterface
 {
     /**
-     * @var TemplateElementId
+     * @var TemplateElement
      *
-     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateElementId")
+     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateElement")
      */
-    private $elementId;
+    private $element;
 
     /**
-     * @var Position
-     *
-     * @JMS\Type("Ergonode\Designer\Domain\ValueObject\Position")
+     * @param TemplateElement $element
      */
-    private $position;
-
-    /**
-     * @var Size
-     *
-     * @JMS\Type("Ergonode\Designer\Domain\ValueObject\Size")
-     */
-    private $size;
-
-    /**
-     * @var bool
-     *
-     * @JMS\Type("boolean")
-     */
-    private $required;
-
-    /**
-     * @param TemplateElementId $elementId
-     * @param Position          $position
-     * @param Size              $size
-     * @param bool              $required
-     */
-    public function __construct(TemplateElementId $elementId, Position $position, Size $size, bool $required = false)
+    public function __construct(TemplateElement $element)
     {
-        $this->elementId = $elementId;
-        $this->position = $position;
-        $this->size = $size;
-        $this->required = $required;
+        $this->element = $element;
     }
 
     /**
-     * @return TemplateElementId
+     * @return TemplateElement
      */
-    public function getElementId(): TemplateElementId
+    public function getElement(): TemplateElement
     {
-        return $this->elementId;
-    }
-
-    /**
-     * @return Position
-     */
-    public function getPosition(): Position
-    {
-        return $this->position;
-    }
-
-    /**
-     * @return Size
-     */
-    public function getSize(): Size
-    {
-        return $this->size;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRequired(): bool
-    {
-        return $this->required;
+        return $this->element;
     }
 }

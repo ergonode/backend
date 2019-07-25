@@ -9,41 +9,60 @@ declare(strict_types = 1);
 
 namespace Ergonode\Completeness\Application\Controller\Api;
 
-use Ergonode\Completeness\Domain\Query\CompletenessQueryInterface;
+use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
+use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
+use Ergonode\Editor\Domain\Provider\DraftProvider;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class CompletenessController extends AbstractApiController
 {
     /**
-     * @var CompletenessQueryInterface
+     * @var CompletenessCalculator
      */
-    private $query;
+    private $calculator;
 
     /**
-     * @param CompletenessQueryInterface $query
+     * @var TemplateRepositoryInterface
      */
-    public function __construct(CompletenessQueryInterface $query)
+    private $repository;
+
+    /**
+     * @var DraftProvider
+     */
+    private $provider;
+
+    /**
+     * @param CompletenessCalculator      $calculator
+     * @param TemplateRepositoryInterface $repository
+     * @param DraftProvider               $provider
+     */
+    public function __construct(CompletenessCalculator $calculator, TemplateRepositoryInterface $repository, DraftProvider $provider)
     {
-        $this->query = $query;
+        $this->calculator = $calculator;
+        $this->repository = $repository;
+        $this->provider = $provider;
     }
 
     /**
-     * @Route("/drafts/{draft}/completeness", methods={"GET"})
+     * @Route(
+     *     "/products/{product}/draft/completeness", methods={"GET"}, requirements = {"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+     * )
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
-     *     name="draft",
+     *     name="product",
      *     in="path",
      *     type="string",
-     *     description="Product draft id",
+     *     description="Product id",
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -63,17 +82,23 @@ class CompletenessController extends AbstractApiController
      *     description="Form validation error",
      * )
      *
-     * @param ProductDraft $draft
-     * @param Language     $language
+     * @param AbstractProduct $product
+     * @param Language        $language
      *
      * @return Response
      *
-     * @ParamConverter(class="Ergonode\Editor\Domain\Entity\ProductDraft")
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     *
+     * @throws \Exception
      */
-    public function getCompleteness(ProductDraft $draft, Language $language): Response
+    public function getCompleteness(AbstractProduct $product, Language $language): Response
     {
-        $result = $this->query->getCompleteness($draft->getId(), $language);
+        $draft = $this->provider->provide($product);
+        $template = $this->repository->load($product->getTemplateId());
+        Assert::notNull($template, sprintf('Can\'t find template %s', $product->getTemplateId()->getValue()));
 
-        return $this->createRestResponse($result->toArray());
+        $result = $this->calculator->calculate($draft, $template, $language);
+
+        return $this->createRestResponse($result);
     }
 }

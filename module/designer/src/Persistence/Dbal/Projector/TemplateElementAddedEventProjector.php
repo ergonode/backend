@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -28,13 +29,18 @@ class TemplateElementAddedEventProjector implements DomainEventProjectorInterfac
     private $connection;
 
     /**
-     * TemplateCreateEventProjector constructor.
-     *
-     * @param Connection $connection
+     * @var SerializerInterface
      */
-    public function __construct(Connection $connection)
+    private $serializer;
+
+    /**
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -64,19 +70,16 @@ class TemplateElementAddedEventProjector implements DomainEventProjectorInterfac
 
         $this->connection->beginTransaction();
         try {
+            $element = $event->getElement();
             $this->connection->insert(
                 self::ELEMENT_TABLE,
                 [
                     'template_id' => $aggregateId->getValue(),
-                    'element_id' => $event->getElementId()->getValue(),
-                    'x' => $event->getPosition()->getX(),
-                    'y' => $event->getPosition()->getY(),
-                    'width' => $event->getSize()->getWidth(),
-                    'height' => $event->getSize()->getHeight(),
-                    'required' => $event->isRequired(),
-                ],
-                [
-                    'required' => \PDO::PARAM_BOOL,
+                    'x' => $element->getPosition()->getX(),
+                    'y' => $element->getPosition()->getY(),
+                    'width' => $element->getSize()->getWidth(),
+                    'height' => $element->getSize()->getHeight(),
+                    'properties' => $this->serializer->serialize($element->getProperties(), 'json'),
                 ]
             );
             $this->connection->commit();

@@ -17,7 +17,7 @@ use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -42,20 +42,21 @@ class ImportGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
+        $filters = $configuration->getFilters();
 
-        $id = new TextColumn('id', $this->trans('Id'), new TextFilter());
+        $id = new TextColumn('id', $this->trans('Id'));
+        $id->setVisible(false);
         $this->addColumn('id', $id);
-        $id->setWidth(240);
-        $name = new TextColumn('name', $this->trans('Name'), new TextFilter());
+        $name = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
         $name->setWidth(240);
         $this->addColumn('name', $name);
-        $status = new TextColumn('status', $this->trans('Status'), new TextFilter());
+        $status = new TextColumn('status', $this->trans('Status'), new TextFilter($filters->getString('status')));
         $status->setWidth(140);
         $this->addColumn('status', $status);
-        $index = new IntegerColumn('lines', $this->trans('Lines'), new TextFilter());
+        $index = new IntegerColumn('lines', $this->trans('Lines'), new TextFilter($filters->getString('lines')));
         $index->setWidth(140);
         $this->addColumn('lines', $index);
-        $createdAt = new DateColumn('created_at', $this->trans('Created at'), new TextFilter());
+        $createdAt = new DateColumn('created_at', $this->trans('Created at'), new TextFilter($filters->getString('created_at')));
         $createdAt->setWidth(140);
         $this->addColumn('created_at', $createdAt);
         $this->addColumn('info', new ActionColumn('info'));

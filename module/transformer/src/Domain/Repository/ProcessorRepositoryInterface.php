@@ -20,7 +20,8 @@ interface ProcessorRepositoryInterface
     /**
      * @param ProcessorId $id
      *
-     * @return AbstractAggregateRoot|Processor
+     * @return Processor
+     *
      * @throws \ReflectionException
      */
     public function load(ProcessorId $id): ?AbstractAggregateRoot;

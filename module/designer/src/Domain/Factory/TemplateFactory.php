@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Factory;
 
-use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateGroupId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
@@ -25,7 +25,6 @@ class TemplateFactory
      * @param TemplateGroupId   $groupId
      * @param string            $name
      * @param TemplateElement[] $elements
-     * @param string[]          $sections
      * @param MultimediaId|null $imageId
      *
      * @return Template
@@ -35,7 +34,6 @@ class TemplateFactory
         TemplateGroupId $groupId,
         string $name,
         array $elements = [],
-        array $sections = [],
         ?MultimediaId $imageId = null
     ): Template {
         Assert::allIsInstanceOf($elements, TemplateElement::class);
@@ -48,11 +46,7 @@ class TemplateFactory
         );
 
         foreach ($elements as $element) {
-            $template->addElement($element->getElementId(), $element->getPosition(), $element->getSize(), $element->isRequired());
-        }
-
-        foreach ($sections as $column => $section) {
-            $template->addSection($column, $section);
+            $template->addElement($element);
         }
 
         return $template;

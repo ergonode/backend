@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-namespace Ergonode\Attribute\Tests\Domain\Factory;
+namespace Ergonode\Attribute\Tests\Domain\Updater;
 
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;

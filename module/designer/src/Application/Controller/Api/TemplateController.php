@@ -16,7 +16,6 @@ use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Ergonode\Designer\Domain\Checker\TemplateRelationChecker;
 use Ergonode\Designer\Domain\Command\DeleteTemplateCommand;
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Infrastructure\Factory\TemplateCommandFactory;
 use Ergonode\Designer\Infrastructure\Grid\TemplateGrid;
@@ -155,10 +154,11 @@ class TemplateController extends AbstractApiController
     public function getTemplates(Language $language, Request $request): Response
     {
         $dataSet = $this->designerTemplateQuery->getDataSet();
-        $pagination = new RequestGridConfiguration($request);
-        $collection = $this->templateGrid->render($dataSet, $pagination, $language);
+        $configuration = new RequestGridConfiguration($request);
 
-        return $this->createRestResponse($collection);
+        $result = $this->renderGrid($this->templateGrid, $configuration, $dataSet, $language);
+
+        return $this->createRestResponse($result);
     }
 
     /**
@@ -303,21 +303,17 @@ class TemplateController extends AbstractApiController
      *     response=404,
      *     description="Not found",
      * )
-     * @param Language $language
-     * @param string   $template
+     *
+     * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
+     *
+     * @param Template $template
      *
      * @return Response
      */
-    public function getTemplate(Language $language, string $template): Response
+    public function getTemplate(Template $template): Response
     {
         try {
-            $templateId = new TemplateId($template);
-            $result = $this->designerTemplateQuery->getTemplate($templateId, $language);
-            if (!empty($result)) {
-                return $this->createRestResponse($result);
-            }
-
-            return $this->createRestResponse(null, [], Response::HTTP_NOT_FOUND);
+            return $this->createRestResponse($template);
         } catch (\Throwable $exception) {
             return $this->createRestResponse([$exception->getMessage(), explode(PHP_EOL, $exception->getTraceAsString())], [], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

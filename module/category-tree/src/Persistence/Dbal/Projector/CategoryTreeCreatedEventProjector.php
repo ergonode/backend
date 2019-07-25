@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonaut Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
@@ -9,16 +9,33 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Persistence\Dbal\Projector;
 
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
+use Doctrine\DBAL\Connection;
+use Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent;
+use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
+use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
+use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class CategoryTreeCreatedEventProjector extends AbstractCategoryTreeEventProjector
+class CategoryTreeCreatedEventProjector implements DomainEventProjectorInterface
 {
+    protected const TABLE = 'tree';
+
+    /**
+     * @var Connection
+     */
+    protected $connection;
+
+    /**
+     * @param Connection $connection
+     */
+    public function __construct(Connection $connection)
+    {
+        $this->connection = $connection;
+    }
+
     /**
      * @param DomainEventInterface $event
      *
@@ -45,17 +62,13 @@ class CategoryTreeCreatedEventProjector extends AbstractCategoryTreeEventProject
 
         try {
             $this->connection->beginTransaction();
-
-            if ($event->getCategoryId()) {
-                $this->connection->insert(
-                    self::TABLE,
-                    [
-                        'tree_id' => $aggregateId->getValue(),
-                        'category_id' => $event->getCategoryId()->getValue(),
-                        'path' => $this->getSequence($event->getCategoryId()),
-                    ]
-                );
-            }
+            $this->connection->insert(
+                self::TABLE,
+                [
+                    'id' => $event->getId(),
+                    'name' => $event->getName(),
+                ]
+            );
             $this->connection->commit();
         } catch (\Throwable $exception) {
             $this->connection->rollBack();

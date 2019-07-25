@@ -45,7 +45,7 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
     /**
      * @param TransformerId $id
      *
-     * @return null|Transformer
+     * @return null|AbstractAggregateRoot|Transformer
      *
      * @throws \ReflectionException
      */
@@ -66,6 +66,18 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param TransformerId $id
+     *
+     * @return bool
+     */
+    public function exists(TransformerId $id): bool
+    {
+        $eventStream = $this->eventStore->load($id, self::TABLE);
+
+        return $eventStream->count() > 0;
     }
 
     /**

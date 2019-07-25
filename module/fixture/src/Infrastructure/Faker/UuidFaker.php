@@ -9,19 +9,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use Faker\Provider\Base as BaseProvider;
 use Ramsey\Uuid\Uuid;
 
 /**
- * Class UuidFaker
  */
 class UuidFaker extends BaseProvider
 {
     /**
      * @param string|null $uuid
      *
-     * @return Language
+     * @return string
+     *
      * @throws \Exception
      */
     public function uuid(string $uuid = null): string

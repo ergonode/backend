@@ -43,7 +43,7 @@ class TemplateParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-         $template = $request->get('template');
+        $template = $request->get('template');
 
         if (null === $template) {
             throw new BadRequestHttpException('Route attribute is missing');

@@ -9,30 +9,38 @@ declare(strict_types = 1);
 
 namespace Ergonode\Completeness\Domain\ReadModel;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
 class CompletenessReadModel
 {
     /**
-     * @var array
+     * @var int
+     *
+     * @JMS\Type("integer")
      */
     private $required;
 
     /**
-     * @var array
+     * @var int
+     *
+     * @JMS\Type("integer")
      */
     private $filled;
 
     /**
      * @var array
+     *
+     * @JMS\Type("array<Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel>")
      */
     private $missing;
 
     /**
      * @var Language
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private $language;
 
@@ -48,37 +56,59 @@ class CompletenessReadModel
     }
 
     /**
-     * @param AttributeId $id
-     * @param string      $name
-     * @param bool        $required
-     * @param null|string $value
+     * @param CompletenessElementReadModel $model
      */
-    public function addField(AttributeId $id, string $name, bool $required, ?string $value = null): void
+    public function addCompletenessElement(CompletenessElementReadModel $model): void
     {
-        if ($required) {
+        if ($model->isRequired()) {
             $this->required++;
-            if ($value) {
+            if ($model->isFilled()) {
                 $this->filled++;
             } else {
-                $this->missing[] = [
-                    'id' => $id->getValue(),
-                    'name' => $name,
-                ];
+                $this->missing[] = $model;
             }
         }
     }
 
     /**
+     * @return int
+     */
+    public function getRequired(): int
+    {
+        return $this->required;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFilled(): int
+    {
+        return $this->filled;
+    }
+
+    /**
      * @return array
      */
-    public function toArray(): array
+    public function getMissing(): array
     {
-        return [
-            'required' => $this->required,
-            'language' => $this->language->getCode(),
-            'filled' => $this->filled,
-            'percent' => $this->required ? round($this->filled/ $this->required * 100, 2) : 100,
-            'missing' => $this->missing,
-        ];
+        return $this->missing;
+    }
+
+    /**
+     * @return Language
+     */
+    public function getLanguage(): Language
+    {
+        return $this->language;
+    }
+
+    /**
+     * @return float
+     *
+     * @JMS\VirtualProperty(name="percent")
+     */
+    public function getPercent(): float
+    {
+        return $this->required ? round($this->filled/ $this->required * 100, 2) : 100;
     }
 }
