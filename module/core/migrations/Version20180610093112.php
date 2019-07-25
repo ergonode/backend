@@ -54,7 +54,7 @@ final class Version20180610093112 extends AbstractErgonodeMigration
             $this->addSql('INSERT INTO language (id, iso, name) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), $iso, $name]);
         }
 
-        $this->addSql('UPDATE language SET system = true WHERE iso in (\'EN\')');
+        $this->addSql('UPDATE language SET system = true WHERE iso in (\'EN\', \'PL\')');
     }
 
     /**
