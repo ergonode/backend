@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © Ergonaut Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 

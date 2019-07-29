@@ -9,8 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Subscriber;
 
-use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Account\Domain\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -28,11 +27,6 @@ class LocaleSubscriber implements EventSubscriberInterface
     private $security;
 
     /**
-     * @var UserRepositoryInterface
-     */
-    private $repository;
-
-    /**
      * @var TranslatorInterface
      */
     private $translator;
@@ -40,12 +34,10 @@ class LocaleSubscriber implements EventSubscriberInterface
     /**
      * @param Security                $security
      * @param TranslatorInterface     $translator
-     * @param UserRepositoryInterface $repository
      */
-    public function __construct(Security $security, TranslatorInterface $translator, UserRepositoryInterface $repository)
+    public function __construct(Security $security, TranslatorInterface $translator)
     {
         $this->security = $security;
-        $this->repository = $repository;
         $this->translator = $translator;
     }
 
@@ -58,8 +50,9 @@ class LocaleSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         if ($this->security->getUser()) {
-            $user = $this->repository->load(UserId::createFromUuid($this->security->getUser()->getId()));
-            Assert::notNull($user, 'cant find user %s');
+            /** @var User $user */
+            $user = $this->security->getUser();
+            Assert::notNull($user, 'Cannot find user %s');
             $locale = strtolower($user->getLanguage()->getCode());
             $this->translator->setLocale($locale);
             $request->setLocale($locale);

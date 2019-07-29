@@ -31,6 +31,7 @@ class UserAvatarChangedEvent implements DomainEventInterface
     {
         $this->avatarId = $avatarId;
     }
+
     /**
      * @return MultimediaId|null
      */

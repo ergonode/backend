@@ -49,7 +49,7 @@ class DbalRoleRepository implements RoleRepositoryInterface
     {
         $eventStream = $this->eventStore->load($id);
 
-        if (\count($eventStream) > 0) {
+        if (count($eventStream) > 0) {
             $class = new \ReflectionClass(Role::class);
             /** @var AbstractAggregateRoot|Role $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();

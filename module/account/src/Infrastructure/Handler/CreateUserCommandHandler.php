@@ -12,6 +12,8 @@ namespace Ergonode\Account\Infrastructure\Handler;
 use Ergonode\Account\Domain\Command\CreateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Account\Domain\ValueObject\Password;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  */
@@ -23,11 +25,21 @@ class CreateUserCommandHandler
     private $repository;
 
     /**
-     * @param UserRepositoryInterface $repository
+     * @var UserPasswordEncoderInterface
      */
-    public function __construct(UserRepositoryInterface $repository)
+    private $userPasswordEncoder;
+
+    /**
+     * @param UserRepositoryInterface $repository
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
+     */
+    public function __construct(
+        UserRepositoryInterface $repository,
+        UserPasswordEncoderInterface $userPasswordEncoder
+    )
     {
         $this->repository = $repository;
+        $this->userPasswordEncoder = $userPasswordEncoder;
     }
 
     /**
@@ -47,6 +59,9 @@ class CreateUserCommandHandler
             $command->getRoleId(),
             $command->getAvatarId()
         );
+
+        $encodedPassword = $this->userPasswordEncoder->encodePassword($user, $command->getPassword()->getValue());
+        $user->setPassword(new Password($encodedPassword));
 
         $this->repository->save($user);
     }

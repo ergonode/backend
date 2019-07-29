@@ -11,6 +11,7 @@ namespace Ergonode\Account\Domain\Event;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
@@ -43,9 +44,9 @@ class UserCreatedEvent implements DomainEventInterface
     private $lastName;
 
     /**
-     * @var string
+     * @var Email
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Account\Domain\ValueObject\Email")
      */
     private $email;
 
@@ -81,7 +82,7 @@ class UserCreatedEvent implements DomainEventInterface
      * @param UserId            $id
      * @param string            $firstName
      * @param string            $lastName
-     * @param string            $email
+     * @param Email             $email
      * @param Language          $language
      * @param Password          $password
      * @param RoleId            $roleId
@@ -91,7 +92,7 @@ class UserCreatedEvent implements DomainEventInterface
         UserId $id,
         string $firstName,
         string $lastName,
-        string $email,
+        Email $email,
         Language $language,
         Password $password,
         RoleId $roleId,
@@ -132,9 +133,9 @@ class UserCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return string
+     * @return Email
      */
-    public function getEmail(): string
+    public function getEmail(): Email
     {
         return $this->email;
     }

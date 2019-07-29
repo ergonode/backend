@@ -12,6 +12,7 @@ namespace Ergonode\Account\Tests\Domain\Event;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Event\UserCreatedEvent;
+use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
@@ -30,7 +31,7 @@ class UserCreatedEventTest extends TestCase
         $id = $this->createMock(UserId::class);
         $firstName = 'New first name';
         $lastName = 'New last name';
-        $email = 'correct_email@email.com';
+        $email = new Email('correct_email@email.com');
         /** @var Language|MockObject $language */
         $language = $this->createMock(Language::class);
         $language->method('isEqual')->willReturn(false);

@@ -12,6 +12,7 @@ namespace Ergonode\Account\Tests\Domain\Entity;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
@@ -38,7 +39,7 @@ class UserTest extends TestCase
     private $lastName;
 
     /**
-     * @var string
+     * @var Email\MockObject
      */
     private $email;
 
@@ -69,7 +70,7 @@ class UserTest extends TestCase
         $this->userId = $this->createMock(UserId::class);
         $this->firstName = 'Any first name';
         $this->lastName = 'Any last name';
-        $this->email = 'any_valid_email@email.com';
+        $this->email = $this->createMock(Email::class);
         $this->password = $this->createMock(Password::class);
         $this->language = $this->createMock(Language::class);
         $this->multimediaId = $this->createMock(MultimediaId::class);

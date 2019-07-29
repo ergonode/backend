@@ -22,11 +22,6 @@ Ergonode\Account\Domain\Entity\Role:
             - 'Manages Ergonode system, manages access to all permissions for other users.'
             - ['<Privilege(ATTRIBUTE_READ)>']
 
-Ergonode\Account\Domain\Entity\UserId:
-    user_id_en:
-        __construct:
-            - '<uuid()>'
-
 Ergonode\Account\Domain\ValueObject\Password:
     user_en_password:
         __construct:
@@ -35,10 +30,10 @@ Ergonode\Account\Domain\ValueObject\Password:
 Ergonode\Account\Domain\Entity\User:
     user_en:
         __construct:
-            - '@user_id_en'
+            - '<userId(test@ergonode.com)>'
             - 'Jon'
             - 'Dove'
-            - 'test@ergonode.com'
+            - '<userEmail(test@ergonode.com)>'
             - '<language(EN)>'
             - '@user_en_password'
             - '@role_id'
