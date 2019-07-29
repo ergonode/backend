@@ -16,6 +16,8 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
+/**
+ */
 class EmailHandler implements SubscribingHandlerInterface
 {
     /**

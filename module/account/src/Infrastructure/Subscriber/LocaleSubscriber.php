@@ -32,8 +32,8 @@ class LocaleSubscriber implements EventSubscriberInterface
     private $translator;
 
     /**
-     * @param Security                $security
-     * @param TranslatorInterface     $translator
+     * @param Security            $security
+     * @param TranslatorInterface $translator
      */
     public function __construct(Security $security, TranslatorInterface $translator)
     {

@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Controller\Api;
 
-use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
 use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
 use Ergonode\Account\Application\Form\UserCreateForm;
@@ -19,22 +17,24 @@ use Ergonode\Account\Domain\Command\ChangeUserAvatarCommand;
 use Ergonode\Account\Domain\Command\ChangeUserPasswordCommand;
 use Ergonode\Account\Domain\Command\CreateUserCommand;
 use Ergonode\Account\Domain\Command\UpdateUserCommand;
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Account\Infrastructure\Grid\AccountGrid;
+use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -73,12 +73,12 @@ class AccountController extends AbstractApiController
     private $validator;
 
     /**
-     * @param AccountGrid                  $grid
-     * @param UserRepositoryInterface      $repository
-     * @param AccountQueryInterface        $query
-     * @param PasswordValidationBuilder    $builder
-     * @param MessageBusInterface          $messageBus
-     * @param ValidatorInterface           $validator
+     * @param AccountGrid               $grid
+     * @param UserRepositoryInterface   $repository
+     * @param AccountQueryInterface     $query
+     * @param PasswordValidationBuilder $builder
+     * @param MessageBusInterface       $messageBus
+     * @param ValidatorInterface        $validator
      */
     public function __construct(
         AccountGrid $grid,

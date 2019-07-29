@@ -30,14 +30,13 @@ class ChangeUserPasswordCommandHandler
     private $userPasswordEncoder;
 
     /**
-     * @param UserRepositoryInterface $repository
+     * @param UserRepositoryInterface      $repository
      * @param UserPasswordEncoderInterface $userPasswordEncoder
      */
     public function __construct(
         UserRepositoryInterface $repository,
         UserPasswordEncoderInterface $userPasswordEncoder
-    )
-    {
+    ) {
         $this->repository = $repository;
         $this->userPasswordEncoder = $userPasswordEncoder;
     }

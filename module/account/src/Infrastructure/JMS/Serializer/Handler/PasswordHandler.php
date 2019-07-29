@@ -75,6 +75,7 @@ class PasswordHandler implements SubscribingHandlerInterface
     public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Password
     {
         $data = base64_decode($data);
+
         return new Password($data);
     }
 }

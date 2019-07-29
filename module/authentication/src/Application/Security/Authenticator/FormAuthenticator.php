@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Authentication\Application\Security\Authenticator;
 
@@ -22,6 +22,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
+/**
+ */
 class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
@@ -50,8 +52,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
         UserPasswordEncoderInterface $passwordEncoder,
         AuthenticationSuccessHandler $successHandler,
         AuthenticationFailureHandler $failureHandler
-    )
-    {
+    ) {
         $this->passwordEncoder = $passwordEncoder;
         $this->successHandler = $successHandler;
         $this->failureHandler = $failureHandler;
@@ -81,7 +82,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param mixed $credentials
+     * @param mixed                 $credentials
      * @param UserProviderInterface $userProvider
      *
      * @return UserInterface|null
@@ -92,7 +93,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param mixed $credentials
+     * @param mixed         $credentials
      * @param UserInterface $user
      *
      * @return bool
@@ -108,9 +109,9 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param Request $request
+     * @param Request        $request
      * @param TokenInterface $token
-     * @param string $providerKey
+     * @param string         $providerKey
      *
      * @return Response
      *
@@ -122,7 +123,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param Request $request
+     * @param Request                 $request
      * @param AuthenticationException $exception
      *
      * @return Response
@@ -133,7 +134,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     }
 
     /**
-     * @param Request $request
+     * @param Request                      $request
      * @param AuthenticationException|null $authException
      *
      * @return Response

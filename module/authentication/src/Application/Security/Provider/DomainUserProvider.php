@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Authentication\Application\Security\Provider;
 
@@ -17,6 +17,8 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
+/**
+ */
 class DomainUserProvider implements UserProviderInterface
 {
     /**
@@ -34,6 +36,7 @@ class DomainUserProvider implements UserProviderInterface
 
     /**
      * @param string $username
+     *
      * @return UserInterface
      * @throws \Exception
      */
@@ -53,6 +56,7 @@ class DomainUserProvider implements UserProviderInterface
 
     /**
      * @param UserInterface $user
+     *
      * @return UserInterface
      * @throws \Exception
      */
@@ -63,6 +67,7 @@ class DomainUserProvider implements UserProviderInterface
 
     /**
      * @param string $class
+     *
      * @return bool
      */
     public function supportsClass($class): bool

@@ -37,8 +37,8 @@ class CreateUserCommand extends Command
     private $query;
 
     /**
-     * @param MessageBusInterface          $messageBus
-     * @param RoleQueryInterface           $query
+     * @param MessageBusInterface $messageBus
+     * @param RoleQueryInterface  $query
      */
     public function __construct(MessageBusInterface $messageBus, RoleQueryInterface $query)
     {
