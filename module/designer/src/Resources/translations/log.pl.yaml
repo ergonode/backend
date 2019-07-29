@@ -1,0 +1,10 @@
+"Ergonode\\Designer\\Domain\\Event\\TemplateCreatedEvent": Szablon "%name%" dodany
+"Ergonode\\Designer\\Domain\\Event\\TemplateElementAddedEvent": Element dodany do szablonu
+"Ergonode\\Designer\\Domain\\Event\\TemplateElementChangedEvent": Element szablonu zmieniony
+"Ergonode\\Designer\\Domain\\Event\\TemplateElementRemovedEvent": Element szablonu usunięty
+"Ergonode\\Designer\\Domain\\Event\\TemplateGroupChangedEvent": Szablon usunięty z grupy
+"Ergonode\\Designer\\Domain\\Event\\TemplateImageAddedEvent": Zdjęcie dodane do szablonu
+"Ergonode\\Designer\\Domain\\Event\\TemplateImageChangedEvent": Zmieniono zdjęcie szablonu
+"Ergonode\\Designer\\Domain\\Event\\TemplateImageRemovedEvent": Usunieto zdjęcie szablonu
+"Ergonode\\Designer\\Domain\\Event\\TemplateNameChangedEvent": Nazwa szablonu zmieniona z "%from%" na "%to%"
+"Ergonode\\Designer\\Domain\\Event\\TemplateRemovedEvent": Szablon usunieto

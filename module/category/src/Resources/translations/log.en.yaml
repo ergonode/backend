@@ -1,0 +1,2 @@
+"Ergonode\\Category\\Domain\\Event\\CategoryCreatedEvent": Category "%code%" created
+"Ergonode\\Category\\Domain\\Event\\CategoryNameChangedEvent": Category name changed

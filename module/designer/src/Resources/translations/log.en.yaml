@@ -1,0 +1,10 @@
+"Ergonode\\Designer\\Domain\\Event\\TemplateCreatedEvent": Template "%name%" created
+"Ergonode\\Designer\\Domain\\Event\\TemplateElementAddedEvent": Template element added to template
+"Ergonode\\Designer\\Domain\\Event\\TemplateElementChangedEvent": Template element changed
+"Ergonode\\Designer\\Domain\\Event\\TemplateElementRemovedEvent": Template element removed
+"Ergonode\\Designer\\Domain\\Event\\TemplateGroupChangedEvent": Template group removed
+"Ergonode\\Designer\\Domain\\Event\\TemplateImageAddedEvent": Template image added
+"Ergonode\\Designer\\Domain\\Event\\TemplateImageChangedEvent": Template image changed
+"Ergonode\\Designer\\Domain\\Event\\TemplateImageRemovedEvent": Template image removed
+"Ergonode\\Designer\\Domain\\Event\\TemplateNameChangedEvent": Template name changed from "%from%" to "%to%"
+"Ergonode\\Designer\\Domain\\Event\\TemplateRemovedEvent": Template removed

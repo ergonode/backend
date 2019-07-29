@@ -1,0 +1,4 @@
+"Ergonode\\CategoryTree\\Domain\\Event\\CategoryTreeCategoriesChangedEvent": Categories changed
+"Ergonode\\CategoryTree\\Domain\\Event\\CategoryTreeCategoryAddedEvent": Category added
+"Ergonode\\CategoryTree\\Domain\\Event\\CategoryTreeCategoryRemovedEvent": Category removed
+"Ergonode\\CategoryTree\\Domain\\Event\\CategoryTreeCreatedEvent": Category Tree "%name%" created

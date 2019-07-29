@@ -34,7 +34,7 @@ class MultimediaUploadModel
      */
     public function validate(ExecutionContextInterface $context): void
     {
-        $isFileExtensionValid = \in_array($this->upload->getClientOriginalExtension(), ImageFormat::AVAILABLE, true);
+        $isFileExtensionValid = \in_array(strtolower($this->upload->getClientOriginalExtension()), ImageFormat::AVAILABLE, true);
 
         if ($this->upload && !$isFileExtensionValid) {
             $context
