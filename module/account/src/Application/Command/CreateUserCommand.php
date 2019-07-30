@@ -53,6 +53,7 @@ class CreateUserCommand extends Command
      */
     public function configure(): void
     {
+        $this->setDescription('Creates a new valid user');
         $this->addArgument('email', InputArgument::REQUIRED, 'user email.');
         $this->addArgument('first_name', InputArgument::REQUIRED, 'First name');
         $this->addArgument('last_name', InputArgument::REQUIRED, 'Last name');
@@ -85,9 +86,9 @@ class CreateUserCommand extends Command
             $this->messageBus->dispatch($command);
 
             $output->writeln('<info>User created.</info>');
+        } else {
+            $output->writeln(sprintf('<error>Can\'t find role %s</error>', $role));
         }
-
-        $output->writeln(sprintf('<error>Can\'t find role %s</error>', $role));
 
         return 1;
     }

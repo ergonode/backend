@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See license.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Account\Infrastructure\Encoder;
+
+use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Domain\ValueObject\Password;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface as SecurityUserPasswordEncoderInterface;
+
+/**
+ */
+class DomainUserPasswordEncoder implements UserPasswordEncoderInterface
+{
+    /**
+     * @var SecurityUserPasswordEncoderInterface
+     */
+    private $userPasswordEncoder;
+
+    public function __construct(SecurityUserPasswordEncoderInterface $userPasswordEncoder)
+    {
+        $this->userPasswordEncoder = $userPasswordEncoder;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function encode(User $user, Password $password): Password
+    {
+        $encodedPassword = $this->userPasswordEncoder->encodePassword($user, $password->getValue());
+
+        return new Password($encodedPassword);
+    }
+}

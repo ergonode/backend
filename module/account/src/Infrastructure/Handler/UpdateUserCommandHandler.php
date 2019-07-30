@@ -12,7 +12,7 @@ namespace Ergonode\Account\Infrastructure\Handler;
 use Ergonode\Account\Domain\Command\UpdateUserCommand;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Password;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -56,11 +56,10 @@ class UpdateUserCommandHandler
         $user->changeLanguage($command->getLanguage());
         $user->changeRole($command->getRoleId());
 
-        if ($command->getPassword()) {
-            $encodedPassword = $this->userPasswordEncoder->encodePassword($user, $command->getPassword()->getValue());
-            $password = new Password($encodedPassword);
-            $user->setPassword($password);
-            $user->changePassword($password);
+        if ($command->getPassword() instanceof Password) {
+            $encodedPassword = $this->userPasswordEncoder->encode($user, $command->getPassword());
+            $user->setPassword($encodedPassword);
+            $user->changePassword($encodedPassword);
         }
 
         $this->repository->save($user);
