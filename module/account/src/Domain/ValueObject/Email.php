@@ -26,13 +26,11 @@ class Email
      */
     public function __construct(string $value)
     {
-        $value = mb_strtolower(trim($value));
-
         if (!self::isValid($value)) {
             throw new \InvalidArgumentException('Value is not correct email');
         }
 
-        $this->value = $value;
+        $this->value = mb_strtolower(trim($value));
     }
 
     /**
@@ -68,6 +66,8 @@ class Email
      */
     public static function isValid(string $value): bool
     {
+        $value = mb_strtolower(trim($value));
+
         return (new EmailValidator())->isValid($value, new RFCValidation());
     }
 }
