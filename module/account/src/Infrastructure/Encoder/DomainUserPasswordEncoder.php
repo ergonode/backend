@@ -22,6 +22,9 @@ class DomainUserPasswordEncoder implements UserPasswordEncoderInterface
      */
     private $userPasswordEncoder;
 
+    /**
+     * @param SecurityUserPasswordEncoderInterface $userPasswordEncoder
+     */
     public function __construct(SecurityUserPasswordEncoderInterface $userPasswordEncoder)
     {
         $this->userPasswordEncoder = $userPasswordEncoder;
