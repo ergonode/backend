@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonaut Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Controller\Api;
 
-use Ergonode\Authentication\Entity\User;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
 use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
 use Ergonode\Account\Application\Form\UserCreateForm;
@@ -25,16 +23,19 @@ use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Account\Infrastructure\Grid\AccountGrid;
+use Ergonode\Authentication\Entity\User;
+use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -107,6 +108,8 @@ class AccountController extends AbstractApiController
 
     /**
      * @Route("/accounts", methods={"GET"})
+     *
+     * @IsGranted("USER_READ")
      *
      * @SWG\Tag(name="Account")
      *
@@ -191,6 +194,8 @@ class AccountController extends AbstractApiController
     /**
      * @Route("/accounts/{user}", methods={"GET"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("USER_READ")
+     *
      * @SWG\Tag(name="Account")
      *
      * @SWG\Parameter(
@@ -236,6 +241,8 @@ class AccountController extends AbstractApiController
 
     /**
      * @Route("/accounts", methods={"POST"})
+     *
+     * @IsGranted("USER_CREATE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -294,6 +301,8 @@ class AccountController extends AbstractApiController
 
     /**
      * @Route("/accounts/{user}", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("USER_UPDATE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -366,6 +375,8 @@ class AccountController extends AbstractApiController
     /**
      * @Route("/accounts/{user}/avatar", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("USER_UPDATE")
+     *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
      *     name="user",
@@ -420,6 +431,8 @@ class AccountController extends AbstractApiController
 
     /**
      * @Route("/accounts/{user}/password", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("USER_UPDATE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

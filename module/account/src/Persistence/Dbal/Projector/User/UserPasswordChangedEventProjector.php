@@ -1,24 +1,24 @@
 <?php
 
 /**
- * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * Copyright © Ergonaut Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector;
+namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\UserFirstNameChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
+use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class UserFirstNameChangedEventProjector implements DomainEventProjectorInterface
+class UserPasswordChangedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'users';
 
@@ -42,7 +42,7 @@ class UserFirstNameChangedEventProjector implements DomainEventProjectorInterfac
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof UserFirstNameChangedEvent;
+        return $event instanceof UserPasswordChangedEvent;
     }
 
     /**
@@ -54,17 +54,16 @@ class UserFirstNameChangedEventProjector implements DomainEventProjectorInterfac
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof UserFirstNameChangedEvent) {
-            throw new UnsupportedEventException($event, UserFirstNameChangedEvent::class);
+        if (!$event instanceof UserPasswordChangedEvent) {
+            throw new UnsupportedEventException($event, UserPasswordChangedEvent::class);
         }
-
 
         $this->connection->beginTransaction();
         try {
             $this->connection->update(
                 self::TABLE,
                 [
-                    'first_name' => $event->getTo(),
+                    'password' => $event->getPassword(),
                 ],
                 [
                     'id' => $aggregateId->getValue(),

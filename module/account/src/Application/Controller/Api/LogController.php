@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonaut Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
@@ -13,20 +13,19 @@ use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\LogQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Infrastructure\Grid\LogGrid;
-use Ergonode\Authentication\Entity\User;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
 class LogController extends AbstractApiController
 {
-
     /**
      * @var UserRepositoryInterface
      */
@@ -56,6 +55,8 @@ class LogController extends AbstractApiController
 
     /**
      * @Route("/profile/log", methods={"GET"})
+     *
+     * @IsGranted("USER_READ")
      *
      * @SWG\Tag(name="Profile")
      *

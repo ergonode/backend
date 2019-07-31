@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\EventSourcing\Domain;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use JMS\Serializer\Annotation as JMS;
 
@@ -50,6 +50,8 @@ abstract class AbstractAggregateRoot
 
     /**
      * @param DomainEventInterface $event
+     *
+     * @throws \Exception
      */
     public function apply(DomainEventInterface $event): void
     {

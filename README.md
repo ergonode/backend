@@ -96,9 +96,9 @@ On the front side we've used headless approach with Vue.js application. Thanks t
 - PHP 7.2
 - Symfony 4.2
 - Postgres 9.6 (uuid-ossp, ltree)
-- RabbitMQ
-- Redis
-- Elasticsearch
+- RabbitMQ (optional)
+- Redis (optional)
+- Elasticsearch (optional)
 - Nginx (possible Apache)
 - MongoDB (optional)
 
@@ -144,18 +144,27 @@ Generate keys
 openssl genrsa -out config/jwt/private.pem -aes256 4096
 openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 ```
-While executing above commends you would be asked about password. This password needs to be saved then in .env file in line JWT_PASSPHRASE=yourpassword
+While executing above commends you would be asked about password. This password needs to be saved then in .env file in line `JWT_PASSPHRASE=yourpassword`
 
 In terminal execute command which configure application (Available phing commands):
 ```
 bin/phing build
 ```
 
+If you need basic data in terminal execute command:
+```
+bin/phing database:fixture
+```
+or more complex data:
+```
+bin/phing database:fixture:dev
+```
+
 To create user execute console command
 ```
 bin/console ergonode:user:create email name surname password language_code [role]
 ```
- > eg. *bin/console ergonode:user:create test@ergonode.com John Snow 123 EN Admin*
+ > eg. *bin/console ergonode:user:create test@ergonode.com John Snow 123 EN*
 
 Run build in server
 ```

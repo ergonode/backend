@@ -9,27 +9,28 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Application\Controller\Api;
 
+use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Application\Form\TreeForm;
 use Ergonode\CategoryTree\Application\Model\TreeFormModel;
 use Ergonode\CategoryTree\Domain\Command\AddCategoryCommand;
+use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
 use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
+use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
+use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
-use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
-use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -75,6 +76,8 @@ class CategoryTreeController extends AbstractApiController
 
     /**
      * @Route("/trees", methods={"GET"})
+     *
+     * @IsGranted("CATEGORY_TREE_READ")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(
@@ -152,6 +155,8 @@ class CategoryTreeController extends AbstractApiController
     /**
      * @Route("/trees", methods={"POST"})
      *
+     * @IsGranted("CATEGORY_TREE_CREATE")
+     *
      * @SWG\Tag(name="Tree")
      *
      * @SWG\Parameter(
@@ -213,6 +218,8 @@ class CategoryTreeController extends AbstractApiController
 
     /**
      * @Route("/trees/{tree}/category/{category}/child", methods={"POST"})
+     *
+     * @IsGranted("CATEGORY_CREATE")
      *
      * @SWG\Tag(name="Tree")
      *
@@ -278,6 +285,8 @@ class CategoryTreeController extends AbstractApiController
 
     /**
      * @Route("/trees/{tree}", methods={"PUT"})
+     *
+     * @IsGranted("CATEGORY_TREE_UPDATE")
      *
      * @SWG\Tag(name="Tree")
      *
@@ -345,6 +354,8 @@ class CategoryTreeController extends AbstractApiController
 
     /**
      * @Route("/trees/{tree}", methods={"GET"})
+     *
+     * @IsGranted("CATEGORY_TREE_READ")
      *
      * @SWG\Tag(name="Tree")
      *

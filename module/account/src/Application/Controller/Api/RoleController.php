@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonaut Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
@@ -21,13 +21,14 @@ use Ergonode\Account\Infrastructure\Grid\RoleGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -69,6 +70,8 @@ class RoleController extends AbstractApiController
 
     /**
      * @Route("/roles", methods={"GET"})
+     *
+     * @IsGranted("ROLE_READ")
      *
      * @SWG\Tag(name="Account")
      *
@@ -153,6 +156,8 @@ class RoleController extends AbstractApiController
     /**
      * @Route("/roles/{role}", methods={"GET"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("ROLE_READ")
+     *
      * @SWG\Tag(name="Account")
      *
      * @SWG\Parameter(
@@ -198,6 +203,8 @@ class RoleController extends AbstractApiController
 
     /**
      * @Route("/roles", methods={"POST"})
+     *
+     * @IsGranted("ROLE_CREATE")
      *
      * @SWG\Tag(name="Account")
      *
@@ -256,6 +263,8 @@ class RoleController extends AbstractApiController
 
     /**
      * @Route("/roles/{role}", methods={"PUT"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("ROLE_UPDATE")
      *
      * @SWG\Tag(name="Account")
      *
@@ -324,6 +333,8 @@ class RoleController extends AbstractApiController
 
     /**
      * @Route("/roles/{role}", methods={"DELETE"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("ROLE_DELETE")
      *
      * @SWG\Tag(name="Account")
      *

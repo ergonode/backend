@@ -1,20 +1,20 @@
 Ergonode\Account\Domain\Entity\UserId:
-    user_id_en:
+    admin_user_id:
         __construct:
             - '<uuid(2404385c-e7c8-40f9-a393-084d16847d7f)>'
 
-
 Ergonode\Account\Domain\ValueObject\Password:
-    user_en_password:
+    admin_user_password:
         __construct:
-            - 'iBt0Q5mZ++oT3LnTkrazXHUkoiE='
+            - '123456'
 
 Ergonode\Account\Domain\Entity\User:
-    user_en:
+    admin:
         __construct:
-            - '@user_id_en'
-            - 'Jon'
-            - 'Dove'
+            - '@admin_user_id'
+            - 'Johnny'
+            - 'Bravo'
             - 'test@ergonode.com'
             - '<language(EN)>'
-            - '@user_en_password'
+            - '@admin_user_password'
+            - '@admin_role_id'

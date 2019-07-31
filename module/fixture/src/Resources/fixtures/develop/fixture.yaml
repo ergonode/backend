@@ -1,4 +1,5 @@
 include:
+    - roles.yaml
     - user.yaml
     - translation.yaml
     - options.yaml

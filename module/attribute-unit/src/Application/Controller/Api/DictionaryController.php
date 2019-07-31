@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\AttributeUnit\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\AttributeUnit\Domain\Query\UnitQueryInterface;
+use Ergonode\Core\Application\Controller\AbstractApiController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -34,6 +35,8 @@ class DictionaryController extends AbstractApiController
 
     /**
      * @Route("/units", methods={"GET"})
+     *
+     * @IsGranted("ATTRIBUTE_READ")
      *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(

@@ -7,14 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Domain\Event;
+namespace Ergonode\Core\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserFirstNameChangedEvent implements DomainEventInterface
+abstract class AbstractStringBasedEvent implements DomainEventInterface
 {
     /**
      * @var string

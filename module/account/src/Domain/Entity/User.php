@@ -9,17 +9,17 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Entity;
 
-use Ergonode\Account\Domain\Event\UserAvatarChangedEvent;
-use Ergonode\Account\Domain\Event\UserCreatedEvent;
-use Ergonode\Account\Domain\Event\UserFirstNameChangedEvent;
-use Ergonode\Account\Domain\Event\UserLanguageChangedEvent;
-use Ergonode\Account\Domain\Event\UserLastNameChangedEvent;
-use Ergonode\Account\Domain\Event\UserPasswordChangedEvent;
-use Ergonode\Account\Domain\Event\UserRoleChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
+use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
 use Ergonode\Account\Domain\ValueObject\Password;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 
 /**
@@ -70,6 +70,8 @@ class User extends AbstractAggregateRoot
      * @param Password          $password
      * @param RoleId            $roleId
      * @param MultimediaId|null $avatarId
+     *
+     * @throws \Exception
      */
     public function __construct(
         UserId $id,
@@ -142,6 +144,8 @@ class User extends AbstractAggregateRoot
 
     /**
      * @param string $firstName
+     *
+     * @throws \Exception
      */
     public function changeFirstName(string $firstName): void
     {
@@ -152,6 +156,8 @@ class User extends AbstractAggregateRoot
 
     /**
      * @param RoleId $roleId
+     *
+     * @throws \Exception
      */
     public function changeRole(RoleId $roleId): void
     {
@@ -162,6 +168,8 @@ class User extends AbstractAggregateRoot
 
     /**
      * @param string $lastName
+     *
+     * @throws \Exception
      */
     public function changeLastName(string $lastName): void
     {
@@ -172,6 +180,8 @@ class User extends AbstractAggregateRoot
 
     /**
      * @param Language $language
+     *
+     * @throws \Exception
      */
     public function changeLanguage(Language $language): void
     {
@@ -182,6 +192,8 @@ class User extends AbstractAggregateRoot
 
     /**
      * @param MultimediaId|null $avatarId
+     *
+     * @throws \Exception
      */
     public function changeAvatar(MultimediaId $avatarId = null): void
     {
@@ -190,6 +202,8 @@ class User extends AbstractAggregateRoot
 
     /**
      * @param Password $password
+     *
+     * @throws \Exception
      */
     public function changePassword(Password $password): void
     {

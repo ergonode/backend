@@ -9,11 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Grid;
 
+use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Provider\LanguageProvider;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\ActionColumn;
+use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
@@ -31,16 +34,23 @@ class AccountGrid extends AbstractGrid
     /**
      * @var LanguageProvider
      */
-    private $provider;
+    private $languageProvider;
+
+    /**
+     * @var RoleQueryInterface
+     */
+    private $roleQuery;
 
     /**
      * @param TranslatorInterface $translator
-     * @param LanguageProvider    $provider
+     * @param LanguageProvider    $languageProvider
+     * @param RoleQueryInterface  $roleQuery
      */
-    public function __construct(TranslatorInterface $translator, LanguageProvider $provider)
+    public function __construct(TranslatorInterface $translator, LanguageProvider $languageProvider, RoleQueryInterface $roleQuery)
     {
         $this->translator = $translator;
-        $this->provider = $provider;
+        $this->languageProvider = $languageProvider;
+        $this->roleQuery = $roleQuery;
     }
 
     /**
@@ -49,7 +59,8 @@ class AccountGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $languages = $this->provider->getLanguages($language);
+        $languages = $this->languageProvider->getLanguages($language);
+        $roles = $this->roleQuery->getDictionary();
         $filters = $configuration->getFilters();
 
         $id = new TextColumn('id', $this->trans('Id'));
@@ -59,6 +70,7 @@ class AccountGrid extends AbstractGrid
         $this->addColumn('first_name', new TextColumn('first_name', $this->trans('First Name'), new TextFilter($filters->getString('first_name'))));
         $this->addColumn('last_name', new TextColumn('last_name', $this->trans('Last Name'), new TextFilter($filters->getString('last_name'))));
         $this->addColumn('language', new TextColumn('language', $this->trans('Language'), new SelectFilter($languages, $filters->getString('language'))));
+        $this->addColumn('role_id', new MultiSelectColumn('roles', $this->trans('Roles'), new MultiSelectFilter($roles, $filters->getArray('roles'))));
         $this->addColumn('edit', new ActionColumn('edit'));
     }
 

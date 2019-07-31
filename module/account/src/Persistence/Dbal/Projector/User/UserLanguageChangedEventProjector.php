@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
+namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\Role\RoleCreatedEvent;
+use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
@@ -18,9 +18,9 @@ use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterfac
 
 /**
  */
-class RoleCreatedEventProjector implements DomainEventProjectorInterface
+class UserLanguageChangedEventProjector implements DomainEventProjectorInterface
 {
-    private const TABLE = 'roles';
+    private const TABLE = 'users';
 
     /**
      * @var Connection
@@ -42,32 +42,37 @@ class RoleCreatedEventProjector implements DomainEventProjectorInterface
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof RoleCreatedEvent;
+        return $event instanceof UserLanguageChangedEvent;
     }
 
     /**
      * @param AbstractId           $aggregateId
      * @param DomainEventInterface $event
      *
-     * @throws UnsupportedEventException
+     * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof RoleCreatedEvent) {
-            throw new UnsupportedEventException($event, RoleCreatedEvent::class);
+        if (!$event instanceof UserLanguageChangedEvent) {
+            throw new UnsupportedEventException($event, UserLanguageChangedEvent::class);
         }
 
-        $this->connection->transactional(function () use ($event) {
-            $this->connection->insert(
+        $this->connection->beginTransaction();
+        try {
+            $this->connection->update(
                 self::TABLE,
                 [
-                    'id' => $event->getId()->getValue(),
-                    'name' => $event->getName(),
-                    'description' => $event->getDescription(),
-                    'privileges' => json_encode($event->getPrivileges()),
+                    'language' => $event->getTo()->getCode(),
+                ],
+                [
+                    'id' => $aggregateId->getValue(),
                 ]
             );
-        });
+            $this->connection->commit();
+        } catch (\Throwable $exception) {
+            $this->connection->rollBack();
+            throw $exception;
+        }
     }
 }

@@ -7,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector;
+namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\UserLastNameChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
+use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
@@ -57,7 +57,6 @@ class UserLastNameChangedEventProjector implements DomainEventProjectorInterface
         if (!$event instanceof UserLastNameChangedEvent) {
             throw new UnsupportedEventException($event, UserLastNameChangedEvent::class);
         }
-
 
         $this->connection->beginTransaction();
         try {

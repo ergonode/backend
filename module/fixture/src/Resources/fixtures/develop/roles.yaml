@@ -1,14 +1,3 @@
-Ergonode\CategoryTree\Domain\Entity\CategoryTreeId:
-    category_tree_id:
-        __construct:
-            - '<Uuid()>'
-
-Ergonode\CategoryTree\Domain\Entity\CategoryTree:
-    category_tree:
-        __construct:
-            - '@category_tree_id'
-            - 'default'
-
 Ergonode\Account\Domain\Entity\RoleId:
     admin_role_id:
         __construct:
@@ -61,24 +50,3 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("USER_READ")>'
                 - '<privilege("USER_UPDATE")>'
                 - '<privilege("USER_DELETE")>'
-
-Ergonode\Account\Domain\Entity\UserId:
-    admin_user_id:
-        __construct:
-            - '<uuid()>'
-
-Ergonode\Account\Domain\ValueObject\Password:
-    admin_user_password:
-        __construct:
-            - '123456'
-
-Ergonode\Account\Domain\Entity\User:
-    admin:
-        __construct:
-            - '@admin_user_id'
-            - 'Johnny'
-            - 'Bravo'
-            - 'test@ergonode.com'
-            - '<language(EN)>'
-            - '@admin_user_password'
-            - '@admin_role_id'

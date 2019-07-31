@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Application\Controller\Api;
 
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Provider\AttributeValidationProvider;
 use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
@@ -27,12 +27,13 @@ use Ergonode\Editor\Infrastructure\Grid\ProductDraftGrid;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 use Webmozart\Assert\Assert;
 
 /**
@@ -103,6 +104,8 @@ class ProductDraftController extends AbstractApiController
 
     /**
      * @Route("/products/drafts", methods={"GET"})
+     *
+     * @IsGranted("PRODUCT_READ")
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
@@ -185,6 +188,8 @@ class ProductDraftController extends AbstractApiController
     /**
      * @Route("/products/{draft}", methods={"GET"}, requirements={"draft" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("PRODUCT_READ")
+     *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
      *     name="draft",
@@ -224,6 +229,8 @@ class ProductDraftController extends AbstractApiController
 
     /**
      * @Route("/products/drafts", methods={"POST"})
+     *
+     * @IsGranted("PRODUCT_CREATE")
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
@@ -276,6 +283,8 @@ class ProductDraftController extends AbstractApiController
     /**
      * @Route("/products/{product}/draft/persist", methods={"PUT"} ,requirements={"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("PRODUCT_UPDATE")
+     *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
      *     name="product",
@@ -326,7 +335,9 @@ class ProductDraftController extends AbstractApiController
      *        "product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
      *        "attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
      *     }
-     *  )
+     * )
+     *
+     * @IsGranted("PRODUCT_UPDATE")
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
@@ -413,6 +424,8 @@ class ProductDraftController extends AbstractApiController
     /**
      * @Route("/products/{product}/draft", methods={"GET"} ,requirements={"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("PRODUCT_READ")
+     *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
      *     name="product",
@@ -455,6 +468,8 @@ class ProductDraftController extends AbstractApiController
 
     /**
      * @Route("/products/{product}/template", methods={"GET"} ,requirements={"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("PRODUCT_READ")
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(

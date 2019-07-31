@@ -7,20 +7,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector;
+namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\UserAvatarChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
+use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class UserAvatarChangedEventProjector implements DomainEventProjectorInterface
+class RolePrivilegesChangedEventProjector implements DomainEventProjectorInterface
 {
-    private const TABLE = 'users';
+    private const TABLE = 'roles';
 
     /**
      * @var Connection
@@ -42,37 +42,32 @@ class UserAvatarChangedEventProjector implements DomainEventProjectorInterface
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof UserAvatarChangedEvent;
+        return $event instanceof RolePrivilegesChangedEvent;
     }
 
     /**
      * @param AbstractId           $aggregateId
      * @param DomainEventInterface $event
      *
-     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws UnsupportedEventException
      * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof UserAvatarChangedEvent) {
-            throw new UnsupportedEventException($event, UserAvatarChangedEvent::class);
+        if (!$event instanceof RolePrivilegesChangedEvent) {
+            throw new UnsupportedEventException($event, RolePrivilegesChangedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
+        $this->connection->transactional(function () use ($event, $aggregateId) {
             $this->connection->update(
                 self::TABLE,
                 [
-                    'avatar_id' => $event->getAvatarId() ? $event->getAvatarId()->getValue() : null,
+                    'privileges' => json_encode($event->getTo()),
                 ],
                 [
                     'id' => $aggregateId->getValue(),
                 ]
             );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        });
     }
 }

@@ -47,8 +47,9 @@ class PrivilegeDictionaryProvider
     {
         $result = [];
         foreach ($this->query->getPrivileges() as $record) {
+            $privilege = new Privilege($record['code']);
             $result[$record['area']]['name'] = $this->translator->trans($record['area'], [], 'privilege', $language->getCode());
-            $result[$record['area']]['privileges'][] = new Privilege($record['code']);
+            $result[$record['area']]['privileges'][$privilege->getSuffix()] = $privilege;
         }
 
         return array_values($result);

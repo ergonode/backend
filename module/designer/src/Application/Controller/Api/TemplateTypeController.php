@@ -14,10 +14,11 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateElementQueryInterface;
 use Ergonode\Designer\Infrastructure\Grid\TemplateTypeDictionaryGrid;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -45,6 +46,8 @@ class TemplateTypeController extends AbstractApiController
 
     /**
      * @Route("/templates/types", methods={"GET"})
+     *
+     * @IsGranted("TEMPLATE_DESIGNER_READ")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(

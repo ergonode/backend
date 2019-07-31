@@ -34,9 +34,7 @@ class DbalProfileQuery implements ProfileQueryInterface
     }
 
     /**
-     * @param UserId $userId
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function getProfile(UserId $userId): array
     {
@@ -57,7 +55,7 @@ class DbalProfileQuery implements ProfileQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('u.id, u.first_name, u.last_name, u.username AS email, u.language, u.avatar_id, r.name AS role, u.roles as privileges')
+            ->select('u.id, u.first_name, u.last_name, u.username AS email, u.language, u.avatar_id, r.name AS role, r.privileges')
             ->from(self::TABLE, 'u')
             ->join('u', 'roles', 'r', 'r.id = u.role_id');
     }

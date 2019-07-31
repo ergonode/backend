@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonaut Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
@@ -12,9 +12,10 @@ namespace Ergonode\Account\Application\Controller\Api;
 use Ergonode\Account\Domain\Provider\PrivilegeDictionaryProvider;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -35,6 +36,8 @@ class PrivilegeController extends AbstractApiController
 
     /**
      * @Route("/dictionary/privileges", methods={"GET"})
+     *
+     * @IsGranted("ROLE_READ")
      *
      * @SWG\Tag(name="Dictionary")
      *

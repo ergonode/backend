@@ -1,4 +1,8 @@
 security:
+    access_decision_manager:
+        strategy: 'unanimous'
+        allow_if_all_abstain: false
+
     providers:
         user:
             entity:
@@ -44,4 +48,4 @@ security:
 
     access_control:
         - { path: ^/api/v1/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
