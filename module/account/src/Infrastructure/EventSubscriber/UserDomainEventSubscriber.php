@@ -9,13 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\EventSubscriber;
 
-use Ergonode\Account\Domain\Event\UserAvatarChangedEvent;
-use Ergonode\Account\Domain\Event\UserCreatedEvent;
-use Ergonode\Account\Domain\Event\UserFirstNameChangedEvent;
-use Ergonode\Account\Domain\Event\UserLanguageChangedEvent;
-use Ergonode\Account\Domain\Event\UserLastNameChangedEvent;
-use Ergonode\Account\Domain\Event\UserPasswordChangedEvent;
-use Ergonode\Account\Domain\Event\UserRoleChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
+use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjector;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

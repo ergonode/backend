@@ -20,8 +20,8 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\State;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Webmozart\Assert\Assert;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -63,10 +63,12 @@ class Role extends AbstractAggregateRoot
     private $state;
 
     /**
-     * @param RoleId      $id
-     * @param string      $name
-     * @param string      $description
-     * @param Privilege[] $privileges
+     * @param RoleId $id
+     * @param string $name
+     * @param string $description
+     * @param array  $privileges
+     *
+     * @throws \Exception
      */
     public function __construct(RoleId $id, string $name, string $description, array $privileges = [])
     {

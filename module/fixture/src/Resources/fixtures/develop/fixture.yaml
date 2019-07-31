@@ -1,9 +1,9 @@
 include:
-    - roles.yaml
-    - user.yaml
-    - translation.yaml
-    - options.yaml
-    - attributes.yaml
-    - templates.yaml
-    - categories.yaml
-    - products.yaml
+    - 'roles.yaml'
+    - 'user.yaml'
+    - 'translation.yaml'
+    - 'options.yaml'
+    - 'attributes.yaml'
+    - 'templates.yaml'
+    - 'categories.yaml'
+    - 'products.yaml'

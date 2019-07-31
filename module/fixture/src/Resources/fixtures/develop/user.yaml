@@ -1,15 +1,15 @@
 Ergonode\Account\Domain\ValueObject\Password:
-    admin_user_password:
+    superadmin_user_password:
         __construct:
-            - '123456'
+            - 'iBt0Q5mZ++oT3LnTkrazXHUkoiE=' # 123
 
 Ergonode\Account\Domain\Entity\User:
-    admin:
+    superadmin:
         __construct:
             - '<userId(test@ergonode.com)>'
             - 'Johnny'
             - 'Bravo'
             - '<userEmail(test@ergonode.com)>'
             - '<language(EN)>'
-            - '@admin_user_password'
-            - '@admin_role_id'
+            - '@superadmin_user_password'
+            - '@superadmin_role_id'
