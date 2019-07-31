@@ -1,4 +1,4 @@
 ergonode_authentication_api:
     resource: '../../Application/Controller/Api/*'
-    type: annotation
-    prefix: /
+    type: 'annotation'
+    prefix: '/'

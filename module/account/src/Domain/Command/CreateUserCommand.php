@@ -11,6 +11,7 @@ namespace Ergonode\Account\Domain\Command;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
@@ -40,7 +41,7 @@ class CreateUserCommand
     private $lastName;
 
     /**
-     * @var string
+     * @var Email
      */
     private $email;
 
@@ -62,7 +63,7 @@ class CreateUserCommand
     /**
      * @param string            $firstName
      * @param string            $lastName
-     * @param string            $email
+     * @param Email             $email
      * @param Language          $language
      * @param Password          $password
      * @param RoleId            $roleId
@@ -70,9 +71,9 @@ class CreateUserCommand
      *
      * @throws \Exception
      */
-    public function __construct(string $firstName, string $lastName, string $email, Language $language, Password $password, RoleId $roleId, ?MultimediaId $avatarId = null)
+    public function __construct(string $firstName, string $lastName, Email $email, Language $language, Password $password, RoleId $roleId, ?MultimediaId $avatarId = null)
     {
-        $this->id = UserId::generate();
+        $this->id = UserId::fromEmail($email);
         $this->avatarId = $avatarId;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -115,9 +116,9 @@ class CreateUserCommand
     }
 
     /**
-     * @return string
+     * @return Email
      */
-    public function getEmail(): string
+    public function getEmail(): Email
     {
         return $this->email;
     }

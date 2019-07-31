@@ -44,7 +44,7 @@ class DbalProfileQuery implements ProfileQueryInterface
             ->execute()
             ->fetch();
 
-        $result['privileges'] = \json_decode($result['privileges'], true);
+        $result['privileges'] = json_decode($result['privileges'], true);
 
         return $result;
     }

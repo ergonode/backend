@@ -16,15 +16,17 @@ use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
+use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  */
-class User extends AbstractAggregateRoot
+class User extends AbstractAggregateRoot implements UserInterface
 {
     /**
      * @var UserId
@@ -42,9 +44,14 @@ class User extends AbstractAggregateRoot
     private $lastName;
 
     /**
-     * @var string
+     * @var Email
      */
     private $email;
+
+    /**
+     * @var Password
+     */
+    private $password;
 
     /**
      * @var Language
@@ -65,7 +72,7 @@ class User extends AbstractAggregateRoot
      * @param UserId            $id
      * @param string            $firstName
      * @param string            $lastName
-     * @param string            $email
+     * @param Email             $email
      * @param Language          $language
      * @param Password          $password
      * @param RoleId            $roleId
@@ -77,11 +84,11 @@ class User extends AbstractAggregateRoot
         UserId $id,
         string $firstName,
         string $lastName,
-        string $email,
+        Email $email,
         Language $language,
         Password $password,
         RoleId $roleId,
-        MultimediaId $avatarId = null
+        ?MultimediaId $avatarId = null
     ) {
         $this->apply(new UserCreatedEvent($id, $firstName, $lastName, $email, $language, $password, $roleId, $avatarId));
     }
@@ -95,9 +102,9 @@ class User extends AbstractAggregateRoot
     }
 
     /**
-     * @return string
+     * @return Email
      */
-    public function getEmail(): string
+    public function getEmail(): Email
     {
         return $this->email;
     }
@@ -124,6 +131,30 @@ class User extends AbstractAggregateRoot
     public function getLanguage(): Language
     {
         return $this->language;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password->getValue();
+    }
+
+    /**
+     * @param Password $password
+     */
+    public function setPassword(Password $password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles(): array
+    {
+        return [];
     }
 
     /**
@@ -211,6 +242,30 @@ class User extends AbstractAggregateRoot
     }
 
     /**
+     * @return string
+     */
+    public function getSalt(): string
+    {
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->email->getValue();
+    }
+
+    /**
+     * @return bool
+     */
+    public function eraseCredentials(): bool
+    {
+        return false;
+    }
+
+    /**
      * @param UserCreatedEvent $event
      */
     protected function applyUserCreatedEvent(UserCreatedEvent $event): void
@@ -220,6 +275,7 @@ class User extends AbstractAggregateRoot
         $this->lastName = $event->getLastName();
         $this->email = $event->getEmail();
         $this->language = $event->getLanguage();
+        $this->password = $event->getPassword();
         $this->avatarId = $event->getAvatarId();
         $this->roleId = $event->getRoleId();
     }
@@ -269,5 +325,6 @@ class User extends AbstractAggregateRoot
      */
     protected function applyUserPasswordChangedEvent(UserPasswordChangedEvent $event): void
     {
+        $this->password = $event->getPassword();
     }
 }

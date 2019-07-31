@@ -76,7 +76,6 @@ class Role extends AbstractAggregateRoot
     }
 
     /**
-     *
      */
     public function remove(): void
     {

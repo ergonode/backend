@@ -9,9 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Controller\Api;
 
-use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\LogQueryInterface;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Infrastructure\Grid\LogGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -27,11 +25,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class LogController extends AbstractApiController
 {
     /**
-     * @var UserRepositoryInterface
-     */
-    private $repository;
-
-    /**
      * @var LogQueryInterface
      */
     private $query;
@@ -42,13 +35,11 @@ class LogController extends AbstractApiController
     private $grid;
 
     /**
-     * @param UserRepositoryInterface $repository
-     * @param LogQueryInterface       $query
-     * @param LogGrid                 $grid
+     * @param LogQueryInterface $query
+     * @param LogGrid           $grid
      */
-    public function __construct(UserRepositoryInterface $repository, LogQueryInterface $query, LogGrid $grid)
+    public function __construct(LogQueryInterface $query, LogGrid $grid)
     {
-        $this->repository = $repository;
         $this->query = $query;
         $this->grid = $grid;
     }
@@ -131,8 +122,7 @@ class LogController extends AbstractApiController
     public function getLog(Request $request): Response
     {
         if ($this->getUser()) {
-            $userId = new UserId($this->getUser()->getId()->toString());
-            $user = $this->repository->load($userId);
+            $user = $this->getUser();
             $configuration = new RequestGridConfiguration($request);
 
             $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet($user->getId()), $user->getLanguage());

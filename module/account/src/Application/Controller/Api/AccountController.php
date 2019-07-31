@@ -17,13 +17,13 @@ use Ergonode\Account\Domain\Command\ChangeUserAvatarCommand;
 use Ergonode\Account\Domain\Command\ChangeUserPasswordCommand;
 use Ergonode\Account\Domain\Command\CreateUserCommand;
 use Ergonode\Account\Domain\Command\UpdateUserCommand;
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Account\Infrastructure\Grid\AccountGrid;
-use Ergonode\Authentication\Entity\User;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -36,7 +36,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -75,18 +74,12 @@ class AccountController extends AbstractApiController
     private $validator;
 
     /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $encoder;
-
-    /**
-     * @param AccountGrid                  $grid
-     * @param UserRepositoryInterface      $repository
-     * @param AccountQueryInterface        $query
-     * @param PasswordValidationBuilder    $builder
-     * @param MessageBusInterface          $messageBus
-     * @param ValidatorInterface           $validator
-     * @param UserPasswordEncoderInterface $encoder
+     * @param AccountGrid               $grid
+     * @param UserRepositoryInterface   $repository
+     * @param AccountQueryInterface     $query
+     * @param PasswordValidationBuilder $builder
+     * @param MessageBusInterface       $messageBus
+     * @param ValidatorInterface        $validator
      */
     public function __construct(
         AccountGrid $grid,
@@ -94,8 +87,7 @@ class AccountController extends AbstractApiController
         AccountQueryInterface $query,
         PasswordValidationBuilder $builder,
         MessageBusInterface $messageBus,
-        ValidatorInterface $validator,
-        UserPasswordEncoderInterface $encoder
+        ValidatorInterface $validator
     ) {
         $this->grid = $grid;
         $this->repository = $repository;
@@ -103,7 +95,6 @@ class AccountController extends AbstractApiController
         $this->builder = $builder;
         $this->messageBus = $messageBus;
         $this->validator = $validator;
-        $this->encoder = $encoder;
     }
 
     /**
@@ -134,7 +125,7 @@ class AccountController extends AbstractApiController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"id", "label","code", "hint"},
+     *     enum={"id", "label", "code", "hint"},
      *     description="Order field",
      * )
      * @SWG\Parameter(
@@ -228,7 +219,7 @@ class AccountController extends AbstractApiController
      */
     public function getUserData(string $user): Response
     {
-        $userId = new userId($user);
+        $userId = new UserId($user);
 
         $user = $this->query->getUser($userId);
 
@@ -284,8 +275,14 @@ class AccountController extends AbstractApiController
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var CreateUserFormModel $data */
                 $data = $form->getData();
-                $password = $this->encoder->encodePassword(new User($data->email, $data->password), $data->password);
-                $command = new CreateUserCommand($data->firstName, $data->lastName, $data->email, $data->language, new Password($password), $data->roleId);
+                $command = new CreateUserCommand(
+                    $data->firstName,
+                    $data->lastName,
+                    $data->email,
+                    $data->language,
+                    new Password($data->password),
+                    $data->roleId
+                );
                 $this->messageBus->dispatch($command);
 
                 return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
@@ -293,7 +290,7 @@ class AccountController extends AbstractApiController
         } catch (InvalidPropertyPathException $exception) {
             return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
         } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->createRestResponse([get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
@@ -351,14 +348,13 @@ class AccountController extends AbstractApiController
 
         try {
             $model = new UpdateUserFormModel();
-            $form = $this->createForm(UserUpdateForm::class, $model, ['method' => 'PUT']);
+            $form = $this->createForm(UserUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var CreateUserFormModel $data */
                 $data = $form->getData();
-                $password = $data->password ? new Password($this->encoder->encodePassword(new User($user->getEmail(), $data->password), $data->password)) : null;
-                $command = new UpdateUserCommand($userId, $data->firstName, $data->lastName, $data->language, $data->roleId, $password);
+                $command = new UpdateUserCommand($userId, $data->firstName, $data->lastName, $data->language, $data->roleId, new Password($data->password));
                 $this->messageBus->dispatch($command);
 
                 return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
@@ -366,7 +362,7 @@ class AccountController extends AbstractApiController
         } catch (InvalidPropertyPathException $exception) {
             return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
         } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->createRestResponse([get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
@@ -425,7 +421,7 @@ class AccountController extends AbstractApiController
         } catch (InvalidPropertyPathException $exception) {
             return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
         } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->createRestResponse([get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -483,11 +479,10 @@ class AccountController extends AbstractApiController
         $data = $request->request->all();
         $constraint = $this->builder->create();
         $violations = $this->validator->validate($data, $constraint);
-        $userId = new UserId($user->getId()->toString());
+        $userId = $this->getUser()->getId();
 
         if ($violations->count() === 0) {
-            $password = $this->encoder->encodePassword($user, $data['password']);
-            $command = new ChangeUserPasswordCommand($userId, new Password($password));
+            $command = new ChangeUserPasswordCommand($userId, new Password($data['password']));
             $this->messageBus->dispatch($command);
 
             return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);

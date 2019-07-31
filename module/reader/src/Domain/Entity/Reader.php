@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Domain\Entity;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Reader\Domain\Event\ReaderCreatedEvent;
 use Ergonode\Reader\Domain\FormatterInterface;
 

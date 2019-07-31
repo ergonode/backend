@@ -98,12 +98,12 @@ abstract class AbstractAggregateRoot
     private function handle(DomainEventInterface $event, \DateTime $recordedAt): void
     {
         $this->editedAt = $recordedAt;
-        $classArray = \explode('\\', \get_class($event));
-        $class = \end($classArray);
+        $classArray = explode('\\', get_class($event));
+        $class = end($classArray);
 
-        $method = \sprintf('apply%s', $class);
-        if (!\method_exists($this, $method)) {
-            throw new \RuntimeException(\sprintf('Can\'t find method  %s for event in aggregate %s', $method, \get_class($this)));
+        $method = sprintf('apply%s', $class);
+        if (!method_exists($this, $method)) {
+            throw new \RuntimeException(\sprintf('Can\'t find method  %s for event in aggregate %s', $method, get_class($this)));
         }
 
         $this->$method($event);

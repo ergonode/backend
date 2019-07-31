@@ -29,7 +29,7 @@ class Privilege implements \JsonSerializable
             throw new \InvalidArgumentException(sprintf('%s is invalid Privilege value', $value));
         }
 
-        $this->value = strtoupper($value);
+        $this->value = mb_strtoupper($value);
     }
 
     /**
@@ -39,7 +39,7 @@ class Privilege implements \JsonSerializable
      */
     public static function isValid(string $value): bool
     {
-        return strlen($value) <= self::LENGTH;
+        return mb_strlen($value) <= self::LENGTH;
     }
 
     /**

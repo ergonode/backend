@@ -23,9 +23,9 @@ class PasswordTest extends TestCase
      */
     public function testValidaValue(string $value): void
     {
-        $privilege = new Password($value);
-        $this->assertEquals($value, $privilege->getValue());
-        $this->assertNotNull($value, (string) $privilege);
+        $password = new Password($value);
+        $this->assertEquals($value, $password->getValue());
+        $this->assertEquals($value, (string) $password);
     }
 
     /**

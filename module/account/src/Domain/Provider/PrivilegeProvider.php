@@ -34,11 +34,6 @@ class PrivilegeProvider
      */
     public function provide(): array
     {
-        $result = [];
-        foreach ($this->query->getPrivileges() as $row) {
-            $result[] = $row['code'];
-        }
-
-        return $result;
+        return array_column($this->query->getPrivileges(), 'code');
     }
 }
