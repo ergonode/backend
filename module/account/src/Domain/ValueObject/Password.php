@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonaut Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
@@ -29,6 +29,7 @@ class Password
         if (!self::isValid($value)) {
             throw new \InvalidArgumentException('Value is not correct password');
         }
+
         $this->value = $value;
     }
 
@@ -45,7 +46,7 @@ class Password
      */
     public function __toString(): string
     {
-        return $this->value;
+        return $this->getValue();
     }
 
     /**
@@ -55,14 +56,8 @@ class Password
      */
     public static function isValid(string $value): bool
     {
-        if (strlen($value) < self::MIN_LENGTH) {
-            return false;
-        }
+        $length = mb_strlen($value);
 
-        if (strlen($value) > self::MAX_LENGTH) {
-            return false;
-        }
-
-        return true;
+        return self::MIN_LENGTH <= $length && self::MAX_LENGTH >= $length;
     }
 }

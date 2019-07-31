@@ -28,7 +28,7 @@ abstract class AbstractId
     {
         if (!Uuid::isValid($value)) {
             throw new \InvalidArgumentException(
-                \sprintf(
+                sprintf(
                     '"%s" should be valid uuid value, given value "%s"',
                     static::class,
                     $value

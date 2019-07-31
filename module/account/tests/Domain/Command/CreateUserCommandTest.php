@@ -11,6 +11,7 @@ namespace Ergonode\Account\Tests\Domain\Command;
 
 use Ergonode\Account\Domain\Command\CreateUserCommand;
 use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
@@ -27,7 +28,7 @@ class CreateUserCommandTest extends TestCase
     {
         $firstName = 'New first name';
         $lastName = 'New last name';
-        $email = 'correct_email@email.com';
+        $email = new Email('correct_email@email.com');
         /** @var Language|MockObject $language */
         $language = $this->createMock(Language::class);
         $language->method('isEqual')->willReturn(false);

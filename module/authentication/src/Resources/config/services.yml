@@ -1,8 +1,8 @@
 services:
     _defaults:
-            autowire: true
-            autoconfigure: true
-            public: false
+        autowire: true
+        autoconfigure: true
+        public: false
 
-    Ergonode\Authentication\Repository\:
-        resource: '../../Repository/*'
+    Ergonode\Authentication\Application\Security\:
+        resource: '../../Application/Security/*'

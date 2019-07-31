@@ -21,6 +21,9 @@ use PHPUnit\Framework\TestCase;
  */
 class PasswordHandlerTest extends TestCase
 {
+    private const DECODED = 'test_value';
+    private const ENCODED = 'dGVzdF92YWx1ZQ==';
+
     /**
      * @var PasswordHandler
      */
@@ -68,22 +71,21 @@ class PasswordHandlerTest extends TestCase
      */
     public function testSerialize(): void
     {
-        $testValue = 'test_value';
         /** @var Password|MockObject $code */
         $code = $this->createMock(Password::class);
-        $code->method('getValue')->willReturn($testValue);
+        $code->method('getValue')->willReturn(self::DECODED);
         $result = $this->handler->serialize($this->serializerVisitor, $code, [], $this->context);
 
-        $this->assertEquals($testValue, $result);
+        $this->assertEquals(self::ENCODED, $result);
     }
 
     /**
      */
     public function testDeserialize(): void
     {
-        $testValue = 'test_value';
-        $result = $this->handler->deserialize($this->deserializerVisitor, $testValue, [], $this->context);
+        $result = $this->handler->deserialize($this->deserializerVisitor, self::ENCODED, [], $this->context);
 
-        $this->assertEquals($testValue, $result->getValue());
+        $this->assertInstanceOf(Password::class, $result);
+        $this->assertEquals(self::DECODED, $result->getValue());
     }
 }

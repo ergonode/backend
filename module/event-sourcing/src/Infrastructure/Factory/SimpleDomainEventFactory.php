@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
@@ -10,9 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\EventSourcing\Infrastructure\Factory;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use JMS\Serializer\SerializerInterface;
 
 /**

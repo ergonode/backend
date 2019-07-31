@@ -1,9 +1,3 @@
-Ergonode\Account\Domain\Entity\UserId:
-    user_id_en:
-        __construct:
-            - '<uuid(2404385c-e7c8-40f9-a393-084d16847d7f)>'
-
-
 Ergonode\Account\Domain\ValueObject\Password:
     user_en_password:
         __construct:
@@ -12,9 +6,10 @@ Ergonode\Account\Domain\ValueObject\Password:
 Ergonode\Account\Domain\Entity\User:
     user_en:
         __construct:
-            - '@user_id_en'
+            - '<userId(test@ergonode.com)>'
             - 'Jon'
             - 'Dove'
-            - 'test@ergonode.com'
+            - '<userEmail(test@ergonode.com)>'
             - '<language(EN)>'
             - '@user_en_password'
+            - '@role_id'

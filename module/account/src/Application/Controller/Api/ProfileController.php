@@ -9,9 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Controller\Api;
 
-use Ergonode\Authentication\Entity\User;
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\ProfileQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,10 +55,8 @@ class ProfileController extends AbstractApiController
     public function getProfile(Request $request): Response
     {
         if ($this->getUser()) {
-            /** @var User $user */
-            $user = $this->getUser();
-            $userId = new UserId($user->getId()->toString());
-            $profile = $this->query->getProfile($userId);
+            /** @var User $profile */
+            $profile = $this->query->getProfile($this->getUser()->getId());
 
             return $this->createRestResponse($profile);
         }
