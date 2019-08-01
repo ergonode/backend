@@ -13,7 +13,6 @@ use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeTypeDictionaryProvide
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,8 +45,6 @@ class DictionaryController extends AbstractApiController
 
     /**
      * @Route("/attributes/types", methods={"GET"})
-     *
-     * @IsGranted("ATTRIBUTE_READ")
      *
      * @SWG\Tag(name="Dictionary")
      *
@@ -82,8 +79,6 @@ class DictionaryController extends AbstractApiController
 
     /**
      * @Route("/attributes/groups", methods={"GET"})
-     *
-     * @IsGranted("ATTRIBUTE_READ")
      *
      * @SWG\Tag(name="Dictionary")
      *

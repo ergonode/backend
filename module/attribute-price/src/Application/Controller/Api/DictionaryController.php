@@ -11,7 +11,6 @@ namespace Ergonode\AttributePrice\Application\Controller\Api;
 
 use Ergonode\AttributePrice\Domain\Query\CurrencyQueryInterface;
 use Ergonode\Core\Application\Controller\AbstractApiController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,8 +34,6 @@ class DictionaryController extends AbstractApiController
 
     /**
      * @Route("/currencies", methods={"GET"})
-     *
-     * @IsGranted("ATTRIBUTE_READ")
      *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(

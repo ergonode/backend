@@ -14,9 +14,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Provider\LanguageProvider;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\ActionColumn;
-use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
@@ -70,7 +68,7 @@ class AccountGrid extends AbstractGrid
         $this->addColumn('first_name', new TextColumn('first_name', $this->trans('First Name'), new TextFilter($filters->getString('first_name'))));
         $this->addColumn('last_name', new TextColumn('last_name', $this->trans('Last Name'), new TextFilter($filters->getString('last_name'))));
         $this->addColumn('language', new TextColumn('language', $this->trans('Language'), new SelectFilter($languages, $filters->getString('language'))));
-        $this->addColumn('role_id', new MultiSelectColumn('roles', $this->trans('Roles'), new MultiSelectFilter($roles, $filters->getArray('roles'))));
+        $this->addColumn('role_id', new TextColumn('role_id', $this->trans('Roles'), new SelectFilter($roles, $filters->getString('role_id'))));
         $this->addColumn('edit', new ActionColumn('edit'));
     }
 

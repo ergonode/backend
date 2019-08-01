@@ -1,15 +1,42 @@
 Ergonode\Account\Domain\ValueObject\Password:
-    superadmin_user_password:
+    user_password:
         __construct:
             - 'iBt0Q5mZ++oT3LnTkrazXHUkoiE=' # 123
 
 Ergonode\Account\Domain\Entity\User:
     superadmin:
         __construct:
-            - '<userId(test@ergonode.com)>'
+            - '<userId(superadmin@ergonode.com)>'
             - 'Johnny'
-            - 'Bravo'
-            - '<userEmail(test@ergonode.com)>'
+            - 'Superadmin'
+            - '<userEmail(superadmin@ergonode.com)>'
             - '<language(EN)>'
-            - '@superadmin_user_password'
+            - '@user_password'
             - '@superadmin_role_id'
+    admin:
+        __construct:
+            - '<userId(admin@ergonode.com)>'
+            - 'Johnny'
+            - 'Admin'
+            - '<userEmail(admin@ergonode.com)>'
+            - '<language(EN)>'
+            - '@user_password'
+            - '@admin_role_id'
+    data_inputer:
+        __construct:
+            - '<userId(data_inputer@ergonode.com)>'
+            - 'Johnny'
+            - 'Data Inputer'
+            - '<userEmail(data_inputer@ergonode.com)>'
+            - '<language(EN)>'
+            - '@user_password'
+            - '@data_inputer_role_id'
+    category_manager:
+        __construct:
+            - '<userId(category_manager@ergonode.com)>'
+            - 'Johnny'
+            - 'Category Manager'
+            - '<userEmail(category_manager@ergonode.com)>'
+            - '<language(EN)>'
+            - '@user_password'
+            - '@category_manager_role_id'

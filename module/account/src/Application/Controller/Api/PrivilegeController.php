@@ -12,7 +12,6 @@ namespace Ergonode\Account\Application\Controller\Api;
 use Ergonode\Account\Domain\Provider\PrivilegeDictionaryProvider;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,8 +35,6 @@ class PrivilegeController extends AbstractApiController
 
     /**
      * @Route("/dictionary/privileges", methods={"GET"})
-     *
-     * @IsGranted("ROLE_READ")
      *
      * @SWG\Tag(name="Dictionary")
      *

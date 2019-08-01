@@ -63,14 +63,6 @@ class Privilege implements \JsonSerializable
     /**
      * @return string
      */
-    public function getSuffix(): string
-    {
-        return strtolower(substr(strrchr($this->value, '_'), 1));
-    }
-
-    /**
-     * @return string
-     */
     public function jsonSerialize(): string
     {
         return (string) $this;

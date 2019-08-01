@@ -71,7 +71,7 @@ class RoleController extends AbstractApiController
     /**
      * @Route("/roles", methods={"GET"})
      *
-     * @IsGranted("ROLE_READ")
+     * @IsGranted("USER_ROLE_READ")
      *
      * @SWG\Tag(name="Account")
      *
@@ -156,7 +156,7 @@ class RoleController extends AbstractApiController
     /**
      * @Route("/roles/{role}", methods={"GET"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
-     * @IsGranted("ROLE_READ")
+     * @IsGranted("USER_ROLE_READ")
      *
      * @SWG\Tag(name="Account")
      *
@@ -191,7 +191,6 @@ class RoleController extends AbstractApiController
     public function getRole(string $role): Response
     {
         $id = new RoleId($role);
-
         $role = $this->repository->load($id);
 
         if ($role !== null) {
@@ -204,7 +203,7 @@ class RoleController extends AbstractApiController
     /**
      * @Route("/roles", methods={"POST"})
      *
-     * @IsGranted("ROLE_CREATE")
+     * @IsGranted("USER_ROLE_CREATE")
      *
      * @SWG\Tag(name="Account")
      *
@@ -264,7 +263,7 @@ class RoleController extends AbstractApiController
     /**
      * @Route("/roles/{role}", methods={"PUT"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
-     * @IsGranted("ROLE_UPDATE")
+     * @IsGranted("USER_ROLE_UPDATE")
      *
      * @SWG\Tag(name="Account")
      *
@@ -310,7 +309,7 @@ class RoleController extends AbstractApiController
             $roleId = new RoleId($role);
 
             $model = new RoleFormModel();
-            $form = $this->createForm(RoleForm::class, $model, ['method' => 'PUT']);
+            $form = $this->createForm(RoleForm::class, $model, ['method' => Request::METHOD_PUT]);
 
             $form->handleRequest($request);
 
@@ -334,7 +333,7 @@ class RoleController extends AbstractApiController
     /**
      * @Route("/roles/{role}", methods={"DELETE"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
-     * @IsGranted("ROLE_DELETE")
+     * @IsGranted("USER_ROLE_DELETE")
      *
      * @SWG\Tag(name="Account")
      *

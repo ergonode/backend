@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
  */
-class RoleVoter extends Voter implements LoggerAwareInterface
+class UserRoleVoter extends Voter implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
@@ -43,7 +43,10 @@ class RoleVoter extends Voter implements LoggerAwareInterface
      */
     public function supports($attribute, $subject): bool
     {
-        return true;
+        return (
+            0 !== strncmp('IS_AUTHENTICATED_', $attribute, 17) &&
+            0 !== strncmp('ROLE_', $attribute, 5)
+        );
     }
 
     /**
@@ -71,6 +74,6 @@ class RoleVoter extends Voter implements LoggerAwareInterface
             }
         }
 
-        return (bool) $result;
+        return VoterInterface::ACCESS_GRANTED === $result;
     }
 }

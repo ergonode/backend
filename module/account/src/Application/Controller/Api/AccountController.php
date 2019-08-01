@@ -220,7 +220,6 @@ class AccountController extends AbstractApiController
     public function getUserData(string $user): Response
     {
         $userId = new UserId($user);
-
         $user = $this->query->getUser($userId);
 
         if (!empty($user)) {
