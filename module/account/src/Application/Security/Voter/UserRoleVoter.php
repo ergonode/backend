@@ -66,9 +66,10 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
         }
 
         $result = VoterInterface::ACCESS_DENIED;
+        $attributePrivilege = new Privilege($attribute);
         /** @var Privilege $privilege */
         foreach ($role->getPrivileges() as $privilege) {
-            if ($privilege->isEqual(new Privilege($attribute))) {
+            if ($privilege->isEqual($attributePrivilege)) {
                 $result = VoterInterface::ACCESS_GRANTED;
                 break;
             }

@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\Role;
 
-use Ergonode\Core\Domain\Event\AbstractStringBasedEvent;
+use Ergonode\Core\Domain\Event\AbstractStringBasedChangedEvent;
 
 /**
  */
-class RoleDescriptionChangedEvent extends AbstractStringBasedEvent
+class RoleDescriptionChangedEvent extends AbstractStringBasedChangedEvent
 {
 }

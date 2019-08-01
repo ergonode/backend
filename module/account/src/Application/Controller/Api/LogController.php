@@ -13,7 +13,6 @@ use Ergonode\Account\Domain\Query\LogQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\LogGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Grid\RequestGridConfiguration;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,8 +45,6 @@ class LogController extends AbstractApiController
 
     /**
      * @Route("/profile/log", methods={"GET"})
-     *
-     * @IsGranted("USER_READ")
      *
      * @SWG\Tag(name="Profile")
      *

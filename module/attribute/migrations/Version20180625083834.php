@@ -119,6 +119,11 @@ final class Version20180625083834 extends AbstractErgonodeMigration
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_READ', 'Attribute']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_UPDATE', 'Attribute']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_DELETE', 'Attribute']);
+
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_GROUP_CREATE', 'Attribute group']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_GROUP_READ', 'Attribute group']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_GROUP_UPDATE', 'Attribute group']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_GROUP_DELETE', 'Attribute group']);
     }
 
     /**

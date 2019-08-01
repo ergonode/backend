@@ -13,7 +13,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 
 /**
  */
-abstract class AbstractStringBasedEvent implements DomainEventInterface
+abstract class AbstractStringBasedChangedEvent implements DomainEventInterface
 {
     /**
      * @var string
