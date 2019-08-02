@@ -17,7 +17,6 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
  */
@@ -65,16 +64,16 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
             throw new \RuntimeException(sprintf('Role by id "%s" not found', $user->getRoleId()->getValue()));
         }
 
-        $result = VoterInterface::ACCESS_DENIED;
+        $result = false;
         $attributePrivilege = new Privilege($attribute);
         /** @var Privilege $privilege */
         foreach ($role->getPrivileges() as $privilege) {
             if ($privilege->isEqual($attributePrivilege)) {
-                $result = VoterInterface::ACCESS_GRANTED;
+                $result = true;
                 break;
             }
         }
 
-        return VoterInterface::ACCESS_GRANTED === $result;
+        return $result;
     }
 }

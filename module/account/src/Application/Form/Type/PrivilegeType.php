@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Form\Type;
 
 use Ergonode\Account\Application\Form\DataTransformer\PrivilegeDataTransformer;
-use Ergonode\Account\Domain\Provider\PrivilegeProvider;
+use Ergonode\Account\Domain\Provider\PrivilegeCodeProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,14 +21,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class PrivilegeType extends AbstractType
 {
     /**
-     * @var PrivilegeProvider
+     * @var PrivilegeCodeProvider
      */
     private $provider;
 
     /**
-     * @param PrivilegeProvider $provider
+     * @param PrivilegeCodeProvider $provider
      */
-    public function __construct(PrivilegeProvider $provider)
+    public function __construct(PrivilegeCodeProvider $provider)
     {
         $this->provider = $provider;
     }

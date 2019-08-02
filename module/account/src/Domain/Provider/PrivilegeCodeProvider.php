@@ -14,7 +14,7 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
 
 /**
  */
-class PrivilegeProvider
+class PrivilegeCodeProvider
 {
     /**
      * @var PrivilegeQueryInterface
