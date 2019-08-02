@@ -13,15 +13,15 @@ use Ergonode\Account\Domain\Query\LogQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\LogGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class LogController extends AbstractApiController
+class AccountLogController extends AbstractApiController
 {
     /**
      * @var LogQueryInterface
@@ -44,9 +44,11 @@ class LogController extends AbstractApiController
     }
 
     /**
-     * @Route("/profile/log", methods={"GET"})
+     * @Route("/accounts/log", methods={"GET"})
      *
-     * @SWG\Tag(name="Profile")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     *
+     * @SWG\Tag(name="Account")
      *
      * @SWG\Parameter(
      *     name="limit",
@@ -69,7 +71,7 @@ class LogController extends AbstractApiController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"id", "label","code", "hint"},
+     *     enum={"recorded_at", "author", "author_id", "event"},
      *     description="Order field",
      * )
      * @SWG\Parameter(
@@ -105,7 +107,7 @@ class LogController extends AbstractApiController
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns User Log collection",
+     *     description="Returns accounts log collection",
      * )
      * @SWG\Response(
      *     response=422,
@@ -118,15 +120,15 @@ class LogController extends AbstractApiController
      */
     public function getLog(Request $request): Response
     {
-        if ($this->getUser()) {
-            $user = $this->getUser();
-            $configuration = new RequestGridConfiguration($request);
+        $configuration = new RequestGridConfiguration($request);
 
-            $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet($user->getId()), $user->getLanguage());
+        $result = $this->renderGrid(
+            $this->grid,
+            $configuration,
+            $this->query->getDataSet(),
+            $this->getUser()->getLanguage()
+        );
 
-            return $this->createRestResponse($result);
-        }
-
-        throw new UnprocessableEntityHttpException();
+        return $this->createRestResponse($result);
     }
 }
