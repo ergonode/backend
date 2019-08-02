@@ -11,14 +11,10 @@ namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
-use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
-use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use JMS\Serializer\SerializerInterface;
-use Webmozart\Assert\Assert;
 
 /**
  */
@@ -32,25 +28,11 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
     private $connection;
 
     /**
-     * @var RoleRepositoryInterface
+     * @param Connection $connection
      */
-    private $repository;
-
-    /**
-     * @var SerializerInterface
-     */
-    private $serializer;
-
-    /**
-     * @param Connection              $connection
-     * @param RoleRepositoryInterface $repository
-     * @param SerializerInterface     $serializer
-     */
-    public function __construct(Connection $connection, RoleRepositoryInterface $repository, SerializerInterface $serializer)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->repository = $repository;
-        $this->serializer = $serializer;
     }
 
     /**
@@ -67,7 +49,7 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
      * @param AbstractId           $aggregateId
      * @param DomainEventInterface $event
      *
-     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws UnsupportedEventException
      * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
@@ -76,14 +58,7 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, UserCreatedEvent::class);
         }
 
-        $role = $this->repository->load($event->getRoleId());
-
-        Assert::notNull($role);
-        /** @var Privilege[] $privileges */
-        $privileges = $role->getPrivileges();
-
-        $this->connection->beginTransaction();
-        try {
+        $this->connection->transactional(function () use ($event) {
             $this->connection->insert(
                 self::TABLE,
                 [
@@ -92,15 +67,10 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
                     'last_name' => $event->getLastName(),
                     'username' => $event->getEmail(),
                     'role_id' => $event->getRoleId()->getValue(),
-                    'roles' => $this->serializer->serialize($privileges, 'json'),
                     'language' => $event->getLanguage()->getCode(),
                     'password' => $event->getPassword()->getValue(),
                 ]
             );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        });
     }
 }

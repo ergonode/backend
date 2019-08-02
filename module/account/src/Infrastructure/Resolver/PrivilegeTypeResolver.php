@@ -15,11 +15,19 @@ use Ergonode\Account\Domain\ValueObject\Privilege;
  */
 class PrivilegeTypeResolver implements PrivilegeTypeResolverInterface
 {
+    private const SEPARATOR = '_';
+
     /**
      * {@inheritDoc}
      */
     public function resolve(Privilege $privilege): string
     {
-        return strtolower(substr(strrchr($privilege->getValue(), '_'), 1));
+        $value = $privilege->getValue();
+
+        if (false === strpos($value, self::SEPARATOR)) {
+            throw new \InvalidArgumentException('Separator not found');
+        }
+
+        return strtolower(substr(strrchr($privilege->getValue(), self::SEPARATOR), 1));
     }
 }

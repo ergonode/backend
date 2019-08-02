@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Tests\Domain\Event;
 
 use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Account\Domain\Event\UserRoleChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
 use PHPUnit\Framework\TestCase;
 
 /**

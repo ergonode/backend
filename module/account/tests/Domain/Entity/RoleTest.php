@@ -106,7 +106,7 @@ class RoleTest extends TestCase
     public function testAddExistsPrivilege(): void
     {
         $this->privilege->method('isEqual')->willReturn(true);
-        $role = new Role($this->roleId, $this->name, $this->description,[$this->privilege]);
+        $role = new Role($this->roleId, $this->name, $this->description, [$this->privilege]);
         $role->addPrivilege($this->privilege);
     }
 
