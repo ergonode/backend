@@ -82,8 +82,9 @@ class DbalRoleQuery implements RoleQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('*')
-            ->addSelect('\'0\' AS users_count')
-            ->from(self::TABLE);
+            ->select('r.*')
+            ->addSelect('COALESCE(uc.users_count, 0) AS users_count')
+            ->from(self::TABLE, 'r')
+            ->leftJoin('r', '(SELECT role_id, COUNT(*) AS users_count FROM users GROUP BY role_id)', 'uc', 'r.id = uc.role_id');
     }
 }
