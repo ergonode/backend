@@ -280,7 +280,7 @@ class AccountController extends AbstractApiController
                     $data->lastName,
                     new Email($data->email),
                     $data->language,
-                    new Password($data->password),
+                    $data->password,
                     $data->roleId
                 );
                 $this->messageBus->dispatch($command);
@@ -352,9 +352,17 @@ class AccountController extends AbstractApiController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var CreateUserFormModel $data */
+                /** @var UpdateUserFormModel $data */
                 $data = $form->getData();
-                $command = new UpdateUserCommand($userId, $data->firstName, $data->lastName, $data->language, $data->roleId, new Password($data->password));
+
+                $command = new UpdateUserCommand(
+                    $userId,
+                    $data->firstName,
+                    $data->lastName,
+                    $data->language,
+                    $data->roleId,
+                    $data->password
+                );
                 $this->messageBus->dispatch($command);
 
                 return $this->createRestResponse(['id' => $command->getId()]);

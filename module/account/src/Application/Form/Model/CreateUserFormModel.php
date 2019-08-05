@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Form\Model;
 
 use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -49,7 +50,7 @@ class CreateUserFormModel
     public $language;
 
     /**
-     * @var string
+     * @var Password|null
      *
      * @Assert\NotBlank(message="User password is required")
      * @Assert\Length(
@@ -62,10 +63,10 @@ class CreateUserFormModel
     public $password;
 
     /**
-     * @var string
+     * @var Password|null
      *
      * @Assert\NotBlank(message="User password repeat is required")
-     * @Assert\IdenticalTo(propertyPath="password", message="This value should be same as password")
+     * @Assert\EqualTo(propertyPath="password", message="This value should be same as password")
      */
     public $passwordRepeat;
 

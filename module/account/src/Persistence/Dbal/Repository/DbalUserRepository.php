@@ -49,7 +49,7 @@ class DbalUserRepository implements UserRepositoryInterface
     {
         $eventStream = $this->eventStore->load($id);
 
-        if (\count($eventStream) > 0) {
+        if (count($eventStream) > 0) {
             $class = new \ReflectionClass(User::class);
             /** @var AbstractAggregateRoot $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
