@@ -17,8 +17,3 @@ ergonode_profile_api:
     resource: '../../Application/Controller/Api/Profile*'
     type: annotation
     prefix: /api/v1/
-
-ergonode_log_api:
-    resource: '../../Application/Controller/Api/Log*'
-    type: annotation
-    prefix: /api/v1/
