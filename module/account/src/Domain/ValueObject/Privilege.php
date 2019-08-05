@@ -11,7 +11,7 @@ namespace Ergonode\Account\Domain\ValueObject;
 
 /**
  */
-class Privilege
+class Privilege implements \JsonSerializable
 {
     public const LENGTH = 128;
 
@@ -58,5 +58,21 @@ class Privilege
     public function getValue(): string
     {
         return $this->value;
+    }
+
+    /**
+     * @return string
+     */
+    public function jsonSerialize(): string
+    {
+        return (string) $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getValue();
     }
 }

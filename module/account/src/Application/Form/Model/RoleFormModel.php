@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
+use Ergonode\Account\Application\Validator\Constraints as AccountAssert;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -33,14 +34,14 @@ class RoleFormModel
     public $description;
 
     /**
-     * @var array
+     * @var array|Privilege[]
      *
-     * @Assert\Valid()
+     * @Assert\NotBlank(message="Role privileges must be set")
+     * @AccountAssert\ContainsPrivilegeRelations()
      */
     public $privileges;
 
     /**
-     * @var Privilege[]
      */
     public function __construct()
     {

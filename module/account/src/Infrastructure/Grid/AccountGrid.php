@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Grid;
 
+use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Provider\LanguageProvider;
 use Ergonode\Grid\AbstractGrid;
@@ -31,16 +32,23 @@ class AccountGrid extends AbstractGrid
     /**
      * @var LanguageProvider
      */
-    private $provider;
+    private $languageProvider;
+
+    /**
+     * @var RoleQueryInterface
+     */
+    private $roleQuery;
 
     /**
      * @param TranslatorInterface $translator
-     * @param LanguageProvider    $provider
+     * @param LanguageProvider    $languageProvider
+     * @param RoleQueryInterface  $roleQuery
      */
-    public function __construct(TranslatorInterface $translator, LanguageProvider $provider)
+    public function __construct(TranslatorInterface $translator, LanguageProvider $languageProvider, RoleQueryInterface $roleQuery)
     {
         $this->translator = $translator;
-        $this->provider = $provider;
+        $this->languageProvider = $languageProvider;
+        $this->roleQuery = $roleQuery;
     }
 
     /**
@@ -49,7 +57,8 @@ class AccountGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $languages = $this->provider->getLanguages($language);
+        $languages = $this->languageProvider->getLanguages($language);
+        $roles = $this->roleQuery->getDictionary();
         $filters = $configuration->getFilters();
 
         $id = new TextColumn('id', $this->trans('Id'));
@@ -59,6 +68,7 @@ class AccountGrid extends AbstractGrid
         $this->addColumn('first_name', new TextColumn('first_name', $this->trans('First Name'), new TextFilter($filters->getString('first_name'))));
         $this->addColumn('last_name', new TextColumn('last_name', $this->trans('Last Name'), new TextFilter($filters->getString('last_name'))));
         $this->addColumn('language', new TextColumn('language', $this->trans('Language'), new SelectFilter($languages, $filters->getString('language'))));
+        $this->addColumn('role_id', new TextColumn('role_id', $this->trans('Roles'), new SelectFilter($roles, $filters->getString('role_id'))));
         $this->addColumn('edit', new ActionColumn('edit'));
     }
 

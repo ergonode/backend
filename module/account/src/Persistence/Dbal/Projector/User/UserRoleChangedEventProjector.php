@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector;
+namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\UserCreatedEvent;
+use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\Core\Domain\Entity\AbstractId;
@@ -22,7 +22,7 @@ use Webmozart\Assert\Assert;
 
 /**
  */
-class UserCreatedEventProjector implements DomainEventProjectorInterface
+class UserRoleChangedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'users';
 
@@ -60,7 +60,7 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof UserCreatedEvent;
+        return $event instanceof UserRoleChangedEvent;
     }
 
     /**
@@ -72,11 +72,11 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof UserCreatedEvent) {
-            throw new UnsupportedEventException($event, UserCreatedEvent::class);
+        if (!$event instanceof UserRoleChangedEvent) {
+            throw new UnsupportedEventException($event, UserRoleChangedEvent::class);
         }
 
-        $role = $this->repository->load($event->getRoleId());
+        $role = $this->repository->load($event->getTo());
 
         Assert::notNull($role);
         /** @var Privilege[] $privileges */
@@ -84,17 +84,14 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
 
         $this->connection->beginTransaction();
         try {
-            $this->connection->insert(
+            $this->connection->update(
                 self::TABLE,
                 [
-                    'id' => $event->getId()->getValue(),
-                    'first_name' => $event->getFirstName(),
-                    'last_name' => $event->getLastName(),
-                    'username' => $event->getEmail(),
-                    'role_id' => $event->getRoleId()->getValue(),
+                    'role_id' => $event->getTo()->getValue(),
                     'roles' => $this->serializer->serialize($privileges, 'json'),
-                    'language' => $event->getLanguage()->getCode(),
-                    'password' => $event->getPassword()->getValue(),
+                ],
+                [
+                    'id' => $aggregateId->getValue(),
                 ]
             );
             $this->connection->commit();

@@ -7,51 +7,52 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Domain\Event;
+namespace Ergonode\Account\Domain\Event\User;
 
+use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserFirstNameChangedEvent implements DomainEventInterface
+class UserRoleChangedEvent implements DomainEventInterface
 {
     /**
-     * @var string
+     * @var RoleId
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
      */
     private $from;
 
     /**
-     * @var string
+     * @var RoleId
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
      */
     private $to;
 
     /**
-     * @param string $from
-     * @param string $to
+     * @param RoleId $from
+     * @param RoleId $to
      */
-    public function __construct(string $from, string $to)
+    public function __construct(RoleId $from, RoleId $to)
     {
         $this->from = $from;
         $this->to = $to;
     }
 
     /**
-     * @return string
+     * @return RoleId
      */
-    public function getFrom(): string
+    public function getFrom(): RoleId
     {
         return $this->from;
     }
 
     /**
-     * @return string
+     * @return RoleId
      */
-    public function getTo(): string
+    public function getTo(): RoleId
     {
         return $this->to;
     }

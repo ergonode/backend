@@ -14,6 +14,10 @@ services:
         resource: '../../Application/Command/*'
         tags: ['console.command']
 
+    Ergonode\Account\Application\Security\Voter\:
+        resource: '../../Application/Security/Voter/*'
+        tags: ['security.voter']
+
     Ergonode\Account\Domain\:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject}'
@@ -39,3 +43,4 @@ services:
     Ergonode\Account\Domain\Query\LogQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalLogQuery'
 
     Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface: '@Ergonode\Account\Infrastructure\Encoder\DomainUserPasswordEncoder'
+    Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolverInterface: '@Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolver'

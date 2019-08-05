@@ -20,12 +20,13 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Infrastructure\Factory\TemplateCommandFactory;
 use Ergonode\Designer\Infrastructure\Grid\TemplateGrid;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -79,6 +80,8 @@ class TemplateController extends AbstractApiController
 
     /**
      * @Route("/templates", methods={"GET"})
+     *
+     * @IsGranted("TEMPLATE_DESIGNER_READ")
      *
      * @SWG\Tag(name="Designer")
      *
@@ -164,6 +167,8 @@ class TemplateController extends AbstractApiController
     /**
      * @Route("/templates", methods={"POST"})
      *
+     * @IsGranted("TEMPLATE_DESIGNER_CREATE")
+     *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(
      *     name="body",
@@ -216,6 +221,8 @@ class TemplateController extends AbstractApiController
 
     /**
      * @Route("/templates/{template}", methods={"PUT"}, requirements={"template" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("TEMPLATE_DESIGNER_UPDATE")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(
@@ -280,6 +287,8 @@ class TemplateController extends AbstractApiController
     /**
      * @Route("/templates/{template}", methods={"GET"}, requirements={"template" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("TEMPLATE_DESIGNER_READ")
+     *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(
      *     name="template",
@@ -321,6 +330,8 @@ class TemplateController extends AbstractApiController
 
     /**
      * @Route("/templates/{template}", methods={"DELETE"}, requirements={"templates" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("TEMPLATE_DESIGNER_DELETE")
      *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(

@@ -9,50 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\Role;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use JMS\Serializer\Annotation as JMS;
+use Ergonode\Core\Domain\Event\AbstractStringBasedChangedEvent;
 
 /**
  */
-class RoleNameChangedEvent implements DomainEventInterface
+class RoleNameChangedEvent extends AbstractStringBasedChangedEvent
 {
-    /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     */
-    private $from;
-
-    /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     */
-    private $to;
-
-    /**
-     * @param string $from
-     * @param string $to
-     */
-    public function __construct(string $from, string $to)
-    {
-        $this->from = $from;
-        $this->to = $to;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFrom(): string
-    {
-        return $this->from;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTo(): string
-    {
-        return $this->to;
-    }
 }

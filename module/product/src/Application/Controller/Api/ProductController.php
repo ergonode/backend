@@ -12,11 +12,6 @@ namespace Ergonode\Product\Application\Controller\Api;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\Grid\Renderer\ColumnRenderer;
-use Ergonode\Grid\Renderer\FilterRenderer;
-use Ergonode\Grid\Renderer\GridRenderer;
-use Ergonode\Grid\Renderer\InfoRender;
-use Ergonode\Grid\Renderer\RowRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Application\Form\ProductCreateForm;
 use Ergonode\Product\Application\Form\ProductUpdateForm;
@@ -29,12 +24,13 @@ use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 use Ergonode\Product\Persistence\Dbal\DataSet\DbalProductDataSet;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -69,6 +65,8 @@ class ProductController extends AbstractApiController
 
     /**
      * @Route("products", methods={"GET"})
+     *
+     * @IsGranted("PRODUCT_READ")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
@@ -159,6 +157,8 @@ class ProductController extends AbstractApiController
     /**
      * @Route("products/{product}", methods={"GET"})
      *
+     * @IsGranted("PRODUCT_READ")
+     *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
      *     name="product",
@@ -197,6 +197,8 @@ class ProductController extends AbstractApiController
 
     /**
      * @Route("products", methods={"POST"})
+     *
+     * @IsGranted("PRODUCT_CREATE")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
@@ -246,6 +248,8 @@ class ProductController extends AbstractApiController
 
     /**
      * @Route("products/{product}", methods={"PUT"})
+     *
+     * @IsGranted("PRODUCT_UPDATE")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(

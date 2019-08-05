@@ -15,10 +15,11 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 use Webmozart\Assert\Assert;
 
 /**
@@ -56,6 +57,8 @@ class CompletenessController extends AbstractApiController
      * @Route(
      *     "/products/{product}/draft/completeness", methods={"GET"}, requirements = {"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
      * )
+     *
+     * @IsGranted("PRODUCT_READ")
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(

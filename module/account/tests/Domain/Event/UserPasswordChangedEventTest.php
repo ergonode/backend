@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Domain\Event;
 
-use Ergonode\Account\Domain\Event\UserPasswordChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 use Ergonode\Account\Domain\ValueObject\Password;
 use PHPUnit\Framework\TestCase;
 

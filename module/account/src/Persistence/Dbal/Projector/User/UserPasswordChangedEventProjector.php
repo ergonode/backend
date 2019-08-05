@@ -7,18 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector;
+namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\UserLanguageChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
+use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class UserLanguageChangedEventProjector implements DomainEventProjectorInterface
+class UserPasswordChangedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'users';
 
@@ -42,7 +42,7 @@ class UserLanguageChangedEventProjector implements DomainEventProjectorInterface
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof UserLanguageChangedEvent;
+        return $event instanceof UserPasswordChangedEvent;
     }
 
     /**
@@ -54,17 +54,16 @@ class UserLanguageChangedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof UserLanguageChangedEvent) {
-            throw new UnsupportedEventException($event, UserLanguageChangedEvent::class);
+        if (!$event instanceof UserPasswordChangedEvent) {
+            throw new UnsupportedEventException($event, UserPasswordChangedEvent::class);
         }
-
 
         $this->connection->beginTransaction();
         try {
             $this->connection->update(
                 self::TABLE,
                 [
-                    'language' => $event->getTo()->getCode(),
+                    'password' => $event->getPassword(),
                 ],
                 [
                     'id' => $aggregateId->getValue(),

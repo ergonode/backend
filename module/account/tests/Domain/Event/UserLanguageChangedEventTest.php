@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Domain\Event;
 
-use Ergonode\Account\Domain\Event\UserLanguageChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
 use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\TestCase;
 

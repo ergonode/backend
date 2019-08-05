@@ -47,13 +47,12 @@ class FixtureProcess
         $this->manager = $manager;
     }
 
-
     /**
      * @param string|null $group
      *
      * @throws FixtureException
      */
-    public function process(string $group = null): void
+    public function process(?string $group = null): void
     {
         try {
             $files = $this->loader->load($group);

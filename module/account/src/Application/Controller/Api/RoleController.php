@@ -21,13 +21,14 @@ use Ergonode\Account\Infrastructure\Grid\RoleGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -69,6 +70,8 @@ class RoleController extends AbstractApiController
 
     /**
      * @Route("/roles", methods={"GET"})
+     *
+     * @IsGranted("USER_ROLE_READ")
      *
      * @SWG\Tag(name="Account")
      *
@@ -153,6 +156,8 @@ class RoleController extends AbstractApiController
     /**
      * @Route("/roles/{role}", methods={"GET"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("USER_ROLE_READ")
+     *
      * @SWG\Tag(name="Account")
      *
      * @SWG\Parameter(
@@ -186,7 +191,6 @@ class RoleController extends AbstractApiController
     public function getRole(string $role): Response
     {
         $id = new RoleId($role);
-
         $role = $this->repository->load($id);
 
         if ($role !== null) {
@@ -198,6 +202,8 @@ class RoleController extends AbstractApiController
 
     /**
      * @Route("/roles", methods={"POST"})
+     *
+     * @IsGranted("USER_ROLE_CREATE")
      *
      * @SWG\Tag(name="Account")
      *
@@ -257,6 +263,8 @@ class RoleController extends AbstractApiController
     /**
      * @Route("/roles/{role}", methods={"PUT"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("USER_ROLE_UPDATE")
+     *
      * @SWG\Tag(name="Account")
      *
      * @SWG\Parameter(
@@ -301,7 +309,7 @@ class RoleController extends AbstractApiController
             $roleId = new RoleId($role);
 
             $model = new RoleFormModel();
-            $form = $this->createForm(RoleForm::class, $model, ['method' => 'PUT']);
+            $form = $this->createForm(RoleForm::class, $model, ['method' => Request::METHOD_PUT]);
 
             $form->handleRequest($request);
 
@@ -324,6 +332,8 @@ class RoleController extends AbstractApiController
 
     /**
      * @Route("/roles/{role}", methods={"DELETE"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("USER_ROLE_DELETE")
      *
      * @SWG\Tag(name="Account")
      *

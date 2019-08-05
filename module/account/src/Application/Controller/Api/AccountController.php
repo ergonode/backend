@@ -28,6 +28,7 @@ use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -98,6 +99,8 @@ class AccountController extends AbstractApiController
 
     /**
      * @Route("/accounts", methods={"GET"})
+     *
+     * @IsGranted("USER_READ")
      *
      * @SWG\Tag(name="Account")
      *
@@ -182,6 +185,8 @@ class AccountController extends AbstractApiController
     /**
      * @Route("/accounts/{user}", methods={"GET"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("USER_READ")
+     *
      * @SWG\Tag(name="Account")
      *
      * @SWG\Parameter(
@@ -215,7 +220,6 @@ class AccountController extends AbstractApiController
     public function getUserData(string $user): Response
     {
         $userId = new UserId($user);
-
         $user = $this->query->getUser($userId);
 
         if (!empty($user)) {
@@ -227,6 +231,8 @@ class AccountController extends AbstractApiController
 
     /**
      * @Route("/accounts", methods={"POST"})
+     *
+     * @IsGranted("USER_CREATE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -291,6 +297,8 @@ class AccountController extends AbstractApiController
 
     /**
      * @Route("/accounts/{user}", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("USER_UPDATE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -362,6 +370,8 @@ class AccountController extends AbstractApiController
     /**
      * @Route("/accounts/{user}/avatar", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("USER_UPDATE")
+     *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
      *     name="user",
@@ -416,6 +426,8 @@ class AccountController extends AbstractApiController
 
     /**
      * @Route("/accounts/{user}/password", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("USER_UPDATE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(

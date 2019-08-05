@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Domain\Event;
 
-use Ergonode\Account\Domain\Event\UserAvatarChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use PHPUnit\Framework\TestCase;
 

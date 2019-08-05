@@ -49,7 +49,7 @@ class RoleCreatedEventProjector implements DomainEventProjectorInterface
      * @param AbstractId           $aggregateId
      * @param DomainEventInterface $event
      *
-     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws UnsupportedEventException
      * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
@@ -58,20 +58,16 @@ class RoleCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, RoleCreatedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
+        $this->connection->transactional(function () use ($event) {
             $this->connection->insert(
                 self::TABLE,
                 [
                     'id' => $event->getId()->getValue(),
                     'name' => $event->getName(),
                     'description' => $event->getDescription(),
+                    'privileges' => json_encode($event->getPrivileges()),
                 ]
             );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        });
     }
 }

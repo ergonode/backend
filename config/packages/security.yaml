@@ -1,4 +1,8 @@
 security:
+    access_decision_manager:
+        strategy: 'unanimous'
+        allow_if_all_abstain: false
+
     providers:
         domain_user_provider:
             id: 'Ergonode\Authentication\Application\Security\Provider\DomainUserProvider'

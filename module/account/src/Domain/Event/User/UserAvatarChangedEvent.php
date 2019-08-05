@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Domain\Event;
+namespace Ergonode\Account\Domain\Event\User;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;

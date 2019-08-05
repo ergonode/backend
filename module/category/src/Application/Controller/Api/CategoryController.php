@@ -9,10 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Category\Application\Form\CategoryCreateForm;
 use Ergonode\Category\Application\Form\CategoryUpdateForm;
 use Ergonode\Category\Application\Model\CategoryCreateFormModel;
@@ -23,12 +19,17 @@ use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
+use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -70,6 +71,8 @@ class CategoryController extends AbstractApiController
 
     /**
      * @Route("/categories", methods={"GET"})
+     *
+     * @IsGranted("CATEGORY_READ")
      *
      * @SWG\Tag(name="Category")
      * @SWG\Parameter(
@@ -147,6 +150,8 @@ class CategoryController extends AbstractApiController
     /**
      * @Route("/categories/{category}", methods={"GET"})
      *
+     * @IsGranted("CATEGORY_READ")
+     *
      * @SWG\Tag(name="Category")
      *
      * @SWG\Parameter(
@@ -191,6 +196,8 @@ class CategoryController extends AbstractApiController
 
     /**
      * @Route("/categories", methods={"POST"})
+     *
+     * @IsGranted("CATEGORY_CREATE")
      *
      * @SWG\Tag(name="Category")
      *
@@ -251,6 +258,8 @@ class CategoryController extends AbstractApiController
 
     /**
      * @Route("/categories/{category}", methods={"PUT"})
+     *
+     * @IsGranted("CATEGORY_UPDATE")
      *
      * @SWG\Parameter(
      *     name="language",

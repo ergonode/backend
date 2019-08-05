@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Domain\Event;
 
-use Ergonode\Account\Domain\Event\UserFirstNameChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
 use PHPUnit\Framework\TestCase;
 
 /**

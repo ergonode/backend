@@ -11,7 +11,7 @@ namespace Ergonode\Account\Tests\Domain\Event;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Account\Domain\Event\UserCreatedEvent;
+use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
 use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;

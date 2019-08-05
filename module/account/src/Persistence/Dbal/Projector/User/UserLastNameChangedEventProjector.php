@@ -7,18 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector;
+namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\UserAvatarChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
+use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class UserAvatarChangedEventProjector implements DomainEventProjectorInterface
+class UserLastNameChangedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'users';
 
@@ -42,7 +42,7 @@ class UserAvatarChangedEventProjector implements DomainEventProjectorInterface
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof UserAvatarChangedEvent;
+        return $event instanceof UserLastNameChangedEvent;
     }
 
     /**
@@ -54,8 +54,8 @@ class UserAvatarChangedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof UserAvatarChangedEvent) {
-            throw new UnsupportedEventException($event, UserAvatarChangedEvent::class);
+        if (!$event instanceof UserLastNameChangedEvent) {
+            throw new UnsupportedEventException($event, UserLastNameChangedEvent::class);
         }
 
         $this->connection->beginTransaction();
@@ -63,7 +63,7 @@ class UserAvatarChangedEventProjector implements DomainEventProjectorInterface
             $this->connection->update(
                 self::TABLE,
                 [
-                    'avatar_id' => $event->getAvatarId() ? $event->getAvatarId()->getValue() : null,
+                    'last_name' => $event->getTo(),
                 ],
                 [
                     'id' => $aggregateId->getValue(),
