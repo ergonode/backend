@@ -12,12 +12,10 @@ namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
-use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use JMS\Serializer\SerializerInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -37,20 +35,13 @@ class UserRoleChangedEventProjector implements DomainEventProjectorInterface
     private $repository;
 
     /**
-     * @var SerializerInterface
-     */
-    private $serializer;
-
-    /**
      * @param Connection              $connection
      * @param RoleRepositoryInterface $repository
-     * @param SerializerInterface     $serializer
      */
-    public function __construct(Connection $connection, RoleRepositoryInterface $repository, SerializerInterface $serializer)
+    public function __construct(Connection $connection, RoleRepositoryInterface $repository)
     {
         $this->connection = $connection;
         $this->repository = $repository;
-        $this->serializer = $serializer;
     }
 
     /**
@@ -67,6 +58,7 @@ class UserRoleChangedEventProjector implements DomainEventProjectorInterface
      * @param AbstractId           $aggregateId
      * @param DomainEventInterface $event
      *
+     * @throws UnsupportedEventException
      * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Throwable
      */
@@ -79,25 +71,17 @@ class UserRoleChangedEventProjector implements DomainEventProjectorInterface
         $role = $this->repository->load($event->getTo());
 
         Assert::notNull($role);
-        /** @var Privilege[] $privileges */
-        $privileges = $role->getPrivileges();
 
-        $this->connection->beginTransaction();
-        try {
+        $this->connection->transactional(function () use ($event, $aggregateId) {
             $this->connection->update(
                 self::TABLE,
                 [
                     'role_id' => $event->getTo()->getValue(),
-                    'roles' => $this->serializer->serialize($privileges, 'json'),
                 ],
                 [
                     'id' => $aggregateId->getValue(),
                 ]
             );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        });
     }
 }

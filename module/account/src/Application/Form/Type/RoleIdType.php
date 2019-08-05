@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Form\Type;
 
-use Ergonode\Account\Application\Form\DataTransformer\PrivilegeDataTransformer;
 use Ergonode\Account\Application\Form\DataTransformer\RoleIdDataTransformer;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Symfony\Component\Form\AbstractType;

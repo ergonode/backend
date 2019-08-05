@@ -103,7 +103,7 @@ abstract class AbstractAggregateRoot
 
         $method = sprintf('apply%s', $class);
         if (!method_exists($this, $method)) {
-            throw new \RuntimeException(\sprintf('Can\'t find method  %s for event in aggregate %s', $method, get_class($this)));
+            throw new \RuntimeException(sprintf('Can\'t find method  %s for event in aggregate %s', $method, get_class($this)));
         }
 
         $this->$method($event);

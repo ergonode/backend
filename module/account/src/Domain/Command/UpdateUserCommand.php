@@ -56,8 +56,14 @@ class UpdateUserCommand
      * @param RoleId        $roleId
      * @param Password|null $password
      */
-    public function __construct(UserId $id, string $firstName, string $lastName, Language $language, RoleId $roleId, ?Password $password = null)
-    {
+    public function __construct(
+        UserId $id,
+        string $firstName,
+        string $lastName,
+        Language $language,
+        RoleId $roleId,
+        ?Password $password = null
+    ) {
         $this->id = $id;
         $this->roleId = $roleId;
         $this->firstName = $firstName;
