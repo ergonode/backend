@@ -34,10 +34,9 @@ class RoleFormModel
     public $description;
 
     /**
-     * @var array|Privilege[]
+     * @var Privilege[]
      *
-     * @Assert\NotBlank(message="Role privileges must be set")
-     * @AccountAssert\ContainsPrivilegeRelations()
+     * @AccountAssert\ConstraintPrivilegeRelations()
      */
     public $privileges;
 
