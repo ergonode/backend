@@ -21,6 +21,7 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Account\Infrastructure\Grid\AccountGrid;
@@ -277,7 +278,7 @@ class AccountController extends AbstractApiController
                 $command = new CreateUserCommand(
                     $data->firstName,
                     $data->lastName,
-                    $data->email,
+                    new Email($data->email),
                     $data->language,
                     new Password($data->password),
                     $data->roleId
@@ -356,7 +357,7 @@ class AccountController extends AbstractApiController
                 $command = new UpdateUserCommand($userId, $data->firstName, $data->lastName, $data->language, $data->roleId, new Password($data->password));
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return $this->createRestResponse(['id' => $command->getId()]);
             }
         } catch (InvalidPropertyPathException $exception) {
             return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);

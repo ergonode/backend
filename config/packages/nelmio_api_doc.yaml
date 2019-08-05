@@ -90,7 +90,7 @@ nelmio_api_doc:
                         type: string
                         equired: true
                         example: 12345678
-                    role_id:
+                    roleId:
                         type: string
                         required: true
                         example: 86800536-0f2a-4920-9291-f35fdcea3839

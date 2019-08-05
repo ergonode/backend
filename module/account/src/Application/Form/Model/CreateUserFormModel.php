@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Form\Model;
 
 use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -35,7 +34,7 @@ class CreateUserFormModel
     public $lastName;
 
     /**
-     * @var Email
+     * @var string
      *
      * @Assert\NotBlank(message="User email is required")
      * @Assert\Email(mode="strict")

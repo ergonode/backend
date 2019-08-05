@@ -53,11 +53,8 @@ class UserCreateForm extends AbstractType
                 LanguageType::class
             )
             ->add(
-                'role_id',
-                RoleIdType::class,
-                [
-                    'property_path' => 'roleId',
-                ]
+                'roleId',
+                RoleIdType::class
             );
     }
 
