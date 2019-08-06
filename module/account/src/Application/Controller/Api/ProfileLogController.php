@@ -97,14 +97,6 @@ class ProfileLogController extends AbstractApiController
      *     enum={"COLUMN","DATA"},
      *     description="Specify what response should containts"
      * )
-     * @SWG\Parameter(
-     *     name="language",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     default="EN",
-     *     description="Language Code",
-     * )
      * @SWG\Response(
      *     response=200,
      *     description="Returns User Log collection",
