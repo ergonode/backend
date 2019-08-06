@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5780ea10e2a0a35b6e3820bd27dc231b",
+    "content-hash": "476ab2c4613c7703abadb27302d2b0b4",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -4057,6 +4057,51 @@
                 "uuid"
             ],
             "time": "2018-08-11T21:01:22+00:00"
+        },
+        {
+            "name": "scn/deepl-api-connector",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SC-Networks/deepl-api-connector.git",
+                "reference": "27a9fcc2c6444f085a5554816fafe815a5ec42e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SC-Networks/deepl-api-connector/zipball/27a9fcc2c6444f085a5554816fafe815a5ec42e9",
+                "reference": "27a9fcc2c6444f085a5554816fafe815a5ec42e9",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Scn\\DeeplApiConnector\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sascha Nützel",
+                    "homepage": "https://www.sc-networks.com"
+                }
+            ],
+            "description": "Unofficial PHP Client for the API of deepl.com",
+            "homepage": "https://github.com/SC-Networks/deepl-api-connector",
+            "keywords": [
+                "deepl",
+                "translation"
+            ],
+            "time": "2019-08-02T11:38:11+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",

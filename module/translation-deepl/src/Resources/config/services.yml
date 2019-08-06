@@ -1,0 +1,39 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\TranslationDeepl\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\TranslationDeepl\Application\:
+        resource: '../../Application/*'
+        exclude: '../../Domain/{Model}'
+
+    Ergonode\TranslationDeepl\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
+
+    Ergonode\TranslationDeepl\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Message}'
+
+    Ergonode\TranslationDeepl\Application\Controller\:
+        resource: '../../Application/Controller'
+        tags: ['controller.service_arguments']
+
+    Ergonode\TranslationDeepl\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\TranslationDeepl\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\TranslationDeepl\Domain\Repository\TranslationDeeplRepositoryInterface: '@Ergonode\TranslationDeepl\Persistence\Dbal\Repository\DbalTranslationDeeplRepository'
+    Ergonode\TranslationDeepl\Domain\Query\TranslationDeeplQueryInterface: '@Ergonode\TranslationDeepl\Persistence\Dbal\Query\DbalTranslationDeeplQuery'
+
+    Ergonode\TranslationDeepl\Infrastructure\test:
+        arguments:
+            $deeplAuthKey: "%deepl_auth_key%"
