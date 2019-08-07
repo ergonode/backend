@@ -22,9 +22,9 @@ class TranslatedOptionValueResolver
      * @param AbstractOption $option
      * @param Language       $language
      *
-     * @return string
+     * @return string|null
      */
-    public function resolve(AbstractOption $option, Language $language): string
+    public function resolve(AbstractOption $option, Language $language): ?string
     {
         if ($option instanceof MultilingualOption) {
             return $option->getValue()->get($language);
