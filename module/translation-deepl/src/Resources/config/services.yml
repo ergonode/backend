@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\TranslationDeepl\Application\:
+        resource: '../../Application/*'
+        exclude: '../../Application/{DependencyInjection}'
+
+    Ergonode\TranslationDeepl\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
+    Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProvider:
+        arguments:
+            $deeplAuthKey: "%deepl_auth_key%"
+
+    Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProviderInterface: '@Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProvider'
