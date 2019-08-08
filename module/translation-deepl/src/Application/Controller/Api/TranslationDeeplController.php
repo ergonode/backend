@@ -13,6 +13,7 @@ use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\TranslationDeepl\Application\Form\TranslationDeeplForm;
 use Ergonode\TranslationDeepl\Application\Model\Form\TranslationDeeplFormModel;
 use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProviderInterface;
+use Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProviderInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,14 +27,22 @@ class TranslationDeeplController extends AbstractApiController
     /**
      * @var TranslationDeeplProviderInterface
      */
-    private $provider;
+    private $translationProvider;
+    /**
+     * @var UsageDeeplProviderInterface
+     */
+    private $usageProvider;
 
     /**
-     * @param TranslationDeeplProviderInterface $provider
+     * TranslationDeeplController constructor.
+     *
+     * @param TranslationDeeplProviderInterface $translationProvider
+     * @param UsageDeeplProviderInterface       $usageProvider
      */
-    public function __construct(TranslationDeeplProviderInterface $provider)
+    public function __construct(TranslationDeeplProviderInterface $translationProvider, UsageDeeplProviderInterface $usageProvider)
     {
-        $this->provider = $provider;
+        $this->translationProvider = $translationProvider;
+        $this->usageProvider = $usageProvider;
     }
 
     /**
@@ -83,7 +92,7 @@ class TranslationDeeplController extends AbstractApiController
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var TranslationDeeplFormModel $data */
                 $data = $form->getData();
-                $translatedContent = $this->provider->provide($data->content, $data->sourceLanguage, $data->targetLanguage);
+                $translatedContent = $this->translationProvider->provide($data->content, $data->sourceLanguage, $data->targetLanguage);
 
                 return $this->createRestResponse(['content' => $translatedContent]);
             }
@@ -96,4 +105,28 @@ class TranslationDeeplController extends AbstractApiController
         return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * @Route("/translation/usage", methods={"GET"})
+     *
+     * @SWG\Tag(name="Translation Deepl")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns usage",
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
+     *
+     * @return Response
+     */
+    public function getUsage(): Response
+    {
+        $usage = $this->usageProvider->provide();
+
+        return $this->createRestResponse([
+            'current' => $usage->getCharacterCount(),
+            'limit' => $usage->getCharacterLimit(),
+        ]);
+    }
 }

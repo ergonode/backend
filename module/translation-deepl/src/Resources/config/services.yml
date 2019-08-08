@@ -8,6 +8,10 @@ services:
         resource: '../../Application/*'
         exclude: '../../Application/{DependencyInjection}'
 
+    Ergonode\TranslationDeepl\Application\Controller\:
+        resource: '../../Application/Controller'
+        tags: ['controller.service_arguments']
+
     Ergonode\TranslationDeepl\Infrastructure\:
         resource: '../../Infrastructure/*'
 
@@ -15,4 +19,15 @@ services:
         arguments:
             $deeplAuthKey: "%deepl_auth_key%"
 
+    Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProvider:
+        arguments:
+            $deeplAuthKey: "%deepl_auth_key%"
+
     Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProviderInterface: '@Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProvider'
+    Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\TranslationDeeplProviderDecorator:
+        decorates: Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProviderInterface
+        arguments:
+            - '@Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\TranslationDeeplProviderDecorator.inner'
+
+
+    Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProviderInterface: '@Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProvider'

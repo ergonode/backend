@@ -11,7 +11,7 @@ namespace Ergonode\TranslationDeepl\Infrastructure\Provider;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Scn\DeeplApiConnector\DeeplClient;
-use Scn\DeeplApiConnector\Enum\LanguageEnum;
+use Scn\DeeplApiConnector\Model\Translation;
 use Scn\DeeplApiConnector\Model\TranslationConfig;
 
 /**
@@ -36,8 +36,6 @@ class TranslationDeeplProvider implements TranslationDeeplProviderInterface
      */
     public function provide(string $content, Language $sourceLanguage, Language $targetLanguage): string
     {
-        $this->validate($sourceLanguage, $targetLanguage);
-
         $translation = new TranslationConfig(
             $content,
             $targetLanguage->getCode(),
@@ -45,29 +43,9 @@ class TranslationDeeplProvider implements TranslationDeeplProviderInterface
         );
 
         $deepl = DeeplClient::create($this->deeplAuthKey);
-        /** @var \Scn\DeeplApiConnector\Model\Translation $response */
+        /** @var Translation $response */
         $response = $deepl->getTranslation($translation);
 
         return $response->getText();
-    }
-
-    /**
-     * @param Language $sourceLanguage
-     * @param Language $targetLanguage
-     *
-     * @throws \ReflectionException
-     */
-    private function validate(Language $sourceLanguage, Language $targetLanguage): void
-    {
-        $languageEnumReflection = new \ReflectionClass(LanguageEnum::class);
-        $availableLanguages = $languageEnumReflection->getConstants();
-
-        if (!in_array($sourceLanguage->getCode(), $availableLanguages, true)) {
-            throw new \OutOfBoundsException('Source language is not supported');
-        }
-
-        if (!in_array($targetLanguage->getCode(), $availableLanguages, true)) {
-            throw new \OutOfBoundsException('Target language is not supported');
-        }
     }
 }
