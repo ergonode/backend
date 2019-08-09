@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Application\Controller\Api;
 
 use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -243,7 +244,7 @@ class ProductController extends AbstractApiController
             return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
         }
 
-        return $this->createRestResponse($form);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -303,6 +304,6 @@ class ProductController extends AbstractApiController
             return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
         }
 
-        return $this->createRestResponse($form);
+        throw new FormValidationHttpException($form);
     }
 }

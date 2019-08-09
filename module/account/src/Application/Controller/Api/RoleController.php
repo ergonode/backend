@@ -19,6 +19,7 @@ use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\Account\Infrastructure\Grid\RoleGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -257,7 +258,7 @@ class RoleController extends AbstractApiController
             throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -325,7 +326,7 @@ class RoleController extends AbstractApiController
             throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -350,7 +351,6 @@ class RoleController extends AbstractApiController
      *     response=404,
      *     description="Not found",
      * )
-     *
      * @SWG\Response(
      *     response=422,
      *     description="Can't delete Role",

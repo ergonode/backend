@@ -22,13 +22,13 @@ class FormValidationHttpException extends HttpException
     private $form;
 
     /**
-     * @param FormInterface   $form
+     * @param FormInterface   $violations
      * @param \Exception|null $previous
      * @param array           $headers
      */
-    public function __construct(FormInterface $form, \Exception $previous = null, array $headers = [])
+    public function __construct(FormInterface $violations, \Exception $previous = null, array $headers = [])
     {
-        $this->form = $form;
+        $this->form = $violations;
 
         parent::__construct(400, 'Validation error', $previous);
     }
