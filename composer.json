@@ -105,7 +105,8 @@
             "Ergonode\\Channel\\": "module/channel/src",
             "Ergonode\\Connector\\": "module/connector/src",
             "Ergonode\\Value\\": "module/value/src",
-            "Ergonode\\ConnectorMagento\\": "module/connector-magento/src"
+            "Ergonode\\ConnectorMagento\\": "module/connector-magento/src",
+            "Ergonode\\TranslationDeepl\\": "module//translation_deepl/src"
         }
     },
     "autoload-dev": {
