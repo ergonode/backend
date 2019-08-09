@@ -199,21 +199,17 @@ class TemplateController extends AbstractApiController
      */
     public function createTemplate(Request $request): Response
     {
-        try {
-            $model = new TemplateFormModel();
-            $form = $this->createForm(TemplateForm::class, $model);
+        $model = new TemplateFormModel();
+        $form = $this->createForm(TemplateForm::class, $model);
 
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                /** @var TemplateFormModel $data */
-                $command = $this->createCommandFactory->getCreateTemplateCommand($form->getData());
-                $this->messageBus->dispatch($command);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var TemplateFormModel $data */
+            $command = $this->createCommandFactory->getCreateTemplateCommand($form->getData());
+            $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
-            }
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([$exception->getMessage(), explode(PHP_EOL, $exception->getTraceAsString())], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
         }
 
         return $this->createRestResponse($form);
@@ -263,22 +259,18 @@ class TemplateController extends AbstractApiController
      */
     public function updateTemplate(Template $template, Request $request): Response
     {
-        try {
-            $model = new TemplateFormModel();
-            $form = $this->createForm(TemplateForm::class, $model, ['method' => 'PUT']);
+        $model = new TemplateFormModel();
+        $form = $this->createForm(TemplateForm::class, $model, ['method' => 'PUT']);
 
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-                /** @var TemplateFormModel $data */
-                $command = $this->createCommandFactory->getUpdateTemplateCommand($template->getId(), $form->getData());
-                $this->messageBus->dispatch($command);
+            /** @var TemplateFormModel $data */
+            $command = $this->createCommandFactory->getUpdateTemplateCommand($template->getId(), $form->getData());
+            $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()]);
-            }
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([$exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->createRestResponse(['id' => $command->getId()]);
         }
 
         return $this->createRestResponse($form);
@@ -321,11 +313,7 @@ class TemplateController extends AbstractApiController
      */
     public function getTemplate(Template $template): Response
     {
-        try {
-            return $this->createRestResponse($template);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([$exception->getMessage(), explode(PHP_EOL, $exception->getTraceAsString())], [], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        return $this->createRestResponse($template);
     }
 
     /**

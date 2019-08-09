@@ -42,4 +42,13 @@ services:
             - '@Ergonode\Core\Infrastructure\Mapper\FormErrorMapper'
         tags: ['jms_serializer.subscribing_handler']
 
+    Ergonode\Core\Infrastructure\JMS\Serializer\Handler\ExceptionHandler:
+        arguments:
+            - '@fos_rest.exception.messages_map'
+            - '%kernel.debug%'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Core\Infrastructure\JMS\Serializer\Handler\FormValidationExceptionHandler:
+        tags: ['jms_serializer.subscribing_handler']
+
     jms_serializer.form_error_handler: '@Ergonode\Core\Infrastructure\JMS\Serializer\Handler\FormErrorHandler'

@@ -26,6 +26,7 @@ use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Account\Infrastructure\Grid\AccountGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
@@ -33,6 +34,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
@@ -288,12 +290,10 @@ class AccountController extends AbstractApiController
                 return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -368,12 +368,10 @@ class AccountController extends AbstractApiController
                 return $this->createRestResponse(['id' => $command->getId()]);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -427,9 +425,7 @@ class AccountController extends AbstractApiController
 
             return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_ACCEPTED);
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
     }
 

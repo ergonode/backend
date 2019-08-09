@@ -16,11 +16,12 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -146,15 +147,7 @@ class TransformerController extends AbstractApiController
             return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
         }
 
-        return $this->createRestResponse(
-            [
-                'code' => Response::HTTP_NOT_ACCEPTABLE,
-                'message' => sprintf('Transformer %s already exists', $name),
-            ],
-            [
-            ],
-            Response::HTTP_NOT_ACCEPTABLE
-        );
+        throw new NotAcceptableHttpException(sprintf('Transformer %s already exists', $name));
     }
 
     /**
