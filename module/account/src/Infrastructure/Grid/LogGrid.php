@@ -12,6 +12,7 @@ namespace Ergonode\Account\Infrastructure\Grid;
 use Ergonode\Account\Infrastructure\Grid\Column\LogColumn;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -39,6 +40,9 @@ class LogGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
+        $id = new IntegerColumn('id', $this->trans('Id'));
+        $id->setVisible(false);
+        $this->addColumn('id', $id);
         $this->addColumn('recorded_at', new TextColumn('recorded_at', $this->trans('Time')));
         $this->addColumn('author', new TextColumn('author', $this->trans('Author')));
         $this->addColumn('author_id', new TextColumn('author_d', $this->trans('Author id')));
