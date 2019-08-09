@@ -21,7 +21,7 @@ final class Version20190808111700 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $this->addSql(
-            'CREATE TABLE IF NOT EXISTS translation_deepl (
+            'CREATE TABLE IF NOT EXISTS translation_cache (
                     id UUID NOT NULL, 
                     translation TEXT NOT NULL, 
                     PRIMARY KEY(id))'
