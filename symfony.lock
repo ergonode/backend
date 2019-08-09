@@ -359,6 +359,9 @@
     "roave/security-advisories": {
         "version": "dev-master"
     },
+    "scn/deepl-api-connector": {
+        "version": "v2.0.0"
+    },
     "sebastian/code-unit-reverse-lookup": {
         "version": "1.0.1"
     },

@@ -21,6 +21,7 @@
         "phing/phing": "^2.16",
         "ramsey/uuid": "^3.8",
         "ramsey/uuid-doctrine": "^1.4",
+        "scn/deepl-api-connector": " ^2.0",
         "sensio/framework-extra-bundle": "^5.3",
         "symfony/asset": "^4.2",
         "symfony/cache": "^4.2",
@@ -45,8 +46,7 @@
         "symfony/yaml": "^4.2",
         "vich/uploader-bundle": "^1.8",
         "webonyx/graphql-php": "^0.12.2",
-        "zircote/swagger-php": "2.0.10",
-        "scn/deepl-api-connector": "^2.0"
+        "zircote/swagger-php": "2.0.10"
     },
     "require-dev": {
         "behat/symfony2-extension": "2.1.5",
