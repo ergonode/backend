@@ -45,7 +45,8 @@
         "symfony/yaml": "^4.2",
         "vich/uploader-bundle": "^1.8",
         "webonyx/graphql-php": "^0.12.2",
-        "zircote/swagger-php": "2.0.10"
+        "zircote/swagger-php": "2.0.10",
+        "scn/deepl-api-connector": "^2.0"
     },
     "require-dev": {
         "behat/symfony2-extension": "2.1.5",
