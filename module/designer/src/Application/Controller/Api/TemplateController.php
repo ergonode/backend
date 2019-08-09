@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Application\Controller\Api;
 
 use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Application\Form\TemplateForm;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
@@ -212,7 +213,7 @@ class TemplateController extends AbstractApiController
             return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
         }
 
-        return $this->createRestResponse($form);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -265,7 +266,6 @@ class TemplateController extends AbstractApiController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             /** @var TemplateFormModel $data */
             $command = $this->createCommandFactory->getUpdateTemplateCommand($template->getId(), $form->getData());
             $this->messageBus->dispatch($command);
@@ -273,7 +273,7 @@ class TemplateController extends AbstractApiController
             return $this->createRestResponse(['id' => $command->getId()]);
         }
 
-        return $this->createRestResponse($form);
+        throw new FormValidationHttpException($form);
     }
 
     /**
