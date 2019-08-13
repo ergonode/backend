@@ -31,12 +31,12 @@ class CacheTranslationProviderDecorator implements TranslationProviderInterface
     private $cache;
 
     /**
-     * TranslationDeeplProviderDecorator constructor.
+     * CacheTranslationProviderDecorator constructor.
      *
-     * @param DeeplTranslationProvider $provider
-     * @param DatabaseTranslationCache $cache
+     * @param TranslationProviderInterface $provider
+     * @param DatabaseTranslationCache     $cache
      */
-    public function __construct(DeeplTranslationProvider $provider, DatabaseTranslationCache $cache)
+    public function __construct(TranslationProviderInterface $provider, DatabaseTranslationCache $cache)
     {
         $this->provider = $provider;
         $this->cache = $cache;

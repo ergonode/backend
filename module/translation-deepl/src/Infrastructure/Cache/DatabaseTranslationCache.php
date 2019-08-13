@@ -11,7 +11,6 @@ namespace Ergonode\TranslationDeepl\Infrastructure\Cache;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Infrastructure\Cache\CacheInterface;
-use Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -30,10 +29,9 @@ class DatabaseTranslationCache implements CacheInterface
     /**
      * TranslationDeeplProviderDecorator constructor.
      *
-     * @param DeeplTranslationProvider $provider
-     * @param Connection               $connection
+     * @param Connection $connection
      */
-    public function __construct(DeeplTranslationProvider $provider, Connection $connection)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
