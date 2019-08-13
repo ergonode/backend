@@ -13,7 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
-interface TranslationDeeplProviderInterface
+interface TranslationProviderInterface
 {
     /**
      * @param string   $content

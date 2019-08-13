@@ -18,15 +18,15 @@ interface CacheInterface
     /**
      * @param UuidInterface $key
      *
-     * @return mixed
+     * @return string|null
      */
-    public function get(UuidInterface $key);
+    public function get(UuidInterface $key): ?string;
 
     /**
      * @param UuidInterface $key
      * @param string        $data
      */
-    public function set(UuidInterface $key, string $data) :void ;
+    public function set(UuidInterface $key, string $data): void;
 
     /**
      * @param UuidInterface $key

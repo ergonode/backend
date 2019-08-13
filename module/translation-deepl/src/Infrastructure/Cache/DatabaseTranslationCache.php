@@ -11,7 +11,7 @@ namespace Ergonode\TranslationDeepl\Infrastructure\Cache;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Infrastructure\Cache\CacheInterface;
-use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProvider;
+use Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -19,9 +19,8 @@ use Ramsey\Uuid\UuidInterface;
 class DatabaseTranslationCache implements CacheInterface
 {
     private const TABLE = 'translation_cache';
-    private const FIELDS = [
-        'a.translation',
-    ];
+    private const TRANSLATION_FIELD = 'a.translation';
+    private const ID_FIELD = 'a.id';
 
     /**
      * @var Connection
@@ -31,10 +30,10 @@ class DatabaseTranslationCache implements CacheInterface
     /**
      * TranslationDeeplProviderDecorator constructor.
      *
-     * @param TranslationDeeplProvider $provider
+     * @param DeeplTranslationProvider $provider
      * @param Connection               $connection
      */
-    public function __construct(TranslationDeeplProvider $provider, Connection $connection)
+    public function __construct(DeeplTranslationProvider $provider, Connection $connection)
     {
         $this->connection = $connection;
     }
@@ -42,15 +41,11 @@ class DatabaseTranslationCache implements CacheInterface
     /**
      * {@inheritDoc}
      */
-    public function get(UuidInterface $key)
+    public function get(UuidInterface $key): ?string
     {
-        return $this->connection->createQueryBuilder()
-            ->select(self::FIELDS)
-            ->from(self::TABLE, 'a')
-            ->andWhere('a.id = :id')
-            ->setParameter(':id', $key)
-            ->execute()
-            ->fetchColumn();
+        $result = $this->getQuery([self::TRANSLATION_FIELD, self::ID_FIELD], $key);
+
+        return $result ? (string) $result : null;
     }
 
     /**
@@ -72,14 +67,26 @@ class DatabaseTranslationCache implements CacheInterface
      */
     public function has(UuidInterface $key): bool
     {
-        $result = $this->connection->createQueryBuilder()
-            ->select('*')
+        $result = $this->getQuery([self::ID_FIELD], $key);
+
+        return false !== $result;
+    }
+
+    /**
+     * @param array         $fields
+     * @param UuidInterface $key
+     *
+     * @return false|mixed
+     */
+    public function getQuery(array $fields, UuidInterface $key)
+    {
+
+        return $this->connection->createQueryBuilder()
+            ->select($fields)
             ->from(self::TABLE, 'a')
             ->andWhere('a.id = :id')
             ->setParameter(':id', $key)
             ->execute()
             ->fetchColumn();
-
-        return null !== $result;
     }
 }

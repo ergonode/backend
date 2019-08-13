@@ -15,7 +15,7 @@ services:
     Ergonode\TranslationDeepl\Infrastructure\:
         resource: '../../Infrastructure/*'
 
-    Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProvider:
+    Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider:
         arguments:
             $deeplAuthKey: "%deepl_auth_key%"
 
@@ -23,11 +23,11 @@ services:
         arguments:
             $deeplAuthKey: "%deepl_auth_key%"
 
-    Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProviderInterface: '@Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProvider'
-    Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\TranslationDeeplProviderDecorator:
-        decorates: Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProviderInterface
+    Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationProviderInterface: '@Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider'
+    Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\CacheTranslationProviderDecorator:
+        decorates: Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationProviderInterface
         arguments:
-            - '@Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\TranslationDeeplProviderDecorator.inner'
+            - '@Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\CacheTranslationProviderDecorator.inner'
 
 
     Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProviderInterface: '@Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProvider'

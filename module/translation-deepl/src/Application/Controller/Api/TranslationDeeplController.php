@@ -12,7 +12,7 @@ namespace Ergonode\TranslationDeepl\Application\Controller\Api;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\TranslationDeepl\Application\Form\TranslationDeeplForm;
 use Ergonode\TranslationDeepl\Application\Model\Form\TranslationDeeplFormModel;
-use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProviderInterface;
+use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationProviderInterface;
 use Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProviderInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TranslationDeeplController extends AbstractApiController
 {
     /**
-     * @var TranslationDeeplProviderInterface
+     * @var TranslationProviderInterface
      */
     private $translationProvider;
     /**
@@ -36,10 +36,10 @@ class TranslationDeeplController extends AbstractApiController
     /**
      * TranslationDeeplController constructor.
      *
-     * @param TranslationDeeplProviderInterface $translationProvider
-     * @param UsageDeeplProviderInterface       $usageProvider
+     * @param TranslationProviderInterface $translationProvider
+     * @param UsageDeeplProviderInterface  $usageProvider
      */
-    public function __construct(TranslationDeeplProviderInterface $translationProvider, UsageDeeplProviderInterface $usageProvider)
+    public function __construct(TranslationProviderInterface $translationProvider, UsageDeeplProviderInterface $usageProvider)
     {
         $this->translationProvider = $translationProvider;
         $this->usageProvider = $usageProvider;

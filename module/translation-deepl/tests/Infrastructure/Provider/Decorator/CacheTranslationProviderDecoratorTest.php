@@ -11,19 +11,19 @@ namespace Ergonode\TranslationDeepl\Tests\Infrastructure\Provider\Decorator;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\TranslationDeepl\Infrastructure\Cache\DatabaseTranslationCache;
-use Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\TranslationDeeplProviderDecorator;
-use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProvider;
+use Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\CacheTranslationProviderDecorator;
+use Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class TranslationDeeplProviderDecoratorTest extends TestCase
+class CacheTranslationProviderDecoratorTest extends TestCase
 {
     /**
      */
     public function testProvide(): void
     {
-        $provider = $this->createMock(TranslationDeeplProvider::class);
+        $provider = $this->createMock(DeeplTranslationProvider::class);
         $provider->method('provide')->willReturn('ABCD');
 
         $cache = $this->createMock(DatabaseTranslationCache::class);
@@ -37,7 +37,7 @@ class TranslationDeeplProviderDecoratorTest extends TestCase
         $sourceLanguage = $this->createMock(Language::class);
         $targetLanguage = $this->createMock(Language::class);
 
-        $decorator = new TranslationDeeplProviderDecorator($provider, $cache);
+        $decorator = new CacheTranslationProviderDecorator($provider, $cache);
         $this->assertEquals('ABCD', $decorator->provide('DEFG', $sourceLanguage, $targetLanguage));
     }
 
@@ -45,7 +45,7 @@ class TranslationDeeplProviderDecoratorTest extends TestCase
      */
     public function testCache(): void
     {
-        $provider = $this->createMock(TranslationDeeplProvider::class);
+        $provider = $this->createMock(DeeplTranslationProvider::class);
         $provider
             ->expects($this->never())
             ->method('provide');
@@ -61,7 +61,7 @@ class TranslationDeeplProviderDecoratorTest extends TestCase
         $sourceLanguage = $this->createMock(Language::class);
         $targetLanguage = $this->createMock(Language::class);
 
-        $decorator = new TranslationDeeplProviderDecorator($provider, $cache);
+        $decorator = new CacheTranslationProviderDecorator($provider, $cache);
         $this->assertEquals('ABC', $decorator->provide('DEFG', $sourceLanguage, $targetLanguage));
     }
 }

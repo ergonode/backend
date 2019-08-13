@@ -11,17 +11,17 @@ namespace Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\TranslationDeepl\Infrastructure\Cache\DatabaseTranslationCache;
-use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProvider;
-use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationDeeplProviderInterface;
+use Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider;
+use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationProviderInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class TranslationDeeplProviderDecorator implements TranslationDeeplProviderInterface
+class CacheTranslationProviderDecorator implements TranslationProviderInterface
 {
-
+    public const NAMESPACE = 'a16c8554-70f5-487e-b0b7-a4a52e890ab3';
     /**
-     * @var TranslationDeeplProvider
+     * @var DeeplTranslationProvider
      */
     private $provider;
 
@@ -33,10 +33,10 @@ class TranslationDeeplProviderDecorator implements TranslationDeeplProviderInter
     /**
      * TranslationDeeplProviderDecorator constructor.
      *
-     * @param TranslationDeeplProvider $provider
+     * @param DeeplTranslationProvider $provider
      * @param DatabaseTranslationCache $cache
      */
-    public function __construct(TranslationDeeplProvider $provider, DatabaseTranslationCache $cache)
+    public function __construct(DeeplTranslationProvider $provider, DatabaseTranslationCache $cache)
     {
         $this->provider = $provider;
         $this->cache = $cache;
@@ -51,9 +51,8 @@ class TranslationDeeplProviderDecorator implements TranslationDeeplProviderInter
      */
     public function provide(string $content, Language $sourceLanguage, Language $targetLanguage): string
     {
-        $namespace = 'a16c8554-70f5-487e-b0b7-a4a52e890ab3';
         $name = sprintf('%s_%s_%s', $sourceLanguage, $targetLanguage, $content);
-        $translationDeeplUuid = Uuid::uuid5($namespace, $name);
+        $translationDeeplUuid = Uuid::uuid5(self::NAMESPACE, $name);
         $translation = $this->cache->get($translationDeeplUuid);
 
         if (!$translation) {

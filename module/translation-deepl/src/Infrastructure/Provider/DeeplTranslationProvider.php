@@ -16,7 +16,7 @@ use Scn\DeeplApiConnector\Model\TranslationConfig;
 
 /**
  */
-class TranslationDeeplProvider implements TranslationDeeplProviderInterface
+class DeeplTranslationProvider implements TranslationProviderInterface
 {
     /**
      * @var string
