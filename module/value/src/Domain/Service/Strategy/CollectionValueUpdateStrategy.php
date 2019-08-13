@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Value\Domain\Service\Strategy;
 
+use Ergonode\Value\Domain\Service\ValueUpdateStrategyInterface;
 use Ergonode\Value\Domain\ValueObject\CollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Value\Domain\Service\ValueUpdateStrategyInterface;
 
 /**
  */
@@ -28,10 +28,7 @@ class CollectionValueUpdateStrategy implements ValueUpdateStrategyInterface
     }
 
     /**
-     * @param ValueInterface|CollectionValue $oldValue
-     * @param ValueInterface|CollectionValue $newValue
-     *
-     * @return ValueInterface
+     * {@inheritDoc}
      */
     public function calculate(ValueInterface $oldValue, ValueInterface $newValue): ValueInterface
     {
