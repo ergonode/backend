@@ -1,0 +1,4 @@
+ergonode_translation_deepl_api:
+    resource: '../../Application/Controller/Api/Translation*'
+    type: annotation
+    prefix: /api/v1
