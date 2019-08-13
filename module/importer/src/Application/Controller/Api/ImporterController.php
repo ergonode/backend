@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Application\Controller\Api;
 
 use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Importer\Application\Form\UploadForm;
@@ -271,7 +272,7 @@ class ImporterController extends AbstractApiController
 
             $response = $this->createRestResponse(['id' => $command->getId()->getValue()]);
         } else {
-            $response = $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+            throw new FormValidationHttpException($form);
         }
 
         return $response;
