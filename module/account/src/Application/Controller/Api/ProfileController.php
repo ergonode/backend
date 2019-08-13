@@ -10,13 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Controller\Api;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Account\Domain\Query\ProfileQueryInterface;
+use Ergonode\Core\Application\Controller\AbstractApiController;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -41,11 +41,15 @@ class ProfileController extends AbstractApiController
      * @SWG\Tag(name="Profile")
      * @SWG\Response(
      *     response=200,
-     *     description="Returns information about current logged user",
+     *     description="Returns information about current logged user"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
+     * )
+     * @SWG\Response(
+     *     response=422,
+     *     description="Unprocessable entity"
      * )
      *
      * @param Request $request

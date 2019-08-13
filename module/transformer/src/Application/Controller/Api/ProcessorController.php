@@ -13,14 +13,13 @@ use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Command\CreateProcessorCommand;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
- * Class ProcessorController
  */
 class ProcessorController extends AbstractApiController
 {
@@ -90,6 +89,7 @@ class ProcessorController extends AbstractApiController
         $import = $request->request->get('import');
         $transformer = $request->request->get('transformer');
         $action = $request->request->get('action');
+
         $command = new CreateProcessorCommand(new ImportId($import), new TransformerId($transformer), $action);
         $this->messageBus->dispatch($command);
 
