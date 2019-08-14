@@ -1,7 +1,4 @@
 services:
-    _instanceof:
-        Ergonode\Value\Domain\Service\ValueUpdateStrategyInterface:
-            tags: ['ergonode.value_update_strategy']
     _defaults:
         autowire: true
         autoconfigure: true
@@ -12,7 +9,10 @@ services:
         exclude: '../../Domain/{Entity,ValueObject}'
 
     Ergonode\Value\Domain\Service\ValueManipulationService:
-        - !tagged 'ergonode.value_update_strategy'
+        - '@Ergonode\Value\Domain\Service\Strategy\StringValueUpdateStrategy'
+        - '@Ergonode\Value\Domain\Service\Strategy\StringCollectionValueUpdateStrategy'
+        - '@Ergonode\Value\Domain\Service\Strategy\TranslatableStringValueUpdateStrategy'
+        - '@Ergonode\Value\Domain\Service\Strategy\TranslatableCollectionValueUpdateStrategy'
 
     Ergonode\Value\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
