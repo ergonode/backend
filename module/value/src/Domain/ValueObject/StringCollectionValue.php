@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CollectionValue implements ValueInterface
+class StringCollectionValue implements ValueInterface
 {
     public const TYPE = 'string_collection';
 

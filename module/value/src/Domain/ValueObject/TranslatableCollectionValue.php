@@ -11,6 +11,7 @@ namespace Ergonode\Value\Domain\ValueObject;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -30,6 +31,8 @@ class TranslatableCollectionValue implements ValueInterface
      */
     public function __construct(array $value)
     {
+        Assert::allIsInstanceOf($value, TranslatableString::class);
+
         $this->value = $value;
     }
 

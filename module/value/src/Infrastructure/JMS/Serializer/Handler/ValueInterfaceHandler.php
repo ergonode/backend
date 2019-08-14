@@ -82,11 +82,12 @@ class ValueInterfaceHandler implements SubscribingHandlerInterface
         /** @var ValueInterface $object */
         $object = $reflection->newInstanceWithoutConstructor();
 
+        $visitor->startVisitingObject($metadata, $object, ['name' => $class]);
         foreach ($metadata->propertyMetadata as $name => $property) {
             if (!$property instanceof VirtualPropertyMetadata) {
-                $value = $data[$name];
+                $value = $visitor->visitProperty($property, $data);
 
-                $reflectionProperty = $reflection->getProperty($name);
+                $reflectionProperty = $reflection->getProperty($property->name);
                 if ($reflectionProperty->isPrivate()) {
                     $reflectionProperty->setAccessible(true);
                     $reflectionProperty->setValue($object, $value);
@@ -96,6 +97,7 @@ class ValueInterfaceHandler implements SubscribingHandlerInterface
                 }
             }
         }
+        $visitor->endVisitingObject($metadata, $object, ['name' => $class]);
 
         return $object;
     }

@@ -10,12 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Value\Domain\Service\Strategy;
 
 use Ergonode\Value\Domain\Service\ValueUpdateStrategyInterface;
-use Ergonode\Value\Domain\ValueObject\CollectionValue;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
  */
-class CollectionValueUpdateStrategy implements ValueUpdateStrategyInterface
+class StringCollectionValueUpdateStrategy implements ValueUpdateStrategyInterface
 {
     /**
      * @param ValueInterface $oldValue
@@ -24,7 +24,7 @@ class CollectionValueUpdateStrategy implements ValueUpdateStrategyInterface
      */
     public function isSupported(ValueInterface $oldValue): bool
     {
-        return $oldValue instanceof CollectionValue;
+        return $oldValue instanceof StringCollectionValue;
     }
 
     /**
@@ -32,14 +32,14 @@ class CollectionValueUpdateStrategy implements ValueUpdateStrategyInterface
      */
     public function calculate(ValueInterface $oldValue, ValueInterface $newValue): ValueInterface
     {
-        if (!$oldValue instanceof CollectionValue) {
-            throw new \InvalidArgumentException(\sprintf('New value must be type %s', CollectionValue::class));
+        if (!$oldValue instanceof StringCollectionValue) {
+            throw new \InvalidArgumentException(\sprintf('New value must be type %s', StringCollectionValue::class));
         }
 
-        if (!$newValue instanceof CollectionValue) {
-            throw new \InvalidArgumentException(\sprintf('New value must be type %s', CollectionValue::class));
+        if (!$newValue instanceof StringCollectionValue) {
+            throw new \InvalidArgumentException(\sprintf('New value must be type %s', StringCollectionValue::class));
         }
 
-        return new CollectionValue($newValue->getValue());
+        return new StringCollectionValue($newValue->getValue());
     }
 }

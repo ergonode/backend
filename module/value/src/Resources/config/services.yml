@@ -21,6 +21,6 @@ services:
     Ergonode\Value\Infrastructure\JMS\Serializer\Handler\ValueInterfaceHandler:
         calls:
             - ['set', ['Ergonode\Value\Domain\ValueObject\StringValue']]
-            - ['set', ['Ergonode\Value\Domain\ValueObject\CollectionValue']]
+            - ['set', ['Ergonode\Value\Domain\ValueObject\StringCollectionValue']]
             - ['set', ['Ergonode\Value\Domain\ValueObject\TranslatableStringValue']]
             - ['set', ['Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue']]
