@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TranslatableStringValue extends AbstractValue implements ValueInterface
+class TranslatableStringValue implements ValueInterface
 {
     public const TYPE = 'translation';
 
@@ -34,7 +34,9 @@ class TranslatableStringValue extends AbstractValue implements ValueInterface
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
      */
     public function getType(): string
     {
@@ -50,7 +52,7 @@ class TranslatableStringValue extends AbstractValue implements ValueInterface
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function __toString(): string
     {

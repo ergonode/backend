@@ -28,7 +28,7 @@ class ProductDraftValueRemoved implements DomainEventInterface
     /**
      * @var ValueInterface
      *
-     * @JMS\Type("Ergonode\Value\Domain\ValueObject\AbstractValue")
+     * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
     private $old;
 

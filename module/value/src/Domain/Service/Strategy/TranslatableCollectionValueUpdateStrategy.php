@@ -10,9 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Value\Domain\Service\Strategy;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Value\Domain\Service\ValueUpdateStrategyInterface;
 use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Value\Domain\Service\ValueUpdateStrategyInterface;
 
 /**
  */
@@ -29,10 +29,7 @@ class TranslatableCollectionValueUpdateStrategy implements ValueUpdateStrategyIn
     }
 
     /**
-     * @param ValueInterface|TranslatableCollectionValue $oldValue
-     * @param ValueInterface|TranslatableCollectionValue $newValue
-     *
-     * @return ValueInterface
+     * {@inheritDoc}
      */
     public function calculate(ValueInterface $oldValue, ValueInterface $newValue): ValueInterface
     {

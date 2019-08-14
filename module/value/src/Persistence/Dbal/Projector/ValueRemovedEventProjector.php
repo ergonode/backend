@@ -11,9 +11,9 @@ namespace Ergonode\Value\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Value\Domain\Event\ValueRemovedEvent;
 use JMS\Serializer\SerializerInterface;
@@ -60,7 +60,7 @@ class ValueRemovedEventProjector implements DomainEventProjectorInterface
      * @param AbstractId           $aggregateId
      * @param DomainEventInterface $event
      *
-     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws UnsupportedEventException
      * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
@@ -69,7 +69,7 @@ class ValueRemovedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, ValueRemovedEvent::class);
         }
 
-        try {
+        $this->connection->transactional(function () use ($event, $aggregateId) {
             $attributeId = AttributeId::fromKey($event->getAttributeCode());
             $oldValue = $this->serializer->serialize($event->getOld(), 'json');
             $oldValueId = Uuid::uuid5(self::NAMESPACE, $oldValue);
@@ -82,11 +82,6 @@ class ValueRemovedEventProjector implements DomainEventProjectorInterface
                     'value_id' => $oldValueId->toString(),
                 ]
             );
-
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        });
     }
 }

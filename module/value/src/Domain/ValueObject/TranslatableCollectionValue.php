@@ -11,10 +11,11 @@ namespace Ergonode\Value\Domain\ValueObject;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
-class TranslatableCollectionValue extends AbstractValue implements ValueInterface
+class TranslatableCollectionValue implements ValueInterface
 {
     public const TYPE = 'translation_collection';
 
@@ -30,11 +31,15 @@ class TranslatableCollectionValue extends AbstractValue implements ValueInterfac
      */
     public function __construct(array $value)
     {
+        Assert::allIsInstanceOf($value, TranslatableString::class);
+
         $this->value = $value;
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
      */
     public function getType(): string
     {
@@ -50,7 +55,7 @@ class TranslatableCollectionValue extends AbstractValue implements ValueInterfac
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function __toString(): string
     {
