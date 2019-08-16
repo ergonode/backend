@@ -14,6 +14,8 @@ namespace Ergonode\Core\Domain\ValueObject;
  */
 class Color
 {
+    private const PATTERN  = '/#([A-Fa-f0-9]{3}){1,2}\b/i';
+
     /**
      * @var string
      */
@@ -24,7 +26,11 @@ class Color
      */
     public function __construct(string $value)
     {
-        $this->value = $value;
+        if (!$this::isValid($value)) {
+            throw new \InvalidArgumentException(\sprintf('Value "%s" is not valid hexadecimal color value', $value));
+        }
+
+        $this->value = strtoupper($value);
     }
 
     /**
@@ -33,6 +39,24 @@ class Color
     public function getValue(): string
     {
         return $this->value;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getValue();
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return bool
+     */
+    public static function isValid(string $value): bool
+    {
+        return preg_match(self::PATTERN, $value, $matches) > 0;
     }
 
     /**

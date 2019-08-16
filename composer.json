@@ -105,6 +105,7 @@
             "Ergonode\\Channel\\": "module/channel/src",
             "Ergonode\\Connector\\": "module/connector/src",
             "Ergonode\\Value\\": "module/value/src",
+            "Ergonode\\Workflow\\": "module/workflow/src",
             "Ergonode\\ConnectorMagento\\": "module/connector-magento/src",
             "Ergonode\\TranslationDeepl\\": "module/translation-deepl/src"
         }
@@ -141,6 +142,7 @@
             "Ergonode\\Channel\\Tests\\": "module/channel/tests",
             "Ergonode\\Connector\\Tests\\": "module/connector/tests",
             "Ergonode\\Value\\Tests\\": "module/value/tests",
+            "Ergonode\\Workflow\\Tests\\": "module/workflow/tests",
             "Ergonode\\ConnectorMagento\\Tests\\": "module/connector-magento/tests",
             "Ergonode\\TranslationDeepl\\Tests\\": "module//translation_deepl/tests"
         }
