@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-pdo": "*",
+        "behat/symfony2-extension": "^2.1",
         "doctrine/migrations": "1.8.x",
         "egulias/email-validator": "^2.1",
         "friendsofsymfony/rest-bundle": "^2.5",
@@ -49,7 +50,6 @@
         "zircote/swagger-php": "2.0.10"
     },
     "require-dev": {
-        "behat/symfony2-extension": "2.1.5",
         "escapestudios/symfony2-coding-standard": "^2.0",
         "nelmio/alice": "^3.4",
         "phpmd/phpmd": "^2.6",
