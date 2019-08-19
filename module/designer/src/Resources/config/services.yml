@@ -30,7 +30,7 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Value\Infrastructure\JMS\Serializer\Handler\TemplateElementPropertyInterfaceHandler:
+    Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\TemplateElementPropertyInterfaceHandler:
         arguments:
             $constant: 'VARIANT'
         calls:
