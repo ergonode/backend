@@ -7,20 +7,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Value\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler;
 
+use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Core\Infrastructure\JMS\Serializer\Handler\AbstractInterfaceHandler;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
  */
-class ValueInterfaceHandler extends AbstractInterfaceHandler
+class OptionInterfaceHandler extends AbstractInterfaceHandler
 {
     /**
      * {@inheritDoc}
      */
     public static function getSupportedInterface(): string
     {
-        return ValueInterface::class;
+        return OptionInterface::class;
     }
 }
