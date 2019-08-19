@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Handler;
 
-use Ergonode\Account\Domain\Command\ChangeUserPasswordCommand;
+use Ergonode\Account\Domain\Command\User\ChangeUserPasswordCommand;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;

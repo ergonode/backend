@@ -77,4 +77,12 @@ class CreateUserFormModel
      * @Assert\Uuid(message="Role Id must be valid uuid format")
      */
     public $roleId;
+
+    /**
+     * @var bool
+     *
+     * @Assert\NotNull(message="Activity is required")
+     * @Assert\Type("boolean")
+     */
+    public $isActive;
 }

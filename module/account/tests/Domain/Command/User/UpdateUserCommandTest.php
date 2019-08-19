@@ -2,15 +2,16 @@
 
 namespace Ergonode\Account\Tests\Domain\Command;
 
-use Ergonode\Account\Domain\Command\UpdateUserCommand;
+use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class UpdateUserCommandTest extends TestCase
 {
     /**
@@ -28,6 +29,7 @@ class UpdateUserCommandTest extends TestCase
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
         $roleId = $this->createMock(RoleId::class);
+        $isActive = true;
 
         $command = new UpdateUserCommand(
             $id,
@@ -35,6 +37,7 @@ class UpdateUserCommandTest extends TestCase
             $lastName,
             $language,
             $roleId,
+            $isActive,
             $password
         );
 
@@ -44,5 +47,6 @@ class UpdateUserCommandTest extends TestCase
         $this->assertEquals($language, $command->getLanguage());
         $this->assertEquals($roleId, $command->getRoleId());
         $this->assertEquals($password, $command->getPassword());
+        $this->assertTrue($command->isActive());
     }
 }

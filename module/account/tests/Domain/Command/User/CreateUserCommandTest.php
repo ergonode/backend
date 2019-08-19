@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Tests\Domain\Command;
+namespace Ergonode\Account\Tests\Domain\Command\User;
 
-use Ergonode\Account\Domain\Command\CreateUserCommand;
+use Ergonode\Account\Domain\Command\User\CreateUserCommand;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
@@ -56,5 +56,6 @@ class CreateUserCommandTest extends TestCase
         $this->assertEquals($roleId, $command->getRoleId());
         $this->assertEquals($email, $command->getEmail());
         $this->assertEquals($password, $command->getPassword());
+        $this->assertTrue($command->isActive());
     }
 }

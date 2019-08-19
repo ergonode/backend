@@ -94,6 +94,10 @@ nelmio_api_doc:
                         type: string
                         required: true
                         example: 86800536-0f2a-4920-9291-f35fdcea3839
+                    isActive:
+                        type: boolean
+                        required: true
+                        example: true
             tree:
                 type: object
                 properties:

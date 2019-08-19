@@ -105,6 +105,10 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
             throw new AuthenticationException('Invalid password');
         }
 
+        if (!$user->isActive()) {
+            throw new AuthenticationException('User not active');
+        }
+
         return true;
     }
 

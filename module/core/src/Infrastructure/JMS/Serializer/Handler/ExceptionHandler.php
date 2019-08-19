@@ -47,7 +47,7 @@ class ExceptionHandler extends \FOS\RestBundle\Serializer\Normalizer\ExceptionHa
         $data['message'] = $this->getExceptionMessage($exception, $statusCode ?? null);
 
         if ($this->debug) {
-            $data['trace'] = $exception->getTrace();
+            $data['trace'] = explode(PHP_EOL, $exception->getTraceAsString());
             $data['memory'] = number_format(memory_get_peak_usage(true)/1024, 2, '.', '');
         }
 

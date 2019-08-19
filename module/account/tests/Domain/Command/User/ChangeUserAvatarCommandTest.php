@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Tests\Domain\Command;
+namespace Ergonode\Account\Tests\Domain\Command\User;
 
-use Ergonode\Account\Domain\Command\ChangeUserPasswordCommand;
+use Ergonode\Account\Domain\Command\User\ChangeUserAvatarCommand;
 use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Account\Domain\ValueObject\Password;
+use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class ChangeUserPasswordCommandTest extends TestCase
+class ChangeUserAvatarCommandTest extends TestCase
 {
     /**
      */
@@ -25,11 +25,11 @@ class ChangeUserPasswordCommandTest extends TestCase
     {
         /** @var UserId|MockObject $id */
         $id = $this->createMock(UserId::class);
-        /** @var Password|MockObject $password */
-        $password = $this->createMock(Password::class);
-        $command = new ChangeUserPasswordCommand($id, $password);
+        /** @var MultimediaId|MockObject $multimediaId */
+        $multimediaId = $this->createMock(MultimediaId::class);
+        $command = new ChangeUserAvatarCommand($id, $multimediaId);
 
         $this->assertEquals($id, $command->getId());
-        $this->assertEquals($password, $command->getPassword());
+        $this->assertEquals($multimediaId, $command->getAvatarId());
     }
 }
