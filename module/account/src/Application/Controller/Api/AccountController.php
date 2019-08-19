@@ -286,7 +286,6 @@ class AccountController extends AbstractApiController
                     $data->language,
                     $data->password,
                     $data->roleId,
-                    null,
                     $data->isActive
                 );
                 $this->messageBus->dispatch($command);

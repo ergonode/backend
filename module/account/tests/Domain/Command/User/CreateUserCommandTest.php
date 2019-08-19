@@ -45,6 +45,7 @@ class CreateUserCommandTest extends TestCase
             $language,
             $password,
             $roleId,
+            true,
             $multimediaId
         );
 

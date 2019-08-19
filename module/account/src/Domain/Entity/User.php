@@ -99,7 +99,7 @@ class User extends AbstractAggregateRoot implements UserInterface
         ?MultimediaId $avatarId = null,
         bool $isActive = true
     ) {
-        $this->apply(new UserCreatedEvent($id, $firstName, $lastName, $email, $language, $password, $roleId, $avatarId, $isActive));
+        $this->apply(new UserCreatedEvent($id, $firstName, $lastName, $email, $language, $password, $roleId, $isActive, $avatarId));
     }
 
     /**
@@ -259,15 +259,27 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param bool $isActive
-     *
      * @throws \Exception
      */
-    public function checkActivity(bool $isActive): void
+    public function activate(): void
     {
-        if ($this->isActive() !== $isActive) {
-            $this->apply($isActive ? new UserActivatedEvent() : new UserDisabledEvent());
+        if ($this->isActive()) {
+            throw new \LogicException('User already active');
         }
+
+        $this->apply(new UserActivatedEvent());
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function disable(): void
+    {
+        if (!$this->isActive()) {
+            throw new \LogicException('User already active');
+        }
+
+        $this->apply(new UserDisabledEvent());
     }
 
     /**

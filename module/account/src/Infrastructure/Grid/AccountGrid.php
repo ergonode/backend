@@ -60,6 +60,7 @@ class AccountGrid extends AbstractGrid
     {
         $languages = $this->languageProvider->getLanguages($language);
         $roles = $this->roleQuery->getDictionary();
+        $activities = [1 => 'Active', 0 => 'In active'];
         $filters = $configuration->getFilters();
 
         $id = new TextColumn('id', $this->trans('Id'));
@@ -70,7 +71,7 @@ class AccountGrid extends AbstractGrid
         $this->addColumn('last_name', new TextColumn('last_name', $this->trans('Last Name'), new TextFilter($filters->getString('last_name'))));
         $this->addColumn('language', new TextColumn('language', $this->trans('Language'), new SelectFilter($languages, $filters->getString('language'))));
         $this->addColumn('role_id', new TextColumn('role_id', $this->trans('Roles'), new SelectFilter($roles, $filters->getString('role_id'))));
-        $this->addColumn('is_active', new BoolColumn('is_active', $this->trans('Activity')));
+        $this->addColumn('is_active', new BoolColumn('is_active', $this->trans('Activity'), new SelectFilter($activities, $filters->getString('is_active'))));
         $this->addColumn('edit', new ActionColumn('edit'));
     }
 

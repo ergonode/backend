@@ -93,8 +93,8 @@ class UserCreatedEvent implements DomainEventInterface
      * @param Language          $language
      * @param Password          $password
      * @param RoleId            $roleId
-     * @param MultimediaId|null $avatarId
      * @param bool              $isActive
+     * @param MultimediaId|null $avatarId
      */
     public function __construct(
         UserId $id,
@@ -104,8 +104,8 @@ class UserCreatedEvent implements DomainEventInterface
         Language $language,
         Password $password,
         RoleId $roleId,
-        ?MultimediaId $avatarId = null,
-        bool $isActive = true
+        bool $isActive = true,
+        ?MultimediaId $avatarId = null
     ) {
         $this->id = $id;
         $this->firstName = $firstName;

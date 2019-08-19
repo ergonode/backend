@@ -72,8 +72,8 @@ class CreateUserCommand
      * @param Language          $language
      * @param Password          $password
      * @param RoleId            $roleId
-     * @param MultimediaId|null $avatarId
      * @param bool              $isActive
+     * @param MultimediaId|null $avatarId
      *
      * @throws \Exception
      */
@@ -84,8 +84,8 @@ class CreateUserCommand
         Language $language,
         Password $password,
         RoleId $roleId,
-        ?MultimediaId $avatarId = null,
-        bool $isActive = true
+        bool $isActive = true,
+        ?MultimediaId $avatarId = null
     ) {
         $this->id = UserId::fromEmail($email);
         $this->avatarId = $avatarId;

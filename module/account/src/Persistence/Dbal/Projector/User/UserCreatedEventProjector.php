@@ -69,7 +69,10 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
                     'role_id' => $event->getRoleId()->getValue(),
                     'language' => $event->getLanguage()->getCode(),
                     'password' => $event->getPassword()->getValue(),
-                    'is_active' => (int) $event->isActive(),
+                    'is_active' => $event->isActive(),
+                ],
+                [
+                    'is_active' => \PDO::PARAM_BOOL,
                 ]
             );
         });

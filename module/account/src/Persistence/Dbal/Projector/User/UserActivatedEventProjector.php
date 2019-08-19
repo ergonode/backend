@@ -60,10 +60,13 @@ class UserActivatedEventProjector implements DomainEventProjectorInterface
             $this->connection->update(
                 self::TABLE,
                 [
-                    'is_active' => (int) $event->isActive(),
+                    'is_active' => $event->isActive(),
                 ],
                 [
                     'id' => $aggregateId->getValue(),
+                ],
+                [
+                    'is_active' => \PDO::PARAM_BOOL,
                 ]
             );
         });

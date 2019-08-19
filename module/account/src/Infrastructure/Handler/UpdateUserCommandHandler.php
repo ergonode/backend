@@ -55,7 +55,10 @@ class UpdateUserCommandHandler
         $user->changeLastName($command->getLastName());
         $user->changeLanguage($command->getLanguage());
         $user->changeRole($command->getRoleId());
-        $user->checkActivity($command->isActive());
+
+        if ($user->isActive() !== $command->isActive()) {
+            $command->isActive() ? $user->activate() : $user->disable();
+        }
 
         if ($command->getPassword() instanceof Password) {
             $encodedPassword = $this->userPasswordEncoder->encode($user, $command->getPassword());
