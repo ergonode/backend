@@ -66,6 +66,6 @@ class Color
      */
     public function isEqual(Color $color): bool
     {
-        return $color->value === $this->value;
+        return $color->getValue() === $this->value;
     }
 }
