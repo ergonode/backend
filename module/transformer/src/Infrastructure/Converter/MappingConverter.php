@@ -15,8 +15,10 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class MappingConverter extends AbstractConverter implements ConverterInterface
+class MappingConverter implements ConverterInterface
 {
+    public const TYPE = 'mapping';
+
     /**
      * @var array
      *
@@ -39,6 +41,16 @@ class MappingConverter extends AbstractConverter implements ConverterInterface
     {
         $this->map = $map;
         $this->field = $field;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 
     /**

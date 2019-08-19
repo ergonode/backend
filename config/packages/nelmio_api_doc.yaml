@@ -98,6 +98,41 @@ nelmio_api_doc:
                         type: boolean
                         required: true
                         example: true
+            status:
+                type: object
+                properties:
+                    color:
+                        type: string
+                        requied: true
+                        description: Color in hexadecimal
+                        example: '#ff0000'
+                    code:
+                        type: string
+                        requied: true
+                        description: Unique status code
+                        example: 'in progress'
+                    name:
+                        $ref: "#/definitions/translation"
+                        example:
+                            PL: Name PL
+                            EN: Name EN
+                    description:
+                        $ref: "#/definitions/translation"
+                        example:
+                            PL: Description PL
+                            EN: Description EN
+            workflow:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        description: Workflow unique code
+                        required: true
+                        example: Default
+                    statuses:
+                        type: array
+                        items:
+                            $ref: "#/definitions/status"
             tree:
                 type: object
                 properties:

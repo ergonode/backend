@@ -9,3 +9,4 @@
 .vscode
 /build
 /phpunit.xml
+/behat.yml

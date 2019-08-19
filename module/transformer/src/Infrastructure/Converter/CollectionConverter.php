@@ -15,8 +15,10 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CollectionConverter extends AbstractConverter implements ConverterInterface
+class CollectionConverter implements ConverterInterface
 {
+    public const TYPE = 'collection';
+
     /**
      * @var array
      *
@@ -30,6 +32,16 @@ class CollectionConverter extends AbstractConverter implements ConverterInterfac
     public function __construct(array $fields)
     {
         $this->fields = $fields;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 
     /**

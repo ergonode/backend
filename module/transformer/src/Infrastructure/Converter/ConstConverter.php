@@ -14,10 +14,11 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class ConstConverter
  */
-class ConstConverter extends AbstractConverter implements ConverterInterface
+class ConstConverter implements ConverterInterface
 {
+    public const TYPE = 'const';
+
     /**
      * @var string
      *
@@ -33,6 +34,15 @@ class ConstConverter extends AbstractConverter implements ConverterInterface
         $this->value = $value;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
+    }
 
     /**
      * @param array  $line

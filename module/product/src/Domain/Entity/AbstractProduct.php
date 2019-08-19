@@ -17,13 +17,11 @@ use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Product\Domain\Event\ProductAddedToCategory;
 use Ergonode\Product\Domain\Event\ProductCreated;
 use Ergonode\Product\Domain\Event\ProductRemovedFromCategory;
-use Ergonode\Product\Domain\Event\ProductStatusChanged;
 use Ergonode\Product\Domain\Event\ProductValueAdded;
 use Ergonode\Product\Domain\Event\ProductValueChanged;
 use Ergonode\Product\Domain\Event\ProductValueRemoved;
 use Ergonode\Product\Domain\Event\ProductVersionIncreased;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Product\Domain\ValueObject\ProductStatus;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
@@ -116,18 +114,23 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
-     * @return ProductStatus
+     * @return string
      */
-    public function getStatus(): ProductStatus
+    public function getStatus(): string
     {
-        return new ProductStatus($this->getAttribute(new AttributeCode(self::STATUS))->getValue());
+        return $this->attributes[self::STATUS]->getValue();
     }
 
     /**
+     * @param string $status
+     *
+     * @throws \Exception
      */
-    public function accept(): void
+    public function changeStatus(string $status): void
     {
-        $this->apply(new ProductStatusChanged($this->getStatus(), new ProductStatus(ProductStatus::STATUS_ACCEPTED)));
+        if ($this->attributes[self::STATUS]->getValue() !== $status) {
+            $this->apply(new ProductValueChanged(new AttributeCode(self::STATUS), $this->attributes[self::STATUS], new StringValue($status)));
+        }
     }
 
     /**
@@ -328,13 +331,5 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     protected function applyProductVersionIncreased(ProductVersionIncreased $event): void
     {
         $this->version = $event->getTo();
-    }
-
-    /**
-     * @param ProductStatusChanged $event
-     */
-    protected function applyProductStatusChanged(ProductStatusChanged $event): void
-    {
-        $this->attributes[self::STATUS] = new StringValue($event->getTo()->getValue());
     }
 }

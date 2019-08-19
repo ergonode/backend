@@ -58,7 +58,7 @@ class UpdateAttributeCommand
     /**
      * @var OptionInterface[]
      *
-     * @JMS\Type("array<string, Ergonode\Attribute\Domain\ValueObject\OptionValue\AbstractOption>")
+     * @JMS\Type("array<string, Ergonode\Attribute\Domain\ValueObject\OptionInterface>")
      */
     private $options;
 

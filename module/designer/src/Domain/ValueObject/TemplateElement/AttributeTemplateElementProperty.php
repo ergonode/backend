@@ -10,11 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Domain\ValueObject\TemplateElement;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AttributeTemplateElementProperty extends AbstractTemplateElementProperty
+class AttributeTemplateElementProperty implements TemplateElementPropertyInterface
 {
     public const VARIANT = 'attribute';
 
@@ -44,7 +45,9 @@ class AttributeTemplateElementProperty extends AbstractTemplateElementProperty
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
      */
     public function getVariant(): string
     {
