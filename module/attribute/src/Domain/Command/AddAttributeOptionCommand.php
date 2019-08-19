@@ -35,7 +35,7 @@ class AddAttributeOptionCommand
     /**
      * @var OptionInterface
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionValue\AbstractOption")
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionInterface")
      */
     private $option;
 

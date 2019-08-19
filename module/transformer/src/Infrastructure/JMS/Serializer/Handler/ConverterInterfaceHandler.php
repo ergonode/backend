@@ -7,20 +7,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Value\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\Transformer\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\Core\Infrastructure\JMS\Serializer\Handler\AbstractInterfaceHandler;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 
 /**
  */
-class ValueInterfaceHandler extends AbstractInterfaceHandler
+class ConverterInterfaceHandler extends AbstractInterfaceHandler
 {
     /**
      * {@inheritDoc}
      */
     public static function getSupportedInterface(): string
     {
-        return ValueInterface::class;
+        return ConverterInterface::class;
     }
 }
