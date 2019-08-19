@@ -9,9 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Entity;
 
-use Ergonode\Account\Domain\Event\User\UserActivityChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserActivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
+use Ergonode\Account\Domain\Event\User\UserDisabledEvent;
 use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
@@ -264,7 +265,9 @@ class User extends AbstractAggregateRoot implements UserInterface
      */
     public function checkActivity(bool $isActive): void
     {
-        $this->apply(new UserActivityChangedEvent($isActive));
+        if ($this->isActive() !== $isActive) {
+            $this->apply($isActive ? new UserActivatedEvent() : new UserDisabledEvent());
+        }
     }
 
     /**
@@ -356,9 +359,17 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param UserActivityChangedEvent $event
+     * @param UserActivatedEvent $event
      */
-    protected function applyUserActivityChangedEvent(UserActivityChangedEvent $event): void
+    protected function applyUserActivatedEvent(UserActivatedEvent $event): void
+    {
+        $this->isActive = $event->isActive();
+    }
+
+    /**
+     * @param UserDisabledEvent $event
+     */
+    protected function applyUserDisabledEvent(UserDisabledEvent $event): void
     {
         $this->isActive = $event->isActive();
     }

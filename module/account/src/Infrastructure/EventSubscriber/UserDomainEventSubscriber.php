@@ -9,9 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\EventSubscriber;
 
-use Ergonode\Account\Domain\Event\User\UserActivityChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserActivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
+use Ergonode\Account\Domain\Event\User\UserDisabledEvent;
 use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
@@ -51,7 +52,8 @@ class UserDomainEventSubscriber implements EventSubscriberInterface
             UserLastNameChangedEvent::class => 'projection',
             UserLanguageChangedEvent::class => 'projection',
             UserRoleChangedEvent::class => 'projection',
-            UserActivityChangedEvent::class => 'projection',
+            UserActivatedEvent::class => 'projection',
+            UserDisabledEvent::class => 'projection',
         ];
     }
 
