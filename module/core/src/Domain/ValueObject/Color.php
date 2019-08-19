@@ -7,23 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Domain\ValueObject;
+namespace Ergonode\Core\Domain\ValueObject;
 
 /**
+ * Value object representing color in a hexadecimal notation
  */
-class ProductStatus
+class Color
 {
-    public const STATUS_DRAFT = 'draft';
-    public const STATUS_ACCEPTED = 'accepted';
-    public const STATUS_TO_ACCEPT = 'to_accept';
-    public const STATUS_TO_CORRECT = 'to_correct';
-
-    public const AVAILABLE = [
-        self::STATUS_DRAFT,
-        self::STATUS_ACCEPTED,
-        self::STATUS_TO_ACCEPT,
-        self::STATUS_TO_CORRECT,
-    ];
+    private const PATTERN  = '/#([A-Fa-f0-9]{3}){1,2}\b/i';
 
     /**
      * @var string
@@ -35,10 +26,11 @@ class ProductStatus
      */
     public function __construct(string $value)
     {
-        $this->value = strtolower(trim($value));
-        if (!self::isValid($this->value)) {
-            throw new \InvalidArgumentException(\sprintf('Value "%s" is not valid product status', $value));
+        if (!$this::isValid($value)) {
+            throw new \InvalidArgumentException(\sprintf('Value "%s" is not valid hexadecimal color value', $value));
         }
+
+        $this->value = strtoupper($value);
     }
 
     /**
@@ -64,6 +56,16 @@ class ProductStatus
      */
     public static function isValid(string $value): bool
     {
-        return \in_array($value, self::AVAILABLE, true);
+        return preg_match(self::PATTERN, $value, $matches) > 0;
+    }
+
+    /**
+     * @param Color $color
+     *
+     * @return bool
+     */
+    public function isEqual(Color $color): bool
+    {
+        return $color->getValue() === $this->value;
     }
 }

@@ -14,7 +14,6 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Product\Domain\Query\ProductStatusQueryInterface;
 
 /**
- * Class ProductStatusQuery
  */
 class DbalProductStatusQuery implements ProductStatusQueryInterface
 {
