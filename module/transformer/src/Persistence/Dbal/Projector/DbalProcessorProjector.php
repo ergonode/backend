@@ -55,14 +55,16 @@ class DbalProcessorProjector implements EventSubscriberInterface
         $event = $envelope->getEvent();
 
         if (!$event instanceof ProcessorCreatedEvent) {
-            throw new \RuntimeException('bad event');
+            throw new \RuntimeException('Bad event');
         }
+
+        $date = date('Y-m-d H:i:s');
 
         $this->connection->insert(
             'importer.processor',
             [
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
+                'created_at' => $date,
+                'updated_at' => $date,
                 'id' => $envelope->getAggregateId()->getValue(),
                 'import_id' => $event->getImportId()->getValue(),
                 'transformer_id' => $event->getTransformerId()->getValue(),
@@ -82,44 +84,26 @@ class DbalProcessorProjector implements EventSubscriberInterface
         $event = $envelope->getEvent();
 
         if (!$event instanceof ProcessorStatusChangedEvent) {
-            throw new \RuntimeException('bad event');
+            throw new \RuntimeException('Bad event');
         }
 
+        $status = null;
         if ($event->getTo()->isProcessed()) {
-            $this->connection->update(
-                'importer.processor',
-                [
-                    'updated_at' => date('Y-m-d H:i:s'),
-                    'started_at' => date('Y-m-d H:i:s'),
-                    'status' => ProcessorStatus::PRECESSED,
-                ],
-                [
-                    'id' => $envelope->getAggregateId()->getValue(),
-                ]
-            );
+            $status = ProcessorStatus::PRECESSED;
+        } elseif ($event->getTo()->isEnded()) {
+            $status = ProcessorStatus::ENDED;
+        } elseif ($event->getTo()->isStopped()) {
+            $status = ProcessorStatus::STOPPED;
         }
 
-        if ($event->getTo()->isEnded()) {
+        if (null !== $status) {
+            $date = date('Y-m-d H:i:s');
             $this->connection->update(
                 'importer.processor',
                 [
-                    'updated_at' => date('Y-m-d H:i:s'),
-                    'ended_at' => date('Y-m-d H:i:s'),
-                    'status' => ProcessorStatus::ENDED,
-                ],
-                [
-                    'id' => $envelope->getAggregateId()->getValue(),
-                ]
-            );
-        }
-
-        if ($event->getTo()->isStopped()) {
-            $this->connection->update(
-                'importer.processor',
-                [
-                    'updated_at' => date('Y-m-d H:i:s'),
-                    'ended_at' => date('Y-m-d H:i:s'),
-                    'status' => ProcessorStatus::STOPPED,
+                    'updated_at' => $date,
+                    'started_at' => $date,
+                    'status' => $status,
                 ],
                 [
                     'id' => $envelope->getAggregateId()->getValue(),

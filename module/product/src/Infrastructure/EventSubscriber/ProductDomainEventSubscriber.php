@@ -14,7 +14,6 @@ use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjector;
 use Ergonode\Product\Domain\Event\ProductAddedToCategory;
 use Ergonode\Product\Domain\Event\ProductCreated;
 use Ergonode\Product\Domain\Event\ProductRemovedFromCategory;
-use Ergonode\Product\Domain\Event\ProductStatusChanged;
 use Ergonode\Product\Domain\Event\ProductValueAdded;
 use Ergonode\Product\Domain\Event\ProductValueChanged;
 use Ergonode\Product\Domain\Event\ProductValueRemoved;
@@ -46,7 +45,6 @@ class ProductDomainEventSubscriber implements EventSubscriberInterface
         return [
             ProductCreated::class => 'projection',
             ProductVersionIncreased::class => 'projection',
-            ProductStatusChanged::class => 'projection',
             ProductValueAdded::class => 'projection',
             ProductValueChanged::class => 'projection',
             ProductValueRemoved::class => 'projection',
