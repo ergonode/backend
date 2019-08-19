@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Value\Tests\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\Reader\Tests\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\Reader\Domain\Formatter\EncodingFormatter;
 use Ergonode\Reader\Domain\Formatter\ReplaceFormatter;

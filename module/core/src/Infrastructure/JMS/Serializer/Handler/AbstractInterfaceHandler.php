@@ -84,11 +84,13 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
      */
     public function deserialize(DeserializationVisitorInterface $visitor, array $data, array $type, Context $context)
     {
-        if (!array_key_exists($data['type'], $this->map)) {
-            throw new \OutOfBoundsException(sprintf('Value type "%s" not mapped', $data['type']));
+        $typeField = strtolower($this->constant);
+
+        if (!array_key_exists($data[$typeField], $this->map)) {
+            throw new \OutOfBoundsException(sprintf('Value type "%s" not mapped', $data[$typeField]));
         }
 
-        $class = $this->map[$data['type']];
+        $class = $this->map[$data[$typeField]];
 
         $metadata = $context->getMetadataFactory()->getMetadataForClass($class);
         if (null === $metadata) {
