@@ -60,6 +60,7 @@ class CreateUserCommandHandler
 
         $encodedPassword = $this->userPasswordEncoder->encode($user, $command->getPassword());
         $user->setPassword($encodedPassword);
+        $user->changePassword($encodedPassword);
 
         $this->repository->save($user);
     }
