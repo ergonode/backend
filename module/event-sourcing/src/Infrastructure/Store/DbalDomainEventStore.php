@@ -41,14 +41,14 @@ class DbalDomainEventStore implements DomainEventStoreInterface
     private $domainEventFactory;
 
     /**
-     * @var string|null
-     */
-    private $userId;
-
-    /**
      * @var AdapterInterface
      */
     private $cache;
+
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
 
     /**
      * @param Connection                  $connection
@@ -64,12 +64,10 @@ class DbalDomainEventStore implements DomainEventStoreInterface
         TokenStorageInterface $tokenStorage,
         AdapterInterface $cache
     ) {
+        $this->tokenStorage = $tokenStorage;
         $this->connection = $connection;
         $this->serializer = $serializer;
         $this->domainEventFactory = $domainEventFactory;
-        if ($tokenStorage->getToken()) {
-            $this->userId = $tokenStorage->getToken()->getUser()->getId()->toString();
-        }
         $this->cache = $cache;
     }
 
@@ -144,7 +142,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
                         'event' => $envelope->getType(),
                         'payload' => $payload,
                         'recorded_at' => $envelope->getRecordedAt()->format('Y-m-d H:i:s'),
-                        'recorded_by' => $this->userId ?: null,
+                        'recorded_by' => $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser()->getId()->getValue() : null,
                     ]
                 );
             }
