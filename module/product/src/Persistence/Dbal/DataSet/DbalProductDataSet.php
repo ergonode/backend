@@ -139,26 +139,26 @@ class DbalProductDataSet implements DataSetInterface
             if ($filter && !empty($filter->getValue())) {
                 $value = $filter->getValue();
                 if ($filter instanceof TextFilter && !$filter->isEqual()) {
-                    $query->andWhere(
-                        \sprintf(
-                            '"%s"::TEXT ILIKE \'%s\'',
-                            $field,
-                            \sprintf('%%%s%%', $this->escape($value))
-                        )
-                    );
+                    $query->andWhere(sprintf(
+                        '"%s"::TEXT ILIKE \'%s\'',
+                        $field,
+                        sprintf('%%%s%%', $this->escape($value))
+                    ));
                 } elseif ($filter instanceof MultiSelectFilter) {
-                    $query->andWhere(
-                        sprintf(
-                            'jsonb_exists_any("%s"::JSONB , array[%s])',
-                            $field,
-                            \sprintf('\'%s\'', implode('\',\'', $value))
-                        )
-                    );
+                    $query->andWhere(sprintf(
+                        'jsonb_exists_any("%s"::JSONB , array[%s])',
+                        $field,
+                        sprintf('\'%s\'', implode('\',\'', $value))
+                    ));
                 } else {
+                    if (is_array($value)) {
+                        reset($value);
+                    }
+
                     $query->andWhere(
                         $query->expr()->eq(
-                            $field,
-                            $query->createNamedParameter(reset($value))
+                            sprintf('"%s"', $field),
+                            $query->createNamedParameter($value)
                         )
                     );
                 }
