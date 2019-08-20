@@ -12,7 +12,7 @@ namespace Ergonode\Account\Domain\Entity;
 use Ergonode\Account\Domain\Event\User\UserActivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
-use Ergonode\Account\Domain\Event\User\UserDisabledEvent;
+use Ergonode\Account\Domain\Event\User\UserDeactivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
@@ -256,7 +256,7 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function activate(): void
     {
         if ($this->isActive()) {
-            throw new \LogicException('User already active');
+            throw new \LogicException('User already activated');
         }
 
         $this->apply(new UserActivatedEvent());
@@ -265,13 +265,13 @@ class User extends AbstractAggregateRoot implements UserInterface
     /**
      * @throws \Exception
      */
-    public function disable(): void
+    public function deactivate(): void
     {
         if (!$this->isActive()) {
-            throw new \LogicException('User already active');
+            throw new \LogicException('User already deactivated');
         }
 
-        $this->apply(new UserDisabledEvent());
+        $this->apply(new UserDeactivatedEvent());
     }
 
     /**
@@ -371,9 +371,9 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param UserDisabledEvent $event
+     * @param UserDeactivatedEvent $event
      */
-    protected function applyUserDisabledEvent(UserDisabledEvent $event): void
+    protected function applyUserDeactivatedEvent(UserDeactivatedEvent $event): void
     {
         $this->isActive = $event->isActive();
     }

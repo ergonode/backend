@@ -57,7 +57,7 @@ class UpdateUserCommandHandler
         $user->changeRole($command->getRoleId());
 
         if ($user->isActive() !== $command->isActive()) {
-            $command->isActive() ? $user->activate() : $user->disable();
+            $command->isActive() ? $user->activate() : $user->deactivate();
         }
 
         if ($command->getPassword() instanceof Password) {

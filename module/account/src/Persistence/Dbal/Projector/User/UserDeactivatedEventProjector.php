@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\User\UserDisabledEvent;
+use Ergonode\Account\Domain\Event\User\UserDeactivatedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
@@ -18,7 +18,7 @@ use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterfac
 
 /**
  */
-class UserDisabledEventProjector implements DomainEventProjectorInterface
+class UserDeactivatedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'users';
 
@@ -40,7 +40,7 @@ class UserDisabledEventProjector implements DomainEventProjectorInterface
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof UserDisabledEvent;
+        return $event instanceof UserDeactivatedEvent;
     }
 
     /**
@@ -52,8 +52,8 @@ class UserDisabledEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof UserDisabledEvent) {
-            throw new UnsupportedEventException($event, UserDisabledEvent::class);
+        if (!$event instanceof UserDeactivatedEvent) {
+            throw new UnsupportedEventException($event, UserDeactivatedEvent::class);
         }
 
         $this->connection->transactional(function () use ($aggregateId, $event) {

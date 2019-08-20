@@ -13,7 +13,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 
 /**
  */
-class UserDisabledEvent implements DomainEventInterface
+class UserDeactivatedEvent implements DomainEventInterface
 {
     /**
      * @return bool
