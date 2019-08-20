@@ -47,7 +47,7 @@ class LanguageType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $codes = $this->provider->getSystemLanguages();
+        $codes = $this->provider->getSystemLanguagesCodes();
 
         $resolver->setDefaults(
             [

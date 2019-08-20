@@ -44,7 +44,7 @@ class LanguageProvider implements LanguageProviderInterface
      */
     public function getLanguages(Language $language): array
     {
-        return $this->map($language, $this->query->getLanguages());
+        return $this->map($language, $this->query->getLanguagesCodes());
     }
 
     /**
@@ -54,7 +54,7 @@ class LanguageProvider implements LanguageProviderInterface
      */
     public function getSystemLanguages(Language $language): array
     {
-        return $this->map($language, $this->query->getSystemLanguages());
+        return $this->map($language, $this->query->getSystemLanguagesCodes());
     }
 
     /**

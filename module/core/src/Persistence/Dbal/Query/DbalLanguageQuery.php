@@ -12,13 +12,21 @@ namespace Ergonode\Core\Persistence\Dbal\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Grid\DataSetInterface;
+use Ergonode\Grid\DbalDataSet;
 
 /**
  */
 class DbalLanguageQuery implements LanguageQueryInterface
 {
     private const TABLE = 'language';
-    private const FIELDS = [
+    private const ALL_FIELDS = [
+        'id',
+        'iso AS code',
+        'name',
+        'system',
+    ];
+    private const CODE_FIELD = [
         'iso AS code',
     ];
 
@@ -36,11 +44,37 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
+     * @return DataSetInterface
+     */
+    public function getDataSet(): DataSetInterface
+    {
+        $query = $this->getQuery(self::ALL_FIELDS);
+
+        return new DbalDataSet($query);
+    }
+
+    /**
+     * @param string $id
+     *
      * @return array
      */
-    public function getLanguages(): array
+    public function getLanguage(string $id): array
     {
-        return $this->getQuery()
+        $qb = $this->getQuery(self::ALL_FIELDS);
+
+        return $qb
+            ->where($qb->expr()->eq('id', ':id'))
+            ->setParameter(':id', $id)
+            ->execute()
+            ->fetchAll();
+    }
+
+    /**
+     * @return array
+     */
+    public function getLanguagesCodes(): array
+    {
+        return $this->getQuery(self::CODE_FIELD)
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
     }
@@ -48,9 +82,9 @@ class DbalLanguageQuery implements LanguageQueryInterface
     /**
      * @return array
      */
-    public function getSystemLanguages(): array
+    public function getSystemLanguagesCodes(): array
     {
-        $qb = $this->getQuery();
+        $qb = $this->getQuery(self::CODE_FIELD);
 
         return $qb
             ->where($qb->expr()->eq('system', ':system'))
@@ -60,12 +94,14 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
+     * @param $fields
+     *
      * @return QueryBuilder
      */
-    private function getQuery(): QueryBuilder
+    private function getQuery($fields): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select(self::FIELDS)
+            ->select($fields)
             ->from(self::TABLE);
     }
 }
