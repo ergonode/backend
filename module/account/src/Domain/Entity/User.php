@@ -151,14 +151,6 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param Password $password
-     */
-    public function setPassword(Password $password): void
-    {
-        $this->password = $password;
-    }
-
-    /**
      * @return array
      */
     public function getRoles(): array

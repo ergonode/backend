@@ -63,7 +63,6 @@ class UpdateUserCommandHandler
         if ($command->getPassword() instanceof Password) {
             $encodedPassword = $this->userPasswordEncoder->encode($user, $command->getPassword());
             if ($user->getPassword() !== $encodedPassword->getValue()) {
-                $user->setPassword($encodedPassword);
                 $user->changePassword($encodedPassword);
             }
         }

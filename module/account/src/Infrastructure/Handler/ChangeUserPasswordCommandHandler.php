@@ -53,7 +53,6 @@ class ChangeUserPasswordCommandHandler
 
         $encodedPassword = $this->userPasswordEncoder->encodePassword($user, $command->getPassword()->getValue());
         $password = new Password($encodedPassword);
-        $user->setPassword($password);
         $user->changePassword($password);
 
         $this->repository->save($user);
