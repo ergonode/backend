@@ -31,11 +31,7 @@ class ImageAttributeColumnStrategy implements AttributeColumnStrategyInterface
     }
 
     /**
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     * @param FilterCollection  $filter
-     *
-     * @return ColumnInterface
+     * {@inheritDoc}
      */
     public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {

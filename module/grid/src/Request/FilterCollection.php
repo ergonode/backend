@@ -17,9 +17,10 @@ class FilterCollection
     public const COMPARISON = '=';
     public const SEPARATOR = ',';
 
-    public const REPLACE = [
-        '%3B' => ';',
-        '%2C' => ',',
+    public const MAP = [
+        self::DELIMITER => '%3B',
+        self::COMPARISON => '%3D',
+        self::SEPARATOR => '%2C',
     ];
 
     /**
@@ -36,17 +37,29 @@ class FilterCollection
 
         if ($string) {
             $filters = explode(self::DELIMITER, $string);
+            $comparisonHash = self::MAP[self::COMPARISON];
             foreach ($filters as $filter) {
+                $filter = preg_replace('/'.$comparisonHash.'/', self::COMPARISON, $filter, 1);
                 $data = explode(self::COMPARISON, $filter);
                 if (!empty($data)) {
                     if (!isset($data[1]) || $data[1] === '') {
                         $this->filters[$data[0]] = null;
                     } else {
-                        $this->filters[$data[0]] = str_replace(array_keys(self::REPLACE), array_values(self::REPLACE), $data[1]);
+                        $this->filters[$data[0]] = str_replace(array_values(self::MAP), array_keys(self::MAP), $data[1]);
                     }
                 }
             }
         }
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function has(string $key): bool
+    {
+        return array_key_exists($key, $this->filters);
     }
 
     /**
