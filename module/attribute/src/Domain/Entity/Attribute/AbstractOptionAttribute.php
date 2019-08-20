@@ -11,9 +11,9 @@ namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeOptionChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeOptionRemovedEvent;
-use Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
@@ -33,8 +33,14 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
      * @param TranslatableString $placeholder
      * @param bool               $multilingual
      */
-    public function __construct(AttributeId $id, AttributeCode $code, TranslatableString $label, TranslatableString $hint, TranslatableString $placeholder, bool $multilingual)
-    {
+    public function __construct(
+        AttributeId $id,
+        AttributeCode $code,
+        TranslatableString $label,
+        TranslatableString $hint,
+        TranslatableString $placeholder,
+        bool $multilingual
+    ) {
         parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual, [self::OPTIONS => []]);
     }
 
@@ -63,12 +69,14 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
      */
     public function getCount(): int
     {
-        return \count($this->getParameter(self::OPTIONS));
+        return count($this->getParameter(self::OPTIONS));
     }
 
     /**
      * @param OptionKey       $key
      * @param OptionInterface $option
+     *
+     * @throws \Exception
      */
     public function addOption(OptionKey $key, OptionInterface $option): void
     {
@@ -77,7 +85,11 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
         }
 
         if ($option->isMultilingual() !== $this->isMultilingual()) {
-            throw new \InvalidArgumentException(sprintf('option %s must have same multilingual value, got %s', $key, get_class($option)));
+            throw new \InvalidArgumentException(sprintf(
+                'option %s must have same multilingual value, got %s',
+                $key,
+                get_class($option)
+            ));
         }
 
         $this->apply(new AttributeOptionAddedEvent($key, $option));
@@ -100,6 +112,8 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
     /**
      * @param OptionKey       $key
      * @param OptionInterface $to
+     *
+     * @throws \Exception
      */
     public function changeOption(OptionKey $key, OptionInterface $to): void
     {
@@ -116,6 +130,8 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
 
     /**
      * @param OptionKey $key
+     *
+     * @throws \Exception
      */
     public function removeOption(OptionKey $key): void
     {
