@@ -281,9 +281,6 @@
     "phing/phing": {
         "version": "2.16.1"
     },
-    "phpcompatibility/php-compatibility": {
-        "version": "9.2.0"
-    },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },

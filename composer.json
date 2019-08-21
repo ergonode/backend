@@ -60,8 +60,7 @@
         "symfony/maker-bundle": "^1.13",
         "symfony/phpunit-bridge": "^4.3",
         "symfony/profiler-pack": "^1.0",
-        "symfony/web-server-bundle": "^4.3",
-        "phpcompatibility/php-compatibility": "^9.2"
+        "symfony/web-server-bundle": "^4.3"
     },
     "config": {
         "bin-dir": "bin",
