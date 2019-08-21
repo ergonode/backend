@@ -7,18 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Infrastructure\EventSubscriber;
+namespace Ergonode\EventSourcing\Infrastructure\EventSubscriber;
 
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjector;
-use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
-use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusChangedEvent;
-use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  */
-class WorkflowDomainEventSubscriber implements EventSubscriberInterface
+class DomainEventEnvelopeSubscriber implements EventSubscriberInterface
 {
     /**
      * @var DomainEventProjector
@@ -39,16 +36,14 @@ class WorkflowDomainEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            WorkflowStatusAddedEvent::class => 'projection',
-            WorkflowStatusChangedEvent::class => 'projection',
-            WorkflowStatusRemovedEvent::class => 'projection',
+            DomainEventEnvelope::class => 'projection',
         ];
     }
 
     /**
      * @param DomainEventEnvelope $envelope
      *
-     * @throws \Throwable
+     * @throws \Exception
      */
     public function projection(DomainEventEnvelope $envelope): void
     {
