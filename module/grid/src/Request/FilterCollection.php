@@ -42,7 +42,7 @@ class FilterCollection
                 $filter = preg_replace('/'.$comparisonHash.'/', self::COMPARISON, $filter, 1);
                 $data = explode(self::COMPARISON, $filter);
                 if (!empty($data)) {
-                    if (!isset($data[1]) || $data[1] === '') {
+                    if (!isset($data[1])) {
                         $this->filters[$data[0]] = null;
                     } else {
                         $this->filters[$data[0]] = str_replace(array_values(self::MAP), array_keys(self::MAP), $data[1]);
