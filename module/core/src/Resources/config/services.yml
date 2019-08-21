@@ -29,29 +29,29 @@ services:
         arguments:
             $directory: '%kernel.project_dir%'
 
+    Ergonode\Core\Application\EventListener\RequestBodyListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.request', priority: 1024 }
+
+    Ergonode\Core\Application\EventListener\ExceptionListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.exception', priority: 1024 }
+
     Ergonode\Core\Domain\Query\LanguageQueryInterface: '@Ergonode\Core\Persistence\Dbal\Query\DbalLanguageQuery'
     Ergonode\Core\Application\Provider\DirectoryProviderInterface: '@Ergonode\Core\Application\Provider\SimpleDirectoryProvider'
-
-#     overriding message serializer
-    messenger.transport.serializer:
-        class: Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer
 
     Ergonode\Core\Infrastructure\JMS\Serializer\Handler\FormErrorHandler:
         arguments:
             - '@translator'
             - '@Ergonode\Core\Infrastructure\Mapper\FormErrorMapper'
-        tags: ['jms_serializer.subscribing_handler']
 
     Ergonode\Core\Infrastructure\JMS\Serializer\Handler\ExceptionHandler:
         arguments:
-            - '@fos_rest.exception.messages_map'
             - '%kernel.debug%'
-        tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Core\Infrastructure\JMS\Serializer\Handler\FormValidationExceptionHandler:
-        tags: ['jms_serializer.subscribing_handler']
-
-    Ergonode\Core\Infrastructure\JMS\Serializer\Handler\ViolationsExceptionHandler:
-        tags: ['jms_serializer.subscribing_handler']
-
+    jms_serializer.handler_registry: '@Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry'
     jms_serializer.form_error_handler: '@Ergonode\Core\Infrastructure\JMS\Serializer\Handler\FormErrorHandler'
+
+    # overriding message serializer
+    messenger.transport.serializer:
+        class: 'Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer'

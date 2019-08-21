@@ -9,12 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\JMS\Serializer\Handler;
 
-use FOS\RestBundle\Util\ExceptionValueMap;
 use JMS\Serializer\Context;
+use JMS\Serializer\GraphNavigatorInterface;
+use JMS\Serializer\Handler\SubscribingHandlerInterface;
+use JMS\Serializer\Visitor\SerializationVisitorInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 /**
  */
-class ExceptionHandler extends \FOS\RestBundle\Serializer\Normalizer\ExceptionHandler
+class ExceptionHandler implements SubscribingHandlerInterface
 {
     /**
      * @var bool
@@ -22,35 +26,55 @@ class ExceptionHandler extends \FOS\RestBundle\Serializer\Normalizer\ExceptionHa
     private $debug;
 
     /**
-     * @param ExceptionValueMap $messagesMap
-     * @param bool              $debug
+     * @param bool $debug
      */
-    public function __construct(ExceptionValueMap $messagesMap, $debug)
+    public function __construct(bool $debug)
     {
-        parent::__construct($messagesMap, $debug);
         $this->debug = $debug;
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function convertToArray(\Exception $exception, Context $context): array
+    public static function getSubscribingMethods(): array
     {
-        $data = [];
-        if ($context->hasAttribute('template_data')) {
-            $templateData = $context->getAttribute('template_data');
-            if (array_key_exists('status_code', $templateData)) {
-                $data['code'] = $statusCode = $templateData['status_code'];
-            }
+        $methods = [];
+        $formats = ['json', 'xml', 'yml'];
+
+        foreach ($formats as $format) {
+            $methods[] = [
+                'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
+                'type' => \Exception::class,
+                'format' => $format,
+                'method' => 'serialize',
+            ];
         }
 
-        $data['message'] = $this->getExceptionMessage($exception, $statusCode ?? null);
+        return $methods;
+    }
+
+    /**
+     * @param SerializationVisitorInterface $visitor
+     * @param \Exception                    $exception
+     * @param array                         $type
+     * @param Context                       $context
+     *
+     * @return array
+     */
+    public function serialize(SerializationVisitorInterface $visitor, \Exception $exception, array $type, Context $context): array
+    {
+        $code = Response::HTTP_INTERNAL_SERVER_ERROR;
+        if ($exception instanceof HttpExceptionInterface) {
+            $code = $exception->getStatusCode();
+        }
+
+        $data['code'] = $code;
+        $data['message'] = $exception->getMessage();
 
         if ($this->debug) {
             $data['trace'] = explode(PHP_EOL, $exception->getTraceAsString());
-            $data['memory'] = number_format(memory_get_peak_usage(true)/1024, 2, '.', '');
         }
 
-        return $data;
+        return $visitor->visitArray($data, $type);
     }
 }
