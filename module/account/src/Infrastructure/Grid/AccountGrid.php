@@ -52,8 +52,7 @@ class AccountGrid extends AbstractGrid
     }
 
     /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
+     * {@inheritDoc}
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
@@ -64,7 +63,7 @@ class AccountGrid extends AbstractGrid
         $id = new TextColumn('id', $this->trans('Id'));
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('email', new TextColumn('email', $this->trans('Email'), new TextFilter($filters->getString('email'))));
+        $this->addColumn('username', new TextColumn('username', $this->trans('Email'), new TextFilter($filters->getString('username'))));
         $this->addColumn('first_name', new TextColumn('first_name', $this->trans('First Name'), new TextFilter($filters->getString('first_name'))));
         $this->addColumn('last_name', new TextColumn('last_name', $this->trans('Last Name'), new TextFilter($filters->getString('last_name'))));
         $this->addColumn('language', new TextColumn('language', $this->trans('Language'), new SelectFilter($languages, $filters->getString('language'))));
