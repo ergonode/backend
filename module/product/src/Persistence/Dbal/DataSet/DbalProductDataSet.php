@@ -14,7 +14,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\MultiSelectColumn;
-use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;

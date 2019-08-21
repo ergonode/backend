@@ -39,7 +39,7 @@ class FilterCollection
             foreach ($filters as $filter) {
                 $data = explode(self::COMPARISON, $filter);
                 if (!empty($data)) {
-                    if (!isset($data[1]) || $data[1] === '') {
+                    if (!isset($data[1])) {
                         $this->filters[$data[0]] = null;
                     } else {
                         $this->filters[$data[0]] = str_replace(array_keys(self::REPLACE), array_values(self::REPLACE), $data[1]);
