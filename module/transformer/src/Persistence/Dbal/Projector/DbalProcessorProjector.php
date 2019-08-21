@@ -18,6 +18,7 @@ use Ergonode\Transformer\Domain\ValueObject\ProcessorStatus;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
+ * @todo Refactor
  */
 class DbalProcessorProjector implements EventSubscriberInterface
 {

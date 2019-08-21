@@ -16,6 +16,7 @@ use Ergonode\Transformer\Domain\Event\TransformerCreatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
+ * @todo Refactor
  */
 class DbalTransformerProjector implements EventSubscriberInterface
 {
