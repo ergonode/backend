@@ -25,7 +25,7 @@ class DbalAccountQuery implements AccountQueryInterface
         'a.id',
         'a.first_name',
         'a.last_name',
-        'a.username AS email',
+        'a.username',
         'a.language',
         'a.avatar_id',
         'a.role_id',
