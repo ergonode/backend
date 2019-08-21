@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
+use Ergonode\Account\Domain\Event\User\UserDeactivatedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
@@ -18,7 +18,7 @@ use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterfac
 
 /**
  */
-class UserCreatedEventProjector implements DomainEventProjectorInterface
+class UserDeactivatedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'users';
 
@@ -36,13 +36,11 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof UserCreatedEvent;
+        return $event instanceof UserDeactivatedEvent;
     }
 
     /**
@@ -54,22 +52,18 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof UserCreatedEvent) {
-            throw new UnsupportedEventException($event, UserCreatedEvent::class);
+        if (!$event instanceof UserDeactivatedEvent) {
+            throw new UnsupportedEventException($event, UserDeactivatedEvent::class);
         }
 
-        $this->connection->transactional(function () use ($event) {
-            $this->connection->insert(
+        $this->connection->transactional(function () use ($aggregateId, $event) {
+            $this->connection->update(
                 self::TABLE,
                 [
-                    'id' => $event->getId()->getValue(),
-                    'first_name' => $event->getFirstName(),
-                    'last_name' => $event->getLastName(),
-                    'username' => $event->getEmail(),
-                    'role_id' => $event->getRoleId()->getValue(),
-                    'language' => $event->getLanguage()->getCode(),
-                    'password' => $event->getPassword()->getValue(),
                     'is_active' => $event->isActive(),
+                ],
+                [
+                    'id' => $aggregateId->getValue(),
                 ],
                 [
                     'is_active' => \PDO::PARAM_BOOL,
