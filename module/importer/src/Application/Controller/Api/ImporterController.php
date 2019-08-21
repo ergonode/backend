@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Application\Controller\Api;
 
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\CreatedResponse;
 use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -237,7 +238,7 @@ class ImporterController extends AbstractController
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Returns import uuid",
+     *     description="Returns import ID",
      * )
      * @SWG\Response(
      *     response=400,
@@ -270,7 +271,7 @@ class ImporterController extends AbstractController
             );
             $this->messageBus->dispatch($command);
 
-            $response = new SuccessResponse(['id' => $command->getId()->getValue()]);
+            $response = new CreatedResponse($command->getId()->getValue());
         } else {
             throw new FormValidationHttpException($form);
         }

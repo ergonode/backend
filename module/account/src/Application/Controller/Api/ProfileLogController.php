@@ -112,6 +112,11 @@ class ProfileLogController extends AbstractController
         $user = $this->getUser();
         $configuration = new RequestGridConfiguration($request);
 
-        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($user->getId()), $user->getLanguage());
+        return new GridResponse(
+            $this->grid,
+            $configuration,
+            $this->query->getDataSet($user->getId()),
+            $user->getLanguage()
+        );
     }
 }

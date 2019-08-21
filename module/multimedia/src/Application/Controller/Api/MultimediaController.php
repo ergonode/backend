@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Application\Controller\Api;
 
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
-use Ergonode\Core\Application\Response\SuccessResponse;
+use Ergonode\Core\Application\Response\EmptyResponse;
 use Ergonode\Multimedia\Application\Form\MultimediaUploadForm;
 use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
 use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
@@ -62,8 +62,8 @@ class MultimediaController extends AbstractController
      *     description="The field used to upload multimedia",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns multimedia information",
+     *     response=204,
+     *     description="Success",
      * )
      * @SWG\Response(
      *     response=400,
@@ -86,7 +86,7 @@ class MultimediaController extends AbstractController
             $command = new UploadMultimediaCommand('TestName', $uploadModel->upload);
             $this->messageBus->dispatch($command);
 
-            $response = new SuccessResponse(['id' => $command->getId()->getValue()]);
+            $response = new EmptyResponse($command->getId()->getValue());
         } else {
             throw new FormValidationHttpException($form);
         }

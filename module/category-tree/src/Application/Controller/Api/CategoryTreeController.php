@@ -21,8 +21,8 @@ use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
-use Ergonode\Core\Application\Response\AcceptedResponse;
 use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -213,8 +213,7 @@ class CategoryTreeController extends AbstractController
                 return new CreatedResponse($command->getId()->getValue());
             }
 
-            // @todo Move it to exception
-            return new BadRequestResponse(['message' => 'Tree already exists']);
+            throw new BadRequestHttpException('Tree already exists');
         }
 
         throw new BadRequestHttpException();
@@ -281,7 +280,7 @@ class CategoryTreeController extends AbstractController
             $command = new AddCategoryCommand(new CategoryTreeId($tree), new CategoryId($category), new CategoryId($child));
             $this->messageBus->dispatch($command);
 
-            return new AcceptedResponse();
+            return new CreatedResponse($command->getCategoryId()->getValue());
         }
 
         throw new BadRequestHttpException();
@@ -317,8 +316,8 @@ class CategoryTreeController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/tree")
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns import",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
      *     response=404,
@@ -345,8 +344,7 @@ class CategoryTreeController extends AbstractController
                 $command = new UpdateTreeCommand(new CategoryTreeId($tree), $data->name, $data->categories);
                 $this->messageBus->dispatch($command);
 
-                // @todo why created? why data?
-                return new CreatedResponse($data);
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

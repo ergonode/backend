@@ -31,14 +31,13 @@ class TranslationDeeplController extends AbstractController
      * @var TranslationProviderInterface
      */
     private $translationProvider;
+
     /**
      * @var UsageDeeplProviderInterface
      */
     private $usageProvider;
 
     /**
-     * TranslationDeeplController constructor.
-     *
      * @param TranslationProviderInterface $translationProvider
      * @param UsageDeeplProviderInterface  $usageProvider
      */
@@ -113,10 +112,6 @@ class TranslationDeeplController extends AbstractController
      * @SWG\Response(
      *     response=200,
      *     description="Returns usage",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
      * )
      *
      * @return Response

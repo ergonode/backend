@@ -11,6 +11,7 @@ namespace Ergonode\Product\Application\Controller\Api;
 
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\TemplateId;
@@ -275,8 +276,8 @@ class ProductController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/product")
      * )
      * @SWG\Response(
-     *     response=201,
-     *     description="Update product",
+     *     response=204,
+     *     description="Product updated",
      * )
      * @SWG\Response(
      *     response=400,
@@ -302,7 +303,7 @@ class ProductController extends AbstractController
             $command = new UpdateProductCommand($productId, $data->categories);
             $this->messageBus->dispatch($command);
 
-            return new CreatedResponse($command->getId()->getValue());
+            return new EmptyResponse();
         }
 
         throw new FormValidationHttpException($form);

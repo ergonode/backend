@@ -21,6 +21,7 @@ use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -147,6 +148,7 @@ class CategoryController extends AbstractController
     {
         $configuration = new RequestGridConfiguration($request);
         $dataSet = $this->categoryQuery->getDataSet($language);
+
         return new GridResponse($this->categoryGrid, $configuration, $dataSet, $language);
     }
 
@@ -287,7 +289,7 @@ class CategoryController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/category")
      * )
      * @SWG\Response(
-     *     response=201,
+     *     response=204,
      *     description="Update category",
      * )
      * @SWG\Response(
@@ -315,8 +317,7 @@ class CategoryController extends AbstractController
                 $command = new UpdateCategoryCommand(new CategoryId($category), new TranslatableString($data->name));
                 $this->messageBus->dispatch($command);
 
-                // @todo why created?
-                return new CreatedResponse($command->getId()->getValue());
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

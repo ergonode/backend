@@ -25,7 +25,6 @@ use Ergonode\Attribute\Infrastructure\Grid\AttributeGrid;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Application\Response\CreatedResponse;
 use Ergonode\Core\Application\Response\EmptyResponse;
-use Ergonode\Core\Application\Response\MethodNotAllowedResponse;
 use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -38,6 +37,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
@@ -173,6 +173,7 @@ class AttributeController extends AbstractController
     {
         $configuration = new RequestGridConfiguration($request);
         $dataSet = $this->attributeGridQuery->getDataSet($language);
+
         return new GridResponse($this->attributeGrid, $configuration, $dataSet, $language);
     }
 
@@ -205,8 +206,12 @@ class AttributeController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns attribute",
+     *     response=201,
+     *     description="Returns attribute ID",
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Validation error",
      * )
      * @SWG\Response(
      *     response=404,
@@ -216,13 +221,14 @@ class AttributeController extends AbstractController
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function createAttribute(Request $request): Response
     {
         try {
             $model = new CreateAttributeFormModel();
             $form = $this->createForm(AttributeCreateForm::class, $model);
-
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -329,6 +335,10 @@ class AttributeController extends AbstractController
      *     description="Returns attribute",
      * )
      * @SWG\Response(
+     *     response=400,
+     *     description="Validation error",
+     * )
+     * @SWG\Response(
      *     response=404,
      *     description="Not found",
      * )
@@ -344,8 +354,7 @@ class AttributeController extends AbstractController
     {
         try {
             $model = new UpdateAttributeFormModel(new AttributeType($attribute->getType()));
-            $form = $this->createForm(AttributeUpdateForm::class, $model, ['method' => 'PUT']);
-
+            $form = $this->createForm(AttributeUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -363,13 +372,13 @@ class AttributeController extends AbstractController
                 );
                 $this->messageBus->dispatch($command);
 
-                return new SuccessResponse(['id' => $command->getId()]);
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -393,20 +402,16 @@ class AttributeController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=400,
-     *     description="Bad Request - Invalid attribute id",
-     *)
-     * @SWG\Response(
      *     response=204,
      *     description="No content - Successful removing attribute",
-     *)
-     * @SWG\Response(
-     *     response=405,
-     *     description="Method Not Allowed - Attribute can't be deleted",
      * )
      * @SWG\Response(
      *     response=404,
      *     description="Not found - Attribute not exists",
+     * )
+     * @SWG\Response(
+     *     response=409,
+     *     description="Attribute can't be deleted",
      * )
      *
      * @param AbstractAttribute $attribute
@@ -425,9 +430,9 @@ class AttributeController extends AbstractController
             return new EmptyResponse();
         }
 
-        return new MethodNotAllowedResponse([
+        throw new ConflictHttpException(json_encode([
             'message' => 'Attribute used in templates',
             'templates' => $templates,
-        ]);
+        ]));
     }
 }

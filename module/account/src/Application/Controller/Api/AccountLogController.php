@@ -100,11 +100,7 @@ class AccountLogController extends AbstractController
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns accounts log collection",
-     * )
-     * @SWG\Response(
-     *     response=422,
-     *     description="User entity not found",
+     *     description="Returns accounts log collection"
      * )
      *
      * @param Request $request

@@ -106,7 +106,6 @@ class TemplateGroupController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns list of designer template groups",

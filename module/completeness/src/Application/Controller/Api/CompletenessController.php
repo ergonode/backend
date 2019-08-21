@@ -78,7 +78,7 @@ class CompletenessController extends AbstractController
      * )
      * )
      * @SWG\Response(
-     *     response=201,
+     *     response=200,
      *     description="Get draft grid",
      * )
      * @SWG\Response(

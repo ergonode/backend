@@ -11,6 +11,7 @@ namespace Ergonode\Workflow\Application\Controller\Api;
 
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Application\Form\Model\WorkflowFormModel;
@@ -117,6 +118,10 @@ class WorkflowController extends AbstractController
      *     description="Returns attribute",
      * )
      * @SWG\Response(
+     *     response=400,
+     *     description="Validation error",
+     * )
+     * @SWG\Response(
      *     response=404,
      *     description="Not found",
      * )
@@ -186,8 +191,12 @@ class WorkflowController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns attribute",
+     *     response=204,
+     *     description="Success"
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Validation error",
      * )
      * @SWG\Response(
      *     response=404,
@@ -228,8 +237,7 @@ class WorkflowController extends AbstractController
                 );
                 $this->messageBus->dispatch($command);
 
-                // @todo Why created?
-                return new CreatedResponse($command->getId()->getValue());
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

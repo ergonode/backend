@@ -61,21 +61,13 @@ class ProcessorController extends AbstractController
      *     enum={"ATTRIBUTE", "PRODUCT", "CATEGORY", "VALUE", "ATTRIBUTE_VALUE", "IMAGE"},
      *     description="Processor action",
      * )
-     *
      * @SWG\Response(
      *     response=201,
      *     description="Return id of created Transformer",
      * )
-     *
      * @SWG\Response(
      *     response=400,
      *     description="Bad Request",
-     *     @SWG\Schema (ref="#/definitions/error")
-     * )
-     *
-     * @SWG\Response(
-     *     response=401,
-     *     description="Bad credentials",
      *     @SWG\Schema (ref="#/definitions/error")
      * )
      *

@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Application\Controller\Api;
 
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
-use Ergonode\Core\Application\Response\AcceptedResponse;
 use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -226,8 +226,8 @@ class StatusController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/status")
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns workflow id",
+     *     response=201,
+     *     description="Returns workflow ID",
      * )
      * @SWG\Response(
      *     response=404,
@@ -294,13 +294,13 @@ class StatusController extends AbstractController
      * @SWG\Parameter(
      *     name="body",
      *     in="body",
-     *     description="Update  workflow",
+     *     description="Update workflow",
      *     required=true,
      *     @SWG\Schema(ref="#/definitions/status")
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns attribute",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
      *     response=404,
@@ -333,11 +333,9 @@ class StatusController extends AbstractController
                     $status,
                     new Status($data->color, new TranslatableString($data->name), new TranslatableString($data->description))
                 );
-
                 $this->messageBus->dispatch($command);
 
-                // @todo why created?
-                return new CreatedResponse($command->getId()->getValue());
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -367,12 +365,12 @@ class StatusController extends AbstractController
      *     default="EN"
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns attribute",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      *
      * @param string $status
@@ -388,9 +386,8 @@ class StatusController extends AbstractController
         $workflow = $this->provider->provide();
 
         $command = new DeleteStatusCommand($workflow->getId(), $status);
-
         $this->messageBus->dispatch($command);
 
-        return new AcceptedResponse(['id' => $command->getId()]);
+        return new EmptyResponse();
     }
 }

@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Application\Controller\Api;
 
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
-use Ergonode\Core\Application\Response\AcceptedResponse;
 use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Application\Form\TemplateForm;
@@ -30,6 +30,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -148,7 +149,7 @@ class TemplateController extends AbstractController
      *
      * @SWG\Response(
      *     response=200,
-     *     description="Returns template",
+     *     description="Returns templates",
      * )
      * @SWG\Response(
      *     response=404,
@@ -199,6 +200,8 @@ class TemplateController extends AbstractController
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function createTemplate(Request $request): Response
     {
@@ -246,7 +249,7 @@ class TemplateController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="Update template",
      * )
      * @SWG\Response(
@@ -272,7 +275,7 @@ class TemplateController extends AbstractController
             $command = $this->createCommandFactory->getUpdateTemplateCommand($template->getId(), $form->getData());
             $this->messageBus->dispatch($command);
 
-            return new SuccessResponse(['id' => $command->getId()]);
+            return new EmptyResponse();
         }
 
         throw new FormValidationHttpException($form);
@@ -339,12 +342,16 @@ class TemplateController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="Returns template",
      * )
      * @SWG\Response(
      *     response=404,
      *     description="Not found",
+     * )
+     * @SWG\Response(
+     *     response="409",
+     *     description="Can't remove Template, it has relations to products"
      * )
      *
      * @param Template $template
@@ -356,13 +363,12 @@ class TemplateController extends AbstractController
     public function deleteTemplate(Template $template): Response
     {
         if ($this->templateChecker->hasRelations($template)) {
-            // @todo conflict
-            return $this->createRestResponse(['Can\'t remove Template, it has relations to products'], [], Response::HTTP_CONFLICT);
+            throw new ConflictHttpException('Can\'t remove Template, it has relations to products');
         }
 
         $command = new DeleteTemplateCommand($template->getId());
         $this->messageBus->dispatch($command);
 
-        return new AcceptedResponse();
+        return new EmptyResponse();
     }
 }

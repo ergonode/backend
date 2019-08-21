@@ -53,25 +53,21 @@ class TransformerController extends AbstractController
      * @Route("/transformers/create", methods={"POST"})
      *
      * @SWG\Tag(name="Transformer")
-     *
      * @SWG\Parameter(
      *     name="name",
      *     in="formData",
      *     type="string",
      *     description="Transformer name",
      * )
-     *
      * @SWG\Response(
      *     response=201,
      *     description="Return id of created Transformer",
      * )
-     *
      * @SWG\Response(
      *     response=400,
      *     description="Bad Request",
      *     @SWG\Schema (ref="#/definitions/error")
      * )
-     *
      * @SWG\Response(
      *     response=401,
      *     description="Bad credentials",
@@ -104,29 +100,20 @@ class TransformerController extends AbstractController
      *     type="string",
      *     description="Transformer name",
      * )
-     *
      * @SWG\Parameter(
      *     name="type",
      *     in="formData",
      *     type="string",
      *     description="Transformer generator type",
      * )
-     *
      * @SWG\Response(
      *     response=201,
      *     description="Return id of created Transformer",
      * )
-     *
      * @SWG\Response(
      *     response=400,
      *     description="Bad Request",
-     *     @SWG\Schema (ref="#/definitions/error")
-     * )
-     *
-     * @SWG\Response(
-     *     response=401,
-     *     description="Bad credentials",
-     *     @SWG\Schema (ref="#/definitions/error")
+     *     @SWG\Schema(ref="#/definitions/error")
      * )
      *
      * @param Request $request
@@ -156,28 +143,19 @@ class TransformerController extends AbstractController
      * @Route("/transformers/{transformer}", methods={"GET"}, requirements={"transformer"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @SWG\Tag(name="Transformer")
-     *
      * @SWG\Parameter(
      *     name="transformer",
      *     in="path",
      *     type="string",
      *     description="Transformer id",
      * )
-     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns transformer",
      * )
-     *
      * @SWG\Response(
      *     response=400,
      *     description="Bad Request",
-     *     @SWG\Schema (ref="#/definitions/error")
-     * )
-     *
-     * @SWG\Response(
-     *     response=401,
-     *     description="Bad credentials",
      *     @SWG\Schema (ref="#/definitions/error")
      * )
      *

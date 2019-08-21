@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * @todo Temporary solution. We should think about service for that
  */
 class GridResponse extends JsonResponse
 {

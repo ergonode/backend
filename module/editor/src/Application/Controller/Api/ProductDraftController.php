@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\Provider\AttributeValidationProvider;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Application\Response\AcceptedResponse;
 use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
@@ -211,12 +212,12 @@ class ProductDraftController extends AbstractController
      * )
      * )
      * @SWG\Response(
-     *     response=201,
-     *     description="Change draft",
+     *     response=200,
+     *     description="Returns draft",
      * )
      * @SWG\Response(
-     *     response=400,
-     *     description="Form validation error",
+     *     response=404,
+     *     description="Not found",
      * )
      *
      * @param string   $draft
@@ -305,7 +306,7 @@ class ProductDraftController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=201,
+     *     response=204,
      *     description="Apply draft changes to product",
      * )
      * @SWG\Response(
@@ -325,10 +326,9 @@ class ProductDraftController extends AbstractController
         $draft = $this->draftProvider->provide($product);
 
         $command = new PersistProductDraftCommand($draft->getId());
-
         $this->messageBus->dispatch($command);
 
-        return new AcceptedResponse();
+        return new EmptyResponse();
     }
 
     /**
@@ -391,6 +391,8 @@ class ProductDraftController extends AbstractController
      * @return Response
      *
      * @throws \Exception
+     *
+     * @todo Refactor it
      */
     public function changeDraftAttribute(AbstractProduct $product, Language $language, AbstractAttribute $attribute, Request $request): Response
     {
@@ -418,7 +420,7 @@ class ProductDraftController extends AbstractController
             'code' => Response::HTTP_BAD_REQUEST,
             'message' => 'Form validation error',
             'errors' => [
-                'value' => [\sprintf('%s is incorrect value for %s attribute', $value, $attribute->getType())],
+                'value' => [sprintf('%s is incorrect value for %s attribute', $value, $attribute->getType())],
             ],
         ];
 
@@ -448,12 +450,12 @@ class ProductDraftController extends AbstractController
      * )
      *
      * @SWG\Response(
-     *     response=201,
-     *     description="Change draft",
+     *     response=200,
+     *     description="Return product draft model",
      * )
      * @SWG\Response(
-     *     response=400,
-     *     description="Form validation error",
+     *     response=404,
+     *     description="Not found",
      * )
      * @param AbstractProduct $product
      * @param Language        $language
@@ -493,12 +495,12 @@ class ProductDraftController extends AbstractController
      * )
      *
      * @SWG\Response(
-     *     response=201,
-     *     description="Change draft",
+     *     response=200,
+     *     description="Return product template model",
      * )
      * @SWG\Response(
-     *     response=400,
-     *     description="Form validation error",
+     *     response=404,
+     *     description="Not found",
      * )
      * @param AbstractProduct $product
      * @param Language        $language

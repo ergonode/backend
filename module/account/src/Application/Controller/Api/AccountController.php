@@ -27,8 +27,8 @@ use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Account\Infrastructure\Grid\AccountGrid;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Application\Exception\ViolationsHttpException;
-use Ergonode\Core\Application\Response\AcceptedResponse;
 use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -224,14 +224,12 @@ class AccountController extends AbstractController
      */
     public function getUserData(string $user): Response
     {
-        $userId = new UserId($user);
-        $user = $this->query->getUser($userId);
-
-        if (!empty($user)) {
-            return new SuccessResponse($user);
+        $user = $this->query->getUser(new UserId($user));
+        if (!$user instanceof User) {
+            throw new NotFoundHttpException('User data not found');
         }
 
-        throw new NotFoundHttpException('User data not found');
+        return new SuccessResponse($user);
     }
 
     /**
@@ -267,6 +265,8 @@ class AccountController extends AbstractController
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function createUser(Request $request): Response
     {
@@ -327,12 +327,12 @@ class AccountController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns update user id",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Bad request",
+     *     description="Bad request"
      * )
      * @param string  $user
      * @param Request $request
@@ -343,9 +343,8 @@ class AccountController extends AbstractController
     {
         $userId = new UserId($user);
         $user = $this->repository->load($userId);
-
-        if (null === $user) {
-            throw new NotFoundHttpException();
+        if (!$user instanceof User) {
+            throw new NotFoundHttpException('User not found');
         }
 
         try {
@@ -367,7 +366,7 @@ class AccountController extends AbstractController
                 );
                 $this->messageBus->dispatch($command);
 
-                return new SuccessResponse(['id' => $command->getId()]);
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -404,12 +403,12 @@ class AccountController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns updated user id",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      *
      * @param string  $user
@@ -419,16 +418,12 @@ class AccountController extends AbstractController
      */
     public function changeAvatar(string $user, Request $request): Response
     {
-        try {
-            $multimediaId = $request->request->get('multimedia');
-            $multimediaId = $multimediaId ? new MultimediaId($multimediaId) : null;
-            $command = new ChangeUserAvatarCommand(new UserId($user), $multimediaId);
-            $this->messageBus->dispatch($command);
+        $multimediaId = $request->request->get('multimedia');
+        $multimediaId = $multimediaId ? new MultimediaId($multimediaId) : null;
+        $command = new ChangeUserAvatarCommand(new UserId($user), $multimediaId);
+        $this->messageBus->dispatch($command);
 
-            return new AcceptedResponse(['id' => $command->getId()]);
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
-        }
+        return new EmptyResponse();
     }
 
     /**
@@ -467,8 +462,12 @@ class AccountController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns updated user id",
+     *     response=204,
+     *     description="Success"
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Validation error",
      * )
      * @SWG\Response(
      *     response=404,
@@ -491,7 +490,7 @@ class AccountController extends AbstractController
             $command = new ChangeUserPasswordCommand($userId, new Password($data['password']));
             $this->messageBus->dispatch($command);
 
-            return new CreatedResponse($command->getId()->getValue());
+            return new EmptyResponse();
         }
 
         throw new ViolationsHttpException($violations);
