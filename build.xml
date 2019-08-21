@@ -100,7 +100,7 @@
     </target>
 
     <!-- Code style check -->
-    <target name="check:style" depends="check:php, check:cs" description="Check code style"/>
+    <target name="check:style" depends="check:cs" description="Check code style"/>
 
     <!-- Mess detector -->
     <target name="check:md" description="Check PHP Mess Detector">
@@ -155,28 +155,6 @@
             </fileset>
             <formatter type="full" usefile="false"/>
 <!--            <formatter type="checkstyle" outfile="${dir.reports}/checkstyle-cs.xml"/>-->
-        </phpcodesniffer>
-    </target>
-
-    <!-- PHP compatibility check -->
-    <target name="check:php" description="PHP compatibility check">
-        <phpcodesniffer haltonerror="true"
-                        standard="${project.basedir}/vendor/wimg/php-compatibility/PHPCompatibility"
-                        allowedFileExtensions="php"
-                        ignorePatterns="autoload.php,Test.php"
-                        showSniffs="false"
-                        showSources="false"
-                        showWarnings="true"
-                        verbosity="0">
-            <config name="testVersion" value="7.2" />
-            <fileset dir="${dir.src}">
-                <include name="**/*.php"/>
-            </fileset>
-            <fileset dir="${dir.module}">
-                <include name="**/*.php"/>
-            </fileset>
-            <formatter type="full" usefile="false"/>
-<!--            <formatter type="checkstyle" outfile="${dir.reports}/checkstyle-php.xml"/>-->
         </phpcodesniffer>
     </target>
 </project>
