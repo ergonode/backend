@@ -7,7 +7,7 @@
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.9",
-        "jms/serializer": "^3.0",
+        "jms/serializer": "^3.1",
         "ramsey/uuid": "^3.8"
     },
     "autoload": {

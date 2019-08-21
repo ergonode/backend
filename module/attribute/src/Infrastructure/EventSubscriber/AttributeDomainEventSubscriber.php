@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\EventSubscriber;
 
-use Ergonode\Account\Domain\Event\Role\RoleCreatedEvent;
-use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeArrayParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;

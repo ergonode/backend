@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Domain\Command;
+namespace Ergonode\Account\Domain\Command\User;
 
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
