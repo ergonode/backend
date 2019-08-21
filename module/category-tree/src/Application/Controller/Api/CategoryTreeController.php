@@ -20,12 +20,17 @@ use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\AcceptedResponse;
+use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -35,7 +40,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class CategoryTreeController extends AbstractApiController
+class CategoryTreeController extends AbstractController
 {
     /**
      * @var TreeRepositoryInterface
@@ -147,10 +152,7 @@ class CategoryTreeController extends AbstractApiController
     {
         $configuration = new RequestGridConfiguration($request);
 
-        $dataSet = $this->query->getDataSet();
-        $result = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
     }
 
     /**
@@ -208,10 +210,11 @@ class CategoryTreeController extends AbstractApiController
                 $command = new CreateTreeCommand($name, $code);
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId()->getValue());
             }
 
-            return $this->createRestResponse(['message' => 'tree already exists'], [], Response::HTTP_BAD_REQUEST);
+            // @todo Move it to exception
+            return new BadRequestResponse(['message' => 'Tree already exists']);
         }
 
         throw new BadRequestHttpException();
@@ -278,7 +281,7 @@ class CategoryTreeController extends AbstractApiController
             $command = new AddCategoryCommand(new CategoryTreeId($tree), new CategoryId($category), new CategoryId($child));
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse([], [], Response::HTTP_ACCEPTED);
+            return new AcceptedResponse();
         }
 
         throw new BadRequestHttpException();
@@ -331,7 +334,7 @@ class CategoryTreeController extends AbstractApiController
     {
         try {
             $model = new TreeFormModel();
-            $form = $this->createForm(TreeForm::class, $model, ['method' => 'PUT']);
+            $form = $this->createForm(TreeForm::class, $model, ['method' => Request::METHOD_PUT]);
 
             $form->handleRequest($request);
 
@@ -342,13 +345,14 @@ class CategoryTreeController extends AbstractApiController
                 $command = new UpdateTreeCommand(new CategoryTreeId($tree), $data->name, $data->categories);
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse($data, [], Response::HTTP_CREATED);
+                // @todo why created? why data?
+                return new CreatedResponse($data);
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [$form->getErrors()->count()], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -399,6 +403,6 @@ class CategoryTreeController extends AbstractApiController
      */
     public function getTree(CategoryTree $tree, Language $language): Response
     {
-        return $this->createRestResponse($tree);
+        return new SuccessResponse($tree);
     }
 }

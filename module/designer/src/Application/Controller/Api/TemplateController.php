@@ -9,8 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\AcceptedResponse;
+use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Application\Form\TemplateForm;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
@@ -21,9 +23,11 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Infrastructure\Factory\TemplateCommandFactory;
 use Ergonode\Designer\Infrastructure\Grid\TemplateGrid;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -31,7 +35,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class TemplateController extends AbstractApiController
+class TemplateController extends AbstractController
 {
     /**
      * @var TemplateQueryInterface
@@ -160,9 +164,7 @@ class TemplateController extends AbstractApiController
         $dataSet = $this->designerTemplateQuery->getDataSet();
         $configuration = new RequestGridConfiguration($request);
 
-        $result = $this->renderGrid($this->templateGrid, $configuration, $dataSet, $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->templateGrid, $configuration, $dataSet, $language);
     }
 
     /**
@@ -210,7 +212,7 @@ class TemplateController extends AbstractApiController
             $command = $this->createCommandFactory->getCreateTemplateCommand($form->getData());
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+            return new CreatedResponse($command->getId()->getValue());
         }
 
         throw new FormValidationHttpException($form);
@@ -270,7 +272,7 @@ class TemplateController extends AbstractApiController
             $command = $this->createCommandFactory->getUpdateTemplateCommand($template->getId(), $form->getData());
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['id' => $command->getId()]);
+            return new SuccessResponse(['id' => $command->getId()]);
         }
 
         throw new FormValidationHttpException($form);
@@ -313,7 +315,7 @@ class TemplateController extends AbstractApiController
      */
     public function getTemplate(Template $template): Response
     {
-        return $this->createRestResponse($template);
+        return new SuccessResponse($template);
     }
 
     /**
@@ -354,12 +356,13 @@ class TemplateController extends AbstractApiController
     public function deleteTemplate(Template $template): Response
     {
         if ($this->templateChecker->hasRelations($template)) {
+            // @todo conflict
             return $this->createRestResponse(['Can\'t remove Template, it has relations to products'], [], Response::HTTP_CONFLICT);
         }
 
         $command = new DeleteTemplateCommand($template->getId());
         $this->messageBus->dispatch($command);
 
-        return $this->createRestResponse(null, [], Response::HTTP_ACCEPTED);
+        return new AcceptedResponse();
     }
 }

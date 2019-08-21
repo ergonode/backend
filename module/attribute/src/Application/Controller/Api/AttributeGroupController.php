@@ -11,18 +11,19 @@ namespace Ergonode\Attribute\Application\Controller\Api;
 
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class AttributeGroupController extends AbstractApiController
+class AttributeGroupController extends AbstractController
 {
     /**
      * @var AttributeGroupGrid
@@ -130,8 +131,6 @@ class AttributeGroupController extends AbstractApiController
     {
         $configuration = new RequestGridConfiguration($request);
 
-        $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet($language), $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($language), $language);
     }
 }

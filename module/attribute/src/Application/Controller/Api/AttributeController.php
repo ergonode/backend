@@ -22,14 +22,19 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeTemplateQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\EmptyResponse;
+use Ergonode\Core\Application\Response\MethodNotAllowedResponse;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -40,7 +45,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class AttributeController extends AbstractApiController
+class AttributeController extends AbstractController
 {
     /**
      * @var AttributeGrid
@@ -168,9 +173,7 @@ class AttributeController extends AbstractApiController
     {
         $configuration = new RequestGridConfiguration($request);
         $dataSet = $this->attributeGridQuery->getDataSet($language);
-        $grid = $this->renderGrid($this->attributeGrid, $configuration, $dataSet, $language);
-
-        return $this->createRestResponse($grid);
+        return new GridResponse($this->attributeGrid, $configuration, $dataSet, $language);
     }
 
     /**
@@ -239,7 +242,7 @@ class AttributeController extends AbstractApiController
                 );
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId()->getValue());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -288,7 +291,7 @@ class AttributeController extends AbstractApiController
         $result = $this->attributeQuery->getAttribute($attribute->getId());
 
         if ($result) {
-            return $this->createRestResponse($result);
+            return new SuccessResponse($result);
         }
 
         throw new NotFoundHttpException();
@@ -360,7 +363,7 @@ class AttributeController extends AbstractApiController
                 );
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()]);
+                return new SuccessResponse(['id' => $command->getId()]);
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -419,16 +422,12 @@ class AttributeController extends AbstractApiController
             $command = new DeleteAttributeCommand($attribute->getId());
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(null, [], Response::HTTP_NO_CONTENT);
+            return new EmptyResponse();
         }
 
-        return $this->createRestResponse(
-            [
-                'message' => 'Attribute used in templates',
-                'templates' => $templates,
-            ],
-            [],
-            Response::HTTP_METHOD_NOT_ALLOWED
-        );
+        return new MethodNotAllowedResponse([
+            'message' => 'Attribute used in templates',
+            'templates' => $templates,
+        ]);
     }
 }

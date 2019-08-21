@@ -9,10 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Importer\Application\Form\UploadForm;
 use Ergonode\Importer\Application\Model\Form\UploadModel;
 use Ergonode\Importer\Application\Service\Upload\UploadServiceInterface;
@@ -25,6 +26,7 @@ use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -32,7 +34,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class ImporterController extends AbstractApiController
+class ImporterController extends AbstractController
 {
     /**
      * @var ImportGrid
@@ -151,9 +153,7 @@ class ImporterController extends AbstractApiController
     {
         $configuration = new RequestGridConfiguration($request);
 
-        $result = $this->renderGrid($this->importGrid, $configuration, $this->importQuery->getDataSet(), $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->importGrid, $configuration, $this->importQuery->getDataSet(), $language);
     }
 
     /**
@@ -193,7 +193,7 @@ class ImporterController extends AbstractApiController
      */
     public function getImport(AbstractImport $import): Response
     {
-        return $this->createRestResponse($import);
+        return new SuccessResponse($import);
     }
 
     /**
@@ -270,7 +270,7 @@ class ImporterController extends AbstractApiController
             );
             $this->messageBus->dispatch($command);
 
-            $response = $this->createRestResponse(['id' => $command->getId()->getValue()]);
+            $response = new SuccessResponse(['id' => $command->getId()->getValue()]);
         } else {
             throw new FormValidationHttpException($form);
         }

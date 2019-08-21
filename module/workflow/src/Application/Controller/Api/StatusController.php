@@ -9,11 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\AcceptedResponse;
+use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Workflow\Application\Form\Model\StatusFormModel;
 use Ergonode\Workflow\Application\Form\StatusForm;
 use Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand;
@@ -25,6 +28,7 @@ use Ergonode\Workflow\Domain\ValueObject\Status;
 use Ergonode\Workflow\Infrastructure\Grid\StatusGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -35,7 +39,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class StatusController extends AbstractApiController
+class StatusController extends AbstractController
 {
     /**
      * @var WorkflowProvider
@@ -150,9 +154,8 @@ class StatusController extends AbstractApiController
     {
         $configuration = new RequestGridConfiguration($request);
         $dataSet = $this->query->getDataSet($language);
-        $grid = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
 
-        return $this->createRestResponse($grid);
+        return new GridResponse($this->grid, $configuration, $dataSet, $language);
     }
 
     /**
@@ -196,7 +199,7 @@ class StatusController extends AbstractApiController
         $workflow = $this->provider->provide();
 
         if ($workflow && $workflow->hasStatus($status)) {
-            return $this->createRestResponse($workflow->getStatus($status));
+            return new SuccessResponse($workflow->getStatus($status));
         }
 
         throw new NotFoundHttpException();
@@ -259,7 +262,7 @@ class StatusController extends AbstractApiController
 
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId()->getValue());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -333,7 +336,8 @@ class StatusController extends AbstractApiController
 
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                // @todo why created?
+                return new CreatedResponse($command->getId()->getValue());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -387,6 +391,6 @@ class StatusController extends AbstractApiController
 
         $this->messageBus->dispatch($command);
 
-        return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_ACCEPTED);
+        return new AcceptedResponse(['id' => $command->getId()]);
     }
 }

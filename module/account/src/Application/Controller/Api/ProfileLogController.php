@@ -11,17 +11,18 @@ namespace Ergonode\Account\Application\Controller\Api;
 
 use Ergonode\Account\Domain\Query\LogQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\LogGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class ProfileLogController extends AbstractApiController
+class ProfileLogController extends AbstractController
 {
     /**
      * @var LogQueryInterface
@@ -111,8 +112,6 @@ class ProfileLogController extends AbstractApiController
         $user = $this->getUser();
         $configuration = new RequestGridConfiguration($request);
 
-        $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet($user->getId()), $user->getLanguage());
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($user->getId()), $user->getLanguage());
     }
 }

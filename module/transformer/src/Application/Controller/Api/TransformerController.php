@@ -9,7 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Transformer\Domain\Command\CreateTransformerCommand;
 use Ergonode\Transformer\Domain\Command\GenerateTransformerCommand;
 use Ergonode\Transformer\Domain\Entity\Transformer;
@@ -17,6 +18,7 @@ use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
@@ -25,7 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class TransformerController extends AbstractApiController
+class TransformerController extends AbstractController
 {
     /**
      * @var TransformerRepositoryInterface
@@ -88,7 +90,7 @@ class TransformerController extends AbstractApiController
         $command = new CreateTransformerCommand($name, 'key');
         $this->messageBus->dispatch($command);
 
-        return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+        return new CreatedResponse($command->getId()->getValue());
     }
 
     /**
@@ -144,7 +146,7 @@ class TransformerController extends AbstractApiController
             $command = new GenerateTransformerCommand($name, $type, $type);
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+            return new CreatedResponse($command->getId()->getValue());
         }
 
         throw new NotAcceptableHttpException(sprintf('Transformer %s already exists', $name));
@@ -188,6 +190,6 @@ class TransformerController extends AbstractApiController
      */
     public function getTransformer(Transformer $transformer): Response
     {
-        return $this->createRestResponse($transformer);
+        return new SuccessResponse($transformer);
     }
 }

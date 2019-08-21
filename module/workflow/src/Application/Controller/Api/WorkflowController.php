@@ -9,8 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Application\Form\Model\WorkflowFormModel;
 use Ergonode\Workflow\Application\Form\WorkflowForm;
@@ -20,6 +21,7 @@ use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\ValueObject\Status;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -30,7 +32,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class WorkflowController extends AbstractApiController
+class WorkflowController extends AbstractController
 {
     /**
      * @var WorkflowProvider
@@ -84,7 +86,7 @@ class WorkflowController extends AbstractApiController
         $workflow = $this->provider->provide();
 
         if ($workflow) {
-            return $this->createRestResponse($workflow);
+            return new SuccessResponse($workflow);
         }
 
         throw new NotFoundHttpException();
@@ -153,7 +155,7 @@ class WorkflowController extends AbstractApiController
 
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId()->getValue());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -226,7 +228,8 @@ class WorkflowController extends AbstractApiController
                 );
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                // @todo Why created?
+                return new CreatedResponse($command->getId()->getValue());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

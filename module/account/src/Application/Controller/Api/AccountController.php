@@ -25,14 +25,18 @@ use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Account\Infrastructure\Grid\AccountGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Application\Exception\ViolationsHttpException;
+use Ergonode\Core\Application\Response\AcceptedResponse;
+use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -44,7 +48,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  */
-class AccountController extends AbstractApiController
+class AccountController extends AbstractController
 {
     /**
      * @var AccountGrid
@@ -180,9 +184,7 @@ class AccountController extends AbstractApiController
     {
         $configuration = new RequestGridConfiguration($request);
 
-        $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet(), $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
     }
 
     /**
@@ -226,7 +228,7 @@ class AccountController extends AbstractApiController
         $user = $this->query->getUser($userId);
 
         if (!empty($user)) {
-            return $this->createRestResponse($user);
+            return new SuccessResponse($user);
         }
 
         throw new NotFoundHttpException('User data not found');
@@ -287,7 +289,7 @@ class AccountController extends AbstractApiController
                 );
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId()->getValue());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -365,7 +367,7 @@ class AccountController extends AbstractApiController
                 );
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()]);
+                return new SuccessResponse(['id' => $command->getId()]);
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -423,7 +425,7 @@ class AccountController extends AbstractApiController
             $command = new ChangeUserAvatarCommand(new UserId($user), $multimediaId);
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_ACCEPTED);
+            return new AcceptedResponse(['id' => $command->getId()]);
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
         }
@@ -489,7 +491,7 @@ class AccountController extends AbstractApiController
             $command = new ChangeUserPasswordCommand($userId, new Password($data['password']));
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+            return new CreatedResponse($command->getId()->getValue());
         }
 
         throw new ViolationsHttpException($violations);

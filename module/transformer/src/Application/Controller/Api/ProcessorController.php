@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Response\CreatedResponse;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Command\CreateProcessorCommand;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -21,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class ProcessorController extends AbstractApiController
+class ProcessorController extends AbstractController
 {
     /**
      * @var MessageBusInterface
@@ -93,6 +94,6 @@ class ProcessorController extends AbstractApiController
         $command = new CreateProcessorCommand(new ImportId($import), new TransformerId($transformer), $action);
         $this->messageBus->dispatch($command);
 
-        return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+        return new CreatedResponse($command->getId()->getValue());
     }
 }

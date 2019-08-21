@@ -9,15 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Authentication\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  * Mock Controller overriding "magic" JWT authorization action. Required for showing proper description in NelmioApiDoc page
  */
-final class AuthenticationController extends AbstractApiController
+final class AuthenticationController
 {
     /**
      * @Route("/api/v1/login", methods={"POST"})

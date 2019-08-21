@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Multimedia\Application\Form\MultimediaUploadForm;
 use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
 use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
@@ -19,6 +19,7 @@ use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -26,7 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class MultimediaController extends AbstractApiController
+class MultimediaController extends AbstractController
 {
     /**
      * @var MultimediaFileProviderInterface
@@ -85,7 +86,7 @@ class MultimediaController extends AbstractApiController
             $command = new UploadMultimediaCommand('TestName', $uploadModel->upload);
             $this->messageBus->dispatch($command);
 
-            $response = $this->createRestResponse(['id' => $command->getId()->getValue()]);
+            $response = new SuccessResponse(['id' => $command->getId()->getValue()]);
         } else {
             throw new FormValidationHttpException($form);
         }

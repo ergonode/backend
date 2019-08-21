@@ -11,7 +11,10 @@ namespace Ergonode\Editor\Application\Controller\Api;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Provider\AttributeValidationProvider;
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\AcceptedResponse;
+use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
@@ -25,11 +28,13 @@ use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\Editor\Infrastructure\Grid\ProductDraftGrid;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -38,7 +43,7 @@ use Webmozart\Assert\Assert;
 
 /**
  */
-class ProductDraftController extends AbstractApiController
+class ProductDraftController extends AbstractController
 {
     /**
      * @var ProductDraftGrid
@@ -180,9 +185,8 @@ class ProductDraftController extends AbstractApiController
     public function getDrafts(Language $language, Request $request): Response
     {
         $configuration = new RequestGridConfiguration($request);
-        $result = $this->renderGrid($this->productDraftGrid, $configuration, $this->draftQuery->getDataSet(), $language);
 
-        return $this->createRestResponse($result);
+        return new GridResponse($this->productDraftGrid, $configuration, $this->draftQuery->getDataSet(), $language);
     }
 
     /**
@@ -224,7 +228,7 @@ class ProductDraftController extends AbstractApiController
     {
         $result = $this->draftQuery->getDraftView(new ProductDraftId($draft), $language);
 
-        return $this->createRestResponse($result);
+        return new SuccessResponse($result);
     }
 
     /**
@@ -274,10 +278,10 @@ class ProductDraftController extends AbstractApiController
             $command = new CreateProductDraftCommand(new productId($data->productId));
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+            return new CreatedResponse($command->getId()->getValue());
         }
 
-        return $this->createRestResponse($form);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -324,7 +328,7 @@ class ProductDraftController extends AbstractApiController
 
         $this->messageBus->dispatch($command);
 
-        return $this->createRestResponse([], [], Response::HTTP_ACCEPTED);
+        return new AcceptedResponse();
     }
 
     /**
@@ -401,13 +405,13 @@ class ProductDraftController extends AbstractApiController
                 $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language, $value);
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['value' => $value], [], Response::HTTP_ACCEPTED);
+                return new AcceptedResponse(['value' => $value]);
             }
         } else {
             $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language);
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['value' => $value], [], Response::HTTP_ACCEPTED);
+            return new AcceptedResponse(['value' => $value]);
         }
 
         $result = [
@@ -418,7 +422,8 @@ class ProductDraftController extends AbstractApiController
             ],
         ];
 
-        return $this->createRestResponse($result, [], Response::HTTP_BAD_REQUEST);
+        // @todo BadRequestResponse
+        return new BadRequestResponse($result);
     }
 
     /**
@@ -463,7 +468,7 @@ class ProductDraftController extends AbstractApiController
     {
         $draft = $this->draftProvider->provide($product);
 
-        return $this->createRestResponse($draft);
+        return new SuccessResponse($draft);
     }
 
     /**
@@ -512,6 +517,6 @@ class ProductDraftController extends AbstractApiController
 
         $view = $this->builder->build($template, $language);
 
-        return $this->createRestResponse($view);
+        return new SuccessResponse($view);
     }
 }

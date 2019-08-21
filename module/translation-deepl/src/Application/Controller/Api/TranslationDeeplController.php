@@ -9,20 +9,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\TranslationDeepl\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\TranslationDeepl\Application\Form\TranslationDeeplForm;
 use Ergonode\TranslationDeepl\Application\Model\Form\TranslationDeeplFormModel;
 use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationProviderInterface;
 use Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProviderInterface;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class TranslationDeeplController extends AbstractApiController
+class TranslationDeeplController extends AbstractController
 {
     /**
      * @var TranslationProviderInterface
@@ -94,15 +97,13 @@ class TranslationDeeplController extends AbstractApiController
                 $data = $form->getData();
                 $translatedContent = $this->translationProvider->provide($data->content, $data->sourceLanguage, $data->targetLanguage);
 
-                return $this->createRestResponse(['content' => $translatedContent]);
+                return new SuccessResponse(['content' => $translatedContent]);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([$exception->getMessage(), explode(PHP_EOL, $exception->getTraceAsString())], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -124,7 +125,7 @@ class TranslationDeeplController extends AbstractApiController
     {
         $usage = $this->usageProvider->provide();
 
-        return $this->createRestResponse([
+        return new SuccessResponse([
             'current' => $usage->getCharacterCount(),
             'limit' => $usage->getCharacterLimit(),
         ]);

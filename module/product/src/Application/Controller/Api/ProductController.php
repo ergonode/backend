@@ -9,11 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Product\Application\Form\ProductCreateForm;
 use Ergonode\Product\Application\Form\ProductUpdateForm;
 use Ergonode\Product\Application\Model\ProductCreateFormModel;
@@ -28,6 +30,7 @@ use Ergonode\Product\Persistence\Dbal\DataSet\DbalProductDataSet;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -35,7 +38,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class ProductController extends AbstractApiController
+class ProductController extends AbstractController
 {
     /**
      * @var DbalProductDataSet
@@ -150,9 +153,7 @@ class ProductController extends AbstractApiController
     {
         $configuration = new RequestGridConfiguration($request);
 
-        $grid = $this->renderGrid($this->productGrid, $configuration, $this->dataSet, $language);
-
-        return $this->createRestResponse($grid);
+        return new GridResponse($this->productGrid, $configuration, $this->dataSet, $language);
     }
 
     /**
@@ -193,7 +194,7 @@ class ProductController extends AbstractApiController
      */
     public function getProduct(AbstractProduct $product): Response
     {
-        return $this->createRestResponse($product);
+        return new SuccessResponse($product);
     }
 
     /**
@@ -241,7 +242,7 @@ class ProductController extends AbstractApiController
             $command = new CreateProductCommand(new Sku($data->sku), new TemplateId($data->template), $data->categories);
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+            return new CreatedResponse($command->getId()->getValue());
         }
 
         throw new FormValidationHttpException($form);
@@ -301,7 +302,7 @@ class ProductController extends AbstractApiController
             $command = new UpdateProductCommand($productId, $data->categories);
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+            return new CreatedResponse($command->getId()->getValue());
         }
 
         throw new FormValidationHttpException($form);

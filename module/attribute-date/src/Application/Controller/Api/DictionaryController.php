@@ -10,14 +10,15 @@ declare(strict_types = 1);
 namespace Ergonode\AttributeDate\Application\Controller\Api;
 
 use Ergonode\AttributeDate\Infrastructure\Provider\DateFormatProvider;
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class DictionaryController extends AbstractApiController
+class DictionaryController extends AbstractController
 {
     /**
      * @var DateFormatProvider
@@ -57,6 +58,6 @@ class DictionaryController extends AbstractApiController
      */
     public function getDateFormat(): Response
     {
-        return $this->createRestResponse($this->dateFormatProvider->dictionary());
+        return new SuccessResponse($this->dateFormatProvider->dictionary());
     }
 }

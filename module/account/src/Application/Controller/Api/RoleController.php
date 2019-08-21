@@ -18,12 +18,16 @@ use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\Account\Infrastructure\Grid\RoleGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Response\AcceptedResponse;
+use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -35,7 +39,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class RoleController extends AbstractApiController
+class RoleController extends AbstractController
 {
     /**
      * @var RoleRepositoryInterface
@@ -151,9 +155,7 @@ class RoleController extends AbstractApiController
     {
         $configuration = new RequestGridConfiguration($request);
 
-        $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet(), $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
     }
 
     /**
@@ -197,7 +199,7 @@ class RoleController extends AbstractApiController
         $role = $this->repository->load($id);
 
         if ($role !== null) {
-            return $this->createRestResponse($role);
+            return new SuccessResponse($role);
         }
 
         throw new NotFoundHttpException('Role data not found');
@@ -237,6 +239,8 @@ class RoleController extends AbstractApiController
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function createRole(Request $request): Response
     {
@@ -252,7 +256,7 @@ class RoleController extends AbstractApiController
                 $command = new CreateRoleCommand($data->name, $data->description, $data->privileges);
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId()->getValue());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -320,7 +324,8 @@ class RoleController extends AbstractApiController
                 $command = new UpdateRoleCommand($roleId, $data->name, $data->description, $data->privileges);
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                // @todo why created? we should send object or nothing
+                return new CreatedResponse($command->getId()->getValue());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -369,7 +374,7 @@ class RoleController extends AbstractApiController
                 $command = new DeleteRoleCommand($roleId);
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_ACCEPTED);
+                return new AcceptedResponse(['id' => $command->getId()]);
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

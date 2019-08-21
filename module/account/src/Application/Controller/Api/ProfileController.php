@@ -11,8 +11,9 @@ namespace Ergonode\Account\Application\Controller\Api;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\ProfileQueryInterface;
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
@@ -20,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class ProfileController extends AbstractApiController
+class ProfileController extends AbstractController
 {
     /**
      * @var ProfileQueryInterface
@@ -62,7 +63,7 @@ class ProfileController extends AbstractApiController
             /** @var User $profile */
             $profile = $this->query->getProfile($this->getUser()->getId());
 
-            return $this->createRestResponse($profile);
+            return new SuccessResponse($profile);
         }
 
         throw new UnprocessableEntityHttpException();

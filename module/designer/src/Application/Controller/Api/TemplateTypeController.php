@@ -9,20 +9,21 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateElementQueryInterface;
 use Ergonode\Designer\Infrastructure\Grid\TemplateTypeDictionaryGrid;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class TemplateTypeController extends AbstractApiController
+class TemplateTypeController extends AbstractController
 {
     /**
      * @var TemplateElementQueryInterface
@@ -122,8 +123,7 @@ class TemplateTypeController extends AbstractApiController
     {
         $dataSet = $this->query->getDataSet();
         $configuration = new RequestGridConfiguration($request);
-        $result = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
 
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $dataSet, $language);
     }
 }

@@ -10,14 +10,15 @@ declare(strict_types = 1);
 namespace Ergonode\AttributeUnit\Application\Controller\Api;
 
 use Ergonode\AttributeUnit\Domain\Query\UnitQueryInterface;
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class DictionaryController extends AbstractApiController
+class DictionaryController extends AbstractController
 {
     /**
      * @var UnitQueryInterface
@@ -59,6 +60,6 @@ class DictionaryController extends AbstractApiController
     {
         $languages = $this->unitQuery->getDictionary();
 
-        return $this->createRestResponse($languages);
+        return new SuccessResponse($languages);
     }
 }

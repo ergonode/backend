@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Completeness\Application\Controller\Api;
 
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
@@ -18,13 +18,14 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class CompletenessController extends AbstractApiController
+class CompletenessController extends AbstractController
 {
     /**
      * @var CompletenessCalculator
@@ -102,6 +103,6 @@ class CompletenessController extends AbstractApiController
 
         $result = $this->calculator->calculate($draft, $template, $language);
 
-        return $this->createRestResponse($result);
+        return new SuccessResponse($result);
     }
 }
