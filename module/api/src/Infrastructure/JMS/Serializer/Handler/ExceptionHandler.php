@@ -7,8 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\Api\Infrastructure\JMS\Serializer\Handler;
 
+use Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizerInterface;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
@@ -21,16 +22,16 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 class ExceptionHandler implements SubscribingHandlerInterface
 {
     /**
-     * @var bool
+     * @var ExceptionNormalizerInterface
      */
-    private $debug;
+    private $exceptionNormalizer;
 
     /**
-     * @param bool $debug
+     * @param ExceptionNormalizerInterface $exceptionNormalizer
      */
-    public function __construct(bool $debug)
+    public function __construct(ExceptionNormalizerInterface $exceptionNormalizer)
     {
-        $this->debug = $debug;
+        $this->exceptionNormalizer = $exceptionNormalizer;
     }
 
     /**
@@ -39,7 +40,7 @@ class ExceptionHandler implements SubscribingHandlerInterface
     public static function getSubscribingMethods(): array
     {
         $methods = [];
-        $formats = ['json', 'xml', 'yml'];
+        $formats = ['json'];
 
         foreach ($formats as $format) {
             $methods[] = [
@@ -60,30 +61,23 @@ class ExceptionHandler implements SubscribingHandlerInterface
      * @param Context                       $context
      *
      * @return array
-     *
-     * @todo Create ExceptionFormatter or something like that
      */
-    public function serialize(SerializationVisitorInterface $visitor, \Exception $exception, array $type, Context $context): array
-    {
-        if ($exception instanceof HttpExceptionInterface) {
-            $code = $exception->getStatusCode();
-        } else {
-            $code = $exception->getCode();
-        }
-
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        \Exception $exception,
+        array $type,
+        Context $context
+    ): array {
+        $code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : $exception->getCode();
         if (empty($code)) {
             $code = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 
-        $data = [
-            'code' => $code,
-            'message' => 'Internal server error',
-        ];
-
-        if ($this->debug) {
-            $data['message'] = $exception->getMessage();
-            $data['trace'] = explode(PHP_EOL, $exception->getTraceAsString());
-        }
+        $data = $this->exceptionNormalizer->normalize(
+            $exception,
+            (string) $code,
+            'Internal server error'
+        );
 
         return $visitor->visitArray($data, $type);
     }

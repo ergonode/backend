@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\EventListener;
+namespace Ergonode\Api\Application\EventListener;
 
-use Ergonode\Core\Application\Response\AbstractResponse;
+use Ergonode\Api\Application\Response\AbstractResponse;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 

@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\Exception;
+namespace Ergonode\Api\Application\Exception;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,15 +23,13 @@ class FormValidationHttpException extends HttpException
     private $form;
 
     /**
-     * @param FormInterface   $violations
-     * @param \Exception|null $previous
-     * @param array           $headers
+     * @param FormInterface $violations
      */
-    public function __construct(FormInterface $violations, \Exception $previous = null, array $headers = [])
+    public function __construct(FormInterface $violations)
     {
         $this->form = $violations;
 
-        parent::__construct(Response::HTTP_BAD_REQUEST, 'Validation error', $previous);
+        parent::__construct(Response::HTTP_BAD_REQUEST, 'Validation error');
     }
 
     /**

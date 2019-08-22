@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Response\CreatedResponse;
-use Ergonode\Core\Application\Response\SuccessResponse;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Transformer\Domain\Command\CreateTransformerCommand;
 use Ergonode\Transformer\Domain\Command\GenerateTransformerCommand;
 use Ergonode\Transformer\Domain\Entity\Transformer;

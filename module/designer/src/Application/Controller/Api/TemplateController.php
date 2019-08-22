@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
-use Ergonode\Core\Application\Response\CreatedResponse;
-use Ergonode\Core\Application\Response\EmptyResponse;
-use Ergonode\Core\Application\Response\SuccessResponse;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Application\Form\TemplateForm;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;

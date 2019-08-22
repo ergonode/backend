@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\Response;
+namespace Ergonode\Api\Application\Response;
 
 use Symfony\Component\HttpFoundation\Response;
 

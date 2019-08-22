@@ -16,6 +16,7 @@ return [
     Gfreeau\Bundle\GetJWTBundle\GfreeauGetJWTBundle::class => ['all' => true],
     Ergonode\Migration\MigrationBundle::class => ['all' => true],
     Ergonode\Core\ErgonodeCoreBundle::class => ['all' => true],
+    Ergonode\Api\ErgonodeApiBundle::class => ['all' => true],
     Ergonode\EventSourcing\ErgonodeEventSourcingBundle::class => ['all' => true],
     Ergonode\Fixture\ErgonodeFixtureBundle::class => ['dev' => true],
     Ergonode\Account\ErgonodeAccountBundle::class => ['all' => true],

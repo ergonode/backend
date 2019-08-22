@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Completeness\Application\Controller\Api;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
-use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Domain\Provider\DraftProvider;

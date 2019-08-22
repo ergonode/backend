@@ -11,7 +11,7 @@ namespace Ergonode\Account\Application\Controller\Api;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\ProfileQueryInterface;
-use Ergonode\Core\Application\Response\SuccessResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

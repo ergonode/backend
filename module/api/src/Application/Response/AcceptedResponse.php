@@ -7,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\Response;
+namespace Ergonode\Api\Application\Response;
 
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  */
-class SuccessResponse extends AbstractResponse
+class AcceptedResponse extends AbstractResponse
 {
     /**
      * @param null  $data
@@ -21,6 +21,6 @@ class SuccessResponse extends AbstractResponse
      */
     public function __construct($data = null, array $headers = [])
     {
-        parent::__construct($data, Response::HTTP_OK, $headers);
+        parent::__construct($data, Response::HTTP_ACCEPTED, $headers);
     }
 }

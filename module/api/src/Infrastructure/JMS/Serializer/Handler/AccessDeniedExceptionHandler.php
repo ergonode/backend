@@ -7,29 +7,31 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\Api\Infrastructure\JMS\Serializer\Handler;
 
+use Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizerInterface;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
+use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  */
-class AccessDeniedExceptionHandler
+class AccessDeniedExceptionHandler implements SubscribingHandlerInterface
 {
     /**
-     * @var bool
+     * @var ExceptionNormalizerInterface
      */
-    private $debug;
+    private $exceptionNormalizer;
 
     /**
-     * @param bool $debug
+     * @param ExceptionNormalizerInterface $exceptionNormalizer
      */
-    public function __construct(bool $debug)
+    public function __construct(ExceptionNormalizerInterface $exceptionNormalizer)
     {
-        $this->debug = $debug;
+        $this->exceptionNormalizer = $exceptionNormalizer;
     }
 
     /**
@@ -38,7 +40,7 @@ class AccessDeniedExceptionHandler
     public static function getSubscribingMethods(): array
     {
         $methods = [];
-        $formats = ['json', 'xml', 'yml'];
+        $formats = ['json'];
 
         foreach ($formats as $format) {
             $methods[] = [
@@ -54,25 +56,23 @@ class AccessDeniedExceptionHandler
 
     /**
      * @param SerializationVisitorInterface $visitor
-     * @param \Exception                    $exception
+     * @param AccessDeniedException         $exception
      * @param array                         $type
      * @param Context                       $context
      *
      * @return array
-     *
-     * @todo Create ExceptionFormatter or something like that
      */
-    public function serialize(SerializationVisitorInterface $visitor, \Exception $exception, array $type, Context $context): array
-    {
-        $data = [
-            'code' => Response::HTTP_FORBIDDEN,
-            'message' => 'Access denied',
-        ];
-
-        if ($this->debug) {
-            $data['message'] = $exception->getMessage();
-            $data['trace'] = explode(PHP_EOL, $exception->getTraceAsString());
-        }
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        AccessDeniedException $exception,
+        array $type,
+        Context $context
+    ): array {
+        $data = $this->exceptionNormalizer->normalize(
+            $exception,
+            (string) Response::HTTP_FORBIDDEN,
+            'Access denied'
+        );
 
         return $visitor->visitArray($data, $type);
     }

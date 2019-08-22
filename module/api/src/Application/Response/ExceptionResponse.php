@@ -7,11 +7,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\Response;
+namespace Ergonode\Api\Application\Response;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 /**
  */
@@ -29,6 +30,8 @@ class ExceptionResponse extends AbstractResponse
             $headers = $exception->getHeaders();
         } elseif ($exception instanceof AccessDeniedException) {
             $statusCode = Response::HTTP_FORBIDDEN;
+        } elseif ($exception instanceof AuthenticationException) {
+            $statusCode = Response::HTTP_UNAUTHORIZED;
         }
 
         parent::__construct($exception, $statusCode, $headers);

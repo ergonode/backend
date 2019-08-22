@@ -26,7 +26,7 @@ class ColorHandler implements SubscribingHandlerInterface
     public static function getSubscribingMethods(): array
     {
         $methods = [];
-        $formats = ['json', 'xml', 'yml'];
+        $formats = ['json'];
 
         foreach ($formats as $format) {
             $methods[] = [

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Command\CreateProcessorCommand;
 use Ergonode\Transformer\Domain\Entity\TransformerId;

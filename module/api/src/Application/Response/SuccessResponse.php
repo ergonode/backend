@@ -7,14 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\Response;
+namespace Ergonode\Api\Application\Response;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  */
-class MethodNotAllowedResponse extends JsonResponse
+class SuccessResponse extends AbstractResponse
 {
     /**
      * @param null  $data
@@ -22,6 +21,6 @@ class MethodNotAllowedResponse extends JsonResponse
      */
     public function __construct($data = null, array $headers = [])
     {
-        parent::__construct($data, Response::HTTP_METHOD_NOT_ALLOWED, $headers);
+        parent::__construct($data, Response::HTTP_OK, $headers);
     }
 }

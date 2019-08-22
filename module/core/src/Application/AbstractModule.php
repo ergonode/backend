@@ -16,9 +16,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 abstract class AbstractModule extends Bundle
 {
     /**
-     * Returns the bundle's container extension class.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     protected function getContainerExtensionClass(): string
     {

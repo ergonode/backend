@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\TranslationDeepl\Application\Controller\Api;
 
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
-use Ergonode\Core\Application\Response\SuccessResponse;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\TranslationDeepl\Application\Form\TranslationDeeplForm;
 use Ergonode\TranslationDeepl\Application\Model\Form\TranslationDeeplFormModel;
 use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationProviderInterface;

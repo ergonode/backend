@@ -7,20 +7,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\Api\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Core\Application\Exception\ViolationsHttpException;
+use Ergonode\Core\Infrastructure\Mapper\FormErrorMapper;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\ConstraintViolationInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  */
-class ViolationsExceptionHandler implements SubscribingHandlerInterface
+class FormErrorHandler implements SubscribingHandlerInterface
 {
     /**
      * @var TranslatorInterface
@@ -28,11 +28,18 @@ class ViolationsExceptionHandler implements SubscribingHandlerInterface
     private $translator;
 
     /**
-     * @param TranslatorInterface $translator
+     * @var FormErrorMapper
      */
-    public function __construct(TranslatorInterface $translator)
+    private $formErrorMapper;
+
+    /**
+     * @param TranslatorInterface $translator
+     * @param FormErrorMapper     $formErrorMapper
+     */
+    public function __construct(TranslatorInterface $translator, FormErrorMapper $formErrorMapper)
     {
         $this->translator = $translator;
+        $this->formErrorMapper = $formErrorMapper;
     }
 
     /**
@@ -41,12 +48,12 @@ class ViolationsExceptionHandler implements SubscribingHandlerInterface
     public static function getSubscribingMethods(): array
     {
         $methods = [];
-        $formats = ['json', 'xml', 'yml'];
+        $formats = ['json'];
 
         foreach ($formats as $format) {
             $methods[] = [
                 'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
-                'type' => ViolationsHttpException::class,
+                'type' => Form::class,
                 'format' => $format,
                 'method' => 'serialize',
             ];
@@ -57,25 +64,21 @@ class ViolationsExceptionHandler implements SubscribingHandlerInterface
 
     /**
      * @param SerializationVisitorInterface $visitor
-     * @param ViolationsHttpException       $exception
+     * @param Form                          $form
      * @param array                         $type
      * @param Context                       $context
      *
-     * @return mixed
+     * @return array
      */
-    public function serialize(SerializationVisitorInterface $visitor, ViolationsHttpException $exception, array $type, Context $context)
+    public function serialize(SerializationVisitorInterface $visitor, Form $form, array $type, Context $context): array
     {
-        $errors = [];
-        /** @var ConstraintViolationInterface $violation */
-        foreach ($exception->getViolations() as $violation) {
-            $field = substr($violation->getPropertyPath(), 1, -1);
-            $errors[$field] = [$violation->getMessage()];
-        }
-
-        return [
-            'code' => Response::HTTP_BAD_REQUEST,
-            'message' => $this->translator->trans('Validation error'),
-            'errors' => $errors,
-        ];
+        return $visitor->visitArray(
+            [
+                'code' => Response::HTTP_BAD_REQUEST,
+                'message' => $this->translator->trans('Form validation error'),
+                'errors' => $this->formErrorMapper->map($form),
+            ],
+            $type
+        );
     }
 }

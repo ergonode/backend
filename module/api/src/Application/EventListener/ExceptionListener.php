@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\EventListener;
+namespace Ergonode\Api\Application\EventListener;
 
-use Ergonode\Core\Application\Response\ExceptionResponse;
+use Ergonode\Api\Application\Response\ExceptionResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
 /**

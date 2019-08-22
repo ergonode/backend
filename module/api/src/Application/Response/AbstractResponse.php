@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\Response;
+namespace Ergonode\Api\Application\Response;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,9 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 class AbstractResponse extends Response
 {
     /**
-     * @param mixed $content
-     *
-     * @return AbstractResponse
+     * {@inheritDoc}
      */
     public function setContent($content): self
     {

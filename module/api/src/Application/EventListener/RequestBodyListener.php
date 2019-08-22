@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\EventListener;
+namespace Ergonode\Api\Application\EventListener;
 
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;

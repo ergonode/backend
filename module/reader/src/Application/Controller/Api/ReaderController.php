@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Application\Controller\Api;
 
-use Ergonode\Core\Application\Response\CreatedResponse;
-use Ergonode\Core\Application\Response\SuccessResponse;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;

@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api;
 
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
-use Ergonode\Core\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Multimedia\Application\Form\MultimediaUploadForm;
 use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
 use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;

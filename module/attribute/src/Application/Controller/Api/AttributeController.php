@@ -9,6 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Controller\Api;
 
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Application\Form\AttributeCreateForm;
 use Ergonode\Attribute\Application\Form\AttributeUpdateForm;
 use Ergonode\Attribute\Application\Form\Model\CreateAttributeFormModel;
@@ -22,10 +26,6 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeTemplateQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGrid;
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
-use Ergonode\Core\Application\Response\CreatedResponse;
-use Ergonode\Core\Application\Response\EmptyResponse;
-use Ergonode\Core\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;

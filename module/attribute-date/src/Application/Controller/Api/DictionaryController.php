@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\AttributeDate\Application\Controller\Api;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\AttributeDate\Infrastructure\Provider\DateFormatProvider;
-use Ergonode\Core\Application\Response\SuccessResponse;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Controller\Api;
 
-use Ergonode\Core\Application\Response\SuccessResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Provider\LanguageProviderInterface;
 use Swagger\Annotations as SWG;

@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\AttributeImage\Application\Controller\Api;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\AttributeImage\Infrastructure\Provider\ImageFormatProvider;
-use Ergonode\Core\Application\Response\SuccessResponse;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

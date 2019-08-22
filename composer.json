@@ -75,6 +75,7 @@
             "App\\": "src/",
             "Ergonode\\Migration\\": "module/migration/src",
             "Ergonode\\Core\\": "module/core/src",
+            "Ergonode\\Api\\": "module/api/src",
             "Ergonode\\EventSourcing\\": "module/event-sourcing/src",
             "Ergonode\\Multimedia\\": "module/multimedia/src",
             "Ergonode\\Fixture\\": "module/fixture/src",
