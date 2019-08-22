@@ -105,5 +105,4 @@ class DbalLanguageRepository implements LanguageRepositoryInterface
 
         return false;
     }
-
 }

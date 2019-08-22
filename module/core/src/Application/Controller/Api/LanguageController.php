@@ -225,7 +225,6 @@ class LanguageController extends AbstractApiController
 
                 return $this->createRestResponse(['message' => "Updated"]);
             }
-
         } catch (InvalidPropertyPathException $exception) {
             return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
         } catch (\Throwable $exception) {
