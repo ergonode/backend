@@ -38,7 +38,6 @@ class DictionaryController extends AbstractController
      * @Route("/languages", methods={"GET"})
      *
      * @SWG\Tag(name="Dictionary")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -50,10 +49,6 @@ class DictionaryController extends AbstractController
      * @SWG\Response(
      *     response=200,
      *     description="Returns collection of languages",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
      * )
      *
      * @param Language $language

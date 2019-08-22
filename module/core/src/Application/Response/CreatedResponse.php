@@ -9,12 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Response;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  */
-class CreatedResponse extends JsonResponse
+class CreatedResponse extends AbstractResponse
 {
     /**
      * @param string $id

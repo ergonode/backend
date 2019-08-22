@@ -49,10 +49,6 @@ class DictionaryController extends AbstractController
      *     response=200,
      *     description="Returns collection of available image formats",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
      * @return Response
      */

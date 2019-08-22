@@ -48,8 +48,7 @@ class DictionaryController extends AbstractController
      * @Route("/attributes/types", methods={"GET"})
      *
      * @SWG\Tag(name="Dictionary")
-     *
-     *  @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
@@ -57,7 +56,6 @@ class DictionaryController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns collection attribute types",
@@ -82,8 +80,7 @@ class DictionaryController extends AbstractController
      * @Route("/attributes/groups", methods={"GET"})
      *
      * @SWG\Tag(name="Dictionary")
-     *
-     *  @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
@@ -91,14 +88,9 @@ class DictionaryController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns collection attribute groups",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
      * )
      *
      * @return Response

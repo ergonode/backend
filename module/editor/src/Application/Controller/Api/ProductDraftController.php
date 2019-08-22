@@ -173,10 +173,6 @@ class ProductDraftController extends AbstractController
      *     response=201,
      *     description="Get draft grid",
      * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Form validation error",
-     * )
      *
      * @param Language $language
      * @param Request  $request
@@ -380,6 +376,7 @@ class ProductDraftController extends AbstractController
      *     response=400,
      *     description="Form validation error",
      * )
+     *
      * @param AbstractProduct   $product
      * @param Language          $language
      * @param AbstractAttribute $attribute

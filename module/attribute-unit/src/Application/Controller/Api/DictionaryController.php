@@ -43,15 +43,11 @@ class DictionaryController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language code",
      * )
      * @SWG\Response(
      *     response=200,
      *     description="Returns collection of units",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
      * )
      *
      * @return Response

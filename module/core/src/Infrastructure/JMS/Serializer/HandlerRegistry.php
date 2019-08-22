@@ -14,6 +14,7 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use Psr\Container\ContainerInterface;
 
 /**
+ * @todo HAX
  */
 class HandlerRegistry implements HandlerRegistryInterface
 {

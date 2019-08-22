@@ -38,7 +38,6 @@ class PrivilegeController extends AbstractController
      * @Route("/dictionary/privileges", methods={"GET"})
      *
      * @SWG\Tag(name="Dictionary")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",

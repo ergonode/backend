@@ -11,14 +11,13 @@ namespace Ergonode\Core\Infrastructure\JMS\Serializer\Handler;
 
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
-use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  */
-class ExceptionHandler implements SubscribingHandlerInterface
+class AccessDeniedExceptionHandler
 {
     /**
      * @var bool
@@ -44,7 +43,7 @@ class ExceptionHandler implements SubscribingHandlerInterface
         foreach ($formats as $format) {
             $methods[] = [
                 'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
-                'type' => \Exception::class,
+                'type' => AccessDeniedException::class,
                 'format' => $format,
                 'method' => 'serialize',
             ];
@@ -65,20 +64,13 @@ class ExceptionHandler implements SubscribingHandlerInterface
      */
     public function serialize(SerializationVisitorInterface $visitor, \Exception $exception, array $type, Context $context): array
     {
-        if ($exception instanceof HttpExceptionInterface) {
-            $code = $exception->getStatusCode();
-        } else {
-            $code = $exception->getCode();
-        }
-
-        if (empty($code)) {
-            $code = Response::HTTP_INTERNAL_SERVER_ERROR;
-        }
-
-        $data['code'] = $code;
-        $data['message'] = $exception->getMessage();
+        $data = [
+            'code' => Response::HTTP_FORBIDDEN,
+            'message' => 'Access denied',
+        ];
 
         if ($this->debug) {
+            $data['message'] = $exception->getMessage();
             $data['trace'] = explode(PHP_EOL, $exception->getTraceAsString());
         }
 

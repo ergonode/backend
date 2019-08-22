@@ -50,7 +50,6 @@ class AccountLogController extends AbstractController
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="limit",
      *     in="query",

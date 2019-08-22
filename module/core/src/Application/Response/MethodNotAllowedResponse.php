@@ -19,10 +19,9 @@ class MethodNotAllowedResponse extends JsonResponse
     /**
      * @param null  $data
      * @param array $headers
-     * @param bool  $json
      */
-    public function __construct($data = null, array $headers = [], bool $json = false)
+    public function __construct($data = null, array $headers = [])
     {
-        parent::__construct($data, Response::HTTP_METHOD_NOT_ALLOWED, $headers, $json);
+        parent::__construct($data, Response::HTTP_METHOD_NOT_ALLOWED, $headers);
     }
 }

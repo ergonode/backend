@@ -13,14 +13,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  */
-class EmptyResponse extends AbstractResponse
+class AbstractResponse extends Response
 {
     /**
-     * @param null  $data
-     * @param array $headers
+     * @param mixed $content
+     *
+     * @return AbstractResponse
      */
-    public function __construct($data = null, array $headers = [])
+    public function setContent($content): self
     {
-        parent::__construct($data, Response::HTTP_NO_CONTENT, $headers);
+        $this->content = $content;
+
+        return $this;
     }
 }

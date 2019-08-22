@@ -9,20 +9,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Response;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  */
-class SuccessResponse extends JsonResponse
+class SuccessResponse extends AbstractResponse
 {
     /**
      * @param null  $data
      * @param array $headers
-     * @param bool  $json
      */
-    public function __construct($data = null, array $headers = [], bool $json = false)
+    public function __construct($data = null, array $headers = [])
     {
-        parent::__construct($data, Response::HTTP_OK, $headers, $json);
+        parent::__construct($data, Response::HTTP_OK, $headers);
     }
 }

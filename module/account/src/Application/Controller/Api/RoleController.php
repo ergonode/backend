@@ -68,8 +68,12 @@ class RoleController extends AbstractController
      * @param RoleGrid                $grid
      * @param MessageBusInterface     $messageBus
      */
-    public function __construct(RoleRepositoryInterface $repository, RoleQueryInterface $query, RoleGrid $grid, MessageBusInterface $messageBus)
-    {
+    public function __construct(
+        RoleRepositoryInterface $repository,
+        RoleQueryInterface $query,
+        RoleGrid $grid,
+        MessageBusInterface $messageBus
+    ) {
         $this->repository = $repository;
         $this->query = $query;
         $this->grid = $grid;
@@ -82,7 +86,6 @@ class RoleController extends AbstractController
      * @IsGranted("USER_ROLE_READ")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="limit",
      *     in="query",
@@ -104,7 +107,7 @@ class RoleController extends AbstractController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"id", "label","code", "hint"},
+     *     enum={"id","name","description", "users_count"},
      *     description="Order field",
      * )
      * @SWG\Parameter(
@@ -136,11 +139,11 @@ class RoleController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language code",
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns Roles collection",
+     *     description="Returns roles collection",
      * )
      * @SWG\Response(
      *     response=404,
@@ -165,7 +168,6 @@ class RoleController extends AbstractController
      * @IsGranted("USER_ROLE_READ")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="role",
      *     in="path",
@@ -179,7 +181,7 @@ class RoleController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language code",
      * )
      * @SWG\Response(
      *     response=200,
@@ -210,7 +212,6 @@ class RoleController extends AbstractController
      * @IsGranted("USER_ROLE_CREATE")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -270,7 +271,6 @@ class RoleController extends AbstractController
      * @IsGranted("USER_ROLE_UPDATE")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="role",
      *     in="path",
@@ -284,7 +284,7 @@ class RoleController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language code",
      * )
      * @SWG\Parameter(
      *     name="body",
@@ -294,8 +294,8 @@ class RoleController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/role")
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns role data",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
      *     response=404,
@@ -323,8 +323,7 @@ class RoleController extends AbstractController
                 $command = new UpdateRoleCommand($roleId, $data->name, $data->description, $data->privileges);
                 $this->messageBus->dispatch($command);
 
-                // @todo why created? we should send object or nothing
-                return new CreatedResponse($command->getId()->getValue());
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -339,7 +338,6 @@ class RoleController extends AbstractController
      * @IsGranted("USER_ROLE_DELETE")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="role",
      *     in="path",

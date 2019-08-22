@@ -51,7 +51,6 @@ class AttributeGroupController extends AbstractController
      * @IsGranted("ATTRIBUTE_GROUP_READ")
      *
      * @SWG\Tag(name="Attribute")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",

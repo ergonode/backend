@@ -161,7 +161,6 @@ class CategoryTreeController extends AbstractController
      * @IsGranted("CATEGORY_TREE_CREATE")
      *
      * @SWG\Tag(name="Tree")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -225,7 +224,6 @@ class CategoryTreeController extends AbstractController
      * @IsGranted("CATEGORY_CREATE")
      *
      * @SWG\Tag(name="Tree")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -292,7 +290,6 @@ class CategoryTreeController extends AbstractController
      * @IsGranted("CATEGORY_TREE_UPDATE")
      *
      * @SWG\Tag(name="Tree")
-     *
      * @SWG\Parameter(
      *     name="tree",
      *     in="path",
@@ -359,7 +356,6 @@ class CategoryTreeController extends AbstractController
      * @IsGranted("CATEGORY_TREE_READ")
      *
      * @SWG\Tag(name="Tree")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",

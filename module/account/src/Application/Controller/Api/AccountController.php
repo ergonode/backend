@@ -110,7 +110,6 @@ class AccountController extends AbstractController
      * @IsGranted("USER_READ")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="limit",
      *     in="query",
@@ -193,7 +192,6 @@ class AccountController extends AbstractController
      * @IsGranted("USER_READ")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="user",
      *     in="path",

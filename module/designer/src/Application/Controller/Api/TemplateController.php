@@ -90,7 +90,6 @@ class TemplateController extends AbstractController
      * @IsGranted("TEMPLATE_DESIGNER_READ")
      *
      * @SWG\Tag(name="Designer")
-     *
      * @SWG\Parameter(
      *     name="limit",
      *     in="query",
@@ -146,15 +145,11 @@ class TemplateController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns templates",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
+     *
      * @param Language $language
      * @param Request  $request
      *
@@ -193,10 +188,7 @@ class TemplateController extends AbstractController
      *     response=201,
      *     description="Create template",
      * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Form validation error",
-     * )
+     *
      * @param Request $request
      *
      * @return Response
@@ -256,6 +248,7 @@ class TemplateController extends AbstractController
      *     response=400,
      *     description="Form validation error",
      * )
+     *
      * @param Template $template
      * @param Request  $request
      *

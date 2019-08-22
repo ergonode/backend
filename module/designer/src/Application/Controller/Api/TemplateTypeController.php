@@ -110,10 +110,7 @@ class TemplateTypeController extends AbstractController
      *     response=200,
      *     description="Returns list of designer template types",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
+     *
      * @param Language $language
      * @param Request  $request
      *

@@ -158,7 +158,6 @@ class CategoryController extends AbstractController
      * @IsGranted("CATEGORY_READ")
      *
      * @SWG\Tag(name="Category")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -167,7 +166,6 @@ class CategoryController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Parameter(
      *     name="category",
      *     in="path",

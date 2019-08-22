@@ -51,7 +51,7 @@ class TemplateGroupController extends AbstractController
      * @IsGranted("TEMPLATE_DESIGNER_READ")
      *
      * @SWG\Tag(name="Designer")
-     *  * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="limit",
      *     in="query",
      *     type="integer",
@@ -114,6 +114,7 @@ class TemplateGroupController extends AbstractController
      *     response=404,
      *     description="Not found",
      * )
+     *
      * @param Language $language
      * @param Request  $request
      *

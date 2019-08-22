@@ -33,6 +33,10 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.request', priority: 1024 }
 
+    Ergonode\Core\Application\EventListener\ResponseFormatterListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.response', priority: 128 }
+
     Ergonode\Core\Application\EventListener\ExceptionListener:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception', priority: 1024 }
@@ -46,6 +50,10 @@ services:
             - '@Ergonode\Core\Infrastructure\Mapper\FormErrorMapper'
 
     Ergonode\Core\Infrastructure\JMS\Serializer\Handler\ExceptionHandler:
+        arguments:
+            - '%kernel.debug%'
+
+    Ergonode\Core\Infrastructure\JMS\Serializer\Handler\AccessDeniedExceptionHandler:
         arguments:
             - '%kernel.debug%'
 

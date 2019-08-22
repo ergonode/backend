@@ -99,7 +99,6 @@ class AttributeController extends AbstractController
      * @IsGranted("ATTRIBUTE_READ")
      *
      * @SWG\Tag(name="Attribute")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",

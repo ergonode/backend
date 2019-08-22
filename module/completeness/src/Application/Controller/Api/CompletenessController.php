@@ -56,7 +56,9 @@ class CompletenessController extends AbstractController
 
     /**
      * @Route(
-     *     "/products/{product}/draft/completeness", methods={"GET"}, requirements = {"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+     *     "/products/{product}/draft/completeness",
+     *     methods={"GET"},
+     *     requirements = {"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
      * )
      *
      * @IsGranted("PRODUCT_READ")
@@ -76,14 +78,9 @@ class CompletenessController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     * )
      * @SWG\Response(
      *     response=200,
      *     description="Get draft grid",
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Form validation error",
      * )
      *
      * @param AbstractProduct $product
