@@ -52,9 +52,9 @@ class LanguageProvider implements LanguageProviderInterface
      *
      * @return array
      */
-    public function getSystemLanguages(Language $language): array
+    public function getActiveLanguages(Language $language): array
     {
-        return $this->map($language, $this->query->getSystemLanguagesCodes());
+        return $this->map($language, $this->query->getActiveLanguagesCodes());
     }
 
     /**

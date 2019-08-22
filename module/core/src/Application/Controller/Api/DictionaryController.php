@@ -12,9 +12,9 @@ namespace Ergonode\Core\Application\Controller\Api;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Provider\LanguageProviderInterface;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -61,7 +61,7 @@ class DictionaryController extends AbstractApiController
      */
     public function getLanguages(Language $language): Response
     {
-        $languages = $this->languageProvider->getSystemLanguages($language);
+        $languages = $this->languageProvider->getActiveLanguages($language);
 
         return $this->createRestResponse($languages);
     }

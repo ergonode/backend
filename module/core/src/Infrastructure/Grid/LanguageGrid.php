@@ -49,8 +49,8 @@ class LanguageGrid extends AbstractGrid
         $this->addColumn('code', $code);
         $name = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
         $this->addColumn('name', $name);
-        $system = new BoolColumn('system', 'system', new TextFilter($filters->getString('system')));
-        $this->addColumn('system', $system);
+        $active = new BoolColumn('active', $this->trans('active'), new TextFilter($filters->getString('active')));
+        $this->addColumn('active', $active);
     }
 
     /**

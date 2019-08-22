@@ -215,6 +215,27 @@ nelmio_api_doc:
                         required: true
                         description: segment name
                         example: segment name
+            languages:
+                type: object
+                properties:
+                    collection:
+                        type: array
+                        required: true
+                        items:
+                            $ref: "#/definitions/language"
+            language:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        required: true
+                        description: Language code
+                        example: EN
+                    active:
+                        type: bool
+                        required: true
+                        description: Show if language is enabled in the system
+                        example: true
             attribute:
                 type: object
                 properties:

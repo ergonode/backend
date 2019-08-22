@@ -24,7 +24,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
         'id',
         'iso AS code',
         'name',
-        'system',
+        'active',
     ];
     private const CODE_FIELD = [
         'iso AS code',
@@ -54,17 +54,33 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
-     * @param string $id
+     * @param string $code
      *
      * @return array
      */
-    public function getLanguage(string $id): array
+    public function getLanguage(string $code): array
     {
         $qb = $this->getQuery(self::ALL_FIELDS);
 
         return $qb
-            ->where($qb->expr()->eq('id', ':id'))
-            ->setParameter(':id', $id)
+            ->where($qb->expr()->eq('iso', ':iso'))
+            ->setParameter(':iso', $code)
+            ->execute()
+            ->fetchAll();
+    }
+
+    /**
+     * @param array $codes
+     *
+     * @return array
+     */
+    public function getLanguages(array $codes): array
+    {
+        $qb = $this->getQuery(self::ALL_FIELDS);
+
+        return $qb
+            ->where($qb->expr()->in('iso', ':iso'))
+            ->setParameter(':iso', $codes, $this->connection::PARAM_INT_ARRAY)
             ->execute()
             ->fetchAll();
     }
@@ -82,13 +98,13 @@ class DbalLanguageQuery implements LanguageQueryInterface
     /**
      * @return array
      */
-    public function getSystemLanguagesCodes(): array
+    public function getActiveLanguagesCodes(): array
     {
         $qb = $this->getQuery(self::CODE_FIELD);
 
         return $qb
-            ->where($qb->expr()->eq('system', ':system'))
-            ->setParameter(':system', true, \PDO::PARAM_BOOL)
+            ->where($qb->expr()->eq('active', ':active'))
+            ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
     }

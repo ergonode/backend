@@ -10,13 +10,17 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Application\Controller\Api;
 
 use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Form\LanguageCollectionForm;
+use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Grid\LanguageGrid;
+use Ergonode\Core\Persistence\Dbal\Repository\DbalLanguageRepository;
 use Ergonode\Grid\RequestGridConfiguration;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -31,23 +35,30 @@ class LanguageController extends AbstractApiController
      * @var LanguageGrid
      */
     private $languageGrid;
+    /**
+     * @var DbalLanguageRepository
+     */
+    private $repository;
 
     /**
      * LanguageController constructor.
      *
      * @param LanguageQueryInterface $query
      * @param LanguageGrid           $languageGrid
+     * @param DbalLanguageRepository $repository
      */
     public function __construct(
         LanguageQueryInterface $query,
-        LanguageGrid $languageGrid
+        LanguageGrid $languageGrid,
+        DbalLanguageRepository $repository
     ) {
         $this->query = $query;
         $this->languageGrid = $languageGrid;
+        $this->repository = $repository;
     }
 
     /**
-     * @Route("/languages/{translation_language}", methods={"GET"})
+     * @Route("/languages/{translationLanguage}", methods={"GET"})
      *
      * @SWG\Tag(name="Language")
      *
@@ -60,11 +71,11 @@ class LanguageController extends AbstractApiController
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="translation_language",
+     *     name="translationLanguage",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="translation language id",
+     *     description="translation language code",
      * )
      * @SWG\Response(
      *     response=200,
@@ -75,14 +86,14 @@ class LanguageController extends AbstractApiController
      *     description="Not found",
      * )
      *
-     * @param string  $language
+     * @param string  $translationLanguage
      * @param Request $request
      *
      * @return Response
      */
-    public function getLanguage(string $language, Request $request): Response
+    public function getLanguage(string $translationLanguage, Request $request): Response
     {
-        $language = $this->query->getLanguage($language);
+        $language = $this->query->getLanguage($translationLanguage);
 
         return $this->createRestResponse(['language' => $language]);
     }
@@ -112,7 +123,7 @@ class LanguageController extends AbstractApiController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"code","name","system"},
+     *     enum={"code","name","active"},
      *     description="Order field",
      * )
      * @SWG\Parameter(
@@ -161,5 +172,66 @@ class LanguageController extends AbstractApiController
         $result = $this->renderGrid($this->languageGrid, $configuration, $dataSet, $language);
 
         return $this->createRestResponse($result);
+    }
+
+    /**
+     * @Route("/languages", methods={"PUT"})
+     *
+     * @SWG\Tag(name="Language")
+     *
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language Code",
+     * )
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="body",
+     *     description="Category body",
+     *     required=true,
+     *     @SWG\Schema(ref="#/definitions/languages")
+     * )
+     * @SWG\Response(
+     *     response=201,
+     *     description="Update language",
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Form validation error",
+     * )
+     *
+     * @param Request $request
+     *
+     * @return Response
+     * @throws \Exception
+     *
+     */
+    public function updateLanguage(Request $request): Response
+    {
+        try {
+            $model = new LanguageCollectionFormModel();
+            $form = $this->createForm(LanguageCollectionForm::class, $model, ['method' => 'PUT']);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                /** @var LanguageCollectionFormModel $data */
+                $data = $form->getData();
+                $languages = $data->collection->getValues();
+                foreach ($languages as $language) {
+                    $this->repository->save(Language::fromString($language->code), $language->active);
+                }
+
+                return $this->createRestResponse(['message' => "Updated"]);
+            }
+
+        } catch (InvalidPropertyPathException $exception) {
+            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
+        } catch (\Throwable $exception) {
+            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
     }
 }

@@ -23,14 +23,21 @@ interface LanguageQueryInterface
     /**
      * @return array
      */
-    public function getSystemLanguagesCodes(): array;
+    public function getActiveLanguagesCodes(): array;
 
     /**
-     * @param string $id
+     * @param string $code
      *
      * @return array
      */
-    public function getLanguage(string $id): array;
+    public function getLanguage(string $code): array;
+
+    /**
+     * @param array $codes
+     *
+     * @return array
+     */
+    public function getLanguages(array $codes): array;
 
     /**
      * @return DataSetInterface
