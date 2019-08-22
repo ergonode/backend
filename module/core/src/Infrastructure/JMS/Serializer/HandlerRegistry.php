@@ -9,11 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\JMS\Serializer;
 
+use JMS\Serializer\Handler\HandlerRegistryInterface;
+use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use Psr\Container\ContainerInterface;
 
 /**
  */
-class HandlerRegistry extends \JMS\Serializer\Handler\HandlerRegistry
+class HandlerRegistry implements HandlerRegistryInterface
 {
     /**
      * @var array
@@ -21,12 +23,38 @@ class HandlerRegistry extends \JMS\Serializer\Handler\HandlerRegistry
     private $map = [];
 
     /**
-     * @param ContainerInterface $container
-     * @param array              $handlers
+     * @var HandlerRegistryInterface
      */
-    public function __construct(ContainerInterface $container, array $handlers = [])
+    private $registry;
+
+    /**
+     * @param ContainerInterface            $container
+     * @param iterable                      $handlers
+     * @param HandlerRegistryInterface|null $registry
+     */
+    public function __construct(ContainerInterface $container, iterable $handlers, HandlerRegistryInterface $registry = null)
     {
-        parent::__construct($handlers);
+        foreach ($handlers as $handler) {
+            $registry->registerSubscribingHandler($handler);
+        }
+
+        $this->registry = $registry;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function registerHandler(int $direction, string $typeName, string $format, $handler): void
+    {
+        $this->registry->registerHandler($direction, $typeName, $format, $handler);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function registerSubscribingHandler(SubscribingHandlerInterface $handler): void
+    {
+        $this->registry->registerSubscribingHandler($handler);
     }
 
     /**
@@ -40,16 +68,15 @@ class HandlerRegistry extends \JMS\Serializer\Handler\HandlerRegistry
             $typeName = $this->map[$key];
         }
 
-        $result = null;
+        $handler = null;
         do {
-            $handler = parent::getHandler($direction, $typeName, $format);
+            $handler = $this->registry->getHandler($direction, $typeName, $format);
             if (null !== $handler) {
                 $this->map[$key] = $typeName;
-                $result = $handler;
                 break;
             }
         } while ($typeName = get_parent_class($typeName));
 
-        return $result;
+        return $handler;
     }
 }

@@ -49,7 +49,12 @@ services:
         arguments:
             - '%kernel.debug%'
 
-    jms_serializer.handler_registry: '@Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry'
+    Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry:
+        decorates: 'jms_serializer.handler_registry'
+        arguments:
+            $handlers: !tagged 'jms_serializer.subscribing_handler'
+            $registry: '@Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry.inner'
+
     jms_serializer.form_error_handler: '@Ergonode\Core\Infrastructure\JMS\Serializer\Handler\FormErrorHandler'
 
     # overriding message serializer
