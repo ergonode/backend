@@ -2,32 +2,32 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See LICENSE.txt for license details.
+ * See license.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Validator;
 
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
-use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
+use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  */
-class WorkflowExistsValidator extends ConstraintValidator
+class StatusNotExistsValidator extends ConstraintValidator
 {
     /**
-     * @var WorkflowRepositoryInterface
+     * @var StatusRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param WorkflowRepositoryInterface $repository
+     * @param StatusRepositoryInterface $repository
      */
-    public function __construct(WorkflowRepositoryInterface $repository)
+    public function __construct(StatusRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
@@ -40,8 +40,8 @@ class WorkflowExistsValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof WorkflowExists) {
-            throw new UnexpectedTypeException($constraint, WorkflowExists::class);
+        if (!$constraint instanceof StatusNotExists) {
+            throw new UnexpectedTypeException($constraint, StatusNotExists::class);
         }
 
         if (null === $value || '' === $value) {
@@ -54,9 +54,12 @@ class WorkflowExistsValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $workflow = $this->repository->load(WorkflowId::fromCode($value));
+        $workflow = null;
+        if (StatusId::isValid($value)) {
+            $workflow = $this->repository->load(new StatusId($value));
+        }
 
-        if ($workflow) {
+        if (!$workflow) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

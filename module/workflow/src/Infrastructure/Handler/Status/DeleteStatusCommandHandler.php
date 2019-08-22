@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Handler\Status;
 
+use Ergonode\Core\Application\Exception\NotImplementedException;
 use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Webmozart\Assert\Assert;
@@ -37,13 +38,6 @@ class DeleteStatusCommandHandler
      */
     public function __invoke(UpdateStatusCommand $command)
     {
-        $workflow = $this->repository->load($command->getId());
-        Assert::notNull($workflow);
-
-        if ($workflow->hasStatus($command->getCode())) {
-            $workflow->removeStatus($command->getCode());
-        }
-
-        $this->repository->save($workflow);
+        throw new NotImplementedException('Todo Status remove');
     }
 }

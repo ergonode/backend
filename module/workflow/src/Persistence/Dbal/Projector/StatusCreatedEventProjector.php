@@ -15,13 +15,13 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
+use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
 
 /**
  */
-class WorkflowStatusAddedEventProjector implements DomainEventProjectorInterface
+class StatusCreatedEventProjector implements DomainEventProjectorInterface
 {
-    private const TABLE = 'workflow_status';
+    private const TABLE = 'status';
 
     /**
      * @var Connection
@@ -43,7 +43,7 @@ class WorkflowStatusAddedEventProjector implements DomainEventProjectorInterface
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof WorkflowStatusAddedEvent;
+        return $event instanceof StatusCreatedEvent;
     }
 
     /**
@@ -52,12 +52,11 @@ class WorkflowStatusAddedEventProjector implements DomainEventProjectorInterface
      *
      * @throws ProjectorException
      * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof WorkflowStatusAddedEvent) {
-            throw new UnsupportedEventException($event, WorkflowStatusAddedEvent::class);
+        if (!$event instanceof StatusCreatedEvent) {
+            throw new UnsupportedEventException($event, StatusCreatedEvent::class);
         }
 
         $this->connection->beginTransaction();
@@ -65,11 +64,11 @@ class WorkflowStatusAddedEventProjector implements DomainEventProjectorInterface
             $this->connection->insert(
                 self::TABLE,
                 [
-                    'workflow_id' => $aggregateId->getValue(),
+                    'id' => $aggregateId->getValue(),
                     'code' => $event->getCode(),
-                    'name' => json_encode($event->getStatus()->getName()->getTranslations()),
-                    'description' => json_encode($event->getStatus()->getDescription()->getTranslations()),
-                    'color' => $event->getStatus()->getColor()->getValue(),
+                    'name' => json_encode($event->getName()->getTranslations()),
+                    'description' => json_encode($event->getDescription()->getTranslations()),
+                    'color' => $event->getColor()->getValue(),
                 ]
             );
 

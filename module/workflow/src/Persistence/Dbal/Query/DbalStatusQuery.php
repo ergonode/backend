@@ -20,7 +20,7 @@ use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
  */
 class DbalStatusQuery implements StatusQueryInterface
 {
-    private const TABLE = 'workflow_status';
+    private const TABLE = 'status';
 
     /**
      * @var Connection
@@ -59,7 +59,7 @@ class DbalStatusQuery implements StatusQueryInterface
     private function getQuery(Language $language): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select(sprintf('code, color, name->>\'%s\' as name, description->>\'%s\' as description', $language->getCode(), $language->getCode()))
+            ->select(sprintf('id, code, color, name->>\'%s\' as name, description->>\'%s\' as description', $language->getCode(), $language->getCode()))
             ->from(self::TABLE, 'a');
     }
 }
