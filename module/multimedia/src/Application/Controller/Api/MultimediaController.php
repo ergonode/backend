@@ -51,8 +51,6 @@ class MultimediaController extends AbstractApiController
     /**
      * @Route("/upload", methods={"POST"})
      *
-     * @IsGranted("MULTIMEDIA_CREATE")
-     *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(
      *     name="upload",
@@ -95,8 +93,6 @@ class MultimediaController extends AbstractApiController
 
     /**
      * @Route("/{multimedia}", methods={"get"})
-     *
-     * @IsGranted("MULTIMEDIA_READ")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(
