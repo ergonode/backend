@@ -7,7 +7,7 @@ nelmio_api_doc:
         securityDefinitions:
             api_key:
                 type: apiKey
-                description: Your Json Web Token. (Bearer {TOKEN})
+                description: Your Json Web Token (Bearer {TOKEN})
                 name: JWTAuthorization
                 in: header
         security:
@@ -303,19 +303,42 @@ nelmio_api_doc:
                         required: true
                         description: Mapper name
                         example: Default mapper
-            error:
-                type: object
+            error_response:
+                type: 'object'
                 properties:
                     code:
-                        type: integer
+                        type: 'integer'
                         required: true
-                        descriptin: http error code
+                        description: 'Error code'
                         example: 401
                     message:
-                        type: string
+                        type: 'string'
                         required: true
-                        descriptin: error message
-                        example: Bad credentials
+                        description: 'Error message'
+                        example: 'Bad credentials'
+            validation_error_response:
+                type: 'object'
+                properties:
+                    code:
+                        type: 'integer'
+                        description: 'Error code'
+                        example: 400
+                    message:
+                        type: 'string'
+                        description: 'Error message'
+                        example: 'Validation errors'
+                    errors:
+                        type: 'array'
+                        description: 'Fields messages'
+                        items:
+                            type: 'object'
+                            properties:
+                                field_key:
+                                    type: 'array'
+                                    items:
+                                        type: 'string'
+                                        example: 'Error message'
+
             credentials:
                 type: object
                 properties:

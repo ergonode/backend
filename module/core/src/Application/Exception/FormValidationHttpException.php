@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Application\Exception;
 
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
@@ -30,7 +31,7 @@ class FormValidationHttpException extends HttpException
     {
         $this->form = $violations;
 
-        parent::__construct(400, 'Validation error', $previous);
+        parent::__construct(Response::HTTP_BAD_REQUEST, 'Validation error', $previous);
     }
 
     /**

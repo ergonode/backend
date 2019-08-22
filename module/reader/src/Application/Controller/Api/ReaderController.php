@@ -128,10 +128,6 @@ class ReaderController extends AbstractController
      *     response=200,
      *     description="Returns imported data collection",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
      * @param Language $language
      * @param Request  $request
@@ -149,7 +145,6 @@ class ReaderController extends AbstractController
      * @Route("readers/{reader}", methods={"GET"}, requirements={"reader"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @SWG\Tag(name="Reader")
-     *
      * @SWG\Parameter(
      *     name="reader",
      *     in="path",
@@ -168,10 +163,6 @@ class ReaderController extends AbstractController
      *     response=200,
      *     description="Return reader",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
      * @param string $reader
      *
@@ -188,7 +179,6 @@ class ReaderController extends AbstractController
      * @Route("readers", methods={"POST"})
      *
      * @SWG\Tag(name="Reader")
-     *
      * @SWG\Parameter(
      *     name="name",
      *     in="formData",
@@ -208,7 +198,8 @@ class ReaderController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/error_response")
      * )
      *
      * @param Request $request
@@ -216,6 +207,8 @@ class ReaderController extends AbstractController
      * @return Response
      *
      * @throws \Exception
+     *
+     * @todo Validation required
      */
     public function createReader(Request $request): Response
     {

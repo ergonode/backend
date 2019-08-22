@@ -136,11 +136,7 @@ class CategoryTreeController extends AbstractController
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns Category  Tree",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     description="Returns Category Tree",
      * )
      *
      * @param Language $language
@@ -169,7 +165,6 @@ class CategoryTreeController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Parameter(
      *     name="name",
      *     in="formData",
@@ -190,13 +185,16 @@ class CategoryTreeController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/error_response")
      * )
      *
      * @param Request $request
      *
      * @return Response
      * @throws \Exception
+     *
+     * @todo Validation required
      */
     public function createTree(Request $request): Response
     {
@@ -232,7 +230,6 @@ class CategoryTreeController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Parameter(
      *     name="tree",
      *     in="path",
@@ -260,7 +257,8 @@ class CategoryTreeController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/error_response")
      * )
      *
      * @param string  $tree
@@ -317,8 +315,9 @@ class CategoryTreeController extends AbstractController
      *     description="Success"
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param string  $tree

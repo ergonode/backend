@@ -169,10 +169,6 @@ class AccountController extends AbstractController
      *     response=200,
      *     description="Returns users collection",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
      * @param Language $language
      * @param Request  $request
@@ -257,7 +253,8 @@ class AccountController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Bad request",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -271,12 +268,12 @@ class AccountController extends AbstractController
         try {
             $model = new CreateUserFormModel();
             $form = $this->createForm(UserCreateForm::class, $model);
-
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var CreateUserFormModel $data */
                 $data = $form->getData();
+
                 $command = new CreateUserCommand(
                     $data->firstName,
                     $data->lastName,
@@ -331,7 +328,8 @@ class AccountController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Bad request"
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      * @param string  $user
      * @param Request $request
@@ -406,10 +404,6 @@ class AccountController extends AbstractController
      *     response=204,
      *     description="Success"
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found"
-     * )
      *
      * @param string  $user
      * @param Request $request
@@ -468,6 +462,7 @@ class AccountController extends AbstractController
      * @SWG\Response(
      *     response=400,
      *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      * @SWG\Response(
      *     response=404,
@@ -478,6 +473,8 @@ class AccountController extends AbstractController
      * @param Request $request
      *
      * @return Response
+     *
+     * @todo Why we use user parameter and then we get userId from security (current logged user)?
      */
     public function changePassword(User $user, Request $request): Response
     {

@@ -36,36 +36,31 @@ class ProductDraftParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @param Request        $request
-     * @param ParamConverter $configuration
-     *
-     * @return void
+     * {@inheritDoc}
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $attribute = $request->get('draft');
+        $parameter = $request->get('draft');
 
-        if (null === $attribute) {
-            throw new BadRequestHttpException('Route product is missing');
+        if (null === $parameter) {
+            throw new BadRequestHttpException('Request parameter "draft" is missing');
         }
 
-        if (!ProductDraftId::isValid($attribute)) {
-            throw new BadRequestHttpException('Invalid uuid format');
+        if (!ProductDraftId::isValid($parameter)) {
+            throw new BadRequestHttpException('Invalid product draft ID');
         }
 
-        $template = $this->repository->load(new ProductDraftId($attribute));
+        $entity = $this->repository->load(new ProductDraftId($parameter));
 
-        if (null === $template) {
-            throw new NotFoundHttpException(\sprintf('%s object not found.', $configuration->getClass()));
+        if (null === $entity) {
+            throw new NotFoundHttpException(sprintf('Product draft by ID "%s" not found', $parameter));
         }
 
-        $request->attributes->set($configuration->getName(), $template);
+        $request->attributes->set($configuration->getName(), $entity);
     }
 
     /**
-     * @param ParamConverter $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function supports(ParamConverter $configuration): bool
     {

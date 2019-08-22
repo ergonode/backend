@@ -75,10 +75,13 @@ class ExceptionHandler implements SubscribingHandlerInterface
             $code = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 
-        $data['code'] = $code;
-        $data['message'] = $exception->getMessage();
+        $data = [
+            'code' => $code,
+            'message' => 'Internal server error',
+        ];
 
         if ($this->debug) {
+            $data['message'] = $exception->getMessage();
             $data['trace'] = explode(PHP_EOL, $exception->getTraceAsString());
         }
 

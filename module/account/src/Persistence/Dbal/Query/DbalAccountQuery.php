@@ -56,9 +56,7 @@ class DbalAccountQuery implements AccountQueryInterface
     }
 
     /**
-     * @param UserId $userId
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function getUser(UserId $userId): array
     {

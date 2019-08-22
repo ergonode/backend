@@ -111,7 +111,7 @@ class TranslationDeeplController extends AbstractController
      * @SWG\Tag(name="Translation Deepl")
      * @SWG\Response(
      *     response=200,
-     *     description="Returns usage",
+     *     description="Returns usage information",
      * )
      *
      * @return Response

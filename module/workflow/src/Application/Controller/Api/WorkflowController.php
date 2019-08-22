@@ -120,10 +120,7 @@ class WorkflowController extends AbstractController
      * @SWG\Response(
      *     response=400,
      *     description="Validation error",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -197,10 +194,7 @@ class WorkflowController extends AbstractController
      * @SWG\Response(
      *     response=400,
      *     description="Validation error",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request

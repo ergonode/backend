@@ -232,8 +232,9 @@ class RoleController extends AbstractController
      *     description="Returns role data",
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -298,8 +299,9 @@ class RoleController extends AbstractController
      *     description="Success"
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param string  $role

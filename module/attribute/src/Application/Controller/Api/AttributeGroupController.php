@@ -116,10 +116,6 @@ class AttributeGroupController extends AbstractController
      *     response=200,
      *     description="Returns attribute collection",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
      * @param Language $language
      * @param Request  $request

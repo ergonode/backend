@@ -140,10 +140,6 @@ class ImporterController extends AbstractController
      *     response=200,
      *     description="Returns imported data collection",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
      * @param Language $language
      * @param Request  $request
@@ -242,7 +238,8 @@ class ImporterController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Unsupported file type or file size",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request

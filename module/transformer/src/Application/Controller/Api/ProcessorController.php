@@ -41,7 +41,6 @@ class ProcessorController extends AbstractController
      * @Route("/processors", methods={"POST"})
      *
      * @SWG\Tag(name="Transformer")
-     *
      * @SWG\Parameter(
      *     name="import",
      *     in="formData",
@@ -65,17 +64,14 @@ class ProcessorController extends AbstractController
      *     response=201,
      *     description="Return id of created Transformer",
      * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Bad Request",
-     *     @SWG\Schema (ref="#/definitions/error")
-     * )
      *
      * @param Request $request
      *
      * @return Response
      *
      * @throws \Exception
+     *
+     * @todo Validation required
      */
     public function addProcessor(Request $request): Response
     {

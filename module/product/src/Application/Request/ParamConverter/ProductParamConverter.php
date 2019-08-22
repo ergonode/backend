@@ -36,38 +36,31 @@ class ProductParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @param Request        $request
-     * @param ParamConverter $configuration
-     *
-     * @return void
-     *
-     * @throws \ReflectionException
+     * {@inheritDoc}
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $productId = $request->get('product');
+        $parameter = $request->get('product');
 
-        if (null === $productId) {
-            throw new BadRequestHttpException('Route attribute is missing');
+        if (null === $parameter) {
+            throw new BadRequestHttpException('Request parameter "product" is missing');
         }
 
-        if (!ProductId::isValid($productId)) {
-            throw new BadRequestHttpException('Invalid uuid format');
+        if (!ProductId::isValid($parameter)) {
+            throw new BadRequestHttpException('Invalid product ID');
         }
 
-        $product = $this->productRepository->load(new ProductId($productId));
+        $entity = $this->productRepository->load(new ProductId($parameter));
 
-        if (null === $product) {
-            throw new NotFoundHttpException(\sprintf('%s object not found.', $configuration->getClass()));
+        if (null === $entity) {
+            throw new NotFoundHttpException(sprintf('Product by ID "%s" not found', $parameter));
         }
 
-        $request->attributes->set($configuration->getName(), $product);
+        $request->attributes->set($configuration->getName(), $entity);
     }
 
     /**
-     * @param ParamConverter $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function supports(ParamConverter $configuration): bool
     {

@@ -158,10 +158,6 @@ class AttributeController extends AbstractController
      *     response=200,
      *     description="Returns attribute collection",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
      * @param Language $language
      * @param Request  $request
@@ -211,10 +207,7 @@ class AttributeController extends AbstractController
      * @SWG\Response(
      *     response=400,
      *     description="Validation error",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -336,6 +329,7 @@ class AttributeController extends AbstractController
      * @SWG\Response(
      *     response=400,
      *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      * @SWG\Response(
      *     response=404,

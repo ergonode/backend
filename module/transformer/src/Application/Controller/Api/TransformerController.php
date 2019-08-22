@@ -21,7 +21,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -63,16 +63,6 @@ class TransformerController extends AbstractController
      *     response=201,
      *     description="Return id of created Transformer",
      * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Bad Request",
-     *     @SWG\Schema (ref="#/definitions/error")
-     * )
-     * @SWG\Response(
-     *     response=401,
-     *     description="Bad credentials",
-     *     @SWG\Schema (ref="#/definitions/error")
-     * )
      *
      * @param Request $request
      *
@@ -93,7 +83,6 @@ class TransformerController extends AbstractController
      * @Route("/transformers/generate", methods={"POST"})
      *
      * @SWG\Tag(name="Transformer")
-     *
      * @SWG\Parameter(
      *     name="name",
      *     in="formData",
@@ -111,9 +100,9 @@ class TransformerController extends AbstractController
      *     description="Return id of created Transformer",
      * )
      * @SWG\Response(
-     *     response=400,
-     *     description="Bad Request",
-     *     @SWG\Schema(ref="#/definitions/error")
+     *     response=409,
+     *     description="Transformer exists",
+     *     @SWG\Schema(ref="#/definitions/error_message")
      * )
      *
      * @param Request $request
@@ -136,7 +125,7 @@ class TransformerController extends AbstractController
             return new CreatedResponse($command->getId()->getValue());
         }
 
-        throw new NotAcceptableHttpException(sprintf('Transformer %s already exists', $name));
+        throw new ConflictHttpException(sprintf('Transformer %s already exists', $name));
     }
 
     /**
@@ -154,9 +143,8 @@ class TransformerController extends AbstractController
      *     description="Returns transformer",
      * )
      * @SWG\Response(
-     *     response=400,
-     *     description="Bad Request",
-     *     @SWG\Schema (ref="#/definitions/error")
+     *     response=404,
+     *     description="Transformer not found",
      * )
      *
      * @param Transformer $transformer

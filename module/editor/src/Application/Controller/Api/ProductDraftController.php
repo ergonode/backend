@@ -170,7 +170,7 @@ class ProductDraftController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=201,
+     *     response=200,
      *     description="Get draft grid",
      * )
      *
@@ -254,7 +254,8 @@ class ProductDraftController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -272,6 +273,7 @@ class ProductDraftController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var DraftCreateFormModel $data */
             $data = $form->getData();
+
             $command = new CreateProductDraftCommand(new productId($data->productId));
             $this->messageBus->dispatch($command);
 
@@ -307,7 +309,8 @@ class ProductDraftController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param AbstractProduct $product
@@ -360,7 +363,6 @@ class ProductDraftController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     * )
      * @SWG\Parameter(
      *     name="value",
      *     in="formData",
@@ -374,7 +376,8 @@ class ProductDraftController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param AbstractProduct   $product
@@ -445,7 +448,6 @@ class ProductDraftController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Response(
      *     response=200,
      *     description="Return product draft model",
@@ -454,6 +456,7 @@ class ProductDraftController extends AbstractController
      *     response=404,
      *     description="Not found",
      * )
+     *
      * @param AbstractProduct $product
      * @param Language        $language
      *
@@ -490,7 +493,6 @@ class ProductDraftController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Response(
      *     response=200,
      *     description="Return product template model",
@@ -499,6 +501,7 @@ class ProductDraftController extends AbstractController
      *     response=404,
      *     description="Not found",
      * )
+     *
      * @param AbstractProduct $product
      * @param Language        $language
      *

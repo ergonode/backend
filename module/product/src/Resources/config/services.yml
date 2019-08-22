@@ -32,7 +32,6 @@ services:
         tags: ['jms_serializer.subscribing_handler']
 
     Ergonode\Product\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Product\Persistence\Dbal\Repository\DbalProductRepository'
-    Ergonode\Product\Domain\Repository\ProductStatusRepositoryInterface: '@Ergonode\Product\Persistence\Dbal\Repository\DbalProductStatusRepository'
     Ergonode\Product\Domain\Query\ProductQueryInterface: '@Ergonode\Product\Persistence\Dbal\Query\DbalProductQuery'
 
     # Cache Decorators

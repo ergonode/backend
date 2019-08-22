@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Application\Controller\Api;
 
 use Ergonode\Core\Application\Exception\FormValidationHttpException;
-use Ergonode\Core\Application\Response\EmptyResponse;
+use Ergonode\Core\Application\Response\CreatedResponse;
 use Ergonode\Multimedia\Application\Form\MultimediaUploadForm;
 use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
 use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
@@ -62,12 +62,13 @@ class MultimediaController extends AbstractController
      *     description="The field used to upload multimedia",
      * )
      * @SWG\Response(
-     *     response=204,
-     *     description="Success",
+     *     response=201,
+     *     description="Returns multimedia ID",
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Unsupported file type or file size",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -86,7 +87,7 @@ class MultimediaController extends AbstractController
             $command = new UploadMultimediaCommand('TestName', $uploadModel->upload);
             $this->messageBus->dispatch($command);
 
-            $response = new EmptyResponse($command->getId()->getValue());
+            $response = new CreatedResponse($command->getId()->getValue());
         } else {
             throw new FormValidationHttpException($form);
         }
@@ -109,10 +110,6 @@ class MultimediaController extends AbstractController
      * @SWG\Response(
      *     response=200,
      *     description="Returns multimedia file",
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Bad request",
      * )
      * @SWG\Response(
      *     response=404,

@@ -81,7 +81,6 @@ class StatusController extends AbstractController
      * @IsGranted("WORKFLOW_READ")
      *
      * @SWG\Tag(name="Workflow")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -139,10 +138,6 @@ class StatusController extends AbstractController
      * @SWG\Response(
      *     response=200,
      *     description="Returns statuses collection",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
      * )
      *
      * @param Language $language
@@ -230,8 +225,9 @@ class StatusController extends AbstractController
      *     description="Returns workflow ID",
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -303,8 +299,9 @@ class StatusController extends AbstractController
      *     description="Success"
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param string  $status
@@ -367,10 +364,6 @@ class StatusController extends AbstractController
      * @SWG\Response(
      *     response=204,
      *     description="Success"
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found"
      * )
      *
      * @param string $status

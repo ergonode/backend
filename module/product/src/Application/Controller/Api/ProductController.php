@@ -24,7 +24,6 @@ use Ergonode\Product\Application\Model\ProductUpdateFormModel;
 use Ergonode\Product\Domain\Command\CreateProductCommand;
 use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 use Ergonode\Product\Persistence\Dbal\DataSet\DbalProductDataSet;
@@ -140,10 +139,6 @@ class ProductController extends AbstractController
      *     response=200,
      *     description="Returns import",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
      * @param Language $language
      * @param Request  $request
@@ -224,7 +219,8 @@ class ProductController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -259,7 +255,7 @@ class ProductController extends AbstractController
      *     name="product",
      *     in="path",
      *     type="string",
-     *     description="products id",
+     *     description="Product ID",
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -281,26 +277,27 @@ class ProductController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param string  $product
-     * @param Request $request
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     *
+     * @param AbstractProduct $product
+     * @param Request         $request
      *
      * @return Response
      * @throws \Exception
      */
-    public function updateProduct(string $product, Request $request): Response
+    public function updateProduct(AbstractProduct $product, Request $request): Response
     {
-        $productId = new ProductId($product);
-
         $model = new ProductUpdateFormModel();
-        $form = $this->createForm(ProductUpdateForm::class, $model, ['method' => 'PUT']);
+        $form = $this->createForm(ProductUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var ProductCreateFormModel $data */
             $data = $form->getData();
-            $command = new UpdateProductCommand($productId, $data->categories);
+            $command = new UpdateProductCommand($product->getId(), $data->categories);
             $this->messageBus->dispatch($command);
 
             return new EmptyResponse();

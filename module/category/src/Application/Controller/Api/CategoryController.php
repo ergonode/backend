@@ -134,10 +134,6 @@ class CategoryController extends AbstractController
      *     response=200,
      *     description="Returns import",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
      * @param Language $language
      * @param Request  $request
@@ -225,7 +221,8 @@ class CategoryController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -292,7 +289,8 @@ class CategoryController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param string  $category

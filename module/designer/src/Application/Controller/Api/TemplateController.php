@@ -188,6 +188,11 @@ class TemplateController extends AbstractController
      *     response=201,
      *     description="Create template",
      * )
+     * @SWG\Response(
+     *     response="400",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
+     * )
      *
      * @param Request $request
      *
@@ -246,7 +251,8 @@ class TemplateController extends AbstractController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Template $template
@@ -259,7 +265,7 @@ class TemplateController extends AbstractController
     public function updateTemplate(Template $template, Request $request): Response
     {
         $model = new TemplateFormModel();
-        $form = $this->createForm(TemplateForm::class, $model, ['method' => 'PUT']);
+        $form = $this->createForm(TemplateForm::class, $model, ['method' => Request::METHOD_PUT]);
 
         $form->handleRequest($request);
 
