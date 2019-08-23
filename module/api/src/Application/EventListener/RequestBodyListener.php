@@ -25,6 +25,10 @@ class RequestBodyListener
         Request::METHOD_DELETE,
     ];
 
+    private const CONTENT_TYPES = [
+        'json',
+    ];
+
     /**
      * @var SerializerInterface
      */
@@ -44,18 +48,18 @@ class RequestBodyListener
     public function __invoke(GetResponseEvent $event): void
     {
         $request = $event->getRequest();
-        if (!in_array($request->getMethod(), self::METHODS, true)) {
-            return;
-        }
 
-        // @todo check media type
-
+        $contentType = $request->getContentType();
+        $method = $request->getMethod();
         $content = $request->getContent();
-        if (empty($content)) {
+
+        if (empty($content) ||
+            !in_array($contentType, self::CONTENT_TYPES, true) ||
+            !in_array($method, self::METHODS, true)) {
             return;
         }
 
-        $data = $this->serializer->deserialize($content, 'array', 'json');
+        $data = $this->serializer->deserialize($content, 'array', $contentType);
         $request->request = new ParameterBag($data);
     }
 }

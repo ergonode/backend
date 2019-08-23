@@ -277,7 +277,7 @@ class ProductDraftController extends AbstractController
             $command = new CreateProductDraftCommand(new productId($data->productId));
             $this->messageBus->dispatch($command);
 
-            return new CreatedResponse($command->getId()->getValue());
+            return new CreatedResponse($command->getId());
         }
 
         throw new FormValidationHttpException($form);

@@ -76,7 +76,7 @@ class TransformerController extends AbstractController
         $command = new CreateTransformerCommand($name, 'key');
         $this->messageBus->dispatch($command);
 
-        return new CreatedResponse($command->getId()->getValue());
+        return new CreatedResponse($command->getId());
     }
 
     /**
@@ -122,7 +122,7 @@ class TransformerController extends AbstractController
             $command = new GenerateTransformerCommand($name, $type, $type);
             $this->messageBus->dispatch($command);
 
-            return new CreatedResponse($command->getId()->getValue());
+            return new CreatedResponse($command->getId());
         }
 
         throw new ConflictHttpException(sprintf('Transformer %s already exists', $name));

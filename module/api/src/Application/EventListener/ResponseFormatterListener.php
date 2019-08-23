@@ -36,7 +36,6 @@ class ResponseFormatterListener
     public function __invoke(ResponseEvent $event): void
     {
         $response = $event->getResponse();
-
         if (!$response instanceof AbstractResponse) {
             return;
         }

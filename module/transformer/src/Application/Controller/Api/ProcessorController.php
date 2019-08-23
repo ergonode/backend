@@ -82,6 +82,6 @@ class ProcessorController extends AbstractController
         $command = new CreateProcessorCommand(new ImportId($import), new TransformerId($transformer), $action);
         $this->messageBus->dispatch($command);
 
-        return new CreatedResponse($command->getId()->getValue());
+        return new CreatedResponse($command->getId());
     }
 }

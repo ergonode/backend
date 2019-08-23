@@ -13,7 +13,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
-class ExceptionArrayNormalizer implements ExceptionNormalizerInterface
+class ExceptionNormalizer implements ExceptionNormalizerInterface
 {
     /**
      * @var TranslatorInterface
@@ -21,18 +21,11 @@ class ExceptionArrayNormalizer implements ExceptionNormalizerInterface
     private $translator;
 
     /**
-     * @var bool
-     */
-    private $debugMode;
-
-    /**
      * @param TranslatorInterface $translator
-     * @param bool                $debugMode
      */
-    public function __construct(TranslatorInterface $translator, bool $debugMode)
+    public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
-        $this->debugMode = $debugMode;
     }
 
     /**
@@ -44,11 +37,6 @@ class ExceptionArrayNormalizer implements ExceptionNormalizerInterface
             'code' => $code ?? $exception->getCode(),
             'message' => $message ?? $this->translator->trans($message, [], 'api'),
         ];
-
-        if ($this->debugMode) {
-            $result['message'] = $exception->getMessage();
-            $result['trace'] = explode(PHP_EOL, $exception->getTraceAsString());
-        }
 
         return $result;
     }

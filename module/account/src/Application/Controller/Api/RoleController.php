@@ -257,7 +257,7 @@ class RoleController extends AbstractController
                 $command = new CreateRoleCommand($data->name, $data->description, $data->privileges);
                 $this->messageBus->dispatch($command);
 
-                return new CreatedResponse($command->getId()->getValue());
+                return new CreatedResponse($command->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

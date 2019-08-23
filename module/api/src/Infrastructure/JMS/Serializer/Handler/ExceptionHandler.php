@@ -9,28 +9,36 @@ declare(strict_types = 1);
 
 namespace Ergonode\Api\Infrastructure\JMS\Serializer\Handler;
 
+use Ergonode\Api\Application\Mapper\ExceptionResponseMapper;
 use Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizerInterface;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 /**
  */
 class ExceptionHandler implements SubscribingHandlerInterface
 {
     /**
+     * @var ExceptionResponseMapper
+     */
+    private $exceptionResponseMapper;
+
+    /**
      * @var ExceptionNormalizerInterface
      */
     private $exceptionNormalizer;
 
     /**
+     * @param ExceptionResponseMapper      $exceptionResponseMapper
      * @param ExceptionNormalizerInterface $exceptionNormalizer
      */
-    public function __construct(ExceptionNormalizerInterface $exceptionNormalizer)
-    {
+    public function __construct(
+        ExceptionResponseMapper $exceptionResponseMapper,
+        ExceptionNormalizerInterface $exceptionNormalizer
+    ) {
+        $this->exceptionResponseMapper = $exceptionResponseMapper;
         $this->exceptionNormalizer = $exceptionNormalizer;
     }
 
@@ -68,16 +76,25 @@ class ExceptionHandler implements SubscribingHandlerInterface
         array $type,
         Context $context
     ): array {
-        $code = $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : $exception->getCode();
+        $code = $exception->getCode();
         if (empty($code)) {
-            $code = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $code = 'UNKNOWN';
         }
 
-        $data = $this->exceptionNormalizer->normalize(
-            $exception,
-            (string) $code,
-            'Internal server error'
-        );
+        $message = 'Internal server error';
+
+        $data = $this->exceptionResponseMapper->map($exception);
+        if (null !== $data) {
+            if (null !== $data['content']['code']) {
+                $code = $data['content']['code'];
+            }
+
+            if (null !== $data['content']['message']) {
+                $message = $data['content']['message'];
+            }
+        }
+
+        $data = $this->exceptionNormalizer->normalize($exception, (string) $code, $message);
 
         return $visitor->visitArray($data, $type);
     }

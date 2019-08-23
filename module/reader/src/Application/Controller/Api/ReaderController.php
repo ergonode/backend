@@ -218,7 +218,7 @@ class ReaderController extends AbstractController
         if ($name && $type) {
             $command = new CreateReaderCommand($name, $type);
             $this->messageBus->dispatch($command);
-            $response = new CreatedResponse($command->getId()->getValue());
+            $response = new CreatedResponse($command->getId());
         } else {
             // @todo ??????? error ?????
             throw new BadRequestHttpException('error');

@@ -207,7 +207,7 @@ class CategoryTreeController extends AbstractController
                 $command = new CreateTreeCommand($name, $code);
                 $this->messageBus->dispatch($command);
 
-                return new CreatedResponse($command->getId()->getValue());
+                return new CreatedResponse($command->getId());
             }
 
             throw new BadRequestHttpException('Tree already exists');
@@ -276,7 +276,7 @@ class CategoryTreeController extends AbstractController
             $command = new AddCategoryCommand(new CategoryTreeId($tree), new CategoryId($category), new CategoryId($child));
             $this->messageBus->dispatch($command);
 
-            return new CreatedResponse($command->getCategoryId()->getValue());
+            return new CreatedResponse($command->getCategoryId());
         }
 
         throw new BadRequestHttpException();

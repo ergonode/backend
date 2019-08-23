@@ -87,7 +87,7 @@ class MultimediaController extends AbstractController
             $command = new UploadMultimediaCommand('TestName', $uploadModel->upload);
             $this->messageBus->dispatch($command);
 
-            $response = new CreatedResponse($command->getId()->getValue());
+            $response = new CreatedResponse($command->getId());
         } else {
             throw new FormValidationHttpException($form);
         }

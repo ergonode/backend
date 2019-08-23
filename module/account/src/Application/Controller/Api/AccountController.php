@@ -219,7 +219,7 @@ class AccountController extends AbstractController
     public function getUserData(string $user): Response
     {
         $user = $this->query->getUser(new UserId($user));
-        if (!$user instanceof User) {
+        if (empty($user)) {
             throw new NotFoundHttpException('User data not found');
         }
 
@@ -285,7 +285,7 @@ class AccountController extends AbstractController
                 );
                 $this->messageBus->dispatch($command);
 
-                return new CreatedResponse($command->getId()->getValue());
+                return new CreatedResponse($command->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

@@ -245,7 +245,7 @@ class CategoryController extends AbstractController
                 $command = new CreateCategoryCommand($data->code, new TranslatableString($data->name));
                 $this->messageBus->dispatch($command);
 
-                return new CreatedResponse($command->getId()->getValue());
+                return new CreatedResponse($command->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

@@ -212,7 +212,7 @@ class TemplateController extends AbstractController
             $command = $this->createCommandFactory->getCreateTemplateCommand($form->getData());
             $this->messageBus->dispatch($command);
 
-            return new CreatedResponse($command->getId()->getValue());
+            return new CreatedResponse($command->getId());
         }
 
         throw new FormValidationHttpException($form);

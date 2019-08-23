@@ -239,7 +239,7 @@ class ProductController extends AbstractController
             $command = new CreateProductCommand(new Sku($data->sku), new TemplateId($data->template), $data->categories);
             $this->messageBus->dispatch($command);
 
-            return new CreatedResponse($command->getId()->getValue());
+            return new CreatedResponse($command->getId());
         }
 
         throw new FormValidationHttpException($form);

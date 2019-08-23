@@ -1,0 +1,8 @@
+ergonode_api:
+    exceptions:
+        Symfony\Component\Security\Core\Exception\AccessDeniedException:
+            http: { code: 403 }
+            content: { code: 'ACCESS_DENIED', message: 'Access denied' }
+        Symfony\Component\Security\Core\Exception\AuthenticationException:
+            http: { code: 401 }
+            content: { code: 'AUTHENTICATION_NEEDED', message: 'Authentication needed' }
