@@ -70,12 +70,7 @@ class ViolationsExceptionHandler implements SubscribingHandlerInterface
         array $type,
         Context $context
     ): array {
-        $data = $this->exceptionNormalizer->normalize(
-            $exception,
-            (string) Response::HTTP_BAD_REQUEST,
-            'Validation error'
-        );
-
+        $data = $this->exceptionNormalizer->normalize($exception, (string) Response::HTTP_BAD_REQUEST);
         $data['errors'] = $this->mapViolations($exception->getViolations());
 
         return $visitor->visitArray($data, $type);

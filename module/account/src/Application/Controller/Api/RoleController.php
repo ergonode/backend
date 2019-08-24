@@ -24,9 +24,10 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -150,15 +151,15 @@ class RoleController extends AbstractController
      *     description="Not found",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     *
+     * @param Language                   $language
+     * @param GridConfigurationInterface $configuration
      *
      * @return Response
      */
-    public function getRoles(Language $language, Request $request): Response
+    public function getRoles(Language $language, GridConfigurationInterface $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
         return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
     }
 

@@ -12,13 +12,14 @@ namespace Ergonode\Reader\Application\Controller\Api;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Reader\Domain\Command\CreateReaderCommand;
 use Ergonode\Reader\Domain\Entity\ReaderId;
 use Ergonode\Reader\Domain\Query\ReaderQueryInterface;
 use Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface;
 use Ergonode\Reader\Infrastructure\Grid\ReaderGrid;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -129,15 +130,15 @@ class ReaderController extends AbstractController
      *     description="Returns imported data collection",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     *
+     * @param Language                   $language
+     * @param GridConfigurationInterface $configuration
      *
      * @return Response
      */
-    public function getReaders(Language $language, Request $request): Response
+    public function getReaders(Language $language, GridConfigurationInterface $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
         return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
     }
 

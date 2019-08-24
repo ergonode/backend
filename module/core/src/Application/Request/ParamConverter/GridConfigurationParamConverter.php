@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Grid\Application\Request\ParamConverter;
+namespace Ergonode\Core\Application\Request\ParamConverter;
 
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\RequestGridConfiguration;

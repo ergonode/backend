@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Api\Application\EventListener;
 
-use Ergonode\Api\Application\Mapper\ExceptionResponseMapper;
+use Ergonode\Api\Application\Mapper\ExceptionMapperInterface;
 use Ergonode\Api\Application\Response\ExceptionResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
@@ -18,16 +18,16 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 class ExceptionListener
 {
     /**
-     * @var ExceptionResponseMapper
+     * @var ExceptionMapperInterface
      */
-    private $exceptionResponseMapper;
+    private $exceptionMapper;
 
     /**
-     * @param ExceptionResponseMapper $exceptionResponseMapper
+     * @param ExceptionMapperInterface $exceptionMapper
      */
-    public function __construct(ExceptionResponseMapper $exceptionResponseMapper)
+    public function __construct(ExceptionMapperInterface $exceptionMapper)
     {
-        $this->exceptionResponseMapper = $exceptionResponseMapper;
+        $this->exceptionMapper = $exceptionMapper;
     }
 
     /**
@@ -38,9 +38,9 @@ class ExceptionListener
         $exception = $event->getException();
         $response = new ExceptionResponse($exception);
 
-        $data = $this->exceptionResponseMapper->map($exception);
-        if (null !== $data) {
-            $response->setStatusCode($data['http']['code']);
+        $configuration = $this->exceptionMapper->map($exception);
+        if (null !== $configuration) {
+            $response->setStatusCode($configuration['http']['code']);
         }
 
         $event->setResponse($response);

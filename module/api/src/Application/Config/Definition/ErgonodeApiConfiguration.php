@@ -34,7 +34,7 @@ class ErgonodeApiConfiguration implements ConfigurationInterface
                                 ->children()
                                     ->integerNode('code')
                                         ->isRequired()
-                                        ->min(200)
+                                        ->min(100)
                                         ->max(599)
                                     ->end()
                                 ->end()

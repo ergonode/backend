@@ -15,7 +15,7 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Product\Application\Form\ProductCreateForm;
 use Ergonode\Product\Application\Form\ProductUpdateForm;
@@ -140,15 +140,15 @@ class ProductController extends AbstractController
      *     description="Returns import",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     *
+     * @param Language                   $language
+     * @param GridConfigurationInterface $configuration
      *
      * @return Response
      */
-    public function getProducts(Language $language, Request $request): Response
+    public function getProducts(Language $language, GridConfigurationInterface $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
         return new GridResponse($this->productGrid, $configuration, $this->dataSet, $language);
     }
 

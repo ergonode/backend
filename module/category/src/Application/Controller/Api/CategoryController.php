@@ -25,9 +25,10 @@ use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -135,14 +136,15 @@ class CategoryController extends AbstractController
      *     description="Returns import",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     *
+     * @param Language                   $language
+     * @param GridConfigurationInterface $configuration
      *
      * @return Response
      */
-    public function getCategories(Language $language, Request $request): Response
+    public function getCategories(Language $language, GridConfigurationInterface $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
         $dataSet = $this->categoryQuery->getDataSet($language);
 
         return new GridResponse($this->categoryGrid, $configuration, $dataSet, $language);

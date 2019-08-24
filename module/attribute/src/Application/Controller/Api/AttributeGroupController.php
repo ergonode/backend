@@ -12,12 +12,12 @@ namespace Ergonode\Attribute\Application\Controller\Api;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -117,15 +117,15 @@ class AttributeGroupController extends AbstractController
      *     description="Returns attribute collection",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     *
+     * @param Language                   $language
+     * @param GridConfigurationInterface $configuration
      *
      * @return Response
      */
-    public function getAttributesGroups(Language $language, Request $request): Response
+    public function getAttributesGroups(Language $language, GridConfigurationInterface $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
         return new GridResponse($this->grid, $configuration, $this->query->getDataSet($language), $language);
     }
 }

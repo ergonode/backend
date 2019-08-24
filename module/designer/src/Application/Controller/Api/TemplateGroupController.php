@@ -12,12 +12,12 @@ namespace Ergonode\Designer\Application\Controller\Api;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Infrastructure\Grid\TemplateGroupGrid;
-use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -111,15 +111,16 @@ class TemplateGroupController extends AbstractController
      *     description="Returns list of designer template groups",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     *
+     * @param Language                   $language
+     * @param GridConfigurationInterface $configuration
      *
      * @return Response
      */
-    public function getGroups(Language $language, Request $request): Response
+    public function getGroups(Language $language, GridConfigurationInterface $configuration): Response
     {
         $dataSet = $this->query->getDataSet();
-        $configuration = new RequestGridConfiguration($request);
 
         return new GridResponse($this->grid, $configuration, $dataSet, $language);
     }

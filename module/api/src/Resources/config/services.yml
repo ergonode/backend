@@ -26,20 +26,22 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception', priority: 1024 }
 
-    Ergonode\Api\Infrastructure\Normalizer\ExceptionDebugNormalizer:
-        decorates: 'Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizer'
-        arguments:
-            $debugMode: '%kernel.debug%'
-
     Ergonode\Api\Infrastructure\JMS\Serializer\Handler\FormErrorHandler:
         arguments:
             - '@translator'
             - '@Ergonode\Core\Infrastructure\Mapper\FormErrorMapper'
 
-    Ergonode\Api\Application\Mapper\ExceptionResponseMapper:
+    jms_serializer.form_error_handler: '@Ergonode\Api\Infrastructure\JMS\Serializer\Handler\FormErrorHandler'
+
+    Ergonode\Api\Application\Mapper\ExceptionMapper:
         arguments:
             $map: '%ergonode_api.exceptions%'
 
-    Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizerInterface: '@Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizer'
+    Ergonode\Api\Application\Mapper\ExceptionMapperInterface: '@Ergonode\Api\Application\Mapper\ExceptionMapper'
 
-    jms_serializer.form_error_handler: '@Ergonode\Api\Infrastructure\JMS\Serializer\Handler\FormErrorHandler'
+    Ergonode\Api\Infrastructure\Normalizer\ExceptionDebugNormalizer:
+        decorates: 'Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizer'
+        arguments:
+            $debugMode: '%kernel.debug%'
+
+    Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizerInterface: '@Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizer'

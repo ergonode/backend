@@ -11,7 +11,7 @@ namespace Ergonode\Api\Application\Mapper;
 
 /**
  */
-class ExceptionResponseMapper
+class ExceptionMapper implements ExceptionMapperInterface
 {
     /**
      * @var array
@@ -27,19 +27,18 @@ class ExceptionResponseMapper
     }
 
     /**
-     * @param \Exception $exception
-     *
-     * @return array|null
+     * {@inheritDoc}
      */
     public function map(\Exception $exception): ?array
     {
         $class = $this->findClass($exception);
 
-        if (null === $class) {
-            return null;
+        $result = null;
+        if (null !== $class) {
+            $result = $this->map[$class];
         }
 
-        return $this->map[$class];
+        return $result;
     }
 
     /**
@@ -49,16 +48,18 @@ class ExceptionResponseMapper
      */
     private function findClass(\Exception $exception): ?string
     {
+        $result = null;
+
         $class = get_class($exception);
         if (array_key_exists($class, $this->map)) {
-            return $class;
+            $result = $class;
+        } else {
+            $intersect = array_intersect(class_parents($exception), array_keys($this->map));
+            if (0 !== count($intersect)) {
+                $result = key($intersect);
+            }
         }
 
-        $intersect = array_intersect(class_parents($exception), array_keys($this->map));
-        if (0 === count($intersect)) {
-            return null;
-        }
-
-        return key($intersect);
+        return $result;
     }
 }

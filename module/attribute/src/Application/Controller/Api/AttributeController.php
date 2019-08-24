@@ -28,7 +28,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -159,14 +159,15 @@ class AttributeController extends AbstractController
      *     description="Returns attribute collection",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     *
+     * @param Language                   $language
+     * @param GridConfigurationInterface $configuration
      *
      * @return Response
      */
-    public function getAttributes(Language $language, Request $request): Response
+    public function getAttributes(Language $language, GridConfigurationInterface $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
         $dataSet = $this->attributeGridQuery->getDataSet($language);
 
         return new GridResponse($this->attributeGrid, $configuration, $dataSet, $language);

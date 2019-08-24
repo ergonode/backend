@@ -9,44 +9,33 @@ declare(strict_types = 1);
 
 namespace Ergonode\Api\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Api\Application\Mapper\ExceptionMapperInterface;
+use Ergonode\Api\Application\Exception\DataValidationHttpException;
 use Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizerInterface;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  */
-class ExceptionHandler implements SubscribingHandlerInterface
+class DataValidationExceptionHandler implements SubscribingHandlerInterface
 {
-    private const DEFAULT_CODE = 'UNKNOWN';
-    private const DEFAULT_MESSAGE = 'Internal server error';
-
-    /**
-     * @var ExceptionMapperInterface
-     */
-    private $exceptionMapper;
-
     /**
      * @var ExceptionNormalizerInterface
      */
     private $exceptionNormalizer;
 
     /**
-     * @param ExceptionMapperInterface     $exceptionMapper
      * @param ExceptionNormalizerInterface $exceptionNormalizer
      */
-    public function __construct(
-        ExceptionMapperInterface $exceptionMapper,
-        ExceptionNormalizerInterface $exceptionNormalizer
-    ) {
-        $this->exceptionMapper = $exceptionMapper;
+    public function __construct(ExceptionNormalizerInterface $exceptionNormalizer)
+    {
         $this->exceptionNormalizer = $exceptionNormalizer;
     }
 
     /**
-     * {@inheritDoc}
+     * @return array
      */
     public static function getSubscribingMethods(): array
     {
@@ -56,7 +45,7 @@ class ExceptionHandler implements SubscribingHandlerInterface
         foreach ($formats as $format) {
             $methods[] = [
                 'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
-                'type' => \Exception::class,
+                'type' => DataValidationHttpException::class,
                 'format' => $format,
                 'method' => 'serialize',
             ];
@@ -67,7 +56,7 @@ class ExceptionHandler implements SubscribingHandlerInterface
 
     /**
      * @param SerializationVisitorInterface $visitor
-     * @param \Exception                    $exception
+     * @param DataValidationHttpException   $exception
      * @param array                         $type
      * @param Context                       $context
      *
@@ -75,24 +64,12 @@ class ExceptionHandler implements SubscribingHandlerInterface
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
-        \Exception $exception,
+        DataValidationHttpException $exception,
         array $type,
         Context $context
     ): array {
-        $code = $exception->getCode();
-        if (empty($code)) {
-            $code = self::DEFAULT_CODE;
-        }
-
-        $message = self::DEFAULT_MESSAGE;
-
-        $configuration = $this->exceptionMapper->map($exception);
-        if (null !== $configuration) {
-            $code = $configuration['content']['code'] ?? $code;
-            $message = $configuration['content']['message'] ?? $message;
-        }
-
-        $data = $this->exceptionNormalizer->normalize($exception, (string) $code, $message);
+        $data = $this->exceptionNormalizer->normalize($exception, (string) Response::HTTP_BAD_REQUEST);
+        $data['errors'] = $exception->getMessages();
 
         return $visitor->visitArray($data, $type);
     }

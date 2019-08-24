@@ -15,7 +15,7 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Workflow\Application\Form\Model\StatusFormModel;
 use Ergonode\Workflow\Application\Form\StatusForm;
@@ -27,6 +27,7 @@ use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Ergonode\Workflow\Domain\ValueObject\Status;
 use Ergonode\Workflow\Infrastructure\Grid\StatusGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -140,14 +141,15 @@ class StatusController extends AbstractController
      *     description="Returns statuses collection",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     *
+     * @param Language                   $language
+     * @param GridConfigurationInterface $configuration
      *
      * @return Response
      */
-    public function getAttributes(Language $language, Request $request): Response
+    public function getAttributes(Language $language, GridConfigurationInterface $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
         $dataSet = $this->query->getDataSet($language);
 
         return new GridResponse($this->grid, $configuration, $dataSet, $language);

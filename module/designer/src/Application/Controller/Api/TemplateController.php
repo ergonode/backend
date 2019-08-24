@@ -22,7 +22,7 @@ use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Infrastructure\Factory\TemplateCommandFactory;
 use Ergonode\Designer\Infrastructure\Grid\TemplateGrid;
-use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -150,15 +150,16 @@ class TemplateController extends AbstractController
      *     description="Returns templates",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     *
+     * @param Language                   $language
+     * @param GridConfigurationInterface $configuration
      *
      * @return Response
      */
-    public function getTemplates(Language $language, Request $request): Response
+    public function getTemplates(Language $language, GridConfigurationInterface $configuration): Response
     {
         $dataSet = $this->designerTemplateQuery->getDataSet();
-        $configuration = new RequestGridConfiguration($request);
 
         return new GridResponse($this->templateGrid, $configuration, $dataSet, $language);
     }

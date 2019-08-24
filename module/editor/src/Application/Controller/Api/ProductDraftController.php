@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Application\Controller\Api;
 
+use Ergonode\Api\Application\Exception\DataValidationHttpException;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\AcceptedResponse;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
@@ -28,7 +28,7 @@ use Ergonode\Editor\Domain\Entity\ProductDraftId;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\Editor\Infrastructure\Grid\ProductDraftGrid;
-use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
@@ -174,20 +174,20 @@ class ProductDraftController extends AbstractController
      *     description="Get draft grid",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     *
+     * @param Language                   $language
+     * @param GridConfigurationInterface $configuration
      *
      * @return Response
      */
-    public function getDrafts(Language $language, Request $request): Response
+    public function getDrafts(Language $language, GridConfigurationInterface $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
         return new GridResponse($this->productDraftGrid, $configuration, $this->draftQuery->getDataSet(), $language);
     }
 
     /**
-     * @Route("/products/{draft}", methods={"GET"}, requirements={"draft" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @Route("/products/draft/{draft}", methods={"GET"}, requirements={"draft" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("PRODUCT_READ")
      *
@@ -371,7 +371,7 @@ class ProductDraftController extends AbstractController
      *     required=true,
      * )
      * @SWG\Response(
-     *     response=201,
+     *     response=200,
      *     description="Change product attribute Value",
      * )
      * @SWG\Response(
@@ -392,7 +392,7 @@ class ProductDraftController extends AbstractController
      *
      * @throws \Exception
      *
-     * @todo Refactor it
+     * @todo Refactor it to standard solution
      */
     public function changeDraftAttribute(AbstractProduct $product, Language $language, AbstractAttribute $attribute, Request $request): Response
     {
@@ -407,25 +407,18 @@ class ProductDraftController extends AbstractController
                 $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language, $value);
                 $this->messageBus->dispatch($command);
 
-                return new AcceptedResponse(['value' => $value]);
+                return new SuccessResponse(['value' => $value]);
             }
         } else {
             $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language);
             $this->messageBus->dispatch($command);
 
-            return new AcceptedResponse(['value' => $value]);
+            return new SuccessResponse(['value' => $value]);
         }
 
-        $result = [
-            'code' => Response::HTTP_BAD_REQUEST,
-            'message' => 'Form validation error',
-            'errors' => [
-                'value' => [sprintf('%s is incorrect value for %s attribute', $value, $attribute->getType())],
-            ],
-        ];
-
-        // @todo BadRequestResponse
-        return new BadRequestResponse($result);
+        throw new DataValidationHttpException([
+            'value' => [sprintf('%s is incorrect value for %s attribute', $value, $attribute->getType())],
+        ]);
     }
 
     /**
