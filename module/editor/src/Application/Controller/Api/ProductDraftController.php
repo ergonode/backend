@@ -135,7 +135,7 @@ class ProductDraftController extends AbstractController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"id", "label","code", "hint"},
+     *     enum={"id", "product_id", "template_id", "sku", "type", "applied"},
      *     description="Order field",
      * )
      * @SWG\Parameter(
@@ -143,7 +143,7 @@ class ProductDraftController extends AbstractController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"ASC","DESC"},
+     *     enum={"ASC", "DESC"},
      *     description="Order",
      * )
      * @SWG\Parameter(
@@ -158,7 +158,7 @@ class ProductDraftController extends AbstractController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"COLUMN","DATA"},
+     *     enum={"COLUMN", "DATA"},
      *     description="Specify what response should containts"
      * )
      * @SWG\Parameter(
@@ -167,11 +167,11 @@ class ProductDraftController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Get draft grid",
+     *     description="Get draft grid"
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
@@ -451,7 +451,6 @@ class ProductDraftController extends AbstractController
      * )
      *
      * @param AbstractProduct $product
-     * @param Language        $language
      *
      * @return Response
      *
@@ -459,7 +458,7 @@ class ProductDraftController extends AbstractController
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      */
-    public function getProductDraft(AbstractProduct $product, Language $language): Response
+    public function getProductDraft(AbstractProduct $product): Response
     {
         $draft = $this->draftProvider->provide($product);
 

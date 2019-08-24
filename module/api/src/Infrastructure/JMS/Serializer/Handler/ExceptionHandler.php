@@ -15,12 +15,14 @@ use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  */
 class ExceptionHandler implements SubscribingHandlerInterface
 {
-    private const DEFAULT_CODE = 'UNKNOWN';
+    private const DEFAULT_CODE = Response::HTTP_INTERNAL_SERVER_ERROR;
     private const DEFAULT_MESSAGE = 'Internal server error';
 
     /**
@@ -79,12 +81,17 @@ class ExceptionHandler implements SubscribingHandlerInterface
         array $type,
         Context $context
     ): array {
-        $code = $exception->getCode();
+        if (!$exception instanceof HttpException) {
+            $code = $exception->getCode();
+            $message = self::DEFAULT_MESSAGE;
+        } else {
+            $code = $exception->getStatusCode();
+            $message = $exception->getMessage();
+        }
+
         if (empty($code)) {
             $code = self::DEFAULT_CODE;
         }
-
-        $message = self::DEFAULT_MESSAGE;
 
         $configuration = $this->exceptionMapper->map($exception);
         if (null !== $configuration) {
