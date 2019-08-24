@@ -1,0 +1,9 @@
+jms_serializer:
+    handlers:
+        datetime:
+            default_format: 'Y-m-d H:i:s'
+    default_context:
+        serialization:
+            serialize_null: true
+        deserialization:
+            serialize_null: true
