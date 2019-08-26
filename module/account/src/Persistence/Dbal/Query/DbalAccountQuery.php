@@ -25,7 +25,7 @@ class DbalAccountQuery implements AccountQueryInterface
         'a.id',
         'a.first_name',
         'a.last_name',
-        'a.username',
+        'a.username AS email',
         'a.language',
         'a.avatar_id',
         'a.role_id',
@@ -51,7 +51,11 @@ class DbalAccountQuery implements AccountQueryInterface
     {
         $query = $this->getQuery();
 
-        return new DbalDataSet($query);
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $query->getSQL()), 't');
+
+        return new DbalDataSet($result);
     }
 
     /**
