@@ -46,7 +46,11 @@ class DbalLogQuery implements LogQueryInterface
             $qb->setParameter(':id', $id->getValue());
         }
 
-        return new DbalDataSet($qb);
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
+
+        return new DbalDataSet($result);
     }
 
     /**
