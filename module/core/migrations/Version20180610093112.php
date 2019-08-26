@@ -55,6 +55,8 @@ final class Version20180610093112 extends AbstractErgonodeMigration
         }
 
         $this->addSql('UPDATE language SET system = true WHERE iso in (\'EN\', \'PL\')');
+
+        $this->addSql('ALTER TABLE language rename column system to active');
     }
 
     /**

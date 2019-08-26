@@ -12,6 +12,7 @@ namespace Ergonode\Core\Application\Controller\Api;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Application\Form\LanguageCollectionForm;
 use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
+use Ergonode\Core\Domain\Command\UpdateLanguageCommand;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Grid\LanguageGrid;
@@ -20,6 +21,8 @@ use Ergonode\Grid\RequestGridConfiguration;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,34 +34,42 @@ class LanguageController extends AbstractApiController
      * @var LanguageQueryInterface
      */
     private $query;
+
     /**
      * @var LanguageGrid
      */
     private $languageGrid;
+
     /**
      * @var DbalLanguageRepository
      */
     private $repository;
 
     /**
-     * LanguageController constructor.
-     *
+     * @var MessageBusInterface
+     */
+    private $messageBus;
+
+    /**
      * @param LanguageQueryInterface $query
      * @param LanguageGrid           $languageGrid
      * @param DbalLanguageRepository $repository
+     * @param MessageBusInterface    $messageBus
      */
     public function __construct(
         LanguageQueryInterface $query,
         LanguageGrid $languageGrid,
-        DbalLanguageRepository $repository
+        DbalLanguageRepository $repository,
+        MessageBusInterface $messageBus
     ) {
         $this->query = $query;
         $this->languageGrid = $languageGrid;
         $this->repository = $repository;
+        $this->messageBus = $messageBus;
     }
 
     /**
-     * @Route("/languages/{translationLanguage}", methods={"GET"})
+     * @Route("/languages/{translationLanguage}", methods={"GET"}, requirements={"role"="[A-Z]{2}"})
      *
      * @SWG\Tag(name="Language")
      *
@@ -95,7 +106,7 @@ class LanguageController extends AbstractApiController
     {
         $language = $this->query->getLanguage($translationLanguage);
 
-        return $this->createRestResponse(['language' => $language]);
+        return $this->createRestResponse([$language]);
     }
 
     /**
@@ -152,11 +163,7 @@ class LanguageController extends AbstractApiController
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns import",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     description="Returns language",
      * )
      *
      * @param Language $language
@@ -195,7 +202,7 @@ class LanguageController extends AbstractApiController
      *     @SWG\Schema(ref="#/definitions/languages")
      * )
      * @SWG\Response(
-     *     response=201,
+     *     response=200,
      *     description="Update language",
      * )
      * @SWG\Response(
@@ -220,17 +227,17 @@ class LanguageController extends AbstractApiController
                 $data = $form->getData();
                 $languages = $data->collection->getValues();
                 foreach ($languages as $language) {
+                    $command = new UpdateLanguageCommand(Language::fromString($language->code), $language->active);
+                    $this->messageBus->dispatch($command);
                     $this->repository->save(Language::fromString($language->code), $language->active);
                 }
 
-                return $this->createRestResponse(['message' => "Updated"]);
+                return $this->createRestResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 }

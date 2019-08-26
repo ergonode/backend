@@ -39,8 +39,6 @@ class DbalLanguageRepository implements LanguageRepositoryInterface
     private $query;
 
     /**
-     * DbalLanguageRepository constructor.
-     *
      * @param Connection        $connection
      * @param DbalLanguageQuery $query
      */

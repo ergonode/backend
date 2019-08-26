@@ -30,6 +30,7 @@ class LanguageConfigurationFormTypeModel
      * @var bool
      *
      * @Assert\NotNull(),
+     * @Assert\Type("boolean")
      */
     public $active;
 }

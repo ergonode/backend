@@ -22,8 +22,6 @@ class LanguageCodeValidator extends ConstraintValidator
     /**
      * @param mixed      $value
      * @param Constraint $constraint
-     *
-     * @throws \ReflectionException
      */
     public function validate($value, Constraint $constraint): void
     {
@@ -34,9 +32,7 @@ class LanguageCodeValidator extends ConstraintValidator
         if (empty($value)) {
             return;
         }
-        $languageReflection = new \ReflectionClass(Language::class);
-        $availableLanguages = $languageReflection->getConstants();
-        if (!in_array($value, $availableLanguages, true)) {
+        if (!Language::isValid($value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ language }}', $value)
                 ->addViolation();
