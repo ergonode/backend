@@ -28,6 +28,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -213,7 +214,7 @@ class CategoryTreeController extends AbstractApiController
             return $this->createRestResponse(['message' => 'tree already exists'], [], Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->createRestResponse([], [], Response::HTTP_BAD_REQUEST);
+        throw new BadRequestHttpException();
     }
 
     /**
@@ -280,7 +281,7 @@ class CategoryTreeController extends AbstractApiController
             return $this->createRestResponse([], [], Response::HTTP_ACCEPTED);
         }
 
-        return $this->createRestResponse([], [], Response::HTTP_BAD_REQUEST);
+        throw new BadRequestHttpException();
     }
 
     /**
@@ -344,9 +345,7 @@ class CategoryTreeController extends AbstractApiController
                 return $this->createRestResponse($data, [], Response::HTTP_CREATED);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
         return $this->createRestResponse($form, [$form->getErrors()->count()], Response::HTTP_BAD_REQUEST);

@@ -18,11 +18,11 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
-use Ergonode\Value\Domain\ValueObject\CollectionValue;
+use Ergonode\Transformer\Domain\Model\Record;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Transformer\Domain\Model\Record;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
@@ -112,7 +112,7 @@ class ProductAttributeExtension
 
                 return new StringValue($key->getValue());
             }
-        } elseif ($value instanceof CollectionValue) {
+        } elseif ($value instanceof StringCollectionValue) {
             foreach ($value->getValue() as $string) {
                 if ('' !== $string) {
                     $key = new OptionKey($string);

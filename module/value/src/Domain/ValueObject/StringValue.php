@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class StringValue extends AbstractValue implements ValueInterface
+class StringValue implements ValueInterface
 {
     public const TYPE = 'string';
 
@@ -37,7 +37,9 @@ class StringValue extends AbstractValue implements ValueInterface
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
      */
     public function getType(): string
     {
@@ -53,7 +55,7 @@ class StringValue extends AbstractValue implements ValueInterface
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function __toString(): string
     {

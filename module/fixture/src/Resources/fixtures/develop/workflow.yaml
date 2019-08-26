@@ -1,0 +1,36 @@
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+    status_new_translation:
+        __construct:
+            -
+                'PL': 'Nowy'
+                'EN': 'New'
+    status_draft_translation:
+        __construct:
+            -
+                'PL': 'Szkic'
+                'EN': 'Draft'
+
+Ergonode\Workflow\Domain\ValueObject\Status:
+    status_new:
+        __construct:
+            - '<color(#f58231)>'
+            - '@status_new_translation'
+            - '@status_new_translation'
+    status_draft:
+        __construct:
+            - '<color(#e6194B)>'
+            - '@status_draft_translation'
+            - '@status_draft_translation'
+
+Ergonode\Workflow\Domain\Entity\Workflow:
+    default_workflow:
+        __construct:
+            - '<workflowId(default)>'
+            - 'default'
+        __calls:
+            - addStatus:
+                  - 'new'
+                  - '@status_new'
+            - addStatus:
+                  - 'draft'
+                  - '@status_draft'

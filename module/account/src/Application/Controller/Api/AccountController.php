@@ -13,10 +13,10 @@ use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
 use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
 use Ergonode\Account\Application\Form\UserCreateForm;
 use Ergonode\Account\Application\Form\UserUpdateForm;
-use Ergonode\Account\Domain\Command\ChangeUserAvatarCommand;
-use Ergonode\Account\Domain\Command\ChangeUserPasswordCommand;
-use Ergonode\Account\Domain\Command\CreateUserCommand;
-use Ergonode\Account\Domain\Command\UpdateUserCommand;
+use Ergonode\Account\Domain\Command\User\ChangeUserAvatarCommand;
+use Ergonode\Account\Domain\Command\User\ChangeUserPasswordCommand;
+use Ergonode\Account\Domain\Command\User\CreateUserCommand;
+use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
@@ -26,6 +26,8 @@ use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Account\Infrastructure\Grid\AccountGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Exception\ViolationsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
@@ -33,11 +35,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -263,6 +265,8 @@ class AccountController extends AbstractApiController
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function createUser(Request $request): Response
     {
@@ -281,19 +285,18 @@ class AccountController extends AbstractApiController
                     new Email($data->email),
                     $data->language,
                     $data->password,
-                    $data->roleId
+                    $data->roleId,
+                    $data->isActive
                 );
                 $this->messageBus->dispatch($command);
 
                 return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -361,6 +364,7 @@ class AccountController extends AbstractApiController
                     $data->lastName,
                     $data->language,
                     $data->roleId,
+                    $data->isActive,
                     $data->password
                 );
                 $this->messageBus->dispatch($command);
@@ -368,12 +372,10 @@ class AccountController extends AbstractApiController
                 return $this->createRestResponse(['id' => $command->getId()]);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -427,9 +429,7 @@ class AccountController extends AbstractApiController
 
             return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_ACCEPTED);
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
     }
 
@@ -496,13 +496,6 @@ class AccountController extends AbstractApiController
             return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
         }
 
-        $errors = [];
-        /** @var ConstraintViolationInterface $violation */
-        foreach ($violations as $violation) {
-            $field = substr($violation->getPropertyPath(), 1, -1);
-            $errors[$field] = [$violation->getMessage()];
-        }
-
-        return $this->createRestResponse(['message' => 'Validation error', 'code' => 400, 'errors' => $errors], [], Response::HTTP_BAD_REQUEST);
+        throw new ViolationsHttpException($violations);
     }
 }

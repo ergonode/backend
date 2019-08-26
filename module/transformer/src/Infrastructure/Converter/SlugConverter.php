@@ -15,8 +15,10 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class SlugConverter extends AbstractConverter implements ConverterInterface
+class SlugConverter implements ConverterInterface
 {
+    public const TYPE = 'slug';
+
     /**
      * @var string|null
      *
@@ -30,6 +32,16 @@ class SlugConverter extends AbstractConverter implements ConverterInterface
     public function __construct(?string $field = null)
     {
         $this->field = $field;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 
     /**

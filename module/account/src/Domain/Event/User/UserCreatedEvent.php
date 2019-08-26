@@ -79,6 +79,13 @@ class UserCreatedEvent implements DomainEventInterface
     private $roleId;
 
     /**
+     * @var bool
+     *
+     * @JMS\Type("boolean")
+     */
+    private $isActive;
+
+    /**
      * @param UserId            $id
      * @param string            $firstName
      * @param string            $lastName
@@ -86,6 +93,7 @@ class UserCreatedEvent implements DomainEventInterface
      * @param Language          $language
      * @param Password          $password
      * @param RoleId            $roleId
+     * @param bool              $isActive
      * @param MultimediaId|null $avatarId
      */
     public function __construct(
@@ -96,7 +104,8 @@ class UserCreatedEvent implements DomainEventInterface
         Language $language,
         Password $password,
         RoleId $roleId,
-        MultimediaId $avatarId = null
+        bool $isActive = true,
+        ?MultimediaId $avatarId = null
     ) {
         $this->id = $id;
         $this->firstName = $firstName;
@@ -106,6 +115,7 @@ class UserCreatedEvent implements DomainEventInterface
         $this->language = $language;
         $this->roleId = $roleId;
         $this->avatarId = $avatarId;
+        $this->isActive = $isActive;
     }
 
     /**
@@ -170,5 +180,13 @@ class UserCreatedEvent implements DomainEventInterface
     public function getRoleId(): RoleId
     {
         return $this->roleId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->isActive;
     }
 }

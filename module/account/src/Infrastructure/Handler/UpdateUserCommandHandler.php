@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Handler;
 
-use Ergonode\Account\Domain\Command\UpdateUserCommand;
+use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface;
@@ -56,10 +56,13 @@ class UpdateUserCommandHandler
         $user->changeLanguage($command->getLanguage());
         $user->changeRole($command->getRoleId());
 
+        if ($user->isActive() !== $command->isActive()) {
+            $command->isActive() ? $user->activate() : $user->deactivate();
+        }
+
         if ($command->getPassword() instanceof Password) {
             $encodedPassword = $this->userPasswordEncoder->encode($user, $command->getPassword());
             if ($user->getPassword() !== $encodedPassword->getValue()) {
-                $user->setPassword($encodedPassword);
                 $user->changePassword($encodedPassword);
             }
         }
