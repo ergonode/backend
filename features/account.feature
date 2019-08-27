@@ -51,6 +51,11 @@ Feature: Account module
     Then the response code is 202
     And delete remembered "role_to_delete"
 
+  Scenario: Delete role (not found)
+    Given Current authentication token
+    When I request "/api/v1/EN/roles/@@static_uuid@@" using HTTP DELETE
+    Then not found response is received
+
   Scenario: Get role
     Given Current authentication token
     When I request "/api/v1/EN/roles/@role@" using HTTP GET
@@ -60,6 +65,11 @@ Feature: Account module
   Scenario: Get role (not authorized)
     When I request "/api/v1/EN/roles/@role@" using HTTP GET
     Then unauthorized response is received
+
+  Scenario: Get role (not found)
+    Given Current authentication token
+    When I request "/api/v1/EN/roles/@@static_uuid@@" using HTTP GET
+    Then not found response is received
 
   Scenario: Update role
     Given Current authentication token
@@ -78,25 +88,14 @@ Feature: Account module
     When I request "/api/v1/EN/roles/@role@" using HTTP PUT
     Then unauthorized response is received
 
-  Scenario: Update not existing role
+  Scenario: Update role (not found)
     Given Current authentication token
-    When I request "/api/v1/EN/roles/not-existing-role" using HTTP PUT
+    When I request "/api/v1/EN/roles/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
-  Scenario: Get not existing role
-    Given Current authentication token
-    When I request "/api/v1/EN/roles/not-existing-role" using HTTP GET
-    Then not found response is received
-
-  Scenario: Delete not existing role
-    Given Current authentication token
-    When I request "/api/v1/EN/roles/not-existing-role" using HTTP DELETE
-    Then not found response is received
-
-  # TODO Check role create action (all incorrect possibilities)
-  # TODO Check role update action (all incorrect possibilities)
-  # TODO Check role delete action (conflicted)
-  # TODO Check role grid (all possibilities)
+  # TODO Check role create action with all incorrect possibilities
+  # TODO Check role update action with all incorrect possibilities
+  # TODO Check role grid with all possibilities
 
   Scenario: Create user
     Given Current authentication token
@@ -120,7 +119,7 @@ Feature: Account module
     Given I request "/api/v1/EN/accounts" using HTTP POST
     Then unauthorized response is received
 
-  Scenario: Delete role with conflict
+  Scenario: Delete role (with conflict)
     Given Current authentication token
     When I request "/api/v1/EN/roles/@role@" using HTTP DELETE
     Then the response code is 422
@@ -135,6 +134,11 @@ Feature: Account module
   Scenario: Get user (not authorized)
     When I request "/api/v1/EN/accounts/@user@" using HTTP GET
     Then unauthorized response is received
+
+  Scenario: Get user (not found)
+    Given Current authentication token
+    When I request "/api/v1/EN/accounts/@@static_uuid@@" using HTTP GET
+    Then not found response is received
 
   Scenario: Update user
     Given Current authentication token
@@ -157,19 +161,9 @@ Feature: Account module
     When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
     Then unauthorized response is received
 
-  Scenario: Update not existing role
+  Scenario: Update user (not found)
     Given Current authentication token
-    When I request "/api/v1/EN/accounts/not-existing-user" using HTTP PUT
-    Then not found response is received
-
-  Scenario: Get not existing role
-    Given Current authentication token
-    When I request "/api/v1/EN/accounts/not-existing-user" using HTTP GET
-    Then not found response is received
-
-  Scenario: Delete not existing role
-    Given Current authentication token
-    When I request "/api/v1/EN/accounts/not-existing-user" using HTTP DELETE
+    When I request "/api/v1/EN/accounts/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
 #  TODO Something wrong with password change, it change password, but for logged user!
@@ -184,12 +178,12 @@ Feature: Account module
 #    And I change user password
 #    Then I get 404 result code
 
-  # TODO Check user create action (all incorrect possibilities)
-  # TODO Check user update action (all incorrect possibilities)
-  # TODO Check user avatar change action (correct, incorrect file)
-  # TODO Check user change password action (not identical passwords)
-  # TODO Check user login (inactive)
-  # TODO Check user grid (all possibilities)
+  # TODO Check user create action with all incorrect possibilities
+  # TODO Check user update action with all incorrect possibilities
+  # TODO Check user avatar change action with correct and incorrect file
+  # TODO Check user change password action with not identical passwords
+  # TODO Check user login when user is inactive
+  # TODO Check user grid with all possibilities
 
   Scenario: Get privilege dictionary
     Given Current authentication token
@@ -219,7 +213,7 @@ Feature: Account module
     When I request "/api/v1/profile/log" using HTTP GET
     Then unauthorized response is received
 
-  # TODO Check profile log (with all filters)
+  # TODO Check profile log with all filters
 
   Scenario: Get accounts log (order by author)
     Given Current authentication token
@@ -240,4 +234,4 @@ Feature: Account module
     When I request "/api/v1/EN/accounts/log" using HTTP GET
     Then unauthorized response is received
 
-  # TODO Check accounts log (with all filters)
+  # TODO Check accounts log with all filters

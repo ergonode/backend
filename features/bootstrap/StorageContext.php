@@ -33,6 +33,7 @@ class StorageContext implements Context
     {
         $this->addDefinition('uuid', Uuid::uuid4());
         $this->addDefinition('code', str_replace('-', '_', Uuid::uuid4()));
+        $this->addDefinition('static_uuid', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa');
     }
 
     /**

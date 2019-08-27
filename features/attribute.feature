@@ -1,10 +1,28 @@
 Feature: Attribute module
 
-  Scenario: Get attribute dictionary
+  Scenario: Get attribute types dictionary
+    Given Current authentication token
+    When I request "/api/v1/EN/dictionary/attributes/types" using HTTP GET
+    Then the response code is 200
+
+  Scenario: Get attribute types dictionary (not authorized)
+    When I request "/api/v1/EN/dictionary/attributes/types" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get attribute groups dictionary
     Given Current authentication token
     When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
     Then the response code is 200
     And remember first attribute group as "attribute_group"
+
+  Scenario: Get attribute groups dictionary (not authorized)
+    When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Delete attribute (not found)
+    Given Current authentication token
+    When I request "/api/v1/EN/attributes/@@static_uuid@@" using HTTP DELETE
+    Then not found response is received
 
   Scenario: Create attribute (not authorized)
     When I request "/api/v1/EN/attributes" using HTTP POST
@@ -42,6 +60,25 @@ Feature: Attribute module
   Scenario: Update text attribute (not authorized)
     When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP PUT
     Then unauthorized response is received
+
+  Scenario: Update text attribute (not found)
+    Given Current authentication token
+    When I request "/api/v1/EN/attributes/@@static_uuid@@" using HTTP PUT
+    Then not found response is received
+
+  Scenario: Get attribute
+    Given Current authentication token
+    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP GET
+    Then the response code is 200
+
+  Scenario: Get attribute (not authorized)
+    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get attribute (not found)
+    Given Current authentication token
+    When I request "/api/v1/EN/attributes/@@static_uuid@@" using HTTP GET
+    Then not found response is received
 
   Scenario: Delete text attribute (not authorized)
     When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP DELETE
@@ -278,3 +315,67 @@ Feature: Attribute module
     Given Current authentication token
     When I request "/api/v1/EN/attributes/@unit_attribute@" using HTTP DELETE
     Then empty response is received
+
+  Scenario: Get attributes (order by code)
+    Given Current authentication token
+    When I request "/api/v1/EN/attributes?field=code" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (order by label)
+    Given Current authentication token
+    When I request "/api/v1/EN/attributes?field=label" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (order by type)
+    Given Current authentication token
+    When I request "/api/v1/EN/attributes?field=type" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (order by multilingual)
+    Given Current authentication token
+    When I request "/api/v1/EN/attributes?field=multilingual" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (not authorized)
+    When I request "/api/v1/EN/attributes" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get attribute image formats dictionary
+    Given Current authentication token
+    When I request "/api/v1/EN/dictionary/image_format" using HTTP GET
+    Then the response code is 200
+
+  Scenario: Get attribute image formats dictionary (not authorized)
+    When I request "/api/v1/EN/dictionary/image_format" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get attribute units dictionary
+    Given Current authentication token
+    When I request "/api/v1/EN/dictionary/units" using HTTP GET
+    Then the response code is 200
+
+  Scenario: Get attribute units dictionary (not authorized)
+    When I request "/api/v1/EN/dictionary/units" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get attribute currencies dictionary
+    Given Current authentication token
+    When I request "/api/v1/EN/dictionary/currencies" using HTTP GET
+    Then the response code is 200
+
+  Scenario: Get attribute currencies dictionary (not authorized)
+    When I request "/api/v1/EN/dictionary/currencies" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get attribute date formats dictionary
+    Given Current authentication token
+    When I request "/api/v1/EN/dictionary/date_format" using HTTP GET
+    Then the response code is 200
+
+  Scenario: Get attribute currencies date formats (not authorized)
+    When I request "/api/v1/EN/dictionary/date_format" using HTTP GET
+    Then unauthorized response is received
+
+  # TODO Check attributes with all filters
+  # TODO Check create attribute action with all incorrect possibilities
+  # TODO Check update attribute action with all incorrect possibilities
