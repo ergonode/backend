@@ -28,7 +28,7 @@ use Ergonode\Editor\Domain\Entity\ProductDraftId;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\Editor\Infrastructure\Grid\ProductDraftGrid;
-use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
@@ -174,20 +174,20 @@ class ProductDraftController extends AbstractController
      *     description="Get draft grid"
      * )
      *
-     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
-     * @param Language                   $language
-     * @param GridConfigurationInterface $configuration
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getDrafts(Language $language, GridConfigurationInterface $configuration): Response
+    public function getDrafts(Language $language, RequestGridConfiguration $configuration): Response
     {
         return new GridResponse($this->productDraftGrid, $configuration, $this->draftQuery->getDataSet(), $language);
     }
 
     /**
-     * @Route("/products/draft/{draft}", methods={"GET"}, requirements={"draft" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @Route("/products/{draft}", methods={"GET"}, requirements={"draft" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("PRODUCT_READ")
      *

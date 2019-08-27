@@ -12,7 +12,7 @@ namespace Ergonode\Reader\Application\Controller\Api;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Reader\Domain\Command\CreateReaderCommand;
 use Ergonode\Reader\Domain\Entity\ReaderId;
@@ -130,14 +130,14 @@ class ReaderController extends AbstractController
      *     description="Returns imported data collection",
      * )
      *
-     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
-     * @param Language                   $language
-     * @param GridConfigurationInterface $configuration
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getReaders(Language $language, GridConfigurationInterface $configuration): Response
+    public function getReaders(Language $language, RequestGridConfiguration $configuration): Response
     {
         return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
     }
@@ -209,6 +209,7 @@ class ReaderController extends AbstractController
      *
      * @throws \Exception
      *
+     * @todo Refactoring needed
      * @todo Validation required
      */
     public function createReader(Request $request): Response
@@ -221,7 +222,6 @@ class ReaderController extends AbstractController
             $this->messageBus->dispatch($command);
             $response = new CreatedResponse($command->getId());
         } else {
-            // @todo ??????? error ?????
             throw new BadRequestHttpException('error');
         }
 

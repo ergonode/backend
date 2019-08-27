@@ -31,7 +31,7 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -171,14 +171,14 @@ class AccountController extends AbstractController
      *     description="Returns users collection",
      * )
      *
-     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
-     * @param Language                   $language
-     * @param GridConfigurationInterface $configuration
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getUsers(Language $language, GridConfigurationInterface $configuration): Response
+    public function getUsers(Language $language, RequestGridConfiguration $configuration): Response
     {
         return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
     }

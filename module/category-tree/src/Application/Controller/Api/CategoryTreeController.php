@@ -25,7 +25,7 @@ use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -139,14 +139,14 @@ class CategoryTreeController extends AbstractController
      *     description="Returns Category Tree",
      * )
      *
-     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
-     * @param Language                   $language
-     * @param GridConfigurationInterface $configuration
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getCategories(Language $language, GridConfigurationInterface $configuration): Response
+    public function getCategories(Language $language, RequestGridConfiguration $configuration): Response
     {
         return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
     }

@@ -15,7 +15,7 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Workflow\Application\Form\Model\StatusFormModel;
 use Ergonode\Workflow\Application\Form\StatusForm;
@@ -141,14 +141,14 @@ class StatusController extends AbstractController
      *     description="Returns statuses collection",
      * )
      *
-     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
-     * @param Language                   $language
-     * @param GridConfigurationInterface $configuration
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getAttributes(Language $language, GridConfigurationInterface $configuration): Response
+    public function getAttributes(Language $language, RequestGridConfiguration $configuration): Response
     {
         $dataSet = $this->query->getDataSet($language);
 

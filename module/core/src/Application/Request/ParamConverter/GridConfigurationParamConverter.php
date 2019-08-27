@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Request\ParamConverter;
 
-use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
@@ -33,6 +32,6 @@ class GridConfigurationParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration): bool
     {
-        return GridConfigurationInterface::class === $configuration->getClass();
+        return RequestGridConfiguration::class === $configuration->getClass();
     }
 }

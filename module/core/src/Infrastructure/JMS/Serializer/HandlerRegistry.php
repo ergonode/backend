@@ -14,10 +14,11 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use Psr\Container\ContainerInterface;
 
 /**
- * @todo HAX
  */
 class HandlerRegistry implements HandlerRegistryInterface
 {
+    private const MAP_KEY_TEMPLATE = '%s.%s.%s';
+
     /**
      * @var array
      */
@@ -63,7 +64,7 @@ class HandlerRegistry implements HandlerRegistryInterface
      */
     public function getHandler($direction, $typeName, $format)
     {
-        $key = sprintf('%s.%s.%s', $typeName, $direction, $format);
+        $key = sprintf(self::MAP_KEY_TEMPLATE, $typeName, $direction, $format);
 
         if (array_key_exists($key, $this->map)) {
             $typeName = $this->map[$key];

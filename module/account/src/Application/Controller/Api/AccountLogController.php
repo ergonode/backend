@@ -11,7 +11,7 @@ namespace Ergonode\Account\Application\Controller\Api;
 
 use Ergonode\Account\Domain\Query\LogQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\LogGrid;
-use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -102,13 +102,13 @@ class AccountLogController extends AbstractController
      *     description="Returns accounts log collection"
      * )
      *
-     * @ParamConverter(class="Ergonode\Grid\GridConfigurationInterface")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
-     * @param GridConfigurationInterface $configuration
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getLog(GridConfigurationInterface $configuration): Response
+    public function getLog(RequestGridConfiguration $configuration): Response
     {
         return new GridResponse(
             $this->grid,
