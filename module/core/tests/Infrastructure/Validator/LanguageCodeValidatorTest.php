@@ -12,7 +12,6 @@ namespace Ergonode\Core\Tests\Infrastructure\Validator;
 use Ergonode\Core\Infrastructure\Validator\Constraint\LanguageCodeConstraint;
 use Ergonode\Core\Infrastructure\Validator\LanguageCodeValidator;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Exception\ValidatorException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 /**
@@ -20,7 +19,7 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 class LanguageCodeValidatorTest extends ConstraintValidatorTestCase
 {
     /**
-     * @expectedException ValidatorException
+     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongValueProvided(): void
     {
@@ -28,7 +27,7 @@ class LanguageCodeValidatorTest extends ConstraintValidatorTestCase
     }
 
     /**
-     * @expectedException ValidatorException
+     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongConstraintProvided(): void
     {
