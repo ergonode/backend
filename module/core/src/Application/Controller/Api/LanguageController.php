@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Application\Controller\Api;
 
 use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Application\Form\LanguageCollectionForm;
 use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
 use Ergonode\Core\Domain\Command\UpdateLanguageCommand;
@@ -22,6 +23,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -91,6 +93,7 @@ class LanguageController extends AbstractApiController
      * @SWG\Response(
      *     response=200,
      *     description="Returns language",
+     *     @SWG\Schema(ref="#/definitions/language_res")
      * )
      * @SWG\Response(
      *     response=404,
@@ -106,7 +109,10 @@ class LanguageController extends AbstractApiController
     {
         $language = $this->query->getLanguage($translationLanguage);
 
-        return $this->createRestResponse([$language]);
+        if ($language) {
+            return $this->createRestResponse([$language]);
+        }
+        throw new NotFoundHttpException();
     }
 
     /**
@@ -199,7 +205,7 @@ class LanguageController extends AbstractApiController
      *     in="body",
      *     description="Category body",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/languages")
+     *     @SWG\Schema(ref="#/definitions/languages_req")
      * )
      * @SWG\Response(
      *     response=200,
@@ -232,7 +238,7 @@ class LanguageController extends AbstractApiController
                     $this->repository->save(Language::fromString($language->code), $language->active);
                 }
 
-                return $this->createRestResponse();
+                return $this->createRestResponse(['message' => "Updated"]);
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

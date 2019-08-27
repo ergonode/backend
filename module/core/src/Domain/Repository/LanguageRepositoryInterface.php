@@ -23,15 +23,15 @@ interface LanguageRepositoryInterface
     public function load(array $codes): array;
 
     /**
-     * @param Language $languageCode
+     * @param Language $language
      * @param bool     $active
      */
-    public function save(Language $languageCode, bool $active): void;
+    public function save(Language $language, bool $active): void;
 
     /**
-     * @param Language $languageCode
+     * @param Language $language
      *
      * @return bool
      */
-    public function exists(Language $languageCode): bool;
+    public function exists(Language $language): bool;
 }

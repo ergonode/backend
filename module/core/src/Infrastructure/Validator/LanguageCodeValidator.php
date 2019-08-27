@@ -32,6 +32,11 @@ class LanguageCodeValidator extends ConstraintValidator
         if (empty($value)) {
             return;
         }
+
+        if (!is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
+            throw new UnexpectedTypeException($value, 'string');
+        }
+
         if (!Language::isValid($value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ language }}', $value)

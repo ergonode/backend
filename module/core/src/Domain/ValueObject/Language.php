@@ -147,7 +147,7 @@ class Language
      *
      * @return bool
      */
-    public static function isValid(string $code): bool
+    public static function isValid(?string $code): bool
     {
         return \in_array($code, self::AVAILABLE, true);
     }

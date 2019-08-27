@@ -19,15 +19,6 @@ use Ergonode\Core\Persistence\Dbal\Query\DbalLanguageQuery;
 class DbalLanguageRepository implements LanguageRepositoryInterface
 {
     private const TABLE = 'language';
-    private const ALL_FIELDS = [
-        'id',
-        'iso AS code',
-        'name',
-        'active',
-    ];
-    private const CODE_FIELD = [
-        'iso AS code',
-    ];
 
     /**
      * @var Connection
@@ -59,21 +50,21 @@ class DbalLanguageRepository implements LanguageRepositoryInterface
     }
 
     /**
-     * @param Language $languageCode
+     * @param Language $language
      * @param bool     $active
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function save(Language $languageCode, bool $active): void
+    public function save(Language $language, bool $active): void
     {
-        if ($this->exists($languageCode)) {
+        if ($this->exists($language)) {
             $this->connection->update(
                 self::TABLE,
                 [
                     'active' => $active,
                 ],
                 [
-                    'iso' => $languageCode->getCode(),
+                    'iso' => $language->getCode(),
                 ],
                 [
                     'active' => \PDO::PARAM_BOOL,
@@ -83,17 +74,17 @@ class DbalLanguageRepository implements LanguageRepositoryInterface
     }
 
     /**
-     * @param Language $languageCode
+     * @param Language $language
      *
      * @return bool
      */
-    public function exists(Language $languageCode): bool
+    public function exists(Language $language): bool
     {
         $query = $this->connection->createQueryBuilder();
         $result = $query->select(1)
             ->from(self::TABLE)
             ->where($query->expr()->eq('iso', ':iso'))
-            ->setParameter(':iso', $languageCode)
+            ->setParameter(':iso', $language)
             ->execute()
             ->rowCount();
 
