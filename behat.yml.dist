@@ -8,6 +8,7 @@ default:
                     password: '123'
                 - FeatureContext:
                     kernel: '@kernel'
+                - AttributeContext:
 
     extensions:
         Behat\Symfony2Extension:
@@ -19,4 +20,3 @@ default:
                 base_uri: 'http://localhost:8001'
                 timeout: 5.0
                 verify: false
-

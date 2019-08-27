@@ -1,5 +1,14 @@
 Feature: Account module
 
+  Scenario: Get profile
+    Given Current authentication token
+    When I request "/api/v1/profile" using HTTP GET
+    Then the response code is 200
+
+  Scenario: Get profile (not authorized)
+    When I request "/api/v1/profile" using HTTP GET
+    Then unauthorized response is received
+
   Scenario: Create role
     Given Current authentication token
     Given the request body is:

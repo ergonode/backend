@@ -251,6 +251,14 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     }
 
     /**
+     * @return array|mixed|stdClass
+     */
+    public function getLastResponseBody()
+    {
+        return $this->getResponseBody();
+    }
+
+    /**
      * {@inheritDoc}
      */
     protected function getResponseBody()

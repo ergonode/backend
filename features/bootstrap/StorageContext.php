@@ -32,6 +32,7 @@ class StorageContext implements Context
     public function __construct()
     {
         $this->addDefinition('uuid', Uuid::uuid4());
+        $this->addDefinition('code', str_replace('-', '_', Uuid::uuid4()));
     }
 
     /**
