@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -46,24 +46,6 @@ class AttributeContext implements Context
         $environment = $scope->getEnvironment();
 
         $this->apiContext = $environment->getContext('ApiContext');
-    }
-
-    /**
-     * @Given I fill text attribute correctly
-     */
-    public function iFillTextAttribute(): void
-    {
-        $micro = str_replace('.', '', microtime(true));
-
-        $this->attribute = [
-            'code' => \sprintf('TEXT_ANY_CODE_%s', $micro),
-            'type' => \Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute::TYPE,
-            'groups' => [
-                reset($this->groups)['id'],
-            ],
-            'parameters' => [
-            ],
-        ];
     }
 
     /**
@@ -207,7 +189,7 @@ class AttributeContext implements Context
         $this->groups = $this->apiContext->getContent();
 
         foreach ($this->groups as $index => $group) {
-            if(null === $group['id']) {
+            if (null === $group['id']) {
                 unset($this->groups[$index]);
             }
         }

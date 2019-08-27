@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -11,17 +11,17 @@ namespace Ergonode\Attribute\Infrastructure\Action;
 
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
-use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
+use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
+use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
+use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Infrastructure\Action\ImportActionInterface;
+use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
 

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -12,7 +12,6 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class EditorContext
  */
 class NavigationContext implements Context
 {

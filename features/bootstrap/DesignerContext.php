@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -12,7 +12,6 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * Class DesignerContext
  */
 class DesignerContext implements Context
 {
@@ -105,7 +104,7 @@ class DesignerContext implements Context
     public function iUpdateTemplate(): void
     {
         $this->apiContext->put(
-            '/api/v1/EN/templates/' . $this->templateId,
+            '/api/v1/EN/templates/'.$this->templateId,
             $this->template,
             $this->apiContext->getToken()
         );
@@ -119,7 +118,7 @@ class DesignerContext implements Context
     public function iDeleteTemplate(): void
     {
         $this->apiContext->delete(
-            '/api/v1/EN/templates/' . $this->templateId,
+            '/api/v1/EN/templates/'.$this->templateId,
             $this->apiContext->getToken()
         );
     }
@@ -132,7 +131,7 @@ class DesignerContext implements Context
     public function iGetTemplate(): void
     {
         $this->apiContext->get(
-            '/api/v1/EN/templates/' . $this->templateId,
+            '/api/v1/EN/templates/'.$this->templateId,
             $this->apiContext->getToken()
         );
     }

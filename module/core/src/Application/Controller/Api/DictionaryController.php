@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -12,9 +12,9 @@ namespace Ergonode\Core\Application\Controller\Api;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Provider\LanguageProviderInterface;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */

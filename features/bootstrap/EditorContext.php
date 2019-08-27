@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -11,7 +11,6 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 
 /**
- * Class EditorContext
  */
 class EditorContext implements Context
 {
@@ -57,7 +56,7 @@ class EditorContext implements Context
     /**
      * @Given I create product draft
      */
-    public function CreateProductDraft(): void
+    public function iCreateProductDraft(): void
     {
         $productId = $this->productContext->getProductId();
 

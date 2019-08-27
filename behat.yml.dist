@@ -2,21 +2,21 @@ default:
     suites:
         default:
             contexts:
+                - StorageContext:
                 - ApiContext:
-                    host: #HOST#
-                - AttributeContext:
-                - DesignerContext:
-                - EditorContext:
-                - CategoryContext:
-                - CategoryTreeContext:
-                - NavigationContext:
-                - ProductContext:
-                - SegmentContext:
+                    username: 'test@ergonode.com'
+                    password: '123'
                 - FeatureContext:
                     kernel: '@kernel'
 
     extensions:
         Behat\Symfony2Extension:
             kernel:
-                bootstrap: features/bootstrap/bootstrap.php
-                class: App\Kernel
+                bootstrap: 'features/bootstrap/bootstrap.php'
+                class: 'App\Kernel'
+        Imbo\BehatApiExtension:
+            apiClient:
+                base_uri: 'http://localhost:8001'
+                timeout: 5.0
+                verify: false
+

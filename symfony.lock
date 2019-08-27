@@ -1,4 +1,7 @@
 {
+    "beberlei/assert": {
+        "version": "v2.9.9"
+    },
     "behat/behat": {
         "version": "v3.4.3"
     },
@@ -98,6 +101,9 @@
     "exsyst/swagger": {
         "version": "v0.4.0"
     },
+    "firebase/php-jwt": {
+        "version": "v5.0.0"
+    },
     "friendsofsymfony/rest-bundle": {
         "version": "2.2",
         "recipe": {
@@ -160,6 +166,9 @@
     },
     "hoa/zformat": {
         "version": "1.17.01.10"
+    },
+    "imbo/behat-api-extension": {
+        "version": "v2.1.0"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"

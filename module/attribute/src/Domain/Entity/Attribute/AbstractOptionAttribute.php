@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -11,9 +11,9 @@ namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeOptionChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeOptionRemovedEvent;
-use Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;

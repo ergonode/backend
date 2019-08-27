@@ -2,14 +2,14 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 namespace Ergonode\AttributePrice\Tests\Domain\Factory;
 
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\AttributePrice\Domain\Factory\PriceAttributeFactory;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;

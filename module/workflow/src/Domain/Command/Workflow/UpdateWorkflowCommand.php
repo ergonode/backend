@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -11,8 +11,8 @@ namespace Ergonode\Workflow\Domain\Command\Workflow;
 
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\Status;
-use Webmozart\Assert\Assert;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */

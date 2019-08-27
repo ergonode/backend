@@ -2,16 +2,16 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Validator;
 
+use Ergonode\Attribute\Domain\AttributeValidatorInterface;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
-use Ergonode\Attribute\Domain\AttributeValidatorInterface;
 
 /**
  */

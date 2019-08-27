@@ -1,9 +1,26 @@
-Feature: Testing attribute component
+Feature: Attribute module
 
   Background:
     When I login as "test@ergonode.com" with "123"
-    And I get attribute group dictionary
-    And I get 200 result code
+
+  Scenario: Create text attribute
+    Given Current authentication token
+    When I request "/api/v1/EN/attributes" using HTTP POST
+    Given the request body is:
+      """
+      {
+          "code": "TEXT_TEST_CODE",
+          "type": "TEXT",
+          "groups": ["????"], # todo
+          "parameters": []
+      }
+      """
+    Then created response is received
+    And remember response param "id" as "text_attribute"
+
+  Scenario: Create text attribute (not authorized)
+    When I request "/api/v1/EN/attributes" using HTTP POST
+    Then unauthorized response is received
 
   Scenario: I create correct text attribute
     When I fill text attribute correctly
@@ -83,6 +100,6 @@ Feature: Testing attribute component
     Then I get 400 result code
 
     Examples:
-      | field               |
-      | code                |
-      | type                |
+      | field |
+      | code  |
+      | type  |

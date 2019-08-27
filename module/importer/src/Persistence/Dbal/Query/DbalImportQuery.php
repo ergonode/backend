@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Importer\Domain\Entity\ImportLineId;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Importer\Domain\Entity\ImportLineId;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 
 /**

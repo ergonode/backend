@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Event\ProductAddedToCategory;
 use Ergonode\Product\Domain\Event\ProductCreated;
 use Ergonode\Product\Domain\Event\ProductRemovedFromCategory;
@@ -21,7 +22,6 @@ use Ergonode\Product\Domain\Event\ProductValueAdded;
 use Ergonode\Product\Domain\Event\ProductValueChanged;
 use Ergonode\Product\Domain\Event\ProductValueRemoved;
 use Ergonode\Product\Domain\Event\ProductVersionIncreased;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;

@@ -1,230 +1,290 @@
 <?php
 
-use Behat\Behat\Context\Context;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+use Assert\Assertion;
+use Assert\AssertionFailedException as AssertionFailure;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Imbo\BehatApiExtension\Exception\AssertionFailedException;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class ApiContext
  */
-class ApiContext implements Context
+class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
 {
-    private const AUTHORIZATION_HEADER = 'Bearer %s';
-    private const AUTHENTICATION_URL = '/api/v1/login';
     private const JSON_CONTENT = 'application/json';
 
     /**
-     * @var string
+     * @var StorageContext
      */
-    private $token;
-
-    /**
-     * @var
-     */
-    private $language;
+    private $storageContext;
 
     /**
      * @var string
      */
-    private $host;
+    private $username;
 
     /**
-     * @var null|Response
+     * @var string
      */
-    private $response;
+    private $password;
 
     /**
-     * @param string $host
+     * @param string $username
+     * @param string $password
      */
-    public function __construct(string $host)
+    public function __construct(string $username, string $password)
     {
-        $this->host = $host;
-        $this->language = 'EN';
+        $this->username = $username;
+        $this->password = $password;
+    }
+
+    /**
+     * @BeforeScenario
+     *
+     * @param BeforeScenarioScope $scope
+     */
+    public function gatherContexts(BeforeScenarioScope $scope): void
+    {
+        $environment = $scope->getEnvironment();
+
+        $this->storageContext = $environment->getContext('StorageContext');
     }
 
     /**
      * @param string $username
      * @param string $password
      *
-     * @throws GuzzleException
-     *
-     * @Given I login as :username with :password
+     * @Given Authenticate as user :username with password :password
      */
-    public function iLogin(string $username, string $password): void
+    public function login(string $username, string $password): void
     {
-        $this->post(
-            self::AUTHENTICATION_URL,
-            [
-                'username' => $username,
-                'password' => $password,
-            ]
-        )        ;
+        $body = json_encode([
+            'username' => $username,
+            'password' => $password,
+        ]);
 
-        $result = $this->getContent();
+        $this->setRequestHeader('Content-Type', self::JSON_CONTENT);
+        $this->setRequestMethod(Request::METHOD_POST);
+        $this->setRequestPath('/api/v1/login');
+        $this->setRequestBody($body);
+        $this->sendRequest();
+        $this->rememberResponseParam('token', 'token');
+    }
 
-        if (!empty($result['token'])) {
-            $this->token = $result['token'];
+    /**
+     * @Given Current authentication token
+     */
+    public function authenticationToken(): void
+    {
+        if (!$this->storageContext->has('token')) {
+            $this->login($this->username, $this->password);
+        }
+
+        $this->setRequestHeader('JWTAuthorization', sprintf(
+            'Bearer %s',
+            $this->storageContext->get('token')
+        ));
+    }
+
+    /**
+     * @param string $key
+     * @param string $var
+     *
+     * @Then remember response param :key as :var
+     */
+    public function rememberResponseParam(string $key, string $var): void
+    {
+        $response = $this->getResponseBody();
+
+        if (!isset($response->{$key})) {
+            throw new \RuntimeException(sprintf(
+                'Key "%s" not found in response "%s"',
+                $key,
+                $this->response->getBody()
+            ));
+        }
+
+        $this->storageContext->add($var, $response->{$key});
+    }
+
+    /**
+     * @param string $keys
+     *
+     * @throws AssertionFailedException
+     *
+     * @Then the JSON object contains keys :keys
+     */
+    public function assertJsonObjectContainsKeys(string $keys): void
+    {
+        $this->requireResponse();
+        $body = $this->getResponseBody();
+        $keysCollection = explode(',', $keys);
+
+        try {
+            foreach ($keysCollection as $key) {
+                Assertion::propertyExists($body, $key);
+            }
+        } catch (AssertionFailure $e) {
+            throw new AssertionFailedException($e->getMessage());
         }
     }
 
     /**
-     * @param string $language
+     * @throws AssertionFailedException
      *
-     * @Given I use language :language
+     * @Then not found response is received
      */
-    public function iUseLanguage(string $language): void
+    public function assertResponseNotFound(): void
     {
-        $this->language = $language;
+        $this->requireResponse();
+        $this->assertResponseCodeIs(Response::HTTP_NOT_FOUND);
+        $this->assertJsonObjectContainsKeys('code,message');
     }
 
     /**
-     * @param string      $url
-     * @param mixed       $json
-     * @param null|string $token
+     * @throws AssertionFailedException
      *
-     * @throws GuzzleException
+     * @Then created response is received
      */
-    public function post(string $url, $json, ?string $token = null): void
+    public function assertResponseCreated(): void
     {
-        $client = new Client();
-
-        $this->response = $client->request(
-            'POST',
-            $this->host.$url,
-            [
-                GuzzleHttp\RequestOptions::JSON => $json,
-                GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
-                GuzzleHttp\RequestOptions::HEADERS => [
-                    'Content-Type' => self::JSON_CONTENT,
-                    'JWTAuthorization' => sprintf(self::AUTHORIZATION_HEADER, $token),
-                ],
-            ]
-        );
+        $this->requireResponse();
+        $this->assertResponseCodeIs(Response::HTTP_CREATED);
+        $this->assertJsonObjectContainsKeys('id');
     }
 
     /**
-     * @param string      $url
-     * @param mixed       $json
-     * @param null|string $token
+     * @throws AssertionFailedException
      *
-     * @throws GuzzleException
+     * @Then validation error response is received
      */
-    public function put(string $url, $json, ?string $token = null): void
+    public function assertResponseValidationError(): void
     {
-        $client = new Client();
-
-        $this->response = $client->request(
-            'PUT',
-            $this->host.$url,
-            [
-                GuzzleHttp\RequestOptions::JSON => $json,
-                GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
-                GuzzleHttp\RequestOptions::HEADERS => [
-                    'Content-Type' => self::JSON_CONTENT,
-                    'JWTAuthorization' => sprintf(self::AUTHORIZATION_HEADER, $token),
-                ],
-            ]
-        );
+        $this->requireResponse();
+        $this->assertResponseCodeIs(Response::HTTP_BAD_REQUEST);
+        $this->assertJsonObjectContainsKeys('code,message,errors');
     }
 
     /**
-     * @param string      $url
-     * @param null|string $token
+     * @throws AssertionFailedException
      *
-     * @throws GuzzleException
+     * @Then empty response is received
      */
-    public function delete(string $url, ?string $token = null): void
+    public function assertResponseEmpty(): void
     {
-        $client = new Client();
-
-        $this->response = $client->request(
-            'DELETE',
-            $this->host.$url,
-            [
-                GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
-                GuzzleHttp\RequestOptions::HEADERS => [
-                    'Content-Type' => self::JSON_CONTENT,
-                    'JWTAuthorization' => sprintf(self::AUTHORIZATION_HEADER, $token),
-                ],
-            ]
-        );
+        $this->requireResponse();
+        $this->assertResponseCodeIs(Response::HTTP_NO_CONTENT);
     }
 
     /**
-     * @param string      $url
-     * @param null|string $token
+     * @throws AssertionFailedException
      *
-     * @throws GuzzleException
+     * @Then unauthorized response is received
      */
-    public function get(string $url, ?string $token = null): void
+    public function assertResponseUnauthorized(): void
     {
-        $client = new Client();
-
-        $this->response = $client->request(
-            'GET',
-            $this->host.$url,
-            [
-                GuzzleHttp\RequestOptions::HTTP_ERRORS => false,
-                GuzzleHttp\RequestOptions::HEADERS => [
-                    'Content-Type' => self::JSON_CONTENT,
-                    'JWTAuthorization' => sprintf(self::AUTHORIZATION_HEADER, $token),
-                ],
-            ]
-        );
+        $this->requireResponse();
+        $this->assertResponseCodeIs(Response::HTTP_UNAUTHORIZED);
     }
 
     /**
-     * @Then I get token
-     */
-    public function iGetToken(): void
-    {
-        TestCase::assertNotNull($this->token);
-    }
-
-    /**
-     * @param string $code
+     * @throws AssertionFailedException
      *
-     * @Then I get :code result code
+     * @Then grid response is received
      */
-    public function iGetResultCode(string $code): void
+    public function assertResponseGrid(): void
     {
-        $statusCode = $this->getResponse()->getStatusCode();
-        $message = sprintf('Expect "%s" http code, given "%s", content: %s', $code, $statusCode, $this->response->getBody());
-
-        TestCase::assertEquals($code, $statusCode, $message);
+        $this->requireResponse();
+        $this->assertResponseCodeIs(Response::HTTP_OK);
+        $this->assertJsonObjectContainsKeys('configuration,columns,collection,info');
     }
 
     /**
-     * @return mixed
+     * {@inheritDoc}
      */
-    public function getContent()
+    public function assertResponseCodeIs($code)
     {
-        return \json_decode((string) $this->response->getBody(), true);
+        $this->requireResponse();
+
+        try {
+            Assertion::same(
+                $actual = $this->response->getStatusCode(),
+                $expected = $this->validateResponseCode($code),
+                sprintf(
+                    'Expected response code "%d", got "%d". Revived "%s"',
+                    $expected,
+                    $actual,
+                    $this->response->getBody()
+                )
+            );
+        } catch (AssertionFailure $e) {
+            throw new AssertionFailedException($e->getMessage());
+        }
     }
 
     /**
-     * @return null|Response
+     * {@inheritDoc}
      */
-    public function getResponse(): ?Response
+    public function requestPath($path, $method = null)
     {
-        return $this->response;
+        $path = $this->storageContext->replaceVars($path);
+
+        $this->setRequestHeader('Accept', self::JSON_CONTENT);
+        $this->setRequestHeader('Content-Type', self::JSON_CONTENT);
+
+        parent::requestPath($path, $method);
     }
 
     /**
-     * @return null|string
+     * {@inheritDoc}
      */
-    public function getToken(): ?string
+    public function setRequestBody($string)
     {
-        return $this->token;
+        $string = $this->storageContext->replaceVars($string);
+
+        return parent::setRequestBody($string);
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
-    public function getLanguage(): string
+    protected function getResponseBody()
     {
-        return $this->language;
+        $source = (string) $this->response->getBody();
+        $body = json_decode($source, false);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new InvalidArgumentException(sprintf(
+                'The response body does not contain valid JSON data. Received "%s"',
+                $source
+            ));
+        } elseif (!is_array($body) && !($body instanceof stdClass)) {
+            throw new InvalidArgumentException(sprintf(
+                'The response body does not contain a valid JSON array / object. Received "%s"',
+                $source
+            ));
+        }
+
+        return $body;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getResponseBodyArray()
+    {
+        if (!is_array($body = $this->getResponseBody())) {
+            throw new InvalidArgumentException(sprintf(
+                'The response body does not contain a valid JSON array. Received "%s"',
+                $this->response->getBody()
+            ));
+        }
+
+        return $body;
     }
 }

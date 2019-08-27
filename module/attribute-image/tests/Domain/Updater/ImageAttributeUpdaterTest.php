@@ -2,16 +2,16 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 namespace Ergonode\AttributeImage\Tests\Domain\Updater;
 
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
-use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
+use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
 use Ergonode\AttributeImage\Domain\Updater\ImageAttributeUpdater;
+use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -12,9 +12,9 @@ namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
+use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
-use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;

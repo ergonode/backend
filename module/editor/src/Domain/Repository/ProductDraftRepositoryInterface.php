@@ -1,13 +1,13 @@
 <?php
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 namespace Ergonode\Editor\Domain\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
  */

@@ -2,14 +2,14 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 namespace Ergonode\AttributePrice\Tests\Domain\Updater;
 
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\AttributePrice\Domain\Updater\PriceAttributeUpdater;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

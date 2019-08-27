@@ -2,15 +2,13 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Validator;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Symfony\Component\Validator\Constraint;

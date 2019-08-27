@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -32,6 +32,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -477,6 +478,8 @@ class AccountController extends AbstractApiController
      *     description="Not found",
      * )
      *
+     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
+     *
      * @param User    $user
      * @param Request $request
      *
@@ -490,7 +493,7 @@ class AccountController extends AbstractApiController
         $userId = $this->getUser()->getId();
 
         if ($violations->count() === 0) {
-            $command = new ChangeUserPasswordCommand($userId, new Password($data['password']));
+            $command = new ChangeUserPasswordCommand($userId, new Password((string) $data['password']));
             $this->messageBus->dispatch($command);
 
             return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
