@@ -15,7 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -50,7 +49,10 @@ class LogGrid extends AbstractGrid
         $this->addColumn('id', $id);
         $this->addColumn('recorded_at', new TextColumn('recorded_at', $this->trans('Time'), new TextFilter($filters->getString('recorded_at'))));
         $this->addColumn('author', new TextColumn('author', $this->trans('Author'), new TextFilter($filters->getString('author'))));
-        $this->addColumn('event', new LogColumn('event', 'payload', $this->trans('Message'), $language, $this->translator));
+        $column = new LogColumn('event', 'payload', $this->trans('Message'), $language, $this->translator);
+        $column->setWidth(600);
+        $this->addColumn('event', $column);
+        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
 
         $this->orderBy('recorded_at', 'DESC');
     }
