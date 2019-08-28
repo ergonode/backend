@@ -5,7 +5,7 @@ Feature: Designer module
 #    Given the request body is:
 #      """
 #      {
-#        "name": "TEST @@code@@",
+#        "name": "TEST @@random_code@@",
 #        "image": "string",
 #        "elements": [
 #          {

@@ -9,7 +9,6 @@ use Assert\Assertion;
 use Assert\AssertionFailedException as AssertionFailure;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Imbo\BehatApiExtension\Exception\AssertionFailedException;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -24,26 +23,6 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     private $storageContext;
 
     /**
-     * @var string
-     */
-    private $username;
-
-    /**
-     * @var string
-     */
-    private $password;
-
-    /**
-     * @param string $username
-     * @param string $password
-     */
-    public function __construct(string $username, string $password)
-    {
-        $this->username = $username;
-        $this->password = $password;
-    }
-
-    /**
      * @BeforeScenario
      *
      * @param BeforeScenarioScope $scope
@@ -53,42 +32,6 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
         $environment = $scope->getEnvironment();
 
         $this->storageContext = $environment->getContext('StorageContext');
-    }
-
-    /**
-     * @param string $username
-     * @param string $password
-     *
-     * @Given Authenticate as user :username with password :password
-     */
-    public function login(string $username, string $password): void
-    {
-        $body = json_encode([
-            'username' => $username,
-            'password' => $password,
-        ]);
-
-        $this->setRequestHeader('Content-Type', self::JSON_CONTENT);
-        $this->setRequestMethod(Request::METHOD_POST);
-        $this->setRequestPath('/api/v1/login');
-        $this->setRequestBody($body);
-        $this->sendRequest();
-        $this->rememberResponseParam('token', 'token');
-    }
-
-    /**
-     * @Given Current authentication token
-     */
-    public function authenticationToken(): void
-    {
-        if (!$this->storageContext->has('token')) {
-            $this->login($this->username, $this->password);
-        }
-
-        $this->setRequestHeader('JWTAuthorization', sprintf(
-            'Bearer %s',
-            $this->storageContext->get('token')
-        ));
     }
 
     /**
@@ -256,6 +199,13 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     public function getLastResponseBody()
     {
         return $this->getResponseBody();
+    }
+
+    /**
+     */
+    public function requestSend(): void
+    {
+        $this->sendRequest();
     }
 
     /**

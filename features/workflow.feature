@@ -5,7 +5,7 @@ Feature: Workflow
     Given the request body is:
     """
       {
-        "code": "TEST_@@code@@",
+        "code": "TEST_@@random_code@@",
         "statuses": [
           {
             "color": "#ff0000",
@@ -35,7 +35,7 @@ Feature: Workflow
     Given the request body is:
     """
       {
-        "code": "TEST_@@code@@",
+        "code": "TEST_@@random_code@@",
         "statuses": [
           {
             "color": "#ff0000",

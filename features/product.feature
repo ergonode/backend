@@ -5,7 +5,7 @@ Feature: Product module
 #    Given the request body is:
 #      """
 #      {
-#        "sku": "SKU_@@code@@",
+#        "sku": "SKU_@@random_code@@",
 #        "templateId": "string",
 #        "categoryIds": []
 #      }

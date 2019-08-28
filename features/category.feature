@@ -5,7 +5,7 @@ Feature: Category module
     Given the request body is:
       """
       {
-        "code": "CATEGORY_@@uuid@@",
+        "code": "CATEGORY_@@random_uuid@@",
         "name": {
           "DE": "Test DE",
           "EN": "Test EN"

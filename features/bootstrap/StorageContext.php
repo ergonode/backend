@@ -31,8 +31,8 @@ class StorageContext implements Context
      */
     public function __construct()
     {
-        $this->addDefinition('uuid', Uuid::uuid4());
-        $this->addDefinition('code', str_replace('-', '_', Uuid::uuid4()));
+        $this->addDefinition('random_uuid', Uuid::uuid4());
+        $this->addDefinition('random_code', str_replace('-', '_', Uuid::uuid4()));
         $this->addDefinition('static_uuid', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa');
     }
 
@@ -44,6 +44,10 @@ class StorageContext implements Context
      */
     public function add(string $key, $value): void
     {
+        if (is_string($value)) {
+            $value = $this->replaceVars($value);
+        }
+
         self::$storage[$key] = $value;
         $this->addTag($key, $value);
     }

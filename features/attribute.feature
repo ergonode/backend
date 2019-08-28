@@ -33,7 +33,7 @@ Feature: Attribute module
     Given the request body is:
       """
       {
-          "code": "TEXT_@@code@@",
+          "code": "TEXT_@@random_code@@",
           "type": "TEXT",
           "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
           "groups": ["@attribute_group@"],
@@ -94,7 +94,7 @@ Feature: Attribute module
     Given the request body is:
       """
       {
-          "code": "TEXTAREA_@@code@@",
+          "code": "TEXTAREA_@@random_code@@",
           "type": "TEXTAREA",
           "groups": ["@attribute_group@"],
           "parameters": []
@@ -127,7 +127,7 @@ Feature: Attribute module
     Given the request body is:
       """
       {
-          "code": "SELECT_@@code@@",
+          "code": "SELECT_@@random_code@@",
           "type": "SELECT",
           "groups": ["@attribute_group@"]
       }
@@ -158,7 +158,7 @@ Feature: Attribute module
     Given the request body is:
       """
       {
-          "code": "MULTISELECT_@@code@@",
+          "code": "MULTISELECT_@@random_code@@",
           "type": "MULTI_SELECT",
           "groups": ["@attribute_group@"]
       }
@@ -189,7 +189,7 @@ Feature: Attribute module
     Given the request body is:
       """
       {
-          "code": "IMAGE_@@code@@",
+          "code": "IMAGE_@@random_code@@",
           "type": "IMAGE",
           "groups": ["@attribute_group@"],
           "parameters": {"formats": ["jpg"]}
@@ -222,7 +222,7 @@ Feature: Attribute module
     Given the request body is:
       """
       {
-          "code": "DATE_@@code@@",
+          "code": "DATE_@@random_code@@",
           "type": "DATE",
           "groups": ["@attribute_group@"],
           "parameters": {"format": "YYYY-MM-DD"}
@@ -255,7 +255,7 @@ Feature: Attribute module
     Given the request body is:
       """
       {
-          "code": "PRICE_@@code@@",
+          "code": "PRICE_@@random_code@@",
           "type": "PRICE",
           "groups": ["@attribute_group@"],
           "parameters": {"currency": "PLN"}
@@ -288,7 +288,7 @@ Feature: Attribute module
     Given the request body is:
       """
       {
-          "code": "UNIT_@@code@@",
+          "code": "UNIT_@@random_code@@",
           "type": "UNIT",
           "groups": ["@attribute_group@"],
           "parameters": {"unit": "M"}
