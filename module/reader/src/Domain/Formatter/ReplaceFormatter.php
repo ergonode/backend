@@ -14,10 +14,8 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ReplaceFormatter implements FormatterInterface
+class ReplaceFormatter extends AbstractFormatter implements FormatterInterface
 {
-    public const TYPE = 'replace';
-
     /**
      * @var string
      *
@@ -43,15 +41,9 @@ class ReplaceFormatter implements FormatterInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param string $string
+     *
+     * @return string
      */
     public function format(string $string): string
     {

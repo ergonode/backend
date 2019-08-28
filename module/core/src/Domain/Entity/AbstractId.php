@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Domain\Entity;
 
-use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -19,8 +18,6 @@ abstract class AbstractId
 {
     /**
      * @var string
-     *
-     * @JMS\Type("string")
      */
     private $value;
 

@@ -21,7 +21,6 @@ security:
         login:
             pattern:  '^/api/v1/login$'
             stateless: true
-            user_checker: 'Ergonode\Account\Application\Security\Checker\UserActivityChecker'
             guard:
                 provider: 'domain_user_provider'
                 authenticators:

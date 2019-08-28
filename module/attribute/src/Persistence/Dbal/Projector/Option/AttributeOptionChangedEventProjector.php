@@ -15,10 +15,10 @@ use Ergonode\Attribute\Domain\Event\AttributeOptionChangedEvent;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ramsey\Uuid\Uuid;
 
@@ -43,7 +43,9 @@ class AttributeOptionChangedEventProjector implements DomainEventProjectorInterf
     }
 
     /**
-     * {@inheritDoc}
+     * @param DomainEventInterface $event
+     *
+     * @return bool
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -51,7 +53,12 @@ class AttributeOptionChangedEventProjector implements DomainEventProjectorInterf
     }
 
     /**
-     * {@inheritDoc}
+     * @param AbstractId           $aggregateId
+     * @param DomainEventInterface $event
+     *
+     * @throws ProjectorException
+     * @throws UnsupportedEventException
+     * @throws \Doctrine\DBAL\ConnectionException
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {

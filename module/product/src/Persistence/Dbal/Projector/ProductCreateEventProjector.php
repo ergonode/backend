@@ -18,6 +18,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Product\Domain\Event\ProductCreated;
+use Ergonode\Product\Domain\ValueObject\ProductStatus;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
@@ -87,7 +88,7 @@ class ProductCreateEventProjector implements DomainEventProjectorInterface
                     'id' => $aggregateId->getValue(),
                     'sku' => $event->getSku()->getValue(),
                     'template_id' => $event->getTemplateId()->getValue(),
-                    'status' => 'new',
+                    'status' => ProductStatus::STATUS_DRAFT,
                 ]
             );
 

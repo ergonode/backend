@@ -89,7 +89,7 @@ class CreateAttributeCommand
     /**
      * @var OptionInterface[]
      *
-     * @JMS\Type("array<string, Ergonode\Attribute\Domain\ValueObject\OptionInterface>")
+     * @JMS\Type("array<string, Ergonode\Attribute\Domain\ValueObject\OptionValue\AbstractOption>")
      */
     private $options;
 

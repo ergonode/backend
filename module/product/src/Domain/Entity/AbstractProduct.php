@@ -18,6 +18,7 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Event\ProductAddedToCategory;
 use Ergonode\Product\Domain\Event\ProductCreated;
 use Ergonode\Product\Domain\Event\ProductRemovedFromCategory;
+use Ergonode\Product\Domain\Event\ProductStatusChanged;
 use Ergonode\Product\Domain\Event\ProductValueAdded;
 use Ergonode\Product\Domain\Event\ProductValueChanged;
 use Ergonode\Product\Domain\Event\ProductValueRemoved;
@@ -117,23 +118,19 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
-     * @return string
+     * @return ProductStatus
      */
-    public function getStatus(): string
+    public function getStatus(): ProductStatus
     {
-        return $this->attributes[self::STATUS]->getValue();
+        return new ProductStatus($this->getAttribute(new AttributeCode(self::STATUS))->getValue());
     }
 
     /**
-     * @param string $status
-     *
      * @throws \Exception
      */
-    public function changeStatus(string $status): void
+    public function accept(): void
     {
-        if ($this->attributes[self::STATUS]->getValue() !== $status) {
-            $this->apply(new ProductValueChanged(new AttributeCode(self::STATUS), $this->attributes[self::STATUS], new StringValue($status)));
-        }
+        $this->apply(new ProductStatusChanged($this->getStatus(), new ProductStatus(ProductStatus::STATUS_ACCEPTED)));
     }
 
     /**
@@ -346,5 +343,13 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     protected function applyProductVersionIncreased(ProductVersionIncreased $event): void
     {
         $this->version = $event->getTo();
+    }
+
+    /**
+     * @param ProductStatusChanged $event
+     */
+    protected function applyProductStatusChanged(ProductStatusChanged $event): void
+    {
+        $this->attributes[self::STATUS] = new StringValue($event->getTo()->getValue());
     }
 }

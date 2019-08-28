@@ -9,12 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\ValueObject\TemplateElement;
 
-use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UiTemplateElementProperty implements TemplateElementPropertyInterface
+class UiTemplateElementProperty extends AbstractTemplateElementProperty
 {
     public const VARIANT = 'ui';
 
@@ -34,9 +33,7 @@ class UiTemplateElementProperty implements TemplateElementPropertyInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
+     * @return string
      */
     public function getVariant(): string
     {

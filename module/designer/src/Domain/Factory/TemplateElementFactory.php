@@ -13,7 +13,7 @@ use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Resolver\TemplateElementTypeResolver;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
-use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
+use Ergonode\Designer\Domain\ValueObject\TemplateElement\AbstractTemplateElementProperty;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -52,7 +52,7 @@ class TemplateElementFactory
     {
         $properties['variant'] = $this->resolver->resolve($type);
 
-        $property = $this->serializer->deserialize(json_encode($properties), TemplateElementPropertyInterface::class, 'json');
+        $property = $this->serializer->deserialize(json_encode($properties), AbstractTemplateElementProperty::class, 'json');
 
         return new TemplateElement(
             $position,

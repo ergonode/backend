@@ -30,13 +30,6 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\TemplateElementPropertyInterfaceHandler:
-        arguments:
-            $constant: 'VARIANT'
-        calls:
-            - ['set', ['Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty']]
-            - ['set', ['Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty']]
-
     Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface: '@Ergonode\Designer\Persistence\Dbal\Repository\DbalTemplateRepository'
     Ergonode\Designer\Persistence\Dbal\Repository\Decorator\CacheTemplateRepositoryDecorator:
         decorates: Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Resolver;
 
-use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
+use Ergonode\Attribute\Domain\ValueObject\OptionValue\AbstractOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -19,12 +19,12 @@ use Ergonode\Core\Domain\ValueObject\Language;
 class TranslatedOptionValueResolver
 {
     /**
-     * @param OptionInterface $option
-     * @param Language        $language
+     * @param AbstractOption $option
+     * @param Language       $language
      *
      * @return string|null
      */
-    public function resolve(OptionInterface $option, Language $language): ?string
+    public function resolve(AbstractOption $option, Language $language): ?string
     {
         if ($option instanceof MultilingualOption) {
             return $option->getValue()->get($language);

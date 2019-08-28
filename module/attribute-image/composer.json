@@ -8,9 +8,9 @@
         "php": "^7.2",
         "doctrine/collections": "^1.6",
         "ergonode/attribute": "^0.2.0",
-        "jms/serializer": "^3.1",
+        "jms/serializer": "^3.0",
         "nelmio/api-doc-bundle": "^3.4",
-        "symfony/http-foundation": "^4.3"
+        "symfony/http-foundation": "^4.2"
     },
     "autoload": {
         "psr-4": {

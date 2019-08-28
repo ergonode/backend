@@ -15,10 +15,8 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class JoinConverter implements ConverterInterface
+class JoinConverter extends AbstractConverter implements ConverterInterface
 {
-    public const TYPE = 'join';
-
     /**
      * @var string
      *
@@ -35,16 +33,6 @@ class JoinConverter implements ConverterInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
-    }
-
-    /**
      * @param array  $line
      * @param string $field
      *
@@ -54,7 +42,7 @@ class JoinConverter implements ConverterInterface
     {
         $fields = [];
         foreach ($line as $key => $value) {
-            $fields[sprintf('<%s>', $key)] = $value;
+            $fields[\sprintf('<%s>', $key)] = $value;
         }
 
         return new StringValue(str_replace(array_keys($fields), $fields, $this->pattern));

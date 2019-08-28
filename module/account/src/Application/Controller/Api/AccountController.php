@@ -13,10 +13,10 @@ use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
 use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
 use Ergonode\Account\Application\Form\UserCreateForm;
 use Ergonode\Account\Application\Form\UserUpdateForm;
-use Ergonode\Account\Domain\Command\User\ChangeUserAvatarCommand;
-use Ergonode\Account\Domain\Command\User\ChangeUserPasswordCommand;
-use Ergonode\Account\Domain\Command\User\CreateUserCommand;
-use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
+use Ergonode\Account\Domain\Command\ChangeUserAvatarCommand;
+use Ergonode\Account\Domain\Command\ChangeUserPasswordCommand;
+use Ergonode\Account\Domain\Command\CreateUserCommand;
+use Ergonode\Account\Domain\Command\UpdateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
@@ -265,8 +265,6 @@ class AccountController extends AbstractApiController
      * @param Request $request
      *
      * @return Response
-     *
-     * @throws \Exception
      */
     public function createUser(Request $request): Response
     {
@@ -285,8 +283,7 @@ class AccountController extends AbstractApiController
                     new Email($data->email),
                     $data->language,
                     $data->password,
-                    $data->roleId,
-                    $data->isActive
+                    $data->roleId
                 );
                 $this->messageBus->dispatch($command);
 
@@ -364,7 +361,6 @@ class AccountController extends AbstractApiController
                     $data->lastName,
                     $data->language,
                     $data->roleId,
-                    $data->isActive,
                     $data->password
                 );
                 $this->messageBus->dispatch($command);

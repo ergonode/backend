@@ -14,10 +14,8 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class EncodingFormatter implements FormatterInterface
+class EncodingFormatter extends AbstractFormatter implements FormatterInterface
 {
-    public const TYPE = 'encoding';
-
     private const ENCODING = 'UTF-8//IGNORE';
 
     /**
@@ -36,15 +34,9 @@ class EncodingFormatter implements FormatterInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param string $string
+     *
+     * @return string
      */
     public function format(string $string): string
     {

@@ -14,11 +14,6 @@ namespace Ergonode\Attribute\Domain\ValueObject;
 interface OptionInterface
 {
     /**
-     * @return string
-     */
-    public function getType(): string;
-
-    /**
      * @return mixed
      */
     public function getValue();

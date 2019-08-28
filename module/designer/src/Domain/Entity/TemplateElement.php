@@ -11,7 +11,7 @@ namespace Ergonode\Designer\Domain\Entity;
 
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
-use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
+use Ergonode\Designer\Domain\ValueObject\TemplateElement\AbstractTemplateElementProperty;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -33,9 +33,9 @@ class TemplateElement
     protected $size;
 
     /**
-     * @var TemplateElementPropertyInterface
+     * @var AbstractTemplateElementProperty
      *
-     * @JMS\Type("Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface")
+     * @JMS\Type("Ergonode\Designer\Domain\ValueObject\TemplateElement\AbstractTemplateElementProperty")
      */
     protected $properties;
 
@@ -47,12 +47,12 @@ class TemplateElement
     protected $type;
 
     /**
-     * @param Position                         $position
-     * @param Size                             $size
-     * @param string                           $type
-     * @param TemplateElementPropertyInterface $properties
+     * @param Position                        $position
+     * @param Size                            $size
+     * @param string                          $type
+     * @param AbstractTemplateElementProperty $properties
      */
-    public function __construct(Position $position, Size $size, string $type, TemplateElementPropertyInterface $properties)
+    public function __construct(Position $position, Size $size, string $type, AbstractTemplateElementProperty $properties)
     {
         $this->position = $position;
         $this->size = $size;
@@ -85,9 +85,9 @@ class TemplateElement
     }
 
     /**
-     * @return TemplateElementPropertyInterface
+     * @return AbstractTemplateElementProperty
      */
-    public function getProperties(): TemplateElementPropertyInterface
+    public function getProperties(): AbstractTemplateElementProperty
     {
         return $this->properties;
     }

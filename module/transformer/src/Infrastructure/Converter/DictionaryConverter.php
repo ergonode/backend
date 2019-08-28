@@ -17,10 +17,8 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class DictionaryConverter implements ConverterInterface
+class DictionaryConverter extends AbstractConverter implements ConverterInterface
 {
-    public const TYPE = 'dictionary';
-
     /**
      * @var array
      *
@@ -40,20 +38,10 @@ class DictionaryConverter implements ConverterInterface
      * @param array       $translations
      * @param string|null $field
      */
-    public function __construct(array $translations = [], ?string $field = null)
+    public function __construct(array $translations = [], string $field = null)
     {
         $this->translations = $translations;
         $this->field = $field;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @JMS\VirtualProperty()
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
     }
 
     /**

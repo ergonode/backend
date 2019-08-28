@@ -1,5 +1,4 @@
 include:
-    - 'workflow.yaml'
     - 'roles.yaml'
     - 'user.yaml'
     - 'translation.yaml'

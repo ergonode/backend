@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
-use Ergonode\EventSourcing\Domain\Event\AbstractStringBasedChangedEvent;
+use Ergonode\Core\Domain\Event\AbstractStringBasedChangedEvent;
 
 /**
  */

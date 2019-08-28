@@ -31,11 +31,6 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\OptionInterfaceHandler:
-        calls:
-            - ['set', ['Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption']]
-            - ['set', ['Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption']]
-
     Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Attribute\Persistence\Dbal\Repository\DbalAttributeRepository'
 #    Ergonode\Attribute\Persistence\Dbal\Repository\Decorator\CacheAttributeRepositoryDecorator:
 #        decorates: Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface

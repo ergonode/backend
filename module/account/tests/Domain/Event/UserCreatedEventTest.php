@@ -49,7 +49,6 @@ class UserCreatedEventTest extends TestCase
             $language,
             $password,
             $roleId,
-            true,
             $multimediaId
         );
 
@@ -61,6 +60,5 @@ class UserCreatedEventTest extends TestCase
         $this->assertEquals($roleId, $event->getRoleId());
         $this->assertEquals($email, $event->getEmail());
         $this->assertEquals($password, $event->getPassword());
-        $this->assertTrue($event->isActive());
     }
 }

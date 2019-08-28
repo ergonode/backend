@@ -28,7 +28,7 @@ class AttributeOptionAddedEvent implements DomainEventInterface
     /**
      * @var OptionInterface
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionInterface")
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionValue\AbstractOption")
      */
     private $option;
 

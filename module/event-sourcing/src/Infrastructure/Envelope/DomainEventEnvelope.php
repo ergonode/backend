@@ -11,7 +11,7 @@ namespace Ergonode\EventSourcing\Infrastructure\Envelope;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Symfony\Contracts\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\Event;
 
 /**
  */

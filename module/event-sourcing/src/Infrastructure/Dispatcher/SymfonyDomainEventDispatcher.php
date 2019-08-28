@@ -35,6 +35,6 @@ class SymfonyDomainEventDispatcher implements DomainEventDispatcherInterface
      */
     public function dispatch(DomainEventEnvelope $event): void
     {
-        $this->dispatcher->dispatch($event);
+        $this->dispatcher->dispatch($event->getType(), $event);
     }
 }

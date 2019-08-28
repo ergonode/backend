@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Handler;
 
-use Ergonode\Account\Domain\Command\User\ChangeUserAvatarCommand;
+use Ergonode\Account\Domain\Command\ChangeUserAvatarCommand;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Webmozart\Assert\Assert;
 

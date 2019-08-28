@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Handler;
 
-use Ergonode\Account\Domain\Command\User\CreateUserCommand;
+use Ergonode\Account\Domain\Command\CreateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface;
@@ -55,8 +55,7 @@ class CreateUserCommandHandler
             $command->getLanguage(),
             $command->getPassword(),
             $command->getRoleId(),
-            $command->getAvatarId(),
-            $command->isActive()
+            $command->getAvatarId()
         );
 
         $encodedPassword = $this->userPasswordEncoder->encode($user, $command->getPassword());
