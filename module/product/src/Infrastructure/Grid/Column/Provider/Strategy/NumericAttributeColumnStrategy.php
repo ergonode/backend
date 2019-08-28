@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
@@ -49,12 +48,7 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
     }
 
     /**
-     * @param AbstractAttribute|AbstractOptionAttribute $attribute
-     * @param Language                                  $language
-     * @param FilterCollection                          $filter
-     *
-     * @return ColumnInterface
-     *
+     * {@inheritDoc}
      */
     public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {

@@ -52,7 +52,11 @@ class DbalAccountQuery implements AccountQueryInterface
     {
         $query = $this->getQuery();
 
-        return new DbalDataSet($query);
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $query->getSQL()), 't');
+
+        return new DbalDataSet($result);
     }
 
     /**

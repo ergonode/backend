@@ -22,6 +22,7 @@ use Ergonode\Product\Domain\Event\ProductValueAdded;
 use Ergonode\Product\Domain\Event\ProductValueChanged;
 use Ergonode\Product\Domain\Event\ProductValueRemoved;
 use Ergonode\Product\Domain\Event\ProductVersionIncreased;
+use Ergonode\Product\Domain\ValueObject\ProductStatus;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
@@ -74,6 +75,8 @@ abstract class AbstractProduct extends AbstractAggregateRoot
      * @param TemplateId $templateId
      * @param array      $categories
      * @param array      $attributes
+     *
+     * @throws \Exception
      */
     public function __construct(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = [])
     {
@@ -135,6 +138,8 @@ abstract class AbstractProduct extends AbstractAggregateRoot
 
     /**
      * @param ProductDraft $draft
+     *
+     * @throws \Exception
      */
     public function applyDraft(ProductDraft $draft): void
     {
@@ -168,6 +173,8 @@ abstract class AbstractProduct extends AbstractAggregateRoot
 
     /**
      * @param CategoryCode $categoryCode
+     *
+     * @throws \Exception
      */
     public function addToCategory(CategoryCode $categoryCode): void
     {
@@ -178,6 +185,8 @@ abstract class AbstractProduct extends AbstractAggregateRoot
 
     /**
      * @param CategoryCode $categoryCode
+     *
+     * @throws \Exception
      */
     public function removeFromCategory(CategoryCode $categoryCode): void
     {
@@ -221,6 +230,8 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     /**
      * @param AttributeCode  $attributeCode
      * @param ValueInterface $value
+     *
+     * @throws \Exception
      */
     public function addAttribute(AttributeCode $attributeCode, ValueInterface $value): void
     {
@@ -242,6 +253,8 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     /**
      * @param AttributeCode  $attributeCode
      * @param ValueInterface $value
+     *
+     * @throws \Exception
      */
     public function changeAttribute(AttributeCode $attributeCode, ValueInterface $value): void
     {
@@ -256,6 +269,8 @@ abstract class AbstractProduct extends AbstractAggregateRoot
 
     /**
      * @param AttributeCode $attributeCode
+     *
+     * @throws \Exception
      */
     public function removeAttribute(AttributeCode $attributeCode): void
     {

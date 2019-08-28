@@ -32,16 +32,16 @@ class DateAttributeColumnStrategy implements AttributeColumnStrategyInterface
     }
 
     /**
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     * @param FilterCollection  $filter
-     *
-     * @return ColumnInterface
+     * {@inheritDoc}
      */
     public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {
         $key = $attribute->getCode()->getValue();
 
-        return new DateColumn($key, $attribute->getLabel()->get($language), new TextFilter($filter->getString($key)));
+        return new DateColumn(
+            $key,
+            $attribute->getLabel()->get($language),
+            new TextFilter($filter->getString($key))
+        );
     }
 }
