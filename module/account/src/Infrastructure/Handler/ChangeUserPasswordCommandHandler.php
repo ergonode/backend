@@ -52,8 +52,8 @@ class ChangeUserPasswordCommandHandler
         Assert::notNull($user);
 
         $encodedPassword = $this->userPasswordEncoder->encodePassword($user, $command->getPassword()->getValue());
-        $password = new Password($encodedPassword);
-        $user->changePassword($password);
+
+        $user->changePassword(new Password($encodedPassword));
 
         $this->repository->save($user);
     }

@@ -53,8 +53,7 @@ class AccountGrid extends AbstractGrid
     }
 
     /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
+     * {@inheritDoc}
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
