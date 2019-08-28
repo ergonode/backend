@@ -21,6 +21,10 @@ services:
     Ergonode\Core\Infrastructure\:
         resource: '../../Infrastructure/*'
 
+    Ergonode\Core\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
     Ergonode\Core\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
@@ -30,6 +34,7 @@ services:
             $directory: '%kernel.project_dir%'
 
     Ergonode\Core\Domain\Query\LanguageQueryInterface: '@Ergonode\Core\Persistence\Dbal\Query\DbalLanguageQuery'
+    Ergonode\Core\Domain\Repository\LanguageRepositoryInterface: '@Ergonode\Core\Persistence\Dbal\Repository\DbalLanguageRepository'
     Ergonode\Core\Application\Provider\DirectoryProviderInterface: '@Ergonode\Core\Application\Provider\SimpleDirectoryProvider'
 
     Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry:

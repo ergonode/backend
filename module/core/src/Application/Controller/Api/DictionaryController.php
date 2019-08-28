@@ -57,7 +57,7 @@ class DictionaryController extends AbstractController
      */
     public function getLanguages(Language $language): Response
     {
-        $languages = $this->languageProvider->getSystemLanguages($language);
+        $languages = $this->languageProvider->getActiveLanguages($language);
 
         return new SuccessResponse($languages);
     }
