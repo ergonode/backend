@@ -1,68 +1,94 @@
 Feature: Designer module
 
-#  Scenario: Create template
-#    Given Current authentication token
-#    Given the request body is:
-#      """
-#      {
-#        "name": "TEST @@random_code@@",
-#        "image": "string",
-#        "elements": [
-#          {
-#            "position": {
-#              "x": 0,
-#              "y": 0
-#            },
-#            "size": {
-#              "width": 2,
-#              "height": 1
-#            },
-#            "variant": "attribute",
-#            "type": "text",
-#            "properties": {
-#              "attribute_id": "attribute_id",
-#              "required": true
-#            }
-#          }
-#        ]
-#      }
-#      """
-#    When I request "/api/v1/EN/templates" using HTTP POST
-#    Then created response is received
-#    And remember response param "id" as "template"
+  Scenario: Get attribute groups dictionary
+    Given Current authentication token
+    When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
+    Then the response code is 200
+    And remember first attribute group as "attribute_group"
+
+  Scenario: Create text attribute
+    Given Current authentication token
+    Given the request body is:
+      """
+      {
+          "code": "TEXT_@@random_code@@",
+          "type": "TEXT",
+          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
+          "groups": ["@attribute_group@"],
+          "parameters": []
+      }
+      """
+    When I request "/api/v1/EN/attributes" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "template_text_attribute"
+
+  Scenario: Create image attribute
+    Given Current authentication token
+    Given the request body is:
+      """
+      {
+          "code": "IMAGE_@@random_code@@",
+          "type": "IMAGE",
+          "groups": ["@attribute_group@"],
+          "parameters": {"formats": ["jpg"]}
+      }
+      """
+    When I request "/api/v1/EN/attributes" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "template_image_attribute"
+
+  Scenario: Create template
+    Given Current authentication token
+    Given the request body is:
+      """
+      {
+        "name": "@@random_md5@@",
+        "image": "@template_image_attribute@",
+        "elements": [
+          {
+            "position": {"x": 0, "y": 0},
+            "size": {"width": 2, "height": 1},
+            "variant": "attribute",
+            "type": "text",
+            "properties": {
+              "attribute_id": "@template_text_attribute@",
+              "required": true
+            }
+          }
+        ]
+      }
+      """
+    When I request "/api/v1/EN/templates" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "template"
 
   Scenario: Create template (not authorized)
     When I request "/api/v1/EN/templates" using HTTP POST
     Then unauthorized response is received
 
-#  Scenario: Update template
-#    Given Current authentication token
-#    Given the request body is:
-#      """
-#      {
-#        "image": "string",
-#        "elements": [
-#          {
-#            "position": {
-#              "x": 0,
-#              "y": 0
-#            },
-#            "size": {
-#              "width": 2,
-#              "height": 1
-#            },
-#            "variant": "attribute",
-#            "type": "text",
-#            "properties": {
-#              "attribute_id": "attribute_id",
-#              "required": true
-#            }
-#          }
-#        ]
-#      }
-#      """
-#    When I request "/api/v1/EN/templates/@template@" using HTTP PUT
-#    Then the response code is 200
+  Scenario: Update template
+    Given Current authentication token
+    Given the request body is:
+      """
+      {
+        "name": "@@random_md5@@",
+        "image": "@template_image_attribute@",
+        "elements": [
+          {
+            "position": {"x": 10, "y": 10},
+            "size": {"width": 2, "height": 2},
+            "variant": "attribute",
+            "type": "text",
+            "properties": {
+              "attribute_id": "@template_text_attribute@",
+              "required": true
+            }
+          }
+        ]
+      }
+      """
+    When I request "/api/v1/EN/templates/@template@" using HTTP PUT
+    Then the response code is 200
 
   Scenario: Update template (not authorized)
     When I request "/api/v1/EN/templates/@template@" using HTTP PUT
@@ -73,10 +99,10 @@ Feature: Designer module
     When I request "/api/v1/EN/templates/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
-#  Scenario: Delete template
-#    Given Current authentication token
-#    When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
-#    Then the response code is 200
+  Scenario: Delete template
+    Given Current authentication token
+    When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
+    Then the response code is 202
 
   Scenario: Delete template (not authorized)
     When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
@@ -87,10 +113,10 @@ Feature: Designer module
     When I request "/api/v1/EN/templates/@@static_uuid@@" using HTTP DELETE
     Then not found response is received
 
-#  Scenario: Get template
-#    Given Current authentication token
-#    When I request "/api/v1/EN/templates/@template@" using HTTP GET
-#    Then the response code is 200
+  Scenario: Get template
+    Given Current authentication token
+    When I request "/api/v1/EN/templates/@template@" using HTTP GET
+    Then the response code is 200
 
   Scenario: Get template (not authorized)
     When I request "/api/v1/EN/templates/@template@" using HTTP GET
