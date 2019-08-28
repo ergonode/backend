@@ -19,8 +19,8 @@ use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
-use Ergonode\Attribute\Domain\View\Factory\AttributeViewModelFactory;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
+use Ergonode\Attribute\Domain\View\Factory\AttributeViewModelFactory;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
@@ -354,7 +354,8 @@ class DbalAttributeQuery implements AttributeQueryInterface
         return $this->connection->createQueryBuilder()
             ->select('ao.value_id AS id, vt.language, vt.value, ao.key')
             ->leftJoin('ao', 'value_translation', 'vt', 'vt.value_id = ao.value_id')
-            ->from(self::TABLE_OPTIONS, 'ao');
+            ->from(self::TABLE_OPTIONS, 'ao')
+            ->orderBy('ao.key');
     }
 
     /**

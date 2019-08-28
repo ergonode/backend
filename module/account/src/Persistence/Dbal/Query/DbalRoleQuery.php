@@ -40,7 +40,13 @@ class DbalRoleQuery implements RoleQueryInterface
      */
     public function getDataSet(): DataSetInterface
     {
-        return new DbalDataSet($this->getQuery());
+        $query = $this->getQuery();
+
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $query->getSQL()), 't');
+
+        return new DbalDataSet($result);
     }
 
     /**

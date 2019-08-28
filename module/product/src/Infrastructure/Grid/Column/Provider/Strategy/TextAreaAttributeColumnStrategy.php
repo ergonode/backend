@@ -19,7 +19,7 @@ use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
-class TextAreaAttributeColumnStrategy implements AttributeColumnStrategyInterface
+class TextAreaAttributeColumnStrategy extends AbstractLanguageColumnStrategy
 {
     /**
      * @param AbstractAttribute $attribute
@@ -32,16 +32,18 @@ class TextAreaAttributeColumnStrategy implements AttributeColumnStrategyInterfac
     }
 
     /**
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     * @param FilterCollection  $filter
-     *
-     * @return ColumnInterface
+     * {@inheritDoc}
      */
     public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {
-        $key = $attribute->getCode()->getValue();
+        $columnKey = $attribute->getCode()->getValue();
 
-        return new TextAreaColumn($key, $attribute->getLabel()->get($language), new TextFilter($filter->getString($key)));
+        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
+
+        return new TextAreaColumn(
+            $columnKey,
+            $attribute->getLabel()->get($language),
+            new TextFilter($filter->getString($filterKey))
+        );
     }
 }

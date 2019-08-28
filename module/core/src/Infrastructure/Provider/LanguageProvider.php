@@ -70,6 +70,8 @@ class LanguageProvider implements LanguageProviderInterface
             $result[$code] = $this->translator->trans($code, [], 'language', strtolower($language->getCode()));
         }
 
+        asort($result);
+
         return $result;
     }
 }

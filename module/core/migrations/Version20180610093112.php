@@ -74,7 +74,6 @@ final class Version20180610093112 extends AbstractErgonodeMigration
             'SV' => 'Swedish',
             'PT' => 'Portuguese',
             'NL' => 'Dutch',
-            'KN' => 'Kannada',
             'IT' => 'Italian',
             'EL' => 'Greek',
             'DA' => 'Danish',

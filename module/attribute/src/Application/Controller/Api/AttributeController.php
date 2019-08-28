@@ -213,6 +213,8 @@ class AttributeController extends AbstractApiController
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function createAttribute(Request $request): Response
     {

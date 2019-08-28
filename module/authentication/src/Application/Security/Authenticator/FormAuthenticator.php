@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Authentication\Application\Security\Authenticator;
 
+use Ergonode\Account\Domain\Exception\InvalidEmailException;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationFailureHandler;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler;
 use Psr\Log\LoggerAwareInterface;
@@ -89,7 +90,11 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
      */
     public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
-        return $userProvider->loadUserByUsername($credentials['email']);
+        try {
+            return $userProvider->loadUserByUsername($credentials['email']);
+        } catch (InvalidEmailException $exception) {
+            throw new AuthenticationException('Username not found');
+        }
     }
 
     /**

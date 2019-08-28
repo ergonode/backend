@@ -124,7 +124,7 @@ Ergonode\Account\Domain\Entity\Role:
         __construct:
             - '@data_inputer_role_id'
             - 'Data inputer'
-            - 'Enriches product information: manages attributes and updates products data. Has to product categories and updates them. Is responsible for data enrichment.'
+            - 'Enriches product information: manages attributes and updates products data. Has access to product categories and updates them. Is responsible for data enrichment.'
             -
                 - '<privilege("IMPORT_CREATE")>'
                 - '<privilege("IMPORT_READ")>'
