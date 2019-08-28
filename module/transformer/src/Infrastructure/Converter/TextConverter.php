@@ -15,8 +15,10 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TextConverter extends AbstractConverter implements ConverterInterface
+class TextConverter implements ConverterInterface
 {
+    public const TYPE = 'text';
+
     /**
      * @var null|string
      *
@@ -28,9 +30,19 @@ class TextConverter extends AbstractConverter implements ConverterInterface
     /**
      * @param string|null $field
      */
-    public function __construct(string $field = null)
+    public function __construct(?string $field = null)
     {
         $this->field = $field;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 
     /**
@@ -40,7 +52,7 @@ class TextConverter extends AbstractConverter implements ConverterInterface
      *
      * @return ValueInterface|null
      */
-    public function map(array $line, string $field, StringValue $default = null): ?ValueInterface
+    public function map(array $line, string $field, ?StringValue $default = null): ?ValueInterface
     {
         $field = $this->field ?: $field;
 

@@ -9,15 +9,17 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter;
 
+use Ergonode\Transformer\Infrastructure\Exception\ConverterException;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Transformer\Infrastructure\Exception\ConverterException;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class DateConverter extends AbstractConverter implements ConverterInterface
+class DateConverter implements ConverterInterface
 {
+    public const TYPE = 'date';
+
     /**
      * @var string
      *
@@ -43,11 +45,23 @@ class DateConverter extends AbstractConverter implements ConverterInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
+    }
+
+    /**
      * @param array  $line
      * @param string $field
      *
      * @return ValueInterface
+     *
      * @throws ConverterException
+     * @throws \Exception
      */
     public function map(array $line, string $field): ValueInterface
     {
@@ -55,7 +69,7 @@ class DateConverter extends AbstractConverter implements ConverterInterface
 
         $result = strtotime($line[$field]);
         if ($result === false) {
-            throw new ConverterException(\sprintf('"%s" is unknown format date', $result));
+            throw new ConverterException(sprintf('"%s" is unknown format date', $result));
         }
 
         $result = new \DateTime('@'.$result);

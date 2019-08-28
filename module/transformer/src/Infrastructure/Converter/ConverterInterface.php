@@ -16,6 +16,11 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 interface ConverterInterface
 {
     /**
+     * @return string
+     */
+    public function getType(): string;
+
+    /**
      * @param array  $line
      * @param string $field
      *

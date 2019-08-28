@@ -34,7 +34,7 @@ class TransformerConverterAddedEvent implements DomainEventInterface
     /**
      * @var ConverterInterface
      *
-     * @JMS\Type("Ergonode\Transformer\Infrastructure\Converter\AbstractConverter")
+     * @JMS\Type("Ergonode\Transformer\Infrastructure\Converter\ConverterInterface")
      */
     private $converter;
 

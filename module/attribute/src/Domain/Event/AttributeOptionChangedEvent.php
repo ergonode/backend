@@ -28,14 +28,14 @@ class AttributeOptionChangedEvent implements DomainEventInterface
     /**
      * @var OptionInterface
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionValue\AbstractOption")
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionInterface")
      */
     private $from;
 
     /**
      * @var OptionInterface
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionValue\AbstractOption")
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionInterface")
      */
     private $to;
 

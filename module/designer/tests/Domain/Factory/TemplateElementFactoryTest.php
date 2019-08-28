@@ -13,7 +13,7 @@ use Ergonode\Designer\Domain\Factory\TemplateElementFactory;
 use Ergonode\Designer\Domain\Resolver\TemplateElementTypeResolver;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
-use Ergonode\Designer\Domain\ValueObject\TemplateElement\AbstractTemplateElementProperty;
+use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -37,7 +37,7 @@ class TemplateElementFactoryTest extends TestCase
     protected function setUp()
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
-        $this->serializer->method('deserialize')->willReturn($this->createMock(AbstractTemplateElementProperty::class));
+        $this->serializer->method('deserialize')->willReturn($this->createMock(TemplateElementPropertyInterface::class));
         $this->resolver = $this->createMock(TemplateElementTypeResolver::class);
         $this->resolver->method('resolve')->willReturn('Resolver type');
     }

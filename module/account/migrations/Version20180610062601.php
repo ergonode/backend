@@ -59,5 +59,7 @@ final class Version20180610062601 extends AbstractErgonodeMigration
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'USER_DELETE', 'User']);
 
         $this->addSql('ALTER TABLE roles ADD privileges json DEFAULT NULL');
+
+        $this->addSql('ALTER TABLE users ADD is_active BOOLEAN DEFAULT TRUE NOT NULL');
     }
 }

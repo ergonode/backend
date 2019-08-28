@@ -61,6 +61,14 @@ class UpdateUserFormModel
     public $password;
 
     /**
+     * @var bool
+     *
+     * @Assert\NotNull(message="Activity is required")
+     * @Assert\Type("bool")
+     */
+    public $isActive;
+
+    /**
      * @var RoleId
      *
      * @Assert\NotBlank(message="Role Id is required")
