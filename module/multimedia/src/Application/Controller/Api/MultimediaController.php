@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -52,8 +52,6 @@ class MultimediaController extends AbstractController
     /**
      * @Route("/upload", methods={"POST"})
      *
-     * @IsGranted("MULTIMEDIA_CREATE")
-     *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(
      *     name="upload",
@@ -97,8 +95,6 @@ class MultimediaController extends AbstractController
 
     /**
      * @Route("/{multimedia}", methods={"get"})
-     *
-     * @IsGranted("MULTIMEDIA_READ")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(

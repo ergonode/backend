@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -74,7 +74,6 @@ final class Version20180610093112 extends AbstractErgonodeMigration
             'SV' => 'Swedish',
             'PT' => 'Portuguese',
             'NL' => 'Dutch',
-            'KN' => 'Kannada',
             'IT' => 'Italian',
             'EL' => 'Greek',
             'DA' => 'Danish',

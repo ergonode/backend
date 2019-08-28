@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -52,8 +52,8 @@ class ChangeUserPasswordCommandHandler
         Assert::notNull($user);
 
         $encodedPassword = $this->userPasswordEncoder->encodePassword($user, $command->getPassword()->getValue());
-        $password = new Password($encodedPassword);
-        $user->changePassword($password);
+
+        $user->changePassword(new Password($encodedPassword));
 
         $this->repository->save($user);
     }

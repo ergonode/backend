@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -53,8 +53,7 @@ class AccountGrid extends AbstractGrid
     }
 
     /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
+     * {@inheritDoc}
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {

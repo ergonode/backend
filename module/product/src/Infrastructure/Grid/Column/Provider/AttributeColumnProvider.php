@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -51,6 +51,10 @@ class AttributeColumnProvider
 
         $key = $attribute->getCode()->getValue();
 
-        return new TextColumn($key, $attribute->getLabel()->get($language), new TextFilter($filter->getString($key)));
+        return new TextColumn(
+            $key,
+            $attribute->getLabel()->get($language),
+            new TextFilter($filter->getString($key))
+        );
     }
 }

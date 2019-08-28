@@ -1,16 +1,17 @@
-"Ergonode\\Account\\Domain\\Event\\UserAvatarChangedEvent": User avatar changed
-"Ergonode\\Account\\Domain\\Event\\UserCreatedEvent": User "%first_name% %last_name%" created
-"Ergonode\\Account\\Domain\\Event\\UserFirstNameChangedEvent": User first name changed from "%from% to "%to%"
-"Ergonode\\Account\\Domain\\Event\\UserLanguageChangedEvent": User language changed from "%from% to %to%"
-"Ergonode\\Account\\Domain\\Event\\UserLastNameChangedEvent": User last name changed from "%from% to "%to%"
-"Ergonode\\Account\\Domain\\Event\\UserPasswordChangedEvent": User password changed
-"Ergonode\\Account\\Domain\\Event\\UserRoleChangedEvent": User role changed from "%from%" to "%to%"
+"Ergonode\\Account\\Domain\\Event\\User\\UserAvatarChangedEvent": User avatar changed
+"Ergonode\\Account\\Domain\\Event\\User\\UserCreatedEvent": User "%first_name% %last_name%" created
+"Ergonode\\Account\\Domain\\Event\\User\\UserFirstNameChangedEvent": User first name changed from "%from% to "%to%"
+"Ergonode\\Account\\Domain\\Event\\User\\UserLanguageChangedEvent": User language changed from "%from% to %to%"
+"Ergonode\\Account\\Domain\\Event\\User\\UserLastNameChangedEvent": User last name changed from "%from% to "%to%"
+"Ergonode\\Account\\Domain\\Event\\User\\UserPasswordChangedEvent": User password changed
+"Ergonode\\Account\\Domain\\Event\\User\\UserRoleChangedEvent": User role changed from "%from%" to "%to%"
 "Ergonode\\Account\\Domain\\Event\\User\\UserActivatedEvent": User activated
 "Ergonode\\Account\\Domain\\Event\\User\\UserDeactivatedEvent": User disabled
 "Ergonode\\Account\\Domain\\Event\\Role\\AddPrivilegeToRoleEvent": Provilege "%privilege%" added
 "Ergonode\\Account\\Domain\\Event\\Role\\RemovePrivilegeFromRoleEvent": privilege "%privilege%" removed
 "Ergonode\\Account\\Domain\\Event\\Role\\RoleCreatedEvent": Role "%name%" created
 "Ergonode\\Account\\Domain\\Event\\Role\\RoleNameChangedEvent": Role name changed from "%from%" to "%to%"
+"Ergonode\\Account\\Domain\\Event\\Role\\RoleDescriptionChangedEvent": Role description changed from "%from%" to "%to%"
 "Ergonode\\Account\\Domain\\Event\\Role\\RolePrivilegesChangedEvent": List of pirivileges changed
 "Ergonode\\Account\\Domain\\Event\\Role\\RoleRemovedEvent": Role removed
 
