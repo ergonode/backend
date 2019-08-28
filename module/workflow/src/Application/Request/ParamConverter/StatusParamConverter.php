@@ -28,11 +28,11 @@ class StatusParamConverter implements ParamConverterInterface
     private $repository;
 
     /**
-     * @param StatusRepositoryInterface $propertiesRepository
+     * @param StatusRepositoryInterface $parameterRepository
      */
-    public function __construct(StatusRepositoryInterface $propertiesRepository)
+    public function __construct(StatusRepositoryInterface $parameterRepository)
     {
-        $this->repository = $propertiesRepository;
+        $this->repository = $parameterRepository;
     }
 
     /**
@@ -45,24 +45,23 @@ class StatusParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $properties = $request->get('status');
+        $parameter = $request->get('status');
 
-
-        if (null === $properties) {
-            throw new BadRequestHttpException('Route attribute is missing');
+        if (null === $parameter) {
+            throw new BadRequestHttpException('Route parameter status is missing');
         }
 
-        if (!StatusId::isValid($properties)) {
-            throw new BadRequestHttpException('Invalid uuid format');
+        if (!StatusId::isValid($parameter)) {
+            throw new BadRequestHttpException('Invalid status ID format');
         }
 
-        $properties = $this->repository->load(new StatusId($properties));
+        $entity = $this->repository->load(new StatusId($parameter));
 
-        if (null === $properties) {
+        if (null === $entity) {
             throw new NotFoundHttpException(\sprintf('%s object not found.', $configuration->getClass()));
         }
 
-        $request->attributes->set($configuration->getName(), $properties);
+        $request->attributes->set($configuration->getName(), $entity);
     }
 
     /**

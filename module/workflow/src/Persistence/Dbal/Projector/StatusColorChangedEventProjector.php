@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ConnectionException;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
@@ -52,6 +53,7 @@ class StatusColorChangedEventProjector implements DomainEventProjectorInterface
      *
      * @throws ProjectorException
      * @throws UnsupportedEventException
+     * @throws ConnectionException
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -73,6 +75,7 @@ class StatusColorChangedEventProjector implements DomainEventProjectorInterface
 
             $this->connection->commit();
         } catch (\Throwable $exception) {
+            $this->connection->rollBack();
             throw new ProjectorException($event, $exception);
         }
     }

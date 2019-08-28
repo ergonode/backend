@@ -12,7 +12,6 @@ namespace Ergonode\Workflow\Infrastructure\Handler\Status;
 use Ergonode\Core\Application\Exception\NotImplementedException;
 use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
-use Webmozart\Assert\Assert;
 
 /**
  */
@@ -35,9 +34,11 @@ class DeleteStatusCommandHandler
      * @param UpdateStatusCommand $command
      *
      * @throws \Exception
+     *
+     * @todo
      */
     public function __invoke(UpdateStatusCommand $command)
     {
-        throw new NotImplementedException('Todo Status remove');
+        throw new NotImplementedException('Feature not implemented');
     }
 }
