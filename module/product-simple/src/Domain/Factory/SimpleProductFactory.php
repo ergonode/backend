@@ -41,6 +41,8 @@ class SimpleProductFactory implements ProductFactoryInterface
      * @param array      $attributes
      *
      * @return AbstractProduct
+     *
+     * @throws \Exception
      */
     public function create(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = []): AbstractProduct
     {
