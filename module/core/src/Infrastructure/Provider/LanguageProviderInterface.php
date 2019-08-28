@@ -27,5 +27,5 @@ interface LanguageProviderInterface
      *
      * @return array
      */
-    public function getSystemLanguages(Language $language): array;
+    public function getActiveLanguages(Language $language): array;
 }

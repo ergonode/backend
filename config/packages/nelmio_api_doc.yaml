@@ -254,6 +254,50 @@ nelmio_api_doc:
                         required: true
                         description: segment name
                         example: segment name
+            languages_req:
+                type: object
+                properties:
+                    collection:
+                        type: array
+                        required: true
+                        items:
+                            $ref: "#/definitions/language_req"
+            language_req:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        required: true
+                        description: Language code
+                        example: EN
+                    active:
+                        type: bool
+                        required: true
+                        description: Show if language is enabled in the system
+                        example: true
+            language_res:
+                type: object
+                properties:
+                    id:
+                        type: string
+                        description: Language Id
+                        required: true
+                        example: ccd5c2b5-da15-4bd2-a476-bfa689560f22
+                    code:
+                        type: string
+                        required: true
+                        description: Language code
+                        example: EN
+                    name:
+                        type: string
+                        required: true
+                        description: Language name
+                        example: English
+                    active:
+                        type: bool
+                        required: true
+                        description: Show if language is enabled in the system
+                        example: true
             attribute:
                 type: object
                 properties:
@@ -329,7 +373,6 @@ nelmio_api_doc:
                         required: true
                         description: password
                         example: 123
-
             role:
                 type: object
                 properties:
