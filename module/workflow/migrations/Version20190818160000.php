@@ -19,13 +19,13 @@ final class Version20190818160000 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $this->addSql(
-            'CREATE TABLE IF NOT EXISTS workflow_status (
-                    workflow_id UUID NOT NULL,
+            'CREATE TABLE IF NOT EXISTS status (
+                    id UUID NOT NULL,
                     code VARCHAR(128) NOT NULL,   
                     color VARCHAR(7) NOT NULL,
                     name JSONB NOT NULL DEFAULT \'{}\',
                     description JSONB NOT NULL DEFAULT \'{}\',                
-                    PRIMARY KEY(workflow_id, code)
+                    PRIMARY KEY(id)
                 )'
         );
 

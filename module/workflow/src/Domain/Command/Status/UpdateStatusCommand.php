@@ -9,68 +9,86 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Command\Status;
 
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\Status;
-use JMS\Serializer\Annotation as JMS;
+use Ergonode\Core\Domain\ValueObject\Color;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 
 /**
  */
 class UpdateStatusCommand
 {
     /**
-     * @var WorkflowId
+     * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
      */
     private $id;
 
     /**
-     * @var string
+     * @var Color
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
      */
-    private $code;
+    private $color;
 
     /**
-     * @var Status
+     * @var TranslatableString
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\Status")
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $status;
+    private $name;
 
     /**
-     * @param WorkflowId $id
-     * @param string     $code
-     * @param Status     $status
+     * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    public function __construct(WorkflowId $id, string $code, Status $status)
+    private $description;
+
+    /**
+     * @param StatusId           $id
+     * @param Color              $color
+     * @param TranslatableString $name
+     * @param TranslatableString $description
+     */
+    public function __construct(StatusId $id, Color $color, TranslatableString $name, TranslatableString $description)
     {
+
         $this->id = $id;
-        $this->code = $code;
-        $this->status = $status;
+        $this->color = $color;
+        $this->name = $name;
+        $this->description = $description;
     }
 
     /**
-     * @return WorkflowId
+     * @return StatusId
      */
-    public function getId(): WorkflowId
+    public function getId(): StatusId
     {
         return $this->id;
     }
 
     /**
-     * @return string
+     * @return Color
      */
-    public function getCode(): string
+    public function getColor(): Color
     {
-        return $this->code;
+        return $this->color;
     }
 
     /**
-     * @return Status
+     * @return TranslatableString
      */
-    public function getStatus(): Status
+    public function getName(): TranslatableString
     {
-        return $this->status;
+        return $this->name;
+    }
+
+    /**
+     * @return TranslatableString
+     */
+    public function getDescription(): TranslatableString
+    {
+        return $this->description;
     }
 }

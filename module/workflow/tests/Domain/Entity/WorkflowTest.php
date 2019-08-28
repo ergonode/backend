@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Tests\Domain\Entity;
 
+use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\Status;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -30,7 +30,7 @@ class WorkflowTest extends TestCase
     private $code;
 
     /**
-     * @var Status|MockObject
+     * @var StatusId|MockObject
      */
     private $status;
 
@@ -40,7 +40,7 @@ class WorkflowTest extends TestCase
     {
         $this->id = $this->createMock(WorkflowId::class);
         $this->code = 'Any code';
-        $this->status = $this->createMock(Status::class);
+        $this->status = StatusId::generate();
     }
 
     /**
@@ -48,10 +48,10 @@ class WorkflowTest extends TestCase
      */
     public function testWorkflowCreation(): void
     {
-        $workflow = new Workflow($this->id, $this->code, [$this->code => $this->status]);
+        $workflow = new Workflow($this->id, $this->code, [$this->status]);
         $this->assertSame($this->id, $workflow->getId());
         $this->assertSame($this->code, $workflow->getCode());
-        $this->assertSame([$this->code => $this->status], $workflow->getStatuses());
+        $this->assertSame([$this->status], $workflow->getStatuses());
     }
 
     /**
@@ -59,22 +59,19 @@ class WorkflowTest extends TestCase
      */
     public function testStatusManipulation(): void
     {
-        /** @var Status $status */
-        $status = $this->createMock(Status::class);
+        /** @var StatusId|MockObject $status */
+        $status = StatusId::generate();
 
-        $workflow = new Workflow($this->id, $this->code, [$this->code => $this->status]);
+        $workflow = new Workflow($this->id, $this->code, [$this->status]);
         $this->assertSame($this->id, $workflow->getId());
         $this->assertSame($this->code, $workflow->getCode());
-        $this->assertSame([$this->code => $this->status], $workflow->getStatuses());
-        $this->assertTrue($workflow->hasStatus($this->code));
-        $workflow->removeStatus($this->code);
-        $this->assertFalse($workflow->hasStatus($this->code));
+        $this->assertSame([$this->status], $workflow->getStatuses());
+        $this->assertTrue($workflow->hasStatus($this->status));
+        $workflow->removeStatus($this->status);
+        $this->assertFalse($workflow->hasStatus($this->status));
         $this->assertEmpty($workflow->getStatuses());
-        $workflow->addStatus($this->code, $this->status);
-        $this->assertTrue($workflow->hasStatus($this->code));
-        $this->assertSame([$this->code => $this->status], $workflow->getStatuses());
-        $workflow->changeStatus($this->code, $status);
-        $this->assertSame($status, $workflow->getStatus($this->code));
-        $this->assertNotSame($this->status, $workflow->getStatus($this->code));
+        $workflow->addStatus($this->status);
+        $this->assertTrue($workflow->hasStatus($this->status));
+        $this->assertSame([$this->status], $workflow->getStatuses());
     }
 }

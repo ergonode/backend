@@ -10,23 +10,22 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Application\Controller\Api;
 
 use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Workflow\Application\Form\Model\WorkflowFormModel;
-use Ergonode\Workflow\Application\Form\WorkflowForm;
+use Ergonode\Core\Application\Exception\ViolationsHttpException;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
+use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
-use Ergonode\Workflow\Domain\ValueObject\Status;
+use Ergonode\Workflow\Infrastructure\Builder\WorkflowValidatorBuilder;
+use JMS\Serializer\Serializer;
+use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  */
@@ -38,17 +37,38 @@ class WorkflowController extends AbstractApiController
     private $provider;
 
     /**
+     * @var WorkflowValidatorBuilder
+     */
+    private $builder;
+
+    /**
+     * @var ValidatorInterface
+     */
+    private $validator;
+
+    /**
+     * @var SerializerInterface|Serializer
+     */
+    private $serializer;
+
+    /**
      * @var MessageBusInterface
      */
     private $messageBus;
 
     /**
-     * @param WorkflowProvider    $provider
-     * @param MessageBusInterface $messageBus
+     * @param WorkflowProvider         $provider
+     * @param WorkflowValidatorBuilder $builder
+     * @param ValidatorInterface       $validator
+     * @param SerializerInterface      $serializer
+     * @param MessageBusInterface      $messageBus
      */
-    public function __construct(WorkflowProvider $provider, MessageBusInterface $messageBus)
+    public function __construct(WorkflowProvider $provider, WorkflowValidatorBuilder $builder, ValidatorInterface $validator, SerializerInterface $serializer, MessageBusInterface $messageBus)
     {
         $this->provider = $provider;
+        $this->builder = $builder;
+        $this->validator = $validator;
+        $this->serializer = $serializer;
         $this->messageBus = $messageBus;
     }
 
@@ -127,39 +147,20 @@ class WorkflowController extends AbstractApiController
      */
     public function createWorkflow(Request $request): Response
     {
-        try {
-            $model = new WorkflowFormModel();
-            $form = $this->createForm(WorkflowForm::class, $model);
+        $data = $request->request->all();
 
-            $form->handleRequest($request);
+        $violations = $this->validator->validate($data, $this->builder->build($data), [WorkflowValidatorBuilder::UNIQUE_WORKFLOW]);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                /** @var WorkflowFormModel $data */
-                $data = $form->getData();
+        if (0 === $violations->count()) {
+            $data['id'] = WorkflowId::fromCode($data['code'])->getValue();
+            $command = $this->serializer->fromArray($data, CreateWorkflowCommand::class);
 
-                $statuses = [];
-                foreach ($data->statuses as $status) {
-                    $statuses[$status->code] = new Status(
-                        $status->color,
-                        new TranslatableString($status->name),
-                        new TranslatableString($status->description)
-                    );
-                }
+            $this->messageBus->dispatch($command);
 
-                $command = new CreateWorkflowCommand(
-                    $data->code,
-                    $statuses
-                );
-
-                $this->messageBus->dispatch($command);
-
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
-            }
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
+            return $this->createRestResponse([$command], [], Response::HTTP_CREATED);
         }
 
-        throw new FormValidationHttpException($form);
+        throw new ViolationsHttpException($violations);
     }
 
     /**
@@ -200,38 +201,20 @@ class WorkflowController extends AbstractApiController
      */
     public function updateWorkflow(Request $request): Response
     {
-        try {
-            $workflow = $this->provider->provide();
-            $model = new WorkflowFormModel();
-            $form = $this->createForm(WorkflowForm::class, $model, ['method' => Request::METHOD_PUT]);
+        $data = $request->request->all();
+        $workflow = $this->provider->provide();
 
-            $form->handleRequest($request);
+        $violations = $this->validator->validate($data, $this->builder->build($data));
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                /** @var WorkflowFormModel $data */
-                $data = $form->getData();
+        if (0 === $violations->count()) {
+            $data['id'] = $workflow->getId()->getValue();
+            $command = $this->serializer->fromArray($data, UpdateWorkflowCommand::class);
 
-                $statuses = [];
-                foreach ($data->statuses as $status) {
-                    $statuses[$status->code] = new Status(
-                        $status->color,
-                        new TranslatableString($status->name),
-                        new TranslatableString($status->description)
-                    );
-                }
+            $this->messageBus->dispatch($command);
 
-                $command = new UpdateWorkflowCommand(
-                    $workflow->getId(),
-                    $statuses
-                );
-                $this->messageBus->dispatch($command);
-
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
-            }
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
+            return $this->createRestResponse([$command], [], Response::HTTP_OK);
         }
 
-        throw new FormValidationHttpException($form);
+        throw new ViolationsHttpException($violations);
     }
 }

@@ -15,13 +15,13 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent;
+use Ergonode\Workflow\Domain\Event\Status\StatusRemovedEvent;
 
 /**
  */
-class WorkflowStatusRemovedEventProjector implements DomainEventProjectorInterface
+class StatusRemovedEventProjector implements DomainEventProjectorInterface
 {
-    private const TABLE = 'workflow_status';
+    private const TABLE = 'status';
 
     /**
      * @var Connection
@@ -43,7 +43,7 @@ class WorkflowStatusRemovedEventProjector implements DomainEventProjectorInterfa
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof WorkflowStatusRemovedEvent;
+        return $event instanceof StatusRemovedEvent;
     }
 
     /**
@@ -55,8 +55,8 @@ class WorkflowStatusRemovedEventProjector implements DomainEventProjectorInterfa
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof WorkflowStatusRemovedEvent) {
-            throw new UnsupportedEventException($event, WorkflowStatusRemovedEvent::class);
+        if (!$event instanceof StatusRemovedEvent) {
+            throw new UnsupportedEventException($event, StatusRemovedEvent::class);
         }
 
         $this->connection->beginTransaction();
@@ -64,8 +64,7 @@ class WorkflowStatusRemovedEventProjector implements DomainEventProjectorInterfa
             $this->connection->delete(
                 self::TABLE,
                 [
-                    'workflow_id' => $aggregateId->getValue(),
-                    'code' => $event->getCode(),
+                    'id' => $aggregateId->getValue(),
                 ]
             );
 

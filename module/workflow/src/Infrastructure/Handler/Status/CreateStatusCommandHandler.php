@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Infrastructure\Handler\Status;
 
 use Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand;
-use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
+use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -18,14 +18,14 @@ use Webmozart\Assert\Assert;
 class CreateStatusCommandHandler
 {
     /**
-     * @var WorkflowRepositoryInterface
+     * @var StatusRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param WorkflowRepositoryInterface $repository
+     * @param StatusRepositoryInterface $repository
      */
-    public function __construct(WorkflowRepositoryInterface $repository)
+    public function __construct(StatusRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
@@ -40,8 +40,8 @@ class CreateStatusCommandHandler
         $workflow = $this->repository->load($command->getId());
         Assert::notNull($workflow);
 
-        if (!$workflow->hasStatus($command->getCode())) {
-            $workflow->addStatus($command->getCode(), $command->getStatus());
+        if (!$workflow->hasStatus($command->getId())) {
+            $workflow->addStatus($command->getId());
         }
 
         $this->repository->save($workflow);

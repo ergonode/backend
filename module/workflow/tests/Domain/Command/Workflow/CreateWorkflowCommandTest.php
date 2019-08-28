@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Tests\Domain\Command\Workflow;
 
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
-use Ergonode\Workflow\Domain\ValueObject\Status;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,8 +23,8 @@ class CreateWorkflowCommandTest extends TestCase
     public function testCommandCreating(): void
     {
         $code = 'Any code';
-        /** @var Status $status */
-        $status = $this->createMock(Status::class);
+        /** @var StatusId $status */
+        $status = $this->createMock(StatusId::class);
 
         $command = new CreateWorkflowCommand($code, [$status]);
         $this->assertSame($code, $command->getCode());
