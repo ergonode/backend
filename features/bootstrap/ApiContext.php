@@ -151,6 +151,18 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     /**
      * @throws AssertionFailedException
      *
+     * @Then not implemented response is received
+     */
+    public function assertResponseNotImplemented(): void
+    {
+        $this->requireResponse();
+        $this->assertResponseCodeIs(Response::HTTP_NOT_IMPLEMENTED);
+        $this->assertJsonObjectContainsKeys('code,message');
+    }
+
+    /**
+     * @throws AssertionFailedException
+     *
      * @Then grid response is received
      */
     public function assertResponseGrid(): void

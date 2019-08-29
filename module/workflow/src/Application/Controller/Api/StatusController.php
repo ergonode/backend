@@ -210,7 +210,7 @@ class StatusController extends AbstractController
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Returns workflow ID",
+     *     description="Returns status ID",
      * )
      * @SWG\Response(
      *     response=400,

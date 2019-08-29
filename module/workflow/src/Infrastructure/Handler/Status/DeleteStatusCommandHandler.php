@@ -10,35 +10,20 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Infrastructure\Handler\Status;
 
 use Ergonode\Core\Application\Exception\NotImplementedException;
-use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
-use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
+use Ergonode\Workflow\Domain\Command\Status\DeleteStatusCommand;
 
 /**
+ * @todo Implement workflow status delete
  */
 class DeleteStatusCommandHandler
 {
     /**
-     * @var WorkflowRepositoryInterface
-     */
-    private $repository;
-
-    /**
-     * @param WorkflowRepositoryInterface $repository
-     */
-    public function __construct(WorkflowRepositoryInterface $repository)
-    {
-        $this->repository = $repository;
-    }
-
-    /**
-     * @param UpdateStatusCommand $command
+     * @param DeleteStatusCommand $command
      *
-     * @throws \Exception
-     *
-     * @todo
+     * @throws NotImplementedException
      */
-    public function __invoke(UpdateStatusCommand $command)
+    public function __invoke(DeleteStatusCommand $command)
     {
-        throw new NotImplementedException('Feature not implemented');
+        throw new NotImplementedException();
     }
 }
