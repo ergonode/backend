@@ -22,10 +22,10 @@ use Ergonode\Product\Domain\Event\ProductValueAdded;
 use Ergonode\Product\Domain\Event\ProductValueChanged;
 use Ergonode\Product\Domain\Event\ProductValueRemoved;
 use Ergonode\Product\Domain\Event\ProductVersionIncreased;
-use Ergonode\Product\Domain\ValueObject\ProductStatus;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
@@ -117,22 +117,26 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
-     * @return string
+     * @return StatusId
      */
-    public function getStatus(): string
+    public function getStatus(): StatusId
     {
-        return $this->attributes[self::STATUS]->getValue();
+        return new StatusId($this->attributes[self::STATUS]->getValue());
     }
 
     /**
-     * @param string $status
+     * @param StatusId $statusId
      *
      * @throws \Exception
      */
-    public function changeStatus(string $status): void
+    public function setStatus(StatusId $statusId): void
     {
-        if ($this->attributes[self::STATUS]->getValue() !== $status) {
-            $this->apply(new ProductValueChanged(new AttributeCode(self::STATUS), $this->attributes[self::STATUS], new StringValue($status)));
+        if ($this->attributes[self::STATUS]) {
+            if ($this->attributes[self::STATUS]->getValue() !== $statusId->getValue()) {
+                $this->apply(new ProductValueChanged(new AttributeCode(self::STATUS), $this->attributes[self::STATUS], new StringValue($statusId->getValue())));
+            }
+        } else {
+            $this->apply(new ProductValueAdded(new AttributeCode(self::STATUS), new StringValue($statusId->getValue())));
         }
     }
 
@@ -200,7 +204,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
      */
     public function getCategories(): array
     {
-        return  array_values($this->categories);
+        return array_values($this->categories);
     }
 
     /**
