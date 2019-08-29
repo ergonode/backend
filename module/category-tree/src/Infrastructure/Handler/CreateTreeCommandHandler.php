@@ -35,7 +35,7 @@ class CreateTreeCommandHandler
      */
     public function __invoke(CreateTreeCommand $command)
     {
-        $tree = new CategoryTree($command->getId(), $command->getName());
+        $tree = new CategoryTree($command->getId(), $command->getCode(), $command->getName());
 
         $this->repository->save($tree);
     }

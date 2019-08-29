@@ -22,6 +22,7 @@ use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -145,8 +146,7 @@ class CategoryTreeController extends AbstractApiController
     public function getCategories(Language $language, Request $request): Response
     {
         $configuration = new RequestGridConfiguration($request);
-
-        $dataSet = $this->query->getDataSet();
+        $dataSet = $this->query->getDataSet($language);
         $result = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
 
         return $this->createRestResponse($result);
@@ -169,18 +169,11 @@ class CategoryTreeController extends AbstractApiController
      * )
      *
      * @SWG\Parameter(
-     *     name="name",
-     *     in="formData",
-     *     type="string",
+     *     name="body",
+     *     in="body",
+     *     description="Category tree body",
      *     required=true,
-     *     description="Tree name",
-     * )
-     * @SWG\Parameter(
-     *     name="code",
-     *     in="formData",
-     *     type="string",
-     *     required=true,
-     *     description="Tree code",
+     *     @SWG\Schema(ref="#/definitions/tree_req")
      * )
      * @SWG\Response(
      *     response=201,
@@ -203,8 +196,9 @@ class CategoryTreeController extends AbstractApiController
 
         if ($name && $code) {
             $tree = $this->treeRepository->exists(CategoryTreeId::fromKey($code));
+
             if (!$tree) {
-                $command = new CreateTreeCommand($name, $code);
+                $command = new CreateTreeCommand(new TranslatableString($name), $code);
                 $this->messageBus->dispatch($command);
 
                 return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
@@ -337,8 +331,7 @@ class CategoryTreeController extends AbstractApiController
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var TreeFormModel $data */
                 $data = $form->getData();
-
-                $command = new UpdateTreeCommand(new CategoryTreeId($tree), $data->name, $data->categories);
+                $command = new UpdateTreeCommand(new CategoryTreeId($tree), $data->code, new TranslatableString($data->name), $data->categories);
                 $this->messageBus->dispatch($command);
 
                 return $this->createRestResponse($data, [], Response::HTTP_CREATED);

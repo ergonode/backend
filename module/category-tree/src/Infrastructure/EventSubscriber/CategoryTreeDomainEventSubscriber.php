@@ -9,11 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Infrastructure\EventSubscriber;
 
-use Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoriesChangedEvent;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent;
+use Ergonode\CategoryTree\Domain\Event\CategoryTreeNameChangedEvent;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjector;
-use Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryAddedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -40,6 +39,7 @@ class CategoryTreeDomainEventSubscriber implements EventSubscriberInterface
     {
         return [
             CategoryTreeCreatedEvent::class => 'projection',
+            CategoryTreeNameChangedEvent::class => 'projection',
         ];
     }
 

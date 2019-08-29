@@ -9,8 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -29,15 +30,24 @@ class CategoryTreeCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("string")
      */
+    private $code;
+
+    /**
+     * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
+     */
     private $name;
 
     /**
-     * @param CategoryTreeId $id
-     * @param string         $name
+     * @param CategoryTreeId     $id
+     * @param string             $code
+     * @param TranslatableString $name
      */
-    public function __construct(CategoryTreeId $id, string $name)
+    public function __construct(CategoryTreeId $id, string $code, TranslatableString $name)
     {
         $this->id = $id;
+        $this->code = $code;
         $this->name = $name;
     }
 
@@ -52,7 +62,15 @@ class CategoryTreeCreatedEvent implements DomainEventInterface
     /**
      * @return string
      */
-    public function getName(): string
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @return TranslatableString
+     */
+    public function getName(): TranslatableString
     {
         return $this->name;
     }

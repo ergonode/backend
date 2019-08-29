@@ -3,11 +3,20 @@ Ergonode\CategoryTree\Domain\Entity\CategoryTreeId:
         __construct:
             - '<Uuid()>'
 
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+    category_tree_name:
+        __construct:
+            -
+                'PL': 'Polish_name'
+                'EN': 'English_name'
+                'ZH': 'Chinese_name'
+
 Ergonode\CategoryTree\Domain\Entity\CategoryTree:
     category_tree:
         __construct:
             - '@category_tree_id'
             - 'default'
+            - '@category_tree_name'
 
 Ergonode\Account\Domain\Entity\RoleId:
     superadmin_role_id:

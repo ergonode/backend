@@ -18,8 +18,19 @@ class TreeFormModel
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="Category name is required")
+     * @Assert\NotBlank(message="Category code is required")
      * @Assert\Length(min="3", max="32")
+     */
+    public $code;
+
+
+    /**
+     * @var array
+     *
+     * @Assert\All({
+     *     @Assert\NotBlank(),
+     *     @Assert\Length(max=255, maxMessage="Category name is to long, It should have {{ limit }} character or less.")
+     * })
      */
     public $name;
 

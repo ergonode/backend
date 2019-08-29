@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Application\Form;
 
 use Ergonode\CategoryTree\Application\Model\TreeFormModel;
+use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,8 +29,12 @@ class TreeForm extends AbstractType
     {
         $builder
             ->add(
-                'name',
+                'code',
                 TextType::class
+            )
+            ->add(
+                'name',
+                TranslationType::class
             )
             ->add(
                 'categories',
@@ -39,8 +44,7 @@ class TreeForm extends AbstractType
                     'allow_delete' => true,
                     'entry_type' => TreeNodeForm::class,
                 ]
-            )
-        ;
+            );
     }
 
     /**

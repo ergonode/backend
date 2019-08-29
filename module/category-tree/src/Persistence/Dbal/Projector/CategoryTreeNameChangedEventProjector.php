@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent;
+use Ergonode\CategoryTree\Domain\Event\CategoryTreeNameChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
@@ -19,14 +19,15 @@ use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterfac
 
 /**
  */
-class CategoryTreeCreatedEventProjector implements DomainEventProjectorInterface
+class CategoryTreeNameChangedEventProjector implements DomainEventProjectorInterface
 {
-    protected const TABLE = 'tree';
+
+    private const TABLE = 'tree';
 
     /**
      * @var Connection
      */
-    protected $connection;
+    private $connection;
 
     /**
      * @param Connection $connection
@@ -43,7 +44,7 @@ class CategoryTreeCreatedEventProjector implements DomainEventProjectorInterface
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof CategoryTreeCreatedEvent;
+        return $event instanceof CategoryTreeNameChangedEvent;
     }
 
     /**
@@ -56,18 +57,19 @@ class CategoryTreeCreatedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof CategoryTreeCreatedEvent) {
-            throw new UnsupportedEventException($event, CategoryTreeCreatedEvent::class);
+        if (!$event instanceof CategoryTreeNameChangedEvent) {
+            throw new UnsupportedEventException($event, CategoryTreeNameChangedEvent::class);
         }
 
         try {
             $this->connection->beginTransaction();
-            $this->connection->insert(
+            $this->connection->update(
                 self::TABLE,
                 [
-                    'id' => $event->getId(),
-                    'code' => $event->getCode(),
-                    'name' => json_encode($event->getName()->getTranslations()),
+                    'name' => json_encode($event->getTo()->getTranslations()),
+                ],
+                [
+                    'id' => $aggregateId->getValue(),
                 ]
             );
             $this->connection->commit();
