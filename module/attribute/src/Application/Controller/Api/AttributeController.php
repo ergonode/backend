@@ -297,7 +297,7 @@ class AttributeController extends AbstractController
     }
 
     /**
-     * @Route("/attributes/{attribute}", methods={"PUT"}, requirements={"attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @Route("/attributes/{attribute}", methods={"PUT"})
      *
      * @IsGranted("ATTRIBUTE_UPDATE")
      *
@@ -337,10 +337,10 @@ class AttributeController extends AbstractController
      *     description="Not found",
      * )
      *
+     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     *
      * @param AbstractAttribute $attribute
      * @param Request           $request
-     *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      *
      * @return Response
      */

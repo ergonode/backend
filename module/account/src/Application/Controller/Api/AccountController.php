@@ -18,9 +18,7 @@ use Ergonode\Account\Domain\Command\User\ChangeUserPasswordCommand;
 use Ergonode\Account\Domain\Command\User\CreateUserCommand;
 use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
@@ -57,11 +55,6 @@ class AccountController extends AbstractController
     private $grid;
 
     /**
-     * @var UserRepositoryInterface
-     */
-    private $repository;
-
-    /**
      * @var AccountQueryInterface
      */
     private $query;
@@ -83,7 +76,6 @@ class AccountController extends AbstractController
 
     /**
      * @param AccountGrid               $grid
-     * @param UserRepositoryInterface   $repository
      * @param AccountQueryInterface     $query
      * @param PasswordValidationBuilder $builder
      * @param MessageBusInterface       $messageBus
@@ -91,14 +83,12 @@ class AccountController extends AbstractController
      */
     public function __construct(
         AccountGrid $grid,
-        UserRepositoryInterface $repository,
         AccountQueryInterface $query,
         PasswordValidationBuilder $builder,
         MessageBusInterface $messageBus,
         ValidatorInterface $validator
     ) {
         $this->grid = $grid;
-        $this->repository = $repository;
         $this->query = $query;
         $this->builder = $builder;
         $this->messageBus = $messageBus;
@@ -213,13 +203,15 @@ class AccountController extends AbstractController
      *     description="Not found",
      * )
      *
-     * @param string $user
+     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
+     *
+     * @param User $user
      *
      * @return Response
      */
-    public function getUserData(string $user): Response
+    public function getUserData(User $user): Response
     {
-        $user = $this->query->getUser(new UserId($user));
+        $user = $this->query->getUser($user->getId());
         if (empty($user)) {
             throw new NotFoundHttpException('User data not found');
         }
@@ -332,19 +324,16 @@ class AccountController extends AbstractController
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     * @param string  $user
+     *
+     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
+     *
+     * @param User    $user
      * @param Request $request
      *
      * @return Response
      */
-    public function updateUser(string $user, Request $request): Response
+    public function updateUser(User $user, Request $request): Response
     {
-        $userId = new UserId($user);
-        $user = $this->repository->load($userId);
-        if (!$user instanceof User) {
-            throw new NotFoundHttpException('User not found');
-        }
-
         try {
             $model = new UpdateUserFormModel();
             $form = $this->createForm(UserUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
@@ -355,7 +344,7 @@ class AccountController extends AbstractController
                 $data = $form->getData();
 
                 $command = new UpdateUserCommand(
-                    $userId,
+                    $user->getId(),
                     $data->firstName,
                     $data->lastName,
                     $data->language,
@@ -406,16 +395,18 @@ class AccountController extends AbstractController
      *     description="Success"
      * )
      *
-     * @param string  $user
+     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
+     *
+     * @param User    $user
      * @param Request $request
      *
      * @return Response
      */
-    public function changeAvatar(string $user, Request $request): Response
+    public function changeAvatar(User $user, Request $request): Response
     {
         $multimediaId = $request->request->get('multimedia');
         $multimediaId = $multimediaId ? new MultimediaId($multimediaId) : null;
-        $command = new ChangeUserAvatarCommand(new UserId($user), $multimediaId);
+        $command = new ChangeUserAvatarCommand($user->getId(), $multimediaId);
         $this->messageBus->dispatch($command);
 
         return new EmptyResponse();

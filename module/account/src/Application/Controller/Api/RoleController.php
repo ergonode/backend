@@ -15,9 +15,7 @@ use Ergonode\Account\Domain\Command\Role\CreateRoleCommand;
 use Ergonode\Account\Domain\Command\Role\DeleteRoleCommand;
 use Ergonode\Account\Domain\Command\Role\UpdateRoleCommand;
 use Ergonode\Account\Domain\Entity\Role;
-use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
-use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\Account\Infrastructure\Grid\RoleGrid;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
@@ -34,7 +32,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,11 +40,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RoleController extends AbstractController
 {
-    /**
-     * @var RoleRepositoryInterface
-     */
-    private $repository;
-
     /**
      * @var RoleQueryInterface
      */
@@ -64,18 +56,15 @@ class RoleController extends AbstractController
     private $messageBus;
 
     /**
-     * @param RoleRepositoryInterface $repository
-     * @param RoleQueryInterface      $query
-     * @param RoleGrid                $grid
-     * @param MessageBusInterface     $messageBus
+     * @param RoleQueryInterface  $query
+     * @param RoleGrid            $grid
+     * @param MessageBusInterface $messageBus
      */
     public function __construct(
-        RoleRepositoryInterface $repository,
         RoleQueryInterface $query,
         RoleGrid $grid,
         MessageBusInterface $messageBus
     ) {
-        $this->repository = $repository;
         $this->query = $query;
         $this->grid = $grid;
         $this->messageBus = $messageBus;
@@ -164,7 +153,7 @@ class RoleController extends AbstractController
     }
 
     /**
-     * @Route("/roles/{role}", methods={"GET"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @Route("/roles/{role}", methods={"GET"})
      *
      * @IsGranted("USER_ROLE_READ")
      *
@@ -193,17 +182,14 @@ class RoleController extends AbstractController
      *     description="Not found",
      * )
      *
-     * @param string $role
+     * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
+     *
+     * @param Role $role
      *
      * @return Response
      */
-    public function getRole(string $role): Response
+    public function getRole(Role $role): Response
     {
-        $role = $this->repository->load(new RoleId($role));
-        if (!$role instanceof Role) {
-            throw new NotFoundHttpException('Role not found');
-        }
-
         return new SuccessResponse($role);
     }
 
@@ -268,7 +254,7 @@ class RoleController extends AbstractController
     }
 
     /**
-     * @Route("/roles/{role}", methods={"PUT"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @Route("/roles/{role}", methods={"PUT"})
      *
      * @IsGranted("USER_ROLE_UPDATE")
      *
@@ -305,16 +291,16 @@ class RoleController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param string  $role
+     * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
+     *
+     * @param Role    $role
      * @param Request $request
      *
      * @return Response
      */
-    public function updateRole(string $role, Request $request): Response
+    public function updateRole(Role $role, Request $request): Response
     {
         try {
-            $roleId = new RoleId($role);
-
             $model = new RoleFormModel();
             $form = $this->createForm(RoleForm::class, $model, ['method' => Request::METHOD_PUT]);
 
@@ -323,7 +309,13 @@ class RoleController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var RoleFormModel $data */
                 $data = $form->getData();
-                $command = new UpdateRoleCommand($roleId, $data->name, $data->description, $data->privileges);
+
+                $command = new UpdateRoleCommand(
+                    $role->getId(),
+                    $data->name,
+                    $data->description,
+                    $data->privileges
+                );
                 $this->messageBus->dispatch($command);
 
                 return new EmptyResponse();
@@ -361,21 +353,25 @@ class RoleController extends AbstractController
      *     description="Can't delete Role",
      * )
      *
-     * @param string $role
+     * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
+     *
+     * @param Role $role
      *
      * @return Response
      */
-    public function deleteRole(string $role): Response
+    public function deleteRole(Role $role): Response
     {
-        $roleId = new RoleId($role);
-        $roleUsersCount = $this->query->getRoleUsersCount($roleId);
+        $roleUsersCount = $this->query->getRoleUsersCount($role->getId());
         if (0 === $roleUsersCount) {
-            $command = new DeleteRoleCommand($roleId);
+            $command = new DeleteRoleCommand($role->getId());
             $this->messageBus->dispatch($command);
 
             return new EmptyResponse();
         }
 
-        throw new ConflictHttpException('Can\'t delete role, %s user are assigned to it');
+        throw new ConflictHttpException(sprintf(
+            'Can\'t delete role "%s", users are assigned to it',
+            $role->getId()->getValue()
+        ));
     }
 }

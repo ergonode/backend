@@ -320,24 +320,25 @@ class CategoryTreeController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param string  $tree
-     * @param Request $request
+     * @ParamConverter(class="Ergonode\CategoryTree\Domain\Entity\CategoryTree")
+     *
+     * @param CategoryTree $tree
+     * @param Request      $request
      *
      * @return Response
      */
-    public function putTree(string $tree, Request $request): Response
+    public function putTree(CategoryTree $tree, Request $request): Response
     {
         try {
             $model = new TreeFormModel();
             $form = $this->createForm(TreeForm::class, $model, ['method' => Request::METHOD_PUT]);
-
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var TreeFormModel $data */
                 $data = $form->getData();
 
-                $command = new UpdateTreeCommand(new CategoryTreeId($tree), $data->name, $data->categories);
+                $command = new UpdateTreeCommand($tree->getId(), $data->name, $data->categories);
                 $this->messageBus->dispatch($command);
 
                 return new EmptyResponse();

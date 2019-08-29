@@ -19,9 +19,8 @@ use Ergonode\Category\Application\Model\CategoryCreateFormModel;
 use Ergonode\Category\Application\Model\CategoryUpdateFormModel;
 use Ergonode\Category\Domain\Command\CreateCategoryCommand;
 use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
-use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -34,7 +33,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,26 +52,19 @@ class CategoryController extends AbstractController
     private $categoryQuery;
 
     /**
-     * @var CategoryRepositoryInterface
-     */
-    private $repository;
-
-    /**
      * @var MessageBusInterface
      */
     private $messageBus;
 
     /**
-     * @param CategoryGrid                $categoryGrid
-     * @param CategoryQueryInterface      $categoryQuery
-     * @param CategoryRepositoryInterface $repository
-     * @param MessageBusInterface         $messageBus
+     * @param CategoryGrid           $categoryGrid
+     * @param CategoryQueryInterface $categoryQuery
+     * @param MessageBusInterface    $messageBus
      */
-    public function __construct(CategoryGrid $categoryGrid, CategoryQueryInterface $categoryQuery, CategoryRepositoryInterface $repository, MessageBusInterface $messageBus)
+    public function __construct(CategoryGrid $categoryGrid, CategoryQueryInterface $categoryQuery, MessageBusInterface $messageBus)
     {
         $this->categoryGrid = $categoryGrid;
         $this->categoryQuery = $categoryQuery;
-        $this->repository = $repository;
         $this->messageBus = $messageBus;
     }
 
@@ -180,19 +171,15 @@ class CategoryController extends AbstractController
      *     description="Not found",
      * )
      *
-     * @param string $category
+     * @ParamConverter(class="Ergonode\Category\Domain\Entity\Category")
+     *
+     * @param Category $category
      *
      * @return Response
      */
-    public function getCategory(string $category): Response
+    public function getCategory(Category $category): Response
     {
-        $category = $this->repository->load(new CategoryId($category));
-
-        if ($category) {
-            return new SuccessResponse($category);
-        }
-
-        throw new NotFoundHttpException();
+        return new SuccessResponse($category);
     }
 
     /**
@@ -230,8 +217,8 @@ class CategoryController extends AbstractController
      * @param Request $request
      *
      * @return Response
-     * @throws \Exception
      *
+     * @throws \Exception
      */
     public function createCategory(Request $request): Response
     {
@@ -295,24 +282,26 @@ class CategoryController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param string  $category
-     * @param Request $request
+     * @ParamConverter(class="Ergonode\Category\Domain\Entity\Category")
+     *
+     * @param Category $category
+     * @param Request  $request
      *
      * @return Response
-     * @throws \Exception
      *
+     * @throws \Exception
      */
-    public function updateCategory(string $category, Request $request): Response
+    public function updateCategory(Category $category, Request $request): Response
     {
         try {
             $model = new CategoryUpdateFormModel();
-            $form = $this->createForm(CategoryUpdateForm::class, $model, ['method' => 'PUT']);
+            $form = $this->createForm(CategoryUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var CategoryUpdateFormModel $data */
                 $data = $form->getData();
-                $command = new UpdateCategoryCommand(new CategoryId($category), new TranslatableString($data->name));
+                $command = new UpdateCategoryCommand($category->getId(), new TranslatableString($data->name));
                 $this->messageBus->dispatch($command);
 
                 return new EmptyResponse();

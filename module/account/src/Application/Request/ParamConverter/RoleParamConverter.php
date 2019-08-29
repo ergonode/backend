@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Request\ParamConverter;
 
-use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Account\Domain\Entity\Role;
+use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,19 +20,19 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  */
-class UserParamConverter implements ParamConverterInterface
+class RoleParamConverter implements ParamConverterInterface
 {
     /**
-     * @var UserRepositoryInterface
+     * @var RoleRepositoryInterface
      */
-    private $userRepository;
+    private $roleRepository;
 
     /**
-     * @param UserRepositoryInterface $userRepository
+     * @param RoleRepositoryInterface $roleRepository
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(RoleRepositoryInterface $roleRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     /**
@@ -40,20 +40,20 @@ class UserParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $parameter = $request->get('user');
+        $parameter = $request->get('role');
 
         if (null === $parameter) {
-            throw new BadRequestHttpException('Route parameter "user" is missing');
+            throw new BadRequestHttpException('Route parameter "role" is missing');
         }
 
-        if (!UserId::isValid($parameter)) {
-            throw new BadRequestHttpException('Invalid user ID format');
+        if (!RoleId::isValid($parameter)) {
+            throw new BadRequestHttpException('Invalid role ID format');
         }
 
-        $entity = $this->userRepository->load(new UserId($parameter));
+        $entity = $this->roleRepository->load(new RoleId($parameter));
 
         if (null === $entity) {
-            throw new NotFoundHttpException(sprintf('User by ID "%s" not found', $parameter));
+            throw new NotFoundHttpException(sprintf('Role by ID "%s" not found', $parameter));
         }
 
         $request->attributes->set($configuration->getName(), $entity);
@@ -64,6 +64,6 @@ class UserParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration): bool
     {
-        return User::class === $configuration->getClass();
+        return Role::class === $configuration->getClass();
     }
 }

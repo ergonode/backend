@@ -58,7 +58,7 @@ class StatusParamConverter implements ParamConverterInterface
         $entity = $this->repository->load(new StatusId($parameter));
 
         if (null === $entity) {
-            throw new NotFoundHttpException(\sprintf('%s object not found.', $configuration->getClass()));
+            throw new NotFoundHttpException(sprintf('Status by id "%s" not found', $parameter));
         }
 
         $request->attributes->set($configuration->getName(), $entity);

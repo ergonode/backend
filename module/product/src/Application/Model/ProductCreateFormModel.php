@@ -33,7 +33,9 @@ class ProductCreateFormModel
 
     /**
      * @var string
+     *
      * @Assert\NotBlank(message="Template is required")
+     * @Assert\Uuid()
      */
     public $template;
 
