@@ -9,31 +9,40 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\ValueObject;
 
+use JMS\Serializer\Annotation as JMS;
+use Ergonode\Workflow\Domain\Entity\StatusId;
+
 /**
  */
 class Transition
 {
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private $name;
 
     /**
-     * @var Status
+     * @var StatusId
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
      */
     private $source;
 
     /**
-     * @var Status
+     * @var StatusId
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
      */
     private $destination;
 
     /**
-     * @param string $name
-     * @param Status $source
-     * @param Status $destination
+     * @param string   $name
+     * @param StatusId $source
+     * @param StatusId $destination
      */
-    public function __construct(string $name, Status $source, Status $destination)
+    public function __construct(string $name, StatusId $source, StatusId $destination)
     {
         $this->name = $name;
         $this->source = $source;
@@ -49,18 +58,30 @@ class Transition
     }
 
     /**
-     * @return Status
+     * @return StatusId
      */
-    public function getSource(): Status
+    public function getSource(): StatusId
     {
         return $this->source;
     }
 
     /**
-     * @return Status
+     * @return StatusId
      */
-    public function getDestination(): Status
+    public function getDestination(): StatusId
     {
         return $this->destination;
+    }
+
+    /**
+     * @param Transition $transition
+     *
+     * @return bool
+     */
+    public function isEqual(Transition $transition): bool
+    {
+        return $transition->getName() === $this->name
+            && $transition->getSource()->isEqual($this->source)
+            && $transition->getDestination()->isEqual($this->destination);
     }
 }

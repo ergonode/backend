@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Mock Controller overriding "magic" JWT authorization action. Required for showing proper description in NelmioApiDoc page
  */
-final class AuthenticationController extends AbstractApiController
+final class AuthenticationController
 {
     /**
      * @Route("/api/v1/login", methods={"POST"})
@@ -27,7 +27,7 @@ final class AuthenticationController extends AbstractApiController
      *     name="body",
      *     in="body",
      *     description="Login action, return JWT token",
-     *     @SWG\Schema (ref="#/definitions/credentials")
+     *     @SWG\Schema(ref="#/definitions/credentials")
      * )
      * @SWG\Response(
      *     response=200,
@@ -36,13 +36,13 @@ final class AuthenticationController extends AbstractApiController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Bad Request",
-     *     @SWG\Schema (ref="#/definitions/error")
+     *     description="Bad request",
+     *     @SWG\Schema(ref="#/definitions/error_response")
      * )
      * @SWG\Response(
      *     response=401,
      *     description="Bad credentials",
-     *     @SWG\Schema (ref="#/definitions/error")
+     *     @SWG\Schema(ref="#/definitions/error_response")
      * )
      */
     public function login(): void

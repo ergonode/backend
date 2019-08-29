@@ -239,37 +239,56 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
                 'PL': 'Opublikowany'
                 'EN': 'Published'
 
-Ergonode\Workflow\Domain\ValueObject\Status:
+Ergonode\Workflow\Domain\Entity\Status:
     status_new:
         __construct:
+            - '<statusId("new")>'
+            - 'new'
             - '<color(#f58231)>'
             - '@status_new_translation'
             - '@status_new_translation'
     status_draft:
         __construct:
+            - '<statusId("draft")>'
+            - 'draft'
             - '<color(#e6194B)>'
             - '@status_draft_translation'
             - '@status_draft_translation'
     status_to_approve:
         __construct:
+            - '<statusId("to approve")>'
+            - 'to approve'
             - '<color(#e6194B)>'
             - '@status_to_approve_translation'
             - '@status_to_approve_translation'
     status_ready_to_publish:
         __construct:
+            - '<statusId("ready to publish")>'
+            - 'ready to publish'
             - '<color(#e6194B)>'
             - '@status_ready_to_publish_translation'
             - '@status_ready_to_publish_translation'
     status_to_correct:
         __construct:
+            - '<statusId("to correct")>'
+            - 'to correct'
             - '<color(#e6194B)>'
             - '@status_to_correct_translation'
             - '@status_to_correct_translation'
     status_published:
         __construct:
+            - '<statusId("published")>'
+            - 'published'
             - '<color(#e6194B)>'
             - '@status_published_translation'
             - '@status_published_translation'
+
+Ergonode\Workflow\Domain\ValueObject\Transition:
+    transition_take:
+        __construct:
+            - 'take'
+            - '<statusId("new")>'
+            - '<statusId("draft")>'
 
 Ergonode\Workflow\Domain\Entity\Workflow:
     default_workflow:
@@ -278,20 +297,16 @@ Ergonode\Workflow\Domain\Entity\Workflow:
             - 'default'
         __calls:
             - addStatus:
-                  - 'new'
-                  - '@status_new'
+                  - '<statusId("new")>'
             - addStatus:
-                  - 'draft'
-                  - '@status_draft'
+                  - '<statusId("draft")>'
             - addStatus:
-                  - 'to approve'
-                  - '@status_to_approve'
+                  - '<statusId("to approve")>'
             - addStatus:
-                  - 'ready to publish'
-                  - '@status_ready_to_publish'
+                  - '<statusId("ready to publish")>'
             - addStatus:
-                  - 'to correct'
-                  - '@status_to_correct'
+                  - '<statusId("to correct")>'
             - addStatus:
-                  - 'published'
-                  - '@status_published'
+                  - '<statusId("published")>'
+            - addTransition:
+                  - '@transition_take'

@@ -9,17 +9,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Controller\Api;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeTypeDictionaryProvider;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class DictionaryController extends AbstractApiController
+class DictionaryController extends AbstractController
 {
     /**
      * @var AttributeTypeDictionaryProvider
@@ -47,8 +48,7 @@ class DictionaryController extends AbstractApiController
      * @Route("/attributes/types", methods={"GET"})
      *
      * @SWG\Tag(name="Dictionary")
-     *
-     *  @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
@@ -56,7 +56,6 @@ class DictionaryController extends AbstractApiController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns collection attribute types",
@@ -74,15 +73,14 @@ class DictionaryController extends AbstractApiController
     {
         $types = $this->attributeTypeDictionaryProvider->getDictionary($language);
 
-        return $this->createRestResponse($types);
+        return new SuccessResponse($types);
     }
 
     /**
      * @Route("/attributes/groups", methods={"GET"})
      *
      * @SWG\Tag(name="Dictionary")
-     *
-     *  @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
@@ -90,14 +88,9 @@ class DictionaryController extends AbstractApiController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns collection attribute groups",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
      * )
      *
      * @return Response
@@ -106,6 +99,6 @@ class DictionaryController extends AbstractApiController
     {
         $types = $this->attributeGroupQuery->getAttributeGroups();
 
-        return $this->createRestResponse($types);
+        return new SuccessResponse($types);
     }
 }

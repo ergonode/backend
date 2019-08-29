@@ -36,39 +36,31 @@ class TransformerParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @param Request        $request
-     * @param ParamConverter $configuration
-     *
-     * @return void
-     *
-     * @throws \ReflectionException
+     * {@inheritDoc}
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $attribute = $request->get('transformer');
+        $parameter = $request->get('transformer');
 
-
-        if (null === $attribute) {
-            throw new BadRequestHttpException('Route attribute is missing');
+        if (null === $parameter) {
+            throw new BadRequestHttpException('Request parameter "transformer" is missing');
         }
 
-        if (!TransformerId::isValid($attribute)) {
-            throw new BadRequestHttpException('Invalid uuid format');
+        if (!TransformerId::isValid($parameter)) {
+            throw new BadRequestHttpException('Invalid transformer ID');
         }
 
-        $import = $this->transformerRepository->load(new TransformerId($attribute));
+        $entity = $this->transformerRepository->load(new TransformerId($parameter));
 
-        if (null === $import) {
-            throw new NotFoundHttpException(\sprintf('%s object not found.', $configuration->getClass()));
+        if (null === $entity) {
+            throw new NotFoundHttpException(sprintf('Transformer by ID "%s" not found', $parameter));
         }
 
-        $request->attributes->set($configuration->getName(), $import);
+        $request->attributes->set($configuration->getName(), $entity);
     }
 
     /**
-     * @param ParamConverter $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function supports(ParamConverter $configuration): bool
     {

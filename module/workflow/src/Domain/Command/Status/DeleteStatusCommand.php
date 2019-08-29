@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Command\Status;
 
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -17,42 +17,25 @@ use JMS\Serializer\Annotation as JMS;
 class DeleteStatusCommand
 {
     /**
-     * @var WorkflowId
+     * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @JMS\Type("string")
+     * @param StatusId $id
      */
-    private $code;
-
-    /**
-     * @param WorkflowId $id
-     * @param string     $code
-     */
-    public function __construct(WorkflowId $id, string $code)
+    public function __construct(StatusId $id)
     {
         $this->id = $id;
-        $this->code = $code;
     }
 
     /**
-     * @return WorkflowId
+     * @return StatusId
      */
-    public function getId(): WorkflowId
+    public function getId(): StatusId
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCode(): string
-    {
-        return $this->code;
     }
 }

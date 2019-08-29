@@ -25,15 +25,19 @@ use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Account\Infrastructure\Grid\AccountGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
-use Ergonode\Core\Application\Exception\ViolationsHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Exception\ViolationsHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -45,7 +49,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  */
-class AccountController extends AbstractApiController
+class AccountController extends AbstractController
 {
     /**
      * @var AccountGrid
@@ -107,7 +111,6 @@ class AccountController extends AbstractApiController
      * @IsGranted("USER_READ")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="limit",
      *     in="query",
@@ -167,23 +170,17 @@ class AccountController extends AbstractApiController
      *     response=200,
      *     description="Returns users collection",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getUsers(Language $language, Request $request): Response
+    public function getUsers(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
-        $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet(), $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
     }
 
     /**
@@ -192,7 +189,6 @@ class AccountController extends AbstractApiController
      * @IsGranted("USER_READ")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="user",
      *     in="path",
@@ -223,14 +219,12 @@ class AccountController extends AbstractApiController
      */
     public function getUserData(string $user): Response
     {
-        $userId = new UserId($user);
-        $user = $this->query->getUser($userId);
-
-        if (!empty($user)) {
-            return $this->createRestResponse($user);
+        $user = $this->query->getUser(new UserId($user));
+        if (empty($user)) {
+            throw new NotFoundHttpException('User data not found');
         }
 
-        throw new NotFoundHttpException('User data not found');
+        return new SuccessResponse($user);
     }
 
     /**
@@ -260,7 +254,8 @@ class AccountController extends AbstractApiController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Bad request",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -274,12 +269,12 @@ class AccountController extends AbstractApiController
         try {
             $model = new CreateUserFormModel();
             $form = $this->createForm(UserCreateForm::class, $model);
-
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var CreateUserFormModel $data */
                 $data = $form->getData();
+
                 $command = new CreateUserCommand(
                     $data->firstName,
                     $data->lastName,
@@ -291,7 +286,7 @@ class AccountController extends AbstractApiController
                 );
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -329,12 +324,13 @@ class AccountController extends AbstractApiController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns update user id",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Bad request",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      * @param string  $user
      * @param Request $request
@@ -345,9 +341,8 @@ class AccountController extends AbstractApiController
     {
         $userId = new UserId($user);
         $user = $this->repository->load($userId);
-
-        if (null === $user) {
-            throw new NotFoundHttpException();
+        if (!$user instanceof User) {
+            throw new NotFoundHttpException('User not found');
         }
 
         try {
@@ -370,7 +365,7 @@ class AccountController extends AbstractApiController
                 );
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()]);
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -407,12 +402,8 @@ class AccountController extends AbstractApiController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns updated user id",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=204,
+     *     description="Success"
      * )
      *
      * @param string  $user
@@ -422,16 +413,12 @@ class AccountController extends AbstractApiController
      */
     public function changeAvatar(string $user, Request $request): Response
     {
-        try {
-            $multimediaId = $request->request->get('multimedia');
-            $multimediaId = $multimediaId ? new MultimediaId($multimediaId) : null;
-            $command = new ChangeUserAvatarCommand(new UserId($user), $multimediaId);
-            $this->messageBus->dispatch($command);
+        $multimediaId = $request->request->get('multimedia');
+        $multimediaId = $multimediaId ? new MultimediaId($multimediaId) : null;
+        $command = new ChangeUserAvatarCommand(new UserId($user), $multimediaId);
+        $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_ACCEPTED);
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
-        }
+        return new EmptyResponse();
     }
 
     /**
@@ -470,8 +457,13 @@ class AccountController extends AbstractApiController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns updated user id",
+     *     response=204,
+     *     description="Success"
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      * @SWG\Response(
      *     response=404,
@@ -484,6 +476,8 @@ class AccountController extends AbstractApiController
      * @param Request $request
      *
      * @return Response
+     *
+     * @todo Why we use user parameter and then we get userId from security (current logged user)?
      */
     public function changePassword(User $user, Request $request): Response
     {
@@ -496,7 +490,7 @@ class AccountController extends AbstractApiController
             $command = new ChangeUserPasswordCommand($userId, new Password((string) $data['password']));
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+            return new EmptyResponse();
         }
 
         throw new ViolationsHttpException($violations);

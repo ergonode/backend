@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Event\Workflow;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -17,25 +18,25 @@ use JMS\Serializer\Annotation as JMS;
 class WorkflowStatusRemovedEvent implements DomainEventInterface
 {
     /**
-     * @var string
+     * @var StatusId
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
      */
-    private $code;
+    private $id;
 
     /**
-     * @param string $code
+     * @param StatusId $id
      */
-    public function __construct(string $code)
+    public function __construct(StatusId $id)
     {
-        $this->code = $code;
+        $this->id = $id;
     }
 
     /**
-     * @return string
+     * @return StatusId
      */
-    public function getCode(): string
+    public function getId(): StatusId
     {
-        return $this->code;
+        return $this->id;
     }
 }
