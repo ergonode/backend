@@ -9,8 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Application\Exception\ViolationsHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
@@ -20,6 +22,7 @@ use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -29,7 +32,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  */
-class WorkflowController extends AbstractApiController
+class WorkflowController extends AbstractController
 {
     /**
      * @var WorkflowProvider
@@ -63,8 +66,13 @@ class WorkflowController extends AbstractApiController
      * @param SerializerInterface      $serializer
      * @param MessageBusInterface      $messageBus
      */
-    public function __construct(WorkflowProvider $provider, WorkflowValidatorBuilder $builder, ValidatorInterface $validator, SerializerInterface $serializer, MessageBusInterface $messageBus)
-    {
+    public function __construct(
+        WorkflowProvider $provider,
+        WorkflowValidatorBuilder $builder,
+        ValidatorInterface $validator,
+        SerializerInterface $serializer,
+        MessageBusInterface $messageBus
+    ) {
         $this->provider = $provider;
         $this->builder = $builder;
         $this->validator = $validator;
@@ -104,7 +112,7 @@ class WorkflowController extends AbstractApiController
         $workflow = $this->provider->provide();
 
         if ($workflow) {
-            return $this->createRestResponse($workflow);
+            return new SuccessResponse($workflow);
         }
 
         throw new NotFoundHttpException();
@@ -135,8 +143,9 @@ class WorkflowController extends AbstractApiController
      *     description="Returns attribute",
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -157,7 +166,7 @@ class WorkflowController extends AbstractApiController
 
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse([$command], [], Response::HTTP_CREATED);
+            return new CreatedResponse($command->getId());
         }
 
         throw new ViolationsHttpException($violations);
@@ -185,12 +194,13 @@ class WorkflowController extends AbstractApiController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns attribute",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -212,7 +222,7 @@ class WorkflowController extends AbstractApiController
 
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse([$command], [], Response::HTTP_OK);
+            return new EmptyResponse();
         }
 
         throw new ViolationsHttpException($violations);

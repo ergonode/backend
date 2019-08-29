@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\Api\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
@@ -38,7 +38,7 @@ class FormValidationExceptionHandler implements SubscribingHandlerInterface
     public static function getSubscribingMethods(): array
     {
         $methods = [];
-        $formats = ['json', 'xml', 'yml'];
+        $formats = ['json'];
 
         foreach ($formats as $format) {
             $methods[] = [
@@ -58,10 +58,14 @@ class FormValidationExceptionHandler implements SubscribingHandlerInterface
      * @param array                         $type
      * @param Context                       $context
      *
-     * @return mixed
+     * @return array
      */
-    public function serialize(SerializationVisitorInterface $visitor, FormValidationHttpException $exception, array $type, Context $context)
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        FormValidationHttpException $exception,
+        array $type,
+        Context $context
+    ): array {
         return $this->formErrorHandler->serialize($visitor, $exception->getForm(), $type, $context);
     }
 }

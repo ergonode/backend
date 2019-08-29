@@ -9,11 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Workflow\Application\Form\Model\StatusFormModel;
 use Ergonode\Workflow\Application\Form\StatusForm;
 use Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand;
@@ -25,6 +28,7 @@ use Ergonode\Workflow\Infrastructure\Grid\StatusGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -34,7 +38,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class StatusController extends AbstractApiController
+class StatusController extends AbstractController
 {
     /**
      * @var MessageBusInterface
@@ -56,8 +60,11 @@ class StatusController extends AbstractApiController
      * @param StatusQueryInterface $query
      * @param StatusGrid           $grid
      */
-    public function __construct(MessageBusInterface $messageBus, StatusQueryInterface $query, StatusGrid $grid)
-    {
+    public function __construct(
+        MessageBusInterface $messageBus,
+        StatusQueryInterface $query,
+        StatusGrid $grid
+    ) {
         $this->messageBus = $messageBus;
         $this->query = $query;
         $this->grid = $grid;
@@ -69,7 +76,6 @@ class StatusController extends AbstractApiController
      * @IsGranted("WORKFLOW_READ")
      *
      * @SWG\Tag(name="Workflow")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -128,23 +134,17 @@ class StatusController extends AbstractApiController
      *     response=200,
      *     description="Returns statuses collection",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getStatuses(Language $language, Request $request): Response
+    public function getStatuses(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-        $dataSet = $this->query->getDataSet($language);
-        $grid = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
-
-        return $this->createRestResponse($grid);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($language), $language);
     }
 
     /**
@@ -177,15 +177,15 @@ class StatusController extends AbstractApiController
      *     description="Not found",
      * )
      *
-     * @param Status $status
-     *
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     *
+     * @param Status $status
      *
      * @return Response
      */
     public function getStatus(Status $status): Response
     {
-        return $this->createRestResponse($status);
+        return new SuccessResponse($status);
     }
 
     /**
@@ -209,12 +209,13 @@ class StatusController extends AbstractApiController
      *     @SWG\Schema(ref="#/definitions/status")
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns workflow id",
+     *     response=201,
+     *     description="Returns workflow ID",
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -228,7 +229,6 @@ class StatusController extends AbstractApiController
         try {
             $model = new StatusFormModel();
             $form = $this->createForm(StatusForm::class, $model);
-
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -244,7 +244,7 @@ class StatusController extends AbstractApiController
 
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -276,34 +276,34 @@ class StatusController extends AbstractApiController
      * @SWG\Parameter(
      *     name="body",
      *     in="body",
-     *     description="Update  workflow",
+     *     description="Update workflow",
      *     required=true,
      *     @SWG\Schema(ref="#/definitions/status")
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns attribute",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param string  $status
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     *
+     * @param Status  $status
      * @param Request $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function updateStatus(string $status, Request $request): Response
+    public function updateStatus(Status $status, Request $request): Response
     {
         try {
-            $workflow = $this->provider->provide();
-
             $model = new StatusFormModel();
             $form = $this->createForm(StatusForm::class, $model, ['method' => Request::METHOD_PUT]);
-
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -311,14 +311,14 @@ class StatusController extends AbstractApiController
                 $data = $form->getData();
 
                 $command = new UpdateStatusCommand(
-                    $workflow->getId(),
-                    $status,
-                    new Status($data->color, new TranslatableString($data->name), new TranslatableString($data->description))
+                    $status->getId(),
+                    $data->color,
+                    new TranslatableString($data->name),
+                    new TranslatableString($data->description)
                 );
-
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -348,30 +348,23 @@ class StatusController extends AbstractApiController
      *     default="EN"
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns attribute",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=204,
+     *     description="Success"
      * )
      *
-     * @param string $status
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     *
+     * @param Status $status
      *
      * @return Response
      *
      * @throws \Exception
-     *
-     * @todo add validation
      */
-    public function deleteStatus(string $status): Response
+    public function deleteStatus(Status $status): Response
     {
-        $workflow = $this->provider->provide();
-
-        $command = new DeleteStatusCommand($workflow->getId(), $status);
-
+        $command = new DeleteStatusCommand($status->getId());
         $this->messageBus->dispatch($command);
 
-        return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_ACCEPTED);
+        return new EmptyResponse();
     }
 }

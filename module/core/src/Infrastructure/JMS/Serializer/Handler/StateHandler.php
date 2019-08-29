@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\State;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
@@ -27,7 +26,7 @@ class StateHandler implements SubscribingHandlerInterface
     public static function getSubscribingMethods(): array
     {
         $methods = [];
-        $formats = ['json', 'xml', 'yml'];
+        $formats = ['json'];
 
         foreach ($formats as $format) {
             $methods[] = [

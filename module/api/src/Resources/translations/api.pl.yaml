@@ -1,0 +1,4 @@
+'Internal server error': 'Wystąpił błąd po stronie serwera'
+'Access denied': 'Brak uprawnień'
+'Validation error': 'Wystąpiły błędy poczas walidacji danych'
+'Form validation error': 'Wystąpiły błedy podczas walidacji formularza'

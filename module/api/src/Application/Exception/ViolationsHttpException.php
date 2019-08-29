@@ -7,8 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\Exception;
+namespace Ergonode\Api\Application\Exception;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
@@ -23,14 +24,12 @@ class ViolationsHttpException extends HttpException
 
     /**
      * @param ConstraintViolationListInterface $violations
-     * @param \Exception|null                  $previous
-     * @param array                            $headers
      */
-    public function __construct(ConstraintViolationListInterface $violations, \Exception $previous = null, array $headers = [])
+    public function __construct(ConstraintViolationListInterface $violations)
     {
         $this->violations = $violations;
 
-        parent::__construct(400, 'Validation error', $previous);
+        parent::__construct(Response::HTTP_BAD_REQUEST, 'Validation error');
     }
 
     /**

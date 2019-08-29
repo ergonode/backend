@@ -9,9 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Application\Controller\Api;
 
+use Ergonode\Api\Application\Exception\DataValidationHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Provider\AttributeValidationProvider;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
@@ -25,11 +29,13 @@ use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\Editor\Infrastructure\Grid\ProductDraftGrid;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -38,7 +44,7 @@ use Webmozart\Assert\Assert;
 
 /**
  */
-class ProductDraftController extends AbstractApiController
+class ProductDraftController extends AbstractController
 {
     /**
      * @var ProductDraftGrid
@@ -129,7 +135,7 @@ class ProductDraftController extends AbstractApiController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"id", "label","code", "hint"},
+     *     enum={"id", "product_id", "template_id", "sku", "type", "applied"},
      *     description="Order field",
      * )
      * @SWG\Parameter(
@@ -137,7 +143,7 @@ class ProductDraftController extends AbstractApiController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"ASC","DESC"},
+     *     enum={"ASC", "DESC"},
      *     description="Order",
      * )
      * @SWG\Parameter(
@@ -152,7 +158,7 @@ class ProductDraftController extends AbstractApiController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"COLUMN","DATA"},
+     *     enum={"COLUMN", "DATA"},
      *     description="Specify what response should containts"
      * )
      * @SWG\Parameter(
@@ -161,28 +167,23 @@ class ProductDraftController extends AbstractApiController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language code"
      * )
      * @SWG\Response(
-     *     response=201,
-     *     description="Get draft grid",
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Form validation error",
+     *     response=200,
+     *     description="Get draft grid"
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getDrafts(Language $language, Request $request): Response
+    public function getDrafts(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-        $result = $this->renderGrid($this->productDraftGrid, $configuration, $this->draftQuery->getDataSet(), $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->productDraftGrid, $configuration, $this->draftQuery->getDataSet(), $language);
     }
 
     /**
@@ -207,12 +208,12 @@ class ProductDraftController extends AbstractApiController
      * )
      * )
      * @SWG\Response(
-     *     response=201,
-     *     description="Change draft",
+     *     response=200,
+     *     description="Returns draft",
      * )
      * @SWG\Response(
-     *     response=400,
-     *     description="Form validation error",
+     *     response=404,
+     *     description="Not found",
      * )
      *
      * @param string   $draft
@@ -224,7 +225,7 @@ class ProductDraftController extends AbstractApiController
     {
         $result = $this->draftQuery->getDraftView(new ProductDraftId($draft), $language);
 
-        return $this->createRestResponse($result);
+        return new SuccessResponse($result);
     }
 
     /**
@@ -253,7 +254,8 @@ class ProductDraftController extends AbstractApiController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -271,13 +273,14 @@ class ProductDraftController extends AbstractApiController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var DraftCreateFormModel $data */
             $data = $form->getData();
+
             $command = new CreateProductDraftCommand(new productId($data->productId));
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+            return new CreatedResponse($command->getId());
         }
 
-        return $this->createRestResponse($form);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -301,12 +304,13 @@ class ProductDraftController extends AbstractApiController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=201,
+     *     response=204,
      *     description="Apply draft changes to product",
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param AbstractProduct $product
@@ -321,10 +325,9 @@ class ProductDraftController extends AbstractApiController
         $draft = $this->draftProvider->provide($product);
 
         $command = new PersistProductDraftCommand($draft->getId());
-
         $this->messageBus->dispatch($command);
 
-        return $this->createRestResponse([], [], Response::HTTP_ACCEPTED);
+        return new EmptyResponse();
     }
 
     /**
@@ -360,7 +363,6 @@ class ProductDraftController extends AbstractApiController
      *     default="EN",
      *     description="Language Code",
      * )
-     * )
      * @SWG\Parameter(
      *     name="value",
      *     in="formData",
@@ -369,13 +371,15 @@ class ProductDraftController extends AbstractApiController
      *     required=true,
      * )
      * @SWG\Response(
-     *     response=201,
+     *     response=200,
      *     description="Change product attribute Value",
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
+     *
      * @param AbstractProduct   $product
      * @param Language          $language
      * @param AbstractAttribute $attribute
@@ -387,6 +391,8 @@ class ProductDraftController extends AbstractApiController
      * @return Response
      *
      * @throws \Exception
+     *
+     * @todo Refactor it to standard solution
      */
     public function changeDraftAttribute(AbstractProduct $product, Language $language, AbstractAttribute $attribute, Request $request): Response
     {
@@ -401,24 +407,18 @@ class ProductDraftController extends AbstractApiController
                 $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language, $value);
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['value' => $value], [], Response::HTTP_ACCEPTED);
+                return new SuccessResponse(['value' => $value]);
             }
         } else {
             $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language);
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(['value' => $value], [], Response::HTTP_ACCEPTED);
+            return new SuccessResponse(['value' => $value]);
         }
 
-        $result = [
-            'code' => Response::HTTP_BAD_REQUEST,
-            'message' => 'Form validation error',
-            'errors' => [
-                'value' => [\sprintf('%s is incorrect value for %s attribute', $value, $attribute->getType())],
-            ],
-        ];
-
-        return $this->createRestResponse($result, [], Response::HTTP_BAD_REQUEST);
+        throw new DataValidationHttpException([
+            'value' => [sprintf('%s is incorrect value for %s attribute', $value, $attribute->getType())],
+        ]);
     }
 
     /**
@@ -441,17 +441,16 @@ class ProductDraftController extends AbstractApiController
      *     default="EN",
      *     description="Language Code",
      * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Return product draft model",
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
      *
-     * @SWG\Response(
-     *     response=201,
-     *     description="Change draft",
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Form validation error",
-     * )
      * @param AbstractProduct $product
-     * @param Language        $language
      *
      * @return Response
      *
@@ -459,11 +458,11 @@ class ProductDraftController extends AbstractApiController
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      */
-    public function getProductDraft(AbstractProduct $product, Language $language): Response
+    public function getProductDraft(AbstractProduct $product): Response
     {
         $draft = $this->draftProvider->provide($product);
 
-        return $this->createRestResponse($draft);
+        return new SuccessResponse($draft);
     }
 
     /**
@@ -486,15 +485,15 @@ class ProductDraftController extends AbstractApiController
      *     default="EN",
      *     description="Language Code",
      * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Return product template model",
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
      *
-     * @SWG\Response(
-     *     response=201,
-     *     description="Change draft",
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Form validation error",
-     * )
      * @param AbstractProduct $product
      * @param Language        $language
      *
@@ -512,6 +511,6 @@ class ProductDraftController extends AbstractApiController
 
         $view = $this->builder->build($template, $language);
 
-        return $this->createRestResponse($view);
+        return new SuccessResponse($view);
     }
 }

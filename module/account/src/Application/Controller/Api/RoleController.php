@@ -14,28 +14,34 @@ use Ergonode\Account\Application\Form\RoleForm;
 use Ergonode\Account\Domain\Command\Role\CreateRoleCommand;
 use Ergonode\Account\Domain\Command\Role\DeleteRoleCommand;
 use Ergonode\Account\Domain\Command\Role\UpdateRoleCommand;
+use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\Account\Infrastructure\Grid\RoleGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class RoleController extends AbstractApiController
+class RoleController extends AbstractController
 {
     /**
      * @var RoleRepositoryInterface
@@ -63,8 +69,12 @@ class RoleController extends AbstractApiController
      * @param RoleGrid                $grid
      * @param MessageBusInterface     $messageBus
      */
-    public function __construct(RoleRepositoryInterface $repository, RoleQueryInterface $query, RoleGrid $grid, MessageBusInterface $messageBus)
-    {
+    public function __construct(
+        RoleRepositoryInterface $repository,
+        RoleQueryInterface $query,
+        RoleGrid $grid,
+        MessageBusInterface $messageBus
+    ) {
         $this->repository = $repository;
         $this->query = $query;
         $this->grid = $grid;
@@ -77,7 +87,6 @@ class RoleController extends AbstractApiController
      * @IsGranted("USER_ROLE_READ")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="limit",
      *     in="query",
@@ -99,7 +108,7 @@ class RoleController extends AbstractApiController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"id", "label","code", "hint"},
+     *     enum={"id","name","description", "users_count"},
      *     description="Order field",
      * )
      * @SWG\Parameter(
@@ -131,29 +140,27 @@ class RoleController extends AbstractApiController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language code",
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns Roles collection",
+     *     description="Returns roles collection",
      * )
      * @SWG\Response(
      *     response=404,
      *     description="Not found",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getRoles(Language $language, Request $request): Response
+    public function getRoles(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
-        $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet(), $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
     }
 
     /**
@@ -162,7 +169,6 @@ class RoleController extends AbstractApiController
      * @IsGranted("USER_ROLE_READ")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="role",
      *     in="path",
@@ -176,7 +182,7 @@ class RoleController extends AbstractApiController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language code",
      * )
      * @SWG\Response(
      *     response=200,
@@ -193,14 +199,12 @@ class RoleController extends AbstractApiController
      */
     public function getRole(string $role): Response
     {
-        $id = new RoleId($role);
-        $role = $this->repository->load($id);
-
-        if ($role !== null) {
-            return $this->createRestResponse($role);
+        $role = $this->repository->load(new RoleId($role));
+        if (!$role instanceof Role) {
+            throw new NotFoundHttpException('Role not found');
         }
 
-        throw new NotFoundHttpException('Role data not found');
+        return new SuccessResponse($role);
     }
 
     /**
@@ -209,7 +213,6 @@ class RoleController extends AbstractApiController
      * @IsGranted("USER_ROLE_CREATE")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -230,13 +233,16 @@ class RoleController extends AbstractApiController
      *     description="Returns role data",
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function createRole(Request $request): Response
     {
@@ -252,7 +258,7 @@ class RoleController extends AbstractApiController
                 $command = new CreateRoleCommand($data->name, $data->description, $data->privileges);
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -267,7 +273,6 @@ class RoleController extends AbstractApiController
      * @IsGranted("USER_ROLE_UPDATE")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="role",
      *     in="path",
@@ -281,7 +286,7 @@ class RoleController extends AbstractApiController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language code",
      * )
      * @SWG\Parameter(
      *     name="body",
@@ -291,12 +296,13 @@ class RoleController extends AbstractApiController
      *     @SWG\Schema(ref="#/definitions/role")
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns role data",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param string  $role
@@ -320,7 +326,7 @@ class RoleController extends AbstractApiController
                 $command = new UpdateRoleCommand($roleId, $data->name, $data->description, $data->privileges);
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -335,7 +341,6 @@ class RoleController extends AbstractApiController
      * @IsGranted("USER_ROLE_DELETE")
      *
      * @SWG\Tag(name="Account")
-     *
      * @SWG\Parameter(
      *     name="role",
      *     in="path",
@@ -344,15 +349,15 @@ class RoleController extends AbstractApiController
      *     description="Role Id",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns role data",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
      *     response=404,
      *     description="Not found",
      * )
      * @SWG\Response(
-     *     response=422,
+     *     response="409",
      *     description="Can't delete Role",
      * )
      *
@@ -362,19 +367,15 @@ class RoleController extends AbstractApiController
      */
     public function deleteRole(string $role): Response
     {
-        try {
-            $roleId = new RoleId($role);
-            $roleUsersCount = $this->query->getRoleUsersCount($roleId);
-            if (0 === $roleUsersCount) {
-                $command = new DeleteRoleCommand($roleId);
-                $this->messageBus->dispatch($command);
+        $roleId = new RoleId($role);
+        $roleUsersCount = $this->query->getRoleUsersCount($roleId);
+        if (0 === $roleUsersCount) {
+            $command = new DeleteRoleCommand($roleId);
+            $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_ACCEPTED);
-            }
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
+            return new EmptyResponse();
         }
 
-        throw new UnprocessableEntityHttpException('Can\'t delete role, %s user are assigned to it');
+        throw new ConflictHttpException('Can\'t delete role, %s user are assigned to it');
     }
 }

@@ -9,6 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Application\Form\CategoryCreateForm;
 use Ergonode\Category\Application\Form\CategoryUpdateForm;
 use Ergonode\Category\Application\Model\CategoryCreateFormModel;
@@ -19,13 +23,14 @@ use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -36,7 +41,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class CategoryController extends AbstractApiController
+class CategoryController extends AbstractController
 {
     /**
      * @var CategoryGrid
@@ -130,24 +135,19 @@ class CategoryController extends AbstractApiController
      *     response=200,
      *     description="Returns import",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getCategories(Language $language, Request $request): Response
+    public function getCategories(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
         $dataSet = $this->categoryQuery->getDataSet($language);
-        $result = $this->renderGrid($this->categoryGrid, $configuration, $dataSet, $language);
 
-        return $this->createRestResponse($result);
+        return new GridResponse($this->categoryGrid, $configuration, $dataSet, $language);
     }
 
     /**
@@ -156,7 +156,6 @@ class CategoryController extends AbstractApiController
      * @IsGranted("CATEGORY_READ")
      *
      * @SWG\Tag(name="Category")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -165,7 +164,6 @@ class CategoryController extends AbstractApiController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Parameter(
      *     name="category",
      *     in="path",
@@ -191,7 +189,7 @@ class CategoryController extends AbstractApiController
         $category = $this->repository->load(new CategoryId($category));
 
         if ($category) {
-            return $this->createRestResponse($category);
+            return new SuccessResponse($category);
         }
 
         throw new NotFoundHttpException();
@@ -225,7 +223,8 @@ class CategoryController extends AbstractApiController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -248,7 +247,7 @@ class CategoryController extends AbstractApiController
                 $command = new CreateCategoryCommand($data->code, new TranslatableString($data->name));
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -287,12 +286,13 @@ class CategoryController extends AbstractApiController
      *     @SWG\Schema(ref="#/definitions/category")
      * )
      * @SWG\Response(
-     *     response=201,
+     *     response=204,
      *     description="Update category",
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param string  $category
@@ -315,7 +315,7 @@ class CategoryController extends AbstractApiController
                 $command = new UpdateCategoryCommand(new CategoryId($category), new TranslatableString($data->name));
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

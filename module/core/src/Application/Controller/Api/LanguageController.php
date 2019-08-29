@@ -9,8 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Application\Form\LanguageCollectionForm;
 use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
 use Ergonode\Core\Domain\Command\UpdateLanguageCommand;
@@ -19,7 +20,10 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Grid\LanguageGrid;
 use Ergonode\Core\Persistence\Dbal\Repository\DbalLanguageRepository;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -30,7 +34,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class LanguageController extends AbstractApiController
+class LanguageController extends AbstractController
 {
     /**
      * @var LanguageQueryInterface
@@ -74,7 +78,6 @@ class LanguageController extends AbstractApiController
      * @Route("/languages/{translationLanguage}", methods={"GET"}, requirements={"role"="[A-Z]{2}"})
      *
      * @SWG\Tag(name="Language")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -100,18 +103,18 @@ class LanguageController extends AbstractApiController
      *     description="Not found",
      * )
      *
-     * @param string  $translationLanguage
-     * @param Request $request
+     * @param string $translationLanguage
      *
      * @return Response
      */
-    public function getLanguage(string $translationLanguage, Request $request): Response
+    public function getLanguage(string $translationLanguage): Response
     {
         $language = $this->query->getLanguage($translationLanguage);
 
         if ($language) {
-            return $this->createRestResponse([$language]);
+            return new SuccessResponse([$language]);
         }
+
         throw new NotFoundHttpException();
     }
 
@@ -172,26 +175,27 @@ class LanguageController extends AbstractApiController
      *     description="Returns language",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getLanguages(Language $language, Request $request): Response
+    public function getLanguages(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
-        $dataSet = $this->query->getDataSet();
-        $result = $this->renderGrid($this->languageGrid, $configuration, $dataSet, $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse(
+            $this->languageGrid,
+            $configuration,
+            $this->query->getDataSet(),
+            $language
+        );
     }
 
     /**
      * @Route("/languages", methods={"PUT"})
      *
      * @SWG\Tag(name="Language")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -219,8 +223,8 @@ class LanguageController extends AbstractApiController
      * @param Request $request
      *
      * @return Response
-     * @throws \Exception
      *
+     * @throws \Exception
      */
     public function updateLanguage(Request $request): Response
     {
@@ -238,7 +242,7 @@ class LanguageController extends AbstractApiController
                     $this->repository->save(Language::fromString($language->code), $language->active);
                 }
 
-                return $this->createRestResponse(['message' => "Updated"]);
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

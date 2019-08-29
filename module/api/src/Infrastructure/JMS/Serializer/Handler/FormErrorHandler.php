@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\Api\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\Core\Infrastructure\Mapper\FormErrorMapper;
 use JMS\Serializer\Context;
@@ -16,7 +16,7 @@ use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  */
@@ -48,7 +48,7 @@ class FormErrorHandler implements SubscribingHandlerInterface
     public static function getSubscribingMethods(): array
     {
         $methods = [];
-        $formats = ['json', 'xml', 'yml'];
+        $formats = ['json'];
 
         foreach ($formats as $format) {
             $methods[] = [
@@ -68,9 +68,9 @@ class FormErrorHandler implements SubscribingHandlerInterface
      * @param array                         $type
      * @param Context                       $context
      *
-     * @return mixed
+     * @return array
      */
-    public function serialize(SerializationVisitorInterface $visitor, Form $form, array $type, Context $context)
+    public function serialize(SerializationVisitorInterface $visitor, Form $form, array $type, Context $context): array
     {
         return $visitor->visitArray(
             [

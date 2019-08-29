@@ -7,32 +7,33 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\Api\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Core\Application\Exception\ViolationsHttpException;
+use Ergonode\Api\Application\Exception\ViolationsHttpException;
+use Ergonode\Api\Infrastructure\Normalizer\ExceptionNormalizerInterface;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  */
 class ViolationsExceptionHandler implements SubscribingHandlerInterface
 {
     /**
-     * @var TranslatorInterface
+     * @var ExceptionNormalizerInterface
      */
-    private $translator;
+    private $exceptionNormalizer;
 
     /**
-     * @param TranslatorInterface $translator
+     * @param ExceptionNormalizerInterface $exceptionNormalizer
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(ExceptionNormalizerInterface $exceptionNormalizer)
     {
-        $this->translator = $translator;
+        $this->exceptionNormalizer = $exceptionNormalizer;
     }
 
     /**
@@ -41,7 +42,7 @@ class ViolationsExceptionHandler implements SubscribingHandlerInterface
     public static function getSubscribingMethods(): array
     {
         $methods = [];
-        $formats = ['json', 'xml', 'yml'];
+        $formats = ['json'];
 
         foreach ($formats as $format) {
             $methods[] = [
@@ -61,21 +62,39 @@ class ViolationsExceptionHandler implements SubscribingHandlerInterface
      * @param array                         $type
      * @param Context                       $context
      *
-     * @return mixed
+     * @return array
      */
-    public function serialize(SerializationVisitorInterface $visitor, ViolationsHttpException $exception, array $type, Context $context)
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        ViolationsHttpException $exception,
+        array $type,
+        Context $context
+    ): array {
+        $data = $this->exceptionNormalizer->normalize($exception, (string) Response::HTTP_BAD_REQUEST);
+        $data['errors'] = $this->mapViolations($exception->getViolations());
+
+        return $visitor->visitArray($data, $type);
+    }
+
+    /**
+     * @param ConstraintViolationListInterface $violations
+     *
+     * @return array
+     */
+    private function mapViolations(ConstraintViolationListInterface $violations): array
     {
         $errors = [];
         /** @var ConstraintViolationInterface $violation */
-        foreach ($exception->getViolations() as $violation) {
+        foreach ($violations as $violation) {
             $field = substr($violation->getPropertyPath(), 1, -1);
-            $errors[$field] = [$violation->getMessage()];
+
+            if (!array_key_exists($field, $errors)) {
+                $errors[$field] = [];
+            }
+
+            $errors[$field][] = $violation->getMessage();
         }
 
-        return [
-            'code' => Response::HTTP_BAD_REQUEST,
-            'message' => $this->translator->trans('Validation error'),
-            'errors' => $errors,
-        ];
+        return $errors;
     }
 }
