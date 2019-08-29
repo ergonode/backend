@@ -11,7 +11,6 @@ use Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\TemplateGroupIdHandl
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
-use JMS\Serializer\VisitorInterface;
 use PHPUnit\Framework\TestCase;
 
 /**

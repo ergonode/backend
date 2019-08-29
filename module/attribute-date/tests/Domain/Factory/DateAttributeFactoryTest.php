@@ -8,8 +8,8 @@
 namespace Ergonode\AttributeDate\Tests\Domain\Factory;
 
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
 use Ergonode\AttributeDate\Domain\Factory\DateAttributeFactory;
 use Ergonode\AttributeDate\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;

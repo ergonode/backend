@@ -12,16 +12,16 @@ namespace Ergonode\Attribute\Domain\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeArrayParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use JMS\Serializer\Annotation as JMS;
 
 /**

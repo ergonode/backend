@@ -26,6 +26,7 @@ class CategoryCode
         if (!self::isValid($value)) {
             throw new \InvalidArgumentException('Invalid category code value');
         }
+
         $this->value = $value;
     }
 
@@ -45,7 +46,6 @@ class CategoryCode
         return $this->value;
     }
 
-
     /**
      * @param string $value
      *
@@ -53,6 +53,6 @@ class CategoryCode
      */
     public static function isValid(string $value): bool
     {
-        return \strlen($value) <= 255;
+        return strlen($value) <= 255;
     }
 }

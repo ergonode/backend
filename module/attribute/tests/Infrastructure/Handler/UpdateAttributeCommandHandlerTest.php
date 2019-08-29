@@ -8,7 +8,6 @@
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Ergonode\Attribute\Domain\AttributeFactoryInterface;
 use Ergonode\Attribute\Domain\AttributeUpdaterInterface;
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;

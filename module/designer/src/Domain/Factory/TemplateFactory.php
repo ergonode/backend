@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Factory;
 
-use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\Template;
+use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateGroupId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;

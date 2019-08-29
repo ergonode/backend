@@ -11,13 +11,13 @@ namespace Ergonode\Category\Infrastructure\Action;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Factory\CategoryFactory;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
-use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
+use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Provider\CategoryTreeProvider;
-use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\ProductSimple\Infrastructure\Action\Extension\ProductAttributeExtension;
+use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Infrastructure\Action\ImportActionInterface;
 use Webmozart\Assert\Assert;
 

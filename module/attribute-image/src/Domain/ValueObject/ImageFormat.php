@@ -22,13 +22,13 @@ class ImageFormat
     public const BMP = 'bmp';
 
     public const AVAILABLE = [
-        self:: JPG,
-        self:: JPEG,
-        self:: GIF,
-        self:: TIFF,
-        self:: TIF,
-        self:: PNG,
-        self:: BMP,
+        self::JPG,
+        self::JPEG,
+        self::GIF,
+        self::TIFF,
+        self::TIF,
+        self::PNG,
+        self::BMP,
     ];
 
     /**

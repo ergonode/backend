@@ -50,7 +50,7 @@ class EndProcessImportCommandHandler
         $import = $this->repository->load($command->getImportId());
 
         if (null === $import) {
-            throw new \LogicException(\sprintf('Can\'t find import witch id %s', $command->getImportId()->getValue()));
+            throw new \LogicException(\sprintf('Can\'t find import with id %s', $command->getImportId()->getValue()));
         }
 
         $import->end();

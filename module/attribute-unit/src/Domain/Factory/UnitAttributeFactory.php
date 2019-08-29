@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\AttributeUnit\Domain\Factory;
 
+use Ergonode\Attribute\Domain\AttributeFactoryInterface;
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\AttributeFactoryInterface;
-use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Ergonode\AttributeUnit\Domain\ValueObject\Unit;
 
 /**

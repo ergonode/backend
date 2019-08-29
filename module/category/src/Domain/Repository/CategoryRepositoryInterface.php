@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Domain\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
  */

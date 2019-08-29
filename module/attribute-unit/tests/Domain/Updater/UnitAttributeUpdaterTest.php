@@ -8,8 +8,8 @@
 namespace Ergonode\AttributeUnit\Tests\Domain\Updater;
 
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
-use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Ergonode\AttributeUnit\Domain\Updater\UnitAttributeUpdater;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

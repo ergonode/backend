@@ -18,13 +18,13 @@ use Ergonode\Product\Domain\Provider\ProductFactoryProvider;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
-use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\ProductSimple\Infrastructure\Action\Extension\ProductAttributeExtension;
 use Ergonode\ProductSimple\Infrastructure\Action\Extension\ProductCategoryExtension;
+use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Infrastructure\Action\ImportActionInterface;
 use Ergonode\Transformer\Infrastructure\Exception\ProcessorException;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Webmozart\Assert\Assert;
 
 /**

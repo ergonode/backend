@@ -14,8 +14,8 @@ use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Money\Currency;
 use JMS\Serializer\Annotation as JMS;
+use Money\Currency;
 
 /**
  */

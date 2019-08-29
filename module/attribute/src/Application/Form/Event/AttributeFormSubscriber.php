@@ -9,15 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Form\Event;
 
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
-use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
-use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\AttributeDate\Application\Form\Type\DateFormatFormType;
+use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
+use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
 use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
 use Ergonode\AttributePrice\Application\Form\Type\CurrencyFormType;
+use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\AttributeUnit\Application\Form\Type\UnitFormType;
+use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;

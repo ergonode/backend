@@ -8,10 +8,10 @@
 namespace Ergonode\AttributeImage\Tests\Domain\Factory;
 
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
-use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
+use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
 use Ergonode\AttributeImage\Domain\Factory\ImageAttributeFactory;
+use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

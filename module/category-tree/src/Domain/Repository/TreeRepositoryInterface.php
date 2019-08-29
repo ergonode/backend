@@ -6,9 +6,9 @@
 
 namespace Ergonode\CategoryTree\Domain\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
  */

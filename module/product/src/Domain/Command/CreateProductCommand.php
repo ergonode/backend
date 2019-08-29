@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Command;
 
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;

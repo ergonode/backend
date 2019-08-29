@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
  */

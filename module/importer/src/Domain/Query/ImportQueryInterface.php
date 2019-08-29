@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\Query;
 
-use Ergonode\Importer\Domain\Entity\ImportLineId;
 use Ergonode\Grid\DataSetInterface;
+use Ergonode\Importer\Domain\Entity\ImportLineId;
 
 /**
  */

@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Validator;
 
+use Ergonode\Attribute\Domain\AttributeValidatorInterface;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
-use Ergonode\Attribute\Domain\AttributeValidatorInterface;
 
 /**
  * Class TextAttributeValidator

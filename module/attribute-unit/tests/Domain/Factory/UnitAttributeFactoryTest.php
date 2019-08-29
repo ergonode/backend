@@ -8,8 +8,8 @@
 namespace Ergonode\AttributeUnit\Tests\Domain\Factory;
 
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
-use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Ergonode\AttributeUnit\Domain\Factory\UnitAttributeFactory;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;

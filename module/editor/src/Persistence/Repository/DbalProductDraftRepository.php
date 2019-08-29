@@ -9,13 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Persistence\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Editor\Domain\Entity\ProductDraftId;
 use Ergonode\Editor\Domain\Event\ProductDraftApplied;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 
 /**

@@ -9,8 +9,8 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Transformer\Domain\Event\TransformerConverterAddedEvent;
 use Ergonode\Transformer\Domain\Event\TransformerCreatedEvent;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;

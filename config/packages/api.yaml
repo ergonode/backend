@@ -6,3 +6,6 @@ ergonode_api:
         Symfony\Component\Security\Core\Exception\AuthenticationException:
             http: { code: 401 }
             content: { code: 401, message: 'Authentication needed' }
+        Ergonode\Core\Application\Exception\NotImplementedException:
+            http: { code: 501 }
+            content: { code: 501, message: 'Feature not implemented' }

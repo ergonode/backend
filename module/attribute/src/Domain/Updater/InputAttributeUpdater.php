@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Updater;
 
+use Ergonode\Attribute\Domain\AttributeUpdaterInterface;
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
-use Ergonode\Attribute\Domain\AttributeUpdaterInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;

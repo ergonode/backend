@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Entity;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Event\ProcessorCreatedEvent;
 use Ergonode\Transformer\Domain\Event\ProcessorStatusChangedEvent;

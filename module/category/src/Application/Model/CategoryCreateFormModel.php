@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Application\Model;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Category\Infrastructure\Validator as CategoryAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */

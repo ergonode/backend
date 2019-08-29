@@ -15,6 +15,7 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent;
+use Ergonode\Workflow\Domain\ValueObject\Status;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent;
 use Ergonode\Workflow\Domain\ValueObject\Transition;

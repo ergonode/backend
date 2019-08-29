@@ -470,6 +470,8 @@ class AccountController extends AbstractController
      *     description="Not found",
      * )
      *
+     * @ParamConverter(class="Ergonode\Account\Domain\Entity\User")
+     *
      * @param User    $user
      * @param Request $request
      *
@@ -485,7 +487,7 @@ class AccountController extends AbstractController
         $userId = $this->getUser()->getId();
 
         if ($violations->count() === 0) {
-            $command = new ChangeUserPasswordCommand($userId, new Password($data['password']));
+            $command = new ChangeUserPasswordCommand($userId, new Password((string) $data['password']));
             $this->messageBus->dispatch($command);
 
             return new EmptyResponse();

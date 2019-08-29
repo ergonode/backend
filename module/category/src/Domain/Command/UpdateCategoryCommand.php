@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Domain\Command;
 
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 
 /**

@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity;
 
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
  */

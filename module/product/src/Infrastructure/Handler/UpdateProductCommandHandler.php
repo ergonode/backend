@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Handler;
 
-use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
+use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Webmozart\Assert\Assert;
 

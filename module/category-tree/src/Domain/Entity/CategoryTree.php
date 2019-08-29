@@ -11,11 +11,11 @@ namespace Ergonode\CategoryTree\Domain\Entity;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoriesChangedEvent;
-use Ergonode\CategoryTree\Domain\ValueObject\Node;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryAddedEvent;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent;
+use Ergonode\CategoryTree\Domain\ValueObject\Node;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Webmozart\Assert\Assert;
 
 /**

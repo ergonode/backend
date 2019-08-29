@@ -8,8 +8,8 @@
 namespace Ergonode\AttributeDate\Tests\Domain\Updater;
 
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
 use Ergonode\AttributeDate\Domain\Updater\DateAttributeUpdater;
 use Ergonode\AttributeDate\Domain\ValueObject\DateFormat;
 use PHPUnit\Framework\MockObject\MockObject;

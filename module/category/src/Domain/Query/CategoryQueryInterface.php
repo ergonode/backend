@@ -7,9 +7,9 @@
 
 namespace Ergonode\Category\Domain\Query;
 
+use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Category\Domain\Entity\CategoryId;
 
 /**
  */

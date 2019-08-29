@@ -10,13 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Event\ProductDraftApplied;
 use Ergonode\Editor\Domain\Event\ProductDraftCreated;
 use Ergonode\Editor\Domain\Event\ProductDraftValueAdded;
 use Ergonode\Editor\Domain\Event\ProductDraftValueChanged;
 use Ergonode\Editor\Domain\Event\ProductDraftValueRemoved;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;

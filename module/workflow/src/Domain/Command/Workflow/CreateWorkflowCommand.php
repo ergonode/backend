@@ -13,6 +13,7 @@ use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\Transition;
 use Webmozart\Assert\Assert;
+use Ergonode\Workflow\Domain\ValueObject\Status;
 use JMS\Serializer\Annotation as JMS;
 
 /**

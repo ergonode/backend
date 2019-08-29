@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Model\Form\Type\Property;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @Assert\GroupSequence({"AttributeElementPropertyTypeModel", "Attribute"})

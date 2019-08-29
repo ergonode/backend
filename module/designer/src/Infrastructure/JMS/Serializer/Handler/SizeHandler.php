@@ -11,12 +11,10 @@ namespace Ergonode\Designer\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\Designer\Domain\ValueObject\Size;
 use JMS\Serializer\Context;
-use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
-use JMS\Serializer\VisitorInterface;
 
 /**
  */

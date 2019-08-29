@@ -11,9 +11,9 @@ namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**

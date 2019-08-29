@@ -30,13 +30,11 @@ abstract class AbstractId
     public function __construct(string $value)
     {
         if (!Uuid::isValid($value)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    '"%s" should be valid uuid value, given value "%s"',
-                    static::class,
-                    $value
-                )
-            );
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" should be valid uuid value, given value "%s"',
+                static::class,
+                $value
+            ));
         }
 
         $this->value = $value;

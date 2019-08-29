@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**

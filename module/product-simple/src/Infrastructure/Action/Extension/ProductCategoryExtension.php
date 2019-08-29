@@ -12,8 +12,8 @@ namespace Ergonode\ProductSimple\Infrastructure\Action\Extension;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Transformer\Domain\Model\Record;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 use Webmozart\Assert\Assert;
 
 /**

@@ -10,7 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\State;
+use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
+use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementRemovedEvent;
 use Ergonode\Designer\Domain\Event\TemplateGroupChangedEvent;
@@ -19,12 +22,9 @@ use Ergonode\Designer\Domain\Event\TemplateImageChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateImageRemovedEvent;
 use Ergonode\Designer\Domain\Event\TemplateNameChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateRemovedEvent;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
-use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
 use Ergonode\Designer\Domain\ValueObject\Position;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 
 /**

@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
