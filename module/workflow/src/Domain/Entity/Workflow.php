@@ -9,13 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
-use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusChangedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent;
-use Ergonode\Workflow\Domain\ValueObject\Status;
+use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent;
+use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent;
+use Ergonode\Workflow\Domain\ValueObject\Transition;
 use Webmozart\Assert\Assert;
 use JMS\Serializer\Annotation as JMS;
 
@@ -40,24 +42,31 @@ class Workflow extends AbstractAggregateRoot
     private $code;
 
     /**
-     * @var Status[]
+     * @var StatusId[]
      *
-     * @JMS\Type("array<string, Ergonode\Workflow\Domain\ValueObject\Status>")
+     * @JMS\Type("array<Ergonode\Workflow\Domain\Entity\StatusId>")
      */
     private $statuses;
 
     /**
+     * @var ArrayCollection|Transition[]
+     *
+     * @JMS\Type("ArrayCollection<Ergonode\Workflow\Domain\ValueObject\Transition>")
+     */
+    private $transitions;
+
+    /**
      * @param WorkflowId $id
      * @param string     $code
-     * @param array      $statuses
+     * @param StatusId[] $statuses
      *
      * @throws \Exception
      */
     public function __construct(WorkflowId $id, string $code, array $statuses = [])
     {
-        Assert::allIsInstanceOf($statuses, Status::class);
+        Assert::allIsInstanceOf($statuses, StatusId::class);
 
-        $this->apply(new WorkflowCreatedEvent($id, $code, $statuses));
+        $this->apply(new WorkflowCreatedEvent($id, $code, array_values($statuses)));
     }
 
     /**
@@ -77,79 +86,103 @@ class Workflow extends AbstractAggregateRoot
     }
 
     /**
-     * @param string $code
+     * @param StatusId $id
      *
      * @return bool
      */
-    public function hasStatus(string $code): bool
+    public function hasStatus(StatusId $id): bool
     {
-        return isset($this->statuses[$code]);
+        return isset($this->statuses[$id->getValue()]);
     }
 
     /**
-     * @param string $code
+     * @param StatusId $source
+     * @param StatusId $destination
      *
-     * @return Status
+     * @return bool
      */
-    public function getStatus(string $code): Status
+    public function hasTransition(StatusId $source, StatusId $destination): bool
     {
-        if (!$this->hasStatus($code)) {
-            throw  new \RuntimeException(sprintf('Status %s not exists', $code));
-        }
+        $key = $this->getTransitionKey($source, $destination);
 
-        return $this->statuses[$code];
+        return isset($this->transitions[$key]);
     }
 
     /**
-     * @param string $code
-     * @param Status $status
+     * @param StatusId $id
      *
      * @throws \Exception
      */
-    public function addStatus(string $code, Status $status): void
+    public function addStatus(StatusId $id): void
     {
-        if ($this->hasStatus($code)) {
+        if ($this->hasStatus($id)) {
             throw  new \RuntimeException(sprintf('Status %s already exists', $code));
         }
 
-        $this->apply(new WorkflowStatusAddedEvent($code, $status));
+        $this->apply(new WorkflowStatusAddedEvent($id));
     }
 
     /**
-     * @param string $code
-     * @param Status $status
+     * @param Transition $transition
      *
      * @throws \Exception
      */
-    public function changeStatus(string $code, Status $status): void
+    public function addTransition(Transition $transition): void
     {
-        if (!$this->hasStatus($code)) {
-            throw  new \RuntimeException(sprintf('Status %s not exists', $code));
+        if ($this->hasTransition($transition->getSource(), $transition->getDestination())) {
+            throw  new \RuntimeException(sprintf('Transition %s already exists', $transition->getName()));
         }
 
-        $this->apply(new WorkflowStatusChangedEvent($code, $this->statuses[$code], $status));
+        if (!$this->hasStatus($transition->getSource())) {
+            throw  new \RuntimeException(sprintf('Transition source status %s not exists', $transition->getSource()->getValue()));
+        }
+
+        if (!$this->hasStatus($transition->getDestination())) {
+            throw  new \RuntimeException(sprintf('Transition destination status %s not exists', $transition->getDestination()->getValue()));
+        }
+
+        $this->apply(new WorkflowTransitionAddedEvent($transition));
     }
 
     /**
-     * @param string $code
+     * @param StatusId $source
+     * @param StatusId $destination
      *
      * @throws \Exception
      */
-    public function removeStatus(string $code): void
+    public function removeTransition(StatusId $source, StatusId $destination): void
     {
-        if (!$this->hasStatus($code)) {
-            throw  new \RuntimeException(sprintf('Status %s not exists', $code));
-        }
-
-        $this->apply(new WorkflowStatusRemovedEvent($code));
+        $this->apply(new WorkflowTransitionRemovedEvent($source, $destination));
     }
 
     /**
-     * @return Status[]
+     * @return Transition[]
+     */
+    public function getTransitions(): array
+    {
+        return $this->transitions->toArray();
+    }
+
+    /**
+     * @param StatusId $id
+     *
+     * @throws \Exception
+     */
+    public function removeStatus(StatusId $id): void
+    {
+        if (!$this->hasStatus($id)) {
+            throw  new \RuntimeException(sprintf('Status id %s not exists', $id));
+        }
+
+        $this->apply(new WorkflowStatusRemovedEvent($id));
+    }
+
+    /**
+     * @return StatusId[]
      */
     public function getStatuses(): array
     {
-        return $this->statuses;
+        return array_values($this->statuses);
     }
 
     /**
@@ -159,7 +192,11 @@ class Workflow extends AbstractAggregateRoot
     {
         $this->id = $event->getId();
         $this->code = $event->getCode();
-        $this->statuses = $event->getStatuses();
+        $this->statuses = [];
+        $this->transitions = new ArrayCollection();
+        foreach ($event->getStatuses() as $status) {
+            $this->statuses[$status->getValue()] = $status;
+        }
     }
 
     /**
@@ -167,15 +204,7 @@ class Workflow extends AbstractAggregateRoot
      */
     protected function applyWorkflowStatusAddedEvent(WorkflowStatusAddedEvent $event): void
     {
-        $this->statuses[$event->getCode()] = $event->getStatus();
-    }
-
-    /**
-     * @param WorkflowStatusChangedEvent $event
-     */
-    protected function applyWorkflowStatusChangedEvent(WorkflowStatusChangedEvent $event): void
-    {
-        $this->statuses[$event->getCode()] = $event->getTo();
+        $this->statuses[$event->getId()->getValue()] = $event->getId();
     }
 
     /**
@@ -183,6 +212,37 @@ class Workflow extends AbstractAggregateRoot
      */
     protected function applyWorkflowStatusRemovedEvent(WorkflowStatusRemovedEvent $event): void
     {
-        unset($this->statuses[$event->getCode()]);
+        unset($this->statuses[$event->getId()->getValue()]);
+    }
+
+    /**
+     * @param WorkflowTransitionAddedEvent $event
+     */
+    protected function applyWorkflowTransitionAddedEvent(WorkflowTransitionAddedEvent $event): void
+    {
+        $key = $this->getTransitionKey($event->getTransition()->getSource(), $event->getTransition()->getDestination());
+
+        $this->transitions[$key] = $event->getTransition();
+    }
+
+    /**
+     * @param WorkflowTransitionRemovedEvent $event
+     */
+    protected function applyWorkflowTransitionRemovedEvent(WorkflowTransitionRemovedEvent $event): void
+    {
+        $key = $this->getTransitionKey($event->getSource(), $event->getDestination());
+
+        unset($this->transitions[$key]);
+    }
+
+    /**
+     * @param StatusId $source
+     * @param StatusId $destination
+     *
+     * @return string
+     */
+    private function getTransitionKey(StatusId $source, StatusId $destination): string
+    {
+        return sprintf('%s:%s', $source->getValue(), $destination->getValue());
     }
 }

@@ -121,6 +121,21 @@ nelmio_api_doc:
                         example:
                             PL: Description PL
                             EN: Description EN
+            transition:
+                type: object
+                properties:
+                    source:
+                        type: string
+                        requied: true
+                        description: id of source status
+                    destination:
+                        type: string
+                        requied: true
+                        description: id of destination status
+                    name:
+                        type: string
+                        requied: true
+                        description: name of transition
             workflow:
                 type: object
                 properties:
@@ -132,7 +147,16 @@ nelmio_api_doc:
                     statuses:
                         type: array
                         items:
-                            $ref: "#/definitions/status"
+                            type: string
+                        description: list of related ids of statuses
+                        example: []
+                    transitions:
+                        type: array
+                        items:
+                            $ref: "#/definitions/transition"
+                            description: list of transisiotn between statuses
+                        example: []
+
             tree:
                 type: object
                 properties:

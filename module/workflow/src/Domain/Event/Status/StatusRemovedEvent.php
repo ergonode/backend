@@ -2,12 +2,12 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See LICENSE.txt for license details.
+ * See license.txt for license details.
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Domain\Event\Workflow;
+namespace Ergonode\Workflow\Domain\Event\Status;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class WorkflowStatusRemovedEvent implements DomainEventInterface
+class StatusRemovedEvent implements DomainEventInterface
 {
     /**
      * @var StatusId

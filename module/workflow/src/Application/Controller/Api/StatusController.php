@@ -22,9 +22,8 @@ use Ergonode\Workflow\Application\Form\StatusForm;
 use Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand;
 use Ergonode\Workflow\Domain\Command\Status\DeleteStatusCommand;
 use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
-use Ergonode\Workflow\Domain\ValueObject\Status;
 use Ergonode\Workflow\Infrastructure\Grid\StatusGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -33,7 +32,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,11 +40,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class StatusController extends AbstractController
 {
-    /**
-     * @var WorkflowProvider
-     */
-    private $provider;
-
     /**
      * @var MessageBusInterface
      */
@@ -63,21 +56,19 @@ class StatusController extends AbstractController
     private $grid;
 
     /**
-     * @param WorkflowProvider     $provider
      * @param MessageBusInterface  $messageBus
      * @param StatusQueryInterface $query
      * @param StatusGrid           $grid
      */
-    public function __construct(WorkflowProvider $provider, MessageBusInterface $messageBus, StatusQueryInterface $query, StatusGrid $grid)
+    public function __construct(MessageBusInterface $messageBus, StatusQueryInterface $query, StatusGrid $grid)
     {
-        $this->provider = $provider;
         $this->messageBus = $messageBus;
         $this->query = $query;
         $this->grid = $grid;
     }
 
     /**
-     * @Route("/workflow/default/status", methods={"GET"})
+     * @Route("/status", methods={"GET"})
      *
      * @IsGranted("WORKFLOW_READ")
      *
@@ -148,7 +139,7 @@ class StatusController extends AbstractController
      *
      * @return Response
      */
-    public function getAttributes(Language $language, RequestGridConfiguration $configuration): Response
+    public function getStatuses(Language $language, RequestGridConfiguration $configuration): Response
     {
         $dataSet = $this->query->getDataSet($language);
 
@@ -156,7 +147,7 @@ class StatusController extends AbstractController
     }
 
     /**
-     * @Route("/workflow/default/status/{status}", methods={"GET"})
+     * @Route("/status/{status}", methods={"GET"}, requirements={"status" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("WORKFLOW_READ")
      *
@@ -166,7 +157,7 @@ class StatusController extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Status code",
+     *     description="Status id",
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -185,25 +176,19 @@ class StatusController extends AbstractController
      *     description="Not found",
      * )
      *
-     * @param string $status
+     * @param Status $status
+     *
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
      *
      * @return Response
-     *
-     * @throws \Exception
      */
-    public function getStatus(string $status): Response
+    public function getStatus(Status $status): Response
     {
-        $workflow = $this->provider->provide();
-
-        if ($workflow && $workflow->hasStatus($status)) {
-            return new SuccessResponse($workflow->getStatus($status));
-        }
-
-        throw new NotFoundHttpException();
+        return new SuccessResponse($status);
     }
 
     /**
-     * @Route("/workflow/default/status", methods={"POST"})
+     * @Route("/status", methods={"POST"})
      *
      * @IsGranted("WORKFLOW_CREATE")
      *
@@ -241,8 +226,6 @@ class StatusController extends AbstractController
     public function createStatus(Request $request): Response
     {
         try {
-            $workflow = $this->provider->provide();
-
             $model = new StatusFormModel();
             $form = $this->createForm(StatusForm::class, $model);
 
@@ -253,9 +236,10 @@ class StatusController extends AbstractController
                 $data = $form->getData();
 
                 $command = new CreateStatusCommand(
-                    $workflow->getId(),
                     $data->code,
-                    new Status($data->color, new TranslatableString($data->name), new TranslatableString($data->description))
+                    $data->color,
+                    new TranslatableString($data->name),
+                    new TranslatableString($data->description)
                 );
 
                 $this->messageBus->dispatch($command);
@@ -270,7 +254,7 @@ class StatusController extends AbstractController
     }
 
     /**
-     * @Route("/workflow/default/status/{status}", methods={"PUT"})
+     * @Route("/status/{status}", methods={"PUT"})
      *
      * @IsGranted("WORKFLOW_UPDATE")
      *
@@ -344,7 +328,7 @@ class StatusController extends AbstractController
     }
 
     /**
-     * @Route("/workflow/default/status/{status}", methods={"DELETE"})
+     * @Route("/status/{status}", methods={"DELETE"})
      *
      * @IsGranted("WORKFLOW_DELETE")
      *
