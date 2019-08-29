@@ -77,10 +77,29 @@ Feature: Category module
     When I request "/api/v1/EN/categories?field=sequence" using HTTP GET
     Then grid response is received
 
+  Scenario: Get categories (filter by sequence)
+    Given current authentication token
+    When I request "/api/v1/EN/categories?limit=25&offset=0&filter=sequence%3D1" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get categories (filter by name)
+    Given current authentication token
+    When I request "/api/v1/EN/categories?limit=25&offset=0&filter=name%3Dasd" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get categories (filter by code)
+    Given current authentication token
+    When I request "/api/v1/EN/categories?limit=25&offset=0&filter=code%3DCAT" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get categories (filter by elements_count)
+    Given current authentication token
+    When I request "/api/v1/EN/categories?limit=25&offset=0&filter=elements_count%3D1" using HTTP GET
+    Then grid response is received
+
   Scenario: Get categories (not authorized)
     When I request "/api/v1/EN/categories" using HTTP GET
     Then unauthorized response is received
 
-  # TODO Check categories with all filters
   # TODO Check create category action with all incorrect possibilities
   # TODO Check update category action with all incorrect possibilities

@@ -336,6 +336,31 @@ Feature: Attribute module
     When I request "/api/v1/EN/attributes?field=multilingual" using HTTP GET
     Then grid response is received
 
+  Scenario: Get attributes (filter by index)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=index%3Dasd" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (filter by code)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=code%3Dasd" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (filter by label)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=label%3Dasd" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (filter by type)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=type%3DTEXT" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (filter by groups)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=groups%3Dd653cce6-66fb-4772-800b-281af35fc5bc" using HTTP GET
+    Then grid response is received
+
   Scenario: Get attributes (not authorized)
     When I request "/api/v1/EN/attributes" using HTTP GET
     Then unauthorized response is received
@@ -376,6 +401,5 @@ Feature: Attribute module
     When I request "/api/v1/EN/dictionary/date_format" using HTTP GET
     Then unauthorized response is received
 
-  # TODO Check attributes with all filters
   # TODO Check create attribute action with all incorrect possibilities
   # TODO Check update attribute action with all incorrect possibilities
