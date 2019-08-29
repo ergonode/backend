@@ -56,6 +56,9 @@ class AuthenticationContext implements Context
 
         $this->apiContext = $environment->getContext('ApiContext');
         $this->storageContext = $environment->getContext('StorageContext');
+
+        $this->storageContext->addDefinition('default_user_username', $this->username);
+        $this->storageContext->addDefinition('default_user_password', $this->password);
     }
 
     /**
@@ -78,7 +81,7 @@ class AuthenticationContext implements Context
     }
 
     /**
-     * @Given Current authentication token
+     * @Given current authentication token
      */
     public function authenticationToken(): void
     {

@@ -1,13 +1,13 @@
 Feature: Designer module
 
   Scenario: Get attribute groups dictionary
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
     Then the response code is 200
     And remember first attribute group as "attribute_group"
 
   Scenario: Create text attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -23,7 +23,7 @@ Feature: Designer module
     And remember response param "id" as "template_text_attribute"
 
   Scenario: Create image attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -38,7 +38,7 @@ Feature: Designer module
     And remember response param "id" as "template_image_attribute"
 
   Scenario: Create template
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -67,7 +67,7 @@ Feature: Designer module
     Then unauthorized response is received
 
   Scenario: Update template
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -88,33 +88,33 @@ Feature: Designer module
       }
       """
     When I request "/api/v1/EN/templates/@template@" using HTTP PUT
-    Then the response code is 200
+    Then empty response is received
 
   Scenario: Update template (not authorized)
     When I request "/api/v1/EN/templates/@template@" using HTTP PUT
     Then unauthorized response is received
 
   Scenario: Update template (not found)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/templates/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
   Scenario: Delete template
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
-    Then the response code is 202
+    Then empty response is received
 
   Scenario: Delete template (not authorized)
     When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
     Then unauthorized response is received
 
   Scenario: Delete template (not found)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/templates/@@static_uuid@@" using HTTP DELETE
     Then not found response is received
 
   Scenario: Get template
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/templates/@template@" using HTTP GET
     Then the response code is 200
 
@@ -123,12 +123,12 @@ Feature: Designer module
     Then unauthorized response is received
 
   Scenario: Get template (not found)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/templates/@@static_uuid@@" using HTTP GET
     Then not found response is received
 
   Scenario: Get template groups
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/templates/groups" using HTTP GET
     Then the response code is 200
 
@@ -137,7 +137,7 @@ Feature: Designer module
     Then unauthorized response is received
 
   Scenario: Get template types
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/templates/types" using HTTP GET
     Then the response code is 200
 
@@ -146,7 +146,7 @@ Feature: Designer module
     Then unauthorized response is received
 
   Scenario: Get templates
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/templates" using HTTP GET
     Then the response code is 200
 

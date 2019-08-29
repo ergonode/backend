@@ -1,7 +1,7 @@
 Feature: Core module
 
   Scenario: Get languages
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/dictionary/languages" using HTTP GET
     Then the response code is 200
 

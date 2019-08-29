@@ -2,13 +2,13 @@ Feature: Product module
 
   # TODO Do something with this! How to chain them?
   Scenario: Get attribute groups dictionary
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
     Then the response code is 200
     And remember first attribute group as "attribute_group"
 
   Scenario: Create text attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -24,7 +24,7 @@ Feature: Product module
     And remember response param "id" as "product_template_attribute"
 
   Scenario: Create image attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -39,7 +39,7 @@ Feature: Product module
     And remember response param "id" as "product_image_attribute"
 
   Scenario: Create template
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -64,7 +64,7 @@ Feature: Product module
     And remember response param "id" as "product_template"
 
   Scenario: Create category
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -77,7 +77,7 @@ Feature: Product module
     And remember response param "id" as "product_category"
 
   Scenario: Create product
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -95,7 +95,7 @@ Feature: Product module
     Then unauthorized response is received
 
   Scenario: Update product
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -103,19 +103,19 @@ Feature: Product module
       }
       """
     When I request "/api/v1/EN/products/@product@" using HTTP PUT
-    Then created response is received
+    Then empty response is received
 
   Scenario: Update product (not authorized)
     When I request "/api/v1/EN/products/@product@" using HTTP PUT
     Then unauthorized response is received
 
   Scenario: Update product (not found)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
   Scenario: Get product
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/products/@product@" using HTTP GET
     Then the response code is 200
 
@@ -124,7 +124,7 @@ Feature: Product module
     Then unauthorized response is received
 
   Scenario: Get product (not found)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP GET
     Then not found response is received
 

@@ -1,7 +1,7 @@
 Feature: Attribute module
 
   Scenario: Get attribute types dictionary
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/dictionary/attributes/types" using HTTP GET
     Then the response code is 200
 
@@ -10,7 +10,7 @@ Feature: Attribute module
     Then unauthorized response is received
 
   Scenario: Get attribute groups dictionary
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
     Then the response code is 200
     And remember first attribute group as "attribute_group"
@@ -20,7 +20,7 @@ Feature: Attribute module
     Then unauthorized response is received
 
   Scenario: Delete attribute (not found)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@@static_uuid@@" using HTTP DELETE
     Then not found response is received
 
@@ -29,7 +29,7 @@ Feature: Attribute module
     Then unauthorized response is received
 
   Scenario: Create text attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -45,7 +45,7 @@ Feature: Attribute module
     And remember response param "id" as "text_attribute"
 
   Scenario: Update text attribute
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP PUT
     Given the request body is:
       """
@@ -55,19 +55,19 @@ Feature: Attribute module
           "parameters": []
       }
       """
-    Then the response code is 200
+    Then empty response is received
 
   Scenario: Update text attribute (not authorized)
     When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP PUT
     Then unauthorized response is received
 
   Scenario: Update text attribute (not found)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
   Scenario: Get attribute
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP GET
     Then the response code is 200
 
@@ -76,7 +76,7 @@ Feature: Attribute module
     Then unauthorized response is received
 
   Scenario: Get attribute (not found)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@@static_uuid@@" using HTTP GET
     Then not found response is received
 
@@ -85,12 +85,12 @@ Feature: Attribute module
     Then unauthorized response is received
 
   Scenario: Delete text attribute
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP DELETE
     Then empty response is received
 
   Scenario: Create textarea attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -105,7 +105,7 @@ Feature: Attribute module
     And remember response param "id" as "textarea_attribute"
 
   Scenario: Update textarea attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -115,15 +115,15 @@ Feature: Attribute module
       }
       """
     When I request "/api/v1/EN/attributes/@textarea_attribute@" using HTTP PUT
-    Then the response code is 200
+    Then empty response is received
 
   Scenario: Delete textarea attribute
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@textarea_attribute@" using HTTP DELETE
     Then empty response is received
 
   Scenario: Create select attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -137,7 +137,7 @@ Feature: Attribute module
     And remember response param "id" as "select_attribute"
 
   Scenario: Update select attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -146,15 +146,15 @@ Feature: Attribute module
       }
       """
     When I request "/api/v1/EN/attributes/@select_attribute@" using HTTP PUT
-    Then the response code is 200
+    Then empty response is received
 
   Scenario: Delete select attribute
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@select_attribute@" using HTTP DELETE
     Then empty response is received
 
   Scenario: Create multiselect attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -168,7 +168,7 @@ Feature: Attribute module
     And remember response param "id" as "multiselect_attribute"
 
   Scenario: Update multiselect attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -177,15 +177,15 @@ Feature: Attribute module
       }
       """
     When I request "/api/v1/EN/attributes/@multiselect_attribute@" using HTTP PUT
-    Then the response code is 200
+    Then empty response is received
 
   Scenario: Delete multiselect attribute
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@multiselect_attribute@" using HTTP DELETE
     Then empty response is received
 
   Scenario: Create image attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -200,7 +200,7 @@ Feature: Attribute module
     And remember response param "id" as "image_attribute"
 
   Scenario: Update image attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -210,15 +210,15 @@ Feature: Attribute module
       }
       """
     When I request "/api/v1/EN/attributes/@image_attribute@" using HTTP PUT
-    Then the response code is 200
+    Then empty response is received
 
   Scenario: Delete image attribute
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@image_attribute@" using HTTP DELETE
     Then empty response is received
 
   Scenario: Create date attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -233,7 +233,7 @@ Feature: Attribute module
     And remember response param "id" as "date_attribute"
 
   Scenario: Update date attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -243,15 +243,15 @@ Feature: Attribute module
       }
       """
     When I request "/api/v1/EN/attributes/@date_attribute@" using HTTP PUT
-    Then the response code is 200
+    Then empty response is received
 
   Scenario: Delete date attribute
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@date_attribute@" using HTTP DELETE
     Then empty response is received
 
   Scenario: Create price attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -266,7 +266,7 @@ Feature: Attribute module
     And remember response param "id" as "price_attribute"
 
   Scenario: Update price attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -276,15 +276,15 @@ Feature: Attribute module
       }
       """
     When I request "/api/v1/EN/attributes/@price_attribute@" using HTTP PUT
-    Then the response code is 200
+    Then empty response is received
 
   Scenario: Delete price attribute
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@price_attribute@" using HTTP DELETE
     Then empty response is received
 
   Scenario: Create unit attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -299,7 +299,7 @@ Feature: Attribute module
     And remember response param "id" as "unit_attribute"
 
   Scenario: Update unit attribute
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -309,30 +309,30 @@ Feature: Attribute module
       }
       """
     When I request "/api/v1/EN/attributes/@unit_attribute@" using HTTP PUT
-    Then the response code is 200
+    Then empty response is received
 
   Scenario: Delete unit attribute
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes/@unit_attribute@" using HTTP DELETE
     Then empty response is received
 
   Scenario: Get attributes (order by code)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes?field=code" using HTTP GET
     Then grid response is received
 
   Scenario: Get attributes (order by label)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes?field=label" using HTTP GET
     Then grid response is received
 
   Scenario: Get attributes (order by type)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes?field=type" using HTTP GET
     Then grid response is received
 
   Scenario: Get attributes (order by multilingual)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/attributes?field=multilingual" using HTTP GET
     Then grid response is received
 
@@ -341,7 +341,7 @@ Feature: Attribute module
     Then unauthorized response is received
 
   Scenario: Get attribute image formats dictionary
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/dictionary/image_format" using HTTP GET
     Then the response code is 200
 
@@ -350,7 +350,7 @@ Feature: Attribute module
     Then unauthorized response is received
 
   Scenario: Get attribute units dictionary
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/dictionary/units" using HTTP GET
     Then the response code is 200
 
@@ -359,7 +359,7 @@ Feature: Attribute module
     Then unauthorized response is received
 
   Scenario: Get attribute currencies dictionary
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/dictionary/currencies" using HTTP GET
     Then the response code is 200
 
@@ -368,7 +368,7 @@ Feature: Attribute module
     Then unauthorized response is received
 
   Scenario: Get attribute date formats dictionary
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/dictionary/date_format" using HTTP GET
     Then the response code is 200
 

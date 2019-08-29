@@ -1,7 +1,7 @@
 Feature: Authentication module
 
   Scenario: Create default role
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -17,7 +17,7 @@ Feature: Authentication module
   Scenario: Create inactive user
     Given remember param "inactive_username" with value "@@random_uuid@@@ergonode.com"
     Given remember param "inactive_password" with value "12345678"
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {

@@ -39,7 +39,7 @@ class UpdateRoleCommandHandler
     public function __invoke(UpdateRoleCommand $command)
     {
         $role = $this->repository->load($command->getId());
-        Assert::isInstanceOf($role, Role::class, sprintf('Can\'t find Role witch id %s', $command->getId()));
+        Assert::isInstanceOf($role, Role::class, sprintf('Can\'t find Role with id %s', $command->getId()));
         $role->changeName($command->getName());
         $role->changeDescription($command->getDescription());
         $role->changesPrivileges($command->getPrivileges());

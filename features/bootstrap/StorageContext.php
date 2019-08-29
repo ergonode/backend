@@ -107,6 +107,15 @@ class StorageContext implements Context
      * @param string $key
      * @param mixed  $value
      */
+    public function addDefinition(string $key, $value): void
+    {
+        self::$tags[self::SEPARATOR.self::SEPARATOR.$key.self::SEPARATOR.self::SEPARATOR] = $value;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed  $value
+     */
     private function addTag(string $key, $value): void
     {
         self::$tags[self::SEPARATOR.$key.self::SEPARATOR] = $value;
@@ -118,14 +127,5 @@ class StorageContext implements Context
     private function deleteTag(string $key): void
     {
         unset(self::$tags[self::SEPARATOR.$key.self::SEPARATOR]);
-    }
-
-    /**
-     * @param string $key
-     * @param mixed  $value
-     */
-    private function addDefinition(string $key, $value): void
-    {
-        self::$tags[self::SEPARATOR.self::SEPARATOR.$key.self::SEPARATOR.self::SEPARATOR] = $value;
     }
 }

@@ -25,9 +25,7 @@ class RequestBodyListener
         Request::METHOD_DELETE,
     ];
 
-    private const CONTENT_TYPES = [
-        'json',
-    ];
+    private const CONTENT_TYPES = ['json'];
 
     /**
      * @var SerializerInterface
@@ -49,7 +47,7 @@ class RequestBodyListener
     {
         $request = $event->getRequest();
 
-        $contentType = $request->getContentType();
+        $contentType = $request->getContentType() ?? 'json';
         $method = $request->getMethod();
         $content = $request->getContent();
 
@@ -60,6 +58,7 @@ class RequestBodyListener
         }
 
         $data = $this->serializer->deserialize($content, 'array', $contentType);
+
         $request->request = new ParameterBag($data);
     }
 }

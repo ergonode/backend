@@ -1,7 +1,7 @@
 Feature: Workflow
 
   Scenario: Create workflow
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
     """
       {
@@ -31,7 +31,7 @@ Feature: Workflow
     Then unauthorized response is received
 
   Scenario: Update default workflow
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
     """
       {
@@ -60,7 +60,7 @@ Feature: Workflow
     Then unauthorized response is received
     
   Scenario: Get default workflow
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/workflow/default" using HTTP GET
     Then the response code is 200
 
@@ -69,7 +69,7 @@ Feature: Workflow
     Then unauthorized response is received
 
   Scenario: Create default status
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -94,7 +94,7 @@ Feature: Workflow
     Then unauthorized response is received
 
   Scenario: Update default status
-    Given Current authentication token
+    Given current authentication token
     Given the request body is:
       """
       {
@@ -118,12 +118,12 @@ Feature: Workflow
     Then unauthorized response is received
 
   Scenario: Update default status (not found)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/workflow/default/status/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
   Scenario: Get default status
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/workflow/default/status/@workflow_status@" using HTTP GET
     Then the response code is 200
 
@@ -132,12 +132,12 @@ Feature: Workflow
     Then unauthorized response is received
 
   Scenario: Get default status (not found)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/workflow/default/status/@@static_uuid@@" using HTTP GET
     Then not found response is received
 
   Scenario: Delete default status
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/workflow/default/status/@workflow_status@" using HTTP DELETE
     Then the response code is 200
 
@@ -146,12 +146,12 @@ Feature: Workflow
     Then unauthorized response is received
 
   Scenario: Delete default status (not found)
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/workflow/default/status/@@static_uuid@@" using HTTP DELETE
     Then not found response is received
 
   Scenario: Get default statuses
-    Given Current authentication token
+    Given current authentication token
     When I request "/api/v1/EN/workflow/default/status" using HTTP GET
     Then grid response is received
 

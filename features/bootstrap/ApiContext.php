@@ -8,6 +8,7 @@
 use Assert\Assertion;
 use Assert\AssertionFailedException as AssertionFailure;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Gherkin\Node\TableNode;
 use Imbo\BehatApiExtension\Exception\AssertionFailedException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -138,6 +139,18 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     /**
      * @throws AssertionFailedException
      *
+     * @Then conflict response is received
+     */
+    public function assertResponseConflict(): void
+    {
+        $this->requireResponse();
+        $this->assertResponseCodeIs(Response::HTTP_CONFLICT);
+        $this->assertJsonObjectContainsKeys('code,message');
+    }
+
+    /**
+     * @throws AssertionFailedException
+     *
      * @Then grid response is received
      */
     public function assertResponseGrid(): void
@@ -178,7 +191,6 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
         $path = $this->storageContext->replaceVars($path);
 
         $this->setRequestHeader('Accept', self::JSON_CONTENT);
-        $this->setRequestHeader('Content-Type', self::JSON_CONTENT);
 
         parent::requestPath($path, $method);
     }
@@ -191,6 +203,21 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
         $string = $this->storageContext->replaceVars($string);
 
         return parent::setRequestBody($string);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setRequestFormParams(TableNode $table): void
+    {
+        $data = $table->getTable();
+        foreach ($data as $rowKey => $row) {
+            foreach ($row as $columnKey => $column) {
+                $data[$rowKey][$columnKey] = $this->storageContext->replaceVars($column);
+            }
+        }
+
+        parent::setRequestFormParams(new TableNode($data));
     }
 
     /**

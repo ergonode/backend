@@ -11,6 +11,7 @@ namespace Ergonode\Authentication\Application\Security\Provider;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\Account\Domain\Exception\InvalidEmailException;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Email;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -42,7 +43,17 @@ class DomainUserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username): UserInterface
     {
-        $userId = UserId::fromEmail(new Email($username));
+        if (empty($username)) {
+            throw new UsernameNotFoundException('Empty username');
+        }
+
+        try {
+            $email = new Email($username);
+        } catch (InvalidEmailException $exception) {
+            throw new UsernameNotFoundException('Invalid email format');
+        }
+
+        $userId = UserId::fromEmail($email);
         $user = $this->userRepository->load($userId);
         if (!$user instanceof User) {
             throw new UsernameNotFoundException(sprintf(
