@@ -9,15 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Controller\Api;
 
-use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Workflow\Application\Form\Model\WorkflowFormModel;
-use Ergonode\Workflow\Application\Form\WorkflowForm;
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Application\Exception\ViolationsHttpException;
+use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
@@ -71,8 +66,13 @@ class WorkflowController extends AbstractController
      * @param SerializerInterface      $serializer
      * @param MessageBusInterface      $messageBus
      */
-    public function __construct(WorkflowProvider $provider, WorkflowValidatorBuilder $builder, ValidatorInterface $validator, SerializerInterface $serializer, MessageBusInterface $messageBus)
-    {
+    public function __construct(
+        WorkflowProvider $provider,
+        WorkflowValidatorBuilder $builder,
+        ValidatorInterface $validator,
+        SerializerInterface $serializer,
+        MessageBusInterface $messageBus
+    ) {
         $this->provider = $provider;
         $this->builder = $builder;
         $this->validator = $validator;

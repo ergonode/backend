@@ -60,8 +60,11 @@ class StatusController extends AbstractController
      * @param StatusQueryInterface $query
      * @param StatusGrid           $grid
      */
-    public function __construct(MessageBusInterface $messageBus, StatusQueryInterface $query, StatusGrid $grid)
-    {
+    public function __construct(
+        MessageBusInterface $messageBus,
+        StatusQueryInterface $query,
+        StatusGrid $grid
+    ) {
         $this->messageBus = $messageBus;
         $this->query = $query;
         $this->grid = $grid;
@@ -141,9 +144,7 @@ class StatusController extends AbstractController
      */
     public function getStatuses(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $dataSet = $this->query->getDataSet($language);
-
-        return new GridResponse($this->grid, $configuration, $dataSet, $language);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($language), $language);
     }
 
     /**
@@ -176,9 +177,9 @@ class StatusController extends AbstractController
      *     description="Not found",
      * )
      *
-     * @param Status $status
-     *
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     *
+     * @param Status $status
      *
      * @return Response
      */
@@ -228,7 +229,6 @@ class StatusController extends AbstractController
         try {
             $model = new StatusFormModel();
             $form = $this->createForm(StatusForm::class, $model);
-
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -290,21 +290,20 @@ class StatusController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param string  $status
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     *
+     * @param Status  $status
      * @param Request $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function updateStatus(string $status, Request $request): Response
+    public function updateStatus(Status $status, Request $request): Response
     {
         try {
-            $workflow = $this->provider->provide();
-
             $model = new StatusFormModel();
             $form = $this->createForm(StatusForm::class, $model, ['method' => Request::METHOD_PUT]);
-
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -312,9 +311,10 @@ class StatusController extends AbstractController
                 $data = $form->getData();
 
                 $command = new UpdateStatusCommand(
-                    $workflow->getId(),
-                    $status,
-                    new Status($data->color, new TranslatableString($data->name), new TranslatableString($data->description))
+                    $status->getId(),
+                    $data->color,
+                    new TranslatableString($data->name),
+                    new TranslatableString($data->description)
                 );
                 $this->messageBus->dispatch($command);
 
@@ -352,19 +352,17 @@ class StatusController extends AbstractController
      *     description="Success"
      * )
      *
-     * @param string $status
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     *
+     * @param Status $status
      *
      * @return Response
      *
      * @throws \Exception
-     *
-     * @todo add validation
      */
-    public function deleteStatus(string $status): Response
+    public function deleteStatus(Status $status): Response
     {
-        $workflow = $this->provider->provide();
-
-        $command = new DeleteStatusCommand($workflow->getId(), $status);
+        $command = new DeleteStatusCommand($status->getId());
         $this->messageBus->dispatch($command);
 
         return new EmptyResponse();
