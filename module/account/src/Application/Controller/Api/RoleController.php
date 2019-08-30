@@ -153,7 +153,7 @@ class RoleController extends AbstractController
     }
 
     /**
-     * @Route("/roles/{role}", methods={"GET"})
+     * @Route("/roles/{role}", methods={"GET"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("USER_ROLE_READ")
      *
@@ -254,7 +254,7 @@ class RoleController extends AbstractController
     }
 
     /**
-     * @Route("/roles/{role}", methods={"PUT"})
+     * @Route("/roles/{role}", methods={"PUT"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("USER_ROLE_UPDATE")
      *

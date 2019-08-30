@@ -297,7 +297,7 @@ class AttributeController extends AbstractController
     }
 
     /**
-     * @Route("/attributes/{attribute}", methods={"PUT"})
+     * @Route("/attributes/{attribute}", methods={"PUT"}, requirements={"attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("ATTRIBUTE_UPDATE")
      *
