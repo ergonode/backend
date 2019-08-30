@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://ergonode.com" target="_blank">
-    <img src="https://img.shields.io/badge/version-0.2.0-4c9aff.svg" alt="Version">
+    <img src="https://img.shields.io/badge/version-0.3.0-4c9aff.svg" alt="Version">
   </a>
   <a href="https://ergonode.com" target="_blank">
     <img src="https://img.shields.io/badge/version%20code-Vegas-00bc87.svg" alt="Code Version">
@@ -36,7 +36,9 @@ If you are a new developer and need help, feel-free to ask questions our core te
 
 `@Marcin Piwowarczyk` (product vision and strategy)
 
-`@Rafal Przedzik` (backend architecture and integrations)
+`@Rafal Przedzik` (backend architecture)
+
+`@Sebastian Bielawski` (backend integrations)
 
 `@Maciej Kaczorowski` (frontend architecture)
 
@@ -206,7 +208,7 @@ Ergonode is open-source, and it can be brought to you only by great community an
 Ergonode source code is released under the [OSL 3.0 License][license].
 
 [discord]: https://discord.gg/NntXFa4
-[slack]:  https://ergonode.slack.com/join/shared_invite/enQtNjE2NTA2ODM2NzIwLWU5NzhmNGM5NDUyYTVlZTI0YWJmMTViYWEyYWU2NDc2NzU4Y2U4ZTc0OTUwYmY0ODVhNzA2ZGE5OTMwOWFlYmM
+[slack]:  https://join.slack.com/t/ergonode/shared_invite/enQtNzEwMjkwOTQwOTM0LWQ4YWYwMWJmZGExYzQxMGMwZTFjMjg4MjQyNmU3NjY1MWU1OTE1MjA2N2ExMzA1MGQ1ZDJjMzkxMTQzNTBmMGM
 [contribut]: http://docs.ergonode.com/#/contribution
 [license]: ./LICENSE.txt
 [roadmap]: https://ergonode.com/features/#roadmap
