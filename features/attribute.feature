@@ -52,6 +52,9 @@ Feature: Attribute module
       {
           "type": "TEXT",
           "groups": ["@attribute_group@"],
+          "label": {"PL": "PL", "EN": "EN"},
+          "placeholder": {"PL": "PL", "EN": "EN"},
+          "hint": {"PL": "PL", "EN": "EN"},
           "parameters": []
       }
       """

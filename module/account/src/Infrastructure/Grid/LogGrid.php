@@ -9,13 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Grid;
 
-use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\Column\LogColumn;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;

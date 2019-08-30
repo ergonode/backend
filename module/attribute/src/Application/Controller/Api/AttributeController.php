@@ -337,10 +337,10 @@ class AttributeController extends AbstractController
      *     description="Not found",
      * )
      *
+     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     *
      * @param AbstractAttribute $attribute
      * @param Request           $request
-     *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      *
      * @return Response
      */
