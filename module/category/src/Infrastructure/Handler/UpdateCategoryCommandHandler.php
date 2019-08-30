@@ -19,21 +19,17 @@ use Webmozart\Assert\Assert;
 class UpdateCategoryCommandHandler
 {
     /**
-     * @var CategoryUpdater
-     */
-    private $updater;
-    /**
      * @var CategoryRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param CategoryUpdater             $updater
+     * UpdateCategoryCommandHandler constructor.
+     *
      * @param CategoryRepositoryInterface $repository
      */
-    public function __construct(CategoryUpdater $updater, CategoryRepositoryInterface $repository)
+    public function __construct(CategoryRepositoryInterface $repository)
     {
-        $this->updater = $updater;
         $this->repository = $repository;
     }
 
@@ -44,8 +40,7 @@ class UpdateCategoryCommandHandler
     {
         $category = $this->repository->load($command->getId());
         Assert::notNull($category);
-
-        $category = $this->updater->update($category, $command->getName());
+        $category->changeName($command->getName());
 
         $this->repository->save($category);
     }

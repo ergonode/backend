@@ -10,7 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Application\Controller\Api;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\CategoryTree\Application\Form\CategoryTreeCreateForm;
 use Ergonode\CategoryTree\Application\Form\TreeForm;
+use Ergonode\CategoryTree\Application\Model\CategoryTreeCreateFormModel;
 use Ergonode\CategoryTree\Application\Model\TreeFormModel;
 use Ergonode\CategoryTree\Domain\Command\AddCategoryCommand;
 use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
@@ -177,7 +179,7 @@ class CategoryTreeController extends AbstractApiController
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Create category",
+     *     description="Create category tree",
      * )
      * @SWG\Response(
      *     response=400,
@@ -191,23 +193,30 @@ class CategoryTreeController extends AbstractApiController
      */
     public function createTree(Request $request): Response
     {
-        $name = $request->request->get('name');
-        $code = $request->request->get('code');
+        try {
+            $model = new CategoryTreeCreateFormModel();
+            $form = $this->createForm(CategoryTreeCreateForm::class, $model);
 
-        if ($name && $code) {
-            $tree = $this->treeRepository->exists(CategoryTreeId::fromKey($code));
+            $form->handleRequest($request);
 
-            if (!$tree) {
-                $command = new CreateTreeCommand(new TranslatableString($name), $code);
-                $this->messageBus->dispatch($command);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
+                $tree = $this->treeRepository->exists(CategoryTreeId::fromKey($data->code));
 
-                return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+                if (!$tree) {
+                    $command = new CreateTreeCommand(new TranslatableString($data->name), $data->code);
+                    $this->messageBus->dispatch($command);
+
+                    return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                }
             }
-
-            return $this->createRestResponse(['message' => 'tree already exists'], [], Response::HTTP_BAD_REQUEST);
+        } catch (InvalidPropertyPathException $exception) {
+            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
+        } catch (\Throwable $exception) {
+            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return $this->createRestResponse([], [], Response::HTTP_BAD_REQUEST);
+        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
     }
 
     /**
