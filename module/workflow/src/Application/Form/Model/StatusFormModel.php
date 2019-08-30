@@ -26,6 +26,9 @@ class StatusFormModel
 
     /**
      * @var Color
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min=4, max="7", minMessage="Color must be in hex format", maxMessage="Color must be in hex format")
      */
     public $color;
 

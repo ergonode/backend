@@ -40,13 +40,14 @@ class DbalLogQuery implements LogQueryInterface
      */
     public function getDataSet(?UserId $id = null): DataSetInterface
     {
+        $result = $this->connection->createQueryBuilder();
+
         $qb = $this->getQuery();
         if ($id) {
             $qb->andWhere($qb->expr()->eq('recorded_by', ':id'));
-            $qb->setParameter(':id', $id->getValue());
+            $result->setParameter(':id', $id->getValue());
         }
 
-        $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 

@@ -351,6 +351,14 @@ class StatusController extends AbstractController
      *     response=204,
      *     description="Success"
      * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Request status parameter not correct"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Status not found"
+     * )
      *
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
      *
