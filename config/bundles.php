@@ -20,6 +20,7 @@ return [
     Ergonode\EventSourcing\ErgonodeEventSourcingBundle::class => ['all' => true],
     Ergonode\Fixture\ErgonodeFixtureBundle::class => ['dev' => true],
     Ergonode\Account\ErgonodeAccountBundle::class => ['all' => true],
+    Ergonode\Workflow\ErgonodeWorkflowBundle::class => ['all' => true],
     Ergonode\Authentication\ErgonodeAuthenticationBundle::class => ['all' => true],
     Ergonode\Importer\ErgonodeImporterBundle::class => ['all' => true],
     Ergonode\Reader\ErgonodeReaderBundle::class => ['all' => true],

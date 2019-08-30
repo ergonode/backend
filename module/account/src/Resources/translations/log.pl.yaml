@@ -3,8 +3,10 @@
 "Ergonode\\Account\\Domain\\Event\\User\\UserFirstNameChangedEvent": Imię użytkownika zostało zmienione z "%from% na "%to%"
 "Ergonode\\Account\\Domain\\Event\\User\\UserLanguageChangedEvent": Język użytkownika został zmieniony  z "%from% na %to%"
 "Ergonode\\Account\\Domain\\Event\\User\\UserLastNameChangedEvent": Nazwisko użytkownika zostało zmienione z "%from% na "%to%"
-"Ergonode\\Account\\Domain\\Event\\User\\UserPasswordChangedEvent": Chaśło użytkownika zostało zmienione
+"Ergonode\\Account\\Domain\\Event\\User\\UserPasswordChangedEvent": Hasło użytkownika zostało zmienione
 "Ergonode\\Account\\Domain\\Event\\User\\UserRoleChangedEvent": Rola użytkonika została zmieniona z "%from%" na "%to%"
+"Ergonode\\Account\\Domain\\Event\\User\\UserActivatedEvent": Użytkownik aktywowany
+"Ergonode\\Account\\Domain\\Event\\User\\UserDeactivatedEvent": Użytkownik zablokowany
 "Ergonode\\Account\\Domain\\Event\\Role\\AddPrivilegeToRoleEvent": Uprawnienie "%privilege%" zostało dodane
 "Ergonode\\Account\\Domain\\Event\\Role\\RemovePrivilegeFromRoleEvent": Uprawnienie "%privilege%" zostało usunięte
 "Ergonode\\Account\\Domain\\Event\\Role\\RoleCreatedEvent": Rola "%name%" została utworzona

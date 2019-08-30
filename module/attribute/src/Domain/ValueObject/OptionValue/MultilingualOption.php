@@ -15,8 +15,10 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class MultilingualOption extends AbstractOption implements OptionInterface
+class MultilingualOption implements OptionInterface
 {
+    public const TYPE = 'translation';
+
     /**
      * @var TranslatableString
      *
@@ -33,6 +35,16 @@ class MultilingualOption extends AbstractOption implements OptionInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
+    }
+
+    /**
      * @return TranslatableString
      */
     public function getValue(): TranslatableString
@@ -41,7 +53,7 @@ class MultilingualOption extends AbstractOption implements OptionInterface
     }
 
     /**
-     * @return bool
+     * {@inheritDoc}
      */
     public function isMultilingual(): bool
     {
@@ -49,7 +61,7 @@ class MultilingualOption extends AbstractOption implements OptionInterface
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function __toString(): string
     {
@@ -57,9 +69,7 @@ class MultilingualOption extends AbstractOption implements OptionInterface
     }
 
     /**
-     * @param OptionInterface $value
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function equal(OptionInterface $value): bool
     {

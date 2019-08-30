@@ -11,15 +11,17 @@ namespace Ergonode\Transformer\Infrastructure\Converter;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Transformer\Infrastructure\Exception\ConverterException;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Transformer\Infrastructure\Exception\ConverterException;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TranslationConverter extends AbstractConverter implements ConverterInterface
+class TranslationConverter implements ConverterInterface
 {
+    public const TYPE = 'translation';
+
     /**
      * @var array
      *
@@ -33,6 +35,16 @@ class TranslationConverter extends AbstractConverter implements ConverterInterfa
     public function __construct(array $translations = [])
     {
         $this->translations = $translations;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 
     /**

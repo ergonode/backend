@@ -117,6 +117,16 @@ class TranslatableString implements \IteratorAggregate
     }
 
     /**
+     * @param TranslatableString $string
+     *
+     * @return bool
+     */
+    public function isEqual(TranslatableString $string): bool
+    {
+        return array_diff_assoc($string->getTranslations(), $this->translations) > 0 || array_diff_assoc($this->translations, $string->getTranslations()) > 0 ;
+    }
+
+    /**
      * @param array    $array
      * @param Language $language
      * @param string   $value
