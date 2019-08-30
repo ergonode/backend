@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Infrastructure\Provider;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  */

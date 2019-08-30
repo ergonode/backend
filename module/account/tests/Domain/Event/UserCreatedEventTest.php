@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -49,6 +49,7 @@ class UserCreatedEventTest extends TestCase
             $language,
             $password,
             $roleId,
+            true,
             $multimediaId
         );
 
@@ -60,5 +61,6 @@ class UserCreatedEventTest extends TestCase
         $this->assertEquals($roleId, $event->getRoleId());
         $this->assertEquals($email, $event->getEmail());
         $this->assertEquals($password, $event->getPassword());
+        $this->assertTrue($event->isActive());
     }
 }

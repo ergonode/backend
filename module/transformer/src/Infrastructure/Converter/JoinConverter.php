@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -15,8 +15,10 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class JoinConverter extends AbstractConverter implements ConverterInterface
+class JoinConverter implements ConverterInterface
 {
+    public const TYPE = 'join';
+
     /**
      * @var string
      *
@@ -33,6 +35,16 @@ class JoinConverter extends AbstractConverter implements ConverterInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
+    }
+
+    /**
      * @param array  $line
      * @param string $field
      *
@@ -42,7 +54,7 @@ class JoinConverter extends AbstractConverter implements ConverterInterface
     {
         $fields = [];
         foreach ($line as $key => $value) {
-            $fields[\sprintf('<%s>', $key)] = $value;
+            $fields[sprintf('<%s>', $key)] = $value;
         }
 
         return new StringValue(str_replace(array_keys($fields), $fields, $this->pattern));

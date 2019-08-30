@@ -2,13 +2,14 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
+use Ergonode\Account\Application\Validator\Constraints\UserUnique;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -39,6 +40,7 @@ class CreateUserFormModel
      *
      * @Assert\NotBlank(message="User email is required")
      * @Assert\Email(mode="strict")
+     * @UserUnique()
      */
     public $email;
 
@@ -77,4 +79,12 @@ class CreateUserFormModel
      * @Assert\Uuid(message="Role Id must be valid uuid format")
      */
     public $roleId;
+
+    /**
+     * @var bool
+     *
+     * @Assert\NotNull(message="Activity is required")
+     * @Assert\Type("boolean")
+     */
+    public $isActive;
 }

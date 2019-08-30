@@ -2,30 +2,35 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Reader\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Reader\Domain\Command\CreateReaderCommand;
 use Ergonode\Reader\Domain\Entity\ReaderId;
 use Ergonode\Reader\Domain\Query\ReaderQueryInterface;
 use Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface;
 use Ergonode\Reader\Infrastructure\Grid\ReaderGrid;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class ReaderController extends AbstractApiController
+class ReaderController extends AbstractController
 {
     /**
      * @var ReaderRepositoryInterface
@@ -124,30 +129,23 @@ class ReaderController extends AbstractApiController
      *     response=200,
      *     description="Returns imported data collection",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getReaders(Language $language, Request $request): Response
+    public function getReaders(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
-        $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet(), $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
     }
 
     /**
      * @Route("readers/{reader}", methods={"GET"}, requirements={"reader"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @SWG\Tag(name="Reader")
-     *
      * @SWG\Parameter(
      *     name="reader",
      *     in="path",
@@ -166,10 +164,6 @@ class ReaderController extends AbstractApiController
      *     response=200,
      *     description="Return reader",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
      * @param string $reader
      *
@@ -179,14 +173,13 @@ class ReaderController extends AbstractApiController
     {
         $reader = $this->repository->load(new ReaderId($reader));
 
-        return $this->createRestResponse($reader);
+        return new SuccessResponse($reader);
     }
 
     /**
      * @Route("readers", methods={"POST"})
      *
      * @SWG\Tag(name="Reader")
-     *
      * @SWG\Parameter(
      *     name="name",
      *     in="formData",
@@ -206,7 +199,8 @@ class ReaderController extends AbstractApiController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/error_response")
      * )
      *
      * @param Request $request
@@ -214,6 +208,9 @@ class ReaderController extends AbstractApiController
      * @return Response
      *
      * @throws \Exception
+     *
+     * @todo Refactoring needed
+     * @todo Validation required
      */
     public function createReader(Request $request): Response
     {
@@ -223,9 +220,9 @@ class ReaderController extends AbstractApiController
         if ($name && $type) {
             $command = new CreateReaderCommand($name, $type);
             $this->messageBus->dispatch($command);
-            $response = $this->createRestResponse(['id' => $command->getId()->getValue()]);
+            $response = new CreatedResponse($command->getId());
         } else {
-            $response = $this->createRestResponse(['error'], [], Response::HTTP_BAD_REQUEST);
+            throw new BadRequestHttpException('error');
         }
 
         return $response;

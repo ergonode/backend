@@ -2,18 +2,18 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\AttributePrice\Domain\Factory;
 
+use Ergonode\Attribute\Domain\AttributeFactoryInterface;
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\AttributeFactoryInterface;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Money\Currency;
 
 /**

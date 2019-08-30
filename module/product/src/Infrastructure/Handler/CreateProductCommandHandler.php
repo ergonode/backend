@@ -2,17 +2,17 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Handler;
 
-use Ergonode\Product\Domain\Command\CreateProductCommand;
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\Product\Domain\Provider\ProductFactoryProvider;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
+use Ergonode\Product\Domain\Command\CreateProductCommand;
+use Ergonode\Product\Domain\Provider\ProductFactoryProvider;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
 use Webmozart\Assert\Assert;

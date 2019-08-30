@@ -2,20 +2,23 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Core\Domain\ValueObject;
 
+use JMS\Serializer\Annotation as JMS;
+
 /**
- * Class TranslatableString
  */
 class TranslatableString implements \IteratorAggregate
 {
     /**
      * @var array
+     *
+     * @JMS\Type("array<string,string>")
      */
     private $translations;
 
@@ -111,6 +114,17 @@ class TranslatableString implements \IteratorAggregate
     public function getTranslations(): array
     {
         return $this->translations;
+    }
+
+    /**
+     * @param TranslatableString $string
+     *
+     * @return bool
+     */
+    public function isEqual(TranslatableString $string): bool
+    {
+        return count(array_diff_assoc($string->getTranslations(), $this->translations)) === 0
+            && count(array_diff_assoc($this->translations, $string->getTranslations())) === 0;
     }
 
     /**

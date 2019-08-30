@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -12,8 +12,8 @@ namespace Ergonode\ProductSimple\Infrastructure\Action\Extension;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Transformer\Domain\Model\Record;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 use Webmozart\Assert\Assert;
 
 /**

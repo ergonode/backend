@@ -2,16 +2,16 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Category\Application\Form;
 
-use Ergonode\Core\Application\Form\Type\TranslationType;
 use Ergonode\Category\Application\Form\Type\CategoryCodeType;
 use Ergonode\Category\Application\Model\CategoryCreateFormModel;
+use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

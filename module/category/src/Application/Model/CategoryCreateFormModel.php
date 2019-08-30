@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Application\Model;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Category\Infrastructure\Validator as CategoryAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */

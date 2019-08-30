@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 namespace Ergonode\Grid\Tests\Column;

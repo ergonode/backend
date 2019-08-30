@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -40,13 +40,18 @@ class DbalLogQuery implements LogQueryInterface
      */
     public function getDataSet(?UserId $id = null): DataSetInterface
     {
+        $result = $this->connection->createQueryBuilder();
+
         $qb = $this->getQuery();
-        if ($id) {
+        if (null !== $id) {
             $qb->andWhere($qb->expr()->eq('recorded_by', ':id'));
-            $qb->setParameter(':id', $id->getValue());
+            $result->setParameter(':id', $id->getValue());
         }
 
-        return new DbalDataSet($qb);
+        $result->select('*');
+        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
+
+        return new DbalDataSet($result);
     }
 
     /**

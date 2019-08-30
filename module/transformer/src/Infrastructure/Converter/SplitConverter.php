@@ -2,23 +2,24 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter;
 
-use Ergonode\Value\Domain\ValueObject\CollectionValue;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Webmozart\Assert\Assert;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
- * Class SplitConverter
  */
-class SplitConverter extends AbstractConverter implements ConverterInterface
+class SplitConverter implements ConverterInterface
 {
+    public const TYPE = 'split';
+
     /**
      * @var string
      *
@@ -45,6 +46,16 @@ class SplitConverter extends AbstractConverter implements ConverterInterface
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
+    }
+
+    /**
      * @param array  $line
      * @param string $field
      * @return ValueInterface|null
@@ -54,6 +65,6 @@ class SplitConverter extends AbstractConverter implements ConverterInterface
         Assert::notEq($this->delimiter, '');
         $collection = explode($this->delimiter, $line[$this->field]);
 
-        return new CollectionValue($collection);
+        return new StringCollectionValue($collection);
     }
 }

@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -22,13 +22,13 @@ class ImageFormat
     public const BMP = 'bmp';
 
     public const AVAILABLE = [
-        self:: JPG,
-        self:: JPEG,
-        self:: GIF,
-        self:: TIFF,
-        self:: TIF,
-        self:: PNG,
-        self:: BMP,
+        self::JPG,
+        self::JPEG,
+        self::GIF,
+        self::TIFF,
+        self::TIF,
+        self::PNG,
+        self::BMP,
     ];
 
     /**

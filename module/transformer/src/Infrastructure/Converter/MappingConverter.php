@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -15,8 +15,10 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class MappingConverter extends AbstractConverter implements ConverterInterface
+class MappingConverter implements ConverterInterface
 {
+    public const TYPE = 'mapping';
+
     /**
      * @var array
      *
@@ -39,6 +41,16 @@ class MappingConverter extends AbstractConverter implements ConverterInterface
     {
         $this->map = $map;
         $this->field = $field;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 
     /**

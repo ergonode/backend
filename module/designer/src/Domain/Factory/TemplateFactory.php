@@ -2,15 +2,15 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Factory;
 
-use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\Template;
+use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateGroupId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;

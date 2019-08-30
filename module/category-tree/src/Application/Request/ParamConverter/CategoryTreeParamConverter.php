@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -36,31 +36,27 @@ class CategoryTreeParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @param Request        $request
-     * @param ParamConverter $configuration
-     *
-     * @return void
+     * {@inheritDoc}
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $tree = $request->get('tree');
+        $parameter = $request->get('tree');
 
-
-        if (null === $tree) {
-            throw new BadRequestHttpException('Route attribute is missing');
+        if (null === $parameter) {
+            throw new BadRequestHttpException('Request parameter "tree" is missing');
         }
 
-        if (!CategoryTreeId::isValid($tree)) {
-            throw new BadRequestHttpException('Invalid uuid format');
+        if (!CategoryTreeId::isValid($parameter)) {
+            throw new BadRequestHttpException('Invalid category tree ID');
         }
 
-        $tree = $this->repository->load(new CategoryTreeId($tree));
+        $entity = $this->repository->load(new CategoryTreeId($parameter));
 
-        if (null === $tree) {
-            throw new NotFoundHttpException(\sprintf('%s object not found.', $configuration->getClass()));
+        if (null === $entity) {
+            throw new NotFoundHttpException(sprintf('Category tree by ID "%s" not found', $parameter));
         }
 
-        $request->attributes->set($configuration->getName(), $tree);
+        $request->attributes->set($configuration->getName(), $entity);
     }
 
     /**

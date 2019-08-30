@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -39,6 +39,7 @@ class FormErrorMapper
         foreach ($form->getErrors() as $error) {
             $result['form'][] = $this->provider->getMessage($error);
         }
+
         foreach ($form->all() as $element) {
             if ($element->isSubmitted() && !$element->isValid()) {
                 $result = array_merge($result, $this->getErrors($element));

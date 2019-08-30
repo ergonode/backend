@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -19,7 +19,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class ImportParamConverter
  */
 class ImportParamConverter implements ParamConverterInterface
 {
@@ -37,39 +36,31 @@ class ImportParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @param Request        $request
-     * @param ParamConverter $configuration
-     *
-     * @return void
-     *
-     * @throws \ReflectionException
+     * {@inheritDoc}
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
-        $attribute = $request->get('import');
+        $parameter = $request->get('import');
 
-
-        if (null === $attribute) {
-            throw new BadRequestHttpException('Route attribute is missing');
+        if (null === $parameter) {
+            throw new BadRequestHttpException('Request parameter "import" is missing');
         }
 
-        if (!ImportId::isValid($attribute)) {
-            throw new BadRequestHttpException('Invalid uuid format');
+        if (!ImportId::isValid($parameter)) {
+            throw new BadRequestHttpException('Invalid import ID');
         }
 
-        $import = $this->importRepository->load(new ImportId($attribute));
+        $entity = $this->importRepository->load(new ImportId($parameter));
 
-        if (null === $import) {
-            throw new NotFoundHttpException(\sprintf('%s object not found.', $configuration->getClass()));
+        if (null === $entity) {
+            throw new NotFoundHttpException(sprintf('Import by ID "%s" not found', $parameter));
         }
 
-        $request->attributes->set($configuration->getName(), $import);
+        $request->attributes->set($configuration->getName(), $entity);
     }
 
     /**
-     * @param ParamConverter $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function supports(ParamConverter $configuration): bool
     {

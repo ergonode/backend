@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -28,14 +28,14 @@ class ProductValueChanged implements DomainEventInterface
     /**
      * @var ValueInterface
      *
-     * @JMS\Type("Ergonode\Value\Domain\ValueObject\AbstractValue")
+     * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
     private $from;
 
     /**
      * @var ValueInterface
      *
-     * @JMS\Type("Ergonode\Value\Domain\ValueObject\AbstractValue")
+     * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
     private $to;
 

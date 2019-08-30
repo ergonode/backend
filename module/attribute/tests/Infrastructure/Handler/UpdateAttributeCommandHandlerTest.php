@@ -2,13 +2,12 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Ergonode\Attribute\Domain\AttributeFactoryInterface;
 use Ergonode\Attribute\Domain\AttributeUpdaterInterface;
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;

@@ -1,14 +1,13 @@
 <?php
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Validator;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
 use Ergonode\Attribute\Infrastructure\Validator\AttributeExistsValidator;

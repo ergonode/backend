@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -15,8 +15,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\BoolColumn;
-use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\Column\IntegerColumn;
+use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\SelectFilter;

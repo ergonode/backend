@@ -7,7 +7,7 @@ nelmio_api_doc:
         securityDefinitions:
             api_key:
                 type: apiKey
-                description: Your Json Web Token. (Bearer {TOKEN})
+                description: Your Json Web Token (Bearer {TOKEN})
                 name: JWTAuthorization
                 in: header
         security:
@@ -94,6 +94,68 @@ nelmio_api_doc:
                         type: string
                         required: true
                         example: 86800536-0f2a-4920-9291-f35fdcea3839
+                    isActive:
+                        type: boolean
+                        required: true
+                        example: true
+            status:
+                type: object
+                properties:
+                    color:
+                        type: string
+                        requied: true
+                        description: Color in hexadecimal
+                        example: '#ff0000'
+                    code:
+                        type: string
+                        requied: true
+                        description: Unique status code
+                        example: 'in progress'
+                    name:
+                        $ref: "#/definitions/translation"
+                        example:
+                            PL: Name PL
+                            EN: Name EN
+                    description:
+                        $ref: "#/definitions/translation"
+                        example:
+                            PL: Description PL
+                            EN: Description EN
+            transition:
+                type: object
+                properties:
+                    source:
+                        type: string
+                        requied: true
+                        description: id of source status
+                    destination:
+                        type: string
+                        requied: true
+                        description: id of destination status
+                    name:
+                        type: string
+                        requied: true
+                        description: name of transition
+            workflow:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        description: Workflow unique code
+                        required: true
+                        example: Default
+                    statuses:
+                        type: array
+                        items:
+                            type: string
+                        description: list of related ids of statuses
+                        example: []
+                    transitions:
+                        type: array
+                        items:
+                            $ref: "#/definitions/transition"
+                            description: list of transisiotn between statuses
+                        example: []
             tree_req:
                 type: object
                 properties:
@@ -231,6 +293,50 @@ nelmio_api_doc:
                         required: true
                         description: segment name
                         example: segment name
+            languages_req:
+                type: object
+                properties:
+                    collection:
+                        type: array
+                        required: true
+                        items:
+                            $ref: "#/definitions/language_req"
+            language_req:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        required: true
+                        description: Language code
+                        example: EN
+                    active:
+                        type: bool
+                        required: true
+                        description: Show if language is enabled in the system
+                        example: true
+            language_res:
+                type: object
+                properties:
+                    id:
+                        type: string
+                        description: Language Id
+                        required: true
+                        example: ccd5c2b5-da15-4bd2-a476-bfa689560f22
+                    code:
+                        type: string
+                        required: true
+                        description: Language code
+                        example: EN
+                    name:
+                        type: string
+                        required: true
+                        description: Language name
+                        example: English
+                    active:
+                        type: bool
+                        required: true
+                        description: Show if language is enabled in the system
+                        example: true
             attribute:
                 type: object
                 properties:
@@ -280,19 +386,42 @@ nelmio_api_doc:
                         required: true
                         description: Mapper name
                         example: Default mapper
-            error:
-                type: object
+            error_response:
+                type: 'object'
                 properties:
                     code:
-                        type: integer
+                        type: 'integer'
                         required: true
-                        descriptin: http error code
+                        description: 'Error code'
                         example: 401
                     message:
-                        type: string
+                        type: 'string'
                         required: true
-                        descriptin: error message
-                        example: Bad credentials
+                        description: 'Error message'
+                        example: 'Bad credentials'
+            validation_error_response:
+                type: 'object'
+                properties:
+                    code:
+                        type: 'integer'
+                        description: 'Error code'
+                        example: 400
+                    message:
+                        type: 'string'
+                        description: 'Error message'
+                        example: 'Validation errors'
+                    errors:
+                        type: 'array'
+                        description: 'Fields messages'
+                        items:
+                            type: 'object'
+                            properties:
+                                field_key:
+                                    type: 'array'
+                                    items:
+                                        type: 'string'
+                                        example: 'Error message'
+
             credentials:
                 type: object
                 properties:
@@ -306,7 +435,6 @@ nelmio_api_doc:
                         required: true
                         description: password
                         example: 123
-
             role:
                 type: object
                 properties:

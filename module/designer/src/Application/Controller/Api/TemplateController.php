@@ -2,14 +2,17 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Application\Form\TemplateForm;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
@@ -20,17 +23,20 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Infrastructure\Factory\TemplateCommandFactory;
 use Ergonode\Designer\Infrastructure\Grid\TemplateGrid;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class TemplateController extends AbstractApiController
+class TemplateController extends AbstractController
 {
     /**
      * @var TemplateQueryInterface
@@ -84,7 +90,6 @@ class TemplateController extends AbstractApiController
      * @IsGranted("TEMPLATE_DESIGNER_READ")
      *
      * @SWG\Tag(name="Designer")
-     *
      * @SWG\Parameter(
      *     name="limit",
      *     in="query",
@@ -140,28 +145,23 @@ class TemplateController extends AbstractApiController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Response(
      *     response=200,
-     *     description="Returns template",
+     *     description="Returns templates",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
-     * @param Language $language
-     * @param Request  $request
+     *
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getTemplates(Language $language, Request $request): Response
+    public function getTemplates(Language $language, RequestGridConfiguration $configuration): Response
     {
         $dataSet = $this->designerTemplateQuery->getDataSet();
-        $configuration = new RequestGridConfiguration($request);
 
-        $result = $this->renderGrid($this->templateGrid, $configuration, $dataSet, $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->templateGrid, $configuration, $dataSet, $language);
     }
 
     /**
@@ -190,33 +190,33 @@ class TemplateController extends AbstractApiController
      *     description="Create template",
      * )
      * @SWG\Response(
-     *     response=400,
-     *     description="Form validation error",
+     *     response="400",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
+     *
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function createTemplate(Request $request): Response
     {
-        try {
-            $model = new TemplateFormModel();
-            $form = $this->createForm(TemplateForm::class, $model);
+        $model = new TemplateFormModel();
+        $form = $this->createForm(TemplateForm::class, $model);
 
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                /** @var TemplateFormModel $data */
-                $command = $this->createCommandFactory->getCreateTemplateCommand($form->getData());
-                $this->messageBus->dispatch($command);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var TemplateFormModel $data */
+            $command = $this->createCommandFactory->getCreateTemplateCommand($form->getData());
+            $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
-            }
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([$exception->getMessage(), explode(PHP_EOL, $exception->getTraceAsString())], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return new CreatedResponse($command->getId());
         }
 
-        return $this->createRestResponse($form);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -247,13 +247,15 @@ class TemplateController extends AbstractApiController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="Update template",
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
+     *
      * @param Template $template
      * @param Request  $request
      *
@@ -263,25 +265,20 @@ class TemplateController extends AbstractApiController
      */
     public function updateTemplate(Template $template, Request $request): Response
     {
-        try {
-            $model = new TemplateFormModel();
-            $form = $this->createForm(TemplateForm::class, $model, ['method' => 'PUT']);
+        $model = new TemplateFormModel();
+        $form = $this->createForm(TemplateForm::class, $model, ['method' => Request::METHOD_PUT]);
 
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var TemplateFormModel $data */
+            $command = $this->createCommandFactory->getUpdateTemplateCommand($template->getId(), $form->getData());
+            $this->messageBus->dispatch($command);
 
-                /** @var TemplateFormModel $data */
-                $command = $this->createCommandFactory->getUpdateTemplateCommand($template->getId(), $form->getData());
-                $this->messageBus->dispatch($command);
-
-                return $this->createRestResponse(['id' => $command->getId()]);
-            }
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([$exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return new EmptyResponse();
         }
 
-        return $this->createRestResponse($form);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -321,11 +318,7 @@ class TemplateController extends AbstractApiController
      */
     public function getTemplate(Template $template): Response
     {
-        try {
-            return $this->createRestResponse($template);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([$exception->getMessage(), explode(PHP_EOL, $exception->getTraceAsString())], [], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        return new SuccessResponse($template);
     }
 
     /**
@@ -349,12 +342,16 @@ class TemplateController extends AbstractApiController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
+     *     response=204,
      *     description="Returns template",
      * )
      * @SWG\Response(
      *     response=404,
      *     description="Not found",
+     * )
+     * @SWG\Response(
+     *     response="409",
+     *     description="Can't remove Template, it has relations to products"
      * )
      *
      * @param Template $template
@@ -366,12 +363,12 @@ class TemplateController extends AbstractApiController
     public function deleteTemplate(Template $template): Response
     {
         if ($this->templateChecker->hasRelations($template)) {
-            return $this->createRestResponse(['Can\'t remove Template, it has relations to products'], [], Response::HTTP_CONFLICT);
+            throw new ConflictHttpException('Can\'t remove Template, it has relations to products');
         }
 
         $command = new DeleteTemplateCommand($template->getId());
         $this->messageBus->dispatch($command);
 
-        return $this->createRestResponse(null, [], Response::HTTP_ACCEPTED);
+        return new EmptyResponse();
     }
 }

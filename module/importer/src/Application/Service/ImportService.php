@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -16,8 +16,8 @@ use Ergonode\Importer\Domain\Command\StopProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\AbstractImport;
 use Ergonode\Importer\Domain\Entity\FileImport;
 use Ergonode\Importer\Domain\Entity\ImportLineId;
-use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
 use Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface;
+use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;

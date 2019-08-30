@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -11,7 +11,7 @@ namespace Ergonode\Designer\Domain\Entity;
 
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
-use Ergonode\Designer\Domain\ValueObject\TemplateElement\AbstractTemplateElementProperty;
+use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -33,9 +33,9 @@ class TemplateElement
     protected $size;
 
     /**
-     * @var AbstractTemplateElementProperty
+     * @var TemplateElementPropertyInterface
      *
-     * @JMS\Type("Ergonode\Designer\Domain\ValueObject\TemplateElement\AbstractTemplateElementProperty")
+     * @JMS\Type("Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface")
      */
     protected $properties;
 
@@ -47,12 +47,12 @@ class TemplateElement
     protected $type;
 
     /**
-     * @param Position                        $position
-     * @param Size                            $size
-     * @param string                          $type
-     * @param AbstractTemplateElementProperty $properties
+     * @param Position                         $position
+     * @param Size                             $size
+     * @param string                           $type
+     * @param TemplateElementPropertyInterface $properties
      */
-    public function __construct(Position $position, Size $size, string $type, AbstractTemplateElementProperty $properties)
+    public function __construct(Position $position, Size $size, string $type, TemplateElementPropertyInterface $properties)
     {
         $this->position = $position;
         $this->size = $size;
@@ -85,9 +85,9 @@ class TemplateElement
     }
 
     /**
-     * @return AbstractTemplateElementProperty
+     * @return TemplateElementPropertyInterface
      */
-    public function getProperties(): AbstractTemplateElementProperty
+    public function getProperties(): TemplateElementPropertyInterface
     {
         return $this->properties;
     }

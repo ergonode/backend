@@ -2,15 +2,15 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 namespace Ergonode\Attribute\Tests\Domain\Factory;
 
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
-use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\Factory\TextAttributeFactory;
+use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

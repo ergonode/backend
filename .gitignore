@@ -9,3 +9,5 @@
 .vscode
 /build
 /phpunit.xml
+/behat.yml
+/.env.local.php

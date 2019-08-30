@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -11,6 +11,7 @@ namespace Ergonode\Account\Domain\ValueObject;
 
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
+use Ergonode\Account\Domain\Exception\InvalidEmailException;
 
 /**
  */
@@ -27,7 +28,7 @@ class Email
     public function __construct(string $value)
     {
         if (!self::isValid($value)) {
-            throw new \InvalidArgumentException('Value is not correct email');
+            throw new InvalidEmailException('Value is not correct email');
         }
 
         $this->value = mb_strtolower(trim($value));

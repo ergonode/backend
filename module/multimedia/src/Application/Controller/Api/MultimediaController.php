@@ -2,14 +2,15 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Multimedia\Application\Form\MultimediaUploadForm;
 use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
 use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
@@ -18,6 +19,7 @@ use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -25,7 +27,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class MultimediaController extends AbstractApiController
+class MultimediaController extends AbstractController
 {
     /**
      * @var MultimediaFileProviderInterface
@@ -50,8 +52,6 @@ class MultimediaController extends AbstractApiController
     /**
      * @Route("/upload", methods={"POST"})
      *
-     * @IsGranted("MULTIMEDIA_CREATE")
-     *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(
      *     name="upload",
@@ -60,12 +60,13 @@ class MultimediaController extends AbstractApiController
      *     description="The field used to upload multimedia",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns multimedia information",
+     *     response=201,
+     *     description="Returns multimedia ID",
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Unsupported file type or file size",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -84,9 +85,9 @@ class MultimediaController extends AbstractApiController
             $command = new UploadMultimediaCommand('TestName', $uploadModel->upload);
             $this->messageBus->dispatch($command);
 
-            $response = $this->createRestResponse(['id' => $command->getId()->getValue()]);
+            $response = new CreatedResponse($command->getId());
         } else {
-            $response = $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+            throw new FormValidationHttpException($form);
         }
 
         return $response;
@@ -94,8 +95,6 @@ class MultimediaController extends AbstractApiController
 
     /**
      * @Route("/{multimedia}", methods={"get"})
-     *
-     * @IsGranted("MULTIMEDIA_READ")
      *
      * @SWG\Tag(name="Multimedia")
      * @SWG\Parameter(
@@ -107,10 +106,6 @@ class MultimediaController extends AbstractApiController
      * @SWG\Response(
      *     response=200,
      *     description="Returns multimedia file",
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Bad request",
      * )
      * @SWG\Response(
      *     response=404,

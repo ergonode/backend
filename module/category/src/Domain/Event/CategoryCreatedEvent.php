@@ -2,17 +2,17 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Category\Domain\Event;
 
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -44,7 +44,7 @@ class CategoryCreatedEvent implements DomainEventInterface
     /**
      * @var ValueInterface[]
      *
-     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\AbstractValue>")
+     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
     private $attributes;
 

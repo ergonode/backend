@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -14,8 +14,10 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ReplaceFormatter extends AbstractFormatter implements FormatterInterface
+class ReplaceFormatter implements FormatterInterface
 {
+    public const TYPE = 'replace';
+
     /**
      * @var string
      *
@@ -41,9 +43,15 @@ class ReplaceFormatter extends AbstractFormatter implements FormatterInterface
     }
 
     /**
-     * @param string $string
-     *
-     * @return string
+     * {@inheritDoc}
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function format(string $string): string
     {

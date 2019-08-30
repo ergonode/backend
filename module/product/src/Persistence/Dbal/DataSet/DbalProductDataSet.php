@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -14,7 +14,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\MultiSelectColumn;
-use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
@@ -62,9 +61,19 @@ class DbalProductDataSet implements DataSetInterface
             $language = $column->getLanguage() ?: $userLanguage;
             if (!in_array($column->getField(), ['id', 'sku', 'index', 'version', 'template'])) {
                 if ($column->getType() === MultiSelectColumn::TYPE) {
-                    $query->addSelect(\sprintf('(SELECT jsonb_agg(value) FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id JOIN attribute a ON a.id = pv.attribute_id WHERE a.code = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"', $column->getField(), $language->getCode(), $key));
+                    $query->addSelect(sprintf(
+                        '(SELECT jsonb_agg(value) FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id JOIN attribute a ON a.id = pv.attribute_id WHERE a.code = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
+                        $column->getField(),
+                        $language->getCode(),
+                        $key
+                    ));
                 } else {
-                    $query->addSelect(\sprintf('(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id JOIN attribute a ON a.id = pv.attribute_id WHERE a.code = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"', $column->getField(), $language->getCode(), $key));
+                    $query->addSelect(sprintf(
+                        '(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id JOIN attribute a ON a.id = pv.attribute_id WHERE a.code = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
+                        $column->getField(),
+                        $language->getCode(),
+                        $key
+                    ));
                 }
             }
         }
@@ -130,26 +139,26 @@ class DbalProductDataSet implements DataSetInterface
             if ($filter && !empty($filter->getValue())) {
                 $value = $filter->getValue();
                 if ($filter instanceof TextFilter && !$filter->isEqual()) {
-                    $query->andWhere(
-                        \sprintf(
-                            '"%s"::TEXT ILIKE \'%s\'',
-                            $field,
-                            \sprintf('%%%s%%', $this->escape($value))
-                        )
-                    );
+                    $query->andWhere(sprintf(
+                        '"%s"::TEXT ILIKE \'%s\'',
+                        $field,
+                        sprintf('%%%s%%', $this->escape($value))
+                    ));
                 } elseif ($filter instanceof MultiSelectFilter) {
-                    $query->andWhere(
-                        sprintf(
-                            'jsonb_exists_any("%s"::JSONB , array[%s])',
-                            $field,
-                            \sprintf('\'%s\'', implode('\',\'', $value))
-                        )
-                    );
+                    $query->andWhere(sprintf(
+                        'jsonb_exists_any("%s"::JSONB , array[%s])',
+                        $field,
+                        sprintf('\'%s\'', implode('\',\'', $value))
+                    ));
                 } else {
+                    if (is_array($value)) {
+                        reset($value);
+                    }
+
                     $query->andWhere(
                         $query->expr()->eq(
-                            $field,
-                            $query->createNamedParameter(reset($value))
+                            sprintf('"%s"', $field),
+                            $query->createNamedParameter($value)
                         )
                     );
                 }

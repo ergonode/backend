@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -47,7 +47,7 @@ class LanguageType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $codes = $this->provider->getSystemLanguages();
+        $codes = $this->provider->getActiveLanguagesCodes();
 
         $resolver->setDefaults(
             [

@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -12,13 +12,13 @@ namespace Ergonode\Editor\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\Editor\Domain\Event\ProductDraftValueAdded;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Editor\Domain\Event\ProductDraftValueAdded;
-use Ergonode\Value\Domain\ValueObject\CollectionValue;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -94,7 +94,7 @@ class ProductDraftValueAddedEventProjector implements DomainEventProjectorInterf
     {
         if ($value instanceof StringValue) {
             $this->insert($draftId, $elementId, $value->getValue());
-        } elseif ($value instanceof CollectionValue) {
+        } elseif ($value instanceof StringCollectionValue) {
             foreach ($value->getValue() as $phrase) {
                 $this->insert($draftId, $elementId, $phrase);
             }

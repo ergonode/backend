@@ -2,23 +2,24 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Provider\LanguageProviderInterface;
+use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
-class DictionaryController extends AbstractApiController
+class DictionaryController extends AbstractController
 {
     /**
      * @var LanguageProviderInterface
@@ -37,7 +38,6 @@ class DictionaryController extends AbstractApiController
      * @Route("/languages", methods={"GET"})
      *
      * @SWG\Tag(name="Dictionary")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -50,10 +50,6 @@ class DictionaryController extends AbstractApiController
      *     response=200,
      *     description="Returns collection of languages",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
      * @param Language $language
      *
@@ -61,8 +57,8 @@ class DictionaryController extends AbstractApiController
      */
     public function getLanguages(Language $language): Response
     {
-        $languages = $this->languageProvider->getSystemLanguages($language);
+        $languages = $this->languageProvider->getActiveLanguages($language);
 
-        return $this->createRestResponse($languages);
+        return new SuccessResponse($languages);
     }
 }

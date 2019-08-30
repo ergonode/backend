@@ -2,18 +2,19 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\ValueObject\TemplateElement;
 
+use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UiTemplateElementProperty extends AbstractTemplateElementProperty
+class UiTemplateElementProperty implements TemplateElementPropertyInterface
 {
     public const VARIANT = 'ui';
 
@@ -33,7 +34,9 @@ class UiTemplateElementProperty extends AbstractTemplateElementProperty
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
      */
     public function getVariant(): string
     {

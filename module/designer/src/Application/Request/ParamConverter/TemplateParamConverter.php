@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -36,36 +36,31 @@ class TemplateParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @param Request        $request
-     * @param ParamConverter $configuration
-     *
-     * @return void
+     * {@inheritDoc}
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $template = $request->get('template');
+        $parameter = $request->get('template');
 
-        if (null === $template) {
-            throw new BadRequestHttpException('Route attribute is missing');
+        if (null === $parameter) {
+            throw new BadRequestHttpException('Request parameter "template" is missing');
         }
 
-        if (!TemplateId::isValid($template)) {
-            throw new BadRequestHttpException('Invalid uuid format');
+        if (!TemplateId::isValid($parameter)) {
+            throw new BadRequestHttpException('Invalid template ID');
         }
 
-        $template = $this->templateRepository->load(new TemplateId($template));
+        $entity = $this->templateRepository->load(new TemplateId($parameter));
 
-        if (null === $template) {
-            throw new NotFoundHttpException(\sprintf('%s object not found.', $configuration->getClass()));
+        if (null === $entity) {
+            throw new NotFoundHttpException(sprintf('Template by ID "%s" not found.', $parameter));
         }
 
-        $request->attributes->set($configuration->getName(), $template);
+        $request->attributes->set($configuration->getName(), $entity);
     }
 
     /**
-     * @param ParamConverter $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function supports(ParamConverter $configuration): bool
     {

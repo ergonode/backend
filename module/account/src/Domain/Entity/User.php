@@ -2,15 +2,17 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Entity;
 
+use Ergonode\Account\Domain\Event\User\UserActivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
+use Ergonode\Account\Domain\Event\User\UserDeactivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
@@ -69,6 +71,11 @@ class User extends AbstractAggregateRoot implements UserInterface
     private $roleId;
 
     /**
+     * @var bool
+     */
+    private $isActive;
+
+    /**
      * @param UserId            $id
      * @param string            $firstName
      * @param string            $lastName
@@ -77,6 +84,7 @@ class User extends AbstractAggregateRoot implements UserInterface
      * @param Password          $password
      * @param RoleId            $roleId
      * @param MultimediaId|null $avatarId
+     * @param bool              $isActive
      *
      * @throws \Exception
      */
@@ -88,9 +96,10 @@ class User extends AbstractAggregateRoot implements UserInterface
         Language $language,
         Password $password,
         RoleId $roleId,
-        ?MultimediaId $avatarId = null
+        ?MultimediaId $avatarId = null,
+        bool $isActive = true
     ) {
-        $this->apply(new UserCreatedEvent($id, $firstName, $lastName, $email, $language, $password, $roleId, $avatarId));
+        $this->apply(new UserCreatedEvent($id, $firstName, $lastName, $email, $language, $password, $roleId, $isActive, $avatarId));
     }
 
     /**
@@ -142,14 +151,6 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param Password $password
-     */
-    public function setPassword(Password $password): void
-    {
-        $this->password = $password;
-    }
-
-    /**
      * @return array
      */
     public function getRoles(): array
@@ -171,6 +172,14 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function getAvatarId(): ?MultimediaId
     {
         return $this->avatarId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->isActive;
     }
 
     /**
@@ -242,6 +251,30 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
+     * @throws \Exception
+     */
+    public function activate(): void
+    {
+        if ($this->isActive()) {
+            throw new \LogicException('User already activated');
+        }
+
+        $this->apply(new UserActivatedEvent());
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function deactivate(): void
+    {
+        if (!$this->isActive()) {
+            throw new \LogicException('User already deactivated');
+        }
+
+        $this->apply(new UserDeactivatedEvent());
+    }
+
+    /**
      * @return string
      */
     public function getSalt(): string
@@ -278,6 +311,7 @@ class User extends AbstractAggregateRoot implements UserInterface
         $this->password = $event->getPassword();
         $this->avatarId = $event->getAvatarId();
         $this->roleId = $event->getRoleId();
+        $this->isActive = $event->isActive();
     }
 
     /**
@@ -326,5 +360,21 @@ class User extends AbstractAggregateRoot implements UserInterface
     protected function applyUserPasswordChangedEvent(UserPasswordChangedEvent $event): void
     {
         $this->password = $event->getPassword();
+    }
+
+    /**
+     * @param UserActivatedEvent $event
+     */
+    protected function applyUserActivatedEvent(UserActivatedEvent $event): void
+    {
+        $this->isActive = $event->isActive();
+    }
+
+    /**
+     * @param UserDeactivatedEvent $event
+     */
+    protected function applyUserDeactivatedEvent(UserDeactivatedEvent $event): void
+    {
+        $this->isActive = $event->isActive();
     }
 }

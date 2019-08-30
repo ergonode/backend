@@ -21,6 +21,10 @@ services:
     Ergonode\Core\Infrastructure\:
         resource: '../../Infrastructure/*'
 
+    Ergonode\Core\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
     Ergonode\Core\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
@@ -30,16 +34,15 @@ services:
             $directory: '%kernel.project_dir%'
 
     Ergonode\Core\Domain\Query\LanguageQueryInterface: '@Ergonode\Core\Persistence\Dbal\Query\DbalLanguageQuery'
+    Ergonode\Core\Domain\Repository\LanguageRepositoryInterface: '@Ergonode\Core\Persistence\Dbal\Repository\DbalLanguageRepository'
     Ergonode\Core\Application\Provider\DirectoryProviderInterface: '@Ergonode\Core\Application\Provider\SimpleDirectoryProvider'
 
-#     overriding message serializer
-    messenger.transport.serializer:
-        class: Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer
-
-    Ergonode\Core\Infrastructure\JMS\Serializer\Handler\FormErrorHandler:
+    Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry:
+        decorates: 'jms_serializer.handler_registry'
         arguments:
-            - '@translator'
-            - '@Ergonode\Core\Infrastructure\Mapper\FormErrorMapper'
-        tags: ['jms_serializer.subscribing_handler']
+            $handlers: !tagged 'jms_serializer.subscribing_handler'
+            $registry: '@Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry.inner'
 
-    jms_serializer.form_error_handler: '@Ergonode\Core\Infrastructure\JMS\Serializer\Handler\FormErrorHandler'
+    # overriding message serializer
+    messenger.transport.serializer:
+        class: 'Ergonode\Core\Infrastructure\Transport\Serializer\TransportMessageSerializer'

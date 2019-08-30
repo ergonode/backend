@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -11,9 +11,9 @@ namespace Ergonode\Value\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Value\Domain\Event\ValueAddedEvent;
 use JMS\Serializer\SerializerInterface;
@@ -61,7 +61,7 @@ class ValueAddedEventProjector implements DomainEventProjectorInterface
      * @param AbstractId           $aggregateId
      * @param DomainEventInterface $event
      *
-     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws UnsupportedEventException
      * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
@@ -70,9 +70,7 @@ class ValueAddedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, ValueAddedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-
-        try {
+        $this->connection->transactional(function () use ($event, $aggregateId) {
             $attributeId = AttributeId::fromKey($event->getAttributeCode());
             $type = get_class($event->getValue());
             $value = $this->serializer->serialize($event->getValue(), 'json');
@@ -102,11 +100,6 @@ class ValueAddedEventProjector implements DomainEventProjectorInterface
                     'value_id' => $valueId->toString(),
                 ]
             );
-
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        });
     }
 }

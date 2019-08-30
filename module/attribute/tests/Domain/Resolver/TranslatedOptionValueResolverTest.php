@@ -2,33 +2,33 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Resolver;
 
 use Ergonode\Attribute\Domain\Resolver\TranslatedOptionValueResolver;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\AbstractOption;
+use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
-/***
+/**
  */
 class TranslatedOptionValueResolverTest extends TestCase
 {
     /**
-     * @param AbstractOption $option
-     * @param string         $result
-     * @param Language       $language
+     * @param OptionInterface $option
+     * @param string          $result
+     * @param Language        $language
      *
      * @dataProvider dataProvider
      */
-    public function testResolvingSupportedOption(AbstractOption $option, string $result, Language $language): void
+    public function testResolvingSupportedOption(OptionInterface $option, string $result, Language $language): void
     {
         $resolver = new TranslatedOptionValueResolver();
         $this->assertEquals($result, $resolver->resolve($option, $language));
@@ -39,8 +39,8 @@ class TranslatedOptionValueResolverTest extends TestCase
      */
     public function testResolvingNotSupportedOption(): void
     {
-        /** @var AbstractOption $option */
-        $option = $this->createMock(AbstractOption::class);
+        /** @var OptionInterface $option */
+        $option = $this->createMock(OptionInterface::class);
         $resolver = new TranslatedOptionValueResolver();
         $resolver->resolve($option, new Language(Language::EN));
     }
@@ -60,7 +60,7 @@ class TranslatedOptionValueResolverTest extends TestCase
                 'option' => new MultilingualOption(new TranslatableString(['EN' => 'Any value'])),
                 'result' => 'Any value',
                 'language' => new Language(Language::EN),
-            ]
+            ],
         ];
     }
 }
