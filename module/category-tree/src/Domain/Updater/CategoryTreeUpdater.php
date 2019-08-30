@@ -24,7 +24,7 @@ class CategoryTreeUpdater
      */
     public function update(CategoryTree $categoryTree, TranslatableString $name)
     {
-        $categoryTree->changeTitle($name);
+        $categoryTree->changeName($name);
 
         return $categoryTree;
     }

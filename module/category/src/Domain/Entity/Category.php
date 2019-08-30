@@ -10,18 +10,18 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Value\Domain\Event\ValueAddedEvent;
-use Ergonode\Value\Domain\Event\ValueChangedEvent;
-use Ergonode\Value\Domain\Event\ValueRemovedEvent;
 use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
 use Ergonode\Category\Domain\Event\CategoryNameChangedEvent;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\Value\Domain\Event\ValueAddedEvent;
+use Ergonode\Value\Domain\Event\ValueChangedEvent;
+use Ergonode\Value\Domain\Event\ValueRemovedEvent;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Webmozart\Assert\Assert;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -95,7 +95,7 @@ class Category extends AbstractAggregateRoot
     /**
      * @param TranslatableString $title
      */
-    public function changeTitle(TranslatableString $title): void
+    public function changeName(TranslatableString $title): void
     {
         if ($this->name->getTranslations() !== $title->getTranslations()) {
             $this->apply(new CategoryNameChangedEvent($this->name, $title));

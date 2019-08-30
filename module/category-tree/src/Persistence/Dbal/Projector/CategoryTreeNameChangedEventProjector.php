@@ -21,7 +21,6 @@ use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterfac
  */
 class CategoryTreeNameChangedEventProjector implements DomainEventProjectorInterface
 {
-
     private const TABLE = 'tree';
 
     /**

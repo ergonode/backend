@@ -24,7 +24,7 @@ class CategoryUpdater
      */
     public function update(Category $category, TranslatableString $name): Category
     {
-        $category->changeTitle($name);
+        $category->changeName($name);
 
         return $category;
     }

@@ -83,7 +83,7 @@ class CategoryTest extends TestCase
         $entity->addAttribute($attributeCode, $attribute);
         $this->assertTrue($entity->hasAttribute($attributeCode));
 
-        $entity->changeTitle($name);
+        $entity->changeName($name);
         $this->assertEquals($name, $entity->getName());
     }
 }
