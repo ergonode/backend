@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://ergonode.com" target="_blank">
-    <img src="https://img.shields.io/badge/version-0.2.0-4c9aff.svg" alt="Version">
+    <img src="https://img.shields.io/badge/version-0.3.0-4c9aff.svg" alt="Version">
   </a>
   <a href="https://ergonode.com" target="_blank">
     <img src="https://img.shields.io/badge/version%20code-Vegas-00bc87.svg" alt="Code Version">
@@ -36,7 +36,9 @@ If you are a new developer and need help, feel-free to ask questions our core te
 
 `@Marcin Piwowarczyk` (product vision and strategy)
 
-`@Rafal Przedzik` (backend architecture and integrations)
+`@Rafal Przedzik` (backend architecture)
+
+`@Sebastian Bielawski` (backend integrations)
 
 `@Maciej Kaczorowski` (frontend architecture)
 
@@ -96,9 +98,9 @@ On the front side we've used headless approach with Vue.js application. Thanks t
 - PHP 7.2
 - Symfony 4.2
 - Postgres 9.6 (uuid-ossp, ltree)
-- RabbitMQ
-- Redis
-- Elasticsearch
+- RabbitMQ (optional)
+- Redis (optional)
+- Elasticsearch (optional)
 - Nginx (possible Apache)
 - MongoDB (optional)
 
@@ -144,16 +146,25 @@ Generate keys
 openssl genrsa -out config/jwt/private.pem -aes256 4096
 openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 ```
-While executing above commends you would be asked about password. This password needs to be saved then in .env file in line JWT_PASSPHRASE=yourpassword
+While executing above commends you would be asked about password. This password needs to be saved then in .env file in line `JWT_PASSPHRASE=yourpassword`
 
 In terminal execute command which configure application (Available phing commands):
 ```
 bin/phing build
 ```
 
+If you need basic data in terminal execute command:
+```
+bin/phing database:fixture
+```
+or more complex data:
+```
+bin/phing database:fixture:dev
+```
+
 To create user execute console command
 ```
-bin/console ergonode:user:create email name surname password language_code
+bin/console ergonode:user:create email name surname password language_code [role]
 ```
  > eg. *bin/console ergonode:user:create test@ergonode.com John Snow 123 EN*
 
@@ -197,7 +208,7 @@ Ergonode is open-source, and it can be brought to you only by great community an
 Ergonode source code is released under the [OSL 3.0 License][license].
 
 [discord]: https://discord.gg/NntXFa4
-[slack]:  https://ergonode.slack.com/join/shared_invite/enQtNjE2NTA2ODM2NzIwLWU5NzhmNGM5NDUyYTVlZTI0YWJmMTViYWEyYWU2NDc2NzU4Y2U4ZTc0OTUwYmY0ODVhNzA2ZGE5OTMwOWFlYmM
+[slack]:  https://join.slack.com/t/ergonode/shared_invite/enQtNzEwMjkwOTQwOTM0LWQ4YWYwMWJmZGExYzQxMGMwZTFjMjg4MjQyNmU3NjY1MWU1OTE1MjA2N2ExMzA1MGQ1ZDJjMzkxMTQzNTBmMGM
 [contribut]: http://docs.ergonode.com/#/contribution
 [license]: ./LICENSE.txt
 [roadmap]: https://ergonode.com/features/#roadmap

@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter;
 
-use Ergonode\Value\Domain\ValueObject\CollectionValue;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Webmozart\Assert\Assert;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  * Class SplitConverter
@@ -54,6 +54,6 @@ class SplitConverter extends AbstractConverter implements ConverterInterface
         Assert::notEq($this->delimiter, '');
         $collection = explode($this->delimiter, $line[$this->field]);
 
-        return new CollectionValue($collection);
+        return new StringCollectionValue($collection);
     }
 }

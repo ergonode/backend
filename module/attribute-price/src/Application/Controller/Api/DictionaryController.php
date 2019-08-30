@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\AttributePrice\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\AttributePrice\Domain\Query\CurrencyQueryInterface;
+use Ergonode\Core\Application\Controller\AbstractApiController;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */

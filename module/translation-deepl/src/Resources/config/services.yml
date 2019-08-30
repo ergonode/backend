@@ -1,0 +1,33 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\TranslationDeepl\Application\:
+        resource: '../../Application/*'
+        exclude: '../../Application/{DependencyInjection}'
+
+    Ergonode\TranslationDeepl\Application\Controller\:
+        resource: '../../Application/Controller'
+        tags: ['controller.service_arguments']
+
+    Ergonode\TranslationDeepl\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
+    Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider:
+        arguments:
+            $deeplAuthKey: "%deepl_auth_key%"
+
+    Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProvider:
+        arguments:
+            $deeplAuthKey: "%deepl_auth_key%"
+
+    Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationProviderInterface: '@Ergonode\TranslationDeepl\Infrastructure\Provider\DeeplTranslationProvider'
+    Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\CacheTranslationProviderDecorator:
+        decorates: Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationProviderInterface
+        arguments:
+            - '@Ergonode\TranslationDeepl\Infrastructure\Provider\Decorator\CacheTranslationProviderDecorator.inner'
+
+
+    Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProviderInterface: '@Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProvider'

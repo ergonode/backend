@@ -12,14 +12,14 @@ namespace Ergonode\Product\Persistence\Dbal\Projector;
 use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
+use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Product\Domain\Event\ProductCreated;
-use Ergonode\Value\Domain\ValueObject\CollectionValue;
 use Ergonode\Product\Domain\ValueObject\ProductStatus;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -125,7 +125,7 @@ class ProductCreateEventProjector implements DomainEventProjectorInterface
     {
         if ($value instanceof StringValue) {
             $this->insert($productId, $attributeId, $value->getValue());
-        } elseif ($value instanceof CollectionValue) {
+        } elseif ($value instanceof StringCollectionValue) {
             foreach ($value->getValue() as $phrase) {
                 $this->insert($productId, $attributeId, $phrase);
             }

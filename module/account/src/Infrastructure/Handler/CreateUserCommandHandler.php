@@ -12,6 +12,7 @@ namespace Ergonode\Account\Infrastructure\Handler;
 use Ergonode\Account\Domain\Command\CreateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface;
 
 /**
  */
@@ -23,11 +24,20 @@ class CreateUserCommandHandler
     private $repository;
 
     /**
-     * @param UserRepositoryInterface $repository
+     * @var UserPasswordEncoderInterface
      */
-    public function __construct(UserRepositoryInterface $repository)
-    {
+    private $userPasswordEncoder;
+
+    /**
+     * @param UserRepositoryInterface      $repository
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
+     */
+    public function __construct(
+        UserRepositoryInterface $repository,
+        UserPasswordEncoderInterface $userPasswordEncoder
+    ) {
         $this->repository = $repository;
+        $this->userPasswordEncoder = $userPasswordEncoder;
     }
 
     /**
@@ -37,7 +47,19 @@ class CreateUserCommandHandler
      */
     public function __invoke(CreateUserCommand $command)
     {
-        $user = new User($command->getId(), $command->getFirstName(), $command->getLastName(), $command->getEmail(), $command->getLanguage(), $command->getPassword(), $command->getAvatarId());
+        $user = new User(
+            $command->getId(),
+            $command->getFirstName(),
+            $command->getLastName(),
+            $command->getEmail(),
+            $command->getLanguage(),
+            $command->getPassword(),
+            $command->getRoleId(),
+            $command->getAvatarId()
+        );
+
+        $encodedPassword = $this->userPasswordEncoder->encode($user, $command->getPassword());
+        $user->changePassword($encodedPassword);
 
         $this->repository->save($user);
     }

@@ -9,15 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Controller\Api;
 
-use Ergonode\Authentication\Entity\User;
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\ProfileQueryInterface;
+use Ergonode\Core\Application\Controller\AbstractApiController;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -29,8 +28,6 @@ class ProfileController extends AbstractApiController
     private $query;
 
     /**
-     * ProfileController constructor.
-     *
      * @param ProfileQueryInterface $query
      */
     public function __construct(ProfileQueryInterface $query)
@@ -41,14 +38,18 @@ class ProfileController extends AbstractApiController
     /**
      * @Route("profile", methods={"GET"})
      *
-     * @SWG\Tag(name="Navigation")
+     * @SWG\Tag(name="Profile")
      * @SWG\Response(
      *     response=200,
-     *     description="Returns information about current logged user",
+     *     description="Returns information about current logged user"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
+     * )
+     * @SWG\Response(
+     *     response=422,
+     *     description="Unprocessable entity"
      * )
      *
      * @param Request $request
@@ -58,10 +59,8 @@ class ProfileController extends AbstractApiController
     public function getProfile(Request $request): Response
     {
         if ($this->getUser()) {
-            /** @var User $user */
-            $user = $this->getUser();
-            $userId = new UserId($user->getId()->toString());
-            $profile = $this->query->getProfile($userId);
+            /** @var User $profile */
+            $profile = $this->query->getProfile($this->getUser()->getId());
 
             return $this->createRestResponse($profile);
         }

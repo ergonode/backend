@@ -9,13 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Domain\ValueObject;
 
+use JMS\Serializer\Annotation as JMS;
+
 /**
- * Class TranslatableString
  */
 class TranslatableString implements \IteratorAggregate
 {
     /**
      * @var array
+     *
+     * @JMS\Type("array<string,string>")
      */
     private $translations;
 

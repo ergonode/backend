@@ -6,7 +6,7 @@ namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
-use Ergonode\Migration\AbstractErgonodeMigration;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -114,7 +114,18 @@ final class Version20180625083834 extends AbstractErgonodeMigration
 
         $this->addGroup('Default', true);
         $this->addGroup('System');
+
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_CREATE', 'Attribute']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_READ', 'Attribute']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_UPDATE', 'Attribute']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_DELETE', 'Attribute']);
+
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_GROUP_CREATE', 'Attribute group']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_GROUP_READ', 'Attribute group']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_GROUP_UPDATE', 'Attribute group']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_GROUP_DELETE', 'Attribute group']);
     }
+
     /**
      * @param string $label
      * @param bool   $default

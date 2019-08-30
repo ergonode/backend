@@ -54,10 +54,12 @@ class PasswordHandler implements SubscribingHandlerInterface
      * @param Context                       $context
      *
      * @return string
+     *
+     * @throws \Exception
      */
     public function serialize(SerializationVisitorInterface $visitor, Password $password, array $type, Context $context): string
     {
-        return $password->getValue();
+        return base64_encode($password->getValue());
     }
 
     /**
@@ -67,9 +69,13 @@ class PasswordHandler implements SubscribingHandlerInterface
      * @param Context                         $context
      *
      * @return Password
+     *
+     * @throws \Exception
      */
     public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Password
     {
+        $data = base64_decode($data);
+
         return new Password($data);
     }
 }

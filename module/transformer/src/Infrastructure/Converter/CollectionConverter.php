@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter;
 
-use Ergonode\Value\Domain\ValueObject\CollectionValue;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -47,6 +47,6 @@ class CollectionConverter extends AbstractConverter implements ConverterInterfac
             }
         }
 
-        return new CollectionValue($collection);
+        return new StringCollectionValue($collection);
     }
 }

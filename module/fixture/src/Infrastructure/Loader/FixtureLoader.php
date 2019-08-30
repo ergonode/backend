@@ -13,11 +13,10 @@ use Ergonode\Core\Application\AbstractModule;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
- * Class FixtureLoader
  */
 class FixtureLoader
 {
-    private const PATH = '%s/Resources/fixtures/fixture.yaml';
+    private const PATH = '%s/Resources/fixtures/%s/fixture.yaml';
 
     /**
      * @var KernelInterface
@@ -33,15 +32,18 @@ class FixtureLoader
     }
 
     /**
+     * @param string $group
+     *
      * @return array
      */
-    public function load(): array
+    public function load(string $group = null): array
     {
         $files = [];
+        $group = $group ?: '';
 
         foreach ($this->kernel->getBundles() as $bundle) {
             if ($bundle instanceof AbstractModule) {
-                $file = sprintf(self::PATH, $bundle->getPath());
+                $file = str_replace('//', '/', sprintf(self::PATH, $bundle->getPath(), $group));
                 if (file_exists($file)) {
                     $files[] = $file;
                 }

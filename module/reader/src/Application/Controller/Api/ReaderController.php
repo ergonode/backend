@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
@@ -17,11 +17,12 @@ use Ergonode\Reader\Domain\Entity\ReaderId;
 use Ergonode\Reader\Domain\Query\ReaderQueryInterface;
 use Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface;
 use Ergonode\Reader\Infrastructure\Grid\ReaderGrid;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -223,9 +224,9 @@ class ReaderController extends AbstractApiController
         if ($name && $type) {
             $command = new CreateReaderCommand($name, $type);
             $this->messageBus->dispatch($command);
-            $response = $this->createRestResponse(['id' => $command->getId()->getValue()]);
+            $response = $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
         } else {
-            $response = $this->createRestResponse(['error'], [], Response::HTTP_BAD_REQUEST);
+            throw new BadRequestHttpException('error');
         }
 
         return $response;

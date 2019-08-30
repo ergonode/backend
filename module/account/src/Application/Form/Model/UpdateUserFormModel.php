@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
+use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -40,7 +42,14 @@ class UpdateUserFormModel
     public $language;
 
     /**
-     * @var string
+     * @var Password|null
+     *
+     * @Assert\EqualTo(propertyPath="password", message="This value should be same as password")
+     */
+    public $passwordRepeat;
+
+    /**
+     * @var Password|null
      *
      * @Assert\Length(
      *     min="6",
@@ -52,9 +61,10 @@ class UpdateUserFormModel
     public $password;
 
     /**
-     * @var string
+     * @var RoleId
      *
-     * @Assert\IdenticalTo(propertyPath="password", message="This value should be same as password")
+     * @Assert\NotBlank(message="Role Id is required")
+     * @Assert\Uuid(message="Role Id must be valid uuid format")
      */
-    public $passwordRepeat;
+    public $roleId;
 }

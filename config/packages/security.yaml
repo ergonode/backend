@@ -1,41 +1,38 @@
 security:
+    access_decision_manager:
+        strategy: 'unanimous'
+        allow_if_all_abstain: false
+
     providers:
-        user:
-            entity:
-                class: Ergonode\Authentication\Entity\User
-                property: 'username'
+        domain_user_provider:
+            id: 'Ergonode\Authentication\Application\Security\Provider\DomainUserProvider'
 
     encoders:
-        Ergonode\Authentication\Entity\User:
+        Ergonode\Account\Domain\Entity\User:
             algorithm: 'sha1'
 
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern: '^/(_(profiler|wdt)|css|images|js)/'
             security: false
         doc:
             pattern: '^/$|^/api/doc'
             security: false
         login:
-            provider: user
-            pattern:  ^/api/v1/login$
+            pattern:  '^/api/v1/login$'
             stateless: true
-            gfreeau_get_jwt:
-                username_parameter: username
-                password_parameter: password
-                authentication_provider: security.authentication.provider.dao
-                user_checker: security.user_checker
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            guard:
+                provider: 'domain_user_provider'
+                authenticators:
+                    - 'Ergonode\Authentication\Application\Security\Authenticator\FormAuthenticator'
         api:
-            pattern: ^/api
+            pattern: '^/api'
             stateless: true
             security: true
             guard:
-                provider: 'user'
+                provider: 'domain_user_provider'
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
-
         base:
             pattern: '^/'
             security: true
@@ -43,5 +40,5 @@ security:
             entry_point: ~
 
     access_control:
-        - { path: ^/api/v1/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: '^/api/v1/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/api', roles: IS_AUTHENTICATED_FULLY }

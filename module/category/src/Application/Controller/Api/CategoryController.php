@@ -9,10 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Category\Application\Form\CategoryCreateForm;
 use Ergonode\Category\Application\Form\CategoryUpdateForm;
 use Ergonode\Category\Application\Model\CategoryCreateFormModel;
@@ -23,12 +19,20 @@ use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
+use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -70,6 +74,8 @@ class CategoryController extends AbstractApiController
 
     /**
      * @Route("/categories", methods={"GET"})
+     *
+     * @IsGranted("CATEGORY_READ")
      *
      * @SWG\Tag(name="Category")
      * @SWG\Parameter(
@@ -147,6 +153,8 @@ class CategoryController extends AbstractApiController
     /**
      * @Route("/categories/{category}", methods={"GET"})
      *
+     * @IsGranted("CATEGORY_READ")
+     *
      * @SWG\Tag(name="Category")
      *
      * @SWG\Parameter(
@@ -186,11 +194,13 @@ class CategoryController extends AbstractApiController
             return $this->createRestResponse($category);
         }
 
-        return $this->createRestResponse(null, [], Response::HTTP_NOT_FOUND);
+        throw new NotFoundHttpException();
     }
 
     /**
      * @Route("/categories", methods={"POST"})
+     *
+     * @IsGranted("CATEGORY_CREATE")
      *
      * @SWG\Tag(name="Category")
      *
@@ -241,16 +251,16 @@ class CategoryController extends AbstractApiController
                 return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
      * @Route("/categories/{category}", methods={"PUT"})
+     *
+     * @IsGranted("CATEGORY_UPDATE")
      *
      * @SWG\Parameter(
      *     name="language",
@@ -308,11 +318,9 @@ class CategoryController extends AbstractApiController
                 return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 }

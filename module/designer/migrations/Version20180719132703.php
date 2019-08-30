@@ -6,6 +6,7 @@ namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
 use Ergonode\Designer\Domain\Entity\TemplateGroupId;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Auto-generated Ergonode Migration Class:
@@ -80,6 +81,11 @@ final class Version20180719132703 extends AbstractErgonodeMigration
 
         $this->addGroup('418c48d3-d2c3-4c30-b627-93850c38d59c', 'Suggested');
         $this->addGroup('641c614f-0732-461f-892f-b6df97939599', 'My templates', true);
+
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_CREATE', 'Template designer']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_READ', 'Template designer']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_UPDATE', 'Template designer']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_DELETE', 'Template designer']);
     }
 
     /**

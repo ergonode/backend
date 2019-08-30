@@ -1,0 +1,12 @@
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeCreatedEvent": Attribute "%code%" added
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeHintChangedEvent": Attribute hint changed
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeLabelChangedEvent": Attribute label changed
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributePlaceholderChangedEvent": Attribute placeholder changed
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeArrayParameterChangeEvent": Attribute parameters changed
+"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeParameterChangeEvent": Attribute parameter changed
+"Ergonode\\Attribute\\Domain\\Event\\AttributeGroupAddedEvent": Attribute added to group
+"Ergonode\\Attribute\\Domain\\Event\\AttributeGroupRemovedEvent": Attribute removed from group
+"Ergonode\\Attribute\\Domain\\Event\\AttributeOptionAddedEvent": Attribute option "%key%" added
+"Ergonode\\Attribute\\Domain\\Event\\AttributeOptionRemovedEvent": Attribute option "%key%" removed
+"Ergonode\\Attribute\\Domain\\Event\\AttributeOptionChangedEvent": Attribute option "%key%" changed
+

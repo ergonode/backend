@@ -1,3 +1,12 @@
+## CHANGELOG FOR 0.3.0
+
+ - feature [#39](https://github.com/ergonode/backend/issues/39) Add Roles and privileges (rprzedzik)
+ - feature [#39](https://github.com/ergonode/backend/issues/41) Refactoring user authentication (BastekBielawski)
+ - feature [#42](https://github.com/ergonode/backend/issues/42) User activity log (rprzedzik)
+ - improvement [#51](https://github.com/ergonode/backend/issues/51) Improvements in roles and privileges (BastekBielawski)
+ - feature [#54](https://github.com/ergonode/backend/issues/54) Add all users worklog grid endpoint (rprzedzik)
+ - experimental [#60](https://github.com/ergonode/backend/issues/60) Deepl - Automatic translations (wiewiurdp)
+  
 ## CHANGELOG FOR 0.2.0
 
 - feature [#1](https://github.com/ergonode/backend/issues/1) Template designer - layout improvement (rprzedzik)

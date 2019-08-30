@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © Ergonaut Sp. z o.o. All rights reserved.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See license.txt for license details.
  */
 
@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Controller\Api;
 
-use Ergonode\Authentication\Entity\User;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
 use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
 use Ergonode\Account\Application\Form\UserCreateForm;
@@ -19,24 +17,29 @@ use Ergonode\Account\Domain\Command\ChangeUserAvatarCommand;
 use Ergonode\Account\Domain\Command\ChangeUserPasswordCommand;
 use Ergonode\Account\Domain\Command\CreateUserCommand;
 use Ergonode\Account\Domain\Command\UpdateUserCommand;
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Account\Infrastructure\Grid\AccountGrid;
+use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Core\Application\Exception\ViolationsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -74,18 +77,12 @@ class AccountController extends AbstractApiController
     private $validator;
 
     /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $encoder;
-
-    /**
-     * @param AccountGrid                  $grid
-     * @param UserRepositoryInterface      $repository
-     * @param AccountQueryInterface        $query
-     * @param PasswordValidationBuilder    $builder
-     * @param MessageBusInterface          $messageBus
-     * @param ValidatorInterface           $validator
-     * @param UserPasswordEncoderInterface $encoder
+     * @param AccountGrid               $grid
+     * @param UserRepositoryInterface   $repository
+     * @param AccountQueryInterface     $query
+     * @param PasswordValidationBuilder $builder
+     * @param MessageBusInterface       $messageBus
+     * @param ValidatorInterface        $validator
      */
     public function __construct(
         AccountGrid $grid,
@@ -93,8 +90,7 @@ class AccountController extends AbstractApiController
         AccountQueryInterface $query,
         PasswordValidationBuilder $builder,
         MessageBusInterface $messageBus,
-        ValidatorInterface $validator,
-        UserPasswordEncoderInterface $encoder
+        ValidatorInterface $validator
     ) {
         $this->grid = $grid;
         $this->repository = $repository;
@@ -102,12 +98,12 @@ class AccountController extends AbstractApiController
         $this->builder = $builder;
         $this->messageBus = $messageBus;
         $this->validator = $validator;
-        $this->encoder = $encoder;
     }
-
 
     /**
      * @Route("/accounts", methods={"GET"})
+     *
+     * @IsGranted("USER_READ")
      *
      * @SWG\Tag(name="Account")
      *
@@ -132,7 +128,7 @@ class AccountController extends AbstractApiController
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"id", "label","code", "hint"},
+     *     enum={"id", "label", "code", "hint"},
      *     description="Order field",
      * )
      * @SWG\Parameter(
@@ -192,6 +188,8 @@ class AccountController extends AbstractApiController
     /**
      * @Route("/accounts/{user}", methods={"GET"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("USER_READ")
+     *
      * @SWG\Tag(name="Account")
      *
      * @SWG\Parameter(
@@ -224,8 +222,7 @@ class AccountController extends AbstractApiController
      */
     public function getUserData(string $user): Response
     {
-        $userId = new userId($user);
-
+        $userId = new UserId($user);
         $user = $this->query->getUser($userId);
 
         if (!empty($user)) {
@@ -237,6 +234,8 @@ class AccountController extends AbstractApiController
 
     /**
      * @Route("/accounts", methods={"POST"})
+     *
+     * @IsGranted("USER_CREATE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -278,23 +277,29 @@ class AccountController extends AbstractApiController
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var CreateUserFormModel $data */
                 $data = $form->getData();
-                $password = $this->encoder->encodePassword(new User($data->email, $data->password), $data->password);
-                $command = new CreateUserCommand($data->firstName, $data->lastName, $data->email, $data->language, new Password($password));
+                $command = new CreateUserCommand(
+                    $data->firstName,
+                    $data->lastName,
+                    new Email($data->email),
+                    $data->language,
+                    $data->password,
+                    $data->roleId
+                );
                 $this->messageBus->dispatch($command);
 
                 return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
      * @Route("/accounts/{user}", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("USER_UPDATE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -343,29 +348,36 @@ class AccountController extends AbstractApiController
 
         try {
             $model = new UpdateUserFormModel();
-            $form = $this->createForm(UserUpdateForm::class, $model, ['method' => 'PUT']);
+            $form = $this->createForm(UserUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var CreateUserFormModel $data */
+                /** @var UpdateUserFormModel $data */
                 $data = $form->getData();
-                $password = $data->password ? new Password($this->encoder->encodePassword(new User($user->getEmail(), $data->password), $data->password)) : null;
-                $command = new UpdateUserCommand($userId, $data->firstName, $data->lastName, $data->language, $password);
+
+                $command = new UpdateUserCommand(
+                    $userId,
+                    $data->firstName,
+                    $data->lastName,
+                    $data->language,
+                    $data->roleId,
+                    $data->password
+                );
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return $this->createRestResponse(['id' => $command->getId()]);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
      * @Route("/accounts/{user}/avatar", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("USER_UPDATE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -413,14 +425,14 @@ class AccountController extends AbstractApiController
 
             return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_ACCEPTED);
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
     }
 
     /**
      * @Route("/accounts/{user}/password", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("USER_UPDATE")
      *
      * @SWG\Tag(name="Account")
      * @SWG\Parameter(
@@ -471,23 +483,15 @@ class AccountController extends AbstractApiController
         $data = $request->request->all();
         $constraint = $this->builder->create();
         $violations = $this->validator->validate($data, $constraint);
-        $userId = new UserId($user->getId()->toString());
+        $userId = $this->getUser()->getId();
 
         if ($violations->count() === 0) {
-            $password = $this->encoder->encodePassword($user, $data['password']);
-            $command = new ChangeUserPasswordCommand($userId, new Password($password));
+            $command = new ChangeUserPasswordCommand($userId, new Password($data['password']));
             $this->messageBus->dispatch($command);
 
             return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
         }
 
-        $errors = [];
-        /** @var ConstraintViolationInterface $violation */
-        foreach ($violations as $violation) {
-            $field = substr($violation->getPropertyPath(), 1, -1);
-            $errors[$field] = [$violation->getMessage()];
-        }
-
-        return $this->createRestResponse(['message' => 'Validation error', 'code' => 400, 'errors' => $errors], [], Response::HTTP_BAD_REQUEST);
+        throw new ViolationsHttpException($violations);
     }
 }

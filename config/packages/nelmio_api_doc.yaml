@@ -84,12 +84,16 @@ nelmio_api_doc:
                         example: EN
                     password:
                         type: string
-                        equired: true
+                        required: true
                         example: 12345678
                     passwordRepeat:
                         type: string
                         equired: true
                         example: 12345678
+                    roleId:
+                        type: string
+                        required: true
+                        example: 86800536-0f2a-4920-9291-f35fdcea3839
             tree:
                 type: object
                 properties:
@@ -286,6 +290,28 @@ nelmio_api_doc:
                         required: true
                         description: password
                         example: 123
+
+            role:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                        description: Role name
+                        example: Role name
+                    description:
+                        type: string
+                        required: true
+                        description: Role description
+                        example: Role Description
+                    privileges:
+                        type: array
+                        items:
+                            type: string
+                        required: false
+                        description: List of role privileges
+                        example:
+                            [ ATTRIBUTE_CREATE, ATTRIBUTE_READ, ATTRIBUTE_UPDATE, ATTRIBUTE_DELETE]
             authentication:
                 type: object
                 properties:
@@ -294,6 +320,6 @@ nelmio_api_doc:
                         required: true
                         description: JWT token
                         example: eyJhbGciOiJSUzI1NiJ9.eyJyb2xlcyI6W10sInVzZXJuYW1lIjoidGVzdEBib2xkLm5ldC5wbCIsImlhdCI6MTUyODQ2MzAwOCwiZXhwIjoxNTI4NTQ5NDA4fQ
-    routes:
+    areas:
         path_patterns:
             - ^/api(?!/doc$)

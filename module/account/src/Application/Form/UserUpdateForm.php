@@ -10,6 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Form;
 
 use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
+use Ergonode\Account\Application\Form\Type\PasswordType;
+use Ergonode\Account\Application\Form\Type\RoleIdType;
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -37,15 +39,19 @@ class UserUpdateForm extends AbstractType
             )
             ->add(
                 'password',
-                TextType::class
+                PasswordType::class
             )
             ->add(
                 'passwordRepeat',
-                TextType::class
+                PasswordType::class
             )
             ->add(
                 'language',
                 LanguageType::class
+            )
+            ->add(
+                'roleId',
+                RoleIdType::class
             );
     }
 

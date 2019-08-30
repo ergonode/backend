@@ -19,9 +19,8 @@ use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
 use Ergonode\Value\Domain\Service\ValueManipulationService;
-use Ergonode\Value\Domain\ValueObject\CollectionValue;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Webmozart\Assert\Assert;
@@ -106,7 +105,7 @@ class ChangeProductAttributeValueCommandHandler
         }
 
         if ($attribute instanceof MultiSelectAttribute) {
-            return new CollectionValue($value);
+            return new StringCollectionValue($value);
         }
 
         if ($attribute instanceof SelectAttribute) {

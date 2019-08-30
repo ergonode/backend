@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Attribute\Application\Form\AttributeCreateForm;
 use Ergonode\Attribute\Application\Form\AttributeUpdateForm;
 use Ergonode\Attribute\Application\Form\Model\CreateAttributeFormModel;
@@ -23,16 +22,21 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeTemplateQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGrid;
+use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -86,6 +90,8 @@ class AttributeController extends AbstractApiController
 
     /**
      * @Route("/attributes", methods={"GET"})
+     *
+     * @IsGranted("ATTRIBUTE_READ")
      *
      * @SWG\Tag(name="Attribute")
      *
@@ -170,6 +176,8 @@ class AttributeController extends AbstractApiController
     /**
      * @Route("/attributes", methods={"POST"})
      *
+     * @IsGranted("ATTRIBUTE_CREATE")
+     *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
      *     name="language",
@@ -205,6 +213,8 @@ class AttributeController extends AbstractApiController
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function createAttribute(Request $request): Response
     {
@@ -234,16 +244,16 @@ class AttributeController extends AbstractApiController
                 return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
      * @Route("/attributes/{attribute}", methods={"GET"}, requirements={"attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("ATTRIBUTE_READ")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
@@ -283,11 +293,13 @@ class AttributeController extends AbstractApiController
             return $this->createRestResponse($result);
         }
 
-        return $this->createRestResponse(null, [], Response::HTTP_NOT_FOUND);
+        throw new NotFoundHttpException();
     }
 
     /**
      * @Route("/attributes/{attribute}", methods={"PUT"}, requirements={"attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("ATTRIBUTE_UPDATE")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
@@ -336,7 +348,6 @@ class AttributeController extends AbstractApiController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
                 /** @var UpdateAttributeFormModel $data */
                 $data = $form->getData();
 
@@ -354,9 +365,7 @@ class AttributeController extends AbstractApiController
                 return $this->createRestResponse(['id' => $command->getId()]);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([$exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
         return $this->createRestResponse($form);
@@ -364,6 +373,8 @@ class AttributeController extends AbstractApiController
 
     /**
      * @Route("/attributes/{attribute}", methods={"DELETE"}, requirements={"attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("ATTRIBUTE_DELETE")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(

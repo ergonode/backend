@@ -14,9 +14,13 @@ services:
         resource: '../../Application/Command/*'
         tags: ['console.command']
 
-#    Ergonode\Account\Domain\:
-#        resource: '../../Domain/*'
-#        exclude: '../../Domain/{Entity,ValueObject}'
+    Ergonode\Account\Application\Security\Voter\:
+        resource: '../../Application/Security/Voter/*'
+        tags: ['security.voter']
+
+    Ergonode\Account\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
 
     Ergonode\Account\Infrastructure\:
         resource: '../../Infrastructure/*'
@@ -31,5 +35,12 @@ services:
         tags: ['jms_serializer.subscribing_handler']
 
     Ergonode\Account\Domain\Repository\UserRepositoryInterface: '@Ergonode\Account\Persistence\Dbal\Repository\DbalUserRepository'
-    Ergonode\Account\Domain\Query\AccountQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\AccountQuery'
+    Ergonode\Account\Domain\Repository\RoleRepositoryInterface: '@Ergonode\Account\Persistence\Dbal\Repository\DbalRoleRepository'
+    Ergonode\Account\Domain\Query\AccountQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalAccountQuery'
     Ergonode\Account\Domain\Query\ProfileQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalProfileQuery'
+    Ergonode\Account\Domain\Query\PrivilegeQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalPrivilegeQuery'
+    Ergonode\Account\Domain\Query\RoleQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalRoleQuery'
+    Ergonode\Account\Domain\Query\LogQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalLogQuery'
+
+    Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface: '@Ergonode\Account\Infrastructure\Encoder\DomainUserPasswordEncoder'
+    Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolverInterface: '@Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolver'

@@ -19,6 +19,7 @@ use Ergonode\Account\Domain\Query\ProfileQueryInterface;
 class DbalProfileQuery implements ProfileQueryInterface
 {
     private const TABLE = 'users';
+
     /**
      * @var Connection
      */
@@ -33,9 +34,7 @@ class DbalProfileQuery implements ProfileQueryInterface
     }
 
     /**
-     * @param UserId $userId
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function getProfile(UserId $userId): array
     {
@@ -44,6 +43,8 @@ class DbalProfileQuery implements ProfileQueryInterface
             ->setParameter('userId', $userId->getValue())
             ->execute()
             ->fetch();
+
+        $result['privileges'] = json_decode($result['privileges'], true);
 
         return $result;
     }
@@ -54,7 +55,8 @@ class DbalProfileQuery implements ProfileQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('u.id, u.first_name, u.last_name, u.username AS email, u.language, u.avatar_id')
-            ->from(self::TABLE, 'u');
+            ->select('u.id, u.first_name, u.last_name, u.username AS email, u.language, u.avatar_id, r.name AS role, r.privileges')
+            ->from(self::TABLE, 'u')
+            ->join('u', 'roles', 'r', 'r.id = u.role_id');
     }
 }

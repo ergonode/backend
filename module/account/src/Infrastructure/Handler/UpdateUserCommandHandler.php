@@ -11,6 +11,8 @@ namespace Ergonode\Account\Infrastructure\Handler;
 
 use Ergonode\Account\Domain\Command\UpdateUserCommand;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Account\Domain\ValueObject\Password;
+use Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -23,11 +25,20 @@ class UpdateUserCommandHandler
     private $repository;
 
     /**
-     * @param UserRepositoryInterface $repository
+     * @var UserPasswordEncoderInterface
      */
-    public function __construct(UserRepositoryInterface $repository)
-    {
+    private $userPasswordEncoder;
+
+    /**
+     * @param UserRepositoryInterface      $repository
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
+     */
+    public function __construct(
+        UserRepositoryInterface $repository,
+        UserPasswordEncoderInterface $userPasswordEncoder
+    ) {
         $this->repository = $repository;
+        $this->userPasswordEncoder = $userPasswordEncoder;
     }
 
     /**
@@ -39,12 +50,19 @@ class UpdateUserCommandHandler
     {
         $user = $this->repository->load($command->getId());
         Assert::notNull($user);
+
         $user->changeFirstName($command->getFirstName());
         $user->changeLastName($command->getLastName());
         $user->changeLanguage($command->getLanguage());
-        if ($command->getPassword()) {
-            $user->changePassword($command->getPassword());
+        $user->changeRole($command->getRoleId());
+
+        if ($command->getPassword() instanceof Password) {
+            $encodedPassword = $this->userPasswordEncoder->encode($user, $command->getPassword());
+            if ($user->getPassword() !== $encodedPassword->getValue()) {
+                $user->changePassword($encodedPassword);
+            }
         }
+
         $this->repository->save($user);
     }
 }

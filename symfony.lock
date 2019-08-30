@@ -17,6 +17,9 @@
     "behat/transliterator": {
         "version": "v1.2.0"
     },
+    "composer/xdebug-handler": {
+        "version": "1.3.3"
+    },
     "container-interop/container-interop": {
         "version": "1.2.0"
     },
@@ -161,6 +164,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "jean85/pretty-package-versions": {
+        "version": "1.2"
+    },
     "jms/metadata": {
         "version": "1.6.0"
     },
@@ -227,6 +233,30 @@
             "ref": "1fee84e00c71edee81aa54b470260779a890c9c6"
         }
     },
+    "nette/bootstrap": {
+        "version": "v3.0.0"
+    },
+    "nette/di": {
+        "version": "v3.0.0"
+    },
+    "nette/finder": {
+        "version": "v2.5.0"
+    },
+    "nette/neon": {
+        "version": "v3.0.0"
+    },
+    "nette/php-generator": {
+        "version": "v3.2.3"
+    },
+    "nette/robot-loader": {
+        "version": "v3.2.0"
+    },
+    "nette/schema": {
+        "version": "v1.0.0"
+    },
+    "nette/utils": {
+        "version": "v3.0.1"
+    },
     "nikic/php-parser": {
         "version": "v4.0.2"
     },
@@ -265,6 +295,12 @@
     },
     "phpspec/prophecy": {
         "version": "1.7.6"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "0.3.5"
+    },
+    "phpstan/phpstan": {
+        "version": "0.11.12"
     },
     "phpunit/php-code-coverage": {
         "version": "6.0.7"
@@ -322,6 +358,9 @@
     },
     "roave/security-advisories": {
         "version": "dev-master"
+    },
+    "scn/deepl-api-connector": {
+        "version": "v2.0.0"
     },
     "sebastian/code-unit-reverse-lookup": {
         "version": "1.0.1"
@@ -476,9 +515,6 @@
             "ref": "85ab0b55d90a8f3e29e1b685a71f5b37923a7f5e"
         }
     },
-    "symfony/mime": {
-        "version": "4.3-dev"
-    },
     "symfony/monolog-bridge": {
         "version": "v4.1.1"
     },
@@ -509,17 +545,11 @@
     "symfony/polyfill-intl-icu": {
         "version": "v1.8.0"
     },
-    "symfony/polyfill-intl-idn": {
-        "version": "v1.11.0"
-    },
     "symfony/polyfill-mbstring": {
         "version": "v1.8.0"
     },
     "symfony/polyfill-php72": {
         "version": "v1.8.0"
-    },
-    "symfony/polyfill-php73": {
-        "version": "1.11-dev"
     },
     "symfony/process": {
         "version": "v4.1.1"

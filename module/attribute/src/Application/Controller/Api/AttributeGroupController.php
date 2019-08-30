@@ -9,15 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGrid;
+use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -45,6 +46,8 @@ class AttributeGroupController extends AbstractApiController
 
     /**
      * @Route("/attributes/groups", methods={"GET"})
+     *
+     * @IsGranted("ATTRIBUTE_GROUP_READ")
      *
      * @SWG\Tag(name="Attribute")
      *

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -39,5 +40,10 @@ final class Version20180619083830 extends AbstractErgonodeMigration
         $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['ACCEPTED', 'Accepted']);
         $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['TO_ACCEPTED', 'To accept']);
         $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['TO_CORRECT', 'To correct']);
+
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'PRODUCT_CREATE', 'Product']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'PRODUCT_READ', 'Product']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'PRODUCT_UPDATE', 'Product']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'PRODUCT_DELETE', 'Product']);
     }
 }

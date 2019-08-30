@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
@@ -22,7 +21,7 @@ use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
-class MultiSelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
+class MultiSelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
 {
     /**
      * @param AbstractAttribute $attribute
@@ -35,12 +34,7 @@ class MultiSelectAttributeColumnStrategy implements AttributeColumnStrategyInter
     }
 
     /**
-     * @param AbstractAttribute|AbstractOptionAttribute $attribute
-     * @param Language                                  $language
-     * @param FilterCollection                          $filter
-     *
-     * @return ColumnInterface
-     *
+     * {@inheritDoc}
      */
     public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {
@@ -48,14 +42,19 @@ class MultiSelectAttributeColumnStrategy implements AttributeColumnStrategyInter
         foreach ($attribute->getOptions() as $id => $option) {
             if ($option instanceof StringOption) {
                 $options[$id] = $option->getValue();
-            }
-            if ($option instanceof MultilingualOption) {
+            } elseif ($option instanceof MultilingualOption) {
                 $options[$id] = $option->getValue()->get($language);
             }
         }
 
-        $key = $attribute->getCode()->getValue();
+        $columnKey = $filterKey = $attribute->getCode()->getValue();
 
-        return new MultiSelectColumn($key, $attribute->getLabel()->get($language), new MultiSelectFilter($options, $filter->getArray($key)));
+        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
+
+        return new MultiSelectColumn(
+            $columnKey,
+            $attribute->getLabel()->get($language),
+            new MultiSelectFilter($options, $filter->getArray($filterKey))
+        );
     }
 }

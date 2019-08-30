@@ -9,27 +9,29 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Application\Controller\Api;
 
+use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Application\Form\TreeForm;
 use Ergonode\CategoryTree\Application\Model\TreeFormModel;
 use Ergonode\CategoryTree\Domain\Command\AddCategoryCommand;
+use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
 use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
+use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
+use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
 use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
-use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
-use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -75,6 +77,8 @@ class CategoryTreeController extends AbstractApiController
 
     /**
      * @Route("/trees", methods={"GET"})
+     *
+     * @IsGranted("CATEGORY_TREE_READ")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(
@@ -152,6 +156,8 @@ class CategoryTreeController extends AbstractApiController
     /**
      * @Route("/trees", methods={"POST"})
      *
+     * @IsGranted("CATEGORY_TREE_CREATE")
+     *
      * @SWG\Tag(name="Tree")
      *
      * @SWG\Parameter(
@@ -208,11 +214,13 @@ class CategoryTreeController extends AbstractApiController
             return $this->createRestResponse(['message' => 'tree already exists'], [], Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->createRestResponse([], [], Response::HTTP_BAD_REQUEST);
+        throw new BadRequestHttpException();
     }
 
     /**
      * @Route("/trees/{tree}/category/{category}/child", methods={"POST"})
+     *
+     * @IsGranted("CATEGORY_CREATE")
      *
      * @SWG\Tag(name="Tree")
      *
@@ -273,11 +281,13 @@ class CategoryTreeController extends AbstractApiController
             return $this->createRestResponse([], [], Response::HTTP_ACCEPTED);
         }
 
-        return $this->createRestResponse([], [], Response::HTTP_BAD_REQUEST);
+        throw new BadRequestHttpException();
     }
 
     /**
      * @Route("/trees/{tree}", methods={"PUT"})
+     *
+     * @IsGranted("CATEGORY_TREE_UPDATE")
      *
      * @SWG\Tag(name="Tree")
      *
@@ -335,9 +345,7 @@ class CategoryTreeController extends AbstractApiController
                 return $this->createRestResponse($data, [], Response::HTTP_CREATED);
             }
         } catch (InvalidPropertyPathException $exception) {
-            return $this->createRestResponse(['code' => Response::HTTP_BAD_REQUEST, 'message' => 'Invalid JSON format'], [], Response::HTTP_BAD_REQUEST);
-        } catch (\Throwable $exception) {
-            return $this->createRestResponse([\get_class($exception), $exception->getMessage(), $exception->getTraceAsString()], [], Response::HTTP_INTERNAL_SERVER_ERROR);
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
         return $this->createRestResponse($form, [$form->getErrors()->count()], Response::HTTP_BAD_REQUEST);
@@ -345,6 +353,8 @@ class CategoryTreeController extends AbstractApiController
 
     /**
      * @Route("/trees/{tree}", methods={"GET"})
+     *
+     * @IsGranted("CATEGORY_TREE_READ")
      *
      * @SWG\Tag(name="Tree")
      *

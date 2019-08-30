@@ -82,7 +82,7 @@ class DbalDataSet implements DataSetInterface
     {
         foreach ($columns as $field => $column) {
             $filter = $column->getFilter();
-            if ($filter && !empty($filter->getValue())) {
+            if ($filter && $filter->getValue() !== null && $filter->getValue() !== []) {
                 if ($filter instanceof TextFilter && !$filter->isEqual()) {
                     $value = $filter->getValue();
                     if ($value === null) {
@@ -101,7 +101,7 @@ class DbalDataSet implements DataSetInterface
                     if (is_string($filter->getValue())) {
                         $value = [$value];
                     }
-                    if (!empty($value)) {
+                    if (!empty($value) && reset($value) !== '') {
                         $query->andWhere(
                             \sprintf(
                                 'jsonb_exists_any(%s, %s)',
@@ -112,7 +112,7 @@ class DbalDataSet implements DataSetInterface
                     } else {
                         $query->andWhere(sprintf('%s::TEXT = \'[]\'::TEXT', $field));
                     }
-                } elseif (!empty($filter->getValue())) {
+                } elseif ($filter->getValue()) {
                     $value = $filter->getValue();
                     $query->andWhere(
                         $query->expr()->eq(

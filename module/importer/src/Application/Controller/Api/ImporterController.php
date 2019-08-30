@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Application\Controller\Api;
 
 use Ergonode\Core\Application\Controller\AbstractApiController;
+use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Importer\Application\Form\UploadForm;
@@ -21,12 +22,13 @@ use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 use Ergonode\Importer\Infrastructure\Grid\ImportGrid;
 use Ergonode\Reader\Domain\Entity\ReaderId;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  */
@@ -72,6 +74,8 @@ class ImporterController extends AbstractApiController
 
     /**
      * @Route("imports", methods={"GET"})
+     *
+     * @IsGranted("IMPORT_READ")
      *
      * @SWG\Tag(name="Importer")
      * @SWG\Parameter(
@@ -155,6 +159,8 @@ class ImporterController extends AbstractApiController
     /**
      * @Route("imports/{import}", methods={"GET"}, requirements={"import"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("IMPORT_READ")
+     *
      * @SWG\Tag(name="Importer")
      * @SWG\Parameter(
      *     name="language",
@@ -192,6 +198,8 @@ class ImporterController extends AbstractApiController
 
     /**
      * @Route("imports/upload", methods={"POST"})
+     *
+     * @IsGranted("IMPORT_CREATE")
      *
      * @SWG\Tag(name="Importer")
      * @SWG\Parameter(
@@ -264,7 +272,7 @@ class ImporterController extends AbstractApiController
 
             $response = $this->createRestResponse(['id' => $command->getId()->getValue()]);
         } else {
-            $response = $this->createRestResponse($form, [], Response::HTTP_BAD_REQUEST);
+            throw new FormValidationHttpException($form);
         }
 
         return $response;
