@@ -82,7 +82,7 @@ class DbalDataSet implements DataSetInterface
     {
         foreach ($columns as $field => $column) {
             $filter = $column->getFilter();
-            if ($filter && $filter->getValue() !== null) {
+            if ($filter && $filter->getValue() !== null && $filter->getValue() !== []) {
                 if ($filter instanceof TextFilter && !$filter->isEqual()) {
                     $value = $filter->getValue();
                     if ($value === null) {

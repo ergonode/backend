@@ -43,7 +43,7 @@ class DbalLogQuery implements LogQueryInterface
         $result = $this->connection->createQueryBuilder();
 
         $qb = $this->getQuery();
-        if ($id) {
+        if (null !== $id) {
             $qb->andWhere($qb->expr()->eq('recorded_by', ':id'));
             $result->setParameter(':id', $id->getValue());
         }
