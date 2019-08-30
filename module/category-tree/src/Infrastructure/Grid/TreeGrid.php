@@ -11,6 +11,7 @@ namespace Ergonode\CategoryTree\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
@@ -48,6 +49,7 @@ class TreeGrid extends AbstractGrid
         $name->setWidth(280);
         $this->addColumn('name', $name);
         $this->orderBy('name', 'ASC');
+        $this->addColumn('edit', new ActionColumn('edit'));
     }
 
     /**
