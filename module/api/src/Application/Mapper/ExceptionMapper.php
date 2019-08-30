@@ -29,7 +29,7 @@ class ExceptionMapper implements ExceptionMapperInterface
     /**
      * {@inheritDoc}
      */
-    public function map(\Exception $exception): ?array
+    public function map(\Throwable $exception): ?array
     {
         $class = $this->findClass($exception);
 
@@ -42,11 +42,11 @@ class ExceptionMapper implements ExceptionMapperInterface
     }
 
     /**
-     * @param \Exception $exception
+     * @param \Throwable $exception
      *
      * @return string|null
      */
-    private function findClass(\Exception $exception): ?string
+    private function findClass(\Throwable $exception): ?string
     {
         $result = null;
 

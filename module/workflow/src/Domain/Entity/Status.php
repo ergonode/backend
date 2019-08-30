@@ -173,7 +173,7 @@ class Status extends AbstractAggregateRoot
      */
     protected function applyStatusDescriptionChangedEvent(StatusDescriptionChangedEvent $event): void
     {
-        $this->name = $event->getTo();
+        $this->description = $event->getTo();
     }
 
     /**
@@ -181,6 +181,6 @@ class Status extends AbstractAggregateRoot
      */
     protected function applyStatusColorChangedEvent(StatusColorChangedEvent $event): void
     {
-        $this->name = $event->getTo();
+        $this->color = $event->getTo();
     }
 }

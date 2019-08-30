@@ -123,7 +123,8 @@ class TranslatableString implements \IteratorAggregate
      */
     public function isEqual(TranslatableString $string): bool
     {
-        return array_diff_assoc($string->getTranslations(), $this->translations) > 0 || array_diff_assoc($this->translations, $string->getTranslations()) > 0 ;
+        return count(array_diff_assoc($string->getTranslations(), $this->translations)) === 0
+            && count(array_diff_assoc($this->translations, $string->getTranslations())) === 0;
     }
 
     /**

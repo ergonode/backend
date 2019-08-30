@@ -14,9 +14,9 @@ namespace Ergonode\Api\Application\Mapper;
 interface ExceptionMapperInterface
 {
     /**
-     * @param \Exception $exception
+     * @param \Throwable $exception
      *
      * @return array|null
      */
-    public function map(\Exception $exception): ?array;
+    public function map(\Throwable $exception): ?array;
 }
