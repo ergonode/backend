@@ -85,12 +85,12 @@ class CategoryTree extends AbstractAggregateRoot
     }
 
     /**
-     * @param TranslatableString $title
+     * @param TranslatableString $name
      */
-    public function changeName(TranslatableString $title): void
+    public function changeName(TranslatableString $name): void
     {
-        if ($this->name->getTranslations() !== $title->getTranslations()) {
-            $this->apply(new CategoryTreeNameChangedEvent($this->name, $title));
+        if ($this->name->getTranslations() !== $name->getTranslations()) {
+            $this->apply(new CategoryTreeNameChangedEvent($this->name, $name));
         }
     }
 
