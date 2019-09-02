@@ -194,19 +194,18 @@ class CategoryTreeController extends AbstractController
      */
     public function createTree(Request $request): Response
     {
-        try {
-            $model = new CategoryTreeCreateFormModel();
-            $form = $this->createForm(CategoryTreeCreateForm::class, $model);
+        $model = new CategoryTreeCreateFormModel();
+        $form = $this->createForm(CategoryTreeCreateForm::class, $model);
 
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $data = $form->getData();
-                $tree = $this->treeRepository->exists(CategoryTreeId::fromKey($data->code));
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $tree = $this->treeRepository->exists(CategoryTreeId::fromKey($data->code));
 
-                if (!$tree) {
-                    $command = new CreateTreeCommand(new TranslatableString($data->name), $data->code);
-                    $this->messageBus->dispatch($command);
+            if (!$tree) {
+                $command = new CreateTreeCommand(new TranslatableString($data->name), $data->code);
+                $this->messageBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());
             }

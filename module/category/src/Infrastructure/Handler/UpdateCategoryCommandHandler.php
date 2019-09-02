@@ -11,7 +11,6 @@ namespace Ergonode\Category\Infrastructure\Handler;
 
 use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
-use Ergonode\Category\Domain\Updater\CategoryUpdater;
 use Webmozart\Assert\Assert;
 
 /**
@@ -41,7 +40,6 @@ class UpdateCategoryCommandHandler
         $category = $this->repository->load($command->getId());
         Assert::notNull($category);
         $category->changeName($command->getName());
-
         $this->repository->save($category);
     }
 }

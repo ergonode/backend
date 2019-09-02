@@ -3,14 +3,6 @@ Ergonode\CategoryTree\Domain\Entity\CategoryTreeId:
         __construct:
             - '<Uuid()>'
 
-Ergonode\Core\Domain\ValueObject\TranslatableString:
-    category_tree_name:
-        __construct:
-            -
-                'PL': 'Polish_name'
-                'EN': 'English_name'
-                'ZH': 'Chinese_name'
-
 Ergonode\CategoryTree\Domain\Entity\CategoryTree:
     category_tree:
         __construct:
@@ -247,6 +239,11 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
             -
                 'PL': 'Opublikowany'
                 'EN': 'Published'
+    category_tree_name:
+        __construct:
+            - 'PL': 'Polish_name'
+              'EN': 'English_name'
+              'ZH': 'Chinese_name'
 
 Ergonode\Workflow\Domain\Entity\Status:
     status_new:
