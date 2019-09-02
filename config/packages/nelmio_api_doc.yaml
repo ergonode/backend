@@ -156,20 +156,35 @@ nelmio_api_doc:
                             $ref: "#/definitions/transition"
                             description: list of transisiotn between statuses
                         example: []
+            tree_req:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        description: Category tree code
+                        required: true
+                        example: Default
+                    name:
+                        type: object
+                        description: category name
+                        example:
+                            DE: Name DE
+                            EN: Name EN
 
             tree:
                 type: object
                 properties:
-                    id:
+                    code:
                         type: string
-                        description: Category tree id
-                        required: true
-                        example: category tree id
-                    name:
-                        type: string
-                        description: Category name
+                        description: Category tree code
                         required: true
                         example: Default
+                    name:
+                        type: object
+                        description: category name
+                        example:
+                            DE: Name DE
+                            EN: Name EN
                     categories:
                         type: array
                         items:

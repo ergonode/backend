@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\ValueObject;
 
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Workflow\Domain\Entity\StatusId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */

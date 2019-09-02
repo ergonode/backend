@@ -16,7 +16,6 @@ use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
 use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

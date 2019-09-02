@@ -2,6 +2,12 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
     category_name_{1..10}:
         __construct:
             - {PL : <category()>}
+    category_tree_name:
+        __construct:
+            -
+                'PL': 'Polish_name'
+                'EN': 'English_name'
+                'ZH': 'Chinese_name'
 
 Ergonode\Category\Domain\Entity\Category:
     category_{1..10}:
@@ -20,6 +26,7 @@ Ergonode\CategoryTree\Domain\Entity\CategoryTree:
         __construct:
             - '@category_tree_id'
             - 'default'
+            - '@category_tree_name'
             - '<categoryId(code_1)>'
         __calls:
             - addCategory: ['<categoryId(code_2)>', '<categoryId(code_1)>']

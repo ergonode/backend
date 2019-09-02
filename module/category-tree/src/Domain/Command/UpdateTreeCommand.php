@@ -13,6 +13,7 @@ use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Application\Model\TreeNodeFormModel;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -31,6 +32,13 @@ class UpdateTreeCommand
      *
      * @JMS\Type("string")
      */
+    private $code;
+
+    /**
+     * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
+     */
     private $name;
 
     /**
@@ -41,18 +49,21 @@ class UpdateTreeCommand
     private $categories;
 
     /**
-     * @param CategoryTreeId      $id
-     * @param string              $name
-     * @param TreeNodeFormModel[] $categories
+     * @param CategoryTreeId     $id
+     * @param string             $code
+     * @param TranslatableString $name
+     * @param array              $categories
      */
-    public function __construct(CategoryTreeId $id, string $name, array $categories)
+    public function __construct(CategoryTreeId $id, string $code, TranslatableString $name, array $categories)
     {
         $this->id = $id;
+        $this->code = $code;
         $this->name = $name;
         foreach ($categories as $category) {
             $this->categories[] = $this->createNode($category);
         }
     }
+
 
     /**
      * @return CategoryTreeId
@@ -65,7 +76,15 @@ class UpdateTreeCommand
     /**
      * @return string
      */
-    public function getName(): string
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @return TranslatableString
+     */
+    public function getName(): TranslatableString
     {
         return $this->name;
     }

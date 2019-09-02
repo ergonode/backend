@@ -8,6 +8,7 @@ Ergonode\CategoryTree\Domain\Entity\CategoryTree:
         __construct:
             - '@category_tree_id'
             - 'default'
+            - '@category_tree_name'
 
 Ergonode\Account\Domain\Entity\RoleId:
     superadmin_role_id:
@@ -238,6 +239,11 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
             -
                 'PL': 'Opublikowany'
                 'EN': 'Published'
+    category_tree_name:
+        __construct:
+            - 'PL': 'Polish_name'
+              'EN': 'English_name'
+              'ZH': 'Chinese_name'
 
 Ergonode\Workflow\Domain\Entity\Status:
     status_new:
