@@ -40,8 +40,7 @@ class DeleteRoleCommandHandler
     {
         $role = $this->repository->load($command->getId());
         Assert::isInstanceOf($role, Role::class, sprintf('Can\'t find Role with id %s', $command->getId()));
-        $role->remove();
 
-        $this->repository->save($role);
+        $this->repository->delete($role);
     }
 }
