@@ -15,6 +15,7 @@ use Ergonode\Account\Domain\Event\Role\RoleCreatedEvent;
 use Ergonode\Account\Domain\Event\Role\RoleDescriptionChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
+use Ergonode\Account\Domain\Event\Role\RoleRemovedEvent;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
@@ -223,5 +224,13 @@ class Role extends AbstractAggregateRoot
     protected function applyRolePrivilegesChangedEvent(RolePrivilegesChangedEvent $event): void
     {
         $this->privileges = $event->getTo();
+    }
+
+    /**
+     * @param RoleRemovedEvent $event
+     */
+    protected function applyRoleRemoveEvent(RoleRemovedEvent $event): void
+    {
+
     }
 }
