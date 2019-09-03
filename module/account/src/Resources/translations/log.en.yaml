@@ -13,7 +13,7 @@
 "Ergonode\\Account\\Domain\\Event\\Role\\RoleNameChangedEvent": Role name changed from "%from%" to "%to%"
 "Ergonode\\Account\\Domain\\Event\\Role\\RoleDescriptionChangedEvent": Role description changed from "%from%" to "%to%"
 "Ergonode\\Account\\Domain\\Event\\Role\\RolePrivilegesChangedEvent": List of pirivileges changed
-"Ergonode\\Account\\Domain\\Event\\Role\\RoleRemovedEvent": Role removed
+"Ergonode\\Account\\Domain\\Event\\Role\\RoleDeletedEvent": Role deleted
 
 
 

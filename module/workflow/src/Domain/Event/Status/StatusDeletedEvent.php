@@ -2,17 +2,17 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See LICENSE.txt for license details.
+ * See license.txt for license details.
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Domain\Event\Role;
+namespace Ergonode\Workflow\Domain\Event\Status;
 
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 
 /**
  */
-class RoleRemovedEvent extends AbstractDeleteEvent
+class StatusDeletedEvent extends AbstractDeleteEvent
 {
 }

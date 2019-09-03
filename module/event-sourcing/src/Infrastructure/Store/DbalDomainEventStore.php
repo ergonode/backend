@@ -156,7 +156,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
             $queryBuilder = $this->connection->createQueryBuilder()
                 ->from($historyTable)
                 ->select('variant')
-                ->where('aggregare_id = :id')
+                ->where('aggregate_id = :id')
                 ->orderBy('variant', 'DESC')
                 ->setMaxResults(1)
                 ->setParameter('id', $id->getValue());

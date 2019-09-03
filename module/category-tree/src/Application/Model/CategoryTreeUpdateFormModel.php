@@ -13,18 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
-class TreeFormModel
+class CategoryTreeUpdateFormModel
 {
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank(message="Category code is required")
-     * @Assert\Regex(pattern="/^[a-zA-Z0-9-_]+$/i", message="Category tree code can have only letters, digits or underscore symbol")
-     * @Assert\Length(min="3", max="64")
-     */
-    public $code;
-
-
     /**
      * @var array
      *

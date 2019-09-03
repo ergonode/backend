@@ -14,7 +14,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Entity\StatusId;
-use Ergonode\Workflow\Domain\Event\Status\StatusRemovedEvent;
+use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 
 /**
@@ -99,7 +99,7 @@ class DbalStatusRepository implements StatusRepositoryInterface
      */
     public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
-        $aggregateRoot->apply(new StatusRemovedEvent());
+        $aggregateRoot->apply(new StatusDeletedEvent());
         $this->save($aggregateRoot);
 
         $this->eventStore->delete($aggregateRoot->getId());

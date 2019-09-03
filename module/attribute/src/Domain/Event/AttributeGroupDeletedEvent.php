@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AttributeGroupRemovedEvent implements DomainEventInterface
+class AttributeGroupDeletedEvent implements DomainEventInterface
 {
     /**
      * @var AttributeGroupId

@@ -5,7 +5,7 @@
 "Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeArrayParameterChangeEvent": Ustawienia atrybutu zostały zmienione
 "Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeParameterChangeEvent": Ustawienia atrybutu zostały zmieniona
 "Ergonode\\Attribute\\Domain\\Event\\AttributeGroupAddedEvent": Atrybut dodany do grupy
-"Ergonode\\Attribute\\Domain\\Event\\AttributeGroupRemovedEvent": Atrybut usunięty z grupy
+"Ergonode\\Attribute\\Domain\\Event\\AttributeGroupDeletedEvent": Atrybut usunięty z grupy
 "Ergonode\\Attribute\\Domain\\Event\\AttributeOptionAddedEvent": Opcja atrybutu "%key%" została dodana
 "Ergonode\\Attribute\\Domain\\Event\\AttributeOptionRemovedEvent": Opcja atrybutu "%key%" została zmieniona
 "Ergonode\\Attribute\\Domain\\Event\\AttributeOptionChangedEvent": Opcja atrybutu "%key%" została usunięta

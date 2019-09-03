@@ -9,7 +9,7 @@ namespace Ergonode\Account\Persistence\Dbal\Repository;
 
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Account\Domain\Event\Role\RoleRemovedEvent;
+use Ergonode\Account\Domain\Event\Role\RoleDeletedEvent;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
@@ -88,7 +88,7 @@ class DbalRoleRepository implements RoleRepositoryInterface
      */
     public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
-        $aggregateRoot->apply(new RoleRemovedEvent());
+        $aggregateRoot->apply(new RoleDeletedEvent());
 
         $this->save($aggregateRoot);
 

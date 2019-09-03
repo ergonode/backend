@@ -13,4 +13,4 @@
 "Ergonode\\Account\\Domain\\Event\\Role\\RoleDescriptionChangedEvent": Opis roli została zmieniona z "%from%" na "%to%"
 "Ergonode\\Account\\Domain\\Event\\Role\\RoleNameChangedEvent": Nazwa roli została zmieniona z "%from%" na "%to%"
 "Ergonode\\Account\\Domain\\Event\\Role\\RolePrivilegesChangedEvent": List uprawnień została zmieniona
-"Ergonode\\Account\\Domain\\Event\\Role\\RoleRemovedEvent": Rola została usunięta
+"Ergonode\\Account\\Domain\\Event\\Role\\RoleDeletedEvent": Rola została usunięta

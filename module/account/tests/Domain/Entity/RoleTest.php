@@ -130,13 +130,4 @@ class RoleTest extends TestCase
         $role = new Role($this->roleId, $this->name, $this->description);
         $role->changesPrivileges([$privileges]);
     }
-
-    /**
-     */
-    public function testDelete(): void
-    {
-        $role = new Role($this->roleId, $this->name, $this->description);
-        $role->remove();
-        $this->assertTrue($role->isDeleted());
-    }
 }

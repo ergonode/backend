@@ -50,14 +50,12 @@ class UpdateTreeCommand
 
     /**
      * @param CategoryTreeId     $id
-     * @param string             $code
      * @param TranslatableString $name
      * @param array              $categories
      */
-    public function __construct(CategoryTreeId $id, string $code, TranslatableString $name, array $categories)
+    public function __construct(CategoryTreeId $id, TranslatableString $name, array $categories)
     {
         $this->id = $id;
-        $this->code = $code;
         $this->name = $name;
         foreach ($categories as $category) {
             $this->categories[] = $this->createNode($category);
@@ -71,14 +69,6 @@ class UpdateTreeCommand
     public function getId(): CategoryTreeId
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCode(): string
-    {
-        return $this->code;
     }
 
     /**

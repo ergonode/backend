@@ -7,20 +7,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
+namespace Ergonode\Workflow\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\Role\RoleRemovedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 
 /**
  */
-class RoleRemovedEventProjector implements DomainEventProjectorInterface
+class StatusDeletedEventProjector implements DomainEventProjectorInterface
 {
-    private const TABLE = 'roles';
+    private const TABLE = 'status';
 
     /**
      * @var Connection
@@ -40,7 +40,7 @@ class RoleRemovedEventProjector implements DomainEventProjectorInterface
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof RoleRemovedEvent;
+        return $event instanceof StatusDeletedEvent;
     }
 
     /**
@@ -48,8 +48,8 @@ class RoleRemovedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof RoleRemovedEvent) {
-            throw new UnsupportedEventException($event, RoleRemovedEvent::class);
+        if (!$event instanceof StatusDeletedEvent) {
+            throw new UnsupportedEventException($event, StatusDeletedEvent::class);
         }
 
         $this->connection->delete(
