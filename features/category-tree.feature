@@ -2,10 +2,16 @@ Feature: Category tree module
 
   Scenario: Create category tree
     Given current authentication token
-    Given the following form parameters are set:
-      | name | value                |
-      | name | Test                 |
-      | code | TREE_@@random_code@@ |
+    Given the request body is:
+      """
+      {
+        "code": "TREE_@@random_code@@",
+        "name": {
+          "DE": "Test DE",
+          "EN": "Test EN"
+        }
+      }
+      """
     When I request "/api/v1/EN/trees" using HTTP POST
     Then created response is received
     And remember response param "id" as "category_tree"
@@ -35,7 +41,10 @@ Feature: Category tree module
     Given the request body is:
     """
       {
-        "name": "Test (changed)",
+        "name": {
+          "DE": "Test DE (changed)",
+          "EN": "Test EN (changed)"
+        },
         "categories": [
           {
             "category_id": "@tree_category@",

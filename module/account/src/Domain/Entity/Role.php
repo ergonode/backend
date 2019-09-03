@@ -15,10 +15,8 @@ use Ergonode\Account\Domain\Event\Role\RoleCreatedEvent;
 use Ergonode\Account\Domain\Event\Role\RoleDescriptionChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
-use Ergonode\Account\Domain\Event\Role\RoleRemovedEvent;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Core\Domain\ValueObject\State;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -56,13 +54,6 @@ class Role extends AbstractAggregateRoot
     private $privileges;
 
     /**
-     * @var State
-     *
-     * @JMS\Exclude()
-     */
-    private $state;
-
-    /**
      * @param RoleId $id
      * @param string $name
      * @param string $description
@@ -75,15 +66,6 @@ class Role extends AbstractAggregateRoot
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
         $this->apply(new RoleCreatedEvent($id, $name, $description, $privileges));
-    }
-
-    /**
-     */
-    public function remove(): void
-    {
-        if ($this->state->getValue() !== State::STATE_DELETED) {
-            $this->apply(new RoleRemovedEvent());
-        }
     }
 
     /**
@@ -189,14 +171,6 @@ class Role extends AbstractAggregateRoot
     }
 
     /**
-     * @return bool
-     */
-    public function isDeleted(): bool
-    {
-        return $this->state->getValue() === State::STATE_DELETED;
-    }
-
-    /**
      * @param RoleCreatedEvent $event
      */
     protected function applyRoleCreatedEvent(RoleCreatedEvent $event): void
@@ -205,15 +179,6 @@ class Role extends AbstractAggregateRoot
         $this->name = $event->getName();
         $this->description = $event->getDescription();
         $this->privileges = $event->getPrivileges();
-        $this->state = new State();
-    }
-
-    /**
-     * @param RoleRemovedEvent $event
-     */
-    protected function applyRoleRemovedEvent(RoleRemovedEvent $event): void
-    {
-        $this->state = new State(State::STATE_DELETED);
     }
 
     /**

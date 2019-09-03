@@ -196,7 +196,6 @@ class CategoryTreeController extends AbstractController
     {
         $model = new CategoryTreeCreateFormModel();
         $form = $this->createForm(CategoryTreeCreateForm::class, $model);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

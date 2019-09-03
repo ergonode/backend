@@ -7,20 +7,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Persistence\Dbal\Projector;
+namespace Ergonode\Workflow\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Designer\Domain\Event\TemplateElementRemovedEvent;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 
 /**
  */
-class TemplateElementRemovedEventProjector implements DomainEventProjectorInterface
+class StatusDeletedEventProjector implements DomainEventProjectorInterface
 {
-    private const ELEMENT_TABLE = 'designer.template_element';
+    private const TABLE = 'status';
 
     /**
      * @var Connection
@@ -40,7 +40,7 @@ class TemplateElementRemovedEventProjector implements DomainEventProjectorInterf
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof TemplateElementRemovedEvent;
+        return $event instanceof StatusDeletedEvent;
     }
 
     /**
@@ -48,16 +48,14 @@ class TemplateElementRemovedEventProjector implements DomainEventProjectorInterf
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof TemplateElementRemovedEvent) {
-            throw new UnsupportedEventException($event, TemplateElementRemovedEvent::class);
+        if (!$event instanceof StatusDeletedEvent) {
+            throw new UnsupportedEventException($event, StatusDeletedEvent::class);
         }
 
         $this->connection->delete(
-            self::ELEMENT_TABLE,
+            self::TABLE,
             [
-                'template_id' => $aggregateId->getValue(),
-                'x' => $event->getPosition()->getX(),
-                'y' => $event->getPosition()->getY(),
+                'id' => $aggregateId->getValue(),
             ]
         );
     }

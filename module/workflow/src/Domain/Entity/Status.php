@@ -9,17 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Entity;
 
-use Ergonode\Account\Domain\Event\Role\RoleRemovedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Color;
-use Ergonode\Core\Domain\ValueObject\State;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Workflow\Domain\Event\Status\StatusColorChangedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusDescriptionChangedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusNameChangedEvent;
-use Ergonode\Workflow\Domain\Event\Status\StatusRemovedEvent;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -62,13 +59,6 @@ class Status extends AbstractAggregateRoot
     private $description;
 
     /**
-     * @var State
-     *
-     * @JMS\Exclude()
-     */
-    private $state;
-
-    /**
      * @param StatusId           $id
      * @param string             $code
      * @param Color              $color
@@ -88,23 +78,6 @@ class Status extends AbstractAggregateRoot
     public function getId(): AbstractId
     {
         return $this->id;
-    }
-
-    /**
-     */
-    public function remove(): void
-    {
-        if ($this->state->getValue() !== State::STATE_DELETED) {
-            $this->apply(new StatusRemovedEvent($this->id));
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDeleted(): bool
-    {
-        return $this->state->getValue() === State::STATE_DELETED;
     }
 
     /**
@@ -185,7 +158,6 @@ class Status extends AbstractAggregateRoot
         $this->color = $event->getColor();
         $this->name = $event->getName();
         $this->description = $event->getDescription();
-        $this->state = new State();
     }
 
     /**
@@ -210,13 +182,5 @@ class Status extends AbstractAggregateRoot
     protected function applyStatusColorChangedEvent(StatusColorChangedEvent $event): void
     {
         $this->color = $event->getTo();
-    }
-
-    /**
-     * @param StatusRemovedEvent $event
-     */
-    protected function applyStatusRemovedEvent(StatusRemovedEvent $event): void
-    {
-        $this->state = new State(State::STATE_DELETED);
     }
 }

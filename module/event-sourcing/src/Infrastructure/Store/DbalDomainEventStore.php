@@ -72,11 +72,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
     }
 
     /**
-     * @param AbstractId $id
-     *
-     * @param string     $table
-     *
-     * @return DomainEventStream
+     * {@inheritDoc}
      *
      * @throws \Psr\Cache\InvalidArgumentException
      */
@@ -119,19 +115,16 @@ class DbalDomainEventStore implements DomainEventStoreInterface
     }
 
     /**
-     * @param AbstractId        $id
-     * @param DomainEventStream $stream
+     * {@inheritDoc}
      *
-     * @param string            $table
-     *
-     * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Throwable
      */
     public function append(AbstractId $id, DomainEventStream $stream, ?string $table = null): void
     {
         $table = $table ?: self::TABLE;
-        $this->connection->beginTransaction();
-        try {
+
+        $this->connection->transactional(function () use ($id, $stream, $table) {
+            $userId = $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser()->getId()->getValue() : null;
             foreach ($stream as $envelope) {
                 $payload = $this->serializer->serialize($envelope->getEvent(), 'json');
                 $this->connection->insert(
@@ -142,14 +135,53 @@ class DbalDomainEventStore implements DomainEventStoreInterface
                         'event' => $envelope->getType(),
                         'payload' => $payload,
                         'recorded_at' => $envelope->getRecordedAt()->format('Y-m-d H:i:s'),
-                        'recorded_by' => $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser()->getId()->getValue() : null,
+                        'recorded_by' => $userId,
                     ]
                 );
             }
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Throwable
+     * @throws \Psr\Cache\InvalidArgumentException
+     */
+    public function delete(AbstractId $id, ?string $table = null): void
+    {
+        $dataTable = $table ?? self::TABLE;
+        $historyTable = sprintf('%s_history', $dataTable);
+
+        $this->connection->transactional(function () use ($id, $dataTable, $historyTable) {
+            $queryBuilder = $this->connection->createQueryBuilder()
+                ->from($historyTable)
+                ->select('variant')
+                ->where('aggregate_id = :id')
+                ->orderBy('variant', 'DESC')
+                ->setMaxResults(1)
+                ->setParameter('id', $id->getValue());
+            $version = $queryBuilder->execute()->fetchColumn();
+
+            if (empty($version)) {
+                $version = 1;
+            }
+
+            $this->connection->executeQuery(
+                sprintf(
+                    'INSERT INTO %s (aggregate_id, sequence, event, payload, recorded_by, recorded_at, variant) 
+                    SELECT aggregate_id, sequence, event, payload, recorded_by, recorded_at, %d FROM %s WHERE aggregate_id = ?',
+                    $historyTable,
+                    $version,
+                    $dataTable
+                ),
+                [$id->getValue()]
+            );
+
+            $this->connection->delete($dataTable, ['aggregate_id' => $id->getValue()]);
+        });
+
+        $key = sprintf(self::KEY, $id->getValue());
+        $this->cache->deleteItem($key);
     }
 }

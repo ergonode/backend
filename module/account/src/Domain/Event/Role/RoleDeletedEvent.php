@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\Role;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 
 /**
  */
-class RoleRemovedEvent implements DomainEventInterface
+class RoleDeletedEvent extends AbstractDeleteEvent
 {
 }

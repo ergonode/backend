@@ -9,6 +9,7 @@ namespace Ergonode\Account\Persistence\Dbal\Repository;
 
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\Account\Domain\Event\Role\RoleDeletedEvent;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
@@ -32,8 +33,10 @@ class DbalRoleRepository implements RoleRepositoryInterface
      * @param DomainEventStoreInterface      $eventStore
      * @param DomainEventDispatcherInterface $eventDispatcher
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        DomainEventStoreInterface $eventStore,
+        DomainEventDispatcherInterface $eventDispatcher
+    ) {
         $this->eventStore = $eventStore;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -59,9 +62,7 @@ class DbalRoleRepository implements RoleRepositoryInterface
 
             $aggregate->initialize($eventStream);
 
-            if (!$aggregate->isDeleted()) {
-                return $aggregate;
-            }
+            return $aggregate;
         }
 
         return null;
@@ -78,5 +79,19 @@ class DbalRoleRepository implements RoleRepositoryInterface
         foreach ($events as $envelope) {
             $this->eventDispatcher->dispatch($envelope);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Exception
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    {
+        $aggregateRoot->apply(new RoleDeletedEvent());
+
+        $this->save($aggregateRoot);
+
+        $this->eventStore->delete($aggregateRoot->getId());
     }
 }

@@ -14,6 +14,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 
 /**
@@ -34,8 +35,10 @@ class DbalStatusRepository implements StatusRepositoryInterface
      * @param DomainEventStoreInterface      $eventStore
      * @param DomainEventDispatcherInterface $eventDispatcher
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        DomainEventStoreInterface $eventStore,
+        DomainEventDispatcherInterface $eventDispatcher
+    ) {
         $this->eventStore = $eventStore;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -50,7 +53,7 @@ class DbalStatusRepository implements StatusRepositoryInterface
     public function load(StatusId $id): ?AbstractAggregateRoot
     {
         $eventStream = $this->eventStore->load($id);
-        if (\count($eventStream) > 0) {
+        if (count($eventStream) > 0) {
             $class = new \ReflectionClass(Status::class);
             /** @var Status $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
@@ -60,12 +63,20 @@ class DbalStatusRepository implements StatusRepositoryInterface
 
             $aggregate->initialize($eventStream);
 
-            if (!$aggregate->isDeleted()) {
-                return $aggregate;
-            }
+            return $aggregate;
         }
 
         return null;
+    }
+
+    /**
+     * @param StatusId $id
+     *
+     * @return bool
+     */
+    public function exists(StatusId $id) : bool
+    {
+        return $this->eventStore->load($id)->count() > 0;
     }
 
     /**
@@ -82,12 +93,15 @@ class DbalStatusRepository implements StatusRepositoryInterface
     }
 
     /**
-     * @param StatusId $id
+     * {@inheritDoc}
      *
-     * @return bool
+     * @throws \Exception
      */
-    public function exists(StatusId $id) : bool
+    public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
-        return $this->eventStore->load($id)->count() > 0;
+        $aggregateRoot->apply(new StatusDeletedEvent());
+        $this->save($aggregateRoot);
+
+        $this->eventStore->delete($aggregateRoot->getId());
     }
 }

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\Role\RoleRemovedEvent;
+use Ergonode\Account\Domain\Event\Role\RoleDeletedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
@@ -18,7 +18,7 @@ use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterfac
 
 /**
  */
-class RoleRemovedEventProjector implements DomainEventProjectorInterface
+class RoleDeletedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'roles';
 
@@ -36,40 +36,27 @@ class RoleRemovedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof RoleRemovedEvent;
+        return $event instanceof RoleDeletedEvent;
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof RoleRemovedEvent) {
-            throw new UnsupportedEventException($event, RoleRemovedEvent::class);
+        if (!$event instanceof RoleDeletedEvent) {
+            throw new UnsupportedEventException($event, RoleDeletedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $this->connection->delete(
-                self::TABLE,
-                [
-                    'id' => $aggregateId->getValue(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'id' => $aggregateId->getValue(),
+            ]
+        );
     }
 }

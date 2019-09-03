@@ -17,7 +17,7 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
-use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
+use Ergonode\Attribute\Domain\Event\AttributeGroupDeletedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -76,6 +76,8 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      * @param TranslatableString $placeholder
      * @param bool               $multilingual
      * @param array              $parameters
+     *
+     * @throws \Exception
      */
     public function __construct(
         AttributeId $id,
@@ -137,6 +139,8 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
 
     /**
      * @param TranslatableString $label
+     *
+     * @throws \Exception
      */
     public function changeLabel(TranslatableString $label): void
     {
@@ -147,6 +151,8 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
 
     /**
      * @param TranslatableString $hint
+     *
+     * @throws \Exception
      */
     public function changeHint(TranslatableString $hint): void
     {
@@ -157,6 +163,8 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
 
     /**
      * @param TranslatableString $placeholder
+     *
+     * @throws \Exception
      */
     public function changePlaceholder(TranslatableString $placeholder): void
     {
@@ -209,6 +217,8 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
 
     /**
      * @param AttributeGroupId $groupId
+     *
+     * @throws \Exception
      */
     public function addGroup(AttributeGroupId $groupId): void
     {
@@ -219,11 +229,13 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
 
     /**
      * @param AttributeGroupId $groupId
+     *
+     * @throws \Exception
      */
     public function removeGroup(AttributeGroupId $groupId): void
     {
         if ($this->inGroup($groupId)) {
-            $this->apply(new AttributeGroupRemovedEvent($groupId));
+            $this->apply(new AttributeGroupDeletedEvent($groupId));
         }
     }
 
@@ -288,9 +300,9 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
-     * @param AttributeGroupRemovedEvent $event
+     * @param AttributeGroupDeletedEvent $event
      */
-    protected function applyAttributeGroupRemovedEvent(AttributeGroupRemovedEvent $event): void
+    protected function applyAttributeGroupDeletedEvent(AttributeGroupDeletedEvent $event): void
     {
         unset($this->groups[$event->getGroupId()->getValue()]);
     }
