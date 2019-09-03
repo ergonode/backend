@@ -146,6 +146,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
      * {@inheritDoc}
      *
      * @throws \Throwable
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function delete(AbstractId $id, ?string $table = null): void
     {
@@ -179,5 +180,8 @@ class DbalDomainEventStore implements DomainEventStoreInterface
 
             $this->connection->delete($dataTable, ['aggregate_id' => $id->getValue()]);
         });
+
+        $key = sprintf(self::KEY, $id->getValue());
+        $this->cache->deleteItem($key);
     }
 }
