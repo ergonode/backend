@@ -38,7 +38,8 @@ class AttributeCreatedEventProjector implements DomainEventProjectorInterface
     private $serializer;
 
     /**
-     * @param Connection $connection
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
      */
     public function __construct(Connection $connection, SerializerInterface $serializer)
     {
