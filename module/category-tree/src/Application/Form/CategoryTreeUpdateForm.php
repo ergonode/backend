@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Application\Form;
 
-use Ergonode\CategoryTree\Application\Model\TreeFormModel;
+use Ergonode\CategoryTree\Application\Model\CategoryTreeUpdateFormModel;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class TreeForm extends AbstractType
+class CategoryTreeUpdateForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -48,7 +48,7 @@ class TreeForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => TreeFormModel::class,
+            'data_class' => CategoryTreeUpdateFormModel::class,
             'translation_domain' => 'tree',
             'allow_extra_fields' => true,
         ]);
