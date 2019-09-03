@@ -213,7 +213,7 @@ class CategoryTreeController extends AbstractController
             throw new BadRequestHttpException('Tree already exists');
         }
 
-        throw new BadRequestHttpException();
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -337,7 +337,7 @@ class CategoryTreeController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var TreeFormModel $data */
                 $data = $form->getData();
-                $command = new UpdateTreeCommand($tree->getId(), $data->code, new TranslatableString($data->name), $data->categories);
+                $command = new UpdateTreeCommand($tree->getId(), new TranslatableString($data->name), $data->categories);
                 $this->messageBus->dispatch($command);
 
                 return new EmptyResponse();

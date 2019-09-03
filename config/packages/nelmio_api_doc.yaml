@@ -174,11 +174,6 @@ nelmio_api_doc:
             tree:
                 type: object
                 properties:
-                    code:
-                        type: string
-                        description: Category tree code
-                        required: true
-                        example: Default
                     name:
                         type: object
                         description: category name
