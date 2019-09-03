@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
-use Ergonode\Migration\AbstractErgonodeMigration;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -58,6 +57,21 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                     CONSTRAINT event_store_pkey PRIMARY KEY (id)
                  )'
         );
+
+        $this->addSql('
+            CREATE TABLE importer.event_store_history (
+                id BIGSERIAL NOT NULL, 
+                aggregate_id uuid NOT NULL, 
+                sequence int NOT NULL,
+                variant int NOT NULL DEFAULT 1,
+                event character varying(255) NOT NULL, 
+                payload jsonb NOT NULL, 
+                recorded_by uuid default NULL, 
+                recorded_at timestamp without time zone NOT NULL, 
+                CONSTRAINT event_store_history_pkey PRIMARY KEY (id)
+            )
+        ');
+        $this->addSql('CREATE UNIQUE INDEX importer_event_store_history_unique_key ON importer.event_store_history USING btree (aggregate_id, sequence, variant)');
 
         $this->addSql('CREATE INDEX import_line_import_id_idx ON importer.import_line USING btree (import_id)');
         $this->addSql('ALTER TABLE importer.import_line ADD CONSTRAINT import_line_import_id_fk FOREIGN KEY (import_id) REFERENCES importer.import (id) ON DELETE CASCADE');
