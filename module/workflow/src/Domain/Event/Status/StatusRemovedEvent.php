@@ -9,34 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Status;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Workflow\Domain\Entity\StatusId;
-use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 
 /**
  */
-class StatusRemovedEvent implements DomainEventInterface
+class StatusRemovedEvent extends AbstractDeleteEvent
 {
-    /**
-     * @var StatusId
-     *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
-     */
-    private $id;
-
-    /**
-     * @param StatusId $id
-     */
-    public function __construct(StatusId $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return StatusId
-     */
-    public function getId(): StatusId
-    {
-        return $this->id;
-    }
 }

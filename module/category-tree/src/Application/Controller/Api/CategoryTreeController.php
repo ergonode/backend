@@ -14,7 +14,9 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\CategoryTree\Application\Form\CategoryTreeCreateForm;
 use Ergonode\CategoryTree\Application\Form\TreeForm;
+use Ergonode\CategoryTree\Application\Model\CategoryTreeCreateFormModel;
 use Ergonode\CategoryTree\Application\Model\TreeFormModel;
 use Ergonode\CategoryTree\Domain\Command\AddCategoryCommand;
 use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
@@ -25,6 +27,7 @@ use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -148,7 +151,7 @@ class CategoryTreeController extends AbstractController
      */
     public function getCategories(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($language), $language);
     }
 
     /**
@@ -166,22 +169,15 @@ class CategoryTreeController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="name",
-     *     in="formData",
-     *     type="string",
+     *     name="body",
+     *     in="body",
+     *     description="Category tree body",
      *     required=true,
-     *     description="Tree name",
-     * )
-     * @SWG\Parameter(
-     *     name="code",
-     *     in="formData",
-     *     type="string",
-     *     required=true,
-     *     description="Tree code",
+     *     @SWG\Schema(ref="#/definitions/tree_req")
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Create category",
+     *     description="Create category tree",
      * )
      * @SWG\Response(
      *     response=400,
@@ -198,13 +194,16 @@ class CategoryTreeController extends AbstractController
      */
     public function createTree(Request $request): Response
     {
-        $name = $request->request->get('name');
-        $code = $request->request->get('code');
+        $model = new CategoryTreeCreateFormModel();
+        $form = $this->createForm(CategoryTreeCreateForm::class, $model);
+        $form->handleRequest($request);
 
-        if ($name && $code) {
-            $tree = $this->treeRepository->exists(CategoryTreeId::fromKey($code));
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $tree = $this->treeRepository->exists(CategoryTreeId::fromKey($data->code));
+
             if (!$tree) {
-                $command = new CreateTreeCommand($name, $code);
+                $command = new CreateTreeCommand(new TranslatableString($data->name), $data->code);
                 $this->messageBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());
@@ -337,8 +336,7 @@ class CategoryTreeController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var TreeFormModel $data */
                 $data = $form->getData();
-
-                $command = new UpdateTreeCommand($tree->getId(), $data->name, $data->categories);
+                $command = new UpdateTreeCommand($tree->getId(), $data->code, new TranslatableString($data->name), $data->categories);
                 $this->messageBus->dispatch($command);
 
                 return new EmptyResponse();

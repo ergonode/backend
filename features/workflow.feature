@@ -68,10 +68,23 @@ Feature: Workflow
     When I request "/api/v1/EN/status/@@static_uuid@@" using HTTP GET
     Then not found response is received
 
+  Scenario: Update default workflow
+    Given current authentication token
+    Given the request body is:
+    """
+      {
+        "code": "TEST_@@random_code@@",
+        "statuses": ["@workflow_status@"],
+        "transitions": []
+      }
+    """
+    When I request "/api/v1/EN/workflow/default" using HTTP PUT
+    Then empty response is received
+
   Scenario: Delete default status
     Given current authentication token
     When I request "/api/v1/EN/status/@workflow_status@" using HTTP DELETE
-    Then not implemented response is received
+    Then empty response is received
 
   Scenario: Delete default status (not authorized)
     When I request "/api/v1/EN/status/@workflow_status@" using HTTP DELETE
@@ -109,23 +122,10 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow" using HTTP POST
     Then unauthorized response is received
 
-  Scenario: Update default workflow
-    Given current authentication token
-    Given the request body is:
-    """
-      {
-        "code": "TEST_@@random_code@@",
-        "statuses": ["@workflow_status@"],
-        "transitions": []
-      }
-    """
-    When I request "/api/v1/EN/workflow/default" using HTTP PUT
-    Then empty response is received
-
   Scenario: Update default workflow (not authorized)
     When I request "/api/v1/EN/workflow/default" using HTTP PUT
     Then unauthorized response is received
-    
+
   Scenario: Get default workflow
     Given current authentication token
     When I request "/api/v1/EN/workflow/default" using HTTP GET

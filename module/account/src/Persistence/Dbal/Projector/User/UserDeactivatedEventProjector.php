@@ -44,11 +44,7 @@ class UserDeactivatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -56,19 +52,17 @@ class UserDeactivatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, UserDeactivatedEvent::class);
         }
 
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $this->connection->update(
-                self::TABLE,
-                [
-                    'is_active' => $event->isActive(),
-                ],
-                [
-                    'id' => $aggregateId->getValue(),
-                ],
-                [
-                    'is_active' => \PDO::PARAM_BOOL,
-                ]
-            );
-        });
+        $this->connection->update(
+            self::TABLE,
+            [
+                'is_active' => $event->isActive(),
+            ],
+            [
+                'id' => $aggregateId->getValue(),
+            ],
+            [
+                'is_active' => \PDO::PARAM_BOOL,
+            ]
+        );
     }
 }

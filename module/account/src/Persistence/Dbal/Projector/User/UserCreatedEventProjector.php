@@ -36,9 +36,7 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -46,11 +44,7 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -58,23 +52,21 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, UserCreatedEvent::class);
         }
 
-        $this->connection->transactional(function () use ($event) {
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'id' => $event->getId()->getValue(),
-                    'first_name' => $event->getFirstName(),
-                    'last_name' => $event->getLastName(),
-                    'username' => $event->getEmail(),
-                    'role_id' => $event->getRoleId()->getValue(),
-                    'language' => $event->getLanguage()->getCode(),
-                    'password' => $event->getPassword()->getValue(),
-                    'is_active' => $event->isActive(),
-                ],
-                [
-                    'is_active' => \PDO::PARAM_BOOL,
-                ]
-            );
-        });
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'id' => $event->getId()->getValue(),
+                'first_name' => $event->getFirstName(),
+                'last_name' => $event->getLastName(),
+                'username' => $event->getEmail(),
+                'role_id' => $event->getRoleId()->getValue(),
+                'language' => $event->getLanguage()->getCode(),
+                'password' => $event->getPassword()->getValue(),
+                'is_active' => $event->isActive(),
+            ],
+            [
+                'is_active' => \PDO::PARAM_BOOL,
+            ]
+        );
     }
 }

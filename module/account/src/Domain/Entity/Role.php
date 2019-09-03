@@ -15,9 +15,9 @@ use Ergonode\Account\Domain\Event\Role\RoleCreatedEvent;
 use Ergonode\Account\Domain\Event\Role\RoleDescriptionChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
+use Ergonode\Account\Domain\Event\Role\RoleRemovedEvent;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Core\Domain\ValueObject\State;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -53,13 +53,6 @@ class Role extends AbstractAggregateRoot
      * @JMS\Type("array<Ergonode\Account\Domain\ValueObject\Privilege>")
      */
     private $privileges;
-
-    /**
-     * @var State
-     *
-     * @JMS\Exclude()
-     */
-    private $state;
 
     /**
      * @param RoleId $id
@@ -187,7 +180,6 @@ class Role extends AbstractAggregateRoot
         $this->name = $event->getName();
         $this->description = $event->getDescription();
         $this->privileges = $event->getPrivileges();
-        $this->state = new State();
     }
 
     /**
@@ -232,5 +224,13 @@ class Role extends AbstractAggregateRoot
     protected function applyRolePrivilegesChangedEvent(RolePrivilegesChangedEvent $event): void
     {
         $this->privileges = $event->getTo();
+    }
+
+    /**
+     * @param RoleRemovedEvent $event
+     */
+    protected function applyRoleRemoveEvent(RoleRemovedEvent $event): void
+    {
+
     }
 }

@@ -12,10 +12,10 @@ namespace Ergonode\Workflow\Persistence\Dbal\Projector;
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -29,17 +29,22 @@ class StatusCreatedEventProjector implements DomainEventProjectorInterface
     private $connection;
 
     /**
-     * @param Connection $connection
+     * @var SerializerInterface
      */
-    public function __construct(Connection $connection)
+    private $serializer;
+
+    /**
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
+        $this->serializer = $serializer;
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -47,11 +52,7 @@ class StatusCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -59,22 +60,15 @@ class StatusCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, StatusCreatedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'id' => $aggregateId->getValue(),
-                    'code' => $event->getCode(),
-                    'name' => json_encode($event->getName()->getTranslations()),
-                    'description' => json_encode($event->getDescription()->getTranslations()),
-                    'color' => $event->getColor()->getValue(),
-                ]
-            );
-
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            throw new ProjectorException($event, $exception);
-        }
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'id' => $aggregateId->getValue(),
+                'code' => $event->getCode(),
+                'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
+                'description' => $this->serializer->serialize($event->getDescription()->getTranslations(), 'json'),
+                'color' => $event->getColor()->getValue(),
+            ]
+        );
     }
 }

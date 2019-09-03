@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
+namespace Ergonode\CategoryTree\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
+use Ergonode\CategoryTree\Domain\Event\CategoryTreeNameChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
@@ -19,9 +19,9 @@ use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class RolePrivilegesChangedEventProjector implements DomainEventProjectorInterface
+class CategoryTreeNameChangedEventProjector implements DomainEventProjectorInterface
 {
-    private const TABLE = 'roles';
+    private const TABLE = 'tree';
 
     /**
      * @var Connection
@@ -48,7 +48,7 @@ class RolePrivilegesChangedEventProjector implements DomainEventProjectorInterfa
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof RolePrivilegesChangedEvent;
+        return $event instanceof CategoryTreeNameChangedEvent;
     }
 
     /**
@@ -56,14 +56,14 @@ class RolePrivilegesChangedEventProjector implements DomainEventProjectorInterfa
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof RolePrivilegesChangedEvent) {
-            throw new UnsupportedEventException($event, RolePrivilegesChangedEvent::class);
+        if (!$event instanceof CategoryTreeNameChangedEvent) {
+            throw new UnsupportedEventException($event, CategoryTreeNameChangedEvent::class);
         }
 
         $this->connection->update(
             self::TABLE,
             [
-                'privileges' => $this->serializer->serialize($event->getTo(), 'json'),
+                'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
             ],
             [
                 'id' => $aggregateId->getValue(),

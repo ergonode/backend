@@ -15,7 +15,6 @@ use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Event\ProductDraftValueChanged;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
@@ -45,9 +44,7 @@ class ProductDraftValueChangedEventProjector implements DomainEventProjectorInte
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -55,12 +52,9 @@ class ProductDraftValueChangedEventProjector implements DomainEventProjectorInte
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
+     * {@inheritDoc}
      *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -68,8 +62,7 @@ class ProductDraftValueChangedEventProjector implements DomainEventProjectorInte
             throw new UnsupportedEventException($event, ProductDraftValueChanged::class);
         }
 
-        try {
-            $this->connection->beginTransaction();
+        $this->connection->transactional(function () use ($aggregateId, $event) {
             $draftId = $aggregateId->getValue();
             $elementId = AttributeId::fromKey($event->getAttributeCode())->getValue();
 
@@ -77,11 +70,7 @@ class ProductDraftValueChangedEventProjector implements DomainEventProjectorInte
 
             $this->delete($draftId, $elementId);
             $this->insertValue($draftId, $elementId, $value);
-            $this->connection->commit();
-        } catch (\Exception $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        });
     }
 
     /**

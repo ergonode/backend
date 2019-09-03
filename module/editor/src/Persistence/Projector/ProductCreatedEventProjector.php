@@ -12,7 +12,6 @@ namespace Ergonode\Editor\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Product\Domain\Event\ProductCreated;
@@ -37,9 +36,7 @@ class ProductCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -47,12 +44,7 @@ class ProductCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -60,19 +52,12 @@ class ProductCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, ProductCreated::class);
         }
 
-        try {
-            $this->connection->beginTransaction();
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'product_id' => $aggregateId->getValue(),
-                    'template_id' => $event->getTemplateId()->getValue(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Exception $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'product_id' => $aggregateId->getValue(),
+                'template_id' => $event->getTemplateId()->getValue(),
+            ]
+        );
     }
 }

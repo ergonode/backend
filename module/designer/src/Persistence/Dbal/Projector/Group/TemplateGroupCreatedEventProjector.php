@@ -28,8 +28,6 @@ class TemplateGroupCreatedEventProjector implements DomainEventProjectorInterfac
     private $connection;
 
     /**
-     * TemplateCreateEventProjector constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)
@@ -38,9 +36,7 @@ class TemplateGroupCreatedEventProjector implements DomainEventProjectorInterfac
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -48,33 +44,20 @@ class TemplateGroupCreatedEventProjector implements DomainEventProjectorInterfac
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-
         if (!$event instanceof TemplateGroupCreatedEvent) {
             throw new UnsupportedEventException($event, TemplateGroupCreatedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'id' => $aggregateId->getValue(),
-                    'name' => $event->getName(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'id' => $aggregateId->getValue(),
+                'name' => $event->getName(),
+            ]
+        );
     }
 }

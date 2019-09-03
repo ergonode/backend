@@ -13,9 +13,9 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\CategoryNameChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -29,17 +29,22 @@ class CategoryNameChangedEventProjector implements DomainEventProjectorInterface
     private $connection;
 
     /**
-     * @param Connection $connection
+     * @var SerializerInterface
      */
-    public function __construct(Connection $connection)
+    private $serializer;
+
+    /**
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
+        $this->serializer = $serializer;
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -47,12 +52,7 @@ class CategoryNameChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -60,21 +60,14 @@ class CategoryNameChangedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, CategoryNameChangedEvent::class);
         }
 
-        try {
-            $this->connection->beginTransaction();
-            $this->connection->update(
-                self::TABLE,
-                [
-                    'name' => json_encode($event->getTo()->getTranslations()),
-                ],
-                [
-                    'id' => $aggregateId->getValue(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        $this->connection->update(
+            self::TABLE,
+            [
+                'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
+            ],
+            [
+                'id' => $aggregateId->getValue(),
+            ]
+        );
     }
 }

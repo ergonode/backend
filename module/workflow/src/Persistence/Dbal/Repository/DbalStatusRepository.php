@@ -55,7 +55,7 @@ class DbalStatusRepository implements StatusRepositoryInterface
         $eventStream = $this->eventStore->load($id);
         if (count($eventStream) > 0) {
             $class = new \ReflectionClass(Status::class);
-            /** @var AbstractAggregateRoot $aggregate */
+            /** @var Status $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
             if (!$aggregate instanceof AbstractAggregateRoot) {
                 throw new \LogicException(sprintf('Impossible to initialize "%s"', Status::class));
@@ -99,8 +99,7 @@ class DbalStatusRepository implements StatusRepositoryInterface
      */
     public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
-        $aggregateRoot->apply(new StatusRemovedEvent($aggregateRoot->getId()));
-
+        $aggregateRoot->apply(new StatusRemovedEvent());
         $this->save($aggregateRoot);
 
         $this->eventStore->delete($aggregateRoot->getId());

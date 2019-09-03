@@ -153,8 +153,25 @@ class DbalDomainEventStore implements DomainEventStoreInterface
         $historyTable = sprintf('%s_history', $dataTable);
 
         $this->connection->transactional(function () use ($id, $dataTable, $historyTable) {
+            $version = $this->connection->executeQuery(
+                sprintf(
+                    'SELECT variant FROM %s WHERE aggregate_id = ? ORDER BY variant DESC LIMIT 1',
+                    $historyTable
+                ),
+                [$id->getValue()]
+            )->fetchColumn();
+
+            if (empty($version)) {
+                $version = 1;
+            }
+
             $this->connection->executeQuery(
-                sprintf('INSERT INTO %s SELECT * FROM %s WHERE aggregate_id = ?', $historyTable, $dataTable),
+                sprintf(
+                    'INSERT INTO %s (aggregate_id, sequence, event, payload, recorded_by, recorded_at, variant) SELECT aggregate_id, sequence, event, payload, recorded_by, recorded_at, %d FROM %s WHERE aggregate_id = ?',
+                    $historyTable,
+                    $version,
+                    $dataTable
+                ),
                 [$id->getValue()]
             );
 
