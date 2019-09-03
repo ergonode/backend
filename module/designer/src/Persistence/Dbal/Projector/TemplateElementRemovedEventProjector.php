@@ -28,8 +28,6 @@ class TemplateElementRemovedEventProjector implements DomainEventProjectorInterf
     private $connection;
 
     /**
-     * TemplateCreateEventProjector constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)
@@ -38,9 +36,7 @@ class TemplateElementRemovedEventProjector implements DomainEventProjectorInterf
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -48,34 +44,21 @@ class TemplateElementRemovedEventProjector implements DomainEventProjectorInterf
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-
         if (!$event instanceof TemplateElementRemovedEvent) {
             throw new UnsupportedEventException($event, TemplateElementRemovedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $this->connection->delete(
-                self::ELEMENT_TABLE,
-                [
-                    'template_id' => $aggregateId->getValue(),
-                    'x' => $event->getPosition()->getX(),
-                    'y' => $event->getPosition()->getY(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        $this->connection->delete(
+            self::ELEMENT_TABLE,
+            [
+                'template_id' => $aggregateId->getValue(),
+                'x' => $event->getPosition()->getX(),
+                'y' => $event->getPosition()->getY(),
+            ]
+        );
     }
 }

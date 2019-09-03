@@ -21,7 +21,8 @@ final class Version20180619083700 extends AbstractErgonodeMigration
         $this->addSql(
             'CREATE TABLE IF NOT EXISTS tree (
                     id UUID NOT NULL, 
-                    name VARCHAR(64) NOT NULL, 
+                    code VARCHAR(64) NOT NULL, 
+                    name JSONB NOT NULL, 
                     PRIMARY KEY(id))'
         );
 

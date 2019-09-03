@@ -10,13 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Infrastructure\Builder;
 
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Uuid;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  */

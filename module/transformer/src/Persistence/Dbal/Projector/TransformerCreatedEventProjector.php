@@ -43,6 +43,8 @@ class TransformerCreatedEventProjector implements DomainEventProjectorInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {

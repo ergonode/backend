@@ -15,7 +15,6 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use JMS\Serializer\SerializerInterface;
@@ -51,9 +50,7 @@ class CategoryCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -61,12 +58,9 @@ class CategoryCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
+     * {@inheritDoc}
      *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -74,13 +68,12 @@ class CategoryCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, CategoryCreatedEvent::class);
         }
 
-        try {
-            $this->connection->beginTransaction();
+        $this->connection->transactional(function () use ($aggregateId, $event) {
             $this->connection->insert(
                 self::TABLE,
                 [
                     'id' => $aggregateId->getValue(),
-                    'name' => json_encode($event->getName()->getTranslations()),
+                    'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
                     'code' => $event->getCode()->getValue(),
                 ]
             );
@@ -116,10 +109,6 @@ class CategoryCreatedEventProjector implements DomainEventProjectorInterface
                     ]
                 );
             }
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        });
     }
 }

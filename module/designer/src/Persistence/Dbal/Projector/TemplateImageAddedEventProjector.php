@@ -36,9 +36,7 @@ class TemplateImageAddedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -46,35 +44,22 @@ class TemplateImageAddedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-
         if (!$event instanceof TemplateImageAddedEvent) {
             throw new UnsupportedEventException($event, TemplateImageAddedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $this->connection->update(
-                self::TABLE,
-                [
-                    'image_id' => $event->getImageId()->getValue(),
-                ],
-                [
-                    'id' => $aggregateId->getValue(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        $this->connection->update(
+            self::TABLE,
+            [
+                'image_id' => $event->getImageId()->getValue(),
+            ],
+            [
+                'id' => $aggregateId->getValue(),
+            ]
+        );
     }
 }

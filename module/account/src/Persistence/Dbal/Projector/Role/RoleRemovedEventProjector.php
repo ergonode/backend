@@ -36,9 +36,7 @@ class RoleRemovedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -46,11 +44,7 @@ class RoleRemovedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -58,18 +52,11 @@ class RoleRemovedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, RoleRemovedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $this->connection->delete(
-                self::TABLE,
-                [
-                    'id' => $aggregateId->getValue(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'id' => $aggregateId->getValue(),
+            ]
+        );
     }
 }

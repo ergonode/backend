@@ -12,7 +12,6 @@ namespace Ergonode\Reader\Persistence\Dbal\Projector;
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Reader\Domain\Event\ReaderCreatedEvent;
@@ -37,9 +36,7 @@ class ReaderCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -47,12 +44,7 @@ class ReaderCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -60,21 +52,13 @@ class ReaderCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, ReaderCreatedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'id' => $aggregateId->getValue(),
-                    'name' => $event->getName(),
-                    'type' => $event->getType(),
-                ]
-            );
-
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'id' => $aggregateId->getValue(),
+                'name' => $event->getName(),
+                'type' => $event->getType(),
+            ]
+        );
     }
 }

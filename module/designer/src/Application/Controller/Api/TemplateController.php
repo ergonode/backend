@@ -354,11 +354,11 @@ class TemplateController extends AbstractController
      *     description="Can't remove Template, it has relations to products"
      * )
      *
+     * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
+     *
      * @param Template $template
      *
      * @return Response
-     *
-     * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
      */
     public function deleteTemplate(Template $template): Response
     {
@@ -366,6 +366,7 @@ class TemplateController extends AbstractController
             throw new ConflictHttpException('Can\'t remove Template, it has relations to products');
         }
 
+        // @todo Handler not found
         $command = new DeleteTemplateCommand($template->getId());
         $this->messageBus->dispatch($command);
 

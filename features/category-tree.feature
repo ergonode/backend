@@ -3,9 +3,10 @@ Feature: Category tree module
   Scenario: Create category tree
     Given current authentication token
     Given the following form parameters are set:
-      | name | value                |
-      | name | Test                 |
-      | code | TREE_@@random_code@@ |
+      | name        | value                |
+      | name        | Test                 |
+      | description | Test                 |
+      | code        | TREE_@@random_code@@ |
     When I request "/api/v1/EN/trees" using HTTP POST
     Then created response is received
     And remember response param "id" as "category_tree"

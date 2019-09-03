@@ -28,16 +28,6 @@ class ProductVersionIncreasedEventProjector implements DomainEventProjectorInter
     private $connection;
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
-     */
-    public function support(DomainEventInterface $event): bool
-    {
-        return $event instanceof ProductVersionIncreased;
-    }
-
-    /**
      * @param Connection $connection
      */
     public function __construct(Connection $connection)
@@ -46,11 +36,15 @@ class ProductVersionIncreasedEventProjector implements DomainEventProjectorInter
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Throwable
+     * {@inheritDoc}
+     */
+    public function support(DomainEventInterface $event): bool
+    {
+        return $event instanceof ProductVersionIncreased;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -58,22 +52,14 @@ class ProductVersionIncreasedEventProjector implements DomainEventProjectorInter
             throw new UnsupportedEventException($event, ProductVersionIncreased::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $this->connection->update(
-                self::TABLE_PRODUCT,
-                [
-                    'version' => $event->getTo(),
-                ],
-                [
-                    'id' => $aggregateId->getValue(),
-                ]
-            );
-
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        $this->connection->update(
+            self::TABLE_PRODUCT,
+            [
+                'version' => $event->getTo(),
+            ],
+            [
+                'id' => $aggregateId->getValue(),
+            ]
+        );
     }
 }
