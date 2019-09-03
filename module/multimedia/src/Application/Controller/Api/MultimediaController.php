@@ -16,7 +16,6 @@ use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
 use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -82,7 +81,7 @@ class MultimediaController extends AbstractController
         $form = $this->createForm(MultimediaUploadForm::class, $uploadModel);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $command = new UploadMultimediaCommand('TestName', $uploadModel->upload);
+            $command = new UploadMultimediaCommand('Default', $uploadModel->upload);
             $this->messageBus->dispatch($command);
 
             $response = new CreatedResponse($command->getId());
