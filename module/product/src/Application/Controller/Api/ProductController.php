@@ -269,7 +269,7 @@ class ProductController extends AbstractController
      *     in="body",
      *     description="Add product",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/product")
+     *     @SWG\Schema(ref="#/definitions/product_upd")
      * )
      * @SWG\Response(
      *     response=204,

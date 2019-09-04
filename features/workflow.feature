@@ -54,6 +54,7 @@ Feature: Workflow
     When I request "/api/v1/EN/status/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
+
   Scenario: Get default status
     Given current authentication token
     When I request "/api/v1/EN/status/@workflow_status@" using HTTP GET
@@ -80,6 +81,22 @@ Feature: Workflow
     """
     When I request "/api/v1/EN/workflow/default" using HTTP PUT
     Then empty response is received
+
+
+  Scenario: Update default workflow (wrong status)
+    Given current authentication token
+    Given the request body is:
+    """
+      {
+        "code": "TEST_@@random_code@@",
+        "statuses": ["test"],
+        "transitions": []
+      }
+    """
+    When I request "/api/v1/EN/workflow/default" using HTTP PUT
+    Then validation error response is received
+
+
 
   Scenario: Delete default status
     Given current authentication token
@@ -117,6 +134,19 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow" using HTTP POST
     Then created response is received
     And remember response param "id" as "workflow"
+
+  Scenario: Create workflow (wrong statuses)
+    Given current authentication token
+    Given the request body is:
+    """
+      {
+        "code": "WRK_@@random_code@@",
+        "statuses": ["test"],
+        "transitions": []
+      }
+    """
+    When I request "/api/v1/EN/workflow" using HTTP POST
+    Then validation error response is received
 
   Scenario: Create workflow (not authorized)
     When I request "/api/v1/EN/workflow" using HTTP POST

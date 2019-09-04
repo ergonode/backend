@@ -94,6 +94,95 @@ Feature: Product module
     When I request "/api/v1/EN/products" using HTTP POST
     Then unauthorized response is received
 
+  Scenario: Create product (wrong product_template no UUID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "test",
+        "categoryIds": ["@product_category@"]
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create product (wrong product_template wrong UUID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@@random_uuid@@",
+        "categoryIds": ["@product_category@"]
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create product (no templateId)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "categoryIds": ["@product_category@"]
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create product (empty categoryIds)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@product_template@",
+        "categoryIds": []
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then created response is received
+
+  Scenario: Create product (no categoryIds)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@product_template@"
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then created response is received
+
+
+  Scenario: Create product (categoryIds not UUID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@product_template@",
+        "categoryIds": ["test"]
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create product (no categoryIds)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@product_template@"
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then created response is received
+
   Scenario: Update product
     Given current authentication token
     Given the request body is:
@@ -105,6 +194,8 @@ Feature: Product module
     When I request "/api/v1/EN/products/@product@" using HTTP PUT
     Then empty response is received
 
+
+
   Scenario: Update product (not authorized)
     When I request "/api/v1/EN/products/@product@" using HTTP PUT
     Then unauthorized response is received
@@ -113,6 +204,41 @@ Feature: Product module
     Given current authentication token
     When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP PUT
     Then not found response is received
+
+  Scenario: Update product (no categoryId)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+      }
+      """
+    When I request "/api/v1/EN/products/@product@" using HTTP PUT
+    Then validation error response is received
+
+
+  Scenario: Update product (categoryID not UUID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "categoryIds": ["@@random_md5@@"]
+      }
+      """
+    When I request "/api/v1/EN/products/@product@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update product (categoryID wrong UUID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "categoryIds": ["@@random_uuid@@"]
+      }
+      """
+    When I request "/api/v1/EN/products/@product@" using HTTP PUT
+    Then validation error response is received
+
+
 
   Scenario: Get product
     Given current authentication token

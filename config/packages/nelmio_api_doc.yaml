@@ -233,6 +233,15 @@ nelmio_api_doc:
                             type: string
                         required: false
                         description: Lista id kategorii
+            product_upd:
+                type: object
+                properties:
+                    categortyIds:
+                        type: array
+                        items:
+                            type: string
+                        required: false
+                        description: Lista id kategorii
             template:
                 type: object
                 properties:
