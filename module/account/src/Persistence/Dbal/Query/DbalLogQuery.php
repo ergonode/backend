@@ -64,7 +64,7 @@ class DbalLogQuery implements LogQueryInterface
             ->addSelect('coalesce(u.first_name || \' \' || u.last_name, \'System\') AS author')
             ->addSelect('ese.translation_key as event')
             ->from('event_store', 'es')
-            ->join('es', 'event_store_event', 'ese', 'es.event = ese.id')
+            ->join('es', 'event_store_event', 'ese', 'es.event_id = ese.id')
             ->leftJoin('es', 'users', 'u', 'u.id = es.recorded_by');
     }
 }

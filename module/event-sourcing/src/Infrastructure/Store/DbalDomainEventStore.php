@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
@@ -56,24 +57,32 @@ class DbalDomainEventStore implements DomainEventStoreInterface
     private $events;
 
     /**
-     * @param Connection                  $connection
-     * @param SerializerInterface         $serializer
-     * @param DomainEventFactoryInterface $domainEventFactory
-     * @param TokenStorageInterface       $tokenStorage
-     * @param AdapterInterface            $cache
+     * @var DomainEventProviderInterface
+     */
+    private $domainEventProvider;
+
+    /**
+     * @param Connection                   $connection
+     * @param SerializerInterface          $serializer
+     * @param DomainEventFactoryInterface  $domainEventFactory
+     * @param TokenStorageInterface        $tokenStorage
+     * @param AdapterInterface             $cache
+     * @param DomainEventProviderInterface $domainEventProvider
      */
     public function __construct(
         Connection $connection,
         SerializerInterface $serializer,
         DomainEventFactoryInterface $domainEventFactory,
         TokenStorageInterface $tokenStorage,
-        AdapterInterface $cache
+        AdapterInterface $cache,
+        DomainEventProviderInterface $domainEventProvider
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->connection = $connection;
         $this->serializer = $serializer;
         $this->domainEventFactory = $domainEventFactory;
         $this->cache = $cache;
+        $this->domainEventProvider = $domainEventProvider;
     }
 
     /**
@@ -102,7 +111,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
             ->select('es.id, es.aggregate_id, es.sequence, es.payload, es.recorded_by, es.recorded_at')
             ->addSelect('ese.event_class as event')
             ->from($table, 'es')
-            ->join('es', 'event_store_event', 'ese', 'es.event = ese.id')
+            ->join('es', 'event_store_event', 'ese', 'es.event_id = ese.id')
             ->where($qb->expr()->eq('aggregate_id', ':aggregateId'))
             ->andWhere($qb->expr()->gt('sequence', ':sequence'))
             ->setParameter('aggregateId', $id->getValue())
@@ -139,7 +148,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
                     [
                         'aggregate_id' => $id->getValue(),
                         'sequence' => $envelope->getSequence(),
-                        'event' => $this->fetchEventId($envelope->getType()),
+                        'event_id' => $this->domainEventProvider->provideEventId($envelope->getType()),
                         'payload' => $payload,
                         'recorded_at' => $envelope->getRecordedAt()->format('Y-m-d H:i:s'),
                         'recorded_by' => $userId,
@@ -176,8 +185,8 @@ class DbalDomainEventStore implements DomainEventStoreInterface
 
             $this->connection->executeQuery(
                 sprintf(
-                    'INSERT INTO %s (aggregate_id, sequence, event, payload, recorded_by, recorded_at, variant) 
-                    SELECT aggregate_id, sequence, event, payload, recorded_by, recorded_at, %d FROM %s WHERE aggregate_id = ?',
+                    'INSERT INTO %s (aggregate_id, sequence, event_id, payload, recorded_by, recorded_at, variant) 
+                    SELECT aggregate_id, sequence, event_id, payload, recorded_by, recorded_at, %d FROM %s WHERE aggregate_id = ?',
                     $historyTable,
                     $version,
                     $dataTable
@@ -190,29 +199,5 @@ class DbalDomainEventStore implements DomainEventStoreInterface
 
         $key = sprintf(self::KEY, $id->getValue());
         $this->cache->deleteItem($key);
-    }
-
-    /**
-     * @param string $class
-     *
-     * @return string
-     */
-    private function fetchEventId(string $class): string
-    {
-        if (null === $this->events) {
-            $queryBuilder = $this->connection->createQueryBuilder()
-                ->from('event_store_event')
-                ->select('event_class, id');
-            $this->events = $queryBuilder->execute()->fetchAll(\PDO::FETCH_KEY_PAIR);
-        }
-
-        if (!array_key_exists($class, $this->events)) {
-            throw new \RuntimeException(sprintf(
-                'Event class "%s" not found. Check event definition in "event_store_event" table',
-                $class
-            ));
-        }
-
-        return $this->events[$class];
     }
 }
