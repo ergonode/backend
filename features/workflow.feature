@@ -164,6 +164,3 @@ Feature: Workflow
   Scenario: Get default workflow (not authorized)
     When I request "/api/v1/EN/workflow/default" using HTTP GET
     Then unauthorized response is received
-
-  # TODO Check create workflow action with all incorrect possibilities
-  # TODO Check update workflow action with all incorrect possibilities

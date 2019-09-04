@@ -238,8 +238,6 @@ Feature: Product module
     When I request "/api/v1/EN/products/@product@" using HTTP PUT
     Then validation error response is received
 
-
-
   Scenario: Get product
     Given current authentication token
     When I request "/api/v1/EN/products/@product@" using HTTP GET
@@ -253,7 +251,3 @@ Feature: Product module
     Given current authentication token
     When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP GET
     Then not found response is received
-
-  # TODO Check product grid
-  # TODO Check create product action with all incorrect possibilities
-  # TODO Check update product action with all incorrect possibilities
