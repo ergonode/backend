@@ -8,55 +8,58 @@ use Doctrine\DBAL\Schema\Schema;
 use Ramsey\Uuid\Uuid;
 
 /**
- * Auto-generated Ergonode Migration Class
  */
 final class Version20180618134343 extends AbstractErgonodeMigration
 {
     /**
      * @param Schema $schema
+     *
+     * @throws \Exception
      */
     public function up(Schema $schema): void
     {
         $this->addSql('CREATE SCHEMA IF NOT EXISTS importer');
-        $this->addSql(
-            'CREATE TABLE importer.import (
-                      id UUID NOT NULL,
-                      name VARCHAR(128) NOT NULL,
-                      type VARCHAR(255) NOT NULL,
-                      status VARCHAR(16) NOT NULL,
-                      options JSON NOT NULL,
-                      reason TEXT DEFAULT NULL,
-                      created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                      updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                      started_at TIMESTAMP WITHOUT TIME ZONE,
-                      ended_at TIMESTAMP WITHOUT TIME ZONE,
-                      PRIMARY KEY(id)
-                 )'
-        );
-        $this->addSql(
-            'CREATE TABLE importer.import_line (
-                    id UUID NOT NULL,
-                    lp BIGSERIAL,
-                    import_id UUID NOT NULL,
-                    line JSON NOT NULL,
-                    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                    updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                    PRIMARY KEY(id)
-                 )'
-        );
 
-        $this->addSql(
-            'CREATE TABLE importer.event_store (
-                    id BIGSERIAL NOT NULL, 
-                    aggregate_id uuid NOT NULL, 
-                    sequence int, 
-                    event character varying(255) NOT NULL, 
-                    payload jsonb NOT NULL, 
-                    recorded_by uuid default NULL, 
-                    recorded_at timestamp without time zone NOT NULL, 
-                    CONSTRAINT event_store_pkey PRIMARY KEY (id)
-                 )'
-        );
+        $this->addSql('
+            CREATE TABLE importer.import (
+                id UUID NOT NULL,
+                name VARCHAR(128) NOT NULL,
+                type VARCHAR(255) NOT NULL,
+                status VARCHAR(16) NOT NULL,
+                options JSON NOT NULL,
+                reason TEXT DEFAULT NULL,
+                created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+                updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+                started_at TIMESTAMP WITHOUT TIME ZONE,
+                ended_at TIMESTAMP WITHOUT TIME ZONE,
+                PRIMARY KEY(id)
+            )
+        ');
+
+        $this->addSql('
+            CREATE TABLE importer.import_line (
+                id UUID NOT NULL,
+                lp BIGSERIAL,
+                import_id UUID NOT NULL,
+                line JSON NOT NULL,
+                created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+                updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+                PRIMARY KEY(id)
+            )
+        ');
+
+        $this->addSql('
+            CREATE TABLE importer.event_store (
+                id BIGSERIAL NOT NULL, 
+                aggregate_id uuid NOT NULL, 
+                sequence int, 
+                event_id UUID NOT NULL, 
+                payload jsonb NOT NULL, 
+                recorded_by uuid default NULL, 
+                recorded_at timestamp without time zone NOT NULL, 
+                CONSTRAINT event_store_pkey PRIMARY KEY (id)
+            )
+        ');
 
         $this->addSql('
             CREATE TABLE importer.event_store_history (
@@ -64,7 +67,7 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 aggregate_id uuid NOT NULL, 
                 sequence int NOT NULL,
                 variant int NOT NULL DEFAULT 1,
-                event character varying(255) NOT NULL, 
+                event_id UUID NOT NULL, 
                 payload jsonb NOT NULL, 
                 recorded_by uuid default NULL, 
                 recorded_at timestamp without time zone NOT NULL, 

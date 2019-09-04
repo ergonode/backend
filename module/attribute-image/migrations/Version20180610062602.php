@@ -9,26 +9,17 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-final class Version20180619100000 extends AbstractErgonodeMigration
+final class Version20180610062602 extends AbstractErgonodeMigration
 {
     /**
      * @param Schema $schema
+     *
+     * @throws \Exception
      */
     public function up(Schema $schema): void
     {
-        $this->addSql('CREATE SCHEMA IF NOT EXISTS importer');
-
-        $this->addSql('
-            CREATE TABLE IF NOT EXISTS  importer.reader (
-                id UUID NOT NULL,
-                name VARCHAR(64) NOT NULL,
-                type VARCHAR(32) NOT NULL,
-                PRIMARY KEY(id)
-            )
-        ');
-
         $this->createEventStoreEvents([
-            'Ergonode\Reader\Domain\Event\ReaderCreatedEvent' => 'Reader created',
+            'Ergonode\AttributeImage\Domain\Event\AttributeImageFormatAddedEvent' => 'Added format to image attribute',
         ]);
     }
 

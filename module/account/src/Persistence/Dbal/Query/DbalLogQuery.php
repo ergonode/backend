@@ -60,8 +60,11 @@ class DbalLogQuery implements LogQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('es.id, event, payload, recorded_at, recorded_by AS author_id, coalesce(u.first_name || \' \' || u.last_name, \'System\') AS author')
-            ->leftJoin('es', 'users', 'u', 'u.id = es.recorded_by')
-            ->from('event_store', 'es');
+            ->select('es.id, payload, recorded_at, recorded_by AS author_id')
+            ->addSelect('coalesce(u.first_name || \' \' || u.last_name, \'System\') AS author')
+            ->addSelect('ese.translation_key as event')
+            ->from('event_store', 'es')
+            ->join('es', 'event_store_event', 'ese', 'es.event_id = ese.id')
+            ->leftJoin('es', 'users', 'u', 'u.id = es.recorded_by');
     }
 }
