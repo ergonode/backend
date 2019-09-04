@@ -148,11 +148,51 @@ Feature: Designer module
   Scenario: Get templates
     Given current authentication token
     When I request "/api/v1/EN/templates" using HTTP GET
-    Then the response code is 200
+    Then grid response is received
 
   Scenario: Get templates (not authorized)
     When I request "/api/v1/EN/templates" using HTTP GET
     Then unauthorized response is received
+
+  Scenario: Get templates (order by id)
+    Given current authentication token
+    When I request "/api/v1/EN/templates?field=id" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get templates (order by name)
+    Given current authentication token
+    When I request "/api/v1/EN/templates?field=name" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get templates (order by image_id)
+    Given current authentication token
+    When I request "/api/v1/EN/templates?field=image_id" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get templates (order by group_id)
+    Given current authentication token
+    When I request "/api/v1/EN/templates?field=group_id" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get templates (filter by id)
+    Given current authentication token
+    When I request "/api/v1/EN/templates?limit=25&offset=0&filter=id%3D1" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get templates (filter by name)
+    Given current authentication token
+    When I request "/api/v1/EN/templates?limit=25&offset=0&filter=name%3Dasd" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get templates (filter by image_id)
+    Given current authentication token
+    When I request "/api/v1/EN/templates?limit=25&offset=0&filter=image_id%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get templates (filter by group_id)
+    Given current authentication token
+    When I request "/api/v1/EN/templates?limit=25&offset=0&filter=group_id%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2" using HTTP GET
+    Then grid response is received
 
   # TODO Check template grid
   # TODO Check template group grid
