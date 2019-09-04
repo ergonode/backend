@@ -37,6 +37,7 @@ final class Version20180619083700 extends AbstractErgonodeMigration
             'Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryAddedEvent' => 'Category added to category tree',
             'Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryRemovedEvent' => 'Category removed from category tree',
             'Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent' => 'Category tree created',
+            'Ergonode\CategoryTree\Domain\Event\CategoryTreeNameChangedEvent' => 'Category tree name changed',
         ]);
     }
 
@@ -49,6 +50,7 @@ final class Version20180619083700 extends AbstractErgonodeMigration
     {
         foreach ($collection as $class => $translation) {
             $this->connection->insert('event_store_event', [
+                'id' => Uuid::uuid4()->toString(),
                 'event_class' => $class,
                 'translation_key' => $translation,
             ]);

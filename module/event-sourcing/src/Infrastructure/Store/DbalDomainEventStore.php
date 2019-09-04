@@ -51,6 +51,11 @@ class DbalDomainEventStore implements DomainEventStoreInterface
     private $tokenStorage;
 
     /**
+     * @var array
+     */
+    private $events;
+
+    /**
      * @param Connection                  $connection
      * @param SerializerInterface         $serializer
      * @param DomainEventFactoryInterface $domainEventFactory
@@ -84,7 +89,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
 
         $item = $this->cache->getItem($key);
         if ($item->isHit()) {
-            $result =  $item->get();
+            $result = $item->get();
             $sequence = count($result);
         } else {
             $result = [];
@@ -94,8 +99,10 @@ class DbalDomainEventStore implements DomainEventStoreInterface
         $qb = $this->connection->createQueryBuilder();
 
         $records = $qb
-            ->select('*')
-            ->from($table)
+            ->select('es.id, es.aggregate_id, es.sequence, es.payload, es.recorded_by, es.recorded_at')
+            ->addSelect('ese.event_class as event')
+            ->from($table, 'es')
+            ->join('es', 'event_store_event', 'ese', 'es.event = ese.id')
             ->where($qb->expr()->eq('aggregate_id', ':aggregateId'))
             ->andWhere($qb->expr()->gt('sequence', ':sequence'))
             ->setParameter('aggregateId', $id->getValue())
@@ -132,7 +139,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
                     [
                         'aggregate_id' => $id->getValue(),
                         'sequence' => $envelope->getSequence(),
-                        'event' => $envelope->getType(),
+                        'event' => $this->fetchEventId($envelope->getType()),
                         'payload' => $payload,
                         'recorded_at' => $envelope->getRecordedAt()->format('Y-m-d H:i:s'),
                         'recorded_by' => $userId,
@@ -183,5 +190,29 @@ class DbalDomainEventStore implements DomainEventStoreInterface
 
         $key = sprintf(self::KEY, $id->getValue());
         $this->cache->deleteItem($key);
+    }
+
+    /**
+     * @param string $class
+     *
+     * @return string
+     */
+    private function fetchEventId(string $class): string
+    {
+        if (null === $this->events) {
+            $queryBuilder = $this->connection->createQueryBuilder()
+                ->from('event_store_event')
+                ->select('event_class, id');
+            $this->events = $queryBuilder->execute()->fetchAll(\PDO::FETCH_KEY_PAIR);
+        }
+
+        if (!array_key_exists($class, $this->events)) {
+            throw new \RuntimeException(sprintf(
+                'Event class "%s" not found. Check event definition in "event_store_event" table',
+                $class
+            ));
+        }
+
+        return $this->events[$class];
     }
 }

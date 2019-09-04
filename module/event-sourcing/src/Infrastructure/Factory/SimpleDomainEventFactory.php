@@ -33,10 +33,7 @@ class SimpleDomainEventFactory implements DomainEventFactoryInterface
     }
 
     /**
-     * @param AbstractId $id
-     * @param array      $records
-     *
-     * @return DomainEventEnvelope[]
+     * {@inheritDoc}
      */
     public function create(AbstractId $id, array $records): array
     {

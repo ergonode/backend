@@ -161,6 +161,7 @@ final class Version20180625083834 extends AbstractErgonodeMigration
     {
         foreach ($collection as $class => $translation) {
             $this->connection->insert('event_store_event', [
+                'id' => Uuid::uuid4()->toString(),
                 'event_class' => $class,
                 'translation_key' => $translation,
             ]);

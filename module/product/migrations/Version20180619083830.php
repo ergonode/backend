@@ -18,18 +18,18 @@ final class Version20180619083830 extends AbstractErgonodeMigration
      */
     public function up(Schema $schema): void
     {
-        $this->addSql(
-            'CREATE TABLE IF NOT EXISTS product (
-                    id UUID NOT NULL,
-                    index SERIAL,
-                    template_id UUID NOT NULL,
-                    sku VARCHAR(128) NOT NULL,
-                    status VARCHAR(32) NOT NULL,
-                    version INT NOT NULL DEFAULT 0,
-                    attributes JSONB NOT NULL DEFAULT \'{}\'::JSONB,
-                    PRIMARY KEY(id)
-                )'
-        );
+        $this->addSql('
+            CREATE TABLE IF NOT EXISTS product (
+                id UUID NOT NULL,
+                index SERIAL,
+                template_id UUID NOT NULL,
+                sku VARCHAR(128) NOT NULL,
+                status VARCHAR(32) NOT NULL,
+                version INT NOT NULL DEFAULT 0,
+                attributes JSONB NOT NULL DEFAULT \'{}\'::JSONB,
+                PRIMARY KEY(id)
+            )
+        ');
 
         $this->addSql('CREATE UNIQUE INDEX product_sku_key ON product USING btree(sku)');
         $this->addSql('CREATE TABLE product_value (product_id UUID NOT NULL, attribute_id UUID NOT NULL, value_id UUID NOT NULL, PRIMARY KEY(product_id, attribute_id, value_id))');
@@ -65,6 +65,7 @@ final class Version20180619083830 extends AbstractErgonodeMigration
     {
         foreach ($collection as $class => $translation) {
             $this->connection->insert('event_store_event', [
+                'id' => Uuid::uuid4()->toString(),
                 'event_class' => $class,
                 'translation_key' => $translation,
             ]);

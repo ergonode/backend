@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -67,6 +68,7 @@ final class Version20180731143300 extends AbstractErgonodeMigration
     {
         foreach ($collection as $class => $translation) {
             $this->connection->insert('event_store_event', [
+                'id' => Uuid::uuid4()->toString(),
                 'event_class' => $class,
                 'translation_key' => $translation,
             ]);
