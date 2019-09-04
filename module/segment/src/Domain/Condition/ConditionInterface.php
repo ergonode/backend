@@ -19,4 +19,9 @@ interface ConditionInterface
      * @return ConditionInterface
      */
     public static function createFormArray(array $configuration): self;
+
+    /**
+     * @return string
+     */
+    public function getType(): string;
 }

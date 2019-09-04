@@ -46,11 +46,11 @@ class SegmentGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $this->addColumn('code', new TextColumn('name', $this->trans('Code'), new TextFilter($filters->getString('code'))));
-        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name'))));
         $this->addColumn('status', new TextColumn('status', $this->trans('Status'), new TextFilter($filters->getString('status'))));
+        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name'))));
         $this->addColumn('description', new TextColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description'))));
         $this->addColumn('edit', new ActionColumn('edit'));
-        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, false);
+        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
         $this->orderBy('id', 'DESC');
     }
 

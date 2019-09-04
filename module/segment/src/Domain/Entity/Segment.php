@@ -14,10 +14,10 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Segment\Domain\Event\SegmentDescriptionChangedEvent;
 use Ergonode\Segment\Domain\Event\SegmentNameChangedEvent;
 use Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent;
-use Ergonode\Segment\Domain\Event\SegmentSpecificationAddedEvent;
+use Ergonode\Segment\Domain\Event\SegmentConditionAddedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Segment\Domain\Event\SegmentCreatedEvent;
-use Ergonode\Segment\Domain\Specification\SegmentSpecificationInterface;
+use Ergonode\Segment\Domain\Condition\ConditionInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -68,7 +68,7 @@ class Segment extends AbstractAggregateRoot
     private $description;
 
     /**
-     * @var SegmentSpecificationInterface[]
+     * @var ConditionInterface[]
      */
     private $specifications;
 
@@ -163,19 +163,19 @@ class Segment extends AbstractAggregateRoot
     }
 
     /**
-     * @param SegmentSpecificationInterface $specification
+     * @param ConditionInterface $specification
      *
      * @throws \Exception
      */
-    public function addSpecification(SegmentSpecificationInterface $specification): void
+    public function addCondition(ConditionInterface $specification): void
     {
-        $this->apply(new SegmentSpecificationAddedEvent($specification));
+        $this->apply(new SegmentConditionAddedEvent($specification));
     }
 
     /**
-     * @return SegmentSpecificationInterface[]
+     * @return ConditionInterface[]
      */
-    public function getSpecifications(): array
+    public function getConditions(): array
     {
         return $this->specifications;
     }
@@ -194,11 +194,11 @@ class Segment extends AbstractAggregateRoot
     }
 
     /**
-     * @param SegmentSpecificationAddedEvent $event
+     * @param SegmentConditionAddedEvent $event
      */
-    protected function applySegmentSpecificationAddedEvent(SegmentSpecificationAddedEvent $event): void
+    protected function applySegmentConditionAddedEvent(SegmentConditionAddedEvent $event): void
     {
-        $this->specifications[] = $event->getSpecification();
+        $this->specifications[] = $event->getCondition();
     }
 
     /**

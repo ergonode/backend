@@ -1,14 +1,16 @@
 <?php
 
-namespace Ergonode\Segment\Domain\Specification;
+namespace Ergonode\Segment\Domain\Condition;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Segment\Domain\Condition\ConditionInterface;
 
 /**
  */
 class AttributeExistsCondition implements ConditionInterface
 {
+    public const TYPE = 'ATTRIBUTE_EXISTS_CONDITION';
+    public const PHRASE = 'ATTRIBUTE_EXISTS_CONDITION_PHRASE';
+
     /**
      * @var AttributeCode
      *
@@ -22,6 +24,14 @@ class AttributeExistsCondition implements ConditionInterface
     public function __construct(AttributeCode $code)
     {
         $this->code = $code;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 
     /**

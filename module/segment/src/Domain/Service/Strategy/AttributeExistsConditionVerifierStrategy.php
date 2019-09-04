@@ -7,17 +7,27 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Domain\Service\Condition;
+namespace Ergonode\Segment\Domain\Service\Strategy;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Segment\Domain\Condition\ConditionInterface;
-use Ergonode\Segment\Domain\Specification\AttributeExistsCondition;
-use Webmozart\Assert\Assert;
+use Ergonode\Segment\Domain\Service\SegmentVerifierStrategyInterface;
+use Ergonode\Segment\Domain\Condition\AttributeExistsCondition;
 
 /**
  */
-class AttributeExistsConditionVerifierStrategy
+class AttributeExistsConditionVerifierStrategy implements SegmentVerifierStrategyInterface
 {
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function isSupportedBy(string $type): bool
+    {
+        return AttributeExistsCondition::TYPE === $type;
+    }
+
     /**
      * @param AbstractProduct                             $object
      * @param AttributeExistsCondition|ConditionInterface $configuration
@@ -26,8 +36,6 @@ class AttributeExistsConditionVerifierStrategy
      */
     public function verify(AbstractProduct $object, ConditionInterface $configuration): bool
     {
-        Assert::isInstanceOf($configuration, AttributeExistsCondition::class);
-
         return $object->hasAttribute($configuration->getCode());
     }
 }
