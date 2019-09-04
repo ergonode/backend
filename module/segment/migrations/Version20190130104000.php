@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Auto-generated Ergonode Migration Class:
@@ -33,5 +34,10 @@ final class Version20190130104000 extends AbstractErgonodeMigration
                     PRIMARY KEY(id)
                 )'
         );
+
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_CREATE', 'Segment']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_READ', 'Segment']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_UPDATE', 'Segment']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_DELETE', 'Segment']);
     }
 }

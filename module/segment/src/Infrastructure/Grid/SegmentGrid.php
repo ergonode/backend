@@ -11,6 +11,7 @@ namespace Ergonode\Segment\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
@@ -48,6 +49,8 @@ class SegmentGrid extends AbstractGrid
         $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name'))));
         $this->addColumn('status', new TextColumn('status', $this->trans('Status'), new TextFilter($filters->getString('status'))));
         $this->addColumn('description', new TextColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description'))));
+        $this->addColumn('edit', new ActionColumn('edit'));
+        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, false);
         $this->orderBy('id', 'DESC');
     }
 

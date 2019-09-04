@@ -18,7 +18,7 @@ class CreateSegmentFormModel
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="Segment name is required")
+     * @Assert\NotBlank(message="Segment code is required")
      * @Assert\Length(max=32)
      */
     public $code;
@@ -34,7 +34,6 @@ class CreateSegmentFormModel
     public $description;
 
     /**
-     * CreateSegmentFormModel constructor.
      */
     public function __construct()
     {

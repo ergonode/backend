@@ -59,6 +59,14 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("USER_READ")>'
                 - '<privilege("USER_UPDATE")>'
                 - '<privilege("USER_DELETE")>'
+                - '<privilege("WORKFLOW_CREATE")>'
+                - '<privilege("WORKFLOW_READ")>'
+                - '<privilege("WORKFLOW_UPDATE")>'
+                - '<privilege("WORKFLOW_DELETE")>'
+                - '<privilege("SEGMENT_CREATE")>'
+                - '<privilege("SEGMENT_READ")>'
+                - '<privilege("SEGMENT_UPDATE")>'
+                - '<privilege("SEGMENT_DELETE")>'
     admin_role:
         __construct:
             - '@admin_role_id'
@@ -105,6 +113,14 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("USER_READ")>'
                 - '<privilege("USER_UPDATE")>'
                 - '<privilege("USER_DELETE")>'
+                - '<privilege("WORKFLOW_CREATE")>'
+                - '<privilege("WORKFLOW_READ")>'
+                - '<privilege("WORKFLOW_UPDATE")>'
+                - '<privilege("WORKFLOW_DELETE")>'
+                - '<privilege("SEGMENT_CREATE")>'
+                - '<privilege("SEGMENT_READ")>'
+                - '<privilege("SEGMENT_UPDATE")>'
+                - '<privilege("SEGMENT_DELETE")>'
     data_inputer_role:
         __construct:
             - '@data_inputer_role_id'

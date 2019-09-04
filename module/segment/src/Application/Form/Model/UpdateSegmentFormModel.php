@@ -26,7 +26,6 @@ class UpdateSegmentFormModel
     public $description;
 
     /**
-     * CreateSegmentFormModel constructor.
      */
     public function __construct()
     {
