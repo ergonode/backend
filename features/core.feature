@@ -24,55 +24,55 @@ Feature: Core module
     Then not found response is received
 
   Scenario: Update language (not authorized)
-    When I request "/api/v1/{language}/languages" using HTTP PUT
+    When I request "/api/v1/EN/languages" using HTTP PUT
     Then unauthorized response is received
 
   Scenario: Update language
     Given current authentication token
     Given the request body is:
     """
-    {
-  "collection": [
-    {
-      "code": "EN",
-      "active": true
-    }
-  ]
-}
+     {
+       "collection":[
+          {
+             "code":"EN",
+             "active":true
+          }
+       ]
+     }
     """
-    When I request "/api/v1/{language}/languages" using HTTP PUT
+    When I request "/api/v1/EN/languages" using HTTP PUT
     Then the response code is 204
 
   Scenario: Update language (wrong active - bad request)
     Given current authentication token
     Given the request body is:
     """
-    {
-  "collection": [
-    {
-      "code": "EN",
-      "active": "tralalal"
-    }
-  ]
-}
+      {
+         "collection":[
+            {
+               "code":"EN",
+               "active":"test"
+            }
+         ]
+      }
     """
-    When I request "/api/v1/{language}/languages" using HTTP PUT
+    When I request "/api/v1/EN/languages" using HTTP PUT
     Then validation error response is received
 
   Scenario: Update language (wrong code - bad request)
     Given current authentication token
     Given the request body is:
     """
-    {
-  "collection": [
-    {
-      "code": "ZZ",
-      "active": true
-    }
-  ]
-}
+      {
+         "collection":[
+            {
+               "code":"ZZ",
+               "active":true
+            }
+         ]
+      }
     """
-    When I request "/api/v1/{language}/languages" using HTTP PUT
+    When I request "/api/v1/EN/languages" using HTTP PUT
     Then validation error response is received
 
   Scenario: Update language (wrong structure - bad request)
@@ -84,5 +84,5 @@ Feature: Core module
       "active": true
     }
     """
-    When I request "/api/v1/{language}/languages" using HTTP PUT
+    When I request "/api/v1/EN/languages" using HTTP PUT
     Then validation error response is received

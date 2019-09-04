@@ -435,42 +435,42 @@ Feature: Designer module
     When I request "/api/v1/EN/templates/groups" using HTTP GET
     Then unauthorized response is received
 
-  Scenario: Get templates groups(order by id)
+  Scenario: Get templates groups (order by id)
     Given current authentication token
     When I request "/api/v1/EN/templates/groups?field=id" using HTTP GET
     Then grid response is received
 
-  Scenario: Get templates groups(order by name)
+  Scenario: Get templates groups (order by name)
     Given current authentication token
     When I request "/api/v1/EN/templates/groups?field=name" using HTTP GET
     Then grid response is received
 
-  Scenario: Get templates groups(order by custom)
+  Scenario: Get templates groups (order by custom)
     Given current authentication token
     When I request "/api/v1/EN/templates/groups?field=custom" using HTTP GET
     Then grid response is received
 
-  Scenario: Get templates groups(order ASC)
+  Scenario: Get templates groups (order ASC)
     Given current authentication token
     When I request "/api/v1/EN/templates/groups?field=name&order=ASC" using HTTP GET
     Then grid response is received
 
-  Scenario: Get templates groups(order DESC )
+  Scenario: Get templates groups (order DESC )
     Given current authentication token
     When I request "/api/v1/EN/templates/groups?field=name&order=DESC" using HTTP GET
     Then grid response is received
 
-  Scenario: Get templates groups(filter by id)
+  Scenario: Get templates groups (filter by id)
     Given current authentication token
     When I request "/api/v1/EN/templates/groups?limit=25&offset=0&filter=id%3D1" using HTTP GET
     Then grid response is received
 
-  Scenario: Get templates groups(filter by name)
+  Scenario: Get templates groups (filter by name)
     Given current authentication token
     When I request "/api/v1/EN/templates/groups?limit=25&offset=0&filter=name%3Dasd" using HTTP GET
     Then grid response is received
 
-  Scenario: Get templates groups(filter by custom)
+  Scenario: Get templates groups (filter by custom)
     Given current authentication token
     When I request "/api/v1/EN/templates/groups?limit=25&offset=0&filter=custom%3Dasd" using HTTP GET
     Then grid response is received
