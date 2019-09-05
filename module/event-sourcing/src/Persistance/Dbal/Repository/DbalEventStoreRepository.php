@@ -80,7 +80,14 @@ class DbalEventStoreRepository implements EventStoreRepositoryInterface
             ->execute()
             ->fetchAll();
 
-        $records = $this->domainEventFactory->create($id, $records);
+        // event merging (we don't need to have all changes history, we only looking for current state)
+        // better solution will be SQL query groupped by event
+        $events = [];
+        foreach ($records as $record) {
+            $events[$record['event']] = $record;
+        }
+
+        $records = $this->domainEventFactory->create($id, array_values($events));
 
         return new DomainEventStream($records);
     }

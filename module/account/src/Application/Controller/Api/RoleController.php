@@ -171,6 +171,13 @@ class RoleController extends AbstractController
          *
          * Killer is SimpleDomainEventFactory! Almost 7,5s in 100k records! Thanks for JMS!
          * Next killer is DbalRoleRepository::load, it's steal 1,3s for 100k event propagation!
+         *
+         * After event merging
+         * // with 100k events (without cache)
+         * array(2) {
+         *   ["repository"]=> float(9.2891609668732)
+         *   ["manager"]   => float(0.41934514045715)
+         * }
          */
 
         var_dump($result);
