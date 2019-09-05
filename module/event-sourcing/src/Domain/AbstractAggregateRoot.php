@@ -100,15 +100,17 @@ abstract class AbstractAggregateRoot
     {
         $this->editedAt = $recordedAt;
 
-        if (!$event instanceof AbstractDeleteEvent) {
-            $classArray = explode('\\', get_class($event));
-            $class = end($classArray);
-            $method = sprintf('apply%s', $class);
-            if (!method_exists($this, $method)) {
-                throw new \RuntimeException(sprintf('Can\'t find method  %s for event in aggregate %s', $method, get_class($this)));
-            }
+        if ($event instanceof AbstractDeleteEvent) {
+            return;
+        }
 
-            $this->$method($event);
+        // performance boost almost 50%. Before 0.06554102897644, now 0.037464027404785
+        $namespace = get_class($event);
+        try {
+            $class = substr($namespace, strrpos($namespace, '\\') + 1, strlen($namespace));
+            $this->{'apply'.$class}($event);
+        } catch (\Throwable $exception) {
+            throw new \RuntimeException(sprintf('Unable to apply event "%s"', $namespace), 500, $exception);
         }
     }
 }
