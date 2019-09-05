@@ -36,9 +36,7 @@ class UserLanguageChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -46,11 +44,7 @@ class UserLanguageChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -58,21 +52,14 @@ class UserLanguageChangedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, UserLanguageChangedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $this->connection->update(
-                self::TABLE,
-                [
-                    'language' => $event->getTo()->getCode(),
-                ],
-                [
-                    'id' => $aggregateId->getValue(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        $this->connection->update(
+            self::TABLE,
+            [
+                'language' => $event->getTo()->getCode(),
+            ],
+            [
+                'id' => $aggregateId->getValue(),
+            ]
+        );
     }
 }

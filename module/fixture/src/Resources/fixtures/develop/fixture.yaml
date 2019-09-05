@@ -8,3 +8,4 @@ include:
     - 'templates.yaml'
     - 'categories.yaml'
     - 'products.yaml'
+    - 'segment.yaml'

@@ -12,7 +12,6 @@ namespace Ergonode\Attribute\Domain\Command;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 
 /**
- * Class DeleteAttributeCommand
  */
 class DeleteAttributeCommand
 {

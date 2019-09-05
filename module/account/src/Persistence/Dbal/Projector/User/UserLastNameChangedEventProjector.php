@@ -36,9 +36,7 @@ class UserLastNameChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -46,11 +44,7 @@ class UserLastNameChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -58,21 +52,14 @@ class UserLastNameChangedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, UserLastNameChangedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $this->connection->update(
-                self::TABLE,
-                [
-                    'last_name' => $event->getTo(),
-                ],
-                [
-                    'id' => $aggregateId->getValue(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        $this->connection->update(
+            self::TABLE,
+            [
+                'last_name' => $event->getTo(),
+            ],
+            [
+                'id' => $aggregateId->getValue(),
+            ]
+        );
     }
 }

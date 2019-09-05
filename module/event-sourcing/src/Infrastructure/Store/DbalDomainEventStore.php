@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
@@ -51,32 +52,41 @@ class DbalDomainEventStore implements DomainEventStoreInterface
     private $tokenStorage;
 
     /**
-     * @param Connection                  $connection
-     * @param SerializerInterface         $serializer
-     * @param DomainEventFactoryInterface $domainEventFactory
-     * @param TokenStorageInterface       $tokenStorage
-     * @param AdapterInterface            $cache
+     * @var array
+     */
+    private $events;
+
+    /**
+     * @var DomainEventProviderInterface
+     */
+    private $domainEventProvider;
+
+    /**
+     * @param Connection                   $connection
+     * @param SerializerInterface          $serializer
+     * @param DomainEventFactoryInterface  $domainEventFactory
+     * @param TokenStorageInterface        $tokenStorage
+     * @param AdapterInterface             $cache
+     * @param DomainEventProviderInterface $domainEventProvider
      */
     public function __construct(
         Connection $connection,
         SerializerInterface $serializer,
         DomainEventFactoryInterface $domainEventFactory,
         TokenStorageInterface $tokenStorage,
-        AdapterInterface $cache
+        AdapterInterface $cache,
+        DomainEventProviderInterface $domainEventProvider
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->connection = $connection;
         $this->serializer = $serializer;
         $this->domainEventFactory = $domainEventFactory;
         $this->cache = $cache;
+        $this->domainEventProvider = $domainEventProvider;
     }
 
     /**
-     * @param AbstractId $id
-     *
-     * @param string     $table
-     *
-     * @return DomainEventStream
+     * {@inheritDoc}
      *
      * @throws \Psr\Cache\InvalidArgumentException
      */
@@ -88,7 +98,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
 
         $item = $this->cache->getItem($key);
         if ($item->isHit()) {
-            $result =  $item->get();
+            $result = $item->get();
             $sequence = count($result);
         } else {
             $result = [];
@@ -98,8 +108,10 @@ class DbalDomainEventStore implements DomainEventStoreInterface
         $qb = $this->connection->createQueryBuilder();
 
         $records = $qb
-            ->select('*')
-            ->from($table)
+            ->select('es.id, es.aggregate_id, es.sequence, es.payload, es.recorded_by, es.recorded_at')
+            ->addSelect('ese.event_class as event')
+            ->from($table, 'es')
+            ->join('es', 'event_store_event', 'ese', 'es.event_id = ese.id')
             ->where($qb->expr()->eq('aggregate_id', ':aggregateId'))
             ->andWhere($qb->expr()->gt('sequence', ':sequence'))
             ->setParameter('aggregateId', $id->getValue())
@@ -119,19 +131,16 @@ class DbalDomainEventStore implements DomainEventStoreInterface
     }
 
     /**
-     * @param AbstractId        $id
-     * @param DomainEventStream $stream
+     * {@inheritDoc}
      *
-     * @param string            $table
-     *
-     * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Throwable
      */
     public function append(AbstractId $id, DomainEventStream $stream, ?string $table = null): void
     {
         $table = $table ?: self::TABLE;
-        $this->connection->beginTransaction();
-        try {
+
+        $this->connection->transactional(function () use ($id, $stream, $table) {
+            $userId = $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser()->getId()->getValue() : null;
             foreach ($stream as $envelope) {
                 $payload = $this->serializer->serialize($envelope->getEvent(), 'json');
                 $this->connection->insert(
@@ -139,17 +148,56 @@ class DbalDomainEventStore implements DomainEventStoreInterface
                     [
                         'aggregate_id' => $id->getValue(),
                         'sequence' => $envelope->getSequence(),
-                        'event' => $envelope->getType(),
+                        'event_id' => $this->domainEventProvider->provideEventId($envelope->getType()),
                         'payload' => $payload,
                         'recorded_at' => $envelope->getRecordedAt()->format('Y-m-d H:i:s'),
-                        'recorded_by' => $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser()->getId()->getValue() : null,
+                        'recorded_by' => $userId,
                     ]
                 );
             }
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Throwable
+     * @throws \Psr\Cache\InvalidArgumentException
+     */
+    public function delete(AbstractId $id, ?string $table = null): void
+    {
+        $dataTable = $table ?? self::TABLE;
+        $historyTable = sprintf('%s_history', $dataTable);
+
+        $this->connection->transactional(function () use ($id, $dataTable, $historyTable) {
+            $queryBuilder = $this->connection->createQueryBuilder()
+                ->from($historyTable)
+                ->select('variant')
+                ->where('aggregate_id = :id')
+                ->orderBy('variant', 'DESC')
+                ->setMaxResults(1)
+                ->setParameter('id', $id->getValue());
+            $version = $queryBuilder->execute()->fetchColumn();
+
+            if (empty($version)) {
+                $version = 1;
+            }
+
+            $this->connection->executeQuery(
+                sprintf(
+                    'INSERT INTO %s (aggregate_id, sequence, event_id, payload, recorded_by, recorded_at, variant) 
+                    SELECT aggregate_id, sequence, event_id, payload, recorded_by, recorded_at, %d FROM %s WHERE aggregate_id = ?',
+                    $historyTable,
+                    $version,
+                    $dataTable
+                ),
+                [$id->getValue()]
+            );
+
+            $this->connection->delete($dataTable, ['aggregate_id' => $id->getValue()]);
+        });
+
+        $key = sprintf(self::KEY, $id->getValue());
+        $this->cache->deleteItem($key);
     }
 }

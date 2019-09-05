@@ -15,7 +15,6 @@ use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Event\ProductDraftValueRemoved;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
@@ -39,9 +38,7 @@ class ProductDraftValueRemovedEventProjector implements DomainEventProjectorInte
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -49,12 +46,7 @@ class ProductDraftValueRemovedEventProjector implements DomainEventProjectorInte
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -62,17 +54,10 @@ class ProductDraftValueRemovedEventProjector implements DomainEventProjectorInte
             throw new UnsupportedEventException($event, ProductDraftValueRemoved::class);
         }
 
-        try {
-            $this->connection->beginTransaction();
-            $draftId = $aggregateId->getValue();
-            $elementId = AttributeId::fromKey($event->getAttributeCode())->getValue();
+        $draftId = $aggregateId->getValue();
+        $elementId = AttributeId::fromKey($event->getAttributeCode())->getValue();
 
-            $this->delete($draftId, $elementId);
-            $this->connection->commit();
-        } catch (\Exception $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        $this->delete($draftId, $elementId);
     }
 
     /**

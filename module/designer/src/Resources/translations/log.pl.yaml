@@ -1,10 +1,10 @@
-"Ergonode\\Designer\\Domain\\Event\\TemplateCreatedEvent": Szablon "%name%" dodany
-"Ergonode\\Designer\\Domain\\Event\\TemplateElementAddedEvent": Element dodany do szablonu
-"Ergonode\\Designer\\Domain\\Event\\TemplateElementChangedEvent": Element szablonu zmieniony
-"Ergonode\\Designer\\Domain\\Event\\TemplateElementRemovedEvent": Element szablonu usunięty
-"Ergonode\\Designer\\Domain\\Event\\TemplateGroupChangedEvent": Szablon usunięty z grupy
-"Ergonode\\Designer\\Domain\\Event\\TemplateImageAddedEvent": Zdjęcie dodane do szablonu
-"Ergonode\\Designer\\Domain\\Event\\TemplateImageChangedEvent": Zmieniono zdjęcie szablonu
-"Ergonode\\Designer\\Domain\\Event\\TemplateImageRemovedEvent": Usunieto zdjęcie szablonu
-"Ergonode\\Designer\\Domain\\Event\\TemplateNameChangedEvent": Nazwa szablonu zmieniona z "%from%" na "%to%"
-"Ergonode\\Designer\\Domain\\Event\\TemplateRemovedEvent": Szablon usunieto
+'Template created': 'Szablon "%name%" dodany'
+'Template element added to template': 'Element dodany do szablonu'
+'Template element changed': 'Element szablonu zmieniony'
+'Template element removed': 'Element szablonu usunięty'
+'Template group removed': 'Szablon usunięty z grupy'
+'Template image added': 'Zdjęcie dodane do szablonu'
+'Template image changed': 'Zmieniono zdjęcie szablonu'
+'Template image removed': 'Usunieto zdjęcie szablonu'
+'Template name changed': 'Nazwa szablonu zmieniona z "%from%" na "%to%"'
+'Template removed': 'Szablon usunieto'

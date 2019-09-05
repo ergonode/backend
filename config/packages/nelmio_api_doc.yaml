@@ -174,11 +174,6 @@ nelmio_api_doc:
             tree:
                 type: object
                 properties:
-                    code:
-                        type: string
-                        description: Category tree code
-                        required: true
-                        example: Default
                     name:
                         type: object
                         description: category name
@@ -283,7 +278,7 @@ nelmio_api_doc:
                         $ref: "#/definitions/translation"
                 example:
                     key: key_1
-                    translation:
+                    value:
                         PL: Option PL 1
                         EN: Option EN 1
             attribute_parameters:
@@ -297,11 +292,22 @@ nelmio_api_doc:
             segment:
                 type: object
                 properties:
-                    name:
+                    code:
                         type: string
                         required: true
-                        description: segment name
-                        example: segment name
+                        description: Segment unique code value
+                    name:
+                        $ref: "#/definitions/translation"
+                    description:
+                        $ref: "#/definitions/translation"
+                example:
+                    code: code_1
+                    name:
+                        PL: Name PL 1
+                        EN: Name EN 1
+                    description:
+                        PL: Description PL 1
+                        EN: Description EN 1
             languages_req:
                 type: object
                 properties:

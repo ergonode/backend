@@ -44,9 +44,7 @@ class TemplateElementChangedEventProjector implements DomainEventProjectorInterf
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -54,40 +52,27 @@ class TemplateElementChangedEventProjector implements DomainEventProjectorInterf
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-
         if (!$event instanceof TemplateElementChangedEvent) {
             throw new UnsupportedEventException($event, TemplateElementChangedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $element = $event->getElement();
-            $this->connection->update(
-                self::ELEMENT_TABLE,
-                [
-                    'width' => $element->getSize()->getWidth(),
-                    'height' => $element->getSize()->getHeight(),
-                    'properties' => $this->serializer->serialize($element->getProperties(), 'json'),
-                ],
-                [
-                    'template_id' => $aggregateId->getValue(),
-                    'x' => $element->getPosition()->getX(),
-                    'y' => $element->getPosition()->getY(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        $element = $event->getElement();
+        $this->connection->update(
+            self::ELEMENT_TABLE,
+            [
+                'width' => $element->getSize()->getWidth(),
+                'height' => $element->getSize()->getHeight(),
+                'properties' => $this->serializer->serialize($element->getProperties(), 'json'),
+            ],
+            [
+                'template_id' => $aggregateId->getValue(),
+                'x' => $element->getPosition()->getX(),
+                'y' => $element->getPosition()->getY(),
+            ]
+        );
     }
 }

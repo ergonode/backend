@@ -15,9 +15,9 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Application\Form\CategoryTreeCreateForm;
-use Ergonode\CategoryTree\Application\Form\TreeForm;
+use Ergonode\CategoryTree\Application\Form\CategoryTreeUpdateForm;
 use Ergonode\CategoryTree\Application\Model\CategoryTreeCreateFormModel;
-use Ergonode\CategoryTree\Application\Model\TreeFormModel;
+use Ergonode\CategoryTree\Application\Model\CategoryTreeUpdateFormModel;
 use Ergonode\CategoryTree\Domain\Command\AddCategoryCommand;
 use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
 use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
@@ -196,7 +196,6 @@ class CategoryTreeController extends AbstractController
     {
         $model = new CategoryTreeCreateFormModel();
         $form = $this->createForm(CategoryTreeCreateForm::class, $model);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -213,7 +212,7 @@ class CategoryTreeController extends AbstractController
             throw new BadRequestHttpException('Tree already exists');
         }
 
-        throw new BadRequestHttpException();
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -330,14 +329,14 @@ class CategoryTreeController extends AbstractController
     public function putTree(CategoryTree $tree, Request $request): Response
     {
         try {
-            $model = new TreeFormModel();
-            $form = $this->createForm(TreeForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $model = new CategoryTreeUpdateFormModel();
+            $form = $this->createForm(CategoryTreeUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var TreeFormModel $data */
+                /** @var CategoryTreeUpdateFormModel $data */
                 $data = $form->getData();
-                $command = new UpdateTreeCommand($tree->getId(), $data->code, new TranslatableString($data->name), $data->categories);
+                $command = new UpdateTreeCommand($tree->getId(), new TranslatableString($data->name), $data->categories);
                 $this->messageBus->dispatch($command);
 
                 return new EmptyResponse();

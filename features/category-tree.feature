@@ -5,7 +5,7 @@ Feature: Category tree module
     Given the request body is:
       """
       {
-        "code": "TREE_CAT_@@random_code@@",
+        "code": "TREE_@@random_code@@",
         "name": {
           "DE": "Test DE",
           "EN": "Test EN"
@@ -112,8 +112,8 @@ Feature: Category tree module
     """
       {
         "name": {
-          "DE": "Test DE",
-          "EN": "Test EN"
+          "DE": "Test DE (changed)",
+          "EN": "Test EN (changed)"
         },
         "categories": [
           {

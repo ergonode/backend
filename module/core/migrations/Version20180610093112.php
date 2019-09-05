@@ -36,20 +36,6 @@ final class Version20180610093112 extends AbstractErgonodeMigration
         );
         $this->addSql('CREATE TABLE translation (translation_id UUID NOT NULL, language VARCHAR(2) NOT NULL, phrase VARCHAR(255), PRIMARY KEY(translation_id, language))');
 
-        $this->addSql(
-            'CREATE TABLE event_store (
-                    id BIGSERIAL NOT NULL, 
-                    aggregate_id uuid NOT NULL, 
-                    sequence int, 
-                    event character varying(255) NOT NULL, 
-                    payload jsonb NOT NULL, 
-                    recorded_by uuid default NULL, 
-                    recorded_at timestamp without time zone NOT NULL, 
-                    CONSTRAINT event_store_pkey PRIMARY KEY (id)
-                 )'
-        );
-        $this->addSql('CREATE UNIQUE INDEX event_store_aggregate_id_sequence_key ON event_store USING btree (aggregate_id, sequence)');
-
         foreach ($this->getLanguages() as $iso => $name) {
             $this->addSql('INSERT INTO language (id, iso, name) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), $iso, $name]);
         }

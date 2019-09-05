@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -28,17 +29,22 @@ class RoleCreatedEventProjector implements DomainEventProjectorInterface
     private $connection;
 
     /**
-     * @param Connection $connection
+     * @var SerializerInterface
      */
-    public function __construct(Connection $connection)
+    private $serializer;
+
+    /**
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
+        $this->serializer = $serializer;
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -46,11 +52,7 @@ class RoleCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -58,16 +60,14 @@ class RoleCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, RoleCreatedEvent::class);
         }
 
-        $this->connection->transactional(function () use ($event) {
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'id' => $event->getId()->getValue(),
-                    'name' => $event->getName(),
-                    'description' => $event->getDescription(),
-                    'privileges' => json_encode($event->getPrivileges()),
-                ]
-            );
-        });
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'id' => $event->getId()->getValue(),
+                'name' => $event->getName(),
+                'description' => $event->getDescription(),
+                'privileges' => $this->serializer->serialize($event->getPrivileges(), 'json'),
+            ]
+        );
     }
 }

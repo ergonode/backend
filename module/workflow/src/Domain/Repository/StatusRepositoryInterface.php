@@ -27,14 +27,19 @@ interface StatusRepositoryInterface
     public function load(StatusId $id): ?AbstractAggregateRoot;
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
-
-    /**
      * @param StatusId $id
      *
      * @return bool
      */
     public function exists(StatusId $id): bool;
+
+    /**
+     * @param AbstractAggregateRoot $aggregateRoot
+     */
+    public function save(AbstractAggregateRoot $aggregateRoot): void;
+
+    /**
+     * @param AbstractAggregateRoot $aggregateRoot
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void;
 }

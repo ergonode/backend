@@ -30,4 +30,10 @@ interface DomainEventStoreInterface
      * @param string            $table
      */
     public function append(AbstractId $id, DomainEventStream $stream, ?string $table = null): void;
+
+    /**
+     * @param AbstractId  $id
+     * @param string|null $table
+     */
+    public function delete(AbstractId $id, ?string $table = null): void;
 }

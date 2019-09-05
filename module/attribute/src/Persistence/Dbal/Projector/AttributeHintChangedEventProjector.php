@@ -13,7 +13,6 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ramsey\Uuid\Uuid;
@@ -38,9 +37,7 @@ class AttributeHintChangedEventProjector implements DomainEventProjectorInterfac
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -48,12 +45,9 @@ class AttributeHintChangedEventProjector implements DomainEventProjectorInterfac
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
+     * {@inheritDoc}
      *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -61,8 +55,7 @@ class AttributeHintChangedEventProjector implements DomainEventProjectorInterfac
             throw new UnsupportedEventException($event, AttributeHintChangedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
+        $this->connection->transactional(function () use ($aggregateId, $event) {
             $from = $event->getFrom()->getTranslations();
             $to = $event->getTo()->getTranslations();
 
@@ -102,11 +95,7 @@ class AttributeHintChangedEventProjector implements DomainEventProjectorInterfac
                     );
                 }
             }
-            $this->connection->commit();
-        } catch (\Exception $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        });
     }
 
     /**

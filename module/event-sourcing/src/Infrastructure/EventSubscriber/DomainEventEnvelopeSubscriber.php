@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\EventSourcing\Infrastructure\EventSubscriber;
 
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
+use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjector;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -47,6 +48,10 @@ class DomainEventEnvelopeSubscriber implements EventSubscriberInterface
      */
     public function projection(DomainEventEnvelope $envelope): void
     {
-        $this->projector->projection($envelope);
+        try {
+            $this->projector->projection($envelope);
+        } catch (\Throwable $exception) {
+            throw new ProjectorException($envelope->getEvent(), $exception);
+        }
     }
 }

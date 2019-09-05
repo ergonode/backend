@@ -37,9 +37,7 @@ class AttributeOptionRemovedEventProjector implements DomainEventProjectorInterf
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -47,12 +45,7 @@ class AttributeOptionRemovedEventProjector implements DomainEventProjectorInterf
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws DBALException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {

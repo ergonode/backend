@@ -10,10 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Persistence\Dbal\Projector\Group;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
+use Ergonode\Attribute\Domain\Event\AttributeGroupDeletedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
@@ -37,42 +36,28 @@ class AttributeGroupRemovedEventProjector implements DomainEventProjectorInterfa
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
-        return $event instanceof AttributeGroupRemovedEvent;
+        return $event instanceof AttributeGroupDeletedEvent;
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof AttributeGroupRemovedEvent) {
-            throw new UnsupportedEventException($event, AttributeGroupRemovedEvent::class);
+        if (!$event instanceof AttributeGroupDeletedEvent) {
+            throw new UnsupportedEventException($event, AttributeGroupDeletedEvent::class);
         }
 
-        try {
-            $this->connection->beginTransaction();
-            $this->connection->delete(
-                self::TABLE,
-                [
-                    'attribute_id' => $aggregateId->getValue(),
-                    'attribute_group_id' => $event->getGroupId()->getValue(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'attribute_id' => $aggregateId->getValue(),
+                'attribute_group_id' => $event->getGroupId()->getValue(),
+            ]
+        );
     }
 }

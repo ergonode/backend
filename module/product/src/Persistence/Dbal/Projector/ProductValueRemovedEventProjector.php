@@ -37,9 +37,7 @@ class ProductValueRemovedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -47,11 +45,7 @@ class ProductValueRemovedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -59,15 +53,7 @@ class ProductValueRemovedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, ProductValueRemoved::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
-            $this->delete($aggregateId->getValue(), AttributeId::fromKey($event->getAttributeCode())->getValue());
-
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        $this->delete($aggregateId->getValue(), AttributeId::fromKey($event->getAttributeCode())->getValue());
     }
 
     /**

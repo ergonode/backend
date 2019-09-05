@@ -17,7 +17,6 @@ use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ramsey\Uuid\Uuid;
@@ -52,6 +51,8 @@ class AttributeOptionChangedEventProjector implements DomainEventProjectorInterf
 
     /**
      * {@inheritDoc}
+     *
+     * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -59,8 +60,7 @@ class AttributeOptionChangedEventProjector implements DomainEventProjectorInterf
             throw new UnsupportedEventException($event, AttributeOptionChangedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
+        $this->connection->transactional(function () use ($aggregateId, $event) {
             $valueId = Uuid::uuid4()->toString();
             $attributeId = $aggregateId->getValue();
 
@@ -76,12 +76,7 @@ class AttributeOptionChangedEventProjector implements DomainEventProjectorInterf
             );
 
             $this->insertOption($valueId, $event->getTo());
-
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        });
     }
 
     /**

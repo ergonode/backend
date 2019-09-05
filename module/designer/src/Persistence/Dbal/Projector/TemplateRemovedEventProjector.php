@@ -37,9 +37,7 @@ class TemplateRemovedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -47,11 +45,8 @@ class TemplateRemovedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
+     * {@inheritDoc}
      *
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
@@ -60,24 +55,20 @@ class TemplateRemovedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, TemplateRemovedEvent::class);
         }
 
-        $this->connection->beginTransaction();
-        try {
+        $this->connection->transactional(function () use ($aggregateId) {
             $this->connection->delete(
                 self::ELEMENT_TABLE,
                 [
                     'template_id' => $aggregateId->getValue(),
                 ]
             );
+
             $this->connection->delete(
                 self::TABLE,
                 [
                     'id' => $aggregateId->getValue(),
                 ]
             );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        });
     }
 }
