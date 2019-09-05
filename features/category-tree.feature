@@ -2,10 +2,16 @@ Feature: Category tree module
 
   Scenario: Create category tree
     Given current authentication token
-    Given the following form parameters are set:
-      | name | value                |
-      | name | Test                 |
-      | code | TREE_@@random_code@@ |
+    Given the request body is:
+      """
+      {
+        "code": "TREE_CAT_@@random_code@@",
+        "name": {
+          "DE": "Test DE",
+          "EN": "Test EN"
+        }
+      }
+      """
     When I request "/api/v1/EN/trees" using HTTP POST
     Then created response is received
     And remember response param "id" as "category_tree"
@@ -28,17 +34,90 @@ Feature: Category tree module
       """
     When I request "/api/v1/EN/categories" using HTTP POST
     Then created response is received
-    And remember response param "id" as "tree_category"
+    And remember response param "id" as "category"
+
+  Scenario: Create category (no Name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "TREE_CAT_@@random_code@@"
+      }
+      """
+    When I request "/api/v1/EN/categories" using HTTP POST
+    Then created response is received
+
+  Scenario: Create category (empty Name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "TREE_CAT_@@random_code@@",
+        "name": {
+        }
+      }
+      """
+    When I request "/api/v1/EN/categories" using HTTP POST
+    Then created response is received
+
+  Scenario: Create category (name with language with empty string value)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "TREE_CAT_@@random_code@@",
+        "name": {
+          "DE": "",
+          "EN": "Test EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/categories" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create category (name with wrong language code )
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "TREE_CAT_@@random_code@@",
+        "name": {
+          "test": "Test DE",
+          "EN": "Test EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/categories" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create category (name with no existing language code )
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "TREE_CAT_@@random_code@@",
+        "name": {
+          "ZZ": "Test DE",
+          "EN": "Test EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/categories" using HTTP POST
+    Then validation error response is received
+
 
   Scenario: Update category tree
     Given current authentication token
     Given the request body is:
     """
       {
-        "name": "Test (changed)",
+        "name": {
+          "DE": "Test DE",
+          "EN": "Test EN"
+        },
         "categories": [
           {
-            "category_id": "@tree_category@",
+            "category_id": "@category@",
             "childrens": []
           }
         ]
