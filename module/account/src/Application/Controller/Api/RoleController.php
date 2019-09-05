@@ -15,8 +15,11 @@ use Ergonode\Account\Domain\Command\Role\CreateRoleCommand;
 use Ergonode\Account\Domain\Command\Role\DeleteRoleCommand;
 use Ergonode\Account\Domain\Command\Role\UpdateRoleCommand;
 use Ergonode\Account\Domain\Entity\Role;
+use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
+use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\Account\Infrastructure\Grid\RoleGrid;
+use Ergonode\Account\Persistence\Manager\RoleAggregateRootManager;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
@@ -56,6 +59,16 @@ class RoleController extends AbstractController
     private $messageBus;
 
     /**
+     * @var RoleRepositoryInterface
+     */
+    private $roleRepository;
+
+    /**
+     * @var RoleAggregateRootManager
+     */
+    private $roleAggregateRootManager;
+
+    /**
      * @param RoleQueryInterface  $query
      * @param RoleGrid            $grid
      * @param MessageBusInterface $messageBus
@@ -63,11 +76,83 @@ class RoleController extends AbstractController
     public function __construct(
         RoleQueryInterface $query,
         RoleGrid $grid,
-        MessageBusInterface $messageBus
+        MessageBusInterface $messageBus,
+        RoleRepositoryInterface $roleRepository,
+        RoleAggregateRootManager $roleAggregateRootManager
     ) {
         $this->query = $query;
         $this->grid = $grid;
         $this->messageBus = $messageBus;
+        $this->roleRepository = $roleRepository;
+        $this->roleAggregateRootManager = $roleAggregateRootManager;
+    }
+
+    /**
+     * @Route("/test", methods={"GET"})
+     *
+     * @SWG\Tag(name="Account")
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns roles collection",
+     * )
+     */
+    public function test(): Response
+    {
+        $roleId = new RoleId('1d785602-3ae4-4124-b3aa-82ae465a821f');
+
+        $time = microtime(true);
+
+        $object = $this->roleRepository->load($roleId);
+
+        $result['repository'] = microtime(true) - $time;
+
+        $time = microtime(true);
+
+        $object = $this->roleAggregateRootManager->load($roleId);
+
+        $result['manager'] = microtime(true) - $time;
+
+        /**
+         * // with 4 events
+         * array(2) {
+         *   ["repository"]=> float(0.00075888633728027)
+         *   ["manager"]   => float(0.00016593933105469)
+         * }
+         * // with 1000 events (without cache)
+         * array(2) {
+         *   ["repository"]=> float(0.10557198524475)
+         *   ["manager"]   => float(0.080667018890381)
+         * }
+         * // with 1000 events (with cache)
+         * array(2) {
+         *   ["repository"]=> float(0.0094678401947021)
+         *   ["manager"]   => float(0.00022315979003906)
+         * }
+         * // with 3000 events (without cache)
+         * array(2) {
+         *   ["repository"]=> float(0.28118014335632)
+         *   ["manager"]   => float(0.24146604537964)
+         * }
+         * // with 3000 events (with cache)
+         * array(2) {
+         *   ["repository"]=> float(0.032825946807861)
+         *   ["manager"]   => float(0.00022411346435547)
+         * }
+         * // with 10000 events (without cache)
+         * array(2) {
+         *   ["repository"]=> float(0.93201613426208)
+         *   ["manager"]   => float(0.81660103797913)
+         * }
+         * // with 10000 events (with cache)
+         * array(2) {
+         *   ["repository"]=> float(0.14490103721619)
+         *   ["manager"]   => float(0.00020003318786621)
+         * }
+         */
+
+        var_dump($result);
+
+        return new EmptyResponse();
     }
 
     /**

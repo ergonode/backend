@@ -7,13 +7,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\EventSourcing\Infrastructure\Store;
+namespace Ergonode\EventSourcing\Persistance\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
-use Ergonode\EventSourcing\Infrastructure\EventStoreRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use JMS\Serializer\SerializerInterface;
 

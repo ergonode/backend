@@ -13,8 +13,8 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\Factory\EventStreamAggregateRootFactory;
 use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
-use Ergonode\EventSourcing\Infrastructure\EventStoreRepositoryInterface;
 use Ergonode\EventSourcing\Persistance\Dbal\Exception\EventStreamEmptyException;
+use Ergonode\EventSourcing\Persistance\Dbal\Repository\EventStoreRepositoryInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 

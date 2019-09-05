@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\EventSourcing\Infrastructure;
+namespace Ergonode\EventSourcing\Persistance\Dbal\Repository;
 
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Core\Domain\Entity\AbstractId;

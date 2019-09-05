@@ -1,11 +1,18 @@
 services:
     _defaults:
-            autowire: true
-            autoconfigure: true
-            public: false
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\EventSourcing\Domain\:
+        resource: '../../Domain/*'
 
     Ergonode\EventSourcing\Infrastructure\:
         resource: '../../Infrastructure/*'
 
+    Ergonode\EventSourcing\Persistance\:
+        resource: '../../Persistance/*'
+
     Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface: '@Ergonode\EventSourcing\Infrastructure\Store\DbalDomainEventStore'
     Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface: '@Ergonode\EventSourcing\Infrastructure\Dispatcher\SymfonyDomainEventDispatcher'
+    Ergonode\EventSourcing\Persistance\Provider\AggregateRootProviderInterface: '@Ergonode\EventSourcing\Persistance\Provider\AggregateRootProvider'
