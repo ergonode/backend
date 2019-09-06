@@ -12,7 +12,6 @@ namespace Ergonode\EventSourcing\Persistance\Dbal\Repository;
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use JMS\Serializer\SerializerInterface;
 
@@ -33,23 +32,15 @@ class DbalEventStoreRepository implements EventStoreRepositoryInterface
     private $serializer;
 
     /**
-     * @var DomainEventFactoryInterface
-     */
-    private $domainEventFactory;
-
-    /**
-     * @param Connection                  $connection
-     * @param SerializerInterface         $serializer
-     * @param DomainEventFactoryInterface $domainEventFactory
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
      */
     public function __construct(
         Connection $connection,
-        SerializerInterface $serializer,
-        DomainEventFactoryInterface $domainEventFactory
+        SerializerInterface $serializer
     ) {
         $this->connection = $connection;
         $this->serializer = $serializer;
-        $this->domainEventFactory = $domainEventFactory;
     }
 
     /**
@@ -65,7 +56,7 @@ class DbalEventStoreRepository implements EventStoreRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function load(AbstractId $id, int $sequence = 0): DomainEventStream
+    public function load(AbstractId $id, int $sequence = 0): array
     {
         $queryBuilder = $this->connection->createQueryBuilder();
 
@@ -80,16 +71,7 @@ class DbalEventStoreRepository implements EventStoreRepositoryInterface
             ->execute()
             ->fetchAll();
 
-        // event merging (we don't need to have all changes history, we only looking for current state)
-        // better solution will be SQL query groupped by event
-        $events = [];
-        foreach ($records as $record) {
-            $events[$record['event']] = $record;
-        }
-
-        $records = $this->domainEventFactory->create($id, array_values($events));
-
-        return new DomainEventStream($records);
+        return $records;
     }
 
     /**

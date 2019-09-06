@@ -98,86 +98,44 @@ class RoleController extends AbstractController
      */
     public function test(): Response
     {
-        $roleId = new RoleId('1d785602-3ae4-4124-b3aa-82ae465a821f');
+        $roleId = new RoleId('ac6ad933-780a-469d-9e5c-b35d74067f2c');
 
         $time = microtime(true);
 
         $object = $this->roleRepository->load($roleId);
+        var_dump($object);
 
         $result['repository'] = microtime(true) - $time;
 
         $time = microtime(true);
 
         $object = $this->roleAggregateRootManager->load($roleId);
+        var_dump($object);
 
         $result['manager'] = microtime(true) - $time;
 
         /**
-         * // with 4 events
-         * array(2) {
-         *   ["repository"]=> float(0.00075888633728027)
-         *   ["manager"]   => float(0.00016593933105469)
-         * }
-         * // with 1000 events (without cache)
-         * array(2) {
-         *   ["repository"]=> float(0.10557198524475)
-         *   ["manager"]   => float(0.080667018890381)
-         * }
-         * // with 1000 events (with cache)
-         * array(2) {
-         *   ["repository"]=> float(0.0094678401947021)
-         *   ["manager"]   => float(0.00022315979003906)
-         * }
-         * // with 3000 events (without cache)
-         * array(2) {
-         *   ["repository"]=> float(0.28118014335632)
-         *   ["manager"]   => float(0.24146604537964)
-         * }
-         * // with 3000 events (with cache)
-         * array(2) {
-         *   ["repository"]=> float(0.032825946807861)
-         *   ["manager"]   => float(0.00022411346435547)
-         * }
-         * // with 10k events (without cache)
-         * array(2) {
-         *   ["repository"]=> float(0.93201613426208)
-         *   ["manager"]   => float(0.81660103797913)
-         * }
-         * // with 10k events (with cache)
-         * array(2) {
-         *   ["repository"]=> float(0.14490103721619)
-         *   ["manager"]   => float(0.00020003318786621)
-         * }
+         * // with 5k events (without cache)
+         * ["repository"]=> float(0.47474408149719)
+         * ["manager"]   => float(0.40530800819397)
+         * // with 5k events (with cache)
+         * ["repository"]=> float(0.15640807151794)
+         * ["manager"]   => float(0.0021481513977051)
          * // with 50k events (without cache)
-         * array(2) {
-         *   ["repository"]=> float(4.814190864563)
-         *   ["manager"]   => float(4.1073579788208)
-         * }
+         * ["repository"]=> float(4.995169878006)
+         * ["manager"]   => float(4.0791778564453)
          * // with 50k events (with cache)
-         * array(2) {
-         *   ["repository"]=> float(0.74900889396667)
-         *   ["manager"]   => float(0.00021791458129883)
-         * }
-         * // with 100k events (without cache)
-         * array(2) {
-         *   ["repository"]=> float(9.495313167572)
-         *   ["manager"]   => float(8.1508140563965)
-         * }
-         * // with 100k events (with cache)
-         * array(2) {
-         *   ["repository"]=> float(1.515557050705)
-         *   ["manager"]   => float(0.00018620491027832)
-         * }
+         * ["repository"]=> float(1.9104011058807)
+         * ["manager"]   => float(0.0020561218261719)
+         * // add 1k events (with cache)
+         * ["repository"]=> float(1.9918200969696
+         * ["manager"]   => float(0.077238082885742)
+         * // add 1k events again (with cache)
+         * ["repository"]=> float(2.018196105957)
+         * ["manager"]   => float(0.074703931808472)
          *
          * Killer is SimpleDomainEventFactory! Almost 7,5s in 100k records! Thanks for JMS!
          * Next killer is DbalRoleRepository::load, it's steal 1,3s for 100k event propagation!
-         *
-         * After event merging
-         * // with 100k events (without cache)
-         * array(2) {
-         *   ["repository"]=> float(9.2891609668732)
-         *   ["manager"]   => float(0.41934514045715)
-         * }
          */
 
         var_dump($result);

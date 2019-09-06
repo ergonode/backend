@@ -13,6 +13,8 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\Factory\EventStreamAggregateRootFactory;
 use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
+use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use Ergonode\EventSourcing\Persistance\Dbal\Exception\EventStreamEmptyException;
 use Ergonode\EventSourcing\Persistance\Dbal\Repository\EventStoreRepositoryInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
@@ -35,6 +37,11 @@ class AggregateRootProvider implements AggregateRootProviderInterface
     private $eventDispatcher;
 
     /**
+     * @var DomainEventFactoryInterface
+     */
+    private $domainEventFactory;
+
+    /**
      * @var EventStreamAggregateRootFactory
      */
     private $aggregateRootFactory;
@@ -52,6 +59,7 @@ class AggregateRootProvider implements AggregateRootProviderInterface
     /**
      * @param EventStoreRepositoryInterface   $eventStoreRepository
      * @param DomainEventDispatcherInterface  $eventDispatcher
+     * @param DomainEventFactoryInterface     $domainEventFactory
      * @param EventStreamAggregateRootFactory $aggregateRootFactory
      * @param TokenStorageInterface           $tokenStorage
      * @param AdapterInterface                $cache
@@ -59,12 +67,14 @@ class AggregateRootProvider implements AggregateRootProviderInterface
     public function __construct(
         EventStoreRepositoryInterface $eventStoreRepository,
         DomainEventDispatcherInterface $eventDispatcher,
+        DomainEventFactoryInterface $domainEventFactory,
         EventStreamAggregateRootFactory $aggregateRootFactory,
         TokenStorageInterface $tokenStorage,
         AdapterInterface $cache
     ) {
         $this->eventStoreRepository = $eventStoreRepository;
         $this->eventDispatcher = $eventDispatcher;
+        $this->domainEventFactory = $domainEventFactory;
         $this->aggregateRootFactory = $aggregateRootFactory;
         $this->tokenStorage = $tokenStorage;
         $this->cache = $cache;
@@ -80,13 +90,23 @@ class AggregateRootProvider implements AggregateRootProviderInterface
     public function load(AbstractId $id, string $class = AbstractAggregateRoot::class): AbstractAggregateRoot
     {
         $item = $this->cache->getItem($this->createCacheKey($id));
-        if (!$item->isHit()) {
-            $eventStream = $this->eventStoreRepository->load($id);
-            if (0 === count($eventStream)) {
+        $sequence = !$item->isHit() ? 0 : $item->get()->getSequence();
+
+        $events = $this->eventStoreRepository->load($id, $sequence);
+        if (0 === count($events)) {
+            if (0 === $sequence) {
                 throw new EventStreamEmptyException(sprintf('Try to load not exiting stream for "%s"', $id->getValue()));
             }
+        } else {
+            $events = $this->domainEventFactory->create($id, $events);
 
-            $result = $this->aggregateRootFactory->create($eventStream, $class);
+            if (0 === $sequence) {
+                $result = $this->aggregateRootFactory->create(new DomainEventStream($events), $class);
+            } else {
+                /** @var AbstractAggregateRoot $result */
+                $result = $item->get();
+                $result->initialize(new DomainEventStream($events));
+            }
 
             $item->set($result);
             $this->cache->save($item);

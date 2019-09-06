@@ -104,7 +104,6 @@ abstract class AbstractAggregateRoot
             return;
         }
 
-        // performance boost almost 50%. Before 0.06554102897644, now 0.037464027404785
         $namespace = get_class($event);
         try {
             $class = substr($namespace, strrpos($namespace, '\\') + 1, strlen($namespace));

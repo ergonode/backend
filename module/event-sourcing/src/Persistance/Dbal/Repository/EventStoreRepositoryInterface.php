@@ -19,10 +19,11 @@ interface EventStoreRepositoryInterface
 {
     /**
      * @param AbstractId $id
+     * @param int        $sequence
      *
-     * @return DomainEventStream
+     * @return array
      */
-    public function load(AbstractId $id): DomainEventStream;
+    public function load(AbstractId $id, int $sequence = 0): array;
 
     /**
      * @param AbstractId $id
