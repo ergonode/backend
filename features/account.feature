@@ -27,6 +27,133 @@ Feature: Account module
     Given I request "/api/v1/EN/roles" using HTTP POST
     Then unauthorized response is received
 
+  Scenario: Create role (without name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "description": "Test role",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create role (without description)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create role (without privileges)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "description": "Test role"
+      }
+      """
+    When I request "/api/v1/EN/roles" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create role (wrong parameter - name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "test": "Test role (@@random_uuid@@)",
+         "description": "Test role",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create role (wrong parameter - description)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "test": "Test role",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create role (wrong parameter - privilages)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "description": "Test role",
+         "test": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create role (empty name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "",
+         "description": "Test role",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create role (empty description)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "description": "",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create role (empty privilages)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "description": "Test role",
+         "privileges": []
+      }
+      """
+    When I request "/api/v1/EN/roles" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create role (no existing privilages)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "description": "Test role",
+         "privileges": ["test", "test2"]
+      }
+      """
+    When I request "/api/v1/EN/roles" using HTTP POST
+    Then validation error response is received
+
   Scenario: Create role for delete
     Given current authentication token
     Given the request body is:
@@ -78,6 +205,133 @@ Feature: Account module
     When I request "/api/v1/EN/roles/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
+  Scenario: Update role (without name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "description": "Test role",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update role (without description)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update role (without privileges)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "description": "Test role"
+      }
+      """
+    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update role (wrong parameter - name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "test": "Test role (@@random_uuid@@)",
+         "description": "Test role",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update role (wrong parameter - description)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "test": "Test role",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update role (wrong parameter - privilages)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "description": "Test role",
+         "test": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update role (empty name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "",
+         "description": "Test role",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update role (empty description)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "description": "",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update role (empty privilages)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "description": "Test role",
+         "privileges": []
+      }
+      """
+    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update role (no existing privilages)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "description": "Test role",
+         "privileges": ["test", "test2"]
+      }
+      """
+    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
+    Then validation error response is received
+
   Scenario: Get role
     Given current authentication token
     When I request "/api/v1/EN/roles/@role@" using HTTP GET
@@ -97,6 +351,10 @@ Feature: Account module
     Given current authentication token
     When I request "/api/v1/EN/roles" using HTTP GET
     Then grid response is received
+
+  Scenario: Get roles (not authorized)
+    When I request "/api/v1/EN/roles" using HTTP GET
+    Then unauthorized response is received
 
   Scenario: Get roles (order by name)
     Given current authentication token
@@ -154,6 +412,271 @@ Feature: Account module
     Given I request "/api/v1/EN/accounts" using HTTP POST
     Then unauthorized response is received
 
+  Scenario: Create user (no email)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (empty email)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (no firsName)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (empty firsName
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (no lastName)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (empty lastName)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (no language)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (empty language)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (no password)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (empty password)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": "",
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (no passwordRepeat)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (empty passwordRepeat)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": "",
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (no roleId)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (empty roleId)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": ""
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (not UUID roleID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "test"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create user (random UUID roleID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@@random_uuid@@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
   Scenario: Delete role (with conflict)
     Given current authentication token
     When I request "/api/v1/EN/roles/@role@" using HTTP DELETE
@@ -184,6 +707,224 @@ Feature: Account module
     Given current authentication token
     When I request "/api/v1/EN/accounts/@@static_uuid@@" using HTTP PUT
     Then not found response is received
+
+  Scenario: Update user (no firsName)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (empty firsName
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (no lastName)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (empty lastName)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (no language)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (empty language)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (no password)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (empty password)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": "",
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (no passwordRepeat)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (empty passwordRepeat)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": "",
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (no roleId)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (empty roleId)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": ""
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (not UUID roleID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "test"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update user (random UUID roleID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@@random_uuid@@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
+    Then validation error response is received
 
   Scenario: Get user
     Given current authentication token
@@ -382,8 +1123,88 @@ Feature: Account module
     When I request "/api/v1/EN/accounts/log" using HTTP GET
     Then unauthorized response is received
 
-  # TODO Check role create action with all incorrect possibilities
-  # TODO Check role update action with all incorrect possibilities
-  # TODO Check user create action with all incorrect possibilities
-  # TODO Check user update action with all incorrect possibilities
+  Scenario: Get accounts (order by id)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?field=id" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (order by email)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?field=email" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (order by first_name)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?field=first_name" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (order by last_name)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?field=last_name" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (order by language)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?field=language" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (order by role_id)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?field=role_id" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (order by is_active)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?field=is_active" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (order ASC)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?field=email&order=ASC" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (order DESC)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?field=email&order=DESC" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (filter by id)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?limit=25&offset=0&filter=id%3D1" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (filter by email)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?limit=25&offset=0&filter=email%3Dasd" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (filter by first_name)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?limit=25&offset=0&filter=first_name%3DCAT" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (filter by last_name)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?limit=25&offset=0&filter=last_name%3D1" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (filter by language)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?limit=25&offset=0&filter=language%3D1" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (filter by role_id)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?limit=25&offset=0&filter=role_id%3Dasd1" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (filter by is_active)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts?limit=25&offset=0&filter=last_name%3Dasd1" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get accounts (not authorized)
+    When I request "/api/v1/EN/accounts" using HTTP GET
+    Then unauthorized response is received
+
   # TODO Check user avatar change action with correct and incorrect file

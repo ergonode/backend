@@ -28,13 +28,6 @@ class UpdateTreeCommand
     private $id;
 
     /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     */
-    private $code;
-
-    /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")

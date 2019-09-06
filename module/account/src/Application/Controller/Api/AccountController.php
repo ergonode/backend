@@ -305,7 +305,7 @@ class AccountController extends AbstractController
      *     in="body",
      *     description="Add attribute",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/account")
+     *     @SWG\Schema(ref="#/definitions/account_upd")
      * )
      * @SWG\Parameter(
      *     name="language",
