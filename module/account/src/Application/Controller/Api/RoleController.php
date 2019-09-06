@@ -117,25 +117,30 @@ class RoleController extends AbstractController
         /**
          * // with 5k events (without cache)
          * ["repository"]=> float(0.47474408149719)
-         * ["manager"]   => float(0.40530800819397)
+         * ["manager"]   => float(0.40530800819397) -0.07s ~20%
          * // with 5k events (with cache)
          * ["repository"]=> float(0.15640807151794)
-         * ["manager"]   => float(0.0021481513977051)
+         * ["manager"]   => float(0.0021481513977051) -0.154s ~740%
          * // with 50k events (without cache)
          * ["repository"]=> float(4.995169878006)
-         * ["manager"]   => float(4.0791778564453)
+         * ["manager"]   => float(4.0791778564453) -0.92s ~20%
          * // with 50k events (with cache)
          * ["repository"]=> float(1.9104011058807)
-         * ["manager"]   => float(0.0020561218261719)
+         * ["manager"]   => float(0.0020561218261719) -1.908s >1000%
          * // add 1k events (with cache)
          * ["repository"]=> float(1.9918200969696
-         * ["manager"]   => float(0.077238082885742)
+         * ["manager"]   => float(0.077238082885742) -1.22s >1000%
          * // add 1k events again (with cache)
          * ["repository"]=> float(2.018196105957)
-         * ["manager"]   => float(0.074703931808472)
+         * ["manager"]   => float(0.074703931808472) -1.96s >1000%
          *
-         * Killer is SimpleDomainEventFactory! Almost 7,5s in 100k records! Thanks for JMS!
-         * Next killer is DbalRoleRepository::load, it's steal 1,3s for 100k event propagation!
+         * Killers:
+         * 1/ SimpleDomainEventFactory! Almost 7,5s in 100k records! Thanks for JMS!
+         * 2/ DbalRoleRepository::load, it's steal 1,3s for 100k event propagation!
+         *
+         * Summary:
+         * 1/ manager solution will be much much faster when we use the same object again
+         * 2/ manager is little bit faster when we build object without cache
          */
 
         var_dump($result);
