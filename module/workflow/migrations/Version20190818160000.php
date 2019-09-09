@@ -45,6 +45,7 @@ final class Version20190818160000 extends AbstractErgonodeMigration
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent' => 'Deleted status from workflow',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent' => 'Added transition to workflow',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent' => 'Deleted transition from workflow',
+            'Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent' => 'Workflow deleted',
         ]);
     }
 
