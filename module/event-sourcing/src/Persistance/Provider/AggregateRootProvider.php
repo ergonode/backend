@@ -15,8 +15,8 @@ use Ergonode\EventSourcing\Domain\Factory\EventStreamAggregateRootFactory;
 use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
-use Ergonode\EventSourcing\Persistance\Dbal\Exception\EventStreamEmptyException;
 use Ergonode\EventSourcing\Persistance\Dbal\Repository\EventStoreRepositoryInterface;
+use Ergonode\EventSourcing\Persistance\Exception\EventStreamEmptyException;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -117,6 +117,9 @@ class AggregateRootProvider implements AggregateRootProviderInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @throws \ReflectionException
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function exists(AbstractId $id): bool
     {
@@ -157,8 +160,6 @@ class AggregateRootProvider implements AggregateRootProviderInterface
      */
     public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
-        $this->save($aggregateRoot);
-
         $this->eventStoreRepository->delete($aggregateRoot->getId());
 
         $this->cache->deleteItem($this->createCacheKey($aggregateRoot->getId()));

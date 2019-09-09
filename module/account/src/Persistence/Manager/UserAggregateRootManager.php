@@ -9,14 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Persistence\Manager;
 
-use Ergonode\Account\Domain\Entity\Role;
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Account\Domain\Event\Role\RoleDeletedEvent;
+use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\Account\Domain\Event\User\UserDeletedEvent;
 use Ergonode\EventSourcing\Persistance\Provider\AggregateRootProviderInterface;
 
 /**
  */
-class RoleAggregateRootManager implements RoleAggregateRootManagerInterface
+class UserAggregateRootManager implements UserAggregateRootManagerInterface
 {
     /**
      * @var AggregateRootProviderInterface
@@ -34,15 +34,15 @@ class RoleAggregateRootManager implements RoleAggregateRootManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function load(RoleId $id): Role
+    public function load(UserId $id): User
     {
-        return $this->aggregateRootProvider->load($id, Role::class);
+        return $this->aggregateRootProvider->load($id, User::class);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function exists(RoleId $id): bool
+    public function exists(UserId $id): bool
     {
         return $this->aggregateRootProvider->exists($id);
     }
@@ -50,7 +50,7 @@ class RoleAggregateRootManager implements RoleAggregateRootManagerInterface
     /**
      * {@inheritDoc}
      */
-    public function save(Role $role): void
+    public function save(User $role): void
     {
         $this->aggregateRootProvider->save($role);
     }
@@ -60,9 +60,9 @@ class RoleAggregateRootManager implements RoleAggregateRootManagerInterface
      *
      * @throws \Exception
      */
-    public function delete(Role $role): void
+    public function delete(User $role): void
     {
-        $role->apply(new RoleDeletedEvent());
+        $role->apply(new UserDeletedEvent());
         $this->aggregateRootProvider->save($role);
 
         $this->aggregateRootProvider->delete($role);

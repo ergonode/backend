@@ -106,10 +106,9 @@ class DbalEventStoreRepository implements EventStoreRepositoryInterface
      */
     public function delete(AbstractId $id): void
     {
-        $dataTable = self::TABLE;
-        $historyTable = sprintf('%s_history', $dataTable);
+        $historyTable = sprintf('%s_history', self::TABLE);
 
-        $this->connection->transactional(function () use ($id, $dataTable, $historyTable) {
+        $this->connection->transactional(function () use ($id, $historyTable) {
             $queryBuilder = $this->connection->createQueryBuilder()
                 ->from($historyTable)
                 ->select('variant')
@@ -129,12 +128,12 @@ class DbalEventStoreRepository implements EventStoreRepositoryInterface
                     SELECT aggregate_id, sequence, event, payload, recorded_by, recorded_at, %d FROM %s WHERE aggregate_id = ?',
                     $historyTable,
                     $version,
-                    $dataTable
+                    self::TABLE
                 ),
                 [$id->getValue()]
             );
 
-            $this->connection->delete($dataTable, ['aggregate_id' => $id->getValue()]);
+            $this->connection->delete(self::TABLE, ['aggregate_id' => $id->getValue()]);
         });
     }
 }

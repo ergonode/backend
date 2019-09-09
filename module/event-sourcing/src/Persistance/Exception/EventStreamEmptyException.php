@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\EventSourcing\Persistance\Dbal\Exception;
+namespace Ergonode\EventSourcing\Persistance\Exception;
 
 /**
  */
