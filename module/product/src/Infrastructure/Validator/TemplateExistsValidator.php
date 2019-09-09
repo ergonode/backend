@@ -51,8 +51,11 @@ class TemplateExistsValidator extends ConstraintValidator
         }
 
         $value = (string) $value;
-
-        $template = $this->templateRepository->load(new TemplateId($value));
+        try {
+            $template = $this->templateRepository->load(new TemplateId($value));
+        } catch (\Exception $exception) {
+            $template = false;
+        }
 
         if (!$template) {
             $this->context->buildViolation($constraint->message)

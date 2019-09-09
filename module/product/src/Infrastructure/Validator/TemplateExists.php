@@ -19,5 +19,5 @@ class TemplateExists extends Constraint
     /**
      * @var string
      */
-    public $message = 'Template {{ value }} doesn\'t exists.';
+    public $message = 'Template {{ value }} doesn\'t exists';
 }
