@@ -20,6 +20,7 @@ use Ergonode\CategoryTree\Application\Model\CategoryTreeCreateFormModel;
 use Ergonode\CategoryTree\Application\Model\CategoryTreeUpdateFormModel;
 use Ergonode\CategoryTree\Domain\Command\AddCategoryCommand;
 use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
+use Ergonode\CategoryTree\Domain\Command\DeleteTreeCommand;
 use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
@@ -155,6 +156,56 @@ class CategoryTreeController extends AbstractController
     }
 
     /**
+     * @Route("/trees/{tree}", methods={"GET"})
+     *
+     * @IsGranted("CATEGORY_TREE_READ")
+     *
+     * @SWG\Tag(name="Tree")
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language Code",
+     * )
+     *
+     * @SWG\Parameter(
+     *     name="tree",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     description="tree ID",
+     * )
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     description="Language",
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns import",
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
+     *
+     * @ParamConverter(class="Ergonode\CategoryTree\Domain\Entity\CategoryTree")
+     *
+     * @param CategoryTree $tree
+     * @param Language     $language
+     *
+     * @return Response
+     */
+    public function getTree(CategoryTree $tree, Language $language): Response
+    {
+        return new SuccessResponse($tree);
+    }
+
+    /**
      * @Route("/trees", methods={"POST"})
      *
      * @IsGranted("CATEGORY_TREE_CREATE")
@@ -282,7 +333,7 @@ class CategoryTreeController extends AbstractController
     }
 
     /**
-     * @Route("/trees/{tree}", methods={"PUT"})
+     * @Route("/trees/{tree}", methods={"PUT"}, requirements={"tree"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("CATEGORY_TREE_UPDATE")
      *
@@ -349,9 +400,9 @@ class CategoryTreeController extends AbstractController
     }
 
     /**
-     * @Route("/trees/{tree}", methods={"GET"})
+     * @Route("/trees/{tree}", methods={"DELETE"}, requirements={"tree"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
-     * @IsGranted("CATEGORY_TREE_READ")
+     * @IsGranted("CATEGORY_TREE_DELETE")
      *
      * @SWG\Tag(name="Tree")
      * @SWG\Parameter(
@@ -362,39 +413,33 @@ class CategoryTreeController extends AbstractController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Parameter(
      *     name="tree",
      *     in="path",
-     *     type="string",
      *     required=true,
-     *     description="tree ID",
-     * )
-     * @SWG\Parameter(
-     *     name="language",
-     *     in="path",
      *     type="string",
-     *     required=true,
-     *     description="Language",
+     *     description="Tree ID",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns import",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      *
      * @ParamConverter(class="Ergonode\CategoryTree\Domain\Entity\CategoryTree")
      *
      * @param CategoryTree $tree
-     * @param Language     $language
      *
      * @return Response
      */
-    public function getTree(CategoryTree $tree, Language $language): Response
+    public function deleteTree(CategoryTree $tree): Response
     {
-        return new SuccessResponse($tree);
+        $command = new DeleteTreeCommand($tree->getId());
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }

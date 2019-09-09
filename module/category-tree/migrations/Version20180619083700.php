@@ -38,6 +38,7 @@ final class Version20180619083700 extends AbstractErgonodeMigration
             'Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryRemovedEvent' => 'Category removed from category tree',
             'Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent' => 'Category tree created',
             'Ergonode\CategoryTree\Domain\Event\CategoryTreeNameChangedEvent' => 'Category tree name changed',
+            'Ergonode\CategoryTree\Domain\Event\CategoryTreeDeletedEvent' => 'Category tree deleted',
         ]);
     }
 
