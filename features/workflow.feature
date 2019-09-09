@@ -82,7 +82,6 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/default" using HTTP PUT
     Then empty response is received
 
-
   Scenario: Update default workflow (wrong status)
     Given current authentication token
     Given the request body is:

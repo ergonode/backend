@@ -31,14 +31,14 @@ Feature: Core module
     Given current authentication token
     Given the request body is:
     """
-     {
-       "collection":[
-          {
-             "code":"EN",
-             "active":true
-          }
-       ]
-     }
+      {
+        "collection":[
+           {
+              "code":"EN",
+              "active":true
+           }
+        ]
+      }
     """
     When I request "/api/v1/EN/languages" using HTTP PUT
     Then the response code is 204
