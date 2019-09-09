@@ -9,38 +9,38 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Infrastructure\Handler;
 
-use Ergonode\Segment\Domain\Command\CreateSegmentCommand;
+use Ergonode\Condition\Domain\Command\CreateConditionSetCommand;
+use Ergonode\Condition\Domain\Entity\ConditionSet;
+use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
 use Ergonode\Segment\Domain\Entity\Segment;
-use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 
 /**
  */
-class CreateSegmentCommandHandler
+class CreateConditionSetCommandHandler
 {
     /**
-     * @var SegmentRepositoryInterface
+     * @var ConditionSetRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param SegmentRepositoryInterface $repository
+     * @param ConditionSetRepositoryInterface $repository
      */
-    public function __construct(SegmentRepositoryInterface $repository)
+    public function __construct(ConditionSetRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @param CreateSegmentCommand $command
+     * @param CreateConditionSetCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(CreateSegmentCommand $command)
+    public function __invoke(CreateConditionSetCommand $command)
     {
-        $segment = new Segment(
+        $segment = new ConditionSet(
             $command->getId(),
             $command->getCode(),
-            $command->getConditionSetId(),
             $command->getName(),
             $command->getDescription()
         );

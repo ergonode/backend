@@ -7,39 +7,30 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Domain\Event;
+namespace Ergonode\Condition\Domain\Command;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Segment\Domain\ValueObject\SegmentCode;
+use Ergonode\Condition\Domain\ValueObject\ConditionSetCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Segment\Domain\Entity\SegmentId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class SegmentCreatedEvent implements DomainEventInterface
+class CreateConditionSetCommand
 {
-    /**
-     * @var SegmentId
-     *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentCode")
-     */
-    private $code;
-
     /**
      * @var ConditionSetId
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
-    private $conditionSetId;
+    private $id;
+
+    /**
+     * @var ConditionSetCode
+     *
+     * @JMS\Type("Ergonode\Condition\Domain\ValueObject\ConditionSetCode")
+     */
+    private $code;
 
     /**
      * @var TranslatableString
@@ -56,43 +47,32 @@ class SegmentCreatedEvent implements DomainEventInterface
     private $description;
 
     /**
-     * @param SegmentId          $id
-     * @param SegmentCode        $code
-     * @param ConditionSetId     $conditionSetId
+     * @param ConditionSetCode   $code
      * @param TranslatableString $name
      * @param TranslatableString $description
      */
-    public function __construct(SegmentId $id, SegmentCode $code, ConditionSetId $conditionSetId, TranslatableString $name, TranslatableString $description)
+    public function __construct(ConditionSetCode $code, TranslatableString $name, TranslatableString $description)
     {
-        $this->id = $id;
+        $this->id = ConditionSetId::fromCode($code);
         $this->code = $code;
-        $this->conditionSetId = $conditionSetId;
         $this->name = $name;
         $this->description = $description;
     }
 
     /**
-     * @return SegmentId
+     * @return ConditionSetId
      */
-    public function getId(): SegmentId
+    public function getId(): ConditionSetId
     {
         return $this->id;
     }
 
     /**
-     * @return SegmentCode
+     * @return ConditionSetCode
      */
-    public function getCode(): SegmentCode
+    public function getCode(): ConditionSetCode
     {
         return $this->code;
-    }
-
-    /**
-     * @return ConditionSetId
-     */
-    public function getConditionSetId(): ConditionSetId
-    {
-        return $this->conditionSetId;
     }
 
     /**
