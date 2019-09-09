@@ -270,7 +270,7 @@ class CategoryController extends AbstractController
      *     in="body",
      *     description="Category body",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/category")
+     *     @SWG\Schema(ref="#/definitions/category_upd")
      * )
      * @SWG\Response(
      *     response=204,
