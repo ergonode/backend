@@ -59,7 +59,7 @@ Feature: Category module
     When I request "/api/v1/EN/categories" using HTTP POST
     Then validation error response is received
 
-  Scenario: Create category (name with wrong language code )
+  Scenario: Create category (name with wrong language code)
     Given current authentication token
     Given the request body is:
       """
@@ -74,7 +74,7 @@ Feature: Category module
     When I request "/api/v1/EN/categories" using HTTP POST
     Then validation error response is received
 
-  Scenario: Create category (name with no existing language code )
+  Scenario: Create category (name with no existing language code)
     Given current authentication token
     Given the request body is:
       """

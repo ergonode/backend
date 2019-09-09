@@ -75,7 +75,7 @@ Feature: Core module
     When I request "/api/v1/EN/languages" using HTTP PUT
     Then validation error response is received
 
-  Scenario: Update language (wrong structure - bad request)
+  Scenario: Update language (wrong structure)
     Given current authentication token
     Given the request body is:
     """

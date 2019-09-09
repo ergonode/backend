@@ -76,32 +76,6 @@ Feature: Account module
     When I request "/api/v1/EN/roles" using HTTP POST
     Then validation error response is received
 
-  Scenario: Create role (wrong parameter - description)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-         "name": "Test role (@@random_uuid@@)",
-         "test": "Test role",
-         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
-      }
-      """
-    When I request "/api/v1/EN/roles" using HTTP POST
-    Then validation error response is received
-
-  Scenario: Create role (wrong parameter - privilages)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-         "name": "Test role (@@random_uuid@@)",
-         "description": "Test role",
-         "test": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
-      }
-      """
-    When I request "/api/v1/EN/roles" using HTTP POST
-    Then validation error response is received
-
   Scenario: Create role (empty name)
     Given current authentication token
     Given the request body is:
@@ -249,32 +223,6 @@ Feature: Account module
          "test": "Test role (@@random_uuid@@)",
          "description": "Test role",
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
-      }
-      """
-    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
-    Then validation error response is received
-
-  Scenario: Update role (wrong parameter - description)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-         "name": "Test role (@@random_uuid@@)",
-         "test": "Test role",
-         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
-      }
-      """
-    When I request "/api/v1/EN/roles/@role@" using HTTP PUT
-    Then validation error response is received
-
-  Scenario: Update role (wrong parameter - privilages)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-         "name": "Test role (@@random_uuid@@)",
-         "description": "Test role",
-         "test": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
       """
     When I request "/api/v1/EN/roles/@role@" using HTTP PUT
@@ -461,7 +409,7 @@ Feature: Account module
     When I request "/api/v1/EN/accounts" using HTTP POST
     Then validation error response is received
 
-  Scenario: Create user (empty firsName
+  Scenario: Create user (empty firsName)
     Given current authentication token
     Given the request body is:
       """
@@ -723,7 +671,7 @@ Feature: Account module
     When I request "/api/v1/EN/accounts/@user@" using HTTP PUT
     Then validation error response is received
 
-  Scenario: Update user (empty firsName
+  Scenario: Update user (empty firsName)
     Given current authentication token
     Given the request body is:
       """

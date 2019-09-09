@@ -401,7 +401,7 @@ Feature: Designer module
     When I request "/api/v1/EN/templates?field=name&order=ASC" using HTTP GET
     Then grid response is received
 
-  Scenario: Get templates (order DESC )
+  Scenario: Get templates (order DESC)
     Given current authentication token
     When I request "/api/v1/EN/templates?field=name&order=DESC" using HTTP GET
     Then grid response is received
@@ -455,7 +455,7 @@ Feature: Designer module
     When I request "/api/v1/EN/templates/groups?field=name&order=ASC" using HTTP GET
     Then grid response is received
 
-  Scenario: Get templates groups (order DESC )
+  Scenario: Get templates groups (order DESC)
     Given current authentication token
     When I request "/api/v1/EN/templates/groups?field=name&order=DESC" using HTTP GET
     Then grid response is received
@@ -525,7 +525,7 @@ Feature: Designer module
     When I request "/api/v1/EN/templates/types?field=type&order=ASC" using HTTP GET
     Then grid response is received
 
-  Scenario: Get templates types (order DESC )
+  Scenario: Get templates types (order DESC)
     Given current authentication token
     When I request "/api/v1/EN/templates/types?field=type&order=DESC" using HTTP GET
     Then grid response is received

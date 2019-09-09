@@ -157,7 +157,6 @@ Feature: Product module
     When I request "/api/v1/EN/products" using HTTP POST
     Then created response is received
 
-
   Scenario: Create product (categoryIds not UUID)
     Given current authentication token
     Given the request body is:
@@ -194,8 +193,6 @@ Feature: Product module
     When I request "/api/v1/EN/products/@product@" using HTTP PUT
     Then empty response is received
 
-
-
   Scenario: Update product (not authorized)
     When I request "/api/v1/EN/products/@product@" using HTTP PUT
     Then unauthorized response is received
@@ -205,7 +202,7 @@ Feature: Product module
     When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
-  Scenario: Update product (no categoryId)
+  Scenario: Update product (no content)
     Given current authentication token
     Given the request body is:
       """
@@ -214,7 +211,6 @@ Feature: Product module
       """
     When I request "/api/v1/EN/products/@product@" using HTTP PUT
     Then validation error response is received
-
 
   Scenario: Update product (categoryID not UUID)
     Given current authentication token
