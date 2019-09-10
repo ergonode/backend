@@ -48,8 +48,8 @@ class WorkflowProvider
     public function provide(string $code = Workflow::DEFAULT): Workflow
     {
         $id = WorkflowId::fromCode($code);
-        $workflow = $this->repository->load($id);
 
+        $workflow = $this->repository->load($id);
         if (null === $workflow) {
             $workflow = $this->factory->create($id, $code);
             $this->repository->save($workflow);
