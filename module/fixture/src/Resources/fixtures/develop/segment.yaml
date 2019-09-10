@@ -17,5 +17,6 @@ Ergonode\Segment\Domain\Entity\Segment:
         __construct:
             - '<segmentId("test_segment")>'
             - '<segmentCode("test_segment")>'
+            - '<conditionSetId("test_condition_set")>'
             - '@segment_name'
             - '@segment_description'

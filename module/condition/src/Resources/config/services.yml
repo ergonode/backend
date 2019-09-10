@@ -1,0 +1,30 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\Condition\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Condition\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Condition\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject,Type,Condition}'
+
+    Ergonode\Condition\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Specification}'
+
+    Ergonode\Condition\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        exclude: '../../Infrastructure/Handler/{Strategy}'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Condition\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Persistence\Dbal\Repository\DbalConditionSetRepository'

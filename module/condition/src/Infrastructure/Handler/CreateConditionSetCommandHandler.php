@@ -7,12 +7,11 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Infrastructure\Handler;
+namespace Ergonode\Condition\Infrastructure\Handler;
 
 use Ergonode\Condition\Domain\Command\CreateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
-use Ergonode\Segment\Domain\Entity\Segment;
 
 /**
  */

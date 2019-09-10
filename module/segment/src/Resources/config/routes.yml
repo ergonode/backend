@@ -2,13 +2,3 @@ ergonode_segment_api:
     resource: '../../Application/Controller/Api/Segment*'
     type: annotation
     prefix: /api/v1/{language}
-
-ergonode_segment_dictionary:
-    resource: '../../Application/Controller/Api/Dictionary*'
-    type: annotation
-    prefix: /api/v1/{language}/dictionary
-
-ergonode_condition_dictionary:
-    resource: '../../Application/Controller/Api/Condition*'
-    type: annotation
-    prefix: /api/v1/{language}

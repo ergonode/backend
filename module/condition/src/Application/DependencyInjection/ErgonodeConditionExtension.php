@@ -7,12 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Application\DependencyInjection;
+namespace Ergonode\Condition\Application\DependencyInjection;
 
-use Ergonode\Segment\Application\DependencyInjection\CompilerPass\SegmentConditionConfiguratorCompilerPass;
-use Ergonode\Segment\Application\DependencyInjection\CompilerPass\SegmentGeneratorCompilerPass;
-use Ergonode\Segment\Domain\Service\SegmentConfigurationStrategyInterface;
-use Ergonode\Segment\Infrastructure\Generator\SegmentGeneratorInterface;
+use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionConfiguratorCompilerPass;
+use Ergonode\Condition\Domain\Service\SegmentConfigurationStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -20,7 +18,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  */
-class ErgonodeSegmentExtension extends Extension
+class ErgonodeConditionExtension extends Extension
 {
     /**
      * @param array            $configs
@@ -35,9 +33,9 @@ class ErgonodeSegmentExtension extends Extension
             new FileLocator(__DIR__.'/../../Resources/config')
         );
 
-        $container
-            ->registerForAutoconfiguration(SegmentGeneratorInterface::class)
-            ->addTag(SegmentGeneratorCompilerPass::TAG);
+          $container
+            ->registerForAutoconfiguration(SegmentConfigurationStrategyInterface::class)
+            ->addTag(ConditionConfiguratorCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

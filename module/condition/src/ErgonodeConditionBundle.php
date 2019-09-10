@@ -10,8 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Condition;
 
 use Ergonode\Core\Application\AbstractModule;
-use Ergonode\Segment\Application\DependencyInjection\CompilerPass\SegmentConditionConfiguratorCompilerPass;
-use Ergonode\Segment\Application\DependencyInjection\CompilerPass\SegmentGeneratorCompilerPass;
+use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionConfiguratorCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -26,7 +25,6 @@ class ErgonodeConditionBundle extends AbstractModule
     {
         parent::build($container);
 
-//        $container->addCompilerPass(new SegmentGeneratorCompilerPass());
-//        $container->addCompilerPass(new SegmentConditionConfiguratorCompilerPass());
+        //$container->addCompilerPass(new ConditionConfiguratorCompilerPass());
     }
 }

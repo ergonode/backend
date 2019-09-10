@@ -23,9 +23,9 @@ class SegmentId extends AbstractId
     /**
      * @param SegmentCode $code
      *
-     * @return ConditionSetId
+     * @return SegmentId
      */
-    public static function fromCode(SegmentCode $code): ConditionSetId
+    public static function fromCode(SegmentCode $code): SegmentId
     {
         return new static(Uuid::uuid5(self::NAMESPACE, $code->getValue())->toString());
     }

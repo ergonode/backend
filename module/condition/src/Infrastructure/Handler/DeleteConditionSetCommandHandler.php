@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Infrastructure\Handler;
+namespace Ergonode\Condition\Infrastructure\Handler;
 
 use Ergonode\Condition\Domain\Command\DeleteConditionSetCommand;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;

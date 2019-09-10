@@ -7,10 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Application\DependencyInjection\CompilerPass;
+namespace Ergonode\Condition\Application\DependencyInjection\CompilerPass;
 
-use Ergonode\Segment\Domain\Provider\ConditionConfigurationProvider;
-use Ergonode\Segment\Domain\Service\SegmentConditionConfigurator;
+use Ergonode\Condition\Domain\Provider\ConditionConfigurationProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -18,9 +17,9 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  *
  */
-class SegmentConditionConfiguratorCompilerPass implements CompilerPassInterface
+class ConditionConfiguratorCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'component.segment_condition.configurator_interface';
+    public const TAG = 'component.condition.condition_set.configurator_interface';
 
     /**
      * @param ContainerBuilder $container
