@@ -9,19 +9,17 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Service\Strategy;
 
-use Ergonode\Condition\Domain\Service\SegmentVerifierStrategyInterface;
-use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Condition\Domain\Condition\ConditionInterface;
 use Ergonode\Condition\Domain\Condition\AttributeExistsCondition;
+use Ergonode\Condition\Domain\Condition\ConditionInterface;
+use Ergonode\Condition\Domain\Service\ConditionVerifierStrategyInterface;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 /**
  */
-class AttributeExistsConditionVerifierStrategy implements SegmentVerifierStrategyInterface
+class AttributeExistsConditionVerifierStrategy implements ConditionVerifierStrategyInterface
 {
     /**
-     * @param string $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function isSupportedBy(string $type): bool
     {
@@ -29,10 +27,7 @@ class AttributeExistsConditionVerifierStrategy implements SegmentVerifierStrateg
     }
 
     /**
-     * @param AbstractProduct                             $object
-     * @param AttributeExistsCondition|ConditionInterface $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function verify(AbstractProduct $object, ConditionInterface $configuration): bool
     {

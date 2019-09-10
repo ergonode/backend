@@ -10,12 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -35,8 +35,7 @@ class DictionaryController extends AbstractController
     }
 
     /**
-     * @Route("condition", methods={"GET"})
-     *
+     * @Route("conditions", methods={"GET"})
      *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(
@@ -45,15 +44,15 @@ class DictionaryController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns dictionary of available conditions",
+     *     description="Returns dictionary of available conditions"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      *
      * @param Language $language

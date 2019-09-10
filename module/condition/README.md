@@ -1,4 +1,4 @@
-# Ergonode - Segment
+# Ergonode - Condition
 
 ## Documentation
 

@@ -10,14 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Service\Strategy;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Condition\Domain\Service\SegmentConfigurationStrategyInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Condition\Domain\Condition\AttributeExistsCondition;
+use Ergonode\Condition\Domain\Service\ConfigurationStrategyInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
-class AttributeExistsConditionConfigurationStrategy implements SegmentConfigurationStrategyInterface
+class AttributeExistsConditionConfigurationStrategy implements ConfigurationStrategyInterface
 {
     /**
      * @var AttributeQueryInterface
@@ -40,9 +40,7 @@ class AttributeExistsConditionConfigurationStrategy implements SegmentConfigurat
     }
 
     /**
-     * @param string $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function isSupportedBy(string $type): bool
     {
@@ -50,9 +48,7 @@ class AttributeExistsConditionConfigurationStrategy implements SegmentConfigurat
     }
 
     /**
-     * @param Language $language
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function getConfiguration(Language $language): array
     {

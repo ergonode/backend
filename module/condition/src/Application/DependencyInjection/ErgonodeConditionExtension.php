@@ -34,7 +34,7 @@ class ErgonodeConditionExtension extends Extension
         );
 
           $container
-            ->registerForAutoconfiguration(SegmentConfigurationStrategyInterface::class)
+            ->registerForAutoconfiguration(ConditionConfigurationStrategyInteface::class)
             ->addTag(ConditionConfiguratorCompilerPass::TAG);
 
         $loader->load('services.yml');

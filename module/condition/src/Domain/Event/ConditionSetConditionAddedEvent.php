@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Event;
 
-use Ergonode\Segment\Domain\Condition\ConditionInterface;
+use Ergonode\Condition\Domain\Condition\ConditionInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 

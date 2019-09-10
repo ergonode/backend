@@ -21,8 +21,6 @@ interface ConditionSetRepositoryInterface
      * @param ConditionSetId $id
      *
      * @return ConditionSet|null
-     *
-     * @throws \ReflectionException
      */
     public function load(ConditionSetId $id): ?AbstractAggregateRoot;
 

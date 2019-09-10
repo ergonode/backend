@@ -9,23 +9,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Service;
 
+use Ergonode\Condition\Domain\Condition\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Condition\Domain\Condition\ConditionInterface;
 
 /**
  */
-class SegmentVerifier
+class ConditionVerifier
 {
     /**
-     * @var SegmentVerifierStrategyInterface[]
+     * @var ConditionVerifierStrategyInterface[]
      */
     private $strategies;
 
     /**
-     * @param SegmentVerifierStrategyInterface ...$strategies
+     * @param ConditionVerifierStrategyInterface ...$strategies
      */
-    public function __construct(SegmentVerifierStrategyInterface ...$strategies)
+    public function __construct(ConditionVerifierStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
@@ -51,9 +51,9 @@ class SegmentVerifier
     /**
      * @param ConditionInterface $condition
      *
-     * @return SegmentVerifierStrategyInterface
+     * @return ConditionVerifierStrategyInterface
      */
-    private function getStrategy(ConditionInterface $condition): SegmentVerifierStrategyInterface
+    private function getStrategy(ConditionInterface $condition): ConditionVerifierStrategyInterface
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->isSupportedBy($condition->getType())) {
@@ -61,6 +61,6 @@ class SegmentVerifier
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\'t find strategy for %s condition', get_class($condition)));
+        throw new \RuntimeException(sprintf('Can\'t find strategy for "%s" condition', get_class($condition)));
     }
 }

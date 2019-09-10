@@ -26,13 +26,14 @@ use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\Segment\Infrastructure\Grid\SegmentGrid;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -70,6 +71,8 @@ class SegmentController extends AbstractController
 
     /**
      * @Route("segments", methods={"GET"})
+     *
+     * @IsGranted("SEGMENT_READ")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
@@ -146,6 +149,8 @@ class SegmentController extends AbstractController
     /**
      * @Route("/segments/{segment}", methods={"GET"}, requirements={"segment" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("SEGMENT_READ")
+     *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
      *     name="language",
@@ -182,6 +187,8 @@ class SegmentController extends AbstractController
 
     /**
      * @Route("/segments", methods={"POST"})
+     *
+     * @IsGranted("SEGMENT_CREATE")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
@@ -237,6 +244,8 @@ class SegmentController extends AbstractController
 
     /**
      * @Route("/segments/{segment}", methods={"PUT"})
+     *
+     * @IsGranted("SEGMENT_UPDATE")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(

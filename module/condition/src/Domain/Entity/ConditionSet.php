@@ -9,15 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Entity;
 
+use Ergonode\Condition\Domain\Condition\ConditionInterface;
 use Ergonode\Condition\Domain\Event\ConditionSetConditionAddedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetDescriptionChangedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetNameChangedEvent;
 use Ergonode\Condition\Domain\ValueObject\ConditionSetCode;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @JMS\ExclusionPolicy("all")
@@ -155,7 +156,7 @@ class ConditionSet extends AbstractAggregateRoot
     /**
      * @param ConditionSetCreatedEvent $event
      */
-    protected function applySegmentCreatedEvent(ConditionSetCreatedEvent $event): void
+    protected function applyConditionSetCreatedEvent(ConditionSetCreatedEvent $event): void
     {
         $this->id = $event->getId();
         $this->code = $event->getCode();

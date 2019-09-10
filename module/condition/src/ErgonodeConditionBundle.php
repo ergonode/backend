@@ -9,12 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition;
 
-use Ergonode\Core\Application\AbstractModule;
 use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionConfiguratorCompilerPass;
+use Ergonode\Core\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- *
  */
 class ErgonodeConditionBundle extends AbstractModule
 {
@@ -25,6 +24,6 @@ class ErgonodeConditionBundle extends AbstractModule
     {
         parent::build($container);
 
-        //$container->addCompilerPass(new ConditionConfiguratorCompilerPass());
+        $container->addCompilerPass(new ConditionConfiguratorCompilerPass());
     }
 }

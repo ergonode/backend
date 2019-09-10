@@ -427,7 +427,6 @@ nelmio_api_doc:
                                     items:
                                         type: 'string'
                                         example: 'Error message'
-
             credentials:
                 type: object
                 properties:
@@ -462,6 +461,18 @@ nelmio_api_doc:
                         description: List of role privileges
                         example:
                             [ ATTRIBUTE_CREATE, ATTRIBUTE_READ, ATTRIBUTE_UPDATE, ATTRIBUTE_DELETE]
+            condition:
+                type: 'object'
+                properties:
+                    code:
+                        type: 'string'
+                        required: true
+                        description: 'Condition code'
+                        example: 'CONDITION_CODE'
+                    name:
+                        $ref: '#/definitions/translation'
+                    description:
+                        $ref: '#/definitions/translation'
             authentication:
                 type: object
                 properties:

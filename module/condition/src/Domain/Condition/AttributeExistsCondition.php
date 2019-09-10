@@ -27,7 +27,7 @@ class AttributeExistsCondition implements ConditionInterface
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getType(): string
     {
@@ -35,9 +35,7 @@ class AttributeExistsCondition implements ConditionInterface
     }
 
     /**
-     * @param array $configuration
-     *
-     * @return ConditionInterface
+     * {@inheritDoc}
      */
     public static function createFormArray(array $configuration): ConditionInterface
     {

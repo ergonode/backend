@@ -38,7 +38,6 @@ class DeleteConditionSetCommandHandler
     public function __invoke(DeleteConditionSetCommand $command)
     {
         $conditionSet = $this->repository->load($command->getId());
-
         Assert::notNull($conditionSet);
 
         $this->repository->delete($conditionSet);

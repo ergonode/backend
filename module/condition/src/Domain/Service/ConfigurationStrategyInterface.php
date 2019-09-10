@@ -9,12 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Service;
 
-use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Condition\Domain\Condition\ConditionInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
-interface SegmentVerifierStrategyInterface
+interface ConfigurationStrategyInterface
 {
     /**
      * @param string $type
@@ -24,10 +23,9 @@ interface SegmentVerifierStrategyInterface
     public function isSupportedBy(string $type): bool;
 
     /**
-     * @param AbstractProduct    $object
-     * @param ConditionInterface $configuration
+     * @param Language $language
      *
-     * @return bool
+     * @return array
      */
-    public function verify(AbstractProduct $object, ConditionInterface $configuration): bool;
+    public function getConfiguration(Language $language): array;
 }

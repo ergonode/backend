@@ -38,7 +38,6 @@ class UpdateConditionSetCommandHandler
     public function __invoke(UpdateConditionSetCommand $command)
     {
         $conditionSet = $this->repository->load($command->getId());
-
         Assert::notNull($conditionSet);
 
         $conditionSet->changeName($command->getName());

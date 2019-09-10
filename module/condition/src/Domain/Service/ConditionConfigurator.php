@@ -9,22 +9,22 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Service;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Condition\Domain\Condition\ConditionInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
-class SegmentConditionConfigurator
+class ConditionConfigurator
 {
     /**
-     * @var SegmentConfigurationStrategyInterface[]
+     * @var ConfigurationStrategyInterface[]
      */
     private $strategies;
 
     /**
-     * @param SegmentConfigurationStrategyInterface ...$strategies
+     * @param ConfigurationStrategyInterface ...$strategies
      */
-    public function __construct(SegmentConfigurationStrategyInterface ...$strategies)
+    public function __construct(ConfigurationStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }
@@ -43,6 +43,6 @@ class SegmentConditionConfigurator
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\'t find strategy for %s condition', get_class($condition)));
+        throw new \RuntimeException(sprintf('Can\'t find strategy for "%s" condition', get_class($condition)));
     }
 }

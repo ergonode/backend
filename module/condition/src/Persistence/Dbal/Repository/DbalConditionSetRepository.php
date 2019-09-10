@@ -101,7 +101,6 @@ class DbalConditionSetRepository implements ConditionSetRepositoryInterface
     public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
         $aggregateRoot->apply(new ConditionSetDeletedEvent());
-
         $this->save($aggregateRoot);
 
         $this->eventStore->delete($aggregateRoot->getId());
