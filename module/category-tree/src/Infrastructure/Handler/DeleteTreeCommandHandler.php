@@ -9,13 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Infrastructure\Handler;
 
-use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
+use Ergonode\CategoryTree\Domain\Command\DeleteTreeCommand;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
+use Webmozart\Assert\Assert;
 
 /**
  */
-class CreateTreeCommandHandler
+class DeleteTreeCommandHandler
 {
     /**
      * @var TreeRepositoryInterface
@@ -31,14 +32,15 @@ class CreateTreeCommandHandler
     }
 
     /**
-     * @param CreateTreeCommand $command
+     * @param DeleteTreeCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(CreateTreeCommand $command)
+    public function __invoke(DeleteTreeCommand $command)
     {
-        $tree = new CategoryTree($command->getId(), $command->getCode(), $command->getName());
+        $categoryTree = $this->repository->load($command->getId());
+        Assert::isInstanceOf($categoryTree, CategoryTree::class, sprintf('Can\'t find category tree with id "%s"', $command->getId()));
 
-        $this->repository->save($tree);
+        $this->repository->delete($categoryTree);
     }
 }

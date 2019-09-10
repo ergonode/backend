@@ -121,7 +121,6 @@ Feature: Category tree module
     When I request "/api/v1/EN/trees" using HTTP POST
     Then validation error response is received
 
-
   Scenario: Update category tree
     Given current authentication token
     Given the request body is:
@@ -429,6 +428,20 @@ Feature: Category tree module
     Given current authentication token
     When I request "/api/v1/EN/trees/@@static_uuid@@" using HTTP GET
     Then not found response is received
+
+  Scenario: Delete category tree (not found)
+    Given current authentication token
+    When I request "/api/v1/EN/trees/@@static_uuid@@" using HTTP DELETE
+    Then not found response is received
+
+  Scenario: Delete category tree (not authorized)
+    When I request "/api/v1/EN/trees/@category_tree@" using HTTP DELETE
+    Then unauthorized response is received
+
+  Scenario: Delete category tree
+    Given current authentication token
+    When I request "/api/v1/EN/trees/@category_tree@" using HTTP DELETE
+    Then empty response is received
 
   Scenario: Get category trees (order by name)
     Given current authentication token

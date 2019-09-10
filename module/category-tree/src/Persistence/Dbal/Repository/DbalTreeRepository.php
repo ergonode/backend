@@ -11,6 +11,7 @@ namespace Ergonode\CategoryTree\Persistence\Dbal\Repository;
 
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\CategoryTree\Domain\Event\CategoryTreeDeletedEvent;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
@@ -41,9 +42,7 @@ class DbalTreeRepository implements TreeRepositoryInterface
     }
 
     /**
-     * @param CategoryTreeId $id
-     *
-     * @return CategoryTree|null
+     * {@inheritDoc}
      *
      * @throws \ReflectionException
      */
@@ -68,9 +67,7 @@ class DbalTreeRepository implements TreeRepositoryInterface
     }
 
     /**
-     * @param CategoryTreeId $id
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function exists(CategoryTreeId $id) : bool
     {
@@ -80,7 +77,7 @@ class DbalTreeRepository implements TreeRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * {@inheritDoc}
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
@@ -90,5 +87,18 @@ class DbalTreeRepository implements TreeRepositoryInterface
         foreach ($events as $envelope) {
             $this->eventDispatcher->dispatch($envelope);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Exception
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    {
+        $aggregateRoot->apply(new CategoryTreeDeletedEvent());
+        $this->save($aggregateRoot);
+
+        $this->eventStore->delete($aggregateRoot->getId());
     }
 }
