@@ -27,5 +27,29 @@ final class Version20190910151314 extends AbstractErgonodeMigration
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_READ', 'Condition']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_UPDATE', 'Condition']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_DELETE', 'Condition']);
+
+        $this->createEventStoreEvents([
+            'Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent' => 'Condition set created',
+            'Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent' => 'Condition set deleted',
+            'Ergonode\Condition\Domain\Event\ConditionSetDescriptionChangedEvent' => 'Condition set description changed',
+            'Ergonode\Condition\Domain\Event\ConditionSetNameChangedEvent' => 'Condition set name changed',
+            'Ergonode\Condition\Domain\Event\ConditionSetConditionAddedEvent' => 'Condition added to condition set',
+        ]);
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function createEventStoreEvents(array $collection): void
+    {
+        foreach ($collection as $class => $translation) {
+            $this->connection->insert('event_store_event', [
+                'id' => Uuid::uuid4()->toString(),
+                'event_class' => $class,
+                'translation_key' => $translation,
+            ]);
+        }
     }
 }

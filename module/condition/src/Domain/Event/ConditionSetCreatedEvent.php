@@ -53,8 +53,12 @@ class ConditionSetCreatedEvent implements DomainEventInterface
      * @param TranslatableString $name
      * @param TranslatableString $description
      */
-    public function __construct(ConditionSetId $id, ConditionSetCode $code, TranslatableString $name, TranslatableString $description)
-    {
+    public function __construct(
+        ConditionSetId $id,
+        ConditionSetCode $code,
+        TranslatableString $name,
+        TranslatableString $description
+    ) {
         $this->id = $id;
         $this->code = $code;
         $this->name = $name;
