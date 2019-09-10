@@ -7,9 +7,9 @@
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.9",
-        "ergonode/attribute": "^0.2.0",
-        "ergonode/core": "^0.2.0",
-        "ergonode/es": "^0.2.0",
+        "ergonode/attribute": "^0.3.0",
+        "ergonode/core": "^0.3.0",
+        "ergonode/es": "^0.3.0",
         "jms/serializer": "^3.0",
         "moneyphp/money": "^3.2",
         "nelmio/api-doc-bundle": "^3.4",
