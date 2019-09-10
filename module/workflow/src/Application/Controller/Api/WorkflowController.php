@@ -14,13 +14,16 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
+use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
+use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Infrastructure\Builder\WorkflowValidatorBuilder;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -139,8 +142,8 @@ class WorkflowController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/workflow")
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns attribute",
+     *     response=201,
+     *     description="Returns workflow ID",
      * )
      * @SWG\Response(
      *     response=400,
@@ -226,5 +229,49 @@ class WorkflowController extends AbstractController
         }
 
         throw new ViolationsHttpException($violations);
+    }
+
+    /**
+     * @Route("/workflow/{workflow}", methods={"DELETE"}, requirements={"workflow"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("WORKFLOW_DELETE")
+     *
+     * @SWG\Tag(name="Workflow")
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language Code",
+     * )
+     * @SWG\Parameter(
+     *     name="workflow",
+     *     in="path",
+     *     required=true,
+     *     type="string",
+     *     description="Workflow ID",
+     * )
+     * @SWG\Response(
+     *     response=204,
+     *     description="Success"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
+     *
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
+     *
+     * @param Workflow $workflow
+     *
+     * @return Response
+     */
+    public function deleteWorkflow(Workflow $workflow): Response
+    {
+        $command = new DeleteWorkflowCommand($workflow->getId());
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }

@@ -38,5 +38,29 @@ final class Version20190130104000 extends AbstractErgonodeMigration
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_READ', 'Segment']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_UPDATE', 'Segment']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_DELETE', 'Segment']);
+
+        $this->createEventStoreEvents([
+            'Ergonode\Segment\Domain\Event\SegmentCreatedEvent' => 'Segment created',
+            'Ergonode\Segment\Domain\Event\SegmentDescriptionChangedEvent' => 'Segment description changed',
+            'Ergonode\Segment\Domain\Event\SegmentNameChangedEvent' => 'Segment name changed',
+            'Ergonode\Segment\Domain\Event\SegmentSpecificationAddedEvent' => 'Segment specification added',
+            'Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent' => 'Segment status changed',
+        ]);
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function createEventStoreEvents(array $collection): void
+    {
+        foreach ($collection as $class => $translation) {
+            $this->connection->insert('event_store_event', [
+                'id' => Uuid::uuid4()->toString(),
+                'event_class' => $class,
+                'translation_key' => $translation,
+            ]);
+        }
     }
 }

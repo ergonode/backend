@@ -28,18 +28,15 @@ class StatusParamConverter implements ParamConverterInterface
     private $repository;
 
     /**
-     * @param StatusRepositoryInterface $parameterRepository
+     * @param StatusRepositoryInterface $repository
      */
-    public function __construct(StatusRepositoryInterface $parameterRepository)
+    public function __construct(StatusRepositoryInterface $repository)
     {
-        $this->repository = $parameterRepository;
+        $this->repository = $repository;
     }
 
     /**
-     * @param Request        $request
-     * @param ParamConverter $configuration
-     *
-     * @return void
+     * {@inheritDoc}
      *
      * @throws \ReflectionException
      */
@@ -48,7 +45,7 @@ class StatusParamConverter implements ParamConverterInterface
         $parameter = $request->get('status');
 
         if (null === $parameter) {
-            throw new BadRequestHttpException('Route parameter status is missing');
+            throw new BadRequestHttpException('Route parameter "status" is missing');
         }
 
         if (!StatusId::isValid($parameter)) {
@@ -65,9 +62,7 @@ class StatusParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @param ParamConverter $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function supports(ParamConverter $configuration): bool
     {

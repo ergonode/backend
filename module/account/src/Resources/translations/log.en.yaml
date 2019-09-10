@@ -1,19 +1,16 @@
-"Ergonode\\Account\\Domain\\Event\\User\\UserAvatarChangedEvent": User avatar changed
-"Ergonode\\Account\\Domain\\Event\\User\\UserCreatedEvent": User "%first_name% %last_name%" created
-"Ergonode\\Account\\Domain\\Event\\User\\UserFirstNameChangedEvent": User first name changed from "%from% to "%to%"
-"Ergonode\\Account\\Domain\\Event\\User\\UserLanguageChangedEvent": User language changed from "%from% to %to%"
-"Ergonode\\Account\\Domain\\Event\\User\\UserLastNameChangedEvent": User last name changed from "%from% to "%to%"
-"Ergonode\\Account\\Domain\\Event\\User\\UserPasswordChangedEvent": User password changed
-"Ergonode\\Account\\Domain\\Event\\User\\UserRoleChangedEvent": User role changed from "%from%" to "%to%"
-"Ergonode\\Account\\Domain\\Event\\User\\UserActivatedEvent": User activated
-"Ergonode\\Account\\Domain\\Event\\User\\UserDeactivatedEvent": User disabled
-"Ergonode\\Account\\Domain\\Event\\Role\\AddPrivilegeToRoleEvent": Provilege "%privilege%" added
-"Ergonode\\Account\\Domain\\Event\\Role\\RemovePrivilegeFromRoleEvent": privilege "%privilege%" removed
-"Ergonode\\Account\\Domain\\Event\\Role\\RoleCreatedEvent": Role "%name%" created
-"Ergonode\\Account\\Domain\\Event\\Role\\RoleNameChangedEvent": Role name changed from "%from%" to "%to%"
-"Ergonode\\Account\\Domain\\Event\\Role\\RoleDescriptionChangedEvent": Role description changed from "%from%" to "%to%"
-"Ergonode\\Account\\Domain\\Event\\Role\\RolePrivilegesChangedEvent": List of pirivileges changed
-"Ergonode\\Account\\Domain\\Event\\Role\\RoleDeletedEvent": Role deleted
-
-
-
+'User avatar changed': 'User avatar changed'
+'User created': 'User "%first_name% %last_name%" created'
+'User first name changed': 'User first name changed from "%from% to "%to%"'
+'User language changed': 'User language changed from "%from% to %to%"'
+'User last name changed': 'User last name changed from "%from% to "%to%"'
+'User password changed': 'User password changed'
+'User role changed': 'User role changed'
+'User activated': 'User activated'
+'User disabled': 'User disabled'
+'Privilege added': 'Provilege "%privilege%" added'
+'Privilege removed': 'Privilege "%privilege%" removed'
+'Role created': 'Role "%name%" created'
+'Role name changed': 'Role name changed from "%from%" to "%to%"'
+'Role description changed': 'Role description changed from "%from%" to "%to%"'
+'List of privileges changed': 'List of privileges changed'
+'Role deleted': 'Role deleted'

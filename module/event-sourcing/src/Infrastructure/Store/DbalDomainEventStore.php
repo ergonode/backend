@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
@@ -51,24 +52,37 @@ class DbalDomainEventStore implements DomainEventStoreInterface
     private $tokenStorage;
 
     /**
-     * @param Connection                  $connection
-     * @param SerializerInterface         $serializer
-     * @param DomainEventFactoryInterface $domainEventFactory
-     * @param TokenStorageInterface       $tokenStorage
-     * @param AdapterInterface            $cache
+     * @var array
+     */
+    private $events;
+
+    /**
+     * @var DomainEventProviderInterface
+     */
+    private $domainEventProvider;
+
+    /**
+     * @param Connection                   $connection
+     * @param SerializerInterface          $serializer
+     * @param DomainEventFactoryInterface  $domainEventFactory
+     * @param TokenStorageInterface        $tokenStorage
+     * @param AdapterInterface             $cache
+     * @param DomainEventProviderInterface $domainEventProvider
      */
     public function __construct(
         Connection $connection,
         SerializerInterface $serializer,
         DomainEventFactoryInterface $domainEventFactory,
         TokenStorageInterface $tokenStorage,
-        AdapterInterface $cache
+        AdapterInterface $cache,
+        DomainEventProviderInterface $domainEventProvider
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->connection = $connection;
         $this->serializer = $serializer;
         $this->domainEventFactory = $domainEventFactory;
         $this->cache = $cache;
+        $this->domainEventProvider = $domainEventProvider;
     }
 
     /**
@@ -84,7 +98,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
 
         $item = $this->cache->getItem($key);
         if ($item->isHit()) {
-            $result =  $item->get();
+            $result = $item->get();
             $sequence = count($result);
         } else {
             $result = [];
@@ -94,8 +108,10 @@ class DbalDomainEventStore implements DomainEventStoreInterface
         $qb = $this->connection->createQueryBuilder();
 
         $records = $qb
-            ->select('*')
-            ->from($table)
+            ->select('es.id, es.aggregate_id, es.sequence, es.payload, es.recorded_by, es.recorded_at')
+            ->addSelect('ese.event_class as event')
+            ->from($table, 'es')
+            ->join('es', 'event_store_event', 'ese', 'es.event_id = ese.id')
             ->where($qb->expr()->eq('aggregate_id', ':aggregateId'))
             ->andWhere($qb->expr()->gt('sequence', ':sequence'))
             ->setParameter('aggregateId', $id->getValue())
@@ -132,7 +148,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
                     [
                         'aggregate_id' => $id->getValue(),
                         'sequence' => $envelope->getSequence(),
-                        'event' => $envelope->getType(),
+                        'event_id' => $this->domainEventProvider->provideEventId($envelope->getType()),
                         'payload' => $payload,
                         'recorded_at' => $envelope->getRecordedAt()->format('Y-m-d H:i:s'),
                         'recorded_by' => $userId,
@@ -169,8 +185,8 @@ class DbalDomainEventStore implements DomainEventStoreInterface
 
             $this->connection->executeQuery(
                 sprintf(
-                    'INSERT INTO %s (aggregate_id, sequence, event, payload, recorded_by, recorded_at, variant) 
-                    SELECT aggregate_id, sequence, event, payload, recorded_by, recorded_at, %d FROM %s WHERE aggregate_id = ?',
+                    'INSERT INTO %s (aggregate_id, sequence, event_id, payload, recorded_by, recorded_at, variant) 
+                    SELECT aggregate_id, sequence, event_id, payload, recorded_by, recorded_at, %d FROM %s WHERE aggregate_id = ?',
                     $historyTable,
                     $version,
                     $dataTable

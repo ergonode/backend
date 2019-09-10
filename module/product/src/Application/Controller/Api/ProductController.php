@@ -22,6 +22,7 @@ use Ergonode\Product\Application\Form\ProductUpdateForm;
 use Ergonode\Product\Application\Model\ProductCreateFormModel;
 use Ergonode\Product\Application\Model\ProductUpdateFormModel;
 use Ergonode\Product\Domain\Command\CreateProductCommand;
+use Ergonode\Product\Domain\Command\DeleteProductCommand;
 use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\ValueObject\Sku;
@@ -269,7 +270,7 @@ class ProductController extends AbstractController
      *     in="body",
      *     description="Add product",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/product")
+     *     @SWG\Schema(ref="#/definitions/product_upd")
      * )
      * @SWG\Response(
      *     response=204,
@@ -304,5 +305,48 @@ class ProductController extends AbstractController
         }
 
         throw new FormValidationHttpException($form);
+    }
+
+    /**
+     * @Route("/products/{product}", methods={"DELETE"}, requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("PRODUCT_DELETE")
+     *
+     * @SWG\Tag(name="Product")
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     description="Language code",
+     *     default="EN"
+     * )
+     * @SWG\Parameter(
+     *     name="product",
+     *     in="path",
+     *     required=true,
+     *     type="string",
+     *     description="Product ID",
+     * )
+     * @SWG\Response(
+     *     response=204,
+     *     description="Success"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
+     *
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     *
+     * @param AbstractProduct $product
+     *
+     * @return Response
+     */
+    public function deleteProduct(AbstractProduct $product): Response
+    {
+        $command = new DeleteProductCommand($product->getId());
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }
