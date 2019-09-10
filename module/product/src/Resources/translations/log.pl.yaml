@@ -4,3 +4,4 @@
 'Product attribute value added': 'Dodano wartość atrybutu "%code%"'
 'Product attribute value changed': 'Zmieniono wartość atrybutu "%code%"'
 'Product attribute value removed': 'Usunięto wartość atrybutu "%code%"'
+'Product deleted': 'Produkt "%id%" usunięto'

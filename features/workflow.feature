@@ -95,8 +95,6 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/default" using HTTP PUT
     Then validation error response is received
 
-
-
   Scenario: Delete default status
     Given current authentication token
     When I request "/api/v1/EN/status/@workflow_status@" using HTTP DELETE
@@ -163,3 +161,17 @@ Feature: Workflow
   Scenario: Get default workflow (not authorized)
     When I request "/api/v1/EN/workflow/default" using HTTP GET
     Then unauthorized response is received
+
+  Scenario: Delete workflow (not found)
+    Given current authentication token
+    When I request "/api/v1/EN/workflow/@static_uuid@" using HTTP DELETE
+    Then not found response is received
+
+  Scenario: Delete workflow (not authorized)
+    When I request "/api/v1/EN/workflow/@workflow@" using HTTP DELETE
+    Then unauthorized response is received
+
+  Scenario: Delete workflow
+    Given current authentication token
+    When I request "/api/v1/EN/workflow/@workflow@" using HTTP DELETE
+    Then empty response is received
