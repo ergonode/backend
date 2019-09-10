@@ -53,6 +53,7 @@ final class Version20180619083830 extends AbstractErgonodeMigration
             'Ergonode\Product\Domain\Event\ProductValueAdded' => 'Product attribute value added',
             'Ergonode\Product\Domain\Event\ProductValueChanged' => 'Product attribute value changed',
             'Ergonode\Product\Domain\Event\ProductValueRemoved' => 'Product attribute value removed',
+            'Ergonode\Product\Domain\Event\ProductDeletedEvent' => 'Product deleted',
         ]);
     }
 
