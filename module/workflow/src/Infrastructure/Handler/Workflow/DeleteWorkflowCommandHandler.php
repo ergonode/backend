@@ -32,14 +32,12 @@ class DeleteWorkflowCommandHandler
 
     /**
      * @param DeleteWorkflowCommand $command
-     *
-     * @throws \ReflectionException
      */
     public function __invoke(DeleteWorkflowCommand $command)
     {
-        $status = $this->repository->load($command->getId());
-        Assert::notNull($status);
+        $workflow = $this->repository->load($command->getId());
+        Assert::notNull($workflow);
 
-        $this->repository->delete($status);
+        $this->repository->delete($workflow);
     }
 }

@@ -8,3 +8,4 @@
 'Deleted status from workflow': 'Deleted status from workflow'
 'Added transition to workflow': 'Added transition to workflow'
 'Deleted transition from workflow': 'Deleted transition from workflow'
+'Workflow deleted': 'Workflow "%id%" deleted'
