@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
+namespace Ergonode\CategoryTree\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeDeletedEvent;
