@@ -4,3 +4,4 @@
 'Product attribute value added': 'Product value of attribute "%code%" added'
 'Product attribute value changed': 'Product value of attribute "%code%" changed'
 'Product attribute value removed': 'Product value of attribute "%code%" removed'
+'Product deleted': 'Product "%id%" deleted'

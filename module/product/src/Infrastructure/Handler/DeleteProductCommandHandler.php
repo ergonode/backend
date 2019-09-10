@@ -38,9 +38,9 @@ class DeleteProductCommandHandler
      */
     public function __invoke(DeleteProductCommand $command)
     {
-        $role = $this->repository->load($command->getId());
-        Assert::isInstanceOf($role, AbstractProduct::class, sprintf('Can\'t find product with id "%s"', $command->getId()));
+        $product = $this->repository->load($command->getId());
+        Assert::isInstanceOf($product, AbstractProduct::class, sprintf('Can\'t find product with id "%s"', $command->getId()));
 
-        $this->repository->delete($role);
+        $this->repository->delete($product);
     }
 }
