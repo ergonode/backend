@@ -6,7 +6,7 @@
     "license": "OSL-3.0",
     "require": {
         "php": "^7.2",
-        "ergonode/attribute": "^0.2.0",
+        "ergonode/attribute": "^0.3.0",
         "jms/serializer": "^3.0",
         "nelmio/api-doc-bundle": "^3.4",
         "symfony/form": "^4.2",
