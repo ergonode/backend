@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Request\ParamConverter;
 
-use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Workflow\Domain\Entity\StatusId;
-use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
+use Ergonode\Workflow\Domain\Entity\Workflow;
+use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,17 +20,17 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  */
-class StatusParamConverter implements ParamConverterInterface
+class WorkflowParamConverter implements ParamConverterInterface
 {
     /**
-     * @var StatusRepositoryInterface
+     * @var WorkflowRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param StatusRepositoryInterface $repository
+     * @param WorkflowRepositoryInterface $repository
      */
-    public function __construct(StatusRepositoryInterface $repository)
+    public function __construct(WorkflowRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
@@ -42,20 +42,20 @@ class StatusParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $parameter = $request->get('status');
+        $parameter = $request->get('workflow');
 
         if (null === $parameter) {
-            throw new BadRequestHttpException('Route parameter "status" is missing');
+            throw new BadRequestHttpException('Route parameter "workflow" is missing');
         }
 
-        if (!StatusId::isValid($parameter)) {
-            throw new BadRequestHttpException('Invalid status ID format');
+        if (!WorkflowId::isValid($parameter)) {
+            throw new BadRequestHttpException('Invalid workflow ID format');
         }
 
-        $entity = $this->repository->load(new StatusId($parameter));
+        $entity = $this->repository->load(new WorkflowId($parameter));
 
         if (null === $entity) {
-            throw new NotFoundHttpException(sprintf('Status by id "%s" not found', $parameter));
+            throw new NotFoundHttpException(sprintf('Workflow by id "%s" not found', $parameter));
         }
 
         $request->attributes->set($configuration->getName(), $entity);
@@ -66,6 +66,6 @@ class StatusParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration): bool
     {
-        return Status::class === $configuration->getClass();
+        return Workflow::class === $configuration->getClass();
     }
 }

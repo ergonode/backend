@@ -14,6 +14,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 
 /**
@@ -41,16 +42,14 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
     }
 
     /**
-     * @param WorkflowId $id
-     *
-     * @return Workflow|null
+     * {@inheritDoc}
      *
      * @throws \ReflectionException
      */
     public function load(WorkflowId $id): ?AbstractAggregateRoot
     {
         $eventStream = $this->eventStore->load($id);
-        if (\count($eventStream) > 0) {
+        if (count($eventStream) > 0) {
             $class = new \ReflectionClass(Workflow::class);
             /** @var AbstractAggregateRoot $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
@@ -67,7 +66,7 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * {@inheritDoc}
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
@@ -77,5 +76,18 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
         foreach ($events as $envelope) {
             $this->eventDispatcher->dispatch($envelope);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Exception
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    {
+        $aggregateRoot->apply(new WorkflowDeletedEvent());
+        $this->save($aggregateRoot);
+
+        $this->eventStore->delete($aggregateRoot->getId());
     }
 }
