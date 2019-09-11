@@ -45,6 +45,11 @@ class EntityGenerator
         foreach ($this->builders as $builder) {
             $file = $builder->build($module, $entity);
             $this->persister->persist($file, $module);
+            $namespaces = $file->getNamespaces();
+            $namespace = reset($namespaces);
+            $classes = $namespace->getClasses();
+            $class = reset($classes);
+            echo sprintf('Generate class: %s\%s%s', $namespace->getName(), $class->getName(), PHP_EOL);
         }
     }
 }

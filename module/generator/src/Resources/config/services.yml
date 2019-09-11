@@ -20,8 +20,11 @@ services:
             - '@Ergonode\Generator\Builder\Domain\Entity\EntityClassBuilder'
             - '@Ergonode\Generator\Builder\Domain\Entity\EntityIdClassBuilder'
             - '@Ergonode\Generator\Builder\Domain\Repository\EntityRepositoryInterfaceBuilder'
+            - '@Ergonode\Generator\Builder\Domain\Factory\EntityFactoryInterfaceBuilder'
             - '@Ergonode\Generator\Builder\Persistence\Dbal\Repository\EntityDbalRepositoryBuilder'
             - '@Ergonode\Generator\Builder\Infrastructure\JMS\Serializer\Handler\EntityIdHandlerClassBuilder'
+            - '@Ergonode\Generator\Builder\Domain\Command\CreateCommandClassBuilder'
+            - '@Ergonode\Generator\Builder\Infrastructure\Handler\CreateCommandHandlerClassBuilder'
 
     Ergonode\Generator\Command\:
         resource: '../../Command/*'
