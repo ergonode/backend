@@ -23,6 +23,16 @@ final class Version20190910151314 extends AbstractErgonodeMigration
      */
     public function up(Schema $schema): void
     {
+        $this->addSql('
+            CREATE TABLE condition_set (
+                id UUID NOT NULL,
+                code VARCHAR(100) NOT NULL,
+                name JSON NOT NULL,
+                description JSON NOT NULL,            
+                PRIMARY KEY(id)
+            )
+        ');
+
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_CREATE', 'Condition']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_READ', 'Condition']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_UPDATE', 'Condition']);

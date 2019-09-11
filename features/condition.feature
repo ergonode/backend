@@ -1,7 +1,7 @@
 Feature: Condition
 
   Scenario: Create condition set (not authorized)
-    Given I request "/api/v1/EN/conditions" using HTTP POST
+    Given I request "/api/v1/EN/conditionsets" using HTTP POST
     Then unauthorized response is received
 
   Scenario: Create condition set
@@ -20,9 +20,9 @@ Feature: Condition
          }
       }
       """
-    Given I request "/api/v1/EN/conditions" using HTTP POST
+    Given I request "/api/v1/EN/conditionsets" using HTTP POST
     Then created response is received
-    And remember response param "id" as "condition"
+    And remember response param "id" as "conditionset"
 
   Scenario: Create condition set (without code)
     Given current authentication token
@@ -39,7 +39,7 @@ Feature: Condition
          }
       }
       """
-    Given I request "/api/v1/EN/conditions" using HTTP POST
+    Given I request "/api/v1/EN/conditionsets" using HTTP POST
     Then validation error response is received
 
   Scenario: Create condition set (short name)
@@ -58,7 +58,7 @@ Feature: Condition
          }
       }
       """
-    Given I request "/api/v1/EN/conditions" using HTTP POST
+    Given I request "/api/v1/EN/conditionsets" using HTTP POST
     Then validation error response is received
 
   Scenario: Create condition set (long name)
@@ -77,7 +77,7 @@ Feature: Condition
          }
       }
       """
-    Given I request "/api/v1/EN/conditions" using HTTP POST
+    Given I request "/api/v1/EN/conditionsets" using HTTP POST
     Then validation error response is received
 
   Scenario: Create condition set (without description)
@@ -92,7 +92,7 @@ Feature: Condition
          }
       }
       """
-    Given I request "/api/v1/EN/conditions" using HTTP POST
+    Given I request "/api/v1/EN/conditionsets" using HTTP POST
     Then validation error response is received
 
   Scenario: Create condition set (long description)
@@ -111,5 +111,19 @@ Feature: Condition
          }
       }
       """
-    Given I request "/api/v1/EN/conditions" using HTTP POST
+    Given I request "/api/v1/EN/conditionsets" using HTTP POST
     Then validation error response is received
+
+  Scenario: Get condition set (not authorized)
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get condition set (not found)
+    Given current authentication token
+    Given I request "/api/v1/EN/conditionsets/@@static_uuid@@" using HTTP GET
+    Then not found response is received
+
+  Scenario: Get condition set
+    Given current authentication token
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP GET
+    Then the response code is 200

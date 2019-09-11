@@ -12,6 +12,7 @@ namespace Ergonode\Segment\Application\Controller\Api;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -231,6 +232,7 @@ class SegmentController extends AbstractController
 
             $command = new CreateSegmentCommand(
                 new SegmentCode($data->code),
+                new ConditionSetId($data->conditionSetId),
                 new TranslatableString($data->name),
                 new TranslatableString($data->description)
             );

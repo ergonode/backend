@@ -27,4 +27,5 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
+    Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Persistence\Dbal\Query\DbalConditionSetQuery'
     Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Persistence\Dbal\Repository\DbalConditionSetRepository'

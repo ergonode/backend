@@ -18,6 +18,14 @@ class CreateSegmentFormModel
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Condition set ID is required")
+     * @Assert\Uuid()
+     */
+    public $conditionSetId;
+
+    /**
+     * @var string
+     *
      * @Assert\NotBlank(message="Segment code is required")
      * @Assert\Length(max=32)
      */
