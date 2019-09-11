@@ -254,7 +254,7 @@ class ConditionSetController extends AbstractController
     {
         $data = $request->request->all();
 
-        $violations = $this->validator->validate($data, $this->builder->build($data));
+        $violations = $this->validator->validate($data, $this->builder->build($data), [ConditionSetValidatorBuilder::CREATE_GROUP]);
         if (0 === $violations->count()) {
             $data['id'] = ConditionSetId::fromCode(new ConditionSetCode($data['code']))->getValue();
 

@@ -86,13 +86,23 @@ class ViolationsExceptionHandler implements SubscribingHandlerInterface
         $errors = [];
         /** @var ConstraintViolationInterface $violation */
         foreach ($violations as $violation) {
-            $field = substr($violation->getPropertyPath(), 1, -1);
+            $field = ltrim(str_replace(['[', ']'], ['.', ''], $violation->getPropertyPath()), '.');
+            $path = explode('.', $field);
 
-            if (!array_key_exists($field, $errors)) {
-                $errors[$field] = [];
+            $pointer = &$errors;
+            foreach ($path as $key) {
+                if (ctype_digit($key)) {
+                    $key = 'element-'.$key;
+                }
+
+                if (!array_key_exists($key, $pointer)) {
+                    $pointer[$key] = [];
+                }
+
+                $pointer = &$pointer[$key];
             }
 
-            $errors[$field][] = $violation->getMessage();
+            $pointer[] = $violation->getMessage();
         }
 
         return $errors;

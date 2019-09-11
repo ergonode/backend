@@ -47,67 +47,56 @@ class ConditionSetValidatorBuilder
     {
         $resolver = function ($data, ExecutionContextInterface $context, $payload) {
             foreach ($data as $index => $condition) {
-                $pathPrefix = sprintf('%d', $index);
-
                 if (!is_array($condition)) {
-                    $context
-                        ->buildViolation('Conditions must be an collection')
-                        ->atPath($pathPrefix)
-                        ->addViolation();
+                    throw new \InvalidArgumentException('Condition in condition set must be array type');
                 }
 
                 if (!array_key_exists('type', $condition)) {
-                    $context
-                        ->buildViolation('Type not found in condition')
-                        ->atPath($pathPrefix)
-                        ->addViolation();
+                    throw new \InvalidArgumentException('Type not found in condition');
                 }
 
                 if (!array_key_exists('parameters', $condition)) {
-                    $context
-                        ->buildViolation('Parameters not found in condition')
-                        ->atPath($pathPrefix)
-                        ->addViolation();
+                    throw new \InvalidArgumentException(sprintf('Parameters not found in condition'));
                 }
 
-                if (0 === $context->getViolations()->count()) {
-                    $constraint = $this->conditionConstraintResolver->resolve($condition['type']);
+                $constraint = $this->conditionConstraintResolver->resolve($condition['type']);
 
-                    $violations = $context->getValidator()->validate($condition['parameters'], $constraint);
-
-                    if (0 !== $violations->count()) {
-                        /** @var ConstraintViolation $violation */
-                        foreach ($violations as $violation) {
-                            $context
-                                ->buildViolation($violation->getMessage(), $violation->getParameters())
-                                ->atPath($pathPrefix)
-                                ->addViolation();
-                        }
+                $violations = $context->getValidator()->validate($condition['parameters'], $constraint);
+                if (0 !== $violations->count()) {
+                    /** @var ConstraintViolation $violation */
+                    foreach ($violations as $violation) {
+                        $context
+                            ->buildViolation($violation->getMessage(), $violation->getParameters())
+                            ->atPath(sprintf('[%d][%s]', $index, $violation->getPropertyPath()))
+                            ->addViolation();
                     }
                 }
             }
         };
 
         return new Collection([
-            'code' => [
-                new NotBlank(['groups' => self::CREATE_GROUP]),
-                new Length(['min' => 2, 'max' => 100, 'groups' => self::CREATE_GROUP]),
-            ],
-            'name' => [
-                new NotBlank(),
-                new All([
-                    new Length(['min' => 2, 'max' => 255]),
-                ]),
-            ],
-            'description' => [
-                new NotBlank(),
-                new All([
-                    new Length(['max' => 255]),
-                ]),
-            ],
-            'conditions' => [
-                new NotBlank(['groups' => self::UPDATE_GROUP]),
-                new Callback(['callback' => $resolver, 'groups' => self::UPDATE_GROUP]),
+            'allowMissingFields' => true,
+            'fields' => [
+                'code' => [
+                    new NotBlank(['groups' => self::CREATE_GROUP]),
+                    new Length(['min' => 2, 'max' => 100, 'groups' => self::CREATE_GROUP]),
+                ],
+                'name' => [
+                    new NotBlank(),
+                    new All([
+                        new Length(['min' => 2, 'max' => 255]),
+                    ]),
+                ],
+                'description' => [
+                    new NotBlank(),
+                    new All([
+                        new Length(['max' => 255]),
+                    ]),
+                ],
+                'conditions' => [
+                    new NotBlank(['groups' => self::UPDATE_GROUP]),
+                    new Callback(['callback' => $resolver, 'groups' => self::UPDATE_GROUP]),
+                ],
             ],
         ]);
     }

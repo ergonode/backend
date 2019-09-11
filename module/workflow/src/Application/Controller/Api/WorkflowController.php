@@ -218,7 +218,6 @@ class WorkflowController extends AbstractController
         $workflow = $this->provider->provide();
 
         $violations = $this->validator->validate($data, $this->builder->build($data));
-
         if (0 === $violations->count()) {
             $data['id'] = $workflow->getId()->getValue();
             $command = $this->serializer->fromArray($data, UpdateWorkflowCommand::class);

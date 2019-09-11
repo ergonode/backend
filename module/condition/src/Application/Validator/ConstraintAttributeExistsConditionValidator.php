@@ -57,6 +57,7 @@ class ConstraintAttributeExistsConditionValidator extends ConstraintValidator
             $this->context
                 ->buildViolation('Attribute code "value" not found')
                 ->setParameter('value', $value['code'])
+                ->atPath('code')
                 ->addViolation();
         }
     }
