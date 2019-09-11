@@ -313,8 +313,9 @@ class ConditionSetController extends AbstractController
     {
         $data = $request->request->all();
 
-        $violations = $this->validator->validate($data, $this->builder->build($data));
+        $violations = $this->validator->validate($data, $this->builder->build($data), [ConditionSetValidatorBuilder::UPDATE_GROUP]);
         if (0 === $violations->count()) {
+            $data['id'] = $conditionSet->getId()->getValue();
             /** @var UpdateConditionSetCommand $command */
             $command = $this->serializer->fromArray($data, UpdateConditionSetCommand::class);
             $this->messageBus->dispatch($command);
