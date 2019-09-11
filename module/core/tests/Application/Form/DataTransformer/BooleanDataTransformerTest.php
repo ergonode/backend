@@ -36,6 +36,7 @@ class BooleanDataTransformerTest extends TestCase
         $this->assertEquals('true', $transformer->reverseTransform(1));
         $this->assertEquals('false', $transformer->reverseTransform(0));
         $this->assertEquals('false', $transformer->reverseTransform('false'));
+        $this->assertEquals('false', $transformer->reverseTransform(false));
         $this->expectExceptionMessage('Expect boolean');
         $this->assertEquals('false', $transformer->reverseTransform('fadwwalse'));
     }
