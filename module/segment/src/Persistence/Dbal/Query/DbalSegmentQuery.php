@@ -47,8 +47,6 @@ class DbalSegmentQuery implements SegmentQueryInterface
     public function getDataSet(Language $language): DbalDataSet
     {
         $query = $this->getQuery();
-        $query->addSelect('id');
-        $query->addSelect('code');
         $query->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
         $query->addSelect(sprintf('(description->>\'%s\') AS description', $language->getCode()));
 

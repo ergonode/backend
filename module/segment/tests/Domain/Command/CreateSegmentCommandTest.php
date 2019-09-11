@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Tests\Domain\Command;
 
+use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Domain\Command\CreateSegmentCommand;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
@@ -24,6 +25,8 @@ class CreateSegmentCommandTest extends TestCase
      */
     public function testCommand(): void
     {
+        /** @var ConditionSetId|MockObject $conditionSetId */
+        $conditionSetId = $this->createMock(ConditionSetId::class);
         /** @var SegmentCode|MockObject $code */
         $code = $this->createMock(SegmentCode::class);
         /** @var TranslatableString $name */
@@ -31,9 +34,10 @@ class CreateSegmentCommandTest extends TestCase
         /** @var TranslatableString $description */
         $description = $this->createMock(TranslatableString::class);
 
-        $command = new CreateSegmentCommand($code, $name, $description);
+        $command = new CreateSegmentCommand($code, $conditionSetId, $name, $description);
         $this->assertEquals($code, $command->getCode());
         $this->assertEquals($name, $command->getName());
         $this->assertEquals($description, $command->getDescription());
+        $this->assertEquals($conditionSetId, $command->getConditionSetId());
     }
 }

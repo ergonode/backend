@@ -45,6 +45,7 @@ final class Version20190130104000 extends AbstractErgonodeMigration
             'Ergonode\Segment\Domain\Event\SegmentNameChangedEvent' => 'Segment name changed',
             'Ergonode\Segment\Domain\Event\SegmentSpecificationAddedEvent' => 'Segment specification added',
             'Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent' => 'Segment status changed',
+            'Ergonode\Segment\Domain\Event\SegmentDeletedEvent' => 'Segment deleted',
         ]);
     }
 

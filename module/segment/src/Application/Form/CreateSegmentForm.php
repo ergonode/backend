@@ -28,8 +28,11 @@ class CreateSegmentForm extends AbstractType
     {
         $builder
             ->add(
-                'conditionset_id',
-                TextType::class
+                'condition_set_id',
+                TextType::class,
+                [
+                    'property_path' => 'conditionSetId',
+                ]
             )
             ->add(
                 'code',

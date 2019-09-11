@@ -10,16 +10,17 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Domain\Entity;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Segment\Domain\Event\SegmentCreatedEvent;
-use Ergonode\Segment\Domain\ValueObject\SegmentCode;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
+use Ergonode\Segment\Domain\Event\SegmentCreatedEvent;
 use Ergonode\Segment\Domain\Event\SegmentDescriptionChangedEvent;
 use Ergonode\Segment\Domain\Event\SegmentNameChangedEvent;
 use Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  * @JMS\ExclusionPolicy("all")
@@ -90,7 +91,8 @@ class Segment extends AbstractAggregateRoot
         TranslatableString $name,
         TranslatableString $description
     ) {
-        $this->apply(new SegmentCreatedEvent($id, $code, $conditionSetId, $name, $description));
+        $this->status = new SegmentStatus(SegmentStatus::NEW);
+        $this->apply(new SegmentCreatedEvent($id, $code, $conditionSetId, $name, $description, $this->status));
     }
 
     /**
@@ -178,6 +180,18 @@ class Segment extends AbstractAggregateRoot
     }
 
     /**
+     * @param ConditionSetId $conditionSetId
+     *
+     * @throws \Exception
+     */
+    public function changeConditionSetId(ConditionSetId $conditionSetId): void
+    {
+        if (!$conditionSetId->isEqual($this->conditionSetId)) {
+            $this->apply(new SegmentConditionSetChangedEvent($this->conditionSetId, $conditionSetId));
+        }
+    }
+
+    /**
      * @param SegmentCreatedEvent $event
      */
     protected function applySegmentCreatedEvent(SegmentCreatedEvent $event): void
@@ -187,6 +201,7 @@ class Segment extends AbstractAggregateRoot
         $this->conditionSetId = $event->getConditionSetId();
         $this->name = $event->getName();
         $this->description = $event->getDescription();
+        $this->status = $event->getStatus();
     }
 
     /**
@@ -211,5 +226,13 @@ class Segment extends AbstractAggregateRoot
     protected function applySegmentDescriptionChangedEvent(SegmentDescriptionChangedEvent $event): void
     {
         $this->description = $event->getTo();
+    }
+
+    /**
+     * @param SegmentConditionSetChangedEvent $event
+     */
+    protected function applySegmentConditionSetChangedEvent(SegmentConditionSetChangedEvent $event): void
+    {
+        $this->conditionSetId = $event->getTo();
     }
 }

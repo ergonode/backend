@@ -68,7 +68,7 @@ Feature: Condition
       {
          "code": "CONDITION_@@random_uuid@@",
          "name": {
-            "PL": "4YdShn9FoFZechRRsBxscsyHHRCUmJYFRBAWMrfvUjvbsfPPaMPVqPYGzZQqvzFlaxuPazm4baTBHudDM3jWpJJi7npm4bt9CD9OM",
+            "PL": "ceqvqEO1AsN92sTa0yn6vtYKc4Wkegfw7P5IQO34hhmtNWPYUKZXF8npJg55qGTUG4unmQPlaqRRvAzuaQLST2RP030V9gbqx5gekGPRnRqwVi03Cs0SDvmZe0jmMNm4lOm2w02kyHA1wtMapqgv3GGtQFTsXBegVFFu3aGlpZyfyWRl4TLSm4rTWMSRC89u2A3mxEAWv1AXn64ouBL4AoqwRGomgeU58ewRWiEwPv55BMmMfa0SxQOfiplqksmQ",
             "EN": "Condition set"
          },
          "description": {
@@ -127,3 +127,58 @@ Feature: Condition
     Given current authentication token
     Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP GET
     Then the response code is 200
+
+  Scenario: Delete condition set (not authorized)
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP DELETE
+    Then unauthorized response is received
+
+  Scenario: Delete condition set (not found)
+    Given current authentication token
+    Given I request "/api/v1/EN/conditionsets/@@static_uuid@@" using HTTP DELETE
+    Then not found response is received
+
+  Scenario: Delete condition set
+    Given current authentication token
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP DELETE
+    Then empty response is received
+
+  Scenario: Get condition sets
+    Given current authentication token
+    When I request "/api/v1/EN/conditionsets" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get condition sets (not authorized)
+    When I request "/api/v1/EN/conditionsets" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get condition sets (order by code)
+    Given current authentication token
+    When I request "/api/v1/EN/conditionsets?field=code" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get condition sets (order by name)
+    Given current authentication token
+    When I request "/api/v1/EN/conditionsets?field=name" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get condition sets (order by description)
+    Given current authentication token
+    When I request "/api/v1/EN/conditionsets?field=description" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get condition sets (filter by code)
+    Given current authentication token
+    When I request "/api/v1/EN/conditionsets?limit=25&offset=0&filter=code%3Dsuper" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get condition sets (filter by name)
+    Given current authentication token
+    When I request "/api/v1/EN/conditionsets?limit=25&offset=0&filter=name%3Dsuper" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get condition sets (filter by description)
+    Given current authentication token
+    When I request "/api/v1/EN/conditionsets?limit=25&offset=0&filter=description%3Dsuper" using HTTP GET
+    Then grid response is received
+
+  # TODO Update condition with all posibilities

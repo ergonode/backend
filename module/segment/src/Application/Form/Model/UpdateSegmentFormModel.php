@@ -16,6 +16,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class UpdateSegmentFormModel
 {
     /**
+     * @var string
+     *
+     * @Assert\NotBlank(message="Condition set ID is required")
+     * @Assert\Uuid()
+     */
+    public $conditionSetId;
+
+    /**
      * @var array
      */
     public $name;

@@ -14,6 +14,7 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Command\CreateConditionSetCommand;
+use Ergonode\Condition\Domain\Command\DeleteConditionSetCommand;
 use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
@@ -177,7 +178,7 @@ class ConditionSetController extends AbstractController
     }
 
     /**
-     * @Route("/conditionsets/{conditionSet}", methods={"GET"})
+     * @Route("/conditionsets/{conditionSet}", methods={"GET"}, requirements={"conditionSet"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("CONDITION_READ")
      *
@@ -268,7 +269,7 @@ class ConditionSetController extends AbstractController
     }
 
     /**
-     * @Route("/conditionsets/{conditionSet}", methods={"PUT"})
+     * @Route("/conditionsets/{conditionSet}", methods={"PUT"}, requirements={"conditionSet"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("CONDITION_UPDATE")
      *
@@ -322,5 +323,50 @@ class ConditionSetController extends AbstractController
         }
 
         throw new ViolationsHttpException($violations);
+    }
+
+    /**
+     * @Route("/conditionsets/{conditionSet}", methods={"DELETE"}, requirements={"conditionSet"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("CONDITION_DELETE")
+     *
+     * @SWG\Tag(name="Condition")
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     description="Language code",
+     *     default="EN"
+     * )
+     * @SWG\Parameter(
+     *     name="conditionSet",
+     *     in="path",
+     *     required=true,
+     *     type="string",
+     *     description="Condition set ID",
+     * )
+     * @SWG\Response(
+     *     response=204,
+     *     description="Success"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found"
+     * )
+     *
+     * @ParamConverter(class="Ergonode\Condition\Domain\Entity\ConditionSet")
+     *
+     * @param ConditionSet $conditionSet
+     *
+     * @return Response
+     */
+    public function deleteConditionSet(ConditionSet $conditionSet): Response
+    {
+        // @todo Check relations with segments
+
+        $command = new DeleteConditionSetCommand($conditionSet->getId());
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }

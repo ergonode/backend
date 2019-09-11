@@ -34,7 +34,6 @@ class ConditionSetValidatorBuilder
             'name' => [
                 new NotBlank(),
                 new All([
-                    new NotBlank(),
                     new Length(['min' => 2, 'max' => 255]),
                 ]),
             ],

@@ -3,3 +3,4 @@
 'Segment name changed': 'Zmieniono nazwę segmentu'
 'Segment specification added': 'Dodano specyfikację do segmentu'
 'Segment status changed': 'Zmieniono status segmentu'
+'Segment deleted': 'Segment "%id%" został usunięty'

@@ -3,3 +3,4 @@
 'Segment name changed': 'Segment name changed'
 'Segment specification added': 'Segment specification added'
 'Segment status changed': 'Segment status changed'
+'Segment deleted': 'Segment "%id%" deleted'

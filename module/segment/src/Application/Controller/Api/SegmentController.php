@@ -11,6 +11,7 @@ namespace Ergonode\Segment\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -22,6 +23,7 @@ use Ergonode\Segment\Application\Form\Model\CreateSegmentFormModel;
 use Ergonode\Segment\Application\Form\Model\UpdateSegmentFormModel;
 use Ergonode\Segment\Application\Form\UpdateSegmentForm;
 use Ergonode\Segment\Domain\Command\CreateSegmentCommand;
+use Ergonode\Segment\Domain\Command\DeleteSegmentCommand;
 use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
@@ -164,7 +166,7 @@ class SegmentController extends AbstractController
      *     name="segment",
      *     in="path",
      *     type="string",
-     *     description="Segment id",
+     *     description="Segment ID",
      * )
      * @SWG\Response(
      *     response=200,
@@ -245,7 +247,7 @@ class SegmentController extends AbstractController
     }
 
     /**
-     * @Route("/segments/{segment}", methods={"PUT"})
+     * @Route("/segments/{segment}", methods={"PUT"}, requirements={"segment"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("SEGMENT_UPDATE")
      *
@@ -303,9 +305,52 @@ class SegmentController extends AbstractController
             );
             $this->messageBus->dispatch($command);
 
-            return new CreatedResponse($command->getId());
+            return new EmptyResponse();
         }
 
         throw new FormValidationHttpException($form);
+    }
+
+    /**
+     * @Route("/segments/{segment}", methods={"DELETE"}, requirements={"segment"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("CONDITION_DELETE")
+     *
+     * @SWG\Tag(name="Segment")
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     description="Language code",
+     *     default="EN"
+     * )
+     * @SWG\Parameter(
+     *     name="segment",
+     *     in="path",
+     *     required=true,
+     *     type="string",
+     *     description="Segment ID",
+     * )
+     * @SWG\Response(
+     *     response=204,
+     *     description="Success"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found"
+     * )
+     *
+     * @ParamConverter(class="Ergonode\Segment\Domain\Entity\Segment")
+     *
+     * @param Segment $segment
+     *
+     * @return Response
+     */
+    public function deleteSegment(Segment $segment): Response
+    {
+        $command = new DeleteSegmentCommand($segment->getId());
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }
