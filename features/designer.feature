@@ -172,7 +172,7 @@ Feature: Designer module
         "elements": [
           {
             "position": {"x": 0, "y": 0},
-            "size": {"width": "test", "height": 1},
+            "size": {"width": 2, "height": 1},
             "variant": "attribute",
             "type": "text",
             "properties": {
@@ -184,7 +184,7 @@ Feature: Designer module
       }
       """
     When I request "/api/v1/EN/templates" using HTTP POST
-    Then validation error response is received
+    Then empty response is received
 
   Scenario: Update template
     Given current authentication token

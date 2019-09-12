@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Form\Type\Properties;
 
+use Ergonode\Core\Application\Form\Type\BooleanType;
 use Ergonode\Designer\Application\Model\Form\Type\Property\AttributeElementPropertyTypeModel;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -36,16 +36,7 @@ class AttributeElementPropertyType extends AbstractType
             )
             ->add(
                 'required',
-                CheckboxType::class,
-                [
-                    'false_values' => [
-                        '0',
-                        'false',
-                        '',
-                        false,
-                    ],
-                    'empty_data' => false,
-                ]
+                BooleanType::class
             );
     }
 
