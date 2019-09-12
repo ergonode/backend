@@ -24,7 +24,7 @@ class TextAttributeValueCondition implements ConditionInterface
      *
      * @JMS\Type("Ergonode\Component\Attribute\Domain\ValueObject\AttributeCode")
      */
-    private $code;
+    private $attribute;
 
     /**
      * @var string
@@ -34,12 +34,12 @@ class TextAttributeValueCondition implements ConditionInterface
     private $value;
 
     /**
-     * @param AttributeCode $code
+     * @param AttributeCode $attribute
      * @param string        $value
      */
-    public function __construct(AttributeCode $code, string $value)
+    public function __construct(AttributeCode $attribute, string $value)
     {
-        $this->code = $code;
+        $this->attribute = $attribute;
         $this->value = $value;
     }
 
@@ -52,19 +52,11 @@ class TextAttributeValueCondition implements ConditionInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public static function createFormArray(array $configuration): ConditionInterface
-    {
-        return new self($configuration['code'], $configuration['value']);
-    }
-
-    /**
      * @return AttributeCode
      */
-    public function getCode(): AttributeCode
+    public function getAttribute(): AttributeCode
     {
-        return $this->code;
+        return $this->attribute;
     }
 
     /**
