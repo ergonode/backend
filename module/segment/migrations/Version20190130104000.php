@@ -29,7 +29,8 @@ final class Version20190130104000 extends AbstractErgonodeMigration
                 code VARCHAR(100) NOT NULL,
                 name JSON NOT NULL,
                 description JSON NOT NULL,
-                status VARCHAR(32) NOT NULL,            
+                status VARCHAR(32) NOT NULL,
+                condition_set_id UUID DEFAULT NULL,
                 PRIMARY KEY(id)
             )
         ');

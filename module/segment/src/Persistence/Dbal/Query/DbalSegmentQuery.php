@@ -11,6 +11,7 @@ namespace Ergonode\Segment\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
@@ -40,9 +41,7 @@ class DbalSegmentQuery implements SegmentQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
-     * @return DbalDataSet
+     * {@inheritDoc}
      */
     public function getDataSet(Language $language): DbalDataSet
     {
@@ -55,6 +54,26 @@ class DbalSegmentQuery implements SegmentQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findIdByConditionSetId(ConditionSetId $conditionSetId): array
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('id')
+            ->from(self::TABLE)
+            ->where('condition_set_id = :id')
+            ->setParameter('id', $conditionSetId->getValue());
+
+        $result = $queryBuilder->execute()->fetchColumn();
+        if (false === $result) {
+            $result = [];
+        }
+
+        return $result;
     }
 
     /**

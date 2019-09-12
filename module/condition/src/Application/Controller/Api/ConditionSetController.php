@@ -26,6 +26,7 @@ use Ergonode\Condition\Infrastructure\Grid\ConditionSetGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
+use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -34,6 +35,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -77,6 +79,11 @@ class ConditionSetController extends AbstractController
     private $updateConditionSetValidatorBuilder;
 
     /**
+     * @var SegmentQueryInterface
+     */
+    private $segmentQuery;
+
+    /**
      * @param ValidatorInterface                 $validator
      * @param MessageBusInterface                $messageBus
      * @param SerializerInterface                $serializer
@@ -84,6 +91,7 @@ class ConditionSetController extends AbstractController
      * @param UpdateConditionSetValidatorBuilder $updateConditionSetValidatorBuilder
      * @param ConditionSetGrid                   $conditionSetGrid
      * @param ConditionSetQueryInterface         $conditionSetQuery
+     * @param SegmentQueryInterface              $segmentQuery
      */
     public function __construct(
         ValidatorInterface $validator,
@@ -92,7 +100,8 @@ class ConditionSetController extends AbstractController
         CreateConditionSetValidatorBuilder $createConditionSetValidatorBuilder,
         UpdateConditionSetValidatorBuilder $updateConditionSetValidatorBuilder,
         ConditionSetGrid $conditionSetGrid,
-        ConditionSetQueryInterface $conditionSetQuery
+        ConditionSetQueryInterface $conditionSetQuery,
+        SegmentQueryInterface $segmentQuery
     ) {
         $this->validator = $validator;
         $this->messageBus = $messageBus;
@@ -101,6 +110,7 @@ class ConditionSetController extends AbstractController
         $this->conditionSetQuery = $conditionSetQuery;
         $this->createConditionSetValidatorBuilder = $createConditionSetValidatorBuilder;
         $this->updateConditionSetValidatorBuilder = $updateConditionSetValidatorBuilder;
+        $this->segmentQuery = $segmentQuery;
     }
 
     /**
@@ -363,6 +373,10 @@ class ConditionSetController extends AbstractController
      *     response=404,
      *     description="Not found"
      * )
+     * @SWG\Response(
+     *     response=409,
+     *     description="Existing relations"
+     * )
      *
      * @ParamConverter(class="Ergonode\Condition\Domain\Entity\ConditionSet")
      *
@@ -372,7 +386,10 @@ class ConditionSetController extends AbstractController
      */
     public function deleteConditionSet(ConditionSet $conditionSet): Response
     {
-        // @todo Check relations with segments
+        $segments = $this->segmentQuery->findIdByConditionSetId($conditionSet->getId());
+        if (0 !== count($segments)) {
+            throw new ConflictHttpException('Cannot delete condition set. Segments are assigned to it');
+        }
 
         $command = new DeleteConditionSetCommand($conditionSet->getId());
         $this->messageBus->dispatch($command);
