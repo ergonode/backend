@@ -39,6 +39,9 @@ services:
     Ergonode\Condition\Infrastructure\JMS\Serializer\Handler\ConditionInterfaceHandler:
         calls:
             - ['set', ['Ergonode\Condition\Domain\Condition\AttributeExistsCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\TextAttributeValueCondition']]
 
     Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Persistence\Dbal\Query\DbalConditionSetQuery'
     Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Persistence\Dbal\Repository\DbalConditionSetRepository'
