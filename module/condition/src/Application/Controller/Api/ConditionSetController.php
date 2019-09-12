@@ -20,7 +20,8 @@ use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Condition\Domain\Query\ConditionSetQueryInterface;
 use Ergonode\Condition\Domain\ValueObject\ConditionSetCode;
-use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
+use Ergonode\Condition\Infrastructure\Builder\CreateConditionSetValidatorBuilder;
+use Ergonode\Condition\Infrastructure\Builder\UpdateConditionSetValidatorBuilder;
 use Ergonode\Condition\Infrastructure\Grid\ConditionSetGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -56,11 +57,6 @@ class ConditionSetController extends AbstractController
     private $serializer;
 
     /**
-     * @var ConditionSetValidatorBuilder
-     */
-    private $builder;
-
-    /**
      * @var ConditionSetGrid
      */
     private $conditionSetGrid;
@@ -71,27 +67,40 @@ class ConditionSetController extends AbstractController
     private $conditionSetQuery;
 
     /**
-     * @param ValidatorInterface           $validator
-     * @param MessageBusInterface          $messageBus
-     * @param SerializerInterface          $serializer
-     * @param ConditionSetValidatorBuilder $builder
-     * @param ConditionSetGrid             $conditionSetGrid
-     * @param ConditionSetQueryInterface   $conditionSetQuery
+     * @var CreateConditionSetValidatorBuilder
+     */
+    private $createConditionSetValidatorBuilder;
+
+    /**
+     * @var UpdateConditionSetValidatorBuilder
+     */
+    private $updateConditionSetValidatorBuilder;
+
+    /**
+     * @param ValidatorInterface                 $validator
+     * @param MessageBusInterface                $messageBus
+     * @param SerializerInterface                $serializer
+     * @param CreateConditionSetValidatorBuilder $createConditionSetValidatorBuilder
+     * @param UpdateConditionSetValidatorBuilder $updateConditionSetValidatorBuilder
+     * @param ConditionSetGrid                   $conditionSetGrid
+     * @param ConditionSetQueryInterface         $conditionSetQuery
      */
     public function __construct(
         ValidatorInterface $validator,
         MessageBusInterface $messageBus,
         SerializerInterface $serializer,
-        ConditionSetValidatorBuilder $builder,
+        CreateConditionSetValidatorBuilder $createConditionSetValidatorBuilder,
+        UpdateConditionSetValidatorBuilder $updateConditionSetValidatorBuilder,
         ConditionSetGrid $conditionSetGrid,
         ConditionSetQueryInterface $conditionSetQuery
     ) {
         $this->validator = $validator;
         $this->messageBus = $messageBus;
         $this->serializer = $serializer;
-        $this->builder = $builder;
         $this->conditionSetGrid = $conditionSetGrid;
         $this->conditionSetQuery = $conditionSetQuery;
+        $this->createConditionSetValidatorBuilder = $createConditionSetValidatorBuilder;
+        $this->updateConditionSetValidatorBuilder = $updateConditionSetValidatorBuilder;
     }
 
     /**
@@ -254,7 +263,7 @@ class ConditionSetController extends AbstractController
     {
         $data = $request->request->all();
 
-        $violations = $this->validator->validate($data, $this->builder->build($data), [ConditionSetValidatorBuilder::CREATE_GROUP]);
+        $violations = $this->validator->validate($data, $this->createConditionSetValidatorBuilder->build($data));
         if (0 === $violations->count()) {
             $data['id'] = ConditionSetId::fromCode(new ConditionSetCode($data['code']))->getValue();
 
@@ -313,7 +322,7 @@ class ConditionSetController extends AbstractController
     {
         $data = $request->request->all();
 
-        $violations = $this->validator->validate($data, $this->builder->build($data), [ConditionSetValidatorBuilder::UPDATE_GROUP]);
+        $violations = $this->validator->validate($data, $this->updateConditionSetValidatorBuilder->build($data));
         if (0 === $violations->count()) {
             $data['id'] = $conditionSet->getId()->getValue();
             /** @var UpdateConditionSetCommand $command */

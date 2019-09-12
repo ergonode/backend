@@ -9,9 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Command;
 
+use Ergonode\Condition\Domain\Condition\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -39,15 +41,26 @@ class UpdateConditionSetCommand
     private $description;
 
     /**
+     * @var ConditionInterface[]
+     *
+     * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
+     */
+    private $conditions;
+
+    /**
      * @param ConditionSetId     $id
      * @param TranslatableString $name
      * @param TranslatableString $description
+     * @param array              $conditions
      */
-    public function __construct(ConditionSetId $id, TranslatableString $name, TranslatableString $description)
+    public function __construct(ConditionSetId $id, TranslatableString $name, TranslatableString $description, array $conditions)
     {
+        Assert::allIsInstanceOf($conditions, ConditionInterface::class);
+
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
+        $this->conditions = $conditions;
     }
 
     /**
@@ -72,5 +85,13 @@ class UpdateConditionSetCommand
     public function getDescription(): TranslatableString
     {
         return $this->description;
+    }
+
+    /**
+     * @return ConditionInterface[]
+     */
+    public function getConditions(): array
+    {
+        return $this->conditions;
     }
 }

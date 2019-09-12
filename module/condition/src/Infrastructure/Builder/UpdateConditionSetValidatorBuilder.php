@@ -21,10 +21,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  */
-class ConditionSetValidatorBuilder
+class UpdateConditionSetValidatorBuilder
 {
-    public const CREATE_GROUP = 'conditionSetCreateGroup';
-    public const UPDATE_GROUP = 'conditionSetUpdateGroup';
     /**
      * @var ConditionConstraintResolver
      */
@@ -75,12 +73,7 @@ class ConditionSetValidatorBuilder
         };
 
         return new Collection([
-            'allowMissingFields' => true,
             'fields' => [
-                'code' => [
-                    new NotBlank(['groups' => self::CREATE_GROUP]),
-                    new Length(['min' => 2, 'max' => 100, 'groups' => self::CREATE_GROUP]),
-                ],
                 'name' => [
                     new NotBlank(),
                     new All([
@@ -94,8 +87,8 @@ class ConditionSetValidatorBuilder
                     ]),
                 ],
                 'conditions' => [
-                    new NotBlank(['groups' => self::UPDATE_GROUP]),
-                    new Callback(['callback' => $resolver, 'groups' => self::UPDATE_GROUP]),
+                    new NotBlank(),
+                    new Callback(['callback' => $resolver]),
                 ],
             ],
         ]);

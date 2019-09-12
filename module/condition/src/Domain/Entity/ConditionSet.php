@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Entity;
 
 use Ergonode\Condition\Domain\Condition\ConditionInterface;
-use Ergonode\Condition\Domain\Event\ConditionSetConditionAddedEvent;
+use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetDescriptionChangedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetNameChangedEvent;
@@ -112,6 +112,14 @@ class ConditionSet extends AbstractAggregateRoot
     }
 
     /**
+     * @return ConditionInterface[]
+     */
+    public function getConditions(): array
+    {
+        return $this->conditions;
+    }
+
+    /**
      * @param TranslatableString $name
      *
      * @throws \Exception
@@ -136,21 +144,15 @@ class ConditionSet extends AbstractAggregateRoot
     }
 
     /**
-     * @param ConditionInterface $specification
+     * @param array $conditions
      *
      * @throws \Exception
      */
-    public function addCondition(ConditionInterface $specification): void
+    public function changeConditons(array $conditions): void
     {
-        $this->apply(new ConditionSetConditionAddedEvent($specification));
-    }
-
-    /**
-     * @return ConditionInterface[]
-     */
-    public function getConditions(): array
-    {
-        return $this->conditions;
+        if (sha1(serialize($this->conditions)) !== sha1(serialize($conditions))) {
+            $this->apply(new ConditionSetConditionsChangedEvent($this->conditions, $conditions));
+        }
     }
 
     /**
@@ -166,11 +168,11 @@ class ConditionSet extends AbstractAggregateRoot
     }
 
     /**
-     * @param ConditionSetConditionAddedEvent $event
+     * @param ConditionSetConditionsChangedEvent $event
      */
-    protected function applyConditionSetConditionAddedEvent(ConditionSetConditionAddedEvent $event): void
+    protected function applyConditionSetConditionsChangedEvent(ConditionSetConditionsChangedEvent $event): void
     {
-        $this->conditions[] = $event->getCondition();
+        $this->conditions = $event->getTo();
     }
 
     /**
