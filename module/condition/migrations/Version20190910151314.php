@@ -44,7 +44,7 @@ final class Version20190910151314 extends AbstractErgonodeMigration
             'Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent' => 'Condition set deleted',
             'Ergonode\Condition\Domain\Event\ConditionSetDescriptionChangedEvent' => 'Condition set description changed',
             'Ergonode\Condition\Domain\Event\ConditionSetNameChangedEvent' => 'Condition set name changed',
-            'Ergonode\Condition\Domain\Event\ConditionSetConditionAddedEvent' => 'Condition added to condition set',
+            'Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent' => 'Condition set conditions changed',
         ]);
     }
 
