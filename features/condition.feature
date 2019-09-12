@@ -80,10 +80,6 @@ Feature: Condition
          "name": {
             "PL": "Zbiór warunków",
             "EN": "Condition set"
-         },
-         "description": {
-            "PL": "Opis do zbioru warunków",
-            "EN": "Condition set description"
          }
       }
       """
@@ -99,10 +95,6 @@ Feature: Condition
          "name": {
             "PL": "Z",
             "EN": "C"
-         },
-         "description": {
-            "PL": "Opis do zbioru warunków",
-            "EN": "Condition set description"
          }
       }
       """
@@ -118,10 +110,6 @@ Feature: Condition
          "name": {
             "PL": "ceqvqEO1AsN92sTa0yn6vtYKc4Wkegfw7P5IQO34hhmtNWPYUKZXF8npJg55qGTUG4unmQPlaqRRvAzuaQLST2RP030V9gbqx5gekGPRnRqwVi03Cs0SDvmZe0jmMNm4lOm2w02kyHA1wtMapqgv3GGtQFTsXBegVFFu3aGlpZyfyWRl4TLSm4rTWMSRC89u2A3mxEAWv1AXn64ouBL4AoqwRGomgeU58ewRWiEwPv55BMmMfa0SxQOfiplqksmQ",
             "EN": "Condition set"
-         },
-         "description": {
-            "PL": "Opis do zbioru warunków",
-            "EN": "Condition set description"
          }
       }
       """
@@ -134,10 +122,6 @@ Feature: Condition
       """
       {
          "code": "CONDITION_@@random_uuid@@",
-         "name": {
-            "PL": "Zbiór warunków",
-            "EN": "Condition set"
-         },
          "description": {
             "PL": "Opis do zbioru warunków",
             "EN": "ceqvqEO1AsN92sTa0yn6vtYKc4Wkegfw7P5IQO34hhmtNWPYUKZXF8npJg55qGTUG4unmQPlaqRRvAzuaQLST2RP030V9gbqx5gekGPRnRqwVi03Cs0SDvmZe0jmMNm4lOm2w02kyHA1wtMapqgv3GGtQFTsXBegVFFu3aGlpZyfyWRl4TLSm4rTWMSRC89u2A3mxEAWv1AXn64ouBL4AoqwRGomgeU58ewRWiEwPv55BMmMfa0SxQOfiplqksmQ"
@@ -201,13 +185,13 @@ Feature: Condition
          "conditions": [
             {
               "type": "ATTRIBUTE_EXISTS_CONDITION",
-              "code": "@condition_text_attribute@"
+              "attribute": "@condition_text_attribute@"
             }
          ]
       }
       """
     Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
-    Then validation error response is received
+    Then empty response is received
 
   Scenario: Update condition set (without description)
     Given current authentication token
@@ -222,6 +206,367 @@ Feature: Condition
             {
               "type": "ATTRIBUTE_EXISTS_CONDITION",
               "attribute": "@condition_text_attribute@"
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then empty response is received
+
+  Scenario: Update condition set (attribute not exists)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "ATTRIBUTE_EXISTS_CONDITION",
+              "attribute": "@@static_uuid@@"
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (attribute not uuid)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "ATTRIBUTE_EXISTS_CONDITION",
+              "attribute": "abc"
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (numeric attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@condition_text_attribute@",
+              "operator": "=",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then empty response is received
+
+  Scenario: Update condition set (numeric attribute with not uuid attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "abc",
+              "operator": "=",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (numeric attribute without value)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@condition_text_attribute@",
+              "operator": "="
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (numeric attribute without operator)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@condition_text_attribute@",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (numeric attribute invalid operator)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@condition_text_attribute@",
+              "operator": "123",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (numeric attribute without attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
+              "operator": "=",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (numeric attribute with not existing attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@@static_uuid@@",
+              "operator": "=",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (option attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "OPTION_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@condition_text_attribute@",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then empty response is received
+
+  Scenario: Update condition set (option attribute with not uuid attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "OPTION_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "abc",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (option attribute without value)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "OPTION_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@condition_text_attribute@"
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (option attribute without attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (option attribute with not existing attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "NUMERIC_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@@static_uuid@@",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (text attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@condition_text_attribute@",
+              "operator": "=",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then empty response is received
+
+  Scenario: Update condition set (text attribute with not uuid attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "abc",
+              "operator": "=",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (text attribute without value)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@condition_text_attribute@",
+              "operator": "="
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (text attribute without operator)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@condition_text_attribute@",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (text attribute invalid operator)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@condition_text_attribute@",
+              "operator": "123",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (text attribute without attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
+              "operator": "=",
+              "value": 123
+            }
+         ]
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update condition set (text attribute with not existing attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "conditions": [
+            {
+              "type": "TEXT_ATTRIBUTE_VALUE_CONDITION",
+              "attribute": "@@static_uuid@@",
+              "operator": "=",
+              "value": 123
             }
          ]
       }

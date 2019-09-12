@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Optional;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -72,15 +73,19 @@ class UpdateConditionSetValidatorBuilder
         return new Collection([
             'fields' => [
                 'name' => [
-                    new NotBlank(),
-                    new All([
-                        new Length(['min' => 2, 'max' => 255]),
+                    new Optional([
+                        new NotBlank(),
+                        new All([
+                            new Length(['min' => 2, 'max' => 255]),
+                        ]),
                     ]),
                 ],
                 'description' => [
-                    new NotBlank(),
-                    new All([
-                        new Length(['max' => 255]),
+                    new Optional([
+                        new NotBlank(),
+                        new All([
+                            new Length(['max' => 255]),
+                        ]),
                     ]),
                 ],
                 'conditions' => [

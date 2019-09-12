@@ -27,14 +27,14 @@ class UpdateConditionSetCommand
     private $id;
 
     /**
-     * @var TranslatableString
+     * @var TranslatableString|null
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private $name;
 
     /**
-     * @var TranslatableString
+     * @var TranslatableString|null
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
@@ -48,13 +48,17 @@ class UpdateConditionSetCommand
     private $conditions;
 
     /**
-     * @param ConditionSetId     $id
-     * @param TranslatableString $name
-     * @param TranslatableString $description
-     * @param array              $conditions
+     * @param ConditionSetId          $id
+     * @param array                   $conditions
+     * @param TranslatableString|null $name
+     * @param TranslatableString|null $description
      */
-    public function __construct(ConditionSetId $id, TranslatableString $name, TranslatableString $description, array $conditions)
-    {
+    public function __construct(
+        ConditionSetId $id,
+        array $conditions,
+        ?TranslatableString $name = null,
+        ?TranslatableString $description = null
+    ) {
         Assert::allIsInstanceOf($conditions, ConditionInterface::class);
 
         $this->id = $id;
@@ -71,18 +75,34 @@ class UpdateConditionSetCommand
         return $this->id;
     }
 
-   /**
-     * @return TranslatableString
+    /**
+     * @return bool
      */
-    public function getName(): TranslatableString
+    public function hasName(): bool
+    {
+        return $this->name instanceof TranslatableString;
+    }
+
+    /**
+     * @return TranslatableString|null
+     */
+    public function getName(): ?TranslatableString
     {
         return $this->name;
     }
 
     /**
-     * @return TranslatableString
+     * @return bool
      */
-    public function getDescription(): TranslatableString
+    public function hasDescription(): bool
+    {
+        return $this->description instanceof TranslatableString;
+    }
+
+    /**
+     * @return TranslatableString|null
+     */
+    public function getDescription(): ?TranslatableString
     {
         return $this->description;
     }

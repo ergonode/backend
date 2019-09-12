@@ -12,7 +12,6 @@ namespace Ergonode\Condition\Infrastructure\Builder\Condition;
 use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
 use Ergonode\Condition\Infrastructure\Builder\ConditionValidatorBuilderInterface;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
