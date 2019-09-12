@@ -76,6 +76,7 @@ class SegmentCreatedEventProjector implements DomainEventProjectorInterface
                 'name' => $this->serializer->serialize($event->getName(), 'json'),
                 'description' => $this->serializer->serialize($event->getDescription(), 'json'),
                 'status' => SegmentStatus::NEW,
+                'condition_set_id' => $event->getConditionSetId()->getValue(),
             ]
         );
     }

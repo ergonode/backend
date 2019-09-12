@@ -295,3 +295,32 @@ Feature: Condition
     Given current authentication token
     When I request "/api/v1/EN/conditionsets?limit=25&offset=0&filter=description%3Dsuper" using HTTP GET
     Then grid response is received
+
+  Scenario: Create condition set (for conflict delete)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "code": "CONDITION_DELETE_@@random_uuid@@"
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "conditionset_delete"
+
+  Scenario: Create segment (for relation to condition set conflict delete)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "SEG_REL_@@random_code@@",
+        "condition_set_id": "@conditionset_delete@"
+      }
+      """
+    When I request "/api/v1/EN/segments" using HTTP POST
+    Then created response is received
+
+  Scenario: Delete condition set (with conflict)
+    Given current authentication token
+    Given I request "/api/v1/EN/conditionsets/@conditionset_delete@" using HTTP DELETE
+    Then conflict response is received

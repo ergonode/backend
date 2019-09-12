@@ -27,7 +27,7 @@ class CreateSegmentFormModel
      * @var string
      *
      * @Assert\NotBlank(message="Segment code is required")
-     * @Assert\Length(max=32)
+     * @Assert\Length(max=100)
      */
     public $code;
 

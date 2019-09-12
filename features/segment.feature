@@ -5,15 +5,7 @@ Feature: Segment
     Given the request body is:
       """
       {
-         "code": "CONDITION_@@random_uuid@@",
-         "name": {
-            "PL": "Zbiór warunków",
-            "EN": "Condition set"
-         },
-         "description": {
-            "PL": "Opis do zbioru warunków",
-            "EN": "Condition set description"
-         }
+         "code": "SEGMENT_CONDITION_@@random_uuid@@"
       }
       """
     Given I request "/api/v1/EN/conditionsets" using HTTP POST
@@ -29,7 +21,7 @@ Feature: Segment
     Given the request body is:
       """
       {
-        "code": "@@random_md5@@",
+        "code": "SEG_1_@@random_code@@",
         "condition_set_id": "@segment_conditionset@",
         "name": {
           "PL": "Segment",
@@ -44,6 +36,64 @@ Feature: Segment
     When I request "/api/v1/EN/segments" using HTTP POST
     Then created response is received
     And remember response param "id" as "segment"
+
+  Scenario: Create segment (without name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "SEG_2_@@random_code@@",
+        "condition_set_id": "@segment_conditionset@",
+        "description": {
+          "PL": "Opis segmentu",
+          "EN": "Segment description"
+        }
+      }
+      """
+    When I request "/api/v1/EN/segments" using HTTP POST
+    Then created response is received
+
+  Scenario: Create segment (without description and name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "SEG_2_@@random_code@@",
+        "condition_set_id": "@segment_conditionset@"
+      }
+      """
+    When I request "/api/v1/EN/segments" using HTTP POST
+    Then created response is received
+
+  Scenario: Create segment (without code)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "condition_set_id": "@segment_conditionset@",
+        "name": {
+          "PL": "Segment",
+          "EN": "Segment"
+        },
+        "description": {
+          "PL": "Opis segmentu",
+          "EN": "Segment description"
+        }
+      }
+      """
+    When I request "/api/v1/EN/segments" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create segment (without condition set)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "SEG_2_@@random_code@@"
+      }
+      """
+    When I request "/api/v1/EN/segments" using HTTP POST
+    Then validation error response is received
 
   Scenario: Update segment (not authorized)
     When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
@@ -72,6 +122,50 @@ Feature: Segment
       """
     When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
     Then empty response is received
+
+  Scenario: Update segment (without name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "condition_set_id": "@segment_conditionset@",
+        "description": {
+          "PL": "Opis segmentu (changed)",
+          "EN": "Segment description (changed)"
+        }
+      }
+      """
+    When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
+    Then empty response is received
+
+  Scenario: Update segment (without name and description)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "condition_set_id": "@segment_conditionset@"
+      }
+      """
+    When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
+    Then empty response is received
+
+  Scenario: Update segment (without condition set)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "name": {
+          "PL": "Segment (changed)",
+          "EN": "Segment (changed)"
+        },
+        "description": {
+          "PL": "Opis segmentu (changed)",
+          "EN": "Segment description (changed)"
+        }
+      }
+      """
+    When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
+    Then validation error response is received
 
   Scenario: Get segment (not authorized)
     When I request "/api/v1/EN/segments/@segment@" using HTTP GET
@@ -139,6 +233,3 @@ Feature: Segment
     Given current authentication token
     When I request "/api/v1/EN/segments/@segment@" using HTTP DELETE
     Then empty response is received
-
-  # TODO Create segment with invalid data
-  # TODO Update segment with invalid data
