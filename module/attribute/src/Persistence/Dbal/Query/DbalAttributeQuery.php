@@ -198,8 +198,25 @@ class DbalAttributeQuery implements AttributeQueryInterface
      */
     public function getAllAttributeCodes(): array
     {
-        return $this->getQuery()
-            ->select('code')
+        return $this->getAttributeCodes();
+    }
+
+    /**
+     * @param array $types
+     *
+     * @return string[]
+     */
+    public function getAttributeCodes(array $types = []): array
+    {
+        $qb = $this->getQuery()
+            ->select('code');
+
+        if ($types) {
+            $qb->andWhere($qb->expr()->in('type', ':types'))
+                ->setParameter(':types', $types);
+        }
+
+        return $qb
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
     }
