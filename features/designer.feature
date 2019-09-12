@@ -184,7 +184,7 @@ Feature: Designer module
       }
       """
     When I request "/api/v1/EN/templates" using HTTP POST
-    Then empty response is received
+    Then validation error response is received
 
   Scenario: Update template
     Given current authentication token
