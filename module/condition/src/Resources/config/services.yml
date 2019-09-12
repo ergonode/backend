@@ -15,11 +15,10 @@ services:
 
     Ergonode\Condition\Domain\:
         resource: '../../Domain/*'
-        exclude: '../../Domain/{Entity,ValueObject,Type,Condition}'
+        exclude: '../../Domain/{Entity,ValueObject,Condition}'
 
     Ergonode\Condition\Infrastructure\:
         resource: '../../Infrastructure/*'
-        exclude: '../../Infrastructure/{Specification}'
 
     Ergonode\Condition\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
