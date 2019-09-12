@@ -114,6 +114,16 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     }
 
     /**
+     * @param array $types
+     *
+     * @return array
+     */
+    public function getAttributeCodes(array $types = []): array
+    {
+        return $this->attributeQuery->getAttributeCodes($types);
+    }
+
+    /**
      * @param AttributeId $id
      * @param OptionKey   $key
      *
