@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Optional;
 
 /**
  */
@@ -33,15 +34,17 @@ class CreateConditionSetValidatorBuilder
                     new Length(['min' => 2, 'max' => 100]),
                 ],
                 'name' => [
-                    new NotBlank(),
-                    new All([
-                        new Length(['min' => 2, 'max' => 255]),
+                    new Optional([
+                        new All([
+                            new Length(['min' => 2, 'max' => 255]),
+                        ]),
                     ]),
                 ],
                 'description' => [
-                    new NotBlank(),
-                    new All([
-                        new Length(['max' => 255]),
+                    new Optional([
+                        new All([
+                            new Length(['max' => 255]),
+                        ]),
                     ]),
                 ],
             ],
