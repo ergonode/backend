@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  */
-class NumericAttributeValueConditionValidatorBuilder implements ConditionValidatorBuilderInterface
+class OptionAttributeValueConditionValidatorBuilder implements ConditionValidatorBuilderInterface
 {
     /**
      * @param array $data
@@ -27,14 +27,11 @@ class NumericAttributeValueConditionValidatorBuilder implements ConditionValidat
      */
     public function build(array $data): Constraint
     {
-        return new Collection([
+        return new Collection(
+            [
                 'attribute' => [
                     new NotBlank(),
                     new AttributeExists(),
-                ],
-                'operator' => [
-                    new NotBlank(),
-                    new Choice(['=', '<>', '>', '<', '>=', '<=']),
                 ],
                 'value' => [
                     new NotBlank(),

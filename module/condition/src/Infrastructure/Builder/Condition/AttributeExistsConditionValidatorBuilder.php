@@ -26,7 +26,8 @@ class AttributeExistsConditionValidatorBuilder implements ConditionValidatorBuil
      */
     public function build(array $data): Constraint
     {
-        return new Collection([
+        return new Collection(
+            [
                 'attribute' => [
                     new NotBlank(),
                     new AttributeExists(),

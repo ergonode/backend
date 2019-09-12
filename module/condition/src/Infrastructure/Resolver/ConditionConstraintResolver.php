@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Infrastructure\Resolver;
 
+use Ergonode\Condition\Infrastructure\Builder\ConditionValidatorBuilderInterface;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -21,10 +22,10 @@ class ConditionConstraintResolver
     private $constraints = [];
 
     /**
-     * @param string $type
-     * @param string $constraintClass
+     * @param string                             $type
+     * @param ConditionValidatorBuilderInterface $constraintClass
      */
-    public function set(string $type, string $constraintClass): void
+    public function set(string $type, ConditionValidatorBuilderInterface $constraintClass): void
     {
         $this->constraints[$type] = $constraintClass;
     }
@@ -32,18 +33,16 @@ class ConditionConstraintResolver
     /**
      * @param string $type
      *
-     * @return Constraint
+     * @return ConditionValidatorBuilderInterface
      *
      * @throws \OutOfBoundsException
      */
-    public function resolve(string $type): Constraint
+    public function resolve(string $type): ConditionValidatorBuilderInterface
     {
         if (!array_key_exists($type, $this->constraints)) {
             throw new \OutOfBoundsException(sprintf('Constraint by condition type "%s" not found', $type));
         }
 
-        $class = $this->constraints[$type];
-
-        return new $class();
+        return $this->constraints[$type];
     }
 }

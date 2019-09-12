@@ -56,8 +56,8 @@ class AttributeExistsConditionConfigurationStrategy implements ConfigurationStra
 
         return [
             'type' => AttributeExistsCondition::TYPE,
-            'name' => $this->translator->trans(AttributeExistsCondition::TYPE, [], 'segment', $language->getCode()),
-            'phrase' => $this->translator->trans(AttributeExistsCondition::PHRASE, [], 'segment', $language->getCode()),
+            'name' => $this->translator->trans(AttributeExistsCondition::TYPE, [], 'condition', $language->getCode()),
+            'phrase' => $this->translator->trans(AttributeExistsCondition::PHRASE, [], 'condition', $language->getCode()),
             'parameters' => [
                 [
                     'name' => 'attribute',

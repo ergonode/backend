@@ -15,5 +15,10 @@ use Symfony\Component\Validator\Constraint;
  */
 interface ConditionValidatorBuilderInterface
 {
+    /**
+     * @param array $data
+     *
+     * @return Constraint
+     */
     public function build(array $data): Constraint;
 }

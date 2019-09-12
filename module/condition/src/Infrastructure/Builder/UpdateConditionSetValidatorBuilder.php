@@ -57,15 +57,16 @@ class UpdateConditionSetValidatorBuilder
                     throw new \InvalidArgumentException(sprintf('Parameters not found in condition'));
                 }
 
-                $constraint = $this->conditionConstraintResolver->resolve($condition['type']);
+                $constraint = $this->conditionConstraintResolver->resolve($condition['type'])->build($condition['parameters']);
 
                 $violations = $context->getValidator()->validate($condition['parameters'], $constraint);
                 if (0 !== $violations->count()) {
                     /** @var ConstraintViolation $violation */
                     foreach ($violations as $violation) {
+                        $path = sprintf('[%d]%s', $index, $violation->getPropertyPath());
                         $context
                             ->buildViolation($violation->getMessage(), $violation->getParameters())
-                            ->atPath(sprintf('[%d][%s]', $index, $violation->getPropertyPath()))
+                            ->atPath($path)
                             ->addViolation();
                     }
                 }
@@ -87,7 +88,6 @@ class UpdateConditionSetValidatorBuilder
                     ]),
                 ],
                 'conditions' => [
-                    new NotBlank(),
                     new Callback(['callback' => $resolver]),
                 ],
             ],

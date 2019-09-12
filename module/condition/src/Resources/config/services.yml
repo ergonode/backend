@@ -32,7 +32,10 @@ services:
 
     Ergonode\Condition\Infrastructure\Resolver\ConditionConstraintResolver:
         calls:
-            - ['set', ['ATTRIBUTE_EXISTS_CONDITION', 'Ergonode\Condition\Application\Validator\ConstraintAttributeExistsCondition']]
+            - ['set', ['ATTRIBUTE_EXISTS_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\AttributeExistsConditionValidatorBuilder']]
+            - ['set', ['TEXT_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\TextAttributeValueConditionValidatorBuilder']]
+            - ['set', ['OPTION_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\OptionAttributeValueConditionValidatorBuilder']]
+            - ['set', ['NUMERIC_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\NumericAttributeValueConditionValidatorBuilder']]
 
     Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Persistence\Dbal\Query\DbalConditionSetQuery'
     Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Persistence\Dbal\Repository\DbalConditionSetRepository'
