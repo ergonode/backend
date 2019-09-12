@@ -55,7 +55,7 @@ class NumericAttributeValueConditionConfigurationStrategy implements Configurati
      */
     public function getConfiguration(Language $language): array
     {
-        $codes = $this->query->getAttributeCodes([NumericAttribute::TYPE]);
+        $codes = $this->query->getDictionary([NumericAttribute::TYPE]);
 
         return [
             'type' => TextAttributeValueCondition::TYPE,
@@ -65,7 +65,7 @@ class NumericAttributeValueConditionConfigurationStrategy implements Configurati
                 [
                     'name' => 'attribute',
                     'type' => 'SELECT',
-                    'options' => array_combine($codes, $codes),
+                    'options' => $codes,
                 ],
                 [
                     'name' => 'operator',

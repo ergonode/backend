@@ -133,4 +133,14 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     {
         return $this->attributeQuery->findAttributeOption($id, $key);
     }
+
+    /**
+     * @param array $types
+     *
+     * @return array
+     */
+    public function getDictionary(array $types = []): array
+    {
+        return $this->attributeQuery->getDictionary($types);
+    }
 }

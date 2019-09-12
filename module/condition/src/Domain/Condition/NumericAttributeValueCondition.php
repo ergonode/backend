@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Condition;
 
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,11 +20,11 @@ class NumericAttributeValueCondition implements ConditionInterface
     public const PHRASE = 'NUMERIC_ATTRIBUTE_VALUE_CONDITION_PHRASE';
 
     /**
-     * @var AttributeCode
+     * @var AttributeId
      *
-     * @JMS\Type("Ergonode\Component\Attribute\Domain\ValueObject\AttributeCode")
+     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
      */
-    private $code;
+    private $attribute;
 
     /**
      * @var string
@@ -34,12 +34,12 @@ class NumericAttributeValueCondition implements ConditionInterface
     private $value;
 
     /**
-     * @param AttributeCode $code
-     * @param string        $value
+     * @param AttributeId $attribute
+     * @param string      $value
      */
-    public function __construct(AttributeCode $code, string $value)
+    public function __construct(AttributeId $attribute, string $value)
     {
-        $this->code = $code;
+        $this->attribute = $attribute;
         $this->value = $value;
     }
 
@@ -52,11 +52,11 @@ class NumericAttributeValueCondition implements ConditionInterface
     }
 
     /**
-     * @return AttributeCode
+     * @return AttributeId
      */
-    public function getAttribute(): AttributeCode
+    public function getAttribute(): AttributeId
     {
-        return $this->code;
+        return $this->attribute;
     }
 
     /**
