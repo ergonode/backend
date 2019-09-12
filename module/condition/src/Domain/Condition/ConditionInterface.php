@@ -14,13 +14,6 @@ namespace Ergonode\Condition\Domain\Condition;
 interface ConditionInterface
 {
     /**
-     * @param array $configuration
-     *
-     * @return ConditionInterface
-     */
-    public static function createFormArray(array $configuration): self;
-
-    /**
      * @return string
      */
     public function getType(): string;

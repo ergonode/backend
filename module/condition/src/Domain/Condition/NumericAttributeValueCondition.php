@@ -52,17 +52,9 @@ class NumericAttributeValueCondition implements ConditionInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public static function createFormArray(array $configuration): ConditionInterface
-    {
-        return new self($configuration['code'], $configuration['value']);
-    }
-
-    /**
      * @return AttributeCode
      */
-    public function getCode(): AttributeCode
+    public function getAttribute(): AttributeCode
     {
         return $this->code;
     }

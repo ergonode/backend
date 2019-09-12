@@ -213,7 +213,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
 
         if ($types) {
             $qb->andWhere($qb->expr()->in('type', ':types'))
-                ->setParameter(':types', $types);
+                ->setParameter(':types', $types, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
         }
 
         return $qb

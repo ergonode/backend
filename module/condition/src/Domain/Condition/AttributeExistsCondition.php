@@ -24,14 +24,14 @@ class AttributeExistsCondition implements ConditionInterface
      *
      * @JMS\Type("Ergonode\Component\Attribute\Domain\ValueObject\AttributeCode")
      */
-    private $code;
+    private $attribute;
 
     /**
-     * @param AttributeCode $code
+     * @param AttributeCode $attribute
      */
-    public function __construct(AttributeCode $code)
+    public function __construct(AttributeCode $attribute)
     {
-        $this->code = $code;
+        $this->attribute = $attribute;
     }
 
     /**
@@ -43,18 +43,10 @@ class AttributeExistsCondition implements ConditionInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public static function createFormArray(array $configuration): ConditionInterface
-    {
-        return new self($configuration['code']);
-    }
-
-    /**
      * @return AttributeCode
      */
     public function getCode(): AttributeCode
     {
-        return $this->code;
+        return $this->attribute;
     }
 }
