@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Condition;
 
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use JMS\Serializer\Annotation as JMS;
 
@@ -20,16 +21,16 @@ class AttributeExistsCondition implements ConditionInterface
     public const PHRASE = 'ATTRIBUTE_EXISTS_CONDITION_PHRASE';
 
     /**
-     * @var AttributeCode
+     * @var AttributeId
      *
-     * @JMS\Type("Ergonode\Component\Attribute\Domain\ValueObject\AttributeCode")
+     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
      */
     private $attribute;
 
     /**
-     * @param AttributeCode $attribute
+     * @param AttributeId $attribute
      */
-    public function __construct(AttributeCode $attribute)
+    public function __construct(AttributeId $attribute)
     {
         $this->attribute = $attribute;
     }
@@ -43,9 +44,9 @@ class AttributeExistsCondition implements ConditionInterface
     }
 
     /**
-     * @return AttributeCode
+     * @return AttributeId
      */
-    public function getCode(): AttributeCode
+    public function getAttribute(): AttributeId
     {
         return $this->attribute;
     }

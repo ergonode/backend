@@ -340,6 +340,7 @@ class ConditionSetController extends AbstractController
 
             /** @var UpdateConditionSetCommand $command */
             $command = $this->serializer->fromArray($data, UpdateConditionSetCommand::class);
+
             $this->messageBus->dispatch($command);
 
             return new EmptyResponse();

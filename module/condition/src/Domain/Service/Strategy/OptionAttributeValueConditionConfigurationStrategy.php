@@ -54,7 +54,7 @@ class OptionAttributeValueConditionConfigurationStrategy implements Configuratio
      */
     public function getConfiguration(Language $language): array
     {
-        $codes = $this->query->getAttributeCodes([SelectAttribute::TYPE, MultiSelectAttribute::TYPE]);
+        $codes = $this->query->getDictionary([SelectAttribute::TYPE, MultiSelectAttribute::TYPE]);
 
         return [
             'type' => TextAttributeValueCondition::TYPE,
@@ -64,7 +64,7 @@ class OptionAttributeValueConditionConfigurationStrategy implements Configuratio
                 [
                     'name' => 'attribute',
                     'type' => 'SELECT',
-                    'options' => array_combine($codes, $codes),
+                    'options' => $codes,
                 ],
                 [
                     'name' => 'value',

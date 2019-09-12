@@ -222,6 +222,26 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
+     * @param array $types
+     *
+     * @return string[]
+     */
+    public function getDictionary(array $types = []): array
+    {
+        $qb = $this->getQuery()
+            ->select('id, code');
+
+        if ($types) {
+            $qb->andWhere($qb->expr()->in('type', ':types'))
+                ->setParameter(':types', $types, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
+        }
+
+        return $qb
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
      * @param AttributeId $attributeId
      *
      * @return array

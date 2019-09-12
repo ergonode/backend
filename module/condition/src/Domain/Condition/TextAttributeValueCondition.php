@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Condition;
 
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use JMS\Serializer\Annotation as JMS;
 
@@ -20,9 +21,9 @@ class TextAttributeValueCondition implements ConditionInterface
     public const PHRASE = 'TEXT_ATTRIBUTE_VALUE_CONDITION_PHRASE';
 
     /**
-     * @var AttributeCode
+     * @var AttributeId
      *
-     * @JMS\Type("Ergonode\Component\Attribute\Domain\ValueObject\AttributeCode")
+     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
      */
     private $attribute;
 
@@ -34,10 +35,10 @@ class TextAttributeValueCondition implements ConditionInterface
     private $value;
 
     /**
-     * @param AttributeCode $attribute
-     * @param string        $value
+     * @param AttributeId $attribute
+     * @param string      $value
      */
-    public function __construct(AttributeCode $attribute, string $value)
+    public function __construct(AttributeId $attribute, string $value)
     {
         $this->attribute = $attribute;
         $this->value = $value;
@@ -52,9 +53,9 @@ class TextAttributeValueCondition implements ConditionInterface
     }
 
     /**
-     * @return AttributeCode
+     * @return AttributeId
      */
-    public function getAttribute(): AttributeCode
+    public function getAttribute(): AttributeId
     {
         return $this->attribute;
     }

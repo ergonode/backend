@@ -52,7 +52,7 @@ class AttributeExistsConditionConfigurationStrategy implements ConfigurationStra
      */
     public function getConfiguration(Language $language): array
     {
-        $codes = $this->query->getAllAttributeCodes();
+        $codes = $this->query->getDictionary();
 
         return [
             'type' => AttributeExistsCondition::TYPE,
@@ -62,7 +62,7 @@ class AttributeExistsConditionConfigurationStrategy implements ConfigurationStra
                 [
                     'name' => 'attribute',
                     'type' => 'SELECT',
-                    'options' => array_combine($codes, $codes),
+                    'options' => $codes,
                 ],
             ],
         ];

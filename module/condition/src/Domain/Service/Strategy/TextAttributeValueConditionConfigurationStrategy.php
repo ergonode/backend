@@ -54,7 +54,7 @@ class TextAttributeValueConditionConfigurationStrategy implements ConfigurationS
      */
     public function getConfiguration(Language $language): array
     {
-        $codes = $this->query->getAttributeCodes([TextAttribute::TYPE, TextareaAttribute::TYPE]);
+        $codes = $this->query->getDictionary([TextAttribute::TYPE, TextareaAttribute::TYPE]);
 
         return [
             'type' => TextAttributeValueCondition::TYPE,
@@ -64,7 +64,7 @@ class TextAttributeValueConditionConfigurationStrategy implements ConfigurationS
                 [
                     'name' => 'attribute',
                     'type' => 'SELECT',
-                    'options' => array_combine($codes, $codes),
+                    'options' => $codes,
                 ],
                 [
                     'name' => 'operator',

@@ -53,13 +53,9 @@ class UpdateConditionSetValidatorBuilder
                     throw new \InvalidArgumentException('Type not found in condition');
                 }
 
-                if (!array_key_exists('parameters', $condition)) {
-                    throw new \InvalidArgumentException(sprintf('Parameters not found in condition'));
-                }
-
-                $constraint = $this->conditionConstraintResolver->resolve($condition['type'])->build($condition['parameters']);
-
-                $violations = $context->getValidator()->validate($condition['parameters'], $constraint);
+                $constraint = $this->conditionConstraintResolver->resolve($condition['type'])->build($condition);
+                unset($condition['type']);
+                $violations = $context->getValidator()->validate($condition, $constraint);
                 if (0 !== $violations->count()) {
                     /** @var ConstraintViolation $violation */
                     foreach ($violations as $violation) {
