@@ -8,11 +8,10 @@ Feature: Condition
 
   Scenario: Create text attribute
     Given current authentication token
-    Given remember param "condition_attribute_code" with value "TEXT_CONDITION_@@random_code@@"
     Given the request body is:
       """
       {
-          "code": "@condition_attribute_code@",
+          "code": "CONDITION_@@random_code@@",
           "type": "TEXT",
           "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
           "groups": ["@condition_attribute_group@"],
@@ -165,7 +164,7 @@ Feature: Condition
             {
               "type": "ATTRIBUTE_EXISTS_CONDITION",
               "parameters": {
-                "code": "@condition_attribute_code@"
+                "attribute": "@condition_text_attribute@"
               }
             }
          ]
@@ -205,7 +204,7 @@ Feature: Condition
             {
               "type": "ATTRIBUTE_EXISTS_CONDITION",
               "parameters": {
-                "code": "ABC"
+                "code": "@condition_text_attribute@"
               }
             }
          ]
@@ -227,7 +226,7 @@ Feature: Condition
             {
               "type": "ATTRIBUTE_EXISTS_CONDITION",
               "parameters": {
-                "code": "ABC"
+                "attribute": "@condition_text_attribute@"
               }
             }
          ]
