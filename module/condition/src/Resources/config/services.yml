@@ -34,5 +34,9 @@ services:
         calls:
             - ['set', ['ATTRIBUTE_EXISTS_CONDITION', 'Ergonode\Condition\Application\Validator\ConstraintAttributeExistsCondition']]
 
+    Ergonode\Condition\Infrastructure\JMS\Serializer\Handler\ConditionInterfaceHandler:
+        calls:
+            - ['set', ['Ergonode\Condition\Domain\Condition\AttributeExistsCondition']]
+
     Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Persistence\Dbal\Query\DbalConditionSetQuery'
     Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Persistence\Dbal\Repository\DbalConditionSetRepository'

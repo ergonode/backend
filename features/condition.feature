@@ -52,7 +52,7 @@ Feature: Condition
     Given the request body is:
       """
       {
-         "code": "CONDITION_@@random_uuid@@",
+         "code": "CONDITION_2_@@random_uuid@@",
          "name": {
             "PL": "Zbiór warunków",
             "EN": "Condition set"
@@ -67,7 +67,7 @@ Feature: Condition
     Given the request body is:
       """
       {
-         "code": "CONDITION_@@random_uuid@@"
+         "code": "CONDITION_3_@@random_uuid@@"
       }
       """
     Given I request "/api/v1/EN/conditionsets" using HTTP POST
@@ -302,5 +302,3 @@ Feature: Condition
     Given current authentication token
     When I request "/api/v1/EN/conditionsets?limit=25&offset=0&filter=description%3Dsuper" using HTTP GET
     Then grid response is received
-
-  # TODO Update condition with all posibilities
