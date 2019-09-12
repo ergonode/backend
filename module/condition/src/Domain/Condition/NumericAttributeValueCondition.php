@@ -45,6 +45,8 @@ class NumericAttributeValueCondition implements ConditionInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
      */
     public function getType(): string
     {

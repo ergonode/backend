@@ -168,14 +168,6 @@ class ConditionSet extends AbstractAggregateRoot
     }
 
     /**
-     * @param ConditionSetConditionsChangedEvent $event
-     */
-    protected function applyConditionSetConditionsChangedEvent(ConditionSetConditionsChangedEvent $event): void
-    {
-        $this->conditions = $event->getTo();
-    }
-
-    /**
      * @param ConditionSetNameChangedEvent $event
      */
     protected function applyConditionSetNameChangedEvent(ConditionSetNameChangedEvent $event): void
@@ -189,5 +181,13 @@ class ConditionSet extends AbstractAggregateRoot
     protected function applyConditionSetDescriptionChangedEvent(ConditionSetDescriptionChangedEvent $event): void
     {
         $this->description = $event->getTo();
+    }
+
+    /**
+     * @param ConditionSetConditionsChangedEvent $event
+     */
+    protected function applyConditionSetConditionsChangedEvent(ConditionSetConditionsChangedEvent $event): void
+    {
+        $this->conditions = $event->getTo();
     }
 }

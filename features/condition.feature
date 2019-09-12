@@ -163,9 +163,7 @@ Feature: Condition
          "conditions": [
             {
               "type": "ATTRIBUTE_EXISTS_CONDITION",
-              "parameters": {
-                "attribute": "@condition_text_attribute@"
-              }
+              "attribute": "@condition_text_attribute@"
             }
          ]
       }
@@ -203,9 +201,7 @@ Feature: Condition
          "conditions": [
             {
               "type": "ATTRIBUTE_EXISTS_CONDITION",
-              "parameters": {
-                "code": "@condition_text_attribute@"
-              }
+              "code": "@condition_text_attribute@"
             }
          ]
       }
@@ -225,9 +221,7 @@ Feature: Condition
          "conditions": [
             {
               "type": "ATTRIBUTE_EXISTS_CONDITION",
-              "parameters": {
-                "attribute": "@condition_text_attribute@"
-              }
+              "attribute": "@condition_text_attribute@"
             }
          ]
       }

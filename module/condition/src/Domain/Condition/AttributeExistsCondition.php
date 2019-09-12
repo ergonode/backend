@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -37,6 +36,8 @@ class AttributeExistsCondition implements ConditionInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
      */
     public function getType(): string
     {

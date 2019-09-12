@@ -42,6 +42,7 @@ class UpdateConditionSetCommandHandler
 
         $conditionSet->changeName($command->getName());
         $conditionSet->changeDescription($command->getDescription());
+        $conditionSet->changeConditons($command->getConditions());
 
         $this->repository->save($conditionSet);
     }
