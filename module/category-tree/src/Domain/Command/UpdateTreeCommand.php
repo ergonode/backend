@@ -28,13 +28,6 @@ class UpdateTreeCommand
     private $id;
 
     /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     */
-    private $code;
-
-    /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
@@ -53,10 +46,11 @@ class UpdateTreeCommand
      * @param TranslatableString $name
      * @param array              $categories
      */
-    public function __construct(CategoryTreeId $id, TranslatableString $name, array $categories)
+    public function __construct(CategoryTreeId $id, TranslatableString $name, array $categories = [])
     {
         $this->id = $id;
         $this->name = $name;
+        $this->categories = [];
         foreach ($categories as $category) {
             $this->categories[] = $this->createNode($category);
         }
