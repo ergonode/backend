@@ -67,7 +67,7 @@ class NumericAttributeValueConditionConfigurationStrategy implements Configurati
                 ],
                 [
                     'name' => 'operator',
-                    'type' => 'select',
+                    'type' => 'SELECT',
                     'options' => [
                         '=' => '=',
                         '<>' => '<>',

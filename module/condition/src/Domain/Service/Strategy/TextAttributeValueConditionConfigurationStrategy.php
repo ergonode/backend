@@ -68,7 +68,7 @@ class TextAttributeValueConditionConfigurationStrategy implements ConfigurationS
                 ],
                 [
                     'name' => 'operator',
-                    'type' => 'select',
+                    'type' => 'SELECT',
                     'options' => [
                         '=' => $this->translator->trans('Is equal', [], 'condition', $language->getCode()),
                         '~' => $this->translator->trans('Has', [], 'condition', $language->getCode()),
