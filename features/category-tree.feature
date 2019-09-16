@@ -438,6 +438,69 @@ Feature: Category tree module
     When I request "/api/v1/EN/trees/@category_tree@" using HTTP DELETE
     Then unauthorized response is received
 
+  Scenario: Add category to category tree
+    Given current authentication token
+    Given the following form parameters are set:
+      | name  | value        |
+      | child | @category_2@ |
+    When I request "/api/v1/EN/trees/@category_tree@/category/@category_1@/child" using HTTP POST
+    Then created response is received
+
+  Scenario: Add category to category tree (not authorized)
+    Given the following form parameters are set:
+      | name  | value        |
+      | child | @category_2@ |
+    When I request "/api/v1/EN/trees/@category_tree@/category/@category_1@/child" using HTTP POST
+    Then unauthorized response is received
+
+  Scenario: Add category to category tree (wrong child)
+    Given current authentication token
+    Given the following form parameters are set:
+      | name  | value        |
+      | child | @@static_uuid@@ |
+    When I request "/api/v1/EN/trees/@category_tree@/category/@category_1@/child" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Add category to category tree (not uuid child)
+    Given current authentication token
+    Given the following form parameters are set:
+      | name  | value        |
+      | child | 'test' |
+    When I request "/api/v1/EN/trees/@category_tree@/category/@category_1@/child" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Add category to category tree (wrong category tree)
+    Given current authentication token
+    Given the following form parameters are set:
+      | name  | value        |
+      | child | @category_2@ |
+    When I request "/api/v1/EN/trees/@@static_uuid@@/category/@category_1@/child" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Add category to category tree (not uuid child)
+    Given current authentication token
+    Given the following form parameters are set:
+      | name  | value        |
+      | child | @category_2@ |
+    When I request "/api/v1/EN/trees/test/category/@category_1@/child" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Add category to category tree (duplicated category)
+    Given current authentication token
+    Given the following form parameters are set:
+      | name  | value        |
+      | child | @category_2@ |
+    When I request "/api/v1/EN/trees/@category_tree@/category/@@static_uuid@@/child" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Add category to category tree (not uuid category)
+    Given current authentication token
+    Given the following form parameters are set:
+      | name  | value        |
+      | child | @category_1@ |
+    When I request "/api/v1/EN/trees/@category_tree@/category/test/child" using HTTP POST
+    Then validation error response is received
+
   Scenario: Delete category tree
     Given current authentication token
     When I request "/api/v1/EN/trees/@category_tree@" using HTTP DELETE
@@ -496,3 +559,4 @@ Feature: Category tree module
     Given current authentication token
     When I request "/api/v1/EN/trees?limit=25&offset=0&filter=name%3D1" using HTTP GET
     Then grid response is received
+
