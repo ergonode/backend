@@ -28,8 +28,9 @@ class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
     /**
      * @param Node[] $categories
      */
-    public function __construct(array $categories = [])
+    public function __construct(array $categories)
     {
+        Assert::notEmpty($categories);
         Assert::allIsInstanceOf($categories, Node::class);
 
         $this->categories = $categories;

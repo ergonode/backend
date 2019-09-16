@@ -127,8 +127,8 @@ Feature: Category tree module
     """
       {
         "name": {
-          "DE": "Test DE",
-          "EN": "Test EN"
+          "DE": "Test DE (changed)",
+          "EN": "Test EN (changed)"
         },
         "categories": [
           {

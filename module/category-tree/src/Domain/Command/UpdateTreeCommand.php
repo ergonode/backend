@@ -46,11 +46,10 @@ class UpdateTreeCommand
      * @param TranslatableString $name
      * @param array              $categories
      */
-    public function __construct(CategoryTreeId $id, TranslatableString $name, array $categories = [])
+    public function __construct(CategoryTreeId $id, TranslatableString $name, array $categories)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->categories = [];
         foreach ($categories as $category) {
             $this->categories[] = $this->createNode($category);
         }

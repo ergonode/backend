@@ -377,7 +377,7 @@ class CategoryTreeController extends AbstractController
      *
      * @return Response
      */
-    public function updateTree(CategoryTree $tree, Request $request): Response
+    public function putTree(CategoryTree $tree, Request $request): Response
     {
         try {
             $model = new CategoryTreeUpdateFormModel();
