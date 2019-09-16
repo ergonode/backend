@@ -12,7 +12,7 @@ namespace Ergonode\Condition\Domain\Service\Strategy;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Condition\Domain\Condition\TextAttributeValueCondition;
+use Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition;
 use Ergonode\Condition\Domain\Service\ConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -46,7 +46,7 @@ class OptionAttributeValueConditionConfigurationStrategy implements Configuratio
      */
     public function isSupportedBy(string $type): bool
     {
-        return TextAttributeValueCondition::TYPE === $type;
+        return OptionAttributeValueCondition::TYPE === $type;
     }
 
     /**
@@ -57,9 +57,9 @@ class OptionAttributeValueConditionConfigurationStrategy implements Configuratio
         $codes = $this->query->getDictionary([SelectAttribute::TYPE, MultiSelectAttribute::TYPE]);
 
         return [
-            'type' => TextAttributeValueCondition::TYPE,
-            'name' => $this->translator->trans(TextAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
-            'phrase' => $this->translator->trans(TextAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
+            'type' => OptionAttributeValueCondition::TYPE,
+            'name' => $this->translator->trans(OptionAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
+            'phrase' => $this->translator->trans(OptionAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
             'parameters' => [
                 [
                     'name' => 'attribute',

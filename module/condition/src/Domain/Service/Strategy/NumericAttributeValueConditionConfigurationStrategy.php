@@ -9,11 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Service\Strategy;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Condition\Domain\Condition\TextAttributeValueCondition;
+use Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition;
 use Ergonode\Condition\Domain\Service\ConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -47,7 +45,7 @@ class NumericAttributeValueConditionConfigurationStrategy implements Configurati
      */
     public function isSupportedBy(string $type): bool
     {
-        return TextAttributeValueCondition::TYPE === $type;
+        return NumericAttributeValueCondition::TYPE === $type;
     }
 
     /**
@@ -58,9 +56,9 @@ class NumericAttributeValueConditionConfigurationStrategy implements Configurati
         $codes = $this->query->getDictionary([NumericAttribute::TYPE]);
 
         return [
-            'type' => TextAttributeValueCondition::TYPE,
-            'name' => $this->translator->trans(TextAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
-            'phrase' => $this->translator->trans(TextAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
+            'type' => NumericAttributeValueCondition::TYPE,
+            'name' => $this->translator->trans(NumericAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
+            'phrase' => $this->translator->trans(NumericAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
             'parameters' => [
                 [
                     'name' => 'attribute',
