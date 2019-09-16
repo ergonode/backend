@@ -18,26 +18,86 @@ class BooleanDataTransformerTest extends TestCase
 {
 
     /**
+     * @dataProvider transformDataProvider
+     *
+     * @param mixed  $value
+     * @param string $expected
      */
-    public function testTransform()
+    public function testTransform($value, string $expected): void
     {
         $transformer = new BooleanDataTransformer();
-        $this->assertEquals(1, $transformer->transform('true'));
-        $this->assertEquals(false, $transformer->transform('false'));
+        $this->assertEquals($expected, $transformer->transform($value));
+    }
+
+    /**
+     * @dataProvider  reverseDataProvider
+     *
+     * @param mixed  $value
+     * @param string $expected
+     */
+    public function testReverseTransform($value, string $expected): void
+    {
+        $transformer = new BooleanDataTransformer();
+        $this->assertEquals($expected, $transformer->reverseTransform($value));
     }
 
     /**
      */
-    public function testReverseTransform()
+    public function testReverseTransformException(): void
     {
         $transformer = new BooleanDataTransformer();
-        $this->assertEquals('true', $transformer->reverseTransform('true'));
-        $this->assertEquals('true', $transformer->reverseTransform(true));
-        $this->assertEquals('true', $transformer->reverseTransform(1));
-        $this->assertEquals('false', $transformer->reverseTransform(0));
-        $this->assertEquals('false', $transformer->reverseTransform('false'));
-        $this->assertEquals('false', $transformer->reverseTransform(false));
         $this->expectExceptionMessage('Expect boolean');
         $this->assertEquals('false', $transformer->reverseTransform('fadwwalse'));
+    }
+
+
+    /**
+     * @return array
+     */
+    public function reverseDataProvider(): array
+    {
+        return [
+            [
+                'value' => 'true',
+                'expected' => 'true',
+            ],
+            [
+                'value' => true,
+                'expected' => 'true',
+            ],
+            [
+                'value' => 1,
+                'expected' => 'true',
+            ],
+            [
+                'value' => 0,
+                'expected' => 'false',
+            ],
+            [
+                'value' => 'false',
+                'expected' => 'false',
+            ],
+            [
+                'value' => false,
+                'expected' => 'false',
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function transformDataProvider(): array
+    {
+        return [
+            [
+                'value' => 'true',
+                'expected' => 1,
+            ],
+            [
+                'value' => 'false',
+                'expected' => false,
+            ],
+        ];
     }
 }
