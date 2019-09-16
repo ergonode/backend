@@ -559,4 +559,3 @@ Feature: Category tree module
     Given current authentication token
     When I request "/api/v1/EN/trees?limit=25&offset=0&filter=name%3D1" using HTTP GET
     Then grid response is received
-
