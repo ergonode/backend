@@ -11,7 +11,7 @@ namespace Ergonode\Designer\Application\Form\Type;
 
 use Ergonode\Designer\Application\Form\Transformer\PositionFormDataTransformer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,10 +28,10 @@ class PositionFormType extends AbstractType
         $builder
             ->add(
                 'x',
-                TextType::class
+                IntegerType::class
             )->add(
                 'y',
-                TextType::class
+                IntegerType::class
             );
         $builder->addModelTransformer(new PositionFormDataTransformer());
     }
