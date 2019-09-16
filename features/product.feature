@@ -250,11 +250,10 @@ Feature: Product module
 
   Scenario: Delete product (not found)
     Given current authentication token
-    When I request "/api/v1/EN/products/@static_uuid@" using HTTP DELETE
+    When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP DELETE
     Then not found response is received
 
   Scenario: Delete product (not authorized)
-    Given current authentication token
     When I request "/api/v1/EN/products/@product@" using HTTP DELETE
     Then unauthorized response is received
 
