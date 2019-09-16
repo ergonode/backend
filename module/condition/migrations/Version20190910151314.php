@@ -33,6 +33,7 @@ final class Version20190910151314 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
+        $this->addSql('CREATE UNIQUE index condition_set_code_uindex ON condition_set (code)');
 
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_CREATE', 'Condition']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_READ', 'Condition']);

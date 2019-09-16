@@ -98,7 +98,7 @@ class SegmentTest extends TestCase
         $segment->changeStatus($status);
         $segment->changeName($name);
         $segment->changeDescription($description);
-        $segment->changeConditionSetId($conditionSetId);
+        $segment->changeConditionSet($conditionSetId);
 
         $this->assertSame($name, $segment->getName());
         $this->assertSame($description, $segment->getDescription());

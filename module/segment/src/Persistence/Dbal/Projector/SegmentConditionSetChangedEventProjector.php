@@ -62,7 +62,7 @@ class SegmentConditionSetChangedEventProjector implements DomainEventProjectorIn
         $this->connection->update(
             self::TABLE,
             [
-                'condition_set_id' => (string) $event->getTo(),
+                'condition_set_id' => $event->getTo()->getValue(),
             ],
             [
                 'id' => $aggregateId->getValue(),

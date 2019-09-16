@@ -15,6 +15,7 @@ use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
+use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 
 /**
  */
@@ -74,6 +75,23 @@ class DbalSegmentQuery implements SegmentQueryInterface
         }
 
         return $result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isExistsByCode(SegmentCode $segmentCode): bool
+    {
+        $queryBuilder = $this->connection->createQueryBuilder()
+            ->select('id')
+            ->from(self::TABLE)
+            ->where('code = :code')
+            ->setParameter('code', $segmentCode->getValue())
+            ->setMaxResults(1);
+
+        $result = $queryBuilder->execute()->fetchColumn();
+
+        return !empty($result);
     }
 
     /**

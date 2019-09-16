@@ -184,7 +184,7 @@ class Segment extends AbstractAggregateRoot
      *
      * @throws \Exception
      */
-    public function changeConditionSetId(ConditionSetId $conditionSetId): void
+    public function changeConditionSet(ConditionSetId $conditionSetId): void
     {
         if (!$conditionSetId->isEqual($this->conditionSetId)) {
             $this->apply(new SegmentConditionSetChangedEvent($this->conditionSetId, $conditionSetId));

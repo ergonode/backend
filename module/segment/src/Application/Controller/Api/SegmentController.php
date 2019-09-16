@@ -301,7 +301,8 @@ class SegmentController extends AbstractController
             $command = new UpdateSegmentCommand(
                 $segment->getId(),
                 new TranslatableString($data->name),
-                new TranslatableString($data->description)
+                new TranslatableString($data->description),
+                new ConditionSetId($data->conditionSetId)
             );
             $this->messageBus->dispatch($command);
 

@@ -78,10 +78,11 @@ Feature: Condition
 
   Scenario: Create condition set
     Given current authentication token
+    Given remember param "condition_set_code" with value "CONDITION_@@random_uuid@@"
     Given the request body is:
       """
       {
-         "code": "CONDITION_@@random_uuid@@",
+         "code": "@condition_set_code@",
          "name": {
             "PL": "Zbiór warunków",
             "EN": "Condition set"
@@ -95,6 +96,17 @@ Feature: Condition
     Given I request "/api/v1/EN/conditionsets" using HTTP POST
     Then created response is received
     And remember response param "id" as "conditionset"
+
+  Scenario: Create condition set (not unique code)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "code": "@condition_set_code@"
+      }
+      """
+    Given I request "/api/v1/EN/conditionsets" using HTTP POST
+    Then validation error response is received
 
   Scenario: Create condition set (without description)
     Given current authentication token

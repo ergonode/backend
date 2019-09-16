@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Command;
 
+use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use JMS\Serializer\Annotation as JMS;
@@ -39,15 +40,26 @@ class UpdateSegmentCommand
     private $description;
 
     /**
+     * @var ConditionSetId
+     */
+    private $conditionSetId;
+
+    /**
      * @param SegmentId          $id
      * @param TranslatableString $name
      * @param TranslatableString $description
+     * @param ConditionSetId     $conditionSetId
      */
-    public function __construct(SegmentId $id, TranslatableString $name, TranslatableString $description)
-    {
+    public function __construct(
+        SegmentId $id,
+        TranslatableString $name,
+        TranslatableString $description,
+        ConditionSetId $conditionSetId
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
+        $this->conditionSetId = $conditionSetId;
     }
 
     /**
@@ -58,7 +70,7 @@ class UpdateSegmentCommand
         return $this->id;
     }
 
-   /**
+    /**
      * @return TranslatableString
      */
     public function getName(): TranslatableString
@@ -72,5 +84,13 @@ class UpdateSegmentCommand
     public function getDescription(): TranslatableString
     {
         return $this->description;
+    }
+
+    /**
+     * @return ConditionSetId
+     */
+    public function getConditionSetId(): ConditionSetId
+    {
+        return $this->conditionSetId;
     }
 }

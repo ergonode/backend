@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Infrastructure\Builder;
 
+use Ergonode\Condition\Infrastructure\Validator\UniqueConditionSetCode;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Collection;
@@ -32,6 +33,7 @@ class CreateConditionSetValidatorBuilder
                 'code' => [
                     new NotBlank(),
                     new Length(['min' => 2, 'max' => 100]),
+                    new UniqueConditionSetCode(),
                 ],
                 'name' => [
                     new Optional([

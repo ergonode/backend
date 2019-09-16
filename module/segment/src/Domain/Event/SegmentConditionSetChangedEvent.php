@@ -11,6 +11,7 @@ namespace Ergonode\Segment\Domain\Event;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -19,14 +20,14 @@ class SegmentConditionSetChangedEvent implements DomainEventInterface
     /**
      * @var ConditionSetId
      *
-     * @JMS\Type("Ergonode\Condition\Domain\ConditionSetId")
+     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
     private $from;
 
     /**
      * @var ConditionSetId
      *
-     * @JMS\Type("Ergonode\Condition\Domain\ConditionSetId")
+     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
     private $to;
 

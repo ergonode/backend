@@ -17,11 +17,12 @@ Feature: Segment
     Then unauthorized response is received
 
   Scenario: Create segment
+    Given remember param "segment_code" with value "SEG_1_@@random_code@@"
     Given current authentication token
     Given the request body is:
       """
       {
-        "code": "SEG_1_@@random_code@@",
+        "code": "@segment_code@",
         "condition_set_id": "@segment_conditionset@",
         "name": {
           "PL": "Segment",
@@ -36,6 +37,22 @@ Feature: Segment
     When I request "/api/v1/EN/segments" using HTTP POST
     Then created response is received
     And remember response param "id" as "segment"
+
+  Scenario: Create segment (not unique code)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "@segment_code@",
+        "condition_set_id": "@segment_conditionset@",
+        "description": {
+          "PL": "Opis segmentu",
+          "EN": "Segment description"
+        }
+      }
+      """
+    When I request "/api/v1/EN/segments" using HTTP POST
+    Then validation error response is received
 
   Scenario: Create segment (without name)
     Given current authentication token

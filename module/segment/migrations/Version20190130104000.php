@@ -34,6 +34,7 @@ final class Version20190130104000 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
+        $this->addSql('CREATE UNIQUE index segment_code_uindex ON segment (code)');
 
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_CREATE', 'Segment']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_READ', 'Segment']);
@@ -47,6 +48,7 @@ final class Version20190130104000 extends AbstractErgonodeMigration
             'Ergonode\Segment\Domain\Event\SegmentSpecificationAddedEvent' => 'Segment specification added',
             'Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent' => 'Segment status changed',
             'Ergonode\Segment\Domain\Event\SegmentDeletedEvent' => 'Segment deleted',
+            'Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent' => 'Segment condition set changed',
         ]);
     }
 
