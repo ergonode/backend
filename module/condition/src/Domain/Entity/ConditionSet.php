@@ -19,6 +19,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  * @JMS\ExclusionPolicy("all")
@@ -59,6 +60,9 @@ class ConditionSet extends AbstractAggregateRoot
 
     /**
      * @var ConditionInterface[]
+     *
+     * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
+     * @JMS\Expose()
      */
     private $conditions;
 
@@ -67,6 +71,7 @@ class ConditionSet extends AbstractAggregateRoot
      * @param ConditionSetCode   $code
      * @param TranslatableString $name
      * @param TranslatableString $description
+     * @param array              $conditions
      *
      * @throws \Exception
      */
@@ -74,9 +79,12 @@ class ConditionSet extends AbstractAggregateRoot
         ConditionSetId $id,
         ConditionSetCode $code,
         TranslatableString $name,
-        TranslatableString $description
+        TranslatableString $description,
+        array $conditions = []
     ) {
-        $this->apply(new ConditionSetCreatedEvent($id, $code, $name, $description));
+        Assert::allIsInstanceOf($conditions, ConditionInterface::class);
+
+        $this->apply(new ConditionSetCreatedEvent($id, $code, $name, $description, $conditions));
     }
 
     /**
@@ -164,7 +172,7 @@ class ConditionSet extends AbstractAggregateRoot
         $this->code = $event->getCode();
         $this->name = $event->getName();
         $this->description = $event->getDescription();
-        $this->conditions = [];
+        $this->conditions = $event->getConditions();
     }
 
     /**
