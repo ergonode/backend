@@ -172,7 +172,7 @@ Feature: Designer module
         "elements": [
           {
             "position": {"x": 0, "y": 0},
-            "size": {"width": "test", "height": 1},
+            "size": {"width": 2, "height": 1},
             "variant": "attribute",
             "type": "text",
             "properties": {
