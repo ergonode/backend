@@ -1,5 +1,55 @@
 Feature: Condition
 
+  Scenario: Get conditions dicitionary (not authorized)
+    When I request "/api/v1/EN/dictionary/conditions" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get conditions dicitionary
+    Given current authentication token
+    When I request "/api/v1/EN/dictionary/conditions" using HTTP GET
+    Then the response code is 200
+
+  Scenario: Get condition (not found)
+    Given current authentication token
+    When I request "/api/v1/EN/conditions/asd" using HTTP GET
+    Then not found response is received
+
+  Scenario: Get numeric condition (not authorized)
+    When I request "/api/v1/EN/conditions/NUMERIC_ATTRIBUTE_VALUE_CONDITION" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get numeric condition
+    Given current authentication token
+    When I request "/api/v1/EN/conditions/NUMERIC_ATTRIBUTE_VALUE_CONDITION" using HTTP GET
+    Then the response code is 200
+
+  Scenario: Get option condition (not authorized)
+    When I request "/api/v1/EN/conditions/OPTION_ATTRIBUTE_VALUE_CONDITION" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get option condition
+    Given current authentication token
+    When I request "/api/v1/EN/conditions/OPTION_ATTRIBUTE_VALUE_CONDITION" using HTTP GET
+    Then the response code is 200
+
+  Scenario: Get attribute exists condition (not authorized)
+    When I request "/api/v1/EN/conditions/ATTRIBUTE_EXISTS_CONDITION" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get attribute exists condition
+    Given current authentication token
+    When I request "/api/v1/EN/conditions/ATTRIBUTE_EXISTS_CONDITION" using HTTP GET
+    Then the response code is 200
+
+  Scenario: Get text condition (not authorized)
+    When I request "/api/v1/EN/conditions/TEXT_ATTRIBUTE_VALUE_CONDITION" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get text condition
+    Given current authentication token
+    When I request "/api/v1/EN/conditions/TEXT_ATTRIBUTE_VALUE_CONDITION" using HTTP GET
+    Then the response code is 200
+
   Scenario: Get attribute groups dictionary
     Given current authentication token
     When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET

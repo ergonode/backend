@@ -10,12 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Condition\Domain\Exception\ConditionStrategyNotFoundException;
 use Ergonode\Condition\Domain\Provider\ConditionConfigurationProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -70,7 +72,11 @@ class ConditionController extends AbstractController
      */
     public function getCondition(Language $language, string $condition): Response
     {
-        $configuration = $this->provider->getConfiguration($language, $condition);
+        try {
+            $configuration = $this->provider->getConfiguration($language, $condition);
+        } catch (ConditionStrategyNotFoundException $exception) {
+            throw new NotFoundHttpException($exception->getMessage());
+        }
 
         return new SuccessResponse($configuration);
     }

@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Provider;
 
+use Ergonode\Condition\Domain\Exception\ConditionStrategyNotFoundException;
 use Ergonode\Condition\Domain\Service\ConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
@@ -34,6 +35,8 @@ class ConditionConfigurationProvider
      * @param string   $type
      *
      * @return array
+     *
+     * @throws ConditionStrategyNotFoundException
      */
     public function getConfiguration(Language $language, string $type): array
     {
@@ -43,6 +46,6 @@ class ConditionConfigurationProvider
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\'t find configuration strategy for "%s" condition type', $type));
+        throw new ConditionStrategyNotFoundException($type);
     }
 }
