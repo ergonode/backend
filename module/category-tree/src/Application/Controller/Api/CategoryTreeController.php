@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Application\Form\CategoryTreeCreateForm;
 use Ergonode\CategoryTree\Application\Form\CategoryTreeUpdateForm;
 use Ergonode\CategoryTree\Application\Model\CategoryTreeCreateFormModel;
@@ -265,73 +264,6 @@ class CategoryTreeController extends AbstractController
 
         throw new FormValidationHttpException($form);
     }
-
-    /**
-     * @Route("/trees/{tree}/category/{category}/child", methods={"POST"})
-     *
-     * @IsGranted("CATEGORY_CREATE")
-     *
-     * @SWG\Tag(name="Tree")
-     * @SWG\Parameter(
-     *     name="language",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     default="EN",
-     *     description="Language Code",
-     * )
-     * @SWG\Parameter(
-     *     name="tree",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     description="Id of category tree",
-     * )
-     * @SWG\Parameter(
-     *     name="category",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     description="Id of category in tree",
-     * )
-     * @SWG\Parameter(
-     *     name="child",
-     *     in="formData",
-     *     type="string",
-     *     required=true,
-     *     description="Id of added child category",
-     * )
-     * @SWG\Response(
-     *     response=202,
-     *     description="Action accepted",
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Validation error",
-     *     @SWG\Schema(ref="#/definitions/error_response")
-     * )
-     *
-     * @param string  $tree
-     * @param string  $category
-     * @param Request $request
-     *
-     * @return Response
-     * @throws \Exception
-     */
-    public function addCategory(string $tree, string $category, Request $request): Response
-    {
-        $child = $request->request->get('child');
-
-        if ($child) {
-            $command = new AddCategoryCommand(new CategoryTreeId($tree), new CategoryId($category), new CategoryId($child));
-            $this->messageBus->dispatch($command);
-
-            return new CreatedResponse($command->getCategoryId());
-        }
-
-        throw new BadRequestHttpException();
-    }
-
     /**
      * @Route("/trees/{tree}", methods={"PUT"}, requirements={"tree"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
