@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Application\Form\Model;
 
 /**
- * Class AttributeParametersModel
  */
 class AttributeParametersModel
 {

@@ -161,7 +161,7 @@ class WorkflowController extends AbstractController
     {
         $data = $request->request->all();
 
-        $violations = $this->validator->validate($data, $this->builder->build($data), [WorkflowValidatorBuilder::UNIQUE_WORKFLOW]);
+        $violations = $this->validator->validate($data, $this->builder->build($data), ['Default', WorkflowValidatorBuilder::UNIQUE_WORKFLOW]);
 
         if (0 === $violations->count()) {
             $data['id'] = WorkflowId::fromCode($data['code'])->getValue();
@@ -218,7 +218,6 @@ class WorkflowController extends AbstractController
         $workflow = $this->provider->provide();
 
         $violations = $this->validator->validate($data, $this->builder->build($data));
-
         if (0 === $violations->count()) {
             $data['id'] = $workflow->getId()->getValue();
             $command = $this->serializer->fromArray($data, UpdateWorkflowCommand::class);

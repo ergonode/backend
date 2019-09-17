@@ -1,4 +1,4 @@
-# Ergonode - transformer
+# Ergonode - Deepl translation
 
 ## Documentation
 

@@ -29,10 +29,17 @@ final class Version20190130104000 extends AbstractErgonodeMigration
                 code VARCHAR(100) NOT NULL,
                 name JSON NOT NULL,
                 description JSON NOT NULL,
-                status VARCHAR(32) NOT NULL,            
+                status VARCHAR(32) NOT NULL,
+                condition_set_id UUID DEFAULT NULL,
                 PRIMARY KEY(id)
             )
         ');
+        $this->addSql('CREATE UNIQUE index segment_code_uindex ON segment (code)');
+
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_CREATE', 'Segment']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_READ', 'Segment']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_UPDATE', 'Segment']);
+        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_DELETE', 'Segment']);
 
         $this->createEventStoreEvents([
             'Ergonode\Segment\Domain\Event\SegmentCreatedEvent' => 'Segment created',
@@ -40,6 +47,8 @@ final class Version20190130104000 extends AbstractErgonodeMigration
             'Ergonode\Segment\Domain\Event\SegmentNameChangedEvent' => 'Segment name changed',
             'Ergonode\Segment\Domain\Event\SegmentSpecificationAddedEvent' => 'Segment specification added',
             'Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent' => 'Segment status changed',
+            'Ergonode\Segment\Domain\Event\SegmentDeletedEvent' => 'Segment deleted',
+            'Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent' => 'Segment condition set changed',
         ]);
     }
 
