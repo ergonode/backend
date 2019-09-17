@@ -42,9 +42,15 @@ class DbalReaderRepository implements ReaderRepositoryInterface
     }
 
     /**
-     * @param ReaderId $id
-     *
-     * @return Reader
+     * {@inheritDoc}
+     */
+    public function exists(ReaderId $id) : bool
+    {
+        return $this->eventStore->load($id, self::TABLE)->count() > 0;
+    }
+
+    /**
+     * {@inheritDoc}
      *
      * @throws \ReflectionException
      */
@@ -69,7 +75,7 @@ class DbalReaderRepository implements ReaderRepositoryInterface
     }
 
     /**
-     * @param Reader $aggregateRoot
+     * {@inheritDoc}
      */
     public function save(Reader $aggregateRoot): void
     {
@@ -82,12 +88,13 @@ class DbalReaderRepository implements ReaderRepositoryInterface
     }
 
     /**
-     * @param ReaderId $id
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function exists(ReaderId $id) : bool
+    public function delete(Reader $reader): void
     {
-        return $this->eventStore->load($id, self::TABLE)->count() > 0;
+        $reader->apply(new ReaderDeletedEvent());
+        $this->save($reader);
+
+        $this->eventStore->delete($reader->getId());
     }
 }

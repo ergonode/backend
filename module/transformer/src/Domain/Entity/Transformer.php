@@ -45,6 +45,8 @@ class Transformer extends AbstractAggregateRoot
      * @param TransformerId $id
      * @param string        $name
      * @param string        $key
+     *
+     * @throws \Exception
      */
     public function __construct(TransformerId $id, string $name, string $key)
     {
@@ -80,7 +82,8 @@ class Transformer extends AbstractAggregateRoot
      * @param ConverterInterface $converter
      * @param string             $collection
      *
-     * @return Transformer
+     * @return $this
+     * @throws \Exception
      */
     public function addConverter(string $field, ConverterInterface $converter, string $collection = self::DEFAULT): self
     {

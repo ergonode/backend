@@ -45,6 +45,6 @@ class TransformerGenerator
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\'t find transformer %s generator ', $type));
+        throw new \RuntimeException(sprintf('Can\'t find transformer %s generator', $type));
     }
 }

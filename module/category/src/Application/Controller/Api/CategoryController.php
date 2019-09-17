@@ -18,6 +18,7 @@ use Ergonode\Category\Application\Form\CategoryUpdateForm;
 use Ergonode\Category\Application\Model\CategoryCreateFormModel;
 use Ergonode\Category\Application\Model\CategoryUpdateFormModel;
 use Ergonode\Category\Domain\Command\CreateCategoryCommand;
+use Ergonode\Category\Domain\Command\DeleteCategoryCommand;
 use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;

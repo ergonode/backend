@@ -50,6 +50,37 @@ class TransformerController extends AbstractController
     }
 
     /**
+     * @Route("/transformers/{transformer}", methods={"GET"}, requirements={"transformer"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @SWG\Tag(name="Transformer")
+     * @SWG\Parameter(
+     *     name="transformer",
+     *     in="path",
+     *     type="string",
+     *     description="Transformer id",
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns transformer",
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Transformer not found",
+     * )
+     *
+     * @param Transformer $transformer
+     *
+     * @ParamConverter(class="Ergonode\Transformer\Domain\Entity\Transformer")
+     *
+     * @return Response
+     *
+     */
+    public function getTransformer(Transformer $transformer): Response
+    {
+        return new SuccessResponse($transformer);
+    }
+
+    /**
      * @Route("/transformers/create", methods={"POST"})
      *
      * @SWG\Tag(name="Transformer")
@@ -125,37 +156,6 @@ class TransformerController extends AbstractController
             return new CreatedResponse($command->getId());
         }
 
-        throw new ConflictHttpException(sprintf('Transformer %s already exists', $name));
-    }
-
-    /**
-     * @Route("/transformers/{transformer}", methods={"GET"}, requirements={"transformer"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
-     *
-     * @SWG\Tag(name="Transformer")
-     * @SWG\Parameter(
-     *     name="transformer",
-     *     in="path",
-     *     type="string",
-     *     description="Transformer id",
-     * )
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns transformer",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Transformer not found",
-     * )
-     *
-     * @param Transformer $transformer
-     *
-     * @ParamConverter(class="Ergonode\Transformer\Domain\Entity\Transformer")
-     *
-     * @return Response
-     *
-     */
-    public function getTransformer(Transformer $transformer): Response
-    {
-        return new SuccessResponse($transformer);
+        throw new ConflictHttpException(sprintf('Transformer "%s" already exists', $name));
     }
 }
