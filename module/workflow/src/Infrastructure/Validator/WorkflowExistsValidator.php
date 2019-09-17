@@ -33,10 +33,9 @@ class WorkflowExistsValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed                     $value
-     * @param WorkflowExists|Constraint $constraint
+     * {@inheritDoc}
      *
-     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function validate($value, Constraint $constraint): void
     {

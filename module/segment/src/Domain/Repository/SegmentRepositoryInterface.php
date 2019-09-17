@@ -35,4 +35,9 @@ interface SegmentRepositoryInterface
      * @return bool
      */
     public function exists(SegmentId $id): bool;
+
+    /**
+     * @param AbstractAggregateRoot $aggregateRoot
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void;
 }

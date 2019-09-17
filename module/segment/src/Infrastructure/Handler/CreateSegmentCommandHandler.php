@@ -40,6 +40,7 @@ class CreateSegmentCommandHandler
         $segment = new Segment(
             $command->getId(),
             $command->getCode(),
+            $command->getConditionSetId(),
             $command->getName(),
             $command->getDescription()
         );

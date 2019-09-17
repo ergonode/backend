@@ -333,24 +333,29 @@ nelmio_api_doc:
                         description: Additional format information (If used by attribute)
                         example: YYYY-MM-DDDD
             segment:
-                type: object
+                type: 'object'
                 properties:
-                    code:
-                        type: string
+                    condition_set_id:
+                        type: 'string'
                         required: true
-                        description: Segment unique code value
+                        description: 'Condition set ID'
+                    code:
+                        type: 'string'
+                        required: true
+                        description: 'Segment unique code'
                     name:
                         $ref: "#/definitions/translation"
                     description:
                         $ref: "#/definitions/translation"
                 example:
-                    code: code_1
+                    condition_set_id: 'd1b9b64a-fef6-440c-9560-cf73daa4b4d6'
+                    code: 'code'
                     name:
-                        PL: Name PL 1
-                        EN: Name EN 1
+                        PL: 'Nazwa'
+                        EN: 'Name'
                     description:
-                        PL: Description PL 1
-                        EN: Description EN 1
+                        PL: 'Opis'
+                        EN: 'Description'
             languages_req:
                 type: object
                 properties:
@@ -479,7 +484,6 @@ nelmio_api_doc:
                                     items:
                                         type: 'string'
                                         example: 'Error message'
-
             credentials:
                 type: object
                 properties:
@@ -514,6 +518,28 @@ nelmio_api_doc:
                         description: List of role privileges
                         example:
                             [ ATTRIBUTE_CREATE, ATTRIBUTE_READ, ATTRIBUTE_UPDATE, ATTRIBUTE_DELETE]
+            conditionset_create:
+                type: 'object'
+                properties:
+                    code:
+                        type: 'string'
+                        required: true
+                        description: 'Condition code'
+                        example: 'CONDITION_CODE'
+                    name:
+                        $ref: '#/definitions/translation'
+                    description:
+                        $ref: '#/definitions/translation'
+            conditionset_update:
+                type: 'object'
+                properties:
+                    name:
+                        $ref: '#/definitions/translation'
+                    description:
+                        $ref: '#/definitions/translation'
+                    conditions:
+                        type: 'array'
+                        example: []
             authentication:
                 type: object
                 properties:

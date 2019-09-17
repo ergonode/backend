@@ -61,7 +61,7 @@ Feature: Account module
       }
       """
     When I request "/api/v1/EN/roles" using HTTP POST
-    Then validation error response is received
+    Then created response is received
 
   Scenario: Create role (wrong parameter - name)
     Given current authentication token
@@ -113,7 +113,7 @@ Feature: Account module
       }
       """
     When I request "/api/v1/EN/roles" using HTTP POST
-    Then validation error response is received
+    Then created response is received
 
   Scenario: Create role (no existing privilages)
     Given current authentication token

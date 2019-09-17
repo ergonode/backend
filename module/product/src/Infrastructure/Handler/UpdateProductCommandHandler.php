@@ -16,7 +16,6 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Webmozart\Assert\Assert;
 
 /**
- * Class UpdateProductCommandHandler
  */
 class UpdateProductCommandHandler
 {
@@ -42,6 +41,8 @@ class UpdateProductCommandHandler
 
     /**
      * @param UpdateProductCommand $command
+     *
+     * @throws \Exception
      */
     public function __invoke(UpdateProductCommand $command)
     {
