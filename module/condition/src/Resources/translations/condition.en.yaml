@@ -1,0 +1,8 @@
+ATTRIBUTE_EXISTS_CONDITION: Attribute exists
+ATTRIBUTE_EXISTS_CONDITION_PHRASE: Attribute [attribute] exists
+NUMERIC_ATTRIBUTE_VALUE_CONDITION: Numeric attribute has value
+NUMERIC_ATTRIBUTE_VALUE_CONDITION_PHRASE: Attribute [attribute] has value [operator] [value]
+OPTION_ATTRIBUTE_VALUE_CONDITION: Option attribute has value
+OPTION_ATTRIBUTE_VALUE_CONDITION_PHRASE: Attribute [attribute] has option [value]
+TEXT_ATTRIBUTE_VALUE_CONDITION: Text attribute has value
+TEXT_ATTRIBUTE_VALUE_CONDITION_PHRASE: Attribute [attribute] has value [operator] [value]

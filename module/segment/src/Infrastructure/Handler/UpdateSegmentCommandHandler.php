@@ -43,6 +43,7 @@ class UpdateSegmentCommandHandler
 
         $segment->changeName($command->getName());
         $segment->changeDescription($command->getDescription());
+        $segment->changeConditionSet($command->getConditionSetId());
 
         $this->repository->save($segment);
     }

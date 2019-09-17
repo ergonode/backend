@@ -114,6 +114,16 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     }
 
     /**
+     * @param array $types
+     *
+     * @return array
+     */
+    public function getAttributeCodes(array $types = []): array
+    {
+        return $this->attributeQuery->getAttributeCodes($types);
+    }
+
+    /**
      * @param AttributeId $id
      * @param OptionKey   $key
      *
@@ -122,5 +132,15 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     public function findAttributeOption(AttributeId $id, OptionKey $key): ?OptionInterface
     {
         return $this->attributeQuery->findAttributeOption($id, $key);
+    }
+
+    /**
+     * @param array $types
+     *
+     * @return array
+     */
+    public function getDictionary(array $types = []): array
+    {
+        return $this->attributeQuery->getDictionary($types);
     }
 }

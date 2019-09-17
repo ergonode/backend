@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Command;
 
+use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
@@ -33,6 +34,13 @@ class CreateSegmentCommand
     private $code;
 
     /**
+     * @var ConditionSetId
+     *
+     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     */
+    private $conditionSetId;
+
+    /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
@@ -48,12 +56,14 @@ class CreateSegmentCommand
 
     /**
      * @param SegmentCode        $code
+     * @param ConditionSetId     $conditionSetId
      * @param TranslatableString $name
      * @param TranslatableString $description
      */
-    public function __construct(SegmentCode $code, TranslatableString $name, TranslatableString $description)
+    public function __construct(SegmentCode $code, ConditionSetId $conditionSetId, TranslatableString $name, TranslatableString $description)
     {
         $this->id = SegmentId::fromCode($code);
+        $this->conditionSetId = $conditionSetId;
         $this->code = $code;
         $this->name = $name;
         $this->description = $description;
@@ -65,6 +75,14 @@ class CreateSegmentCommand
     public function getId(): SegmentId
     {
         return $this->id;
+    }
+
+    /**
+     * @return ConditionSetId
+     */
+    public function getConditionSetId(): ConditionSetId
+    {
+        return $this->conditionSetId;
     }
 
     /**

@@ -52,6 +52,20 @@ interface AttributeQueryInterface
     public function getAllAttributeCodes(): array;
 
     /**
+     * @param array $types
+     *
+     * @return string[]
+     */
+    public function getDictionary(array $types = []): array;
+
+    /**
+     * @param array $types
+     *
+     * @return array
+     */
+    public function getAttributeCodes(array $types = []): array;
+
+    /**
      * @param AttributeId $attributeId
      *
      * @return array

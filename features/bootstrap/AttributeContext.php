@@ -38,11 +38,13 @@ class AttributeContext implements Context
     }
 
     /**
-     * @Then remember first attribute group as "attribute_group"
+     * @param string $key
+     *
+     * @Then remember first attribute group as :key
      */
-    public function rememberFirstAttributeGroup(): void
+    public function rememberFirstAttributeGroup(string $key): void
     {
         $response = $this->apiContext->getLastResponseBody();
-        $this->storageContext->add('attribute_group', $response[count($response)-1]->id);
+        $this->storageContext->add($key, $response[key($response)]->id);
     }
 }

@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Tests\Domain\Command;
 
+use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Entity\SegmentId;
-use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -29,10 +29,13 @@ class UpdateSegmentCommandTest extends TestCase
         $name = $this->createMock(TranslatableString::class);
         /** @var TranslatableString $description */
         $description = $this->createMock(TranslatableString::class);
+        /** @var ConditionSetId $conditionSetId */
+        $conditionSetId = $this->createMock(ConditionSetId::class);
 
-        $command = new UpdateSegmentCommand($id, $name, $description);
+        $command = new UpdateSegmentCommand($id, $name, $description, $conditionSetId);
         $this->assertEquals($id, $command->getId());
         $this->assertEquals($name, $command->getName());
         $this->assertEquals($description, $command->getDescription());
+        $this->assertEquals($conditionSetId, $command->getConditionSetId());
     }
 }

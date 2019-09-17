@@ -9,10 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Event;
 
-use Ergonode\Segment\Domain\ValueObject\SegmentCode;
+use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Segment\Domain\Entity\SegmentId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\Segment\Domain\ValueObject\SegmentCode;
+use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -34,6 +36,13 @@ class SegmentCreatedEvent implements DomainEventInterface
     private $code;
 
     /**
+     * @var ConditionSetId
+     *
+     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     */
+    private $conditionSetId;
+
+    /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
@@ -48,17 +57,34 @@ class SegmentCreatedEvent implements DomainEventInterface
     private $description;
 
     /**
+     * @var SegmentStatus
+     *
+     * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentStatus")
+     */
+    private $status;
+
+    /**
      * @param SegmentId          $id
      * @param SegmentCode        $code
+     * @param ConditionSetId     $conditionSetId
      * @param TranslatableString $name
      * @param TranslatableString $description
+     * @param SegmentStatus      $status
      */
-    public function __construct(SegmentId $id, SegmentCode $code, TranslatableString $name, TranslatableString $description)
-    {
+    public function __construct(
+        SegmentId $id,
+        SegmentCode $code,
+        ConditionSetId $conditionSetId,
+        TranslatableString $name,
+        TranslatableString $description,
+        SegmentStatus $status
+    ) {
         $this->id = $id;
         $this->code = $code;
+        $this->conditionSetId = $conditionSetId;
         $this->name = $name;
         $this->description = $description;
+        $this->status = $status;
     }
 
     /**
@@ -78,6 +104,14 @@ class SegmentCreatedEvent implements DomainEventInterface
     }
 
     /**
+     * @return ConditionSetId
+     */
+    public function getConditionSetId(): ConditionSetId
+    {
+        return $this->conditionSetId;
+    }
+
+    /**
      * @return TranslatableString
      */
     public function getName(): TranslatableString
@@ -91,5 +125,13 @@ class SegmentCreatedEvent implements DomainEventInterface
     public function getDescription(): TranslatableString
     {
         return $this->description;
+    }
+
+    /**
+     * @return SegmentStatus
+     */
+    public function getStatus(): SegmentStatus
+    {
+        return $this->status;
     }
 }

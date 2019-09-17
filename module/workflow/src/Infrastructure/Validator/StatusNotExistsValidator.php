@@ -54,7 +54,7 @@ class StatusNotExistsValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $workflow = null;
+        $workflow = false;
         if (StatusId::isValid($value)) {
             $workflow = $this->repository->load(new StatusId($value));
         }
