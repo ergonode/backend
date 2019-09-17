@@ -29,6 +29,7 @@ use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Core\Infrastructure\Resolver\RelationResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -38,6 +39,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -67,21 +69,29 @@ class CategoryTreeController extends AbstractController
     private $grid;
 
     /**
-     * @param TreeRepositoryInterface $treeRepository
-     * @param MessageBusInterface     $messageBus
-     * @param TreeQueryInterface      $query
-     * @param TreeGrid                $grid
+     * @var RelationResolverInterface
+     */
+    private $relationResolver;
+
+    /**
+     * @param TreeRepositoryInterface   $treeRepository
+     * @param MessageBusInterface       $messageBus
+     * @param TreeQueryInterface        $query
+     * @param TreeGrid                  $grid
+     * @param RelationResolverInterface $relationResolver
      */
     public function __construct(
         TreeRepositoryInterface $treeRepository,
         MessageBusInterface $messageBus,
         TreeQueryInterface $query,
-        TreeGrid $grid
+        TreeGrid $grid,
+        RelationResolverInterface $relationResolver
     ) {
         $this->treeRepository = $treeRepository;
         $this->messageBus = $messageBus;
         $this->query = $query;
         $this->grid = $grid;
+        $this->relationResolver = $relationResolver;
     }
 
     /**
@@ -428,6 +438,10 @@ class CategoryTreeController extends AbstractController
      *     response=404,
      *     description="Not found"
      * )
+     * @SWG\Response(
+     *     response="409",
+     *     description="Can't delete category tree"
+     * )
      *
      * @ParamConverter(class="Ergonode\CategoryTree\Domain\Entity\CategoryTree")
      *
@@ -437,6 +451,10 @@ class CategoryTreeController extends AbstractController
      */
     public function deleteTree(CategoryTree $tree): Response
     {
+        if ($this->relationResolver->resolve($tree->getId())) {
+            throw new ConflictHttpException('The category tree cannot be removed because it has active relationships');
+        }
+
         $command = new DeleteTreeCommand($tree->getId());
         $this->messageBus->dispatch($command);
 

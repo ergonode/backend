@@ -28,6 +28,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Core\Infrastructure\Resolver\RelationResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -73,24 +74,32 @@ class AttributeController extends AbstractController
     private $messageBus;
 
     /**
+     * @var RelationResolverInterface
+     */
+    private $relationResolver;
+
+    /**
      * @param AttributeGrid                   $attributeGrid
      * @param AttributeQueryInterface         $attributeQuery
      * @param AttributeGridQueryInterface     $attributeGridQuery
      * @param AttributeTemplateQueryInterface $attributeTemplateQuery
      * @param MessageBusInterface             $messageBus
+     * @param RelationResolverInterface       $relationResolver
      */
     public function __construct(
         AttributeGrid $attributeGrid,
         AttributeQueryInterface $attributeQuery,
         AttributeGridQueryInterface $attributeGridQuery,
         AttributeTemplateQueryInterface $attributeTemplateQuery,
-        MessageBusInterface $messageBus
+        MessageBusInterface $messageBus,
+        RelationResolverInterface $relationResolver
     ) {
         $this->attributeGrid = $attributeGrid;
         $this->attributeQuery = $attributeQuery;
         $this->attributeGridQuery = $attributeGridQuery;
         $this->attributeTemplateQuery = $attributeTemplateQuery;
         $this->messageBus = $messageBus;
+        $this->relationResolver = $relationResolver;
     }
 
     /**
@@ -416,6 +425,10 @@ class AttributeController extends AbstractController
      */
     public function deleteAttribute(AbstractAttribute $attribute): Response
     {
+        if ($this->relationResolver->resolve($attribute->getId())) {
+            throw new ConflictHttpException('The attribute cannot be removed because it has active relationships');
+        }
+
         $templates = $this->attributeTemplateQuery->getDesignTemplatesByAttributeId($attribute->getId());
         if (empty($templates)) {
             $command = new DeleteAttributeCommand($attribute->getId());

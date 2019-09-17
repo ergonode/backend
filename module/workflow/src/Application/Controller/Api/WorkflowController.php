@@ -13,6 +13,7 @@ use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Core\Infrastructure\Resolver\RelationResolverInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
@@ -28,6 +29,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,24 +65,32 @@ class WorkflowController extends AbstractController
     private $messageBus;
 
     /**
-     * @param WorkflowProvider         $provider
-     * @param WorkflowValidatorBuilder $builder
-     * @param ValidatorInterface       $validator
-     * @param SerializerInterface      $serializer
-     * @param MessageBusInterface      $messageBus
+     * @var RelationResolverInterface
+     */
+    private $relationResolver;
+
+    /**
+     * @param WorkflowProvider          $provider
+     * @param WorkflowValidatorBuilder  $builder
+     * @param ValidatorInterface        $validator
+     * @param SerializerInterface       $serializer
+     * @param MessageBusInterface       $messageBus
+     * @param RelationResolverInterface $relationResolver
      */
     public function __construct(
         WorkflowProvider $provider,
         WorkflowValidatorBuilder $builder,
         ValidatorInterface $validator,
         SerializerInterface $serializer,
-        MessageBusInterface $messageBus
+        MessageBusInterface $messageBus,
+        RelationResolverInterface $relationResolver
     ) {
         $this->provider = $provider;
         $this->builder = $builder;
         $this->validator = $validator;
         $this->serializer = $serializer;
         $this->messageBus = $messageBus;
+        $this->relationResolver = $relationResolver;
     }
 
     /**
@@ -269,6 +279,10 @@ class WorkflowController extends AbstractController
      */
     public function deleteWorkflow(Workflow $workflow): Response
     {
+        if ($this->relationResolver->resolve($workflow->getId())) {
+            throw new ConflictHttpException('The workflow cannot be removed because it has active relationships');
+        }
+
         $command = new DeleteWorkflowCommand($workflow->getId());
         $this->messageBus->dispatch($command);
 

@@ -24,6 +24,7 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Core\Infrastructure\Resolver\RelationResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -33,6 +34,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,15 +59,26 @@ class CategoryController extends AbstractController
     private $messageBus;
 
     /**
-     * @param CategoryGrid           $categoryGrid
-     * @param CategoryQueryInterface $categoryQuery
-     * @param MessageBusInterface    $messageBus
+     * @var RelationResolverInterface
      */
-    public function __construct(CategoryGrid $categoryGrid, CategoryQueryInterface $categoryQuery, MessageBusInterface $messageBus)
-    {
+    private $relationResolver;
+
+    /**
+     * @param CategoryGrid              $categoryGrid
+     * @param CategoryQueryInterface    $categoryQuery
+     * @param MessageBusInterface       $messageBus
+     * @param RelationResolverInterface $relationResolver
+     */
+    public function __construct(
+        CategoryGrid $categoryGrid,
+        CategoryQueryInterface $categoryQuery,
+        MessageBusInterface $messageBus,
+        RelationResolverInterface $relationResolver
+    ) {
         $this->categoryGrid = $categoryGrid;
         $this->categoryQuery = $categoryQuery;
         $this->messageBus = $messageBus;
+        $this->relationResolver = $relationResolver;
     }
 
     /**
@@ -311,5 +324,49 @@ class CategoryController extends AbstractController
         }
 
         throw new FormValidationHttpException($form);
+    }
+
+    /**
+     * @Route("/categories/{category}", methods={"DELETE"}, requirements={"category"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("CATEGORY_DELETE")
+     *
+     * @SWG\Tag(name="Category")
+     * @SWG\Parameter(
+     *     name="category",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     description="Category ID",
+     * )
+     * @SWG\Response(
+     *     response=204,
+     *     description="Success"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
+     * @SWG\Response(
+     *     response="409",
+     *     description="Can't delete category",
+     * )
+     *
+     * @ParamConverter(class="Ergonode\Category\Domain\Entity\Category")
+     *
+     * @param Category $category
+     *
+     * @return Response
+     */
+    public function deleteCategory(Category $category): Response
+    {
+        if ($this->relationResolver->resolve($category->getId())) {
+            throw new ConflictHttpException('The category cannot be removed because it has active relationships');
+        }
+
+        $command = new DeleteCategoryCommand($category->getId());
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }

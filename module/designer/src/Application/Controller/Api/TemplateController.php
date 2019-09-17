@@ -14,9 +14,9 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Resolver\RelationResolverInterface;
 use Ergonode\Designer\Application\Form\TemplateForm;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
-use Ergonode\Designer\Domain\Checker\TemplateRelationChecker;
 use Ergonode\Designer\Domain\Command\DeleteTemplateCommand;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
@@ -49,11 +49,6 @@ class TemplateController extends AbstractController
     private $templateGrid;
 
     /**
-     * @var TemplateRelationChecker
-     */
-    private $templateChecker;
-
-    /**
      * @var MessageBusInterface
      */
     private $messageBus;
@@ -64,24 +59,29 @@ class TemplateController extends AbstractController
     private $createCommandFactory;
 
     /**
-     * @param TemplateQueryInterface  $designerTemplateQuery
-     * @param TemplateGrid            $templateGrid
-     * @param TemplateRelationChecker $templateChecker
-     * @param MessageBusInterface     $messageBus
-     * @param TemplateCommandFactory  $createCommandFactory
+     * @var RelationResolverInterface
+     */
+    private $relationResolver;
+
+    /**
+     * @param TemplateQueryInterface    $designerTemplateQuery
+     * @param TemplateGrid              $templateGrid
+     * @param MessageBusInterface       $messageBus
+     * @param TemplateCommandFactory    $createCommandFactory
+     * @param RelationResolverInterface $relationResolver
      */
     public function __construct(
         TemplateQueryInterface $designerTemplateQuery,
         TemplateGrid $templateGrid,
-        TemplateRelationChecker $templateChecker,
         MessageBusInterface $messageBus,
-        TemplateCommandFactory $createCommandFactory
+        TemplateCommandFactory $createCommandFactory,
+        RelationResolverInterface $relationResolver
     ) {
         $this->designerTemplateQuery = $designerTemplateQuery;
         $this->templateGrid = $templateGrid;
-        $this->templateChecker = $templateChecker;
         $this->messageBus = $messageBus;
         $this->createCommandFactory = $createCommandFactory;
+        $this->relationResolver = $relationResolver;
     }
 
     /**
@@ -351,7 +351,7 @@ class TemplateController extends AbstractController
      * )
      * @SWG\Response(
      *     response="409",
-     *     description="Can't remove Template, it has relations to products"
+     *     description="Can't delete template"
      * )
      *
      * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
@@ -362,11 +362,10 @@ class TemplateController extends AbstractController
      */
     public function deleteTemplate(Template $template): Response
     {
-        if ($this->templateChecker->hasRelations($template)) {
-            throw new ConflictHttpException('Can\'t remove Template, it has relations to products');
+        if ($this->relationResolver->resolve($template->getId())) {
+            throw new ConflictHttpException('The template cannot be deleted because it has active relationships');
         }
 
-        // @todo Handler not found
         $command = new DeleteTemplateCommand($template->getId());
         $this->messageBus->dispatch($command);
 

@@ -14,6 +14,7 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Resolver\RelationResolverInterface;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
@@ -34,6 +35,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -57,15 +59,26 @@ class ProductController extends AbstractController
     private $messageBus;
 
     /**
-     * @param DbalProductDataSet  $dataSet
-     * @param ProductGrid         $productGrid
-     * @param MessageBusInterface $messageBus
+     * @var RelationResolverInterface
      */
-    public function __construct(DbalProductDataSet $dataSet, ProductGrid $productGrid, MessageBusInterface $messageBus)
-    {
+    private $relationResolver;
+
+    /**
+     * @param DbalProductDataSet        $dataSet
+     * @param ProductGrid               $productGrid
+     * @param MessageBusInterface       $messageBus
+     * @param RelationResolverInterface $relationResolver
+     */
+    public function __construct(
+        DbalProductDataSet $dataSet,
+        ProductGrid $productGrid,
+        MessageBusInterface $messageBus,
+        RelationResolverInterface $relationResolver
+    ) {
         $this->dataSet = $dataSet;
         $this->productGrid = $productGrid;
         $this->messageBus = $messageBus;
+        $this->relationResolver = $relationResolver;
     }
 
     /**
@@ -335,6 +348,10 @@ class ProductController extends AbstractController
      *     response=404,
      *     description="Not found",
      * )
+     * @SWG\Response(
+     *     response="409",
+     *     description="Can't delete product",
+     * )
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
@@ -344,6 +361,10 @@ class ProductController extends AbstractController
      */
     public function deleteProduct(AbstractProduct $product): Response
     {
+        if ($this->relationResolver->resolve($product->getId())) {
+            throw new ConflictHttpException('The product cannot be removed because it has active relationships');
+        }
+
         $command = new DeleteProductCommand($product->getId());
         $this->messageBus->dispatch($command);
 

@@ -22,6 +22,7 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Resolver\RelationResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -56,18 +57,26 @@ class RoleController extends AbstractController
     private $messageBus;
 
     /**
-     * @param RoleQueryInterface  $query
-     * @param RoleGrid            $grid
-     * @param MessageBusInterface $messageBus
+     * @var RelationResolverInterface
+     */
+    private $relationResolver;
+
+    /**
+     * @param RoleQueryInterface        $query
+     * @param RoleGrid                  $grid
+     * @param MessageBusInterface       $messageBus
+     * @param RelationResolverInterface $relationResolver
      */
     public function __construct(
         RoleQueryInterface $query,
         RoleGrid $grid,
-        MessageBusInterface $messageBus
+        MessageBusInterface $messageBus,
+        RelationResolverInterface $relationResolver
     ) {
         $this->query = $query;
         $this->grid = $grid;
         $this->messageBus = $messageBus;
+        $this->relationResolver = $relationResolver;
     }
 
     /**
@@ -350,7 +359,7 @@ class RoleController extends AbstractController
      * )
      * @SWG\Response(
      *     response="409",
-     *     description="Can't delete Role",
+     *     description="Can't delete role",
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
@@ -361,17 +370,13 @@ class RoleController extends AbstractController
      */
     public function deleteRole(Role $role): Response
     {
-        $roleUsersCount = $this->query->getRoleUsersCount($role->getId());
-        if (0 === $roleUsersCount) {
-            $command = new DeleteRoleCommand($role->getId());
-            $this->messageBus->dispatch($command);
-
-            return new EmptyResponse();
+        if ($this->relationResolver->resolve($role->getId())) {
+            throw new ConflictHttpException('The role cannot be removed because it has active relationships');
         }
 
-        throw new ConflictHttpException(sprintf(
-            'Can\'t delete role "%s", users are assigned to it',
-            $role->getId()->getValue()
-        ));
+        $command = new DeleteRoleCommand($role->getId());
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }
