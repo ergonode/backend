@@ -23,12 +23,12 @@ use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Attribute\Domain\Query\AttributeTemplateQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGrid;
+use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Core\Infrastructure\Resolver\RelationResolverInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -38,7 +38,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
@@ -64,42 +63,34 @@ class AttributeController extends AbstractController
     private $attributeGridQuery;
 
     /**
-     * @var AttributeTemplateQueryInterface
-     */
-    private $attributeTemplateQuery;
-
-    /**
      * @var MessageBusInterface
      */
     private $messageBus;
 
     /**
-     * @var RelationResolverInterface
+     * @var RelationshipsResolverInterface
      */
-    private $relationResolver;
+    private $relationshipsResolver;
 
     /**
-     * @param AttributeGrid                   $attributeGrid
-     * @param AttributeQueryInterface         $attributeQuery
-     * @param AttributeGridQueryInterface     $attributeGridQuery
-     * @param AttributeTemplateQueryInterface $attributeTemplateQuery
-     * @param MessageBusInterface             $messageBus
-     * @param RelationResolverInterface       $relationResolver
+     * @param AttributeGrid                  $attributeGrid
+     * @param AttributeQueryInterface        $attributeQuery
+     * @param AttributeGridQueryInterface    $attributeGridQuery
+     * @param MessageBusInterface            $messageBus
+     * @param RelationshipsResolverInterface $relationshipsResolver
      */
     public function __construct(
         AttributeGrid $attributeGrid,
         AttributeQueryInterface $attributeQuery,
         AttributeGridQueryInterface $attributeGridQuery,
-        AttributeTemplateQueryInterface $attributeTemplateQuery,
         MessageBusInterface $messageBus,
-        RelationResolverInterface $relationResolver
+        RelationshipsResolverInterface $relationshipsResolver
     ) {
         $this->attributeGrid = $attributeGrid;
         $this->attributeQuery = $attributeQuery;
         $this->attributeGridQuery = $attributeGridQuery;
-        $this->attributeTemplateQuery = $attributeTemplateQuery;
         $this->messageBus = $messageBus;
-        $this->relationResolver = $relationResolver;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
@@ -394,7 +385,7 @@ class AttributeController extends AbstractController
      *     name="attribute",
      *     in="path",
      *     type="string",
-     *     description="Attribute id",
+     *     description="Attribute id"
      * )
      *  @SWG\Parameter(
      *     name="language",
@@ -402,19 +393,19 @@ class AttributeController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=204,
-     *     description="No content - Successful removing attribute",
+     *     description="Successful removing attribute"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found - Attribute not exists",
+     *     description="Attribute not exists"
      * )
      * @SWG\Response(
      *     response=409,
-     *     description="Attribute can't be deleted",
+     *     description="Existing relationships"
      * )
      *
      * @param AbstractAttribute $attribute
@@ -425,21 +416,14 @@ class AttributeController extends AbstractController
      */
     public function deleteAttribute(AbstractAttribute $attribute): Response
     {
-        if ($this->relationResolver->resolve($attribute->getId())) {
-            throw new ConflictHttpException('The attribute cannot be removed because it has active relationships');
+        $relationships = $this->relationshipsResolver->resolve($attribute->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsHttpException($relationships);
         }
 
-        $templates = $this->attributeTemplateQuery->getDesignTemplatesByAttributeId($attribute->getId());
-        if (empty($templates)) {
-            $command = new DeleteAttributeCommand($attribute->getId());
-            $this->messageBus->dispatch($command);
+        $command = new DeleteAttributeCommand($attribute->getId());
+        $this->messageBus->dispatch($command);
 
-            return new EmptyResponse();
-        }
-
-        throw new ConflictHttpException(json_encode([
-            'message' => 'Attribute used in templates',
-            'templates' => $templates,
-        ]));
+        return new EmptyResponse();
     }
 }

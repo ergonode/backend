@@ -36,12 +36,17 @@ services:
     Ergonode\Core\Domain\Query\LanguageQueryInterface: '@Ergonode\Core\Persistence\Dbal\Query\DbalLanguageQuery'
     Ergonode\Core\Domain\Repository\LanguageRepositoryInterface: '@Ergonode\Core\Persistence\Dbal\Repository\DbalLanguageRepository'
     Ergonode\Core\Application\Provider\DirectoryProviderInterface: '@Ergonode\Core\Application\Provider\SimpleDirectoryProvider'
+    Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface: '@Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver'
 
     Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry:
         decorates: 'jms_serializer.handler_registry'
         arguments:
             $handlers: !tagged 'jms_serializer.subscribing_handler'
             $registry: '@Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry.inner'
+
+    Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver:
+        arguments:
+            $strategies: !tagged 'core.relationship.strategy'
 
     # overriding message serializer
     messenger.transport.serializer:

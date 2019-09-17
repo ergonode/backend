@@ -21,8 +21,9 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Infrastructure\Resolver\RelationResolverInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -32,7 +33,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,26 +57,26 @@ class RoleController extends AbstractController
     private $messageBus;
 
     /**
-     * @var RelationResolverInterface
+     * @var RelationshipsResolverInterface
      */
-    private $relationResolver;
+    private $relationshipsResolver;
 
     /**
-     * @param RoleQueryInterface        $query
-     * @param RoleGrid                  $grid
-     * @param MessageBusInterface       $messageBus
-     * @param RelationResolverInterface $relationResolver
+     * @param RoleQueryInterface             $query
+     * @param RoleGrid                       $grid
+     * @param MessageBusInterface            $messageBus
+     * @param RelationshipsResolverInterface $relationshipsResolver
      */
     public function __construct(
         RoleQueryInterface $query,
         RoleGrid $grid,
         MessageBusInterface $messageBus,
-        RelationResolverInterface $relationResolver
+        RelationshipsResolverInterface $relationshipsResolver
     ) {
         $this->query = $query;
         $this->grid = $grid;
         $this->messageBus = $messageBus;
-        $this->relationResolver = $relationResolver;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
@@ -347,7 +347,7 @@ class RoleController extends AbstractController
      *     in="path",
      *     required=true,
      *     type="string",
-     *     description="Role Id",
+     *     description="Role Id"
      * )
      * @SWG\Response(
      *     response=204,
@@ -355,11 +355,11 @@ class RoleController extends AbstractController
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      * @SWG\Response(
      *     response="409",
-     *     description="Can't delete role",
+     *     description="Existing relationships"
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
@@ -370,8 +370,9 @@ class RoleController extends AbstractController
      */
     public function deleteRole(Role $role): Response
     {
-        if ($this->relationResolver->resolve($role->getId())) {
-            throw new ConflictHttpException('The role cannot be removed because it has active relationships');
+        $relationships = $this->relationshipsResolver->resolve($role->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsHttpException($relationships);
         }
 
         $command = new DeleteRoleCommand($role->getId());

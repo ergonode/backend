@@ -13,8 +13,9 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Infrastructure\Resolver\RelationResolverInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Designer\Application\Form\TemplateForm;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Ergonode\Designer\Domain\Command\DeleteTemplateCommand;
@@ -30,7 +31,6 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -59,29 +59,29 @@ class TemplateController extends AbstractController
     private $createCommandFactory;
 
     /**
-     * @var RelationResolverInterface
+     * @var RelationshipsResolverInterface
      */
-    private $relationResolver;
+    private $relationshipsResolver;
 
     /**
-     * @param TemplateQueryInterface    $designerTemplateQuery
-     * @param TemplateGrid              $templateGrid
-     * @param MessageBusInterface       $messageBus
-     * @param TemplateCommandFactory    $createCommandFactory
-     * @param RelationResolverInterface $relationResolver
+     * @param TemplateQueryInterface         $designerTemplateQuery
+     * @param TemplateGrid                   $templateGrid
+     * @param MessageBusInterface            $messageBus
+     * @param TemplateCommandFactory         $createCommandFactory
+     * @param RelationshipsResolverInterface $relationshipsResolver
      */
     public function __construct(
         TemplateQueryInterface $designerTemplateQuery,
         TemplateGrid $templateGrid,
         MessageBusInterface $messageBus,
         TemplateCommandFactory $createCommandFactory,
-        RelationResolverInterface $relationResolver
+        RelationshipsResolverInterface $relationshipsResolver
     ) {
         $this->designerTemplateQuery = $designerTemplateQuery;
         $this->templateGrid = $templateGrid;
         $this->messageBus = $messageBus;
         $this->createCommandFactory = $createCommandFactory;
-        $this->relationResolver = $relationResolver;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
@@ -351,7 +351,7 @@ class TemplateController extends AbstractController
      * )
      * @SWG\Response(
      *     response="409",
-     *     description="Can't delete template"
+     *     description="Existing relationships"
      * )
      *
      * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
@@ -362,8 +362,9 @@ class TemplateController extends AbstractController
      */
     public function deleteTemplate(Template $template): Response
     {
-        if ($this->relationResolver->resolve($template->getId())) {
-            throw new ConflictHttpException('The template cannot be deleted because it has active relationships');
+        $relationships = $this->relationshipsResolver->resolve($template->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsHttpException($relationships);
         }
 
         $command = new DeleteTemplateCommand($template->getId());

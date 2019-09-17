@@ -13,9 +13,10 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Core\Infrastructure\Resolver\RelationResolverInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Workflow\Application\Form\Model\StatusFormModel;
@@ -33,7 +34,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -58,26 +58,26 @@ class StatusController extends AbstractController
     private $grid;
 
     /**
-     * @var RelationResolverInterface
+     * @var RelationshipsResolverInterface
      */
-    private $relationResolver;
+    private $relationshipsResolver;
 
     /**
-     * @param MessageBusInterface       $messageBus
-     * @param StatusQueryInterface      $query
-     * @param StatusGrid                $grid
-     * @param RelationResolverInterface $relationResolver
+     * @param MessageBusInterface            $messageBus
+     * @param StatusQueryInterface           $query
+     * @param StatusGrid                     $grid
+     * @param RelationshipsResolverInterface $relationshipsResolver
      */
     public function __construct(
         MessageBusInterface $messageBus,
         StatusQueryInterface $query,
         StatusGrid $grid,
-        RelationResolverInterface $relationResolver
+        RelationshipsResolverInterface $relationshipsResolver
     ) {
         $this->messageBus = $messageBus;
         $this->query = $query;
         $this->grid = $grid;
-        $this->relationResolver = $relationResolver;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
@@ -371,7 +371,7 @@ class StatusController extends AbstractController
      * )
      * @SWG\Response(
      *     response="409",
-     *     description="Can't delete status",
+     *     description="Existing relationships"
      * )
      *
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
@@ -384,8 +384,9 @@ class StatusController extends AbstractController
      */
     public function deleteStatus(Status $status): Response
     {
-        if ($this->relationResolver->resolve($status->getId())) {
-            throw new ConflictHttpException('The status cannot be removed because it has active relationships');
+        $relationships = $this->relationshipsResolver->resolve($status->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsHttpException($relationships);
         }
 
         $command = new DeleteStatusCommand($status->getId());

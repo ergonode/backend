@@ -52,18 +52,12 @@ class AttributeGroupController extends AbstractController
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
-     *     name="language",
-     *     in="path",
-     *     type="string",
-     *     description="Language code",
-     * )
-     * @SWG\Parameter(
      *     name="limit",
      *     in="query",
      *     type="integer",
      *     required=true,
      *     default="50",
-     *     description="Number of returned lines",
+     *     description="Number of returned lines"
      * )
      * @SWG\Parameter(
      *     name="offset",
@@ -71,7 +65,7 @@ class AttributeGroupController extends AbstractController
      *     type="integer",
      *     required=true,
      *     default="0",
-     *     description="Number of start line",
+     *     description="Number of start line"
      * )
      * @SWG\Parameter(
      *     name="field",
@@ -79,7 +73,7 @@ class AttributeGroupController extends AbstractController
      *     required=false,
      *     type="string",
      *     enum={"id", "label","code", "hint"},
-     *     description="Order field",
+     *     description="Order field"
      * )
      * @SWG\Parameter(
      *     name="order",
@@ -87,7 +81,7 @@ class AttributeGroupController extends AbstractController
      *     required=false,
      *     type="string",
      *     enum={"ASC","DESC"},
-     *     description="Order",
+     *     description="Order"
      * )
      * @SWG\Parameter(
      *     name="filter",
@@ -110,11 +104,11 @@ class AttributeGroupController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns attribute collection",
+     *     description="Returns attribute collection"
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")

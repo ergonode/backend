@@ -13,7 +13,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 
 /**
  */
-interface RelationStrategyInterface
+interface RelationshipStrategyInterface
 {
     /**
      * @return string
@@ -32,5 +32,5 @@ interface RelationStrategyInterface
      *
      * @return array
      */
-    public function getRelations(AbstractId $id): array;
+    public function getRelationships(AbstractId $id): array;
 }

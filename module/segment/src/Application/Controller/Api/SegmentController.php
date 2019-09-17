@@ -14,8 +14,10 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Segment\Application\Form\CreateSegmentForm;
@@ -58,18 +60,26 @@ class SegmentController extends AbstractController
     private $query;
 
     /**
-     * @param SegmentGrid           $grid
-     * @param SegmentQueryInterface $query
-     * @param MessageBusInterface   $messageBus
+     * @var RelationshipsResolverInterface
+     */
+    private $relationshipsResolver;
+
+    /**
+     * @param SegmentGrid                    $grid
+     * @param SegmentQueryInterface          $query
+     * @param MessageBusInterface            $messageBus
+     * @param RelationshipsResolverInterface $relationshipsResolver
      */
     public function __construct(
         SegmentGrid $grid,
         SegmentQueryInterface $query,
-        MessageBusInterface $messageBus
+        MessageBusInterface $messageBus,
+        RelationshipsResolverInterface $relationshipsResolver
     ) {
         $this->grid = $grid;
         $this->query = $query;
         $this->messageBus = $messageBus;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
@@ -340,6 +350,10 @@ class SegmentController extends AbstractController
      *     response=404,
      *     description="Not found"
      * )
+     * @SWG\Response(
+     *     response="409",
+     *     description="Existing relationships"
+     * )
      *
      * @ParamConverter(class="Ergonode\Segment\Domain\Entity\Segment")
      *
@@ -349,6 +363,11 @@ class SegmentController extends AbstractController
      */
     public function deleteSegment(Segment $segment): Response
     {
+        $relationships = $this->relationshipsResolver->resolve($segment->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsHttpException($relationships);
+        }
+
         $command = new DeleteSegmentCommand($segment->getId());
         $this->messageBus->dispatch($command);
 

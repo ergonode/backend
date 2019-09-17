@@ -11,6 +11,7 @@ namespace Ergonode\Product\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\ProductId;
@@ -21,8 +22,9 @@ use Ergonode\Product\Domain\ValueObject\Sku;
  */
 class DbalProductQuery implements ProductQueryInterface
 {
-    private const PRODUCT_TABLE = 'product';
+    private const PRODUCT_TABLE = 'public.product';
     private const TEMPLATE_TABLE = 'designer.template';
+    private const VALUE_TABLE = 'public.product_value';
 
     /**
      * @var Connection
@@ -30,8 +32,6 @@ class DbalProductQuery implements ProductQueryInterface
     private $connection;
 
     /**
-     * DbalProductQuery constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)
@@ -40,9 +40,7 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @param Sku $sku
-     *
-     * @return array|null
+     * {@inheritDoc}
      */
     public function findBySku(Sku $sku): ?array
     {
@@ -59,7 +57,7 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @return array
+     * {@inheritDoc}
      */
     public function getAllIds(): array
     {
@@ -71,9 +69,7 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @param CategoryId $categoryId
-     *
-     * @return ProductId[]
+     * {@inheritDoc}
      */
     public function findProductIdByCategoryId(CategoryId $categoryId): array
     {
@@ -95,9 +91,7 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @param TemplateId $templateId
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function findProductIdByTemplateId(TemplateId $templateId): array
     {
@@ -108,6 +102,20 @@ class DbalProductQuery implements ProductQueryInterface
             ->setParameter(':templateId', $templateId->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductIdByAttributeId(AttributeId $attributeId): array
+    {
+        $queryBuilder = $this->connection->createQueryBuilder()
+            ->select('id')
+            ->from(self::VALUE_TABLE)
+            ->where('attribute_id = :attribute')
+            ->setParameter('attribute', $attributeId->getValue());
+
+        return $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
     }
 
     /**

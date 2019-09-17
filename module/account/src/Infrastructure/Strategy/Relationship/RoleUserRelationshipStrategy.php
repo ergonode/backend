@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Infrastructure\Strategy;
+namespace Ergonode\Account\Infrastructure\Strategy\Relationship;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Core\Infrastructure\Strategy\RelationStrategyInterface;
+use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  */
-class RoleUserRelationStrategy implements RelationStrategyInterface
+class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
 {
     public const TYPE = 'user';
 
@@ -53,7 +53,7 @@ class RoleUserRelationStrategy implements RelationStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function getRelations(AbstractId $id): array
+    public function getRelationships(AbstractId $id): array
     {
         if (!$this->supports($id)) {
             new UnexpectedTypeException($id, RoleId::class);

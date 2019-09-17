@@ -39,7 +39,7 @@ class DeleteRoleCommandHandler
     public function __invoke(DeleteRoleCommand $command)
     {
         $role = $this->repository->load($command->getId());
-        Assert::isInstanceOf($role, Role::class, sprintf('Can\'t find Role with id %s', $command->getId()));
+        Assert::isInstanceOf($role, Role::class, sprintf('Can\'t find role with id "%s"', $command->getId()));
 
         $this->repository->delete($role);
     }

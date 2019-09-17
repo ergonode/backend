@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Infrastructure\Handler;
 
-use Ergonode\Designer\Domain\Checker\TemplateRelationChecker;
 use Ergonode\Designer\Domain\Command\DeleteTemplateCommand;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Webmozart\Assert\Assert;
@@ -24,18 +23,11 @@ class DeleteTemplateHandler
     private $repository;
 
     /**
-     * @var TemplateRelationChecker
-     */
-    private $checker;
-
-    /**
      * @param TemplateRepositoryInterface $repository
-     * @param TemplateRelationChecker     $checker
      */
-    public function __construct(TemplateRepositoryInterface $repository, TemplateRelationChecker $checker)
+    public function __construct(TemplateRepositoryInterface $repository)
     {
         $this->repository = $repository;
-        $this->checker = $checker;
     }
 
     /**
@@ -44,12 +36,7 @@ class DeleteTemplateHandler
     public function __invoke(DeleteTemplateCommand $command)
     {
         $template = $this->repository->load($command->getId());
-
         Assert::notNull($template);
-
-        if ($this->checker->hasRelations($template)) {
-            throw new \RuntimeException('Can\'t delete template witch relations');
-        }
 
         $template->remove();
 
