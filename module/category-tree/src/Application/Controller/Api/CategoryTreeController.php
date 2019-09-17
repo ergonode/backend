@@ -17,7 +17,6 @@ use Ergonode\CategoryTree\Application\Form\CategoryTreeCreateForm;
 use Ergonode\CategoryTree\Application\Form\CategoryTreeUpdateForm;
 use Ergonode\CategoryTree\Application\Model\CategoryTreeCreateFormModel;
 use Ergonode\CategoryTree\Application\Model\CategoryTreeUpdateFormModel;
-use Ergonode\CategoryTree\Domain\Command\AddCategoryCommand;
 use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
 use Ergonode\CategoryTree\Domain\Command\DeleteTreeCommand;
 use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
