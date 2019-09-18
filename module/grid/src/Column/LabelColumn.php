@@ -40,8 +40,13 @@ class LabelColumn extends AbstractColumn
     public function __construct(string $field, string $label, array $statuses, FilterInterface $filter = null)
     {
         parent::__construct($field, $label, $filter);
-        $this->setExtension('attributeId', AttributeId::fromKey(new AttributeCode($field))->getValue());
 
+        $colors = [];
+        foreach ($statuses as $code => $status) {
+            $colors[$code] = $status['color'];
+        }
+        $this->setExtension('attributeId', AttributeId::fromKey(new AttributeCode($field))->getValue());
+        $this->setExtension('colors', $colors);
         $this->statuses = $statuses;
     }
 
