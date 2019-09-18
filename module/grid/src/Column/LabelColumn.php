@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Column;
 
+use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Grid\FilterInterface;
 
 /**
@@ -23,16 +25,24 @@ class LabelColumn extends AbstractColumn
     private $colorField;
 
     /**
-     * @param string               $field
-     * @param string               $colorField
-     * @param string               $label
-     * @param FilterInterface|null $filter
+     * @var array
      */
-    public function __construct(string $field, string $colorField, string $label, ?FilterInterface $filter = null)
+    private $statuses;
+
+    /**
+     * @param string               $field
+     * @param string               $label
+     * @param array                $statuses
+     * @param FilterInterface|null $filter
+     *
+     * @throws \Exception
+     */
+    public function __construct(string $field, string $label, array $statuses, FilterInterface $filter = null)
     {
         parent::__construct($field, $label, $filter);
+        $this->setExtension('attributeId', AttributeId::fromKey(new AttributeCode($field))->getValue());
 
-        $this->colorField = $colorField;
+        $this->statuses = $statuses;
     }
 
     /**
@@ -51,6 +61,12 @@ class LabelColumn extends AbstractColumn
      */
     public function render(string $id, array $row): array
     {
-        return ['label' => $row[$id], 'color' => $row[$this->colorField]];
+        if (isset($row[$id])) {
+            $status = $this->statuses[$row[$id]];
+
+            return ['label' => $status['name'], 'color' => $status['color']];
+        }
+
+        return [];
     }
 }
