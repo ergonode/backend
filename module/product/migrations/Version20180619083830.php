@@ -34,9 +34,8 @@ final class Version20180619083830 extends AbstractErgonodeMigration
 
         $this->addSql('CREATE TABLE product_value (product_id UUID NOT NULL, attribute_id UUID NOT NULL, value_id UUID NOT NULL, PRIMARY KEY(product_id, attribute_id, value_id))');
         $this->addSql('ALTER TABLE product_value ADD CONSTRAINT product_value_product_id_fk FOREIGN KEY (product_id) REFERENCES public.product on update cascade on delete cascade');
-        // @todo Attribute migrations are executing later!
-//        $this->addSql('ALTER TABLE product_value ADD CONSTRAINT product_value_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES public.attribute on update cascade on delete cascade');
-//        $this->addSql('ALTER TABLE product_value ADD CONSTRAINT product_value_value_id_fk FOREIGN KEY (value_id) REFERENCES public.value on update cascade on delete cascade');
+        $this->addSql('ALTER TABLE product_value ADD CONSTRAINT product_value_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES public.attribute on update cascade on delete cascade');
+        $this->addSql('ALTER TABLE product_value ADD CONSTRAINT product_value_value_id_fk FOREIGN KEY (value_id) REFERENCES public.value on update cascade on delete cascade');
 
         $this->addSql('CREATE TABLE product_category_product (category_id UUID NOT NULL, product_id UUID NOT NULL, PRIMARY KEY(category_id, product_id))');
         $this->addSql('ALTER TABLE product_category_product ADD CONSTRAINT product_category_product_product_id_fk FOREIGN KEY (product_id) REFERENCES public.product on update cascade on delete cascade');

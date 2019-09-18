@@ -10,7 +10,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-final class Version20180625083834 extends AbstractErgonodeMigration
+final class Version20180401083834 extends AbstractErgonodeMigration
 {
     /**
      * @param Schema $schema
@@ -54,6 +54,18 @@ final class Version20180625083834 extends AbstractErgonodeMigration
         $this->addSql('CREATE UNIQUE INDEX attribute_value_key_key ON value USING btree (key)');
 
         $this->addSql('
+            CREATE TABLE value_translation (      
+                id UUID NOT NULL,
+                value_id UUID NOT NULL, 
+                language VARCHAR(2) DEFAULT NULL,
+                value TEXT NOT NULL,                                                   
+                PRIMARY KEY(id)
+            )
+        ');
+        $this->addSql('CREATE INDEX ix_value_translation_language ON value_translation USING btree (language)');
+        $this->addSql('CREATE INDEX ix_value_translation_value_id ON value_translation USING btree (value_id)');
+
+        $this->addSql('
             CREATE TABLE attribute_group (
                 id UUID NOT NULL,
                 label VARCHAR(255) NOT NULL,
@@ -71,7 +83,6 @@ final class Version20180625083834 extends AbstractErgonodeMigration
             )
         ');
         $this->addSql('ALTER TABLE entity_attribute_value ADD CONSTRAINT entity_attribute_value_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE entity_attribute_value ADD CONSTRAINT entity_attribute_value_value_id_fk FOREIGN KEY (value_id) REFERENCES "value" ON UPDATE CASCADE ON DELETE CASCADE');
 
         $this->addSql('
             CREATE TABLE attribute_option (                 
@@ -82,7 +93,6 @@ final class Version20180625083834 extends AbstractErgonodeMigration
             )
         ');
         $this->addSql('ALTER TABLE attribute_option ADD CONSTRAINT attribute_option_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE attribute_option ADD CONSTRAINT attribute_option_value_id_fk FOREIGN KEY (value_id) REFERENCES "value" ON UPDATE CASCADE ON DELETE CASCADE');
 
         // @todo verify is really needed
         $this->addSql('
@@ -94,19 +104,6 @@ final class Version20180625083834 extends AbstractErgonodeMigration
             )
         ');
         $this->addSql('ALTER TABLE attribute_parameter ADD CONSTRAINT attribute_parameter_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
-
-        $this->addSql('
-            CREATE TABLE value_translation (      
-                id UUID NOT NULL,
-                value_id UUID NOT NULL, 
-                language VARCHAR(2) DEFAULT NULL,
-                value TEXT NOT NULL,                                                   
-                PRIMARY KEY(id)
-            )
-        ');
-        $this->addSql('CREATE INDEX ix_value_translation_language ON value_translation USING btree (language)');
-        $this->addSql('CREATE INDEX ix_value_translation_value_id ON value_translation USING btree (value_id)');
-        $this->addSql('ALTER TABLE value_translation ADD CONSTRAINT value_translation_value_id_fk FOREIGN KEY (value_id) REFERENCES "value" ON UPDATE CASCADE ON DELETE CASCADE');
 
         $this->addSql('
             CREATE TABLE attribute_group_attribute (

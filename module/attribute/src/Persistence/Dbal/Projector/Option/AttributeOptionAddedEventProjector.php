@@ -25,8 +25,8 @@ use Ramsey\Uuid\Uuid;
  */
 class AttributeOptionAddedEventProjector implements DomainEventProjectorInterface
 {
-    private const TABLE_ATTRIBUTE_OPTION = 'attribute_option';
-    private const TABLE_VALUE_TRANSLATION = 'value_translation';
+    private const TABLE_ATTRIBUTE_OPTION = 'public.attribute_option';
+    private const TABLE_VALUE_TRANSLATION = 'public.value_translation';
 
     /**
      * @var Connection
@@ -63,16 +63,16 @@ class AttributeOptionAddedEventProjector implements DomainEventProjectorInterfac
         $this->connection->transactional(function () use ($aggregateId, $event) {
             $valueId = Uuid::uuid4()->toString();
 
+            $this->insertOption($valueId, $event->getOption());
+
             $this->connection->insert(
                 self::TABLE_ATTRIBUTE_OPTION,
                 [
-                    'attribute_id' => $aggregateId->getValue(),
                     'key' => $event->getKey()->getValue(),
+                    'attribute_id' => $aggregateId->getValue(),
                     'value_id' => $valueId,
                 ]
             );
-
-            $this->insertOption($valueId, $event->getOption());
         });
     }
 

@@ -96,7 +96,7 @@ class TemplateController extends AbstractController
      *     type="integer",
      *     required=true,
      *     default="50",
-     *     description="Number of returned lines",
+     *     description="Number of returned lines"
      * )
      * @SWG\Parameter(
      *     name="offset",
@@ -104,7 +104,7 @@ class TemplateController extends AbstractController
      *     type="integer",
      *     required=true,
      *     default="0",
-     *     description="Number of start line",
+     *     description="Number of start line"
      * )
      * @SWG\Parameter(
      *     name="field",
@@ -112,7 +112,7 @@ class TemplateController extends AbstractController
      *     required=false,
      *     type="string",
      *     enum={"id", "label","code", "hint"},
-     *     description="Order field",
+     *     description="Order field"
      * )
      * @SWG\Parameter(
      *     name="order",
@@ -120,7 +120,7 @@ class TemplateController extends AbstractController
      *     required=false,
      *     type="string",
      *     enum={"ASC","DESC"},
-     *     description="Order",
+     *     description="Order"
      * )
      * @SWG\Parameter(
      *     name="filter",
@@ -143,11 +143,11 @@ class TemplateController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns templates",
+     *     description="Returns templates"
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
@@ -183,11 +183,11 @@ class TemplateController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Create template",
+     *     description="Create template"
      * )
      * @SWG\Response(
      *     response="400",
@@ -229,7 +229,7 @@ class TemplateController extends AbstractController
      *     name="template",
      *     in="path",
      *     type="string",
-     *     description="Template id",
+     *     description="Template id"
      * )
      * @SWG\Parameter(
      *     name="body",
@@ -244,11 +244,11 @@ class TemplateController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=204,
-     *     description="Update template",
+     *     description="Update template"
      * )
      * @SWG\Response(
      *     response=400,
@@ -291,7 +291,7 @@ class TemplateController extends AbstractController
      *     name="template",
      *     in="path",
      *     type="string",
-     *     description="Template id",
+     *     description="Template id"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -299,15 +299,15 @@ class TemplateController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns template",
+     *     description="Returns template"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      *
      * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
@@ -331,7 +331,7 @@ class TemplateController extends AbstractController
      *     name="template",
      *     in="path",
      *     type="string",
-     *     description="Template id",
+     *     description="Template ID"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -339,15 +339,15 @@ class TemplateController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=204,
-     *     description="Returns template",
+     *     description="Returns template"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      * @SWG\Response(
      *     response="409",

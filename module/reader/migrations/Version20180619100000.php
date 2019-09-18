@@ -13,6 +13,8 @@ final class Version20180619100000 extends AbstractErgonodeMigration
 {
     /**
      * @param Schema $schema
+     *
+     * @throws \Exception
      */
     public function up(Schema $schema): void
     {
@@ -29,6 +31,7 @@ final class Version20180619100000 extends AbstractErgonodeMigration
 
         $this->createEventStoreEvents([
             'Ergonode\Reader\Domain\Event\ReaderCreatedEvent' => 'Reader created',
+            'Ergonode\Reader\Domain\Event\ReaderDeletedEvent' => 'Reader deleted',
         ]);
     }
 
