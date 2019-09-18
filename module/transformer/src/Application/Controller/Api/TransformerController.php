@@ -10,8 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Transformer\Domain\Command\CreateTransformerCommand;
+use Ergonode\Transformer\Domain\Command\DeleteTransformerCommand;
 use Ergonode\Transformer\Domain\Command\GenerateTransformerCommand;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
@@ -40,13 +44,23 @@ class TransformerController extends AbstractController
     private $messageBus;
 
     /**
+     * @var RelationshipsResolverInterface
+     */
+    private $relationshipsResolver;
+
+    /**
      * @param TransformerRepositoryInterface $repository
      * @param MessageBusInterface            $messageBus
+     * @param RelationshipsResolverInterface $relationshipsResolver
      */
-    public function __construct(TransformerRepositoryInterface $repository, MessageBusInterface $messageBus)
-    {
+    public function __construct(
+        TransformerRepositoryInterface $repository,
+        MessageBusInterface $messageBus,
+        RelationshipsResolverInterface $relationshipsResolver
+    ) {
         $this->repository = $repository;
         $this->messageBus = $messageBus;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
@@ -157,5 +171,48 @@ class TransformerController extends AbstractController
         }
 
         throw new ConflictHttpException(sprintf('Transformer "%s" already exists', $name));
+    }
+
+    /**
+     * @Route("/transformers/{transformer}", methods={"DELETE"}, requirements={"transformer"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @SWG\Tag(name="Transformer")
+     * @SWG\Parameter(
+     *     name="transformer",
+     *     in="path",
+     *     required=true,
+     *     type="string",
+     *     description="Transformer ID"
+     * )
+     * @SWG\Response(
+     *     response=204,
+     *     description="Success"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found"
+     * )
+     * @SWG\Response(
+     *     response="409",
+     *     description="Existing relationships"
+     * )
+     *
+     * @ParamConverter(class="Ergonode\Transformer\Domain\Entity\Transformer")
+     *
+     * @param Transformer $transformer
+     *
+     * @return Response
+     */
+    public function deleteTransformer(Transformer $transformer): Response
+    {
+        $relationships = $this->relationshipsResolver->resolve($transformer->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsHttpException($relationships);
+        }
+
+        $command = new DeleteTransformerCommand($transformer->getId());
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }

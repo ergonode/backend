@@ -60,15 +60,4 @@ class DeleteAttributeCommandHandlerTest extends TestCase
         $handler = new DeleteAttributeCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
-
-    /**
-     * @expectedException Ergonode\Core\Application\Exception\NotImplementedException
-     */
-    public function testDelete(): void
-    {
-        $this->repository->method('load')->willReturn($this->attribute);
-
-        $handler = new DeleteAttributeCommandHandler($this->repository);
-        $handler->__invoke($this->command);
-    }
 }
