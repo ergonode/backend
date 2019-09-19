@@ -20,16 +20,6 @@ class LabelColumn extends AbstractColumn
     public const TYPE = 'LABEL';
 
     /**
-     * @var string
-     */
-    private $colorField;
-
-    /**
-     * @var array
-     */
-    private $statuses;
-
-    /**
      * @param string               $field
      * @param string               $label
      * @param array                $statuses
@@ -45,9 +35,9 @@ class LabelColumn extends AbstractColumn
         foreach ($statuses as $code => $status) {
             $colors[$code] = $status['color'];
         }
-        $this->setExtension('attributeId', AttributeId::fromKey(new AttributeCode($field))->getValue());
+
+        $this->setExtension('attribute_id', AttributeId::fromKey(new AttributeCode($field))->getValue());
         $this->setExtension('colors', $colors);
-        $this->statuses = $statuses;
     }
 
     /**
@@ -62,16 +52,10 @@ class LabelColumn extends AbstractColumn
      * @param string $id
      * @param array  $row
      *
-     * @return array
+     * @return string|null
      */
-    public function render(string $id, array $row): array
+    public function render(string $id, array $row): ?string
     {
-        if (isset($row[$id])) {
-            $status = $this->statuses[$row[$id]];
-
-            return ['label' => $status['name'], 'color' => $status['color']];
-        }
-
-        return [];
+        return $row[$id] ?? null;
     }
 }

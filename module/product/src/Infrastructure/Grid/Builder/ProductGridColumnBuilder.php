@@ -19,7 +19,6 @@ use Ergonode\Grid\Column\CheckColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\LabelFilter;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
@@ -95,7 +94,6 @@ class ProductGridColumnBuilder
         $result['id'] = new CheckColumn('id', 'Id');
         $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->getString('index')));
         $result['index']->setWidth(140);
-        $result[$statusCode] = new LabelColumn($statusCode, 'Status', $statuses, new SelectFilter($statusCodes, $filters->getString($statusCode)));
         $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->getString('sku')));
         $result['template'] = new TextColumn('template', 'Template', new TextFilter($filters->getString('template')));
         $result['edit'] = new ActionColumn('edit', 'Edit');
@@ -121,6 +119,9 @@ class ProductGridColumnBuilder
                 $result[$key] = $new;
             }
         }
+
+        $result[$statusCode] = new LabelColumn($statusCode, 'Status', $statuses, new SelectFilter($statusCodes, $filters->getString($statusCode)));
+        $result[$statusCode]->setEditable(true);
 
         return $result;
     }

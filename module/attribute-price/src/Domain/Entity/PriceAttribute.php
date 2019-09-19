@@ -32,10 +32,21 @@ class PriceAttribute extends AbstractAttribute
      * @param TranslatableString $placeholder
      * @param bool               $multilingual
      * @param Currency           $format
+     * @param bool               $system
+     *
+     * @throws \Exception
      */
-    public function __construct(AttributeId $id, AttributeCode $code, TranslatableString $label, TranslatableString $hint, TranslatableString $placeholder, bool $multilingual, Currency $format)
-    {
-        parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual, [self::CURRENCY => $format->getCode()]);
+    public function __construct(
+        AttributeId $id,
+        AttributeCode $code,
+        TranslatableString $label,
+        TranslatableString $hint,
+        TranslatableString $placeholder,
+        bool $multilingual,
+        Currency $format,
+        bool $system = false
+    ) {
+        parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual, [self::CURRENCY => $format->getCode()], $system);
     }
 
     /**
@@ -59,6 +70,8 @@ class PriceAttribute extends AbstractAttribute
 
     /**
      * @param Currency $new
+     *
+     * @throws \Exception
      */
     public function changeCurrency(Currency $new): void
     {

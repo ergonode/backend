@@ -63,13 +63,18 @@ class StatusGrid extends AbstractGrid
         $id->setVisible(false);
         $id->setWidth(140);
         $this->addColumn('id', $id);
-        $this->addColumn('code', new LabelColumn('code', $this->trans('Code'), $statuses, new SelectFilter($codes, $filters->getString('code'))));
+
+        $code = new LabelColumn('code', $this->trans('Code'), $statuses, new SelectFilter($codes, $filters->getString('code')));
+        $this->addColumn('code', $code);
+
         $column = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
         $column->setWidth(200);
         $this->addColumn('name', $column);
+
         $column = new TextColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description')));
         $column->setWidth(300);
         $this->addColumn('description', $column);
+
         $this->addColumn('edit', new ActionColumn('edit'));
         $this->orderBy('code', 'DESC');
     }
