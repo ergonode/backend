@@ -20,7 +20,7 @@ use Ergonode\Reader\Domain\Event\ReaderDeletedEvent;
  */
 class ReaderDeletedEventProjector implements DomainEventProjectorInterface
 {
-    private const TABLE = 'reader';
+    private const TABLE = 'importer.reader';
 
     /**
      * @var Connection

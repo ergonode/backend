@@ -115,66 +115,66 @@ Feature: Category module
   Scenario: Update category (empty name)
     Given current authentication token
     Given the request body is:
-    """
+      """
       {
         "name": {
         }
       }
-    """
+      """
     When I request "/api/v1/EN/categories/@category@" using HTTP PUT
     Then empty response is received
 
   Scenario: Update category (wrong parameter)
     Given current authentication token
     Given the request body is:
-    """
+      """
       {
         "test": {
         }
       }
-    """
+      """
     When I request "/api/v1/EN/categories/@category@" using HTTP PUT
     Then validation error response is received
 
   Scenario: Update category (wrong language code)
     Given current authentication token
     Given the request body is:
-    """
+      """
       {
         "name": {
           "test": "Test DE (changed)",
           "EN": "Test EN (changed)"
         }
       }
-    """
+      """
     When I request "/api/v1/EN/categories/@category@" using HTTP PUT
     Then validation error response is received
 
   Scenario: Update category (incorrect language code)
     Given current authentication token
     Given the request body is:
-    """
+      """
       {
         "name": {
           "ZZ": "Test DE (changed)",
           "EN": "Test EN (changed)"
         }
       }
-    """
+      """
     When I request "/api/v1/EN/categories/@category@" using HTTP PUT
     Then validation error response is received
 
   Scenario: Update category (empty translation)
     Given current authentication token
     Given the request body is:
-    """
+      """
       {
         "name": {
           "DE": "",
           "EN": "Test EN (changed)"
         }
       }
-    """
+      """
     When I request "/api/v1/EN/categories/@category@" using HTTP PUT
     Then validation error response is received
 
@@ -191,6 +191,20 @@ Feature: Category module
     Given current authentication token
     When I request "/api/v1/EN/categories/@@static_uuid@@" using HTTP GET
     Then not found response is received
+
+  Scenario: Delete category (not authorized)
+    When I request "/api/v1/EN/categories/@category@" using HTTP DELETE
+    Then unauthorized response is received
+
+  Scenario: Delete category (not found)
+    Given current authentication token
+    When I request "/api/v1/EN/categories/@@static_uuid@@" using HTTP DELETE
+    Then not found response is received
+
+  Scenario: Delete category
+    Given current authentication token
+    When I request "/api/v1/EN/categories/@category@" using HTTP DELETE
+    Then empty response is received
 
   Scenario: Get categories (order by code)
     Given current authentication token

@@ -45,6 +45,18 @@ class AttributeContext implements Context
     public function rememberFirstAttributeGroup(string $key): void
     {
         $response = $this->apiContext->getLastResponseBody();
-        $this->storageContext->add($key, $response[key($response)]->id);
+
+        if (!is_array($response)) {
+            throw new \RuntimeException('Empty attribute group list');
+        }
+
+        $value = null;
+        foreach ($response as $group) {
+            if (null !== $group->id) {
+                $value = $group->id;
+            }
+        }
+
+        $this->storageContext->add($key, $value);
     }
 }

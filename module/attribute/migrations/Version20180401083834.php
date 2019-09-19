@@ -141,7 +141,7 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             'Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent' => 'Attribute option added',
             'Ergonode\Attribute\Domain\Event\AttributeOptionRemovedEvent' => 'Attribute option removed',
             'Ergonode\Attribute\Domain\Event\AttributeOptionChangedEvent' => 'Attribute option changed',
-            'Ergonode\Attribute\Domain\Event\AttributeDeletedEvent' => 'Attribute deleted',
+            'Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent' => 'Attribute deleted',
         ]);
     }
 

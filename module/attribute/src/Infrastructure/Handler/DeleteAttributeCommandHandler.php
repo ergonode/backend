@@ -39,6 +39,6 @@ class DeleteAttributeCommandHandler
         $attribute = $this->repository->load($command->getId());
         Assert::isInstanceOf($attribute, AbstractAttribute::class, sprintf('Attribute with id "%s" not found', $command->getId()));
 
-        $this->repository->delete($command->getId());
+        $this->repository->delete($attribute);
     }
 }

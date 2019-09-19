@@ -21,7 +21,7 @@ final class Version20180619100000 extends AbstractErgonodeMigration
         $this->addSql('CREATE SCHEMA IF NOT EXISTS importer');
 
         $this->addSql('
-            CREATE TABLE IF NOT EXISTS  importer.reader (
+            CREATE TABLE IF NOT EXISTS importer.reader (
                 id UUID NOT NULL,
                 name VARCHAR(64) NOT NULL,
                 type VARCHAR(32) NOT NULL,
@@ -29,10 +29,33 @@ final class Version20180619100000 extends AbstractErgonodeMigration
             )
         ');
 
+        $this->createPrivileges([
+            'READER_CREATE' => 'Reader',
+            'READER_READ' => 'Reader',
+            'READER_UPDATE' => 'Reader',
+            'READER_DELETE' => 'Reader',
+        ]);
+
         $this->createEventStoreEvents([
             'Ergonode\Reader\Domain\Event\ReaderCreatedEvent' => 'Reader created',
             'Ergonode\Reader\Domain\Event\ReaderDeletedEvent' => 'Reader deleted',
         ]);
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Exception
+     */
+    private function createPrivileges(array $collection): void
+    {
+        foreach ($collection as $code => $area) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => $area,
+            ]);
+        }
     }
 
     /**

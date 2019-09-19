@@ -31,6 +31,10 @@ Ergonode\Account\Domain\Entity\Role:
             - 'Superadmin'
             - 'Manages Ergonode system, manages access to all permissions for other users.'
             -
+                - '<privilege("READER_CREATE")>'
+                - '<privilege("READER_READ")>'
+                - '<privilege("READER_UPDATE")>'
+                - '<privilege("READER_DELETE")>'
                 - '<privilege("IMPORT_CREATE")>'
                 - '<privilege("IMPORT_READ")>'
                 - '<privilege("IMPORT_UPDATE")>'
@@ -89,6 +93,10 @@ Ergonode\Account\Domain\Entity\Role:
             - 'Admin'
             - 'Manages Ergonode system, manages access to all permissions for other users.'
             -
+                - '<privilege("READER_CREATE")>'
+                - '<privilege("READER_READ")>'
+                - '<privilege("READER_UPDATE")>'
+                - '<privilege("READER_DELETE")>'
                 - '<privilege("IMPORT_CREATE")>'
                 - '<privilege("IMPORT_READ")>'
                 - '<privilege("IMPORT_UPDATE")>'

@@ -18,10 +18,9 @@ use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Reader\Domain\Command\CreateReaderCommand;
+use Ergonode\Reader\Domain\Command\DeleteReaderCommand;
 use Ergonode\Reader\Domain\Entity\Reader;
-use Ergonode\Reader\Domain\Entity\ReaderId;
 use Ergonode\Reader\Domain\Query\ReaderQueryInterface;
-use Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface;
 use Ergonode\Reader\Infrastructure\Grid\ReaderGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -37,11 +36,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ReaderController extends AbstractController
 {
-    /**
-     * @var ReaderRepositoryInterface
-     */
-    private $repository;
-
     /**
      * @var ReaderQueryInterface
      */
@@ -63,20 +57,17 @@ class ReaderController extends AbstractController
     private $relationshipsResolver;
 
     /**
-     * @param ReaderRepositoryInterface      $repository
      * @param ReaderQueryInterface           $query
      * @param ReaderGrid                     $grid
      * @param MessageBusInterface            $messageBus
      * @param RelationshipsResolverInterface $relationshipsResolver
      */
     public function __construct(
-        ReaderRepositoryInterface $repository,
         ReaderQueryInterface $query,
         ReaderGrid $grid,
         MessageBusInterface $messageBus,
         RelationshipsResolverInterface $relationshipsResolver
     ) {
-        $this->repository = $repository;
         $this->query = $query;
         $this->grid = $grid;
         $this->messageBus = $messageBus;
@@ -85,6 +76,8 @@ class ReaderController extends AbstractController
 
     /**
      * @Route("readers", methods={"GET"})
+     *
+     * @IsGranted("READER_READ")
      *
      * @SWG\Tag(name="Reader")
      * @SWG\Parameter(
@@ -162,12 +155,14 @@ class ReaderController extends AbstractController
     /**
      * @Route("readers/{reader}", methods={"GET"}, requirements={"reader"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("READER_READ")
+     *
      * @SWG\Tag(name="Reader")
      * @SWG\Parameter(
      *     name="reader",
      *     in="path",
      *     type="string",
-     *     description="Reader ID",
+     *     description="Reader ID"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -175,26 +170,32 @@ class ReaderController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=200,
      *     description="Return reader"
      * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Reader not found"
+     * )
      *
-     * @param string $reader
+     * @ParamConverter(class="Ergonode\Reader\Domain\Entity\Reader")
+     *
+     * @param Reader $reader
      *
      * @return Response
      */
-    public function getReader(string $reader): Response
+    public function getReader(Reader $reader): Response
     {
-        $reader = $this->repository->load(new ReaderId($reader));
-
         return new SuccessResponse($reader);
     }
 
     /**
      * @Route("readers", methods={"POST"})
+     *
+     * @IsGranted("READER_CREATE")
      *
      * @SWG\Tag(name="Reader")
      * @SWG\Parameter(

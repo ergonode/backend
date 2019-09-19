@@ -14,7 +14,6 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
@@ -73,18 +72,17 @@ class DbalProductQuery implements ProductQueryInterface
      */
     public function findProductIdByCategoryId(CategoryId $categoryId): array
     {
-        $qb = $this->getQuery();
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('p.id')
+            ->from('public.product', 'p')
+            ->join('p', 'public.product_category_product', 'pcp', 'p.id = pcp.product_id')
+            ->where($queryBuilder->expr()->in('pcp.category_id', ':category'))
+            ->setParameter(':category', $categoryId->getValue());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
-        $result = [];
-        $records = $qb
-            ->select('id')
-            ->where($qb->expr()->in('category', ':category'))
-            ->setParameter(':category', $categoryId->getValue())
-            ->execute()
-            ->fetch(\PDO::FETCH_COLUMN);
-
-        foreach ($records as $record) {
-            $result[] = new ProductId($record);
+        if (false === $result) {
+            $result = [];
         }
 
         return $result;
@@ -95,13 +93,18 @@ class DbalProductQuery implements ProductQueryInterface
      */
     public function findProductIdByTemplateId(TemplateId $templateId): array
     {
-        $qb = $this->getQuery();
+        $queryBuilder = $this->getQuery();
+        $queryBuilder
+            ->select('p.id')
+            ->where($queryBuilder->expr()->eq('p.template_id', ':templateId'))
+            ->setParameter(':templateId', $templateId->getValue());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
-        return $qb->select('p.id')
-            ->where($qb->expr()->eq('p.template_id', ':templateId'))
-            ->setParameter(':templateId', $templateId->getValue())
-            ->execute()
-            ->fetchAll(\PDO::FETCH_COLUMN);
+        if (false === $result) {
+            $result = [];
+        }
+
+        return $result;
     }
 
     /**
@@ -110,12 +113,17 @@ class DbalProductQuery implements ProductQueryInterface
     public function findProductIdByAttributeId(AttributeId $attributeId): array
     {
         $queryBuilder = $this->connection->createQueryBuilder()
-            ->select('id')
+            ->select('product_id')
             ->from(self::VALUE_TABLE)
             ->where('attribute_id = :attribute')
             ->setParameter('attribute', $attributeId->getValue());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
-        return $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        if (false === $result) {
+            $result = [];
+        }
+
+        return $result;
     }
 
     /**

@@ -71,15 +71,15 @@ class TransformerController extends AbstractController
      *     name="transformer",
      *     in="path",
      *     type="string",
-     *     description="Transformer id",
+     *     description="Transformer id"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns transformer",
+     *     description="Returns transformer"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Transformer not found",
+     *     description="Transformer not found"
      * )
      *
      * @param Transformer $transformer
@@ -102,11 +102,11 @@ class TransformerController extends AbstractController
      *     name="name",
      *     in="formData",
      *     type="string",
-     *     description="Transformer name",
+     *     description="Transformer name"
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Return id of created Transformer",
+     *     description="Return id of created Transformer"
      * )
      *
      * @param Request $request
@@ -118,6 +118,7 @@ class TransformerController extends AbstractController
     public function addTransformer(Request $request): Response
     {
         $name = $request->request->get('name');
+        // @todo Why key is const?
         $command = new CreateTransformerCommand($name, 'key');
         $this->messageBus->dispatch($command);
 
@@ -132,17 +133,17 @@ class TransformerController extends AbstractController
      *     name="name",
      *     in="formData",
      *     type="string",
-     *     description="Transformer name",
+     *     description="Transformer name"
      * )
      * @SWG\Parameter(
      *     name="type",
      *     in="formData",
      *     type="string",
-     *     description="Transformer generator type",
+     *     description="Transformer generator type"
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Return id of created Transformer",
+     *     description="Return id of created Transformer"
      * )
      * @SWG\Response(
      *     response=409,

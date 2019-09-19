@@ -339,11 +339,6 @@ Feature: Designer module
     When I request "/api/v1/EN/templates/@template@" using HTTP PUT
     Then validation error response is received
 
-  Scenario: Delete template
-    Given current authentication token
-    When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
-    Then empty response is received
-
   Scenario: Delete template (not authorized)
     When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
     Then unauthorized response is received
@@ -352,6 +347,11 @@ Feature: Designer module
     Given current authentication token
     When I request "/api/v1/EN/templates/@@static_uuid@@" using HTTP DELETE
     Then not found response is received
+
+  Scenario: Delete template
+    Given current authentication token
+    When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
+    Then empty response is received
 
   Scenario: Get template
     Given current authentication token

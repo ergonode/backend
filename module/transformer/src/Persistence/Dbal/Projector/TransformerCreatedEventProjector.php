@@ -43,8 +43,6 @@ class TransformerCreatedEventProjector implements DomainEventProjectorInterface
 
     /**
      * {@inheritDoc}
-     *
-     * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -52,15 +50,13 @@ class TransformerCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, TransformerCreatedEvent::class);
         }
 
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $this->connection->insert(
-                'importer.transformer',
-                [
-                    'id' => $aggregateId->getValue(),
-                    'name' => $event->getName(),
-                    'key' => $event->getKey(),
-                ]
-            );
-        });
+        $this->connection->insert(
+            'importer.transformer',
+            [
+                'id' => $aggregateId->getValue(),
+                'name' => $event->getName(),
+                'key' => $event->getKey(),
+            ]
+        );
     }
 }

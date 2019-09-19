@@ -13,6 +13,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Reader\Domain\Entity\Reader;
 use Ergonode\Reader\Domain\Entity\ReaderId;
+use Ergonode\Reader\Domain\Event\ReaderDeletedEvent;
 use Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface;
 
 /**
@@ -89,6 +90,8 @@ class DbalReaderRepository implements ReaderRepositoryInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @throws \Exception
      */
     public function delete(Reader $reader): void
     {
