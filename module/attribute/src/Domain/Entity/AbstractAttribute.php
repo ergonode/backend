@@ -310,7 +310,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
         $this->multilingual = $event->isMultilingual();
         $this->placeholder = $event->getPlaceholder();
         $this->parameters = $event->getParameters();
-        $this->system = $event->getSystem();
+        $this->system = $event->isSystem();
     }
 
     /**

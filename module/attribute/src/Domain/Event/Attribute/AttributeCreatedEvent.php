@@ -200,7 +200,7 @@ class AttributeCreatedEvent implements DomainEventInterface
     /**
      * @return bool
      */
-    public function getSystem(): bool
+    public function isSystem(): bool
     {
         return $this->system;
     }
