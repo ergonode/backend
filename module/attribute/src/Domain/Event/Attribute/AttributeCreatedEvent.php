@@ -83,6 +83,13 @@ class AttributeCreatedEvent implements DomainEventInterface
     private $parameters;
 
     /**
+     * @var bool
+     *
+     * @JMS\Type("bool")
+     */
+    private $system;
+
+    /**
      * @param AttributeId        $id
      * @param AttributeCode      $code
      * @param TranslatableString $label
@@ -92,6 +99,7 @@ class AttributeCreatedEvent implements DomainEventInterface
      * @param string             $type
      * @param string             $class
      * @param array              $parameters
+     * @param bool               $system
      */
     public function __construct(
         AttributeId $id,
@@ -102,7 +110,8 @@ class AttributeCreatedEvent implements DomainEventInterface
         bool $multilingual,
         string $type,
         string $class,
-        array $parameters = []
+        array $parameters = [],
+        bool $system = false
     ) {
         $this->id = $id;
         $this->code = $code;
@@ -113,6 +122,7 @@ class AttributeCreatedEvent implements DomainEventInterface
         $this->multilingual = $multilingual;
         $this->placeholder = $placeholder;
         $this->parameters = $parameters;
+        $this->system = $system;
     }
 
     /**
@@ -185,5 +195,13 @@ class AttributeCreatedEvent implements DomainEventInterface
     public function getParameters(): array
     {
         return $this->parameters;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSystem(): bool
+    {
+        return $this->system;
     }
 }
