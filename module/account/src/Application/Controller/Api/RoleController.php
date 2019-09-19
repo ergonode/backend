@@ -349,6 +349,14 @@ class RoleController extends AbstractController
      *     type="string",
      *     description="Role Id"
      * )
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language code",
+     * )
      * @SWG\Response(
      *     response=204,
      *     description="Success"

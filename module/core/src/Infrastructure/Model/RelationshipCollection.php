@@ -60,6 +60,6 @@ class RelationshipCollection
      */
     public function isEmpty(): bool
     {
-        return !empty($this->collection);
+        return 0 === count($this->collection);
     }
 }

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\DependencyInjection\CompilerPass;
 
-use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -25,7 +25,7 @@ class RelationshipStrategyInterfaceCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container): void
     {
-        if ($container->has(RelationshipStrategyInterface::class)) {
+        if ($container->has(RelationshipsResolverInterface::class)) {
             $this->processStrategies($container);
         }
     }
@@ -36,13 +36,10 @@ class RelationshipStrategyInterfaceCompilerPass implements CompilerPassInterface
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];
-        $definition = $container->findDefinition(RelationshipStrategyInterface::class);
-        $strategies = $container->findTaggedServiceIds(self::TAG);
-
-        foreach ($strategies as $id => $strategy) {
+        foreach ($container->findTaggedServiceIds(self::TAG) as $id => $strategy) {
             $arguments[] = new Reference($id);
         }
 
-        $definition->setArguments($arguments);
+        $container->findDefinition(RelationshipsResolverInterface::class)->setArguments($arguments);
     }
 }

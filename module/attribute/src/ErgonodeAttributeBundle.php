@@ -26,8 +26,9 @@ class ErgonodeAttributeBundle extends AbstractModule
     {
         parent::build($container);
 
-        $container->addCompilerPass(new AttributeFactoryInterfaceCompilerPass());
-        $container->addCompilerPass(new AttributeUpdaterInterfaceCompilerPass());
-        $container->addCompilerPass(new AttributeValidatorInterfaceCompilerPass());
+        $container
+            ->addCompilerPass(new AttributeFactoryInterfaceCompilerPass())
+            ->addCompilerPass(new AttributeUpdaterInterfaceCompilerPass())
+            ->addCompilerPass(new AttributeValidatorInterfaceCompilerPass());
     }
 }

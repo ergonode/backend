@@ -12,24 +12,21 @@ namespace Ergonode\Core\Infrastructure\Resolver;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
-use Webmozart\Assert\Assert;
 
 /**
  */
 class RelationshipsResolver implements RelationshipsResolverInterface
 {
     /**
-     * @var iterable
+     * @var RelationshipStrategyInterface[]
      */
     private $strategies;
 
     /**
-     * @param iterable $strategies
+     * @param RelationshipStrategyInterface ...$strategies
      */
-    public function __construct(iterable $strategies)
+    public function __construct(RelationshipStrategyInterface ...$strategies)
     {
-        Assert::allIsInstanceOf($strategies, RelationshipStrategyInterface::class);
-
         $this->strategies = $strategies;
     }
 

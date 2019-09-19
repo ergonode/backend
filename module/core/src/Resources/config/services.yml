@@ -1,8 +1,8 @@
 services:
     _defaults:
-            autowire: true
-            autoconfigure: true
-            public: false
+        autowire: true
+        autoconfigure: true
+        public: false
 
     Ergonode\Core\Persistence\:
         resource: '../../Persistence/*'
@@ -43,10 +43,6 @@ services:
         arguments:
             $handlers: !tagged 'jms_serializer.subscribing_handler'
             $registry: '@Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry.inner'
-
-    Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver:
-        arguments:
-            $strategies: !tagged 'core.relationship.strategy'
 
     # overriding message serializer
     messenger.transport.serializer:
