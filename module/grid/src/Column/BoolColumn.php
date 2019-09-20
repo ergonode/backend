@@ -16,7 +16,7 @@ use Ergonode\Grid\FilterInterface;
 class BoolColumn extends AbstractColumn
 {
     public const TYPE = 'BOOL';
-    private const WIDTH = 50;
+    private const WIDTH = 100;
 
     /**
      * @param string               $field
