@@ -40,7 +40,7 @@ class NumericAttributeValueConditionValidatorBuilder implements ConditionValidat
                 ],
                 'value' => [
                     new NotBlank(),
-                    new Type('numeric')
+                    new Type('numeric'),
                 ],
             ]
         );
