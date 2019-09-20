@@ -59,7 +59,7 @@ class StatusGrid extends AbstractGrid
             $codes[$code] = $status['name'];
         }
 
-        $id = new TextColumn('id', $this->trans('Id'), new TextFilter($filters->getString('code')));
+        $id = new TextColumn('id', $this->trans('Id'), new TextFilter($filters->getString('id')));
         $id->setVisible(false);
         $id->setWidth(140);
         $this->addColumn('id', $id);
