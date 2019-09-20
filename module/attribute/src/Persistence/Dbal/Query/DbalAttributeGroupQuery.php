@@ -79,6 +79,6 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
                 \'Not in group\' as label
                 FROM attribute a
                 LEFT JOIN attribute_group_attribute aga ON aga.attribute_id = a.id
-                WHERE aga.attribute_id IS NULL';
+                WHERE aga.attribute_id IS NULL AND a.system = false';
     }
 }

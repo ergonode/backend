@@ -323,7 +323,8 @@ class DbalAttributeQuery implements AttributeQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select('id, code, type')
-            ->from(self::TABLE, 'a');
+            ->from(self::TABLE, 'a')
+            ->where('system = false');
     }
 
     /**
