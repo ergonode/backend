@@ -22,4 +22,16 @@ interface StatusQueryInterface
      * @return DataSetInterface
      */
     public function getDataSet(Language $language): DataSetInterface;
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getAllStatuses(language $language): array;
+
+    /**
+     * @return array
+     */
+    public function getAllCodes(): array;
 }

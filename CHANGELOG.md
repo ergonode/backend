@@ -1,3 +1,14 @@
+## CHANGELOG FOR 0.4.0
+
+ - feature [#104](https://github.com/ergonode/backend/issues/104) Multiple category trees (wiewiurdp)
+ - feature [#98](https://github.com/ergonode/backend/issues/98) Add Workflow Transitions (rprzedzik)
+ - feature [#77](https://github.com/ergonode/backend/issues/77) User activity flag (BastekBielawski)
+ - improvement [#76](https://github.com/ergonode/backend/issues/76) JMS interface handler (BastekBielawski)
+ - feature [#73](https://github.com/ergonode/backend/issues/73) Add product status (rprzedzik)
+ - feature [#71](https://github.com/ergonode/backend/issues/71) Language configuration (wiewiurdp)
+ - experimental [#90](https://github.com/ergonode/backend/issues/90) Remove FOSRestBundle (BastekBielawski)
+ - improvement Upgrade to Symfony 4.3 (BastekBielawski)
+ 
 ## CHANGELOG FOR 0.3.0
 
  - feature [#39](https://github.com/ergonode/backend/issues/39) Add Roles and privileges (rprzedzik)

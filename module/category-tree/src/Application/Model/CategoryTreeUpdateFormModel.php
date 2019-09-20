@@ -37,6 +37,7 @@ class CategoryTreeUpdateFormModel
      */
     public function __construct()
     {
+        $this->name = [];
         $this->categories = [];
     }
 }

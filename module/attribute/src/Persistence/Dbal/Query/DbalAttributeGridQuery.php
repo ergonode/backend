@@ -67,6 +67,7 @@ class DbalAttributeGridQuery implements AttributeGridQueryInterface
         return $this->connection->createQueryBuilder()
             ->select(self::FIELDS)
             ->addSelect('(SELECT COALESCE(jsonb_agg(ag.id),\'[]\') FROM attribute_group_attribute aga JOIN attribute_group ag ON aga.attribute_group_id = ag.id WHERE aga.attribute_id = a.id) AS groups')
-            ->from(self::ATTRIBUTE_TABLE, 'a');
+            ->from(self::ATTRIBUTE_TABLE, 'a')
+            ->where('a.system = false');
     }
 }

@@ -28,7 +28,8 @@ final class Version20180625083834 extends AbstractErgonodeMigration
                     label UUID NOT NULL,
                     placeholder UUID NOT NULL,
                     hint UUID NOT NULL,       
-                    multilingual BOOLEAN NOT NULL,                
+                    multilingual BOOLEAN NOT NULL,
+                    system BOOLEAN NOT NULL DEFAULT false,                
                     PRIMARY KEY(id)
                 )'
         );
