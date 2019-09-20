@@ -128,7 +128,7 @@ class DbalProductQuery implements ProductQueryInterface
         $attributeId = $this->connection->createQueryBuilder()
             ->select('a.id')
             ->from('public.attribute', 'a')
-            ->where('a.code = "esa_status"')
+            ->where('a.code = \'esa_status\'')
             ->setMaxResults(1)
             ->execute()->fetchColumn();
 
@@ -138,7 +138,7 @@ class DbalProductQuery implements ProductQueryInterface
             ->select('p.id')
             ->from(self::PRODUCT_TABLE, 'p')
             ->join('p', 'designer.draft', 'd', 'p.id = d.product_id')
-            ->join('d', 'designer.dratf_value', 'dv', 'd.id = dv.draft_id')
+            ->join('d', 'designer.draft_value', 'dv', 'd.id = dv.draft_id')
             ->where('dv.value = :statusCode')
             ->andWhere('dv.element_id = :attributeId')
             ->setParameter('statusCode', $statusCode)
