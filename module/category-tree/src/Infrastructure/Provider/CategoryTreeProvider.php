@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -12,6 +12,7 @@ namespace Ergonode\CategoryTree\Infrastructure\Provider;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  */
@@ -42,7 +43,7 @@ class CategoryTreeProvider
         $treeId = CategoryTreeId::fromKey($code);
         $tree = $this->repository->load($treeId);
         if (null === $tree) {
-            $tree = new CategoryTree($treeId, $code);
+            $tree = new CategoryTree($treeId, $code, new TranslatableString([]));
             $this->repository->save($tree);
         }
 

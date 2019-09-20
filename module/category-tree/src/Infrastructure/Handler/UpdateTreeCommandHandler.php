@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -23,6 +23,8 @@ class UpdateTreeCommandHandler
     private $repository;
 
     /**
+     * UpdateTreeCommandHandler constructor.
+     *
      * @param TreeRepositoryInterface $repository
      */
     public function __construct(TreeRepositoryInterface $repository)
@@ -35,12 +37,11 @@ class UpdateTreeCommandHandler
      */
     public function __invoke(UpdateTreeCommand $command)
     {
-        $tree = $this->repository->load($command->getId());
+        $categoryTree = $this->repository->load($command->getId());
+        Assert::notNull($categoryTree);
 
-        Assert::notNull($tree);
-
-        $tree->updateCategories($command->getCategories());
-
-        $this->repository->save($tree);
+        $categoryTree->updateCategories($command->getCategories());
+        $categoryTree->changeName($command->getName());
+        $this->repository->save($categoryTree);
     }
 }

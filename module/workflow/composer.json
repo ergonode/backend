@@ -1,0 +1,22 @@
+{
+    "name": "ergonode/workflow",
+    "type": "ergonode-module",
+    "description": "Ergonode - Workflow",
+    "homepage": "https://ergonode.com",
+    "license": "OSL-3.0",
+    "require": {
+        "php": "^7.2",
+        "ergonode/api": "^0.4.0",
+        "ergonode/core": "^0.4.0",
+        "ergonode/es": "^0.4.0",
+        "ergonode/grid": "^0.4.0",
+        "doctrine/dbal": "^2.9",
+        "jms/serializer": "^3.1",
+        "ramsey/uuid": "^3.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ergonode\\Workflow\\": "src/"
+        }
+    }
+}

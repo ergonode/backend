@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -17,8 +17,10 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class DictionaryConverter extends AbstractConverter implements ConverterInterface
+class DictionaryConverter implements ConverterInterface
 {
+    public const TYPE = 'dictionary';
+
     /**
      * @var array
      *
@@ -38,10 +40,20 @@ class DictionaryConverter extends AbstractConverter implements ConverterInterfac
      * @param array       $translations
      * @param string|null $field
      */
-    public function __construct(array $translations = [], string $field = null)
+    public function __construct(array $translations = [], ?string $field = null)
     {
         $this->translations = $translations;
         $this->field = $field;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 
     /**

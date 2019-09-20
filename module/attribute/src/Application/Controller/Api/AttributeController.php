@@ -2,13 +2,17 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Controller\Api;
 
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Application\Form\AttributeCreateForm;
 use Ergonode\Attribute\Application\Form\AttributeUpdateForm;
 use Ergonode\Attribute\Application\Form\Model\CreateAttributeFormModel;
@@ -22,17 +26,18 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeTemplateQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
@@ -40,7 +45,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class AttributeController extends AbstractApiController
+class AttributeController extends AbstractController
 {
     /**
      * @var AttributeGrid
@@ -94,7 +99,6 @@ class AttributeController extends AbstractApiController
      * @IsGranted("ATTRIBUTE_READ")
      *
      * @SWG\Tag(name="Attribute")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -154,23 +158,19 @@ class AttributeController extends AbstractApiController
      *     response=200,
      *     description="Returns attribute collection",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getAttributes(Language $language, Request $request): Response
+    public function getAttributes(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
         $dataSet = $this->attributeGridQuery->getDataSet($language);
-        $grid = $this->renderGrid($this->attributeGrid, $configuration, $dataSet, $language);
 
-        return $this->createRestResponse($grid);
+        return new GridResponse($this->attributeGrid, $configuration, $dataSet, $language);
     }
 
     /**
@@ -202,12 +202,13 @@ class AttributeController extends AbstractApiController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns attribute",
+     *     response=201,
+     *     description="Returns attribute ID",
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -221,7 +222,6 @@ class AttributeController extends AbstractApiController
         try {
             $model = new CreateAttributeFormModel();
             $form = $this->createForm(AttributeCreateForm::class, $model);
-
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -241,7 +241,7 @@ class AttributeController extends AbstractApiController
                 );
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
@@ -290,7 +290,7 @@ class AttributeController extends AbstractApiController
         $result = $this->attributeQuery->getAttribute($attribute->getId());
 
         if ($result) {
-            return $this->createRestResponse($result);
+            return new SuccessResponse($result);
         }
 
         throw new NotFoundHttpException();
@@ -328,14 +328,19 @@ class AttributeController extends AbstractApiController
      *     description="Returns attribute",
      * )
      * @SWG\Response(
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
+     * )
+     * @SWG\Response(
      *     response=404,
      *     description="Not found",
      * )
      *
+     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     *
      * @param AbstractAttribute $attribute
      * @param Request           $request
-     *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
      *
      * @return Response
      */
@@ -343,8 +348,7 @@ class AttributeController extends AbstractApiController
     {
         try {
             $model = new UpdateAttributeFormModel(new AttributeType($attribute->getType()));
-            $form = $this->createForm(AttributeUpdateForm::class, $model, ['method' => 'PUT']);
-
+            $form = $this->createForm(AttributeUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -362,13 +366,13 @@ class AttributeController extends AbstractApiController
                 );
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()]);
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -392,20 +396,16 @@ class AttributeController extends AbstractApiController
      *     description="Language Code",
      * )
      * @SWG\Response(
-     *     response=400,
-     *     description="Bad Request - Invalid attribute id",
-     *)
-     * @SWG\Response(
      *     response=204,
      *     description="No content - Successful removing attribute",
-     *)
-     * @SWG\Response(
-     *     response=405,
-     *     description="Method Not Allowed - Attribute can't be deleted",
      * )
      * @SWG\Response(
      *     response=404,
      *     description="Not found - Attribute not exists",
+     * )
+     * @SWG\Response(
+     *     response=409,
+     *     description="Attribute can't be deleted",
      * )
      *
      * @param AbstractAttribute $attribute
@@ -421,16 +421,12 @@ class AttributeController extends AbstractApiController
             $command = new DeleteAttributeCommand($attribute->getId());
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse(null, [], Response::HTTP_NO_CONTENT);
+            return new EmptyResponse();
         }
 
-        return $this->createRestResponse(
-            [
-                'message' => 'Attribute used in templates',
-                'templates' => $templates,
-            ],
-            [],
-            Response::HTTP_METHOD_NOT_ALLOWED
-        );
+        throw new ConflictHttpException(json_encode([
+            'message' => 'Attribute used in templates',
+            'templates' => $templates,
+        ]));
     }
 }

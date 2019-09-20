@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -13,8 +13,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeArrayParameterChangeEvent;
-use Ergonode\AttributeImage\Domain\Event\AttributeImageFormatAddedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\AttributeImage\Domain\Event\AttributeImageFormatAddedEvent;
 use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Webmozart\Assert\Assert;
@@ -33,7 +33,10 @@ class ImageAttribute extends AbstractAttribute
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param bool               $multilingual
-     * @param ImageFormat[]      $formats
+     * @param array              $formats
+     * @param bool               $system
+     *
+     * @throws \Exception
      */
     public function __construct(
         AttributeId $id,
@@ -42,13 +45,14 @@ class ImageAttribute extends AbstractAttribute
         TranslatableString $hint,
         TranslatableString $placeholder,
         bool $multilingual,
-        array $formats = []
+        array $formats = [],
+        bool $system = false
     ) {
         $params = [];
         foreach ($formats as $format) {
             $params[] = $format->getFormat();
         }
-        parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual, [self::FORMATS => $params]);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual, [self::FORMATS => $params], $system);
     }
 
     /**
@@ -61,6 +65,8 @@ class ImageAttribute extends AbstractAttribute
 
     /**
      * @param ImageFormat $format
+     *
+     * @throws \Exception
      */
     public function addFormat(ImageFormat $format): void
     {
@@ -78,7 +84,9 @@ class ImageAttribute extends AbstractAttribute
     }
 
     /**
-     * @param ImageFormat[] $formats
+     * @param array $formats
+     *
+     * @throws \Exception
      */
     public function changeFormats(array $formats): void
     {

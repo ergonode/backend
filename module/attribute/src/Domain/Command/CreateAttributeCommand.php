@@ -2,14 +2,13 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Command;
 
-use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
@@ -89,20 +88,28 @@ class CreateAttributeCommand
     /**
      * @var OptionInterface[]
      *
-     * @JMS\Type("array<string, Ergonode\Attribute\Domain\ValueObject\OptionValue\AbstractOption>")
+     * @JMS\Type("array<string, Ergonode\Attribute\Domain\ValueObject\OptionInterface>")
      */
     private $options;
 
     /**
-     * @param AttributeType          $type
-     * @param AttributeCode          $code
-     * @param TranslatableString     $label
-     * @param TranslatableString     $hint
-     * @param TranslatableString     $placeholder
-     * @param bool                   $multilingual
-     * @param array                  $groups
-     * @param array                  $parameters
-     * @param AttributeOptionModel[] $options
+     * @var bool
+     *
+     * @JMS\Type("bool")
+     */
+    private $system;
+
+    /**
+     * @param AttributeType      $type
+     * @param AttributeCode      $code
+     * @param TranslatableString $label
+     * @param TranslatableString $hint
+     * @param TranslatableString $placeholder
+     * @param bool               $multilingual
+     * @param array              $groups
+     * @param array              $parameters
+     * @param array              $options
+     * @param bool               $system
      *
      * @throws \Exception
      */
@@ -115,7 +122,8 @@ class CreateAttributeCommand
         bool $multilingual,
         array $groups = [],
         array $parameters = [],
-        array $options = []
+        array $options = [],
+        bool $system = false
     ) {
         $this->attributeId = AttributeId::fromKey($code);
         $this->code = $code;
@@ -127,6 +135,7 @@ class CreateAttributeCommand
         $this->groups = $groups;
         $this->parameters = $parameters;
         $this->options = [];
+        $this->system = $system;
         foreach ($options as $option) {
             $value = $option->value;
             if (null === $value) {
@@ -237,5 +246,13 @@ class CreateAttributeCommand
     public function getPlaceholder(): ?TranslatableString
     {
         return $this->placeholder;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSystem(): bool
+    {
+        return $this->system;
     }
 }

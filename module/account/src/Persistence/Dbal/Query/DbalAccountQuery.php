@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -29,6 +29,7 @@ class DbalAccountQuery implements AccountQueryInterface
         'a.language',
         'a.avatar_id',
         'a.role_id',
+        'a.is_active',
     ];
 
     /**
@@ -59,9 +60,7 @@ class DbalAccountQuery implements AccountQueryInterface
     }
 
     /**
-     * @param UserId $userId
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function getUser(UserId $userId): array
     {

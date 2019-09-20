@@ -2,15 +2,15 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Entity;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Event\ProcessorCreatedEvent;
 use Ergonode\Transformer\Domain\Event\ProcessorStatusChangedEvent;

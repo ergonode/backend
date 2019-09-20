@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -15,10 +15,11 @@ use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 /**
- * Class SplitConverter
  */
-class SplitConverter extends AbstractConverter implements ConverterInterface
+class SplitConverter implements ConverterInterface
 {
+    public const TYPE = 'split';
+
     /**
      * @var string
      *
@@ -42,6 +43,16 @@ class SplitConverter extends AbstractConverter implements ConverterInterface
     {
         $this->field = $field;
         $this->delimiter = $delimiter;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 
     /**

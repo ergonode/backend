@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -323,7 +323,8 @@ class DbalAttributeQuery implements AttributeQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select('id, code, type')
-            ->from(self::TABLE, 'a');
+            ->from(self::TABLE, 'a')
+            ->where('system = false');
     }
 
     /**

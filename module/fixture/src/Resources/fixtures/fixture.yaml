@@ -8,6 +8,7 @@ Ergonode\CategoryTree\Domain\Entity\CategoryTree:
         __construct:
             - '@category_tree_id'
             - 'default'
+            - '@category_tree_name'
 
 Ergonode\Account\Domain\Entity\RoleId:
     superadmin_role_id:
@@ -70,6 +71,10 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("USER_READ")>'
                 - '<privilege("USER_UPDATE")>'
                 - '<privilege("USER_DELETE")>'
+                - '<privilege("WORKFLOW_CREATE")>'
+                - '<privilege("WORKFLOW_READ")>'
+                - '<privilege("WORKFLOW_UPDATE")>'
+                - '<privilege("WORKFLOW_DELETE")>'
     admin_role:
         __construct:
             - '@admin_role_id'
@@ -202,3 +207,131 @@ Ergonode\Account\Domain\Entity\User:
             - '<language(EN)>'
             - '@superadmin_user_password'
             - '@superadmin_role_id'
+
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+    status_new_translation:
+        __construct:
+            -
+                'PL': 'Nowy'
+                'EN': 'New'
+    status_draft_translation:
+        __construct:
+            -
+                'PL': 'Szkic'
+                'EN': 'Draft'
+    status_to_approve_translation:
+        __construct:
+            -
+                'PL': 'Do akceptacji'
+                'EN': 'To approve'
+    status_ready_to_publish_translation:
+        __construct:
+            -
+                'PL': 'Gotowy do publikacji'
+                'EN': 'Ready to publish'
+    status_to_correct_translation:
+        __construct:
+            -
+                'PL': 'Do poprawy'
+                'EN': 'To correct'
+    status_published_translation:
+        __construct:
+            -
+                'PL': 'Opublikowany'
+                'EN': 'Published'
+    category_tree_name:
+        __construct:
+            - 'PL': 'Polish_name'
+              'EN': 'English_name'
+              'ZH': 'Chinese_name'
+    empty:
+        __construct:
+            - []
+    label_esa_status:
+        __construct:
+            -   'PL': 'Status'
+                'EN': 'Status'
+
+Ergonode\Workflow\Domain\Entity\Status:
+    status_new:
+        __construct:
+            - '<statusId("new")>'
+            - 'new'
+            - '<color(#f58231)>'
+            - '@status_new_translation'
+            - '@status_new_translation'
+    status_draft:
+        __construct:
+            - '<statusId("draft")>'
+            - 'draft'
+            - '<color(#e6194B)>'
+            - '@status_draft_translation'
+            - '@status_draft_translation'
+    status_to_approve:
+        __construct:
+            - '<statusId("to approve")>'
+            - 'to approve'
+            - '<color(#e6194B)>'
+            - '@status_to_approve_translation'
+            - '@status_to_approve_translation'
+    status_ready_to_publish:
+        __construct:
+            - '<statusId("ready to publish")>'
+            - 'ready to publish'
+            - '<color(#e6194B)>'
+            - '@status_ready_to_publish_translation'
+            - '@status_ready_to_publish_translation'
+    status_to_correct:
+        __construct:
+            - '<statusId("to correct")>'
+            - 'to correct'
+            - '<color(#e6194B)>'
+            - '@status_to_correct_translation'
+            - '@status_to_correct_translation'
+    status_published:
+        __construct:
+            - '<statusId("published")>'
+            - 'published'
+            - '<color(#e6194B)>'
+            - '@status_published_translation'
+            - '@status_published_translation'
+
+Ergonode\Workflow\Domain\ValueObject\Transition:
+    transition_take:
+        __construct:
+            - 'take'
+            - '<statusId("new")>'
+            - '<statusId("draft")>'
+
+Ergonode\Workflow\Domain\Entity\Workflow:
+    default_workflow:
+        __construct:
+            - '<workflowId(default)>'
+            - 'default'
+        __calls:
+            - addStatus:
+                  - '<statusId("new")>'
+            - addStatus:
+                  - '<statusId("draft")>'
+            - addStatus:
+                  - '<statusId("to approve")>'
+            - addStatus:
+                  - '<statusId("ready to publish")>'
+            - addStatus:
+                  - '<statusId("to correct")>'
+            - addStatus:
+                  - '<statusId("published")>'
+            - addTransition:
+                  - '@transition_take'
+
+Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
+    attribute_esa_status:
+        __construct:
+            - '<AttributeId(esa_status)>'
+            - '<AttributeCode(esa_status)>'
+            - '@label_esa_status'
+            - '@empty'
+            - '@empty'
+            - false
+            - []
+            - true

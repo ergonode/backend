@@ -2,16 +2,22 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Application\Controller\Api;
 
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\CategoryTree\Application\Form\TreeForm;
-use Ergonode\CategoryTree\Application\Model\TreeFormModel;
+use Ergonode\CategoryTree\Application\Form\CategoryTreeCreateForm;
+use Ergonode\CategoryTree\Application\Form\CategoryTreeUpdateForm;
+use Ergonode\CategoryTree\Application\Model\CategoryTreeCreateFormModel;
+use Ergonode\CategoryTree\Application\Model\CategoryTreeUpdateFormModel;
 use Ergonode\CategoryTree\Domain\Command\AddCategoryCommand;
 use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
 use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
@@ -20,12 +26,14 @@ use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -35,7 +43,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class CategoryTreeController extends AbstractApiController
+class CategoryTreeController extends AbstractController
 {
     /**
      * @var TreeRepositoryInterface
@@ -131,26 +139,19 @@ class CategoryTreeController extends AbstractApiController
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns Category  Tree",
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     description="Returns Category Tree",
      * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getCategories(Language $language, Request $request): Response
+    public function getCategories(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
-        $dataSet = $this->query->getDataSet();
-        $result = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($language), $language);
     }
 
     /**
@@ -159,7 +160,6 @@ class CategoryTreeController extends AbstractApiController
      * @IsGranted("CATEGORY_TREE_CREATE")
      *
      * @SWG\Tag(name="Tree")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -168,53 +168,52 @@ class CategoryTreeController extends AbstractApiController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Parameter(
-     *     name="name",
-     *     in="formData",
-     *     type="string",
+     *     name="body",
+     *     in="body",
+     *     description="Category tree body",
      *     required=true,
-     *     description="Tree name",
-     * )
-     * @SWG\Parameter(
-     *     name="code",
-     *     in="formData",
-     *     type="string",
-     *     required=true,
-     *     description="Tree code",
+     *     @SWG\Schema(ref="#/definitions/tree_req")
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Create category",
+     *     description="Create category tree",
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/error_response")
      * )
      *
      * @param Request $request
      *
      * @return Response
      * @throws \Exception
+     *
+     * @todo Validation required
      */
     public function createTree(Request $request): Response
     {
-        $name = $request->request->get('name');
-        $code = $request->request->get('code');
+        $model = new CategoryTreeCreateFormModel();
+        $form = $this->createForm(CategoryTreeCreateForm::class, $model);
 
-        if ($name && $code) {
-            $tree = $this->treeRepository->exists(CategoryTreeId::fromKey($code));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $tree = $this->treeRepository->exists(CategoryTreeId::fromKey($data->code));
+
             if (!$tree) {
-                $command = new CreateTreeCommand($name, $code);
+                $command = new CreateTreeCommand(new TranslatableString($data->name), $data->code);
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse(['id' => $command->getId()->getValue()], [], Response::HTTP_CREATED);
+                return new CreatedResponse($command->getId());
             }
 
-            return $this->createRestResponse(['message' => 'tree already exists'], [], Response::HTTP_BAD_REQUEST);
+            throw new BadRequestHttpException('Tree already exists');
         }
 
-        throw new BadRequestHttpException();
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -223,7 +222,6 @@ class CategoryTreeController extends AbstractApiController
      * @IsGranted("CATEGORY_CREATE")
      *
      * @SWG\Tag(name="Tree")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -232,7 +230,6 @@ class CategoryTreeController extends AbstractApiController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Parameter(
      *     name="tree",
      *     in="path",
@@ -260,7 +257,8 @@ class CategoryTreeController extends AbstractApiController
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Form validation error",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/error_response")
      * )
      *
      * @param string  $tree
@@ -278,7 +276,7 @@ class CategoryTreeController extends AbstractApiController
             $command = new AddCategoryCommand(new CategoryTreeId($tree), new CategoryId($category), new CategoryId($child));
             $this->messageBus->dispatch($command);
 
-            return $this->createRestResponse([], [], Response::HTTP_ACCEPTED);
+            return new CreatedResponse($command->getCategoryId());
         }
 
         throw new BadRequestHttpException();
@@ -290,7 +288,6 @@ class CategoryTreeController extends AbstractApiController
      * @IsGranted("CATEGORY_TREE_UPDATE")
      *
      * @SWG\Tag(name="Tree")
-     *
      * @SWG\Parameter(
      *     name="tree",
      *     in="path",
@@ -314,41 +311,42 @@ class CategoryTreeController extends AbstractApiController
      *     @SWG\Schema(ref="#/definitions/tree")
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns import",
+     *     response=204,
+     *     description="Success"
      * )
      * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param string  $tree
-     * @param Request $request
+     * @ParamConverter(class="Ergonode\CategoryTree\Domain\Entity\CategoryTree")
+     *
+     * @param CategoryTree $tree
+     * @param Request      $request
      *
      * @return Response
      */
-    public function putTree(string $tree, Request $request): Response
+    public function updateTree(CategoryTree $tree, Request $request): Response
     {
         try {
-            $model = new TreeFormModel();
-            $form = $this->createForm(TreeForm::class, $model, ['method' => 'PUT']);
-
+            $model = new CategoryTreeUpdateFormModel();
+            $form = $this->createForm(CategoryTreeUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var TreeFormModel $data */
+                /** @var CategoryTreeUpdateFormModel $data */
                 $data = $form->getData();
-
-                $command = new UpdateTreeCommand(new CategoryTreeId($tree), $data->name, $data->categories);
+                $command = new UpdateTreeCommand($tree->getId(), new TranslatableString($data->name), $data->categories);
                 $this->messageBus->dispatch($command);
 
-                return $this->createRestResponse($data, [], Response::HTTP_CREATED);
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        return $this->createRestResponse($form, [$form->getErrors()->count()], Response::HTTP_BAD_REQUEST);
+        throw new FormValidationHttpException($form);
     }
 
     /**
@@ -357,7 +355,6 @@ class CategoryTreeController extends AbstractApiController
      * @IsGranted("CATEGORY_TREE_READ")
      *
      * @SWG\Tag(name="Tree")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -399,6 +396,6 @@ class CategoryTreeController extends AbstractApiController
      */
     public function getTree(CategoryTree $tree, Language $language): Response
     {
-        return $this->createRestResponse($tree);
+        return new SuccessResponse($tree);
     }
 }

@@ -2,16 +2,16 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Entity;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Event\Group\TemplateGroupCreatedEvent;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
  */

@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -13,6 +13,7 @@ use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Application\Model\TreeNodeFormModel;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -27,9 +28,9 @@ class CreateTreeCommand
     private $id;
 
     /**
-     * @var string
+     * @var TranslatableString
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private $name;
 
@@ -48,13 +49,15 @@ class CreateTreeCommand
     private $categories;
 
     /**
-     * @param string              $name
-     * @param string              $code
-     * @param TreeNodeFormModel[] $categories
+     * CreateTreeCommand constructor.
+     *
+     * @param TranslatableString $name
+     * @param string             $code
+     * @param array              $categories
      *
      * @throws \Exception
      */
-    public function __construct(string $name, string $code, array $categories = [])
+    public function __construct(TranslatableString $name, string $code, array $categories = [])
     {
         $this->id = CategoryTreeId::fromKey($code);
         $this->name = $name;
@@ -73,9 +76,9 @@ class CreateTreeCommand
     }
 
     /**
-     * @return string
+     * @return TranslatableString
      */
-    public function getName(): string
+    public function getName(): TranslatableString
     {
         return $this->name;
     }

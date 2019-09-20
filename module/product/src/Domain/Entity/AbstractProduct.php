@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -18,15 +18,14 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Event\ProductAddedToCategory;
 use Ergonode\Product\Domain\Event\ProductCreated;
 use Ergonode\Product\Domain\Event\ProductRemovedFromCategory;
-use Ergonode\Product\Domain\Event\ProductStatusChanged;
 use Ergonode\Product\Domain\Event\ProductValueAdded;
 use Ergonode\Product\Domain\Event\ProductValueChanged;
 use Ergonode\Product\Domain\Event\ProductValueRemoved;
 use Ergonode\Product\Domain\Event\ProductVersionIncreased;
-use Ergonode\Product\Domain\ValueObject\ProductStatus;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
@@ -34,7 +33,7 @@ use Webmozart\Assert\Assert;
  */
 abstract class AbstractProduct extends AbstractAggregateRoot
 {
-    private const STATUS = 'esa_status';
+    public const STATUS = 'esa_status';
 
     /**
      * @var ProductId
@@ -118,19 +117,27 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
-     * @return ProductStatus
+     * @return StatusId
      */
-    public function getStatus(): ProductStatus
+    public function getStatus(): StatusId
     {
-        return new ProductStatus($this->getAttribute(new AttributeCode(self::STATUS))->getValue());
+        return new StatusId($this->attributes[self::STATUS]->getValue());
     }
 
     /**
+     * @param StatusId $statusId
+     *
      * @throws \Exception
      */
-    public function accept(): void
+    public function setStatus(StatusId $statusId): void
     {
-        $this->apply(new ProductStatusChanged($this->getStatus(), new ProductStatus(ProductStatus::STATUS_ACCEPTED)));
+        if ($this->attributes[self::STATUS]) {
+            if ($this->attributes[self::STATUS]->getValue() !== $statusId->getValue()) {
+                $this->apply(new ProductValueChanged(new AttributeCode(self::STATUS), $this->attributes[self::STATUS], new StringValue($statusId->getValue())));
+            }
+        } else {
+            $this->apply(new ProductValueAdded(new AttributeCode(self::STATUS), new StringValue($statusId->getValue())));
+        }
     }
 
     /**
@@ -197,7 +204,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
      */
     public function getCategories(): array
     {
-        return  array_values($this->categories);
+        return array_values($this->categories);
     }
 
     /**
@@ -343,13 +350,5 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     protected function applyProductVersionIncreased(ProductVersionIncreased $event): void
     {
         $this->version = $event->getTo();
-    }
-
-    /**
-     * @param ProductStatusChanged $event
-     */
-    protected function applyProductStatusChanged(ProductStatusChanged $event): void
-    {
-        $this->attributes[self::STATUS] = new StringValue($event->getTo()->getValue());
     }
 }

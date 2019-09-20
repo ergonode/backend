@@ -1,0 +1,55 @@
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+    status_new_translation:
+        __construct:
+            -
+                'PL': 'Nowy'
+                'EN': 'New'
+    status_draft_translation:
+        __construct:
+            -
+                'PL': 'Szkic'
+                'EN': 'Draft'
+
+Ergonode\Workflow\Domain\Entity\StatusId:
+    status_new_id:
+        __construct:
+            - '<Uuid()>'
+    status_draft_id:
+        __construct:
+            - '<Uuid()>'
+
+Ergonode\Workflow\Domain\Entity\Status:
+    status_new:
+        __construct:
+            - '@status_new_id'
+            - 'STATUS_NEW'
+            - '<color(#f58231)>'
+            - '@status_new_translation'
+            - '@status_new_translation'
+    status_draft:
+        __construct:
+            - '@status_draft_id'
+            - 'STATUS_DRAFT'
+            - '<color(#e6194B)>'
+            - '@status_draft_translation'
+            - '@status_draft_translation'
+
+Ergonode\Workflow\Domain\ValueObject\Transition:
+    default_transition:
+        __construct:
+            - 'New'
+            - '@status_draft_id'
+            - '@status_new_id'
+
+Ergonode\Workflow\Domain\Entity\Workflow:
+    default_workflow:
+        __construct:
+            - '<workflowId(default)>'
+            - 'default'
+        __calls:
+            - addStatus:
+                  - '@status_new_id'
+            - addStatus:
+                  - '@status_draft_id'
+            - addTransition:
+                  - '@default_transition'

@@ -7,14 +7,15 @@
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.9",
-        "ergonode/attribute": "^0.3.0",
-        "ergonode/core": "^0.3.0",
-        "ergonode/es": "^0.3.0",
-        "jms/serializer": "^3.0",
+        "ergonode/api": "^0.4.0",
+        "ergonode/attribute": "^0.4.0",
+        "ergonode/core": "^0.4.0",
+        "ergonode/es": "^0.4.0",
+        "jms/serializer": "^3.1",
         "moneyphp/money": "^3.2",
         "nelmio/api-doc-bundle": "^3.4",
-        "symfony/form": "^4.2",
-        "symfony/http-foundation": "^4.2"
+        "symfony/form": "^4.3",
+        "symfony/http-foundation": "^4.3"
     },
     "autoload": {
         "psr-4": {

@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -12,8 +12,8 @@ namespace Ergonode\Attribute\Application\Form\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */

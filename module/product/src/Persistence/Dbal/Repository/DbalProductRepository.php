@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -43,23 +43,29 @@ class DbalProductRepository implements ProductRepositoryInterface
     /**
      * @param ProductId $id
      *
-     * @return AbstractAggregateRoot
+     * @return AbstractAggregateRoot|null
+     *
      * @throws \ReflectionException
      */
-    public function load(ProductId $id): AbstractAggregateRoot
+    public function load(ProductId $id): ?AbstractAggregateRoot
     {
         $eventStream = $this->eventStore->load($id);
 
-        $class = new \ReflectionClass(SimpleProduct::class);
-        /** @var AbstractAggregateRoot $aggregate */
-        $aggregate = $class->newInstanceWithoutConstructor();
-        if (!$aggregate instanceof AbstractAggregateRoot) {
-            throw new \LogicException(sprintf('Impossible to initialize "%s"', SimpleProduct::class));
+        $result = null;
+        if (0 !== count($eventStream)) {
+            $class = new \ReflectionClass(SimpleProduct::class);
+            /** @var AbstractAggregateRoot $aggregate */
+            $aggregate = $class->newInstanceWithoutConstructor();
+            if (!$aggregate instanceof AbstractAggregateRoot) {
+                throw new \LogicException(sprintf('Impossible to initialize "%s"', SimpleProduct::class));
+            }
+
+            $aggregate->initialize($eventStream);
+
+            $result = $aggregate;
         }
 
-        $aggregate->initialize($eventStream);
-
-        return $aggregate;
+        return $result;
     }
 
     /**

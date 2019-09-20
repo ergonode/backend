@@ -2,19 +2,19 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Category\Persistence\Dbal\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 
 /**
  */

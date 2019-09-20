@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -44,7 +44,9 @@ class DbalProfileQuery implements ProfileQueryInterface
             ->execute()
             ->fetch();
 
-        $result['privileges'] = json_decode($result['privileges'], true);
+        if (null !== $result['privileges']) {
+            $result['privileges'] = json_decode($result['privileges'], true);
+        }
 
         return $result;
     }

@@ -2,27 +2,28 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Infrastructure\Grid\TemplateGroupGrid;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class TemplateGroupController extends AbstractApiController
+class TemplateGroupController extends AbstractController
 {
     /**
      * @var TemplateGroupQueryInterface
@@ -50,7 +51,7 @@ class TemplateGroupController extends AbstractApiController
      * @IsGranted("TEMPLATE_DESIGNER_READ")
      *
      * @SWG\Tag(name="Designer")
-     *  * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="limit",
      *     in="query",
      *     type="integer",
@@ -105,27 +106,22 @@ class TemplateGroupController extends AbstractApiController
      *     default="EN",
      *     description="Language Code",
      * )
-     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns list of designer template groups",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
-     * @param Language $language
-     * @param Request  $request
+     *
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getGroups(Language $language, Request $request): Response
+    public function getGroups(Language $language, RequestGridConfiguration $configuration): Response
     {
         $dataSet = $this->query->getDataSet();
-        $configuration = new RequestGridConfiguration($request);
 
-        $result = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $dataSet, $language);
     }
 }

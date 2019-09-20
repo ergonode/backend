@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -147,7 +147,7 @@ class Language
      *
      * @return bool
      */
-    public static function isValid(string $code): bool
+    public static function isValid(?string $code): bool
     {
         return \in_array($code, self::AVAILABLE, true);
     }

@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -12,6 +12,8 @@ namespace Ergonode\Product\Persistence\Dbal\DataSet;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
@@ -19,6 +21,7 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\FilterInterface;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
 /**
@@ -62,15 +65,15 @@ class DbalProductDataSet implements DataSetInterface
             if (!in_array($column->getField(), ['id', 'sku', 'index', 'version', 'template'])) {
                 if ($column->getType() === MultiSelectColumn::TYPE) {
                     $query->addSelect(sprintf(
-                        '(SELECT jsonb_agg(value) FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id JOIN attribute a ON a.id = pv.attribute_id WHERE a.code = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
-                        $column->getField(),
+                        '(SELECT jsonb_agg(value) FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id WHERE pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
+                        AttributeId::fromKey(new AttributeCode($column->getField()))->getValue(),
                         $language->getCode(),
                         $key
                     ));
                 } else {
                     $query->addSelect(sprintf(
-                        '(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id JOIN attribute a ON a.id = pv.attribute_id WHERE a.code = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
-                        $column->getField(),
+                        '(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id  WHERE pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
+                        AttributeId::fromKey(new AttributeCode($column->getField()))->getValue(),
                         $language->getCode(),
                         $key
                     ));

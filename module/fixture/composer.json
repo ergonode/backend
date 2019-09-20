@@ -6,12 +6,13 @@
     "license": "OSL-3.0",
     "require": {
         "php": "^7.2",
-        "nelmio/alice": "^3.4",
+        "ergonode/es": "^0.4.0",
+        "nelmio/alice": "^3.5",
         "symfony/config": "^4.2",
         "symfony/dependency-injection": "^4.2",
         "symfony/http-kernel": "^4.2",
         "symfony/command": "^4.2",
-        "symfony/yaml": "^4.2"
+        "symfony/yaml": "^4.3"
     },
     "autoload": {
         "psr-4": {

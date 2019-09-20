@@ -31,6 +31,11 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
+    Ergonode\Reader\Infrastructure\JMS\Serializer\Handler\FormatterInterfaceHandler:
+        calls:
+            - ['set', ['Ergonode\Reader\Domain\Formatter\ReplaceFormatter']]
+            - ['set', ['Ergonode\Reader\Domain\Formatter\EncodingFormatter']]
+
     Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface: '@Ergonode\Reader\Persistence\Dbal\Repository\DbalReaderRepository'
     Ergonode\Reader\Domain\Query\ReaderQueryInterface: '@Ergonode\Reader\Persistence\Dbal\Query\DbalReaderQuery'
 

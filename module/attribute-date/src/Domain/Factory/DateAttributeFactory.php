@@ -2,19 +2,18 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\AttributeDate\Domain\Factory;
 
-use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
-use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\AttributeFactoryInterface;
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
+use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
 use Ergonode\AttributeDate\Domain\ValueObject\DateFormat;
 
 /**
@@ -22,9 +21,7 @@ use Ergonode\AttributeDate\Domain\ValueObject\DateFormat;
 class DateAttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * @param AttributeType $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function isSupported(AttributeType $type): bool
     {
@@ -32,9 +29,7 @@ class DateAttributeFactory implements AttributeFactoryInterface
     }
 
     /**
-     * @param CreateAttributeCommand $command
-     *
-     * @return AbstractAttribute
+     * {@inheritDoc}
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
@@ -51,7 +46,8 @@ class DateAttributeFactory implements AttributeFactoryInterface
             $command->getHint(),
             $command->getPlaceholder(),
             $command->isMultilingual(),
-            $format
+            $format,
+            $command->isSystem()
         );
     }
 }

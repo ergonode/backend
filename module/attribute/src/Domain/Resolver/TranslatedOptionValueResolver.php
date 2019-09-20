@@ -2,14 +2,14 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Resolver;
 
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\AbstractOption;
+use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -19,12 +19,12 @@ use Ergonode\Core\Domain\ValueObject\Language;
 class TranslatedOptionValueResolver
 {
     /**
-     * @param AbstractOption $option
-     * @param Language       $language
+     * @param OptionInterface $option
+     * @param Language        $language
      *
      * @return string|null
      */
-    public function resolve(AbstractOption $option, Language $language): ?string
+    public function resolve(OptionInterface $option, Language $language): ?string
     {
         if ($option instanceof MultilingualOption) {
             return $option->getValue()->get($language);

@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -83,7 +83,7 @@ class CategoryTest extends TestCase
         $entity->addAttribute($attributeCode, $attribute);
         $this->assertTrue($entity->hasAttribute($attributeCode));
 
-        $entity->changeTitle($name);
+        $entity->changeName($name);
         $this->assertEquals($name, $entity->getName());
     }
 }

@@ -2,27 +2,28 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateElementQueryInterface;
 use Ergonode\Designer\Infrastructure\Grid\TemplateTypeDictionaryGrid;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class TemplateTypeController extends AbstractApiController
+class TemplateTypeController extends AbstractController
 {
     /**
      * @var TemplateElementQueryInterface
@@ -109,21 +110,18 @@ class TemplateTypeController extends AbstractApiController
      *     response=200,
      *     description="Returns list of designer template types",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
-     * @param Language $language
-     * @param Request  $request
+     *
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getTypes(Language $language, Request $request): Response
+    public function getTypes(Language $language, RequestGridConfiguration $configuration): Response
     {
         $dataSet = $this->query->getDataSet();
-        $configuration = new RequestGridConfiguration($request);
-        $result = $this->renderGrid($this->grid, $configuration, $dataSet, $language);
 
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $dataSet, $language);
     }
 }

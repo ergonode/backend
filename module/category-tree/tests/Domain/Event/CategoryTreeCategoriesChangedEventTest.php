@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -26,15 +26,6 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
     protected function setUp()
     {
         $this->node = $this->createMock(Node::class);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testCreateWithEmptyArray(): void
-    {
-       new CategoryTreeCategoriesChangedEvent([]);
-
     }
 
     /**

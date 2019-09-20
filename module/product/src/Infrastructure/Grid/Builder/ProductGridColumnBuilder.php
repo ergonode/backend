@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -17,10 +17,14 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\CheckColumn;
 use Ergonode\Grid\Column\IntegerColumn;
+use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider;
+use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -30,7 +34,12 @@ class ProductGridColumnBuilder
     /**
      * @var AttributeQueryInterface
      */
-    private $query;
+    private $attributeQuery;
+
+    /**
+     * @var StatusQueryInterface
+     */
+    private $statusQuery;
 
     /**
      * @var AttributeRepositoryInterface
@@ -43,16 +52,19 @@ class ProductGridColumnBuilder
     private $provider;
 
     /**
-     * @param AttributeQueryInterface      $query
+     * @param AttributeQueryInterface      $attributeQuery
+     * @param StatusQueryInterface         $statusQuery
      * @param AttributeRepositoryInterface $repository
      * @param AttributeColumnProvider      $provider
      */
     public function __construct(
-        AttributeQueryInterface $query,
+        AttributeQueryInterface $attributeQuery,
+        StatusQueryInterface $statusQuery,
         AttributeRepositoryInterface $repository,
         AttributeColumnProvider $provider
     ) {
-        $this->query = $query;
+        $this->attributeQuery = $attributeQuery;
+        $this->statusQuery = $statusQuery;
         $this->repository = $repository;
         $this->provider = $provider;
     }
@@ -66,18 +78,19 @@ class ProductGridColumnBuilder
      */
     public function build(GridConfigurationInterface $configuration, Language $defaultLanguage): array
     {
-        $codes = $this->query->getAllAttributeCodes();
+        $codes = $this->attributeQuery->getAllAttributeCodes();
+        $statuses = $this->statusQuery->getAllStatuses($defaultLanguage);
 
         $filters = $configuration->getFilters();
 
-        $result = [];
-        $result['id'] = new CheckColumn('id', 'Id');
-        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->getString('index')));
-        $result['index']->setWidth(140);
-        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->getString('sku')));
-        $result['template'] = new TextColumn('template', 'Template', new TextFilter($filters->getString('template')));
-        $result['edit'] = new ActionColumn('edit', 'Edit');
+        $statusCodes = [];
+        foreach ($statuses as $code => $status) {
+            $statusCodes[$code] = $status['name'];
+        }
 
+        $statusCode = AbstractProduct::STATUS;
+
+        $result = [];
         foreach ($configuration->getColumns() as $column) {
             $code = $column->getColumn();
             $key = $column->getKey();
@@ -99,6 +112,15 @@ class ProductGridColumnBuilder
                 $result[$key] = $new;
             }
         }
+
+        $result['id'] = new CheckColumn('id', 'Id');
+        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->getString('index')));
+        $result['index']->setWidth(140);
+        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->getString('sku')));
+        $result[$statusCode] = new LabelColumn($statusCode, 'Status', $statuses, new SelectFilter($statusCodes, $filters->getString($statusCode)));
+        $result[$statusCode]->setEditable(true);
+        $result['template'] = new TextColumn('template', 'Template', new TextFilter($filters->getString('template')));
+        $result['edit'] = new ActionColumn('edit', 'Edit');
 
         return $result;
     }

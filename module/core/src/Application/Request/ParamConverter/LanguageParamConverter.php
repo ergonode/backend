@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -20,30 +20,25 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class LanguageParamConverter implements ParamConverterInterface
 {
     /**
-     * @param Request        $request
-     * @param ParamConverter $configuration
-     *
-     * @return void
+     * {@inheritDoc}
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $language = $request->get('language');
+        $parameter = $request->get('language');
 
-        if (null === $language) {
-            throw new BadRequestHttpException('Route attribute is missing');
+        if (null === $parameter) {
+            throw new BadRequestHttpException('Request parameter "language" is missing');
         }
 
-        if (!Language::isValid($language)) {
-            throw new BadRequestHttpException('Invalid language code');
+        if (!Language::isValid($parameter)) {
+            throw new BadRequestHttpException(sprintf('Language code "%s" is invalid', $parameter));
         }
 
-        $request->attributes->set($configuration->getName(), new Language($language));
+        $request->attributes->set($configuration->getName(), new Language($parameter));
     }
 
     /**
-     * @param ParamConverter $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function supports(ParamConverter $configuration): bool
     {

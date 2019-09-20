@@ -7,20 +7,21 @@
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.9",
-        "ergonode/attribute": "^0.3.0",
-        "ergonode/core": "^0.3.0",
-        "ergonode/es": "^0.3.0",
-        "ergonode/grid": "^0.3.0",
-        "ergonode/value": "^0.3.0",
+        "ergonode/api": "^0.4.0",
+        "ergonode/attribute": "^0.4.0",
+        "ergonode/core": "^0.4.0",
+        "ergonode/es": "^0.4.0",
+        "ergonode/grid": "^0.4.0",
+        "ergonode/value": "^0.4.0",
         "friendsofsymfony/rest-bundle": "^2.5",
-        "jms/serializer": "^3.0",
+        "jms/serializer": "^3.1",
         "nelmio/api-doc-bundle": "^3.4",
         "ramsey/uuid": "^3.8",
-        "sensio/framework-extra-bundle": "^5.3",
-        "symfony/form": "^4.2",
-        "symfony/messenger": "^4.2",
-        "symfony/translation": "^4.2",
-        "symfony/validator": "^4.2"
+        "sensio/framework-extra-bundle": "^5.4",
+        "symfony/form": "^4.3",
+        "symfony/messenger": "^4.3",
+        "symfony/translation": "^4.3",
+        "symfony/validator": "^4.3"
     },
     "autoload": {
         "psr-4": {

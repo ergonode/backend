@@ -2,17 +2,19 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Importer\Application\Controller\Api;
 
-use Ergonode\Core\Application\Controller\AbstractApiController;
-use Ergonode\Core\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Importer\Application\Form\UploadForm;
 use Ergonode\Importer\Application\Model\Form\UploadModel;
 use Ergonode\Importer\Application\Service\Upload\UploadServiceInterface;
@@ -25,6 +27,7 @@ use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -32,7 +35,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class ImporterController extends AbstractApiController
+class ImporterController extends AbstractController
 {
     /**
      * @var ImportGrid
@@ -137,23 +140,17 @@ class ImporterController extends AbstractApiController
      *     response=200,
      *     description="Returns imported data collection",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getImports(Language $language, Request $request): Response
+    public function getImports(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
-        $result = $this->renderGrid($this->importGrid, $configuration, $this->importQuery->getDataSet(), $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->importGrid, $configuration, $this->importQuery->getDataSet(), $language);
     }
 
     /**
@@ -193,7 +190,7 @@ class ImporterController extends AbstractApiController
      */
     public function getImport(AbstractImport $import): Response
     {
-        return $this->createRestResponse($import);
+        return new SuccessResponse($import);
     }
 
     /**
@@ -237,11 +234,12 @@ class ImporterController extends AbstractApiController
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Returns import uuid",
+     *     description="Returns import ID",
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Unsupported file type or file size",
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
      * @param Request $request
@@ -270,7 +268,7 @@ class ImporterController extends AbstractApiController
             );
             $this->messageBus->dispatch($command);
 
-            $response = $this->createRestResponse(['id' => $command->getId()->getValue()]);
+            $response = new CreatedResponse($command->getId());
         } else {
             throw new FormValidationHttpException($form);
         }

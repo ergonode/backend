@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -11,7 +11,6 @@ namespace Ergonode\Category\Infrastructure\Handler;
 
 use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
-use Ergonode\Category\Domain\Updater\CategoryUpdater;
 use Webmozart\Assert\Assert;
 
 /**
@@ -19,21 +18,17 @@ use Webmozart\Assert\Assert;
 class UpdateCategoryCommandHandler
 {
     /**
-     * @var CategoryUpdater
-     */
-    private $updater;
-    /**
      * @var CategoryRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param CategoryUpdater             $updater
+     * UpdateCategoryCommandHandler constructor.
+     *
      * @param CategoryRepositoryInterface $repository
      */
-    public function __construct(CategoryUpdater $updater, CategoryRepositoryInterface $repository)
+    public function __construct(CategoryRepositoryInterface $repository)
     {
-        $this->updater = $updater;
         $this->repository = $repository;
     }
 
@@ -44,9 +39,7 @@ class UpdateCategoryCommandHandler
     {
         $category = $this->repository->load($command->getId());
         Assert::notNull($category);
-
-        $category = $this->updater->update($category, $command->getName());
-
+        $category->changeName($command->getName());
         $this->repository->save($category);
     }
 }

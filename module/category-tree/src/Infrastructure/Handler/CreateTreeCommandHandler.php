@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -35,7 +35,7 @@ class CreateTreeCommandHandler
      */
     public function __invoke(CreateTreeCommand $command)
     {
-        $tree = new CategoryTree($command->getId(), $command->getName());
+        $tree = new CategoryTree($command->getId(), $command->getCode(), $command->getName());
 
         $this->repository->save($tree);
     }

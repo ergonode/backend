@@ -2,18 +2,18 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\AttributePrice\Domain\Factory;
 
+use Ergonode\Attribute\Domain\AttributeFactoryInterface;
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\AttributeFactoryInterface;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Money\Currency;
 
 /**
@@ -21,9 +21,7 @@ use Money\Currency;
 class PriceAttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * @param AttributeType $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function isSupported(AttributeType $type): bool
     {
@@ -31,9 +29,7 @@ class PriceAttributeFactory implements AttributeFactoryInterface
     }
 
     /**
-     * @param CreateAttributeCommand $command
-     *
-     * @return AbstractAttribute
+     * {@inheritDoc}
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
@@ -50,7 +46,8 @@ class PriceAttributeFactory implements AttributeFactoryInterface
             $command->getHint(),
             $command->getPlaceholder(),
             $command->isMultilingual(),
-            $currency
+            $currency,
+            $command->isSystem()
         );
     }
 }

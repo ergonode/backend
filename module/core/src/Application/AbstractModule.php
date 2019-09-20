@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -16,9 +16,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 abstract class AbstractModule extends Bundle
 {
     /**
-     * Returns the bundle's container extension class.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     protected function getContainerExtensionClass(): string
     {

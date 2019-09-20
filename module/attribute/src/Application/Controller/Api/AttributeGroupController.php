@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -11,18 +11,19 @@ namespace Ergonode\Attribute\Application\Controller\Api;
 
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGrid;
-use Ergonode\Core\Application\Controller\AbstractApiController;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  */
-class AttributeGroupController extends AbstractApiController
+class AttributeGroupController extends AbstractController
 {
     /**
      * @var AttributeGroupGrid
@@ -50,7 +51,6 @@ class AttributeGroupController extends AbstractApiController
      * @IsGranted("ATTRIBUTE_GROUP_READ")
      *
      * @SWG\Tag(name="Attribute")
-     *
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -116,22 +116,16 @@ class AttributeGroupController extends AbstractApiController
      *     response=200,
      *     description="Returns attribute collection",
      * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found",
-     * )
      *
-     * @param Language $language
-     * @param Request  $request
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function getAttributesGroups(Language $language, Request $request): Response
+    public function getAttributesGroups(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $configuration = new RequestGridConfiguration($request);
-
-        $result = $this->renderGrid($this->grid, $configuration, $this->query->getDataSet($language), $language);
-
-        return $this->createRestResponse($result);
+        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($language), $language);
     }
 }

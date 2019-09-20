@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -13,17 +13,15 @@ use Ergonode\Attribute\Domain\AttributeFactoryInterface;
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
 use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
+use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
 
 /**
  */
 class ImageAttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * @param AttributeType $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function isSupported(AttributeType $type): bool
     {
@@ -31,9 +29,7 @@ class ImageAttributeFactory implements AttributeFactoryInterface
     }
 
     /**
-     * @param CreateAttributeCommand $command
-     *
-     * @return AbstractAttribute
+     * {@inheritDoc}
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
@@ -51,7 +47,8 @@ class ImageAttributeFactory implements AttributeFactoryInterface
             $command->getHint(),
             $command->getPlaceholder(),
             $command->isMultilingual(),
-            $formats
+            $formats,
+            $command->isSystem()
         );
     }
 }

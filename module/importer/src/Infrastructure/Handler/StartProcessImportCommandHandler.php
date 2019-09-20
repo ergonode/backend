@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -40,7 +40,7 @@ class StartProcessImportCommandHandler
         $import = $this->repository->load($command->getImportId());
 
         if (null === $import) {
-            throw new \LogicException(\sprintf('Can\'t find import witch id %s', $command->getImportId()->getValue()));
+            throw new \LogicException(\sprintf('Can\'t find import with id %s', $command->getImportId()->getValue()));
         }
 
         $import->process();

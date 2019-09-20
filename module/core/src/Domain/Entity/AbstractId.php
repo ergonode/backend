@@ -2,13 +2,14 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Core\Domain\Entity;
 
+use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -18,6 +19,8 @@ abstract class AbstractId
 {
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     private $value;
 
@@ -27,13 +30,11 @@ abstract class AbstractId
     public function __construct(string $value)
     {
         if (!Uuid::isValid($value)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    '"%s" should be valid uuid value, given value "%s"',
-                    static::class,
-                    $value
-                )
-            );
+            throw new \InvalidArgumentException(sprintf(
+                '"%s" should be valid uuid value, given value "%s"',
+                static::class,
+                $value
+            ));
         }
 
         $this->value = $value;

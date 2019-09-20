@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -13,6 +13,7 @@ use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Application\Model\TreeNodeFormModel;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -27,9 +28,9 @@ class UpdateTreeCommand
     private $id;
 
     /**
-     * @var string
+     * @var TranslatableString
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
     private $name;
 
@@ -41,18 +42,20 @@ class UpdateTreeCommand
     private $categories;
 
     /**
-     * @param CategoryTreeId      $id
-     * @param string              $name
-     * @param TreeNodeFormModel[] $categories
+     * @param CategoryTreeId     $id
+     * @param TranslatableString $name
+     * @param array              $categories
      */
-    public function __construct(CategoryTreeId $id, string $name, array $categories)
+    public function __construct(CategoryTreeId $id, TranslatableString $name, array $categories = [])
     {
         $this->id = $id;
         $this->name = $name;
+        $this->categories = [];
         foreach ($categories as $category) {
             $this->categories[] = $this->createNode($category);
         }
     }
+
 
     /**
      * @return CategoryTreeId
@@ -63,9 +66,9 @@ class UpdateTreeCommand
     }
 
     /**
-     * @return string
+     * @return TranslatableString
      */
-    public function getName(): string
+    public function getName(): TranslatableString
     {
         return $this->name;
     }

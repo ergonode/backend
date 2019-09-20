@@ -1,0 +1,42 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\Workflow\Application\:
+        resource: '../../Application/*'
+        exclude: '../../Domain/{Model}'
+
+    Ergonode\Workflow\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity, ValueObject, Event}'
+
+    Ergonode\Workflow\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Message}'
+
+    Ergonode\Workflow\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Workflow\Application\Controller\:
+        resource: '../../Application/Controller'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Workflow\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        exclude: '../../Infrastructure/Handler/{Strategy}'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Workflow\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface: '@Ergonode\Workflow\Persistence\Dbal\Repository\DbalStatusRepository'
+    Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface: '@Ergonode\Workflow\Persistence\Dbal\Repository\DbalWorkflowRepository'
+    Ergonode\Workflow\Domain\Query\StatusQueryInterface: '@Ergonode\Workflow\Persistence\Dbal\Query\DbalStatusQuery'
+
+    Ergonode\Workflow\Domain\Factory\Decorator\StatusProductFactoryDecorator:
+        decorates: Ergonode\ProductSimple\Domain\Factory\SimpleProductFactory
+        arguments:
+            - '@Ergonode\Workflow\Domain\Factory\Decorator\StatusProductFactoryDecorator.inner'

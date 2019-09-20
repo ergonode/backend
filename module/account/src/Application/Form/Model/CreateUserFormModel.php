@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -79,4 +79,12 @@ class CreateUserFormModel
      * @Assert\Uuid(message="Role Id must be valid uuid format")
      */
     public $roleId;
+
+    /**
+     * @var bool
+     *
+     * @Assert\NotNull(message="Activity is required")
+     * @Assert\Type("boolean")
+     */
+    public $isActive;
 }

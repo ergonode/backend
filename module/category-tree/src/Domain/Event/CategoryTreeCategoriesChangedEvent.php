@@ -2,7 +2,7 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
@@ -28,9 +28,8 @@ class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
     /**
      * @param Node[] $categories
      */
-    public function __construct(array $categories)
+    public function __construct(array $categories = [])
     {
-        Assert::notEmpty($categories);
         Assert::allIsInstanceOf($categories, Node::class);
 
         $this->categories = $categories;
