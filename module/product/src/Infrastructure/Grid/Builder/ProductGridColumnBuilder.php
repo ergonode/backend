@@ -91,13 +91,6 @@ class ProductGridColumnBuilder
         $statusCode = AbstractProduct::STATUS;
 
         $result = [];
-        $result['id'] = new CheckColumn('id', 'Id');
-        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->getString('index')));
-        $result['index']->setWidth(140);
-        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->getString('sku')));
-        $result['template'] = new TextColumn('template', 'Template', new TextFilter($filters->getString('template')));
-        $result['edit'] = new ActionColumn('edit', 'Edit');
-
         foreach ($configuration->getColumns() as $column) {
             $code = $column->getColumn();
             $key = $column->getKey();
@@ -120,8 +113,14 @@ class ProductGridColumnBuilder
             }
         }
 
+        $result['id'] = new CheckColumn('id', 'Id');
+        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->getString('index')));
+        $result['index']->setWidth(140);
+        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->getString('sku')));
         $result[$statusCode] = new LabelColumn($statusCode, 'Status', $statuses, new SelectFilter($statusCodes, $filters->getString($statusCode)));
         $result[$statusCode]->setEditable(true);
+        $result['template'] = new TextColumn('template', 'Template', new TextFilter($filters->getString('template')));
+        $result['edit'] = new ActionColumn('edit', 'Edit');
 
         return $result;
     }
