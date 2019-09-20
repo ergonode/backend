@@ -28,6 +28,7 @@ class CategoryTreeUpdateFormModel
     /**
      * @var TreeNodeFormModel[]
      *
+     * @Assert\NotBlank()
      * @Assert\Valid()
      */
     public $categories;
@@ -36,6 +37,7 @@ class CategoryTreeUpdateFormModel
      */
     public function __construct()
     {
+        $this->name = [];
         $this->categories = [];
     }
 }

@@ -1,4 +1,14 @@
 Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
+    attribute_esa_status:
+        __construct:
+            - '<AttributeId(esa_status)>'
+            - '<AttributeCode(esa_status)>'
+            - '@label_esa_status'
+            - '@empty'
+            - '@empty'
+            - false
+            - []
+            - true
     attribute_{1..10}:
         __construct:
             - '<AttributeId(code_<current()>)>'
