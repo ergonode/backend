@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Type;
 
 /**
  */
@@ -39,6 +40,7 @@ class NumericAttributeValueConditionValidatorBuilder implements ConditionValidat
                 ],
                 'value' => [
                     new NotBlank(),
+                    new Type('numeric'),
                 ],
             ]
         );

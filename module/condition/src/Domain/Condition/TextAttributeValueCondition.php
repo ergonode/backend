@@ -31,15 +31,24 @@ class TextAttributeValueCondition implements ConditionInterface
      *
      * @JMS\Type("string")
      */
+    private $operator;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
     private $value;
 
     /**
      * @param AttributeId $attribute
+     * @param string      $operator
      * @param string      $value
      */
-    public function __construct(AttributeId $attribute, string $value)
+    public function __construct(AttributeId $attribute, string $operator, string $value)
     {
         $this->attribute = $attribute;
+        $this->operator = $operator;
         $this->value = $value;
     }
 
@@ -53,12 +62,21 @@ class TextAttributeValueCondition implements ConditionInterface
         return self::TYPE;
     }
 
+
     /**
      * @return AttributeId
      */
     public function getAttribute(): AttributeId
     {
         return $this->attribute;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOption(): string
+    {
+        return $this->operator;
     }
 
     /**
