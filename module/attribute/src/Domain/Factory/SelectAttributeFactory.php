@@ -44,7 +44,8 @@ class SelectAttributeFactory implements AttributeFactoryInterface
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual()
+            $command->isMultilingual(),
+            $command->isSystem()
         );
 
         foreach ($command->getOptions() as $key => $option) {
