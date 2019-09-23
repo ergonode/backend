@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class ProcessorTransformerRelationshipStrategy implements RelationshipStrategyInterface
 {
-    public const TYPE = 'processor';
-
     /**
      * @var ProcessorQueryInterface
      */
@@ -37,7 +35,7 @@ class ProcessorTransformerRelationshipStrategy implements RelationshipStrategyIn
     /**
      * {@inheritDoc}
      */
-    public function supports(AbstractId $id): bool
+    public function isSupportedBy(AbstractId $id): bool
     {
         return $id instanceof TransformerId;
     }
@@ -45,17 +43,9 @@ class ProcessorTransformerRelationshipStrategy implements RelationshipStrategyIn
     /**
      * {@inheritDoc}
      */
-    public function getType(): string
-    {
-        return self::TYPE;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getRelationships(AbstractId $id): array
     {
-        if (!$this->supports($id)) {
+        if (!$this->isSupportedBy($id)) {
             throw new UnexpectedTypeException($id, TransformerId::class);
         }
 

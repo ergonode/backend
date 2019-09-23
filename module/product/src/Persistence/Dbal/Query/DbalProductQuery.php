@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
@@ -85,6 +86,10 @@ class DbalProductQuery implements ProductQueryInterface
             $result = [];
         }
 
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
+        }
+
         return $result;
     }
 
@@ -104,6 +109,10 @@ class DbalProductQuery implements ProductQueryInterface
             $result = [];
         }
 
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
+        }
+
         return $result;
     }
 
@@ -121,6 +130,10 @@ class DbalProductQuery implements ProductQueryInterface
 
         if (false === $result) {
             $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
         }
 
         return $result;

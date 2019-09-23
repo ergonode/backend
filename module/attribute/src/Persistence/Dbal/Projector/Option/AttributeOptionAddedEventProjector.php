@@ -44,7 +44,7 @@ class AttributeOptionAddedEventProjector implements DomainEventProjectorInterfac
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof AttributeOptionAddedEvent;
     }
@@ -56,7 +56,7 @@ class AttributeOptionAddedEventProjector implements DomainEventProjectorInterfac
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof AttributeOptionAddedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, AttributeOptionAddedEvent::class);
         }
 

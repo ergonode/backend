@@ -13,8 +13,8 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Designer\Application\Form\TemplateForm;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
@@ -31,6 +31,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -64,24 +65,32 @@ class TemplateController extends AbstractController
     private $relationshipsResolver;
 
     /**
-     * @param TemplateQueryInterface         $designerTemplateQuery
-     * @param TemplateGrid                   $templateGrid
-     * @param MessageBusInterface            $messageBus
-     * @param TemplateCommandFactory         $createCommandFactory
-     * @param RelationshipsResolverInterface $relationshipsResolver
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private $existingRelationshipMessageBuilder;
+
+    /**
+     * @param TemplateQueryInterface                      $designerTemplateQuery
+     * @param TemplateGrid                                $templateGrid
+     * @param MessageBusInterface                         $messageBus
+     * @param TemplateCommandFactory                      $createCommandFactory
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
         TemplateQueryInterface $designerTemplateQuery,
         TemplateGrid $templateGrid,
         MessageBusInterface $messageBus,
         TemplateCommandFactory $createCommandFactory,
-        RelationshipsResolverInterface $relationshipsResolver
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
         $this->designerTemplateQuery = $designerTemplateQuery;
         $this->templateGrid = $templateGrid;
         $this->messageBus = $messageBus;
         $this->createCommandFactory = $createCommandFactory;
         $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -364,7 +373,7 @@ class TemplateController extends AbstractController
     {
         $relationships = $this->relationshipsResolver->resolve($template->getId());
         if (!$relationships->isEmpty()) {
-            throw new ExistingRelationshipsHttpException($relationships);
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
         $command = new DeleteTemplateCommand($template->getId());

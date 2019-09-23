@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Infrastructure\Handler;
 
+use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Reader\Domain\Command\DeleteReaderCommand;
 use Ergonode\Reader\Domain\Entity\Reader;
 use Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface;
@@ -24,11 +26,20 @@ class DeleteReaderCommandHandler
     private $repository;
 
     /**
-     * @param ReaderRepositoryInterface $repository
+     * @var RelationshipsResolverInterface
      */
-    public function __construct(ReaderRepositoryInterface $repository)
-    {
+    private $relationshipsResolver;
+
+    /**
+     * @param ReaderRepositoryInterface      $repository
+     * @param RelationshipsResolverInterface $relationshipsResolver
+     */
+    public function __construct(
+        ReaderRepositoryInterface $repository,
+        RelationshipsResolverInterface $relationshipsResolver
+    ) {
         $this->repository = $repository;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
@@ -39,7 +50,12 @@ class DeleteReaderCommandHandler
     public function __invoke(DeleteReaderCommand $command)
     {
         $role = $this->repository->load($command->getId());
-        Assert::isInstanceOf($role, Reader::class, sprintf('Can\'t find reader with id "%s"', $command->getId()));
+        Assert::isInstanceOf($role, Reader::class, sprintf('Can\'t find reader with ID "%s"', $command->getId()));
+
+        $relationships = $this->relationshipsResolver->resolve($command->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsException($command->getId());
+        }
 
         $this->repository->delete($role);
     }

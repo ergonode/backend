@@ -12,8 +12,8 @@ namespace Ergonode\Reader\Application\Controller\Api;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
@@ -29,6 +29,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -57,21 +58,29 @@ class ReaderController extends AbstractController
     private $relationshipsResolver;
 
     /**
-     * @param ReaderQueryInterface           $query
-     * @param ReaderGrid                     $grid
-     * @param MessageBusInterface            $messageBus
-     * @param RelationshipsResolverInterface $relationshipsResolver
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private $existingRelationshipMessageBuilder;
+
+    /**
+     * @param ReaderQueryInterface                        $query
+     * @param ReaderGrid                                  $grid
+     * @param MessageBusInterface                         $messageBus
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
         ReaderQueryInterface $query,
         ReaderGrid $grid,
         MessageBusInterface $messageBus,
-        RelationshipsResolverInterface $relationshipsResolver
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
         $this->query = $query;
         $this->grid = $grid;
         $this->messageBus = $messageBus;
         $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -282,7 +291,7 @@ class ReaderController extends AbstractController
     {
         $relationships = $this->relationshipsResolver->resolve($reader->getId());
         if (!$relationships->isEmpty()) {
-            throw new ExistingRelationshipsHttpException($relationships);
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
         $command = new DeleteReaderCommand($reader->getId());

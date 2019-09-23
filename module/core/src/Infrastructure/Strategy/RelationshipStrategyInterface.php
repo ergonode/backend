@@ -16,11 +16,6 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 interface RelationshipStrategyInterface
 {
     /**
-     * @return string
-     */
-    public function getType(): string;
-
-    /**
      * @param AbstractId $id
      *
      * @return bool

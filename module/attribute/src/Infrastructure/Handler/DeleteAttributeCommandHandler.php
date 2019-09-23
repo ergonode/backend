@@ -12,6 +12,8 @@ namespace Ergonode\Attribute\Infrastructure\Handler;
 use Ergonode\Attribute\Domain\Command\DeleteAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -24,20 +26,36 @@ class DeleteAttributeCommandHandler
     private $repository;
 
     /**
-     * @param AttributeRepositoryInterface $repository
+     * @var RelationshipsResolverInterface
      */
-    public function __construct(AttributeRepositoryInterface $repository)
-    {
+    private $relationshipsResolver;
+
+    /**
+     * @param AttributeRepositoryInterface   $repository
+     * @param RelationshipsResolverInterface $relationshipsResolver
+     */
+    public function __construct(
+        AttributeRepositoryInterface $repository,
+        RelationshipsResolverInterface $relationshipsResolver
+    ) {
         $this->repository = $repository;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
      * @param DeleteAttributeCommand $command
+     *
+     * @throws ExistingRelationshipsException
      */
-    public function __invoke(DeleteAttributeCommand $command)
+    public function __invoke(DeleteAttributeCommand $command): void
     {
         $attribute = $this->repository->load($command->getId());
-        Assert::isInstanceOf($attribute, AbstractAttribute::class, sprintf('Attribute with id "%s" not found', $command->getId()));
+        Assert::isInstanceOf($attribute, AbstractAttribute::class, sprintf('Attribute with ID "%s" not found', $command->getId()));
+
+        $relationships = $this->relationshipsResolver->resolve($command->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsException($command->getId());
+        }
 
         $this->repository->delete($attribute);
     }

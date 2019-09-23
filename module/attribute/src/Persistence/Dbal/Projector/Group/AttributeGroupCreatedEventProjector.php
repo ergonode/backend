@@ -38,7 +38,7 @@ class AttributeGroupCreatedEventProjector implements DomainEventProjectorInterfa
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof AttributeGroupCreatedEvent;
     }
@@ -48,7 +48,7 @@ class AttributeGroupCreatedEventProjector implements DomainEventProjectorInterfa
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof AttributeGroupCreatedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, AttributeGroupCreatedEvent::class);
         }
 

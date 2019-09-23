@@ -84,8 +84,17 @@ class DbalAccountQuery implements AccountQueryInterface
             ->from(self::TABLE)
             ->where('role_id = :role')
             ->setParameter('role', $roleId->getValue());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
-        return $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new UserId($item);
+        }
+
+        return $result;
     }
 
     /**

@@ -27,9 +27,9 @@ use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
-use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
@@ -40,6 +40,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -74,24 +75,32 @@ class CategoryTreeController extends AbstractController
     private $relationshipsResolver;
 
     /**
-     * @param TreeRepositoryInterface        $treeRepository
-     * @param MessageBusInterface            $messageBus
-     * @param TreeQueryInterface             $query
-     * @param TreeGrid                       $grid
-     * @param RelationshipsResolverInterface $relationshipsResolver
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private $existingRelationshipMessageBuilder;
+
+    /**
+     * @param TreeRepositoryInterface                     $treeRepository
+     * @param MessageBusInterface                         $messageBus
+     * @param TreeQueryInterface                          $query
+     * @param TreeGrid                                    $grid
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
         TreeRepositoryInterface $treeRepository,
         MessageBusInterface $messageBus,
         TreeQueryInterface $query,
         TreeGrid $grid,
-        RelationshipsResolverInterface $relationshipsResolver
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
         $this->treeRepository = $treeRepository;
         $this->messageBus = $messageBus;
         $this->query = $query;
         $this->grid = $grid;
         $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -453,7 +462,7 @@ class CategoryTreeController extends AbstractController
     {
         $relationships = $this->relationshipsResolver->resolve($tree->getId());
         if (!$relationships->isEmpty()) {
-            throw new ExistingRelationshipsHttpException($relationships);
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
         $command = new DeleteTreeCommand($tree->getId());

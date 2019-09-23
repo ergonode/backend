@@ -41,8 +41,8 @@ class RelationshipsResolver implements RelationshipsResolverInterface
         foreach ($this->strategies as $strategy) {
             if ($strategy->supports($id)) {
                 $relationships = $strategy->getRelationships($id);
-                if (!empty($relationships)) {
-                    $collection->set($strategy->getType(), $relationships);
+                foreach ($relationships as $relationship) {
+                    $collection->add($relationship);
                 }
             }
         }

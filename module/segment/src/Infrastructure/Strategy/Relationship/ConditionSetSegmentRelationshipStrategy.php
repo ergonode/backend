@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class ConditionSetSegmentRelationshipStrategy implements RelationshipStrategyInterface
 {
-    public const TYPE = 'segment';
-
     /**
      * @var SegmentQueryInterface
      */
@@ -40,14 +38,6 @@ class ConditionSetSegmentRelationshipStrategy implements RelationshipStrategyInt
     public function supports(AbstractId $id): bool
     {
         return $id instanceof ConditionSetId;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
     }
 
     /**

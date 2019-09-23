@@ -33,7 +33,7 @@ class AddCategoryCommandHandler
     /**
      * @param AddCategoryCommand $command
      */
-    public function __invoke(AddCategoryCommand $command)
+    public function __invoke(AddCategoryCommand $command): void
     {
         $tree = $this->repository->load($command->getTreeId());
 

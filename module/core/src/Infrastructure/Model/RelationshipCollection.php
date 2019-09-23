@@ -9,9 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\Model;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
+
 /**
  */
-class RelationshipCollection
+class RelationshipCollection implements \Iterator
 {
     /**
      * @var array
@@ -19,40 +21,31 @@ class RelationshipCollection
     private $collection = [];
 
     /**
-     * @param string $key
-     * @param array  $value
+     * @param AbstractId $id
      */
-    public function set(string $key, array $value): void
+    public function add(AbstractId $id): void
     {
-        $this->collection[$key] = $value;
+        $this->collection[] = $id;
     }
 
     /**
-     * @param string $key
+     * @param int $key
      *
-     * @return array
+     * @return AbstractId
      */
-    public function get(string $key): array
+    public function get(int $key): AbstractId
     {
         return $this->collection[$key];
     }
 
     /**
-     * @param string $key
+     * @param AbstractId $id
      *
      * @return bool
      */
-    public function has(string $key): bool
+    public function has(AbstractId $id): bool
     {
-        return array_key_exists($key, $this->collection);
-    }
-
-    /**
-     * @return array
-     */
-    public function getKeys(): array
-    {
-        return array_keys($this->collection);
+        return in_array($id, $this->collection, true);
     }
 
     /**
@@ -61,5 +54,44 @@ class RelationshipCollection
     public function isEmpty(): bool
     {
         return 0 === count($this->collection);
+    }
+
+    /**
+     * @return int
+     */
+    public function key(): int
+    {
+        return key($this->collection);
+    }
+
+    /**
+     * @return AbstractId
+     */
+    public function current(): AbstractId
+    {
+        return current($this->collection);
+    }
+
+    /**
+     * @return AbstractId
+     */
+    public function next(): AbstractId
+    {
+        return next($this->collection);
+    }
+
+    /**
+     */
+    public function rewind(): void
+    {
+        reset($this->collection);
+    }
+
+    /**
+     * @return bool
+     */
+    public function valid(): bool
+    {
+        return $this->current() instanceof AbstractId;
     }
 }

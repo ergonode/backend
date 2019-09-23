@@ -13,8 +13,8 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -36,6 +36,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -64,21 +65,29 @@ class ProductController extends AbstractController
     private $relationshipsResolver;
 
     /**
-     * @param DbalProductDataSet             $dataSet
-     * @param ProductGrid                    $productGrid
-     * @param MessageBusInterface            $messageBus
-     * @param RelationshipsResolverInterface $relationshipsResolver
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private $existingRelationshipMessageBuilder;
+
+    /**
+     * @param DbalProductDataSet                          $dataSet
+     * @param ProductGrid                                 $productGrid
+     * @param MessageBusInterface                         $messageBus
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
         DbalProductDataSet $dataSet,
         ProductGrid $productGrid,
         MessageBusInterface $messageBus,
-        RelationshipsResolverInterface $relationshipsResolver
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
         $this->dataSet = $dataSet;
         $this->productGrid = $productGrid;
         $this->messageBus = $messageBus;
         $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -363,7 +372,7 @@ class ProductController extends AbstractController
     {
         $relationships = $this->relationshipsResolver->resolve($product->getId());
         if (!$relationships->isEmpty()) {
-            throw new ExistingRelationshipsHttpException($relationships);
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
         $command = new DeleteProductCommand($product->getId());

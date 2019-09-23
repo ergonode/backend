@@ -23,9 +23,9 @@ use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
-use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
@@ -36,6 +36,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -65,21 +66,29 @@ class CategoryController extends AbstractController
     private $relationshipsResolver;
 
     /**
-     * @param CategoryGrid                   $categoryGrid
-     * @param CategoryQueryInterface         $categoryQuery
-     * @param MessageBusInterface            $messageBus
-     * @param RelationshipsResolverInterface $relationshipsResolver
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private $existingRelationshipMessageBuilder;
+
+    /**
+     * @param CategoryGrid                                $categoryGrid
+     * @param CategoryQueryInterface                      $categoryQuery
+     * @param MessageBusInterface                         $messageBus
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
         CategoryGrid $categoryGrid,
         CategoryQueryInterface $categoryQuery,
         MessageBusInterface $messageBus,
-        RelationshipsResolverInterface $relationshipsResolver
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
         $this->categoryGrid = $categoryGrid;
         $this->categoryQuery = $categoryQuery;
         $this->messageBus = $messageBus;
         $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -363,7 +372,7 @@ class CategoryController extends AbstractController
     {
         $relations = $this->relationshipsResolver->resolve($category->getId());
         if (!$relations->isEmpty()) {
-            throw new ExistingRelationshipsHttpException($relations);
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relations));
         }
 
         $command = new DeleteCategoryCommand($category->getId());

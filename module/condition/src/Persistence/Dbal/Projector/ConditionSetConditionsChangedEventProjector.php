@@ -49,7 +49,7 @@ class ConditionSetConditionsChangedEventProjector implements DomainEventProjecto
      *
      * @return bool
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof ConditionSetConditionsChangedEvent;
     }
@@ -63,7 +63,7 @@ class ConditionSetConditionsChangedEventProjector implements DomainEventProjecto
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof ConditionSetConditionsChangedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, ConditionSetConditionsChangedEvent::class);
         }
 

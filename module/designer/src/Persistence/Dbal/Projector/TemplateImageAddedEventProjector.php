@@ -38,7 +38,7 @@ class TemplateImageAddedEventProjector implements DomainEventProjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof TemplateImageAddedEvent;
     }
@@ -48,7 +48,7 @@ class TemplateImageAddedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof TemplateImageAddedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, TemplateImageAddedEvent::class);
         }
 

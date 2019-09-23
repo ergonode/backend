@@ -23,12 +23,11 @@ use Ergonode\Condition\Domain\ValueObject\ConditionSetCode;
 use Ergonode\Condition\Infrastructure\Builder\CreateConditionSetValidatorBuilder;
 use Ergonode\Condition\Infrastructure\Builder\UpdateConditionSetValidatorBuilder;
 use Ergonode\Condition\Infrastructure\Grid\ConditionSetGrid;
-use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
-use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -37,6 +36,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -80,25 +80,25 @@ class ConditionSetController extends AbstractController
     private $updateConditionSetValidatorBuilder;
 
     /**
-     * @var SegmentQueryInterface
-     */
-    private $segmentQuery;
-
-    /**
      * @var RelationshipsResolverInterface
      */
     private $relationshipsResolver;
 
     /**
-     * @param ValidatorInterface                 $validator
-     * @param MessageBusInterface                $messageBus
-     * @param SerializerInterface                $serializer
-     * @param CreateConditionSetValidatorBuilder $createConditionSetValidatorBuilder
-     * @param UpdateConditionSetValidatorBuilder $updateConditionSetValidatorBuilder
-     * @param ConditionSetGrid                   $conditionSetGrid
-     * @param ConditionSetQueryInterface         $conditionSetQuery
-     * @param SegmentQueryInterface              $segmentQuery
-     * @param RelationshipsResolverInterface     $relationshipsResolver
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private $existingRelationshipMessageBuilder;
+
+    /**
+     * @param ValidatorInterface                          $validator
+     * @param MessageBusInterface                         $messageBus
+     * @param SerializerInterface                         $serializer
+     * @param CreateConditionSetValidatorBuilder          $createConditionSetValidatorBuilder
+     * @param UpdateConditionSetValidatorBuilder          $updateConditionSetValidatorBuilder
+     * @param ConditionSetGrid                            $conditionSetGrid
+     * @param ConditionSetQueryInterface                  $conditionSetQuery
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
         ValidatorInterface $validator,
@@ -108,8 +108,8 @@ class ConditionSetController extends AbstractController
         UpdateConditionSetValidatorBuilder $updateConditionSetValidatorBuilder,
         ConditionSetGrid $conditionSetGrid,
         ConditionSetQueryInterface $conditionSetQuery,
-        SegmentQueryInterface $segmentQuery,
-        RelationshipsResolverInterface $relationshipsResolver
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
         $this->validator = $validator;
         $this->messageBus = $messageBus;
@@ -118,8 +118,8 @@ class ConditionSetController extends AbstractController
         $this->conditionSetQuery = $conditionSetQuery;
         $this->createConditionSetValidatorBuilder = $createConditionSetValidatorBuilder;
         $this->updateConditionSetValidatorBuilder = $updateConditionSetValidatorBuilder;
-        $this->segmentQuery = $segmentQuery;
         $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -400,7 +400,7 @@ class ConditionSetController extends AbstractController
     {
         $relationships = $this->relationshipsResolver->resolve($conditionSet->getId());
         if (!$relationships->isEmpty()) {
-            throw new ExistingRelationshipsHttpException($relationships);
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
         $command = new DeleteConditionSetCommand($conditionSet->getId());

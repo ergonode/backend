@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
 {
-    public const TYPE = 'user';
-
     /**
      * @var AccountQueryInterface
      */
@@ -40,14 +38,6 @@ class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
     public function supports(AbstractId $id): bool
     {
         return $id instanceof RoleId;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
     }
 
     /**

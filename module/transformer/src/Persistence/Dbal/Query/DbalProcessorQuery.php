@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
+use Ergonode\Transformer\Domain\Entity\ProcessorId;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Ergonode\Transformer\Domain\Query\ProcessorQueryInterface;
 
@@ -40,7 +41,16 @@ class DbalProcessorQuery implements ProcessorQueryInterface
             ->from('importer.processor')
             ->where('transformer_id = :transformer')
             ->setParameter('transformer', $transformerId->getValue());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
-        return $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProcessorId($item);
+        }
+
+        return $result;
     }
 }

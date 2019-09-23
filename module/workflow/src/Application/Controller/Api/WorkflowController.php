@@ -13,7 +13,7 @@ use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowCommand;
@@ -30,6 +30,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,12 +71,18 @@ class WorkflowController extends AbstractController
     private $relationshipsResolver;
 
     /**
-     * @param WorkflowProvider               $provider
-     * @param WorkflowValidatorBuilder       $builder
-     * @param ValidatorInterface             $validator
-     * @param SerializerInterface            $serializer
-     * @param MessageBusInterface            $messageBus
-     * @param RelationshipsResolverInterface $relationshipsResolver
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private $existingRelationshipMessageBuilder;
+
+    /**
+     * @param WorkflowProvider                            $provider
+     * @param WorkflowValidatorBuilder                    $builder
+     * @param ValidatorInterface                          $validator
+     * @param SerializerInterface                         $serializer
+     * @param MessageBusInterface                         $messageBus
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
         WorkflowProvider $provider,
@@ -83,7 +90,8 @@ class WorkflowController extends AbstractController
         ValidatorInterface $validator,
         SerializerInterface $serializer,
         MessageBusInterface $messageBus,
-        RelationshipsResolverInterface $relationshipsResolver
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
         $this->provider = $provider;
         $this->builder = $builder;
@@ -91,6 +99,7 @@ class WorkflowController extends AbstractController
         $this->serializer = $serializer;
         $this->messageBus = $messageBus;
         $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -284,7 +293,7 @@ class WorkflowController extends AbstractController
     {
         $relationships = $this->relationshipsResolver->resolve($workflow->getId());
         if (!$relationships->isEmpty()) {
-            throw new ExistingRelationshipsHttpException($relationships);
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
         $command = new DeleteWorkflowCommand($workflow->getId());

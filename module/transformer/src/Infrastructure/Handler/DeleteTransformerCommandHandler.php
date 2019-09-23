@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Handler;
 
+use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Transformer\Domain\Command\DeleteTransformerCommand;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
@@ -24,11 +26,20 @@ class DeleteTransformerCommandHandler
     private $repository;
 
     /**
-     * @param TransformerRepositoryInterface $repository
+     * @var RelationshipsResolverInterface
      */
-    public function __construct(TransformerRepositoryInterface $repository)
-    {
+    private $relationshipsResolver;
+
+    /**
+     * @param TransformerRepositoryInterface $repository
+     * @param RelationshipsResolverInterface $relationshipsResolver
+     */
+    public function __construct(
+        TransformerRepositoryInterface $repository,
+        RelationshipsResolverInterface $relationshipsResolver
+    ) {
         $this->repository = $repository;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
@@ -39,7 +50,12 @@ class DeleteTransformerCommandHandler
     public function __invoke(DeleteTransformerCommand $command)
     {
         $transformer = $this->repository->load($command->getId());
-        Assert::isInstanceOf($transformer, Transformer::class, sprintf('Can\'t find transformer with id "%s"', $command->getId()));
+        Assert::isInstanceOf($transformer, Transformer::class, sprintf('Can\'t find transformer with ID "%s"', $command->getId()));
+
+        $relationships = $this->relationshipsResolver->resolve($command->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsException($command->getId());
+        }
 
         $this->repository->delete($transformer);
     }

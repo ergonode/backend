@@ -14,9 +14,9 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Application\Exception\ExistingRelationshipsHttpException;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipTypeMessageBuilder;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
@@ -37,6 +37,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -65,21 +66,29 @@ class SegmentController extends AbstractController
     private $relationshipsResolver;
 
     /**
-     * @param SegmentGrid                    $grid
-     * @param SegmentQueryInterface          $query
-     * @param MessageBusInterface            $messageBus
-     * @param RelationshipsResolverInterface $relationshipsResolver
+     * @var ExistingRelationshipTypeMessageBuilder
+     */
+    private $existingRelationshipTypeMessageBuilder;
+
+    /**
+     * @param SegmentGrid                            $grid
+     * @param SegmentQueryInterface                  $query
+     * @param MessageBusInterface                    $messageBus
+     * @param RelationshipsResolverInterface         $relationshipsResolver
+     * @param ExistingRelationshipTypeMessageBuilder $existingRelationshipTypeMessageBuilder
      */
     public function __construct(
         SegmentGrid $grid,
         SegmentQueryInterface $query,
         MessageBusInterface $messageBus,
-        RelationshipsResolverInterface $relationshipsResolver
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipTypeMessageBuilder $existingRelationshipTypeMessageBuilder
     ) {
         $this->grid = $grid;
         $this->query = $query;
         $this->messageBus = $messageBus;
         $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipTypeMessageBuilder = $existingRelationshipTypeMessageBuilder;
     }
 
     /**
@@ -365,7 +374,7 @@ class SegmentController extends AbstractController
     {
         $relationships = $this->relationshipsResolver->resolve($segment->getId());
         if (!$relationships->isEmpty()) {
-            throw new ExistingRelationshipsHttpException($relationships);
+            throw new ConflictHttpException($this->existingRelationshipTypeMessageBuilder->build($relationships));
         }
 
         $command = new DeleteSegmentCommand($segment->getId());

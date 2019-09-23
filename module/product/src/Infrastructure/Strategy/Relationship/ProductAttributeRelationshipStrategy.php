@@ -19,8 +19,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
-    public const TYPE = 'product';
-
     /**
      * @var ProductQueryInterface
      */
@@ -40,14 +38,6 @@ class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterf
     public function supports(AbstractId $id): bool
     {
         return $id instanceof AttributeId;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
     }
 
     /**

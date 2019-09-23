@@ -35,7 +35,7 @@ class CreateTreeCommandHandler
      *
      * @throws \Exception
      */
-    public function __invoke(CreateTreeCommand $command)
+    public function __invoke(CreateTreeCommand $command): void
     {
         $tree = new CategoryTree($command->getId(), $command->getCode(), $command->getName());
 
