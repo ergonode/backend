@@ -54,6 +54,7 @@ class AttributeContext implements Context
         foreach ($response as $group) {
             if (null !== $group->id) {
                 $value = $group->id;
+                break;
             }
         }
 

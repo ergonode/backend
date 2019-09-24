@@ -69,11 +69,14 @@ class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMess
      * @param string $class
      *
      * @return string
+     *
+     * @todo This is evil! rprzedzik, we need to discuss it, because this very bad hax
      */
     private function convertClassToTranslation(string $class): string
     {
-        $key = substr($class, strrpos($class, '\\'), strlen($class));
+        $key = substr($class, strrpos($class, '\\') + 1, strlen($class));
+        $key = str_replace('Id', '', $key);
 
-        return $this->translator->trans($key);
+        return $this->translator->trans(strtolower($key));
     }
 }
