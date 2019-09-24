@@ -12,6 +12,8 @@ use Ergonode\Attribute\Domain\Command\DeleteAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\DeleteAttributeCommandHandler;
+use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -40,6 +42,11 @@ class DeleteAttributeCommandHandlerTest extends TestCase
     private $strategy;
 
     /**
+     * @var RelationshipsResolver|MockObject
+     */
+    private $relationshipResolver;
+
+    /**
      */
     protected function setUp()
     {
@@ -47,7 +54,9 @@ class DeleteAttributeCommandHandlerTest extends TestCase
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->attribute = $this->createMock(AbstractAttribute::class);
         $this->strategy = $this->createMock(AttributeFactoryInterface::class);
-        $this->strategy->method('isSupported')->willReturn(true);
+        $this->strategy->method('supports')->willReturn(true);
+        $this->relationshipResolver = $this->createMock(RelationshipsResolver::class);
+        $this->relationshipResolver->method('resolve')->willReturn(new RelationshipCollection());
     }
 
     /**
@@ -57,7 +66,7 @@ class DeleteAttributeCommandHandlerTest extends TestCase
     {
         $this->repository->method('load')->willReturn(null);
 
-        $handler = new DeleteAttributeCommandHandler($this->repository);
+        $handler = new DeleteAttributeCommandHandler($this->repository, $this->relationshipResolver);
         $handler->__invoke($this->command);
     }
 }
