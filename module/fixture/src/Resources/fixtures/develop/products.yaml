@@ -8,9 +8,18 @@ Ergonode\Product\Domain\Entity\ProductId:
         __construct:
             - '<Uuid()>'
 
+Ergonode\Value\Domain\ValueObject\StringValue:
+    status_value_new:
+        __construct:
+            - 'STATUS_NEW'
+
 Ergonode\ProductSimple\Domain\Entity\SimpleProduct:
     product_{1..1000}:
         __construct:
             - '@product_id_<current()>'
             - '@sku_<current()>'
             - '@template_id_*'
+        __calls:
+            - addAttribute:
+                - '<AttributeCode(esa_status)>'
+                - '@status_value_new'

@@ -21,9 +21,7 @@ use Money\Currency;
 class PriceAttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * @param AttributeType $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function isSupported(AttributeType $type): bool
     {
@@ -31,9 +29,7 @@ class PriceAttributeFactory implements AttributeFactoryInterface
     }
 
     /**
-     * @param CreateAttributeCommand $command
-     *
-     * @return AbstractAttribute
+     * {@inheritDoc}
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
@@ -50,7 +46,8 @@ class PriceAttributeFactory implements AttributeFactoryInterface
             $command->getHint(),
             $command->getPlaceholder(),
             $command->isMultilingual(),
-            $currency
+            $currency,
+            $command->isSystem()
         );
     }
 }

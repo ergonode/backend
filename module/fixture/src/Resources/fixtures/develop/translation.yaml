@@ -17,3 +17,10 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
                 'PL': 'Polish_placeholder_<current()>'
                 'EN': 'English_placeholder_<current()>'
                 'ZH': 'Chinese_placeholder_<current()>'
+    empty:
+        __construct:
+            - []
+    label_esa_status:
+        __construct:
+            -   'PL': 'Status'
+                'EN': 'Status'

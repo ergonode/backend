@@ -138,9 +138,11 @@ class AttributeCreatedEventProjector implements DomainEventProjectorInterface
                     'label' => $labelUuid->toString(),
                     'placeholder' => $placeholderUuid->toString(),
                     'hint' => $hintUuid->toString(),
+                    'system' => $event->isSystem(),
                 ],
                 [
                     'multilingual' => \PDO::PARAM_BOOL,
+                    'system' => \PDO::PARAM_BOOL,
                 ]
             );
 
