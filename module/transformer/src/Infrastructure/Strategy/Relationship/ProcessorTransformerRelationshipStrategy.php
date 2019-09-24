@@ -35,7 +35,7 @@ class ProcessorTransformerRelationshipStrategy implements RelationshipStrategyIn
     /**
      * {@inheritDoc}
      */
-    public function isSupportedBy(AbstractId $id): bool
+    public function supports(AbstractId $id): bool
     {
         return $id instanceof TransformerId;
     }
@@ -45,7 +45,7 @@ class ProcessorTransformerRelationshipStrategy implements RelationshipStrategyIn
      */
     public function getRelationships(AbstractId $id): array
     {
-        if (!$this->isSupportedBy($id)) {
+        if (!$this->supports($id)) {
             throw new UnexpectedTypeException($id, TransformerId::class);
         }
 

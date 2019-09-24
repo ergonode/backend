@@ -65,17 +65,17 @@ class RelationshipCollection implements \Iterator
     }
 
     /**
-     * @return AbstractId
+     * @return AbstractId|bool
      */
-    public function current(): AbstractId
+    public function current()
     {
         return current($this->collection);
     }
 
     /**
-     * @return AbstractId
+     * @return AbstractId|bool
      */
-    public function next(): AbstractId
+    public function next()
     {
         return next($this->collection);
     }
