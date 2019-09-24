@@ -32,10 +32,21 @@ class UnitAttribute extends AbstractAttribute
      * @param TranslatableString $placeholder
      * @param bool               $multilingual
      * @param Unit               $unit
+     * @param bool               $system
+     *
+     * @throws \Exception
      */
-    public function __construct(AttributeId $id, AttributeCode $code, TranslatableString $label, TranslatableString $hint, TranslatableString $placeholder, bool $multilingual, Unit $unit)
-    {
-        parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual, [self::CODE => $unit->getCode()]);
+    public function __construct(
+        AttributeId $id,
+        AttributeCode $code,
+        TranslatableString $label,
+        TranslatableString $hint,
+        TranslatableString $placeholder,
+        bool $multilingual,
+        Unit $unit,
+        bool $system = false
+    ) {
+        parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual, [self::CODE => $unit->getCode()], $system);
     }
 
     /**
@@ -59,6 +70,8 @@ class UnitAttribute extends AbstractAttribute
 
     /**
      * @param Unit $new
+     *
+     * @throws \Exception
      */
     public function changeUnit(Unit $new): void
     {

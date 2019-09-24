@@ -72,6 +72,7 @@ class AccountGrid extends AbstractGrid
         $this->addColumn('role_id', new TextColumn('role_id', $this->trans('Roles'), new SelectFilter($roles, $filters->getString('role_id'))));
         $this->addColumn('is_active', new BoolColumn('is_active', $this->trans('Activity'), new SelectFilter($activities, $filters->getString('is_active'))));
         $this->addColumn('edit', new ActionColumn('edit'));
+        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 
     /**

@@ -264,6 +264,13 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
             - 'PL': 'Polish_name'
               'EN': 'English_name'
               'ZH': 'Chinese_name'
+    empty:
+        __construct:
+            - []
+    label_esa_status:
+        __construct:
+            -   'PL': 'Status'
+                'EN': 'Status'
 
 Ergonode\Workflow\Domain\Entity\Status:
     status_new:
@@ -336,3 +343,15 @@ Ergonode\Workflow\Domain\Entity\Workflow:
                   - '<statusId("published")>'
             - addTransition:
                   - '@transition_take'
+
+Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
+    attribute_esa_status:
+        __construct:
+            - '<AttributeId(esa_status)>'
+            - '<AttributeCode(esa_status)>'
+            - '@label_esa_status'
+            - '@empty'
+            - '@empty'
+            - false
+            - []
+            - true
