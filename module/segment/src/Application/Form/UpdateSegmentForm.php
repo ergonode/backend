@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Application\Form;
 
 use Ergonode\Core\Application\Form\Type\TranslationType;
-use Ergonode\Segment\Application\Form\Model\CreateSegmentFormModel;
 use Ergonode\Segment\Application\Form\Model\UpdateSegmentFormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,6 +27,13 @@ class UpdateSegmentForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add(
+                'condition_set_id',
+                TextType::class,
+                [
+                    'property_path' => 'conditionSetId',
+                ]
+            )
             ->add(
                 'name',
                 TranslationType::class

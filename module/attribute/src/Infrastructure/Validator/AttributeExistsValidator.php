@@ -54,7 +54,10 @@ class AttributeExistsValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $attribute = $this->attributeRepository->load(new AttributeId($value));
+        $attribute = false;
+        if (AttributeId::isValid($value)) {
+            $attribute = $this->attributeRepository->load(new AttributeId($value));
+        }
 
         if (!$attribute) {
             $this->context->buildViolation($constraint->message)

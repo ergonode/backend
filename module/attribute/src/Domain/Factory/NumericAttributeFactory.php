@@ -20,9 +20,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 class NumericAttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * @param AttributeType $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function isSupported(AttributeType $type): bool
     {
@@ -30,9 +28,9 @@ class NumericAttributeFactory implements AttributeFactoryInterface
     }
 
     /**
-     * @param CreateAttributeCommand $command
+     * {@inheritDoc}
      *
-     * @return AbstractAttribute
+     * @throws \Exception
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
@@ -42,7 +40,9 @@ class NumericAttributeFactory implements AttributeFactoryInterface
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual()
+            $command->isMultilingual(),
+            [],
+            $command->isSystem()
         );
     }
 }

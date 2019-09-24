@@ -11,7 +11,9 @@ namespace Ergonode\Segment\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -21,18 +23,20 @@ use Ergonode\Segment\Application\Form\Model\CreateSegmentFormModel;
 use Ergonode\Segment\Application\Form\Model\UpdateSegmentFormModel;
 use Ergonode\Segment\Application\Form\UpdateSegmentForm;
 use Ergonode\Segment\Domain\Command\CreateSegmentCommand;
+use Ergonode\Segment\Domain\Command\DeleteSegmentCommand;
 use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\Segment\Infrastructure\Grid\SegmentGrid;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  */
@@ -70,6 +74,8 @@ class SegmentController extends AbstractController
 
     /**
      * @Route("segments", methods={"GET"})
+     *
+     * @IsGranted("SEGMENT_READ")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
@@ -146,6 +152,8 @@ class SegmentController extends AbstractController
     /**
      * @Route("/segments/{segment}", methods={"GET"}, requirements={"segment" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
+     * @IsGranted("SEGMENT_READ")
+     *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
      *     name="language",
@@ -158,7 +166,7 @@ class SegmentController extends AbstractController
      *     name="segment",
      *     in="path",
      *     type="string",
-     *     description="Segment id",
+     *     description="Segment ID",
      * )
      * @SWG\Response(
      *     response=200,
@@ -182,6 +190,8 @@ class SegmentController extends AbstractController
 
     /**
      * @Route("/segments", methods={"POST"})
+     *
+     * @IsGranted("SEGMENT_CREATE")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
@@ -224,6 +234,7 @@ class SegmentController extends AbstractController
 
             $command = new CreateSegmentCommand(
                 new SegmentCode($data->code),
+                new ConditionSetId($data->conditionSetId),
                 new TranslatableString($data->name),
                 new TranslatableString($data->description)
             );
@@ -236,7 +247,9 @@ class SegmentController extends AbstractController
     }
 
     /**
-     * @Route("/segments/{segment}", methods={"PUT"})
+     * @Route("/segments/{segment}", methods={"PUT"}, requirements={"segment"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("SEGMENT_UPDATE")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(
@@ -288,13 +301,57 @@ class SegmentController extends AbstractController
             $command = new UpdateSegmentCommand(
                 $segment->getId(),
                 new TranslatableString($data->name),
-                new TranslatableString($data->description)
+                new TranslatableString($data->description),
+                new ConditionSetId($data->conditionSetId)
             );
             $this->messageBus->dispatch($command);
 
-            return new CreatedResponse($command->getId());
+            return new EmptyResponse();
         }
 
         throw new FormValidationHttpException($form);
+    }
+
+    /**
+     * @Route("/segments/{segment}", methods={"DELETE"}, requirements={"segment"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("CONDITION_DELETE")
+     *
+     * @SWG\Tag(name="Segment")
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     description="Language code",
+     *     default="EN"
+     * )
+     * @SWG\Parameter(
+     *     name="segment",
+     *     in="path",
+     *     required=true,
+     *     type="string",
+     *     description="Segment ID",
+     * )
+     * @SWG\Response(
+     *     response=204,
+     *     description="Success"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found"
+     * )
+     *
+     * @ParamConverter(class="Ergonode\Segment\Domain\Entity\Segment")
+     *
+     * @param Segment $segment
+     *
+     * @return Response
+     */
+    public function deleteSegment(Segment $segment): Response
+    {
+        $command = new DeleteSegmentCommand($segment->getId());
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }

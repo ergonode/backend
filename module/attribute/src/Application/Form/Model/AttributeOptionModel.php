@@ -19,7 +19,7 @@ class AttributeOptionModel
      * @var string
      *
      * @Assert\NotBlank(message="Option code is required")
-     * @Assert\Length(max=128, maxMessage="Option code is to long,. It should have {{ limit }} character or less.")
+     * @Assert\Length(max=128, maxMessage="Option code is to long. It should have {{ limit }} character or less.")
      */
     public $key;
 
