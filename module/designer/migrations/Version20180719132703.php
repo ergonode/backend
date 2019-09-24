@@ -74,8 +74,8 @@ final class Version20180719132703 extends AbstractErgonodeMigration
                 PRIMARY KEY(product_id, template_id)
             )
         ');
-        $this->addSql('ALTER TABLE designer.product ADD CONSTRAINT product_template_id_fk FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE RESTRICT');
-        $this->addSql('ALTER TABLE designer.product ADD CONSTRAINT product_product_id_fk FOREIGN KEY (product_id) REFERENCES public.product (id) ON DELETE RESTRICT');
+        $this->addSql('ALTER TABLE designer.product ADD CONSTRAINT product_template_id_fk FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE designer.product ADD CONSTRAINT product_product_id_fk FOREIGN KEY (product_id) REFERENCES public.product (id) ON DELETE CASCADE');
 
         $this->addType('TEXT', 'attribute', 'Text');
         $this->addType('NUMERIC', 'attribute', 'Numeric');
