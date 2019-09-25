@@ -21,6 +21,230 @@ Feature: Workflow
     Then created response is received
     And remember response param "id" as "workflow_status"
 
+  Scenario: Create status (color wrong format)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "test",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create status (color empty)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create status (without color)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create status (empty code)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "#ff0000",
+        "code": "",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create status (without code)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "#ff0000",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create status (wrong parameter)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "test": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create status (wrong language parameter)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "ZZ": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create status (empty name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": "",
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create status (without name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then created response is received
+
+  Scenario: Create status (wrong language parameter)
+    Given current authentication token
+    Given the request body is:
+      """
+          {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "ZZ": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "ZZ": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then created response is received
+
+  Scenario: Create status (empty description)
+    Given current authentication token
+    Given the request body is:
+      """
+          {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description" :""
+        }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create status (without description)
+    Given current authentication token
+    Given the request body is:
+      """
+          {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status" using HTTP POST
+    Then created response is received
+
   Scenario: Create default status (not authorized)
     When I request "/api/v1/EN/status" using HTTP POST
     Then unauthorized response is received
@@ -53,6 +277,230 @@ Feature: Workflow
     Given current authentication token
     When I request "/api/v1/EN/status/@@static_uuid@@" using HTTP PUT
     Then not found response is received
+
+  Scenario: Update status (color wrong format)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "test",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update status (color empty)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update status (without color)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update status (empty code)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "#ff0000",
+        "code": "",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update status (without code)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "#ff0000",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update status (wrong parameter)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "test": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update status (wrong language parameter)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "ZZ": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update status (empty name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": "",
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update status (without name)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "description": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then empty response is received
+
+  Scenario: Update status (wrong language parameter)
+    Given current authentication token
+    Given the request body is:
+      """
+          {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "ZZ": "PL",
+          "EN": "EN"
+        },
+        "description": {
+          "ZZ": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then created response is received
+
+  Scenario: Update status (empty description)
+    Given current authentication token
+    Given the request body is:
+      """
+          {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        },
+        "description" :""
+        }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update status (without description)
+    Given current authentication token
+    Given the request body is:
+      """
+          {
+        "color": "#ff0000",
+        "code": "ST @@random_md5@@",
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
+    Then empty response is received
 
   Scenario: Get default status
     Given current authentication token
@@ -100,6 +548,60 @@ Feature: Workflow
     Then grid response is received
 
   Scenario: Get default statuses (not authorized)
+    When I request "/api/v1/EN/status" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get status (order by id)
+    Given current authentication token
+    When I request "/api/v1/EN/status?field=id" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get status (order by code)
+    Given current authentication token
+    When I request "/api/v1/EN/status?field=code" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get status (order by name)
+    Given current authentication token
+    When I request "/api/v1/EN/status?field=name" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get status (order by description)
+    Given current authentication token
+    When I request "/api/v1/EN/status?field=description" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get status (order ASC)
+    Given current authentication token
+    When I request "/api/v1/EN/status?field=name&order=ASC" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get status (order DESC)
+    Given current authentication token
+    When I request "/api/v1/EN/status?field=name&order=DESC" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get status (filter by id)
+    Given current authentication token
+    When I request "/api/v1/EN/status?limit=25&offset=0&filter=id%3Dasd" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get status (filter by name)
+    Given current authentication token
+    When I request "/api/v1/EN/status?limit=25&offset=0&filter=name%3Dasd" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get status (filter by code)
+    Given current authentication token
+    When I request "/api/v1/EN/status?limit=25&offset=0&filter=code%3DEN" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get status (filter by description)
+    Given current authentication token
+    When I request "/api/v1/EN/status?limit=25&offset=0&filter=description%3D1" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get status (not authorized)
     When I request "/api/v1/EN/status" using HTTP GET
     Then unauthorized response is received
 

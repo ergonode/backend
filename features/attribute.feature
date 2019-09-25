@@ -19,6 +19,46 @@ Feature: Attribute module
     When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
     Then unauthorized response is received
 
+  Scenario: Get attributes (order by id)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?field=id" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (order by label)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?field=label" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (order by elements_count)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?field=elements_count" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (order ASC)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?field=label&order=ASC" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (order DESC)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?field=label&order=DESC" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (filter by label)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=label%3Dasd" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (filter by id)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=id%3DEN" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (filter by elements_count)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=elements_count%3D1" using HTTP GET
+    Then grid response is received
+
   Scenario: Delete attribute (not found)
     Given current authentication token
     When I request "/api/v1/EN/attributes/@@static_uuid@@" using HTTP DELETE
@@ -403,6 +443,3 @@ Feature: Attribute module
   Scenario: Get attribute currencies date formats (not authorized)
     When I request "/api/v1/EN/dictionary/date_format" using HTTP GET
     Then unauthorized response is received
-
-  # TODO Check create attribute action with all incorrect possibilities
-  # TODO Check update attribute action with all incorrect possibilities
