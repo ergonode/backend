@@ -11,11 +11,12 @@ namespace Ergonode\Workflow\Domain\Event\Workflow;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
+use Ergonode\Workflow\Domain\ValueObject\Transition;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class WorkflowTransitionRemovedEvent implements DomainEventInterface
+class WorkflowTransitionChangedEvent implements DomainEventInterface
 {
     /**
      * @var StatusCode
@@ -32,13 +33,31 @@ class WorkflowTransitionRemovedEvent implements DomainEventInterface
     private $destination;
 
     /**
+     * @var Transition
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\Transition")
+     */
+    private $from;
+
+    /**
+     * @var Transition
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\Transition")
+     */
+    private $to;
+
+    /**
      * @param StatusCode $source
      * @param StatusCode $destination
+     * @param Transition $from
+     * @param Transition $to
      */
-    public function __construct(StatusCode $source, StatusCode $destination)
+    public function __construct(StatusCode $source, StatusCode $destination, Transition $from, Transition $to)
     {
         $this->source = $source;
         $this->destination = $destination;
+        $this->from = $from;
+        $this->to = $to;
     }
 
     /**
@@ -55,5 +74,21 @@ class WorkflowTransitionRemovedEvent implements DomainEventInterface
     public function getDestination(): StatusCode
     {
         return $this->destination;
+    }
+
+    /**
+     * @return Transition
+     */
+    public function getFrom(): Transition
+    {
+        return $this->from;
+    }
+
+    /**
+     * @return Transition
+     */
+    public function getTo(): Transition
+    {
+        return $this->to;
     }
 }

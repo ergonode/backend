@@ -10,12 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Application\Request\ParamConverter;
 
 use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
-use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
+use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -23,39 +21,29 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class WorkflowParamConverter implements ParamConverterInterface
 {
     /**
-     * @var WorkflowRepositoryInterface
+     * @var WorkflowProvider
      */
-    private $repository;
+    private $provider;
 
     /**
-     * @param WorkflowRepositoryInterface $repository
+     * @param WorkflowProvider $provider
      */
-    public function __construct(WorkflowRepositoryInterface $repository)
+    public function __construct(WorkflowProvider $provider)
     {
-        $this->repository = $repository;
+        $this->provider = $provider;
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws \ReflectionException
+     * @throws \Exception
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $parameter = $request->get('workflow');
-
-        if (null === $parameter) {
-            throw new BadRequestHttpException('Route parameter "workflow" is missing');
-        }
-
-        if (!WorkflowId::isValid($parameter)) {
-            throw new BadRequestHttpException('Invalid workflow ID format');
-        }
-
-        $entity = $this->repository->load(new WorkflowId($parameter));
+        $entity = $this->provider->provide();
 
         if (null === $entity) {
-            throw new NotFoundHttpException(sprintf('Workflow by id "%s" not found', $parameter));
+            throw new NotFoundHttpException('Default Workflow not found');
         }
 
         $request->attributes->set($configuration->getName(), $entity);

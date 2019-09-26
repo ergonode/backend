@@ -9,23 +9,22 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Faker\Provider\Base as BaseProvider;
 
 /**
  */
-class StatusIdFaker extends BaseProvider
+class StatusCodeFaker extends BaseProvider
 {
     /**
-     * @param string|null $code
+     * @param string $code
      *
-     * @return StatusId
+     * @return StatusCode
      *
      * @throws \Exception
      */
-    public function statusId(string $code): StatusId
+    public function statusCode(string $code): StatusCode
     {
-        return StatusId::fromCode(new StatusCode($code));
+        return new StatusCode($code);
     }
 }

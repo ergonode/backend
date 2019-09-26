@@ -2,21 +2,28 @@
 
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Domain\Event\Workflow;
+namespace Ergonode\Workflow\Domain\Command\Workflow;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class WorkflowTransitionRemovedEvent implements DomainEventInterface
+class DeleteWorkflowTransitionCommand
 {
+    /**
+     * @var WorkflowId
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
+     */
+    private $workflowId;
+
     /**
      * @var StatusCode
      *
@@ -31,14 +38,28 @@ class WorkflowTransitionRemovedEvent implements DomainEventInterface
      */
     private $destination;
 
+
     /**
+     * @param WorkflowId $workflowId
      * @param StatusCode $source
      * @param StatusCode $destination
      */
-    public function __construct(StatusCode $source, StatusCode $destination)
-    {
+    public function __construct(
+        WorkflowId $workflowId,
+        StatusCode $source,
+        StatusCode $destination
+    ) {
+        $this->workflowId = $workflowId;
         $this->source = $source;
         $this->destination = $destination;
+    }
+
+    /**
+     * @return WorkflowId
+     */
+    public function getWorkflowId(): WorkflowId
+    {
+        return $this->workflowId;
     }
 
     /**

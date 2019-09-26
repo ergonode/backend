@@ -53,7 +53,6 @@ class UpdateStatusCommand
      */
     public function __construct(StatusId $id, Color $color, TranslatableString $name, TranslatableString $description)
     {
-
         $this->id = $id;
         $this->color = $color;
         $this->name = $name;

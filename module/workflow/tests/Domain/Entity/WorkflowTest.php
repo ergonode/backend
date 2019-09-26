@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Tests\Domain\Entity;
 
-use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -30,7 +30,7 @@ class WorkflowTest extends TestCase
     private $code;
 
     /**
-     * @var StatusId|MockObject
+     * @var StatusCode|MockObject
      */
     private $status;
 
@@ -40,7 +40,7 @@ class WorkflowTest extends TestCase
     {
         $this->id = $this->createMock(WorkflowId::class);
         $this->code = 'Any code';
-        $this->status = StatusId::generate();
+        $this->status = $this->createMock(StatusCode::class);
     }
 
     /**
@@ -59,8 +59,8 @@ class WorkflowTest extends TestCase
      */
     public function testStatusManipulation(): void
     {
-        /** @var StatusId|MockObject $status */
-        $status = StatusId::generate();
+        /** @var StatusCode|MockObject $status */
+        $status = $this->createMock(StatusCode::class);
 
         $workflow = new Workflow($this->id, $this->code, [$this->status]);
         $this->assertSame($this->id, $workflow->getId());
