@@ -64,7 +64,7 @@ class SkuExistsValidatorTest extends ConstraintValidatorTestCase
      */
     public function testSkuExistsValidation(): void
     {
-        $this->query->method('findBySku')->willReturn([[]]);
+        $this->query->method('findBySku')->willReturn([]);
         $this->validator->validate(new Sku('Value'), new SkuExists());
 
         $this->assertNoViolation();
