@@ -53,9 +53,8 @@ class ResponseFormatterListenerTest extends TestCase
             '{
     "code": "401",
     "message": "A Token was not found in the TokenStorage.",
-    "trace": [
-        "#0 /home/mkolanko/www/local/ergonode-wiewiurd-from-github/vendor/symfony/security-bundle/Debug/WrappedListener.php(51): Symfony\\Component\\Security\\Http\\Firewall\\AccessListener->__invoke(Object(Symfony\\Component\\HttpKernel\\Event\\RequestEvent))"
-        ]}'
+    "trace": [#random/path/to/something"]
+    }'
         );
         $response->expects($this->once())->method('setContent');
         $this->event->expects($this->once())->method('setResponse');

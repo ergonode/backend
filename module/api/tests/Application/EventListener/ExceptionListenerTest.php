@@ -42,6 +42,8 @@ class ExceptionListenerTest extends TestCase
      */
     private $authenticationCredentialNotFoundException;
 
+    /**
+     */
     protected function setUp()
     {
         $this->exceptionMapper = $this->createMock(ExceptionMapperInterface::class);
