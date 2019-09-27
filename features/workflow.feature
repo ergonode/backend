@@ -5,7 +5,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "PL": "PL",
@@ -85,7 +85,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "",
         "name": {
           "PL": "PL",
@@ -105,7 +105,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "name": {
           "PL": "PL",
           "EN": "EN"
@@ -124,7 +124,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "test": "#ff0000",
+        "test": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "PL": "PL",
@@ -144,7 +144,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "ZZ": "PL",
@@ -164,9 +164,9 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
-        "name": "",
+        "name": {},
         "description": {
           "PL": "PL",
           "EN": "EN"
@@ -174,14 +174,14 @@ Feature: Workflow
       }
       """
     When I request "/api/v1/EN/status" using HTTP POST
-    Then validation error response is received
+    Then created response is received
 
   Scenario: Create status (without name)
     Given current authentication token
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "description": {
           "PL": "PL",
@@ -197,7 +197,7 @@ Feature: Workflow
     Given the request body is:
       """
           {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "ZZ": "PL",
@@ -217,24 +217,24 @@ Feature: Workflow
     Given the request body is:
       """
           {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "PL": "PL",
           "EN": "EN"
         },
-        "description" :""
+        "description" : {}
         }
       """
     When I request "/api/v1/EN/status" using HTTP POST
-    Then validation error response is received
+    Then created response is received
 
   Scenario: Create status (without description)
     Given current authentication token
     Given the request body is:
       """
           {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "PL": "PL",
@@ -254,7 +254,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "PL": "PL (changed)",
@@ -342,7 +342,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "",
         "name": {
           "PL": "PL",
@@ -362,7 +362,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "name": {
           "PL": "PL",
           "EN": "EN"
@@ -381,7 +381,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "test": "#ff0000",
+        "test": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "PL": "PL",
@@ -401,7 +401,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "ZZ": "PL",
@@ -421,7 +421,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": "",
         "description": {
@@ -438,7 +438,7 @@ Feature: Workflow
     Given the request body is:
       """
       {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "description": {
           "PL": "PL",
@@ -454,7 +454,7 @@ Feature: Workflow
     Given the request body is:
       """
           {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "ZZ": "PL",
@@ -474,7 +474,7 @@ Feature: Workflow
     Given the request body is:
       """
           {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "PL": "PL",
@@ -491,7 +491,7 @@ Feature: Workflow
     Given the request body is:
       """
           {
-        "color": "#ff0000",
+        "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
           "PL": "PL",
