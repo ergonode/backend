@@ -35,7 +35,7 @@ class UpdateTreeCommandHandler
     /**
      * @param UpdateTreeCommand $command
      */
-    public function __invoke(UpdateTreeCommand $command)
+    public function __invoke(UpdateTreeCommand $command): void
     {
         $categoryTree = $this->repository->load($command->getId());
         Assert::notNull($categoryTree);

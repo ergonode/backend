@@ -37,7 +37,7 @@ class ProcessorStatusChangedEventProjector implements DomainEventProjectorInterf
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof ProcessorStatusChangedEvent;
     }
@@ -49,7 +49,7 @@ class ProcessorStatusChangedEventProjector implements DomainEventProjectorInterf
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof ProcessorStatusChangedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, ProcessorStatusChangedEvent::class);
         }
 

@@ -35,7 +35,7 @@ class UpdateCategoryCommandHandler
     /**
      * @param UpdateCategoryCommand $command
      */
-    public function __invoke(UpdateCategoryCommand $command)
+    public function __invoke(UpdateCategoryCommand $command): void
     {
         $category = $this->repository->load($command->getId());
         Assert::notNull($category);

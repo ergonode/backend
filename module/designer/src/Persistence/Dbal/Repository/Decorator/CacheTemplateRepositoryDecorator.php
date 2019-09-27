@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Persistence\Dbal\Repository\Decorator;
 
+use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
  */
@@ -36,11 +36,9 @@ class CacheTemplateRepositoryDecorator implements TemplateRepositoryInterface
     }
 
     /**
-     * @param TemplateId $id
-     *
-     * @return AbstractAggregateRoot|null
+     * {@inheritDoc}
      */
-    public function load(TemplateId $id): ?AbstractAggregateRoot
+    public function load(TemplateId $id): ?Template
     {
         $key = $id->getValue();
         if (!isset($this->cache[$key])) {
@@ -51,11 +49,20 @@ class CacheTemplateRepositoryDecorator implements TemplateRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * {@inheritDoc}
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(Template $template): void
     {
-        $this->repository->save($aggregateRoot);
-        $this->cache[$aggregateRoot->getId()->getValue()] = $aggregateRoot;
+        $this->repository->save($template);
+        $this->cache[$template->getId()->getValue()] = $template;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete(Template $template): void
+    {
+        $this->repository->delete($template);
+        $this->cache[$template->getId()->getValue()] = $template;
     }
 }

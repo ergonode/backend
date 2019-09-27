@@ -12,6 +12,8 @@ namespace Ergonode\Account\Infrastructure\Handler\Role;
 use Ergonode\Account\Domain\Command\Role\DeleteRoleCommand;
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
+use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -24,11 +26,20 @@ class DeleteRoleCommandHandler
     private $repository;
 
     /**
-     * @param RoleRepositoryInterface $repository
+     * @var RelationshipsResolverInterface
      */
-    public function __construct(RoleRepositoryInterface $repository)
-    {
+    private $relationshipsResolver;
+
+    /**
+     * @param RoleRepositoryInterface        $repository
+     * @param RelationshipsResolverInterface $relationshipsResolver
+     */
+    public function __construct(
+        RoleRepositoryInterface $repository,
+        RelationshipsResolverInterface $relationshipsResolver
+    ) {
         $this->repository = $repository;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
@@ -39,7 +50,12 @@ class DeleteRoleCommandHandler
     public function __invoke(DeleteRoleCommand $command)
     {
         $role = $this->repository->load($command->getId());
-        Assert::isInstanceOf($role, Role::class, sprintf('Can\'t find Role with id %s', $command->getId()));
+        Assert::isInstanceOf($role, Role::class, sprintf('Can\'t find role with ID "%s"', $command->getId()));
+
+        $relationships = $this->relationshipsResolver->resolve($command->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsException($command->getId());
+        }
 
         $this->repository->delete($role);
     }

@@ -17,6 +17,13 @@ interface ReaderRepositoryInterface
     /**
      * @param ReaderId $id
      *
+     * @return bool
+     */
+    public function exists(ReaderId $id): bool;
+
+    /**
+     * @param ReaderId $id
+     *
      * @return Reader|null
      */
     public function load(ReaderId $id): ?Reader;
@@ -29,9 +36,9 @@ interface ReaderRepositoryInterface
     public function save(Reader $reader): void;
 
     /**
-     * @param ReaderId $id
+     * @param Reader $reader
      *
-     * @return bool
+     * @return void
      */
-    public function exists(ReaderId $id): bool;
+    public function delete(Reader $reader): void;
 }

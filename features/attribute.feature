@@ -46,7 +46,6 @@ Feature: Attribute module
 
   Scenario: Update text attribute
     Given current authentication token
-    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP PUT
     Given the request body is:
       """
       {
@@ -58,6 +57,7 @@ Feature: Attribute module
           "parameters": []
       }
       """
+    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP PUT
     Then empty response is received
 
   Scenario: Update text attribute (not authorized)

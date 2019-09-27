@@ -49,7 +49,7 @@ class SegmentNameChangedEventProjector implements DomainEventProjectorInterface
      *
      * @return bool
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof SegmentNameChangedEvent;
     }
@@ -63,7 +63,7 @@ class SegmentNameChangedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof SegmentNameChangedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, SegmentNameChangedEvent::class);
         }
 
