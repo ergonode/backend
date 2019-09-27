@@ -37,7 +37,7 @@ class TextAttributeFactoryTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new TextAttributeFactory();
-        $this->assertTrue($strategy->isSupported(new AttributeType(TextAttribute::TYPE)));
+        $this->assertTrue($strategy->supports(new AttributeType(TextAttribute::TYPE)));
     }
 
     /**
@@ -45,7 +45,7 @@ class TextAttributeFactoryTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new TextAttributeFactory();
-        $this->assertFalse($strategy->isSupported(new AttributeType('NOT-MATH')));
+        $this->assertFalse($strategy->supports(new AttributeType('NOT-MATH')));
     }
 
     /**

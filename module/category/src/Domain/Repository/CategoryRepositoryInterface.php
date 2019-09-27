@@ -20,6 +20,13 @@ interface CategoryRepositoryInterface
     /**
      * @param CategoryId $id
      *
+     * @return bool
+     */
+    public function exists(CategoryId $id): bool;
+
+    /**
+     * @param CategoryId $id
+     *
      * @return AbstractAggregateRoot|Category
      */
     public function load(CategoryId $id): ?AbstractAggregateRoot;
@@ -30,9 +37,7 @@ interface CategoryRepositoryInterface
     public function save(AbstractAggregateRoot $aggregateRoot): void;
 
     /**
-     * @param CategoryId $id
-     *
-     * @return bool
+     * @param AbstractAggregateRoot $aggregateRoot
      */
-    public function exists(CategoryId $id): bool;
+    public function delete(AbstractAggregateRoot $aggregateRoot): void;
 }

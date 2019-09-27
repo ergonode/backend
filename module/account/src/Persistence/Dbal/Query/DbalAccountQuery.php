@@ -11,6 +11,7 @@ namespace Ergonode\Account\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Grid\DataSetInterface;
@@ -71,6 +72,29 @@ class DbalAccountQuery implements AccountQueryInterface
             ->setParameter(':id', $userId->getValue())
             ->execute()
             ->fetch();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findUserIdByRoleId(RoleId $roleId): array
+    {
+        $queryBuilder = $this->connection->createQueryBuilder()
+            ->select('id')
+            ->from(self::TABLE)
+            ->where('role_id = :role')
+            ->setParameter('role', $roleId->getValue());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new UserId($item);
+        }
+
+        return $result;
     }
 
     /**

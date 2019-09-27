@@ -1,8 +1,8 @@
 services:
     _defaults:
-            autowire: true
-            autoconfigure: true
-            public: false
+        autowire: true
+        autoconfigure: true
+        public: false
 
     Ergonode\Account\Persistence\:
         resource: '../../Persistence/*'
@@ -41,6 +41,5 @@ services:
     Ergonode\Account\Domain\Query\PrivilegeQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalPrivilegeQuery'
     Ergonode\Account\Domain\Query\RoleQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalRoleQuery'
     Ergonode\Account\Domain\Query\LogQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalLogQuery'
-
     Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface: '@Ergonode\Account\Infrastructure\Encoder\DomainUserPasswordEncoder'
     Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolverInterface: '@Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolver'

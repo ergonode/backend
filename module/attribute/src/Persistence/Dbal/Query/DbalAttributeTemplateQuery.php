@@ -15,7 +15,6 @@ use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\Query\AttributeTemplateQueryInterface;
 
 /**
- * Class DbalAttributeTemplateQuery
  */
 class DbalAttributeTemplateQuery implements AttributeTemplateQueryInterface
 {

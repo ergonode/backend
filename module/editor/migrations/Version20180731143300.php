@@ -19,14 +19,6 @@ final class Version20180731143300 extends AbstractErgonodeMigration
     public function up(Schema $schema): void
     {
         $this->addSql('
-            CREATE TABLE designer.product (
-                product_id UUID NOT NULL,
-                template_id UUID NOT NULL,                               
-                PRIMARY KEY(product_id, template_id)
-            )
-        ');
-
-        $this->addSql('
             CREATE TABLE designer.draft (
                 id UUID NOT NULL,
                 sku VARCHAR(255) DEFAULT NULL,
@@ -47,8 +39,6 @@ final class Version20180731143300 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
-
-        $this->addSql('ALTER TABLE designer.product ADD CONSTRAINT product_template_id_fk FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE RESTRICT');
 
         $this->createEventStoreEvents([
             'Ergonode\Editor\Domain\Event\ProductDraftApplied' => 'Applied product draft',

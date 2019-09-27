@@ -14,9 +14,10 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Designer\Application\Form\TemplateForm;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
-use Ergonode\Designer\Domain\Checker\TemplateRelationChecker;
 use Ergonode\Designer\Domain\Command\DeleteTemplateCommand;
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
@@ -49,11 +50,6 @@ class TemplateController extends AbstractController
     private $templateGrid;
 
     /**
-     * @var TemplateRelationChecker
-     */
-    private $templateChecker;
-
-    /**
      * @var MessageBusInterface
      */
     private $messageBus;
@@ -64,24 +60,37 @@ class TemplateController extends AbstractController
     private $createCommandFactory;
 
     /**
-     * @param TemplateQueryInterface  $designerTemplateQuery
-     * @param TemplateGrid            $templateGrid
-     * @param TemplateRelationChecker $templateChecker
-     * @param MessageBusInterface     $messageBus
-     * @param TemplateCommandFactory  $createCommandFactory
+     * @var RelationshipsResolverInterface
+     */
+    private $relationshipsResolver;
+
+    /**
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private $existingRelationshipMessageBuilder;
+
+    /**
+     * @param TemplateQueryInterface                      $designerTemplateQuery
+     * @param TemplateGrid                                $templateGrid
+     * @param MessageBusInterface                         $messageBus
+     * @param TemplateCommandFactory                      $createCommandFactory
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
         TemplateQueryInterface $designerTemplateQuery,
         TemplateGrid $templateGrid,
-        TemplateRelationChecker $templateChecker,
         MessageBusInterface $messageBus,
-        TemplateCommandFactory $createCommandFactory
+        TemplateCommandFactory $createCommandFactory,
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
         $this->designerTemplateQuery = $designerTemplateQuery;
         $this->templateGrid = $templateGrid;
-        $this->templateChecker = $templateChecker;
         $this->messageBus = $messageBus;
         $this->createCommandFactory = $createCommandFactory;
+        $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -96,7 +105,7 @@ class TemplateController extends AbstractController
      *     type="integer",
      *     required=true,
      *     default="50",
-     *     description="Number of returned lines",
+     *     description="Number of returned lines"
      * )
      * @SWG\Parameter(
      *     name="offset",
@@ -104,7 +113,7 @@ class TemplateController extends AbstractController
      *     type="integer",
      *     required=true,
      *     default="0",
-     *     description="Number of start line",
+     *     description="Number of start line"
      * )
      * @SWG\Parameter(
      *     name="field",
@@ -112,7 +121,7 @@ class TemplateController extends AbstractController
      *     required=false,
      *     type="string",
      *     enum={"id", "label","code", "hint"},
-     *     description="Order field",
+     *     description="Order field"
      * )
      * @SWG\Parameter(
      *     name="order",
@@ -120,7 +129,7 @@ class TemplateController extends AbstractController
      *     required=false,
      *     type="string",
      *     enum={"ASC","DESC"},
-     *     description="Order",
+     *     description="Order"
      * )
      * @SWG\Parameter(
      *     name="filter",
@@ -143,11 +152,11 @@ class TemplateController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns templates",
+     *     description="Returns templates"
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
@@ -183,11 +192,11 @@ class TemplateController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Create template",
+     *     description="Create template"
      * )
      * @SWG\Response(
      *     response="400",
@@ -229,7 +238,7 @@ class TemplateController extends AbstractController
      *     name="template",
      *     in="path",
      *     type="string",
-     *     description="Template id",
+     *     description="Template id"
      * )
      * @SWG\Parameter(
      *     name="body",
@@ -244,11 +253,11 @@ class TemplateController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=204,
-     *     description="Update template",
+     *     description="Update template"
      * )
      * @SWG\Response(
      *     response=400,
@@ -291,7 +300,7 @@ class TemplateController extends AbstractController
      *     name="template",
      *     in="path",
      *     type="string",
-     *     description="Template id",
+     *     description="Template id"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -299,15 +308,15 @@ class TemplateController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns template",
+     *     description="Returns template"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      *
      * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
@@ -331,7 +340,7 @@ class TemplateController extends AbstractController
      *     name="template",
      *     in="path",
      *     type="string",
-     *     description="Template id",
+     *     description="Template ID"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -339,19 +348,19 @@ class TemplateController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=204,
-     *     description="Returns template",
+     *     description="Returns template"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      * @SWG\Response(
      *     response="409",
-     *     description="Can't remove Template, it has relations to products"
+     *     description="Existing relationships"
      * )
      *
      * @ParamConverter(class="Ergonode\Designer\Domain\Entity\Template")
@@ -362,11 +371,11 @@ class TemplateController extends AbstractController
      */
     public function deleteTemplate(Template $template): Response
     {
-        if ($this->templateChecker->hasRelations($template)) {
-            throw new ConflictHttpException('Can\'t remove Template, it has relations to products');
+        $relationships = $this->relationshipsResolver->resolve($template->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
-        // @todo Handler not found
         $command = new DeleteTemplateCommand($template->getId());
         $this->messageBus->dispatch($command);
 

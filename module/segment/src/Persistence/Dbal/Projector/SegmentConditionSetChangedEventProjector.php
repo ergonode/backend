@@ -41,7 +41,7 @@ class SegmentConditionSetChangedEventProjector implements DomainEventProjectorIn
      *
      * @return bool
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof SegmentConditionSetChangedEvent;
     }
@@ -55,7 +55,7 @@ class SegmentConditionSetChangedEventProjector implements DomainEventProjectorIn
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$this->support($event)) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, SegmentConditionSetChangedEvent::class);
         }
 

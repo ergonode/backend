@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Query;
 
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\ProductId;
@@ -43,4 +44,11 @@ interface ProductQueryInterface
      * @return array
      */
     public function findProductIdByTemplateId(TemplateId $templateId): array;
+
+    /**
+     * @param AttributeId $attributeId
+     *
+     * @return array
+     */
+    public function findProductIdByAttributeId(AttributeId $attributeId): array;
 }

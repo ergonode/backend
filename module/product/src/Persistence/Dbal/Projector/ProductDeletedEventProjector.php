@@ -38,7 +38,7 @@ class ProductDeletedEventProjector implements DomainEventProjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof ProductDeletedEvent;
     }
@@ -48,7 +48,7 @@ class ProductDeletedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof ProductDeletedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, ProductDeletedEvent::class);
         }
 

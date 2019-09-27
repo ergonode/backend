@@ -42,8 +42,10 @@ class AddAttributeOptionCommandHandler
 
     /**
      * @param AddAttributeOptionCommand $command
+     *
+     * @throws \Exception
      */
-    public function __invoke(AddAttributeOptionCommand $command)
+    public function __invoke(AddAttributeOptionCommand $command): void
     {
         $key = $command->getOptionKey();
         $attributeId = $command->getAttributeId();

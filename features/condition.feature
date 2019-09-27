@@ -1,4 +1,4 @@
-Feature: Condition
+Feature: Condition module
 
   Scenario: Get conditions dicitionary (not authorized)
     When I request "/api/v1/EN/dictionary/conditions" using HTTP GET

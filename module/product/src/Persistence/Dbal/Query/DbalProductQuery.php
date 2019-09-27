@@ -11,6 +11,7 @@ namespace Ergonode\Product\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\ProductId;
@@ -21,8 +22,9 @@ use Ergonode\Product\Domain\ValueObject\Sku;
  */
 class DbalProductQuery implements ProductQueryInterface
 {
-    private const PRODUCT_TABLE = 'product';
+    private const PRODUCT_TABLE = 'public.product';
     private const TEMPLATE_TABLE = 'designer.template';
+    private const VALUE_TABLE = 'public.product_value';
 
     /**
      * @var Connection
@@ -30,8 +32,6 @@ class DbalProductQuery implements ProductQueryInterface
     private $connection;
 
     /**
-     * DbalProductQuery constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)
@@ -40,9 +40,7 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @param Sku $sku
-     *
-     * @return array|null
+     * {@inheritDoc}
      */
     public function findBySku(Sku $sku): ?array
     {
@@ -59,7 +57,7 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @return array
+     * {@inheritDoc}
      */
     public function getAllIds(): array
     {
@@ -71,43 +69,74 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
-     * @param CategoryId $categoryId
-     *
-     * @return ProductId[]
+     * {@inheritDoc}
      */
     public function findProductIdByCategoryId(CategoryId $categoryId): array
     {
-        $qb = $this->getQuery();
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('p.id')
+            ->from('public.product', 'p')
+            ->join('p', 'public.product_category_product', 'pcp', 'p.id = pcp.product_id')
+            ->where($queryBuilder->expr()->in('pcp.category_id', ':category'))
+            ->setParameter(':category', $categoryId->getValue());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
-        $result = [];
-        $records = $qb
-            ->select('id')
-            ->where($qb->expr()->in('category', ':category'))
-            ->setParameter(':category', $categoryId->getValue())
-            ->execute()
-            ->fetch(\PDO::FETCH_COLUMN);
+        if (false === $result) {
+            $result = [];
+        }
 
-        foreach ($records as $record) {
-            $result[] = new ProductId($record);
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
         }
 
         return $result;
     }
 
     /**
-     * @param TemplateId $templateId
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function findProductIdByTemplateId(TemplateId $templateId): array
     {
-        $qb = $this->getQuery();
+        $queryBuilder = $this->getQuery();
+        $queryBuilder
+            ->select('p.id')
+            ->where($queryBuilder->expr()->eq('p.template_id', ':templateId'))
+            ->setParameter(':templateId', $templateId->getValue());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
-        return $qb->select('p.id')
-            ->where($qb->expr()->eq('p.template_id', ':templateId'))
-            ->setParameter(':templateId', $templateId->getValue())
-            ->execute()
-            ->fetchAll(\PDO::FETCH_COLUMN);
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
+        }
+
+        return $result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductIdByAttributeId(AttributeId $attributeId): array
+    {
+        $queryBuilder = $this->connection->createQueryBuilder()
+            ->select('product_id')
+            ->from(self::VALUE_TABLE)
+            ->where('attribute_id = :attribute')
+            ->setParameter('attribute', $attributeId->getValue());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
+        }
+
+        return $result;
     }
 
     /**

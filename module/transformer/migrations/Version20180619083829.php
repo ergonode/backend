@@ -18,6 +18,8 @@ final class Version20180619083829 extends AbstractErgonodeMigration
 {
     /**
      * @param Schema $schema
+     *
+     * @throws \Exception
      */
     public function up(Schema $schema): void
     {
@@ -53,6 +55,7 @@ final class Version20180619083829 extends AbstractErgonodeMigration
             'Ergonode\Transformer\Domain\Event\ProcessorStatusChangedEvent' => 'Transformer processor status changed',
             'Ergonode\Transformer\Domain\Event\TransformerConverterAddedEvent' => 'Transformer converter added',
             'Ergonode\Transformer\Domain\Event\TransformerCreatedEvent' => 'Transformer created',
+            'Ergonode\Transformer\Domain\Event\TransformerDeletedEvent' => 'Transformer deleted',
         ]);
     }
 
