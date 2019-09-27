@@ -9,7 +9,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-final class Version20180610062601 extends AbstractErgonodeMigration
+final class Version20180401062601 extends AbstractErgonodeMigration
 {
     /**
      * @param Schema $schema

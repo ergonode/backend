@@ -22,7 +22,7 @@ interface AttributeFactoryInterface
      *
      * @return bool
      */
-    public function isSupported(AttributeType $type): bool;
+    public function supports(AttributeType $type): bool;
 
     /**
      * @param CreateAttributeCommand $command

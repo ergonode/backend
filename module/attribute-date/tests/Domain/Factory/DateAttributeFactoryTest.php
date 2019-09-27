@@ -40,7 +40,7 @@ class DateAttributeFactoryTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new DateAttributeFactory();
-        $this->assertTrue($strategy->isSupported(new AttributeType(DateAttribute::TYPE)));
+        $this->assertTrue($strategy->supports(new AttributeType(DateAttribute::TYPE)));
     }
 
     /**
@@ -48,7 +48,7 @@ class DateAttributeFactoryTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new DateAttributeFactory();
-        $this->assertFalse($strategy->isSupported(new AttributeType('NOT-MATH')));
+        $this->assertFalse($strategy->supports(new AttributeType('NOT-MATH')));
     }
 
     /**

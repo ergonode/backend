@@ -15,7 +15,6 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * Class ErgonodeAttributeExtension
  */
 class ErgonodeAccountExtension extends Extension
 {

@@ -68,10 +68,14 @@ class DbalSegmentQuery implements SegmentQueryInterface
             ->from(self::TABLE)
             ->where('condition_set_id = :id')
             ->setParameter('id', $conditionSetId->getValue());
-
         $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+
         if (false === $result) {
             $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ConditionSetId($item);
         }
 
         return $result;

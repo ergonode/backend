@@ -339,11 +339,6 @@ Feature: Designer module
     When I request "/api/v1/EN/templates/@template@" using HTTP PUT
     Then validation error response is received
 
-  Scenario: Delete template
-    Given current authentication token
-    When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
-    Then empty response is received
-
   Scenario: Delete template (not authorized)
     When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
     Then unauthorized response is received
@@ -484,7 +479,6 @@ Feature: Designer module
     When I request "/api/v1/EN/templates/types" using HTTP GET
     Then unauthorized response is received
 
-
   Scenario: Get templates types (order by type)
     Given current authentication token
     When I request "/api/v1/EN/templates/types?field=type" using HTTP GET
@@ -570,3 +564,7 @@ Feature: Designer module
     When I request "/api/v1/EN/templates/types?limit=25&offset=0&filter=min_height%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2" using HTTP GET
     Then grid response is received
 
+  Scenario: Delete template
+    Given current authentication token
+    When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
+    Then empty response is received

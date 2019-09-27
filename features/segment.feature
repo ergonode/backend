@@ -1,4 +1,4 @@
-Feature: Segment
+Feature: Segment module
 
   Scenario: Create condition set
     Given current authentication token

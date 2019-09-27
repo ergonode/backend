@@ -37,7 +37,7 @@ class NumericAttributeFactoryTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new NumericAttributeFactory();
-        $this->assertTrue($strategy->isSupported(new AttributeType(NumericAttribute::TYPE)));
+        $this->assertTrue($strategy->supports(new AttributeType(NumericAttribute::TYPE)));
     }
 
     /**
@@ -45,7 +45,7 @@ class NumericAttributeFactoryTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new NumericAttributeFactory();
-        $this->assertFalse($strategy->isSupported(new AttributeType('NOT-MATH')));
+        $this->assertFalse($strategy->supports(new AttributeType('NOT-MATH')));
     }
 
     /**

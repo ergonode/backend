@@ -40,7 +40,7 @@ class ImageAttributeFactoryTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new ImageAttributeFactory();
-        $this->assertTrue($strategy->isSupported(new AttributeType(ImageAttribute::TYPE)));
+        $this->assertTrue($strategy->supports(new AttributeType(ImageAttribute::TYPE)));
     }
 
     /**
@@ -48,7 +48,7 @@ class ImageAttributeFactoryTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new ImageAttributeFactory();
-        $this->assertFalse($strategy->isSupported(new AttributeType('NOT-MATH')));
+        $this->assertFalse($strategy->supports(new AttributeType('NOT-MATH')));
     }
 
     /**

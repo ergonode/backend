@@ -45,3 +45,4 @@ services:
 
     Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface: '@Ergonode\Transformer\Persistence\Dbal\Repository\DbalTransformerRepository'
     Ergonode\Transformer\Domain\Repository\ProcessorRepositoryInterface: '@Ergonode\Transformer\Persistence\Dbal\Repository\DbalProcessorRepository'
+    Ergonode\Transformer\Domain\Query\ProcessorQueryInterface: '@Ergonode\Transformer\Persistence\Dbal\Query\DbalProcessorQuery'

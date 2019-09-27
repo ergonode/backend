@@ -23,13 +23,15 @@ class DateAttributeFactory implements AttributeFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function isSupported(AttributeType $type): bool
+    public function supports(AttributeType $type): bool
     {
         return DateAttribute::TYPE === $type->getValue();
     }
 
     /**
      * {@inheritDoc}
+     *
+     * @throws \Exception
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {

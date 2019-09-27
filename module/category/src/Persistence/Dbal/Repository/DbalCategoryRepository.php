@@ -11,6 +11,7 @@ namespace Ergonode\Category\Persistence\Dbal\Repository;
 
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\Category\Domain\Event\CategoryDeletedEvent;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
@@ -41,9 +42,16 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     }
 
     /**
-     * @param CategoryId $id
+     * {@inheritDoc}
+     */
+    public function exists(CategoryId $id) : bool
+    {
+        return $this->eventStore->load($id)->count() > 0;
+    }
+
+    /**
+     * {@inheritDoc}
      *
-     * @return AbstractAggregateRoot
      * @throws \ReflectionException
      */
     public function load(CategoryId $id): ?AbstractAggregateRoot
@@ -65,7 +73,7 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * {@inheritDoc}
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
@@ -78,12 +86,15 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     }
 
     /**
-     * @param CategoryId $id
+     * {@inheritDoc}
      *
-     * @return bool
+     * @throws \Exception
      */
-    public function exists(CategoryId $id) : bool
+    public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
-        return $this->eventStore->load($id)->count() > 0;
+        $aggregateRoot->apply(new CategoryDeletedEvent());
+        $this->save($aggregateRoot);
+
+        $this->eventStore->delete($aggregateRoot->getId());
     }
 }
