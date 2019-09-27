@@ -16,6 +16,7 @@ use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 
 /**
  */
@@ -108,6 +109,42 @@ class DbalProductQuery implements ProductQueryInterface
             ->setParameter(':templateId', $templateId->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductIdByStatusId(StatusId $statusId): array
+    {
+        $statusCode = $this->connection->createQueryBuilder()
+            ->select('s.code')
+            ->from('public.status', 's')
+            ->where('s.id = :id')
+            ->setParameter('id', $statusId->getValue())
+            ->setMaxResults(1)
+            ->execute()->fetchColumn();
+
+        // @todo This is unacceptable!
+        $attributeId = $this->connection->createQueryBuilder()
+            ->select('a.id')
+            ->from('public.attribute', 'a')
+            ->where('a.code = \'esa_status\'')
+            ->setMaxResults(1)
+            ->execute()->fetchColumn();
+
+        // @todo That's too!
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('p.id')
+            ->from(self::PRODUCT_TABLE, 'p')
+            ->join('p', 'designer.draft', 'd', 'p.id = d.product_id')
+            ->join('d', 'designer.draft_value', 'dv', 'd.id = dv.draft_id')
+            ->where('dv.value = :statusCode')
+            ->andWhere('dv.element_id = :attributeId')
+            ->setParameter('statusCode', $statusCode)
+            ->setParameter('attributeId', $attributeId);
+
+        return $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
     }
 
     /**

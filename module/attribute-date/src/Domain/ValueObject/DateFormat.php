@@ -13,15 +13,15 @@ namespace Ergonode\AttributeDate\Domain\ValueObject;
  */
 class DateFormat
 {
-    public const YYYY_MM_DD = 'YYYY-MM-DD';
-    public const YY_MM_DD = 'YY-MM-DD';
-    public const DD_MM_YY = 'DD.MM.YY';
-    public const DD_MM_YYYY = 'DD.MM.YYYY';
-    public const MM_DD_YY = 'MM/DD/YY';
-    public const MM_DD_YYYY = 'MM/DD/YYYY';
-    public const MMMM_DD_YYYY = 'MMMM DD, YYYY';
-    public const DD_MMMM_YYYY = 'DD MMMM YYYY';
-    public const DD_MMM_YYYY = 'DD MMM YYYY';
+    public const YYYY_MM_DD = 'yyyy-MM-dd';
+    public const YY_MM_DD = 'yy-MM-dd';
+    public const DD_MM_YY = 'dd.MM.yy';
+    public const DD_MM_YYYY = 'dd.MM.yyyy';
+    public const MM_DD_YY = 'MM/dd/yy';
+    public const MM_DD_YYYY = 'MM/dd/yyyy';
+    public const MMMM_DD_YYYY = 'MMMM dd, yyyy';
+    public const DD_MMMM_YYYY = 'dd MMMM yyyy';
+    public const DD_MMM_YYYY = 'dd MMM yyyy';
 
     public const AVAILABLE = [
         self::YYYY_MM_DD,

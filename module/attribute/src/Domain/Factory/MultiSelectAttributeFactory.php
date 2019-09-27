@@ -56,7 +56,8 @@ class MultiSelectAttributeFactory implements AttributeFactoryInterface
                     $option = new StringOption('');
                 }
             }
-            $attribute->addOption(new OptionKey($key), $option);
+
+            $attribute->addOption(new OptionKey((string) $key), $option);
         }
 
         return $attribute;
