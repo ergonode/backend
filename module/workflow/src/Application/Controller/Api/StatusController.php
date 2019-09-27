@@ -19,6 +19,7 @@ use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInter
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Workflow\Application\Form\Model\StatusFormModel;
 use Ergonode\Workflow\Application\Form\StatusForm;
 use Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand;
@@ -69,24 +70,32 @@ class StatusController extends AbstractController
     private $existingRelationshipMessageBuilder;
 
     /**
+     * @var ProductQueryInterface
+     */
+    private $productQuery;
+
+    /**
      * @param MessageBusInterface                         $messageBus
      * @param StatusQueryInterface                        $query
      * @param StatusGrid                                  $grid
      * @param RelationshipsResolverInterface              $relationshipsResolver
      * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+     * @param ProductQueryInterface                       $productQuery
      */
     public function __construct(
         MessageBusInterface $messageBus,
         StatusQueryInterface $query,
         StatusGrid $grid,
         RelationshipsResolverInterface $relationshipsResolver,
-        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder,
+        ProductQueryInterface $productQuery
     ) {
         $this->messageBus = $messageBus;
         $this->query = $query;
         $this->grid = $grid;
         $this->relationshipsResolver = $relationshipsResolver;
         $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
+        $this->productQuery = $productQuery;
     }
 
     /**
@@ -101,7 +110,7 @@ class StatusController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Parameter(
      *     name="limit",
@@ -109,7 +118,7 @@ class StatusController extends AbstractController
      *     type="integer",
      *     required=true,
      *     default="50",
-     *     description="Number of returned lines",
+     *     description="Number of returned lines"
      * )
      * @SWG\Parameter(
      *     name="offset",
@@ -117,14 +126,14 @@ class StatusController extends AbstractController
      *     type="integer",
      *     required=true,
      *     default="0",
-     *     description="Number of start line",
+     *     description="Number of start line"
      * )
      * @SWG\Parameter(
      *     name="field",
      *     in="query",
      *     required=false,
      *     type="string",
-     *     description="Order field",
+     *     description="Order field"
      * )
      * @SWG\Parameter(
      *     name="order",
@@ -132,7 +141,7 @@ class StatusController extends AbstractController
      *     required=false,
      *     type="string",
      *     enum={"ASC","DESC"},
-     *     description="Order",
+     *     description="Order"
      * )
      * @SWG\Parameter(
      *     name="filter",
@@ -151,7 +160,7 @@ class StatusController extends AbstractController
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns statuses collection",
+     *     description="Returns statuses collection"
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
@@ -177,7 +186,7 @@ class StatusController extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Status id",
+     *     description="Status id"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -185,15 +194,15 @@ class StatusController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns status",
+     *     description="Returns status"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      *
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
@@ -229,7 +238,7 @@ class StatusController extends AbstractController
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Returns status ID",
+     *     description="Returns status ID"
      * )
      * @SWG\Response(
      *     response=400,
@@ -283,7 +292,7 @@ class StatusController extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Status code",
+     *     description="Status code"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -357,7 +366,7 @@ class StatusController extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Status code",
+     *     description="Status code"
      * )
      * @SWG\Parameter(
      *     name="language",
