@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Tests\Domain\Entity;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
+use Ergonode\Workflow\Domain\ValueObject\Transition;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -73,5 +74,27 @@ class WorkflowTest extends TestCase
         $workflow->addStatus($this->status);
         $this->assertTrue($workflow->hasStatus($this->status));
         $this->assertSame([$this->status], $workflow->getStatuses());
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testTransitionManipulation(): void
+    {
+        /** @var Transition|MockObject $transition */
+        $transition = $this->createMock(Transition::class);
+        /** @var StatusCode|MockObject $source */
+        $source = new StatusCode('A');
+        $destination = new StatusCode('B');
+        $transition->method('getSource')->willReturn($source);
+        $transition->method('getDestination')->willReturn($destination);
+
+        $workflow = new Workflow($this->id, $this->code, [$source, $destination]);
+        $workflow->addTransition($transition);
+        $this->assertSame([$transition], $workflow->getTransitions());
+        $this->assertTrue($workflow->hasTransition($source, $destination));
+        $workflow->removeTransition($source, $destination);
+        $this->assertFalse($workflow->hasTransition($source, $destination));
+        $this->assertEmpty($workflow->getTransitions());
     }
 }
