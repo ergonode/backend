@@ -38,7 +38,6 @@ class DeleteWorkflowTransitionCommand
      */
     private $destination;
 
-
     /**
      * @param WorkflowId $workflowId
      * @param StatusCode $source

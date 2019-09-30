@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Column;
 
-use function GuzzleHttp\Psr7\str;
-
 /**
  */
 class LinkColumn extends AbstractColumn

@@ -29,16 +29,13 @@ class NumericAttributeValueConditionCalculatorStrategy implements ConditionCalcu
     /**
      * {@inheritDoc}
      */
-    public function isSupportedBy(string $type): bool
+    public function supports(string $type): bool
     {
         return NumericAttributeValueCondition::TYPE === $type;
     }
 
     /**
-     * @param AbstractProduct                                   $object
-     * @param NumericAttributeValueCondition|ConditionInterface $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {

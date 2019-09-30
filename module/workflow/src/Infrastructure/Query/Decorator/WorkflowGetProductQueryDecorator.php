@@ -89,11 +89,6 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
                     $result['workflow'][] = [
                         'name' => $transition->getName()->get($language),
                         'status' => $transition->getDestination(),
-                        '_links' => [
-                            'update' => [
-                                'href' => 'change product status url if needed',
-                            ],
-                        ],
                     ];
                 }
             }

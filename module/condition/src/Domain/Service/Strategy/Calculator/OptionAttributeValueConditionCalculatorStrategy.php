@@ -30,7 +30,7 @@ class OptionAttributeValueConditionCalculatorStrategy implements ConditionCalcul
     /**
      * {@inheritDoc}
      */
-    public function isSupportedBy(string $type): bool
+    public function supports(string $type): bool
     {
         return OptionAttributeValueCondition::TYPE === $type;
     }

@@ -16,5 +16,5 @@ interface CommandBusInterface
     /**
      * @param object $command
      */
-    public function dispatch($command): void;
+    public function dispatch(object $command): void;
 }

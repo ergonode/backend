@@ -18,5 +18,5 @@ interface QueryBusInterface
      *
      * @return mixed
      */
-    public function dispatch($command);
+    public function dispatch(object $command);
 }

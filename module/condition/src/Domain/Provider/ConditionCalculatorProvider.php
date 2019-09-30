@@ -14,7 +14,6 @@ class ConditionCalculatorProvider
     private $strategies;
 
     /**
-
      * @param ConditionCalculatorStrategyInterface ...$strategies
      */
     public function __construct(ConditionCalculatorStrategyInterface ...$strategies)
@@ -30,7 +29,7 @@ class ConditionCalculatorProvider
     public function provide(string $type): ConditionCalculatorStrategyInterface
     {
         foreach ($this->strategies as $strategy) {
-            if ($strategy->isSupportedBy($type)) {
+            if ($strategy->supports($type)) {
                 return $strategy;
             }
         }

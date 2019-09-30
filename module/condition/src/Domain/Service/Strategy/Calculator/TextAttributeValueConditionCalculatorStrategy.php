@@ -29,7 +29,7 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
     /**
      * {@inheritDoc}
      */
-    public function isSupportedBy(string $type): bool
+    public function supports(string $type): bool
     {
         return TextAttributeValueCondition::TYPE === $type;
     }

@@ -34,7 +34,7 @@ class SymfonyQueryBus implements QueryBusInterface
      *
      * @return mixed
      */
-    public function dispatch($command)
+    public function dispatch(object $command)
     {
         $envelope = $this->bus->dispatch($command);
 

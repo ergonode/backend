@@ -31,7 +31,7 @@ class SymfonyCommandBus implements CommandBusInterface
     /**
      * @param object $command
      */
-    public function dispatch($command): void
+    public function dispatch(object $command): void
     {
         $this->bus->dispatch($command);
     }
