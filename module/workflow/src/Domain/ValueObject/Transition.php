@@ -106,9 +106,9 @@ class Transition
     }
 
     /**
-     * @return ConditionSetId
+     * @return ConditionSetId|null
      */
-    public function getConditionSet(): ConditionSetId
+    public function getConditionSet(): ?ConditionSetId
     {
         return $this->conditionSet;
     }

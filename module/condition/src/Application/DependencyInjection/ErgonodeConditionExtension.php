@@ -9,8 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Application\DependencyInjection;
 
+use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionCalculatorCompilerPass;
 use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionConfiguratorCompilerPass;
-use Ergonode\Condition\Domain\Service\SegmentConfigurationStrategyInterface;
+use Ergonode\Condition\Domain\Service\ConditionCalculatorStrategyInterface;
+use Ergonode\Condition\Domain\Service\ConfigurationStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -33,9 +35,13 @@ class ErgonodeConditionExtension extends Extension
             new FileLocator(__DIR__.'/../../Resources/config')
         );
 
-          $container
-            ->registerForAutoconfiguration(ConditionConfigurationStrategyInteface::class)
+        $container
+            ->registerForAutoconfiguration(ConfigurationStrategyInterface::class)
             ->addTag(ConditionConfiguratorCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(ConditionCalculatorStrategyInterface::class)
+            ->addTag(ConditionCalculatorCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

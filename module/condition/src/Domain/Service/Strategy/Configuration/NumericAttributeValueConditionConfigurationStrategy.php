@@ -7,17 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Condition\Domain\Service\Strategy;
+namespace Ergonode\Condition\Domain\Service\Strategy\Configuration;
 
+use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Condition\Domain\Condition\AttributeExistsCondition;
+use Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition;
 use Ergonode\Condition\Domain\Service\ConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
-class AttributeExistsConditionConfigurationStrategy implements ConfigurationStrategyInterface
+class NumericAttributeValueConditionConfigurationStrategy implements ConfigurationStrategyInterface
 {
     /**
      * @var AttributeQueryInterface
@@ -44,7 +45,7 @@ class AttributeExistsConditionConfigurationStrategy implements ConfigurationStra
      */
     public function isSupportedBy(string $type): bool
     {
-        return AttributeExistsCondition::TYPE === $type;
+        return NumericAttributeValueCondition::TYPE === $type;
     }
 
     /**
@@ -52,17 +53,33 @@ class AttributeExistsConditionConfigurationStrategy implements ConfigurationStra
      */
     public function getConfiguration(Language $language): array
     {
-        $codes = $this->query->getDictionary();
+        $codes = $this->query->getDictionary([NumericAttribute::TYPE]);
 
         return [
-            'type' => AttributeExistsCondition::TYPE,
-            'name' => $this->translator->trans(AttributeExistsCondition::TYPE, [], 'condition', $language->getCode()),
-            'phrase' => $this->translator->trans(AttributeExistsCondition::PHRASE, [], 'condition', $language->getCode()),
+            'type' => NumericAttributeValueCondition::TYPE,
+            'name' => $this->translator->trans(NumericAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
+            'phrase' => $this->translator->trans(NumericAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
             'parameters' => [
                 [
                     'name' => 'attribute',
                     'type' => 'SELECT',
                     'options' => $codes,
+                ],
+                [
+                    'name' => 'operator',
+                    'type' => 'SELECT',
+                    'options' => [
+                        '=' => '=',
+                        '<>' => '<>',
+                        '>' => '>',
+                        '<' => '<',
+                        '>=' => '>=',
+                        '<=' => '<=',
+                    ],
+                ],
+                [
+                    'name' => 'value',
+                    'type' => 'TEXT',
                 ],
             ],
         ];

@@ -327,8 +327,8 @@ class TransitionController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="source")
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
      *
      * @param Workflow $workflow
      * @param Status   $source
@@ -341,7 +341,7 @@ class TransitionController extends AbstractController
     {
         try {
             $model = new TransitionFormModel();
-            $form = $this->createForm(TransitionForm::class, $model);
+            $form = $this->createForm(TransitionForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -349,6 +349,8 @@ class TransitionController extends AbstractController
                 $data = $form->getData();
 
                 $transition = new Transition(
+                    $source->getCode(),
+                    $destination->getCode(),
                     new TranslatableString($data->name),
                     new TranslatableString($data->description),
                     $data->conditionSet ? new ConditionSetId($data->conditionSet) : null
@@ -356,8 +358,6 @@ class TransitionController extends AbstractController
 
                 $command = new UpdateWorkflowTransitionCommand(
                     $workflow->getId(),
-                    $source->getId(),
-                    $destination->getId(),
                     $transition
                 );
 
@@ -412,8 +412,8 @@ class TransitionController extends AbstractController
      *     description="Status not found"
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status")
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="source")
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
      *
      * @param Workflow $workflow
      * @param Status   $source

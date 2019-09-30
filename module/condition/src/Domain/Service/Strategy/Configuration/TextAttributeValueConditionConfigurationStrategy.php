@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Condition\Domain\Service\Strategy;
+namespace Ergonode\Condition\Domain\Service\Strategy\Configuration;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;

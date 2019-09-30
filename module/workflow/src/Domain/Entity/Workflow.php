@@ -213,6 +213,23 @@ class Workflow extends AbstractAggregateRoot
     }
 
     /**
+     * @param StatusCode $code
+     *
+     * @return Transition[]
+     */
+    public function getTransitionsFromStatus(StatusCode $code): array
+    {
+        $transitions = [];
+        foreach ($this->transitions as $transition) {
+            if ($code->isEqual($transition->getSource())) {
+                $transitions[] = $transition;
+            }
+        }
+
+        return $transitions;
+    }
+
+    /**
      * @param StatusCode $id
      *
      * @throws \Exception

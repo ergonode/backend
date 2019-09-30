@@ -7,18 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Condition\Domain\Service\Strategy;
+namespace Ergonode\Condition\Domain\Service\Strategy\Configuration;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition;
+use Ergonode\Condition\Domain\Condition\AttributeExistsCondition;
 use Ergonode\Condition\Domain\Service\ConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
-class NumericAttributeValueConditionConfigurationStrategy implements ConfigurationStrategyInterface
+class AttributeExistsConditionConfigurationStrategy implements ConfigurationStrategyInterface
 {
     /**
      * @var AttributeQueryInterface
@@ -45,7 +44,7 @@ class NumericAttributeValueConditionConfigurationStrategy implements Configurati
      */
     public function isSupportedBy(string $type): bool
     {
-        return NumericAttributeValueCondition::TYPE === $type;
+        return AttributeExistsCondition::TYPE === $type;
     }
 
     /**
@@ -53,33 +52,17 @@ class NumericAttributeValueConditionConfigurationStrategy implements Configurati
      */
     public function getConfiguration(Language $language): array
     {
-        $codes = $this->query->getDictionary([NumericAttribute::TYPE]);
+        $codes = $this->query->getDictionary();
 
         return [
-            'type' => NumericAttributeValueCondition::TYPE,
-            'name' => $this->translator->trans(NumericAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
-            'phrase' => $this->translator->trans(NumericAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
+            'type' => AttributeExistsCondition::TYPE,
+            'name' => $this->translator->trans(AttributeExistsCondition::TYPE, [], 'condition', $language->getCode()),
+            'phrase' => $this->translator->trans(AttributeExistsCondition::PHRASE, [], 'condition', $language->getCode()),
             'parameters' => [
                 [
                     'name' => 'attribute',
                     'type' => 'SELECT',
                     'options' => $codes,
-                ],
-                [
-                    'name' => 'operator',
-                    'type' => 'SELECT',
-                    'options' => [
-                        '=' => '=',
-                        '<>' => '<>',
-                        '>' => '>',
-                        '<' => '<',
-                        '>=' => '>=',
-                        '<=' => '<=',
-                    ],
-                ],
-                [
-                    'name' => 'value',
-                    'type' => 'TEXT',
                 ],
             ],
         ];

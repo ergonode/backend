@@ -41,3 +41,9 @@ services:
         decorates: Ergonode\ProductSimple\Domain\Factory\SimpleProductFactory
         arguments:
             - '@Ergonode\Workflow\Domain\Factory\Decorator\StatusProductFactoryDecorator.inner'
+
+    # Product Query Decorator
+    Ergonode\Workflow\Infrastructure\Query\Decorator\WorkflowGetProductQueryDecorator:
+        decorates: Ergonode\Product\Domain\Query\GetProductQueryInterface
+        arguments:
+            - '@Ergonode\Workflow\Infrastructure\Query\Decorator\WorkflowGetProductQueryDecorator.inner'

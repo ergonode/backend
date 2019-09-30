@@ -47,7 +47,7 @@ class WorkflowTransitionAddedEventProjector implements DomainEventProjectorInter
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof WorkflowTransitionAddedEvent;
     }
