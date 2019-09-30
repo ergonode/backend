@@ -7,22 +7,22 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Application\Controller\Api;
+namespace Ergonode\Account\Application\Controller\Api\Log;
 
 use Ergonode\Account\Domain\Query\LogQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\LogGrid;
+use Ergonode\Core\Application\Provider\TokenStorageProviderInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route("/accounts/log", methods={"GET"})
  */
-class AccountLogController extends AbstractController
+class AccountReadAction
 {
     /**
      * @var LogQueryInterface
@@ -35,18 +35,26 @@ class AccountLogController extends AbstractController
     private $grid;
 
     /**
-     * @param LogQueryInterface $query
-     * @param LogGrid           $grid
+     * @var TokenStorageProviderInterface
      */
-    public function __construct(LogQueryInterface $query, LogGrid $grid)
-    {
+    private $tokenStorageProvider;
+
+    /**
+     * @param LogQueryInterface             $query
+     * @param LogGrid                       $grid
+     * @param TokenStorageProviderInterface $tokenStorageProvider
+     */
+    public function __construct(
+        LogQueryInterface $query,
+        LogGrid $grid,
+        TokenStorageProviderInterface $tokenStorageProvider
+    ) {
         $this->query = $query;
         $this->grid = $grid;
+        $this->tokenStorageProvider = $tokenStorageProvider;
     }
 
     /**
-     * @Route("/accounts/log", methods={"GET"})
-     *
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
      * @SWG\Tag(name="Account")
@@ -108,13 +116,13 @@ class AccountLogController extends AbstractController
      *
      * @return Response
      */
-    public function getLog(RequestGridConfiguration $configuration): Response
+    public function __invoke(RequestGridConfiguration $configuration): Response
     {
         return new GridResponse(
             $this->grid,
             $configuration,
             $this->query->getDataSet(),
-            $this->getUser()->getLanguage()
+            $this->tokenStorageProvider->getUser()->getLanguage()
         );
     }
 }
