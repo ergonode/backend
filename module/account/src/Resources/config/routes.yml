@@ -6,7 +6,7 @@ ergonode_dictionary_api:
 ergonode_log_api:
     resource: '../../Application/Controller/Api/Log/*'
     type: 'annotation'
-    prefix: '/api/v1/{language}'
+    prefix: '/api/v1'
 
 ergonode_role_api:
     resource: '../../Application/Controller/Api/Role/*'

@@ -96,7 +96,7 @@ class ChangeAction
      *
      * @return Response
      */
-    public function updateRole(Role $role, Request $request): Response
+    public function __invoke(Role $role, Request $request): Response
     {
         try {
             $model = new RoleFormModel();
