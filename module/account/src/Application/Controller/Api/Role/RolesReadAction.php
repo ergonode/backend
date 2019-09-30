@@ -57,7 +57,7 @@ class RolesReadAction
      *     type="integer",
      *     required=true,
      *     default="50",
-     *     description="Number of returned lines",
+     *     description="Number of returned lines"
      * )
      * @SWG\Parameter(
      *     name="offset",
@@ -65,7 +65,7 @@ class RolesReadAction
      *     type="integer",
      *     required=true,
      *     default="0",
-     *     description="Number of start line",
+     *     description="Number of start line"
      * )
      * @SWG\Parameter(
      *     name="field",
@@ -73,7 +73,7 @@ class RolesReadAction
      *     required=false,
      *     type="string",
      *     enum={"id","name","description", "users_count"},
-     *     description="Order field",
+     *     description="Order field"
      * )
      * @SWG\Parameter(
      *     name="order",
@@ -81,7 +81,7 @@ class RolesReadAction
      *     required=false,
      *     type="string",
      *     enum={"ASC","DESC"},
-     *     description="Order",
+     *     description="Order"
      * )
      * @SWG\Parameter(
      *     name="filter",
@@ -104,15 +104,15 @@ class RolesReadAction
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language code",
+     *     description="Language code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns roles collection",
+     *     description="Returns roles collection"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")

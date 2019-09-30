@@ -61,7 +61,7 @@ class CreateAction
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Parameter(
      *     name="body",
@@ -72,7 +72,7 @@ class CreateAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns role data",
+     *     description="Returns role data"
      * )
      * @SWG\Response(
      *     response=400,

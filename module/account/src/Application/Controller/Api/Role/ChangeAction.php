@@ -62,7 +62,7 @@ class ChangeAction
      *     in="path",
      *     required=true,
      *     type="string",
-     *     description="Role Id",
+     *     description="Role ID"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -70,7 +70,7 @@ class ChangeAction
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language code",
+     *     description="Language code"
      * )
      * @SWG\Parameter(
      *     name="body",

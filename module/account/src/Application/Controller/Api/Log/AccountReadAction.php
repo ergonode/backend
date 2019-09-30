@@ -16,6 +16,7 @@ use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -64,7 +65,7 @@ class AccountReadAction
      *     type="integer",
      *     required=true,
      *     default="50",
-     *     description="Number of returned lines",
+     *     description="Number of returned lines"
      * )
      * @SWG\Parameter(
      *     name="offset",
@@ -72,7 +73,7 @@ class AccountReadAction
      *     type="integer",
      *     required=true,
      *     default="0",
-     *     description="Number of start line",
+     *     description="Number of start line"
      * )
      * @SWG\Parameter(
      *     name="field",
@@ -80,7 +81,7 @@ class AccountReadAction
      *     required=false,
      *     type="string",
      *     enum={"recorded_at", "author", "author_id", "event"},
-     *     description="Order field",
+     *     description="Order field"
      * )
      * @SWG\Parameter(
      *     name="order",
@@ -88,7 +89,7 @@ class AccountReadAction
      *     required=false,
      *     type="string",
      *     enum={"ASC","DESC"},
-     *     description="Order",
+     *     description="Order"
      * )
      * @SWG\Parameter(
      *     name="filter",
@@ -104,6 +105,14 @@ class AccountReadAction
      *     type="string",
      *     enum={"COLUMN","DATA"},
      *     description="Specify what response should containts"
+     * )
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language code"
      * )
      * @SWG\Response(
      *     response=200,

@@ -31,7 +31,7 @@ class ReadAction
      *     in="path",
      *     required=true,
      *     type="string",
-     *     description="Role Id",
+     *     description="Role ID"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -39,15 +39,15 @@ class ReadAction
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language code",
+     *     description="Language code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns role data",
+     *     description="Returns role data"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")

@@ -42,15 +42,15 @@ class PrivilegeReadAction
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns privilege collection",
+     *     description="Returns privilege collection"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      *
      * @param Language $language

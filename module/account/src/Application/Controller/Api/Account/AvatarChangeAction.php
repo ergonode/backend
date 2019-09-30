@@ -48,13 +48,13 @@ class AvatarChangeAction
      *     in="path",
      *     required=true,
      *     type="string",
-     *     description="User Id",
+     *     description="User ID"
      * )
      * @SWG\Parameter(
      *     name="multimedia",
      *     in="formData",
      *     type="string",
-     *     description="Multimedia Id",
+     *     description="Multimedia ID"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -62,7 +62,7 @@ class AvatarChangeAction
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=204,

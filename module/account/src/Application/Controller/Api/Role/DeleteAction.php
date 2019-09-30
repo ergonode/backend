@@ -66,7 +66,7 @@ class DeleteAction
      *     in="path",
      *     required=true,
      *     type="string",
-     *     description="Role Id"
+     *     description="Role ID"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -74,7 +74,7 @@ class DeleteAction
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language code",
+     *     description="Language code"
      * )
      * @SWG\Response(
      *     response=204,

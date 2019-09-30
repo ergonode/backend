@@ -10,8 +10,8 @@ services:
     Ergonode\Account\Application\:
         resource: '../../Application/*'
 
-    Ergonode\Account\Application\Controller\Api\Account\:
-        resource: '../../Application/Controller/Api/Account/*'
+    Ergonode\Account\Application\Controller\Api\:
+        resource: '../../Application/Controller/Api/*'
         tags: ['controller.service_arguments']
 
     Ergonode\Account\Application\Command\:
