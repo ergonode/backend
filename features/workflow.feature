@@ -196,7 +196,7 @@ Feature: Workflow
     Given current authentication token
     Given the request body is:
       """
-          {
+      {
         "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
@@ -216,7 +216,7 @@ Feature: Workflow
     Given current authentication token
     Given the request body is:
       """
-          {
+      {
         "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
@@ -224,7 +224,7 @@ Feature: Workflow
           "EN": "EN"
         },
         "description" : {}
-        }
+      }
       """
     When I request "/api/v1/EN/status" using HTTP POST
     Then created response is received
@@ -233,7 +233,7 @@ Feature: Workflow
     Given current authentication token
     Given the request body is:
       """
-          {
+      {
         "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
@@ -453,7 +453,7 @@ Feature: Workflow
     Given current authentication token
     Given the request body is:
       """
-          {
+      {
         "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
@@ -473,7 +473,7 @@ Feature: Workflow
     Given current authentication token
     Given the request body is:
       """
-          {
+      {
         "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
@@ -481,7 +481,7 @@ Feature: Workflow
           "EN": "EN"
         },
         "description" :""
-        }
+      }
       """
     When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
     Then validation error response is received
@@ -490,7 +490,7 @@ Feature: Workflow
     Given current authentication token
     Given the request body is:
       """
-          {
+      {
         "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
@@ -520,11 +520,11 @@ Feature: Workflow
     Given current authentication token
     Given the request body is:
     """
-      {
-        "code": "TEST_@@random_code@@",
-        "statuses": ["@workflow_status@"],
-        "transitions": []
-      }
+    {
+      "code": "TEST_@@random_code@@",
+      "statuses": ["@workflow_status@"],
+      "transitions": []
+    }
     """
     When I request "/api/v1/EN/workflow/default" using HTTP PUT
     Then empty response is received
@@ -533,11 +533,11 @@ Feature: Workflow
     Given current authentication token
     Given the request body is:
     """
-      {
-        "code": "TEST_@@random_code@@",
-        "statuses": ["test"],
-        "transitions": []
-      }
+    {
+      "code": "TEST_@@random_code@@",
+      "statuses": ["test"],
+      "transitions": []
+    }
     """
     When I request "/api/v1/EN/workflow/default" using HTTP PUT
     Then validation error response is received
@@ -609,11 +609,11 @@ Feature: Workflow
     Given current authentication token
     Given the request body is:
     """
-      {
-        "code": "WRK_@@random_code@@",
-        "statuses": ["@workflow_status@"],
-        "transitions": []
-      }
+    {
+      "code": "WRK_@@random_code@@",
+      "statuses": ["@workflow_status@"],
+      "transitions": []
+    }
     """
     When I request "/api/v1/EN/workflow" using HTTP POST
     Then created response is received
@@ -623,11 +623,11 @@ Feature: Workflow
     Given current authentication token
     Given the request body is:
     """
-      {
-        "code": "WRK_@@random_code@@",
-        "statuses": ["test"],
-        "transitions": []
-      }
+    {
+      "code": "WRK_@@random_code@@",
+      "statuses": ["test"],
+      "transitions": []
+    }
     """
     When I request "/api/v1/EN/workflow" using HTTP POST
     Then validation error response is received
