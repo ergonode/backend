@@ -27,6 +27,7 @@ use Ergonode\Product\Domain\Command\CreateProductCommand;
 use Ergonode\Product\Domain\Command\DeleteProductCommand;
 use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 use Ergonode\Product\Persistence\Dbal\DataSet\DbalProductDataSet;
@@ -70,24 +71,32 @@ class ProductController extends AbstractController
     private $existingRelationshipMessageBuilder;
 
     /**
+     * @var GetProductQueryInterface
+     */
+    private $getProductQuery;
+
+    /**
      * @param DbalProductDataSet                          $dataSet
      * @param ProductGrid                                 $productGrid
      * @param MessageBusInterface                         $messageBus
      * @param RelationshipsResolverInterface              $relationshipsResolver
      * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+     * @param GetProductQueryInterface                    $getProductQuery
      */
     public function __construct(
         DbalProductDataSet $dataSet,
         ProductGrid $productGrid,
         MessageBusInterface $messageBus,
         RelationshipsResolverInterface $relationshipsResolver,
-        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder,
+        GetProductQueryInterface $getProductQuery
     ) {
         $this->dataSet = $dataSet;
         $this->productGrid = $productGrid;
         $this->messageBus = $messageBus;
         $this->relationshipsResolver = $relationshipsResolver;
         $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
+        $this->getProductQuery = $getProductQuery;
     }
 
     /**
@@ -206,14 +215,17 @@ class ProductController extends AbstractController
      * )
      *
      * @param AbstractProduct $product
+     * @param Language        $language
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
      * @return Response
      */
-    public function getProduct(AbstractProduct $product): Response
+    public function getProduct(AbstractProduct $product, Language $language): Response
     {
-        return new SuccessResponse($product);
+        $result =  $this->getProductQuery->query($product->getId(), $language);
+
+        return new SuccessResponse($result);
     }
 
     /**

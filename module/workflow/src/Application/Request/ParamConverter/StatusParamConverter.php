@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Application\Request\ParamConverter;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,17 +40,25 @@ class StatusParamConverter implements ParamConverterInterface
      * {@inheritDoc}
      *
      * @throws \ReflectionException
+     * @throws \Exception
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $parameter = $request->get('status');
+        if ($configuration->getName()) {
+            $parameter = $request->get($configuration->getName());
+        } else {
+            $parameter = $request->get('status');
+        }
 
         if (null === $parameter) {
             throw new BadRequestHttpException('Route parameter "status" is missing');
         }
 
         if (!StatusId::isValid($parameter)) {
-            throw new BadRequestHttpException('Invalid status ID format');
+            if (!StatusCode::isValid($parameter)) {
+                throw new BadRequestHttpException('Invalid status code format');
+            }
+            $parameter = StatusId::fromCode(new StatusCode($parameter))->getValue();
         }
 
         $entity = $this->repository->load(new StatusId($parameter));

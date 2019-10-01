@@ -27,6 +27,7 @@ use Ergonode\Workflow\Domain\Command\Status\DeleteStatusCommand;
 use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Infrastructure\Grid\StatusGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -264,7 +265,7 @@ class StatusController extends AbstractController
                 $data = $form->getData();
 
                 $command = new CreateStatusCommand(
-                    $data->code,
+                    new StatusCode($data->code),
                     $data->color,
                     new TranslatableString($data->name),
                     new TranslatableString($data->description)
