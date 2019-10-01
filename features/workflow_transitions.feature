@@ -87,7 +87,7 @@ Feature: Workflow
   Scenario: Get transition in default Workflow
     Given current authentication token
     When I request "/api/v1/EN/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
-    Then the response code is 404
+    Then not found response is received
 
   Scenario: Delete default status
     Given current authentication token
