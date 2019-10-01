@@ -36,7 +36,7 @@ class WorkflowCreatedEvent implements DomainEventInterface
     /**
      * @var StatusCode[]
      *
-     * @JMS\Type("array<Ergonode\Workflow\Domain\ValueObject\StatuszCode>")
+     * @JMS\Type("array<Ergonode\Workflow\Domain\ValueObject\StatusCode>")
      */
     private $statuses;
 

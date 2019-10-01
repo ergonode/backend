@@ -14,6 +14,7 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
@@ -80,7 +81,9 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
         Assert::notNull($product);
         $result = $this->query->query($productId, $language);
         if (isset($result['attributes'][AbstractProduct::STATUS])) {
-            $status = new StatusCode($result['attributes'][AbstractProduct::STATUS]);
+            /** @var ValueInterface $value */
+            $value = $result['attributes'][AbstractProduct::STATUS];
+            $status = new StatusCode($value->getValue());
             $transitions = $workflow->getTransitionsFromStatus($status);
             $result['status'] = $status;
             foreach ($transitions as $transition) {

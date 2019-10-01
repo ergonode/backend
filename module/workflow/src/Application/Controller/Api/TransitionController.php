@@ -425,7 +425,7 @@ class TransitionController extends AbstractController
     public function deleteStatus(Workflow $workflow, Status $source, Status $destination): Response
     {
         // @add validation
-        $command = new DeleteWorkflowTransitionCommand($workflow->getId(), $source->getId(), $destination->getId());
+        $command = new DeleteWorkflowTransitionCommand($workflow->getId(), $source->getCode(), $destination->getCode());
         $this->messageBus->dispatch($command);
 
         return new EmptyResponse();

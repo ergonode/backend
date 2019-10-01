@@ -40,6 +40,17 @@ class AddWorkflowTransitionCommandHandler
         $workflow = $this->repository->load($command->getWorkflowId());
         Assert::notNull($workflow);
 
+        $source = $command->getTransition()->getSource();
+        $destination = $command->getTransition()->getDestination();
+
+        if (!$workflow->hasStatus($source)) {
+            $workflow->addStatus($source);
+        }
+
+        if (!$workflow->hasStatus($destination)) {
+            $workflow->addStatus($destination);
+        }
+
         $workflow->addTransition($command->getTransition());
 
         $this->repository->save($workflow);
