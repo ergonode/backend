@@ -16,7 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent;
-use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -30,18 +29,11 @@ class SegmentStatusChangedEventProjector implements DomainEventProjectorInterfac
     private $connection;
 
     /**
-     * @var SerializerInterface
+     * @param Connection $connection
      */
-    private $serializer;
-
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
-    public function __construct(Connection $connection, SerializerInterface $serializer)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->serializer = $serializer;
     }
 
     /**
@@ -49,7 +41,7 @@ class SegmentStatusChangedEventProjector implements DomainEventProjectorInterfac
      *
      * @return bool
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof SegmentStatusChangedEvent;
     }
@@ -63,7 +55,7 @@ class SegmentStatusChangedEventProjector implements DomainEventProjectorInterfac
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof SegmentStatusChangedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, SegmentStatusChangedEvent::class);
         }
 

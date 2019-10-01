@@ -22,6 +22,15 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         $this->addSql('CREATE SCHEMA designer');
 
         $this->addSql('
+            CREATE TABLE designer.template_group (
+                id UUID NOT NULL,
+                name VARCHAR(32) NOT NULL,
+                custom boolean DEFAULT FALSE,
+                PRIMARY KEY(id)
+            )
+        ');
+
+        $this->addSql('
             CREATE TABLE designer.template (
                 id UUID NOT NULL,
                 name VARCHAR(255) NOT NULL,
@@ -30,6 +39,7 @@ final class Version20180719132703 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
+        $this->addSql('ALTER TABLE designer.template ADD CONSTRAINT template_template_group_id_fk FOREIGN KEY (template_group_id) REFERENCES designer.template_group (id) ON DELETE CASCADE');
 
         $this->addSql('
             CREATE TABLE designer.template_element (
@@ -42,15 +52,7 @@ final class Version20180719132703 extends AbstractErgonodeMigration
                 PRIMARY KEY(template_id, x, y)
             )
         ');
-
-        $this->addSql('
-            CREATE TABLE designer.template_group (
-                id UUID NOT NULL,
-                name VARCHAR(32) NOT NULL,
-                custom boolean DEFAULT FALSE,
-                PRIMARY KEY(id)                   
-            )
-        ');
+        $this->addSql('ALTER TABLE designer.template_element ADD CONSTRAINT template_element_template_id_fk FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE CASCADE');
 
         $this->addSql('
             CREATE TABLE designer.element_type (
@@ -65,6 +67,16 @@ final class Version20180719132703 extends AbstractErgonodeMigration
             )
         ');
 
+        $this->addSql('
+            CREATE TABLE designer.product (
+                product_id UUID NOT NULL,
+                template_id UUID NOT NULL,                               
+                PRIMARY KEY(product_id, template_id)
+            )
+        ');
+        $this->addSql('ALTER TABLE designer.product ADD CONSTRAINT product_template_id_fk FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE designer.product ADD CONSTRAINT product_product_id_fk FOREIGN KEY (product_id) REFERENCES public.product (id) ON DELETE CASCADE');
+
         $this->addType('TEXT', 'attribute', 'Text');
         $this->addType('NUMERIC', 'attribute', 'Numeric');
         $this->addType('TEXTAREA', 'attribute', 'Textarea', 1, 1, 4, 10);
@@ -75,8 +87,6 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         $this->addType('PRICE', 'attribute', 'Price');
         $this->addType('UNIT', 'attribute', 'Unit');
         $this->addType('SECTION', 'ui', 'Section');
-
-        $this->addSql('ALTER TABLE designer.template_element ADD CONSTRAINT template_element_template_id_fk FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE CASCADE;');
 
         $this->addGroup('418c48d3-d2c3-4c30-b627-93850c38d59c', 'Suggested');
         $this->addGroup('641c614f-0732-461f-892f-b6df97939599', 'My templates', true);

@@ -36,7 +36,7 @@ class DomainEventProjector
     public function projection(DomainEventEnvelope $envelope): void
     {
         foreach ($this->projectors as $projector) {
-            if ($projector->support($envelope->getEvent())) {
+            if ($projector->supports($envelope->getEvent())) {
                 $projector->projection($envelope->getAggregateId(), $envelope->getEvent());
             }
         }

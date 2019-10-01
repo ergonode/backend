@@ -48,6 +48,7 @@ class ConditionSetGrid extends AbstractGrid
         $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name'))));
         $this->addColumn('description', new TextColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description'))));
         $this->addColumn('edit', new ActionColumn('edit'));
+        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 
     /**

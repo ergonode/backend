@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Persistence\Dbal\Query\Decorator;
 
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 
 /**
  */
@@ -38,9 +39,7 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     }
 
     /**
-     * @param Sku $sku
-     *
-     * @return array|null
+     * {@inheritDoc}
      */
     public function findBySku(Sku $sku): ?array
     {
@@ -53,7 +52,7 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     }
 
     /**
-     * @return array
+     * {@inheritDoc}
      */
     public function getAllIds(): array
     {
@@ -61,9 +60,7 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     }
 
     /**
-     * @param CategoryId $categoryId
-     *
-     * @return ProductId[]
+     * {@inheritDoc}
      */
     public function findProductIdByCategoryId(CategoryId $categoryId): array
     {
@@ -71,12 +68,28 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     }
 
     /**
-     * @param TemplateId $templateId
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function findProductIdByTemplateId(TemplateId $templateId): array
     {
         return $this->query->findProductIdByTemplateId($templateId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductIdByAttributeId(AttributeId $attributeId): array
+    {
+        return $this->query->findProductIdByAttributeId($attributeId);
+    }
+
+    /**
+     * @param StatusId $statusId
+     *
+     * @return array
+     */
+    public function findProductIdByStatusId(StatusId $statusId): array
+    {
+        return $this->query->findProductIdByStatusId($statusId);
     }
 }
