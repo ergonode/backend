@@ -7,26 +7,26 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Domain;
+namespace Ergonode\Attribute\Infrastructure\Provider;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Symfony\Component\Validator\Constraint;
 
 /**
  */
-interface AttributeValidatorInterface
+interface AttributeValueConstraintStrategyInterface
 {
     /**
      * @param AbstractAttribute $attribute
-     * @param mixed             $value
      *
-     * @return bool
+     * @return Constraint
      */
-    public function isValid(AbstractAttribute $attribute, $value): bool;
+    public function get(AbstractAttribute $attribute): Constraint;
 
     /**
      * @param AbstractAttribute $attribute
      *
      * @return bool
      */
-    public function isSupported(AbstractAttribute $attribute): bool;
+    public function supported(AbstractAttribute $attribute): bool;
 }

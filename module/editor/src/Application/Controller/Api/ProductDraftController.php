@@ -9,13 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Application\Controller\Api;
 
-use Ergonode\Api\Application\Exception\DataValidationHttpException;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Provider\AttributeValidationProvider;
+use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
@@ -40,6 +40,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -62,7 +63,7 @@ class ProductDraftController extends AbstractController
     private $messageBus;
 
     /**
-     * @var AttributeValidationProvider
+     * @var AttributeValueConstraintProvider
      */
     private $provider;
 
@@ -77,27 +78,34 @@ class ProductDraftController extends AbstractController
     private $builder;
 
     /**
+     * @var ValidatorInterface
+     */
+    private $validator;
+
+    /**
      * @var TemplateRepositoryInterface
      */
     private $templateRepository;
 
     /**
-     * @param ProductDraftGrid            $productDraftGrid
-     * @param DraftQueryInterface         $draftQuery
-     * @param MessageBusInterface         $messageBus
-     * @param AttributeValidationProvider $provider
-     * @param DraftProvider               $draftProvider
-     * @param ViewTemplateBuilder         $builder
-     * @param TemplateRepositoryInterface $templateRepository
+     * @param ProductDraftGrid                 $productDraftGrid
+     * @param DraftQueryInterface              $draftQuery
+     * @param MessageBusInterface              $messageBus
+     * @param AttributeValueConstraintProvider $provider
+     * @param DraftProvider                    $draftProvider
+     * @param ViewTemplateBuilder              $builder
+     * @param TemplateRepositoryInterface      $templateRepository
+     * @param ValidatorInterface               $validator
      */
     public function __construct(
         ProductDraftGrid $productDraftGrid,
         DraftQueryInterface $draftQuery,
         MessageBusInterface $messageBus,
-        AttributeValidationProvider $provider,
+        AttributeValueConstraintProvider $provider,
         DraftProvider $draftProvider,
         ViewTemplateBuilder $builder,
-        TemplateRepositoryInterface $templateRepository
+        TemplateRepositoryInterface $templateRepository,
+        ValidatorInterface $validator
     ) {
         $this->productDraftGrid = $productDraftGrid;
         $this->draftQuery = $draftQuery;
@@ -106,6 +114,7 @@ class ProductDraftController extends AbstractController
         $this->draftProvider = $draftProvider;
         $this->builder = $builder;
         $this->templateRepository = $templateRepository;
+        $this->validator = $validator;
     }
 
     /**
@@ -391,34 +400,21 @@ class ProductDraftController extends AbstractController
      * @return Response
      *
      * @throws \Exception
-     *
-     * @todo Refactor it to standard solution
      */
     public function changeDraftAttribute(AbstractProduct $product, Language $language, AbstractAttribute $attribute, Request $request): Response
     {
         $draft = $this->draftProvider->provide($product);
-
         $value = $request->request->get('value');
-
-        $validator = $this->provider->provide($attribute);
-
-        if (null !== $value && '' !== $value) {
-            if ($validator->isValid($attribute, $value)) {
-                $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language, $value);
-                $this->messageBus->dispatch($command);
-
-                return new SuccessResponse(['value' => $value]);
-            }
-        } else {
-            $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language);
+        $constraint = $this->provider->provide($attribute);
+        $violations = $this->validator->validate(['value' => $value], $constraint);
+        if (0 === $violations->count()) {
+            $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language, $value);
             $this->messageBus->dispatch($command);
 
             return new SuccessResponse(['value' => $value]);
         }
 
-        throw new DataValidationHttpException([
-            'value' => [sprintf('%s is incorrect value for %s attribute', $value, $attribute->getType())],
-        ]);
+        throw new ViolationsHttpException($violations);
     }
 
     /**
