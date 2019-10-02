@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/languages/{translationLanguage}", methods={"GET"}, requirements={"translationLanguage"="[A-Z]{2}"})
  */
-class SingleReadAction
+class LanguageReadAction
 {
     /**
      * @var LanguageQueryInterface

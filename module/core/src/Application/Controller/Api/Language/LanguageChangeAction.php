@@ -7,14 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Application\Controller\Api\Role;
+namespace Ergonode\Core\Application\Controller\Api\Language;
 
-use Ergonode\Account\Application\Form\Model\RoleFormModel;
-use Ergonode\Account\Application\Form\RoleForm;
-use Ergonode\Account\Domain\Command\Role\CreateRoleCommand;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Core\Application\Form\LanguageCollectionForm;
+use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
+use Ergonode\Core\Domain\Command\UpdateLanguageCommand;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Persistence\Dbal\Repository\DbalLanguageRepository;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,10 +26,15 @@ use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/roles", methods={"POST"})
+ * @Route("/languages", methods={"PUT"})
  */
-class CreateAction
+class LanguageChangeAction
 {
+    /**
+     * @var DbalLanguageRepository
+     */
+    private $repository;
+
     /**
      * @var MessageBusInterface
      */
@@ -40,44 +46,44 @@ class CreateAction
     private $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
-     * @param FormFactoryInterface $formFactory
+     * @param DbalLanguageRepository $repository
+     * @param MessageBusInterface    $messageBus
+     * @param FormFactoryInterface   $formFactory
      */
     public function __construct(
+        DbalLanguageRepository $repository,
         MessageBusInterface $messageBus,
         FormFactoryInterface $formFactory
     ) {
+        $this->repository = $repository;
         $this->messageBus = $messageBus;
         $this->formFactory = $formFactory;
     }
 
     /**
-     * @IsGranted("USER_ROLE_CREATE")
-     *
-     * @SWG\Tag(name="Account")
+     * @SWG\Tag(name="Language")
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code"
+     *     description="Language Code",
      * )
      * @SWG\Parameter(
      *     name="body",
      *     in="body",
-     *     description="Add attribute",
+     *     description="Category body",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/role")
+     *     @SWG\Schema(ref="#/definitions/languages_req")
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns role data"
+     *     description="Update language",
      * )
      * @SWG\Response(
      *     response=400,
-     *     description="Validation error",
-     *     @SWG\Schema(ref="#/definitions/validation_error_response")
+     *     description="Form validation error",
      * )
      *
      * @param Request $request
@@ -89,18 +95,20 @@ class CreateAction
     public function __invoke(Request $request): Response
     {
         try {
-            $model = new RoleFormModel();
-            $form = $this->formFactory->create(RoleForm::class, $model);
-
+            $model = new LanguageCollectionFormModel();
+            $form = $this->formFactory->create(LanguageCollectionForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
-
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var RoleFormModel $data */
+                /** @var LanguageCollectionFormModel $data */
                 $data = $form->getData();
-                $command = new CreateRoleCommand($data->name, $data->description, $data->privileges);
-                $this->messageBus->dispatch($command);
+                $languages = $data->collection->getValues();
+                foreach ($languages as $language) {
+                    $command = new UpdateLanguageCommand(Language::fromString($language->code), $language->active);
+                    $this->messageBus->dispatch($command);
+                    $this->repository->save(Language::fromString($language->code), $language->active);
+                }
 
-                return new CreatedResponse($command->getId());
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

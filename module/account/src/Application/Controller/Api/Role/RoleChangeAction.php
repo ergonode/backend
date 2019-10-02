@@ -29,7 +29,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/roles/{role}", methods={"PUT"}, requirements={"role"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
  */
-class ChangeAction
+class RoleChangeAction
 {
     /**
      * @var MessageBusInterface
