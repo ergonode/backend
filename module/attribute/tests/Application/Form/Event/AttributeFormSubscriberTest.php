@@ -31,10 +31,15 @@ class AttributeFormSubscriberTest extends TestCase
      * @var FormEvent|MockObject
      */
     private $event;
+    private $form;
+    private $formParameters;
 
     protected function setUp()
     {
         $this->event = $this->createMock(FormEvent::class);
+        $this->form = $this->createMock(FormInterface::class);
+        $this->formParameters = $this->createMock(FormInterface::class);
+        $this->form->expects($this->any())->method('get')->willReturn($this->formParameters);
     }
 
     /**
@@ -42,12 +47,9 @@ class AttributeFormSubscriberTest extends TestCase
      */
     public function testOnPreSubmitUnit()
     {
-        $form = $this->createMock(FormInterface::class);
-        $formParameters = $this->createMock(FormInterface::class);
-        $form->expects($this->any())->method('get')->willReturn($formParameters);
-        $this->event->expects($this->any())->method('getForm')->willReturn($form);
+        $this->event->expects($this->any())->method('getForm')->willReturn($this->form);
         $this->event->expects($this->any())->method('getData')->willReturn(['type' => 'UNIT']);
-        $formParameters->expects($this->once())->method('add')->with(
+        $this->formParameters->expects($this->once())->method('add')->with(
             'unit',
             UnitFormType::class,
             [
@@ -65,14 +67,11 @@ class AttributeFormSubscriberTest extends TestCase
      */
     public function testOnPreSubmitCurrency()
     {
-        $form = $this->createMock(FormInterface::class);
-        $formParameters = $this->createMock(FormInterface::class);
-        $form->expects($this->any())->method('get')->willReturn($formParameters);
-        $this->event->expects($this->any())->method('getForm')->willReturn($form);
+        $this->event->expects($this->any())->method('getForm')->willReturn($this->form);
         $data = $this->createMock(AttributeType::class);
         $data->type = new AttributeType('PRICE');
         $this->event->expects($this->any())->method('getData')->willReturn($data);
-        $formParameters->expects($this->once())->method('add')->with(
+        $this->formParameters->expects($this->once())->method('add')->with(
             'currency',
             CurrencyFormType::class,
             [
@@ -91,14 +90,11 @@ class AttributeFormSubscriberTest extends TestCase
      */
     public function testOnPreSubmitFormat()
     {
-        $form = $this->createMock(FormInterface::class);
-        $formParameters = $this->createMock(FormInterface::class);
-        $form->expects($this->any())->method('get')->willReturn($formParameters);
-        $form1 = $this->createMock(FormInterface::class);
-        $form1->type = new AttributeType('DATE');
-        $form->expects($this->any())->method('getData')->willReturn($form1);
-        $this->event->expects($this->any())->method('getForm')->willReturn($form);
-        $formParameters->expects($this->once())->method('add')->with(
+        $data = $this->createMock(FormInterface::class);
+        $data->type = new AttributeType('DATE');
+        $this->form->expects($this->any())->method('getData')->willReturn($data);
+        $this->event->expects($this->any())->method('getForm')->willReturn($this->form);
+        $this->formParameters->expects($this->once())->method('add')->with(
             'format',
             DateFormatFormType::class,
             [
@@ -116,12 +112,9 @@ class AttributeFormSubscriberTest extends TestCase
      */
     public function testOnPreSubmitImage()
     {
-        $form = $this->createMock(FormInterface::class);
-        $formParameters = $this->createMock(FormInterface::class);
-        $form->expects($this->any())->method('get')->willReturn($formParameters);
-        $this->event->expects($this->any())->method('getForm')->willReturn($form);
+        $this->event->expects($this->any())->method('getForm')->willReturn($this->form);
         $this->event->expects($this->any())->method('getData')->willReturn(['type' => 'IMAGE']);
-        $formParameters->expects($this->once())->method('add')->with(
+        $this->formParameters->expects($this->once())->method('add')->with(
             'formats',
             ChoiceType::class,
             [
