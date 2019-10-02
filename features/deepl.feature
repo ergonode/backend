@@ -1,10 +1,10 @@
 Feature: Deepl module
 
-  Scenario: Get translation deepl
-    When current authentication token
-    When I request "/api/v1/translation/deepl?content=kat&source_language=PL&target_language=EN" using HTTP GET
-    Then the response code is 200
-
+#  Scenario: Get translation deepl
+#    When current authentication token
+#    When I request "/api/v1/translation/deepl?content=kat&source_language=PL&target_language=EN" using HTTP GET
+#    Then the response code is 200
+#
   Scenario: Get translation deepl (not authorized)
     When I request "/api/v1/translation/deepl" using HTTP GET
     Then unauthorized response is received
