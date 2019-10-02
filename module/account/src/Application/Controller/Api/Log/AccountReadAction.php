@@ -11,7 +11,7 @@ namespace Ergonode\Account\Application\Controller\Api\Log;
 
 use Ergonode\Account\Domain\Query\LogQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\LogGrid;
-use Ergonode\Core\Application\Provider\TokenStorageProviderInterface;
+use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -36,23 +36,23 @@ class AccountReadAction
     private $grid;
 
     /**
-     * @var TokenStorageProviderInterface
+     * @var AuthenticatedUserProviderInterface
      */
-    private $tokenStorageProvider;
+    private $userProvider;
 
     /**
-     * @param LogQueryInterface             $query
-     * @param LogGrid                       $grid
-     * @param TokenStorageProviderInterface $tokenStorageProvider
+     * @param LogQueryInterface                  $query
+     * @param LogGrid                            $grid
+     * @param AuthenticatedUserProviderInterface $userProvider
      */
     public function __construct(
         LogQueryInterface $query,
         LogGrid $grid,
-        TokenStorageProviderInterface $tokenStorageProvider
+        AuthenticatedUserProviderInterface $userProvider
     ) {
         $this->query = $query;
         $this->grid = $grid;
-        $this->tokenStorageProvider = $tokenStorageProvider;
+        $this->userProvider = $userProvider;
     }
 
     /**
@@ -131,7 +131,7 @@ class AccountReadAction
             $this->grid,
             $configuration,
             $this->query->getDataSet(),
-            $this->tokenStorageProvider->getUser()->getLanguage()
+            $this->userProvider->provide()->getLanguage()
         );
     }
 }

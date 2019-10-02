@@ -15,7 +15,7 @@ use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Account\Infrastructure\Builder\PasswordValidationBuilder;
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Core\Application\Provider\TokenStorageProviderInterface;
+use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -46,26 +46,26 @@ class PasswordChangeAction
     private $validator;
 
     /**
-     * @var TokenStorageProviderInterface
+     * @var AuthenticatedUserProviderInterface
      */
-    private $tokenStorageProvider;
+    private $userProvider;
 
     /**
-     * @param PasswordValidationBuilder     $builder
-     * @param MessageBusInterface           $messageBus
-     * @param ValidatorInterface            $validator
-     * @param TokenStorageProviderInterface $tokenStorageProvider
+     * @param PasswordValidationBuilder          $builder
+     * @param MessageBusInterface                $messageBus
+     * @param ValidatorInterface                 $validator
+     * @param AuthenticatedUserProviderInterface $userProvider
      */
     public function __construct(
         PasswordValidationBuilder $builder,
         MessageBusInterface $messageBus,
         ValidatorInterface $validator,
-        TokenStorageProviderInterface $tokenStorageProvider
+        AuthenticatedUserProviderInterface $userProvider
     ) {
         $this->builder = $builder;
         $this->messageBus = $messageBus;
         $this->validator = $validator;
-        $this->tokenStorageProvider = $tokenStorageProvider;
+        $this->userProvider = $userProvider;
     }
 
     /**
@@ -129,7 +129,7 @@ class PasswordChangeAction
         $data = $request->request->all();
         $constraint = $this->builder->create();
         $violations = $this->validator->validate($data, $constraint);
-        $userId = $this->tokenStorageProvider->getUser()->getId();
+        $userId = $this->userProvider->provide()->getId();
 
         if ($violations->count() === 0) {
             $command = new ChangeUserPasswordCommand($userId, new Password((string) $data['password']));

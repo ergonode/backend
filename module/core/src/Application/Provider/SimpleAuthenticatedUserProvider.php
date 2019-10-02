@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 /**
  */
-class SimpleTokenStorageProvider implements TokenStorageProviderInterface
+class SimpleAuthenticatedUserProvider implements AuthenticatedUserProviderInterface
 {
     /**
      * @var TokenStorageInterface
@@ -36,11 +36,11 @@ class SimpleTokenStorageProvider implements TokenStorageProviderInterface
      *
      * @throws AuthenticationException
      */
-    public function getUser(): User
+    public function provide(): User
     {
         $token = $this->tokenStorage->getToken();
         if (!$token instanceof TokenInterface) {
-            throw new AuthenticationException('Token not set');
+            throw new AuthenticationException('Authentication token not set');
         }
 
         $user = $token->getUser();

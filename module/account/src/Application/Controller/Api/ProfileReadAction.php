@@ -12,7 +12,7 @@ namespace Ergonode\Account\Application\Controller\Api;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\ProfileQueryInterface;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Application\Provider\TokenStorageProviderInterface;
+use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,20 +28,20 @@ class ProfileReadAction
     private $query;
 
     /**
-     * @var TokenStorageProviderInterface
+     * @var AuthenticatedUserProviderInterface
      */
-    private $tokenStorageProvider;
+    private $userProvider;
 
     /**
-     * @param ProfileQueryInterface         $query
-     * @param TokenStorageProviderInterface $tokenStorageProvider
+     * @param ProfileQueryInterface              $query
+     * @param AuthenticatedUserProviderInterface $userProvider
      */
     public function __construct(
         ProfileQueryInterface $query,
-        TokenStorageProviderInterface $tokenStorageProvider
+        AuthenticatedUserProviderInterface $userProvider
     ) {
         $this->query = $query;
-        $this->tokenStorageProvider = $tokenStorageProvider;
+        $this->userProvider = $userProvider;
     }
 
     /**
@@ -56,7 +56,7 @@ class ProfileReadAction
     public function __invoke(): Response
     {
         /** @var User $profile */
-        $profile = $this->query->getProfile($this->tokenStorageProvider->getUser()->getId());
+        $profile = $this->query->getProfile($this->userProvider->provide()->getId());
 
         return new SuccessResponse($profile);
     }

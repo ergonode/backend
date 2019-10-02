@@ -13,10 +13,10 @@ use Ergonode\Account\Domain\Entity\User;
 
 /**
  */
-interface TokenStorageProviderInterface
+interface AuthenticatedUserProviderInterface
 {
     /**
      * @return User
      */
-    public function getUser(): User;
+    public function provide(): User;
 }
