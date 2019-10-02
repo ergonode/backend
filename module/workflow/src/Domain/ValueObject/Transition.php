@@ -9,7 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\ValueObject;
 
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -17,60 +18,99 @@ use JMS\Serializer\Annotation as JMS;
 class Transition
 {
     /**
-     * @var string
+     * @var StatusCode
      *
-     * @JMS\Type("string")
-     */
-    private $name;
-
-    /**
-     * @var StatusId
-     *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
+     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
     private $source;
 
     /**
-     * @var StatusId
+     * @var StatusCode;
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
+     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
     private $destination;
 
     /**
-     * @param string   $name
-     * @param StatusId $source
-     * @param StatusId $destination
+     * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    public function __construct(string $name, StatusId $source, StatusId $destination)
-    {
-        $this->name = $name;
+    private $name;
+
+    /**
+     * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
+     */
+    private $description;
+
+    /**
+     * @var ConditionSetId
+     *
+     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     */
+    private $conditionSet;
+
+    /**
+     * @param StatusCode         $source
+     * @param StatusCode         $destination
+     * @param TranslatableString $name
+     * @param TranslatableString $description
+     * @param ConditionSetId     $conditionSetId
+     */
+    public function __construct(
+        StatusCode $source,
+        StatusCode $destination,
+        TranslatableString $name,
+        TranslatableString $description,
+        ?ConditionSetId $conditionSetId = null
+    ) {
         $this->source = $source;
         $this->destination = $destination;
+        $this->name = $name;
+        $this->description = $description;
+        $this->conditionSet = $conditionSetId;
     }
 
     /**
-     * @return string
+     * @return StatusCode
      */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return StatusId
-     */
-    public function getSource(): StatusId
+    public function getSource(): StatusCode
     {
         return $this->source;
     }
 
     /**
-     * @return StatusId
+     * @return StatusCode
      */
-    public function getDestination(): StatusId
+    public function getDestination(): StatusCode
     {
         return $this->destination;
+    }
+
+    /**
+     * @return TranslatableString
+     */
+    public function getName(): TranslatableString
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return TranslatableString
+     */
+    public function getDescription(): TranslatableString
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return ConditionSetId|null
+     */
+    public function getConditionSet(): ?ConditionSetId
+    {
+        return $this->conditionSet;
     }
 
     /**
@@ -80,8 +120,12 @@ class Transition
      */
     public function isEqual(Transition $transition): bool
     {
-        return $transition->getName() === $this->name
-            && $transition->getSource()->isEqual($this->source)
-            && $transition->getDestination()->isEqual($this->destination);
+        return $transition->getSource()->isEqual($this->source)
+            && $transition->getDestination()->isEqual($this->destination)
+            && $transition->getName()->isEqual($this->name)
+            && $transition->getDescription()->isEqual($this->description)
+            && (null === $transition->conditionSet
+                || $transition->getConditionSet()->isEqual($this->conditionSet)
+            );
     }
 }

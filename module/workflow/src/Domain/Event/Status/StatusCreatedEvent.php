@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -27,9 +28,9 @@ class StatusCreatedEvent implements DomainEventInterface
     private $id;
 
     /**
-     * @var string
+     * @var StatusCode
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
     private $code;
 
@@ -56,12 +57,12 @@ class StatusCreatedEvent implements DomainEventInterface
 
     /**
      * @param StatusId           $id
-     * @param string             $code
+     * @param StatusCode         $code
      * @param Color              $color
      * @param TranslatableString $name
      * @param TranslatableString $description
      */
-    public function __construct(StatusId $id, string $code, Color $color, TranslatableString $name, TranslatableString $description)
+    public function __construct(StatusId $id, StatusCode $code, Color $color, TranslatableString $name, TranslatableString $description)
     {
         $this->id = $id;
         $this->code = $code;
@@ -79,9 +80,9 @@ class StatusCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return string
+     * @return StatusCode
      */
-    public function getCode(): string
+    public function getCode(): StatusCode
     {
         return $this->code;
     }

@@ -33,13 +33,6 @@ interface ProductQueryInterface
     public function getAllIds(): array;
 
     /**
-     * @param CategoryId $categoryId
-     *
-     * @return ProductId[]
-     */
-    public function findProductIdByCategoryId(CategoryId $categoryId): array;
-
-    /**
      * @param TemplateId $templateId
      *
      * @return array

@@ -45,7 +45,6 @@ class CreateStatusCommandHandler
     public function __invoke(CreateStatusCommand $command)
     {
         $status = $this->factory->create(
-            $command->getId(),
             $command->getCode(),
             $command->getColor(),
             $command->getName(),
