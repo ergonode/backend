@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Api\Tests\Application\Mapper;
 
 use Doctrine\DBAL\Exception\InvalidArgumentException;
-use Ergonode\Api\Application\Exception\DataValidationHttpException;
 use Ergonode\Api\Application\Mapper\ExceptionMapper;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +24,7 @@ class ExceptionMapperTest extends TestCase
      *
      * @dataProvider dataProvider
      */
-    public function testMapper(array $map, \Throwable $exception, ?array $expected)
+    public function testMapper(array $map, \Throwable $exception, ?array $expected): void
     {
         $mapper = new ExceptionMapper($map);
         $result = $mapper->map($exception);
@@ -83,21 +82,6 @@ class ExceptionMapperTest extends TestCase
                         'message' => 'test message',
                     ],
                 ],
-            ],
-            [
-                'map' => [
-                    'Doctrine\DBAL\DBALException' => [
-                        'http' => [
-                            'code' => '403',
-                        ],
-                        'content' => [
-                            'code' => '403',
-                            'message' => 'test message',
-                        ],
-                    ],
-                ],
-                'exception' => new DataValidationHttpException(),
-                'expected' => null,
             ],
         ];
     }

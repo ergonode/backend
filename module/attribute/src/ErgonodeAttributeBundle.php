@@ -11,7 +11,7 @@ namespace Ergonode\Attribute;
 
 use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeFactoryInterfaceCompilerPass;
 use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeUpdaterInterfaceCompilerPass;
-use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeValidatorInterfaceCompilerPass;
+use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeValueConstraintStrategyInterfaceCompilerPass;
 use Ergonode\Core\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -29,6 +29,6 @@ class ErgonodeAttributeBundle extends AbstractModule
         $container
             ->addCompilerPass(new AttributeFactoryInterfaceCompilerPass())
             ->addCompilerPass(new AttributeUpdaterInterfaceCompilerPass())
-            ->addCompilerPass(new AttributeValidatorInterfaceCompilerPass());
+            ->addCompilerPass(new AttributeValueConstraintStrategyInterfaceCompilerPass());
     }
 }

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\AttributeImage\Domain\Validator;
 
-use Ergonode\Attribute\Domain\AttributeValidatorInterface;
+use Ergonode\Attribute\Domain\AttributeTypeConstraintStrategyInterface;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
@@ -17,7 +17,7 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 
 /**
  */
-class ImageAttributeValidator implements AttributeValidatorInterface
+class ImageAttributeTypeConstraintStrategy implements AttributeTypeConstraintStrategyInterface
 {
     /**
      * @var MultimediaRepositoryInterface
