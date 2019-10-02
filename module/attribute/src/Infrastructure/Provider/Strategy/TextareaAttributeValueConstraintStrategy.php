@@ -25,7 +25,7 @@ class TextareaAttributeValueConstraintStrategy implements AttributeValueConstrai
      *
      * @return bool
      */
-    public function supported(AbstractAttribute $attribute): bool
+    public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof TextareaAttribute;
     }

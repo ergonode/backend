@@ -13,6 +13,9 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\PositiveOrZero;
+use Symfony\Component\Validator\Constraints\Type;
 
 /**
  */
@@ -23,7 +26,7 @@ class PriceAttributeValueConstraintStrategy implements AttributeValueConstraintS
      *
      * @return bool
      */
-    public function supported(AbstractAttribute $attribute): bool
+    public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof PriceAttribute;
     }
@@ -35,8 +38,11 @@ class PriceAttributeValueConstraintStrategy implements AttributeValueConstraintS
      */
     public function get(AbstractAttribute $attribute): Constraint
     {
-        $value = str_replace(',', '.', $value);
-
-        return is_numeric($value) && $value >= 0;
+        return new Collection([
+            'value' => [
+                new Type(['type' => 'numeric']),
+                new PositiveOrZero(),
+            ],
+        ]);
     }
 }

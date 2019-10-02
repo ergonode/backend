@@ -37,7 +37,7 @@ class AttributeValueConstraintProvider
     public function provide(AbstractAttribute $attribute): Constraint
     {
         foreach ($this->strategies as $strategy) {
-            if ($strategy->supported($attribute)) {
+            if ($strategy->supports($attribute)) {
                 return $strategy->get($attribute);
             }
         }

@@ -28,5 +28,5 @@ interface AttributeValueConstraintStrategyInterface
      *
      * @return bool
      */
-    public function supported(AbstractAttribute $attribute): bool;
+    public function supports(AbstractAttribute $attribute): bool;
 }
