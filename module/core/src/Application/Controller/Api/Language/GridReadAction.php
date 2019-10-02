@@ -7,57 +7,54 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Application\Controller\Api\Role;
+namespace Ergonode\Core\Application\Controller\Api\Language;
 
-use Ergonode\Account\Domain\Query\RoleQueryInterface;
-use Ergonode\Account\Infrastructure\Grid\RoleGrid;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Grid\LanguageGrid;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/roles", methods={"GET"})
+ * @Route("/languages", methods={"GET"})
  */
-class RolesReadAction
+class GridReadAction
 {
     /**
-     * @var RoleQueryInterface
+     * @var LanguageQueryInterface
      */
     private $query;
 
     /**
-     * @var RoleGrid
+     * @var LanguageGrid
      */
-    private $grid;
+    private $languageGrid;
 
     /**
-     * @param RoleQueryInterface $query
-     * @param RoleGrid           $grid
+     * @param LanguageQueryInterface $query
+     * @param LanguageGrid           $languageGrid
      */
     public function __construct(
-        RoleQueryInterface $query,
-        RoleGrid $grid
+        LanguageQueryInterface $query,
+        LanguageGrid $languageGrid
     ) {
         $this->query = $query;
-        $this->grid = $grid;
+        $this->languageGrid = $languageGrid;
     }
 
     /**
-     * @IsGranted("USER_ROLE_READ")
-     *
-     * @SWG\Tag(name="Account")
+     * @SWG\Tag(name="Language")
      * @SWG\Parameter(
      *     name="limit",
      *     in="query",
      *     type="integer",
      *     required=true,
      *     default="50",
-     *     description="Number of returned lines"
+     *     description="Number of returned lines",
      * )
      * @SWG\Parameter(
      *     name="offset",
@@ -65,15 +62,15 @@ class RolesReadAction
      *     type="integer",
      *     required=true,
      *     default="0",
-     *     description="Number of start line"
+     *     description="Number of start line",
      * )
      * @SWG\Parameter(
      *     name="field",
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"id","name","description", "users_count"},
-     *     description="Order field"
+     *     enum={"code","name","active"},
+     *     description="Order field",
      * )
      * @SWG\Parameter(
      *     name="order",
@@ -81,14 +78,7 @@ class RolesReadAction
      *     required=false,
      *     type="string",
      *     enum={"ASC","DESC"},
-     *     description="Order"
-     * )
-     * @SWG\Parameter(
-     *     name="filter",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Filter"
+     *     description="Order",
      * )
      * @SWG\Parameter(
      *     name="show",
@@ -104,15 +94,11 @@ class RolesReadAction
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language code"
+     *     description="Language Code",
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns roles collection"
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found"
+     *     description="Returns language",
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
@@ -124,6 +110,11 @@ class RolesReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
+        return new GridResponse(
+            $this->languageGrid,
+            $configuration,
+            $this->query->getDataSet(),
+            $language
+        );
     }
 }
