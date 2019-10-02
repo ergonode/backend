@@ -18,14 +18,18 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmozart\Assert\Assert;
 
 /**
+ * @Route(
+ *     "/products/{product}/draft/completeness",
+ *     methods={"GET"},
+ *     requirements = {"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ * )
  */
-class CompletenessController extends AbstractController
+class CompletenessReadAction
 {
     /**
      * @var CompletenessCalculator
@@ -55,12 +59,6 @@ class CompletenessController extends AbstractController
     }
 
     /**
-     * @Route(
-     *     "/products/{product}/draft/completeness",
-     *     methods={"GET"},
-     *     requirements = {"product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
-     * )
-     *
      * @IsGranted("PRODUCT_READ")
      *
      * @SWG\Tag(name="Editor")
@@ -92,7 +90,7 @@ class CompletenessController extends AbstractController
      *
      * @throws \Exception
      */
-    public function getCompleteness(AbstractProduct $product, Language $language): Response
+    public function __invoke(AbstractProduct $product, Language $language): Response
     {
         $draft = $this->provider->provide($product);
         $template = $this->repository->load($product->getTemplateId());
