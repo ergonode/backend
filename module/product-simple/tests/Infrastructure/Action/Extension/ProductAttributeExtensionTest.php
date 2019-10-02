@@ -17,6 +17,7 @@ use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -40,10 +41,18 @@ class ProductAttributeExtensionTest extends TestCase
      */
     private $data;
 
+    /**
+     * @var Record|MockObject
+     */
     private $record;
 
+    /**
+     * @var ProductAttributeExtension
+     */
     private $extension;
 
+    /**
+     */
     protected function setUp()
     {
         $this->query = $this->createMock(AttributeQueryInterface::class);
