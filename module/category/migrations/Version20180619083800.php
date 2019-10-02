@@ -36,6 +36,7 @@ final class Version20180619083800 extends AbstractErgonodeMigration
         $this->createEventStoreEvents([
             'Ergonode\Category\Domain\Event\CategoryCreatedEvent' => 'Category created',
             'Ergonode\Category\Domain\Event\CategoryNameChangedEvent' => 'Category name changed',
+            'Ergonode\Category\Domain\Event\CategoryDeletedEvent' => 'Category deleted',
         ]);
     }
 

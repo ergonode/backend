@@ -18,7 +18,7 @@ interface DomainEventProjectorInterface
      *
      * @return bool
      */
-    public function support(DomainEventInterface $event): bool;
+    public function supports(DomainEventInterface $event): bool;
 
     /**
      * @param AbstractId           $aggregateId

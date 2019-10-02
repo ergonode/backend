@@ -13,14 +13,14 @@ use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 
 /**
  */
 class StatusFactory
 {
     /**
-     * @param StatusId           $id
-     * @param string             $code
+     * @param StatusCode         $code
      * @param Color              $color
      * @param TranslatableString $name
      * @param TranslatableString $description
@@ -29,10 +29,10 @@ class StatusFactory
      *
      * @throws \Exception
      */
-    public function create(StatusId $id, string $code, Color $color, TranslatableString $name, TranslatableString $description): Status
+    public function create(StatusCode $code, Color $color, TranslatableString $name, TranslatableString $description): Status
     {
         return new Status(
-            $id,
+            StatusId::fromCode($code),
             $code,
             $color,
             $name,

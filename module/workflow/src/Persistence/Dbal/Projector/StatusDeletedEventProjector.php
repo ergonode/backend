@@ -38,7 +38,7 @@ class StatusDeletedEventProjector implements DomainEventProjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof StatusDeletedEvent;
     }
@@ -48,7 +48,7 @@ class StatusDeletedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof StatusDeletedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, StatusDeletedEvent::class);
         }
 

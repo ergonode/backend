@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 
@@ -20,17 +19,17 @@ interface ProductRepositoryInterface
     /**
      * @param ProductId $id
      *
-     * @return AbstractAggregateRoot|AbstractProduct
+     * @return AbstractProduct
      */
-    public function load(ProductId $id): ?AbstractAggregateRoot;
+    public function load(ProductId $id): ?AbstractProduct;
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param AbstractProduct $aggregateRoot
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
+    public function save(AbstractProduct $aggregateRoot): void;
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param AbstractProduct $aggregateRoot
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void;
+    public function delete(AbstractProduct $aggregateRoot): void;
 }

@@ -55,8 +55,8 @@ class StatusGrid extends AbstractGrid
         $statuses = $this->statusQuery->getAllStatuses($language);
         $filters = $configuration->getFilters();
         $codes = [];
-        foreach ($statuses as $code => $status) {
-            $codes[$code] = $status['name'];
+        foreach ($statuses as $id => $status) {
+            $codes[$id] = $status['name'];
         }
 
         $id = new TextColumn('id', $this->trans('Id'), new TextFilter($filters->getString('id')));
@@ -77,6 +77,8 @@ class StatusGrid extends AbstractGrid
 
         $this->addColumn('edit', new ActionColumn('edit'));
         $this->orderBy('code', 'DESC');
+
+        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 
     /**

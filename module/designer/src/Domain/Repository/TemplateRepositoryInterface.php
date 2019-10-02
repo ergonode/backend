@@ -11,7 +11,6 @@ namespace Ergonode\Designer\Domain\Repository;
 
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
  */
@@ -22,10 +21,15 @@ interface TemplateRepositoryInterface
      *
      * @return Template|null
      */
-    public function load(TemplateId $id): ?AbstractAggregateRoot;
+    public function load(TemplateId $id): ?Template;
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param Template $template
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
+    public function save(Template $template): void;
+
+    /**
+     * @param Template $template
+     */
+    public function delete(Template $template): void;
 }

@@ -11,6 +11,7 @@ namespace Ergonode\Attribute\Persistence\Dbal\Repository;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
@@ -42,7 +43,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
     }
 
     /**
-     * @param AttributeId $id
+     * {@inheritDoc}
      *
      * @return AbstractAggregateRoot
      * @throws \ReflectionException
@@ -73,7 +74,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * {@inheritDoc}
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
@@ -83,5 +84,18 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
         foreach ($events as $envelope) {
             $this->eventDispatcher->dispatch($envelope);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Exception
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    {
+        $aggregateRoot->apply(new AttributeDeletedEvent());
+        $this->save($aggregateRoot);
+
+        $this->eventStore->delete($aggregateRoot->getId());
     }
 }

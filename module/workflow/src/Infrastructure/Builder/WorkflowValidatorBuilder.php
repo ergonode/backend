@@ -98,7 +98,6 @@ class WorkflowValidatorBuilder
                     [
                         'constraints' => [
                             new NotBlank(),
-                            new Uuid(),
                             new StatusNotExists(),
                         ],
                     ]

@@ -31,15 +31,24 @@ class NumericAttributeValueCondition implements ConditionInterface
      *
      * @JMS\Type("string")
      */
+    private $operator;
+
+    /**
+     * @var float
+     *
+     * @JMS\Type("float")
+     */
     private $value;
 
     /**
      * @param AttributeId $attribute
-     * @param string      $value
+     * @param string      $operator
+     * @param float       $value
      */
-    public function __construct(AttributeId $attribute, string $value)
+    public function __construct(AttributeId $attribute, string $operator, float $value)
     {
         $this->attribute = $attribute;
+        $this->operator = $operator;
         $this->value = $value;
     }
 
@@ -64,7 +73,15 @@ class NumericAttributeValueCondition implements ConditionInterface
     /**
      * @return string
      */
-    public function getValue(): string
+    public function getOption(): string
+    {
+        return $this->operator;
+    }
+
+    /**
+     * @return float
+     */
+    public function getValue(): float
     {
         return $this->value;
     }

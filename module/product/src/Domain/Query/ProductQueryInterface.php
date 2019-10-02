@@ -9,10 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Query;
 
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 
 /**
  */
@@ -31,16 +33,23 @@ interface ProductQueryInterface
     public function getAllIds(): array;
 
     /**
-     * @param CategoryId $categoryId
-     *
-     * @return ProductId[]
-     */
-    public function findProductIdByCategoryId(CategoryId $categoryId): array;
-
-    /**
      * @param TemplateId $templateId
      *
      * @return array
      */
     public function findProductIdByTemplateId(TemplateId $templateId): array;
+
+    /**
+     * @param AttributeId $attributeId
+     *
+     * @return array
+     */
+    public function findProductIdByAttributeId(AttributeId $attributeId): array;
+
+    /**
+     * @param StatusId $statusId
+     *
+     * @return array
+     */
+    public function findProductIdByStatusId(StatusId $statusId): array;
 }

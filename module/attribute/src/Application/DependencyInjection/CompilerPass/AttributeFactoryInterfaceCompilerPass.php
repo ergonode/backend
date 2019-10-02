@@ -36,13 +36,10 @@ class AttributeFactoryInterfaceCompilerPass implements CompilerPassInterface
     private function processProvider(ContainerBuilder $container): void
     {
         $arguments = [];
-        $definition = $container->findDefinition(AttributeFactoryProvider::class);
-        $strategies = $container->findTaggedServiceIds(self::TAG);
-
-        foreach ($strategies as $id => $strategy) {
+        foreach ($container->findTaggedServiceIds(self::TAG) as $id => $strategy) {
             $arguments[] = new Reference($id);
         }
 
-        $definition->setArguments($arguments);
+        $container->findDefinition(AttributeFactoryProvider::class)->setArguments($arguments);
     }
 }

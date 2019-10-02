@@ -22,6 +22,8 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -56,18 +58,34 @@ class RoleController extends AbstractController
     private $messageBus;
 
     /**
-     * @param RoleQueryInterface  $query
-     * @param RoleGrid            $grid
-     * @param MessageBusInterface $messageBus
+     * @var RelationshipsResolverInterface
+     */
+    private $relationshipsResolver;
+
+    /**
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private $existingRelationshipMessageBuilder;
+
+    /**
+     * @param RoleQueryInterface                          $query
+     * @param RoleGrid                                    $grid
+     * @param MessageBusInterface                         $messageBus
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
         RoleQueryInterface $query,
         RoleGrid $grid,
-        MessageBusInterface $messageBus
+        MessageBusInterface $messageBus,
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
         $this->query = $query;
         $this->grid = $grid;
         $this->messageBus = $messageBus;
+        $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -338,7 +356,15 @@ class RoleController extends AbstractController
      *     in="path",
      *     required=true,
      *     type="string",
-     *     description="Role Id",
+     *     description="Role Id"
+     * )
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language code",
      * )
      * @SWG\Response(
      *     response=204,
@@ -346,11 +372,11 @@ class RoleController extends AbstractController
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      * @SWG\Response(
      *     response="409",
-     *     description="Can't delete Role",
+     *     description="Existing relationships"
      * )
      *
      * @ParamConverter(class="Ergonode\Account\Domain\Entity\Role")
@@ -361,17 +387,14 @@ class RoleController extends AbstractController
      */
     public function deleteRole(Role $role): Response
     {
-        $roleUsersCount = $this->query->getRoleUsersCount($role->getId());
-        if (0 === $roleUsersCount) {
-            $command = new DeleteRoleCommand($role->getId());
-            $this->messageBus->dispatch($command);
-
-            return new EmptyResponse();
+        $relationships = $this->relationshipsResolver->resolve($role->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
-        throw new ConflictHttpException(sprintf(
-            'Can\'t delete role "%s", users are assigned to it',
-            $role->getId()->getValue()
-        ));
+        $command = new DeleteRoleCommand($role->getId());
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }

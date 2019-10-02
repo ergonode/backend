@@ -14,6 +14,8 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
@@ -25,6 +27,7 @@ use Ergonode\Product\Domain\Command\CreateProductCommand;
 use Ergonode\Product\Domain\Command\DeleteProductCommand;
 use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 use Ergonode\Product\Persistence\Dbal\DataSet\DbalProductDataSet;
@@ -34,6 +37,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -57,15 +61,42 @@ class ProductController extends AbstractController
     private $messageBus;
 
     /**
-     * @param DbalProductDataSet  $dataSet
-     * @param ProductGrid         $productGrid
-     * @param MessageBusInterface $messageBus
+     * @var RelationshipsResolverInterface
      */
-    public function __construct(DbalProductDataSet $dataSet, ProductGrid $productGrid, MessageBusInterface $messageBus)
-    {
+    private $relationshipsResolver;
+
+    /**
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private $existingRelationshipMessageBuilder;
+
+    /**
+     * @var GetProductQueryInterface
+     */
+    private $getProductQuery;
+
+    /**
+     * @param DbalProductDataSet                          $dataSet
+     * @param ProductGrid                                 $productGrid
+     * @param MessageBusInterface                         $messageBus
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+     * @param GetProductQueryInterface                    $getProductQuery
+     */
+    public function __construct(
+        DbalProductDataSet $dataSet,
+        ProductGrid $productGrid,
+        MessageBusInterface $messageBus,
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder,
+        GetProductQueryInterface $getProductQuery
+    ) {
         $this->dataSet = $dataSet;
         $this->productGrid = $productGrid;
         $this->messageBus = $messageBus;
+        $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
+        $this->getProductQuery = $getProductQuery;
     }
 
     /**
@@ -154,7 +185,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("products/{product}", methods={"GET"})
+     * @Route("products/{product}", methods={"GET"}, requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("PRODUCT_READ")
      *
@@ -184,14 +215,17 @@ class ProductController extends AbstractController
      * )
      *
      * @param AbstractProduct $product
+     * @param Language        $language
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
      * @return Response
      */
-    public function getProduct(AbstractProduct $product): Response
+    public function getProduct(AbstractProduct $product, Language $language): Response
     {
-        return new SuccessResponse($product);
+        $result =  $this->getProductQuery->query($product->getId(), $language);
+
+        return new SuccessResponse($result);
     }
 
     /**
@@ -247,7 +281,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("products/{product}", methods={"PUT"})
+     * @Route("products/{product}", methods={"PUT"}, requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("PRODUCT_UPDATE")
      *
@@ -335,6 +369,10 @@ class ProductController extends AbstractController
      *     response=404,
      *     description="Not found",
      * )
+     * @SWG\Response(
+     *     response="409",
+     *     description="Existing relationships"
+     * )
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
@@ -344,6 +382,11 @@ class ProductController extends AbstractController
      */
     public function deleteProduct(AbstractProduct $product): Response
     {
+        $relationships = $this->relationshipsResolver->resolve($product->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
+        }
+
         $command = new DeleteProductCommand($product->getId());
         $this->messageBus->dispatch($command);
 

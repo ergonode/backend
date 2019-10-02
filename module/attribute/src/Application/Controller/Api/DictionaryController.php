@@ -54,15 +54,15 @@ class DictionaryController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns collection attribute types",
+     *     description="Returns collection attribute types"
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Not found",
+     *     description="Not found"
      * )
      *
      * @param Language $language
@@ -86,11 +86,11 @@ class DictionaryController extends AbstractController
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code",
+     *     description="Language Code"
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns collection attribute groups",
+     *     description="Returns collection attribute groups"
      * )
      *
      * @return Response
