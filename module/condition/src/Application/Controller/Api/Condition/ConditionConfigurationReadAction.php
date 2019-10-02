@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Condition\Application\Controller\Api;
+namespace Ergonode\Condition\Application\Controller\Api\Condition;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Exception\ConditionStrategyNotFoundException;
@@ -15,14 +15,14 @@ use Ergonode\Condition\Domain\Provider\ConditionConfigurationProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route("/conditions/{condition}", methods={"GET"})
  */
-class ConditionController extends AbstractController
+class ConditionConfigurationReadAction
 {
     /**
      * @var ConditionConfigurationProvider
@@ -38,8 +38,6 @@ class ConditionController extends AbstractController
     }
 
     /**
-     * @Route("/conditions/{condition}", methods={"GET"})
-     *
      * @IsGranted("CONDITION_READ")
      *
      * @SWG\Tag(name="Condition")
@@ -70,7 +68,7 @@ class ConditionController extends AbstractController
      *
      * @return Response
      */
-    public function getCondition(Language $language, string $condition): Response
+    public function __invoke(Language $language, string $condition): Response
     {
         try {
             $configuration = $this->provider->getConfiguration($language, $condition);

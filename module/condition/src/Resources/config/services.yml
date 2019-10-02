@@ -10,6 +10,10 @@ services:
     Ergonode\Condition\Application\:
         resource: '../../Application/*'
 
+    Ergonode\Condition\Application\Controller\Api\:
+        resource: '../../Application/Controller/Api/*'
+        tags: ['controller.service_arguments']
+
     Ergonode\Condition\Persistence\:
         resource: '../../Persistence/*'
 
