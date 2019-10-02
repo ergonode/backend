@@ -7,22 +7,23 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Application\Controller\Api;
+namespace Ergonode\Account\Application\Controller\Api\Log;
 
 use Ergonode\Account\Domain\Query\LogQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\LogGrid;
+use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route("/{language}/accounts/log", methods={"GET"})
  */
-class ProfileLogController extends AbstractController
+class AccountReadAction
 {
     /**
      * @var LogQueryInterface
@@ -35,28 +36,36 @@ class ProfileLogController extends AbstractController
     private $grid;
 
     /**
-     * @param LogQueryInterface $query
-     * @param LogGrid           $grid
+     * @var AuthenticatedUserProviderInterface
      */
-    public function __construct(LogQueryInterface $query, LogGrid $grid)
-    {
+    private $userProvider;
+
+    /**
+     * @param LogQueryInterface                  $query
+     * @param LogGrid                            $grid
+     * @param AuthenticatedUserProviderInterface $userProvider
+     */
+    public function __construct(
+        LogQueryInterface $query,
+        LogGrid $grid,
+        AuthenticatedUserProviderInterface $userProvider
+    ) {
         $this->query = $query;
         $this->grid = $grid;
+        $this->userProvider = $userProvider;
     }
 
     /**
-     * @Route("/profile/log", methods={"GET"})
-     *
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
-     * @SWG\Tag(name="Profile")
+     * @SWG\Tag(name="Account")
      * @SWG\Parameter(
      *     name="limit",
      *     in="query",
      *     type="integer",
      *     required=true,
      *     default="50",
-     *     description="Number of returned lines",
+     *     description="Number of returned lines"
      * )
      * @SWG\Parameter(
      *     name="offset",
@@ -64,7 +73,7 @@ class ProfileLogController extends AbstractController
      *     type="integer",
      *     required=true,
      *     default="0",
-     *     description="Number of start line",
+     *     description="Number of start line"
      * )
      * @SWG\Parameter(
      *     name="field",
@@ -72,7 +81,7 @@ class ProfileLogController extends AbstractController
      *     required=false,
      *     type="string",
      *     enum={"recorded_at", "author", "author_id", "event"},
-     *     description="Order field",
+     *     description="Order field"
      * )
      * @SWG\Parameter(
      *     name="order",
@@ -80,7 +89,7 @@ class ProfileLogController extends AbstractController
      *     required=false,
      *     type="string",
      *     enum={"ASC","DESC"},
-     *     description="Order",
+     *     description="Order"
      * )
      * @SWG\Parameter(
      *     name="filter",
@@ -97,9 +106,17 @@ class ProfileLogController extends AbstractController
      *     enum={"COLUMN","DATA"},
      *     description="Specify what response should containts"
      * )
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language code"
+     * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns User Log collection",
+     *     description="Returns accounts log collection"
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
@@ -108,15 +125,13 @@ class ProfileLogController extends AbstractController
      *
      * @return Response
      */
-    public function getLog(RequestGridConfiguration $configuration): Response
+    public function __invoke(RequestGridConfiguration $configuration): Response
     {
-        $user = $this->getUser();
-
         return new GridResponse(
             $this->grid,
             $configuration,
-            $this->query->getDataSet($user->getId()),
-            $user->getLanguage()
+            $this->query->getDataSet(),
+            $this->userProvider->provide()->getLanguage()
         );
     }
 }
