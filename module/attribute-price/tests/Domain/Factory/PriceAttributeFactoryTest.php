@@ -38,7 +38,7 @@ class PriceAttributeFactoryTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new PriceAttributeFactory();
-        $this->assertTrue($strategy->isSupported(new AttributeType(PriceAttribute::TYPE)));
+        $this->assertTrue($strategy->supports(new AttributeType(PriceAttribute::TYPE)));
     }
 
     /**
@@ -46,7 +46,7 @@ class PriceAttributeFactoryTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new PriceAttributeFactory();
-        $this->assertFalse($strategy->isSupported(new AttributeType('NOT-MATH')));
+        $this->assertFalse($strategy->supports(new AttributeType('NOT-MATH')));
     }
 
     /**

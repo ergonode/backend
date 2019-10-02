@@ -46,7 +46,7 @@ class StatusDescriptionChangedEventProjector implements DomainEventProjectorInte
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof StatusDescriptionChangedEvent;
     }
@@ -56,7 +56,7 @@ class StatusDescriptionChangedEventProjector implements DomainEventProjectorInte
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof StatusDescriptionChangedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, StatusDescriptionChangedEvent::class);
         }
 

@@ -38,9 +38,7 @@ class CacheAttributeRepositoryDecorator implements AttributeRepositoryInterface
     }
 
     /**
-     * @param AttributeId $id
-     *
-     * @return AbstractAggregateRoot|null
+     * {@inheritDoc}
      */
     public function load(AttributeId $id): ?AbstractAggregateRoot
     {
@@ -53,11 +51,20 @@ class CacheAttributeRepositoryDecorator implements AttributeRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * {@inheritDoc}
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
         $this->repository->save($aggregateRoot);
         $this->cache[$aggregateRoot->getId()->getValue()] = $aggregateRoot;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    {
+        $this->repository->delete($aggregateRoot);
+        unset($this->cache[$aggregateRoot->getId()->getValue()]);
     }
 }

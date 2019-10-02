@@ -37,7 +37,7 @@ class AttributeFactoryProvider
     public function provide(AttributeType $type): AttributeFactoryInterface
     {
         foreach ($this->factories as $factory) {
-            if ($factory->isSupported($type)) {
+            if ($factory->supports($type)) {
                 return $factory;
             }
         }

@@ -36,31 +36,27 @@ class TransformerCreatedEventProjector implements DomainEventProjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof TransformerCreatedEvent;
     }
 
     /**
      * {@inheritDoc}
-     *
-     * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof TransformerCreatedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, TransformerCreatedEvent::class);
         }
 
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $this->connection->insert(
-                'importer.transformer',
-                [
-                    'id' => $aggregateId->getValue(),
-                    'name' => $event->getName(),
-                    'key' => $event->getKey(),
-                ]
-            );
-        });
+        $this->connection->insert(
+            'importer.transformer',
+            [
+                'id' => $aggregateId->getValue(),
+                'name' => $event->getName(),
+                'key' => $event->getKey(),
+            ]
+        );
     }
 }

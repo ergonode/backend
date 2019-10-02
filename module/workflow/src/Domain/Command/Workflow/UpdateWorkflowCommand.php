@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Command\Workflow;
 
-use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Domain\ValueObject\Transition;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -27,9 +27,9 @@ class UpdateWorkflowCommand
     private $id;
 
     /**
-     * @var StatusId[]
+     * @var StatusCode[]
      *
-     * @JMS\Type("array<Ergonode\Workflow\Domain\Entity\StatusId>")
+     * @JMS\Type("array<Ergonode\Workflow\Domain\ValueObject\StatusCode>")
      */
     private $statuses;
 
@@ -47,7 +47,7 @@ class UpdateWorkflowCommand
      */
     public function __construct(WorkflowId $id, array $statuses = [], array $transitions = [])
     {
-        Assert::allIsInstanceOf($statuses, StatusId::class);
+        Assert::allIsInstanceOf($statuses, StatusCode::class);
         Assert::allIsInstanceOf($transitions, Transition::class);
 
         $this->id = $id;
@@ -64,7 +64,7 @@ class UpdateWorkflowCommand
     }
 
     /**
-     * @return StatusId[]
+     * @return StatusCode[]
      */
     public function getStatuses(): array
     {

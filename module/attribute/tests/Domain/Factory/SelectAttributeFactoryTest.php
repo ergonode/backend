@@ -39,7 +39,7 @@ class SelectAttributeFactoryTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new SelectAttributeFactory();
-        $this->assertTrue($strategy->isSupported(new AttributeType(SelectAttribute::TYPE)));
+        $this->assertTrue($strategy->supports(new AttributeType(SelectAttribute::TYPE)));
     }
 
     /**
@@ -47,7 +47,7 @@ class SelectAttributeFactoryTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new SelectAttributeFactory();
-        $this->assertFalse($strategy->isSupported(new AttributeType('NOT-MATH')));
+        $this->assertFalse($strategy->supports(new AttributeType('NOT-MATH')));
     }
 
     /**

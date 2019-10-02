@@ -86,7 +86,6 @@ Feature: Attribute module
 
   Scenario: Update text attribute
     Given current authentication token
-    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP PUT
     Given the request body is:
       """
       {
@@ -98,6 +97,7 @@ Feature: Attribute module
           "parameters": []
       }
       """
+    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP PUT
     Then empty response is received
 
   Scenario: Update text attribute (not authorized)
@@ -268,7 +268,7 @@ Feature: Attribute module
           "code": "DATE_@@random_code@@",
           "type": "DATE",
           "groups": ["@attribute_group@"],
-          "parameters": {"format": "YYYY-MM-DD"}
+          "parameters": {"format": "yyyy-MM-dd"}
       }
       """
     When I request "/api/v1/EN/attributes" using HTTP POST
@@ -282,7 +282,7 @@ Feature: Attribute module
       {
           "type": "DATE",
           "groups": ["@attribute_group@"],
-          "parameters": {"format": "YYYY-MM-DD"}
+          "parameters": {"format": "yyyy-MM-dd"}
       }
       """
     When I request "/api/v1/EN/attributes/@date_attribute@" using HTTP PUT

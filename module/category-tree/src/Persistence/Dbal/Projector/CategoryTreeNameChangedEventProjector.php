@@ -46,7 +46,7 @@ class CategoryTreeNameChangedEventProjector implements DomainEventProjectorInter
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof CategoryTreeNameChangedEvent;
     }
@@ -56,7 +56,7 @@ class CategoryTreeNameChangedEventProjector implements DomainEventProjectorInter
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof CategoryTreeNameChangedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, CategoryTreeNameChangedEvent::class);
         }
 
