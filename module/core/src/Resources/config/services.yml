@@ -36,6 +36,7 @@ services:
     Ergonode\Core\Domain\Query\LanguageQueryInterface: '@Ergonode\Core\Persistence\Dbal\Query\DbalLanguageQuery'
     Ergonode\Core\Domain\Repository\LanguageRepositoryInterface: '@Ergonode\Core\Persistence\Dbal\Repository\DbalLanguageRepository'
     Ergonode\Core\Application\Provider\DirectoryProviderInterface: '@Ergonode\Core\Application\Provider\SimpleDirectoryProvider'
+    Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface: '@Ergonode\Core\Application\Provider\SimpleAuthenticatedUserProvider'
     Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface: '@Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver'
 
     Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry:

@@ -3,6 +3,11 @@ ergonode_workflow_api:
     type: annotation
     prefix: /api/v1/{language}/
 
+ergonode_transition_api:
+    resource: '../../Application/Controller/Api/Transition*'
+    type: annotation
+    prefix: /api/v1/{language}
+
 ergonode_status_api:
     resource: '../../Application/Controller/Api/Status*'
     type: annotation

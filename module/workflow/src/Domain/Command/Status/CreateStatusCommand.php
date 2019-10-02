@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Domain\Command\Status;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 
 /**
  */
@@ -25,9 +26,9 @@ class CreateStatusCommand
     private $id;
 
     /**
-     * @var string
+     * @var StatusCode
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
     private $code;
 
@@ -53,14 +54,14 @@ class CreateStatusCommand
     private $description;
 
     /**
-     * @param string             $code
+     * @param StatusCode         $code
      * @param Color              $color
      * @param TranslatableString $name
      * @param TranslatableString $description
      *
      * @throws \Exception
      */
-    public function __construct(string $code, Color $color, TranslatableString $name, TranslatableString $description)
+    public function __construct(StatusCode $code, Color $color, TranslatableString $name, TranslatableString $description)
     {
         $this->id = StatusId::fromCode($code);
         $this->code = $code;
@@ -78,9 +79,9 @@ class CreateStatusCommand
     }
 
     /**
-     * @return string
+     * @return StatusCode
      */
-    public function getCode(): string
+    public function getCode(): StatusCode
     {
         return $this->code;
     }

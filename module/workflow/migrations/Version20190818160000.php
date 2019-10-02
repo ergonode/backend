@@ -29,6 +29,17 @@ final class Version20190818160000 extends AbstractErgonodeMigration
             )
         ');
 
+        $this->addSql('
+            CREATE TABLE IF NOT EXISTS workflow_transition (
+                workflow_id UUID NOT NULL,
+                source_id UUID NOT NULL,
+                destination_id UUID NOT NULL,            
+                name JSONB NOT NULL DEFAULT \'{}\',
+                description JSONB NOT NULL DEFAULT \'{}\',                
+                PRIMARY KEY(workflow_id, source_id, destination_id)
+            )
+        ');
+
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'WORKFLOW_CREATE', 'Workflow']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'WORKFLOW_READ', 'Workflow']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'WORKFLOW_UPDATE', 'Workflow']);
@@ -45,6 +56,7 @@ final class Version20190818160000 extends AbstractErgonodeMigration
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent' => 'Deleted status from workflow',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent' => 'Added transition to workflow',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent' => 'Deleted transition from workflow',
+            'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionChangedEvent' => 'Changed transition in workflow',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent' => 'Workflow deleted',
         ]);
     }

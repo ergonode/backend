@@ -20,7 +20,6 @@ use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Infrastructure\Builder\WorkflowValidatorBuilder;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerInterface;
@@ -31,7 +30,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -40,11 +38,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class WorkflowController extends AbstractController
 {
-    /**
-     * @var WorkflowProvider
-     */
-    private $provider;
-
     /**
      * @var WorkflowValidatorBuilder
      */
@@ -76,7 +69,6 @@ class WorkflowController extends AbstractController
     private $existingRelationshipMessageBuilder;
 
     /**
-     * @param WorkflowProvider                            $provider
      * @param WorkflowValidatorBuilder                    $builder
      * @param ValidatorInterface                          $validator
      * @param SerializerInterface                         $serializer
@@ -85,7 +77,6 @@ class WorkflowController extends AbstractController
      * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
-        WorkflowProvider $provider,
         WorkflowValidatorBuilder $builder,
         ValidatorInterface $validator,
         SerializerInterface $serializer,
@@ -93,7 +84,6 @@ class WorkflowController extends AbstractController
         RelationshipsResolverInterface $relationshipsResolver,
         ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
-        $this->provider = $provider;
         $this->builder = $builder;
         $this->validator = $validator;
         $this->serializer = $serializer;
@@ -125,19 +115,15 @@ class WorkflowController extends AbstractController
      *     description="Not found",
      * )
      *
-     * @return Response
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
      *
-     * @throws \Exception
+     * @param Workflow $workflow
+     *
+     * @return Response
      */
-    public function getWorkflow(): Response
+    public function getWorkflow(Workflow $workflow): Response
     {
-        $workflow = $this->provider->provide();
-
-        if ($workflow) {
-            return new SuccessResponse($workflow);
-        }
-
-        throw new NotFoundHttpException();
+        return new SuccessResponse($workflow);
     }
 
     /**
@@ -225,16 +211,18 @@ class WorkflowController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
+     *
+     * @param Workflow $workflow
+     * @param Request  $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function updateWorkflow(Request $request): Response
+    public function updateWorkflow(Workflow $workflow, Request $request): Response
     {
         $data = $request->request->all();
-        $workflow = $this->provider->provide();
 
         $violations = $this->validator->validate($data, $this->builder->build($data));
         if (0 === $violations->count()) {
@@ -250,7 +238,7 @@ class WorkflowController extends AbstractController
     }
 
     /**
-     * @Route("/workflow/{workflow}", methods={"DELETE"}, requirements={"workflow"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @Route("/workflow/default", methods={"DELETE"}, requirements={"workflow"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
      *
      * @IsGranted("WORKFLOW_DELETE")
      *
