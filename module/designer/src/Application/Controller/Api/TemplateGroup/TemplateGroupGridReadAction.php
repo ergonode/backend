@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Application\Controller\Api;
+namespace Ergonode\Designer\Application\Controller\Api\TemplateGroup;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
@@ -17,13 +17,13 @@ use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route("/templates/groups", methods={"GET"})
  */
-class TemplateGroupController extends AbstractController
+class TemplateGroupGridReadAction
 {
     /**
      * @var TemplateGroupQueryInterface
@@ -46,8 +46,6 @@ class TemplateGroupController extends AbstractController
     }
 
     /**
-     * @Route("/templates/groups", methods={"GET"})
-     *
      * @IsGranted("TEMPLATE_DESIGNER_READ")
      *
      * @SWG\Tag(name="Designer")
@@ -118,7 +116,7 @@ class TemplateGroupController extends AbstractController
      *
      * @return Response
      */
-    public function getGroups(Language $language, RequestGridConfiguration $configuration): Response
+    public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
         $dataSet = $this->query->getDataSet();
 
