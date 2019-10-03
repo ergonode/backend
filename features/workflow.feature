@@ -25,6 +25,12 @@ Feature: Workflow
     When I request "/api/v1/EN/status" using HTTP POST
     Then unauthorized response is received
 
+  Scenario: Get default status
+    Given current authentication token
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP GET
+    Then the response code is 200
+    And remember response param "code" as "workflow_status_code"
+
   Scenario: Update default status
     Given current authentication token
     Given the request body is:
@@ -74,7 +80,7 @@ Feature: Workflow
     """
       {
         "code": "TEST_@@random_code@@",
-        "statuses": ["@workflow_status@"],
+        "statuses": ["@workflow_status_code@"],
         "transitions": []
       }
     """
@@ -109,7 +115,7 @@ Feature: Workflow
     """
       {
         "code": "WRK_@@random_code@@",
-        "statuses": ["@workflow_status@"],
+        "statuses": ["@workflow_status_code@"],
         "transitions": []
       }
     """
@@ -152,14 +158,14 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/@static_uuid@" using HTTP DELETE
     Then not found response is received
 
-  Scenario: Delete workflow (not authorized)
-    When I request "/api/v1/EN/workflow/@workflow@" using HTTP DELETE
-    Then unauthorized response is received
-
-  Scenario: Delete workflow
-    Given current authentication token
-    When I request "/api/v1/EN/workflow/@workflow@" using HTTP DELETE
-    Then empty response is received
+#  Scenario: Delete workflow (not authorized)
+#    When I request "/api/v1/EN/workflow/@workflow@" using HTTP DELETE
+#    Then unauthorized response is received
+#
+#  Scenario: Delete workflow
+#    Given current authentication token
+#    When I request "/api/v1/EN/workflow/@workflow@" using HTTP DELETE
+#    Then empty response is received
 
   Scenario: Delete default status
     Given current authentication token

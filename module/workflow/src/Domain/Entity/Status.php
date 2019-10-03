@@ -17,6 +17,7 @@ use Ergonode\Workflow\Domain\Event\Status\StatusColorChangedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusDescriptionChangedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusNameChangedEvent;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -31,9 +32,9 @@ class Status extends AbstractAggregateRoot
     private $id;
 
     /**
-     * @var string
+     * @var StatusCode
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
     private $code;
 
@@ -60,14 +61,14 @@ class Status extends AbstractAggregateRoot
 
     /**
      * @param StatusId           $id
-     * @param string             $code
+     * @param StatusCode         $code
      * @param Color              $color
      * @param TranslatableString $name
      * @param TranslatableString $description
      *
      * @throws \Exception
      */
-    public function __construct(StatusId $id, string $code, Color $color, TranslatableString $name, TranslatableString $description)
+    public function __construct(StatusId $id, StatusCode $code, Color $color, TranslatableString $name, TranslatableString $description)
     {
         $this->apply(new StatusCreatedEvent($id, $code, $color, $name, $description));
     }
@@ -81,9 +82,9 @@ class Status extends AbstractAggregateRoot
     }
 
     /**
-     * @return string
+     * @return StatusCode
      */
-    public function getCode(): string
+    public function getCode(): StatusCode
     {
         return $this->code;
     }

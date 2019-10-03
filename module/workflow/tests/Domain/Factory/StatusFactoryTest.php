@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Factory\StatusFactory;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -21,12 +22,7 @@ use PHPUnit\Framework\TestCase;
 class StatusFactoryTest extends TestCase
 {
     /**
-     * @var StatusId|MockObject
-     */
-    private $id;
-
-    /**
-     * @var string
+     * @var StatusCode
      */
     private $code;
 
@@ -49,11 +45,10 @@ class StatusFactoryTest extends TestCase
      */
     protected function setUp()
     {
-        $this->id = $this->createMock(StatusId::class);
         $this->color = $this->createMock(Color::class);
         $this->name = $this->createMock(TranslatableString::class);
         $this->description = $this->createMock(TranslatableString::class);
-        $this->code = 'Any code';
+        $this->code = $this->createMock(StatusCode::class);
     }
 
     /**
@@ -62,9 +57,9 @@ class StatusFactoryTest extends TestCase
     public function testCreateObject(): void
     {
         $factory = new StatusFactory();
-        $status  = $factory->create($this->id, $this->code, $this->color, $this->name, $this->description);
+        $status  = $factory->create($this->code, $this->color, $this->name, $this->description);
         $this->assertNotNull($status);
-        $this->assertSame($this->id, $status->getId());
+        $this->assertEquals(StatusId::fromCode($this->code), $status->getId());
         $this->assertSame($this->code, $status->getCode());
         $this->assertSame($this->color, $status->getColor());
         $this->assertSame($this->name, $status->getName());

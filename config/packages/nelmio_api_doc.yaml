@@ -167,9 +167,19 @@ nelmio_api_doc:
                         requied: true
                         description: id of destination status
                     name:
+                        $ref: "#/definitions/translation"
+                        example:
+                            PL: Name PL
+                            EN: Name EN
+                    description:
+                        $ref: "#/definitions/translation"
+                        example:
+                            PL: Description PL
+                            EN: Description EN
+                    condition_set:
                         type: string
-                        requied: true
-                        description: name of transition
+                        requied: false
+                        description: id of condition set
             workflow:
                 type: object
                 properties:

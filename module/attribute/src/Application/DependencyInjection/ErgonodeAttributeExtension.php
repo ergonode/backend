@@ -11,10 +11,10 @@ namespace Ergonode\Attribute\Application\DependencyInjection;
 
 use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeFactoryInterfaceCompilerPass;
 use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeUpdaterInterfaceCompilerPass;
-use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeValidatorInterfaceCompilerPass;
+use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeValueConstraintStrategyInterfaceCompilerPass;
 use Ergonode\Attribute\Domain\AttributeFactoryInterface;
 use Ergonode\Attribute\Domain\AttributeUpdaterInterface;
-use Ergonode\Attribute\Domain\AttributeValidatorInterface;
+use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -46,8 +46,8 @@ class ErgonodeAttributeExtension extends Extension
             ->addTag(AttributeUpdaterInterfaceCompilerPass::TAG);
 
         $container
-            ->registerForAutoconfiguration(AttributeValidatorInterface::class)
-            ->addTag(AttributeValidatorInterfaceCompilerPass::TAG);
+            ->registerForAutoconfiguration(AttributeValueConstraintStrategyInterface::class)
+            ->addTag(AttributeValueConstraintStrategyInterfaceCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

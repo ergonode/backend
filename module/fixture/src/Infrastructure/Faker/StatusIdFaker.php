@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Faker\Provider\Base as BaseProvider;
 
 /**
@@ -25,6 +26,6 @@ class StatusIdFaker extends BaseProvider
      */
     public function statusId(string $code): StatusId
     {
-        return StatusId::fromCode($code);
+        return StatusId::fromCode(new StatusCode($code));
     }
 }
