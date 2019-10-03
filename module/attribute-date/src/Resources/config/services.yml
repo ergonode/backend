@@ -1,11 +1,15 @@
 services:
     _defaults:
-            autowire: true
-            autoconfigure: true
-            public: false
+        autowire: true
+        autoconfigure: true
+        public: false
 
     Ergonode\AttributeDate\Application\:
         resource: '../../Application/*'
+
+    Ergonode\AttributeDate\Application\Controller\Api\:
+        resource: '../../Application/Controller/Api/*'
+        tags: ['controller.service_arguments']
 
     Ergonode\AttributeDate\Domain\:
         resource: '../../Domain/*'

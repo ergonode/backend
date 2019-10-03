@@ -7,18 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\AttributeImage\Application\Controller\Api;
+namespace Ergonode\AttributeImage\Application\Controller\Api\Dictionary;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\AttributeImage\Infrastructure\Provider\ImageFormatProvider;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route("/image_format", methods={"GET"})
  */
-class DictionaryController extends AbstractController
+class ImageFormatReadAction
 {
     /**
      * @var ImageFormatProvider
@@ -34,8 +34,6 @@ class DictionaryController extends AbstractController
     }
 
     /**
-     * @Route("/image_format", methods={"GET"})
-     *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(
      *     name="language",
@@ -52,7 +50,7 @@ class DictionaryController extends AbstractController
      *
      * @return Response
      */
-    public function getImageFormat(): Response
+    public function __invoke(): Response
     {
         return new SuccessResponse($this->imageFormatProvider->dictionary());
     }

@@ -7,57 +7,65 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Application\Controller\Api;
+namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
-use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
-use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGrid;
+use Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface;
+use Ergonode\Attribute\Infrastructure\Grid\AttributeGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route("/attributes", methods={"GET"})
  */
-class AttributeGroupController extends AbstractController
+class AttributeGridReadAction
 {
     /**
-     * @var AttributeGroupGrid
+     * @var AttributeGrid
      */
-    private $grid;
+    private $attributeGrid;
 
     /**
-     * @var AttributeGroupQueryInterface
+     * @var AttributeGridQueryInterface
      */
-    private $query;
+    private $attributeGridQuery;
 
     /**
-     * @param AttributeGroupGrid           $grid
-     * @param AttributeGroupQueryInterface $query
+     * @param AttributeGrid               $attributeGrid
+     * @param AttributeGridQueryInterface $attributeGridQuery
      */
-    public function __construct(AttributeGroupGrid $grid, AttributeGroupQueryInterface $query)
-    {
-        $this->grid = $grid;
-        $this->query = $query;
+    public function __construct(
+        AttributeGrid $attributeGrid,
+        AttributeGridQueryInterface $attributeGridQuery
+    ) {
+        $this->attributeGrid = $attributeGrid;
+        $this->attributeGridQuery = $attributeGridQuery;
     }
 
     /**
-     * @Route("/attributes/groups", methods={"GET"})
-     *
-     * @IsGranted("ATTRIBUTE_GROUP_READ")
+     * @IsGranted("ATTRIBUTE_READ")
      *
      * @SWG\Tag(name="Attribute")
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language Code",
+     * )
      * @SWG\Parameter(
      *     name="limit",
      *     in="query",
      *     type="integer",
      *     required=true,
      *     default="50",
-     *     description="Number of returned lines"
+     *     description="Number of returned lines",
      * )
      * @SWG\Parameter(
      *     name="offset",
@@ -65,7 +73,7 @@ class AttributeGroupController extends AbstractController
      *     type="integer",
      *     required=true,
      *     default="0",
-     *     description="Number of start line"
+     *     description="Number of start line",
      * )
      * @SWG\Parameter(
      *     name="field",
@@ -73,7 +81,7 @@ class AttributeGroupController extends AbstractController
      *     required=false,
      *     type="string",
      *     enum={"id", "label","code", "hint"},
-     *     description="Order field"
+     *     description="Order field",
      * )
      * @SWG\Parameter(
      *     name="order",
@@ -81,7 +89,7 @@ class AttributeGroupController extends AbstractController
      *     required=false,
      *     type="string",
      *     enum={"ASC","DESC"},
-     *     description="Order"
+     *     description="Order",
      * )
      * @SWG\Parameter(
      *     name="filter",
@@ -98,17 +106,9 @@ class AttributeGroupController extends AbstractController
      *     enum={"COLUMN","DATA"},
      *     description="Specify what response should containts"
      * )
-     * @SWG\Parameter(
-     *     name="language",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     default="EN",
-     *     description="Language Code"
-     * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns attribute collection"
+     *     description="Returns attribute collection",
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
@@ -118,8 +118,10 @@ class AttributeGroupController extends AbstractController
      *
      * @return Response
      */
-    public function getAttributesGroups(Language $language, RequestGridConfiguration $configuration): Response
+    public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($language), $language);
+        $dataSet = $this->attributeGridQuery->getDataSet($language);
+
+        return new GridResponse($this->attributeGrid, $configuration, $dataSet, $language);
     }
 }

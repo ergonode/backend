@@ -7,35 +7,33 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\AttributePrice\Application\Controller\Api;
+namespace Ergonode\AttributeUnit\Application\Controller\Api\Dictionary;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\AttributePrice\Domain\Query\CurrencyQueryInterface;
+use Ergonode\AttributeUnit\Domain\Query\UnitQueryInterface;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route("/units", methods={"GET"})
  */
-class DictionaryController extends AbstractController
+class UnitReadAction
 {
     /**
-     * @var CurrencyQueryInterface
+     * @var UnitQueryInterface
      */
-    private $currencyQuery;
+    private $unitQuery;
 
     /**
-     * @param CurrencyQueryInterface $currencyQuery
+     * @param UnitQueryInterface $unitQuery
      */
-    public function __construct(CurrencyQueryInterface $currencyQuery)
+    public function __construct(UnitQueryInterface $unitQuery)
     {
-        $this->currencyQuery = $currencyQuery;
+        $this->unitQuery = $unitQuery;
     }
 
     /**
-     * @Route("/currencies", methods={"GET"})
-     *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(
      *     name="language",
@@ -47,14 +45,14 @@ class DictionaryController extends AbstractController
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns collection of currencies",
+     *     description="Returns collection of units",
      * )
      *
      * @return Response
      */
-    public function getCurrencies(): Response
+    public function __invoke(): Response
     {
-        $languages = $this->currencyQuery->getDictionary();
+        $languages = $this->unitQuery->getDictionary();
 
         return new SuccessResponse($languages);
     }

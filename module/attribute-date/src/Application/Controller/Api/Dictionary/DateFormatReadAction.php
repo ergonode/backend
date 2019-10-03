@@ -7,18 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\AttributeDate\Application\Controller\Api;
+namespace Ergonode\AttributeDate\Application\Controller\Api\Dictionary;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\AttributeDate\Infrastructure\Provider\DateFormatProvider;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route("/date_format", methods={"GET"})
  */
-class DictionaryController extends AbstractController
+class DateFormatReadAction
 {
     /**
      * @var DateFormatProvider
@@ -34,8 +34,6 @@ class DictionaryController extends AbstractController
     }
 
     /**
-     * @Route("/date_format", methods={"GET"})
-     *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(
      *     name="language",
@@ -52,7 +50,7 @@ class DictionaryController extends AbstractController
      *
      * @return Response
      */
-    public function getDateFormat(): Response
+    public function __invoke(): Response
     {
         return new SuccessResponse($this->dateFormatProvider->dictionary());
     }
