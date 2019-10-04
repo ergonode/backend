@@ -66,7 +66,7 @@ class DomainEntityCreatorCommand extends Command
         $propertyClassQuestion->setAutocompleterValues($namespaces);
 
         $properties = [];
-        while($helper->ask($input, $output, $question)) {
+        while ($helper->ask($input, $output, $question)) {
             $propertyName = $helper->ask($input, $output, $propertyNameQuestion);
             $propertyClass = $helper->ask($input, $output, $propertyClassQuestion);
             $properties[$propertyName] = $propertyClass;

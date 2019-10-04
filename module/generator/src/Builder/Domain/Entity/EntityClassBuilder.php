@@ -92,10 +92,12 @@ class EntityClassBuilder implements BuilderInterface
     private function buildConstructor(string $entity, array $properties = []): Method
     {
         $method = $this->methodBuilder->build('__construct', $properties);
-        $method->addBody(sprintf(
+        $properties = implode(', ', preg_filter('/^/', '$', array_keys($properties)));
+        $method->addBody(
+            sprintf(
                 '$this->apply(new %sCreatedEvent(%s));',
                 ucfirst($entity),
-                implode(', ', preg_filter('/^/', '$', array_keys($properties)))
+                $properties
             )
         );
 

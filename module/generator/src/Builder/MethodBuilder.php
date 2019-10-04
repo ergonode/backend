@@ -29,10 +29,8 @@ class MethodBuilder
         $method = new Method($methodName);
         $method->setVisibility(ClassType::VISIBILITY_PUBLIC);
 
-
         foreach ($properties as $name => $type) {
-
-            if($type) {
+            if ($type) {
                 $path = explode('\\', $type);
                 $baseType = array_pop($path);
 
@@ -47,8 +45,8 @@ class MethodBuilder
             }
         }
 
-        if(null !== $returnType) {
-            if($returnType !== 'void') {
+        if (null !== $returnType) {
+            if ($returnType !== 'void') {
                 $path = explode('\\', $returnType);
                 $baseReturnType = array_pop($path);
                 $method->addComment('');

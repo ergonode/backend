@@ -48,12 +48,12 @@ class FilePersister
         $path = str_replace('\\', '/', $path);
 
         foreach ($class->getMethods() as $method) {
-            foreach($method->getParameters() as $parameter) {
-                if($parameter->getTypeHint() && strpos($parameter->getTypeHint(),'\\')) {
+            foreach ($method->getParameters() as $parameter) {
+                if ($parameter->getTypeHint() && strpos($parameter->getTypeHint(), '\\')) {
                     $namespace->addUse($parameter->getTypeHint());
                 }
             }
-            if($method->getReturnType() && strpos($method->getReturnType(),'\\')) {
+            if ($method->getReturnType() && strpos($method->getReturnType(), '\\')) {
                 $namespace->addUse($method->getReturnType());
             }
         }

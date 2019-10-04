@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Generator\Builder\Infrastructure\Handler;
 
@@ -46,7 +46,6 @@ class CreateCommandHandlerClassBuilder implements BuilderInterface
         $this->methodBuilder = $methodBuilder;
         $this->propertyBuilder = $propertyBuilder;
     }
-
 
     /**
      * @param string $module
@@ -108,11 +107,11 @@ class CreateCommandHandlerClassBuilder implements BuilderInterface
      *
      * @return Method
      */
-    public function buildInvokeMethod(string $module, string $entity, array $parameters = []): Method
+    private function buildInvokeMethod(string $module, string $entity, array $parameters = []): Method
     {
         $commandClass = sprintf('Ergonode\%s\Domain\Command\Create%sCommand', ucfirst($module), $entity);
 
-        $method = $this->methodBuilder->build('__invoke', ['command' => $commandClass],'void');
+        $method = $this->methodBuilder->build('__invoke', ['command' => $commandClass], 'void');
         $method->addBody('$entity = $this->factory->create($command->getId());');
         $method->addBody('$this->repository->save($entity);');
 

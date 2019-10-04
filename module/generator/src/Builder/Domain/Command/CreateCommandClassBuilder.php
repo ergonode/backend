@@ -58,7 +58,7 @@ class CreateCommandClassBuilder implements BuilderInterface
     {
         $file = $this->builder->build();
         $namespace = sprintf('Ergonode\%s\Domain\Command', ucfirst($module));
-        $className = sprintf('Create%sCommand',$entity);
+        $className = sprintf('Create%sCommand', $entity);
         $entityIdClass = sprintf('Ergonode\%s\Domain\Entity\%sId', ucfirst($module), $entity);
 
         $properties = array_merge(['id' => $entityIdClass], $properties);
