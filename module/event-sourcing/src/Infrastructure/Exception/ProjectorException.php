@@ -15,7 +15,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
  */
 class ProjectorException extends \Exception
 {
-    public const MESSAGE = 'Can\'t project event %s';
+    public const MESSAGE = 'Can\'t project event "%s"';
 
     /**
      * @param DomainEventInterface $event
@@ -23,6 +23,6 @@ class ProjectorException extends \Exception
      */
     public function __construct(DomainEventInterface $event, \Throwable $previous = null)
     {
-        parent::__construct(sprintf(self::MESSAGE, \get_class($event)), 0, $previous);
+        parent::__construct(sprintf(self::MESSAGE, get_class($event)), 0, $previous);
     }
 }

@@ -42,9 +42,9 @@ class SizeFormDataTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value): ?Size
     {
-        if (is_array($value)) {
+        if (isset($value['width'], $value['height'])) {
             try {
-                return new Size((int) $value['width'], (int) $value['height']);
+                return new Size($value['width'], $value['height']);
             } catch (\InvalidArgumentException $e) {
                 throw new TransformationFailedException(sprintf('invalid size %s value', implode(',', $value)));
             }

@@ -20,19 +20,17 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 class TextAttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * @param AttributeType $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(AttributeType $type): bool
+    public function supports(AttributeType $type): bool
     {
         return TextAttribute::TYPE === $type->getValue();
     }
 
     /**
-     * @param CreateAttributeCommand $command
+     * {@inheritDoc}
      *
-     * @return AbstractAttribute
+     * @throws \Exception
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
@@ -42,7 +40,9 @@ class TextAttributeFactory implements AttributeFactoryInterface
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual()
+            $command->isMultilingual(),
+            [],
+            $command->isSystem()
         );
     }
 }

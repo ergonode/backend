@@ -12,7 +12,9 @@ namespace Ergonode\Product\Persistence\Dbal\Repository;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
 
@@ -41,13 +43,11 @@ class DbalProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * @param ProductId $id
-     *
-     * @return AbstractAggregateRoot|null
+     * {@inheritDoc}
      *
      * @throws \ReflectionException
      */
-    public function load(ProductId $id): ?AbstractAggregateRoot
+    public function load(ProductId $id): ?AbstractProduct
     {
         $eventStream = $this->eventStore->load($id);
 
@@ -56,7 +56,7 @@ class DbalProductRepository implements ProductRepositoryInterface
             $class = new \ReflectionClass(SimpleProduct::class);
             /** @var AbstractAggregateRoot $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
+            if (!$aggregate instanceof AbstractProduct) {
                 throw new \LogicException(sprintf('Impossible to initialize "%s"', SimpleProduct::class));
             }
 
@@ -69,9 +69,9 @@ class DbalProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * {@inheritDoc}
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(AbstractProduct $aggregateRoot): void
     {
         $events = $aggregateRoot->popEvents();
 
@@ -79,5 +79,18 @@ class DbalProductRepository implements ProductRepositoryInterface
         foreach ($events as $envelope) {
             $this->eventDispatcher->dispatch($envelope);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Exception
+     */
+    public function delete(AbstractProduct $aggregateRoot): void
+    {
+        $aggregateRoot->apply(new ProductDeletedEvent());
+        $this->save($aggregateRoot);
+
+        $this->eventStore->delete($aggregateRoot->getId());
     }
 }

@@ -248,6 +248,20 @@ Feature: Product module
     When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP GET
     Then not found response is received
 
+  Scenario: Delete product (not found)
+    Given current authentication token
+    When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP DELETE
+    Then not found response is received
+
+  Scenario: Delete product (not authorized)
+    When I request "/api/v1/EN/products/@product@" using HTTP DELETE
+    Then unauthorized response is received
+
+  Scenario: Delete product
+    Given current authentication token
+    When I request "/api/v1/EN/products/@product@" using HTTP DELETE
+    Then empty response is received
+
   Scenario: Get products (order by id)
     Given current authentication token
     When I request "/api/v1/EN/products?field=id" using HTTP GET

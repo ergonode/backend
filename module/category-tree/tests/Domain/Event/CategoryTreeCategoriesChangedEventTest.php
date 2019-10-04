@@ -31,15 +31,6 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testCreateWithEmptyArray(): void
-    {
-       new CategoryTreeCategoriesChangedEvent([]);
-
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testCreateWithIncorrectTypeInserted(): void
     {
         new CategoryTreeCategoriesChangedEvent([new \stdClass()]);

@@ -89,7 +89,6 @@ class DbalRoleRepository implements RoleRepositoryInterface
     public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
         $aggregateRoot->apply(new RoleDeletedEvent());
-
         $this->save($aggregateRoot);
 
         $this->eventStore->delete($aggregateRoot->getId());

@@ -21,19 +21,17 @@ use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
 class ImageAttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * @param AttributeType $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(AttributeType $type): bool
+    public function supports(AttributeType $type): bool
     {
         return ImageAttribute::TYPE === $type->getValue();
     }
 
     /**
-     * @param CreateAttributeCommand $command
+     * {@inheritDoc}
      *
-     * @return AbstractAttribute
+     * @throws \Exception
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
@@ -51,7 +49,8 @@ class ImageAttributeFactory implements AttributeFactoryInterface
             $command->getHint(),
             $command->getPlaceholder(),
             $command->isMultilingual(),
-            $formats
+            $formats,
+            $command->isSystem()
         );
     }
 }

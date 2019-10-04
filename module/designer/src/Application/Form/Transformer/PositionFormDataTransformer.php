@@ -42,9 +42,9 @@ class PositionFormDataTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value): ?Position
     {
-        if (is_array($value)) {
+        if (isset($value['x'], $value['y'])) {
             try {
-                return new Position((int) $value['x'], (int) $value['y']);
+                return new Position($value['x'], $value['y']);
             } catch (\InvalidArgumentException $e) {
                 throw new TransformationFailedException(sprintf('invalid size %s value', implode(',', $value)));
             }

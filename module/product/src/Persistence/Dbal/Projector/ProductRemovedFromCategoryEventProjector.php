@@ -39,7 +39,7 @@ class ProductRemovedFromCategoryEventProjector implements DomainEventProjectorIn
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof ProductRemovedFromCategory;
     }
@@ -49,7 +49,7 @@ class ProductRemovedFromCategoryEventProjector implements DomainEventProjectorIn
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof ProductRemovedFromCategory) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, ProductRemovedFromCategory::class);
         }
 

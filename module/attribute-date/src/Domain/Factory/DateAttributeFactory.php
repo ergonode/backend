@@ -21,19 +21,17 @@ use Ergonode\AttributeDate\Domain\ValueObject\DateFormat;
 class DateAttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * @param AttributeType $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(AttributeType $type): bool
+    public function supports(AttributeType $type): bool
     {
         return DateAttribute::TYPE === $type->getValue();
     }
 
     /**
-     * @param CreateAttributeCommand $command
+     * {@inheritDoc}
      *
-     * @return AbstractAttribute
+     * @throws \Exception
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
@@ -50,7 +48,8 @@ class DateAttributeFactory implements AttributeFactoryInterface
             $command->getHint(),
             $command->getPlaceholder(),
             $command->isMultilingual(),
-            $format
+            $format,
+            $command->isSystem()
         );
     }
 }

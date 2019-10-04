@@ -1,0 +1,5 @@
+'Condition set created': 'Condition set "%code%" created'
+'Condition set deleted': 'Condition set "%id%" deleted'
+'Condition set description changed': 'Condition set description changed'
+'Condition set name changed': 'Condition set name changed'
+'Condition set conditions changed': 'Condition set conditions changed'

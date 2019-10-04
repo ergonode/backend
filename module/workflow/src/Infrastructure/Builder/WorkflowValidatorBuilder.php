@@ -68,7 +68,6 @@ class WorkflowValidatorBuilder
         };
 
         $uniqueTransition = static function ($data, ExecutionContextInterface $context, $payload) {
-
             $result = [];
             foreach ($data as $transition) {
                 $key = $transition['source'].$transition['destination'];
@@ -99,7 +98,6 @@ class WorkflowValidatorBuilder
                     [
                         'constraints' => [
                             new NotBlank(),
-                            new Uuid(),
                             new StatusNotExists(),
                         ],
                     ]

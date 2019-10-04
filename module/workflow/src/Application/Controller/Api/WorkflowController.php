@@ -13,19 +13,23 @@ use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
+use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
+use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Infrastructure\Builder\WorkflowValidatorBuilder;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -34,11 +38,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class WorkflowController extends AbstractController
 {
-    /**
-     * @var WorkflowProvider
-     */
-    private $provider;
-
     /**
      * @var WorkflowValidatorBuilder
      */
@@ -60,24 +59,37 @@ class WorkflowController extends AbstractController
     private $messageBus;
 
     /**
-     * @param WorkflowProvider         $provider
-     * @param WorkflowValidatorBuilder $builder
-     * @param ValidatorInterface       $validator
-     * @param SerializerInterface      $serializer
-     * @param MessageBusInterface      $messageBus
+     * @var RelationshipsResolverInterface
+     */
+    private $relationshipsResolver;
+
+    /**
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private $existingRelationshipMessageBuilder;
+
+    /**
+     * @param WorkflowValidatorBuilder                    $builder
+     * @param ValidatorInterface                          $validator
+     * @param SerializerInterface                         $serializer
+     * @param MessageBusInterface                         $messageBus
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
-        WorkflowProvider $provider,
         WorkflowValidatorBuilder $builder,
         ValidatorInterface $validator,
         SerializerInterface $serializer,
-        MessageBusInterface $messageBus
+        MessageBusInterface $messageBus,
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
-        $this->provider = $provider;
         $this->builder = $builder;
         $this->validator = $validator;
         $this->serializer = $serializer;
         $this->messageBus = $messageBus;
+        $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -103,19 +115,15 @@ class WorkflowController extends AbstractController
      *     description="Not found",
      * )
      *
-     * @return Response
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
      *
-     * @throws \Exception
+     * @param Workflow $workflow
+     *
+     * @return Response
      */
-    public function getWorkflow(): Response
+    public function getWorkflow(Workflow $workflow): Response
     {
-        $workflow = $this->provider->provide();
-
-        if ($workflow) {
-            return new SuccessResponse($workflow);
-        }
-
-        throw new NotFoundHttpException();
+        return new SuccessResponse($workflow);
     }
 
     /**
@@ -139,8 +147,8 @@ class WorkflowController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/workflow")
      * )
      * @SWG\Response(
-     *     response=200,
-     *     description="Returns attribute",
+     *     response=201,
+     *     description="Returns workflow ID",
      * )
      * @SWG\Response(
      *     response=400,
@@ -158,7 +166,7 @@ class WorkflowController extends AbstractController
     {
         $data = $request->request->all();
 
-        $violations = $this->validator->validate($data, $this->builder->build($data), [WorkflowValidatorBuilder::UNIQUE_WORKFLOW]);
+        $violations = $this->validator->validate($data, $this->builder->build($data), ['Default', WorkflowValidatorBuilder::UNIQUE_WORKFLOW]);
 
         if (0 === $violations->count()) {
             $data['id'] = WorkflowId::fromCode($data['code'])->getValue();
@@ -203,19 +211,20 @@ class WorkflowController extends AbstractController
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
+     *
+     * @param Workflow $workflow
+     * @param Request  $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function updateWorkflow(Request $request): Response
+    public function updateWorkflow(Workflow $workflow, Request $request): Response
     {
         $data = $request->request->all();
-        $workflow = $this->provider->provide();
 
         $violations = $this->validator->validate($data, $this->builder->build($data));
-
         if (0 === $violations->count()) {
             $data['id'] = $workflow->getId()->getValue();
             $command = $this->serializer->fromArray($data, UpdateWorkflowCommand::class);
@@ -226,5 +235,58 @@ class WorkflowController extends AbstractController
         }
 
         throw new ViolationsHttpException($violations);
+    }
+
+    /**
+     * @Route("/workflow/default", methods={"DELETE"}, requirements={"workflow"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     *
+     * @IsGranted("WORKFLOW_DELETE")
+     *
+     * @SWG\Tag(name="Workflow")
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language Code",
+     * )
+     * @SWG\Parameter(
+     *     name="workflow",
+     *     in="path",
+     *     required=true,
+     *     type="string",
+     *     description="Workflow ID",
+     * )
+     * @SWG\Response(
+     *     response=204,
+     *     description="Success"
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
+     * @SWG\Response(
+     *     response="409",
+     *     description="Existing relationships"
+     * )
+     *
+     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
+     *
+     * @param Workflow $workflow
+     *
+     * @return Response
+     */
+    public function deleteWorkflow(Workflow $workflow): Response
+    {
+        $relationships = $this->relationshipsResolver->resolve($workflow->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
+        }
+
+        $command = new DeleteWorkflowCommand($workflow->getId());
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }

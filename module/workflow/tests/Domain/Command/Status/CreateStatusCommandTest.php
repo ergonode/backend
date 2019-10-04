@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Tests\Domain\Command\Status;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,7 +24,7 @@ class CreateStatusCommandTest extends TestCase
      */
     public function testCommandCreating(): void
     {
-        $code = 'Any code';
+        $code = $this->createMock(StatusCode::class);
         /** @var Color $color */
         $color = $this->createMock(Color::class);
         /** @var TranslatableString $name */

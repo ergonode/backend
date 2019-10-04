@@ -198,10 +198,47 @@ class DbalAttributeQuery implements AttributeQueryInterface
      */
     public function getAllAttributeCodes(): array
     {
-        return $this->getQuery()
-            ->select('code')
+        return $this->getAttributeCodes();
+    }
+
+    /**
+     * @param array $types
+     *
+     * @return string[]
+     */
+    public function getAttributeCodes(array $types = []): array
+    {
+        $qb = $this->getQuery()
+            ->select('code');
+
+        if ($types) {
+            $qb->andWhere($qb->expr()->in('type', ':types'))
+                ->setParameter(':types', $types, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
+        }
+
+        return $qb
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    /**
+     * @param array $types
+     *
+     * @return string[]
+     */
+    public function getDictionary(array $types = []): array
+    {
+        $qb = $this->getQuery()
+            ->select('id, code');
+
+        if ($types) {
+            $qb->andWhere($qb->expr()->in('type', ':types'))
+                ->setParameter(':types', $types, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
+        }
+
+        return $qb
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
     /**
@@ -323,7 +360,8 @@ class DbalAttributeQuery implements AttributeQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select('id, code, type')
-            ->from(self::TABLE, 'a');
+            ->from(self::TABLE, 'a')
+            ->where('system = false');
     }
 
     /**

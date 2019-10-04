@@ -41,7 +41,7 @@ class CreateCategoryCommandHandler
     /**
      * @param CreateCategoryCommand $command
      */
-    public function __invoke(CreateCategoryCommand $command)
+    public function __invoke(CreateCategoryCommand $command): void
     {
         $category = $this->factory->create(
             $command->getId(),

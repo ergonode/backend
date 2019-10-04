@@ -11,9 +11,12 @@ namespace Ergonode\Segment\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -41,13 +44,17 @@ class SegmentGrid extends AbstractGrid
     {
         $filters = $configuration->getFilters();
 
+        $statuses = array_combine(SegmentStatus::AVAILABLE, SegmentStatus::AVAILABLE);
+
         $id = new TextColumn('id', $this->trans('Id'), new TextFilter());
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $this->addColumn('code', new TextColumn('name', $this->trans('Code'), new TextFilter($filters->getString('code'))));
+        $this->addColumn('status', new TextColumn('status', $this->trans('Status'), new SelectFilter($statuses, $filters->getString('status'))));
         $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name'))));
-        $this->addColumn('status', new TextColumn('status', $this->trans('Status'), new TextFilter($filters->getString('status'))));
         $this->addColumn('description', new TextColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description'))));
+        $this->addColumn('edit', new ActionColumn('edit'));
+        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
         $this->orderBy('id', 'DESC');
     }
 

@@ -47,25 +47,22 @@ class ValueRemovedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof ValueRemovedEvent;
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
+     * {@inheritDoc}
      *
      * @throws UnsupportedEventException
      * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof ValueRemovedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, ValueRemovedEvent::class);
         }
 

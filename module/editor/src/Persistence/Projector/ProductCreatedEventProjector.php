@@ -38,7 +38,7 @@ class ProductCreatedEventProjector implements DomainEventProjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof ProductCreated;
     }
@@ -48,7 +48,7 @@ class ProductCreatedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof ProductCreated) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, ProductCreated::class);
         }
 

@@ -3,3 +3,4 @@
 'Category removed from category tree': 'Usunięcie kategorii z drzewa kategorii'
 'Category tree created': 'Stworzenie drzewa kategorii'
 'Category tree name changed': 'Zmieniono nazwę drzewa kategorii'
+'Category tree deleted': 'Drzewo kategorii "%id%" zostało usunięte'

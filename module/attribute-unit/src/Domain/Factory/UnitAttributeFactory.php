@@ -21,19 +21,17 @@ use Ergonode\AttributeUnit\Domain\ValueObject\Unit;
 class UnitAttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * @param AttributeType $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(AttributeType $type): bool
+    public function supports(AttributeType $type): bool
     {
         return UnitAttribute::TYPE === $type->getValue();
     }
 
     /**
-     * @param CreateAttributeCommand $command
+     * {@inheritDoc}
      *
-     * @return AbstractAttribute
+     * @throws \Exception
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
@@ -50,7 +48,8 @@ class UnitAttributeFactory implements AttributeFactoryInterface
             $command->getHint(),
             $command->getPlaceholder(),
             $command->isMultilingual(),
-            $unit
+            $unit,
+            $command->isSystem()
         );
     }
 }

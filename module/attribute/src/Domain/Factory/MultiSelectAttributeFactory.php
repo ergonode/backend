@@ -24,19 +24,17 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 class MultiSelectAttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * @param AttributeType $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(AttributeType $type): bool
+    public function supports(AttributeType $type): bool
     {
         return MultiSelectAttribute::TYPE === $type->getValue();
     }
 
     /**
-     * @param CreateAttributeCommand $command
+     * {@inheritDoc}
      *
-     * @return AbstractAttribute
+     * @throws \Exception
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
@@ -46,7 +44,8 @@ class MultiSelectAttributeFactory implements AttributeFactoryInterface
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual()
+            $command->isMultilingual(),
+            $command->isSystem()
         );
 
         foreach ($command->getOptions() as $key => $option) {
@@ -57,7 +56,8 @@ class MultiSelectAttributeFactory implements AttributeFactoryInterface
                     $option = new StringOption('');
                 }
             }
-            $attribute->addOption(new OptionKey($key), $option);
+
+            $attribute->addOption(new OptionKey((string) $key), $option);
         }
 
         return $attribute;

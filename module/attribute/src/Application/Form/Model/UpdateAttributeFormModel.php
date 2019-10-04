@@ -32,7 +32,7 @@ class UpdateAttributeFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=32, maxMessage="Attribute name is to long, It should have {{ limit }} character or less.")
+     *     @Assert\Length(max=32, maxMessage="Attribute name is to long. It should have {{ limit }} character or less.")
      * })
      */
     public $label;
@@ -42,7 +42,7 @@ class UpdateAttributeFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=4000, maxMessage="Attribute placeholder is to long, It should have {{ limit }} character or less.")
+     *     @Assert\Length(max=4000, maxMessage="Attribute placeholder is to long. It should have {{ limit }} character or less.")
      * })
      */
     public $placeholder;
@@ -52,7 +52,7 @@ class UpdateAttributeFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=4000, maxMessage="Attribute hint is to long,. It should have {{ limit }} character or less.")
+     *     @Assert\Length(max=4000, maxMessage="Attribute hint is to long. It should have {{ limit }} character or less.")
      * })
      */
     public $hint;

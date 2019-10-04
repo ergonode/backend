@@ -38,7 +38,7 @@ class UserAvatarChangedEventProjector implements DomainEventProjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof UserAvatarChangedEvent;
     }
@@ -48,7 +48,7 @@ class UserAvatarChangedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof UserAvatarChangedEvent) {
+        if (!$this->supports($event)) {
             throw new UnsupportedEventException($event, UserAvatarChangedEvent::class);
         }
 

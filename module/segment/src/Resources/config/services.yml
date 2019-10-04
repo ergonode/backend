@@ -10,6 +10,10 @@ services:
     Ergonode\Segment\Persistence\:
         resource: '../../Persistence/*'
 
+    Ergonode\Segment\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject,Type,Condition}'
+
     Ergonode\Segment\Infrastructure\:
         resource: '../../Infrastructure/*'
         exclude: '../../Infrastructure/{Specification}'

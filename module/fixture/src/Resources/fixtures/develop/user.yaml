@@ -40,3 +40,12 @@ Ergonode\Account\Domain\Entity\User:
             - '<language(EN)>'
             - '@user_password'
             - '@category_manager_role_id'
+    test:
+        __construct:
+            - '<userId(test@ergonode.com)>'
+            - 'Test'
+            - 'Superadmin'
+            - '<userEmail(test@ergonode.com)>'
+            - '<language(EN)>'
+            - '@user_password'
+            - '@superadmin_role_id'

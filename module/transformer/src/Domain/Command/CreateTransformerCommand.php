@@ -13,7 +13,6 @@ use Ergonode\Transformer\Domain\Entity\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class CreateTransformerCommand
  */
 class CreateTransformerCommand
 {

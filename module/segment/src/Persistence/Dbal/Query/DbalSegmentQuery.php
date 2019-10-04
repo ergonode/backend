@@ -11,9 +11,11 @@ namespace Ergonode\Segment\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
+use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 
 /**
  */
@@ -40,15 +42,11 @@ class DbalSegmentQuery implements SegmentQueryInterface
     }
 
     /**
-     * @param Language $language
-     *
-     * @return DbalDataSet
+     * {@inheritDoc}
      */
     public function getDataSet(Language $language): DbalDataSet
     {
         $query = $this->getQuery();
-        $query->addSelect('id');
-        $query->addSelect('code');
         $query->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
         $query->addSelect(sprintf('(description->>\'%s\') AS description', $language->getCode()));
 
@@ -57,6 +55,47 @@ class DbalSegmentQuery implements SegmentQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findIdByConditionSetId(ConditionSetId $conditionSetId): array
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('id')
+            ->from(self::TABLE)
+            ->where('condition_set_id = :id')
+            ->setParameter('id', $conditionSetId->getValue());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ConditionSetId($item);
+        }
+
+        return $result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isExistsByCode(SegmentCode $segmentCode): bool
+    {
+        $queryBuilder = $this->connection->createQueryBuilder()
+            ->select('id')
+            ->from(self::TABLE)
+            ->where('code = :code')
+            ->setParameter('code', $segmentCode->getValue())
+            ->setMaxResults(1);
+
+        $result = $queryBuilder->execute()->fetchColumn();
+
+        return !empty($result);
     }
 
     /**
