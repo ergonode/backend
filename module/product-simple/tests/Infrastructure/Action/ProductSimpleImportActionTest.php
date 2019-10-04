@@ -102,7 +102,7 @@ class ProductSimpleImportActionTest extends TestCase
 
     /**
      */
-    public function testAction()
+    public function testSkuAction()
     {
         $this->record->expects($this->exactly(2))->method('get')->willReturn(new StringValue('sku'));
         $this->attributeExtension->expects($this->once())->method('extend')->willReturn(
@@ -124,7 +124,7 @@ class ProductSimpleImportActionTest extends TestCase
 
     /**
      */
-    public function testAction2()
+    public function testtemplateAction()
     {
         $this->record->expects($this->any())->method('get')->willReturn(new StringValue('string'));
         $this->record->expects($this->any())->method('has')->willReturn(true);
