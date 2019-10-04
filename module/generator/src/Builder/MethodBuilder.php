@@ -7,7 +7,6 @@
 
 declare(strict_types = 1);
 
-
 namespace Ergonode\Generator\Builder;
 
 use Nette\PhpGenerator\ClassType;
@@ -49,16 +48,16 @@ class MethodBuilder
         }
 
         if(null !== $returnType) {
-            $path = explode('\\', $returnType);
-            $baseReturnType = array_pop($path);
-            $method->addComment('');
-            $method->addComment(sprintf('@return %s', $baseReturnType));
-            $method->setReturnType($returnType);
-            if($nullable) {
-                $method->setReturnNullable();
+            if($returnType !== 'void') {
+                $path = explode('\\', $returnType);
+                $baseReturnType = array_pop($path);
+                $method->addComment('');
+                $method->addComment(sprintf('@return %s', $baseReturnType));
+                if ($nullable) {
+                    $method->setReturnNullable();
+                }
             }
-        } else {
-            $method->setReturnType('void');
+            $method->setReturnType($returnType);
         }
 
         return $method;

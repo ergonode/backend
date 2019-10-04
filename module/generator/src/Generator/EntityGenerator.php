@@ -39,11 +39,12 @@ class EntityGenerator
     /**
      * @param string $module
      * @param string $entity
+     * @param array  $properties
      */
-    public function generate(string $module, string $entity): void
+    public function generate(string $module, string $entity, array $properties = []): void
     {
         foreach ($this->builders as $builder) {
-            $file = $builder->build($module, $entity);
+            $file = $builder->build($module, $entity, $properties);
             $this->persister->persist($file, $module);
             $namespaces = $file->getNamespaces();
             $namespace = reset($namespaces);

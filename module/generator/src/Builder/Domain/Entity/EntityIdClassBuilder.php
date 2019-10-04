@@ -34,10 +34,11 @@ class EntityIdClassBuilder implements BuilderInterface
     /**
      * @param string $module
      * @param string $entityName
+     * @param array  $properties
      *
      * @return PhpFile
      */
-    public function build(string $module, string $entityName): PhpFile
+    public function build(string $module, string $entityName, array $properties = []): PhpFile
     {
         $file = $this->builder->build();
         $className = sprintf('%sId', $entityName);
@@ -45,7 +46,6 @@ class EntityIdClassBuilder implements BuilderInterface
         $namespace = sprintf('Ergonode\%s\Domain\Entity', ucfirst($module));
 
         $phpNamespace = $file->addNamespace($namespace);
-        $phpNamespace->addUse(AbstractId::class);
 
         $class = $phpNamespace->addClass($className);
         $class->addExtend(AbstractId::class);

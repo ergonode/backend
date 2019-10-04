@@ -7,20 +7,28 @@
 
 declare(strict_types = 1);
 
+
 namespace Ergonode\Generator\Builder;
 
-use Nette\PhpGenerator\PhpFile;
+use Nette\PhpGenerator\Method;
 
 /**
  */
-interface BuilderInterface
+class ConstructorBuilder
 {
     /**
-     * @param string $module
+     * @var MethodBuilder
+     */
+    private $methodBuilder;
+
+    /**
      * @param string $entity
      * @param array  $properties
      *
-     * @return PhpFile
+     * @return Method
      */
-    public function build(string $module, string $entity, array $properties = []): PhpFile;
+    public function build(string $entity, array $properties = []): Method
+    {
+
+    }
 }

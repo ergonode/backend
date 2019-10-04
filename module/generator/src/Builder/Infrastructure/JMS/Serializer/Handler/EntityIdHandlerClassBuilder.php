@@ -34,8 +34,6 @@ class EntityIdHandlerClassBuilder implements BuilderInterface
     private $methodBuilder;
 
     /**
-     * EntityIdHandlerClassBuilder constructor.
-     *
      * @param FileBuilder   $builder
      * @param MethodBuilder $methodBuilder
      */
@@ -48,10 +46,11 @@ class EntityIdHandlerClassBuilder implements BuilderInterface
     /**
      * @param string $module
      * @param string $entity
+     * @param array  $properties
      *
      * @return PhpFile
      */
-    public function build(string $module, string $entity): PhpFile
+    public function build(string $module, string $entity, array $properties = []): PhpFile
     {
         $file = $this->builder->build();
         $className = sprintf('%sIdHandler', $entity);
