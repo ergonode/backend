@@ -7,20 +7,19 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Application\Controller\Api;
+namespace Ergonode\Attribute\Application\Controller\Api\Dictionary;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeTypeDictionaryProvider;
-use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route("/attributes/types", methods={"GET"})
  */
-class DictionaryController extends AbstractController
+class AttributeTypeReadAction
 {
     /**
      * @var AttributeTypeDictionaryProvider
@@ -28,25 +27,14 @@ class DictionaryController extends AbstractController
     private $attributeTypeDictionaryProvider;
 
     /**
-     * @var AttributeGroupQueryInterface
-     */
-    private $attributeGroupQuery;
-
-    /**
      * @param AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider
-     * @param AttributeGroupQueryInterface    $attributeGroupQuery
      */
-    public function __construct(
-        AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider,
-        AttributeGroupQueryInterface $attributeGroupQuery
-    ) {
+    public function __construct(AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider)
+    {
         $this->attributeTypeDictionaryProvider = $attributeTypeDictionaryProvider;
-        $this->attributeGroupQuery = $attributeGroupQuery;
     }
 
     /**
-     * @Route("/attributes/types", methods={"GET"})
-     *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(
      *     name="language",
@@ -69,35 +57,9 @@ class DictionaryController extends AbstractController
      *
      * @return Response
      */
-    public function getAttributeTypes(Language $language): Response
+    public function __invoke(Language $language): Response
     {
         $types = $this->attributeTypeDictionaryProvider->getDictionary($language);
-
-        return new SuccessResponse($types);
-    }
-
-    /**
-     * @Route("/attributes/groups", methods={"GET"})
-     *
-     * @SWG\Tag(name="Dictionary")
-     * @SWG\Parameter(
-     *     name="language",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     default="EN",
-     *     description="Language Code"
-     * )
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns collection attribute groups"
-     * )
-     *
-     * @return Response
-     */
-    public function getAttributeGroups(): Response
-    {
-        $types = $this->attributeGroupQuery->getAttributeGroups();
 
         return new SuccessResponse($types);
     }
