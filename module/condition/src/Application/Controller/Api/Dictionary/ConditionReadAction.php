@@ -7,19 +7,19 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Condition\Application\Controller\Api;
+namespace Ergonode\Condition\Application\Controller\Api\Dictionary;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route("conditions", methods={"GET"})
  */
-class DictionaryController extends AbstractController
+class ConditionReadAction
 {
     /**
      * @var ConditionDictionaryProvider
@@ -35,8 +35,6 @@ class DictionaryController extends AbstractController
     }
 
     /**
-     * @Route("conditions", methods={"GET"})
-     *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(
      *     name="language",
@@ -59,7 +57,7 @@ class DictionaryController extends AbstractController
      *
      * @return Response
      */
-    public function getDictionary(Language $language): Response
+    public function __invoke(Language $language): Response
     {
         $dictionary = $this->provider->getDictionary($language);
 
