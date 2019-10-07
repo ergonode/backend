@@ -14,9 +14,8 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\TranslationDeepl\Application\Form\TranslationDeeplForm;
 use Ergonode\TranslationDeepl\Application\Model\Form\TranslationDeeplFormModel;
 use Ergonode\TranslationDeepl\Infrastructure\Provider\TranslationProviderInterface;
-use Ergonode\TranslationDeepl\Infrastructure\Provider\UsageDeeplProviderInterface;
 use Swagger\Annotations as SWG;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -24,8 +23,9 @@ use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @Route("/translation/deepl", methods={"GET"})
  */
-class TranslationDeeplController extends AbstractController
+class TranslationReadAction
 {
     /**
      * @var TranslationProviderInterface
@@ -33,23 +33,23 @@ class TranslationDeeplController extends AbstractController
     private $translationProvider;
 
     /**
-     * @var UsageDeeplProviderInterface
+     * @var FormFactoryInterface
      */
-    private $usageProvider;
+    private $formFactory;
 
     /**
      * @param TranslationProviderInterface $translationProvider
-     * @param UsageDeeplProviderInterface  $usageProvider
+     * @param FormFactoryInterface         $formFactory
      */
-    public function __construct(TranslationProviderInterface $translationProvider, UsageDeeplProviderInterface $usageProvider)
-    {
+    public function __construct(
+        TranslationProviderInterface $translationProvider,
+        FormFactoryInterface $formFactory
+    ) {
         $this->translationProvider = $translationProvider;
-        $this->usageProvider = $usageProvider;
+        $this->formFactory = $formFactory;
     }
 
     /**
-     * @Route("/translation/deepl", methods={"GET"})
-     *
      * @SWG\Tag(name="Translation Deepl")
      * @SWG\Parameter(
      *     name="content",
@@ -85,11 +85,11 @@ class TranslationDeeplController extends AbstractController
      *
      * @return Response
      */
-    public function getTranslation(Request $request): Response
+    public function __invoke(Request $request): Response
     {
         try {
             $model = new TranslationDeeplFormModel();
-            $form = $this->createForm(TranslationDeeplForm::class, $model, ['method' => Request::METHOD_GET]);
+            $form = $this->formFactory->create(TranslationDeeplForm::class, $model, ['method' => Request::METHOD_GET]);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var TranslationDeeplFormModel $data */
@@ -103,26 +103,5 @@ class TranslationDeeplController extends AbstractController
         }
 
         throw new FormValidationHttpException($form);
-    }
-
-    /**
-     * @Route("/translation/usage", methods={"GET"})
-     *
-     * @SWG\Tag(name="Translation Deepl")
-     * @SWG\Response(
-     *     response=200,
-     *     description="Returns usage information",
-     * )
-     *
-     * @return Response
-     */
-    public function getUsage(): Response
-    {
-        $usage = $this->usageProvider->provide();
-
-        return new SuccessResponse([
-            'current' => $usage->getCharacterCount(),
-            'limit' => $usage->getCharacterLimit(),
-        ]);
     }
 }
