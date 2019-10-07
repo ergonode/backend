@@ -50,6 +50,8 @@ class ConstraintAttributeExistsConditionValidator extends ConstraintValidator
             $this->context
                 ->buildViolation('Attribute code not set')
                 ->addViolation();
+
+            return;
         }
 
         $code = new AttributeCode($value['code']);
