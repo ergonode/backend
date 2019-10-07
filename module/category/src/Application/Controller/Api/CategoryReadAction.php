@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Category\Application\Controller\Api;
+
+use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Category\Domain\Entity\Category;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * @Route("/categories/{category}", methods={"GET"})
+ */
+class CategoryReadAction
+{
+    /**
+     * @IsGranted("CATEGORY_READ")
+     *
+     * @SWG\Tag(name="Category")
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language Code",
+     * )
+     * @SWG\Parameter(
+     *     name="category",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     description="Category ID",
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns import",
+     * )
+     * @SWG\Response(
+     *     response=404,
+     *     description="Not found",
+     * )
+     *
+     * @ParamConverter(class="Ergonode\Category\Domain\Entity\Category")
+     *
+     * @param Category $category
+     *
+     * @return Response
+     */
+    public function __invoke(Category $category): Response
+    {
+        return new SuccessResponse($category);
+    }
+}
