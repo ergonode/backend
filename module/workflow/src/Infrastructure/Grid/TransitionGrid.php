@@ -18,6 +18,7 @@ use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -71,11 +72,22 @@ class TransitionGrid extends AbstractGrid
         $column = new TextColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description')));
         $this->addColumn('description', $column);
 
-       // 'href' =>  $this->router->generate('ergonode_product_application_api_product_getproduct', [ 'product' => $productId->getValue(), 'language' => $language->getCode()]),
-        $url1 = sprintf('/api/v1/%s/workflow/default/transitions/{source}/{destination}', $language->getCode());
-        $url2 = sprintf('/api/v1/%s/workflow/default/transitions/{source}/{destination}', $language->getCode());
-
-        $this->addColumn('_links', new LinkColumn('edit', ['edit' => ['href' => $url1], 'delete' => ['href' => $url2]]));
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'get' => [
+                'route' => 'ergonode_workflow_transition_read',
+                'parameters' => ['language' => $language->getCode(), 'source' => '{source}', 'destination' => '{destination}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_workflow_transition_change',
+                'parameters' => ['language' => $language->getCode(), 'source' => '{source}', 'destination' => '{destination}'],
+                'method' => Request::METHOD_PUT,
+            ],
+            'delete' => [
+                'route' => 'ergonode_workflow_transition_delete',
+                'parameters' => ['language' => $language->getCode(), 'source' => '{source}', 'destination' => '{destination}'],
+                'method' => Request::METHOD_DELETE,
+            ],
+        ]));
         $this->orderBy('code', 'DESC');
 
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);

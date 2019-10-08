@@ -18,7 +18,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/conditionsets/{conditionSet}", methods={"GET"}, requirements={"conditionSet"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+ * @Route(
+ *     name="ergonode_condition_conditionset_read",
+ *     path="/conditionsets/{conditionSet}",
+ *     methods={"GET"},
+ *     requirements={"conditionSet"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ * )
  */
 class ConditionSetReadAction
 {

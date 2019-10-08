@@ -17,9 +17,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Workflow\Application\Form\Model\StatusFormModel;
 use Ergonode\Workflow\Application\Form\StatusForm;
 use Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand;
@@ -71,32 +70,32 @@ class StatusController extends AbstractController
     private $existingRelationshipMessageBuilder;
 
     /**
-     * @var ProductQueryInterface
+     * @var GridRenderer
      */
-    private $productQuery;
+    private $gridRenderer;
 
     /**
+     * @param GridRenderer                                $gridRenderer
      * @param MessageBusInterface                         $messageBus
      * @param StatusQueryInterface                        $query
      * @param StatusGrid                                  $grid
      * @param RelationshipsResolverInterface              $relationshipsResolver
      * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
-     * @param ProductQueryInterface                       $productQuery
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         MessageBusInterface $messageBus,
         StatusQueryInterface $query,
         StatusGrid $grid,
         RelationshipsResolverInterface $relationshipsResolver,
-        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder,
-        ProductQueryInterface $productQuery
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
         $this->messageBus = $messageBus;
         $this->query = $query;
         $this->grid = $grid;
         $this->relationshipsResolver = $relationshipsResolver;
         $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
-        $this->productQuery = $productQuery;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -173,7 +172,14 @@ class StatusController extends AbstractController
      */
     public function getStatuses(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($language), $language);
+        $data = $this->gridRenderer->render(
+            $this->grid,
+            $configuration,
+            $this->query->getDataSet($language),
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 
     /**

@@ -15,15 +15,14 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Workflow\Application\Form\Model\TransitionFormModel;
 use Ergonode\Workflow\Application\Form\TransitionForm;
 use Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
@@ -61,11 +60,18 @@ class TransitionController extends AbstractController
     private $grid;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer             $gridRenderer
      * @param MessageBusInterface      $messageBus
      * @param TransitionQueryInterface $query
      * @param TransitionGrid           $grid
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         MessageBusInterface $messageBus,
         TransitionQueryInterface $query,
         TransitionGrid $grid
@@ -73,6 +79,7 @@ class TransitionController extends AbstractController
         $this->messageBus = $messageBus;
         $this->query = $query;
         $this->grid = $grid;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -151,13 +158,22 @@ class TransitionController extends AbstractController
      */
     public function getTransitions(Workflow $workflow, Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($workflow->getId(), $language), $language);
+        $data = $this->gridRenderer->render(
+            $this->grid,
+            $configuration,
+            $this->query->getDataSet($workflow->getId(), $language),
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 
     /**
-     * @Route("/workflow/default/transitions/{source}/{destination}",
+     * @Route(
+     *     name="ergonode_workflow_transition_read",
+     *     path="/workflow/default/transitions/{source}/{destination}",
      *     methods={"GET"}
-     *     )
+     * )
      *
      * @IsGranted("WORKFLOW_READ")
      *
@@ -284,7 +300,11 @@ class TransitionController extends AbstractController
     }
 
     /**
-     * @Route("/workflow/default/transitions/{source}/{destination}", methods={"PUT"})
+     * @Route(
+     *     name="ergonode_workflow_transition_change",
+     *     path="/workflow/default/transitions/{source}/{destination}",
+     *     methods={"PUT"}
+     * )
      *
      * @IsGranted("WORKFLOW_UPDATE")
      *
@@ -373,7 +393,11 @@ class TransitionController extends AbstractController
     }
 
     /**
-     * @Route("/workflow/default/transitions/{source}/{destination}", methods={"DELETE"})
+     * @Route(
+     *     name="ergonode_workflow_transition_delete",
+     *     path="/workflow/default/transitions/{source}/{destination}",
+     *     methods={"DELETE"}
+     * )
      *
      * @IsGranted("WORKFLOW_DELETE")
      *
@@ -424,7 +448,7 @@ class TransitionController extends AbstractController
      */
     public function deleteStatus(Workflow $workflow, Status $source, Status $destination): Response
     {
-        // @add validation
+        // @todo add validation
         $command = new DeleteWorkflowTransitionCommand($workflow->getId(), $source->getCode(), $destination->getCode());
         $this->messageBus->dispatch($command);
 
