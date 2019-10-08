@@ -131,6 +131,4 @@ class AttributeFormSubscriberTest extends TestCase
         $subscriber = new AttributeFormSubscriber($this->event);
         $subscriber->onPreSubmit($this->event);
     }
-
-
 }

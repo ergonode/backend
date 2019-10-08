@@ -40,7 +40,6 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate(new \stdClass(), new CategoryCode());
     }
 
-
     /**
      * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */

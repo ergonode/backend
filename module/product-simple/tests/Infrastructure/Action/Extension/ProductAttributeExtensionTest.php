@@ -94,7 +94,6 @@ class ProductAttributeExtensionTest extends TestCase
         $this->assertEquals('black', $result['attributes']['color']->getValue());
     }
 
-
     /**
      * @param array $columns
      * @param mixed $expected

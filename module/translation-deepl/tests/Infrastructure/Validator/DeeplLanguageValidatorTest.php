@@ -20,12 +20,6 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
 {
 
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
-
     /**
      * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
