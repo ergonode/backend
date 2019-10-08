@@ -28,17 +28,4 @@ class NumericColumnTest extends TestCase
         $this->assertSame($filter, $column->getFilter());
         $this->assertSame(NumericColumn::TYPE, $column->getType());
     }
-
-    /**
-     */
-    public function testRender(): void
-    {
-        $field = 'Any id';
-        $label = 'Any label';
-        $record = [$field => 999];
-
-        $column = new NumericColumn($field, $label);
-        $result = $column->render($field, $record);
-        $this->assertSame((float) $record[$field], $result);
-    }
 }
