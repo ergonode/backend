@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://ergonode.com" target="_blank">
-    <img src="https://img.shields.io/badge/version-0.4.0-4c9aff.svg" alt="Version">
+    <img src="https://img.shields.io/badge/version-0.5.0-4c9aff.svg" alt="Version">
   </a>
   <a href="https://ergonode.com" target="_blank">
     <img src="https://img.shields.io/badge/version%20code-Vegas-00bc87.svg" alt="Code Version">
@@ -96,7 +96,7 @@ On the front side we've used headless approach with Vue.js application. Thanks t
 #### Backend Technologies
 
 - PHP 7.2
-- Symfony 4.2
+- Symfony 4.3
 - Postgres 9.6 (uuid-ossp, ltree)
 - RabbitMQ (optional)
 - Redis (optional)
