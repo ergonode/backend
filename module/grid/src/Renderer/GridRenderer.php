@@ -53,11 +53,27 @@ class GridRenderer
         $field = $configuration->getField();
         $order = $configuration->getOrder();
         $records = $dataSet->getItems($grid->getColumns(), $configuration->getLimit(), $configuration->getOffset(), $field, $order);
-        $result = [];
 
-        $result['configuration'] = $grid->getConfiguration();
-        $result['columns'] = $this->columnRenderer->render($grid, []);
-        $result['collection'] = [];
+        $result = [
+            'configuration' => $grid->getConfiguration(),
+            'columns' => $this->columnRenderer->render($grid, []),
+            'collection' => [],
+        ];
+
+        // @todo HAX for column ordering (we need to refactor whole gird)
+        if (!empty($configuration->getColumns())) {
+            $columnsOrdered = [];
+            foreach (array_keys($configuration->getColumns()) as $name) {
+                foreach ($result['columns'] as $key => $column) {
+                    if ($name === $column['id']) {
+                        $columnsOrdered[] = $result['columns'][$key];
+                        break;
+                    }
+                }
+            }
+
+            $result['columns'] = $columnsOrdered;
+        }
 
         foreach ($records as $row) {
             $result['collection'][] = $this->rowRenderer->render($grid, $row);

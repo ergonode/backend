@@ -32,6 +32,8 @@ class CreateTreeCommandHandler
 
     /**
      * @param CreateTreeCommand $command
+     *
+     * @throws \Exception
      */
     public function __invoke(CreateTreeCommand $command)
     {

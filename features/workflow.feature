@@ -81,19 +81,18 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/default" using HTTP PUT
     Then empty response is received
 
-  Scenario: Delete default status
+  Scenario: Update default workflow (wrong status)
     Given current authentication token
-    When I request "/api/v1/EN/status/@workflow_status@" using HTTP DELETE
-    Then empty response is received
-
-  Scenario: Delete default status (not authorized)
-    When I request "/api/v1/EN/status/@workflow_status@" using HTTP DELETE
-    Then unauthorized response is received
-
-  Scenario: Delete default status (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/status/@@static_uuid@@" using HTTP DELETE
-    Then not found response is received
+    Given the request body is:
+    """
+      {
+        "code": "TEST_@@random_code@@",
+        "statuses": ["test"],
+        "transitions": []
+      }
+    """
+    When I request "/api/v1/EN/workflow/default" using HTTP PUT
+    Then validation error response is received
 
   Scenario: Get default statuses
     Given current authentication token
@@ -118,6 +117,19 @@ Feature: Workflow
     Then created response is received
     And remember response param "id" as "workflow"
 
+  Scenario: Create workflow (wrong statuses)
+    Given current authentication token
+    Given the request body is:
+    """
+      {
+        "code": "WRK_@@random_code@@",
+        "statuses": ["test"],
+        "transitions": []
+      }
+    """
+    When I request "/api/v1/EN/workflow" using HTTP POST
+    Then validation error response is received
+
   Scenario: Create workflow (not authorized)
     When I request "/api/v1/EN/workflow" using HTTP POST
     Then unauthorized response is received
@@ -135,5 +147,30 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/default" using HTTP GET
     Then unauthorized response is received
 
-  # TODO Check create workflow action with all incorrect possibilities
-  # TODO Check update workflow action with all incorrect possibilities
+  Scenario: Delete workflow (not found)
+    Given current authentication token
+    When I request "/api/v1/EN/workflow/@static_uuid@" using HTTP DELETE
+    Then not found response is received
+
+  Scenario: Delete workflow (not authorized)
+    When I request "/api/v1/EN/workflow/@workflow@" using HTTP DELETE
+    Then unauthorized response is received
+
+  Scenario: Delete workflow
+    Given current authentication token
+    When I request "/api/v1/EN/workflow/@workflow@" using HTTP DELETE
+    Then empty response is received
+
+  Scenario: Delete default status
+    Given current authentication token
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP DELETE
+    Then empty response is received
+
+  Scenario: Delete default status (not authorized)
+    When I request "/api/v1/EN/status/@workflow_status@" using HTTP DELETE
+    Then unauthorized response is received
+
+  Scenario: Delete default status (not found)
+    Given current authentication token
+    When I request "/api/v1/EN/status/@@static_uuid@@" using HTTP DELETE
+    Then not found response is received

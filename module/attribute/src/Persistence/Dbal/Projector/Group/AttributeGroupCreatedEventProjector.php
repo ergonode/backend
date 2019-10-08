@@ -36,9 +36,7 @@ class AttributeGroupCreatedEventProjector implements DomainEventProjectorInterfa
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -46,10 +44,7 @@ class AttributeGroupCreatedEventProjector implements DomainEventProjectorInterfa
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws \Exception
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -57,21 +52,13 @@ class AttributeGroupCreatedEventProjector implements DomainEventProjectorInterfa
             throw new UnsupportedEventException($event, AttributeGroupCreatedEvent::class);
         }
 
-        try {
-            $this->connection->beginTransaction();
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'id' => $aggregateId->getValue(),
-                    'label' => $event->getLabel(),
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'id' => $aggregateId->getValue(),
+                'label' => $event->getLabel(),
 
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Exception $exception) {
-            $this->connection->rollBack();
-
-            throw $exception;
-        }
+            ]
+        );
     }
 }

@@ -125,6 +125,20 @@ final class Version20180625083834 extends AbstractErgonodeMigration
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_GROUP_READ', 'Attribute group']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_GROUP_UPDATE', 'Attribute group']);
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'ATTRIBUTE_GROUP_DELETE', 'Attribute group']);
+
+        $this->createEventStoreEvents([
+            'Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent' => 'Attribute added',
+            'Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent' => 'Attribute hint changed',
+            'Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent' => 'Attribute label changed',
+            'Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent' => 'Attribute placeholder changed',
+            'Ergonode\Attribute\Domain\Event\Attribute\AttributeArrayParameterChangeEvent' => 'Attribute parameters changed',
+            'Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent' => 'Attribute parameter changed',
+            'Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent' => 'Attribute added to group',
+            'Ergonode\Attribute\Domain\Event\AttributeGroupDeletedEvent' => 'Attribute removed from group',
+            'Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent' => 'Attribute option added',
+            'Ergonode\Attribute\Domain\Event\AttributeOptionRemovedEvent' => 'Attribute option removed',
+            'Ergonode\Attribute\Domain\Event\AttributeOptionChangedEvent' => 'Attribute option changed',
+        ]);
     }
 
     /**
@@ -137,5 +151,21 @@ final class Version20180625083834 extends AbstractErgonodeMigration
     {
         $id = AttributeGroupId::generate();
         $this->addSql('INSERT INTO attribute_group (id, label, "default") VALUES (?, ?, ?)', [$id, $label, (int) $default], ['default' => \PDO::PARAM_BOOL]);
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function createEventStoreEvents(array $collection): void
+    {
+        foreach ($collection as $class => $translation) {
+            $this->connection->insert('event_store_event', [
+                'id' => Uuid::uuid4()->toString(),
+                'event_class' => $class,
+                'translation_key' => $translation,
+            ]);
+        }
     }
 }

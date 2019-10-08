@@ -1,0 +1,31 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\Segment\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Segment\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Segment\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject,Type,Condition}'
+
+    Ergonode\Segment\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Specification}'
+
+    Ergonode\Segment\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        exclude: '../../Infrastructure/Handler/{Strategy}'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Segment\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface: '@Ergonode\Segment\Persistence\Dbal\Repository\DbalSegmentRepository'
+    Ergonode\Segment\Domain\Query\SegmentQueryInterface: '@Ergonode\Segment\Persistence\Dbal\Query\DbalSegmentQuery'

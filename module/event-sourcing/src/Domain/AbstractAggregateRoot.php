@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\EventSourcing\Domain;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
@@ -98,14 +99,16 @@ abstract class AbstractAggregateRoot
     private function handle(DomainEventInterface $event, \DateTime $recordedAt): void
     {
         $this->editedAt = $recordedAt;
-        $classArray = explode('\\', get_class($event));
-        $class = end($classArray);
 
-        $method = sprintf('apply%s', $class);
-        if (!method_exists($this, $method)) {
-            throw new \RuntimeException(sprintf('Can\'t find method  %s for event in aggregate %s', $method, get_class($this)));
+        if (!$event instanceof AbstractDeleteEvent) {
+            $classArray = explode('\\', get_class($event));
+            $class = end($classArray);
+            $method = sprintf('apply%s', $class);
+            if (!method_exists($this, $method)) {
+                throw new \RuntimeException(sprintf('Can\'t find method  %s for event in aggregate %s', $method, get_class($this)));
+            }
+
+            $this->$method($event);
         }
-
-        $this->$method($event);
     }
 }

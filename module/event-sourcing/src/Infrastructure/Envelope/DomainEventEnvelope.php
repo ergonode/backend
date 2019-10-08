@@ -96,7 +96,7 @@ class DomainEventEnvelope extends Event
      */
     public function getType(): string
     {
-        return \get_class($this->event);
+        return get_class($this->event);
     }
 
     /**

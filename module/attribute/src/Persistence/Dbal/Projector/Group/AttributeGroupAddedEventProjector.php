@@ -13,7 +13,6 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
@@ -37,9 +36,7 @@ class AttributeGroupAddedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -47,12 +44,7 @@ class AttributeGroupAddedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -60,19 +52,12 @@ class AttributeGroupAddedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, AttributeGroupAddedEvent::class);
         }
 
-        try {
-            $this->connection->beginTransaction();
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'attribute_id' => $aggregateId->getValue(),
-                    'attribute_group_id' => $event->getGroupId()->getValue(),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'attribute_id' => $aggregateId->getValue(),
+                'attribute_group_id' => $event->getGroupId()->getValue(),
+            ]
+        );
     }
 }

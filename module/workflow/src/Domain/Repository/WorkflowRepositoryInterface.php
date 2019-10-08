@@ -21,8 +21,6 @@ interface WorkflowRepositoryInterface
      * @param WorkflowId $id
      *
      * @return null|Workflow
-     *
-     * @throws \ReflectionException
      */
     public function load(WorkflowId $id): ?AbstractAggregateRoot;
 
@@ -30,4 +28,9 @@ interface WorkflowRepositoryInterface
      * @param AbstractAggregateRoot $aggregateRoot
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void;
+
+    /**
+     * @param AbstractAggregateRoot $aggregateRoot
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void;
 }

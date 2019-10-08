@@ -25,6 +25,6 @@ class MultimediaId extends AbstractId
      */
     public static function createFromFile(\SplFileInfo $file): self
     {
-        return new self(Uuid::uuid5(self::NAMESPACE, file_get_contents($file->getRealPath()))->toString());
+        return new self(Uuid::uuid5(self::NAMESPACE, sha1_file($file->getRealPath()))->toString());
     }
 }

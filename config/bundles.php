@@ -25,6 +25,8 @@ return [
     Ergonode\Importer\ErgonodeImporterBundle::class => ['all' => true],
     Ergonode\Reader\ErgonodeReaderBundle::class => ['all' => true],
     Ergonode\Transformer\ErgonodeTransformerBundle::class => ['all' => true],
+    Ergonode\Condition\ErgonodeConditionBundle::class => ['all' => true],
+    Ergonode\Segment\ErgonodeSegmentBundle::class => ['all' => true],
     Ergonode\Category\ErgonodeCategoryBundle::class => ['all' => true],
     Ergonode\CategoryTree\ErgonodeCategoryTreeBundle::class => ['all' => true],
     Ergonode\Product\ErgonodeProductBundle::class => ['all' => true],
@@ -43,6 +45,6 @@ return [
     Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
-    Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
     Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
+    Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
 ];

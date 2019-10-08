@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -28,17 +29,22 @@ class RolePrivilegesChangedEventProjector implements DomainEventProjectorInterfa
     private $connection;
 
     /**
-     * @param Connection $connection
+     * @var SerializerInterface
      */
-    public function __construct(Connection $connection)
+    private $serializer;
+
+    /**
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
+        $this->serializer = $serializer;
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -46,11 +52,7 @@ class RolePrivilegesChangedEventProjector implements DomainEventProjectorInterfa
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -58,16 +60,14 @@ class RolePrivilegesChangedEventProjector implements DomainEventProjectorInterfa
             throw new UnsupportedEventException($event, RolePrivilegesChangedEvent::class);
         }
 
-        $this->connection->transactional(function () use ($event, $aggregateId) {
-            $this->connection->update(
-                self::TABLE,
-                [
-                    'privileges' => json_encode($event->getTo()),
-                ],
-                [
-                    'id' => $aggregateId->getValue(),
-                ]
-            );
-        });
+        $this->connection->update(
+            self::TABLE,
+            [
+                'privileges' => $this->serializer->serialize($event->getTo(), 'json'),
+            ],
+            [
+                'id' => $aggregateId->getValue(),
+            ]
+        );
     }
 }

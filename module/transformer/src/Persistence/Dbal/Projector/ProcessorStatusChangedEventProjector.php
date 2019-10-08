@@ -44,6 +44,8 @@ class ProcessorStatusChangedEventProjector implements DomainEventProjectorInterf
 
     /**
      * {@inheritDoc}
+     *
+     * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {

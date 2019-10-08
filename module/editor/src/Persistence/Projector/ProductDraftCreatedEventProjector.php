@@ -13,7 +13,6 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Event\ProductDraftCreated;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
@@ -37,9 +36,7 @@ class ProductDraftCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -47,12 +44,7 @@ class ProductDraftCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -60,20 +52,13 @@ class ProductDraftCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, ProductDraftCreated::class);
         }
 
-        try {
-            $this->connection->beginTransaction();
-            $this->connection->insert(
-                self::DRAFT_TABLE,
-                [
-                    'id' => $aggregateId->getValue(),
-                    'product_id' => $event->getProductId() ? $event->getProductId()->getValue() : null,
-                    'type' => $event->getProductId() ? 'EDITED': 'NEW',
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Exception $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        $this->connection->insert(
+            self::DRAFT_TABLE,
+            [
+                'id' => $aggregateId->getValue(),
+                'product_id' => $event->getProductId() ? $event->getProductId()->getValue() : null,
+                'type' => $event->getProductId() ? 'EDITED': 'NEW',
+            ]
+        );
     }
 }

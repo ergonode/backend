@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Domain\Command\Workflow;
 
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\Status;
 use Ergonode\Workflow\Domain\ValueObject\Transition;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;

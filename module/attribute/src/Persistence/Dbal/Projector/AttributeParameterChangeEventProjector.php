@@ -13,9 +13,9 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -29,17 +29,22 @@ class AttributeParameterChangeEventProjector implements DomainEventProjectorInte
     private $connection;
 
     /**
-     * @param Connection $connection
+     * @var SerializerInterface
      */
-    public function __construct(Connection $connection)
+    private $serializer;
+
+    /**
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
+        $this->serializer = $serializer;
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -47,12 +52,7 @@ class AttributeParameterChangeEventProjector implements DomainEventProjectorInte
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -60,24 +60,17 @@ class AttributeParameterChangeEventProjector implements DomainEventProjectorInte
             throw new UnsupportedEventException($event, AttributeParameterChangeEvent::class);
         }
 
-        try {
-            $this->connection->beginTransaction();
-            if (!empty($event->getTo())) {
-                $this->connection->update(
-                    self::TABLE_PARAMETER,
-                    [
-                        'value' => \json_encode($event->getTo()),
-                    ],
-                    [
-                        'attribute_id' => $aggregateId->getValue(),
-                        'type' => $event->getName(),
-                    ]
-                );
-            }
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
+        if (!empty($event->getTo())) {
+            $this->connection->update(
+                self::TABLE_PARAMETER,
+                [
+                    'value' => $this->serializer->serialize($event->getTo(), 'json'),
+                ],
+                [
+                    'attribute_id' => $aggregateId->getValue(),
+                    'type' => $event->getName(),
+                ]
+            );
         }
     }
 }

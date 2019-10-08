@@ -86,6 +86,8 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
     {
         $typeField = strtolower($this->constant);
 
+        $data = $this->prepareData($data);
+
         if (!array_key_exists($data[$typeField], $this->map)) {
             throw new \OutOfBoundsException(sprintf('Value type "%s" not mapped', $data[$typeField]));
         }
@@ -126,5 +128,15 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
         }
 
         return $object;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function prepareData(array $data): array
+    {
+        return $data;
     }
 }

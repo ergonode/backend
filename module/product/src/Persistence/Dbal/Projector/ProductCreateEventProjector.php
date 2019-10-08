@@ -46,8 +46,6 @@ class ProductCreateEventProjector implements DomainEventProjectorInterface
     private $cache = [];
 
     /**
-     * ProductCreateEventProjector constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)
@@ -56,9 +54,7 @@ class ProductCreateEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -66,11 +62,7 @@ class ProductCreateEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Throwable
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -78,9 +70,9 @@ class ProductCreateEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, ProductCreated::class);
         }
 
-        try {
+        $this->connection->transactional(function () use ($aggregateId, $event) {
             $productId = $aggregateId->getValue();
-            $this->connection->beginTransaction();
+
             $this->connection->insert(
                 self::TABLE_PRODUCT,
                 [
@@ -105,12 +97,7 @@ class ProductCreateEventProjector implements DomainEventProjectorInterface
                 $attributeId = AttributeId::fromKey(new AttributeCode($code))->getValue();
                 $this->insertValue($productId, $attributeId, $value);
             }
-
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw $exception;
-        }
+        });
     }
 
     /**

@@ -1,2 +1,2 @@
-"Ergonode\\Category\\Domain\\Event\\CategoryCreatedEvent": Category "%code%" created
-"Ergonode\\Category\\Domain\\Event\\CategoryNameChangedEvent": Category name changed
+'Category created': 'Category "%code%" created'
+'Category name changed': 'Category name changed'

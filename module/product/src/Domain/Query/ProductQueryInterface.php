@@ -13,6 +13,7 @@ use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 
 /**
  */
@@ -43,4 +44,11 @@ interface ProductQueryInterface
      * @return array
      */
     public function findProductIdByTemplateId(TemplateId $templateId): array;
+
+    /**
+     * @param StatusId $statusId
+     *
+     * @return array
+     */
+    public function findProductIdByStatusId(StatusId $statusId): array;
 }

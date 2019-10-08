@@ -54,7 +54,8 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
     public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('*')
+        $query
+            ->select('*')
             ->from(sprintf('(%s)', $this->getSQL()), 't');
 
         return new DbalDataSet($query);

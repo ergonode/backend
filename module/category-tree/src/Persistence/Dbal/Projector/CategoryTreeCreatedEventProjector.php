@@ -13,9 +13,9 @@ use Doctrine\DBAL\Connection;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\ProjectorException;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -29,17 +29,22 @@ class CategoryTreeCreatedEventProjector implements DomainEventProjectorInterface
     protected $connection;
 
     /**
-     * @param Connection $connection
+     * @var SerializerInterface
      */
-    public function __construct(Connection $connection)
+    private $serializer;
+
+    /**
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
+        $this->serializer = $serializer;
     }
 
     /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function support(DomainEventInterface $event): bool
     {
@@ -47,12 +52,7 @@ class CategoryTreeCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws ProjectorException
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\ConnectionException
+     * {@inheritDoc}
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -60,20 +60,13 @@ class CategoryTreeCreatedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, CategoryTreeCreatedEvent::class);
         }
 
-        try {
-            $this->connection->beginTransaction();
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'id' => $event->getId(),
-                    'code' => $event->getCode(),
-                    'name' => json_encode($event->getName()->getTranslations()),
-                ]
-            );
-            $this->connection->commit();
-        } catch (\Throwable $exception) {
-            $this->connection->rollBack();
-            throw new ProjectorException($event, $exception);
-        }
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'id' => $event->getId(),
+                'code' => $event->getCode(),
+                'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
+            ]
+        );
     }
 }

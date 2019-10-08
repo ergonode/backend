@@ -98,6 +98,40 @@ nelmio_api_doc:
                         type: boolean
                         required: true
                         example: true
+            account_upd:
+                type: object
+                properties:
+                    firstName:
+                        type: string
+                        required: true
+                        description: User first name
+                        example: Jon
+                    lastName:
+                        type: string
+                        required: true
+                        description: User last name
+                        example: Dove
+                    language:
+                        type: string
+                        required: true
+                        description: User language
+                        example: EN
+                    password:
+                        type: string
+                        required: true
+                        example: 12345678
+                    passwordRepeat:
+                        type: string
+                        equired: true
+                        example: 12345678
+                    roleId:
+                        type: string
+                        required: true
+                        example: 86800536-0f2a-4920-9291-f35fdcea3839
+                    isActive:
+                        type: boolean
+                        required: true
+                        example: true
             status:
                 type: object
                 properties:
@@ -210,6 +244,15 @@ nelmio_api_doc:
                         example:
                             DE: Name DE
                             EN: Name EN
+            category_upd:
+                type: object
+                properties:
+                    name:
+                        type: object
+                        description: category name
+                        example:
+                            DE: Name DE
+                            EN: Name EN
             product:
                 type: object
                 properties:
@@ -222,6 +265,15 @@ nelmio_api_doc:
                         type: string
                         required: true
                         description: Template Id
+                    categortyIds:
+                        type: array
+                        items:
+                            type: string
+                        required: false
+                        description: Lista id kategorii
+            product_upd:
+                type: object
+                properties:
                     categortyIds:
                         type: array
                         items:
@@ -269,7 +321,7 @@ nelmio_api_doc:
                         $ref: "#/definitions/translation"
                 example:
                     key: key_1
-                    translation:
+                    value:
                         PL: Option PL 1
                         EN: Option EN 1
             attribute_parameters:
@@ -281,13 +333,29 @@ nelmio_api_doc:
                         description: Additional format information (If used by attribute)
                         example: YYYY-MM-DDDD
             segment:
-                type: object
+                type: 'object'
                 properties:
-                    name:
-                        type: string
+                    condition_set_id:
+                        type: 'string'
                         required: true
-                        description: segment name
-                        example: segment name
+                        description: 'Condition set ID'
+                    code:
+                        type: 'string'
+                        required: true
+                        description: 'Segment unique code'
+                    name:
+                        $ref: "#/definitions/translation"
+                    description:
+                        $ref: "#/definitions/translation"
+                example:
+                    condition_set_id: 'd1b9b64a-fef6-440c-9560-cf73daa4b4d6'
+                    code: 'code'
+                    name:
+                        PL: 'Nazwa'
+                        EN: 'Name'
+                    description:
+                        PL: 'Opis'
+                        EN: 'Description'
             languages_req:
                 type: object
                 properties:
@@ -416,7 +484,6 @@ nelmio_api_doc:
                                     items:
                                         type: 'string'
                                         example: 'Error message'
-
             credentials:
                 type: object
                 properties:
@@ -451,6 +518,28 @@ nelmio_api_doc:
                         description: List of role privileges
                         example:
                             [ ATTRIBUTE_CREATE, ATTRIBUTE_READ, ATTRIBUTE_UPDATE, ATTRIBUTE_DELETE]
+            conditionset_create:
+                type: 'object'
+                properties:
+                    code:
+                        type: 'string'
+                        required: true
+                        description: 'Condition code'
+                        example: 'CONDITION_CODE'
+                    name:
+                        $ref: '#/definitions/translation'
+                    description:
+                        $ref: '#/definitions/translation'
+            conditionset_update:
+                type: 'object'
+                properties:
+                    name:
+                        $ref: '#/definitions/translation'
+                    description:
+                        $ref: '#/definitions/translation'
+                    conditions:
+                        type: 'array'
+                        example: []
             authentication:
                 type: object
                 properties:

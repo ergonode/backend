@@ -94,6 +94,94 @@ Feature: Product module
     When I request "/api/v1/EN/products" using HTTP POST
     Then unauthorized response is received
 
+  Scenario: Create product (wrong product_template no UUID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "test",
+        "categoryIds": ["@product_category@"]
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create product (wrong product_template wrong UUID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@@random_uuid@@",
+        "categoryIds": ["@product_category@"]
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create product (no templateId)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "categoryIds": ["@product_category@"]
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create product (empty categoryIds)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@product_template@",
+        "categoryIds": []
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then created response is received
+
+  Scenario: Create product (no categoryIds)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@product_template@"
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then created response is received
+
+  Scenario: Create product (categoryIds not UUID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@product_template@",
+        "categoryIds": ["test"]
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create product (no categoryIds)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@product_template@"
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then created response is received
+
   Scenario: Update product
     Given current authentication token
     Given the request body is:
@@ -114,6 +202,38 @@ Feature: Product module
     When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
+  Scenario: Update product (no content)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+      }
+      """
+    When I request "/api/v1/EN/products/@product@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update product (categoryID not UUID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "categoryIds": ["@@random_md5@@"]
+      }
+      """
+    When I request "/api/v1/EN/products/@product@" using HTTP PUT
+    Then validation error response is received
+
+  Scenario: Update product (categoryID wrong UUID)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "categoryIds": ["@@random_uuid@@"]
+      }
+      """
+    When I request "/api/v1/EN/products/@product@" using HTTP PUT
+    Then validation error response is received
+
   Scenario: Get product
     Given current authentication token
     When I request "/api/v1/EN/products/@product@" using HTTP GET
@@ -128,6 +248,70 @@ Feature: Product module
     When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP GET
     Then not found response is received
 
-  # TODO Check product grid
-  # TODO Check create product action with all incorrect possibilities
-  # TODO Check update product action with all incorrect possibilities
+  Scenario: Delete product (not found)
+    Given current authentication token
+    When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP DELETE
+    Then not found response is received
+
+  Scenario: Delete product (not authorized)
+    When I request "/api/v1/EN/products/@product@" using HTTP DELETE
+    Then unauthorized response is received
+
+  Scenario: Delete product
+    Given current authentication token
+    When I request "/api/v1/EN/products/@product@" using HTTP DELETE
+    Then empty response is received
+
+  Scenario: Get products (order by id)
+    Given current authentication token
+    When I request "/api/v1/EN/products?field=id" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get products (order by index)
+    Given current authentication token
+    When I request "/api/v1/EN/products?field=index" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get products (order by sku)
+    Given current authentication token
+    When I request "/api/v1/EN/products?field=sku" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get products (order by template)
+    Given current authentication token
+    When I request "/api/v1/EN/products?field=template" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get products (order ASC)
+    Given current authentication token
+    When I request "/api/v1/EN/products?field=index&order=ASC" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get products (order DESC)
+    Given current authentication token
+    When I request "/api/v1/EN/products?field=index&order=DESC" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get products (filter by template)
+    Given current authentication token
+    When I request "/api/v1/EN/products?limit=25&offset=0&filter=template%3D1" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get products (filter by index)
+    Given current authentication token
+    When I request "/api/v1/EN/products?limit=25&offset=0&filter=index%3Dasd" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get products (filter by id)
+    Given current authentication token
+    When I request "/api/v1/EN/products?limit=25&offset=0&filter=id%3DCAT" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get products (filter by sku)
+    Given current authentication token
+    When I request "/api/v1/EN/products?limit=25&offset=0&filter=sku%3D1" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get products (not authorized)
+    When I request "/api/v1/EN/products" using HTTP GET
+    Then unauthorized response is received

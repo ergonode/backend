@@ -39,7 +39,7 @@ class UploadMultimediaCommand
      */
     public function __construct(string $name, UploadedFile $file)
     {
-        $this->id = MultimediaId::generate();
+        $this->id = MultimediaId::createFromFile($file);
         $this->name = $name;
         $this->file = $file;
     }

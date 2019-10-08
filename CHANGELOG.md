@@ -1,3 +1,8 @@
+## CHANGELOG FOR 0.5.0
+ - feature [#115](https://github.com/ergonode/backend/issues/115) Product segment functionality (rprzedzik)
+ - feature [#118](https://github.com/ergonode/backend/issues/118) Event store history (BastekBielawski)
+ - feature [#124](https://github.com/ergonode/backend/issues/124) Register events in database (BastekBielawski)
+  
 ## CHANGELOG FOR 0.4.0
 
  - feature [#104](https://github.com/ergonode/backend/issues/104) Multiple category trees (wiewiurdp)

@@ -83,10 +83,15 @@ class RequestGridConfiguration implements GridConfigurationInterface
             foreach ($columns as $column) {
                 $data = explode(':', $column);
                 $key = $data[0];
+                if (empty($key)) {
+                    continue;
+                }
+
                 $language = null;
                 if (isset($data[1])) {
                     $language = new Language($data[1]);
                 }
+
                 $this->columns[$column] = new RequestColumn($key, $language);
             }
         }

@@ -1,12 +1,12 @@
-"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeCreatedEvent": Attribute "%code%" added
-"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeHintChangedEvent": Attribute hint changed
-"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeLabelChangedEvent": Attribute label changed
-"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributePlaceholderChangedEvent": Attribute placeholder changed
-"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeArrayParameterChangeEvent": Attribute parameters changed
-"Ergonode\\Attribute\\Domain\\Event\\Attribute\\AttributeParameterChangeEvent": Attribute parameter changed
-"Ergonode\\Attribute\\Domain\\Event\\AttributeGroupAddedEvent": Attribute added to group
-"Ergonode\\Attribute\\Domain\\Event\\AttributeGroupRemovedEvent": Attribute removed from group
-"Ergonode\\Attribute\\Domain\\Event\\AttributeOptionAddedEvent": Attribute option "%key%" added
-"Ergonode\\Attribute\\Domain\\Event\\AttributeOptionRemovedEvent": Attribute option "%key%" removed
-"Ergonode\\Attribute\\Domain\\Event\\AttributeOptionChangedEvent": Attribute option "%key%" changed
+'Attribute added': 'Attribute "%code%" added'
+'Attribute hint changed': 'Attribute hint changed'
+'Attribute label changed': 'Attribute label changed'
+'Attribute placeholder changed': 'Attribute placeholder changed'
+'Attribute parameters changed': 'Attribute parameters changed'
+'Attribute parameter changed': 'Attribute parameter changed'
+'Attribute added to group': 'Attribute added to group'
+'Attribute removed from group': 'Attribute removed from group'
+'Attribute option added': 'Attribute option "%key%" added'
+'Attribute option removed': 'Attribute option "%key%" removed'
+'Attribute option changed': 'Attribute option "%key%" changed'
 
