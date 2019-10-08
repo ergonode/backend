@@ -19,7 +19,7 @@ use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
-class DateAttributeColumnStrategy implements AttributeColumnStrategyInterface
+class DateAttributeColumnStrategy extends AbstractLanguageColumnStrategy
 {
     /**
      * @param AbstractAttribute $attribute
@@ -36,12 +36,13 @@ class DateAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {
-        $key = $attribute->getCode()->getValue();
+        $columnKey = $attribute->getCode()->getValue();
+        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
 
         return new DateColumn(
-            $key,
+            $columnKey,
             $attribute->getLabel()->get($language),
-            new TextFilter($filter->getString($key))
+            new TextFilter($filter->getString($filterKey))
         );
     }
 }

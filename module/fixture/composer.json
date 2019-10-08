@@ -6,7 +6,7 @@
     "license": "OSL-3.0",
     "require": {
         "php": "^7.2",
-        "ergonode/es": "^0.4.0",
+        "ergonode/es": "^0.5.0",
         "nelmio/alice": "^3.5",
         "symfony/config": "^4.3",
         "symfony/dependency-injection": "^4.3",
