@@ -18,7 +18,6 @@ use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -36,20 +35,13 @@ class TransitionGrid extends AbstractGrid
     private $statusQuery;
 
     /**
-     * @var UrlGeneratorInterface
+     * @param TranslatorInterface  $translator
+     * @param StatusQueryInterface $statusQuery
      */
-    private $router;
-
-    /**
-     * @param TranslatorInterface   $translator
-     * @param StatusQueryInterface  $statusQuery
-     * @param UrlGeneratorInterface $router
-     */
-    public function __construct(TranslatorInterface $translator, StatusQueryInterface $statusQuery, UrlGeneratorInterface $router)
+    public function __construct(TranslatorInterface $translator, StatusQueryInterface $statusQuery)
     {
         $this->translator = $translator;
         $this->statusQuery = $statusQuery;
-        $this->router = $router;
     }
 
     /**
@@ -74,11 +66,9 @@ class TransitionGrid extends AbstractGrid
         $this->addColumn('destination', $code);
 
         $column = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
-        $column->setWidth(200);
         $this->addColumn('name', $column);
 
         $column = new TextColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description')));
-        $column->setWidth(300);
         $this->addColumn('description', $column);
 
        // 'href' =>  $this->router->generate('ergonode_product_application_api_product_getproduct', [ 'product' => $productId->getValue(), 'language' => $language->getCode()]),

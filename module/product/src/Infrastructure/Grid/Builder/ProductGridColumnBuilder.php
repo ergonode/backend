@@ -115,7 +115,6 @@ class ProductGridColumnBuilder
 
         $result['id'] = new CheckColumn('id', 'Id');
         $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->getString('index')));
-        $result['index']->setWidth(140);
         $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->getString('sku')));
         $result[$statusCode] = new LabelColumn($statusCode, 'Status', $statuses, new SelectFilter($statusCodes, $filters->getString($statusCode)));
         $result[$statusCode]->setEditable(true);

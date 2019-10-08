@@ -47,14 +47,11 @@ class CategoryGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $index = new IntegerColumn('sequence', $this->trans('Index'), new TextFilter($filters->getString('sequence')));
-        $index->setWidth(40);
         $this->addColumn('sequence', $index);
         $name = new TextColumn('name', 'Name', new TextFilter($filters->getString('name')));
-        $name->setWidth(280);
         $this->addColumn('name', $name);
         $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter($filters->getString('code'))));
         $this->addColumn('elements_count', new IntegerColumn('elements_count', $this->trans('Number of products'), new TextFilter($filters->getString('elements_count'))));
-        $this->addColumn('edit', new ActionColumn('edit'));
         $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, false);
         $this->orderBy('sequence', 'DESC');
     }

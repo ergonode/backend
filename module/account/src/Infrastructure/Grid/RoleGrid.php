@@ -50,7 +50,6 @@ class RoleGrid extends AbstractGrid
         $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name'))));
         $this->addColumn('description', new TextAreaColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description'))));
         $this->addColumn('users_count', new NumericColumn('users_count', $this->trans('Users'), new TextFilter($filters->getString('users_count'))));
-        $this->addColumn('edit', new ActionColumn('edit'));
     }
 
     /**

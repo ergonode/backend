@@ -31,11 +31,6 @@ interface ColumnInterface
     public function getType(): string;
 
     /**
-     * @return null|int
-     */
-    public function getWidth(): ?int;
-
-    /**
      * @return bool
      */
     public function isVisible(): bool;
@@ -54,14 +49,6 @@ interface ColumnInterface
      * @param Language $language
      */
     public function setLanguage(Language $language): void;
-
-    /**
-     * @param string $id
-     * @param array  $row
-     *
-     * @return mixed
-     */
-    public function render(string $id, array $row);
 
     /**
      * @return FilterInterface|null

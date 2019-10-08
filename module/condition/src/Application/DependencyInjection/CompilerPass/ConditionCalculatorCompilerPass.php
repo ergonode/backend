@@ -27,14 +27,14 @@ class ConditionCalculatorCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ConditionCalculatorProvider::class)) {
-            $this->processTransformers($container);
+            $this->processCalculators($container);
         }
     }
 
     /**
      * @param ContainerBuilder $container
      */
-    private function processTransformers(ContainerBuilder $container): void
+    private function processCalculators(ContainerBuilder $container): void
     {
         $arguments = [];
         $definition = $container->findDefinition(ConditionCalculatorProvider::class);

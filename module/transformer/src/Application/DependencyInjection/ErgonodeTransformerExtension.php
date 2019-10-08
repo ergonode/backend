@@ -19,7 +19,6 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * Class ErgonodeImporterExtension
  */
 class ErgonodeTransformerExtension extends Extension
 {

@@ -71,23 +71,17 @@ class AttributeGrid extends AbstractGrid
 
         $id = new TextColumn('id', $this->trans('Id'), new TextFilter($filters->getString('id')));
         $id->setVisible(false);
-        $id->setWidth(140);
         $this->addColumn('id', $id);
         $index = new IntegerColumn('index', $this->trans('Index'), new TextFilter($filters->getString('index')));
-        $index->setWidth(140);
         $this->addColumn('index', $index);
         $this->addColumn('code', new TextColumn('code', $this->trans('Code'), new TextFilter($filters->getString('code'))));
         $column = new TextColumn('label', $this->trans('Name'), new TextFilter($filters->getString('label')));
-        $column->setWidth(200);
         $this->addColumn('label', $column);
         $column = new TextColumn('type', $this->trans('Type'), new SelectFilter($types, $filters->getString('type')));
-        $column->setWidth(180);
         $this->addColumn('type', $column);
         $column = new BoolColumn('multilingual', $this->trans('Multilingual'));
-        $column->setWidth(180);
         $this->addColumn('multilingual', $column);
         $this->addColumn('groups', new MultiSelectColumn('groups', $this->trans('Groups'), new MultiSelectFilter($groups, $filters->getArray('groups'))));
-        $this->addColumn('edit', new ActionColumn('edit'));
         $this->orderBy('index', 'DESC');
     }
 
