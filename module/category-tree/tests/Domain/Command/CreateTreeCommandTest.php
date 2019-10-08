@@ -11,6 +11,7 @@ namespace Ergonode\Tests\CategoryTree\Domain\Command;
 
 use Ergonode\CategoryTree\Application\Model\TreeNodeFormModel;
 use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
+use Ergonode\CategoryTree\Domain\ValueObject\Node;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
@@ -33,7 +34,9 @@ class CreateTreeCommandTest extends TestCase
         $command = new CreateTreeCommand($name, $code, $categories);
         $this->assertSame($name, $command->getName());
         $this->assertSame($code, $command->getCode());
-        $this->containsOnlyInstancesOf(TreeNodeFormModel::class, $command->getCategories());
+        foreach ($command->getCategories() as $category) {
+            $this->assertInstanceOf(Node::class, $category);
+        }
     }
 
     /**
