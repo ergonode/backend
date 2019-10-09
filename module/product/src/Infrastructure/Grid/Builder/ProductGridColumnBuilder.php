@@ -14,10 +14,10 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\CheckColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\LabelColumn;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
@@ -25,6 +25,7 @@ use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 
 /**
@@ -115,12 +116,26 @@ class ProductGridColumnBuilder
 
         $result['id'] = new CheckColumn('id', 'Id');
         $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->getString('index')));
-        $result['index']->setWidth(140);
         $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->getString('sku')));
         $result[$statusCode] = new LabelColumn($statusCode, 'Status', $statuses, new SelectFilter($statusCodes, $filters->getString($statusCode)));
         $result[$statusCode]->setEditable(true);
         $result['template'] = new TextColumn('template', 'Template', new TextFilter($filters->getString('template')));
-        $result['edit'] = new ActionColumn('edit', 'Edit');
+        $result['_links'] = new LinkColumn('hal', [
+            'get' => [
+                'route' => 'ergonode_product_read',
+                'parameters' => ['language' => $defaultLanguage->getCode(), 'product' => '{id}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_product_change',
+                'parameters' => ['language' => $defaultLanguage->getCode(), 'product' => '{id}'],
+                'method' => Request::METHOD_PUT,
+            ],
+            'delete' => [
+                'route' => 'ergonode_product_delete',
+                'parameters' => ['language' => $defaultLanguage->getCode(), 'product' => '{id}'],
+                'method' => Request::METHOD_DELETE,
+            ],
+        ]);
 
         return $result;
     }

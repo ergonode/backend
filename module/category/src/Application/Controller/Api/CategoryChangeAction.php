@@ -28,7 +28,12 @@ use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/categories/{category}", methods={"PUT"})
+ * @Route(
+ *     name="ergonode_category_change",
+ *     path="/categories/{category}",
+ *     methods={"PUT"},
+ *     requirements={"category"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ * )
  */
 class CategoryChangeAction
 {

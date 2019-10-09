@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Application\Controller\Api\ConditionSet;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Query\ConditionSetQueryInterface;
 use Ergonode\Condition\Infrastructure\Grid\ConditionSetGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -36,15 +37,23 @@ class ConditionSetGridReadAction
     private $conditionSetQuery;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer               $gridRenderer
      * @param ConditionSetGrid           $conditionSetGrid
      * @param ConditionSetQueryInterface $conditionSetQuery
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         ConditionSetGrid $conditionSetGrid,
         ConditionSetQueryInterface $conditionSetQuery
     ) {
         $this->conditionSetGrid = $conditionSetGrid;
         $this->conditionSetQuery = $conditionSetQuery;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -120,11 +129,13 @@ class ConditionSetGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse(
+        $data = $this->gridRenderer->render(
             $this->conditionSetGrid,
             $configuration,
             $this->conditionSetQuery->getDataSet($language),
             $language
         );
+
+        return new SuccessResponse($data);
     }
 }

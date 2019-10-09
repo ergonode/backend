@@ -33,11 +33,6 @@ abstract class AbstractColumn implements ColumnInterface
     private $filter;
 
     /**
-     * @var int
-     */
-    private $width;
-
-    /**
      * @var bool
      */
     private $visible = true;
@@ -92,22 +87,6 @@ abstract class AbstractColumn implements ColumnInterface
     public function getFilter(): ?FilterInterface
     {
         return $this->filter;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getWidth(): ?int
-    {
-        return $this->width;
-    }
-
-    /**
-     * @param int $width
-     */
-    public function setWidth(int $width): void
-    {
-        $this->width = $width;
     }
 
     /**

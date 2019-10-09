@@ -28,8 +28,8 @@ use Ergonode\Editor\Domain\Entity\ProductDraftId;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\Editor\Infrastructure\Grid\ProductDraftGrid;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -88,6 +88,12 @@ class ProductDraftController extends AbstractController
     private $templateRepository;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer                     $gridRenderer
      * @param ProductDraftGrid                 $productDraftGrid
      * @param DraftQueryInterface              $draftQuery
      * @param MessageBusInterface              $messageBus
@@ -98,6 +104,7 @@ class ProductDraftController extends AbstractController
      * @param ValidatorInterface               $validator
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         ProductDraftGrid $productDraftGrid,
         DraftQueryInterface $draftQuery,
         MessageBusInterface $messageBus,
@@ -115,6 +122,7 @@ class ProductDraftController extends AbstractController
         $this->builder = $builder;
         $this->templateRepository = $templateRepository;
         $this->validator = $validator;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -192,7 +200,14 @@ class ProductDraftController extends AbstractController
      */
     public function getDrafts(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->productDraftGrid, $configuration, $this->draftQuery->getDataSet(), $language);
+        $data = $this->gridRenderer->render(
+            $this->productDraftGrid,
+            $configuration,
+            $this->draftQuery->getDataSet(),
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 
     /**

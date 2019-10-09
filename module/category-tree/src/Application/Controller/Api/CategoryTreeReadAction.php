@@ -19,7 +19,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/trees/{tree}", methods={"GET"})
+ * @Route(
+ *     name="ergonode_category_tree_read",
+ *     path="/trees/{tree}",
+ *     methods={"GET"},
+ *     requirements={"tree"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ * )
  */
 class CategoryTreeReadAction
 {

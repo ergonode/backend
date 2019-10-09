@@ -13,12 +13,13 @@ use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Provider\LanguageProvider;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\BoolColumn;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -71,7 +72,18 @@ class AccountGrid extends AbstractGrid
         $this->addColumn('language', new TextColumn('language', $this->trans('Language'), new SelectFilter($languages, $filters->getString('language'))));
         $this->addColumn('role_id', new TextColumn('role_id', $this->trans('Roles'), new SelectFilter($roles, $filters->getString('role_id'))));
         $this->addColumn('is_active', new BoolColumn('is_active', $this->trans('Activity'), new SelectFilter($activities, $filters->getString('is_active'))));
-        $this->addColumn('edit', new ActionColumn('edit'));
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'get' => [
+                'route' => 'ergonode_account_user_read',
+                'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_account_user_change',
+                'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
+                'method' => Request::METHOD_PUT,
+            ],
+        ]));
+
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 

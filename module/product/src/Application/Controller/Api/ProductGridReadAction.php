@@ -9,9 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Controller\Api;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 use Ergonode\Product\Persistence\Dbal\DataSet\DbalProductDataSet;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -36,15 +37,23 @@ class ProductGridReadAction
     private $productGrid;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer       $gridRenderer
      * @param DbalProductDataSet $dataSet
      * @param ProductGrid        $productGrid
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         DbalProductDataSet $dataSet,
         ProductGrid $productGrid
     ) {
         $this->dataSet = $dataSet;
         $this->productGrid = $productGrid;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -127,6 +136,13 @@ class ProductGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->productGrid, $configuration, $this->dataSet, $language);
+        $data = $this->gridRenderer->render(
+            $this->productGrid,
+            $configuration,
+            $this->dataSet,
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 }

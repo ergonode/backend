@@ -15,7 +15,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- *
  */
 class ConditionConfiguratorCompilerPass implements CompilerPassInterface
 {
@@ -27,14 +26,14 @@ class ConditionConfiguratorCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         if ($container->has(ConditionConfigurationProvider::class)) {
-            $this->processTransformers($container);
+            $this->processConfigurators($container);
         }
     }
 
     /**
      * @param ContainerBuilder $container
      */
-    private function processTransformers(ContainerBuilder $container): void
+    private function processConfigurators(ContainerBuilder $container): void
     {
         $arguments = [];
         $definition = $container->findDefinition(ConditionConfigurationProvider::class);

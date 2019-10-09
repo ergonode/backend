@@ -28,17 +28,4 @@ class TextColumnTest extends TestCase
         $this->assertSame($filter, $column->getFilter());
         $this->assertSame(TextColumn::TYPE, $column->getType());
     }
-
-    /**
-     */
-    public function testRender(): void
-    {
-        $field = 'Any id';
-        $label = 'Any label';
-        $record = [$field => 'Any result'];
-
-        $column = new TextColumn($field, $label);
-        $result = $column->render($field, $record);
-        $this->assertSame($record[$field], $result);
-    }
 }

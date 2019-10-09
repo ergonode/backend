@@ -33,7 +33,7 @@ class LinkColumn extends AbstractColumn
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getType(): string
     {
@@ -41,26 +41,10 @@ class LinkColumn extends AbstractColumn
     }
 
     /**
-     * @param string $id
-     * @param array  $row
-     *
      * @return array
      */
-    public function render(string $id, array $row): array
+    public function getLinks(): array
     {
-        $links = [];
-
-        $mapFunction = static function ($value) {
-            return sprintf('{%s}', $value);
-        };
-
-        $keys = array_map($mapFunction, array_keys($row));
-        $values = array_values($row);
-
-        foreach ($this->links as $name => $link) {
-            $links[$name] = str_replace($keys, $values, $link);
-        }
-
-        return $links;
+        return $this->links;
     }
 }

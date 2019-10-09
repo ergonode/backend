@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Application\Controller\Api;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
 use Ergonode\CategoryTree\Infrastructure\Grid\TreeGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -36,15 +37,23 @@ class CategoryTreeGridReadAction
     private $grid;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer       $gridRenderer
      * @param TreeQueryInterface $query
      * @param TreeGrid           $grid
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         TreeQueryInterface $query,
         TreeGrid $grid
     ) {
         $this->query = $query;
         $this->grid = $grid;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -113,6 +122,13 @@ class CategoryTreeGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($language), $language);
+        $data = $this->gridRenderer->render(
+            $this->grid,
+            $configuration,
+            $this->query->getDataSet($language),
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 }

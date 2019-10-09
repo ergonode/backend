@@ -11,9 +11,10 @@ namespace Ergonode\Account\Application\Controller\Api\Role;
 
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\RoleGrid;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -36,15 +37,23 @@ class RoleGridReadAction
     private $grid;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer       $gridRenderer
      * @param RoleQueryInterface $query
      * @param RoleGrid           $grid
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         RoleQueryInterface $query,
         RoleGrid $grid
     ) {
         $this->query = $query;
         $this->grid = $grid;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -124,6 +133,13 @@ class RoleGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
+        $data = $this->gridRenderer->render(
+            $this->grid,
+            $configuration,
+            $this->query->getDataSet(),
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 }

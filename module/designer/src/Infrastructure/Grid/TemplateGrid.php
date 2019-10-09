@@ -12,10 +12,12 @@ namespace Ergonode\Designer\Infrastructure\Grid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -55,6 +57,22 @@ class TemplateGrid extends AbstractGrid
         $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name'))));
         $this->addColumn('image_id', new TextColumn('image_id', $this->trans('Icon'), new TextFilter($filters->getString('image_id'))));
         $this->addColumn('group_id', new TextColumn('group_id', $this->trans('Group'), new SelectFilter($collection, $filters->getString('group_id'))));
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'get' => [
+                'route' => 'ergonode_condition_conditionset_read',
+                'parameters' => ['language' => $language->getCode(), 'conditionSet' => '{id}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_condition_conditionset_change',
+                'parameters' => ['language' => $language->getCode(), 'conditionSet' => '{id}'],
+                'method' => Request::METHOD_PUT,
+            ],
+            'delete' => [
+                'route' => 'ergonode_condition_conditionset_delete',
+                'parameters' => ['language' => $language->getCode(), 'conditionSet' => '{id}'],
+                'method' => Request::METHOD_DELETE,
+            ],
+        ]));
     }
 
     /**

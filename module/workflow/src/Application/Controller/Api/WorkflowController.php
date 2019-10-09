@@ -181,7 +181,7 @@ class WorkflowController extends AbstractController
     }
 
     /**
-     * @Route("/workflow/default", methods={"PUT"})
+     * @Route(path="/workflow/default", methods={"PUT"})
      *
      * @IsGranted("WORKFLOW_UPDATE")
      *

@@ -9,9 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Application\Controller\Api;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\Segment\Infrastructure\Grid\SegmentGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -36,15 +37,23 @@ class SegmentGridReadAction
     private $query;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer          $gridRenderer
      * @param SegmentGrid           $grid
      * @param SegmentQueryInterface $query
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         SegmentGrid $grid,
         SegmentQueryInterface $query
     ) {
         $this->grid = $grid;
         $this->query = $query;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -119,6 +128,13 @@ class SegmentGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->grid, $configuration, $this->query->getDataSet($language), $language);
+        $data = $this->gridRenderer->render(
+            $this->grid,
+            $configuration,
+            $this->query->getDataSet($language),
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 }

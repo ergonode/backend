@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Controller\Api\Template;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Infrastructure\Grid\TemplateGrid;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -36,15 +37,23 @@ class TemplateGridReadAction
     private $templateGrid;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer           $gridRenderer
      * @param TemplateQueryInterface $designerTemplateQuery
      * @param TemplateGrid           $templateGrid
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         TemplateQueryInterface $designerTemplateQuery,
         TemplateGrid $templateGrid
     ) {
         $this->designerTemplateQuery = $designerTemplateQuery;
         $this->templateGrid = $templateGrid;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -122,6 +131,13 @@ class TemplateGridReadAction
     {
         $dataSet = $this->designerTemplateQuery->getDataSet();
 
-        return new GridResponse($this->templateGrid, $configuration, $dataSet, $language);
+        $data = $this->gridRenderer->render(
+            $this->templateGrid,
+            $configuration,
+            $dataSet,
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 }
