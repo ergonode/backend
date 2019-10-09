@@ -47,10 +47,9 @@ class NumericAttributeValueConditionCalculatorStrategy implements ConditionCalcu
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
         $attributeId = $configuration->getAttribute();
-
         $attribute = $this->repository->load($attributeId);
-
         Assert::notNull($attribute);
+
         $option = $configuration->getOption();
         $expected = $configuration->getValue();
 

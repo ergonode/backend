@@ -51,11 +51,10 @@ class OptionAttributeValueConditionCalculatorStrategy implements ConditionCalcul
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
         $attributeId = $configuration->getAttribute();
-
         /** @var AbstractOptionAttribute $attribute */
         $attribute = $this->repository->load($attributeId);
-
         Assert::notNull($attribute);
+
         $expected = $configuration->getValue();
 
         if ($object->hasAttribute($attribute->getCode())) {

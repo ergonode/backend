@@ -50,9 +50,7 @@ class AttributeExistsConditionCalculatorStrategy implements ConditionCalculatorS
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
         $attributeId = $configuration->getAttribute();
-
         $attribute = $this->repository->load($attributeId);
-
         Assert::notNull($attribute);
 
         return $object->hasAttribute($attribute->getCode());

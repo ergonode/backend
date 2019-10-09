@@ -20,7 +20,7 @@ interface ConfigurationStrategyInterface
      *
      * @return bool
      */
-    public function isSupportedBy(string $type): bool;
+    public function supports(string $type): bool;
 
     /**
      * @param Language $language
