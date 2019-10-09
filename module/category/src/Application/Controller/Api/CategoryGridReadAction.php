@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Application\Controller\Api;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -36,15 +37,23 @@ class CategoryGridReadAction
     private $categoryQuery;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer           $gridRenderer
      * @param CategoryGrid           $categoryGrid
      * @param CategoryQueryInterface $categoryQuery
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         CategoryGrid $categoryGrid,
         CategoryQueryInterface $categoryQuery
     ) {
         $this->categoryGrid = $categoryGrid;
         $this->categoryQuery = $categoryQuery;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -115,6 +124,13 @@ class CategoryGridReadAction
     {
         $dataSet = $this->categoryQuery->getDataSet($language);
 
-        return new GridResponse($this->categoryGrid, $configuration, $dataSet, $language);
+        $data = $this->gridRenderer->render(
+            $this->categoryGrid,
+            $configuration,
+            $dataSet,
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 }

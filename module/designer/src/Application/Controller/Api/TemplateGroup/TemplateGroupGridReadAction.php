@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Controller\Api\TemplateGroup;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Infrastructure\Grid\TemplateGroupGrid;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -36,13 +37,23 @@ class TemplateGroupGridReadAction
     private $grid;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer                $gridRenderer
      * @param TemplateGroupQueryInterface $query
      * @param TemplateGroupGrid           $grid
      */
-    public function __construct(TemplateGroupQueryInterface $query, TemplateGroupGrid $grid)
-    {
+    public function __construct(
+        GridRenderer $gridRenderer,
+        TemplateGroupQueryInterface $query,
+        TemplateGroupGrid $grid
+    ) {
         $this->query = $query;
         $this->grid = $grid;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -120,6 +131,13 @@ class TemplateGroupGridReadAction
     {
         $dataSet = $this->query->getDataSet();
 
-        return new GridResponse($this->grid, $configuration, $dataSet, $language);
+        $data = $this->gridRenderer->render(
+            $this->grid,
+            $configuration,
+            $dataSet,
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 }

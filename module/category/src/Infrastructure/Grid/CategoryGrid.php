@@ -11,11 +11,12 @@ namespace Ergonode\Category\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\IntegerColumn;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -47,16 +48,29 @@ class CategoryGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $index = new IntegerColumn('sequence', $this->trans('Index'), new TextFilter($filters->getString('sequence')));
-        $index->setWidth(40);
         $this->addColumn('sequence', $index);
         $name = new TextColumn('name', 'Name', new TextFilter($filters->getString('name')));
-        $name->setWidth(280);
         $this->addColumn('name', $name);
         $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter($filters->getString('code'))));
         $this->addColumn('elements_count', new IntegerColumn('elements_count', $this->trans('Number of products'), new TextFilter($filters->getString('elements_count'))));
-        $this->addColumn('edit', new ActionColumn('edit'));
-        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, false);
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'get' => [
+                'route' => 'ergonode_category_read',
+                'parameters' => ['language' => $language->getCode(), 'category' => '{id}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_category_change',
+                'parameters' => ['language' => $language->getCode(), 'category' => '{id}'],
+                'method' => Request::METHOD_PUT,
+            ],
+            'delete' => [
+                'route' => 'ergonode_category_delete',
+                'parameters' => ['language' => $language->getCode(), 'category' => '{id}'],
+                'method' => Request::METHOD_DELETE,
+            ],
+        ]));
         $this->orderBy('sequence', 'DESC');
+        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, false);
     }
 
     /**

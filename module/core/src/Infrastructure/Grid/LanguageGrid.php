@@ -11,7 +11,6 @@ namespace Ergonode\Core\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
@@ -52,7 +51,6 @@ class LanguageGrid extends AbstractGrid
         $this->addColumn('name', $name);
         $active = new BoolColumn('active', $this->trans('active'), new TextFilter($filters->getString('active')));
         $this->addColumn('active', $active);
-        $this->addColumn('edit', new ActionColumn('edit'));
     }
 
     /**

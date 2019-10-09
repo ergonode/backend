@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\SelectFilter;
@@ -61,21 +60,17 @@ class StatusGrid extends AbstractGrid
 
         $id = new TextColumn('id', $this->trans('Id'), new TextFilter($filters->getString('id')));
         $id->setVisible(false);
-        $id->setWidth(140);
         $this->addColumn('id', $id);
 
         $code = new LabelColumn('code', $this->trans('Code'), $statuses, new SelectFilter($codes, $filters->getString('code')));
         $this->addColumn('code', $code);
 
         $column = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
-        $column->setWidth(200);
         $this->addColumn('name', $column);
 
         $column = new TextColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description')));
-        $column->setWidth(300);
         $this->addColumn('description', $column);
 
-        $this->addColumn('edit', new ActionColumn('edit'));
         $this->orderBy('code', 'DESC');
 
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);

@@ -11,9 +11,10 @@ namespace Ergonode\Account\Application\Controller\Api\Account;
 
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\AccountGrid;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -36,15 +37,23 @@ class UsersReadAction
     private $query;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer          $gridRenderer
      * @param AccountGrid           $grid
      * @param AccountQueryInterface $query
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         AccountGrid $grid,
         AccountQueryInterface $query
     ) {
         $this->grid = $grid;
         $this->query = $query;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -120,6 +129,13 @@ class UsersReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
+        $data = $this->gridRenderer->render(
+            $this->grid,
+            $configuration,
+            $this->query->getDataSet(),
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 }

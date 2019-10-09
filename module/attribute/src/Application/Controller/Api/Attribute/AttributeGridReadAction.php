@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface;
 use Ergonode\Attribute\Infrastructure\Grid\AttributeGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -36,15 +37,23 @@ class AttributeGridReadAction
     private $attributeGridQuery;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer                $gridRenderer
      * @param AttributeGrid               $attributeGrid
      * @param AttributeGridQueryInterface $attributeGridQuery
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         AttributeGrid $attributeGrid,
         AttributeGridQueryInterface $attributeGridQuery
     ) {
         $this->attributeGrid = $attributeGrid;
         $this->attributeGridQuery = $attributeGridQuery;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -122,6 +131,13 @@ class AttributeGridReadAction
     {
         $dataSet = $this->attributeGridQuery->getDataSet($language);
 
-        return new GridResponse($this->attributeGrid, $configuration, $dataSet, $language);
+        $data = $this->gridRenderer->render(
+            $this->attributeGrid,
+            $configuration,
+            $dataSet,
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 }

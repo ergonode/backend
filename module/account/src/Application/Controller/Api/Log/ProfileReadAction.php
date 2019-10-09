@@ -11,9 +11,10 @@ namespace Ergonode\Account\Application\Controller\Api\Log;
 
 use Ergonode\Account\Domain\Query\LogQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\LogGrid;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -41,11 +42,18 @@ class ProfileReadAction
     private $userProvider;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer                       $gridRenderer
      * @param LogQueryInterface                  $query
      * @param LogGrid                            $grid
      * @param AuthenticatedUserProviderInterface $userProvider
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         LogQueryInterface $query,
         LogGrid $grid,
         AuthenticatedUserProviderInterface $userProvider
@@ -53,6 +61,7 @@ class ProfileReadAction
         $this->query = $query;
         $this->grid = $grid;
         $this->userProvider = $userProvider;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -129,11 +138,13 @@ class ProfileReadAction
     {
         $user = $this->userProvider->provide();
 
-        return new GridResponse(
+        $data = $this->gridRenderer->render(
             $this->grid,
             $configuration,
             $this->query->getDataSet($user->getId()),
             $user->getLanguage()
         );
+
+        return new SuccessResponse($data);
     }
 }
