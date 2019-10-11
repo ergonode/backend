@@ -13,7 +13,7 @@ use Ergonode\Account\Application\Security\Voter\UserRoleVoter;
 use Ergonode\Account\Domain\Entity\Role;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -30,7 +30,7 @@ class UserRoleVoterTest extends TestCase
      */
     public function testSupports(string $privilege, bool $expectedResult): void
     {
-        $repository = $this->createMock(UserRepositoryInterface::class);
+        $repository = $this->createMock(RoleRepositoryInterface::class);
 
         $voter = new UserRoleVoter($repository);
 
@@ -58,7 +58,7 @@ class UserRoleVoterTest extends TestCase
      */
     public function testNoUser(): void
     {
-        $repository = $this->createMock(UserRepositoryInterface::class);
+        $repository = $this->createMock(RoleRepositoryInterface::class);
         $token = $this->createMock(TokenInterface::class);
         $token
             ->expects($this->once())
@@ -77,7 +77,7 @@ class UserRoleVoterTest extends TestCase
      */
     public function testNotExistingRole(): void
     {
-        $repository = $this->createMock(UserRepositoryInterface::class);
+        $repository = $this->createMock(RoleRepositoryInterface::class);
         $repository
             ->expects($this->once())
             ->method('load')
@@ -123,7 +123,7 @@ class UserRoleVoterTest extends TestCase
                 new Privilege('CORRECT_PRIVILEGE_2'),
             ]);
 
-        $repository = $this->createMock(UserRepositoryInterface::class);
+        $repository = $this->createMock(RoleRepositoryInterface::class);
         $repository
             ->expects($this->once())
             ->method('load')

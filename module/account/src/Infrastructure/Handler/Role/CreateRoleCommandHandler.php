@@ -11,14 +11,14 @@ namespace Ergonode\Account\Infrastructure\Handler\Role;
 
 use Ergonode\Account\Domain\Command\Role\CreateRoleCommand;
 use Ergonode\Account\Domain\Factory\RoleFactory;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 
 /**
  */
 class CreateRoleCommandHandler
 {
     /**
-     * @var UserRepositoryInterface
+     * @var RoleRepositoryInterface
      */
     private $repository;
 
@@ -28,10 +28,10 @@ class CreateRoleCommandHandler
     private $factory;
 
     /**
-     * @param UserRepositoryInterface $repository
+     * @param RoleRepositoryInterface $repository
      * @param RoleFactory             $factory
      */
-    public function __construct(UserRepositoryInterface $repository, RoleFactory $factory)
+    public function __construct(RoleRepositoryInterface $repository, RoleFactory $factory)
     {
         $this->repository = $repository;
         $this->factory = $factory;
