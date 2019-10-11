@@ -11,7 +11,7 @@ namespace Ergonode\Account\Infrastructure\Handler\Role;
 
 use Ergonode\Account\Domain\Command\Role\UpdateRoleCommand;
 use Ergonode\Account\Domain\Entity\Role;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -19,14 +19,14 @@ use Webmozart\Assert\Assert;
 class UpdateRoleCommandHandler
 {
     /**
-     * @var UserRepositoryInterface
+     * @var RoleRepositoryInterface
      */
     private $repository;
 
     /**
-     * @param UserRepositoryInterface $repository
+     * @param RoleRepositoryInterface $repository
      */
-    public function __construct(UserRepositoryInterface $repository)
+    public function __construct(RoleRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
