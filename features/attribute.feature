@@ -29,11 +29,6 @@ Feature: Attribute module
     When I request "/api/v1/EN/attributes?field=label" using HTTP GET
     Then grid response is received
 
-  Scenario: Get attributes (order by elements_count)
-    Given current authentication token
-    When I request "/api/v1/EN/attributes?field=elements_count" using HTTP GET
-    Then grid response is received
-
   Scenario: Get attributes (order ASC)
     Given current authentication token
     When I request "/api/v1/EN/attributes?field=label&order=ASC" using HTTP GET
@@ -52,11 +47,6 @@ Feature: Attribute module
   Scenario: Get attributes (filter by id)
     Given current authentication token
     When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=id%3DEN" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get attributes (filter by elements_count)
-    Given current authentication token
-    When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=elements_count%3D1" using HTTP GET
     Then grid response is received
 
   Scenario: Delete attribute (not found)
