@@ -38,8 +38,8 @@ services:
             - ['set', ['NUMERIC_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\NumericAttributeValueConditionValidatorBuilder']]
             - ['set', ['LANGUAGE_COMPLETENESS_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\LanguageCompletenessConditionValidatorBuilder']]
             - ['set', ['PRODUCT_COMPLETENESS_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\ProductCompletenessConditionValidatorBuilder']]
-            - ['set', ['ROLE_EXACTLY_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\ProductCompletenessConditionValidatorBuilder']]
-            - ['set', ['USER_EXACTLY_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\ProductCompletenessConditionValidatorBuilder']]
+            - ['set', ['ROLE_EXACTLY_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\RoleExactlyConditionValidatorBuilder']]
+            - ['set', ['USER_EXACTLY_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\UserExactlyConditionValidatorBuilder']]
 
     Ergonode\Condition\Infrastructure\JMS\Serializer\Handler\ConditionInterfaceHandler:
         calls:

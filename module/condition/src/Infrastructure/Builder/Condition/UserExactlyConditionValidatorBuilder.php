@@ -9,15 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Infrastructure\Builder\Condition;
 
+use Ergonode\Account\Infrastructure\Validator\UserExists;
 use Ergonode\Condition\Infrastructure\Builder\ConditionValidatorBuilderInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  */
-class ProductCompletenessConditionValidatorBuilder implements ConditionValidatorBuilderInterface
+class UserExactlyConditionValidatorBuilder implements ConditionValidatorBuilderInterface
 {
     /**
      * @param array $data
@@ -27,12 +27,9 @@ class ProductCompletenessConditionValidatorBuilder implements ConditionValidator
     public function build(array $data): Constraint
     {
         return new Collection([
-            'completeness' => [
+            'user' => [
                 new NotBlank(),
-            ],
-            'language' => [
-                new NotBlank(),
-                new Length(2),
+                new UserExists(),
             ],
         ]);
     }

@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Account\Domain\Entity\RoleId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */

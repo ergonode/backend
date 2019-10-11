@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Core\Domain\ValueObject\Language;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -27,6 +28,8 @@ class ProductCompletenessCondition implements ConditionInterface
 
     /**
      * @var Language
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private $language;
 

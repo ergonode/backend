@@ -1,8 +1,16 @@
-ATTRIBUTE_EXISTS_CONDITION: Attribute exists
-ATTRIBUTE_EXISTS_CONDITION_PHRASE: Attribute [attribute] exists
-NUMERIC_ATTRIBUTE_VALUE_CONDITION: Numeric attribute has value
-NUMERIC_ATTRIBUTE_VALUE_CONDITION_PHRASE: Attribute [attribute] has value [operator] [value]
-OPTION_ATTRIBUTE_VALUE_CONDITION: Option attribute has value
-OPTION_ATTRIBUTE_VALUE_CONDITION_PHRASE: Attribute [attribute] has option [value]
-TEXT_ATTRIBUTE_VALUE_CONDITION: Text attribute has value
-TEXT_ATTRIBUTE_VALUE_CONDITION_PHRASE: Attribute [attribute] has value [operator] [value]
+ATTRIBUTE_EXISTS_CONDITION: 'Attribute exists'
+ATTRIBUTE_EXISTS_CONDITION_PHRASE: 'Attribute [attribute] exists'
+NUMERIC_ATTRIBUTE_VALUE_CONDITION: 'Numeric attribute has value'
+NUMERIC_ATTRIBUTE_VALUE_CONDITION_PHRASE: 'Attribute [attribute] has value [operator] [value]'
+OPTION_ATTRIBUTE_VALUE_CONDITION: 'Option attribute has value'
+OPTION_ATTRIBUTE_VALUE_CONDITION_PHRASE: 'Attribute [attribute] has option [value]'
+TEXT_ATTRIBUTE_VALUE_CONDITION: 'Text attribute has value'
+TEXT_ATTRIBUTE_VALUE_CONDITION_PHRASE: 'Attribute [attribute] has value [operator] [value]'
+ROLE_EXACTLY_CONDITION: 'User role is exactly'
+ROLE_EXACTLY_CONDITION_PHRASE: 'User role is exactly [role]'
+USER_EXACTLY_CONDITION: 'User is exactly'
+USER_EXACTLY_CONDITION_PHRASE: 'User is exactly [user]'
+PRODUCT_COMPLETENESS_CONDITION: 'Product completeness'
+PRODUCT_COMPLETENESS_CONDITION_PHRASE: 'Product is complete : [completeness]'
+LANGUAGE_COMPLETENESS_CONDITION: 'Product translation completeness'
+LANGUAGE_COMPLETENESS_CONDITION_PHRASE: 'Product translation is complete : [completeness]'

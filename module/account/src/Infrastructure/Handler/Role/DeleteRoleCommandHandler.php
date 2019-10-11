@@ -11,7 +11,7 @@ namespace Ergonode\Account\Infrastructure\Handler\Role;
 
 use Ergonode\Account\Domain\Command\Role\DeleteRoleCommand;
 use Ergonode\Account\Domain\Entity\Role;
-use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
+use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
@@ -21,7 +21,7 @@ use Webmozart\Assert\Assert;
 class DeleteRoleCommandHandler
 {
     /**
-     * @var RoleRepositoryInterface
+     * @var UserRepositoryInterface
      */
     private $repository;
 
@@ -31,11 +31,11 @@ class DeleteRoleCommandHandler
     private $relationshipsResolver;
 
     /**
-     * @param RoleRepositoryInterface        $repository
+     * @param UserRepositoryInterface        $repository
      * @param RelationshipsResolverInterface $relationshipsResolver
      */
     public function __construct(
-        RoleRepositoryInterface $repository,
+        UserRepositoryInterface $repository,
         RelationshipsResolverInterface $relationshipsResolver
     ) {
         $this->repository = $repository;
