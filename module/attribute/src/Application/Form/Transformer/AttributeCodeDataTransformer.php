@@ -47,7 +47,7 @@ class AttributeCodeDataTransformer implements DataTransformerInterface
             try {
                 return new AttributeCode($value);
             } catch (\InvalidArgumentException $e) {
-                throw new TransformationFailedException(sprintf('invalid attribute code %s value', $value));
+                throw new TransformationFailedException(sprintf('Invalid attribute code %s value', $value));
             }
         }
 
