@@ -59,6 +59,15 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/default/status/@workflow_first_status_code@/default" using HTTP PUT
     Then empty response is received
 
+  Scenario: Set default status (not authorized)
+    When I request "/api/v1/EN/workflow/default/status/@workflow_first_status_code@/default" using HTTP PUT
+    Then unauthorized response is received
+
+  Scenario: Set default status (not found)
+    Given current authentication token
+    When I request "/api/v1/EN/workflow/not_exists_status" using HTTP DELETE
+    Then not found response is received
+
   Scenario: Delete default status
     Given current authentication token
     When I request "/api/v1/EN/status/@workflow_first_status_code@" using HTTP DELETE

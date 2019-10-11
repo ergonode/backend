@@ -42,7 +42,6 @@ class WorkflowDefaultStatusSetCommandHandler
 
         $status = $command->getStatusCode();
 
-
         if (!$workflow->hasStatus($status)) {
             $workflow->addStatus($status);
         }
