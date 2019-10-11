@@ -11,6 +11,7 @@ namespace Ergonode\Workflow\Domain\Event\Workflow;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */

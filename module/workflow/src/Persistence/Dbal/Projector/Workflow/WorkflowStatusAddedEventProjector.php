@@ -5,7 +5,7 @@
  * See license.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Persistence\Dbal\Projector\Workflow;
 
@@ -16,7 +16,6 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
-use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
 
 /**
@@ -31,7 +30,7 @@ class WorkflowStatusAddedEventProjector implements DomainEventProjectorInterface
     private $connection;
 
     /**
-     * @param Connection          $connection
+     * @param Connection $connection
      */
     public function __construct(Connection $connection)
     {
@@ -63,7 +62,7 @@ class WorkflowStatusAddedEventProjector implements DomainEventProjectorInterface
         $this->connection->update(
             self::TABLE,
             [
-                'default_status' => StatusId::fromCode($event->getCode())->getValue()
+                'default_status' => StatusId::fromCode($event->getCode())->getValue(),
             ],
             [
                 'id' => $aggregateId->getValue(),

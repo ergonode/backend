@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
@@ -47,19 +47,19 @@ class WorkflowDefaultStatusSetAction
      *
      * @SWG\Tag(name="Workflow")
      * @SWG\Parameter(
-     *     name="body",
-     *     in="body",
-     *     description="Add attribute",
-     *     required=true,
-     *     @SWG\Schema(ref="#/definitions/workflow")
-     * )
-     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
      *     required=true,
      *     default="EN",
      *     description="Language Code",
+     * )
+     * @SWG\Parameter(
+     *     name="status",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     description="Status code",
      * )
      * @SWG\Response(
      *     response=204,

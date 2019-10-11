@@ -32,7 +32,7 @@ class SetDefaultStatusCommand
 
     /**
      * @param WorkflowId $workflowId
-     * @param StatusCode   $statusCode
+     * @param StatusCode $statusCode
      */
     public function __construct(WorkflowId $workflowId, StatusCode $statusCode)
     {

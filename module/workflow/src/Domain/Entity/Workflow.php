@@ -113,7 +113,7 @@ class Workflow extends AbstractAggregateRoot
             throw  new \RuntimeException(sprintf('Status %s not exists exists', $code->getValue()));
         }
 
-        if($this->defaultStatus && !$code->isEqual($this->defaultStatus)) {
+        if ($this->defaultStatus && !$code->isEqual($this->defaultStatus)) {
             $this->apply(new WorkflowDefaultStatusSetEvent($code));
         }
     }
