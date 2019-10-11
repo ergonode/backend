@@ -15,7 +15,9 @@ use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
+use Ergonode\Workflow\Domain\Entity\Workflow;
+use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 
 /**
  */
@@ -27,18 +29,18 @@ class StatusProductFactoryDecorator implements ProductFactoryInterface
     private $factory;
 
     /**
-     * @var StatusQueryInterface
+     * @var WorkflowRepositoryInterface
      */
-    private $query;
+    private $repository;
 
     /**
-     * @param ProductFactoryInterface $factory
-     * @param StatusQueryInterface    $query
+     * @param ProductFactoryInterface     $factory
+     * @param WorkflowRepositoryInterface $repository
      */
-    public function __construct(ProductFactoryInterface $factory, StatusQueryInterface $query)
+    public function __construct(ProductFactoryInterface $factory, WorkflowRepositoryInterface $repository)
     {
         $this->factory = $factory;
-        $this->query = $query;
+        $this->repository = $repository;
     }
 
     /**
@@ -59,13 +61,14 @@ class StatusProductFactoryDecorator implements ProductFactoryInterface
      * @param array      $attributes
      *
      * @return AbstractProduct
+     *
+     * @throws \Exception
      */
     public function create(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = []): AbstractProduct
     {
-        $statuses = $this->query->getAllCodes();
-        if (!empty($statuses)) {
-            $statusCode = reset($statuses);
-            $attributes[AbstractProduct::STATUS] = new StringValue($statusCode);
+        $workflow = $this->repository->load(WorkflowId::fromCode(Workflow::DEFAULT));
+        if ($workflow && $workflow->hasDefaultStatus()) {
+            $attributes[AbstractProduct::STATUS] = new StringValue($workflow->getDefaultStatus()->getValue());
         }
 
         return $this->factory->create($id, $sku, $templateId, $categories, $attributes);
