@@ -40,7 +40,7 @@ class UpdateConditionSetCommandHandler
         $conditionSet = $this->repository->load($command->getId());
         Assert::notNull($conditionSet);
 
-        $conditionSet->changeConditons($command->getConditions());
+        $conditionSet->changeConditions($command->getConditions());
 
         if ($command->hasName()) {
             $conditionSet->changeName($command->getName());
