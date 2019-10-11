@@ -42,10 +42,7 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
     }
 
     /**
-     * @param AbstractProduct                                $object
-     * @param TextAttributeValueCondition|ConditionInterface $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {

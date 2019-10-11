@@ -42,10 +42,7 @@ class AttributeExistsConditionCalculatorStrategy implements ConditionCalculatorS
     }
 
     /**
-     * @param AbstractProduct                             $object
-     * @param AttributeExistsCondition|ConditionInterface $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {

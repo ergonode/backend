@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Infrastructure\Resolver;
 
 use Ergonode\Condition\Infrastructure\Builder\ConditionValidatorBuilderInterface;
-use Symfony\Component\Validator\Constraint;
 
 /**
  */
