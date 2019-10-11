@@ -18,6 +18,9 @@ use PHPUnit\Framework\TestCase;
 class LanguageDataTransformerTest extends TestCase
 {
 
+    /**
+     * @var LanguageDataTransformer
+     */
     protected $transformer;
 
     protected function setUp()
@@ -45,7 +48,6 @@ class LanguageDataTransformerTest extends TestCase
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
-
 
     /**
      * @param Language|null $languageValueObject

@@ -25,31 +25,26 @@ class ConditionSetTest extends TestCase
 {
     /**
      * @var MockObject|ConditionSetId
-     *
      */
     private $id;
 
     /**
      * @var MockObject|ConditionSetCode
-     *
      */
     private $code;
 
     /**
      * @var MockObject|TranslatableString
-     *
      */
     private $name;
 
     /**
      * @var MockObject|TranslatableString
-     *
      */
     private $description;
 
     /**
      * @var MockObject|ConditionInterface[]
-     *
      */
     private $conditions;
 
@@ -93,7 +88,6 @@ class ConditionSetTest extends TestCase
         $conditionSet->changeDescription($newDescription);
         $this->assertSame($newDescription, $conditionSet->getDescription());
     }
-
 
     /**
      */

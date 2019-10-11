@@ -18,6 +18,9 @@ use PHPUnit\Framework\TestCase;
 class OptionKeyDataTransformerTest extends TestCase
 {
 
+    /**
+     * @var OptionKeyDataTransformer
+     */
     protected $transformer;
 
     protected function setUp()
@@ -45,7 +48,6 @@ class OptionKeyDataTransformerTest extends TestCase
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
-
 
     /**
      * @param OptionKey|null $optionKeyValueObject

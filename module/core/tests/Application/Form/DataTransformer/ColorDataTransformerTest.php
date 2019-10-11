@@ -18,6 +18,9 @@ use PHPUnit\Framework\TestCase;
 class ColorDataTransformerTest extends TestCase
 {
 
+    /**
+     * @var ColorDataTransformer
+     */
     protected $transformer;
 
     protected function setUp()
@@ -45,7 +48,6 @@ class ColorDataTransformerTest extends TestCase
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
-
 
     /**
      * @param Color|null  $colorValueObject
