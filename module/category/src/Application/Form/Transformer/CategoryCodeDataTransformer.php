@@ -46,7 +46,7 @@ class CategoryCodeDataTransformer implements DataTransformerInterface
             try {
                 return new CategoryCode($value);
             } catch (\InvalidArgumentException $e) {
-                throw new TransformationFailedException(sprintf('invalid attribute code %s value', $value));
+                throw new TransformationFailedException(sprintf('Invalid category code %s value', $value));
             }
         }
 

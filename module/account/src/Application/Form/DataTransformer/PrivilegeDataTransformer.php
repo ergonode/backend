@@ -45,7 +45,7 @@ class PrivilegeDataTransformer implements DataTransformerInterface
             try {
                 return new Privilege($value);
             } catch (\InvalidArgumentException $e) {
-                throw new TransformationFailedException(sprintf('Invalid Language "%s" value', $value));
+                throw new TransformationFailedException(sprintf('Invalid Privilege "%s" value', $value));
             }
         }
 
