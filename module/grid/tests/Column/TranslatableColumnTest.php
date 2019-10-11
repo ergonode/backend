@@ -30,20 +30,4 @@ class TranslatableColumnTest extends TestCase
         $this->assertSame($filter, $column->getFilter());
         $this->assertSame(TranslatableColumn::TYPE, $column->getType());
     }
-
-    /**
-     */
-    public function testRender(): void
-    {
-        $field = 'Any id';
-        $label = 'Any label';
-        $PL = 'ANY RESULT';
-        $array = [Language::PL => $PL];
-        $record = [$field => json_encode($array)];
-        $language = new Language(Language::PL);
-
-        $column = new TranslatableColumn($field, $label, $language);
-        $result = $column->render($field, $record);
-        $this->assertSame($PL, $result);
-    }
 }

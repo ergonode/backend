@@ -29,18 +29,4 @@ class MultiSelectColumnTest extends TestCase
         $this->assertSame($filter, $column->getFilter());
         $this->assertSame(MultiSelectColumn::TYPE, $column->getType());
     }
-
-    /**
-     */
-    public function testRender(): void
-    {
-        $field = 'Any id';
-        $label = 'Any label';
-        $array = ['Any result'];
-        $record = [$field => json_encode($array)];
-
-        $column = new MultiSelectColumn($field, $label);
-        $result = $column->render($field, $record);
-        $this->assertSame($array, $result);
-    }
 }

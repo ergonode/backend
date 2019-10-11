@@ -28,17 +28,4 @@ class BoolColumnTest extends TestCase
         $this->assertSame($filter, $column->getFilter());
         $this->assertSame(BoolColumn::TYPE, $column->getType());
     }
-
-    /**
-     */
-    public function testRender(): void
-    {
-        $field = 'Any id';
-        $label = 'Any label';
-        $record = [$field => true];
-
-        $column = new BoolColumn($field, $label);
-        $result = $column->render($field, $record);
-        $this->assertSame($record[$field], $result);
-    }
 }

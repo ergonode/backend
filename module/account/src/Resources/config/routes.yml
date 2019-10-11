@@ -1,19 +1,24 @@
-ergonode_privilege_api:
-    resource: '../../Application/Controller/Api/Privilege*'
-    type: annotation
-    prefix: /api/v1/{language}
+ergonode_dictionary_api:
+    resource: '../../Application/Controller/Api/Dictionary/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'
+
+ergonode_log_api:
+    resource: '../../Application/Controller/Api/Log/*'
+    type: 'annotation'
+    prefix: '/api/v1'
 
 ergonode_role_api:
-    resource: '../../Application/Controller/Api/Role*'
-    type: annotation
-    prefix: /api/v1/{language}
+    resource: '../../Application/Controller/Api/Role/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'
 
 ergonode_account_api:
-    resource: '../../Application/Controller/Api/Account*'
-    type: annotation
-    prefix: /api/v1/{language}
+    resource: '../../Application/Controller/Api/Account/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'
 
 ergonode_profile_api:
-    resource: '../../Application/Controller/Api/Profile*'
-    type: annotation
-    prefix: /api/v1/
+    resource: '../../Application/Controller/Api/ProfileReadAction.php'
+    type: 'annotation'
+    prefix: '/api/v1/'

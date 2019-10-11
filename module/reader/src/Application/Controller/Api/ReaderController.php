@@ -15,8 +15,8 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Reader\Domain\Command\CreateReaderCommand;
 use Ergonode\Reader\Domain\Command\DeleteReaderCommand;
 use Ergonode\Reader\Domain\Entity\Reader;
@@ -63,6 +63,12 @@ class ReaderController extends AbstractController
     private $existingRelationshipMessageBuilder;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer                                $gridRenderer
      * @param ReaderQueryInterface                        $query
      * @param ReaderGrid                                  $grid
      * @param MessageBusInterface                         $messageBus
@@ -70,6 +76,7 @@ class ReaderController extends AbstractController
      * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         ReaderQueryInterface $query,
         ReaderGrid $grid,
         MessageBusInterface $messageBus,
@@ -81,6 +88,7 @@ class ReaderController extends AbstractController
         $this->messageBus = $messageBus;
         $this->relationshipsResolver = $relationshipsResolver;
         $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -158,11 +166,23 @@ class ReaderController extends AbstractController
      */
     public function getReaders(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->grid, $configuration, $this->query->getDataSet(), $language);
+        $data = $this->gridRenderer->render(
+            $this->grid,
+            $configuration,
+            $this->query->getDataSet(),
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 
     /**
-     * @Route("readers/{reader}", methods={"GET"}, requirements={"reader"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @Route(
+     *     name="ergonode_reader_read",
+     *     path="readers/{reader}",
+     *     methods={"GET"},
+     *     requirements={"reader"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+     * )
      *
      * @IsGranted("READER_READ")
      *
@@ -256,7 +276,12 @@ class ReaderController extends AbstractController
     }
 
     /**
-     * @Route("/readers/{reader}", methods={"DELETE"}, requirements={"reader"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @Route(
+     *     name="ergonode_reader_delete",
+     *     path="/readers/{reader}",
+     *     methods={"DELETE"},
+     *     requirements={"reader"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+     * )
      *
      * @IsGranted("READER_DELETE")
      *

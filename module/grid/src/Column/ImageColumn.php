@@ -14,7 +14,6 @@ namespace Ergonode\Grid\Column;
 class ImageColumn extends AbstractColumn
 {
     public const TYPE = 'IMAGE';
-    private const WIDTH = 100;
 
     /**
      * @var string
@@ -25,16 +24,14 @@ class ImageColumn extends AbstractColumn
      * @param string      $field
      * @param string|null $uri
      */
-    public function __construct(string $field, string $uri = null)
+    public function __construct(string $field, ?string $uri = null)
     {
         parent::__construct($field);
         $this->uri = $uri;
-
-        $this->setWidth(self::WIDTH);
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getType(): string
     {
@@ -42,18 +39,18 @@ class ImageColumn extends AbstractColumn
     }
 
     /**
-     * @param string $id
-     * @param array  $row
-     *
+     * @return bool
+     */
+    public function hasUri(): bool
+    {
+        return null !== $this->uri;
+    }
+
+    /**
      * @return string|null
      */
-    public function render(string $id, array $row): ?string
+    public function getUri(): ?string
     {
-        $image = $row[$id];
-        if ($this->uri && $image) {
-            return sprintf('%s/%s', $this->uri, $image);
-        }
-
-        return $image;
+        return $this->uri;
     }
 }

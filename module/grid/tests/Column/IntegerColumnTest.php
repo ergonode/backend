@@ -28,17 +28,4 @@ class IntegerColumnTest extends TestCase
         $this->assertSame($filter, $column->getFilter());
         $this->assertSame(IntegerColumn::TYPE, $column->getType());
     }
-
-    /**
-     */
-    public function testRender(): void
-    {
-        $field = 'Any id';
-        $label = 'Any label';
-        $record = [$field => 999];
-
-        $column = new IntegerColumn($field, $label);
-        $result = $column->render($field, $record);
-        $this->assertSame($record[$field], $result);
-    }
 }

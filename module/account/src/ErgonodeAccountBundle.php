@@ -12,7 +12,6 @@ namespace Ergonode\Account;
 use Ergonode\Core\Application\AbstractModule;
 
 /**
- * Class ErgonodeUserBundle
  */
 class ErgonodeAccountBundle extends AbstractModule
 {

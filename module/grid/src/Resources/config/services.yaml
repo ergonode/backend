@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\Grid\Column\Renderer\:
+        resource: '../../Column/Renderer/*'
+
+    Ergonode\Grid\Filter\:
+        resource: '../../Filter/*'
+
+    Ergonode\Grid\Renderer\:
+        resource: '../../Renderer/*'
+
+    Ergonode\Grid\Request\:
+        resource: '../../Request/*'
+
+    Ergonode\Grid\Renderer\RowRendererInterface: '@Ergonode\Grid\Renderer\RowRenderer'
