@@ -18,6 +18,9 @@ use PHPUnit\Framework\TestCase;
 class PrivilegeDataTransformerTest extends TestCase
 {
 
+    /**
+     * @var PrivilegeDataTransformer
+     */
     protected $transformer;
 
     protected function setUp()

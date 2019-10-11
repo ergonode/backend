@@ -17,7 +17,9 @@ use PHPUnit\Framework\TestCase;
  */
 class PasswordDataTransformerTest extends TestCase
 {
-
+    /**
+     * @var PasswordDataTransformer
+     */
     protected $transformer;
 
     protected function setUp()

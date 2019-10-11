@@ -18,6 +18,9 @@ use PHPUnit\Framework\TestCase;
 class RoleIdDataTransformerTest extends TestCase
 {
 
+    /**
+     * @var RoleIdDataTransformer
+     */
     protected $transformer;
 
     protected function setUp()

@@ -18,6 +18,9 @@ use PHPUnit\Framework\TestCase;
 class AttributeCodeDataTransformerTest extends TestCase
 {
 
+    /**
+     * @var AttributeCodeDataTransformer
+     */
     protected $transformer;
 
     protected function setUp()
@@ -45,7 +48,6 @@ class AttributeCodeDataTransformerTest extends TestCase
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
-
 
     /**
      * @param AttributeCode|null $attributeCodeValueObject
