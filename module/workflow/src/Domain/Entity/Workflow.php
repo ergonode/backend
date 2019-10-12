@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Domain\Entity;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
+use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent;
@@ -57,6 +58,11 @@ class Workflow extends AbstractAggregateRoot
     private $transitions;
 
     /**
+     * @var StatusCode
+     */
+    private $defaultStatus;
+
+    /**
      * @param WorkflowId   $id
      * @param string       $code
      * @param StatusCode[] $statuses
@@ -97,6 +103,42 @@ class Workflow extends AbstractAggregateRoot
     }
 
     /**
+     * @param StatusCode $code
+     *
+     * @throws \Exception
+     */
+    public function setDefaultStatus(StatusCode $code): void
+    {
+        if (!$this->hasStatus($code)) {
+            throw  new \RuntimeException(sprintf('Status %s not exists exists', $code->getValue()));
+        }
+
+        if ($this->defaultStatus && !$code->isEqual($this->defaultStatus)) {
+            $this->apply(new WorkflowDefaultStatusSetEvent($code));
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasDefaultStatus(): bool
+    {
+        return null !== $this->defaultStatus;
+    }
+
+    /**
+     * @return StatusCode
+     */
+    public function getDefaultStatus(): StatusCode
+    {
+        if (!$this->hasDefaultStatus()) {
+            throw  new \RuntimeException('Default Status not exists');
+        }
+
+        return $this->defaultStatus;
+    }
+
+    /**
      * @param StatusCode $source
      * @param StatusCode $destination
      *
@@ -114,17 +156,17 @@ class Workflow extends AbstractAggregateRoot
     }
 
     /**
-     * @param StatusCode $id
+     * @param StatusCode $code
      *
      * @throws \Exception
      */
-    public function addStatus(StatusCode $id): void
+    public function addStatus(StatusCode $code): void
     {
-        if ($this->hasStatus($id)) {
-            throw  new \RuntimeException(sprintf('Status %s already exists', $id->getValue()));
+        if ($this->hasStatus($code)) {
+            throw  new \RuntimeException(sprintf('Status %s already exists', $code->getValue()));
         }
 
-        $this->apply(new WorkflowStatusAddedEvent($id));
+        $this->apply(new WorkflowStatusAddedEvent($code));
     }
 
     /**
@@ -261,6 +303,9 @@ class Workflow extends AbstractAggregateRoot
         $this->statuses = [];
         $this->transitions = [];
         foreach ($event->getStatuses() as $status) {
+            if (null === $this->defaultStatus) {
+                $this->defaultStatus = $status;
+            }
             $this->statuses[$status->getValue()] = $status;
         }
     }
@@ -271,6 +316,10 @@ class Workflow extends AbstractAggregateRoot
     protected function applyWorkflowStatusAddedEvent(WorkflowStatusAddedEvent $event): void
     {
         $this->statuses[$event->getcode()->getValue()] = $event->getCode();
+
+        if (null === $this->defaultStatus) {
+            $this->defaultStatus = $event->getCode();
+        }
     }
 
     /**
@@ -279,6 +328,14 @@ class Workflow extends AbstractAggregateRoot
     protected function applyWorkflowStatusRemovedEvent(WorkflowStatusRemovedEvent $event): void
     {
         unset($this->statuses[$event->getCode()->getValue()]);
+
+        if ($this->defaultStatus->isEqual($event->getCode())) {
+            $this->defaultStatus = null;
+        }
+
+        if (!empty($this->statuses)) {
+            $this->defaultStatus = reset($this->statuses);
+        }
     }
 
     /**
@@ -311,5 +368,13 @@ class Workflow extends AbstractAggregateRoot
                 unset($this->transitions[$key]);
             }
         }
+    }
+
+    /**
+     * @param WorkflowDefaultStatusSetEvent $event
+     */
+    protected function applyWorkflowDefaultStatusSetEvent(WorkflowDefaultStatusSetEvent $event): void
+    {
+        $this->defaultStatus = $event->getCode();
     }
 }

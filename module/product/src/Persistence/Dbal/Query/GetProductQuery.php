@@ -62,7 +62,7 @@ class GetProductQuery implements GetProductQueryInterface
                     'href' =>  $this->router->generate('ergonode_product_read', [ 'product' => $productId->getValue(), 'language' => $language->getCode()]),
                 ],
                 'delete' => [
-                    'href' => $this->router->generate('ergonode_product_read', [ 'product' => $productId->getValue(), 'language' => $language->getCode()]),
+                    'href' => $this->router->generate('ergonode_product_delete', [ 'product' => $productId->getValue(), 'language' => $language->getCode()]),
                 ],
             ],
         ];

@@ -79,6 +79,54 @@ class WorkflowTest extends TestCase
     /**
      * @throws \Exception
      */
+    public function testDefaultStatusManipulation(): void
+    {
+        /** @var StatusCode|MockObject $status */
+        $status1 = new StatusCode('one');
+        $status2 = new StatusCode('two');
+
+        $workflow = new Workflow($this->id, $this->code, [$status1, $status2]);
+        $this->assertTrue($workflow->hasDefaultStatus());
+        $this->assertSame($status1, $workflow->getDefaultStatus());
+        $workflow->setDefaultStatus($status2);
+        $this->assertTrue($workflow->hasDefaultStatus());
+        $this->assertSame($status2, $workflow->getDefaultStatus());
+        $workflow->removeStatus($status2);
+        $this->assertTrue($workflow->hasDefaultStatus());
+        $this->assertSame($status1, $workflow->getDefaultStatus());
+        $workflow->removeStatus($status1);
+        $this->assertFalse($workflow->hasDefaultStatus());
+    }
+
+    /**
+     * @throws \Exception
+     *
+     * @expectedException \RuntimeException
+     */
+    public function testSetNotExistDefaultStatus(): void
+    {
+        /** @var StatusCode|MockObject $status */
+        $status1 = new StatusCode('one');
+        $status2 = new StatusCode('two');
+
+        $workflow = new Workflow($this->id, $this->code, [$status1]);
+        $workflow->setDefaultStatus($status2);
+    }
+
+    /**
+     * @throws \Exception
+     *
+     * @expectedException \RuntimeException
+     */
+    public function testGetNotExistDefaultStatus(): void
+    {
+        $workflow = new Workflow($this->id, $this->code, []);
+        $workflow->getDefaultStatus();
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function testTransitionManipulation(): void
     {
         /** @var Transition|MockObject $transition */
