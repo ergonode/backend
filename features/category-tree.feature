@@ -240,7 +240,7 @@ Feature: Category tree module
       }
     """
     When I request "/api/v1/EN/trees/@category_tree@" using HTTP PUT
-    Then validation error response is received
+    Then empty response is received
 
   Scenario: Update category tree (incorrect category Id)
     Given current authentication token

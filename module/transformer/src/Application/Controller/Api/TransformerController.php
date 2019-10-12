@@ -183,7 +183,12 @@ class TransformerController extends AbstractController
     }
 
     /**
-     * @Route("/transformers/{transformer}", methods={"DELETE"}, requirements={"transformer"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @Route(
+     *     name="ergonode_transformer_delete",
+     *     path="/transformers/{transformer}",
+     *     methods={"DELETE"},
+     *     requirements={"transformer"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+     * )
      *
      * @SWG\Tag(name="Transformer")
      * @SWG\Parameter(

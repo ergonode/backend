@@ -55,29 +55,26 @@ class ColumnRenderer
     public function renderColumn(string $id, ColumnInterface $column, array $configuration): array
     {
         $result = [];
-        $result['id'] = $id;
+
         if ($column->getLanguage()) {
-            $result['id'] = sprintf('%s:%s', $column->getField(), $column->getLanguage()->getCode());
+            $result['language'] = $column->getLanguage()->getCode();
+            $result['id'] = sprintf('%s:%s', $column->getField(), $result['language']);
+        } else {
+            $result['id'] = $id;
         }
+
         $result['type'] = $column->getType();
         $result['label'] = $column->getLabel();
         $result['visible'] = $column->isVisible();
+
         if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) && $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true) {
             $result['editable'] = $column->isEditable();
         } else {
             $result['editable'] = false;
         }
 
-        if ($column->getLanguage()) {
-            $result['language'] = $column->getLanguage()->getCode();
-        }
-
         if ($column->getFilter()) {
             $result['filter'] = $this->filterRenderer->render($column->getFilter());
-        }
-
-        if ($column->getWidth()) {
-            $result['width'] = $column->getWidth();
         }
 
         foreach ($column->getExtensions() as $key => $value) {

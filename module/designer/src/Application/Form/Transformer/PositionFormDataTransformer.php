@@ -46,7 +46,7 @@ class PositionFormDataTransformer implements DataTransformerInterface
             try {
                 return new Position($value['x'], $value['y']);
             } catch (\InvalidArgumentException $e) {
-                throw new TransformationFailedException(sprintf('invalid size %s value', implode(',', $value)));
+                throw new TransformationFailedException(sprintf('Invalid Position %s value', implode(',', $value)));
             }
         }
 

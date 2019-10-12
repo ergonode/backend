@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Controller\Api\Language;
 
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Grid\LanguageGrid;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,15 +36,23 @@ class LanguageGridReadAction
     private $languageGrid;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer           $gridRenderer
      * @param LanguageQueryInterface $query
      * @param LanguageGrid           $languageGrid
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         LanguageQueryInterface $query,
         LanguageGrid $languageGrid
     ) {
         $this->query = $query;
         $this->languageGrid = $languageGrid;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -110,11 +119,13 @@ class LanguageGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse(
+        $data = $this->gridRenderer->render(
             $this->languageGrid,
             $configuration,
             $this->query->getDataSet(),
             $language
         );
+
+        return new SuccessResponse($data);
     }
 }

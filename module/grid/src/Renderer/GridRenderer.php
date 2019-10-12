@@ -17,7 +17,7 @@ class GridRenderer
     private $columnRenderer;
 
     /**
-     * @var RowRenderer
+     * @var RowRendererInterface
      */
     private $rowRenderer;
 
@@ -27,12 +27,15 @@ class GridRenderer
     private $infoRenderer;
 
     /**
-     * @param ColumnRenderer $columnRenderer
-     * @param RowRenderer    $rowRenderer
-     * @param InfoRender     $infoRenderer
+     * @param ColumnRenderer       $columnRenderer
+     * @param RowRendererInterface $rowRenderer
+     * @param InfoRender           $infoRenderer
      */
-    public function __construct(ColumnRenderer $columnRenderer, RowRenderer $rowRenderer, InfoRender $infoRenderer)
-    {
+    public function __construct(
+        ColumnRenderer $columnRenderer,
+        RowRendererInterface $rowRenderer,
+        InfoRender $infoRenderer
+    ) {
         $this->columnRenderer = $columnRenderer;
         $this->rowRenderer = $rowRenderer;
         $this->infoRenderer = $infoRenderer;

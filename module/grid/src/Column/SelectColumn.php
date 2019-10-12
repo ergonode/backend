@@ -16,21 +16,10 @@ class SelectColumn extends AbstractColumn
     public const TYPE = 'SELECT';
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getType(): string
     {
         return self::TYPE;
-    }
-
-    /**
-     * @param string $id
-     * @param array  $row
-     *
-     * @return string
-     */
-    public function render(string $id, array $row): ?string
-    {
-        return $row[$id] !== null && $row[$id] !== '' ? $row[$id] : null;
     }
 }

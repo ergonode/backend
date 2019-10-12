@@ -20,7 +20,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/accounts/{user}", methods={"GET"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+ * @Route(
+ *     name="ergonode_account_user_read",
+ *     path="/accounts/{user}",
+ *     methods={"GET"},
+ *     requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ * )
  */
 class UserReadAction
 {

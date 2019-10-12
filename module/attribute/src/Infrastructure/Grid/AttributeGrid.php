@@ -13,15 +13,16 @@ use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeGroupDictionaryProvid
 use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeTypeDictionaryProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\IntegerColumn;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -71,23 +72,33 @@ class AttributeGrid extends AbstractGrid
 
         $id = new TextColumn('id', $this->trans('Id'), new TextFilter($filters->getString('id')));
         $id->setVisible(false);
-        $id->setWidth(140);
         $this->addColumn('id', $id);
         $index = new IntegerColumn('index', $this->trans('Index'), new TextFilter($filters->getString('index')));
-        $index->setWidth(140);
         $this->addColumn('index', $index);
         $this->addColumn('code', new TextColumn('code', $this->trans('Code'), new TextFilter($filters->getString('code'))));
         $column = new TextColumn('label', $this->trans('Name'), new TextFilter($filters->getString('label')));
-        $column->setWidth(200);
         $this->addColumn('label', $column);
         $column = new TextColumn('type', $this->trans('Type'), new SelectFilter($types, $filters->getString('type')));
-        $column->setWidth(180);
         $this->addColumn('type', $column);
         $column = new BoolColumn('multilingual', $this->trans('Multilingual'));
-        $column->setWidth(180);
         $this->addColumn('multilingual', $column);
         $this->addColumn('groups', new MultiSelectColumn('groups', $this->trans('Groups'), new MultiSelectFilter($groups, $filters->getArray('groups'))));
-        $this->addColumn('edit', new ActionColumn('edit'));
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'get' => [
+                'route' => 'ergonode_attribute_read',
+                'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_attribute_change',
+                'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
+                'method' => Request::METHOD_PUT,
+            ],
+            'delete' => [
+                'route' => 'ergonode_attribute_delete',
+                'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
+                'method' => Request::METHOD_DELETE,
+            ],
+        ]));
         $this->orderBy('index', 'DESC');
     }
 

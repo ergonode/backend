@@ -26,7 +26,11 @@ use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/languages", methods={"PUT"})
+ * @Route(
+ *     name="ergonode_core_language_change",
+ *     path="/languages",
+ *     methods={"PUT"}
+ * )
  */
 class LanguageChangeAction
 {

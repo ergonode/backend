@@ -25,17 +25,4 @@ class ImageColumnTest extends TestCase
         $this->assertNull($column->getLabel());
         $this->assertSame(ImageColumn::TYPE, $column->getType());
     }
-
-    /**
-     */
-    public function testRender(): void
-    {
-        $field = 'Any id';
-        $label = 'Any label';
-        $record = [$field => 'file.txt'];
-
-        $column = new ImageColumn($field, $label);
-        $result = $column->render($field, $record);
-        $this->assertSame($label.'/'.$record[$field], $result);
-    }
 }
