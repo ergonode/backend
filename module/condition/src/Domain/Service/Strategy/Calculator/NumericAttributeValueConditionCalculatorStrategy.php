@@ -46,7 +46,7 @@ class NumericAttributeValueConditionCalculatorStrategy implements ConditionCalcu
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
-        $attributeId = $configuration->getProduct();
+        $attributeId = $configuration->getAttribute();
         $attribute = $this->repository->load($attributeId);
         Assert::notNull($attribute);
 

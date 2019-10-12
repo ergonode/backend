@@ -24,7 +24,7 @@ class TemplateElementCompletenessStrategyProviderTest extends TestCase
     {
         /** @var TemplateElementCompletenessStrategyInterface|MockObject $strategy */
         $strategy = $this->createMock(TemplateElementCompletenessStrategyInterface::class);
-        $strategy->method('isSupported')->willReturn(true);
+        $strategy->method('supports')->willReturn(true);
 
         $provider = new TemplateElementCompletenessStrategyProvider(...[$strategy]);
         $result = $provider->provide('Any Supported Type');
@@ -38,9 +38,9 @@ class TemplateElementCompletenessStrategyProviderTest extends TestCase
     {
         /** @var TemplateElementCompletenessStrategyInterface|MockObject $strategy */
         $strategy = $this->createMock(TemplateElementCompletenessStrategyInterface::class);
-        $strategy->method('isSupported')->willReturn(false);
+        $strategy->method('supports')->willReturn(false);
 
         $provider = new TemplateElementCompletenessStrategyProvider(...[$strategy]);
-       $provider->provide('Any Not Supported Type');
+        $provider->provide('Any Not Supported Type');
     }
 }
