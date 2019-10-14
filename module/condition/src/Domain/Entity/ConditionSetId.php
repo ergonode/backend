@@ -14,7 +14,6 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ramsey\Uuid\Uuid;
 
 /**
- *
  */
 class ConditionSetId extends AbstractId
 {

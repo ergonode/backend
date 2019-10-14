@@ -36,6 +36,10 @@ services:
             - ['set', ['TEXT_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\TextAttributeValueConditionValidatorBuilder']]
             - ['set', ['OPTION_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\OptionAttributeValueConditionValidatorBuilder']]
             - ['set', ['NUMERIC_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\NumericAttributeValueConditionValidatorBuilder']]
+            - ['set', ['LANGUAGE_COMPLETENESS_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\LanguageCompletenessConditionValidatorBuilder']]
+            - ['set', ['PRODUCT_COMPLETENESS_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\ProductCompletenessConditionValidatorBuilder']]
+            - ['set', ['ROLE_EXACTLY_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\RoleExactlyConditionValidatorBuilder']]
+            - ['set', ['USER_EXACTLY_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\UserExactlyConditionValidatorBuilder']]
 
     Ergonode\Condition\Infrastructure\JMS\Serializer\Handler\ConditionInterfaceHandler:
         calls:
@@ -43,6 +47,10 @@ services:
             - ['set', ['Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition']]
             - ['set', ['Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition']]
             - ['set', ['Ergonode\Condition\Domain\Condition\TextAttributeValueCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\ProductCompletenessCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\RoleExactlyCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\UserExactlyCondition']]
 
     Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Persistence\Dbal\Query\DbalConditionSetQuery'
     Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Persistence\Dbal\Repository\DbalConditionSetRepository'

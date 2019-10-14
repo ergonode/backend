@@ -42,17 +42,12 @@ class AttributeExistsConditionCalculatorStrategy implements ConditionCalculatorS
     }
 
     /**
-     * @param AbstractProduct                             $object
-     * @param AttributeExistsCondition|ConditionInterface $configuration
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
         $attributeId = $configuration->getAttribute();
-
         $attribute = $this->repository->load($attributeId);
-
         Assert::notNull($attribute);
 
         return $object->hasAttribute($attribute->getCode());

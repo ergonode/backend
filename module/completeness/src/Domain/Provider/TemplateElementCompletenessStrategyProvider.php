@@ -36,7 +36,7 @@ class TemplateElementCompletenessStrategyProvider
     public function provide(string $variant): TemplateElementCompletenessStrategyInterface
     {
         foreach ($this->strategies as $strategy) {
-            if ($strategy->isSupported($variant)) {
+            if ($strategy->supports($variant)) {
                 return $strategy;
             }
         }

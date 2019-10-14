@@ -23,8 +23,6 @@ class ConditionCalculator
     private $provider;
 
     /**
-     * ConditionCalculator constructor.
-     *
      * @param ConditionCalculatorProvider $provider
      */
     public function __construct(ConditionCalculatorProvider $provider)

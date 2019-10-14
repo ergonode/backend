@@ -38,7 +38,7 @@ class ConditionConfigurator
     public function getConfiguration(ConditionInterface $condition, Language $language): array
     {
         foreach ($this->strategies as $strategy) {
-            if ($strategy->isSupportedBy($condition->getType())) {
+            if ($strategy->supports($condition->getType())) {
                 return $strategy->getConfiguration($language);
             }
         }
