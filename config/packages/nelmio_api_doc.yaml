@@ -132,6 +132,19 @@ nelmio_api_doc:
                         type: boolean
                         required: true
                         example: true
+            account_change_password:
+                type: 'object'
+                properties:
+                    password:
+                        type: 'string'
+                        required: true
+                        description: 'New password'
+                        example: 'new_password'
+                    password_repeat:
+                        type: 'string'
+                        required: true
+                        description: 'Password repeat'
+                        example: 'new_password'
             status:
                 type: object
                 properties:
@@ -506,7 +519,7 @@ nelmio_api_doc:
                         type: string
                         required: true
                         description: password
-                        example: 123
+                        example: abcd1234
             role:
                 type: object
                 properties:

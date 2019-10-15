@@ -53,6 +53,11 @@ Feature: Core module
     When I request "/api/v1/EN/languages?limit=25&offset=0&filter=name%3Dasd" using HTTP GET
     Then grid response is received
 
+  Scenario: Get languages (filter by code)
+    Given current authentication token
+    When I request "/api/v1/EN/languages?limit=25&offset=0&filter=code%3Dasd" using HTTP GET
+    Then grid response is received
+
   Scenario: Get languages (filter by iso)
     Given current authentication token
     When I request "/api/v1/EN/languages?limit=25&offset=0&filter=iso%3DEN" using HTTP GET

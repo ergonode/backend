@@ -223,7 +223,7 @@ Ergonode\Account\Domain\Entity\Role:
 Ergonode\Account\Domain\ValueObject\Password:
     superadmin_user_password:
         __construct:
-            - 'iBt0Q5mZ++oT3LnTkrazXHUkoiE=' # 123
+            - 'GeyK6ku29LJhJf3htswrpu1eh68=' # abcd1234
 
 Ergonode\Account\Domain\Entity\User:
     superadmin:

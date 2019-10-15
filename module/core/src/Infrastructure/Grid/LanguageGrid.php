@@ -35,8 +35,7 @@ class LanguageGrid extends AbstractGrid
     }
 
     /**
-     * @param GridConfigurationInterface $configuration
-     * @param Language                   $language
+     * {@inheritDoc}
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
@@ -45,11 +44,14 @@ class LanguageGrid extends AbstractGrid
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $code = new TextColumn('code', $this->trans('Name'), new TextFilter($filters->getString('code')));
+
+        $code = new TextColumn('code', $this->trans('Code'), new TextFilter($filters->getString('code')));
         $this->addColumn('code', $code);
+
         $name = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
         $this->addColumn('name', $name);
-        $active = new BoolColumn('active', $this->trans('active'), new TextFilter($filters->getString('active')));
+
+        $active = new BoolColumn('active', $this->trans('Active'), new TextFilter($filters->getString('active')));
         $this->addColumn('active', $active);
     }
 

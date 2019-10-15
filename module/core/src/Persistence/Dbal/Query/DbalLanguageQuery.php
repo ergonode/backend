@@ -48,7 +48,13 @@ class DbalLanguageQuery implements LanguageQueryInterface
      */
     public function getDataSet(): DataSetInterface
     {
-        $query = $this->getQuery(self::ALL_FIELDS);
+        $query = $this->connection->createQueryBuilder()
+            ->select('id, code, name, active')
+            ->from(sprintf(
+                '(SELECT %s FROM %s)',
+                implode(', ', self::ALL_FIELDS),
+                self::TABLE
+            ), 'l');
 
         return new DbalDataSet($query);
     }
