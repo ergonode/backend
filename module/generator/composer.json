@@ -1,0 +1,22 @@
+{
+    "name": "ergonode/generator",
+    "type": "ergonode-module",
+    "description": "Ergonode - Generator",
+    "homepage": "https://ergonode.com",
+    "license": "OSL-3.0",
+    "require": {
+        "php": "^7.2",
+        "ext-json": "*",
+        "doctrine/collections": "^1.6",
+        "doctrine/dbal": "^2.9",
+        "ergonode/core": "^0.2.0",
+        "ergonode/es": "^0.2.0",
+        "nette/php-generator": "^3.2",
+        "symfony/http-foundation": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ergonode\\Generator\\": "src/"
+        }
+    }
+}

@@ -9,3 +9,4 @@
 'Added transition to workflow': 'Dodano transformację do przepływu pracy'
 'Deleted transition from workflow': 'Usunięto transformację z przepływu pracy'
 'Workflow deleted': 'Przepływ pracy "%id%" usunięto'
+'Workflow default status set': "Status przepływu pracy '%code%' ustawiono jako domyślny"

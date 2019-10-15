@@ -1,8 +1,16 @@
-ATTRIBUTE_EXISTS_CONDITION: Posiada attrybut
-ATTRIBUTE_EXISTS_CONDITION_PHRASE: Posiada attrybut [attribute]
-NUMERIC_ATTRIBUTE_VALUE_CONDITION: Atrybut liczbowy ma wartość
-NUMERIC_ATTRIBUTE_VALUE_CONDITION_PHRASE: Atrybut [attribute] ma wartość [operator] [value]
-OPTION_ATTRIBUTE_VALUE_CONDITION: Atrybut posiada opcję o wartości
-OPTION_ATTRIBUTE_VALUE_CONDITION_PHRASE: Atrybut [attribute] ma opcję o wartości [value]
-TEXT_ATTRIBUTE_VALUE_CONDITION: Atrybut textowy ma wartość
-TEXT_ATTRIBUTE_VALUE_CONDITION_PHRASE: Atrybut [attribute] ma wartość [operator] [value]
+ATTRIBUTE_EXISTS_CONDITION: 'Posiada atrybut'
+ATTRIBUTE_EXISTS_CONDITION_PHRASE: 'Posiada atrybut [attribute]'
+NUMERIC_ATTRIBUTE_VALUE_CONDITION: 'Atrybut liczbowy ma wartość'
+NUMERIC_ATTRIBUTE_VALUE_CONDITION_PHRASE: 'Atrybut liczbowy [attribute] ma wartość [operator] [value]'
+OPTION_ATTRIBUTE_VALUE_CONDITION: 'Atrybut posiada opcję o wartości'
+OPTION_ATTRIBUTE_VALUE_CONDITION_PHRASE: 'Atrybut [attribute] posiada opcję o wartości [value]'
+TEXT_ATTRIBUTE_VALUE_CONDITION: 'Atrybut tekstowy ma wartość'
+TEXT_ATTRIBUTE_VALUE_CONDITION_PHRASE: 'Atrybut tekstowy [attribute] ma wartość [operator] [value]'
+ROLE_EXACTLY_CONDITION: 'Użytkownik posiada rolę'
+ROLE_EXACTLY_CONDITION_PHRASE: 'Użytkownik posiada rolę [role]'
+USER_EXACTLY_CONDITION: 'Użytkownik'
+USER_EXACTLY_CONDITION_PHRASE: 'Użytkownik [user]'
+PRODUCT_COMPLETENESS_CONDITION: 'Kompletność produktu'
+PRODUCT_COMPLETENESS_CONDITION_PHRASE: 'Produkt kompletny : [completeness]'
+LANGUAGE_COMPLETENESS_CONDITION: 'Kompletność tłumaczeń produktu'
+LANGUAGE_COMPLETENESS_CONDITION_PHRASE: 'Kompletność tłumaczenia produktu w języku [language]  : [completeness]'

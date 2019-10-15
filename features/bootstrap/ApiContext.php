@@ -175,22 +175,22 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     /**
      * {@inheritDoc}
      */
-    public function assertResponseCodeIs($code)
+    public function assertResponseCodeIs($code): void
     {
-        $this->requireResponse();
-
         try {
-            Assertion::same(
-                $actual = $this->response->getStatusCode(),
-                $expected = $this->validateResponseCode($code),
-                sprintf(
-                    'Expected response code "%d", got "%d". Revived "%s"',
-                    $expected,
-                    $actual,
-                    $this->response->getBody()
-                )
+            $actual = $this->response->getStatusCode();
+            $expected = $this->validateResponseCode($code);
+            $body = $this->response->getBody()->getContents();
+
+            $message = sprintf(
+                'Expected response code "%d", got "%d". Revived "%s"',
+                $expected,
+                $actual,
+                $body
             );
-        } catch (AssertionFailure $e) {
+
+            Assertion::same($actual, $expected, $message);
+        } catch (\Exception $e) {
             throw new AssertionFailedException($e->getMessage());
         }
     }
@@ -252,7 +252,7 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
      */
     protected function getResponseBody()
     {
-        $source = (string) $this->response->getBody();
+        $source = (string)$this->response->getBody();
         $body = json_decode($source, false);
 
         if (json_last_error() !== JSON_ERROR_NONE) {

@@ -35,11 +35,9 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
     }
 
     /**
-     * @param string $variant
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(string $variant): bool
+    public function supports(string $variant): bool
     {
         return AttributeTemplateElementProperty::VARIANT === $variant;
     }

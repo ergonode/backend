@@ -30,6 +30,14 @@ final class Version20190818160000 extends AbstractErgonodeMigration
         ');
 
         $this->addSql('
+            CREATE TABLE IF NOT EXISTS workflow (
+                id UUID NOT NULL,
+                default_status UUID,             
+                PRIMARY KEY(id)
+            )
+        ');
+
+        $this->addSql('
             CREATE TABLE IF NOT EXISTS workflow_transition (
                 workflow_id UUID NOT NULL,
                 source_id UUID NOT NULL,
@@ -58,6 +66,7 @@ final class Version20190818160000 extends AbstractErgonodeMigration
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent' => 'Deleted transition from workflow',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionChangedEvent' => 'Changed transition in workflow',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent' => 'Workflow deleted',
+            'Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent' => 'Workflow default status set',
         ]);
     }
 

@@ -41,7 +41,7 @@ class ConditionConfigurationProvider
     public function getConfiguration(Language $language, string $type): array
     {
         foreach ($this->strategies as $strategy) {
-            if ($strategy->isSupportedBy($type)) {
+            if ($strategy->supports($type)) {
                 return $strategy->getConfiguration($language);
             }
         }
