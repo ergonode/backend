@@ -11,7 +11,6 @@ namespace Ergonode\Account\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\Column\TextAreaColumn;
