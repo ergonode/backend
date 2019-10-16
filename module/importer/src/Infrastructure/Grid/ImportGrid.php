@@ -11,7 +11,6 @@ namespace Ergonode\Importer\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\TextColumn;
@@ -55,7 +54,6 @@ class ImportGrid extends AbstractGrid
         $this->addColumn('lines', $index);
         $createdAt = new DateColumn('created_at', $this->trans('Created at'), new TextFilter($filters->getString('created_at')));
         $this->addColumn('created_at', $createdAt);
-        $this->addColumn('info', new ActionColumn('info'));
     }
 
     /**
