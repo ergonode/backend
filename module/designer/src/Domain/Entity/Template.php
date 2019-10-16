@@ -11,7 +11,6 @@ namespace Ergonode\Designer\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Core\Domain\ValueObject\State;
 use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
@@ -21,7 +20,6 @@ use Ergonode\Designer\Domain\Event\TemplateImageAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateImageChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateImageRemovedEvent;
 use Ergonode\Designer\Domain\Event\TemplateNameChangedEvent;
-use Ergonode\Designer\Domain\Event\TemplateRemovedEvent;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
@@ -57,13 +55,6 @@ class Template extends AbstractAggregateRoot
      * @JMS\Type("array<Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
     private $elements;
-
-    /**
-     * @var State
-     *
-     * @JMS\Exclude()
-     */
-    private $state;
 
     /**
      * @param TemplateId        $id
@@ -151,16 +142,6 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     *
-     */
-    public function remove(): void
-    {
-        if ($this->state->getValue() !== State::STATE_DELETED) {
-            $this->apply(new TemplateRemovedEvent());
-        }
-    }
-
-    /**
      * @param MultimediaId $imageId
      */
     public function addImage(MultimediaId $imageId): void
@@ -177,17 +158,9 @@ class Template extends AbstractAggregateRoot
      */
     public function changeImage(MultimediaId $imageId): void
     {
-        if ($this->imageId->getValue() !== $imageId->getValue()) {
+        if (!$imageId->isEqual($this->imageId)) {
             $this->apply(new TemplateImageChangedEvent($this->imageId, $imageId));
         }
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDeleted(): bool
-    {
-        return $this->state->getValue() === State::STATE_DELETED;
     }
 
     /**
@@ -206,7 +179,9 @@ class Template extends AbstractAggregateRoot
      */
     public function changeGroup(TemplateGroupId $groupId): void
     {
-        $this->apply(new TemplateGroupChangedEvent($this->groupId, $groupId));
+        if (!$groupId->isEqual($this->groupId)) {
+            $this->apply(new TemplateGroupChangedEvent($this->groupId, $groupId));
+        }
     }
 
     /**
@@ -301,7 +276,6 @@ class Template extends AbstractAggregateRoot
         $this->imageId = $event->getImageId();
         $this->groupId = $event->getGroupId();
         $this->elements = [];
-        $this->state = new State();
     }
 
     /**
@@ -326,13 +300,5 @@ class Template extends AbstractAggregateRoot
     protected function applyTemplateImageRemovedEvent(TemplateImageRemovedEvent $event): void
     {
         $this->imageId = null;
-    }
-
-    /**
-     * @param TemplateRemovedEvent $event
-     */
-    protected function applyTemplateRemovedEvent(TemplateRemovedEvent $event): void
-    {
-        $this->state = new State(State::STATE_DELETED);
     }
 }
