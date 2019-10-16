@@ -81,8 +81,14 @@ class CategoryGridReadAction
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"sku","name"},
      *     description="Order field",
+     * )
+     * @SWG\Parameter(
+     *     name="filter",
+     *     in="query",
+     *     required=false,
+     *     type="string",
+     *     description="Filter"
      * )
      * @SWG\Parameter(
      *     name="order",

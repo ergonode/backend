@@ -260,6 +260,51 @@ Feature: Category module
     When I request "/api/v1/EN/categories?limit=25&offset=0&filter=elements_count%3D1" using HTTP GET
     Then grid response is received
 
+  Scenario: Get categories (filter by elements_count = 0)
+    Given current authentication token
+    When I request "/api/v1/EN/categories?limit=25&offset=0&filter=elements_count=0" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+
+  Scenario: Get categories (filter by elements_count = 9999999)
+    Given current authentication token
+    When I request "/api/v1/EN/categories?limit=25&offset=0&filter=elements_count=9999999" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": 0/
+    """
+
+  Scenario: Get categories (filter by elements_count >= 9999999)
+    Given current authentication token
+    When I request "/api/v1/EN/categories?limit=25&offset=0&filter=elements_count>=9999999" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": 0/
+    """
+
+  Scenario: Get categories (filter by elements_count <= 9999999)
+    Given current authentication token
+    When I request "/api/v1/EN/categories?limit=25&offset=0&filter=elements_count<=9999999" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+
+  Scenario: Get categories (filter by elements_count >= 888888 <= 9999999)
+    Given current authentication token
+    When I request "/api/v1/EN/categories?limit=25&offset=0&filter=elements_count>=8888888;elements_count<=9999999" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": 0/
+    """
+
   Scenario: Get categories (not authorized)
     When I request "/api/v1/EN/categories" using HTTP GET
     Then unauthorized response is received
