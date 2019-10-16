@@ -44,7 +44,7 @@ class TextAttributeValueConditionConfigurationStrategy implements ConfigurationS
     /**
      * {@inheritDoc}
      */
-    public function isSupportedBy(string $type): bool
+    public function supports(string $type): bool
     {
         return TextAttributeValueCondition::TYPE === $type;
     }

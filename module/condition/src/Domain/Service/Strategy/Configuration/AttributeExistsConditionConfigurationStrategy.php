@@ -42,7 +42,7 @@ class AttributeExistsConditionConfigurationStrategy implements ConfigurationStra
     /**
      * {@inheritDoc}
      */
-    public function isSupportedBy(string $type): bool
+    public function supports(string $type): bool
     {
         return AttributeExistsCondition::TYPE === $type;
     }

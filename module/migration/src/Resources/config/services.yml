@@ -15,7 +15,6 @@ services:
             - '@doctrine.dbal.default_connection'
             - '@Ergonode\Migration\Provider\MigrationDirectoryProviderInterface'
 
-
     Ergonode\Migration\Command\MigrateMigrationCommand:
         tags: ['console.command']
         arguments:

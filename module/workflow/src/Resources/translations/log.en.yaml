@@ -9,3 +9,4 @@
 'Added transition to workflow': 'Added transition to workflow'
 'Deleted transition from workflow': 'Deleted transition from workflow'
 'Workflow deleted': 'Workflow "%id%" deleted'
+'Workflow default status set': 'Workflow status "%code%" set as default'

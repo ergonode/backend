@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Condition\Domain\Condition;
+
+use Ergonode\Account\Domain\Entity\RoleId;
+use JMS\Serializer\Annotation as JMS;
+
+/**
+ */
+class RoleExactlyCondition implements ConditionInterface
+{
+    public const TYPE = 'ROLE_EXACTLY_CONDITION';
+    public const PHRASE = 'ROLE_EXACTLY_CONDITION_PHRASE';
+
+    /**
+     * @var RoleId
+     *
+     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     */
+    private $role;
+
+    /**
+     * @param RoleId $role
+     */
+    public function __construct(RoleId $role)
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @JMS\VirtualProperty()
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
+    }
+
+    /**
+     * @return RoleId
+     */
+    public function getRole(): RoleId
+    {
+        return $this->role;
+    }
+}
