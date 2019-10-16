@@ -45,9 +45,9 @@ class ConditionSetGrid extends AbstractGrid
         $id = new TextColumn('id', $this->trans('Id'));
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('code', new TextColumn('code', $this->trans('Code'), new TextFilter($filters->getString('code'))));
-        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name'))));
-        $this->addColumn('description', new TextColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description'))));
+        $this->addColumn('code', new TextColumn('code', $this->trans('Code'), new TextFilter($filters->get('code'))));
+        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name'))));
+        $this->addColumn('description', new TextColumn('description', $this->trans('Description'), new TextFilter($filters->get('description'))));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_designer_template_read',

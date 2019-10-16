@@ -40,7 +40,7 @@ class RowRenderer implements RowRendererInterface
             foreach ($this->rendererCollection as $renderer) {
                 if ($renderer->supports($column)) {
                     $result[$id] = $renderer->render($column, $id, $row);
-                    break; // @todo Now we have option to use multiple renders for column :) Shall we use it?
+                    break;
                 }
             }
         }

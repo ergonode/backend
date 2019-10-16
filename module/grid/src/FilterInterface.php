@@ -29,12 +29,7 @@ interface FilterInterface
     public function isEqual(): bool;
 
     /**
-     * @return string|array[]
+     * @return string[]
      */
-    public function getValue();
-
-    /**
-     * @param string|array $value
-     */
-    public function setValue($value): void;
+    public function getValues(): array;
 }

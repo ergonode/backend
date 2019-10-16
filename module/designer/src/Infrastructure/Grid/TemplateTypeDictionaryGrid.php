@@ -42,13 +42,13 @@ class TemplateTypeDictionaryGrid extends AbstractGrid
     {
         $filter = $configuration->getFilters();
 
-        $this->addColumn('type', new TextColumn('type', $this->trans('Type'), new TextFilter($filter->getString('type'))));
-        $this->addColumn('variant', new TextColumn('variant', $this->trans('Variant'), new TextFilter($filter->getString('variant'))));
-        $this->addColumn('label', new TextColumn('label', $this->trans('Label'), new TextFilter($filter->getString('label'))));
-        $this->addColumn('min_width', new IntegerColumn('min_width', $this->trans('Minimal width'), new TextFilter($filter->getString('min_width'))));
-        $this->addColumn('min_height', new IntegerColumn('min_height', $this->trans('Minimal height'), new TextFilter($filter->getString('min_height'))));
-        $this->addColumn('max_width', new IntegerColumn('max_width', $this->trans('Maximal width'), new TextFilter($filter->getString('max_width'))));
-        $this->addColumn('max_height', new IntegerColumn('max_height', $this->trans('Maximal height'), new TextFilter($filter->getString('max_height'))));
+        $this->addColumn('type', new TextColumn('type', $this->trans('Type'), new TextFilter($filter->get('type'))));
+        $this->addColumn('variant', new TextColumn('variant', $this->trans('Variant'), new TextFilter($filter->get('variant'))));
+        $this->addColumn('label', new TextColumn('label', $this->trans('Label'), new TextFilter($filter->get('label'))));
+        $this->addColumn('min_width', new IntegerColumn('min_width', $this->trans('Minimal width'), new TextFilter($filter->get('min_width'))));
+        $this->addColumn('min_height', new IntegerColumn('min_height', $this->trans('Minimal height'), new TextFilter($filter->get('min_height'))));
+        $this->addColumn('max_width', new IntegerColumn('max_width', $this->trans('Maximal width'), new TextFilter($filter->get('max_width'))));
+        $this->addColumn('max_height', new IntegerColumn('max_height', $this->trans('Maximal height'), new TextFilter($filter->get('max_height'))));
     }
 
     /**

@@ -54,7 +54,7 @@ class SelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
         return new SelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new SelectFilter($options, $filter->getString($filterKey))
+            new SelectFilter($options, $filter->get($filterKey))
         );
     }
 }

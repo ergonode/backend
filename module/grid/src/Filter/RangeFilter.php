@@ -18,9 +18,9 @@ class RangeFilter implements FilterInterface
     public const TYPE = 'RANGE';
 
     /**
-     * @var string
+     * @var array
      */
-    private $value;
+    private $values;
 
     /**
      * @var float
@@ -33,15 +33,15 @@ class RangeFilter implements FilterInterface
     private $max;
 
     /**
-     * @param float       $min
-     * @param float       $max
-     * @param string|null $value
+     * @param float $min
+     * @param float $max
+     * @param array $values
      */
-    public function __construct(float $min, float $max, ?string $value = null)
+    public function __construct(float $min, float $max, array $values = [])
     {
         $this->min = $min;
         $this->max = $max;
-        $this->value = $value;
+        $this->values = $values;
     }
 
     /**
@@ -72,18 +72,10 @@ class RangeFilter implements FilterInterface
     }
 
     /**
-     * @return array[]|string
+     * @return array[]
      */
-    public function getValue()
+    public function getValues(): array
     {
-        return $this->value;
-    }
-
-    /**
-     * @param array|string $value
-     */
-    public function setValue($value): void
-    {
-        $this->value = $value;
+        return $this->values;
     }
 }

@@ -54,7 +54,7 @@ class MultiSelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
         return new MultiSelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new MultiSelectFilter($options, $filter->getArray($filterKey))
+            new MultiSelectFilter($options, $filter->get($filterKey))
         );
     }
 }

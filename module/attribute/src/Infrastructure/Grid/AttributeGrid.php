@@ -70,19 +70,19 @@ class AttributeGrid extends AbstractGrid
 
         $filters = $configuration->getFilters();
 
-        $id = new TextColumn('id', $this->trans('Id'), new TextFilter($filters->getString('id')));
+        $id = new TextColumn('id', $this->trans('Id'), new TextFilter($filters->get('id')));
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $index = new IntegerColumn('index', $this->trans('Index'), new TextFilter($filters->getString('index')));
+        $index = new IntegerColumn('index', $this->trans('Index'), new TextFilter($filters->get('index')));
         $this->addColumn('index', $index);
-        $this->addColumn('code', new TextColumn('code', $this->trans('Code'), new TextFilter($filters->getString('code'))));
-        $column = new TextColumn('label', $this->trans('Name'), new TextFilter($filters->getString('label')));
+        $this->addColumn('code', new TextColumn('code', $this->trans('Code'), new TextFilter($filters->get('code'))));
+        $column = new TextColumn('label', $this->trans('Name'), new TextFilter($filters->get('label')));
         $this->addColumn('label', $column);
-        $column = new TextColumn('type', $this->trans('Type'), new SelectFilter($types, $filters->getString('type')));
+        $column = new TextColumn('type', $this->trans('Type'), new SelectFilter($types, $filters->get('type')));
         $this->addColumn('type', $column);
         $column = new BoolColumn('multilingual', $this->trans('Multilingual'));
         $this->addColumn('multilingual', $column);
-        $this->addColumn('groups', new MultiSelectColumn('groups', $this->trans('Groups'), new MultiSelectFilter($groups, $filters->getArray('groups'))));
+        $this->addColumn('groups', new MultiSelectColumn('groups', $this->trans('Groups'), new MultiSelectFilter($groups, $filters->get('groups'))));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_attribute_read',

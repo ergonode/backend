@@ -15,18 +15,15 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\AbstractDbalDataSet;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\Filter\MultiSelectFilter;
-use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\FilterInterface;
-use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class DbalProductDataSet implements DataSetInterface
+class DbalProductDataSet extends AbstractDbalDataSet
 {
     private const PRODUCT_TABLE = 'product';
     private const TEMPLATE_TABLE = 'designer.template';
@@ -46,13 +43,14 @@ class DbalProductDataSet implements DataSetInterface
     }
 
     /**
-     * @param ColumnInterface[] $columns
-     * @param int               $limit
-     * @param int               $offset
-     * @param string|null       $field
-     * @param string            $order
+     * @param array       $columns
+     * @param int         $limit
+     * @param int         $offset
+     * @param string|null $field
+     * @param string      $order
      *
      * @return \Traversable
+     * @throws \Exception
      */
     public function getItems(array $columns, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable
     {
@@ -132,44 +130,6 @@ class DbalProductDataSet implements DataSetInterface
     }
 
     /**
-     * @param QueryBuilder      $query
-     * @param ColumnInterface[] $columns
-     */
-    private function buildFilters(QueryBuilder $query, array $columns = []): void
-    {
-        foreach ($columns as $field => $column) {
-            $filter = $column->getFilter();
-            if ($filter && !empty($filter->getValue())) {
-                $value = $filter->getValue();
-                if ($filter instanceof TextFilter && !$filter->isEqual()) {
-                    $query->andWhere(sprintf(
-                        '"%s"::TEXT ILIKE \'%s\'',
-                        $field,
-                        sprintf('%%%s%%', $this->escape($value))
-                    ));
-                } elseif ($filter instanceof MultiSelectFilter) {
-                    $query->andWhere(sprintf(
-                        'jsonb_exists_any("%s"::JSONB , array[%s])',
-                        $field,
-                        sprintf('\'%s\'', implode('\',\'', $value))
-                    ));
-                } else {
-                    if (is_array($value)) {
-                        reset($value);
-                    }
-
-                    $query->andWhere(
-                        $query->expr()->eq(
-                            sprintf('"%s"', $field),
-                            $query->createNamedParameter($value)
-                        )
-                    );
-                }
-            }
-        }
-    }
-
-    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder
@@ -178,21 +138,5 @@ class DbalProductDataSet implements DataSetInterface
             ->select('p.id, p.index, p.sku, p.version, t.name AS template')
             ->from(self::PRODUCT_TABLE, 'p')
             ->join('p', self::TEMPLATE_TABLE, 't', 't.id = p.template_id');
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return string
-     */
-    private function escape(string $value): string
-    {
-        $replace  = [
-            '\\' => '\\\\',
-            '%' => '\%',
-            '_' => '\_',
-        ];
-
-        return str_replace(array_keys($replace), array_values($replace), $value);
     }
 }
