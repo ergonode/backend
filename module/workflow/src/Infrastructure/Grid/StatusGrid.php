@@ -12,11 +12,13 @@ namespace Ergonode\Workflow\Infrastructure\Grid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\LabelColumn;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -72,6 +74,23 @@ class StatusGrid extends AbstractGrid
         $this->addColumn('description', $column);
 
         $this->orderBy('code', 'DESC');
+
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'get' => [
+                'route' => 'ergonode_workflow_status_read',
+                'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_workflow_status_change',
+                'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+                'method' => Request::METHOD_PUT,
+            ],
+            'delete' => [
+                'route' => 'ergonode_workflow_status_delete',
+                'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+                'method' => Request::METHOD_DELETE,
+            ],
+        ]));
 
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
