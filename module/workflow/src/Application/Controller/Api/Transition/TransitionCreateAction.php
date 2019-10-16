@@ -12,7 +12,7 @@ namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Workflow\Application\Form\Model\TransitionFormModel;
+use Ergonode\Workflow\Application\Form\Model\TransitionCreateFormModel;
 use Ergonode\Workflow\Application\Form\TransitionForm;
 use Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Workflow;
@@ -100,12 +100,12 @@ class TransitionCreateAction
     public function __invoke(Workflow $workflow, Request $request): Response
     {
         try {
-            $model = new TransitionFormModel();
+            $model = new TransitionCreateFormModel($workflow);
             $form = $this->formFactory->create(TransitionForm::class, $model);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var TransitionFormModel $data */
+                /** @var TransitionCreateFormModel $data */
                 $data = $form->getData();
 
                 $transition = new Transition(
