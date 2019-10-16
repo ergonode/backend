@@ -83,7 +83,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
     private function buildDefaultQuery(QueryBuilder $query, string $field, array $values = []): void
     {
         foreach ($values as $operator => $value) {
-           $query->andWhere($this->getExpresion($query, $field, $operator, $value));
+            $query->andWhere($this->getExpresion($query, $field, $operator, $value));
         }
     }
 
