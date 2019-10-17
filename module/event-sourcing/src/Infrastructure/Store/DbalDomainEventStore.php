@@ -180,7 +180,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
             $version = $queryBuilder->execute()->fetchColumn();
 
             if (empty($version)) {
-                $version = 1;
+                $version = 0;
             }
 
             $this->connection->executeQuery(
@@ -188,7 +188,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
                     'INSERT INTO %s (aggregate_id, sequence, event_id, payload, recorded_by, recorded_at, variant) 
                     SELECT aggregate_id, sequence, event_id, payload, recorded_by, recorded_at, %d FROM %s WHERE aggregate_id = ?',
                     $historyTable,
-                    $version,
+                    $version + 1,
                     $dataTable
                 ),
                 [$id->getValue()]
