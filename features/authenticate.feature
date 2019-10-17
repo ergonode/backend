@@ -48,8 +48,8 @@ Feature: Authentication module
     Given the request body is:
       """
       {
-        "username": "test@ergonode.com",
-        "password": "123"
+        "username": "@@default_user_username@@",
+        "password": "@@default_user_password@@"
       }
       """
     When I request "/api/v1/login" using HTTP POST

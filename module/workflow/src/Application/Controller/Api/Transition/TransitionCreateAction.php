@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Workflow\Application\Form\Model\TransitionFormModel;
-use Ergonode\Workflow\Application\Form\TransitionForm;
+use Ergonode\Workflow\Application\Form\Model\TransitionCreateFormModel;
+use Ergonode\Workflow\Application\Form\TransitionCreateForm;
 use Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
@@ -100,12 +101,12 @@ class TransitionCreateAction
     public function __invoke(Workflow $workflow, Request $request): Response
     {
         try {
-            $model = new TransitionFormModel();
-            $form = $this->formFactory->create(TransitionForm::class, $model);
+            $model = new TransitionCreateFormModel($workflow);
+            $form = $this->formFactory->create(TransitionCreateForm::class, $model);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var TransitionFormModel $data */
+                /** @var TransitionCreateFormModel $data */
                 $data = $form->getData();
 
                 $transition = new Transition(
@@ -120,7 +121,7 @@ class TransitionCreateAction
 
                 $this->messageBus->dispatch($command);
 
-                return new Response('', Response::HTTP_CREATED);
+                return new CreatedResponse($workflow->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

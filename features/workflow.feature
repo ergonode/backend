@@ -141,7 +141,6 @@ Feature: Workflow
 
 
 #  TODO  problem with language code validation, problem waiting to be fixed
-
 #  Scenario: Create status (wrong language parameter)
 #    Given current authentication token
 #    Given the request body is:
@@ -196,7 +195,6 @@ Feature: Workflow
     Then created response is received
 
 #  TODO  problem with language code validation, problem waiting to be fixed
-
 #  Scenario: Create status (wrong language parameter)
 #    Given current authentication token
 #    Given the request body is:
@@ -408,7 +406,6 @@ Feature: Workflow
     Then validation error response is received
 
 #  TODO  problem with language code validation, problem waiting to be fixed
-
 #  Scenario: Update status (wrong language parameter)
 #    Given current authentication token
 #    Given the request body is:
@@ -463,7 +460,6 @@ Feature: Workflow
     Then empty response is received
 
 #  TODO  problem with language code validation, problem waiting to be fixed
-
 #  Scenario: Update status (wrong language parameter)
 #    Given current authentication token
 #    Given the request body is:

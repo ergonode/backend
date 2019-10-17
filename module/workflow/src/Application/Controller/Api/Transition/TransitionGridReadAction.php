@@ -24,7 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     name="ergonode_workflow_transition_gird_read",
+ *     name="ergonode_workflow_transition_grid_read",
  *     path="/workflow/default/transitions",
  *     methods={"GET"}
  * )

@@ -26,7 +26,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/accounts/{user}/password", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+ * @Route(
+ *     name="ergonode_account_password_change",
+ *     path="/accounts/{user}/password",
+ *     methods={"PUT"},
+ *     requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ * )
  */
 class PasswordChangeAction
 {
@@ -80,18 +85,11 @@ class PasswordChangeAction
      *     description="User ID"
      * )
      * @SWG\Parameter(
-     *     name="password",
-     *     in="formData",
-     *     type="string",
+     *     name="body",
+     *     in="body",
      *     required=true,
-     *     description="Password"
-     * )
-     * @SWG\Parameter(
-     *     name="password_repeat",
-     *     in="formData",
-     *     type="string",
-     *     required=true,
-     *     description="Password repeat"
+     *     description="Change password",
+     *     @SWG\Schema(ref="#/definitions/account_change_password")
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -121,13 +119,11 @@ class PasswordChangeAction
      * @param Request $request
      *
      * @return Response
-     *
-     * @todo Why we use user parameter and then we get userId from security (current logged user)?
      */
     public function __invoke(User $user, Request $request): Response
     {
         $data = $request->request->all();
-        $constraint = $this->builder->create();
+        $constraint = $this->builder->create($data);
         $violations = $this->validator->validate($data, $constraint);
         $userId = $this->userProvider->provide()->getId();
 
