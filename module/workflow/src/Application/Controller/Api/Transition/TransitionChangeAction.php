@@ -13,8 +13,8 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Workflow\Application\Form\Model\TransitionFormModel;
-use Ergonode\Workflow\Application\Form\TransitionForm;
+use Ergonode\Workflow\Application\Form\Model\TransitionChangeFormModel;
+use Ergonode\Workflow\Application\Form\TransitionChangeForm;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Entity\Workflow;
@@ -116,12 +116,12 @@ class TransitionChangeAction
     public function __invoke(Workflow $workflow, Status $source, Status $destination, Request $request): Response
     {
         try {
-            $model = new TransitionFormModel();
-            $form = $this->formFactory->create(TransitionForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $model = new TransitionChangeFormModel();
+            $form = $this->formFactory->create(TransitionChangeForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var TransitionFormModel $data */
+                /** @var TransitionChangeFormModel $data */
                 $data = $form->getData();
 
                 $transition = new Transition(
