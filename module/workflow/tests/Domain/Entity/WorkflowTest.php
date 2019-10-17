@@ -153,7 +153,7 @@ class WorkflowTest extends TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Transition from A to B not exists
+     * @expectedExceptionMessage Transition from "A" to "B" not exists
      */
     public function testNoTransitionException(): void
     {
@@ -164,7 +164,7 @@ class WorkflowTest extends TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Status A already exists
+     * @expectedExceptionMessage Status "A" already exists
      */
     public function testAddingStatusAlreadyExistException(): void
     {
@@ -175,7 +175,7 @@ class WorkflowTest extends TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Transition from A to B already exists
+     * @expectedExceptionMessage Transition from "A" to "B" already exists
      */
     public function testAddingTransitionAlreadyExistException()
     {
@@ -247,7 +247,7 @@ class WorkflowTest extends TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Transition source status A not exists
+     * @expectedExceptionMessage Transition source status "A" not exists
      */
     public function testChangingSourceNotExistsException()
     {
@@ -265,7 +265,7 @@ class WorkflowTest extends TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Transition destination status B not exists
+     * @expectedExceptionMessage Transition destination status "B" not exists
      */
     public function testChangingDestinationNotExistsException()
     {
