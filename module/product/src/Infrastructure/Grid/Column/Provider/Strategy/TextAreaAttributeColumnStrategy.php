@@ -43,7 +43,7 @@ class TextAreaAttributeColumnStrategy extends AbstractLanguageColumnStrategy
         return new TextAreaColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new TextFilter($filter->getString($filterKey))
+            new TextFilter($filter->get($filterKey))
         );
     }
 }

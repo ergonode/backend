@@ -42,7 +42,7 @@ class DateAttributeColumnStrategy extends AbstractLanguageColumnStrategy
         return new DateColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new TextFilter($filter->getString($filterKey))
+            new TextFilter($filter->get($filterKey))
         );
     }
 }

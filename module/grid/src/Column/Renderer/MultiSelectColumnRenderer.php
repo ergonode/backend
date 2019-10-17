@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Grid\Column\Renderer;
 
 use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
-use Ergonode\Grid\Column\LinkColumn;
+use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
 
 /**
@@ -22,7 +22,7 @@ class MultiSelectColumnRenderer implements ColumnRendererInterface
      */
     public function supports(ColumnInterface $column): bool
     {
-        return $column instanceof LinkColumn;
+        return $column instanceof MultiSelectColumn;
     }
 
     /**

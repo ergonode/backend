@@ -115,11 +115,11 @@ class ProductGridColumnBuilder
         }
 
         $result['id'] = new CheckColumn('id', 'Id');
-        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->getString('index')));
-        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->getString('sku')));
-        $result[$statusCode] = new LabelColumn($statusCode, 'Status', $statuses, new SelectFilter($statusCodes, $filters->getString($statusCode)));
+        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->get('index')));
+        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->get('sku')));
+        $result[$statusCode] = new LabelColumn($statusCode, 'Status', $statuses, new SelectFilter($statusCodes, $filters->get($statusCode)));
         $result[$statusCode]->setEditable(true);
-        $result['template'] = new TextColumn('template', 'Template', new TextFilter($filters->getString('template')));
+        $result['template'] = new TextColumn('template', 'Template', new TextFilter($filters->get('template')));
         $result['_links'] = new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_product_read',

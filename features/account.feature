@@ -1013,64 +1013,6 @@ Feature: Account module
     When I request "/api/v1/EN/dictionary/privileges" using HTTP GET
     Then unauthorized response is received
 
-  Scenario: Get profile log (order by author)
-    Given current authentication token
-    When I request "/api/v1/profile/log?field=author" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get profile log (order by recorded_at)
-    Given current authentication token
-    When I request "/api/v1/profile/log?field=recorded_at" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get profile log (order by event)
-    Given current authentication token
-    When I request "/api/v1/profile/log?field=event" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get profile log (filter by time)
-    Given current authentication token
-    When I request "/api/v1/profile/log?limit=25&offset=0&filter=recorded_at%3D2019" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get profile log (filter by author)
-    Given current authentication token
-    When I request "/api/v1/profile/log?limit=25&offset=0&filter=author%3DSystem" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get profile log (not authorized)
-    When I request "/api/v1/profile/log" using HTTP GET
-    Then unauthorized response is received
-
-  Scenario: Get accounts log (order by author)
-    Given current authentication token
-    When I request "/api/v1/EN/accounts/log?field=author" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get accounts log (order by recorded_at)
-    Given current authentication token
-    When I request "/api/v1/EN/accounts/log?field=recorded_at" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get accounts log (order by event)
-    Given current authentication token
-    When I request "/api/v1/EN/accounts/log?field=event" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get accounts log (filter by time)
-    Given current authentication token
-    When I request "/api/v1/EN/accounts/log?limit=25&offset=0&filter=recorded_at%3D2019" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get accounts log (filter by author)
-    Given current authentication token
-    When I request "/api/v1/EN/accounts/log?limit=25&offset=0&filter=author%3DSystem" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get accounts log (not authorized)
-    When I request "/api/v1/EN/accounts/log" using HTTP GET
-    Then unauthorized response is received
-
   Scenario: Get accounts (order by id)
     Given current authentication token
     When I request "/api/v1/EN/accounts?field=id" using HTTP GET

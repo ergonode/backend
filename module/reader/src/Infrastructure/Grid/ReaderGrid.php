@@ -47,9 +47,9 @@ class ReaderGrid extends AbstractGrid
         $id = new TextColumn('id', $this->trans('Id'));
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $status = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
+        $status = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name')));
         $this->addColumn('name', $status);
-        $type = new IntegerColumn('type', $this->trans('Type'), new TextFilter($filters->getString('type')));
+        $type = new IntegerColumn('type', $this->trans('Type'), new TextFilter($filters->get('type')));
         $this->addColumn('type', $type);
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [

@@ -46,13 +46,13 @@ class ImportGrid extends AbstractGrid
         $id = new TextColumn('id', $this->trans('Id'));
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $name = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
+        $name = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name')));
         $this->addColumn('name', $name);
-        $status = new TextColumn('status', $this->trans('Status'), new TextFilter($filters->getString('status')));
+        $status = new TextColumn('status', $this->trans('Status'), new TextFilter($filters->get('status')));
         $this->addColumn('status', $status);
-        $index = new IntegerColumn('lines', $this->trans('Lines'), new TextFilter($filters->getString('lines')));
+        $index = new IntegerColumn('lines', $this->trans('Lines'), new TextFilter($filters->get('lines')));
         $this->addColumn('lines', $index);
-        $createdAt = new DateColumn('created_at', $this->trans('Created at'), new TextFilter($filters->getString('created_at')));
+        $createdAt = new DateColumn('created_at', $this->trans('Created at'), new TextFilter($filters->get('created_at')));
         $this->addColumn('created_at', $createdAt);
     }
 

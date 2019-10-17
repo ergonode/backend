@@ -48,15 +48,15 @@ class CategoryGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
-        $index = new IntegerColumn('sequence', $this->trans('Index'), new TextFilter($filters->getString('sequence')));
+        $index = new IntegerColumn('sequence', $this->trans('Index'), new TextFilter($filters->get('sequence')));
         $this->addColumn('sequence', $index);
 
-        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter($filters->getString('code'))));
+        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter($filters->get('code'))));
 
-        $name = new TextColumn('name', 'Name', new TextFilter($filters->getString('name')));
+        $name = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
         $this->addColumn('name', $name);
 
-        $this->addColumn('elements_count', new IntegerColumn('elements_count', $this->trans('Number of products'), new TextFilter($filters->getString('elements_count'))));
+        $this->addColumn('elements_count', new IntegerColumn('elements_count', $this->trans('Number of products'), new TextFilter($filters->get('elements_count'))));
 
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
