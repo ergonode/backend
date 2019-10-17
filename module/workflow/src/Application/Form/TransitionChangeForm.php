@@ -28,14 +28,6 @@ class TransitionChangeForm extends AbstractType
     {
         $builder
             ->add(
-                'source',
-                TextType::class
-            )
-            ->add(
-                'destination',
-                TextType::class
-            )
-            ->add(
                 'name',
                 TranslationType::class
             )
