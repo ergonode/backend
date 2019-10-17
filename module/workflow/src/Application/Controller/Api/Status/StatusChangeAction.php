@@ -12,8 +12,8 @@ namespace Ergonode\Workflow\Application\Controller\Api\Status;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Workflow\Application\Form\Model\StatusFormModel;
-use Ergonode\Workflow\Application\Form\StatusForm;
+use Ergonode\Workflow\Application\Form\Model\StatusChangeFormModel;
+use Ergonode\Workflow\Application\Form\StatusChangeForm;
 use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -105,12 +105,12 @@ class StatusChangeAction
     public function __invoke(Status $status, Request $request): Response
     {
         try {
-            $model = new StatusFormModel();
-            $form = $this->formFactory->create(StatusForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $model = new StatusChangeFormModel();
+            $form = $this->formFactory->create(StatusChangeForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var StatusFormModel $data */
+                /** @var StatusChangeFormModel $data */
                 $data = $form->getData();
 
                 $command = new UpdateStatusCommand(

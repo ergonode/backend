@@ -42,88 +42,6 @@ Feature: Workflow
     Then created response is received
     And remember response param "id" as "workflow_destination_status"
 
-  Scenario: Create status (not authorized)
-    Given the request body is:
-      """
-      {
-        "color": "#ff0000",
-        "code": "SOURCE @@random_md5@@",
-        "name": {
-          "PL": "PL",
-          "EN": "EN"
-        },
-        "description": {
-          "PL": "PL",
-          "EN": "EN"
-        }
-      }
-      """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then unauthorized response is received
-
-  Scenario: Create status (without color)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-        "code": "SOURCE @@random_md5@@",
-        "name": {
-          "PL": "PL",
-          "EN": "EN"
-        },
-        "description": {
-          "PL": "PL",
-          "EN": "EN"
-        }
-      }
-      """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then validation error response is received
-
-  Scenario: Create status (without code)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-        "color": "#ff0000",
-        "name": {
-          "PL": "PL",
-          "EN": "EN"
-        },
-        "description": {
-          "PL": "PL",
-          "EN": "EN"
-        }
-      }
-      """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then validation error response is received
-
-  Scenario: Create status (without description and name)
-    Given current authentication token
-    Given remember param "duplicated_status_code" with value "DESTINATION_1_@@random_code@@"
-    Given the request body is:
-      """
-      {
-        "color": "#ff0000",
-        "code": "@duplicated_status_code@"
-      }
-      """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then created response is received
-
-  Scenario: Create status (duplicated)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-        "color": "#ff0000",
-        "code": "@duplicated_status_code@"
-      }
-      """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then validation error response is received
-
   Scenario: Get source status
     Given current authentication token
     When I request "/api/v1/EN/status/@workflow_source_status@" using HTTP GET
@@ -135,15 +53,6 @@ Feature: Workflow
     When I request "/api/v1/EN/status/@workflow_destination_status@" using HTTP GET
     Then the response code is 200
     And remember response param "code" as "workflow_destination_status_code"
-
-  Scenario: Get status (not authorized)
-    When I request "/api/v1/EN/status/@workflow_source_status@" using HTTP GET
-    Then unauthorized response is received
-
-  Scenario: Get status (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/status/@@random_uuid@@" using HTTP GET
-    Then not found response is received
 
   Scenario: Add transition to workflow
     Given current authentication token
@@ -343,15 +252,6 @@ Feature: Workflow
     Given current authentication token
     When I request "/api/v1/EN/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@" using HTTP DELETE
     Then empty response is received
-
-  Scenario: Delete status (not authorized)
-    When I request "/api/v1/EN/status/@workflow_destination_status_code@" using HTTP DELETE
-    Then unauthorized response is received
-
-  Scenario: Delete status (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/status/@@random_uuid@@" using HTTP DELETE
-    Then not found response is received
 
   Scenario: Delete source status
     Given current authentication token
