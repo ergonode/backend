@@ -204,15 +204,15 @@ class Workflow extends AbstractAggregateRoot
     public function changeTransition(StatusCode $source, StatusCode $destination, Transition $transition): void
     {
         if (!$this->hasTransition($source, $destination)) {
-            throw  new \RuntimeException('Transition not exists exists');
+            throw  new \RuntimeException('Transition not exists');
         }
 
         if (!$this->hasStatus($source)) {
-            throw  new \RuntimeException(sprintf('Transition source status %s not exists', $source->getValue()));
+            throw  new \RuntimeException(sprintf('Transition source status "%s" not exists', $source->getValue()));
         }
 
         if (!$this->hasStatus($destination)) {
-            throw  new \RuntimeException(sprintf('Transition destination status %s not exists', $destination->getValue()));
+            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $destination->getValue()));
         }
 
         $this->apply(new WorkflowTransitionChangedEvent($source, $destination, $this->getTransition($source, $destination), $transition));
