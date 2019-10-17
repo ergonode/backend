@@ -9,12 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TemplateRemovedEvent implements DomainEventInterface
+class TemplateRemovedEvent extends AbstractDeleteEvent
 {
     /**
      * @var string|null
