@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Validator;
 
+use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
@@ -61,7 +62,7 @@ class StatusExistsValidator extends ConstraintValidator
             $status = $this->repository->load(StatusId::fromCode(new StatusCode($value)));
         }
 
-        if ($status) {
+        if ($status instanceof Status) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

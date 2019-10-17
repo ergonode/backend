@@ -28,6 +28,7 @@ final class Version20190818160000 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
+        $this->addSql('CREATE UNIQUE index status_code_uindex ON status (code)');
 
         $this->addSql('
             CREATE TABLE IF NOT EXISTS workflow (

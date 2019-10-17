@@ -101,24 +101,24 @@ Feature: Workflow
 
   Scenario: Create status (without description and name)
     Given current authentication token
+    Given remember param "duplicated_status_code" with value "DESTINATION_1_@@random_code@@"
     Given the request body is:
       """
       {
         "color": "#ff0000",
-        "code": "DESTINATION_1_@@random_md5@@"
+        "code": "@duplicated_status_code@"
       }
       """
     When I request "/api/v1/EN/status" using HTTP POST
     Then created response is received
 
-  # TODO SHOULD BE?!
   Scenario: Create status (duplicated)
     Given current authentication token
     Given the request body is:
       """
       {
         "color": "#ff0000",
-        "code": "DESTINATION_1_@@random_md5@@"
+        "code": "@duplicated_status_code@"
       }
       """
     When I request "/api/v1/EN/status" using HTTP POST
