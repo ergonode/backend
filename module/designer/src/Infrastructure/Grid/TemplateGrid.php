@@ -54,9 +54,9 @@ class TemplateGrid extends AbstractGrid
         $filters = $configuration->getFilters();
 
         $this->addColumn('id', new TextColumn('id', $this->trans('Id')));
-        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name'))));
-        $this->addColumn('image_id', new TextColumn('image_id', $this->trans('Icon'), new TextFilter($filters->getString('image_id'))));
-        $this->addColumn('group_id', new TextColumn('group_id', $this->trans('Group'), new SelectFilter($collection, $filters->getString('group_id'))));
+        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name'))));
+        $this->addColumn('image_id', new TextColumn('image_id', $this->trans('Icon'), new TextFilter($filters->get('image_id'))));
+        $this->addColumn('group_id', new TextColumn('group_id', $this->trans('Group'), new SelectFilter($collection, $filters->get('group_id'))));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_condition_conditionset_read',

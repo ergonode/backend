@@ -60,16 +60,16 @@ class TransitionGrid extends AbstractGrid
             $codes[$code] = $status['name'];
         }
 
-        $code = new LabelColumn('source', $this->trans('Source'), $statuses, new SelectFilter($codes, $filters->getString('source')));
+        $code = new LabelColumn('source', $this->trans('Source'), $statuses, new SelectFilter($codes, $filters->get('source')));
         $this->addColumn('source', $code);
 
-        $code = new LabelColumn('destination', $this->trans('Destination'), $statuses, new SelectFilter($codes, $filters->getString('destination')));
+        $code = new LabelColumn('destination', $this->trans('Destination'), $statuses, new SelectFilter($codes, $filters->get('destination')));
         $this->addColumn('destination', $code);
 
-        $column = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
+        $column = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name')));
         $this->addColumn('name', $column);
 
-        $column = new TextColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description')));
+        $column = new TextColumn('description', $this->trans('Description'), new TextFilter($filters->get('description')));
         $this->addColumn('description', $column);
 
         $this->addColumn('_links', new LinkColumn('hal', [

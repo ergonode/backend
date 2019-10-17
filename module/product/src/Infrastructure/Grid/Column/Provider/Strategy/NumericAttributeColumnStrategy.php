@@ -56,7 +56,7 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
 
         $key = $attribute->getCode()->getValue();
 
-        $filter = new RangeFilter((int) $range['min'], (int) $range['max'], $filter->getString($key));
+        $filter = new RangeFilter($range['min'], $range['max'], $filter->get($key));
 
         return new NumericColumn($key, $attribute->getLabel()->get($language), $filter);
     }

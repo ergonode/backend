@@ -18,7 +18,7 @@ class FilterRenderer
     {
         $result = [
             'type' => $filter->getType(),
-            'value' => $filter->getValue(),
+            'value' => $filter->getValues(),
         ];
 
         return array_merge($result, $filter->render());

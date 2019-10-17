@@ -22,12 +22,10 @@ class FilterCollectionTest extends TestCase
     {
         $string = 'key1=value1;key2=value2,value3;key3:PL=value4';
         $collection = new FilterCollection($string);
-        $this->assertEquals('value1', $collection->getString('key1'));
-        $this->assertEquals(['value1'], $collection->getArray('key1'));
-        $this->assertEquals('value2,value3', $collection->getString('key2'));
-        $this->assertEquals(['value2', 'value3'], $collection->getArray('key2'));
-        $this->assertEquals('value4', $collection->getString('key3:PL'));
-        $this->assertEquals(['value4'], $collection->getArray('key3:PL'));
+        $this->assertEquals(['=' => 'value1'], $collection->get('key1'));
+        $this->assertEquals(['=' => 'value2,value3'], $collection->get('key2'));
+        $this->assertEquals(['=' => 'value4'], $collection->get('key3:PL'));
+        $this->assertEquals(['=' => 'value4'], $collection->get('key3:PL'));
     }
 
     /**
@@ -35,16 +33,6 @@ class FilterCollectionTest extends TestCase
     public function testReturnValueForNotExistKey(): void
     {
         $collection = new FilterCollection();
-        $this->assertEquals(null, $collection->getString('key1'));
-        $this->assertEquals([], $collection->getArray('key1'));
-    }
-
-    /**
-     */
-    public function testReturnDefaultValueForNotExistKey(): void
-    {
-        $collection = new FilterCollection();
-        $this->assertEquals('default', $collection->getString('key1','default'));
-        $this->assertEquals(['default1','default2'], $collection->getArray('key1', ['default1','default2']));
+        $this->assertEquals([], $collection->get('key1'));
     }
 }

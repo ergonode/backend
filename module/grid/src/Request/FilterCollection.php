@@ -15,13 +15,19 @@ class FilterCollection
 {
     public const DELIMITER = ';';
     public const COMPARISON = '=';
+    public const GREATER = '>';
+    public const LOWER = '<';
     public const SEPARATOR = ',';
 
     public const MAP = [
         self::DELIMITER => '%3B',
         self::COMPARISON => '%3D',
         self::SEPARATOR => '%2C',
+        self::GREATER => '',
+        self::LOWER => '',
     ];
+
+    private const REGEXP = '/^(.*?)([!<>=|]=?)(.*?)$/m';
 
     /**
      * @var array
@@ -37,16 +43,12 @@ class FilterCollection
 
         if ($string) {
             $filters = explode(self::DELIMITER, $string);
-            $comparisonHash = self::MAP[self::COMPARISON];
+            $pattern = sprintf('/%s/', self::MAP[self::COMPARISON]);
             foreach ($filters as $filter) {
-                $filter = preg_replace('/'.$comparisonHash.'/', self::COMPARISON, $filter, 1);
-                $data = explode(self::COMPARISON, $filter);
-                if (!empty($data)) {
-                    if (!isset($data[1])) {
-                        $this->filters[$data[0]] = null;
-                    } else {
-                        $this->filters[$data[0]] = str_replace(array_values(self::MAP), array_keys(self::MAP), $data[1]);
-                    }
+                $filter = preg_replace($pattern, self::COMPARISON, $filter, 1);
+
+                if (preg_match_all(self::REGEXP, $filter, $matches)) {
+                    $this->filters[$matches[1][0]][$matches[2][0]] = str_replace(array_values(self::MAP), array_keys(self::MAP), $matches[3][0]);
                 }
             }
         }
@@ -63,31 +65,14 @@ class FilterCollection
     }
 
     /**
-     * @param string      $key
-     * @param string|null $default
-     *
-     * @return string
-     */
-    public function getString(string $key, ?string $default = null): ?string
-    {
-        return $this->filters[$key] ?? $default;
-    }
-
-    /**
      * @param string $key
-     * @param array  $default
      *
      * @return array
      */
-    public function getArray(string $key, array $default = []): array
+    public function get(string $key): array
     {
-        if (isset($this->filters[$key])) {
-            return explode(self::SEPARATOR, $this->filters[$key]);
-        }
-
-        return $default;
+        return array_key_exists($key, $this->filters) ? $this->filters[$key] : [];
     }
-
     /**
      * @return array
      */

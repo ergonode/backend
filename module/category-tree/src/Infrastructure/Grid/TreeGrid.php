@@ -32,10 +32,10 @@ class TreeGrid extends AbstractGrid
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $code = new TextColumn('code', 'Code', new TextFilter($filters->getString('code')));
+        $code = new TextColumn('code', 'Code', new TextFilter($filters->get('code')));
         $this->addColumn('code', $code);
         $this->orderBy('code', 'ASC');
-        $name = new TextColumn('name', 'Name', new TextFilter($filters->getString('name')));
+        $name = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
         $this->addColumn('name', $name);
         $this->addColumn('_links', new LinkColumn('', [
             'get' => [

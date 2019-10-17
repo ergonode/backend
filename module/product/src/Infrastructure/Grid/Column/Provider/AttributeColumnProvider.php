@@ -54,7 +54,7 @@ class AttributeColumnProvider
         return new TextColumn(
             $key,
             $attribute->getLabel()->get($language),
-            new TextFilter($filter->getString($key))
+            new TextFilter($filter->get($key))
         );
     }
 }

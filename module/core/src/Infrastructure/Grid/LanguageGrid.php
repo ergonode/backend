@@ -45,13 +45,13 @@ class LanguageGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
-        $code = new TextColumn('code', $this->trans('Code'), new TextFilter($filters->getString('code')));
+        $code = new TextColumn('code', $this->trans('Code'), new TextFilter($filters->get('code')));
         $this->addColumn('code', $code);
 
-        $name = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
+        $name = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name')));
         $this->addColumn('name', $name);
 
-        $active = new BoolColumn('active', $this->trans('Active'), new TextFilter($filters->getString('active')));
+        $active = new BoolColumn('active', $this->trans('Active'), new TextFilter($filters->get('active')));
         $this->addColumn('active', $active);
     }
 

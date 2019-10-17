@@ -18,16 +18,16 @@ class TextFilter implements FilterInterface
     public const TYPE = 'TEXT';
 
     /**
-     * @var string
+     * @var array
      */
-    private $value;
+    private $values;
 
     /**
-     * @param string|null $value
+     * @param array $values
      */
-    public function __construct(?string $value = null)
+    public function __construct(array $values = [])
     {
-        $this->value = $value;
+        $this->values = $values;
     }
 
     /**
@@ -55,18 +55,10 @@ class TextFilter implements FilterInterface
     }
 
     /**
-     * @return array[]|string
+     * @return string[]
      */
-    public function getValue()
+    public function getValues(): array
     {
-        return $this->value;
-    }
-
-    /**
-     * @param array|string $value
-     */
-    public function setValue($value): void
-    {
-        $this->value = $value;
+        return $this->values;
     }
 }
