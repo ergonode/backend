@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Webmozart\Assert\Assert;
 
@@ -60,9 +61,11 @@ class GetProductQuery implements GetProductQueryInterface
             '_links' => [
                 'edit' => [
                     'href' =>  $this->router->generate('ergonode_product_read', [ 'product' => $productId->getValue(), 'language' => $language->getCode()]),
+                    'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [
                     'href' => $this->router->generate('ergonode_product_delete', [ 'product' => $productId->getValue(), 'language' => $language->getCode()]),
+                    'method' => Request::METHOD_DELETE,
                 ],
             ],
         ];

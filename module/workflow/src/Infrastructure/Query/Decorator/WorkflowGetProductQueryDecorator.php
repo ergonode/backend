@@ -15,8 +15,10 @@ use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\Service\StatusCalculationService;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
@@ -42,27 +44,33 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
     private $productRepository;
 
     /**
+     * @var StatusRepositoryInterface
+     */
+    private $statusRepository;
+
+    /**
      * @var StatusCalculationService
      */
     private $service;
 
     /**
-     * WorkflowGetProductQueryDecorator constructor.
-     *
      * @param GetProductQueryInterface    $query
      * @param WorkflowRepositoryInterface $workflowRepository
      * @param ProductRepositoryInterface  $productRepository
+     * @param StatusRepositoryInterface   $statusRepository
      * @param StatusCalculationService    $service
      */
     public function __construct(
         GetProductQueryInterface $query,
         WorkflowRepositoryInterface $workflowRepository,
         ProductRepositoryInterface $productRepository,
+        StatusRepositoryInterface $statusRepository,
         StatusCalculationService $service
     ) {
         $this->query = $query;
         $this->workflowRepository = $workflowRepository;
         $this->productRepository = $productRepository;
+        $this->statusRepository = $statusRepository;
         $this->service = $service;
     }
 
@@ -76,16 +84,25 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
     public function query(ProductId $productId, Language $language): array
     {
         $workflow = $this->workflowRepository->load(WorkflowId::fromCode(Workflow::DEFAULT));
-        $product = $this->productRepository->load($productId);
         Assert::notNull($workflow);
+
+        $product = $this->productRepository->load($productId);
         Assert::notNull($product);
+
         $result = $this->query->query($productId, $language);
         if (isset($result['attributes'][AbstractProduct::STATUS])) {
             /** @var ValueInterface $value */
             $value = $result['attributes'][AbstractProduct::STATUS];
-            $status = new StatusCode($value->getValue());
-            $transitions = $workflow->getTransitionsFromStatus($status);
-            $result['status'] = $status;
+            $statusCode = new StatusCode($value->getValue());
+            $status = $this->statusRepository->load(StatusId::fromCode($statusCode));
+            Assert::notNull($status);
+            $result['status'] = [
+                'name' => $status->getName()->get($language),
+                'code' => $statusCode,
+                'color' => $status->getColor(),
+            ];
+
+            $transitions = $workflow->getTransitionsFromStatus($statusCode);
             foreach ($transitions as $transition) {
                 $result['workflow'] = [];
                 if ($this->service->available($transition, $product)) {

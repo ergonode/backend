@@ -52,7 +52,6 @@ class StatusCalculationService
         }
 
         $conditionSet = $this->repository->load($transition->getConditionSet());
-
         Assert::notNull($conditionSet);
 
         return $this->service->calculate($conditionSet, $product);
