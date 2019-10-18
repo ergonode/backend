@@ -9,29 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Form\Model;
 
-use Ergonode\Workflow\Infrastructure\Validator as ErgoAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
 class TransitionChangeFormModel
 {
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     * @ErgoAssert\StatusNotExists()
-     */
-    public $source;
-
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     * @ErgoAssert\StatusNotExists()
-     */
-    public $destination;
-
     /**
      * @var array
      *

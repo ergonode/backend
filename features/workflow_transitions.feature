@@ -54,7 +54,7 @@ Feature: Workflow
     Then the response code is 200
     And remember response param "code" as "workflow_destination_status_code"
 
-  Scenario: Add transition to workflow
+  Scenario: Create transition to workflow
     Given current authentication token
     Given the request body is:
       """
@@ -74,7 +74,7 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/default/transitions" using HTTP POST
     Then created response is received
 
-  Scenario: Add transition to workflow (duplicated)
+  Scenario: Create transition to workflow (duplicated)
     Given current authentication token
     Given the request body is:
       """
@@ -94,7 +94,7 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/default/transitions" using HTTP POST
     Then validation error response is received
 
-  Scenario: Add transition to workflow (without source)
+  Scenario: Create transition to workflow (without source)
     Given current authentication token
     Given the request body is:
       """
@@ -113,7 +113,7 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/default/transitions" using HTTP POST
     Then validation error response is received
 
-  Scenario: Add transition to workflow (without destination)
+  Scenario: Create transition to workflow (without destination)
     Given current authentication token
     Given the request body is:
       """
@@ -132,7 +132,7 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/default/transitions" using HTTP POST
     Then validation error response is received
 
-  Scenario: Add transition to workflow (source not found)
+  Scenario: Create transition to workflow (source not found)
     Given current authentication token
     Given the request body is:
       """
@@ -152,7 +152,7 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/default/transitions" using HTTP POST
     Then validation error response is received
 
-  Scenario: Add transition to workflow (destination not found)
+  Scenario: Create transition to workflow (destination not found)
     Given current authentication token
     Given the request body is:
       """
@@ -172,7 +172,7 @@ Feature: Workflow
     When I request "/api/v1/EN/workflow/default/transitions" using HTTP POST
     Then validation error response is received
 
-  Scenario: Add transition to workflow (not authorized)
+  Scenario: Create transition to workflow (not authorized)
     Given the request body is:
       """
       {
@@ -189,6 +189,77 @@ Feature: Workflow
       }
       """
     When I request "/api/v1/EN/workflow/default/transitions" using HTTP POST
+    Then unauthorized response is received
+
+  Scenario: Update transition to workflow
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "name": {
+          "PL": "Translated name PL",
+          "EN": "Translated name EN"
+        },
+        "description": {
+          "PL": "Translated description PL",
+          "EN": "Translated description EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@" using HTTP PUT
+    Then empty response is received
+
+  Scenario: Update transition to workflow (source not found)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "name": {
+          "PL": "Translated name PL",
+          "EN": "Translated name EN"
+        },
+        "description": {
+          "PL": "Translated description PL",
+          "EN": "Translated description EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/workflow/default/transitions/@@random_code@@/@workflow_destination_status_code@" using HTTP PUT
+    Then not found response is received
+
+  Scenario: Update transition to workflow (destination not found)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "name": {
+          "PL": "Translated name PL",
+          "EN": "Translated name EN"
+        },
+        "description": {
+          "PL": "Translated description PL",
+          "EN": "Translated description EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/workflow/default/transitions/@workflow_source_status_code@/@@random_code@@" using HTTP PUT
+    Then not found response is received
+
+  Scenario: Update transition to workflow (not authorized)
+    Given the request body is:
+      """
+      {
+        "name": {
+          "PL": "Translated name PL",
+          "EN": "Translated name EN"
+        },
+        "description": {
+          "PL": "Translated description PL",
+          "EN": "Translated description EN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@" using HTTP PUT
     Then unauthorized response is received
 
   Scenario: Get transition in default workflow

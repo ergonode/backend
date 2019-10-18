@@ -38,7 +38,6 @@ class UpdateWorkflowTransitionCommandHandler
     public function __invoke(UpdateWorkflowTransitionCommand $command)
     {
         $workflow = $this->repository->load($command->getWorkflowId());
-
         Assert::notNull($workflow);
 
         $source = $command->getTransition()->getSource();

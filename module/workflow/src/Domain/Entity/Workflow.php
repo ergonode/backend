@@ -110,7 +110,7 @@ class Workflow extends AbstractAggregateRoot
     public function setDefaultStatus(StatusCode $code): void
     {
         if (!$this->hasStatus($code)) {
-            throw  new \RuntimeException(sprintf('Status %s not exists exists', $code->getValue()));
+            throw  new \RuntimeException(sprintf('Status "%s" not exists', $code->getValue()));
         }
 
         if ($this->defaultStatus && !$code->isEqual($this->defaultStatus)) {
@@ -132,7 +132,7 @@ class Workflow extends AbstractAggregateRoot
     public function getDefaultStatus(): StatusCode
     {
         if (!$this->hasDefaultStatus()) {
-            throw  new \RuntimeException('Default Status not exists');
+            throw  new \RuntimeException('Default status not exists');
         }
 
         return $this->defaultStatus;
@@ -163,7 +163,7 @@ class Workflow extends AbstractAggregateRoot
     public function addStatus(StatusCode $code): void
     {
         if ($this->hasStatus($code)) {
-            throw  new \RuntimeException(sprintf('Status %s already exists', $code->getValue()));
+            throw  new \RuntimeException(sprintf('Status "%s" already exists', $code->getValue()));
         }
 
         $this->apply(new WorkflowStatusAddedEvent($code));
@@ -180,15 +180,15 @@ class Workflow extends AbstractAggregateRoot
         $destination = $transition->getDestination();
 
         if ($this->hasTransition($source, $destination)) {
-            throw  new \RuntimeException(sprintf('Transition from %s to %s already exists', $source->getValue(), $destination->getValue()));
+            throw  new \RuntimeException(sprintf('Transition from "%s" to "%s" already exists', $source->getValue(), $destination->getValue()));
         }
 
         if (!$this->hasStatus($source)) {
-            throw  new \RuntimeException(sprintf('Transition source status %s not exists', $source->getValue()));
+            throw  new \RuntimeException(sprintf('Transition source status "%s" not exists', $source->getValue()));
         }
 
         if (!$this->hasStatus($destination)) {
-            throw  new \RuntimeException(sprintf('Transition destination status %s not exists', $destination->getValue()));
+            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $destination->getValue()));
         }
 
         $this->apply(new WorkflowTransitionAddedEvent($transition));
@@ -204,15 +204,15 @@ class Workflow extends AbstractAggregateRoot
     public function changeTransition(StatusCode $source, StatusCode $destination, Transition $transition): void
     {
         if (!$this->hasTransition($source, $destination)) {
-            throw  new \RuntimeException('Transition not exists exists');
+            throw  new \RuntimeException('Transition not exists');
         }
 
         if (!$this->hasStatus($source)) {
-            throw  new \RuntimeException(sprintf('Transition source status %s not exists', $source->getValue()));
+            throw  new \RuntimeException(sprintf('Transition source status "%s" not exists', $source->getValue()));
         }
 
         if (!$this->hasStatus($destination)) {
-            throw  new \RuntimeException(sprintf('Transition destination status %s not exists', $destination->getValue()));
+            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $destination->getValue()));
         }
 
         $this->apply(new WorkflowTransitionChangedEvent($source, $destination, $this->getTransition($source, $destination), $transition));
@@ -243,7 +243,7 @@ class Workflow extends AbstractAggregateRoot
             }
         }
 
-        throw  new \RuntimeException(sprintf('Transition from %s to %s not exists', $source->getValue(), $destination->getValue()));
+        throw  new \RuntimeException(sprintf('Transition from "%s" to "%s" not exists', $source->getValue(), $destination->getValue()));
     }
 
     /**
@@ -279,7 +279,7 @@ class Workflow extends AbstractAggregateRoot
     public function removeStatus(StatusCode $id): void
     {
         if (!$this->hasStatus($id)) {
-            throw  new \RuntimeException(sprintf('Status id %s not exists', $id));
+            throw  new \RuntimeException(sprintf('Status ID "%s" not exists', $id));
         }
 
         $this->apply(new WorkflowStatusRemovedEvent($id));
