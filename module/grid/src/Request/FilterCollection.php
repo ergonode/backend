@@ -66,7 +66,7 @@ class FilterCollection
      */
     public function has(string $key): bool
     {
-        return array_key_exists($key, $this->filters);git status
+        return array_key_exists($key, $this->filters);
     }
 
     /**
