@@ -48,7 +48,12 @@ class FilterCollection
                 $filter = preg_replace($pattern, self::COMPARISON, $filter, 1);
 
                 if (preg_match_all(self::REGEXP, $filter, $matches)) {
-                    $this->filters[$matches[1][0]][$matches[2][0]] = str_replace(array_values(self::MAP), array_keys(self::MAP), $matches[3][0]);
+                    $value = str_replace(array_values(self::MAP), array_keys(self::MAP), $matches[3][0]);
+                    if (null === $value || '' === $value) {
+                        $value = null;
+                    }
+
+                    $this->filters[$matches[1][0]][$matches[2][0]] = $value;
                 }
             }
         }

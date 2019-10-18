@@ -49,12 +49,30 @@ class AttributeColumnProvider
             }
         }
 
-        $key = $attribute->getCode()->getValue();
+        $columnKey = $attribute->getCode()->getValue();
+        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
 
         return new TextColumn(
-            $key,
+            $columnKey,
             $attribute->getLabel()->get($language),
-            new TextFilter($filter->get($key))
+            new TextFilter($filter->get($filterKey))
         );
+    }
+
+    /**
+     * @param string           $columnKey
+     * @param string           $languageCode
+     * @param FilterCollection $filter
+     *
+     * @return string
+     */
+    protected function getFilterKey(string $columnKey, string $languageCode, FilterCollection $filter): string
+    {
+        $filterKey = $columnKey.':'.$languageCode;
+        if (!$filter->has($filterKey)) {
+            $filterKey = $columnKey;
+        }
+
+        return $filterKey;
     }
 }
