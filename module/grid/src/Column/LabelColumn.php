@@ -36,7 +36,7 @@ class LabelColumn extends AbstractColumn
             $colors[$code] = $status['color'];
         }
 
-        $this->setExtension('attribute_id', AttributeId::fromKey(new AttributeCode($field))->getValue());
+        $this->setExtension('element_id', AttributeId::fromKey(new AttributeCode($field))->getValue());
         $this->setExtension('colors', $colors);
     }
 
