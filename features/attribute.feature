@@ -74,6 +74,22 @@ Feature: Attribute module
     Then created response is received
     And remember response param "id" as "text_attribute"
 
+  Scenario: Create text attribute without group relation
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "code": "TEXT_@@random_code@@",
+          "type": "TEXT",
+          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
+          "groups": [],
+          "parameters": []
+      }
+      """
+    When I request "/api/v1/EN/attributes" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "text_attribute_without_group"
+
   Scenario: Update text attribute
     Given current authentication token
     Given the request body is:
@@ -393,6 +409,15 @@ Feature: Attribute module
     Given current authentication token
     When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=groups%3Dd653cce6-66fb-4772-800b-281af35fc5bc" using HTTP GET
     Then grid response is received
+
+  Scenario: Get attributes (filter by null groups)
+    Given current authentication token
+    When I request "api/v1/EN/attributes?filter=groups=" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": 1/
+    """
 
   Scenario: Get attributes (not authorized)
     When I request "/api/v1/EN/attributes" using HTTP GET

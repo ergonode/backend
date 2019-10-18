@@ -70,7 +70,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
                     )
                 );
             } else {
-                $query->andWhere(sprintf('%s::TEXT = \'[]\'::TEXT', $field));
+                $query->andWhere(sprintf('"%s"::TEXT = \'[]\'::TEXT', $field));
             }
         }
     }
@@ -107,7 +107,11 @@ abstract class AbstractDbalDataSet implements DataSetInterface
             return $query->expr()->lte($field, $query->createNamedParameter($value));
         }
 
-        return $query->expr()->eq(sprintf('%s::TEXT', $field), $query->createNamedParameter($value));
+        return  \sprintf(
+            '"%s"::TEXT ILIKE %s',
+            $field,
+            $query->createNamedParameter(\sprintf('%%%s%%', $this->escape($value)))
+        );
     }
 
     /**

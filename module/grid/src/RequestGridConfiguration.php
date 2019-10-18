@@ -20,7 +20,7 @@ use Webmozart\Assert\Assert;
 class RequestGridConfiguration implements GridConfigurationInterface
 {
     public const OFFSET = 0;
-    public const LIMIT = 50;
+    public const LIMIT = 1000;
     public const ASC = 'ASC';
     public const DESC = 'DESC';
     public const FILTER = null;
