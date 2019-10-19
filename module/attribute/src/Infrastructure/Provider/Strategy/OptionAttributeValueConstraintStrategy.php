@@ -11,6 +11,7 @@ namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Choice;
@@ -37,11 +38,16 @@ class OptionAttributeValueConstraintStrategy implements AttributeValueConstraint
      */
     public function get(AbstractAttribute $attribute): Constraint
     {
-        $keys = array_keys($attribute->getOptions());
+        $multiple = $attribute instanceof MultiSelectAttribute;
+
+        $choices = [];
+        foreach ($attribute->getOptions() as $key => $value) {
+            $choices[] = (string) $key;
+        }
 
         return new Collection([
             'value' => [
-                new Choice($keys),
+                new Choice(['choices' => $choices, 'multiple' => $multiple]),
             ],
         ]);
     }
