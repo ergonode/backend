@@ -130,6 +130,14 @@ abstract class AbstractColumn implements ColumnInterface
     }
 
     /**
+     * @return bool
+     */
+    public function hasLanguage(): bool
+    {
+        return null !== $this->language;
+    }
+
+    /**
      * @param Language $language
      */
     public function setLanguage(Language $language): void

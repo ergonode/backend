@@ -39,7 +39,12 @@ class RowRenderer implements RowRendererInterface
             // @todo Might be slow, we need to group it in my opinion
             foreach ($this->rendererCollection as $renderer) {
                 if ($renderer->supports($column)) {
-                    $result[$id] = $renderer->render($column, $id, $row);
+                    $resultColumnId = $id;
+                    if ($column->hasLanguage()) {
+                        $resultColumnId .= ':'.$column->getLanguage()->getCode();
+                    }
+
+                    $result[$resultColumnId] = $renderer->render($column, $id, $row);
                     break;
                 }
             }

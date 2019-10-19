@@ -48,7 +48,7 @@ class LogGrid extends AbstractGrid
         $this->addColumn('id', $id);
         $this->addColumn('recorded_at', new TextColumn('recorded_at', $this->trans('Time'), new TextFilter($filters->get('recorded_at'))));
         $this->addColumn('author', new TextColumn('author', $this->trans('Author'), new TextFilter($filters->get('author'))));
-        $column = new LogColumn('event', 'payload', $this->trans('Message'), $language, $this->translator);
+        $column = new LogColumn('event', 'payload', $this->trans('Message'), $language);
         $this->addColumn('event', $column);
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
         $this->orderBy('recorded_at', 'DESC');
