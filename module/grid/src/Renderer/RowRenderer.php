@@ -36,10 +36,15 @@ class RowRenderer implements RowRendererInterface
     {
         $result = [];
         foreach ($grid->getColumns() as $id => $column) {
+            $columnId = $id;
+            if ($column->getLanguage()) {
+                $columnId = sprintf('%s:%s', $column->getField(), $column->getLanguage()->getCode());
+            }
+
             // @todo Might be slow, we need to group it in my opinion
             foreach ($this->rendererCollection as $renderer) {
                 if ($renderer->supports($column)) {
-                    $result[$id] = $renderer->render($column, $id, $row);
+                    $result[$columnId] = $renderer->render($column, $id, $row);
                     break;
                 }
             }
