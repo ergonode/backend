@@ -36,6 +36,7 @@ services:
     Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface: '@Ergonode\Workflow\Persistence\Dbal\Repository\DbalWorkflowRepository'
     Ergonode\Workflow\Domain\Query\StatusQueryInterface: '@Ergonode\Workflow\Persistence\Dbal\Query\DbalStatusQuery'
     Ergonode\Workflow\Domain\Query\TransitionQueryInterface: '@Ergonode\Workflow\Persistence\Dbal\Query\DbalTransitionQuery'
+    Ergonode\Workflow\Domain\Query\WorkflowQueryInterface: '@Ergonode\Workflow\Persistence\Dbal\Query\DbalWorkflowQuery'
 
     Ergonode\Workflow\Domain\Factory\Decorator\StatusProductFactoryDecorator:
         decorates: Ergonode\ProductSimple\Domain\Factory\SimpleProductFactory

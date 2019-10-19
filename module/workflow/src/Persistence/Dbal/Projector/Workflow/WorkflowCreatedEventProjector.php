@@ -68,6 +68,7 @@ class WorkflowCreatedEventProjector implements DomainEventProjectorInterface
             self::TABLE,
             [
                 'id' => $aggregateId->getValue(),
+                'code' => $event->getCode(),
                 'default_status' => $status ? StatusId::fromCode($status)->getValue(): null,
             ]
         );

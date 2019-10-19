@@ -274,7 +274,7 @@ Feature: Workflow
   Scenario: Delete first status
     Given current authentication token
     When I request "/api/v1/EN/status/@workflow_first_status_code@" using HTTP DELETE
-    Then empty response is received
+    Then conflict response is received
 
   Scenario: Delete second status
     Given current authentication token
