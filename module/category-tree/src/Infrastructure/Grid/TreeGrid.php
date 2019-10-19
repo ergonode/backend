@@ -54,5 +54,7 @@ class TreeGrid extends AbstractGrid
             ],
         ]));
         $this->orderBy('name', 'ASC');
+
+        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }
