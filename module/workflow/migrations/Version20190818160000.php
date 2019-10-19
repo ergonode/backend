@@ -33,6 +33,7 @@ final class Version20190818160000 extends AbstractErgonodeMigration
         $this->addSql('
             CREATE TABLE IF NOT EXISTS workflow (
                 id UUID NOT NULL,
+                code varchar(255) NOT NULL,
                 default_status UUID,             
                 PRIMARY KEY(id)
             )
