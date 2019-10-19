@@ -15,6 +15,9 @@ services:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject,Type}'
 
+    Ergonode\AttributeUnit\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
     Ergonode\AttributeUnit\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
