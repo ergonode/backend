@@ -106,13 +106,14 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
             ];
 
             $transitions = $workflow->getTransitionsFromStatus($statusCode);
+            $result['workflow'] = [];
             foreach ($transitions as $transition) {
-                $result['workflow'] = [];
                 if ($this->service->available($transition, $product)) {
                     $destinationStatus = $this->statusRepository->load(StatusId::fromCode($transition->getDestination()));
                     Assert::notNull($destinationStatus);
                     $result['workflow'][] = [
                         'name' => $destinationStatus->getName()->get($language),
+                        'transition' => $transition->getName()->get($language),
                         'code' => $destinationStatus->getCode(),
                         'color' => $destinationStatus->getColor(),
                     ];

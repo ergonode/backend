@@ -13,6 +13,7 @@ use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -39,10 +40,11 @@ interface ProductQueryInterface
 
     /**
      * @param AttributeId $attributeId
+     * @param Uuid|null   $valueId
      *
      * @return array
      */
-    public function findProductIdByAttributeId(AttributeId $attributeId): array;
+    public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array;
 
     /**
      * @param StatusId $statusId

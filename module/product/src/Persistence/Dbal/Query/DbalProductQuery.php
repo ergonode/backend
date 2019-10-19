@@ -18,6 +18,7 @@ use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -120,13 +121,18 @@ class DbalProductQuery implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
-    public function findProductIdByAttributeId(AttributeId $attributeId): array
+    public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array
     {
         $queryBuilder = $this->connection->createQueryBuilder()
             ->select('product_id')
             ->from(self::VALUE_TABLE)
             ->where('attribute_id = :attribute')
             ->setParameter('attribute', $attributeId->getValue());
+        if ($valueId) {
+            $queryBuilder->andWhere($queryBuilder->expr()->eq('value_id', ':valueId'));
+            $queryBuilder->setParameter('valueId', $valueId->toString());
+        }
+
         $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
         if (false === $result) {

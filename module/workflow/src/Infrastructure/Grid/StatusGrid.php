@@ -11,6 +11,7 @@ namespace Ergonode\Workflow\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
@@ -72,6 +73,9 @@ class StatusGrid extends AbstractGrid
 
         $column = new TextColumn('description', $this->trans('Description'), new TextFilter($filters->get('description')));
         $this->addColumn('description', $column);
+
+        $column = new BoolColumn('is_default', $this->trans('Default'));
+        $this->addColumn('is_default', $column);
 
         $this->orderBy('code', 'DESC');
 

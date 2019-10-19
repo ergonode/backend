@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
 
@@ -53,6 +54,37 @@ class DbalTransitionQuery implements TransitionQueryInterface
         $result->setParameter(':workflowId', $workflowId->getValue());
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * @param WorkflowId $workflowId
+     * @param StatusId   $statusId
+     *
+     * @return mixed
+     */
+    public function hasStatus(WorkflowId $workflowId, StatusId $statusId): bool
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('*');
+        $query->from(self::TABLE);
+
+        $query->andWhere($query->expr()->eq('workflow_id', ':workflowId'));
+        $query->andWhere(
+            $query->expr()->orX(
+                $query->expr()->eq('source_id', ':statusId'),
+                $query->expr()->eq('destination_id', ':statusId')
+            )
+        );
+        $query->setParameter(':workflowId', $workflowId->getValue());
+        $query->setParameter(':statusId', $statusId->getValue());
+
+        $result = $query->execute()->fetchAll(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+             return true;
+        }
+
+        return false;
     }
 
     /**

@@ -27,7 +27,6 @@ use Ramsey\Uuid\Uuid;
  */
 class ProductValueAddedEventProjector implements DomainEventProjectorInterface
 {
-    private const NAMESPACE = 'cb2600df-94fb-4755-9e6a-a15591a8e510';
     private const TABLE_PRODUCT_VALUE = 'product_value';
     private const TABLE_VALUE_TRANSLATION = 'value_translation';
 
@@ -114,7 +113,7 @@ class ProductValueAddedEventProjector implements DomainEventProjectorInterface
     private function insert(string $productId, string $attributeId, string $value, string $language = null): void
     {
         if ($value !== '') {
-            $valueId = Uuid::uuid5(self::NAMESPACE, implode('|', [$value, $language]));
+            $valueId = Uuid::uuid5(ValueInterface::NAMESPACE, implode('|', [$value, $language]));
 
             $qb = $this->connection->createQueryBuilder();
             $result = $qb->select('*')
