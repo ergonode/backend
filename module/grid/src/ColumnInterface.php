@@ -41,9 +41,14 @@ interface ColumnInterface
     public function isEditable(): bool;
 
     /**
-     * @return Language
+     * @return Language|null
      */
     public function getLanguage(): ?Language;
+
+    /**
+     * @return bool
+     */
+    public function hasLanguage(): bool;
 
     /**
      * @param Language $language
