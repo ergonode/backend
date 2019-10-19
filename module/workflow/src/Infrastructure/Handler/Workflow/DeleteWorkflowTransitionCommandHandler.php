@@ -38,7 +38,6 @@ class DeleteWorkflowTransitionCommandHandler
     public function __invoke(DeleteWorkflowTransitionCommand $command)
     {
         $workflow = $this->repository->load($command->getWorkflowId());
-
         Assert::notNull($workflow);
 
         $workflow->removeTransition($command->getSource(), $command->getDestination());
