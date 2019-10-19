@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\AttributePrice\Domain\Validator;
+namespace Ergonode\AttributePrice\Infrastructure\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
