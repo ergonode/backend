@@ -22,7 +22,7 @@ use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
-class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
+class NumericAttributeColumnStrategy extends AbstractLanguageColumnStrategy
 {
     /**
      * @var AttributeQueryInterface
@@ -38,11 +38,9 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
     }
 
     /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(AbstractAttribute $attribute): bool
+    public function supports(AbstractAttribute $attribute): bool
     {
         return in_array($attribute->getType(), [NumericAttribute::TYPE, PriceAttribute::TYPE, UnitAttribute::TYPE], true);
     }
@@ -54,10 +52,11 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
     {
         $range = $this->query->getAttributeValueRange($attribute->getId());
 
-        $key = $attribute->getCode()->getValue();
+        $columnKey = $attribute->getCode()->getValue();
+        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
 
-        $filter = new RangeFilter($range['min'], $range['max'], $filter->get($key));
+        $columnFilter = new RangeFilter($range['min'], $range['max'], $filter->get($filterKey));
 
-        return new NumericColumn($key, $attribute->getLabel()->get($language), $filter);
+        return new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
     }
 }

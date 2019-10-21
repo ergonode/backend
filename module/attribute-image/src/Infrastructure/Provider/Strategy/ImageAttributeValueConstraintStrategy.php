@@ -7,25 +7,24 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\AttributeUnit\Infrastructure\Provider\Strategy;
+namespace Ergonode\AttributeImage\Infrastructure\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
-use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
+use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Length;
 
 /**
  */
-class UnitAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
+class ImageAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**
      * {@inheritDoc}
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute instanceof UnitAttribute;
+        return $attribute instanceof ImageAttribute;
     }
 
     /**
@@ -34,9 +33,7 @@ class UnitAttributeValueConstraintStrategy implements AttributeValueConstraintSt
     public function get(AbstractAttribute $attribute): Constraint
     {
         return new Collection([
-            'value' => [
-                new Length(['max' => 255]),
-            ],
+            'value' => [],
         ]);
     }
 }
