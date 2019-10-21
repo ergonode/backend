@@ -56,7 +56,7 @@ class ColumnRenderer
     {
         $result = [];
 
-        if ($column->getLanguage()) {
+        if ($column->hasLanguage()) {
             $result['language'] = $column->getLanguage()->getCode();
             $result['id'] = sprintf('%s:%s', $column->getField(), $result['language']);
         } else {

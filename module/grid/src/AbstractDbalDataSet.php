@@ -62,13 +62,11 @@ abstract class AbstractDbalDataSet implements DataSetInterface
     {
         foreach ($values as $value) {
             if (null !== $value) {
-                $query->andWhere(
-                    \sprintf(
-                        'jsonb_exists_any(%s, %s)',
-                        $field,
-                        $query->createNamedParameter(sprintf('{%s}', $value))
-                    )
-                );
+                $query->andWhere(sprintf(
+                    'jsonb_exists_any("%s", %s)',
+                    $field,
+                    $query->createNamedParameter(sprintf('{%s}', $value))
+                ));
             } else {
                 $query->andWhere(sprintf('"%s"::TEXT = \'[]\'::TEXT', $field));
             }
@@ -97,18 +95,22 @@ abstract class AbstractDbalDataSet implements DataSetInterface
      */
     private function getExpresion(QueryBuilder $query, string $field, string $operator, ?string $value = null): string
     {
+        $field = sprintf('"%s"', $field);
+
         if (null === $value) {
             return $query->expr()->isNull($field);
         }
+
         if ('>=' === $operator) {
             return $query->expr()->gte($field, $query->createNamedParameter($value));
         }
+
         if ('<=' === $operator) {
             return $query->expr()->lte($field, $query->createNamedParameter($value));
         }
 
         return  \sprintf(
-            '"%s"::TEXT ILIKE %s',
+            '%s::TEXT ILIKE %s',
             $field,
             $query->createNamedParameter(\sprintf('%%%s%%', $this->escape($value)))
         );

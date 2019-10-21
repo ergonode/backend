@@ -21,9 +21,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class DateAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
     /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function supports(AbstractAttribute $attribute): bool
     {
@@ -31,9 +29,7 @@ class DateAttributeValueConstraintStrategy implements AttributeValueConstraintSt
     }
 
     /**
-     * @param AbstractAttribute|DateAttribute $attribute
-     *
-     * @return Constraint
+     * {@inheritDoc}
      */
     public function get(AbstractAttribute $attribute): Constraint
     {

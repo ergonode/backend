@@ -22,11 +22,9 @@ use Ergonode\Grid\Request\FilterCollection;
 class TextAreaAttributeColumnStrategy extends AbstractLanguageColumnStrategy
 {
     /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(AbstractAttribute $attribute): bool
+    public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute->getType() === TextareaAttribute::TYPE;
     }
@@ -37,7 +35,6 @@ class TextAreaAttributeColumnStrategy extends AbstractLanguageColumnStrategy
     public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {
         $columnKey = $attribute->getCode()->getValue();
-
         $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
 
         return new TextAreaColumn(

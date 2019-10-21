@@ -44,7 +44,7 @@ class AttributeColumnProvider
     public function provide(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {
         foreach ($this->strategies as $strategy) {
-            if ($strategy->isSupported($attribute)) {
+            if ($strategy->supports($attribute)) {
                 return $strategy->create($attribute, $language, $filter);
             }
         }

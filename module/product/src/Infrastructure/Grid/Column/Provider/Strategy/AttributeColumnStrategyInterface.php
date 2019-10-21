@@ -21,7 +21,7 @@ interface AttributeColumnStrategyInterface
      *
      * @return bool
      */
-    public function isSupported(AbstractAttribute $attribute): bool;
+    public function supports(AbstractAttribute $attribute): bool;
 
     /**
      * @param AbstractAttribute $attribute

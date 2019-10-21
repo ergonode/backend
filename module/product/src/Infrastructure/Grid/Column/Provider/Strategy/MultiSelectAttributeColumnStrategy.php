@@ -24,11 +24,9 @@ use Ergonode\Grid\Request\FilterCollection;
 class MultiSelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
 {
     /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(AbstractAttribute $attribute): bool
+    public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute->getType() ===  MultiSelectAttribute::TYPE;
     }
@@ -48,7 +46,6 @@ class MultiSelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
         }
 
         $columnKey = $filterKey = $attribute->getCode()->getValue();
-
         $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
 
         return new MultiSelectColumn(
