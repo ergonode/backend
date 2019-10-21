@@ -63,7 +63,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
         foreach ($values as $value) {
             if (null !== $value) {
                 $query->andWhere(sprintf(
-                    'jsonb_exists_any("%s", %s)',
+                    'jsonb_exists_any("%s"::jsonb, %s::text[])',
                     $field,
                     $query->createNamedParameter(sprintf('{%s}', $value))
                 ));
