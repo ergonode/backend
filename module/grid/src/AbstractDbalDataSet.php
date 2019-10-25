@@ -45,11 +45,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
     private function buildTextQuery(QueryBuilder $query, string $field, array $values = []): void
     {
         foreach ($values as $operator => $value) {
-            if (null === $value) {
-                $query->andWhere($query->expr()->isNull($field));
-            } else {
-                $query->andWhere($this->getExpresion($query, $field, $operator, $value));
-            }
+            $query->andWhere($this->getExpresion($query, $field, $operator, $value));
         }
     }
 

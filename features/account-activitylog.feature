@@ -53,6 +53,15 @@ Feature: Account module
       /"filtered": 0/
     """
 
+  Scenario: Get accounts log (filter by null time)
+    Given current authentication token
+    When I request "/api/v1/EN/accounts/log?limit=25&offset=0&filter=recorded_at=" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": 0/
+    """
+
   Scenario: Get accounts log (filter by time lower or equal 2000-01-01)
     Given current authentication token
     When I request "/api/v1/EN/accounts/log?limit=25&offset=0&filter=recorded_at<=2000-01-01" using HTTP GET
