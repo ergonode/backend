@@ -48,12 +48,20 @@ class RoleCreatedEvent implements DomainEventInterface
     private $privileges;
 
     /**
+     * @var bool
+     *
+     * @JMS\Type("bool")
+     */
+    private $hidden;
+
+    /**
      * @param RoleId      $id
      * @param string      $name
      * @param string      $description
      * @param Privilege[] $privileges
+     * @param bool        $hidden
      */
-    public function __construct(RoleId $id, string $name, string $description, array $privileges = [])
+    public function __construct(RoleId $id, string $name, string $description, array $privileges = [], bool $hidden = false)
     {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
@@ -61,6 +69,7 @@ class RoleCreatedEvent implements DomainEventInterface
         $this->name = $name;
         $this->description = $description;
         $this->privileges = $privileges;
+        $this->hidden = $hidden;
     }
 
     /**
@@ -93,5 +102,13 @@ class RoleCreatedEvent implements DomainEventInterface
     public function getPrivileges(): array
     {
         return $this->privileges;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHidden(): bool
+    {
+        return $this->hidden;
     }
 }

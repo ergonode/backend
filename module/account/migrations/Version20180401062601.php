@@ -47,7 +47,8 @@ final class Version20180401062601 extends AbstractErgonodeMigration
             CREATE TABLE roles (
                 id UUID NOT NULL, 
                 name VARCHAR(100) NOT NULL,
-                description VARCHAR(500) NOT NULL,          
+                description VARCHAR(500) NOT NULL,  
+                hidden BOOL NOT NULL,       
                 PRIMARY KEY(id)
             )
         ');

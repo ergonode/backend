@@ -41,10 +41,12 @@ class DbalRoleQuery implements RoleQueryInterface
     public function getDataSet(): DataSetInterface
     {
         $query = $this->getQuery();
+        $query->andWhere($query->expr()->eq('hidden', ':hidden'));
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
+        $result->setParameter(':hidden', false, \PDO::PARAM_BOOL);
 
         return new DbalDataSet($result);
     }
@@ -75,6 +77,8 @@ class DbalRoleQuery implements RoleQueryInterface
     public function getDictionary(): array
     {
         $qb = $this->getQuery();
+        $qb->andWhere($qb->expr()->eq('hidden', ':hidden'));
+        $qb->setParameter(':hidden', false, \PDO::PARAM_BOOL);
 
         return $qb
             ->select('id, name')

@@ -52,7 +52,11 @@ class RoleCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param AbstractId                            $aggregateId
+     * @param DomainEventInterface|RoleCreatedEvent $event
+     *
+     * @throws UnsupportedEventException
+     * @throws \Doctrine\DBAL\DBALException
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -67,6 +71,10 @@ class RoleCreatedEventProjector implements DomainEventProjectorInterface
                 'name' => $event->getName(),
                 'description' => $event->getDescription(),
                 'privileges' => $this->serializer->serialize($event->getPrivileges(), 'json'),
+                'hidden' => $event->isHidden(),
+            ],
+            [
+                'hidden' => \PDO::PARAM_BOOL,
             ]
         );
     }

@@ -54,18 +54,24 @@ class Role extends AbstractAggregateRoot
     private $privileges;
 
     /**
+     * @var bool
+     */
+    private $hidden;
+
+    /**
      * @param RoleId $id
      * @param string $name
      * @param string $description
      * @param array  $privileges
+     * @param bool   $hidden
      *
      * @throws \Exception
      */
-    public function __construct(RoleId $id, string $name, string $description, array $privileges = [])
+    public function __construct(RoleId $id, string $name, string $description, array $privileges = [], bool $hidden = false)
     {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
-        $this->apply(new RoleCreatedEvent($id, $name, $description, $privileges));
+        $this->apply(new RoleCreatedEvent($id, $name, $description, $privileges, $hidden));
     }
 
     /**
@@ -179,6 +185,7 @@ class Role extends AbstractAggregateRoot
         $this->name = $event->getName();
         $this->description = $event->getDescription();
         $this->privileges = $event->getPrivileges();
+        $this->hidden = false;
     }
 
     /**

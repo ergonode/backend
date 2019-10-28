@@ -75,6 +75,7 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("CONDITION_READ")>'
                 - '<privilege("CONDITION_UPDATE")>'
                 - '<privilege("CONDITION_DELETE")>'
+            - true
     admin_role:
         __construct:
             - '@admin_role_id'
