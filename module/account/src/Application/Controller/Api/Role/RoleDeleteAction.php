@@ -102,6 +102,10 @@ class RoleDeleteAction
      */
     public function __invoke(Role $role): Response
     {
+        if ($role->isHidden()) {
+            throw new ConflictHttpException('Can\'t remove hidden role');
+        }
+
         $relationships = $this->relationshipsResolver->resolve($role->getId());
         if (!$relationships->isEmpty()) {
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
