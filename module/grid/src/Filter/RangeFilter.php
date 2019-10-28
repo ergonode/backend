@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Filter;
 
+use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Grid\FilterInterface;
 
 /**
@@ -23,24 +24,17 @@ class RangeFilter implements FilterInterface
     private $values;
 
     /**
-     * @var float
+     * @var Range
      */
-    private $min;
+    private $range;
 
     /**
-     * @var float
-     */
-    private $max;
-
-    /**
-     * @param float $min
-     * @param float $max
+     * @param Range $range
      * @param array $values
      */
-    public function __construct(float $min, float $max, array $values = [])
+    public function __construct(Range $range, array $values = [])
     {
-        $this->min = $min;
-        $this->max = $max;
+        $this->range = $range;
         $this->values = $values;
     }
 
@@ -50,8 +44,8 @@ class RangeFilter implements FilterInterface
     public function render(): array
     {
         return [
-            'min' => $this->min,
-            'max' => $this->max,
+            'min' => $this->range->getMin(),
+            'max' => $this->range->getMax(),
         ];
     }
 

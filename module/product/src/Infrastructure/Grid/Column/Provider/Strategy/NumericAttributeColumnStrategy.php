@@ -55,7 +55,7 @@ class NumericAttributeColumnStrategy extends AbstractLanguageColumnStrategy
         $columnKey = $attribute->getCode()->getValue();
         $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
 
-        $columnFilter = new RangeFilter($range['min'], $range['max'], $filter->get($filterKey));
+        $columnFilter = new RangeFilter($range, $filter->get($filterKey));
 
         return new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
     }

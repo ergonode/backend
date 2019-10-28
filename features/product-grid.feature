@@ -14,11 +14,31 @@ Feature: Product edit feature
     Then created response is received
     And remember response param "id" as "product_edit_text_attribute"
 
-  Scenario: Get attribute
+  Scenario: Create numeric attribute
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "NUMERIC_@@random_code@@",
+        "type": "NUMERIC",
+        "groups": []
+      }
+      """
+    When I request "/api/v1/EN/attributes" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "product_edit_numeric_attribute"
+
+  Scenario: Get text attribute code
     Given current authentication token
     When I request "/api/v1/EN/attributes/@product_edit_text_attribute@" using HTTP GET
     Then the response code is 200
     And remember response param "code" as "product_edit_text_attribute_code"
+
+  Scenario: Get numeric attribute code
+    Given current authentication token
+    When I request "/api/v1/EN/attributes/@product_edit_numeric_attribute@" using HTTP GET
+    Then the response code is 200
+    And remember response param "code" as "product_edit_numeric_attribute_code"
 
   Scenario: Create template
     Given current authentication token
@@ -58,6 +78,17 @@ Feature: Product edit feature
     When I request "api/v1/EN/products/@edit_product@/draft/@product_edit_text_attribute@/value" using HTTP PUT
     Then the response code is 200
 
+  Scenario: Edit product numeric value
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "value": "10.99"
+      }
+      """
+    When I request "api/v1/EN/products/@edit_product@/draft/@product_edit_numeric_attribute@/value" using HTTP PUT
+    Then the response code is 200
+
   Scenario: Apply product draft
     Given current authentication token
     When I request "api/v1/EN/products/@edit_product@/draft/persist" using HTTP PUT
@@ -66,6 +97,15 @@ Feature: Product edit feature
   Scenario: Request product grid filtered by text attribute
     Given current authentication token
     When I request "api/v1/EN/products?columns=@product_edit_text_attribute_code@&filter=@product_edit_text_attribute_code@=text" using HTTP GET
+    Then the response code is 200
+    And the response body matches:
+    """
+      /"filtered": 1/
+    """
+
+  Scenario: Request product grid filtered by text attribute
+    Given current authentication token
+    When I request "api/v1/EN/products?columns=@product_edit_numeric_attribute_code@&filter=@product_edit_numeric_attribute_code@=10.99" using HTTP GET
     Then the response code is 200
     And the response body matches:
     """

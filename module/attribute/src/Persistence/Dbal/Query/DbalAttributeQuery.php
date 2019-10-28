@@ -22,6 +22,7 @@ use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
 use Ergonode\Attribute\Domain\View\Factory\AttributeViewModelFactory;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
@@ -244,9 +245,9 @@ class DbalAttributeQuery implements AttributeQueryInterface
     /**
      * @param AttributeId $attributeId
      *
-     * @return array
+     * @return Range
      */
-    public function getAttributeValueRange(AttributeId $attributeId): array
+    public function getAttributeValueRange(AttributeId $attributeId): Range
     {
         $qb = $this->connection->createQueryBuilder();
 
@@ -259,10 +260,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->execute()
             ->fetch();
 
-        $result['min'] = (float) $result['min'];
-        $result['max'] = (float) $result['max'];
-
-        return $result;
+        return new Range((float) $result['min'], (float) $result['max']);
     }
 
     /**

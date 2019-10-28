@@ -13,6 +13,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
+use Ergonode\Core\Domain\ValueObject\Range;
 
 /**
  */
@@ -68,9 +69,9 @@ interface AttributeQueryInterface
     /**
      * @param AttributeId $attributeId
      *
-     * @return array
+     * @return Range
      */
-    public function getAttributeValueRange(AttributeId $attributeId): array;
+    public function getAttributeValueRange(AttributeId $attributeId): Range;
 
     /**
      * @param AttributeId $id
