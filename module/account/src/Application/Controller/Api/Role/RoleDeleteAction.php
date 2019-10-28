@@ -107,6 +107,10 @@ class RoleDeleteAction
             throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
 
+        if ($role->isHidden()) {
+            throw new ConflictHttpException('Can\'t remove hidden role');
+        }
+
         $command = new DeleteRoleCommand($role->getId());
         $this->messageBus->dispatch($command);
 

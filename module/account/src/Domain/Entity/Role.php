@@ -107,6 +107,14 @@ class Role extends AbstractAggregateRoot
     }
 
     /**
+     * @return bool
+     */
+    public function isHidden(): bool
+    {
+        return $this->hidden;
+    }
+
+    /**
      * @param string $name
      */
     public function changeName(string $name): void
