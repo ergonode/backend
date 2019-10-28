@@ -30,12 +30,16 @@ class NumericColumnRenderer implements ColumnRendererInterface
      *
      * @throws UnsupportedColumnException
      */
-    public function render(ColumnInterface $column, string $id, array $row): float
+    public function render(ColumnInterface $column, string $id, array $row): ?float
     {
         if (!$this->supports($column)) {
             throw new UnsupportedColumnException($column);
         }
 
-        return (float) $row[$id];
+        if (null !== $row[$id]) {
+            return (float) $row[$id];
+        }
+
+        return null;
     }
 }
