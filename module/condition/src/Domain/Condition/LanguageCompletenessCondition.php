@@ -11,6 +11,7 @@ namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -18,6 +19,9 @@ class LanguageCompletenessCondition implements ConditionInterface
 {
     public const TYPE = 'LANGUAGE_COMPLETENESS_CONDITION';
     public const PHRASE = 'LANGUAGE_COMPLETENESS_CONDITION_PHRASE';
+
+    public const COMPLETE = 'complete';
+    public const NOT_COMPLETE = 'not complete';
 
     /**
      * @var bool
@@ -34,13 +38,13 @@ class LanguageCompletenessCondition implements ConditionInterface
     private $language;
 
     /**
-     * @param bool     $completeness
+     * @param string   $completeness
      * @param Language $language
      */
-    public function __construct(
-        bool $completeness,
-        Language $language
-    ) {
+    public function __construct(string $completeness, Language $language)
+    {
+        Assert::oneOf($completeness, [self::COMPLETE, self::NOT_COMPLETE]);
+
         $this->completeness = $completeness;
         $this->language = $language;
     }
@@ -56,9 +60,9 @@ class LanguageCompletenessCondition implements ConditionInterface
     }
 
     /**
-     * @return bool
+     * @return string
      */
-    public function getCompleteness(): bool
+    public function getCompleteness(): string
     {
         return $this->completeness;
     }

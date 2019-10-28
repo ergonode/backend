@@ -63,8 +63,8 @@ class ProductCompletenessConditionConfigurationStrategy implements Configuration
                     'name' => 'completeness',
                     'type' => 'SELECT',
                     'options' => [
-                        1 => $this->translator->trans('Product is complete', [], 'condition', $language->getCode()),
-                        0 => $this->translator->trans('Product is not complete', [], 'condition', $language->getCode()),
+                        ProductCompletenessCondition::COMPLETE => $this->translator->trans('Product is complete', [], 'condition', $language->getCode()),
+                        ProductCompletenessCondition::NOT_COMPLETE => $this->translator->trans('Product is not complete', [], 'condition', $language->getCode()),
                     ],
                 ],
                 [
