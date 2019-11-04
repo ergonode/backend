@@ -96,7 +96,7 @@ class DbalStatusQuery implements StatusQueryInterface
     private function getQuery(Language $language): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select(sprintf('id, code, color, name->>\'%s\' as name, description->>\'%s\' as description', $language->getCode(), $language->getCode()))
+            ->select(sprintf('id, code, code AS status, color, name->>\'%s\' as name, description->>\'%s\' as description', $language->getCode(), $language->getCode()))
             ->from(self::TABLE, 'a');
     }
 }
