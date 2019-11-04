@@ -23,8 +23,6 @@ class UpdateCategoryCommandHandler
     private $repository;
 
     /**
-     * UpdateCategoryCommandHandler constructor.
-     *
      * @param CategoryRepositoryInterface $repository
      */
     public function __construct(CategoryRepositoryInterface $repository)

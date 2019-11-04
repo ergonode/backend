@@ -1,0 +1,7 @@
+Ergonode\Note\Domain\Entity\Note:
+    note_{1..2000}:
+        __construct:
+            - '<noteId()>'
+            - '@product_id_*'
+            - '<userId(data_inputer@ergonode.com)>'
+            - 'Note content'

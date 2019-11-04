@@ -32,22 +32,9 @@ abstract class AbstractAggregateRoot
     protected $events = [];
 
     /**
-     * @var \DateTime
-     */
-    protected $editedAt;
-
-    /**
      * @return AbstractId
      */
     abstract public function getId(): AbstractId;
-
-    /**
-     * @return \DateTime
-     */
-    public function getEditedAt(): \DateTime
-    {
-        return $this->editedAt;
-    }
 
     /**
      * @param DomainEventInterface $event
@@ -98,8 +85,6 @@ abstract class AbstractAggregateRoot
      */
     private function handle(DomainEventInterface $event, \DateTime $recordedAt): void
     {
-        $this->editedAt = $recordedAt;
-
         if (!$event instanceof AbstractDeleteEvent) {
             $classArray = explode('\\', get_class($event));
             $class = end($classArray);

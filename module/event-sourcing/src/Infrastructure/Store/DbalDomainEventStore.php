@@ -52,11 +52,6 @@ class DbalDomainEventStore implements DomainEventStoreInterface
     private $tokenStorage;
 
     /**
-     * @var array
-     */
-    private $events;
-
-    /**
      * @var DomainEventProviderInterface
      */
     private $domainEventProvider;
