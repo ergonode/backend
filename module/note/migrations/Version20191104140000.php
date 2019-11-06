@@ -32,6 +32,7 @@ final class Version20191104140000 extends AbstractErgonodeMigration
         $this->createEventStoreEvents([
             'Ergonode\Note\Domain\Event\NoteCreatedEvent' => 'Note created',
             'Ergonode\Note\Domain\Event\NoteContentChangedEvent' => 'Note Content changed',
+            'Ergonode\Note\Domain\Event\NoteDeletedEvent' => 'Note deleted',
         ]);
     }
 

@@ -20,9 +20,9 @@ interface NoteRepositoryInterface
     /**
      * @param NoteId $id
      *
-     * @return AbstractAggregateRoot
+     * @return Note
      */
-    public function load(NoteId $id): AbstractAggregateRoot;
+    public function load(NoteId $id): ?AbstractAggregateRoot;
 
     /**
      * @param Note $object
@@ -35,4 +35,9 @@ interface NoteRepositoryInterface
      * @return bool
      */
     public function exists(NoteId $id): bool;
+
+    /**
+     * @param Note $object
+     */
+    public function delete(Note $object): void;
 }

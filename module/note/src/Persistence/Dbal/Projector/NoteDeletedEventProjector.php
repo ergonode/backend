@@ -14,12 +14,12 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Note\Domain\Event\NoteContentChangedEvent;
 use Ergonode\Note\Domain\Event\NoteCreatedEvent;
+use Ergonode\Note\Domain\Event\NoteDeletedEvent;
 
 /**
  */
-class NoteContentChangedEventProjector implements DomainEventProjectorInterface
+class NoteDeletedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'note';
 
@@ -41,12 +41,12 @@ class NoteContentChangedEventProjector implements DomainEventProjectorInterface
      */
     public function supports(DomainEventInterface $event): bool
     {
-        return $event instanceof NoteContentChangedEvent;
+        return $event instanceof NoteDeletedEvent;
     }
 
     /**
-     * @param AbstractId                                   $aggregateId
-     * @param DomainEventInterface|NoteContentChangedEvent $event
+     * @param AbstractId                            $aggregateId
+     * @param DomainEventInterface|NoteCreatedEvent $event
      *
      * @throws UnsupportedEventException
      * @throws \Throwable
@@ -54,16 +54,12 @@ class NoteContentChangedEventProjector implements DomainEventProjectorInterface
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
         if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, NoteContentChangedEvent::class);
+            throw new UnsupportedEventException($event, NoteDeletedEvent::class);
         }
 
         $this->connection->transactional(function () use ($aggregateId, $event) {
-            $this->connection->update(
+            $this->connection->delete(
                 self::TABLE,
-                [
-                    'edited_at' => $event->getEditedAt()->format('Y-m-d H:i:s'),
-                    'content' => $event->getTo(),
-                ],
                 [
                     'id' => $aggregateId->getValue(),
                 ]

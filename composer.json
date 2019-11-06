@@ -16,6 +16,7 @@
         "jms/serializer": "^3.1",
         "jms/serializer-bundle": "^3.4",
         "lexik/jwt-authentication-bundle": "^2.6",
+        "mhujer/jms-serializer-uuid": "^3.1",
         "moneyphp/money": "^3.2",
         "nelmio/api-doc-bundle": "^3.4",
         "nelmio/cors-bundle": "^1.5",

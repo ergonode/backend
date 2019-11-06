@@ -10,7 +10,6 @@ namespace Ergonode\Note\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -19,9 +18,7 @@ interface NoteQueryInterface
     /**
      * @param Language $language
      *
-     * @param Uuid     $uuid
-     *
      * @return DataSetInterface
      */
-    public function getDataSet(Language $language, Uuid $uuid): DataSetInterface;
+    public function getDataSet(Language $language): DataSetInterface;
 }

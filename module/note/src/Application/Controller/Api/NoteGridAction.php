@@ -15,7 +15,6 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Note\Domain\Query\NoteQueryInterface;
 use Ergonode\Note\Infrastructure\Grid\NoteGrid;
-use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -23,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/notes/{object}", methods={"GET"}, name="ergonode_note_grid",  requirements={"object" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+ * @Route("/notes", methods={"GET"}, name="ergonode_note_grid",  requirements={"object" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
  */
 class NoteGridAction
 {
@@ -65,13 +64,6 @@ class NoteGridAction
      *     required=true,
      *     default="EN",
      *     description="Language Code",
-     * )
-     * @SWG\Parameter(
-     *     name="object",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     description="Object Id",
      * )
      * @SWG\Parameter(
      *     name="limit",
@@ -129,13 +121,12 @@ class NoteGridAction
      *
      * @param Language                 $language
      * @param RequestGridConfiguration $configuration
-     * @param string                   $object
      *
      * @return Response
      */
-    public function __invoke(Language $language, RequestGridConfiguration $configuration, string $object): Response
+    public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
-        $dataSet = $this->query->getDataSet($language, Uuid::fromString($object));
+        $dataSet = $this->query->getDataSet($language);
 
         $data = $this->renderer->render(
             $this->grid,

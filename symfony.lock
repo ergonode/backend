@@ -194,6 +194,9 @@
             "ref": "a66e8a7b75a1825cf2414d5dd53c7ed38c8654d1"
         }
     },
+    "mhujer/jms-serializer-uuid": {
+        "version": "3.1.0"
+    },
     "moneyphp/money": {
         "version": "v3.1.3"
     },

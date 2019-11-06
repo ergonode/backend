@@ -36,7 +36,7 @@ class NoteCreatedEvent implements DomainEventInterface
     /**
      * @var Uuid
      *
-     * @JMS\Type("Ramsey\Uuid\Uuid")
+     * @JMS\Type("uuid")
      */
     private $objectId;
 

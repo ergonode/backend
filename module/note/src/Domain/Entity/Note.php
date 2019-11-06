@@ -14,6 +14,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Note\Domain\Event\NoteContentChangedEvent;
 use Ergonode\Note\Domain\Event\NoteCreatedEvent;
+use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -22,31 +23,43 @@ class Note extends AbstractAggregateRoot
 {
     /**
      * @var NoteId $id
+     *
+     * @JMS\Type("Ergonode\Note\Domain\Entity\NoteId")
      */
     private $id;
 
     /**
      * @var UserId $authorId
+     *
+     * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
      */
     private $authorId;
 
     /**
      * @var Uuid
+     *
+     * @JMS\Type("uuid")
      */
     private $objectId;
 
     /**
      * @var \DateTime $createdAt
+     *
+     * @JMS\Type("DateTime")
      */
     private $createdAt;
 
     /**
      * @var \DateTime $editedAt
+     *
+     * @JMS\Type("DateTime")
      */
     private $editedAt;
 
     /**
      * @var string $content
+     *
+     * @JMS\Type("string")
      */
     private $content;
 
@@ -65,12 +78,12 @@ class Note extends AbstractAggregateRoot
 
     /**
      * @param string $contend
-     *
-     * @throws \Exception
      */
     public function changeContent(string $contend): void
     {
-        $this->apply(new NoteContentChangedEvent($this->content, $contend, new \DateTime()));
+        if ($contend !== $this->content) {
+            $this->apply(new NoteContentChangedEvent($this->content, $contend, new \DateTime()));
+        }
     }
 
     /**

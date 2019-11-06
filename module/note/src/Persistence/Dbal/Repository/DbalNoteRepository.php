@@ -14,6 +14,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Note\Domain\Entity\Note;
 use Ergonode\Note\Domain\Entity\NoteId;
+use Ergonode\Note\Domain\Event\NoteDeletedEvent;
 use Ergonode\Note\Domain\Repository\NoteRepositoryInterface;
 
 /**
@@ -43,11 +44,11 @@ class DbalNoteRepository implements NoteRepositoryInterface
     /**
      * @param NoteId $id
      *
-     * @return AbstractAggregateRoot
+     * @return AbstractAggregateRoot|null
      *
      * @throws \ReflectionException
      */
-    public function load(NoteId $id): AbstractAggregateRoot
+    public function load(NoteId $id): ?AbstractAggregateRoot
     {
         $stream = $this->store->load($id);
         if ($stream->count() > 0) {
@@ -84,5 +85,18 @@ class DbalNoteRepository implements NoteRepositoryInterface
     public function exists(NoteId $id): bool
     {
         return $this->store->load($id)->count() > 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Exception
+     */
+    public function delete(Note $object): void
+    {
+        $object->apply(new NoteDeletedEvent());
+        $this->save($object);
+
+        $this->store->delete($object->getId());
     }
 }

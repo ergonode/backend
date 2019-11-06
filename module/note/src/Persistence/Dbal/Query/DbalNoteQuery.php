@@ -15,7 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\Note\Domain\Query\NoteQueryInterface;
-use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -39,19 +38,16 @@ class DbalNoteQuery implements NoteQueryInterface
 
     /**
      * @param Language $language
-     * @param Uuid     $uuid
      *
      * @return DataSetInterface
      */
-    public function getDataSet(Language $language, Uuid $uuid): DataSetInterface
+    public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->getQuery();
-        $query->where($query->expr()->eq('object_id', ':uuid'));
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
-        $result->setParameter(':uuid', $uuid->toString());
 
         return new DbalDataSet($result);
     }
