@@ -128,6 +128,17 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     /**
      * @throws AssertionFailedException
      *
+     * @Then access denied response is received
+     */
+    public function assertResponseAccessDenied(): void
+    {
+        $this->requireResponse();
+        $this->assertResponseCodeIs(Response::HTTP_FORBIDDEN);
+    }
+
+    /**
+     * @throws AssertionFailedException
+     *
      * @Then unauthorized response is received
      */
     public function assertResponseUnauthorized(): void

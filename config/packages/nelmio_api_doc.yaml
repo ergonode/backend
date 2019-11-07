@@ -148,11 +148,6 @@ nelmio_api_doc:
             note:
                 type: object
                 properties:
-                    author_id:
-                        type: string
-                        requied: true
-                        description: Author Id
-                        example: uuid
                     object_id:
                         type: string
                         requied: true
