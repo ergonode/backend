@@ -18,6 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ */
 class CategoryTreeParamConverterTest extends TestCase
 {
     /**
@@ -35,8 +37,8 @@ class CategoryTreeParamConverterTest extends TestCase
      */
     private $repository;
 
-
-
+    /**
+     */
     protected function setUp()
     {
         $this->request = $this->createMock(Request::class);

@@ -19,7 +19,7 @@ class UpdateCommentFormModel
      * @var string
      *
      * @Assert\NotBlank(),
-     * @Assert\Length(max=4000, maxMessage="Max Comment lenght is {max} characters")
+     * @Assert\Length(max=4000, maxMessage="Comment to long, max length is {{ limit }} characters")
      */
     public $content;
 }
