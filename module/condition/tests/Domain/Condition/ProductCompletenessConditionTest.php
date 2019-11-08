@@ -18,15 +18,13 @@ class ProductCompletenessConditionTest extends TestCase
 {
     /**
      * @param string   $completeness
-     * @param Language $language
      *
      * @dataProvider dataProvider
      */
-    public function testConditionCreation(string $completeness, Language $language): void
+    public function testConditionCreation(string $completeness): void
     {
-        $condition = new ProductCompletenessCondition($completeness, $language);
+        $condition = new ProductCompletenessCondition($completeness);
         $this->assertSame($completeness, $condition->getCompleteness());
-        $this->assertSame($language, $condition->getLanguage());
         $this->assertSame('PRODUCT_COMPLETENESS_CONDITION', $condition->getType());
     }
 
@@ -36,9 +34,8 @@ class ProductCompletenessConditionTest extends TestCase
     public function testInvalidConditionCreation(): void
     {
         $completeness = 'Incorrect data';
-        $language = $this->createMock(Language::class);
 
-        new ProductCompletenessCondition($completeness, $language);
+        new ProductCompletenessCondition($completeness);
     }
 
     /**
@@ -50,11 +47,9 @@ class ProductCompletenessConditionTest extends TestCase
             [
                 [
                     'complete',
-                    $this->createMock(Language::class),
                 ],
                 [
                     'not complete',
-                    $this->createMock(Language::class),
                 ],
             ];
     }

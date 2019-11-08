@@ -12,7 +12,6 @@ namespace Ergonode\Condition\Domain\Service\Strategy\Configuration;
 use Ergonode\Condition\Domain\Condition\ProductCompletenessCondition;
 use Ergonode\Condition\Domain\Service\ConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Infrastructure\Provider\LanguageProviderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -24,21 +23,13 @@ class ProductCompletenessConditionConfigurationStrategy implements Configuration
      */
     private $translator;
 
-    /**
-     * @var LanguageProviderInterface
-     */
-    private $languageProvider;
 
     /**
-     * @param TranslatorInterface       $translator
-     * @param LanguageProviderInterface $languageProvider
+     * @param TranslatorInterface $translator
      */
-    public function __construct(
-        TranslatorInterface $translator,
-        LanguageProviderInterface $languageProvider
-    ) {
+    public function __construct(TranslatorInterface $translator)
+    {
         $this->translator = $translator;
-        $this->languageProvider = $languageProvider;
     }
 
     /**
@@ -66,11 +57,6 @@ class ProductCompletenessConditionConfigurationStrategy implements Configuration
                         ProductCompletenessCondition::COMPLETE => $this->translator->trans('Product is complete', [], 'condition', $language->getCode()),
                         ProductCompletenessCondition::NOT_COMPLETE => $this->translator->trans('Product is not complete', [], 'condition', $language->getCode()),
                     ],
-                ],
-                [
-                    'name' => 'language',
-                    'type' => 'SELECT',
-                    'options' => $this->languageProvider->getActiveLanguages($language),
                 ],
             ],
         ];
