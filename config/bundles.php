@@ -44,6 +44,7 @@ return [
     Ergonode\TranslationDeepl\ErgonodeTranslationDeeplBundle::class => ['all' => true],
     Ergonode\Generator\ErgonodeGeneratorBundle::class => ['dev' => true],
     Ergonode\Grid\ErgonodeGridBundle::class => ['all' => true],
+    Ergonode\Comment\ErgonodeCommentBundle::class => ['all' => true],
     Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],

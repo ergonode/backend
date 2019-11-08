@@ -61,37 +61,75 @@ class LinkColumnRenderer implements ColumnRendererInterface
         $values = array_values($row);
 
         foreach ($column->getLinks() as $name => $link) {
-            if (array_key_exists('route', $link)) {
-                if (!array_key_exists('parameters', $link)) {
-                    $link['parameters'] = [];
+            if ($this->isVisible($link, $row)) {
+                if (array_key_exists('route', $link)) {
+                    $links[$name] = $this->generateLink($link, $keys, $values);
+                } elseif (array_key_exists('uri', $link)) {
+                    $links[$name] = [
+                        'href' => $link['uri'],
+                        'method' => Request::METHOD_GET,
+                    ];
                 } else {
-                    foreach ($link['parameters'] as $key => &$field) {
-                        $field = str_replace($keys, $values, $field);
-                    }
+                    throw new \RuntimeException('Unsupported link type');
                 }
-
-                if (!array_key_exists('method', $link)) {
-                    $link['method'] = Request::METHOD_GET;
-                }
-
-                $links[$name] = [
-                    'href' => $this->urlGenerator->generate(
-                        $link['route'],
-                        $link['parameters'],
-                        UrlGeneratorInterface::ABSOLUTE_URL
-                    ),
-                    'method' => $link['method'],
-                ];
-            } elseif (array_key_exists('uri', $link)) {
-                $links[$name] = [
-                    'href' => $link['uri'],
-                    'method' => Request::METHOD_GET,
-                ];
-            } else {
-                throw new \RuntimeException('Unsupported link type');
             }
         }
 
         return $links;
+    }
+
+    /**
+     * @param array $link
+     * @param array $row
+     *
+     * @return bool
+     */
+    private function isVisible(array $link, array $row): bool
+    {
+        if (!array_key_exists('show', $link)) {
+            return true;
+        }
+
+        $result = true;
+
+        foreach ($link['show'] as $field => $value) {
+            if (array_key_exists($field, $row) && $row[$field] !== $value) {
+                $result = false;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param array $link
+     *
+     * @param array $keys
+     * @param array $values
+     *
+     * @return array
+     */
+    private function generateLink(array $link, array $keys, array $values): array
+    {
+        if (!array_key_exists('parameters', $link)) {
+            $link['parameters'] = [];
+        } else {
+            foreach ($link['parameters'] as $key => &$field) {
+                $field = str_replace($keys, $values, $field);
+            }
+        }
+
+        if (!array_key_exists('method', $link)) {
+            $link['method'] = Request::METHOD_GET;
+        }
+
+        return [
+            'href' => $this->urlGenerator->generate(
+                $link['route'],
+                $link['parameters'],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            ),
+            'method' => $link['method'],
+        ];
     }
 }
