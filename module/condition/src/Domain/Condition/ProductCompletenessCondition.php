@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Condition;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
@@ -31,22 +30,13 @@ class ProductCompletenessCondition implements ConditionInterface
     private $completeness;
 
     /**
-     * @var Language
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
+     * @param string $completeness
      */
-    private $language;
-
-    /**
-     * @param string   $completeness
-     * @param Language $language
-     */
-    public function __construct(string $completeness, Language $language)
+    public function __construct(string $completeness)
     {
         Assert::oneOf($completeness, [self::COMPLETE, self::NOT_COMPLETE]);
 
         $this->completeness = $completeness;
-        $this->language = $language;
     }
 
     /**
@@ -65,13 +55,5 @@ class ProductCompletenessCondition implements ConditionInterface
     public function getCompleteness(): string
     {
         return $this->completeness;
-    }
-
-    /**
-     * @return Language
-     */
-    public function getLanguage(): Language
-    {
-        return $this->language;
     }
 }

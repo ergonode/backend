@@ -62,11 +62,12 @@ class RoleExactlyConditionCalculatorStrategy implements ConditionCalculatorStrat
         $role = $this->roleRepository->load($configuration->getRole());
         Assert::notNull($role);
 
+
+        $result = false;
         try {
             $authenticatedUser = $this->authenticatedUserProvider->provide();
 
-            $result = false;
-            if ($authenticatedUser->getRoleId() === $role->getId()) {
+            if ($authenticatedUser->getRoleId()->isEqual($role->getId())) {
                 $result = true;
             }
         } catch (AuthenticationException $exception) {
