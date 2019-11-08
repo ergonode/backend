@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Condition\Domain\Command\CreateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Condition\Domain\ValueObject\ConditionSetCode;
 use Ergonode\Condition\Infrastructure\Builder\CreateConditionSetValidatorBuilder;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -98,6 +97,7 @@ class ConditionSetCreateAction
      * @param Request $request
      *
      * @return Response
+     * @throws \Exception
      */
     public function __invoke(Request $request): Response
     {
@@ -105,7 +105,7 @@ class ConditionSetCreateAction
 
         $violations = $this->validator->validate($data, $this->createConditionSetValidatorBuilder->build($data));
         if (0 === $violations->count()) {
-            $data['id'] = ConditionSetId::fromCode(new ConditionSetCode($data['code']))->getValue();
+            $data['id'] = ConditionSetId::generate()->getValue();
             $data['name'] = $data['name'] ?? [];
             $data['description'] = $data['description'] ?? [];
 

@@ -34,7 +34,7 @@ class CreateSegmentCommandTest extends TestCase
         /** @var TranslatableString $description */
         $description = $this->createMock(TranslatableString::class);
 
-        $command = new CreateSegmentCommand($code, $conditionSetId, $name, $description);
+        $command = new CreateSegmentCommand($code, $name, $description, $conditionSetId);
         $this->assertEquals($code, $command->getCode());
         $this->assertEquals($name, $command->getName());
         $this->assertEquals($description, $command->getDescription());

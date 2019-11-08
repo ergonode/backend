@@ -12,20 +12,21 @@ namespace Ergonode\Segment\Domain\Event;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
+use Zend\EventManager\Exception\DomainException;
 
 /**
  */
 class SegmentConditionSetChangedEvent implements DomainEventInterface
 {
     /**
-     * @var ConditionSetId
+     * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
     private $from;
 
     /**
-     * @var ConditionSetId
+     * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
@@ -35,24 +36,28 @@ class SegmentConditionSetChangedEvent implements DomainEventInterface
      * @param ConditionSetId $from
      * @param ConditionSetId $to
      */
-    public function __construct(ConditionSetId $from, ConditionSetId $to)
+    public function __construct(?ConditionSetId $from = null, ?ConditionSetId $to = null)
     {
+        if ($from === null && $to === null) {
+            throw new DomainException('Condition set from and to cannot be booth null');
+        }
+
         $this->from = $from;
         $this->to = $to;
     }
 
     /**
-     * @return ConditionSetId
+     * @return ConditionSetId|null
      */
-    public function getFrom(): ConditionSetId
+    public function getFrom(): ?ConditionSetId
     {
         return $this->from;
     }
 
     /**
-     * @return ConditionSetId
+     * @return ConditionSetId|null
      */
-    public function getTo(): ConditionSetId
+    public function getTo(): ?ConditionSetId
     {
         return $this->to;
     }

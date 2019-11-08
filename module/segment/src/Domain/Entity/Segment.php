@@ -76,23 +76,23 @@ class Segment extends AbstractAggregateRoot
     private $conditionSetId;
 
     /**
-     * @param SegmentId          $id
-     * @param SegmentCode        $code
-     * @param ConditionSetId     $conditionSetId
-     * @param TranslatableString $name
-     * @param TranslatableString $description
+     * @param SegmentId           $id
+     * @param SegmentCode         $code
+     * @param TranslatableString  $name
+     * @param TranslatableString  $description
+     * @param ConditionSetId|null $conditionSetId
      *
      * @throws \Exception
      */
     public function __construct(
         SegmentId $id,
         SegmentCode $code,
-        ConditionSetId $conditionSetId,
         TranslatableString $name,
-        TranslatableString $description
+        TranslatableString $description,
+        ?ConditionSetId $conditionSetId = null
     ) {
         $this->status = new SegmentStatus(SegmentStatus::NEW);
-        $this->apply(new SegmentCreatedEvent($id, $code, $conditionSetId, $name, $description, $this->status));
+        $this->apply(new SegmentCreatedEvent($id, $code, $name, $description, $this->status, $conditionSetId));
     }
 
     /**
@@ -180,13 +180,21 @@ class Segment extends AbstractAggregateRoot
     }
 
     /**
+     * @return bool
+     */
+    public function hasConditionSet(): bool
+    {
+        return null !== $this->conditionSetId;
+    }
+
+    /**
      * @param ConditionSetId $conditionSetId
      *
      * @throws \Exception
      */
-    public function changeConditionSet(ConditionSetId $conditionSetId): void
+    public function changeConditionSet(?ConditionSetId $conditionSetId = null): void
     {
-        if (!$conditionSetId->isEqual($this->conditionSetId)) {
+        if ($this->conditionSetId !== null || $conditionSetId !== null) {
             $this->apply(new SegmentConditionSetChangedEvent($this->conditionSetId, $conditionSetId));
         }
     }

@@ -14,7 +14,6 @@ use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetDescriptionChangedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetNameChangedEvent;
-use Ergonode\Condition\Domain\ValueObject\ConditionSetCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
@@ -33,14 +32,6 @@ class ConditionSet extends AbstractAggregateRoot
      * @JMS\Expose()
      */
     private $id;
-
-      /**
-     * @var ConditionSetCode
-     *
-     * @JMS\Type("Ergonode\Condition\Domain\ValueObject\ConditionSetCode")
-     * @JMS\Expose()
-     */
-    private $code;
 
     /**
      * @var TranslatableString
@@ -68,7 +59,6 @@ class ConditionSet extends AbstractAggregateRoot
 
     /**
      * @param ConditionSetId     $id
-     * @param ConditionSetCode   $code
      * @param TranslatableString $name
      * @param TranslatableString $description
      * @param array              $conditions
@@ -77,14 +67,13 @@ class ConditionSet extends AbstractAggregateRoot
      */
     public function __construct(
         ConditionSetId $id,
-        ConditionSetCode $code,
         TranslatableString $name,
         TranslatableString $description,
         array $conditions = []
     ) {
         Assert::allIsInstanceOf($conditions, ConditionInterface::class);
 
-        $this->apply(new ConditionSetCreatedEvent($id, $code, $name, $description, $conditions));
+        $this->apply(new ConditionSetCreatedEvent($id, $name, $description, $conditions));
     }
 
     /**
@@ -93,14 +82,6 @@ class ConditionSet extends AbstractAggregateRoot
     public function getId(): AbstractId
     {
         return $this->id;
-    }
-
-    /**
-     * @return ConditionSetCode
-     */
-    public function getCode(): ConditionSetCode
-    {
-        return $this->code;
     }
 
     /**
@@ -169,7 +150,6 @@ class ConditionSet extends AbstractAggregateRoot
     protected function applyConditionSetCreatedEvent(ConditionSetCreatedEvent $event): void
     {
         $this->id = $event->getId();
-        $this->code = $event->getCode();
         $this->name = $event->getName();
         $this->description = $event->getDescription();
         $this->conditions = $event->getConditions();

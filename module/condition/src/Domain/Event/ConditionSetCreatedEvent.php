@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Event;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Condition\Domain\ValueObject\ConditionSetCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -25,13 +24,6 @@ class ConditionSetCreatedEvent implements DomainEventInterface
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @JMS\Type("Ergonode\Condition\Domain\ValueObject\ConditionSetCode")
-     */
-    private $code;
 
     /**
      * @var TranslatableString
@@ -52,24 +44,21 @@ class ConditionSetCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
      */
-    private $conditions = [];
+    private $conditions;
 
     /**
      * @param ConditionSetId     $id
-     * @param ConditionSetCode   $code
      * @param TranslatableString $name
      * @param TranslatableString $description
      * @param array              $conditions
      */
     public function __construct(
         ConditionSetId $id,
-        ConditionSetCode $code,
         TranslatableString $name,
         TranslatableString $description,
         array $conditions = []
     ) {
         $this->id = $id;
-        $this->code = $code;
         $this->name = $name;
         $this->description = $description;
         $this->conditions = $conditions;
@@ -81,14 +70,6 @@ class ConditionSetCreatedEvent implements DomainEventInterface
     public function getId(): ConditionSetId
     {
         return $this->id;
-    }
-
-    /**
-     * @return ConditionSetCode
-     */
-    public function getCode(): ConditionSetCode
-    {
-        return $this->code;
     }
 
     /**

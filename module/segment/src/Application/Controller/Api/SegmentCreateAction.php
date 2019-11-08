@@ -44,10 +44,8 @@ class SegmentCreateAction
      * @param MessageBusInterface  $messageBus
      * @param FormFactoryInterface $formFactory
      */
-    public function __construct(
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
+    public function __construct(MessageBusInterface $messageBus, FormFactoryInterface $formFactory)
+    {
         $this->messageBus = $messageBus;
         $this->formFactory = $formFactory;
     }
@@ -96,9 +94,9 @@ class SegmentCreateAction
 
             $command = new CreateSegmentCommand(
                 new SegmentCode($data->code),
-                new ConditionSetId($data->conditionSetId),
                 new TranslatableString($data->name),
-                new TranslatableString($data->description)
+                new TranslatableString($data->description),
+                $data->conditionSetId ? new ConditionSetId($data->conditionSetId) : null
             );
             $this->messageBus->dispatch($command);
 

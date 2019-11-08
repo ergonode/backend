@@ -39,7 +39,6 @@ class CreateConditionSetCommandHandler
     {
         $segment = new ConditionSet(
             $command->getId(),
-            $command->getCode(),
             $command->getName(),
             $command->getDescription()
         );

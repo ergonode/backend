@@ -40,21 +40,23 @@ class UpdateSegmentCommand
     private $description;
 
     /**
-     * @var ConditionSetId
+     * @var ConditionSetId|null
+     *
+     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
     private $conditionSetId;
 
     /**
-     * @param SegmentId          $id
-     * @param TranslatableString $name
-     * @param TranslatableString $description
-     * @param ConditionSetId     $conditionSetId
+     * @param SegmentId           $id
+     * @param TranslatableString  $name
+     * @param TranslatableString  $description
+     * @param ConditionSetId|null $conditionSetId
      */
     public function __construct(
         SegmentId $id,
         TranslatableString $name,
         TranslatableString $description,
-        ConditionSetId $conditionSetId
+        ?ConditionSetId $conditionSetId = null
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -87,9 +89,9 @@ class UpdateSegmentCommand
     }
 
     /**
-     * @return ConditionSetId
+     * @return ConditionSetId|null
      */
-    public function getConditionSetId(): ConditionSetId
+    public function getConditionSetId(): ?ConditionSetId
     {
         return $this->conditionSetId;
     }

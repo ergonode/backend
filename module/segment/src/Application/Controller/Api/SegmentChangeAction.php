@@ -113,7 +113,7 @@ class SegmentChangeAction
                 $segment->getId(),
                 new TranslatableString($data->name),
                 new TranslatableString($data->description),
-                new ConditionSetId($data->conditionSetId)
+                $data->conditionSetId ? new ConditionSetId($data->conditionSetId) : null
             );
             $this->messageBus->dispatch($command);
 

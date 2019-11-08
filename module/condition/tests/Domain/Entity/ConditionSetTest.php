@@ -29,11 +29,6 @@ class ConditionSetTest extends TestCase
     private $id;
 
     /**
-     * @var MockObject|ConditionSetCode
-     */
-    private $code;
-
-    /**
      * @var MockObject|TranslatableString
      */
     private $name;
@@ -51,50 +46,52 @@ class ConditionSetTest extends TestCase
     protected function setUp()
     {
         $this->id = $this->createMock(ConditionSetId::class);
-        $this->code = $this->createMock(ConditionSetCode::class);
         $this->name = $this->createMock(TranslatableString::class);
         $this->description = $this->createMock(TranslatableString::class);
         $this->conditions = $this->createMock(ConditionInterface::class);
     }
 
     /**
+     * @throws \Exception
      */
     public function testConditionSetCreation(): void
     {
-        $conditionSet = new ConditionSet($this->id, $this->code, $this->name, $this->description, [$this->conditions]);
+        $conditionSet = new ConditionSet($this->id, $this->name, $this->description, [$this->conditions]);
         $this->assertSame($this->id, $conditionSet->getId());
-        $this->assertSame($this->code, $conditionSet->getCode());
         $this->assertSame($this->name, $conditionSet->getName());
         $this->assertSame($this->description, $conditionSet->getDescription());
         $this->assertSame([$this->conditions], $conditionSet->getConditions());
     }
 
     /**
+     * @throws \Exception
      */
     public function testNameChange(): void
     {
         $newName = new TranslatableString(['EN' => 'name']);
-        $conditionSet = new ConditionSet($this->id, $this->code, $this->name, $this->description, [$this->conditions]);
+        $conditionSet = new ConditionSet($this->id, $this->name, $this->description, [$this->conditions]);
         $conditionSet->changeName($newName);
         $this->assertSame($newName, $conditionSet->getName());
     }
 
     /**
+     * @throws \Exception
      */
     public function testDescriptionChange(): void
     {
         $newDescription = new TranslatableString(['EN' => 'description']);
-        $conditionSet = new ConditionSet($this->id, $this->code, $this->name, $this->description, [$this->conditions]);
+        $conditionSet = new ConditionSet($this->id, $this->name, $this->description, [$this->conditions]);
         $conditionSet->changeDescription($newDescription);
         $this->assertSame($newDescription, $conditionSet->getDescription());
     }
 
     /**
+     * @throws \Exception
      */
     public function testConditionsChange(): void
     {
         $newConditions = [new NumericAttributeValueCondition($this->createMock(AttributeId::class), 'test', 4)];
-        $conditionSet = new ConditionSet($this->id, $this->code, $this->name, $this->description, [$this->conditions]);
+        $conditionSet = new ConditionSet($this->id,  $this->name, $this->description, [$this->conditions]);
         $conditionSet->changeConditions($newConditions);
         $this->assertEquals($newConditions, $conditionSet->getConditions());
     }

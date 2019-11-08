@@ -30,11 +30,6 @@ class CreateConditionSetValidatorBuilder
     {
         return new Collection([
             'fields' => [
-                'code' => [
-                    new NotBlank(),
-                    new Length(['min' => 2, 'max' => 100]),
-                    new UniqueConditionSetCode(),
-                ],
                 'name' => [
                     new Optional([
                         new All([

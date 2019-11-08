@@ -12,7 +12,6 @@ namespace Ergonode\Condition\Persistence\Dbal\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Condition\Domain\Query\ConditionSetQueryInterface;
-use Ergonode\Condition\Domain\ValueObject\ConditionSetCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DbalDataSet;
 
@@ -53,23 +52,6 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
         return new DbalDataSet($result);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isExistsByCode(ConditionSetCode $conditionSetCode): bool
-    {
-        $queryBuilder = $this->connection->createQueryBuilder()
-            ->select('id')
-            ->from(self::TABLE)
-            ->where('code = :code')
-            ->setParameter('code', $conditionSetCode->getValue())
-            ->setMaxResults(1);
-
-        $result = $queryBuilder->execute()->fetchColumn();
-
-        return !empty($result);
     }
 
     /**

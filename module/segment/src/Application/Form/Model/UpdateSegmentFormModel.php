@@ -18,7 +18,6 @@ class UpdateSegmentFormModel
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="Condition set ID is required")
      * @Assert\Uuid()
      */
     public $conditionSetId;
