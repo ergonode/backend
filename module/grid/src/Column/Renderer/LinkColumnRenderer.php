@@ -61,7 +61,7 @@ class LinkColumnRenderer implements ColumnRendererInterface
         $values = array_values($row);
 
         foreach ($column->getLinks() as $name => $link) {
-            if($this->isVisible($link, $row)) {
+            if ($this->isVisible($link, $row)) {
                 if (array_key_exists('route', $link)) {
                     $links[$name] = $this->generateLink($link, $keys, $values);
                 } elseif (array_key_exists('uri', $link)) {
@@ -86,15 +86,15 @@ class LinkColumnRenderer implements ColumnRendererInterface
      */
     private function isVisible(array $link, array $row): bool
     {
-        if(!array_key_exists('show', $link)) {
+        if (!array_key_exists('show', $link)) {
             return true;
         }
 
         $result = true;
 
         foreach ($link['show'] as $field => $value) {
-            if(array_key_exists($field, $row) && $row[$field] !== $value) {
-               $result = false;
+            if (array_key_exists($field, $row) && $row[$field] !== $value) {
+                $result = false;
             }
         }
 
