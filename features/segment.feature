@@ -5,6 +5,7 @@ Feature: Segment module
     Given the request body is:
       """
       {
+        "conditions": []
       }
       """
     Given I request "/api/v1/EN/conditionsets" using HTTP POST

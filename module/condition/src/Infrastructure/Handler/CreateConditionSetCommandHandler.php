@@ -37,11 +37,7 @@ class CreateConditionSetCommandHandler
      */
     public function __invoke(CreateConditionSetCommand $command)
     {
-        $segment = new ConditionSet(
-            $command->getId(),
-            $command->getName(),
-            $command->getDescription()
-        );
+        $segment = new ConditionSet($command->getId(), $command->getConditions());
 
         $this->repository->save($segment);
     }

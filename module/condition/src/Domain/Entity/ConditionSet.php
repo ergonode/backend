@@ -12,10 +12,7 @@ namespace Ergonode\Condition\Domain\Entity;
 use Ergonode\Condition\Domain\Condition\ConditionInterface;
 use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent;
-use Ergonode\Condition\Domain\Event\ConditionSetDescriptionChangedEvent;
-use Ergonode\Condition\Domain\Event\ConditionSetNameChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -34,22 +31,6 @@ class ConditionSet extends AbstractAggregateRoot
     private $id;
 
     /**
-     * @var TranslatableString
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     * @JMS\Expose()
-     */
-    private $name;
-
-    /**
-     * @var TranslatableString
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     * @JMS\Expose()
-     */
-    private $description;
-
-    /**
      * @var ConditionInterface[]
      *
      * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
@@ -59,21 +40,17 @@ class ConditionSet extends AbstractAggregateRoot
 
     /**
      * @param ConditionSetId     $id
-     * @param TranslatableString $name
-     * @param TranslatableString $description
      * @param array              $conditions
      *
      * @throws \Exception
      */
     public function __construct(
         ConditionSetId $id,
-        TranslatableString $name,
-        TranslatableString $description,
         array $conditions = []
     ) {
         Assert::allIsInstanceOf($conditions, ConditionInterface::class);
 
-        $this->apply(new ConditionSetCreatedEvent($id, $name, $description, $conditions));
+        $this->apply(new ConditionSetCreatedEvent($id, $conditions));
     }
 
     /**
@@ -85,51 +62,11 @@ class ConditionSet extends AbstractAggregateRoot
     }
 
     /**
-     * @return TranslatableString
-     */
-    public function getName(): TranslatableString
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return TranslatableString
-     */
-    public function getDescription(): TranslatableString
-    {
-        return $this->description;
-    }
-
-    /**
      * @return ConditionInterface[]
      */
     public function getConditions(): array
     {
         return $this->conditions;
-    }
-
-    /**
-     * @param TranslatableString $name
-     *
-     * @throws \Exception
-     */
-    public function changeName(TranslatableString $name): void
-    {
-        if (!$name->isEqual($this->name)) {
-            $this->apply(new ConditionSetNameChangedEvent($this->name, $name));
-        }
-    }
-
-    /**
-     * @param TranslatableString $description
-     *
-     * @throws \Exception
-     */
-    public function changeDescription(TranslatableString $description): void
-    {
-        if (!$description->isEqual($this->description)) {
-            $this->apply(new ConditionSetDescriptionChangedEvent($this->description, $description));
-        }
     }
 
     /**
@@ -150,25 +87,7 @@ class ConditionSet extends AbstractAggregateRoot
     protected function applyConditionSetCreatedEvent(ConditionSetCreatedEvent $event): void
     {
         $this->id = $event->getId();
-        $this->name = $event->getName();
-        $this->description = $event->getDescription();
         $this->conditions = $event->getConditions();
-    }
-
-    /**
-     * @param ConditionSetNameChangedEvent $event
-     */
-    protected function applyConditionSetNameChangedEvent(ConditionSetNameChangedEvent $event): void
-    {
-        $this->name = $event->getTo();
-    }
-
-    /**
-     * @param ConditionSetDescriptionChangedEvent $event
-     */
-    protected function applyConditionSetDescriptionChangedEvent(ConditionSetDescriptionChangedEvent $event): void
-    {
-        $this->description = $event->getTo();
     }
 
     /**

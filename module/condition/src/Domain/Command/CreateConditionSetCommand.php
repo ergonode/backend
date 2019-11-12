@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Command;
 
+use Ergonode\Condition\Domain\Condition\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -25,31 +25,20 @@ class CreateConditionSetCommand
     private $id;
 
     /**
-     * @var TranslatableString
+     * @var ConditionInterface[]
      *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
+     * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
      */
-    private $name;
-
-    /**
-     * @var TranslatableString
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
-    private $description;
+    private $conditions;
 
     /**
      * @param ConditionSetId     $id
-     * @param TranslatableString $name
-     * @param TranslatableString $description
-     *
-     * @throws \Exception
+     * @param array              $conditions
      */
-    public function __construct(ConditionSetId $id, TranslatableString $name, TranslatableString $description)
+    public function __construct(ConditionSetId $id, array $conditions = [])
     {
         $this->id = $id;
-        $this->name = $name;
-        $this->description = $description;
+        $this->conditions = $conditions;
     }
 
     /**
@@ -61,18 +50,10 @@ class CreateConditionSetCommand
     }
 
     /**
-     * @return TranslatableString
+     * @return ConditionInterface[]
      */
-    public function getName(): TranslatableString
+    public function getConditions(): array
     {
-        return $this->name;
-    }
-
-    /**
-     * @return TranslatableString
-     */
-    public function getDescription(): TranslatableString
-    {
-        return $this->description;
+        return $this->conditions;
     }
 }

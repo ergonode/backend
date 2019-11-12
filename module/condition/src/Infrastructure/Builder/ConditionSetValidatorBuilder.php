@@ -11,18 +11,14 @@ namespace Ergonode\Condition\Infrastructure\Builder;
 
 use Ergonode\Condition\Infrastructure\Resolver\ConditionConstraintResolver;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Optional;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  */
-class UpdateConditionSetValidatorBuilder
+class ConditionSetValidatorBuilder
 {
     /**
      * @var ConditionConstraintResolver
@@ -72,22 +68,6 @@ class UpdateConditionSetValidatorBuilder
 
         return new Collection([
             'fields' => [
-                'name' => [
-                    new Optional([
-                        new NotBlank(),
-                        new All([
-                            new Length(['min' => 2, 'max' => 255]),
-                        ]),
-                    ]),
-                ],
-                'description' => [
-                    new Optional([
-                        new NotBlank(),
-                        new All([
-                            new Length(['max' => 255]),
-                        ]),
-                    ]),
-                ],
                 'conditions' => [
                     new Callback(['callback' => $resolver]),
                 ],

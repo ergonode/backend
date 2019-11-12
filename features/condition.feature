@@ -1,10 +1,10 @@
 Feature: Condition module
 
-  Scenario: Get conditions dicitionary (not authorized)
+  Scenario: Get conditions dictionary (not authorized)
     When I request "/api/v1/EN/dictionary/conditions" using HTTP GET
     Then unauthorized response is received
 
-  Scenario: Get conditions dicitionary
+  Scenario: Get conditions dictionary
     Given current authentication token
     When I request "/api/v1/EN/dictionary/conditions" using HTTP GET
     Then the response code is 200
@@ -76,152 +76,40 @@ Feature: Condition module
     Given I request "/api/v1/EN/conditionsets" using HTTP POST
     Then unauthorized response is received
 
-  Scenario: Create condition set
+  Scenario: Create condition set without conditions
     Given current authentication token
     Given the request body is:
       """
       {
-         "name": {
-            "PL": "Zbiór warunków",
-            "EN": "Condition set"
-         },
-         "description": {
-            "PL": "Opis do zbioru warunków",
-            "EN": "Condition set description"
-         }
+        "conditions": []
       }
       """
     Given I request "/api/v1/EN/conditionsets" using HTTP POST
     Then created response is received
     And remember response param "id" as "conditionset"
 
-  Scenario: Create condition set (without description)
+  Scenario: Create condition set with conditions
     Given current authentication token
     Given the request body is:
       """
       {
-         "name": {
-            "PL": "Zbiór warunków",
-            "EN": "Condition set"
-         }
+        "conditions": [
+            {
+              "type": "ATTRIBUTE_EXISTS_CONDITION",
+              "attribute": "@condition_text_attribute@"
+            }
+         ]
       }
       """
     Given I request "/api/v1/EN/conditionsets" using HTTP POST
     Then created response is received
-
-  Scenario: Create condition set (short name)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-         "name": {
-            "PL": "Z",
-            "EN": "C"
-         }
-      }
-      """
-    Given I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then validation error response is received
-
-  Scenario: Create condition set (long name)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-         "name": {
-            "PL": "ceqvqEO1AsN92sTa0yn6vtYKc4Wkegfw7P5IQO34hhmtNWPYUKZXF8npJg55qGTUG4unmQPlaqRRvAzuaQLST2RP030V9gbqx5gekGPRnRqwVi03Cs0SDvmZe0jmMNm4lOm2w02kyHA1wtMapqgv3GGtQFTsXBegVFFu3aGlpZyfyWRl4TLSm4rTWMSRC89u2A3mxEAWv1AXn64ouBL4AoqwRGomgeU58ewRWiEwPv55BMmMfa0SxQOfiplqksmQ",
-            "EN": "Condition set"
-         }
-      }
-      """
-    Given I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then validation error response is received
-
-  Scenario: Create condition set (long description)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-         "description": {
-            "PL": "Opis do zbioru warunków",
-            "EN": "ceqvqEO1AsN92sTa0yn6vtYKc4Wkegfw7P5IQO34hhmtNWPYUKZXF8npJg55qGTUG4unmQPlaqRRvAzuaQLST2RP030V9gbqx5gekGPRnRqwVi03Cs0SDvmZe0jmMNm4lOm2w02kyHA1wtMapqgv3GGtQFTsXBegVFFu3aGlpZyfyWRl4TLSm4rTWMSRC89u2A3mxEAWv1AXn64ouBL4AoqwRGomgeU58ewRWiEwPv55BMmMfa0SxQOfiplqksmQ"
-         }
-      }
-      """
-    Given I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then validation error response is received
+    And remember response param "id" as "conditionset"
 
   Scenario: Update condition set
     Given current authentication token
     Given the request body is:
       """
       {
-         "name": {
-            "PL": "Zbiór warunków (changed)",
-            "EN": "Condition set (changed)"
-         },
-         "description": {
-            "PL": "Opis do zbioru warunków (changed)",
-            "EN": "Condition set description (changed)"
-         },
-         "conditions": [
-            {
-              "type": "ATTRIBUTE_EXISTS_CONDITION",
-              "attribute": "@condition_text_attribute@"
-            }
-         ]
-      }
-      """
-    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
-    Then empty response is received
-
-  Scenario: Update condition set (without conditions)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-         "name": {
-            "PL": "Zbiór warunków (changed)",
-            "EN": "Condition set (changed)"
-         },
-         "description": {
-            "PL": "Opis do zbioru warunków (changed)",
-            "EN": "Condition set description (changed)"
-         }
-      }
-      """
-    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
-    Then validation error response is received
-
-  Scenario: Update condition set (without name)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-         "description": {
-            "PL": "Opis do zbioru warunków (changed)",
-            "EN": "Condition set description (changed)"
-         },
-         "conditions": [
-            {
-              "type": "ATTRIBUTE_EXISTS_CONDITION",
-              "attribute": "@condition_text_attribute@"
-            }
-         ]
-      }
-      """
-    Given I request "/api/v1/EN/conditionsets/@conditionset@" using HTTP PUT
-    Then empty response is received
-
-  Scenario: Update condition set (without description)
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-         "name": {
-            "PL": "Zbiór warunków (changed)",
-            "EN": "Condition set (changed)"
-         },
          "conditions": [
             {
               "type": "ATTRIBUTE_EXISTS_CONDITION",
@@ -627,6 +515,7 @@ Feature: Condition module
     Given the request body is:
       """
       {
+        "conditions": []
       }
       """
     Given I request "/api/v1/EN/conditionsets" using HTTP POST

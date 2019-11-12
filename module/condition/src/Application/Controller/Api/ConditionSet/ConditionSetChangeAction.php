@@ -13,7 +13,7 @@ use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
-use Ergonode\Condition\Infrastructure\Builder\UpdateConditionSetValidatorBuilder;
+use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -50,26 +50,26 @@ class ConditionSetChangeAction
     private $serializer;
 
     /**
-     * @var UpdateConditionSetValidatorBuilder
+     * @var ConditionSetValidatorBuilder
      */
-    private $updateConditionSetValidatorBuilder;
+    private $conditionSetValidatorBuilder;
 
     /**
-     * @param ValidatorInterface                 $validator
-     * @param MessageBusInterface                $messageBus
-     * @param SerializerInterface                $serializer
-     * @param UpdateConditionSetValidatorBuilder $updateConditionSetValidatorBuilder
+     * @param ValidatorInterface           $validator
+     * @param MessageBusInterface          $messageBus
+     * @param SerializerInterface          $serializer
+     * @param ConditionSetValidatorBuilder $conditionSetValidatorBuilder
      */
     public function __construct(
         ValidatorInterface $validator,
         MessageBusInterface $messageBus,
         SerializerInterface $serializer,
-        UpdateConditionSetValidatorBuilder $updateConditionSetValidatorBuilder
+        ConditionSetValidatorBuilder $conditionSetValidatorBuilder
     ) {
         $this->validator = $validator;
         $this->messageBus = $messageBus;
         $this->serializer = $serializer;
-        $this->updateConditionSetValidatorBuilder = $updateConditionSetValidatorBuilder;
+        $this->conditionSetValidatorBuilder = $conditionSetValidatorBuilder;
     }
 
     /**
@@ -115,7 +115,7 @@ class ConditionSetChangeAction
     {
         $data = $request->request->all();
 
-        $violations = $this->validator->validate($data, $this->updateConditionSetValidatorBuilder->build($data));
+        $violations = $this->validator->validate($data, $this->conditionSetValidatorBuilder->build($data));
         if (0 === $violations->count()) {
             $data['id'] = $conditionSet->getId()->getValue();
 

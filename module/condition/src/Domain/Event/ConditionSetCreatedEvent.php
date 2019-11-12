@@ -48,19 +48,10 @@ class ConditionSetCreatedEvent implements DomainEventInterface
 
     /**
      * @param ConditionSetId     $id
-     * @param TranslatableString $name
-     * @param TranslatableString $description
      * @param array              $conditions
      */
-    public function __construct(
-        ConditionSetId $id,
-        TranslatableString $name,
-        TranslatableString $description,
-        array $conditions = []
-    ) {
+    public function __construct(ConditionSetId $id, array $conditions = []) {
         $this->id = $id;
-        $this->name = $name;
-        $this->description = $description;
         $this->conditions = $conditions;
     }
 
@@ -70,22 +61,6 @@ class ConditionSetCreatedEvent implements DomainEventInterface
     public function getId(): ConditionSetId
     {
         return $this->id;
-    }
-
-    /**
-     * @return TranslatableString
-     */
-    public function getName(): TranslatableString
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return TranslatableString
-     */
-    public function getDescription(): TranslatableString
-    {
-        return $this->description;
     }
 
     /**
