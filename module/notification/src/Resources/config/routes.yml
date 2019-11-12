@@ -1,0 +1,4 @@
+ergonode_notification_api:
+    resource: '../../Application/Controller/Api'
+    type: annotation
+    prefix: /api/v1/
