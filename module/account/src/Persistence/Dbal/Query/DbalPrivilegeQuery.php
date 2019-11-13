@@ -60,7 +60,7 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select(self::FIELDS)
-            ->from(self::PRIVILEGES_TABLE,'p')
+            ->from(self::PRIVILEGES_TABLE, 'p')
             ->leftJoin('p', self::PRIVILEGES_GROUP_TABLE, 'g', 'g.area = p.area');
     }
 }

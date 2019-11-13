@@ -17,6 +17,6 @@ final class Version20191112075025 extends AbstractErgonodeMigration
      */
     public function up(Schema $schema): void
     {
-        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)',['Template designer']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Template designer']);
     }
 }

@@ -27,7 +27,7 @@ final class Version20191112075000 extends AbstractErgonodeMigration
         ');
 
 
-        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)',['User']);
-        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)',['Role']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['User']);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Role']);
     }
 }
