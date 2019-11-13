@@ -13,6 +13,8 @@ use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
 use Ergonode\Condition\Domain\Condition\ConditionInterface;
 use Ergonode\Condition\Domain\Condition\ProductCompletenessCondition;
 use Ergonode\Condition\Domain\Service\ConditionCalculatorStrategyInterface;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -33,6 +35,11 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
     private $repository;
 
     /**
+     * @var LanguageQueryInterface
+     */
+    private $query;
+
+    /**
      * @var DraftProvider
      */
     private $provider;
@@ -40,15 +47,14 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
     /**
      * @param CompletenessCalculator      $calculator
      * @param TemplateRepositoryInterface $repository
+     * @param LanguageQueryInterface      $query
      * @param DraftProvider               $provider
      */
-    public function __construct(
-        CompletenessCalculator $calculator,
-        TemplateRepositoryInterface $repository,
-        DraftProvider $provider
-    ) {
+    public function __construct(CompletenessCalculator $calculator, TemplateRepositoryInterface $repository, LanguageQueryInterface $query, DraftProvider $provider)
+    {
         $this->calculator = $calculator;
         $this->repository = $repository;
+        $this->query = $query;
         $this->provider = $provider;
     }
 
@@ -61,8 +67,10 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
     }
 
     /**
-     * {@inheritDoc}
+     * @param AbstractProduct                                 $object
+     * @param ConditionInterface|ProductCompletenessCondition $configuration
      *
+     * @return bool
      * @throws \Exception
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
@@ -71,8 +79,21 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
         $template = $this->repository->load($object->getTemplateId());
         Assert::notNull($template, sprintf('Can\'t find template %s', $object->getTemplateId()->getValue()));
 
-        $result = $this->calculator->calculate($draft, $template, $configuration->getLanguage());
+        $result = true;
 
-        return 100 === (int) $result->getPercent();
+        foreach ($this->query->getActiveLanguagesCodes() as $code) {
+            $calculation = $this->calculator->calculate($draft, $template, new Language($code));
+            if ($configuration->getCompleteness() === ProductCompletenessCondition::COMPLETE) {
+                if ($calculation->getPercent() < 100) {
+                    $result = false;
+                }
+            } else {
+                if ($calculation->getPercent() > 0) {
+                    $result = false;
+                }
+            }
+        }
+
+        return $result;
     }
 }

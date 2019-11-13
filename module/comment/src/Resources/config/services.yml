@@ -1,0 +1,35 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\Comment\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Comment\Application\:
+        resource: '../../Application/*'
+        exclude: '../../Domain/{Model}'
+
+    Ergonode\Comment\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
+
+    Ergonode\Comment\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Message}'
+
+    Ergonode\Comment\Application\Controller\:
+        resource: '../../Application/Controller'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Comment\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Comment\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Comment\Domain\Repository\CommentRepositoryInterface: '@Ergonode\Comment\Persistence\Dbal\Repository\DbalCommentRepository'
+    Ergonode\Comment\Domain\Query\CommentQueryInterface: '@Ergonode\Comment\Persistence\Dbal\Query\DbalCommentQuery'

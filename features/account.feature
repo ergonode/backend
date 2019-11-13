@@ -103,7 +103,7 @@ Feature: Account module
     When I request "/api/v1/EN/roles" using HTTP POST
     Then validation error response is received
 
-  Scenario: Create role (empty privilages)
+  Scenario: Create role (empty privileges)
     Given current authentication token
     Given the request body is:
       """
@@ -116,7 +116,7 @@ Feature: Account module
     When I request "/api/v1/EN/roles" using HTTP POST
     Then created response is received
 
-  Scenario: Create role (no existing privilages)
+  Scenario: Create role (no existing privileges)
     Given current authentication token
     Given the request body is:
       """

@@ -62,11 +62,10 @@ class UserExactlyConditionCalculatorStrategy implements ConditionCalculatorStrat
         $user = $this->userRepository->load($configuration->getUser());
         Assert::notNull($user);
 
+        $result = false;
         try {
             $authenticatedUser = $this->authenticatedUserProvider->provide();
-
-            $result = false;
-            if ($authenticatedUser->getId() === $user->getId()) {
+            if ($authenticatedUser->getId()->isEqual($user->getId())) {
                 $result = true;
             }
         } catch (AuthenticationException $exception) {

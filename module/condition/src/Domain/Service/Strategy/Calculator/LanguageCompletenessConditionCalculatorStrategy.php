@@ -12,6 +12,7 @@ namespace Ergonode\Condition\Domain\Service\Strategy\Calculator;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
 use Ergonode\Condition\Domain\Condition\ConditionInterface;
 use Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition;
+use Ergonode\Condition\Domain\Condition\ProductCompletenessCondition;
 use Ergonode\Condition\Domain\Service\ConditionCalculatorStrategyInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
@@ -61,8 +62,10 @@ class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalcul
     }
 
     /**
-     * {@inheritDoc}
+     * @param AbstractProduct                                  $object
+     * @param ConditionInterface|LanguageCompletenessCondition $configuration
      *
+     * @return bool
      * @throws \Exception
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
@@ -71,8 +74,20 @@ class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalcul
         $template = $this->repository->load($object->getTemplateId());
         Assert::notNull($template, sprintf('Can\'t find template "%s"', $object->getTemplateId()->getValue()));
 
-        $result = $this->calculator->calculate($draft, $template, $configuration->getLanguage());
+        $calculation = $this->calculator->calculate($draft, $template, $configuration->getLanguage());
 
-        return 100 === (int) $result->getPercent();
+        $result = true;
+
+        if ($configuration->getCompleteness() === LanguageCompletenessCondition::COMPLETE) {
+            if ($calculation->getPercent() < 100) {
+                $result = false;
+            }
+        } else {
+            if ($calculation->getPercent() > 0) {
+                $result = false;
+            }
+        }
+
+        return $result;
     }
 }

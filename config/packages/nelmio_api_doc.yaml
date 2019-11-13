@@ -145,6 +145,19 @@ nelmio_api_doc:
                         required: true
                         description: 'Password repeat'
                         example: 'new_password'
+            note:
+                type: object
+                properties:
+                    object_id:
+                        type: string
+                        requied: true
+                        description: Object Id
+                        example: uuid
+                    content:
+                        type: string
+                        requied: true
+                        description: Note content
+                        example: Message
             status:
                 type: object
                 properties:

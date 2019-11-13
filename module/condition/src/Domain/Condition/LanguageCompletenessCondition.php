@@ -24,9 +24,9 @@ class LanguageCompletenessCondition implements ConditionInterface
     public const NOT_COMPLETE = 'not complete';
 
     /**
-     * @var bool
+     * @var string
      *
-     * @JMS\Type("bool")
+     * @JMS\Type("string")
      */
     private $completeness;
 

@@ -10,3 +10,4 @@ include:
     - 'products.yaml'
     - 'segments.yaml'
     - 'conditions.yaml'
+    - 'comment.yaml'

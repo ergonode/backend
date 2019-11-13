@@ -12,7 +12,6 @@ namespace Ergonode\Condition\Infrastructure\Builder\Condition;
 use Ergonode\Condition\Infrastructure\Builder\ConditionValidatorBuilderInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
@@ -29,10 +28,6 @@ class ProductCompletenessConditionValidatorBuilder implements ConditionValidator
         return new Collection([
             'completeness' => [
                 new NotBlank(),
-            ],
-            'language' => [
-                new NotBlank(),
-                new Length(2),
             ],
         ]);
     }

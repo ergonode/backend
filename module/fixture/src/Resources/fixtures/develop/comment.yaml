@@ -1,0 +1,11 @@
+Ramsey\Uuid\Uuid:
+    object_id_{1..100}:
+        __factory: { fromString: ['<uuid(@product_id_<current()>)>'] }
+
+Ergonode\Comment\Domain\Entity\Comment:
+    note_{1..1000}:
+        __construct:
+            - '<commentId()>'
+            - '@object_id_*'
+            - '<userId(data_inputer@ergonode.com)>'
+            - 'Note content'
