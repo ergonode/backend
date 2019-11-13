@@ -11,7 +11,7 @@ namespace Ergonode\Notification\Tests\Infrastructure\Handler;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\Notification\Infrastructure\Handler\SendNotificationCommandHandler;
-use Ergonode\Notification\Infrastructure\Service\NotificationSender;
+use Ergonode\Notification\Infrastructure\Sender\NotificationSender;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

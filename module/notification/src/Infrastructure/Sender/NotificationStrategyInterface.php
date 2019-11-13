@@ -18,7 +18,6 @@ interface NotificationStrategyInterface
      * @param UserId[]    $recipients
      * @param string      $message
      * @param UserId|null $author
-     * @param array       $parameters
      */
-    public function send(array $recipients, string $message, ?UserId $author = null, array $parameters = []): void;
+    public function send(array $recipients, string $message, ?UserId $author = null): void;
 }

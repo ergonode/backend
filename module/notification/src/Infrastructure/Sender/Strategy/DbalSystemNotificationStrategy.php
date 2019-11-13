@@ -11,7 +11,6 @@ namespace Ergonode\Notification\Infrastructure\Sender\Strategy;
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
-use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -24,30 +23,22 @@ class DbalSystemNotificationStrategy implements NotificationStrategyInterface
     private $connection;
 
     /**
-     * @var SerializerInterface
+     * @param Connection $connection
      */
-    private $serializer;
-
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
-    public function __construct(Connection $connection, SerializerInterface $serializer)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->serializer = $serializer;
     }
 
     /**
      * @param UserId[]    $recipients
      * @param string      $message
      * @param UserId|null $author
-     * @param array       $parameters
      *
      * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Exception
      */
-    public function send(array $recipients, string $message, ?UserId $author = null, array $parameters = []): void
+    public function send(array $recipients, string $message, ?UserId $author = null): void
     {
         $id  = Uuid::uuid4()->toString();
         $createdAt = new \DateTime();
@@ -61,7 +52,6 @@ class DbalSystemNotificationStrategy implements NotificationStrategyInterface
                     'created_at' => $createdAt->format('Y-m-d H:i:s'),
                     'message' => $message,
                     'author_id' => $author ? $author->getValue() : null,
-                    'parameters' => $this->serializer->serialize($parameters, 'json'),
                 ]
             );
 

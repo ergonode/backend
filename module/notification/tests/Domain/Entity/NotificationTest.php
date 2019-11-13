@@ -21,18 +21,16 @@ class NotificationTest extends TestCase
      * @param NotificationId $id
      * @param \DateTime      $createdAt
      * @param string         $message
-     * @param array          $parameters
      * @param UserId|null    $authorId
      *
      * @dataProvider dataProvider
      */
-    public function testEntityCreation(NotificationId $id, \DateTime $createdAt, string $message, array $parameters = [], UserId $authorId = null): void
+    public function testEntityCreation(NotificationId $id, \DateTime $createdAt, string $message, UserId $authorId = null): void
     {
-        $command = new Notification($id, $createdAt, $message, $authorId, $parameters);
+        $command = new Notification($id, $createdAt, $message, $authorId);
         $this->assertSame($id, $command->getId());
         $this->assertSame($createdAt, $command->getCreatedAt());
         $this->assertSame($message, $command->getMessage());
-        $this->assertSame($parameters, $command->getParameters());
         $this->assertSame($authorId, $command->getAuthorId());
     }
 
@@ -46,14 +44,12 @@ class NotificationTest extends TestCase
                 $this->createMock(NotificationId::class),
                 $this->createMock(\DateTime::class),
                 'Any Message',
-                [],
                 null,
             ],
             [
                 $this->createMock(NotificationId::class),
                 $this->createMock(\DateTime::class),
                 'Any Message',
-                ['any Parameter'],
                 $this->createMock(UserId::class),
             ],
         ];

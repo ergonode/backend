@@ -32,14 +32,13 @@ class NotificationSender
      * @param UserId[]    $recipients
      * @param string      $message
      * @param UserId|null $author
-     * @param array       $parameters
      */
-    public function send(array $recipients, string $message, ?UserId $author = null, array $parameters = []): void
+    public function send(array $recipients, string $message, ?UserId $author = null): void
     {
         Assert::allIsInstanceOf($recipients, UserId::class);
 
         foreach ($this->strategies as $strategy) {
-            $strategy->send($recipients, $message, $author, $parameters);
+            $strategy->send($recipients, $message, $author);
         }
     }
 }

@@ -45,6 +45,6 @@ class SendNotificationCommandHandler
     {
         $recipients = $this->query->getAllRoleUsers($command->getRoleId());
 
-        $this->notificationService->send($recipients, $command->getMessage(), $command->getAuthorId(), $command->getParameters());
+        $this->notificationService->send($recipients, $command->getMessage(), $command->getAuthorId());
     }
 }

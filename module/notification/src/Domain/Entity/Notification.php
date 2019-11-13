@@ -35,24 +35,17 @@ class Notification
     private $authorId;
 
     /**
-     * @var array
-     */
-    private $parameters;
-
-    /**
      * @param NotificationId $id
      * @param \DateTime      $createdAt
      * @param string         $message
      * @param UserId|null    $authorId
-     * @param array          $parameters
      */
-    public function __construct(NotificationId $id, \DateTime $createdAt, string $message, ?UserId $authorId = null, array $parameters = [])
+    public function __construct(NotificationId $id, \DateTime $createdAt, string $message, ?UserId $authorId = null)
     {
         $this->id = $id;
         $this->createdAt = $createdAt;
         $this->message = $message;
         $this->authorId = $authorId;
-        $this->parameters = $parameters;
     }
 
     /**
@@ -85,13 +78,5 @@ class Notification
     public function getAuthorId(): ?UserId
     {
         return $this->authorId;
-    }
-
-    /**
-     * @return array
-     */
-    public function getParameters(): array
-    {
-        return $this->parameters;
     }
 }

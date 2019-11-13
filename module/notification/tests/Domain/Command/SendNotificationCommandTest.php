@@ -19,17 +19,15 @@ class SendNotificationCommandTest extends TestCase
 {
     /**
      * @param string      $message
-     * @param array       $parameters
      * @param RoleId      $roleId
      * @param UserId|null $authorId
      *
      * @dataProvider dataProvider
      */
-    public function testCommandCreation(string $message, array $parameters, RoleId $roleId, UserId $authorId = null): void
+    public function testCommandCreation(string $message, RoleId $roleId, UserId $authorId = null): void
     {
-        $command = new SendNotificationCommand($message, $parameters, $roleId, $authorId);
+        $command = new SendNotificationCommand($message, $roleId, $authorId);
         $this->assertSame($message, $command->getMessage());
-        $this->assertSame($parameters, $command->getParameters());
         $this->assertSame($roleId, $command->getRoleId());
         $this->assertSame($authorId, $command->getAuthorId());
     }
@@ -42,13 +40,11 @@ class SendNotificationCommandTest extends TestCase
         return [
             [
                 'Any Message',
-                [],
                 $this->createMock(RoleId::class),
                 null,
             ],
             [
                 'Any Message',
-                ['parameter' => 'value'],
                 $this->createMock(RoleId::class),
                 $this->createMock(UserId::class),
             ],
