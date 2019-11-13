@@ -45,6 +45,8 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
     public function getPrivileges(): array
     {
         $qb = $this->getQuery();
+        $qb->andWhere($qb->expr()->eq('active', ':active'))
+            ->setParameter(':active', 'true', \PDO::PARAM_BOOL);
 
         return $qb
             ->execute()
