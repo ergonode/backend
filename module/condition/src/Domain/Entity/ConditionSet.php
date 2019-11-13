@@ -39,8 +39,8 @@ class ConditionSet extends AbstractAggregateRoot
     private $conditions;
 
     /**
-     * @param ConditionSetId     $id
-     * @param array              $conditions
+     * @param ConditionSetId $id
+     * @param array          $conditions
      *
      * @throws \Exception
      */

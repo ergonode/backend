@@ -32,8 +32,8 @@ class CreateConditionSetCommand
     private $conditions;
 
     /**
-     * @param ConditionSetId     $id
-     * @param array              $conditions
+     * @param ConditionSetId $id
+     * @param array          $conditions
      */
     public function __construct(ConditionSetId $id, array $conditions = [])
     {

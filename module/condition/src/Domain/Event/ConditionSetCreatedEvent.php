@@ -26,20 +26,6 @@ class ConditionSetCreatedEvent implements DomainEventInterface
     private $id;
 
     /**
-     * @var TranslatableString
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
-    private $name;
-
-    /**
-     * @var TranslatableString
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
-    private $description;
-
-    /**
      * @var array
      *
      * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
@@ -47,10 +33,11 @@ class ConditionSetCreatedEvent implements DomainEventInterface
     private $conditions;
 
     /**
-     * @param ConditionSetId     $id
-     * @param array              $conditions
+     * @param ConditionSetId $id
+     * @param array          $conditions
      */
-    public function __construct(ConditionSetId $id, array $conditions = []) {
+    public function __construct(ConditionSetId $id, array $conditions = [])
+    {
         $this->id = $id;
         $this->conditions = $conditions;
     }
