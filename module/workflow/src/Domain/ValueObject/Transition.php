@@ -50,7 +50,7 @@ class Transition
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
-    private $conditionSet;
+    private $conditionSetId;
 
     /**
      * @param StatusCode         $source
@@ -70,7 +70,7 @@ class Transition
         $this->destination = $destination;
         $this->name = $name;
         $this->description = $description;
-        $this->conditionSet = $conditionSetId;
+        $this->conditionSetId = $conditionSetId;
     }
 
     /**
@@ -108,9 +108,9 @@ class Transition
     /**
      * @return ConditionSetId|null
      */
-    public function getConditionSet(): ?ConditionSetId
+    public function getConditionSetId(): ?ConditionSetId
     {
-        return $this->conditionSet;
+        return $this->conditionSetId;
     }
 
     /**
@@ -124,8 +124,8 @@ class Transition
             && $transition->getDestination()->isEqual($this->destination)
             && $transition->getName()->isEqual($this->name)
             && $transition->getDescription()->isEqual($this->description)
-            && (null === $transition->conditionSet
-                || $transition->getConditionSet()->isEqual($this->conditionSet)
+            && (null === $transition->conditionSetId
+                || $transition->getConditionSetId()->isEqual($this->conditionSetId)
             );
     }
 }

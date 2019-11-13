@@ -47,11 +47,11 @@ class StatusCalculationService
      */
     public function available(Transition $transition, AbstractProduct $product): bool
     {
-        if (null === $transition->getConditionSet()) {
+        if (null === $transition->getConditionSetId()) {
             return true;
         }
 
-        $conditionSet = $this->repository->load($transition->getConditionSet());
+        $conditionSet = $this->repository->load($transition->getConditionSetId());
         Assert::notNull($conditionSet);
 
         return $this->service->calculate($conditionSet, $product);
