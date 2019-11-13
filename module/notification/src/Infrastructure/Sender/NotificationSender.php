@@ -6,14 +6,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Notification\Infrastructure\Service;
+namespace Ergonode\Notification\Infrastructure\Sender;
 
 use Ergonode\Account\Domain\Entity\UserId;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class NotificationService
+class NotificationSender
 {
     /**
      * @var NotificationStrategyInterface[]

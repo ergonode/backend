@@ -6,17 +6,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Notification\Infrastructure\Service\Strategy;
+namespace Ergonode\Notification\Infrastructure\Sender\Strategy;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Notification\Infrastructure\Service\NotificationStrategyInterface;
+use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class SystemNotificationStrategy implements NotificationStrategyInterface
+class DbalSystemNotificationStrategy implements NotificationStrategyInterface
 {
     /**
      * @var Connection

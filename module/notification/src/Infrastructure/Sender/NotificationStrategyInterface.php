@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Notification\Infrastructure\Service;
+namespace Ergonode\Notification\Infrastructure\Sender;
 
 use Ergonode\Account\Domain\Entity\UserId;
 

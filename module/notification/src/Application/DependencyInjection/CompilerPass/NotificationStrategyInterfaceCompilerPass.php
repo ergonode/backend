@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Notification\Application\DependencyInjection\CompilerPass;
 
-use Ergonode\Notification\Infrastructure\Service\NotificationService;
+use Ergonode\Notification\Infrastructure\Service\NotificationSender;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -25,7 +25,7 @@ class NotificationStrategyInterfaceCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container): void
     {
-        if ($container->has(NotificationService::class)) {
+        if ($container->has(NotificationSender::class)) {
             $this->processProvider($container);
         }
     }
@@ -40,6 +40,6 @@ class NotificationStrategyInterfaceCompilerPass implements CompilerPassInterface
             $arguments[] = new Reference($id);
         }
 
-        $container->findDefinition(NotificationService::class)->setArguments($arguments);
+        $container->findDefinition(NotificationSender::class)->setArguments($arguments);
     }
 }

@@ -10,14 +10,14 @@ namespace Ergonode\Notification\Infrastructure\Handler;
 
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Notification\Domain\Command\SendNotificationCommand;
-use Ergonode\Notification\Infrastructure\Service\NotificationService;
+use Ergonode\Notification\Infrastructure\Sender\NotificationSender;
 
 /**
  */
 class SendNotificationCommandHandler
 {
     /**
-     * @var NotificationService
+     * @var NotificationSender
      */
     private $notificationService;
 
@@ -27,10 +27,10 @@ class SendNotificationCommandHandler
     private $query;
 
     /**
-     * @param NotificationService $notificationService
-     * @param RoleQueryInterface  $query
+     * @param NotificationSender $notificationService
+     * @param RoleQueryInterface $query
      */
-    public function __construct(NotificationService $notificationService, RoleQueryInterface $query)
+    public function __construct(NotificationSender $notificationService, RoleQueryInterface $query)
     {
         $this->notificationService = $notificationService;
         $this->query = $query;
