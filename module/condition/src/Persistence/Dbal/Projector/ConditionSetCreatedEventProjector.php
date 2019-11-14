@@ -53,8 +53,8 @@ class ConditionSetCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
+     * @param AbstractId                                    $aggregateId
+     * @param DomainEventInterface|ConditionSetCreatedEvent $event
      *
      * @throws UnsupportedEventException
      * @throws DBALException
@@ -69,9 +69,6 @@ class ConditionSetCreatedEventProjector implements DomainEventProjectorInterface
             self::TABLE,
             [
                 'id' => $event->getId()->getValue(),
-                'code' => $event->getCode(),
-                'name' => $this->serializer->serialize($event->getName(), 'json'),
-                'description' => $this->serializer->serialize($event->getDescription(), 'json'),
                 'conditions' => $this->serializer->serialize($event->getConditions(), 'json'),
             ]
         );

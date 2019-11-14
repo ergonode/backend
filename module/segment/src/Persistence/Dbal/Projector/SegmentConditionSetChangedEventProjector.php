@@ -47,8 +47,8 @@ class SegmentConditionSetChangedEventProjector implements DomainEventProjectorIn
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
+     * @param AbstractId                                           $aggregateId
+     * @param DomainEventInterface|SegmentConditionSetChangedEvent $event
      *
      * @throws UnsupportedEventException
      * @throws DBALException
@@ -62,7 +62,7 @@ class SegmentConditionSetChangedEventProjector implements DomainEventProjectorIn
         $this->connection->update(
             self::TABLE,
             [
-                'condition_set_id' => $event->getTo()->getValue(),
+                'condition_set_id' => $event->getTo() ? $event->getTo()->getValue() : null,
             ],
             [
                 'id' => $aggregateId->getValue(),

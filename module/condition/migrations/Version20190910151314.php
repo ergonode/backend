@@ -27,8 +27,6 @@ final class Version20190910151314 extends AbstractErgonodeMigration
             CREATE TABLE condition_set (
                 id UUID NOT NULL,
                 code VARCHAR(100) NOT NULL,
-                name JSON NOT NULL,
-                description JSON NOT NULL,
                 conditions JSONB NOT NULL,
                 PRIMARY KEY(id)
             )

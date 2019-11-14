@@ -3,23 +3,8 @@ Ergonode\Condition\Domain\Condition\AttributeExistsCondition:
         __construct:
             - '<AttributeId(code_1)>'
 
-Ergonode\Core\Domain\ValueObject\TranslatableString:
-    condition_set_name:
-        __construct:
-            -
-                'PL': 'Zbiór warunków'
-                'EN': 'Condition set'
-    condition_set_description:
-        __construct:
-            -
-                'PL': 'Opis do zbioru warunków'
-                'EN': 'Description of condition set'
-
 Ergonode\Condition\Domain\Entity\ConditionSet:
     condition_set:
         __construct:
-            - '<conditionSetId("condition_set_code")>'
-            - '<conditionSetCode("condition_set_code")>'
-            - '@condition_set_name'
-            - '@condition_set_description'
+            - '<conditionSetId("0b10ffb4-75ff-494e-92a6-814ccf8aae42")>'
             - ['@condition_attribute_exists']
