@@ -1,0 +1,28 @@
+{
+    "name": "ergonode/notification",
+    "type": "ergonode-module",
+    "description": "Ergonode - Notification",
+    "homepage": "https://ergonode.com",
+    "license": "OSL-3.0",
+    "require": {
+        "php": "^7.2",
+        "doctrine/dbal": "^2.9",
+        "ergonode/api": "^0.5.0",
+        "ergonode/core": "^0.5.0",
+        "ergonode/es": "^0.5.0",
+        "ergonode/grid": "^0.5.0",
+        "ergonode/migration": "^0.5.0",
+        "ergonode/account": "^0.5.0",
+        "jms/serializer": "^3.1",
+        "nelmio/api-doc-bundle": "^3.4",
+        "ramsey/uuid": "^3.8",
+        "sensio/framework-extra-bundle": "^5.4",
+        "symfony/messenger": "^4.3",
+        "symfony/translation": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ergonode\\Notification\\": "src/"
+        }
+    }
+}

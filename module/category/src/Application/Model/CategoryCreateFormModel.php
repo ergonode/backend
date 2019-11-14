@@ -38,7 +38,6 @@ class CategoryCreateFormModel
     public $name;
 
     /**
-     * CategoryCreateFormModel constructor.
      */
     public function __construct()
     {

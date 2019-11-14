@@ -12,6 +12,7 @@ namespace Ergonode\Account\Persistence\Dbal\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
@@ -69,6 +70,30 @@ class DbalRoleQuery implements RoleQueryInterface
         }
 
         return 0;
+    }
+
+    /**
+     * @param RoleId $id
+     *
+     * @return array
+     */
+    public function getAllRoleUsers(RoleId $id): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $records = $qb->select('id')
+            ->from('users', 'u')
+            ->where($qb->expr()->eq('role_id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $result = [];
+
+        foreach ($records as $record) {
+            $result[] = new userId($record);
+        }
+
+        return $result;
     }
 
     /**
