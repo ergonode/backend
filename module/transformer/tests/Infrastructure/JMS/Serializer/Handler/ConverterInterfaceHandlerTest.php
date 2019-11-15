@@ -13,7 +13,6 @@ use Ergonode\Transformer\Infrastructure\Converter\CollectionConverter;
 use Ergonode\Transformer\Infrastructure\Converter\ConstConverter;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\DateConverter;
-use Ergonode\Transformer\Infrastructure\Converter\DictionaryConverter;
 use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
 use Ergonode\Transformer\Infrastructure\Converter\MappingConverter;
 use Ergonode\Transformer\Infrastructure\Converter\SlugConverter;
@@ -49,7 +48,6 @@ class ConverterInterfaceHandlerTest extends TestCase
         $handler->set(ConstConverter::class);
         $handler->set(MappingConverter::class);
         $handler->set(CollectionConverter::class);
-        $handler->set(DictionaryConverter::class);
         $handler->set(SplitConverter::class);
 
         $this->serializer = SerializerBuilder::create()
@@ -174,19 +172,6 @@ class ConverterInterfaceHandlerTest extends TestCase
 
         $this->assertInstanceOf(CollectionConverter::class, $result);
         $this->assertEquals(CollectionConverter::TYPE, $result->getType());
-    }
-
-    /**
-     */
-    public function testDeserializeDictionaryConverter(): void
-    {
-        $testValue = '{"type":"dictionary","translations":{"PL":"first"},"field":"test_field"}';
-
-        /** @var ConverterInterface $result */
-        $result = $this->serializer->deserialize($testValue, ConverterInterface::class, 'json');
-
-        $this->assertInstanceOf(DictionaryConverter::class, $result);
-        $this->assertEquals(DictionaryConverter::TYPE, $result->getType());
     }
 
     /**

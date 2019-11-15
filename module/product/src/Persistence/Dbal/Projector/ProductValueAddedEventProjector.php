@@ -18,7 +18,6 @@ use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterfac
 use Ergonode\Product\Domain\Event\ProductValueAdded;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ramsey\Uuid\Uuid;
@@ -89,13 +88,6 @@ class ProductValueAddedEventProjector implements DomainEventProjectorInterface
             $translation = $value->getValue();
             foreach ($translation as $language => $phrase) {
                 $this->insert($productId, $attributeId, $phrase, $language);
-            }
-        } elseif ($value instanceof TranslatableCollectionValue) {
-            $collection = $value->getValue();
-            foreach ($collection as $translation) {
-                foreach ($translation as $language => $phrase) {
-                    $this->insert($productId, $attributeId, $phrase, $language);
-                }
             }
         } else {
             throw new \RuntimeException(sprintf(sprintf('Unknown Value class "%s"', \get_class($value->getValue()))));

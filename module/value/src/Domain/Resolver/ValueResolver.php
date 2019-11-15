@@ -11,7 +11,6 @@ namespace Ergonode\Value\Domain\Resolver;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
@@ -41,15 +40,6 @@ class ValueResolver
 
         if ($value instanceof StringCollectionValue) {
             return implode(', ', $value->getValue());
-        }
-
-        if ($value instanceof TranslatableCollectionValue) {
-            $result = [];
-            foreach ($value->getValue() as $translatableString) {
-                $result[] = $translatableString->get($language);
-            }
-
-            return implode(', ', $result);
         }
 
         throw new \RuntimeException('Cant resolve ValueInterface');

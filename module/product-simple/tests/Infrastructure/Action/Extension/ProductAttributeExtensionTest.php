@@ -11,12 +11,10 @@ namespace Ergonode\ProductSimple\Tests\Infrastructure\Action\Extension;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ProductSimple\Infrastructure\Action\Extension\ProductAttributeExtension;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
@@ -95,23 +93,6 @@ class ProductAttributeExtensionTest extends TestCase
     }
 
     /**
-     * @param array $columns
-     * @param mixed $expected
-     *
-     * @dataProvider dataProvider
-     */
-    public function testTranslableCollectionExtend(array $columns, $expected)
-    {
-        $this->record->expects($this->once())->method('has')->willReturn(true);
-        $this->record->expects($this->once())->method('getColumns')->willReturn($columns);
-        $this->query->expects($this->any())->method('findAttributeType')->willReturn(new AttributeType('SELECT'));
-        $this->messageBus->expects($this->any())->method('dispatch')->willReturn(new Envelope($this->createMock(AttributeType::class)));
-
-        $result = $this->extension->extend($this->record, $this->data);
-        $this->assertEquals($expected, $result['attributes']['color']->getValue());
-    }
-
-    /**
      * @return array
      */
     public function dataProvider(): array
@@ -122,21 +103,6 @@ class ProductAttributeExtensionTest extends TestCase
                     'color' => new StringValue('black'),
                 ],
                 'expected' => 'black',
-            ],
-            [
-                'columns' => [
-                    'color' => new TranslatableCollectionValue([
-                        'bl' => new TranslatableString([
-                            'EN' => 'black',
-                            'PL' => 'czarny',
-                        ]),
-                        'wh' => new TranslatableString([
-                            'EN' => 'white',
-                            'PL' => 'bialy',
-                        ]),
-                    ]),
-                ],
-                'expected' => 'bl',
             ],
             [
                 'columns' => [
