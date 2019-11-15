@@ -354,7 +354,7 @@ Ergonode\Workflow\Domain\Entity\Workflow:
             - addTransition:
                   - '@transition_take'
 
-Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
+Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute:
     attribute_esa_status:
         __construct:
             - '<AttributeId(esa_status)>'
@@ -362,6 +362,3 @@ Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
             - '@label_esa_status'
             - '@empty'
             - '@empty'
-            - false
-            - []
-            - true

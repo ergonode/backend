@@ -31,8 +31,6 @@ use Webmozart\Assert\Assert;
  */
 abstract class AbstractProduct extends AbstractAggregateRoot
 {
-    public const STATUS = 'esa_status';
-
     /**
      * @var ProductId
      */

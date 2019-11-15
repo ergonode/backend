@@ -29,7 +29,7 @@ class RequestColumn
      * @param string        $column
      * @param Language|null $language
      */
-    public function __construct(string $column, ?Language $language)
+    public function __construct(string $column, ?Language $language = null)
     {
         $this->column = $column;
         $this->language = $language;

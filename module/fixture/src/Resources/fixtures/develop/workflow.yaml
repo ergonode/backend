@@ -56,3 +56,12 @@ Ergonode\Workflow\Domain\Entity\Workflow:
                   - '<statusCode(STATUS_DRAFT)>'
             - addTransition:
                   - '@default_transition'
+
+Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute:
+    attribute_esa_status:
+        __construct:
+            - '<AttributeId(esa_status)>'
+            - '<AttributeCode(esa_status)>'
+            - '@label_esa_status'
+            - '@empty'
+            - '@empty'
