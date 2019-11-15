@@ -19,29 +19,21 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class TransitionGrid extends AbstractGrid
 {
     /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
      * @var StatusQueryInterface
      */
     private $statusQuery;
 
     /**
-     * @param TranslatorInterface  $translator
      * @param StatusQueryInterface $statusQuery
      */
-    public function __construct(TranslatorInterface $translator, StatusQueryInterface $statusQuery)
+    public function __construct(StatusQueryInterface $statusQuery)
     {
-        $this->translator = $translator;
         $this->statusQuery = $statusQuery;
     }
 
@@ -60,16 +52,16 @@ class TransitionGrid extends AbstractGrid
             $codes[$code] = $status['name'];
         }
 
-        $code = new LabelColumn('source', $this->trans('Source'), $statuses, new SelectFilter($codes, $filters->get('source')));
+        $code = new LabelColumn('source', 'Source', $statuses, new SelectFilter($codes, $filters->get('source')));
         $this->addColumn('source', $code);
 
-        $code = new LabelColumn('destination', $this->trans('Destination'), $statuses, new SelectFilter($codes, $filters->get('destination')));
+        $code = new LabelColumn('destination', 'Destination', $statuses, new SelectFilter($codes, $filters->get('destination')));
         $this->addColumn('destination', $code);
 
-        $column = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name')));
+        $column = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
         $this->addColumn('name', $column);
 
-        $column = new TextColumn('description', $this->trans('Description'), new TextFilter($filters->get('description')));
+        $column = new TextColumn('description', 'Description', new TextFilter($filters->get('description')));
         $this->addColumn('description', $column);
 
         $this->addColumn('_links', new LinkColumn('hal', [
@@ -90,16 +82,5 @@ class TransitionGrid extends AbstractGrid
         ]));
 
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
     }
 }

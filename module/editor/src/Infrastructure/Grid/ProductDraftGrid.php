@@ -15,25 +15,11 @@ use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class ProductDraftGrid extends AbstractGrid
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
@@ -42,22 +28,11 @@ class ProductDraftGrid extends AbstractGrid
     {
         $filters = $configuration->getFilters();
 
-        $this->addColumn('id', new TextColumn('id', $this->trans('Id')));
-        $this->addColumn('product_id', new TextColumn('product_id', $this->trans('Product Id')));
-        $this->addColumn('template_id', new TextColumn('template_id', $this->trans('Template Id')));
-        $this->addColumn('sku', new TextColumn('sku', $this->trans('Sku'), new TextFilter($filters->get('sku'))));
-        $this->addColumn('type', new TextColumn('type', $this->trans('Type')));
-        $this->addColumn('applied', new BoolColumn('applied', $this->trans('Id')));
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
+        $this->addColumn('id', new TextColumn('id', 'Id'));
+        $this->addColumn('product_id', new TextColumn('product_id', 'Product Id'));
+        $this->addColumn('template_id', new TextColumn('template_id', 'Template Id'));
+        $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter($filters->get('sku'))));
+        $this->addColumn('type', new TextColumn('type', 'Type'));
+        $this->addColumn('applied', new BoolColumn('applied', 'Id'));
     }
 }

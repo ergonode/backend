@@ -15,7 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -25,9 +24,6 @@ class CommentGridTest extends TestCase
      */
     public function testGridInit(): void
     {
-        /** @var TranslatorInterface|MockObject $translator */
-        $translator = $this->createMock(TranslatorInterface::class);
-        $translator->method('trans')->willReturn('translated');
         /** @var GridConfigurationInterface $configuration */
         $configuration = $this->createMock(GridConfigurationInterface::class);
         /** @var Language $language */
@@ -35,7 +31,7 @@ class CommentGridTest extends TestCase
         /** @var AuthenticatedUserProviderInterface|MockObject $provider */
         $provider = $this->createMock(AuthenticatedUserProviderInterface::class);
         $provider->expects($this->once())->method('provide')->willReturn($this->createMock(User::class));
-        $grid = new CommentGrid($translator, $provider);
+        $grid = new CommentGrid($provider);
         $grid->init($configuration, $language);
     }
 }

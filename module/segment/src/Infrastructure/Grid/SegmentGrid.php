@@ -18,25 +18,11 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  */
 class SegmentGrid extends AbstractGrid
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
@@ -47,13 +33,13 @@ class SegmentGrid extends AbstractGrid
 
         $statuses = array_combine(SegmentStatus::AVAILABLE, SegmentStatus::AVAILABLE);
 
-        $id = new TextColumn('id', $this->trans('Id'), new TextFilter());
+        $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('code', new TextColumn('name', $this->trans('Code'), new TextFilter($filters->get('code'))));
-        $this->addColumn('status', new TextColumn('status', $this->trans('Status'), new SelectFilter($statuses, $filters->get('status'))));
-        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name'))));
-        $this->addColumn('description', new TextColumn('description', $this->trans('Description'), new TextFilter($filters->get('description'))));
+        $this->addColumn('code', new TextColumn('name', 'Code', new TextFilter($filters->get('code'))));
+        $this->addColumn('status', new TextColumn('status', 'Status', new SelectFilter($statuses, $filters->get('status'))));
+        $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter($filters->get('name'))));
+        $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter($filters->get('description'))));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_segment_read',
@@ -72,16 +58,5 @@ class SegmentGrid extends AbstractGrid
         ]));
         $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
         $this->orderBy('id', 'DESC');
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
     }
 }

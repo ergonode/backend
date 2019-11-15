@@ -23,7 +23,6 @@ use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -40,23 +39,15 @@ class AttributeGrid extends AbstractGrid
     private $attributeGroupDictionaryProvider;
 
     /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
      * @param AttributeTypeDictionaryProvider  $attributeTypeDictionaryProvider
      * @param AttributeGroupDictionaryProvider $attributeGroupDictionaryProvider
-     * @param TranslatorInterface              $translator
      */
     public function __construct(
         AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider,
-        AttributeGroupDictionaryProvider $attributeGroupDictionaryProvider,
-        TranslatorInterface $translator
+        AttributeGroupDictionaryProvider $attributeGroupDictionaryProvider
     ) {
         $this->attributeTypeDictionaryProvider = $attributeTypeDictionaryProvider;
         $this->attributeGroupDictionaryProvider = $attributeGroupDictionaryProvider;
-        $this->translator = $translator;
     }
 
     /**
@@ -70,19 +61,19 @@ class AttributeGrid extends AbstractGrid
 
         $filters = $configuration->getFilters();
 
-        $id = new TextColumn('id', $this->trans('Id'), new TextFilter($filters->get('id')));
+        $id = new TextColumn('id', 'Id', new TextFilter($filters->get('id')));
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $index = new IntegerColumn('index', $this->trans('Index'), new TextFilter($filters->get('index')));
+        $index = new IntegerColumn('index', 'Index', new TextFilter($filters->get('index')));
         $this->addColumn('index', $index);
-        $this->addColumn('code', new TextColumn('code', $this->trans('Code'), new TextFilter($filters->get('code'))));
-        $column = new TextColumn('label', $this->trans('Name'), new TextFilter($filters->get('label')));
+        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter($filters->get('code'))));
+        $column = new TextColumn('label', 'Name', new TextFilter($filters->get('label')));
         $this->addColumn('label', $column);
-        $column = new TextColumn('type', $this->trans('Type'), new SelectFilter($types, $filters->get('type')));
+        $column = new TextColumn('type', 'Type', new SelectFilter($types, $filters->get('type')));
         $this->addColumn('type', $column);
-        $column = new BoolColumn('multilingual', $this->trans('Multilingual'));
+        $column = new BoolColumn('multilingual', 'Multilingual');
         $this->addColumn('multilingual', $column);
-        $this->addColumn('groups', new MultiSelectColumn('groups', $this->trans('Groups'), new MultiSelectFilter($groups, $filters->get('groups'))));
+        $this->addColumn('groups', new MultiSelectColumn('groups', 'Groups', new MultiSelectFilter($groups, $filters->get('groups'))));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_attribute_read',
@@ -101,16 +92,5 @@ class AttributeGrid extends AbstractGrid
         ]));
         $this->orderBy('index', 'DESC');
         $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
     }
 }

@@ -20,29 +20,21 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class StatusGrid extends AbstractGrid
 {
     /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
      * @var StatusQueryInterface
      */
     private $statusQuery;
 
     /**
-     * @param TranslatorInterface  $translator
      * @param StatusQueryInterface $statusQuery
      */
-    public function __construct(TranslatorInterface $translator, StatusQueryInterface $statusQuery)
+    public function __construct(StatusQueryInterface $statusQuery)
     {
-        $this->translator = $translator;
         $this->statusQuery = $statusQuery;
     }
 
@@ -61,23 +53,23 @@ class StatusGrid extends AbstractGrid
             $codes[$id] = $status['name'];
         }
 
-        $id = new TextColumn('id', $this->trans('Id'), new TextFilter($filters->get('id')));
+        $id = new TextColumn('id', 'Id', new TextFilter($filters->get('id')));
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
-        $column = new TextColumn('code', $this->trans('Code'), new TextFilter($filters->get('code')));
+        $column = new TextColumn('code', 'Code', new TextFilter($filters->get('code')));
         $this->addColumn('code', $column);
 
-        $code = new LabelColumn('status', $this->trans('Status'), $statuses, new SelectFilter($codes, $filters->get('status')));
+        $code = new LabelColumn('status', 'Status', $statuses, new SelectFilter($codes, $filters->get('status')));
         $this->addColumn('status', $code);
 
-        $column = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name')));
+        $column = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
         $this->addColumn('name', $column);
 
-        $column = new TextColumn('description', $this->trans('Description'), new TextFilter($filters->get('description')));
+        $column = new TextColumn('description', 'Description', new TextFilter($filters->get('description')));
         $this->addColumn('description', $column);
 
-        $column = new BoolColumn('is_default', $this->trans('Default'));
+        $column = new BoolColumn('is_default', 'Default');
         $this->addColumn('is_default', $column);
 
         $this->orderBy('code', 'DESC');
@@ -100,16 +92,5 @@ class StatusGrid extends AbstractGrid
         ]));
 
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
     }
 }
