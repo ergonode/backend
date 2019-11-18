@@ -23,8 +23,10 @@ class TranslatableColumnTest extends TestCase
         $label = 'Any label';
         $filter = $this->createMock(FilterInterface::class);
         $language = new Language(Language::PL);
+        $domain = 'domain';
+        $parameter = null;
 
-        $column = new TranslatableColumn($field, $label, $language, $filter);
+        $column = new TranslatableColumn($field, $label, $language, $domain, $parameter, $filter);
         $this->assertSame($field, $column->getField());
         $this->assertSame($label, $column->getLabel());
         $this->assertSame($filter, $column->getFilter());

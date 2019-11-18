@@ -10,6 +10,8 @@ namespace Ergonode\Notification\Infrastructure\Sender\Strategy;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\Account\Domain\Query\UserQueryInterface;
+use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
 use Ramsey\Uuid\Uuid;
 
@@ -21,6 +23,11 @@ class DbalSystemNotificationStrategy implements NotificationStrategyInterface
      * @var Connection
      */
     private $connection;
+
+    /**
+     * @var UserRepositoryInterface
+     */
+    private $repository;
 
     /**
      * @param Connection $connection
@@ -40,26 +47,19 @@ class DbalSystemNotificationStrategy implements NotificationStrategyInterface
      */
     public function send(array $recipients, string $message, ?UserId $author = null): void
     {
-        $id  = Uuid::uuid4()->toString();
+        $id = Uuid::uuid4()->toString();
         $createdAt = new \DateTime();
 
         $this->connection->beginTransaction();
         try {
-            $this->connection->insert(
-                'notification',
-                [
-                    'id' => $id,
-                    'created_at' => $createdAt->format('Y-m-d H:i:s'),
-                    'message' => $message,
-                    'author_id' => $author ? $author->getValue() : null,
-                ]
-            );
-
             foreach ($recipients as $recipient) {
                 $this->connection->insert(
-                    'users_notification',
+                    'notification',
                     [
-                        'notification_id' => $id,
+                        'id' => $id,
+                        'created_at' => $createdAt->format('Y-m-d H:i:s'),
+                        'message' => $message,
+                        'author_id' => $author ? $author->getValue() : null,
                         'recipient_id' => $recipient->getValue(),
                     ]
                 );
@@ -67,6 +67,7 @@ class DbalSystemNotificationStrategy implements NotificationStrategyInterface
             $this->connection->commit();
         } catch (\Exception $exception) {
             $this->connection->rollBack();
+
             throw $exception;
         }
     }

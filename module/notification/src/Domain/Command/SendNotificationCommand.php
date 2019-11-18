@@ -32,13 +32,20 @@ class SendNotificationCommand
     private $authorId;
 
     /**
+     * @var array
+     */
+    private $parameters;
+
+    /**
      * @param string      $message
+     * @param array       $parameters
      * @param RoleId      $roleId
      * @param UserId|null $authorId
      */
-    public function __construct(string $message, RoleId $roleId, UserId $authorId = null)
+    public function __construct(string $message, RoleId $roleId, UserId $authorId = null, array $parameters = [])
     {
         $this->message = $message;
+        $this->parameters = $parameters;
         $this->roleId = $roleId;
         $this->authorId = $authorId;
     }
@@ -49,6 +56,14 @@ class SendNotificationCommand
     public function getMessage(): string
     {
         return $this->message;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameters(): array
+    {
+        return $this->parameters;
     }
 
     /**

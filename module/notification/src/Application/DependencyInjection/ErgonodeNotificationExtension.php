@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Notification\Application\DependencyInjection;
 
 use Ergonode\Notification\Application\DependencyInjection\CompilerPass\NotificationStrategyInterfaceCompilerPass;
-use Ergonode\Notification\Infrastructure\Service\NotificationStrategyInterface;
+use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
