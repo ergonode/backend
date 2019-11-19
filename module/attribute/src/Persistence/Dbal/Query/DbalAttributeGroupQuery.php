@@ -10,7 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
@@ -19,6 +21,8 @@ use Ergonode\Grid\DbalDataSet;
  */
 class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
 {
+    private const TABLE = 'attribute_group';
+
     /**
      * @var Connection
      */
@@ -33,15 +37,13 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
     }
 
     /**
+     * @param Language $language
+     *
      * @return array
      */
-    public function getAttributeGroups(): array
+    public function getAttributeGroups(Language $language): array
     {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('*')
-            ->from(sprintf('(%s)', $this->getSQL()), 't');
-
-        return $query
+        return $this->getQuery($language)
             ->execute()
             ->fetchAll();
     }
@@ -56,30 +58,43 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
         $query = $this->connection->createQueryBuilder();
         $query
             ->select('*')
-            ->from(sprintf('(%s)', $this->getSQL()), 't');
+            ->from(sprintf('(%s)', $this->getQuery($language)->getSQL()), 't');
 
         return new DbalDataSet($query);
     }
 
     /**
-     * @return string
+     * @param AttributeGroupCode $code
+     *
+     * @return bool
      */
-    private function getSQL(): string
+    public function checkAttributeGroupExistsByCode(AttributeGroupCode $code): bool
     {
-        return 'SELECT 
-                count(aga.attribute_group_id) as elements_count,
-                ag.id as id,
-                ag.label
-                FROM attribute_group ag
-                LEFT JOIN attribute_group_attribute aga ON aga.attribute_group_id = ag.id
-                GROUP BY aga.attribute_group_id, ag.label, ag.id
-                UNION
-                SELECT 
-                count(*) as elements_count,
-                null as id,
-                \'Not in group\' as label
-                FROM attribute a
-                LEFT JOIN attribute_group_attribute aga ON aga.attribute_id = a.id
-                WHERE aga.attribute_id IS NULL AND a.system = false';
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('id')
+            ->from(self::TABLE, 'ag')
+            ->where($qb->expr()->eq('code', ':code'))
+            ->setParameter(':code', $code->getValue())
+            ->execute()
+            ->rowCount();
+
+        if ($result) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return QueryBuilder
+     */
+    private function getQuery(Language $language): QueryBuilder
+    {
+        return $this->connection->createQueryBuilder()
+            ->select(sprintf('ag.id, ag.code, ag.name->>\'%s\' AS name', $language->getCode()))
+            ->addSelect('(SELECT count(*) FROM attribute_group_attribute WHERE attribute_group_id = ag.id) AS elements_count')
+            ->from(self::TABLE, 'ag');
     }
 }

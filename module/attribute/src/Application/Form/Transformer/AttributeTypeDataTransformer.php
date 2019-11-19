@@ -46,8 +46,8 @@ class AttributeTypeDataTransformer implements DataTransformerInterface
         if ($value) {
             try {
                 return new AttributeType($value);
-            } catch (\InvalidArgumentException $e) {
-                throw new TransformationFailedException(sprintf('invalid attribute type %s value', $value));
+            } catch (\Throwable $e) {
+                throw new TransformationFailedException('invalid attribute type value');
             }
         }
 

@@ -7,6 +7,7 @@
 
 namespace Ergonode\Attribute\Domain\Query;
 
+use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 
@@ -15,9 +16,11 @@ use Ergonode\Grid\DataSetInterface;
 interface AttributeGroupQueryInterface
 {
     /**
+     * @param Language $language
+     *
      * @return array
      */
-    public function getAttributeGroups(): array;
+    public function getAttributeGroups(Language $language): array;
 
     /**
      * @param Language $language
@@ -25,4 +28,11 @@ interface AttributeGroupQueryInterface
      * @return DataSetInterface
      */
     public function getDataSet(Language $language): DataSetInterface;
+
+    /**
+     * @param AttributeGroupCode $code
+     *
+     * @return bool
+     */
+    public function checkAttributeGroupExistsByCode(AttributeGroupCode $code): bool;
 }

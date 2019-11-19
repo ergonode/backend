@@ -27,4 +27,9 @@ interface AttributeGroupRepositoryInterface
      * @param AbstractAggregateRoot $aggregateRoot
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void;
+
+    /**
+     * @param AbstractAggregateRoot $aggregateRoot
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void;
 }

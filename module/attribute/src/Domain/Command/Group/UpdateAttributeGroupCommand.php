@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,17 +6,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Domain\Event\Group;
+namespace Ergonode\Attribute\Domain\Command\Group;
 
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AttributeGroupCreatedEvent implements DomainEventInterface
+class UpdateAttributeGroupCommand
 {
     /**
      * @var AttributeGroupId
@@ -25,13 +21,6 @@ class AttributeGroupCreatedEvent implements DomainEventInterface
      * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeGroupId")
      */
     private $id;
-
-    /**
-     * @var AttributeGroupCode
-     *
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode")
-     */
-    private $code;
 
     /**
      * @var TranslatableString
@@ -42,13 +31,11 @@ class AttributeGroupCreatedEvent implements DomainEventInterface
 
     /**
      * @param AttributeGroupId   $id
-     * @param AttributeGroupCode $code
      * @param TranslatableString $name
      */
-    public function __construct(AttributeGroupId $id, AttributeGroupCode $code, TranslatableString $name)
+    public function __construct(AttributeGroupId $id, TranslatableString $name)
     {
         $this->id = $id;
-        $this->code = $code;
         $this->name = $name;
     }
 
@@ -58,14 +45,6 @@ class AttributeGroupCreatedEvent implements DomainEventInterface
     public function getId(): AttributeGroupId
     {
         return $this->id;
-    }
-
-    /**
-     * @return AttributeGroupCode
-     */
-    public function getCode(): AttributeGroupCode
-    {
-        return $this->code;
     }
 
     /**

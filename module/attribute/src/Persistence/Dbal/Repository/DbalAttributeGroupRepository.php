@@ -11,6 +11,7 @@ namespace Ergonode\Attribute\Persistence\Dbal\Repository;
 
 use Ergonode\Attribute\Domain\Entity\AttributeGroup;
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent;
 use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
@@ -78,5 +79,18 @@ class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
         foreach ($events as $envelope) {
             $this->eventDispatcher->dispatch($envelope);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Exception
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    {
+        $aggregateRoot->apply(new AttributeDeletedEvent());
+        $this->save($aggregateRoot);
+
+        $this->eventStore->delete($aggregateRoot->getId());
     }
 }

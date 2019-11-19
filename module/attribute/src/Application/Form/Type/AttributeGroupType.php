@@ -10,12 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Application\Form\Type;
 
 use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeGroupDictionaryProvider;
+use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class AttributeGroupType
  */
 class AttributeGroupType extends AbstractType
 {
@@ -25,11 +25,18 @@ class AttributeGroupType extends AbstractType
     private $provider;
 
     /**
-     * @param AttributeGroupDictionaryProvider $provider
+     * @var AuthenticatedUserProviderInterface
      */
-    public function __construct(AttributeGroupDictionaryProvider $provider)
+    private $userProvider;
+
+    /**
+     * @param AttributeGroupDictionaryProvider   $provider
+     * @param AuthenticatedUserProviderInterface $userProvider
+     */
+    public function __construct(AttributeGroupDictionaryProvider $provider, AuthenticatedUserProviderInterface $userProvider)
     {
         $this->provider = $provider;
+        $this->userProvider = $userProvider;
     }
 
     /**
@@ -37,7 +44,9 @@ class AttributeGroupType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $choices = $this->provider->getDictionary();
+        $language = $this->userProvider->provide()->getLanguage();
+
+        $choices = $this->provider->getDictionary($language);
 
 
         $resolver->setDefaults(

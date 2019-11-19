@@ -17,12 +17,13 @@ use PHPUnit\Framework\TestCase;
  */
 class AttributeTypeDataTransformerTest extends TestCase
 {
-
     /**
      * @var AttributeTypeDataTransformer
      */
     protected $transformer;
 
+    /**
+     */
     protected function setUp()
     {
         $this->transformer = new AttributeTypeDataTransformer();
@@ -58,6 +59,15 @@ class AttributeTypeDataTransformerTest extends TestCase
     public function testReverseTransform(?AttributeType $attributeTypeValueObject, ?string $string): void
     {
         $this->assertEquals($attributeTypeValueObject, $this->transformer->reverseTransform($string));
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     */
+    public function testReverseTransformException(): void
+    {
+        $value = ['foo','bar'];
+        $this->transformer->reverseTransform($value);
     }
 
     /**
