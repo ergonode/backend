@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
-use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -69,11 +68,13 @@ final class Version20180401083834 extends AbstractErgonodeMigration
         $this->addSql('
             CREATE TABLE attribute_group (
                 id UUID NOT NULL,
-                label VARCHAR(255) NOT NULL,
-                "default" BOOLEAN DEFAULT false,                   
+                code VARCHAR(255) NOT NULL,
+                name JSONB NOT NULL,                    
                 PRIMARY KEY(id)
             )
         ');
+
+        $this->addSql('CREATE UNIQUE INDEX attribute_group_code_key ON attribute_group USING btree (code)');
 
         $this->addSql('
             CREATE TABLE entity_attribute_value (
@@ -113,11 +114,8 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 PRIMARY KEY(attribute_id, attribute_group_id)
             )
         ');
-        $this->addSql('ALTER TABLE attribute_group_attribute ADD CONSTRAINT attribute_group_attribute_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE attribute_group_attribute ADD CONSTRAINT attribute_group_attribute_group_id_fk FOREIGN KEY (attribute_group_id) REFERENCES attribute_group ON UPDATE CASCADE ON DELETE CASCADE');
-
-        $this->addGroup('Default', true);
-        $this->addGroup('System');
+        $this->addSql('ALTER TABLE attribute_group_attribute ADD CONSTRAINT attribute_group_attribute_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE RESTRICT ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE attribute_group_attribute ADD CONSTRAINT attribute_group_attribute_group_id_fk FOREIGN KEY (attribute_group_id) REFERENCES attribute_group ON UPDATE RESTRICT ON DELETE RESTRICT');
 
         $this->createPrivileges([
             'ATTRIBUTE_CREATE' => 'Attribute',
@@ -137,25 +135,16 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             'Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent' => 'Attribute placeholder changed',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeArrayParameterChangeEvent' => 'Attribute parameters changed',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent' => 'Attribute parameter changed',
+            'Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent' => 'Attribute group created',
+            'Ergonode\Attribute\Domain\Event\Group\AttributeGroupDeletedEvent' => 'Attribute group removed',
+            'Ergonode\Attribute\Domain\Event\Group\AttributeGroupNameChangedEvent' => 'Attribute group name changed',
             'Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent' => 'Attribute added to group',
-            'Ergonode\Attribute\Domain\Event\AttributeGroupDeletedEvent' => 'Attribute removed from group',
+            'Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent' => 'Attribute removed from group',
             'Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent' => 'Attribute option added',
             'Ergonode\Attribute\Domain\Event\AttributeOptionRemovedEvent' => 'Attribute option removed',
             'Ergonode\Attribute\Domain\Event\AttributeOptionChangedEvent' => 'Attribute option changed',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent' => 'Attribute deleted',
         ]);
-    }
-
-    /**
-     * @param string $label
-     * @param bool   $default
-     *
-     * @throws \Exception
-     */
-    private function addGroup(string $label, bool $default = false): void
-    {
-        $id = AttributeGroupId::generate();
-        $this->addSql('INSERT INTO attribute_group (id, label, "default") VALUES (?, ?, ?)', [$id, $label, (int) $default], ['default' => \PDO::PARAM_BOOL]);
     }
 
     /**

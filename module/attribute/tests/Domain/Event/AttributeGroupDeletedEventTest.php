@@ -10,12 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Tests\Domain\Event;
 
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
-use Ergonode\Attribute\Domain\Event\AttributeGroupDeletedEvent;
+use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class AttributeGroupDeletedEventTest extends TestCase
+class AttributeGroupRemovedEventTest extends TestCase
 {
     /**
      */
@@ -23,7 +23,7 @@ class AttributeGroupDeletedEventTest extends TestCase
     {
         /** @var AttributeGroupId $groupId */
         $groupId = $this->createMock(AttributeGroupId::class);
-        $event = new AttributeGroupDeletedEvent($groupId);
+        $event = new AttributeGroupRemovedEvent($groupId);
         $this->assertEquals($groupId, $event->getGroupId());
     }
 }

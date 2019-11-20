@@ -43,7 +43,8 @@ class AttributeGroupGrid extends AbstractGrid
         $filters = $configuration->getFilters();
 
         $this->addColumn('id', new TextColumn('id', $this->trans('Id'), new TextFilter($filters->get('id'))));
-        $this->addColumn('label', new TextColumn('label', $this->trans('Label'), new TextFilter($filters->get('label'))));
+        $this->addColumn('code', new TextColumn('code', $this->trans('Code'), new TextFilter($filters->get('code'))));
+        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name'))));
         $this->addColumn('elements_count', new IntegerColumn('elements_count', $this->trans('Elements Count'), new TextFilter($filters->get('elements_count'))));
     }
 

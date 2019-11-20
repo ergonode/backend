@@ -14,7 +14,6 @@ use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
 
 /**
  */
@@ -38,14 +37,6 @@ class ImageAttributeUpdater implements AttributeUpdaterInterface
      */
     public function update(AbstractAttribute $attribute, UpdateAttributeCommand $command): AbstractAttribute
     {
-        $formats = [];
-        if ($command->hasParameter('formats')) {
-            foreach ($command->getParameter('formats') as $format) {
-                $formats[] = new ImageFormat($format);
-            }
-            $attribute->changeFormats($formats);
-        }
-
         return $attribute;
     }
 }

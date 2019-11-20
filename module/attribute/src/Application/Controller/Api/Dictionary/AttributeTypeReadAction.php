@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/attributes/types", methods={"GET"})
+ * @Route("/dictionary/attributes/types", methods={"GET"})
  */
 class AttributeTypeReadAction
 {

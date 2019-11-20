@@ -10,15 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeArrayParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeSystemChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
-use Ergonode\Attribute\Domain\Event\AttributeGroupDeletedEvent;
+use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -117,8 +115,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      * @JMS\SerializedName("type")
      *
      * @return string
-     *
-     * @todo chane to AttributeType (static) ?
      */
     abstract public function getType(): string;
 
@@ -179,18 +175,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     {
         if ($this->placeholder->getTranslations() !== $placeholder->getTranslations()) {
             $this->apply(new AttributePlaceholderChangedEvent($this->placeholder, $placeholder));
-        }
-    }
-
-    /**
-     * @param bool $system
-     *
-     * @throws \Exception
-     */
-    public function changeSystem(bool $system): void
-    {
-        if ($this->system !== $system) {
-            $this->apply(new AttributeSystemChangedEvent($this->system, $system));
         }
     }
 
@@ -256,7 +240,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function removeGroup(AttributeGroupId $groupId): void
     {
         if ($this->inGroup($groupId)) {
-            $this->apply(new AttributeGroupDeletedEvent($groupId));
+            $this->apply(new AttributeGroupRemovedEvent($groupId));
         }
     }
 
@@ -322,9 +306,9 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
-     * @param AttributeGroupDeletedEvent $event
+     * @param AttributeGroupRemovedEvent $event
      */
-    protected function applyAttributeGroupDeletedEvent(AttributeGroupDeletedEvent $event): void
+    protected function applyAttributeGroupRemovedEvent(AttributeGroupRemovedEvent $event): void
     {
         unset($this->groups[$event->getGroupId()->getValue()]);
     }
@@ -359,21 +343,5 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     protected function applyAttributeParameterChangeEvent(AttributeParameterChangeEvent $event): void
     {
         $this->setParameter($event->getName(), $event->getTo());
-    }
-
-    /**
-     * @param AttributeArrayParameterChangeEvent $event
-     */
-    protected function applyAttributeArrayParameterChangeEvent(AttributeArrayParameterChangeEvent $event): void
-    {
-        $this->setParameter($event->getName(), $event->getTo());
-    }
-
-    /**
-     * @param AttributeSystemChangedEvent $event
-     */
-    protected function applyAttributeSystemChangedEvent(AttributeSystemChangedEvent $event): void
-    {
-        $this->system = $event->getTo();
     }
 }

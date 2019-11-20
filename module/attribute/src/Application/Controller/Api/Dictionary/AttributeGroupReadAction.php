@@ -11,12 +11,13 @@ namespace Ergonode\Attribute\Application\Controller\Api\Dictionary;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/attributes/groups", methods={"GET"})
+ * @Route("/dictionary/attributes/groups", methods={"GET"})
  */
 class AttributeGroupReadAction
 {
@@ -48,11 +49,13 @@ class AttributeGroupReadAction
      *     description="Returns collection attribute groups"
      * )
      *
+     * @param Language $language
+     *
      * @return Response
      */
-    public function __invoke(): Response
+    public function __invoke(Language $language): Response
     {
-        $types = $this->attributeGroupQuery->getAttributeGroups();
+        $types = $this->attributeGroupQuery->getAttributeGroups($language);
 
         return new SuccessResponse($types);
     }

@@ -66,7 +66,7 @@ class AttributeGrid extends AbstractGrid
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $types = $this->attributeTypeDictionaryProvider->getDictionary($language);
-        $groups = $this->attributeGroupDictionaryProvider->getDictionary();
+        $groups = $this->attributeGroupDictionaryProvider->getDictionary($language);
 
         $filters = $configuration->getFilters();
 

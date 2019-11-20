@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Provider\Dictionary;
 
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
@@ -21,8 +22,6 @@ class AttributeGroupDictionaryProvider
     private $attributeGroupQuery;
 
     /**
-     * AttributeGroupDictionaryProvider constructor.
-     *
      * @param AttributeGroupQueryInterface $attributeGroupQuery
      */
     public function __construct(AttributeGroupQueryInterface $attributeGroupQuery)
@@ -31,11 +30,13 @@ class AttributeGroupDictionaryProvider
     }
 
     /**
+     * @param Language $language
+     *
      * @return array
      */
-    public function getDictionary(): array
+    public function getDictionary(Language $language): array
     {
-        $collection = $this->attributeGroupQuery->getAttributeGroups();
+        $collection = $this->attributeGroupQuery->getAttributeGroups($language);
         $result = [];
         foreach ($collection as $element) {
             if (isset($element['id'])) {
