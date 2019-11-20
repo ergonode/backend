@@ -22,8 +22,6 @@ class AttributeGroupDictionaryProvider
     private $attributeGroupQuery;
 
     /**
-     * AttributeGroupDictionaryProvider constructor.
-     *
      * @param AttributeGroupQueryInterface $attributeGroupQuery
      */
     public function __construct(AttributeGroupQueryInterface $attributeGroupQuery)
@@ -42,7 +40,7 @@ class AttributeGroupDictionaryProvider
         $result = [];
         foreach ($collection as $element) {
             if (isset($element['id'])) {
-                $result[$element['id']] = $element['name'];
+                $result[$element['id']] = $element['label'];
             }
         }
 

@@ -47,7 +47,6 @@ class PriceAttributeFactory implements AttributeFactoryInterface
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual(),
             $currency,
             $command->isSystem()
         );

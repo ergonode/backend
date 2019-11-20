@@ -10,28 +10,28 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Application\Controller\Api\Dictionary;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeTypeDictionaryProvider;
+use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/dictionary/attributes/types", methods={"GET"})
+ * @Route("/dictionary/attributes/groups", methods={"GET"})
  */
-class AttributeTypeReadAction
+class AttributeGroupReadAction
 {
     /**
-     * @var AttributeTypeDictionaryProvider
+     * @var AttributeGroupQueryInterface
      */
-    private $attributeTypeDictionaryProvider;
+    private $attributeGroupQuery;
 
     /**
-     * @param AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider
+     * @param AttributeGroupQueryInterface $attributeGroupQuery
      */
-    public function __construct(AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider)
+    public function __construct(AttributeGroupQueryInterface $attributeGroupQuery)
     {
-        $this->attributeTypeDictionaryProvider = $attributeTypeDictionaryProvider;
+        $this->attributeGroupQuery = $attributeGroupQuery;
     }
 
     /**
@@ -46,11 +46,7 @@ class AttributeTypeReadAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns collection attribute types"
-     * )
-     * @SWG\Response(
-     *     response=404,
-     *     description="Not found"
+     *     description="Returns collection attribute groups"
      * )
      *
      * @param Language $language
@@ -59,7 +55,7 @@ class AttributeTypeReadAction
      */
     public function __invoke(Language $language): Response
     {
-        $types = $this->attributeTypeDictionaryProvider->getDictionary($language);
+        $types = $this->attributeGroupQuery->getAttributeGroups($language);
 
         return new SuccessResponse($types);
     }

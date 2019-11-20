@@ -30,7 +30,6 @@ class PriceAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
      * @param Currency           $format
      * @param bool               $system
      *
@@ -42,11 +41,10 @@ class PriceAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
         Currency $format,
         bool $system = false
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual, [self::CURRENCY => $format->getCode()], $system);
+        parent::__construct($id, $code, $label, $hint, $placeholder, false, [self::CURRENCY => $format->getCode()], $system);
     }
 
     /**

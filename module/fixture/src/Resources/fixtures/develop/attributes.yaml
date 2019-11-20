@@ -1,3 +1,10 @@
+Ergonode\Attribute\Domain\Entity\AttributeGroup:
+    attribute_group_{1..10}:
+        __construct:
+            - '<AttributeGroupId()>'
+            - '<AttributeGroupCode(group_code_<current()>)>'
+            - '@label_<current()>'
+
 Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
     attribute_esa_status:
         __construct:
@@ -36,7 +43,6 @@ Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute:
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
-            - true
 
 Ergonode\AttributeDate\Domain\Entity\DateAttribute:
     attribute_{26..30}:
@@ -46,7 +52,6 @@ Ergonode\AttributeDate\Domain\Entity\DateAttribute:
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
-            - true
             - '<DateFormat()>'
 
 Ergonode\AttributePrice\Domain\Entity\PriceAttribute:
@@ -57,7 +62,6 @@ Ergonode\AttributePrice\Domain\Entity\PriceAttribute:
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
-            - true
             - '<Currency()>'
 
 Ergonode\AttributeUnit\Domain\Entity\UnitAttribute:
@@ -68,7 +72,6 @@ Ergonode\AttributeUnit\Domain\Entity\UnitAttribute:
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
-            - true
             - '<Unit()>'
 
 Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute:

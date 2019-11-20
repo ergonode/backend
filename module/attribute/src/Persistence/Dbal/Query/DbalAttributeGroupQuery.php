@@ -43,7 +43,10 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
      */
     public function getAttributeGroups(Language $language): array
     {
-        return $this->getQuery($language)
+        return $this->connection->createQueryBuilder()
+            ->select(sprintf('ag.id, ag.name->>\'%s\' AS label', $language->getCode()))
+            ->addSelect('(SELECT count(*) FROM attribute_group_attribute WHERE attribute_group_id = ag.id) AS elements_count')
+            ->from(self::TABLE, 'ag')
             ->execute()
             ->fetchAll();
     }
