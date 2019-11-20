@@ -66,7 +66,7 @@ class AttributeGroupCreateAction
      * @SWG\Parameter(
      *     name="body",
      *     in="body",
-     *     description="Add attribute",
+     *     description="Add attribute group",
      *     required=true,
      *     @SWG\Schema(ref="#/definitions/attribute_group")
      * )
@@ -80,7 +80,7 @@ class AttributeGroupCreateAction
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Returns attribute ID",
+     *     description="Returns attribute group ID",
      * )
      * @SWG\Response(
      *     response=400,

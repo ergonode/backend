@@ -446,7 +446,7 @@ nelmio_api_doc:
                     name:
                         type: string
                         required: true
-                        description: attribute type
+                        description: attribute group name
                 example:
                     code: 'attribute_group_code'
                     name:

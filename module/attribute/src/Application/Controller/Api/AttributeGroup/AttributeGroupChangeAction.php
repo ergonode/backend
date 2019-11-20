@@ -86,7 +86,7 @@ class AttributeGroupChangeAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns attribute",
+     *     description="Returns attribute group",
      * )
      * @SWG\Response(
      *     response=400,
