@@ -12,7 +12,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 
 /**
- * Class DbalAttributeGridQuery
  */
 interface AttributeGridQueryInterface
 {

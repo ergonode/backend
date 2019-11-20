@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Persistence\Dbal\Projector;
+namespace Ergonode\Attribute\Persistence\Dbal\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;

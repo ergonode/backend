@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Persistence\Dbal\Projector\Group;
+namespace Ergonode\Attribute\Persistence\Dbal\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Attribute\Domain\Event\AttributeGroupDeletedEvent;
+use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
@@ -18,7 +18,7 @@ use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterfac
 
 /**
  */
-class AttributeGroupRemovedEventProjector implements DomainEventProjectorInterface
+class AttributeGroupAddedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'attribute_group_attribute';
 
@@ -40,7 +40,7 @@ class AttributeGroupRemovedEventProjector implements DomainEventProjectorInterfa
      */
     public function supports(DomainEventInterface $event): bool
     {
-        return $event instanceof AttributeGroupDeletedEvent;
+        return $event instanceof AttributeGroupAddedEvent;
     }
 
     /**
@@ -49,10 +49,10 @@ class AttributeGroupRemovedEventProjector implements DomainEventProjectorInterfa
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
         if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, AttributeGroupDeletedEvent::class);
+            throw new UnsupportedEventException($event, AttributeGroupAddedEvent::class);
         }
 
-        $this->connection->delete(
+        $this->connection->insert(
             self::TABLE,
             [
                 'attribute_id' => $aggregateId->getValue(),

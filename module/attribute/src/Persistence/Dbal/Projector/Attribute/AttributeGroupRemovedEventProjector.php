@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Persistence\Dbal\Projector;
+namespace Ergonode\Attribute\Persistence\Dbal\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent;
+use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
@@ -18,9 +18,9 @@ use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterfac
 
 /**
  */
-class AttributeDeletedEventProjector implements DomainEventProjectorInterface
+class AttributeGroupRemovedEventProjector implements DomainEventProjectorInterface
 {
-    private const TABLE = 'attribute';
+    private const TABLE = 'attribute_group_attribute';
 
     /**
      * @var Connection
@@ -40,7 +40,7 @@ class AttributeDeletedEventProjector implements DomainEventProjectorInterface
      */
     public function supports(DomainEventInterface $event): bool
     {
-        return $event instanceof AttributeDeletedEvent;
+        return $event instanceof AttributeGroupRemovedEvent;
     }
 
     /**
@@ -48,16 +48,15 @@ class AttributeDeletedEventProjector implements DomainEventProjectorInterface
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
-        if (!$event instanceof AttributeDeletedEvent) {
-            throw new UnsupportedEventException($event, AttributeDeletedEvent::class);
+        if (!$this->supports($event)) {
+            throw new UnsupportedEventException($event, AttributeGroupRemovedEvent::class);
         }
-
-        // @todo What we should do with unused values?
 
         $this->connection->delete(
             self::TABLE,
             [
-                'id' => $aggregateId->getValue(),
+                'attribute_id' => $aggregateId->getValue(),
+                'attribute_group_id' => $event->getGroupId()->getValue(),
             ]
         );
     }

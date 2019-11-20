@@ -11,7 +11,9 @@ namespace Ergonode\Attribute\Tests\Infrastructure\Handler\Group;
 use Ergonode\Attribute\Domain\Command\Group\DeleteAttributeGroupCommand;
 use Ergonode\Attribute\Domain\Command\Group\UpdateAttributeGroupCommand;
 use Ergonode\Attribute\Domain\Entity\AttributeGroup;
+use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Group\DeleteAttributeGroupCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -26,24 +28,36 @@ class DeleteAttributeGroupCommandHandlerTest extends TestCase
     /**
      * @var AttributeGroupRepositoryInterface|MockObject
      */
-    private $repository;
+    private $groupRepository;
+
+    /**
+     * @var AttributeRepositoryInterface|MockObject
+     */
+    private $attributeRepository;
+
+    /**
+     * @var AttributeGroupQueryInterface|MockObject
+     */
+    private $query;
 
     /**
      */
     protected function setUp()
     {
         $this->command = $this->createMock(DeleteAttributeGroupCommand::class);
-        $this->repository = $this->createMock(AttributeGroupRepositoryInterface::class);
+        $this->groupRepository = $this->createMock(AttributeGroupRepositoryInterface::class);
+        $this->attributeRepository = $this->createMock(AttributeRepositoryInterface::class);
+        $this->query = $this->createMock(AttributeGroupQueryInterface::class);
     }
 
     /**
      */
     public function testUpdate(): void
     {
-        $this->repository->expects($this->once())->method('load')->willReturn($this->createMock(AttributeGroup::class));
-        $this->repository->expects($this->once())->method('delete');
+        $this->groupRepository->expects($this->once())->method('load')->willReturn($this->createMock(AttributeGroup::class));
+        $this->groupRepository->expects($this->once())->method('delete');
 
-        $handler = new DeleteAttributeGroupCommandHandler($this->repository);
+        $handler = new DeleteAttributeGroupCommandHandler($this->groupRepository, $this->attributeRepository, $this->query);
         $handler->__invoke($this->command);
     }
 }

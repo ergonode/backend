@@ -9,12 +9,6 @@ Feature: Attribute module
     When I request "/api/v1/EN/dictionary/attributes/types" using HTTP GET
     Then unauthorized response is received
 
-  Scenario: Get attribute groups dictionary
-    Given current authentication token
-    When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
-    Then the response code is 200
-    And remember first attribute group as "attribute_group"
-
   Scenario: Get attribute groups dictionary (not authorized)
     When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
     Then unauthorized response is received
@@ -66,7 +60,7 @@ Feature: Attribute module
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
           "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": []
       }
       """
@@ -96,7 +90,7 @@ Feature: Attribute module
       """
       {
           "type": "TEXT",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "label": {"PL": "PL", "EN": "EN"},
           "placeholder": {"PL": "PL", "EN": "EN"},
           "hint": {"PL": "PL", "EN": "EN"},
@@ -145,7 +139,7 @@ Feature: Attribute module
       {
           "code": "TEXTAREA_@@random_code@@",
           "type": "TEXTAREA",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": []
       }
       """
@@ -159,7 +153,7 @@ Feature: Attribute module
       """
       {
           "type": "TEXTAREA",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": []
       }
       """
@@ -178,7 +172,7 @@ Feature: Attribute module
       {
           "code": "SELECT_@@random_code@@",
           "type": "SELECT",
-          "groups": ["@attribute_group@"]
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes" using HTTP POST
@@ -191,7 +185,7 @@ Feature: Attribute module
       """
       {
           "type": "SELECT",
-          "groups": ["@attribute_group@"]
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes/@select_attribute@" using HTTP PUT
@@ -209,7 +203,7 @@ Feature: Attribute module
       {
           "code": "MULTISELECT_@@random_code@@",
           "type": "MULTI_SELECT",
-          "groups": ["@attribute_group@"]
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes" using HTTP POST
@@ -222,7 +216,7 @@ Feature: Attribute module
       """
       {
           "type": "MULTI_SELECT",
-          "groups": ["@attribute_group@"]
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes/@multiselect_attribute@" using HTTP PUT
@@ -240,7 +234,7 @@ Feature: Attribute module
       {
           "code": "IMAGE_@@random_code@@",
           "type": "IMAGE",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"formats": ["jpg"]}
       }
       """
@@ -254,7 +248,7 @@ Feature: Attribute module
       """
       {
           "type": "IMAGE",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"formats": ["jpg"]}
       }
       """
@@ -273,7 +267,7 @@ Feature: Attribute module
       {
           "code": "DATE_@@random_code@@",
           "type": "DATE",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"format": "yyyy-MM-dd"}
       }
       """
@@ -287,7 +281,7 @@ Feature: Attribute module
       """
       {
           "type": "DATE",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"format": "yyyy-MM-dd"}
       }
       """
@@ -306,7 +300,7 @@ Feature: Attribute module
       {
           "code": "PRICE_@@random_code@@",
           "type": "PRICE",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"currency": "PLN"}
       }
       """
@@ -320,7 +314,7 @@ Feature: Attribute module
       """
       {
           "type": "PRICE",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"currency": "PLN"}
       }
       """
@@ -339,7 +333,7 @@ Feature: Attribute module
       {
           "code": "UNIT_@@random_code@@",
           "type": "UNIT",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"unit": "M"}
       }
       """
@@ -353,7 +347,7 @@ Feature: Attribute module
       """
       {
           "type": "UNIT",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"unit": "M"}
       }
       """
@@ -409,15 +403,6 @@ Feature: Attribute module
     Given current authentication token
     When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=groups%3Dd653cce6-66fb-4772-800b-281af35fc5bc" using HTTP GET
     Then grid response is received
-
-  Scenario: Get attributes (filter by null groups)
-    Given current authentication token
-    When I request "api/v1/EN/attributes?filter=groups=" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": 1/
-    """
 
   Scenario: Get attributes (not authorized)
     When I request "/api/v1/EN/attributes" using HTTP GET

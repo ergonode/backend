@@ -7,10 +7,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Persistence\Dbal\Projector;
+namespace Ergonode\Attribute\Persistence\Dbal\Projector\Group;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
+use Doctrine\DBAL\DBALException;
+use Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent;
+use Ergonode\Attribute\Domain\Event\Group\AttributeGroupNameChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
@@ -19,9 +21,9 @@ use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class AttributeParameterChangeEventProjector implements DomainEventProjectorInterface
+class AttributeGroupNameChangedEventProjector implements DomainEventProjectorInterface
 {
-    private const TABLE_PARAMETER = 'attribute_parameter';
+    private const TABLE = 'attribute_group';
 
     /**
      * @var Connection
@@ -48,29 +50,30 @@ class AttributeParameterChangeEventProjector implements DomainEventProjectorInte
      */
     public function supports(DomainEventInterface $event): bool
     {
-        return $event instanceof AttributeParameterChangeEvent;
+        return $event instanceof AttributeGroupNameChangedEvent;
     }
 
     /**
-     * {@inheritDoc}
+     * @param AbstractId                                          $aggregateId
+     * @param DomainEventInterface|AttributeGroupNameChangedEvent $event
+     *
+     * @throws UnsupportedEventException
+     * @throws DBALException
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
         if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, AttributeParameterChangeEvent::class);
+            throw new UnsupportedEventException($event, AttributeGroupNameChangedEvent::class);
         }
 
-        if (!empty($event->getTo())) {
-            $this->connection->update(
-                self::TABLE_PARAMETER,
-                [
-                    'value' => $this->serializer->serialize($event->getTo(), 'json'),
-                ],
-                [
-                    'attribute_id' => $aggregateId->getValue(),
-                    'type' => $event->getName(),
-                ]
-            );
-        }
+        $this->connection->update(
+            self::TABLE,
+            [
+                'name' => $this->serializer->serialize($event->getTo(), 'json'),
+            ],
+            [
+                'id' => $aggregateId->getValue(),
+            ]
+        );
     }
 }

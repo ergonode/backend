@@ -10,7 +10,10 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Group;
 
 use Ergonode\Attribute\Domain\Command\Group\DeleteAttributeGroupCommand;
 use Ergonode\Attribute\Domain\Command\Group\UpdateAttributeGroupCommand;
+use Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface;
+use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -20,14 +23,31 @@ class DeleteAttributeGroupCommandHandler
     /**
      * @var AttributeGroupRepositoryInterface
      */
-    private $repository;
+    private $groupRepository;
 
     /**
-     * @param AttributeGroupRepositoryInterface $repository
+     * @var AttributeRepositoryInterface
      */
-    public function __construct(AttributeGroupRepositoryInterface $repository)
-    {
-        $this->repository = $repository;
+    private $attributeRepository;
+
+    /**
+     * @var AttributeGroupQueryInterface
+     */
+    private $query;
+
+    /**
+     * @param AttributeGroupRepositoryInterface $groupRepository
+     * @param AttributeRepositoryInterface      $attributeRepository
+     * @param AttributeGroupQueryInterface      $query
+     */
+    public function __construct(
+        AttributeGroupRepositoryInterface $groupRepository,
+        AttributeRepositoryInterface $attributeRepository,
+        AttributeGroupQueryInterface $query
+    ) {
+        $this->groupRepository = $groupRepository;
+        $this->attributeRepository = $attributeRepository;
+        $this->query = $query;
     }
 
     /**
@@ -37,9 +57,18 @@ class DeleteAttributeGroupCommandHandler
      */
     public function __invoke(DeleteAttributeGroupCommand $command): void
     {
-        $attributeGroup = $this->repository->load($command->getId());
+        $attributeIds = $this->query->getAllAttributes($command->getId());
+
+        $attributeGroup = $this->groupRepository->load($command->getId());
         Assert::notNull($attributeGroup);
 
-        $this->repository->delete($attributeGroup);
+        foreach ($attributeIds as $attributeId) {
+            $attribute = $this->attributeRepository->load($attributeId);
+            Assert::notNull($attribute, sprintf('Attribute %s not exists', $attributeId->getValue()));
+            $attribute->removeGroup($command->getId());
+            $this->attributeRepository->save($attribute);
+        }
+
+        $this->groupRepository->delete($attributeGroup);
     }
 }

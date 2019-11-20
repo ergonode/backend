@@ -16,7 +16,7 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
-use Ergonode\Attribute\Domain\Event\AttributeGroupDeletedEvent;
+use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -115,8 +115,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      * @JMS\SerializedName("type")
      *
      * @return string
-     *
-     * @todo chane to AttributeType (static) ?
      */
     abstract public function getType(): string;
 
@@ -242,7 +240,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function removeGroup(AttributeGroupId $groupId): void
     {
         if ($this->inGroup($groupId)) {
-            $this->apply(new AttributeGroupDeletedEvent($groupId));
+            $this->apply(new AttributeGroupRemovedEvent($groupId));
         }
     }
 
@@ -308,9 +306,9 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
-     * @param AttributeGroupDeletedEvent $event
+     * @param AttributeGroupRemovedEvent $event
      */
-    protected function applyAttributeGroupDeletedEvent(AttributeGroupDeletedEvent $event): void
+    protected function applyAttributeGroupRemovedEvent(AttributeGroupRemovedEvent $event): void
     {
         unset($this->groups[$event->getGroupId()->getValue()]);
     }

@@ -7,6 +7,8 @@
 
 namespace Ergonode\Attribute\Domain\Query;
 
+use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
@@ -28,6 +30,13 @@ interface AttributeGroupQueryInterface
      * @return DataSetInterface
      */
     public function getDataSet(Language $language): DataSetInterface;
+
+    /**
+     * @param AttributeGroupId $id
+     *
+     * @return AttributeId[]
+     */
+    public function getAllAttributes(AttributeGroupId $id): array;
 
     /**
      * @param AttributeGroupCode $code

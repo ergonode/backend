@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Persistence\Dbal\Projector;
+namespace Ergonode\Attribute\Persistence\Dbal\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
@@ -19,7 +19,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-class AttributeHintChangedEventProjector implements DomainEventProjectorInterface
+class AttributePlaceholderChangedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'value_translation';
 
@@ -41,24 +41,22 @@ class AttributeHintChangedEventProjector implements DomainEventProjectorInterfac
      */
     public function supports(DomainEventInterface $event): bool
     {
-        return $event instanceof AttributeHintChangedEvent;
+        return $event instanceof AttributePlaceholderChangedEvent;
     }
 
     /**
      * {@inheritDoc}
-     *
-     * @throws \Throwable
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
         if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, AttributeHintChangedEvent::class);
+            throw new UnsupportedEventException($event, AttributePlaceholderChangedEvent::class);
         }
 
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $from = $event->getFrom()->getTranslations();
-            $to = $event->getTo()->getTranslations();
+        $from = $event->getFrom()->getTranslations();
+        $to = $event->getTo()->getTranslations();
 
+        $this->connection->transactional(function () use ($aggregateId, $from, $to) {
             foreach ($to as $language => $value) {
                 $result = $this->connection->update(
                     self::TABLE,
@@ -67,7 +65,7 @@ class AttributeHintChangedEventProjector implements DomainEventProjectorInterfac
                         'value' => $value,
                     ],
                     [
-                        'value_id' => $this->getTranslationId('hint', $aggregateId),
+                        'value_id' => $this->getTranslationId('placeholder', $aggregateId),
                         'language' => $language,
                     ]
                 );
@@ -76,7 +74,7 @@ class AttributeHintChangedEventProjector implements DomainEventProjectorInterfac
                         self::TABLE,
                         [
                             'id' => Uuid::uuid4()->toString(),
-                            'value_id' => $this->getTranslationId('hint', $aggregateId),
+                            'value_id' => $this->getTranslationId('placeholder', $aggregateId),
                             'language' => $language,
                             'value' => $value,
                         ]
@@ -89,7 +87,7 @@ class AttributeHintChangedEventProjector implements DomainEventProjectorInterfac
                     $this->connection->delete(
                         self::TABLE,
                         [
-                            'value_id' => $this->getTranslationId('hint', $aggregateId),
+                            'value_id' => $this->getTranslationId('placeholder', $aggregateId),
                             'language' => $language,
                         ]
                     );

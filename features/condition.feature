@@ -50,12 +50,6 @@ Feature: Condition module
     When I request "/api/v1/EN/conditions/TEXT_ATTRIBUTE_VALUE_CONDITION" using HTTP GET
     Then the response code is 200
 
-  Scenario: Get attribute groups dictionary
-    Given current authentication token
-    When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
-    Then the response code is 200
-    And remember first attribute group as "condition_attribute_group"
-
   Scenario: Create text attribute
     Given current authentication token
     Given the request body is:
@@ -64,7 +58,7 @@ Feature: Condition module
           "code": "CONDITION_@@random_code@@",
           "type": "TEXT",
           "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
-          "groups": ["@condition_attribute_group@"],
+          "groups": [],
           "parameters": []
       }
       """

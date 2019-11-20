@@ -114,8 +114,8 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 PRIMARY KEY(attribute_id, attribute_group_id)
             )
         ');
-        $this->addSql('ALTER TABLE attribute_group_attribute ADD CONSTRAINT attribute_group_attribute_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE attribute_group_attribute ADD CONSTRAINT attribute_group_attribute_group_id_fk FOREIGN KEY (attribute_group_id) REFERENCES attribute_group ON UPDATE CASCADE ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE attribute_group_attribute ADD CONSTRAINT attribute_group_attribute_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE RESTRICT ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE attribute_group_attribute ADD CONSTRAINT attribute_group_attribute_group_id_fk FOREIGN KEY (attribute_group_id) REFERENCES attribute_group ON UPDATE RESTRICT ON DELETE RESTRICT');
 
         $this->createPrivileges([
             'ATTRIBUTE_CREATE' => 'Attribute',
@@ -139,7 +139,7 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             'Ergonode\Attribute\Domain\Event\Group\AttributeGroupDeletedEvent' => 'Attribute group removed',
             'Ergonode\Attribute\Domain\Event\Group\AttributeGroupNameChangedEvent' => 'Attribute group name changed',
             'Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent' => 'Attribute added to group',
-            'Ergonode\Attribute\Domain\Event\AttributeGroupDeletedEvent' => 'Attribute removed from group',
+            'Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent' => 'Attribute removed from group',
             'Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent' => 'Attribute option added',
             'Ergonode\Attribute\Domain\Event\AttributeOptionRemovedEvent' => 'Attribute option removed',
             'Ergonode\Attribute\Domain\Event\AttributeOptionChangedEvent' => 'Attribute option changed',

@@ -11,7 +11,8 @@
 
     <!-- Build -->
     <target name="build" depends="cache:clear, create:directory, database:migrate" description="Standard build plan."/>
-    <target name="rebuild" depends="cache:clear, create:directory, database:drop, database:create, database:migrate" description="Standard build plan with database recreation."/>
+    <target name="rebuild" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, database:fixture" description="Standard build plan with database recreation."/>
+    <target name="rebuild:dev" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, database:fixture:dev" description="Standard build plan with database recreation."/>
 
     <!-- Create directories -->
     <target name="create:directory" description="Create build directories.">

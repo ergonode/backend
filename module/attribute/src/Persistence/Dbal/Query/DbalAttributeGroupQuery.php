@@ -11,6 +11,8 @@ namespace Ergonode\Attribute\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -22,6 +24,7 @@ use Ergonode\Grid\DbalDataSet;
 class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
 {
     private const TABLE = 'attribute_group';
+    private const RELATION_TABLE = 'attribute_group_attribute';
 
     /**
      * @var Connection
@@ -49,6 +52,30 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
             ->from(self::TABLE, 'ag')
             ->execute()
             ->fetchAll();
+    }
+
+    /**
+     * @param AttributeGroupId $id
+     *
+     * @return AttributeId[]
+     */
+    public function getAllAttributes(AttributeGroupId $id): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $records = $qb->select('aga.attribute_id')
+            ->from(self::RELATION_TABLE, 'aga')
+            ->where($qb->expr()->eq('attribute_group_id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $result = [];
+        foreach ($records as $record) {
+            $result[] = new AttributeId($record);
+        }
+
+        return $result;
     }
 
     /**
