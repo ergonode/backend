@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -28,11 +29,18 @@ class AttributeGroupCreatedEventProjector implements DomainEventProjectorInterfa
     private $connection;
 
     /**
-     * @param Connection $connection
+     * @var SerializerInterface
      */
-    public function __construct(Connection $connection)
+    private $serializer;
+
+    /**
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -44,7 +52,11 @@ class AttributeGroupCreatedEventProjector implements DomainEventProjectorInterfa
     }
 
     /**
-     * {@inheritDoc}
+     * @param AbstractId                                      $aggregateId
+     * @param DomainEventInterface|AttributeGroupCreatedEvent $event
+     *
+     * @throws UnsupportedEventException
+     * @throws \Doctrine\DBAL\DBALException
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
@@ -56,8 +68,8 @@ class AttributeGroupCreatedEventProjector implements DomainEventProjectorInterfa
             self::TABLE,
             [
                 'id' => $aggregateId->getValue(),
-                'label' => $event->getLabel(),
-
+                'code' => $event->getCode(),
+                'name' => $this->serializer->serialize($event->getName(), 'json'),
             ]
         );
     }

@@ -10,6 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Event\Group;
 
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -24,21 +26,30 @@ class AttributeGroupCreatedEvent implements DomainEventInterface
      */
     private $id;
 
-      /**
-     * @var string
+    /**
+     * @var AttributeGroupCode
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode")
      */
-    private $label;
+    private $code;
 
     /**
-     * @param AttributeGroupId $id
-     * @param string           $label
+     * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    public function __construct(AttributeGroupId $id, string $label)
+    private $name;
+
+    /**
+     * @param AttributeGroupId   $id
+     * @param AttributeGroupCode $code
+     * @param TranslatableString $name
+     */
+    public function __construct(AttributeGroupId $id, AttributeGroupCode $code, TranslatableString $name)
     {
         $this->id = $id;
-        $this->label = $label;
+        $this->code = $code;
+        $this->name = $name;
     }
 
     /**
@@ -50,10 +61,18 @@ class AttributeGroupCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return string
+     * @return AttributeGroupCode
      */
-    public function getLabel(): string
+    public function getCode(): AttributeGroupCode
     {
-        return $this->label;
+        return $this->code;
+    }
+
+    /**
+     * @return TranslatableString
+     */
+    public function getName(): TranslatableString
+    {
+        return $this->name;
     }
 }

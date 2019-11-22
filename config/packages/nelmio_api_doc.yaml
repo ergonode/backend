@@ -436,6 +436,22 @@ nelmio_api_doc:
                         required: true
                         description: Show if language is enabled in the system
                         example: true
+            attribute_group:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        required: true
+                        description: attribute group code
+                    name:
+                        type: string
+                        required: true
+                        description: attribute group name
+                example:
+                    code: 'attribute_group_code'
+                    name:
+                        PL: 'Nazwa grupy PL'
+                        EN: 'Name of group EN'
             attribute:
                 type: object
                 properties:

@@ -50,12 +50,12 @@ class CommentGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
-        $this->addColumn('content', new TextColumn('content', 'Content', new TextFilter($filters->get('content'))));
-        $this->addColumn('object_id', new TextColumn('object_id', 'Object', new TextFilter($filters->get('object_id'))));
-        $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter($filters->get('author'))));
-        $this->addColumn('avatar_id', new ImageColumn('avatar_id', 'Avatar'));
-        $this->addColumn('created_at', new DateColumn('created_at', 'Avatar', new TextFilter($filters->get('created_at'))));
-        $this->addColumn('edited_at', new DateColumn('edited_at', 'Avatar', new TextFilter($filters->get('edited_at'))));
+        $this->addColumn('content', new TextColumn('content', $this->trans('Content'), new TextFilter($filters->get('content'))));
+        $this->addColumn('object_id', new TextColumn('object_id', $this->trans('Object'), new TextFilter($filters->get('object_id'))));
+        $this->addColumn('author', new TextColumn('author', $this->trans('Author'), new TextFilter($filters->get('author'))));
+        $this->addColumn('avatar_id', new ImageColumn('avatar_id'));
+        $this->addColumn('created_at', new DateColumn('created_at', $this->trans('Avatar'), new TextFilter($filters->get('created_at'))));
+        $this->addColumn('edited_at', new DateColumn('edited_at', $this->trans('Avatar'), new TextFilter($filters->get('edited_at'))));
 
         $links = [
             'get' => [

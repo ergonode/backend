@@ -35,21 +35,12 @@ class ImageAttributeFactory implements AttributeFactoryInterface
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
-        $formats = [];
-        if ($command->hasParameter('formats')) {
-            foreach ($command->getParameter('formats') as $format) {
-                $formats[] = new ImageFormat($format);
-            }
-        }
-
         return new ImageAttribute(
             $command->getId(),
             $command->getCode(),
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual(),
-            $formats,
             $command->isSystem()
         );
     }

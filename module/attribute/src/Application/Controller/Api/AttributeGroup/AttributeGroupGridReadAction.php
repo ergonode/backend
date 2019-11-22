@@ -15,7 +15,6 @@ use Ergonode\Attribute\Infrastructure\Grid\AttributeGroupGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,8 +56,6 @@ class AttributeGroupGridReadAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_GROUP_READ")
-     *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
      *     name="limit",
@@ -81,7 +78,6 @@ class AttributeGroupGridReadAction
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"id", "label","code", "hint"},
      *     description="Order field"
      * )
      * @SWG\Parameter(
@@ -117,7 +113,7 @@ class AttributeGroupGridReadAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns attribute collection"
+     *     description="Returns attribute group collection"
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
