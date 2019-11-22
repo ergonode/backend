@@ -9,6 +9,8 @@ declare(strict_types = 1);
 namespace Ergonode\Notification\Infrastructure\Sender;
 
 use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\Notification\Domain\Entity\Notification;
+use Ergonode\Notification\Domain\NotificationInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -29,16 +31,15 @@ class NotificationSender
     }
 
     /**
-     * @param UserId[]    $recipients
-     * @param string      $message
-     * @param UserId|null $author
+     * @param NotificationInterface $notification
+     * @param array                 $recipients
      */
-    public function send(array $recipients, string $message, ?UserId $author = null): void
+    public function send(NotificationInterface $notification, array $recipients): void
     {
         Assert::allIsInstanceOf($recipients, UserId::class);
 
         foreach ($this->strategies as $strategy) {
-            $strategy->send($recipients, $message, $author);
+            $strategy->send($notification, $recipients);
         }
     }
 }

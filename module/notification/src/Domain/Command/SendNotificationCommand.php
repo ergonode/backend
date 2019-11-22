@@ -9,76 +9,46 @@ declare(strict_types = 1);
 
 namespace Ergonode\Notification\Domain\Command;
 
-use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\Notification\Domain\NotificationInterface;
 
 /**
  */
 class SendNotificationCommand
 {
     /**
-     * @var string
+     * @var NotificationInterface
      */
-    private $message;
+    private $notification;
 
     /**
-     * @var RoleId
+     * @var UserId[]
      */
-    private $roleId;
+    private $recipients;
 
     /**
-     * @var UserId|null
+     * @param NotificationInterface $notification
+     * @param UserId[]              $recipients
      */
-    private $authorId;
-
-    /**
-     * @var array
-     */
-    private $parameters;
-
-    /**
-     * @param string      $message
-     * @param array       $parameters
-     * @param RoleId      $roleId
-     * @param UserId|null $authorId
-     */
-    public function __construct(string $message, RoleId $roleId, UserId $authorId = null, array $parameters = [])
+    public function __construct(NotificationInterface $notification, array $recipients)
     {
-        $this->message = $message;
-        $this->parameters = $parameters;
-        $this->roleId = $roleId;
-        $this->authorId = $authorId;
+        $this->notification = $notification;
+        $this->recipients = $recipients;
     }
 
     /**
-     * @return string
+     * @return NotificationInterface
      */
-    public function getMessage(): string
+    public function getNotification(): NotificationInterface
     {
-        return $this->message;
+        return $this->notification;
     }
 
     /**
-     * @return array
+     * @return UserId[]
      */
-    public function getParameters(): array
+    public function getRecipients(): array
     {
-        return $this->parameters;
-    }
-
-    /**
-     * @return RoleId
-     */
-    public function getRoleId(): RoleId
-    {
-        return $this->roleId;
-    }
-
-    /**
-     * @return UserId|null
-     */
-    public function getAuthorId(): ?UserId
-    {
-        return $this->authorId;
+        return $this->recipients;
     }
 }

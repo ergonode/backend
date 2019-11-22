@@ -10,9 +10,9 @@ namespace Ergonode\Notification\Infrastructure\Sender\Strategy;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Account\Domain\Query\UserQueryInterface;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
+use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -25,41 +25,49 @@ class DbalSystemNotificationStrategy implements NotificationStrategyInterface
     private $connection;
 
     /**
-     * @var UserRepositoryInterface
+     * @var SerializerInterface
      */
-    private $repository;
+    private $serializer;
 
     /**
-     * @param Connection $connection
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
      */
-    public function __construct(Connection $connection)
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
+        $this->serializer = $serializer;
     }
 
     /**
-     * @param UserId[]    $recipients
-     * @param string      $message
-     * @param UserId|null $author
+     * @param NotificationInterface $notification
+     * @param UserId[]              $recipients
      *
      * @throws \Doctrine\DBAL\ConnectionException
      * @throws \Exception
      */
-    public function send(array $recipients, string $message, ?UserId $author = null): void
+    public function send(NotificationInterface $notification, array $recipients): void
     {
-        $id = Uuid::uuid4()->toString();
-        $createdAt = new \DateTime();
-
         $this->connection->beginTransaction();
         try {
+            $notificationId = Uuid::uuid4()->toString();
+
+            $this->connection->insert(
+                'notification',
+                [
+                    'id' => $notificationId,
+                    'created_at' => $notification->getCreatedAt()->format('Y-m-d H:i:s'),
+                    'message' => $notification->getMessage(),
+                    'parameters' => $this->serializer->serialize($notification->getParameters(), 'json'),
+                    'author_id' => $notification->getAuthorId() ? $notification->getAuthorId()->getValue() : null,
+                ]
+            );
+
             foreach ($recipients as $recipient) {
                 $this->connection->insert(
-                    'notification',
+                    'users_notification',
                     [
-                        'id' => $id,
-                        'created_at' => $createdAt->format('Y-m-d H:i:s'),
-                        'message' => $message,
-                        'author_id' => $author ? $author->getValue() : null,
+                        'notification_id' => $notificationId,
                         'recipient_id' => $recipient->getValue(),
                     ]
                 );
