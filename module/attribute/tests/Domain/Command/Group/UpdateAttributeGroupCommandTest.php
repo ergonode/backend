@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command\Group;
 
@@ -21,13 +21,14 @@ class UpdateAttributeGroupCommandTest extends TestCase
     /**
      * @throws \Exception
      */
-    public function testCreateCommand(): void {
+    public function testCreateCommand(): void
+    {
         /** @var AttributeGroupId|MockObject $id */
         $id = $this->createMock(AttributeGroupId::class);
         /** @var TranslatableString|MockObject $name */
         $name = $this->createMock(TranslatableString::class);
 
-        $command = new UpdateAttributeGroupCommand($id,  $name);
+        $command = new UpdateAttributeGroupCommand($id, $name);
         $this->assertEquals($id, $command->getId());
         $this->assertEquals($name, $command->getName());
     }

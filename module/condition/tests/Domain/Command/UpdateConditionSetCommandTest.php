@@ -18,8 +18,8 @@ use PHPUnit\Framework\TestCase;
 class UpdateConditionSetCommandTest extends TestCase
 {
     /**
-     * @param ConditionSetId     $id
-     * @param array              $conditions
+     * @param ConditionSetId $id
+     * @param array          $conditions
      *
      * @dataProvider dataProvider
      */

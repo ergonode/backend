@@ -45,5 +45,4 @@ class RecordTest extends TestCase
         $record = new Record();
         $record->get('test');
     }
-
 }

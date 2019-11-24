@@ -15,6 +15,8 @@ use Ergonode\Comment\Infrastructure\Handler\UpdateCommentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class UpdateCommentCommandHandlerTest extends TestCase
 {
     /**
@@ -49,7 +51,7 @@ class UpdateCommentCommandHandlerTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testHandlingCommentxistsObject(): void
+    public function testHandlingCommentExistsObject(): void
     {
         $this->repository->expects($this->once())->method('load');
         $handler = new UpdateCommentCommandHandler($this->repository);

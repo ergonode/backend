@@ -143,7 +143,7 @@
         <phpcodesniffer haltonerror="true"
                         standard="${project.basedir}/vendor/escapestudios/symfony2-coding-standard/Symfony2"
                         allowedFileExtensions="php"
-                        ignorePatterns="autoload.php,Test.php"
+                        ignorePatterns="autoload.php"
                         showSniffs="false"
                         showSources="false"
                         showWarnings="true"

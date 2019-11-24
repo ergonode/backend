@@ -50,7 +50,7 @@ class TemplateTest extends TestCase
         $this->groupId = $this->createMock(TemplateGroupId::class);
         $this->name = 'Any template name';
         $this->element = $this->createMock(TemplateElement::class);
-        $this->element->method('getPosition')->willReturn(new Position(0,0));
+        $this->element->method('getPosition')->willReturn(new Position(0, 0));
     }
 
     /**

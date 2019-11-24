@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command\Group;
 
@@ -21,7 +21,8 @@ class CreateAttributeGroupCommandTest extends TestCase
     /**
      * @throws \Exception
      */
-    public function testCreateCommand(): void {
+    public function testCreateCommand(): void
+    {
         /** @var AttributeGroupCode|MockObject $code */
         $code = $this->createMock(AttributeGroupCode::class);
         /** @var TranslatableString|MockObject $name */

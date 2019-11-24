@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Ergonode\Segment\Tests\Domain\Event;
 
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class SegmentStatusChangedEventTest extends TestCase
 {
     /**

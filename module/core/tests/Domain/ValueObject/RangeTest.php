@@ -56,8 +56,8 @@ class RangeTest extends TestCase
     }
 
     /**
-     * @param float $min
      * @param float $max
+     * @param float $min
      *
      * @expectedException \InvalidArgumentException
      *
@@ -74,11 +74,11 @@ class RangeTest extends TestCase
     public function dataProvider(): array
     {
         return [
-            [0,1],
-            [0.0,0.1],
+            [0, 1],
+            [0.0, 0.1],
             [-9.9, 9.9],
             [0.0000000000001, 0.0000000000002],
-            [-99999999,99999999],
+            [-99999999, 99999999],
         ];
     }
 }

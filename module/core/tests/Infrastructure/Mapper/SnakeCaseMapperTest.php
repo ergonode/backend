@@ -22,20 +22,23 @@ class SnakeCaseMapperTest extends TestCase
         $this->assertEquals([$destination => null], $result);
     }
 
+    /**
+     * @return array
+     */
     public function dataProvider(): array
     {
         return [
             [
                 'source' => 'TestKey',
-                'destination' => 'test_key'
+                'destination' => 'test_key',
             ],
             [
                 'source' => 'snake_case',
-                'destination' => 'snake_case'
+                'destination' => 'snake_case',
             ],
             [
                 'source' => 'word',
-                'destination' => 'word'
+                'destination' => 'word',
             ],
         ];
     }

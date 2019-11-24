@@ -9,7 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Tests\Domain\Condition;
 
 use Ergonode\Condition\Domain\Condition\ProductCompletenessCondition;
-use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 class ProductCompletenessConditionTest extends TestCase
 {
     /**
-     * @param string   $completeness
+     * @param string $completeness
      *
      * @dataProvider dataProvider
      */

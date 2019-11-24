@@ -48,18 +48,18 @@ class FormErrorMapperTest extends TestCase
     protected function setUp()
     {
         $this->provider = $this->createMock(FormErrorMapperMessageProvider::class);
-        $this->provider->expects($this->any())->method('getMessage')->willReturn('Very serious error');
+        $this->provider->method('getMessage')->willReturn('Very serious error');
         $this->formElement = $this->createMock(FormInterface::class);
-        $this->formElement->expects($this->any())->method('isSubmitted')->willReturn(true);
+        $this->formElement->method('isSubmitted')->willReturn(true);
         $this->errorFormElement = $this->createMock(FormInterface::class);
         $this->mapper = new FormErrorMapper($this->provider);
         $this->form = $this->createMock(FormInterface::class);
-        $this->form->expects($this->any())->method('getErrors')->willReturn(
+        $this->form->method('getErrors')->willReturn(
             [
                 $this->createMock(FormError::class),
             ]
         );
-        $this->form->expects($this->any())->method('all')->willReturn(
+        $this->form->method('all')->willReturn(
             [
                 $this->formElement,
             ]
@@ -68,9 +68,9 @@ class FormErrorMapperTest extends TestCase
 
     /**
      */
-    public function testFormValidMapper()
+    public function testFormValidMapper(): void
     {
-        $this->formElement->expects($this->any())->method('isValid')->willReturn(true);
+        $this->formElement->method('isValid')->willReturn(true);
 
         $result = $this->mapper->map($this->form);
 
@@ -85,20 +85,20 @@ class FormErrorMapperTest extends TestCase
      */
     public function testFormNotValidMapper(string $name, array $expected): void
     {
-        $this->formElement->expects($this->any())->method('isValid')->willReturn(false);
-        $this->formElement->expects($this->any())->method('getName')->willReturn($name);
-        $this->formElement->expects($this->any())->method('getErrors')->willReturn(
+        $this->formElement->method('isValid')->willReturn(false);
+        $this->formElement->method('getName')->willReturn($name);
+        $this->formElement->method('getErrors')->willReturn(
             [
                 $this->createMock(FormError::class),
             ]
         );
-        $this->formElement->expects($this->any())->method('all')->willReturn(
+        $this->formElement->method('all')->willReturn(
             [
                 $this->errorFormElement,
             ]
         );
-        $this->errorFormElement->expects($this->any())->method('isSubmitted')->willReturn(false);
-        $this->errorFormElement->expects($this->any())->method('isValid')->willReturn(false);
+        $this->errorFormElement->method('isSubmitted')->willReturn(false);
+        $this->errorFormElement->method('isValid')->willReturn(false);
         $result = $this->mapper->map($this->form);
         $this->assertEquals($expected, $result);
     }
@@ -112,10 +112,9 @@ class FormErrorMapperTest extends TestCase
             [
                 'name' => 'test',
                 'expected' => [
-                    'form' =>
-                        [
-                            'Very serious error',
-                        ],
+                    'form' => [
+                        'Very serious error',
+                    ],
                     'test' =>
                         [
                             'Very serious error',
@@ -125,24 +124,21 @@ class FormErrorMapperTest extends TestCase
             [
                 'name' => '',
                 'expected' => [
-                    'form' =>
-                        [
-                            'Very serious error',
-                        ],
+                    'form' => [
+                        'Very serious error',
+                    ],
                     0 => 'Very serious error',
                 ],
             ],
             [
                 'name' => '1',
                 'expected' => [
-                    'form' =>
-                        [
-                            'Very serious error',
-                        ],
-                    'element-1' =>
-                        [
-                            'Very serious error',
-                        ],
+                    'form' => [
+                        'Very serious error',
+                    ],
+                    'element-1' => [
+                        'Very serious error',
+                    ],
                 ],
             ],
         ];

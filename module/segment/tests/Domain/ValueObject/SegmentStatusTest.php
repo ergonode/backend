@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Ergonode\Segment\Tests\Domain\ValueObject;
 
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
@@ -70,8 +72,8 @@ class SegmentStatusTest extends TestCase
         return [
             [SegmentStatus::NEW, true, false, false, false],
             [SegmentStatus::PROCESSED, false, true, false, false],
-            [SegmentStatus::CALCULATED, false,false, true, false],
-            [SegmentStatus::OUTDATED, false, false, false , true],
+            [SegmentStatus::CALCULATED, false, false, true, false],
+            [SegmentStatus::OUTDATED, false, false, false, true],
         ];
     }
 

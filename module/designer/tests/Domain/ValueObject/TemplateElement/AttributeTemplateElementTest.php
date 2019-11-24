@@ -27,7 +27,7 @@ class AttributeTemplateElementTest extends TestCase
 
         $element = new AttributeTemplateElementProperty($attributeId, true);
         $this->assertEquals($attributeId, $element->getAttributeId());
-        $this->assertTrue( $element->isRequired());
+        $this->assertTrue($element->isRequired());
         $this->assertEquals(AttributeTemplateElementProperty::VARIANT, $element->getVariant());
     }
 }

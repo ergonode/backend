@@ -14,6 +14,8 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class ProcessorIdHandlerTest extends TestCase
 {
     /**

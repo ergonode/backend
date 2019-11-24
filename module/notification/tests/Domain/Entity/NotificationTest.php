@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -8,13 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Notification\Tests\Domain\Entity;
 
-use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\Notification\Domain\Entity\Notification;
 use Ergonode\Notification\Domain\Entity\NotificationId;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class NotificationTest extends TestCase
 {
     /**

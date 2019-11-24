@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types = 1);
+
 namespace Ergonode\AttributeDate\Tests\Domain\Updater;
 
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
@@ -19,12 +21,13 @@ use PHPUnit\Framework\TestCase;
  */
 class DateAttributeUpdaterTest extends TestCase
 {
-
     /**
      * @var UpdateAttributeCommand|MockObject
      */
     private $updateCommand;
 
+    /**
+     */
     protected function setUp()
     {
         $this->updateCommand = $this->createMock(UpdateAttributeCommand::class);
@@ -70,4 +73,3 @@ class DateAttributeUpdaterTest extends TestCase
         $strategy->update($attribute, $this->updateCommand);
     }
 }
-

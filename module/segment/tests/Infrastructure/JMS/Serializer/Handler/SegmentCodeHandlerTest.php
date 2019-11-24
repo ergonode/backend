@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Ergonode\Segment\Tests\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
@@ -9,6 +11,8 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class SegmentCodeHandlerTest extends TestCase
 {
     /**

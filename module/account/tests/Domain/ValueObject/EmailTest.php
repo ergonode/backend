@@ -44,7 +44,7 @@ class EmailTest extends TestCase
     }
 
     /**
-     * @param string
+     * @param string $value
      *
      * @expectedException \InvalidArgumentException
      *
@@ -63,7 +63,7 @@ class EmailTest extends TestCase
         return [
             [''],
             ['incorrect'],
-            ['incorr ect@email.com'],
+            ['incorrect ect@email.com'],
             ['forgot.monkey.com'],
         ];
     }

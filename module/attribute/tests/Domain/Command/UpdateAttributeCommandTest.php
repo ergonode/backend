@@ -14,6 +14,8 @@ use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class UpdateAttributeCommandTest extends TestCase
 {
     /**

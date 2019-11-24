@@ -14,6 +14,8 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class AttributeGroupFactoryTest extends TestCase
 {
     /**

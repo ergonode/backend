@@ -14,6 +14,8 @@ use Ergonode\Segment\Infrastructure\Handler\CreateSegmentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class CreateSegmentCommandHandlerTest extends TestCase
 {
     /**
@@ -32,7 +34,6 @@ class CreateSegmentCommandHandlerTest extends TestCase
     {
         $this->command = $this->createMock(CreateSegmentCommand::class);
         $this->repository = $this->createMock(SegmentRepositoryInterface::class);
-
     }
 
     /**

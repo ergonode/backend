@@ -9,13 +9,14 @@ declare(strict_types = 1);
 namespace Ergonode\AttributePrice\Tests\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\AttributePrice\Infrastructure\JMS\Serializer\Handler\CurrencyHandler;
-use Ergonode\AttributeUnit\Domain\ValueObject\Unit;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Money\Currency;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class CurrencyHandlerTest extends TestCase
 {
     /**

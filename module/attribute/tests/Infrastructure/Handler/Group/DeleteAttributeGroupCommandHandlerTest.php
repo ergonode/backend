@@ -4,12 +4,11 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler\Group;
 
 use Ergonode\Attribute\Domain\Command\Group\DeleteAttributeGroupCommand;
-use Ergonode\Attribute\Domain\Command\Group\UpdateAttributeGroupCommand;
 use Ergonode\Attribute\Domain\Entity\AttributeGroup;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
@@ -18,6 +17,8 @@ use Ergonode\Attribute\Infrastructure\Handler\Group\DeleteAttributeGroupCommandH
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class DeleteAttributeGroupCommandHandlerTest extends TestCase
 {
     /**

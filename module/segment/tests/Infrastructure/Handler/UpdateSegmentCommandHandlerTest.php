@@ -35,7 +35,6 @@ class UpdateSegmentCommandHandlerTest extends TestCase
     {
         $this->command = $this->createMock(UpdateSegmentCommand::class);
         $this->repository = $this->createMock(SegmentRepositoryInterface::class);
-
     }
 
     /**

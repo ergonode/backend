@@ -66,7 +66,7 @@ class AttributeTypeDataTransformerTest extends TestCase
      */
     public function testReverseTransformException(): void
     {
-        $value = ['foo','bar'];
+        $value = ['foo', 'bar'];
         $this->transformer->reverseTransform($value);
     }
 

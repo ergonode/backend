@@ -13,6 +13,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class TreeGridTest extends TestCase
 {
     /**

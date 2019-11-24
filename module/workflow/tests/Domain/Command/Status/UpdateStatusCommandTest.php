@@ -33,7 +33,7 @@ class UpdateStatusCommandTest extends TestCase
         /** @var TranslatableString $description */
         $description = $this->createMock(TranslatableString::class);
 
-        $command = new UpdateStatusCommand($id,  $color, $name, $description);
+        $command = new UpdateStatusCommand($id, $color, $name, $description);
         $this->assertSame($id, $command->getId());
         $this->assertSame($color, $command->getColor());
         $this->assertSame($name, $command->getName());

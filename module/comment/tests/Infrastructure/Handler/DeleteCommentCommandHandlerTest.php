@@ -9,13 +9,14 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Tests\Infrastructure\Handler;
 
 use Ergonode\Comment\Domain\Command\DeleteCommentCommand;
-use Ergonode\Comment\Domain\Command\UpdateCommentCommand;
 use Ergonode\Comment\Domain\Entity\Comment;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
 use Ergonode\Comment\Infrastructure\Handler\DeleteCommentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class DeleteCommentCommandHandlerTest extends TestCase
 {
     /**

@@ -62,7 +62,7 @@ class AttributeGroupTest extends TestCase
         $name = $this->createMock(TranslatableString::class);
         $entity = new AttributeGroup($this->id, $this->code, $this->name);
         $entity->changeName($name);
-        $this->assertNotSame($this->name, $entity->getName());;
+        $this->assertNotSame($this->name, $entity->getName());
         $this->assertSame($name, $entity->getName());
     }
 }
