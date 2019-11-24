@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
 class SegmentStatusTest extends TestCase
 {
     /**
-     * @param string $status
-     *
+     * @param string $string
      * @param bool   $new
      * @param bool   $processed
      * @param bool   $calculated
@@ -21,11 +20,11 @@ class SegmentStatusTest extends TestCase
      *
      * @dataProvider validDataProvider
      */
-    public function testValidStatus(string $status, bool $new, bool $processed, bool $calculated, bool $outdated): void
+    public function testValidStatus(string $string, bool $new, bool $processed, bool $calculated, bool $outdated): void
     {
-        $status = new SegmentStatus($status);
-        $this->assertEquals(strtoupper($status), (string) $status);
-        $this->assertTrue(SegmentStatus::isValid($status));
+        $status = new SegmentStatus($string);
+        $this->assertEquals(strtoupper($string), (string) $string);
+        $this->assertTrue(SegmentStatus::isValid($string));
         $this->assertEquals($new, $status->isNew());
         $this->assertEquals($processed, $status->isProcessed());
         $this->assertEquals($calculated, $status->isCalculated());
