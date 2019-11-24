@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Notification\Tests\Infrastructure\Sender;
 
+use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\Notification\Infrastructure\Sender\NotificationSender;
 use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -24,10 +25,10 @@ class NotificationSenderTest extends TestCase
     public function testSendNotificationWithoutStrategy(): void
     {
         $recipients = [];
-        $message = 'Any message';
+        $notification = $this->createMock(NotificationInterface::class);
 
         $sender = new NotificationSender();
-        $sender->send($recipients, $message);
+        $sender->send($notification, $recipients);
     }
 
     /**
@@ -35,7 +36,7 @@ class NotificationSenderTest extends TestCase
     public function testSendNotificationWithStrategy(): void
     {
         $recipients = [];
-        $message = 'Any message';
+        $notification = $this->createMock(NotificationInterface::class);
         /** @var NotificationStrategyInterface|MockObject $strategy1 */
         $strategy1 = $this->createMock(NotificationStrategyInterface::class);
         $strategy1->expects($this->once())->method('send');
@@ -44,6 +45,6 @@ class NotificationSenderTest extends TestCase
         $strategy2->expects($this->once())->method('send');
 
         $sender = new NotificationSender($strategy1, $strategy2);
-        $sender->send($recipients, $message);
+        $sender->send($notification, $recipients);
     }
 }

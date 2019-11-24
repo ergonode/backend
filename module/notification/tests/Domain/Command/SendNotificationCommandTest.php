@@ -11,6 +11,7 @@ namespace Ergonode\Notification\Tests\Domain\Command;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Notification\Domain\Command\SendNotificationCommand;
+use Ergonode\Notification\Domain\NotificationInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,18 +19,16 @@ use PHPUnit\Framework\TestCase;
 class SendNotificationCommandTest extends TestCase
 {
     /**
-     * @param string      $message
-     * @param RoleId      $roleId
-     * @param UserId|null $authorId
+     * @param NotificationInterface $notification
+     * @param array                 $recipients
      *
      * @dataProvider dataProvider
      */
-    public function testCommandCreation(string $message, RoleId $roleId, UserId $authorId = null): void
+    public function testCommandCreation(NotificationInterface $notification, array $recipients): void
     {
-        $command = new SendNotificationCommand($message, $roleId, $authorId);
-        $this->assertSame($message, $command->getMessage());
-        $this->assertSame($roleId, $command->getRoleId());
-        $this->assertSame($authorId, $command->getAuthorId());
+        $command = new SendNotificationCommand($notification, $recipients);
+        $this->assertSame($notification, $command->getNotification());
+        $this->assertSame($recipients, $command->getRecipients());
     }
 
     /**
@@ -39,14 +38,12 @@ class SendNotificationCommandTest extends TestCase
     {
         return [
             [
-                'Any Message',
-                $this->createMock(RoleId::class),
-                null,
+                $this->createMock(NotificationInterface::class),
+                [$this->createMock(RoleId::class)],
             ],
             [
-                'Any Message',
-                $this->createMock(RoleId::class),
-                $this->createMock(UserId::class),
+                $this->createMock(NotificationInterface::class),
+                [$this->createMock(RoleId::class)],
             ],
         ];
     }

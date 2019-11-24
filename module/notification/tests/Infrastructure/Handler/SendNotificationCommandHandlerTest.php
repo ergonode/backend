@@ -41,8 +41,6 @@ class SendNotificationCommandHandlerTest extends TestCase
     {
         $this->service = $this->createMock(NotificationSender::class);
         $this->service->expects($this->once())->method('send');
-        $this->query = $this->createMock(RoleQueryInterface::class);
-        $this->query->expects($this->once())->method('getAllRoleUsers');
         $this->command = $this->createMock(SendNotificationCommand::class);
     }
 
@@ -50,7 +48,7 @@ class SendNotificationCommandHandlerTest extends TestCase
      */
     public function testHandling(): void
     {
-        $handler = new SendNotificationCommandHandler($this->service, $this->query);
+        $handler = new SendNotificationCommandHandler($this->service);
         $handler->__invoke($this->command);
     }
 }
