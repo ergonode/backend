@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,16 +6,16 @@
 
 declare(strict_types=1);
 
-namespace Ergonode\Tests\Condition\Domain\Command;
+namespace Ergonode\Condition\Tests\Domain\Command;
 
-use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
+use Ergonode\Condition\Domain\Command\CreateConditionSetCommand;
 use Ergonode\Condition\Domain\Condition\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class UpdateConditionSetCommandTest extends TestCase
+class CreateConditionSetCommandTest extends TestCase
 {
     /**
      * @param ConditionSetId $id
@@ -26,7 +25,7 @@ class UpdateConditionSetCommandTest extends TestCase
      */
     public function testUpdateSetCommand(ConditionSetId $id, array $conditions): void
     {
-        $command = new UpdateConditionSetCommand($id, $conditions);
+        $command = new CreateConditionSetCommand($id, $conditions);
 
         $this->assertSame($id, $command->getId());
         $this->assertSame($conditions, $command->getConditions());

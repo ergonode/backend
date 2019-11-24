@@ -4,6 +4,9 @@ services:
         autoconfigure: true
         public: false
 
+    Ergonode\Grid\Application\:
+        resource: '../../Application/*'
+
     Ergonode\Grid\Column\Renderer\:
         resource: '../../Column/Renderer/*'
 
