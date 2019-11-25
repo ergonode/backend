@@ -6,27 +6,19 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Domain\Entity\Attribute;
+namespace Ergonode\Product\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  */
-class StatusAttribute extends AbstractAttribute
+class EditedBySystemAttribute extends TextAttribute
 {
-    public const TYPE = 'SELECT';
-    public const CODE = 'esa_status';
-
-    /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
-    }
+    public const TYPE = 'TEXT';
+    public const CODE = 'esa_edited_by';
 
     /**
      * @param TranslatableString $label
@@ -44,5 +36,13 @@ class StatusAttribute extends AbstractAttribute
         $id = AttributeId::fromKey($code);
 
         parent::__construct($id, $code, $label, $hint, $placeholder, false, [], true);
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 }

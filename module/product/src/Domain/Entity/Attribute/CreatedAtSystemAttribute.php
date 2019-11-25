@@ -6,27 +6,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Domain\Entity\Attribute;
+namespace Ergonode\Product\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
+use Ergonode\AttributeDate\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  */
-class StatusAttribute extends AbstractAttribute
+class CreatedAtSystemAttribute extends DateAttribute
 {
-    public const TYPE = 'SELECT';
-    public const CODE = 'esa_status';
-
-    /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
-    }
+    public const TYPE = 'DATE';
+    public const CODE = 'esa_created_at';
 
     /**
      * @param TranslatableString $label
@@ -42,7 +35,16 @@ class StatusAttribute extends AbstractAttribute
     ) {
         $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code);
+        $format = new DateFormat(DateFormat::YYYY_MM_DD);
 
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, [], true);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $format, true);
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
     }
 }
