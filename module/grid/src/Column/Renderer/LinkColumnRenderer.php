@@ -14,6 +14,7 @@ use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\ColumnInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  */
@@ -25,11 +26,18 @@ class LinkColumnRenderer implements ColumnRendererInterface
     private $urlGenerator;
 
     /**
-     * @param UrlGeneratorInterface $urlGenerator
+     * @var AuthorizationCheckerInterface
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    private $checker;
+
+    /**
+     * @param UrlGeneratorInterface         $urlGenerator
+     * @param AuthorizationCheckerInterface $checker
+     */
+    public function __construct(UrlGeneratorInterface $urlGenerator, AuthorizationCheckerInterface $checker)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->checker = $checker;
     }
 
     /**
@@ -86,6 +94,13 @@ class LinkColumnRenderer implements ColumnRendererInterface
      */
     private function isVisible(array $link, array $row): bool
     {
+        if (array_key_exists('privilege', $link)) {
+            $privilege = $link['privilege'];
+            if (!$this->checker->isGranted($privilege)) {
+                return false;
+            }
+        }
+
         if (!array_key_exists('show', $link)) {
             return true;
         }
