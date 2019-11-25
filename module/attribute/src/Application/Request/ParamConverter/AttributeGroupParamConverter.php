@@ -35,7 +35,6 @@ class AttributeGroupParamConverter implements ParamConverterInterface
         $this->repository = $repository;
     }
 
-
     /**
      * {@inheritDoc}
      */
