@@ -35,6 +35,5 @@ class CompletenessCalculatorTest extends TestCase
         $calculator = new CompletenessCalculator($provider);
         $result = $calculator->calculate($draft, $template, $language);
         $this->assertNotNull($result);
-
     }
 }

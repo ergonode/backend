@@ -40,7 +40,6 @@ services:
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\ConstConverter']]
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\MappingConverter']]
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\CollectionConverter']]
-            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\DictionaryConverter']]
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\SplitConverter']]
 
     Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface: '@Ergonode\Transformer\Persistence\Dbal\Repository\DbalTransformerRepository'

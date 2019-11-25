@@ -57,7 +57,7 @@ class CommentDeletedEventProjector implements DomainEventProjectorInterface
             throw new UnsupportedEventException($event, CommentDeletedEvent::class);
         }
 
-        $this->connection->transactional(function () use ($aggregateId, $event) {
+        $this->connection->transactional(function () use ($aggregateId) {
             $this->connection->delete(
                 self::TABLE,
                 [

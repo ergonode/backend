@@ -23,8 +23,8 @@ class CommentFactoryTest extends TestCase
      */
     public function testFactoryCreation(): void
     {
-        /** @var CommentId $CommentId */
-        $CommentId = $this->createMock(CommentId::class);
+        /** @var CommentId $commentId */
+        $commentId = $this->createMock(CommentId::class);
         /** @var UserId $userId */
         $userId = $this->createMock(UserId::class);
         /** @var Uuid $objectId */
@@ -33,10 +33,10 @@ class CommentFactoryTest extends TestCase
 
         $factory = new CommentFactory();
 
-        $Comment = $factory->create($CommentId, $userId, $objectId, $content);
-        $this->assertSame($CommentId, $Comment->getId());
-        $this->assertSame($userId, $Comment->getAuthorId());
-        $this->assertSame($objectId, $Comment->getObjectId());
-        $this->assertSame($content, $Comment->getContent());
+        $comment = $factory->create($commentId, $userId, $objectId, $content);
+        $this->assertSame($commentId, $comment->getId());
+        $this->assertSame($userId, $comment->getAuthorId());
+        $this->assertSame($objectId, $comment->getObjectId());
+        $this->assertSame($content, $comment->getContent());
     }
 }

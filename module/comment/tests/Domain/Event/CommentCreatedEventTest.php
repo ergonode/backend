@@ -23,8 +23,8 @@ class CommentCreatedEventTest extends TestCase
      */
     public function testCommandCreation(): void
     {
-        /** @var CommentId $CommentId */
-        $CommentId = $this->createMock(CommentId::class);
+        /** @var CommentId $commentId */
+        $commentId = $this->createMock(CommentId::class);
         /** @var UserId $userId */
         $userId = $this->createMock(UserId::class);
         /** @var Uuid $objectId */
@@ -33,11 +33,11 @@ class CommentCreatedEventTest extends TestCase
         /** @var \DateTime $createAt */
         $createAt = $this->createMock(\DateTime::class);
 
-        $command = new CommentCreatedEvent($CommentId, $userId, $objectId, $content, $createAt);
+        $command = new CommentCreatedEvent($commentId, $userId, $objectId, $content, $createAt);
         $this->assertSame($userId, $command->getAuthorId());
         $this->assertSame($objectId, $command->getObjectId());
         $this->assertSame($content, $command->getContent());
-        $this->assertSame($CommentId, $command->getId());
+        $this->assertSame($commentId, $command->getId());
         $this->assertSame($createAt, $command->getCreatedAt());
     }
 }

@@ -11,7 +11,6 @@ namespace Ergonode\Notification\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
@@ -47,8 +46,6 @@ class NotificationGridReadAction
     private $userProvider;
 
     /**
-     * NotificationGridReadAction constructor.
-     *
      * @param NotificationGrid                   $grid
      * @param NotificationQueryInterface         $query
      * @param GridRenderer                       $gridRenderer

@@ -23,6 +23,8 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
      */
     private $node;
 
+    /**
+     */
     protected function setUp()
     {
         $this->node = $this->createMock(Node::class);
@@ -42,10 +44,9 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
     {
         $collection = [
             $this->createMock(Node::class),
-            $this->createMock(Node::class)
+            $this->createMock(Node::class),
         ];
         $result = new CategoryTreeCategoriesChangedEvent($collection);
         $this->assertEquals($collection, $result->getCategories());
-
     }
 }

@@ -12,7 +12,6 @@ namespace Ergonode\Designer;
 use Ergonode\Core\Application\AbstractModule;
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateElementProviderCompilerPass;
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateGeneratorStrategyCompilerPass;
-use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateRelationCheckerCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -27,7 +26,6 @@ class ErgonodeDesignerBundle extends AbstractModule
         parent::build($container);
 
         $container->addCompilerPass(new TemplateGeneratorStrategyCompilerPass());
-        $container->addCompilerPass(new TemplateRelationCheckerCompilerPass());
         $container->addCompilerPass(new TemplateElementProviderCompilerPass());
     }
 }

@@ -20,17 +20,11 @@ use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class AccountGrid extends AbstractGrid
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
     /**
      * @var LanguageProvider
      */
@@ -42,13 +36,11 @@ class AccountGrid extends AbstractGrid
     private $roleQuery;
 
     /**
-     * @param TranslatorInterface $translator
-     * @param LanguageProvider    $languageProvider
-     * @param RoleQueryInterface  $roleQuery
+     * @param LanguageProvider   $languageProvider
+     * @param RoleQueryInterface $roleQuery
      */
-    public function __construct(TranslatorInterface $translator, LanguageProvider $languageProvider, RoleQueryInterface $roleQuery)
+    public function __construct(LanguageProvider $languageProvider, RoleQueryInterface $roleQuery)
     {
-        $this->translator = $translator;
         $this->languageProvider = $languageProvider;
         $this->roleQuery = $roleQuery;
     }
@@ -63,15 +55,15 @@ class AccountGrid extends AbstractGrid
         $activities = [1 => 'Active', 0 => 'In active'];
         $filters = $configuration->getFilters();
 
-        $id = new TextColumn('id', $this->trans('Id'));
+        $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('email', new TextColumn('email', $this->trans('Email'), new TextFilter($filters->get('email'))));
-        $this->addColumn('first_name', new TextColumn('first_name', $this->trans('First Name'), new TextFilter($filters->get('first_name'))));
-        $this->addColumn('last_name', new TextColumn('last_name', $this->trans('Last Name'), new TextFilter($filters->get('last_name'))));
-        $this->addColumn('language', new TextColumn('language', $this->trans('Language'), new SelectFilter($languages, $filters->get('language'))));
-        $this->addColumn('role_id', new TextColumn('role_id', $this->trans('Roles'), new SelectFilter($roles, $filters->get('role_id'))));
-        $this->addColumn('is_active', new BoolColumn('is_active', $this->trans('Activity'), new SelectFilter($activities, $filters->get('is_active'))));
+        $this->addColumn('email', new TextColumn('email', 'Email', new TextFilter($filters->get('email'))));
+        $this->addColumn('first_name', new TextColumn('first_name', 'First Name', new TextFilter($filters->get('first_name'))));
+        $this->addColumn('last_name', new TextColumn('last_name', 'Last Name', new TextFilter($filters->get('last_name'))));
+        $this->addColumn('language', new TextColumn('language', 'Language', new SelectFilter($languages, $filters->get('language'))));
+        $this->addColumn('role_id', new TextColumn('role_id', 'Roles', new SelectFilter($roles, $filters->get('role_id'))));
+        $this->addColumn('is_active', new BoolColumn('is_active', 'Activity', new SelectFilter($activities, $filters->get('is_active'))));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_account_user_read',
@@ -85,16 +77,5 @@ class AccountGrid extends AbstractGrid
         ]));
 
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
     }
 }

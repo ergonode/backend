@@ -16,6 +16,8 @@ use Ergonode\Category\Infrastructure\Handler\CreateCategoryCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class CreateCategoryCommandHandlerTest extends TestCase
 {
     /**

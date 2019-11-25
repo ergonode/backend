@@ -17,25 +17,11 @@ use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class CategoryGrid extends AbstractGrid
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
@@ -48,7 +34,7 @@ class CategoryGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
-        $index = new IntegerColumn('sequence', $this->trans('Index'), new TextFilter($filters->get('sequence')));
+        $index = new IntegerColumn('sequence', 'Index', new TextFilter($filters->get('sequence')));
         $this->addColumn('sequence', $index);
 
         $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter($filters->get('code'))));
@@ -56,7 +42,7 @@ class CategoryGrid extends AbstractGrid
         $name = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
         $this->addColumn('name', $name);
 
-        $this->addColumn('elements_count', new IntegerColumn('elements_count', $this->trans('Number of products'), new TextFilter($filters->get('elements_count'))));
+        $this->addColumn('elements_count', new IntegerColumn('elements_count', 'Number of products', new TextFilter($filters->get('elements_count'))));
 
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
@@ -77,16 +63,5 @@ class CategoryGrid extends AbstractGrid
 
         $this->orderBy('sequence', 'DESC');
         $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
     }
 }

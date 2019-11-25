@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Category\Application\Request\ParamConveter;
+namespace Ergonode\Category\Application\Request\ParamConverter;
 
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Domain\Entity\CategoryId;

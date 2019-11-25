@@ -10,9 +10,10 @@ namespace Ergonode\Attribute\Tests\Application\Form\Transformer;
 
 use Ergonode\Attribute\Application\Form\Transformer\AttributeGroupCodeDataTransformer;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
-use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class AttributeGroupCodeDataTransformerTest extends TestCase
 {
     /**

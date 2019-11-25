@@ -16,12 +16,10 @@ use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -88,20 +86,7 @@ class ProductAttributeExtension
      */
     public function process(AttributeId $attributeId, ValueInterface $value): ?ValueInterface
     {
-        if ($value instanceof TranslatableCollectionValue) {
-            $collection = $value->getValue();
-            foreach ($collection as $key => $translations) {
-                if ('' !== $key) {
-                    $key = new OptionKey((string) $key);
-                    if (!$this->query->findAttributeOption($attributeId, $key)) {
-                        $command = new AddAttributeOptionCommand($attributeId, $key, new MultilingualOption($translations));
-                        $this->messageBus->dispatch($command);
-                    }
-
-                    return new StringValue($key->getValue());
-                }
-            }
-        } elseif ($value instanceof StringValue) {
+        if ($value instanceof StringValue) {
             $key = $value->getValue();
             if ('' !== $key) {
                 $key = new OptionKey($value->getValue());

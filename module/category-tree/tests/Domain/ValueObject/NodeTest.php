@@ -49,6 +49,8 @@ class NodeTest extends TestCase
         $this->assertEquals($parent, $node->getParent());
     }
 
+    /**
+     */
     public function testAddChildren():void
     {
         /** @var Node|MockObject $children */

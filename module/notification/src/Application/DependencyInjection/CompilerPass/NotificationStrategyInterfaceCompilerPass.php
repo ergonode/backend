@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Notification\Application\DependencyInjection\CompilerPass;
 
-use Ergonode\Notification\Infrastructure\Service\NotificationSender;
+use Ergonode\Notification\Infrastructure\Sender\NotificationSender;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Tests\Application\Request\ParamConveter;
 
-use Ergonode\Category\Application\Request\ParamConveter\CategoryParamConverter;
+use Ergonode\Category\Application\Request\ParamConverter\CategoryParamConverter;
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;

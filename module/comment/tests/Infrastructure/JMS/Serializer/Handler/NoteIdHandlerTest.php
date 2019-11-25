@@ -15,7 +15,9 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
-class CommentIdHandlerTest extends TestCase
+/**
+ */
+class NoteIdHandlerTest extends TestCase
 {
     /**
      * @var CommentIdHandler

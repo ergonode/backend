@@ -9,15 +9,15 @@ declare(strict_types = 1);
 namespace Ergonode\Notification\Infrastructure\Sender;
 
 use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\Notification\Domain\NotificationInterface;
 
 /**
  */
 interface NotificationStrategyInterface
 {
     /**
-     * @param UserId[]    $recipients
-     * @param string      $message
-     * @param UserId|null $author
+     * @param NotificationInterface $notification
+     * @param UserId[]              $recipients
      */
-    public function send(array $recipients, string $message, ?UserId $author = null): void;
+    public function send(NotificationInterface $notification, array $recipients): void;
 }

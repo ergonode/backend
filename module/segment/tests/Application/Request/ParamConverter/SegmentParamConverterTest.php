@@ -114,4 +114,3 @@ class SegmentParamConverterTest extends TestCase
         $paramConverter->apply($this->request, $this->configuration);
     }
 }
-

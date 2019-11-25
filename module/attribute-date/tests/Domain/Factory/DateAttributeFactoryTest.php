@@ -5,6 +5,8 @@
  * See LICENSE.txt for license details.
  */
 
+declare(strict_types = 1);
+
 namespace Ergonode\AttributeDate\Tests\Domain\Factory;
 
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
@@ -71,4 +73,3 @@ class DateAttributeFactoryTest extends TestCase
         $strategy->create($this->createCommand);
     }
 }
-

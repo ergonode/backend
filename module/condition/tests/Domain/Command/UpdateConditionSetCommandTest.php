@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Tests\Condition\Domain\Command;
 
 use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
+use Ergonode\Condition\Domain\Condition\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use PHPUnit\Framework\TestCase;
 
@@ -18,15 +19,13 @@ use PHPUnit\Framework\TestCase;
 class UpdateConditionSetCommandTest extends TestCase
 {
     /**
-     * @param ConditionSetId     $id
-     * @param array              $conditions
+     * @param ConditionSetId $id
+     * @param array          $conditions
      *
      * @dataProvider dataProvider
      */
-    public function testUpdateSetCommand(
-        ConditionSetId $id,
-        array $conditions
-    ): void {
+    public function testUpdateSetCommand(ConditionSetId $id, array $conditions): void
+    {
         $command = new UpdateConditionSetCommand($id, $conditions);
 
         $this->assertSame($id, $command->getId());
@@ -42,6 +41,10 @@ class UpdateConditionSetCommandTest extends TestCase
             [
                 $this->createMock(ConditionSetId::class),
                 [],
+            ],
+            [
+                $this->createMock(ConditionSetId::class),
+                [$this->createMock(ConditionInterface::class)],
             ],
         ];
     }

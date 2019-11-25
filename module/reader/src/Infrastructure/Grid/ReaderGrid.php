@@ -17,25 +17,11 @@ use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class ReaderGrid extends AbstractGrid
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
@@ -44,12 +30,12 @@ class ReaderGrid extends AbstractGrid
     {
         $filters = $configuration->getFilters();
 
-        $id = new TextColumn('id', $this->trans('Id'));
+        $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $status = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name')));
+        $status = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
         $this->addColumn('name', $status);
-        $type = new IntegerColumn('type', $this->trans('Type'), new TextFilter($filters->get('type')));
+        $type = new IntegerColumn('type', 'Type', new TextFilter($filters->get('type')));
         $this->addColumn('type', $type);
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
@@ -62,16 +48,5 @@ class ReaderGrid extends AbstractGrid
                 'method' => Request::METHOD_DELETE,
             ],
         ]));
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
     }
 }

@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\Request\ParamConverter;
+namespace Ergonode\Grid\Application\Request\ParamConverter;
 
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;

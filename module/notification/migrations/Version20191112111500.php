@@ -21,6 +21,7 @@ final class Version20191112111500 extends AbstractErgonodeMigration
                 created_at timestamp without time zone NOT NULL,      
                 author_id UUID DEFAULT NULL,
                 message TEXT NOT NULL,
+                parameters JSONB DEFAULT NULL,
                 PRIMARY KEY(id)
             )
         ');
@@ -34,6 +35,6 @@ final class Version20191112111500 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->addSql('ALTER TABLE users_notification ADD CONSTRAINT user_notifications_notification_fk FOREIGN KEY (notification_id) REFERENCES notification ON DELETE CASCADE ');
+        $this->addSql('ALTER TABLE users_notification ADD CONSTRAINT user_notifications_notification_fk FOREIGN KEY (notification_id) REFERENCES notification ON DELETE CASCADE');
     }
 }

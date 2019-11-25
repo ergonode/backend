@@ -11,6 +11,7 @@ namespace Ergonode\Grid\Renderer;
 
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\ColumnInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -22,11 +23,18 @@ class ColumnRenderer
     private $filterRenderer;
 
     /**
-     * @param FilterRenderer $filterRenderer
+     * @var TranslatorInterface
      */
-    public function __construct(FilterRenderer $filterRenderer)
+    private $translator;
+
+    /**
+     * @param FilterRenderer      $filterRenderer
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(FilterRenderer $filterRenderer, TranslatorInterface $translator)
     {
         $this->filterRenderer = $filterRenderer;
+        $this->translator = $translator;
     }
 
     /**
@@ -57,14 +65,14 @@ class ColumnRenderer
         $result = [];
 
         if ($column->hasLanguage()) {
-            $result['language'] = $column->getLanguage()->getCode();
+            $result['language'] = $column->getLanguage() ? $column->getLanguage()->getCode() : null;
             $result['id'] = sprintf('%s:%s', $column->getField(), $result['language']);
         } else {
             $result['id'] = $id;
         }
 
         $result['type'] = $column->getType();
-        $result['label'] = $column->getLabel();
+        $result['label'] = $column->getLabel() ? $this->translator->trans($column->getLabel(), [], 'grid') : null;
         $result['visible'] = $column->isVisible();
 
         if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) && $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true) {

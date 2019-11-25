@@ -42,10 +42,6 @@ class ErgonodeDesignerExtension extends Extension
             ->addTag(TemplateGeneratorStrategyCompilerPass::TAG);
 
         $container
-            ->registerForAutoconfiguration(TemplateRelationCheckerInterface::class)
-            ->addTag(TemplateRelationCheckerCompilerPass::TAG);
-
-        $container
             ->registerForAutoconfiguration(BuilderTemplateElementStrategyInterface::class)
             ->addTag(TemplateElementProviderCompilerPass::TAG);
 

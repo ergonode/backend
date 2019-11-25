@@ -9,6 +9,7 @@ namespace Ergonode\Grid\Tests\Column;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\TranslatableColumn;
 use Ergonode\Grid\FilterInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,6 +22,7 @@ class TranslatableColumnTest extends TestCase
     {
         $field = 'Any id';
         $label = 'Any label';
+        /** @var FilterInterface|MockObject $filter */
         $filter = $this->createMock(FilterInterface::class);
         $language = new Language(Language::PL);
 

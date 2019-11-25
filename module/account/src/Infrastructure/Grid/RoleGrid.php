@@ -18,25 +18,11 @@ use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class RoleGrid extends AbstractGrid
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
@@ -45,12 +31,12 @@ class RoleGrid extends AbstractGrid
     {
         $filters = $configuration->getFilters();
 
-        $id = new TextColumn('id', $this->trans('Id'));
+        $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->get('name'))));
-        $this->addColumn('description', new TextAreaColumn('description', $this->trans('Description'), new TextFilter($filters->get('description'))));
-        $this->addColumn('users_count', new NumericColumn('users_count', $this->trans('Users'), new TextFilter($filters->get('users_count'))));
+        $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter($filters->get('name'))));
+        $this->addColumn('description', new TextAreaColumn('description', 'Description', new TextFilter($filters->get('description'))));
+        $this->addColumn('users_count', new NumericColumn('users_count', 'Users', new TextFilter($filters->get('users_count'))));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_account_role_read',
@@ -69,16 +55,5 @@ class RoleGrid extends AbstractGrid
         ]));
 
         $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
     }
 }

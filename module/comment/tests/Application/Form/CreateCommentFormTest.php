@@ -45,4 +45,3 @@ class CreateCommentFormTest extends TypeTestCase
         }
     }
 }
-
