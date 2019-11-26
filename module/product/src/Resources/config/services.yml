@@ -33,6 +33,7 @@ services:
 
     Ergonode\Product\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Product\Persistence\Dbal\Repository\DbalProductRepository'
     Ergonode\Product\Domain\Query\ProductQueryInterface: '@Ergonode\Product\Persistence\Dbal\Query\DbalProductQuery'
+    Ergonode\Product\Domain\Query\HistoryQueryInterface: '@Ergonode\Product\Persistence\Dbal\Query\DbalHistoryQuery'
     Ergonode\Product\Domain\Query\GetProductQueryInterface: '@Ergonode\Product\Persistence\Dbal\Query\GetProductQuery'
 
     # Cache Decorators

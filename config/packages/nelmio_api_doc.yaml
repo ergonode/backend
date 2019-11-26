@@ -301,7 +301,7 @@ nelmio_api_doc:
                         type: string
                         required: true
                         description: Template Id
-                    categortyIds:
+                    categoryIds:
                         type: array
                         items:
                             type: string
@@ -310,7 +310,7 @@ nelmio_api_doc:
             product_upd:
                 type: object
                 properties:
-                    categortyIds:
+                    categoryIds:
                         type: array
                         items:
                             type: string
