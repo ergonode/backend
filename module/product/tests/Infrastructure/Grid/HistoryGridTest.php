@@ -31,4 +31,3 @@ class HistoryGridTest extends TestCase
         $this->assertNotEmpty($grid->getColumns());
     }
 }
-

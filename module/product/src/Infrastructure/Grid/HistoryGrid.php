@@ -38,5 +38,4 @@ class HistoryGrid extends AbstractGrid
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
         $this->orderBy('recorded_at', 'DESC');
     }
-
 }
