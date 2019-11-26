@@ -143,6 +143,14 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
+     * @return bool
+     */
+    public function isSystem(): bool
+    {
+        return $this->system;
+    }
+
+    /**
      * @param TranslatableString $label
      *
      * @throws \Exception
