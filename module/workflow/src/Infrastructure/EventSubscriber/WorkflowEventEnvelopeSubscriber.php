@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Infrastructure\EventSubscriber;
 
 use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
-use Ergonode\Editor\Domain\Event\ProductDraftValueChanged;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\Product\Domain\Entity\ProductId;
@@ -22,6 +21,7 @@ use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Notification\StatusChangedNotification;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
+use Ergonode\Workflow\Infrastructure\Provider\UserIdsProvider;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
@@ -41,6 +41,11 @@ class WorkflowEventEnvelopeSubscriber implements EventSubscriberInterface
     private $workflowRepository;
 
     /**
+     * @var UserIdsProvider
+     */
+    private $userIdsProvider;
+
+    /**
      * @var AuthenticatedUserProviderInterface
      */
     private $userProvider;
@@ -53,17 +58,20 @@ class WorkflowEventEnvelopeSubscriber implements EventSubscriberInterface
     /**
      * @param ProductRepositoryInterface         $productRepository
      * @param WorkflowRepositoryInterface        $workflowRepository
+     * @param UserIdsProvider                    $userIdsProvider
      * @param AuthenticatedUserProviderInterface $userProvider
      * @param MessageBusInterface                $bus
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         WorkflowRepositoryInterface $workflowRepository,
+        UserIdsProvider $userIdsProvider,
         AuthenticatedUserProviderInterface $userProvider,
         MessageBusInterface $bus
     ) {
         $this->productRepository = $productRepository;
         $this->workflowRepository = $workflowRepository;
+        $this->userIdsProvider = $userIdsProvider;
         $this->userProvider = $userProvider;
         $this->bus = $bus;
     }
@@ -100,10 +108,12 @@ class WorkflowEventEnvelopeSubscriber implements EventSubscriberInterface
                     $product = $this->productRepository->load($productId);
                     Assert::notNull($product);
 
+                    $roleIds = $transition->getRoleIds();
+                    $recipients = $this->userIdsProvider->getUserIds($roleIds);
                     $user = $this->userProvider->provide();
 
-                    $notification = new StatusChangedNotification($product->getSku(), $transition->getSource(), $transition->getDestination(), $user);
-                    $command = new SendNotificationCommand($notification, [$user->getId()]);
+                    $notification = new StatusChangedNotification($product->getSku(), $transition->getFrom(), $transition->getTo(), $user);
+                    $command = new SendNotificationCommand($notification, $recipients);
 
                     $this->bus->dispatch($command);
                 }

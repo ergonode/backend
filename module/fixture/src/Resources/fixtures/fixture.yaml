@@ -325,14 +325,6 @@ Ergonode\Workflow\Domain\Entity\Status:
             - '@status_published_translation'
             - '@status_published_translation'
 
-Ergonode\Workflow\Domain\ValueObject\Transition:
-    transition_take:
-        __construct:
-            - '<statusCode("new")>'
-            - '<statusCode("draft")>'
-            - '@status_to_approve_translation'
-            - '@status_to_approve_translation'
-
 Ergonode\Workflow\Domain\Entity\Workflow:
     default_workflow:
         __construct:
@@ -352,7 +344,8 @@ Ergonode\Workflow\Domain\Entity\Workflow:
             - addStatus:
                   - '<statusCode("published")>'
             - addTransition:
-                  - '@transition_take'
+                  - '<statusCode("new")>'
+                  - '<statusCode("draft")>'
 
 Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute:
     attribute_esa_status:

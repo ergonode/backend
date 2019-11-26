@@ -1,5 +1,19 @@
 Feature: Workflow
 
+  Scenario: Create role
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+         "name": "Test role (@@random_uuid@@)",
+         "description": "Test role",
+         "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
+      }
+      """
+    When I request "/api/v1/EN/roles" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "role_id"
+
   Scenario: Create source status
     Given current authentication token
     Given the request body is:
@@ -54,7 +68,7 @@ Feature: Workflow
     Then the response code is 200
     And remember response param "code" as "workflow_destination_status_code"
 
-  Scenario: Create transition to workflow
+  Scenario: Add transition to workflow
     Given current authentication token
     Given the request body is:
       """
@@ -68,11 +82,23 @@ Feature: Workflow
         "description": {
           "PL": "Translated description PL",
           "EN": "Translated description EN"
-        }
+        },
+        "roles": [
+           "@role_id@"
+        ]
       }
       """
     When I request "/api/v1/EN/workflow/default/transitions" using HTTP POST
     Then created response is received
+
+  Scenario: Get transition in default workflow
+    Given current authentication token
+    When I request "/api/v1/EN/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
+    Then the response code is 200
+    And the response body matches:
+    """
+      /role_ids/
+    """
 
   Scenario: Create transition to workflow (duplicated)
     Given current authentication token

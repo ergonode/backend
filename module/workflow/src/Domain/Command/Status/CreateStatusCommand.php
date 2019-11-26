@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */

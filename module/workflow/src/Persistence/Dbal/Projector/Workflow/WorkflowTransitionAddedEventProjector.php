@@ -65,10 +65,8 @@ class WorkflowTransitionAddedEventProjector implements DomainEventProjectorInter
             self::TABLE,
             [
                 'workflow_id' => $aggregateId->getValue(),
-                'source_id' => StatusId::fromCode($event->getTransition()->getSource())->getValue(),
-                'destination_id' => StatusId::fromCode($event->getTransition()->getDestination())->getValue(),
-                'name' => $this->serializer->serialize($event->getTransition()->getName()->getTranslations(), 'json'),
-                'description' => $this->serializer->serialize($event->getTransition()->getDescription()->getTranslations(), 'json'),
+                'source_id' => StatusId::fromCode($event->getTransition()->getFrom())->getValue(),
+                'destination_id' => StatusId::fromCode($event->getTransition()->getTo())->getValue(),
             ]
         );
     }

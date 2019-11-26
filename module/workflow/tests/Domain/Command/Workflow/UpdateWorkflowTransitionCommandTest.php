@@ -9,9 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Tests\Domain\Command\Workflow;
 
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\Transition;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -25,11 +26,12 @@ class UpdateWorkflowTransitionCommandTest extends TestCase
     {
         /** @var WorkflowId $workflowId */
         $workflowId = $this->createMock(WorkflowId::class);
-        /** @var Transition $transition */
-        $transition = $this->createMock(Transition::class);
+        $source = $this->createMock(StatusCode::class);
+        $destination = $this->createMock(StatusCode::class);
+        $name = $this->createMock(TranslatableString::class);
+        $description = $this->createMock(TranslatableString::class);
 
-        $command = new UpdateWorkflowTransitionCommand($workflowId, $transition);
+        $command = new UpdateWorkflowTransitionCommand($workflowId, $source, $destination, $name, $description);
         $this->assertSame($workflowId, $command->getWorkflowId());
-        $this->assertSame($transition, $command->getTransition());
     }
 }

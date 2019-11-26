@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 
+use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
@@ -18,7 +19,6 @@ use Ergonode\Workflow\Application\Form\TransitionChangeForm;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
 use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\Workflow\Domain\ValueObject\Transition;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -124,17 +124,19 @@ class TransitionChangeAction
                 /** @var TransitionChangeFormModel $data */
                 $data = $form->getData();
 
-                $transition = new Transition(
+                $roles = [];
+                foreach ($data->roles as $role) {
+                    $roles[] = new RoleId($role);
+                }
+
+                $command = new UpdateWorkflowTransitionCommand(
+                    $workflow->getId(),
                     $source->getCode(),
                     $destination->getCode(),
                     new TranslatableString($data->name),
                     new TranslatableString($data->description),
+                    $roles,
                     $data->conditionSet ? new ConditionSetId($data->conditionSet) : null
-                );
-
-                $command = new UpdateWorkflowTransitionCommand(
-                    $workflow->getId(),
-                    $transition
                 );
 
                 $this->messageBus->dispatch($command);
