@@ -12,10 +12,13 @@ namespace Ergonode\Multimedia\Application\Request\ParamConverter;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
+use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
+use Ergonode\Multimedia\Infrastructure\Service\FileExistCheckService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -26,13 +29,25 @@ class MultimediaParamConverter implements ParamConverterInterface
      * @var MultimediaRepositoryInterface
      */
     private $repository;
+    /**
+     * @var MultimediaFileProviderInterface
+     */
+    private $fileProvider;
+    /**
+     * @var FileExistCheckService
+     */
+    private $fileExistCheckService;
 
     /**
-     * @param MultimediaRepositoryInterface $repository
+     * @param MultimediaRepositoryInterface   $repository
+     * @param MultimediaFileProviderInterface $fileProvider
+     * @param FileExistCheckService           $fileExistCheckService
      */
-    public function __construct(MultimediaRepositoryInterface $repository)
+    public function __construct(MultimediaRepositoryInterface $repository, MultimediaFileProviderInterface $fileProvider, FileExistCheckService $fileExistCheckService)
     {
         $this->repository = $repository;
+        $this->fileProvider = $fileProvider;
+        $this->fileExistCheckService = $fileExistCheckService;
     }
 
     /**
@@ -54,6 +69,12 @@ class MultimediaParamConverter implements ParamConverterInterface
 
         if (null === $entity) {
             throw new NotFoundHttpException(sprintf('Multimedia by ID "%s" not found', $parameter));
+        }
+
+        $file = $this->fileProvider->getFile($entity);
+
+        if (!$this->fileExistCheckService->check($file)) {
+            throw new ConflictHttpException('The file does not exist.');
         }
 
         $request->attributes->set($configuration->getName(), $entity);
