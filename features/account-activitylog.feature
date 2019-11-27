@@ -33,16 +33,40 @@ Feature: Account module
     Given current authentication token
     When I request "/api/v1/EN/accounts/log?field=author" using HTTP GET
     Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"author"/
+    """
 
   Scenario: Get accounts log (order by recorded_at)
     Given current authentication token
     When I request "/api/v1/EN/accounts/log?field=recorded_at" using HTTP GET
     Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"recorded_at"/
+    """
 
   Scenario: Get accounts log (order by event)
     Given current authentication token
     When I request "/api/v1/EN/accounts/log?field=event" using HTTP GET
     Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"event:EN"/
+    """
 
   Scenario: Get accounts log (filter by time)
     Given current authentication token
