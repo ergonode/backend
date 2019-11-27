@@ -24,3 +24,19 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             -   'PL': 'Status'
                 'EN': 'Status'
+    label_esa_created_at:
+        __construct:
+            -   'PL': 'Czas utworzenia'
+                'EN': 'Created at'
+    label_esa_edited_at:
+        __construct:
+            -   'PL': 'Czas edycji'
+                'EN': 'Edited at'
+    label_esa_created_by:
+        __construct:
+            -   'PL': 'Utworzone przez'
+                'EN': 'Created by'
+    label_esa_edited_by:
+        __construct:
+            -   'PL': 'Edytowane przez'
+                'EN': 'Edited by'

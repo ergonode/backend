@@ -68,11 +68,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     protected $parameters;
 
     /**
-     * @var bool
-     */
-    protected $system;
-
-    /**
      * @param AttributeId        $id
      * @param AttributeCode      $code
      * @param TranslatableString $label
@@ -80,7 +75,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      * @param TranslatableString $placeholder
      * @param bool               $multilingual
      * @param array              $parameters
-     * @param bool               $system
      *
      * @throws \Exception
      */
@@ -91,8 +85,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
         TranslatableString $hint,
         TranslatableString $placeholder,
         bool $multilingual,
-        array $parameters = [],
-        bool $system = false
+        array $parameters = []
     ) {
         $this->apply(
             new AttributeCreatedEvent(
@@ -105,7 +98,9 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
                 $this->getType(),
                 \get_class($this),
                 $parameters,
-                $system
+                $this->isEditable(),
+                $this->isDeletable(),
+                $this->isSystem()
             )
         );
     }
@@ -140,6 +135,30 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function isMultilingual(): bool
     {
         return $this->multilingual;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSystem(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEditable(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeletable(): bool
+    {
+        return true;
     }
 
     /**
@@ -294,7 +313,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
         $this->multilingual = $event->isMultilingual();
         $this->placeholder = $event->getPlaceholder();
         $this->parameters = $event->getParameters();
-        $this->system = $event->isSystem();
     }
 
     /**

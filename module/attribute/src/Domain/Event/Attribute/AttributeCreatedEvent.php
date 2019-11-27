@@ -90,6 +90,20 @@ class AttributeCreatedEvent implements DomainEventInterface
     private $system;
 
     /**
+     * @var bool
+     *
+     * @JMS\Type("bool")
+     */
+    private $editable;
+
+    /**
+     * @var bool
+     *
+     * @JMS\Type("bool")
+     */
+    private $deletable;
+
+    /**
      * @param AttributeId        $id
      * @param AttributeCode      $code
      * @param TranslatableString $label
@@ -99,6 +113,8 @@ class AttributeCreatedEvent implements DomainEventInterface
      * @param string             $type
      * @param string             $class
      * @param array              $parameters
+     * @param bool               $editable
+     * @param bool               $deletable
      * @param bool               $system
      */
     public function __construct(
@@ -111,6 +127,8 @@ class AttributeCreatedEvent implements DomainEventInterface
         string $type,
         string $class,
         array $parameters = [],
+        bool $editable = true,
+        bool $deletable = true,
         bool $system = false
     ) {
         $this->id = $id;
@@ -123,6 +141,8 @@ class AttributeCreatedEvent implements DomainEventInterface
         $this->placeholder = $placeholder;
         $this->parameters = $parameters;
         $this->system = $system;
+        $this->editable = $editable;
+        $this->deletable = $deletable;
     }
 
     /**
@@ -203,5 +223,21 @@ class AttributeCreatedEvent implements DomainEventInterface
     public function isSystem(): bool
     {
         return $this->system;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEditable(): bool
+    {
+        return $this->editable;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeletable(): bool
+    {
+        return $this->deletable;
     }
 }

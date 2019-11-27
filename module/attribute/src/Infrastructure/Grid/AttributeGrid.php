@@ -76,15 +76,21 @@ class AttributeGrid extends AbstractGrid
         $this->addColumn('groups', new MultiSelectColumn('groups', 'Groups', new MultiSelectFilter($groups, $filters->get('groups'))));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
+                'privilege' => 'ATTRIBUTE_READ',
+                'show' => ['system' => false],
                 'route' => 'ergonode_attribute_read',
                 'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
             ],
             'edit' => [
+                'privilege' => 'ATTRIBUTE_UPDATE',
+                'show' => ['system' => false],
                 'route' => 'ergonode_attribute_change',
                 'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
+                'privilege' => 'ATTRIBUTE_DELETE',
+                'show' => ['system' => false],
                 'route' => 'ergonode_attribute_delete',
                 'parameters' => ['language' => $language->getCode(), 'attribute' => '{id}'],
                 'method' => Request::METHOD_DELETE,

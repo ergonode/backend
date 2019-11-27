@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,23 +6,22 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Domain\Entity\Attribute;
+namespace Ergonode\Product\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
+use Ergonode\AttributeDate\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class NumericAttribute extends AbstractAttribute
+class EditedAtSystemAttribute extends DateAttribute
 {
-    public const TYPE = 'NUMERIC';
+    public const TYPE = 'DATE';
+    public const CODE = 'esa_edited_at';
 
     /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
@@ -31,23 +29,38 @@ class NumericAttribute extends AbstractAttribute
      * @throws \Exception
      */
     public function __construct(
-        AttributeId $id,
-        AttributeCode $code,
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, false);
+        $code = new AttributeCode(self::CODE);
+        $id = AttributeId::fromKey($code);
+        $format = new DateFormat(DateFormat::YYYY_MM_DD);
+
+        parent::__construct($id, $code, $label, $hint, $placeholder, $format);
     }
 
     /**
-     * @JMS\virtualProperty();
-     * @JMS\SerializedName("type")
-     *
      * @return string
      */
     public function getType(): string
     {
         return self::TYPE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSystem(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEditable(): bool
+    {
+        return false;
     }
 }

@@ -31,7 +31,6 @@ class UnitAttribute extends AbstractAttribute
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param Unit               $unit
-     * @param bool               $system
      *
      * @throws \Exception
      */
@@ -41,10 +40,9 @@ class UnitAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        Unit $unit,
-        bool $system = false
+        Unit $unit
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, [self::CODE => $unit->getCode()], $system);
+        parent::__construct($id, $code, $label, $hint, $placeholder, false, [self::CODE => $unit->getCode()]);
     }
 
     /**

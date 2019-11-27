@@ -20,7 +20,6 @@ use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Grid\Link\GetLink;
 use Ergonode\Grid\Model\RequestColumn;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute;
@@ -95,7 +94,8 @@ class ProductGridColumnBuilder
                 $new = $this->provider->provide($attribute, $language, $filters);
                 $new->setExtension('element_id', $id->getValue());
                 $new->setExtension('parameters', $attribute->getParameters());
-                $new->setEditable(true);
+                $new->setEditable($attribute->isEditable());
+                $new->setDeletable($attribute->isDeletable());
 
                 if ($column->getLanguage()) {
                     $new->setLanguage($column->getLanguage());

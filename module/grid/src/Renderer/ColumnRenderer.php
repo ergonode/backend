@@ -81,6 +81,12 @@ class ColumnRenderer
             $result['editable'] = false;
         }
 
+        if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) && $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true) {
+            $result['deletable'] = $column->isDeletable();
+        } else {
+            $result['deletable'] = false;
+        }
+
         if ($column->getFilter()) {
             $result['filter'] = $this->filterRenderer->render($column->getFilter());
         }

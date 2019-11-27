@@ -36,7 +36,16 @@ services:
     Ergonode\Product\Domain\Query\HistoryQueryInterface: '@Ergonode\Product\Persistence\Dbal\Query\DbalHistoryQuery'
     Ergonode\Product\Domain\Query\GetProductQueryInterface: '@Ergonode\Product\Persistence\Dbal\Query\GetProductQuery'
 
-    # Cache Decorators
+    Ergonode\Product\Domain\Factory\Decorator\CreatedAtAttributeDecorator:
+        decorates: Ergonode\ProductSimple\Domain\Factory\SimpleProductFactory
+        arguments:
+            - '@Ergonode\Product\Domain\Factory\Decorator\CreatedAtAttributeDecorator.inner'
+
+    Ergonode\Product\Domain\Factory\Decorator\CreatedByAttributeDecorator:
+        decorates: Ergonode\ProductSimple\Domain\Factory\SimpleProductFactory
+        arguments:
+            - '@Ergonode\Product\Domain\Factory\Decorator\CreatedByAttributeDecorator.inner'
+
     Ergonode\Product\Persistence\Dbal\Query\Decorator\CacheProductQueryDecorator:
         decorates: Ergonode\Product\Domain\Query\ProductQueryInterface
         arguments:

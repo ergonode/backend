@@ -31,7 +31,6 @@ class DateAttribute extends AbstractAttribute
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param DateFormat         $format
-     * @param bool               $system
      *
      * @throws \Exception
      */
@@ -41,10 +40,9 @@ class DateAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        DateFormat $format,
-        bool $system = false
+        DateFormat $format
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, [self::FORMAT => $format->getFormat()], $system);
+        parent::__construct($id, $code, $label, $hint, $placeholder, false, [self::FORMAT => $format->getFormat()]);
     }
 
     /**

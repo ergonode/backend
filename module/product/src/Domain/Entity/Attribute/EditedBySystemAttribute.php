@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,23 +6,21 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Domain\Entity\Attribute;
+namespace Ergonode\Product\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class NumericAttribute extends AbstractAttribute
+class EditedBySystemAttribute extends TextAttribute
 {
-    public const TYPE = 'NUMERIC';
+    public const TYPE = 'TEXT';
+    public const CODE = 'esa_edited_by';
 
     /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
@@ -31,23 +28,37 @@ class NumericAttribute extends AbstractAttribute
      * @throws \Exception
      */
     public function __construct(
-        AttributeId $id,
-        AttributeCode $code,
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder
     ) {
+        $code = new AttributeCode(self::CODE);
+        $id = AttributeId::fromKey($code);
+
         parent::__construct($id, $code, $label, $hint, $placeholder, false);
     }
 
     /**
-     * @JMS\virtualProperty();
-     * @JMS\SerializedName("type")
-     *
      * @return string
      */
     public function getType(): string
     {
         return self::TYPE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSystem(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEditable(): bool
+    {
+        return false;
     }
 }

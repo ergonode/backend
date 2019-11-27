@@ -41,6 +41,11 @@ interface ColumnInterface
     public function isEditable(): bool;
 
     /**
+     * @return bool
+     */
+    public function isDeletable(): bool;
+
+    /**
      * @return Language|null
      */
     public function getLanguage(): ?Language;

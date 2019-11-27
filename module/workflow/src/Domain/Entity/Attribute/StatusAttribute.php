@@ -29,8 +29,6 @@ class StatusAttribute extends AbstractAttribute
     }
 
     /**
-     * @param AttributeId        $id
-     * @param AttributeCode      $code
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
@@ -38,12 +36,21 @@ class StatusAttribute extends AbstractAttribute
      * @throws \Exception
      */
     public function __construct(
-        AttributeId $id,
-        AttributeCode $code,
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, [], true);
+        $code = new AttributeCode(self::CODE);
+        $id = AttributeId::fromKey($code);
+
+        parent::__construct($id, $code, $label, $hint, $placeholder, false);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSystem(): bool
+    {
+        return true;
     }
 }

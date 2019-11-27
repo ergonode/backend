@@ -280,6 +280,22 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             -   'PL': 'Status'
                 'EN': 'Status'
+    label_esa_created_at:
+        __construct:
+            -   'PL': 'Czas utworzenia'
+                'EN': 'Created at'
+    label_esa_edited_at:
+        __construct:
+            -   'PL': 'Czas edycji'
+                'EN': 'Edited at'
+    label_esa_created_by:
+        __construct:
+            -   'PL': 'Utworzone przez'
+                'EN': 'Created by'
+    label_esa_edited_by:
+        __construct:
+            -   'PL': 'Edytowane przez'
+                'EN': 'Edited by'
 
 Ergonode\Workflow\Domain\Entity\Status:
     status_new:
@@ -350,8 +366,34 @@ Ergonode\Workflow\Domain\Entity\Workflow:
 Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute:
     attribute_esa_status:
         __construct:
-            - '<AttributeId(esa_status)>'
-            - '<AttributeCode(esa_status)>'
             - '@label_esa_status'
+            - '@empty'
+            - '@empty'
+            -
+Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute:
+    attribute_esa_created_at:
+        __construct:
+            - '@label_esa_created_at'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute:
+    attribute_esa_edited_at:
+        __construct:
+            - '@label_esa_edited_at'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute:
+    attribute_esa_created_by:
+        __construct:
+            - '@label_esa_created_by'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute:
+    attribute_esa_edited_by:
+        __construct:
+            - '@label_esa_edited_by'
             - '@empty'
             - '@empty'

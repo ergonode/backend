@@ -102,6 +102,18 @@ Feature: Product edit feature
     """
       /"filtered": 1/
     """
+    And the response body matches:
+    """
+      /"visible": true/
+    """
+    And the response body matches:
+    """
+      /"editable": true/
+    """
+    And the response body matches:
+    """
+      /"deletable": true/
+    """
 
   Scenario: Request product grid filtered by text attribute
     Given current authentication token
@@ -110,6 +122,18 @@ Feature: Product edit feature
     And the response body matches:
     """
       /"filtered": 1/
+    """
+    And the response body matches:
+    """
+      /"visible": true/
+    """
+    And the response body matches:
+    """
+      /"editable": true/
+    """
+    And the response body matches:
+    """
+      /"deletable": true/
     """
 
   Scenario: Request product grid filtered by text attribute null

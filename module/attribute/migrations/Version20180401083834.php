@@ -28,8 +28,11 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 placeholder UUID NOT NULL,
                 hint UUID NOT NULL,       
                 multilingual BOOLEAN NOT NULL,
-                system BOOLEAN DEFAULT false,                
+                system BOOLEAN NOT NULL,
+                editable BOOLEAN NOT NULL,
+                deletable BOOLEAN NOT NULL,                           
                 PRIMARY KEY(id)
+                                   
             )
         ');
         $this->addSql('CREATE UNIQUE INDEX attribute_code_key ON attribute USING btree (code)');
