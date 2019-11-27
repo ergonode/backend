@@ -21,6 +21,7 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -121,8 +122,12 @@ class MultimediaController extends AbstractController
      */
     public function getMultimedia(Multimedia $multimedia): Response
     {
-        $file = $this->fileProvider->getFile($multimedia);
+        try {
+            $file = $this->fileProvider->getFile($multimedia);
 
-        return $this->file($file);
+            return $this->file($file);
+        } catch (\Exception $e) {
+            throw new NotFoundHttpException('The file does not exist.');
+        }
     }
 }
