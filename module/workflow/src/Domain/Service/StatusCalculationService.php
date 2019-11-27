@@ -12,7 +12,7 @@ namespace Ergonode\Workflow\Domain\Service;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
 use Ergonode\Condition\Domain\Service\ConditionCalculator;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Workflow\Domain\ValueObject\Transition;
+use Ergonode\Workflow\Domain\Entity\Transition;
 use Webmozart\Assert\Assert;
 
 /**

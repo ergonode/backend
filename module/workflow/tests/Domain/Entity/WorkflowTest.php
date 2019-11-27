@@ -12,7 +12,6 @@ namespace Ergonode\Workflow\Tests\Domain\Entity;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
-use Ergonode\Workflow\Domain\ValueObject\Transition;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -125,35 +124,10 @@ class WorkflowTest extends TestCase
     }
 
     /**
-     * @throws \Exception
-     */
-    public function testTransitionManipulation(): void
-    {
-        /** @var Transition|MockObject $transition */
-        $transition = $this->createMock(Transition::class);
-        /** @var StatusCode|MockObject $source */
-        $source = new StatusCode('A');
-        $destination = new StatusCode('B');
-        $transition->method('getSource')->willReturn($source);
-        $transition->method('getDestination')->willReturn($destination);
-
-        $workflow = new Workflow($this->id, $this->code, [$source, $destination]);
-        $workflow->addTransition($transition);
-
-        $this->assertSame($transition, $workflow->getTransition($source, $destination));
-        $this->assertSame([$transition], $workflow->getTransitions());
-        $this->assertTrue($workflow->hasTransition($source, $destination));
-        $result = $workflow->getTransitionsFromStatus($source);
-        $this->assertSame([$transition], $workflow->getTransitionsFromStatus($source));
-        $workflow->changeTransition($source, $destination, $transition);
-        $workflow->removeTransition($source, $destination);
-        $this->assertFalse($workflow->hasTransition($source, $destination));
-        $this->assertEmpty($workflow->getTransitions());
-    }
-
-    /**
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Transition from "A" to "B" not exists
+     *
+     * @throws \Exception
      */
     public function testNoTransitionException(): void
     {
@@ -165,6 +139,8 @@ class WorkflowTest extends TestCase
     /**
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Status "A" already exists
+     *
+     * @throws \Exception
      */
     public function testAddingStatusAlreadyExistException(): void
     {
@@ -176,108 +152,49 @@ class WorkflowTest extends TestCase
     /**
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Transition from "A" to "B" already exists
+     *
+     * @throws \Exception
      */
-    public function testAddingTransitionAlreadyExistException()
+    public function testAddingTransitionAlreadyExistException(): void
     {
-        /** @var Transition|MockObject $transition1 */
-        $transition1 = $this->createMock(Transition::class);
         /** @var StatusCode|MockObject $source */
         $source = new StatusCode('A');
         $destination = new StatusCode('B');
-        $transition1->method('getSource')->willReturn($source);
-        $transition1->method('getDestination')->willReturn($destination);
 
-        /** @var Transition|MockObject $transition2 */
-        $transition2 = $this->createMock(Transition::class);
-        $transition2->method('getSource')->willReturn($source);
-        $transition2->method('getDestination')->willReturn($destination);
 
         $workflow = new Workflow($this->id, $this->code, [$source, $destination]);
-        $workflow->addTransition($transition1);
-        $workflow->addTransition($transition2);
+        $workflow->addTransition($source, $destination);
+        $workflow->addTransition($source, $destination);
     }
 
     /**
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Transition source status "A" not exists
+     *
+     * @throws \Exception
      */
-    public function testAddingNoSourceException()
+    public function testAddingNoSourceException(): void
     {
-        /** @var Transition|MockObject $transition1 */
-        $transition = $this->createMock(Transition::class);
         /** @var StatusCode|MockObject $source */
         $source = new StatusCode('A');
         $destination = new StatusCode('B');
-        $transition->method('getSource')->willReturn($source);
-        $transition->method('getDestination')->willReturn($destination);
+
         $workflow = new Workflow($this->id, $this->code, [$this->status]);
-        $workflow->addTransition($transition);
+        $workflow->addTransition($source, $destination);
     }
 
     /**
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Transition destination status "B" not exists
+     *
+     * @throws \Exception
      */
-    public function testAddingNoDestinationException()
+    public function testAddingNoDestinationException(): void
     {
-        /** @var Transition|MockObject $transition1 */
-        $transition = $this->createMock(Transition::class);
         /** @var StatusCode|MockObject $source */
         $source = new StatusCode('A');
         $destination = new StatusCode('B');
-        $transition->method('getSource')->willReturn($source);
-        $transition->method('getDestination')->willReturn($destination);
         $workflow = new Workflow($this->id, $this->code, [$source]);
-        $workflow->addTransition($transition);
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Transition not exists
-     */
-    public function testChangingTransitionNotExistsException()
-    {
-        /** @var Transition|MockObject $transition */
-        $transition = $this->createMock(Transition::class);
-        $source = new StatusCode('A');
-        $destination = new StatusCode('B');
-        $workflow = new Workflow($this->id, $this->code, [$this->status]);
-        $workflow->changeTransition($source, $destination, $transition);
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Transition source status "A" not exists
-     */
-    public function testChangingSourceNotExistsException()
-    {
-        /** @var Transition|MockObject $transition */
-        $transition = $this->createMock(Transition::class);
-        $source = new StatusCode('A');
-        $destination = new StatusCode('B');
-        $transition->method('getSource')->willReturn($source);
-        $transition->method('getDestination')->willReturn($destination);
-        $workflow = new Workflow($this->id, $this->code, [$source, $destination]);
-        $workflow->addTransition($transition);
-        $workflow->removeStatus($source);
-        $workflow->changeTransition($source, $destination, $transition);
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Transition destination status "B" not exists
-     */
-    public function testChangingDestinationNotExistsException()
-    {
-        /** @var Transition|MockObject $transition */
-        $transition = $this->createMock(Transition::class);
-        $source = new StatusCode('A');
-        $destination = new StatusCode('B');
-        $transition->method('getSource')->willReturn($source);
-        $transition->method('getDestination')->willReturn($destination);
-        $workflow = new Workflow($this->id, $this->code, [$source, $destination]);
-        $workflow->addTransition($transition);
-        $workflow->removeStatus($destination);
-        $workflow->changeTransition($source, $destination, $transition);
+        $workflow->addTransition($source, $destination);
     }
 }

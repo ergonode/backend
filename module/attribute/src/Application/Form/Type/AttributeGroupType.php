@@ -46,12 +46,11 @@ class AttributeGroupType extends AbstractType
     {
         $language = $this->userProvider->provide()->getLanguage();
 
-        $choices = $this->provider->getDictionary($language);
-
+        $choices = array_keys($this->provider->getDictionary($language));
 
         $resolver->setDefaults(
             [
-                'choices' => array_flip($choices),
+                'choices' => $choices,
                 'expanded' => false,
                 'multiple' => true,
             ]

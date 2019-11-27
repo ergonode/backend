@@ -15,6 +15,7 @@ use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Type;
 
 /**
  */
@@ -35,7 +36,7 @@ class UnitAttributeValueConstraintStrategy implements AttributeValueConstraintSt
     {
         return new Collection([
             'value' => [
-                new Length(['max' => 255]),
+                new Type(['type' => 'numeric']),
             ],
         ]);
     }

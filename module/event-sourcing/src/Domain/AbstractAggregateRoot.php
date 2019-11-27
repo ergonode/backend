@@ -80,6 +80,14 @@ abstract class AbstractAggregateRoot
     }
 
     /**
+     * @return AbstractEntity[]
+     */
+    protected function getEntities(): array
+    {
+        return [];
+    }
+
+    /**
      * @param DomainEventInterface $event
      * @param \DateTime            $recordedAt
      */
@@ -89,11 +97,14 @@ abstract class AbstractAggregateRoot
             $classArray = explode('\\', get_class($event));
             $class = end($classArray);
             $method = sprintf('apply%s', $class);
-            if (!method_exists($this, $method)) {
-                throw new \RuntimeException(sprintf('Can\'t find method  %s for event in aggregate %s', $method, get_class($this)));
+            if (method_exists($this, $method)) {
+                $this->$method($event);
             }
 
-            $this->$method($event);
+            foreach ($this->getEntities() as $entity) {
+                $entity->setAggregateRoot($this);
+                $entity->handle($event, $recordedAt);
+            }
         }
     }
 }

@@ -9,17 +9,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Entity;
 
+use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent;
-use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionChangedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
-use Ergonode\Workflow\Domain\ValueObject\Transition;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
@@ -53,7 +54,7 @@ class Workflow extends AbstractAggregateRoot
     /**
      * @var Transition[]
      *
-     * @JMS\Type("array<string, Ergonode\Workflow\Domain\ValueObject\Transition>")
+     * @JMS\Type("array<string, Ergonode\Workflow\Domain\Entity\Transition>")
      */
     private $transitions;
 
@@ -139,15 +140,15 @@ class Workflow extends AbstractAggregateRoot
     }
 
     /**
-     * @param StatusCode $source
-     * @param StatusCode $destination
+     * @param StatusCode $from
+     * @param StatusCode $to
      *
      * @return bool
      */
-    public function hasTransition(StatusCode $source, StatusCode $destination): bool
+    public function hasTransition(StatusCode $from, StatusCode $to): bool
     {
-        foreach ($this->transitions as $key => $transition) {
-            if ($source->isEqual($transition->getSource()) && $destination->isEqual($transition->getDestination())) {
+        foreach ($this->transitions as $transition) {
+            if ($from->isEqual($transition->getFrom()) && $to->isEqual($transition->getTo())) {
                 return true;
             }
         }
@@ -170,80 +171,106 @@ class Workflow extends AbstractAggregateRoot
     }
 
     /**
-     * @param Transition $transition
+     * @param StatusCode $from
+     * @param StatusCode $to
      *
      * @throws \Exception
      */
-    public function addTransition(Transition $transition): void
+    public function addTransition(StatusCode $from, StatusCode $to): void
     {
-        $source = $transition->getSource();
-        $destination = $transition->getDestination();
-
-        if ($this->hasTransition($source, $destination)) {
-            throw  new \RuntimeException(sprintf('Transition from "%s" to "%s" already exists', $source->getValue(), $destination->getValue()));
+        if ($this->hasTransition($from, $to)) {
+            throw  new \RuntimeException(sprintf('Transition from "%s" to "%s" already exists', $from->getValue(), $to->getValue()));
         }
 
-        if (!$this->hasStatus($source)) {
-            throw  new \RuntimeException(sprintf('Transition source status "%s" not exists', $source->getValue()));
+        if (!$this->hasStatus($from)) {
+            throw  new \RuntimeException(sprintf('Transition source status "%s" not exists', $from->getValue()));
         }
 
-        if (!$this->hasStatus($destination)) {
-            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $destination->getValue()));
+        if (!$this->hasStatus($to)) {
+            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $to->getValue()));
         }
+
+        $transition = new Transition(TransitionId::generate(), $from, $to);
 
         $this->apply(new WorkflowTransitionAddedEvent($transition));
     }
 
     /**
-     * @param StatusCode $source
-     * @param StatusCode $destination
-     * @param Transition $transition
+     * @param StatusCode          $from
+     * @param StatusCode          $to
+     * @param ConditionSetId|null $conditionSetId
      *
      * @throws \Exception
      */
-    public function changeTransition(StatusCode $source, StatusCode $destination, Transition $transition): void
+    public function changeTransitionConditionSetId(StatusCode $from, StatusCode $to, ConditionSetId $conditionSetId = null): void
     {
-        if (!$this->hasTransition($source, $destination)) {
+        if (!$this->hasTransition($from, $to)) {
             throw  new \RuntimeException('Transition not exists');
         }
 
-        if (!$this->hasStatus($source)) {
-            throw  new \RuntimeException(sprintf('Transition source status "%s" not exists', $source->getValue()));
+        if (!$this->hasStatus($from)) {
+            throw  new \RuntimeException(sprintf('Transition source status "%s" not exists', $from->getValue()));
         }
 
-        if (!$this->hasStatus($destination)) {
-            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $destination->getValue()));
+        if (!$this->hasStatus($to)) {
+            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $to->getValue()));
         }
 
-        $this->apply(new WorkflowTransitionChangedEvent($source, $destination, $this->getTransition($source, $destination), $transition));
+        $this->getTransition($from, $to)->changeConditionSetId($conditionSetId);
     }
 
     /**
-     * @param StatusCode $source
-     * @param StatusCode $destination
+     * @param StatusCode $from
+     * @param StatusCode $to
+     * @param array      $roleIds
      *
      * @throws \Exception
      */
-    public function removeTransition(StatusCode $source, StatusCode $destination): void
+    public function changeTransitionRoleIds(StatusCode $from, StatusCode $to, array $roleIds = []): void
     {
-        $this->apply(new WorkflowTransitionRemovedEvent($source, $destination));
+        Assert::allIsInstanceOf($roleIds, RoleId::class);
+
+        if (!$this->hasTransition($from, $to)) {
+            throw  new \RuntimeException('Transition not exists');
+        }
+
+        if (!$this->hasStatus($from)) {
+            throw  new \RuntimeException(sprintf('Transition source status "%s" not exists', $from->getValue()));
+        }
+
+        if (!$this->hasStatus($to)) {
+            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $to->getValue()));
+        }
+
+        $this->getTransition($from, $to)->changeRoleIds($roleIds);
     }
 
     /**
-     * @param StatusCode $source
-     * @param StatusCode $destination
+     * @param StatusCode $from
+     * @param StatusCode $to
+     *
+     * @throws \Exception
+     */
+    public function removeTransition(StatusCode $from, StatusCode $to): void
+    {
+        $this->apply(new WorkflowTransitionRemovedEvent($from, $to));
+    }
+
+    /**
+     * @param StatusCode $from
+     * @param StatusCode $to
      *
      * @return Transition
      */
-    public function getTransition(StatusCode $source, StatusCode $destination): Transition
+    public function getTransition(StatusCode $from, StatusCode $to): Transition
     {
         foreach ($this->transitions as $key => $transition) {
-            if ($source->isEqual($transition->getSource()) && $destination->isEqual($transition->getDestination())) {
+            if ($from->isEqual($transition->getFrom()) && $to->isEqual($transition->getTo())) {
                 return $transition;
             }
         }
 
-        throw  new \RuntimeException(sprintf('Transition from "%s" to "%s" not exists', $source->getValue(), $destination->getValue()));
+        throw  new \RuntimeException(sprintf('Transition from "%s" to "%s" not exists', $from->getValue(), $to->getValue()));
     }
 
     /**
@@ -263,7 +290,7 @@ class Workflow extends AbstractAggregateRoot
     {
         $transitions = [];
         foreach ($this->transitions as $transition) {
-            if ($code->isEqual($transition->getSource())) {
+            if ($code->isEqual($transition->getFrom())) {
                 $transitions[] = $transition;
             }
         }
@@ -343,19 +370,7 @@ class Workflow extends AbstractAggregateRoot
      */
     protected function applyWorkflowTransitionAddedEvent(WorkflowTransitionAddedEvent $event): void
     {
-        $this->transitions[] = $event->getTransition();
-    }
-
-    /**
-     * @param WorkflowTransitionChangedEvent $event
-     */
-    protected function applyWorkflowTransitionChangedEvent(WorkflowTransitionChangedEvent $event): void
-    {
-        foreach ($this->transitions as $key => $transition) {
-            if ($event->getSource()->isEqual($transition->getSource()) && $event->getDestination()->isEqual($transition->getDestination())) {
-                $this->transitions[$key] = $event->getTo();
-            }
-        }
+        $this->transitions[$event->getTransition()->getId()->getValue()] = $event->getTransition();
     }
 
     /**
@@ -364,7 +379,7 @@ class Workflow extends AbstractAggregateRoot
     protected function applyWorkflowTransitionRemovedEvent(WorkflowTransitionRemovedEvent $event): void
     {
         foreach ($this->transitions as $key => $transition) {
-            if ($event->getSource()->isEqual($transition->getSource()) && $event->getDestination()->isEqual($transition->getDestination())) {
+            if ($event->getSource()->isEqual($transition->getFrom()) && $event->getDestination()->isEqual($transition->getTo())) {
                 unset($this->transitions[$key]);
             }
         }
@@ -376,5 +391,13 @@ class Workflow extends AbstractAggregateRoot
     protected function applyWorkflowDefaultStatusSetEvent(WorkflowDefaultStatusSetEvent $event): void
     {
         $this->defaultStatus = $event->getCode();
+    }
+
+    /**
+     * @return AbstractEntity[]
+     */
+    protected function getEntities(): array
+    {
+        return $this->transitions;
     }
 }

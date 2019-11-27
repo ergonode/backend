@@ -12,13 +12,13 @@ namespace Ergonode\Workflow\Infrastructure\Query\Decorator;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute;
 use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
@@ -106,15 +106,16 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
                 'color' => $status->getColor(),
             ];
 
+            /** @var Transition[] $transitions */
             $transitions = $workflow->getTransitionsFromStatus($statusCode);
             $result['workflow'] = [];
             foreach ($transitions as $transition) {
                 if ($this->service->available($transition, $product)) {
-                    $destinationStatus = $this->statusRepository->load(StatusId::fromCode($transition->getDestination()));
+                    $destinationStatus = $this->statusRepository->load(StatusId::fromCode($transition->getTo()));
                     Assert::notNull($destinationStatus);
                     $result['workflow'][] = [
                         'name' => $destinationStatus->getName()->get($language),
-                        'transition' => $transition->getName()->get($language),
+                        'transition' => '',
                         'code' => $destinationStatus->getCode(),
                         'color' => $destinationStatus->getColor(),
                     ];
