@@ -117,8 +117,7 @@ Feature: Workflow
     """
       {
         "code": "WRK_@@random_code@@",
-        "statuses": ["@workflow_status_code@"],
-        "transitions": []
+        "statuses": ["@workflow_status_code@"]
       }
     """
     When I request "/api/v1/EN/workflow" using HTTP POST

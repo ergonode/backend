@@ -13,7 +13,6 @@ use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
-use Ergonode\Workflow\Domain\ValueObject\Transition;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -28,13 +27,10 @@ class CreateWorkflowCommandTest extends TestCase
         $code = 'Any code';
         /** @var StatusCode $status */
         $status = $this->createMock(StatusCode::class);
-        /** @var Transition $transition */
-        $transition = $this->createMock(Transition::class);
 
-        $command = new CreateWorkflowCommand($code, [$status], [$transition]);
+        $command = new CreateWorkflowCommand($code, [$status]);
         $this->assertSame($code, $command->getCode());
         $this->assertSame([$status], $command->getStatuses());
-        $this->assertSame([$transition], $command->getTransitions());
         $this->assertNotNull($command->getId());
     }
 
@@ -47,16 +43,5 @@ class CreateWorkflowCommandTest extends TestCase
         $id = $this->createMock(WorkflowId::class);
 
         new UpdateWorkflowCommand($id, [new \stdClass()]);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testIncorrectTransition(): void
-    {
-        /** @var WorkflowId $id */
-        $id = $this->createMock(WorkflowId::class);
-
-        new UpdateWorkflowCommand($id, [], [new \stdClass()]);
     }
 }

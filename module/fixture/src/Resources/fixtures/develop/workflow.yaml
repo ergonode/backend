@@ -36,14 +36,6 @@ Ergonode\Workflow\Domain\Entity\Status:
             - '@status_draft_translation'
             - '@status_draft_translation'
 
-Ergonode\Workflow\Domain\ValueObject\Transition:
-    default_transition:
-        __construct:
-            - '<statusCode(STATUS_NEW)>'
-            - '<statusCode(STATUS_DRAFT)>'
-            - '@transition_name_translation'
-            - '@transition_description_translation'
-
 Ergonode\Workflow\Domain\Entity\Workflow:
     default_workflow:
         __construct:
@@ -55,7 +47,8 @@ Ergonode\Workflow\Domain\Entity\Workflow:
             - addStatus:
                   - '<statusCode(STATUS_DRAFT)>'
             - addTransition:
-                  - '@default_transition'
+                  - '<statusCode(STATUS_NEW)>'
+                  - '<statusCode(STATUS_DRAFT)>'
 
 Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute:
     attribute_esa_status:

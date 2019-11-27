@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Form\Model;
 
+use Ergonode\Account\Infrastructure\Validator\RoleExists;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -39,4 +40,23 @@ class TransitionChangeFormModel
      * @var string
      */
     public $conditionSet;
+
+    /**
+     * @var array
+     *
+     * @Assert\All({
+     *     @Assert\NotBlank(),
+     *     @Assert\Uuid(strict=true),
+     *     @RoleExists()
+     *
+     * })
+     */
+    public $roles;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->roles = [];
+    }
 }

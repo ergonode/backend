@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Form\Model;
 
+use Ergonode\Account\Infrastructure\Validator\RoleExists;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Infrastructure\Validator as ErgoAssert;
@@ -66,11 +67,24 @@ class TransitionCreateFormModel
     private $workflow;
 
     /**
+     * @var array
+     *
+     * @Assert\All({
+     *     @Assert\NotBlank(),
+     *     @Assert\Uuid(strict=true),
+     *     @RoleExists()
+     *
+     * })
+     */
+    public $roles;
+
+    /**
      * @param Workflow $workflow
      */
     public function __construct(Workflow $workflow)
     {
         $this->workflow = $workflow;
+        $this->roles = [];
     }
 
     /**
@@ -79,7 +93,7 @@ class TransitionCreateFormModel
      * @param ExecutionContextInterface $context
      * @param mixed                     $payload
      */
-    public function validate(ExecutionContextInterface $context, $payload)
+    public function validate(ExecutionContextInterface $context, $payload): void
     {
         /** @var TransitionCreateFormModel $data */
         $data = $context->getValue();

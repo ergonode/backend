@@ -69,6 +69,8 @@ final class Version20190818160000 extends AbstractErgonodeMigration
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionChangedEvent' => 'Changed transition in workflow',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent' => 'Workflow deleted',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent' => 'Workflow default status set',
+            'Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent' => 'Transition condition set change',
+            'Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent' => 'Transition Notification  roles changed',
         ]);
     }
 

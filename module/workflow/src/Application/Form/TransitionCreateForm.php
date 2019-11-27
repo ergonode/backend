@@ -9,9 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Form;
 
+use Ergonode\Attribute\Application\Form\Type\AttributeOptionType;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Ergonode\Workflow\Application\Form\Model\TransitionCreateFormModel;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -42,6 +44,15 @@ class TransitionCreateForm extends AbstractType
             ->add(
                 'description',
                 TranslationType::class
+            )
+            ->add(
+                'roles',
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => TextType::class,
+                ]
             )
             ->add(
                 'condition_set',

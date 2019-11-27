@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Event\Workflow;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Workflow\Domain\ValueObject\Transition;
+use Ergonode\Workflow\Domain\Entity\Transition;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,7 +20,7 @@ class WorkflowTransitionAddedEvent implements DomainEventInterface
     /**
      * @var Transition
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\Transition")
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\Transition")
      */
     private $transition;
 
