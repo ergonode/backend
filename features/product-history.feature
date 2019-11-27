@@ -27,17 +27,25 @@ Feature: Product history feature
     Then created response is received
     And remember response param "id" as "product"
 
-  Scenario: Get products log (order by recorded_at)
+  Scenario: Get products history (order by recorded_at)
     Given current authentication token
     When I request "/api/v1/EN/products/@product@/history?field=recorded_at" using HTTP GET
     Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
 
-  Scenario: Get products log (order by event)
+  Scenario: Get products history (order by event)
     Given current authentication token
     When I request "/api/v1/EN/products/@product@/history?field=event" using HTTP GET
     Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
 
-  Scenario: Get products log (filter by time)
+  Scenario: Get products history (filter by time)
     Given current authentication token
     When I request "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at=2000-01-01" using HTTP GET
     Then grid response is received
@@ -46,7 +54,7 @@ Feature: Product history feature
       /"filtered": 0/
     """
 
-  Scenario: Get products log (filter by null time)
+  Scenario: Get products history (filter by null time)
     Given current authentication token
     When I request "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at=" using HTTP GET
     Then grid response is received
@@ -55,7 +63,7 @@ Feature: Product history feature
       /"filtered": 0/
     """
 
-  Scenario: Get products log (filter by time lower or equal 2000-01-01)
+  Scenario: Get products history (filter by time lower or equal 2000-01-01)
     Given current authentication token
     When I request "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2000-01-01" using HTTP GET
     Then grid response is received
@@ -64,7 +72,7 @@ Feature: Product history feature
       /"filtered": 0/
     """
 
-  Scenario: Get products log (filter by time lower or equal 2000-01-01)
+  Scenario: Get products history (filter by time lower or equal 2000-01-01)
     Given current authentication token
     When I request "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at>=2000-01-01" using HTTP GET
     Then grid response is received
@@ -73,7 +81,7 @@ Feature: Product history feature
       /"filtered": [^0]/
     """
 
-  Scenario: Get products log (filter by time greater or equal 2050-01-01)
+  Scenario: Get products history (filter by time greater or equal 2050-01-01)
     Given current authentication token
     When I request "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at>=2050-01-01" using HTTP GET
     Then grid response is received
@@ -82,7 +90,7 @@ Feature: Product history feature
       /"filtered": 0/
     """
 
-  Scenario: Get products log (filter by time greater or equal 2050-01-01)
+  Scenario: Get products history (filter by time greater or equal 2050-01-01)
     Given current authentication token
     When I request "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2050-01-01" using HTTP GET
     Then grid response is received
@@ -91,7 +99,7 @@ Feature: Product history feature
       /"filtered": [^0]/
     """
 
-  Scenario: Get products log (filter by time in range 2000-01-01 -2050-01-01)
+  Scenario: Get products history (filter by time in range 2000-01-01 -2050-01-01)
     Given current authentication token
     When I request "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2050-01-01;recorded_at>=2000-01-01" using HTTP GET
     Then grid response is received
@@ -100,7 +108,7 @@ Feature: Product history feature
       /"filtered": [^0]/
     """
 
-  Scenario: Get products log (not authorized)
+  Scenario: Get products history (not authorized)
     When I request "/api/v1/EN/products/@product@/history" using HTTP GET
     Then unauthorized response is received
 
