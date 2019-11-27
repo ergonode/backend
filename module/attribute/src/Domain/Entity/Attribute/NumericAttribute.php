@@ -27,7 +27,6 @@ class NumericAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $system
      *
      * @throws \Exception
      */
@@ -36,10 +35,9 @@ class NumericAttribute extends AbstractAttribute
         AttributeCode $code,
         TranslatableString $label,
         TranslatableString $hint,
-        TranslatableString $placeholder,
-        bool $system = false
+        TranslatableString $placeholder
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, [], $system);
+        parent::__construct($id, $code, $label, $hint, $placeholder, false);
     }
 
     /**

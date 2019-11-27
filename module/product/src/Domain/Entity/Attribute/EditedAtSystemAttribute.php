@@ -37,7 +37,7 @@ class EditedAtSystemAttribute extends DateAttribute
         $id = AttributeId::fromKey($code);
         $format = new DateFormat(DateFormat::YYYY_MM_DD);
 
-        parent::__construct($id, $code, $label, $hint, $placeholder, $format, true);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $format);
     }
 
     /**
@@ -46,5 +46,21 @@ class EditedAtSystemAttribute extends DateAttribute
     public function getType(): string
     {
         return self::TYPE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSystem(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEditable(): bool
+    {
+        return false;
     }
 }

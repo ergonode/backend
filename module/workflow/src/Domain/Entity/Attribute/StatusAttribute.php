@@ -43,6 +43,14 @@ class StatusAttribute extends AbstractAttribute
         $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code);
 
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, [], true);
+        parent::__construct($id, $code, $label, $hint, $placeholder, false);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSystem(): bool
+    {
+        return true;
     }
 }

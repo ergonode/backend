@@ -94,9 +94,8 @@ class ProductGridColumnBuilder
                 $new = $this->provider->provide($attribute, $language, $filters);
                 $new->setExtension('element_id', $id->getValue());
                 $new->setExtension('parameters', $attribute->getParameters());
-                if(!$attribute->isSystem()) {
-                    $new->setEditable(true);
-                }
+                $new->setEditable($attribute->isEditable());
+                $new->setDeletable($attribute->isDeletable());
 
                 if ($column->getLanguage()) {
                     $new->setLanguage($column->getLanguage());

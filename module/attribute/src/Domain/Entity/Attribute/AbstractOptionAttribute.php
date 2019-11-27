@@ -32,7 +32,6 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param bool               $multilingual
-     * @param bool               $system
      *
      * @throws \Exception
      */
@@ -42,10 +41,9 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
-        bool $system = false
+        bool $multilingual
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual, [self::OPTIONS => []], $system);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual, [self::OPTIONS => []]);
     }
 
     /**

@@ -35,7 +35,7 @@ class EditedBySystemAttribute extends TextAttribute
         $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code);
 
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, [], true);
+        parent::__construct($id, $code, $label, $hint, $placeholder, false);
     }
 
     /**
@@ -44,5 +44,21 @@ class EditedBySystemAttribute extends TextAttribute
     public function getType(): string
     {
         return self::TYPE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSystem(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEditable(): bool
+    {
+        return false;
     }
 }

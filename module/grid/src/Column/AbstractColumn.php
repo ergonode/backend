@@ -43,6 +43,11 @@ abstract class AbstractColumn implements ColumnInterface
     private $editable = false;
 
     /**
+     * @var bool
+     */
+    private $deletable = false;
+
+    /**
      * @var Language|null;
      */
     private $language;
@@ -119,6 +124,22 @@ abstract class AbstractColumn implements ColumnInterface
     public function setEditable(bool $editable): void
     {
         $this->editable = $editable;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeletable(): bool
+    {
+        return $this->deletable;
+    }
+
+    /**
+     * @param bool $deletable
+     */
+    public function setDeletable(bool $deletable): void
+    {
+        $this->deletable = $deletable;
     }
 
     /**
