@@ -35,6 +35,10 @@ Feature: Product history feature
     """
       /"filtered": [^0]/
     """
+    And the response body matches:
+    """
+      /"recorded_at"/
+    """
 
   Scenario: Get products history (order by event)
     Given current authentication token
@@ -44,6 +48,11 @@ Feature: Product history feature
     """
       /"filtered": [^0]/
     """
+    And the response body matches:
+    """
+      /"event:EN"/
+    """
+
 
   Scenario: Get products history (filter by time)
     Given current authentication token

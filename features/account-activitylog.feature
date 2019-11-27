@@ -37,6 +37,10 @@ Feature: Account module
     """
       /"filtered": [^0]/
     """
+    And the response body matches:
+    """
+      /"author"/
+    """
 
   Scenario: Get accounts log (order by recorded_at)
     Given current authentication token
@@ -46,6 +50,10 @@ Feature: Account module
     """
       /"filtered": [^0]/
     """
+    And the response body matches:
+    """
+      /"recorded_at"/
+    """
 
   Scenario: Get accounts log (order by event)
     Given current authentication token
@@ -54,6 +62,10 @@ Feature: Account module
     And the response body matches:
     """
       /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"event:EN"/
     """
 
   Scenario: Get accounts log (filter by time)
