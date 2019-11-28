@@ -69,7 +69,7 @@ class StatusGrid extends AbstractGrid
         $column = new TextColumn('description', 'Description', new TextFilter($filters->get('description')));
         $this->addColumn('description', $column);
 
-        $column = new BoolColumn('is_default', 'Default');
+        $column = new BoolColumn('is_default', 'Initial status');
         $this->addColumn('is_default', $column);
 
         $this->orderBy('code', 'DESC');
