@@ -27,7 +27,7 @@ class LabelColumn extends AbstractColumn
      *
      * @throws \Exception
      */
-    public function __construct(string $field, string $label, array $statuses, FilterInterface $filter = null)
+    public function __construct(string $field, ?string $label = null, array $statuses = [], FilterInterface $filter = null)
     {
         parent::__construct($field, $label, $filter);
 
