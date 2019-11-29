@@ -420,6 +420,7 @@ class ProductDraftController extends AbstractController
     {
         $draft = $this->draftProvider->provide($product);
         $value = $request->request->get('value');
+        $value = ($value !== '') ? $value : null;
         $constraint = $this->provider->provide($attribute);
         $violations = $this->validator->validate(['value' => $value], $constraint);
         if (0 === $violations->count()) {
