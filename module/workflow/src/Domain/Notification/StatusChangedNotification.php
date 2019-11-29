@@ -18,7 +18,7 @@ use Ergonode\Workflow\Domain\ValueObject\StatusCode;
  */
 class StatusChangedNotification implements NotificationInterface
 {
-    private const MESSAGE = 'Product {{ sku }} status was changed from {{ from }} to {{ to }} by user {{ user }}';
+    private const MESSAGE = 'Product %sku% status was changed from %from% to %to% by user %user%';
 
     /**
      * @var string

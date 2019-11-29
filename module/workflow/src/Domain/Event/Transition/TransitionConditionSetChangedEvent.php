@@ -11,12 +11,20 @@ namespace Ergonode\Workflow\Domain\Event\Transition;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Workflow\Domain\Entity\TransitionId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
 class TransitionConditionSetChangedEvent implements DomainEventInterface
 {
+    /**
+     * @var TransitionId
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\TransitionId")
+     */
+    private $transitionId;
+
     /**
      * @var ConditionSetId|null
      *
@@ -25,11 +33,21 @@ class TransitionConditionSetChangedEvent implements DomainEventInterface
     private $conditionSetId;
 
     /**
+     * @param TransitionId        $transitionId
      * @param ConditionSetId|null $conditionSetId
      */
-    public function __construct(?ConditionSetId $conditionSetId = null)
+    public function __construct(TransitionId $transitionId, ?ConditionSetId $conditionSetId = null)
     {
+        $this->transitionId = $transitionId;
         $this->conditionSetId = $conditionSetId;
+    }
+
+    /**
+     * @return TransitionId
+     */
+    public function getTransitionId(): TransitionId
+    {
+        return $this->transitionId;
     }
 
     /**

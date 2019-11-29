@@ -15,6 +15,7 @@ use Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent
 use Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -118,7 +119,15 @@ class Transition extends AbstractEntity
      */
     public function changeConditionSetId(?ConditionSetId $conditionSetId = null): void
     {
-        $this->apply(new TransitionConditionSetChangedEvent($conditionSetId));
+        if ($conditionSetId === null && $this->conditionSetId === null) {
+            return;
+        }
+
+        if ($conditionSetId !== null && $this->conditionSetId !== null && $conditionSetId->isEqual($this->conditionSetId)) {
+            return;
+        }
+
+        $this->apply(new TransitionConditionSetChangedEvent($this->id, $conditionSetId));
     }
 
     /**
@@ -128,7 +137,9 @@ class Transition extends AbstractEntity
      */
     public function changeRoleIds(array $roleIds = []): void
     {
-        $this->apply(new TransitionRoleIdsChangedEvent($roleIds));
+        Assert::allIsInstanceOf($roleIds, RoleId::class);
+
+        $this->apply(new TransitionRoleIdsChangedEvent($this->id, $roleIds));
     }
 
     /**
@@ -136,7 +147,9 @@ class Transition extends AbstractEntity
      */
     protected function applyTransitionConditionSetChangedEvent(TransitionConditionSetChangedEvent $event): void
     {
-        $this->conditionSetId = $event->getConditionSetId();
+        if ($this->id->isEqual($event->getTransitionId())) {
+            $this->conditionSetId = $event->getConditionSetId();
+        }
     }
 
     /**
@@ -144,6 +157,8 @@ class Transition extends AbstractEntity
      */
     protected function applyTransitionRoleIdsChangedEvent(TransitionRoleIdsChangedEvent $event): void
     {
-        $this->roleIds = $event->getRoleIds();
+        if ($this->id->isEqual($event->getTransitionId())) {
+            $this->roleIds = $event->getRoleIds();
+        }
     }
 }

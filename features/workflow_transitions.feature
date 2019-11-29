@@ -97,7 +97,7 @@ Feature: Workflow
     Then the response code is 200
     And the response body matches:
     """
-      /role_ids/
+      /"role_ids": \[\n[ ]*"[a-f1-9-]*/
     """
 
   Scenario: Create transition to workflow (duplicated)
@@ -229,11 +229,21 @@ Feature: Workflow
         "description": {
           "PL": "Translated description PL",
           "EN": "Translated description EN"
-        }
+        },
+        "roles": []
       }
       """
     When I request "/api/v1/EN/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@" using HTTP PUT
     Then empty response is received
+
+  Scenario: Get transition in default workflow
+    Given current authentication token
+    When I request "/api/v1/EN/workflow/default/transitions/@workflow_source_status_code@/@workflow_destination_status_code@"
+    Then the response code is 200
+    And the response body matches:
+    """
+        /"role_ids": \[\]/
+    """
 
   Scenario: Update transition to workflow (source not found)
     Given current authentication token
