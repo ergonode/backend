@@ -28,6 +28,9 @@ interface GridConfigurationInterface
         self::PARAMETER_ALLOW_COLUMN_MOVE => false,
     ];
 
+    public const VIEW_GRID = 'grid';
+    public const VIEW_LIST = 'list';
+
     /**
      * @return int
      */
@@ -59,7 +62,7 @@ interface GridConfigurationInterface
     public function getFilters(): FilterCollection;
 
     /**
-     * @return array
+     * @return string
      */
-    public function getShow(): array;
+    public function getView(): string;
 }

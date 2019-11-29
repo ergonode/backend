@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Grid\Column;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\FilterInterface;
 
 /**
  */
@@ -19,15 +18,30 @@ class TranslatableColumn extends AbstractColumn
     public const TYPE = 'TEXT';
 
     /**
-     * @param string               $field
-     * @param string               $label
-     * @param Language             $language
-     * @param FilterInterface|null $filter
+     * @var string|null
      */
-    public function __construct(string $field, string $label, Language $language, ?FilterInterface $filter = null)
-    {
-        parent::__construct($field, $label, $filter);
-        $this->setLanguage($language);
+    private $parameters;
+
+    /**
+     * @var string|null
+     */
+    private $domain;
+
+    /**
+     * @param string      $field
+     * @param string      $label
+     * @param string|null $parameters
+     * @param string|null $domain
+     */
+    public function __construct(
+        string $field,
+        string $label,
+        string $parameters = null,
+        string $domain = null
+    ) {
+        parent::__construct($field, $label);
+        $this->parameters = $parameters;
+        $this->domain = $domain;
     }
 
     /**
@@ -36,5 +50,21 @@ class TranslatableColumn extends AbstractColumn
     public function getType(): string
     {
         return self::TYPE;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getParameters(): ?string
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDomain(): ?string
+    {
+        return $this->domain;
     }
 }

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
 namespace Ergonode\Grid\Renderer;
 
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -53,30 +60,28 @@ class GridRenderer
     {
         $grid->init($configuration, $language);
 
-        $field = $configuration->getField();
-        $order = $configuration->getOrder();
+        $field = $configuration->getField() ?: $grid->getField();
+        $order = $configuration->getOrder() ?: $grid->getOrder();
         $records = $dataSet->getItems($grid->getColumns(), $configuration->getLimit(), $configuration->getOffset(), $field, $order);
 
-        $result = [
-            'configuration' => $grid->getConfiguration(),
-            'columns' => $this->columnRenderer->render($grid, []),
-            'collection' => [],
-        ];
-
-        // @todo HAX for column ordering (we need to refactor whole gird)
-        if (!empty($configuration->getColumns())) {
-            $columnsOrdered = [];
-            foreach (array_keys($configuration->getColumns()) as $name) {
-                foreach ($result['columns'] as $key => $column) {
-                    if ($name === $column['id']) {
-                        $columnsOrdered[] = $result['columns'][$key];
-                        break;
+        if (GridConfigurationInterface::VIEW_GRID === $configuration->getView()) {
+            $result['configuration'] = $grid->getConfiguration();
+            $result['columns'] = $this->columnRenderer->render($grid, []);
+            if (!empty($configuration->getColumns())) {
+                $columnsOrdered = [];
+                foreach (array_keys($configuration->getColumns()) as $name) {
+                    foreach ($result['columns'] as $key => $column) {
+                        if ($name === $column['id']) {
+                            $columnsOrdered[] = $result['columns'][$key];
+                            break;
+                        }
                     }
                 }
-            }
 
-            $result['columns'] = $columnsOrdered;
+                $result['columns'] = $columnsOrdered;
+            }
         }
+        $result['collection'] = [];
 
         foreach ($records as $row) {
             $result['collection'][] = $this->rowRenderer->render($grid, $row);

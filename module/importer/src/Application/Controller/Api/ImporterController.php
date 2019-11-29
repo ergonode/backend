@@ -136,13 +136,13 @@ class ImporterController extends AbstractController
      *     type="string",
      *     description="Filter"
      * )
-     * @SWG\Parameter(
-     *     name="show",
+    * @SWG\Parameter(
+     *     name="view",
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"COLUMN","DATA"},
-     *     description="Specify what response should containts"
+     *     enum={"grid","list"},
+     *     description="Specify respons format"
      * )
      * @SWG\Response(
      *     response=200,

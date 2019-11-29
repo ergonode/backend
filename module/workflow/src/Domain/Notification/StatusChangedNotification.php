@@ -18,7 +18,7 @@ use Ergonode\Workflow\Domain\ValueObject\StatusCode;
  */
 class StatusChangedNotification implements NotificationInterface
 {
-    private const MESSAGE = 'Product {{ sku }} status was changed from {{ from }} to {{ to }} by user {{ user }}';
+    private const MESSAGE = 'Product "%sku%" status was changed from "%from%" to "%to%" by user "%user%"';
 
     /**
      * @var string
@@ -53,10 +53,10 @@ class StatusChangedNotification implements NotificationInterface
         $this->createdAt = new \DateTime();
         $this->message = self::MESSAGE;
         $this->parameters = [
-            'sku' => $sku->getValue(),
-            'from' => $from->getValue(),
-            'to' => $to->getValue(),
-            'user' => sprintf('%s %s', $user->getFirstName(), $user->getLastName()),
+            '%sku%' => $sku->getValue(),
+            '%from%' => $from->getValue(),
+            '%to%' => $to->getValue(),
+            '%user%' => sprintf('%s %s', $user->getFirstName(), $user->getLastName()),
         ];
         $this->userId = $user->getId();
     }

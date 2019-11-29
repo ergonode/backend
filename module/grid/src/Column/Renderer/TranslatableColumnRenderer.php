@@ -9,15 +9,28 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Column\Renderer;
 
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\Column\TranslatableColumn;
 use Ergonode\Grid\ColumnInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class TranslatableColumnRenderer implements ColumnRendererInterface
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -27,8 +40,11 @@ class TranslatableColumnRenderer implements ColumnRendererInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param ColumnInterface|TranslatableColumn $column
+     * @param string                             $id
+     * @param array                              $row
      *
+     * @return string|null
      * @throws UnsupportedColumnException
      */
     public function render(ColumnInterface $column, string $id, array $row): ?string
@@ -37,8 +53,15 @@ class TranslatableColumnRenderer implements ColumnRendererInterface
             throw new UnsupportedColumnException($column);
         }
 
-        $string = new TranslatableString(\json_decode($row[$id] ?? '[]', true));
+        $parameters = [];
+        if ($column->getParameters()) {
+            $parameters = \json_decode($row[$column->getParameters()] ?? '[]', true);
+        }
 
-        return $string->get($column->getLanguage());
+        $parameters = $parameters ?: [];
+
+        $domain = $column->getDomain();
+
+        return $this->translator->trans($row[$id], $parameters, $domain);
     }
 }

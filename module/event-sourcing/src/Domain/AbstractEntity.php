@@ -46,13 +46,11 @@ abstract class AbstractEntity
      */
     public function handle(DomainEventInterface $event, \DateTime $recordedAt): void
     {
-        if (!$event instanceof AbstractDeleteEvent) {
-            $classArray = explode('\\', get_class($event));
-            $class = end($classArray);
-            $method = sprintf('apply%s', $class);
-            if (method_exists($this, $method)) {
-                $this->$method($event);
-            }
+        $classArray = explode('\\', get_class($event));
+        $class = end($classArray);
+        $method = sprintf('apply%s', $class);
+        if (method_exists($this, $method)) {
+            $this->$method($event);
         }
     }
 }

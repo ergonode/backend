@@ -25,7 +25,6 @@ class RequestGridConfiguration implements GridConfigurationInterface
     public const DESC = 'DESC';
     public const FILTER = null;
     public const COLUMNS = null;
-    public const SHOW = 'COLUMN, DATA, CONFIGURATION, INFO';
 
     private const ORDER = [
         self::ASC,
@@ -63,9 +62,9 @@ class RequestGridConfiguration implements GridConfigurationInterface
     private $columns;
 
     /**
-     * @var array
+     * @var string
      */
-    private $show;
+    private $view;
 
     /**
      * @param Request $request
@@ -99,7 +98,7 @@ class RequestGridConfiguration implements GridConfigurationInterface
         $filters = $request->query->get('filter', self::FILTER);
         $this->filters = new FilterCollection($filters);
 
-        $this->show = array_map('trim', explode(',', $request->query->get('show', self::SHOW)));
+        $this->view = $request->query->get('view', GridConfigurationInterface::VIEW_GRID);
         Assert::oneOf($this->order, self::ORDER);
     }
 
@@ -152,10 +151,10 @@ class RequestGridConfiguration implements GridConfigurationInterface
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getShow(): array
+    public function getView(): string
     {
-        return $this->show;
+        return $this->view;
     }
 }
