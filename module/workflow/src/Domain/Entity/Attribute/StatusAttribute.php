@@ -17,7 +17,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
  */
 class StatusAttribute extends AbstractAttribute
 {
-    public const TYPE = 'SELECT';
+    public const TYPE = 'STATUS';
     public const CODE = 'esa_status';
 
     /**
