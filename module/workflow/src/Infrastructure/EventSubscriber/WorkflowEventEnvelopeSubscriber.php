@@ -104,18 +104,20 @@ class WorkflowEventEnvelopeSubscriber implements EventSubscriberInterface
                 $destination = new StatusCode($event->getTo()->getValue());
                 if ($workflow->hasTransition($source, $destination)) {
                     $transition = $workflow->getTransition($source, $destination);
-                    $productId = new ProductId($envelope->getAggregateId()->getValue());
-                    $product = $this->productRepository->load($productId);
-                    Assert::notNull($product);
+                    if (!empty($transition->getRoleIds())) {
+                        $productId = new ProductId($envelope->getAggregateId()->getValue());
+                        $product = $this->productRepository->load($productId);
+                        Assert::notNull($product);
 
-                    $roleIds = $transition->getRoleIds();
-                    $recipients = $this->userIdsProvider->getUserIds($roleIds);
-                    $user = $this->userProvider->provide();
+                        $roleIds = $transition->getRoleIds();
+                        $recipients = $this->userIdsProvider->getUserIds($roleIds);
+                        $user = $this->userProvider->provide();
 
-                    $notification = new StatusChangedNotification($product->getSku(), $transition->getFrom(), $transition->getTo(), $user);
-                    $command = new SendNotificationCommand($notification, $recipients);
+                        $notification = new StatusChangedNotification($product->getSku(), $transition->getFrom(), $transition->getTo(), $user);
+                        $command = new SendNotificationCommand($notification, $recipients);
 
-                    $this->bus->dispatch($command);
+                        $this->bus->dispatch($command);
+                    }
                 }
             }
         }

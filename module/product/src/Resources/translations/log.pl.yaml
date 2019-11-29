@@ -1,6 +1,6 @@
-'Product added to category': 'Produkt dodany do kategorii "%categoryCode%"'
+'Product added to category': 'Produkt dodany do kategorii "%category_code%"'
 'Product created': 'Produkt "%sku%" utworzony'
-'Product removed from category': 'Produkt usunięty z kategorii "%categoryCode%"'
+'Product removed from category': 'Produkt usunięty z kategorii "%category_code%"'
 'Product attribute value added': 'Dodano wartość atrybutu "%code%"'
 'Product attribute value changed': 'Zmieniono wartość atrybutu "%code%"'
 'Product attribute value removed': 'Usunięto wartość atrybutu "%code%"'

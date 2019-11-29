@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Application\Controller\Api\Status;
+namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface;
+use Ergonode\Attribute\Infrastructure\Grid\AttributeGrid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
-use Ergonode\Workflow\Infrastructure\Grid\StatusGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -22,55 +22,51 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route(
- *     name="ergonode_workflow_status_grid_read",
- *     path="/status",
- *     methods={"GET"}
- * )
+ * @Route("/attributes/system", methods={"GET"})
  */
-class StatusGridReadAction
+class SystemAttributeGridReadAction
 {
+    /**
+     * @var AttributeGrid
+     */
+    private $attributeGrid;
+
+    /**
+     * @var AttributeGridQueryInterface
+     */
+    private $attributeGridQuery;
+
     /**
      * @var GridRenderer
      */
     private $gridRenderer;
 
     /**
-     * @var StatusQueryInterface
-     */
-    private $query;
-
-    /**
-     * @var StatusGrid
-     */
-    private $grid;
-
-    /**
-     * @param GridRenderer         $gridRenderer
-     * @param StatusQueryInterface $query
-     * @param StatusGrid           $grid
+     * @param GridRenderer                $gridRenderer
+     * @param AttributeGrid               $attributeGrid
+     * @param AttributeGridQueryInterface $attributeGridQuery
      */
     public function __construct(
         GridRenderer $gridRenderer,
-        StatusQueryInterface $query,
-        StatusGrid $grid
+        AttributeGrid $attributeGrid,
+        AttributeGridQueryInterface $attributeGridQuery
     ) {
+        $this->attributeGrid = $attributeGrid;
+        $this->attributeGridQuery = $attributeGridQuery;
         $this->gridRenderer = $gridRenderer;
-        $this->query = $query;
-        $this->grid = $grid;
     }
 
     /**
-     * @IsGranted("WORKFLOW_READ")
+     * @IsGranted("ATTRIBUTE_READ")
      *
-     * @SWG\Tag(name="Workflow")
+     * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code"
+     *     description="Language Code",
      * )
      * @SWG\Parameter(
      *     name="limit",
@@ -78,7 +74,7 @@ class StatusGridReadAction
      *     type="integer",
      *     required=true,
      *     default="50",
-     *     description="Number of returned lines"
+     *     description="Number of returned lines",
      * )
      * @SWG\Parameter(
      *     name="offset",
@@ -86,14 +82,14 @@ class StatusGridReadAction
      *     type="integer",
      *     required=true,
      *     default="0",
-     *     description="Number of start line"
+     *     description="Number of start line",
      * )
      * @SWG\Parameter(
      *     name="field",
      *     in="query",
      *     required=false,
      *     type="string",
-     *     description="Order field"
+     *     description="Order field",
      * )
      * @SWG\Parameter(
      *     name="order",
@@ -101,7 +97,7 @@ class StatusGridReadAction
      *     required=false,
      *     type="string",
      *     enum={"ASC","DESC"},
-     *     description="Order"
+     *     description="Order",
      * )
      * @SWG\Parameter(
      *     name="filter",
@@ -110,7 +106,7 @@ class StatusGridReadAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,
@@ -120,7 +116,7 @@ class StatusGridReadAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns statuses collection"
+     *     description="Returns attribute collection",
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
@@ -132,10 +128,12 @@ class StatusGridReadAction
      */
     public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
     {
+        $dataSet = $this->attributeGridQuery->getDataSet($language, true);
+
         $data = $this->gridRenderer->render(
-            $this->grid,
+            $this->attributeGrid,
             $configuration,
-            $this->query->getDataSet($language),
+            $dataSet,
             $language
         );
 

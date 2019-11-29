@@ -6,7 +6,6 @@
 
 namespace Ergonode\Grid\Tests\Column;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\TranslatableColumn;
 use PHPUnit\Framework\TestCase;
 
@@ -22,9 +21,8 @@ class TranslatableColumnTest extends TestCase
         $label = 'Any label';
         $parameters = 'Any parameters field';
         $domain = 'Any domain';
-        $language = new Language(Language::PL);
 
-        $column = new TranslatableColumn($field, $label, $language, $parameters, $domain);
+        $column = new TranslatableColumn($field, $label, $parameters, $domain);
         $this->assertSame($field, $column->getField());
         $this->assertSame($label, $column->getLabel());
         $this->assertSame($parameters, $column->getParameters());

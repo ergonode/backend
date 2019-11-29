@@ -116,4 +116,20 @@ abstract class AbstractGrid
     {
         return array_merge(self::DEFAULT, $this->configuration);
     }
+
+    /**
+     * @return string|null
+     */
+    public function getField(): ?string
+    {
+        return $this->field;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrder(): string
+    {
+        return $this->order;
+    }
 }

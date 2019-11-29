@@ -55,12 +55,13 @@ class TranslatableColumnRenderer implements ColumnRendererInterface
 
         $parameters = [];
         if ($column->getParameters()) {
-            $parameters = \json_decode($row[$id] ?? '[]', true);
+            $parameters = \json_decode($row[$column->getParameters()] ?? '[]', true);
         }
 
-        $domain = $column->getDomain();
-        $locale = $column->getLanguage() ? $column->getLanguage()->getCode() : null;
+        $parameters = $parameters ?: [];
 
-        return $this->translator->trans($row[$id], $parameters, $domain, $locale);
+        $domain = $column->getDomain();
+
+        return $this->translator->trans($row[$id], $parameters, $domain);
     }
 }

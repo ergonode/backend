@@ -98,13 +98,13 @@ class CategoryGridReadAction
      *     enum={"ASC","DESC"},
      *     description="Order",
      * )
-     * @SWG\Parameter(
-     *     name="show",
+    * @SWG\Parameter(
+     *     name="view",
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"COLUMN","DATA"},
-     *     description="Specify what response should containts"
+     *     enum={"grid","list"},
+     *     description="Specify respons format"
      * )
      * @SWG\Parameter(
      *     name="language",

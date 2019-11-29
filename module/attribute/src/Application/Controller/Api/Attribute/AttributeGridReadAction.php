@@ -89,7 +89,6 @@ class AttributeGridReadAction
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"id", "label","code", "hint"},
      *     description="Order field",
      * )
      * @SWG\Parameter(
@@ -108,12 +107,12 @@ class AttributeGridReadAction
      *     description="Filter"
      * )
      * @SWG\Parameter(
-     *     name="show",
+     *     name="view",
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"COLUMN","DATA"},
-     *     description="Specify what response should containts"
+     *     enum={"grid","list"},
+     *     description="Specify respons format"
      * )
      * @SWG\Response(
      *     response=200,

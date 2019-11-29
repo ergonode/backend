@@ -90,11 +90,11 @@ class LanguageGridReadAction
      *     description="Order",
      * )
      * @SWG\Parameter(
-     *     name="show",
+     *     name="view",
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"COLUMN","DATA"},
+     *     enum={"grid","list"},
      *     description="Specify what response should containts"
      * )
      * @SWG\Parameter(

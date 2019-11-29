@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Grid\Column;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\FilterInterface;
 
 /**
  */
@@ -31,19 +30,16 @@ class TranslatableColumn extends AbstractColumn
     /**
      * @param string      $field
      * @param string      $label
-     * @param Language    $language
      * @param string|null $parameters
      * @param string|null $domain
      */
     public function __construct(
         string $field,
         string $label,
-        Language $language,
         string $parameters = null,
         string $domain = null
     ) {
         parent::__construct($field, $label);
-        $this->setLanguage($language);
         $this->parameters = $parameters;
         $this->domain = $domain;
     }

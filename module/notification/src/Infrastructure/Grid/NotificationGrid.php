@@ -14,6 +14,7 @@ use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Column\TranslatableColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 
@@ -33,7 +34,7 @@ class NotificationGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
-        $column = new TextColumn('message', 'Message', new TextFilter($filters->get('message')));
+        $column = new TranslatableColumn('message', 'Message', 'parameters', 'notification');
         $this->addColumn('message', $column);
 
         $column = new DateColumn('created_at', 'Created at', new TextFilter($filters->get('created_at')));
