@@ -100,7 +100,11 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
             foreach ($attribute->getOptions() as $key => $option) {
                 $options[$key] = $this->resolver->resolve($option, $language);
             }
-            $properties['options'] = $options;
+            if (!empty($options)) {
+                $properties['options'] = $options;
+            } else {
+                $properties['options'] = new \stdClass();
+            }
         }
 
         return new ViewTemplateElement(

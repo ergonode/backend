@@ -25,14 +25,14 @@ Ergonode\Workflow\Domain\Entity\Status:
         __construct:
             - '<statusId(STATUS_NEW)>'
             - '<statusCode(STATUS_NEW)>'
-            - '<color(#f58231)>'
+            - '<color(#33373E)>'
             - '@status_new_translation'
             - '@status_new_translation'
     status_draft:
         __construct:
             - '<statusId(STATUS_DRAFT)>'
             - '<statusCode(STATUS_DRAFT)>'
-            - '<color(#e6194B)>'
+            - '<color(#FFC108)>'
             - '@status_draft_translation'
             - '@status_draft_translation'
 
@@ -49,12 +49,3 @@ Ergonode\Workflow\Domain\Entity\Workflow:
             - addTransition:
                   - '<statusCode(STATUS_NEW)>'
                   - '<statusCode(STATUS_DRAFT)>'
-
-Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute:
-    attribute_esa_status:
-        __construct:
-            - '<AttributeId(esa_status)>'
-            - '<AttributeCode(esa_status)>'
-            - '@label_esa_status'
-            - '@empty'
-            - '@empty'
