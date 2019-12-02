@@ -15,7 +15,7 @@ use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Event\ProductValueChanged;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute;
+use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Notification\StatusChangedNotification;
@@ -96,7 +96,7 @@ class WorkflowEventEnvelopeSubscriber implements EventSubscriberInterface
         $event = $envelope->getEvent();
         if ($event instanceof ProductValueChanged) {
             $attributeCode = $event->getAttributeCode();
-            if ($attributeCode->getValue() === StatusAttribute::CODE) {
+            if ($attributeCode->getValue() === StatusSystemAttribute::CODE) {
                 $workflowId = WorkflowId::fromCode(Workflow::DEFAULT);
                 $workflow = $this->workflowRepository->load($workflowId);
                 Assert::notNull($workflow);

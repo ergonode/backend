@@ -11,6 +11,7 @@ namespace Ergonode\Designer\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
@@ -50,6 +51,20 @@ class DbalTemplateQuery implements TemplateQueryInterface
         $result->from(sprintf('(%s)', $this->getQuery()->getSQL()), 't');
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getDictionary(Language $language): array
+    {
+        return $this->getQuery()
+            ->select('id, name')
+            ->orderBy('name', 'desc')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
     /**

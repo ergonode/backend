@@ -44,8 +44,7 @@ class MultiSelectAttributeFactory implements AttributeFactoryInterface
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual(),
-            $command->isSystem()
+            $command->isMultilingual()
         );
 
         foreach ($command->getOptions() as $key => $option) {

@@ -15,7 +15,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute;
+use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ramsey\Uuid\Uuid;
@@ -68,7 +68,7 @@ class StatusProductRelationshipStrategy implements RelationshipStrategyInterface
         $status = $this->repository->load($id);
         Assert::notNull($status);
 
-        $attributeId = AttributeId::fromKey(new AttributeCode(StatusAttribute::CODE));
+        $attributeId = AttributeId::fromKey(new AttributeCode(StatusSystemAttribute::CODE));
         /** @var Uuid $valueId */
         $valueId = Uuid::uuid5(ValueInterface::NAMESPACE, implode('|', [$status->getCode()->getValue(), null]));
 

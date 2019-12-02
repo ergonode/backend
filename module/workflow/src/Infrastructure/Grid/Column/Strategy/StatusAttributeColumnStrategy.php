@@ -15,7 +15,7 @@ use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Request\FilterCollection;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AbstractLanguageColumnStrategy;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute;
+use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 
 /**
@@ -40,7 +40,7 @@ class StatusAttributeColumnStrategy extends AbstractLanguageColumnStrategy
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() === StatusAttribute::TYPE;
+        return $attribute->getType() === StatusSystemAttribute::TYPE;
     }
 
     /**
@@ -64,7 +64,7 @@ class StatusAttributeColumnStrategy extends AbstractLanguageColumnStrategy
         }
 
         return new LabelColumn(
-            StatusAttribute::CODE,
+            StatusSystemAttribute::CODE,
             $attribute->getLabel()->get($language),
             $statuses,
             new SelectFilter($statusCodes, $filter->get($filterKey))

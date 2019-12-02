@@ -15,7 +15,7 @@ use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute;
+use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
@@ -69,7 +69,7 @@ class StatusProductFactoryDecorator implements ProductFactoryInterface
     {
         $workflow = $this->repository->load(WorkflowId::fromCode(Workflow::DEFAULT));
         if ($workflow && $workflow->hasDefaultStatus()) {
-            $attributes[StatusAttribute::CODE] = new StringValue($workflow->getDefaultStatus()->getValue());
+            $attributes[StatusSystemAttribute::CODE] = new StringValue($workflow->getDefaultStatus()->getValue());
         }
 
         return $this->factory->create($id, $sku, $templateId, $categories, $attributes);

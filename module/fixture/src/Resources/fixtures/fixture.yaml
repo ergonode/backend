@@ -296,6 +296,10 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             -   'PL': 'Edytowane przez'
                 'EN': 'Edited by'
+    label_esa_template:
+        __construct:
+            -   'PL': 'Szablon'
+                'EN': 'Template'
 
 Ergonode\Workflow\Domain\Entity\Status:
     status_new:
@@ -363,7 +367,7 @@ Ergonode\Workflow\Domain\Entity\Workflow:
                   - '<statusCode("new")>'
                   - '<statusCode("draft")>'
 
-Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute:
+Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
     attribute_esa_status:
         __construct:
             - '@label_esa_status'
@@ -395,5 +399,12 @@ Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute:
     attribute_esa_edited_by:
         __construct:
             - '@label_esa_edited_by'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute:
+    attribute_esa_template:
+        __construct:
+            - '@label_esa_template'
             - '@empty'
             - '@empty'

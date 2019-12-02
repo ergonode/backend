@@ -40,3 +40,7 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             -   'PL': 'Edytowane przez'
                 'EN': 'Edited by'
+    label_esa_template:
+        __construct:
+            -   'PL': 'Szablon'
+                'EN': 'Template'
