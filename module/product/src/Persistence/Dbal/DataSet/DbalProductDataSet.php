@@ -19,6 +19,8 @@ use Ergonode\Grid\AbstractDbalDataSet;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\FilterInterface;
+use Ergonode\Product\Infrastructure\Grid\Builder\ProductFilterQueryBuilder;
+use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeQueryProvider;
 use Webmozart\Assert\Assert;
 
 /**
@@ -26,20 +28,25 @@ use Webmozart\Assert\Assert;
 class DbalProductDataSet extends AbstractDbalDataSet
 {
     private const PRODUCT_TABLE = 'product';
-    private const TEMPLATE_TABLE = 'designer.template';
 
     /**
      * @var Connection
      */
     private $connection;
 
+    /**
+     * @var ProductFilterQueryBuilder
+     */
+    private $builder;
 
     /**
-     * @param Connection $connection
+     * @param Connection                $connection
+     * @param ProductFilterQueryBuilder $builder
      */
-    public function __construct(Connection $connection)
+    public function __construct(Connection $connection, ProductFilterQueryBuilder $builder)
     {
         $this->connection = $connection;
+        $this->builder = $builder;
     }
 
     /**
@@ -83,7 +90,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
         $qb->select('*');
         $qb->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        $this->buildFilters($qb, $columns);
+        $qb = $this->builder->getFilter($qb, $columns);
 
         $qb->setMaxResults($limit);
         $qb->setFirstResult($offset);
@@ -117,7 +124,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
         $qb->select('*');
         $qb->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        $this->buildFilters($qb, $filters);
+        $qb = $this->builder->getFilter($qb, $filters);
         $count = $qb->select('count(*) AS COUNT')
             ->execute()
             ->fetch(\PDO::FETCH_COLUMN);
