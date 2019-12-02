@@ -71,7 +71,6 @@ class ProductGridColumnBuilder
     public function build(GridConfigurationInterface $configuration, Language $defaultLanguage): array
     {
         $codes = $this->attributeQuery->getAllAttributeCodes();
-        $filters = $configuration->getFilters();
 
         $result = [];
 
@@ -79,8 +78,8 @@ class ProductGridColumnBuilder
         $columns = array_merge([new RequestColumn(StatusSystemAttribute::CODE), new RequestColumn(TemplateSystemAttribute::CODE)], $configuration->getColumns());
 
         $result['id'] = new CheckColumn('id', 'Id');
-        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->get('index')));
-        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->get('sku')));
+        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter());
+        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter());
 
         foreach ($columns as $column) {
             $code = $column->getColumn();
@@ -91,7 +90,7 @@ class ProductGridColumnBuilder
                 $attribute = $this->repository->load($id);
                 Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
 
-                $new = $this->provider->provide($attribute, $language, $filters);
+                $new = $this->provider->provide($attribute, $language);
                 $new->setExtension('element_id', $id->getValue());
                 $new->setExtension('parameters', $attribute->getParameters());
                 $new->setEditable($attribute->isEditable());

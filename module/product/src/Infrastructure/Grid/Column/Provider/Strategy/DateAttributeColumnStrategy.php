@@ -15,11 +15,10 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\TextFilter;
-use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
-class DateAttributeColumnStrategy extends AbstractLanguageColumnStrategy
+class DateAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**
      * {@inheritDoc}
@@ -32,15 +31,14 @@ class DateAttributeColumnStrategy extends AbstractLanguageColumnStrategy
     /**
      * {@inheritDoc}
      */
-    public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
+    public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
         $columnKey = $attribute->getCode()->getValue();
-        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
 
         return new DateColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new TextFilter($filter->get($filterKey))
+            new TextFilter()
         );
     }
 }

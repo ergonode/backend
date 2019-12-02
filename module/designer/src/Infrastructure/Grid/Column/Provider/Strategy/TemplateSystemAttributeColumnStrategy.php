@@ -19,7 +19,6 @@ use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Request\FilterCollection;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AbstractLanguageColumnStrategy;
-use vendor\project\StatusTest;
 
 /**
  */
@@ -55,12 +54,10 @@ class TemplateSystemAttributeColumnStrategy extends AbstractLanguageColumnStrate
 
         $columnKey = $attribute->getCode()->getValue();
 
-        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
-
         return new SelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new SelectFilter($options, $filter->get($filterKey))
+            new SelectFilter($options)
         );
     }
 }

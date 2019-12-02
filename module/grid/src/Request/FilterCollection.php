@@ -53,7 +53,7 @@ class FilterCollection
                         $value = null;
                     }
 
-                    $this->filters[$matches[1][0]][$matches[2][0]] = $value;
+                    $this->filters[$matches[1][0]] = new FilterData($matches[1][0], $matches[2][0], $value);
                 }
             }
         }
@@ -72,14 +72,14 @@ class FilterCollection
     /**
      * @param string $key
      *
-     * @return array
+     * @return FilterData|null
      */
-    public function get(string $key): array
+    public function get(string $key): ?FilterData
     {
-        return array_key_exists($key, $this->filters) ? $this->filters[$key] : [];
+        return $this->filters[$key] ?? null;
     }
     /**
-     * @return array
+     * @return FilterData[]
      */
     public function getFilters(): array
     {

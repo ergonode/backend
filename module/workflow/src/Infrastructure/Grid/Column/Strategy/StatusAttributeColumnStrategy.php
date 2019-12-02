@@ -54,8 +54,6 @@ class StatusAttributeColumnStrategy extends AbstractLanguageColumnStrategy
      */
     public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
     {
-        $columnKey = $attribute->getCode()->getValue();
-        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
         $statuses = $this->statusQuery->getAllStatuses($language);
 
         $statusCodes = [];
@@ -67,7 +65,7 @@ class StatusAttributeColumnStrategy extends AbstractLanguageColumnStrategy
             StatusSystemAttribute::CODE,
             $attribute->getLabel()->get($language),
             $statuses,
-            new SelectFilter($statusCodes, $filter->get($filterKey))
+            new SelectFilter($statusCodes)
         );
     }
 }
