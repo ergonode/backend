@@ -60,7 +60,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
         $query = $this->getQuery();
         foreach ($columns as $key => $column) {
             $language = $column->getLanguage() ?: $userLanguage;
-            if (!in_array($column->getField(), ['id', 'sku', 'index', 'version', 'template'])) {
+            if (!in_array($column->getField(), ['id', 'sku', 'index', 'version', 'esa_template'])) {
                 if ($column->getType() === MultiSelectColumn::TYPE) {
                     $query->addSelect(sprintf(
                         '(SELECT jsonb_agg(value) FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id WHERE pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
@@ -108,7 +108,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
         $language = new Language(Language::EN);
         $query = $this->getQuery();
         foreach ($filters as $key => $column) {
-            if (!in_array($key, ['id', 'sku', 'index', 'version', 'template', 'edit'])) {
+            if (!in_array($key, ['id', 'sku', 'index', 'version', 'esa_template', 'edit'])) {
                 $query->addSelect(\sprintf('(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id JOIN attribute a ON a.id = pv.attribute_id WHERE a.code = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id) AS "%s"', $key, $language->getCode(), $key));
             }
         }
@@ -135,8 +135,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('p.id, p.index, p.sku, p.version, t.name AS template')
-            ->from(self::PRODUCT_TABLE, 'p')
-            ->join('p', self::TEMPLATE_TABLE, 't', 't.id = p.template_id');
+            ->select('p.id, p.index, p.sku, p.version, p.template_id AS esa_template')
+            ->from(self::PRODUCT_TABLE, 'p');
     }
 }

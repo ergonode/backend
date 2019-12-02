@@ -40,9 +40,7 @@ class TextareaAttributeFactory implements AttributeFactoryInterface
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual(),
-            [],
-            $command->isSystem()
+            $command->isMultilingual()
         );
     }
 }

@@ -270,11 +270,6 @@ Feature: Product module
     When I request "/api/v1/EN/products?field=sku" using HTTP GET
     Then grid response is received
 
-  Scenario: Get products (order by template)
-    Given current authentication token
-    When I request "/api/v1/EN/products?field=template" using HTTP GET
-    Then grid response is received
-
   Scenario: Get products (order ASC)
     Given current authentication token
     When I request "/api/v1/EN/products?field=index&order=ASC" using HTTP GET
@@ -283,11 +278,6 @@ Feature: Product module
   Scenario: Get products (order DESC)
     Given current authentication token
     When I request "/api/v1/EN/products?field=index&order=DESC" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get products (filter by template)
-    Given current authentication token
-    When I request "/api/v1/EN/products?limit=25&offset=0&filter=template%3D1" using HTTP GET
     Then grid response is received
 
   Scenario: Get products (filter by index)

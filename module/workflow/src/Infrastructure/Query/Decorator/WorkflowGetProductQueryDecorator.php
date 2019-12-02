@@ -16,7 +16,7 @@ use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute;
+use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\Workflow\Domain\Entity\Workflow;
@@ -93,14 +93,14 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
         Assert::notNull($product);
 
         $result = $this->query->query($productId, $language);
-        if (isset($result['attributes'][StatusAttribute::CODE])) {
+        if (isset($result['attributes'][StatusSystemAttribute::CODE])) {
             /** @var ValueInterface $value */
-            $value = $result['attributes'][StatusAttribute::CODE];
+            $value = $result['attributes'][StatusSystemAttribute::CODE];
             $statusCode = new StatusCode($value->getValue());
             $status = $this->statusRepository->load(StatusId::fromCode($statusCode));
             Assert::notNull($status);
             $result['status'] = [
-                'attribute_id' => AttributeId::fromKey(new AttributeCode(StatusAttribute::CODE)),
+                'attribute_id' => AttributeId::fromKey(new AttributeCode(StatusSystemAttribute::CODE)),
                 'name' => $status->getName()->get($language),
                 'code' => $statusCode,
                 'color' => $status->getColor(),

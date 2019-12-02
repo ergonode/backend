@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Grid\Column\CheckColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\LinkColumn;
@@ -22,7 +23,7 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Model\RequestColumn;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute;
+use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 
@@ -75,12 +76,11 @@ class ProductGridColumnBuilder
         $result = [];
 
         /** @var RequestColumn[] $columns */
-        $columns = array_merge([new RequestColumn(StatusAttribute::CODE)], $configuration->getColumns());
+        $columns = array_merge([new RequestColumn(StatusSystemAttribute::CODE), new RequestColumn(TemplateSystemAttribute::CODE)], $configuration->getColumns());
 
         $result['id'] = new CheckColumn('id', 'Id');
         $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->get('index')));
         $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->get('sku')));
-        $result['template'] = new TextColumn('template', 'Template', new TextFilter($filters->get('template')));
 
         foreach ($columns as $column) {
             $code = $column->getColumn();

@@ -12,7 +12,7 @@ namespace Ergonode\Workflow\Infrastructure\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusAttribute;
+use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Length;
@@ -30,7 +30,7 @@ class StatusAttributeValueConstraintStrategy implements AttributeValueConstraint
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute instanceof StatusAttribute;
+        return $attribute instanceof StatusSystemAttribute;
     }
 
     /**
