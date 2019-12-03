@@ -116,7 +116,6 @@ class ProductGridColumnBuilder
                     $result[$key] = $new;
                 }
             }
-
         }
 
         $result['_links'] = new LinkColumn('hal', [

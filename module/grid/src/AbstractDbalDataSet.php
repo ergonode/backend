@@ -28,8 +28,8 @@ abstract class AbstractDbalDataSet implements DataSetInterface
     {
         /** @var FilterValue $filter */
         foreach ($values as $name => $filters) {
-            foreach ($filters as $filter) {
-                if (array_key_exists($name, $columns)) {
+            if (array_key_exists($name, $columns)) {
+                foreach ($filters as $filter) {
                     $columnFilter = $columns[$name]->getFilter();
                     if ($columnFilter) {
                         if ($columnFilter instanceof TextFilter) {
