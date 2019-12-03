@@ -9,11 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Request;
 
+use Ergonode\Core\Domain\ValueObject\Language;
+
 /**
  */
-class FilterCollection
+class FilterValueCollection implements \IteratorAggregate
 {
     public const DELIMITER = ';';
+    public const LANGUAGE_SEPARATOR = ':';
     public const COMPARISON = '=';
     public const GREATER = '>';
     public const LOWER = '<';
@@ -41,7 +44,7 @@ class FilterCollection
     {
         $this->filters = [];
 
-        if ($string) {
+        if (null !== $string) {
             $filters = explode(self::DELIMITER, $string);
             $pattern = sprintf('/%s/', self::MAP[self::COMPARISON]);
             foreach ($filters as $filter) {
@@ -53,36 +56,24 @@ class FilterCollection
                         $value = null;
                     }
 
-                    $this->filters[$matches[1][0]][$matches[2][0]] = $value;
+                    $columnData = explode(self::LANGUAGE_SEPARATOR, $matches[1][0]);
+                    $columnName = $columnData[0];
+                    $columnLanguage = null;
+                    if (count($columnData) > 1) {
+                        $columnLanguage = new Language($columnData[1]);
+                    }
+
+                    $this->filters[$matches[1][0]][] = new FilterValue($columnName, $matches[2][0], $value, $columnLanguage);
                 }
             }
         }
     }
 
     /**
-     * @param string $key
-     *
-     * @return bool
+     * @return \ArrayIterator|\Traversable|FilterValue[]
      */
-    public function has(string $key): bool
+    public function getIterator(): \Traversable
     {
-        return array_key_exists($key, $this->filters);
-    }
-
-    /**
-     * @param string $key
-     *
-     * @return array
-     */
-    public function get(string $key): array
-    {
-        return array_key_exists($key, $this->filters) ? $this->filters[$key] : [];
-    }
-    /**
-     * @return array
-     */
-    public function getFilters(): array
-    {
-        return $this->filters;
+        return new \ArrayIterator($this->filters);
     }
 }

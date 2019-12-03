@@ -18,11 +18,10 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\RangeFilter;
-use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
-class NumericAttributeColumnStrategy extends AbstractLanguageColumnStrategy
+class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**
      * @var AttributeQueryInterface
@@ -48,14 +47,13 @@ class NumericAttributeColumnStrategy extends AbstractLanguageColumnStrategy
     /**
      * {@inheritDoc}
      */
-    public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
+    public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
         $range = $this->query->getAttributeValueRange($attribute->getId());
 
         $columnKey = $attribute->getCode()->getValue();
-        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
 
-        $columnFilter = new RangeFilter($range, $filter->get($filterKey));
+        $columnFilter = new RangeFilter($range);
 
         return new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
     }

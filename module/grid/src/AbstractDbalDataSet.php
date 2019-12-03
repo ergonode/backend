@@ -12,26 +12,34 @@ namespace Ergonode\Grid;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
+use Ergonode\Grid\Request\FilterValueCollection;
+use Ergonode\Grid\Request\FilterValue;
 
 /**
  */
 abstract class AbstractDbalDataSet implements DataSetInterface
 {
     /**
-     * @param QueryBuilder      $query
-     * @param ColumnInterface[] $columns
+     * @param QueryBuilder          $query
+     * @param FilterValueCollection $values
+     * @param ColumnInterface[]     $columns
      */
-    protected function buildFilters(QueryBuilder $query, array $columns = []): void
+    protected function buildFilters(QueryBuilder $query, FilterValueCollection $values, array $columns = []): void
     {
-        foreach ($columns as $field => $column) {
-            $filter = $column->getFilter();
-            if ($filter && !empty($filter->getValues())) {
-                if ($filter instanceof TextFilter) {
-                    $this->buildTextQuery($query, $field, $filter->getValues());
-                } elseif ($filter instanceof MultiSelectFilter) {
-                    $this->buildMultiSelectQuery($query, $field, $filter->getValues());
-                } else {
-                    $this->buildDefaultQuery($query, $field, $filter->getValues());
+        /** @var FilterValue $filter */
+        foreach ($values as $name => $filters) {
+            if (array_key_exists($name, $columns)) {
+                foreach ($filters as $filter) {
+                    $columnFilter = $columns[$name]->getFilter();
+                    if ($columnFilter) {
+                        if ($columnFilter instanceof TextFilter) {
+                            $this->buildTextQuery($query, $name, $filter->getOperator(), $filter->getValue());
+                        } elseif ($columnFilter instanceof MultiSelectFilter) {
+                            $this->buildMultiSelectQuery($query, $name, $filter->getOperator(), $filter->getValue());
+                        } else {
+                            $this->buildDefaultQuery($query, $name, $filter->getOperator(), $filter->getValue());
+                        }
+                    }
                 }
             }
         }
@@ -40,45 +48,45 @@ abstract class AbstractDbalDataSet implements DataSetInterface
     /**
      * @param QueryBuilder $query
      * @param string       $field
-     * @param string[]     $values
+     * @param string       $operator
+     * @param string|null  $value
      */
-    private function buildTextQuery(QueryBuilder $query, string $field, array $values = []): void
+    private function buildTextQuery(QueryBuilder $query, string $field, string $operator, string $value = null): void
     {
-        foreach ($values as $operator => $value) {
-            $query->andWhere($this->getExpresion($query, $field, $operator, $value));
-        }
+        $query->andWhere($this->getExpresion($query, $field, $operator, $value));
     }
 
     /**
      * @param QueryBuilder $query
      * @param string       $field
-     * @param string[]     $values
+     * @param string       $operator
+     * @param string|null  $givenValue
      */
-    private function buildMultiSelectQuery(QueryBuilder $query, string $field, array $values = []): void
+    private function buildMultiSelectQuery(QueryBuilder $query, string $field, string $operator, string $givenValue = null): void
     {
-        foreach ($values as $value) {
-            if (null !== $value) {
+        if (null !== $givenValue) {
+            $values = explode(',', $givenValue);
+            foreach ($values as $value) {
                 $query->andWhere(sprintf(
                     'jsonb_exists_any("%s"::jsonb, %s::text[])',
                     $field,
                     $query->createNamedParameter(sprintf('{%s}', $value))
                 ));
-            } else {
-                $query->andWhere(sprintf('"%s"::TEXT = \'[]\'::TEXT', $field));
             }
+        } else {
+            $query->andWhere(sprintf('"%s"::TEXT = \'[]\'::TEXT', $field));
         }
     }
 
     /**
      * @param QueryBuilder $query
      * @param string       $field
-     * @param array        $values
+     * @param string       $operator
+     * @param string|null  $value
      */
-    private function buildDefaultQuery(QueryBuilder $query, string $field, array $values = []): void
+    private function buildDefaultQuery(QueryBuilder $query, string $field, string $operator, string $value = null): void
     {
-        foreach ($values as $operator => $value) {
-            $query->andWhere($this->getExpresion($query, $field, $operator, $value));
-        }
+        $query->andWhere($this->getExpresion($query, $field, $operator, $value));
     }
 
     /**
@@ -105,7 +113,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
             return $query->expr()->lte($field, $query->createNamedParameter($value));
         }
 
-        return  \sprintf(
+        return \sprintf(
             '%s::TEXT ILIKE %s',
             $field,
             $query->createNamedParameter(\sprintf('%%%s%%', $this->escape($value)))

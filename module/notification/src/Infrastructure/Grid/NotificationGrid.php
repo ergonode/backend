@@ -28,22 +28,20 @@ class NotificationGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
-        $id = new TextColumn('id', 'Id', new TextFilter($filters->get('id')));
+        $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
         $column = new TranslatableColumn('message', 'Message', 'parameters', 'notification');
         $this->addColumn('message', $column);
 
-        $column = new DateColumn('created_at', 'Created at', new TextFilter($filters->get('created_at')));
+        $column = new DateColumn('created_at', 'Created at', new TextFilter());
         $this->addColumn('created_at', $column);
 
-        $column = new DateColumn('read_at', 'Read at', new TextFilter($filters->get('read_at')));
+        $column = new DateColumn('read_at', 'Read at', new TextFilter());
         $this->addColumn('read_at', $column);
 
-        $column = new TextColumn('author', 'Author', new TextFilter($filters->get('author')));
+        $column = new TextColumn('author', 'Author', new TextFilter());
         $this->addColumn('author', $column);
 
         $column = new ImageColumn('avatar_id');

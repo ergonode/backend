@@ -17,11 +17,10 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
-use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
-class MultiSelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
+class MultiSelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**
      * {@inheritDoc}
@@ -34,7 +33,7 @@ class MultiSelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
     /**
      * {@inheritDoc}
      */
-    public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
+    public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
         $options = [];
         foreach ($attribute->getOptions() as $id => $option) {
@@ -45,13 +44,12 @@ class MultiSelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
             }
         }
 
-        $columnKey = $filterKey = $attribute->getCode()->getValue();
-        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
+        $columnKey = $attribute->getCode()->getValue();
 
         return new MultiSelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new MultiSelectFilter($options, $filter->get($filterKey))
+            new MultiSelectFilter($options)
         );
     }
 }

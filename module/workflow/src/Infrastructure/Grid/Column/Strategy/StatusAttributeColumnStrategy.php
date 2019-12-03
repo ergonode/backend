@@ -13,14 +13,13 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\SelectFilter;
-use Ergonode\Grid\Request\FilterCollection;
-use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AbstractLanguageColumnStrategy;
+use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 
 /**
  */
-class StatusAttributeColumnStrategy extends AbstractLanguageColumnStrategy
+class StatusAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**
      * @var StatusQueryInterface
@@ -46,16 +45,13 @@ class StatusAttributeColumnStrategy extends AbstractLanguageColumnStrategy
     /**
      * @param AbstractAttribute $attribute
      * @param Language          $language
-     * @param FilterCollection  $filter
      *
      * @return ColumnInterface
      *
      * @throws \Exception
      */
-    public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
+    public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
-        $columnKey = $attribute->getCode()->getValue();
-        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
         $statuses = $this->statusQuery->getAllStatuses($language);
 
         $statusCodes = [];
@@ -67,7 +63,7 @@ class StatusAttributeColumnStrategy extends AbstractLanguageColumnStrategy
             StatusSystemAttribute::CODE,
             $attribute->getLabel()->get($language),
             $statuses,
-            new SelectFilter($statusCodes, $filter->get($filterKey))
+            new SelectFilter($statusCodes)
         );
     }
 }

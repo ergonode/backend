@@ -40,7 +40,6 @@ class ErgonodeProductExtension extends Extension
             ->registerForAutoconfiguration(AttributeColumnStrategyInterface::class)
             ->addTag(AttributeColumnStrategyStrategyCompilerPass::TAG);
 
-
         $container
             ->registerForAutoconfiguration(ProductFactoryInterface::class)
             ->addTag(ProductFactoryProviderCompilerPass::TAG);

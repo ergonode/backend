@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Grid\Model;
+namespace Ergonode\Grid\Request;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 
@@ -26,13 +26,20 @@ class RequestColumn
     private $language;
 
     /**
+     * @var bool
+     */
+    private $show;
+
+    /**
      * @param string        $column
      * @param Language|null $language
+     * @param bool          $show
      */
-    public function __construct(string $column, ?Language $language = null)
+    public function __construct(string $column, ?Language $language = null, bool $show = true)
     {
         $this->column = $column;
         $this->language = $language;
+        $this->show = $show;
     }
 
     /**
@@ -49,6 +56,14 @@ class RequestColumn
     public function getLanguage(): ?Language
     {
         return $this->language;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShow(): bool
+    {
+        return $this->show;
     }
 
     /**

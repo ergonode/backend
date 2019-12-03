@@ -53,17 +53,16 @@ class AccountGrid extends AbstractGrid
         $languages = $this->languageProvider->getLanguages($language);
         $roles = $this->roleQuery->getDictionary();
         $activities = [1 => 'Active', 0 => 'In active'];
-        $filters = $configuration->getFilters();
 
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('email', new TextColumn('email', 'Email', new TextFilter($filters->get('email'))));
-        $this->addColumn('first_name', new TextColumn('first_name', 'First Name', new TextFilter($filters->get('first_name'))));
-        $this->addColumn('last_name', new TextColumn('last_name', 'Last Name', new TextFilter($filters->get('last_name'))));
-        $this->addColumn('language', new TextColumn('language', 'Language', new SelectFilter($languages, $filters->get('language'))));
-        $this->addColumn('role_id', new TextColumn('role_id', 'Roles', new SelectFilter($roles, $filters->get('role_id'))));
-        $this->addColumn('is_active', new BoolColumn('is_active', 'Activity', new SelectFilter($activities, $filters->get('is_active'))));
+        $this->addColumn('email', new TextColumn('email', 'Email', new TextFilter()));
+        $this->addColumn('first_name', new TextColumn('first_name', 'First Name', new TextFilter()));
+        $this->addColumn('last_name', new TextColumn('last_name', 'Last Name', new TextFilter()));
+        $this->addColumn('language', new TextColumn('language', 'Language', new SelectFilter($languages)));
+        $this->addColumn('role_id', new TextColumn('role_id', 'Roles', new SelectFilter($roles)));
+        $this->addColumn('is_active', new BoolColumn('is_active', 'Activity', new SelectFilter($activities)));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_account_user_read',

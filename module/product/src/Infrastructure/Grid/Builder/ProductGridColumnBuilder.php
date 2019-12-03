@@ -21,7 +21,7 @@ use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Grid\Model\RequestColumn;
+use Ergonode\Grid\Request\RequestColumn;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,37 +71,50 @@ class ProductGridColumnBuilder
     public function build(GridConfigurationInterface $configuration, Language $defaultLanguage): array
     {
         $codes = $this->attributeQuery->getAllAttributeCodes();
-        $filters = $configuration->getFilters();
 
         $result = [];
 
         /** @var RequestColumn[] $columns */
-        $columns = array_merge([new RequestColumn(StatusSystemAttribute::CODE), new RequestColumn(TemplateSystemAttribute::CODE)], $configuration->getColumns());
+        $columns = array_merge(
+            [
+                new RequestColumn('id'),
+                new RequestColumn('index'),
+                new RequestColumn('sku'),
+                new RequestColumn(StatusSystemAttribute::CODE),
+                new RequestColumn(TemplateSystemAttribute::CODE),
+            ],
+            $configuration->getColumns()
+        );
 
         $result['id'] = new CheckColumn('id', 'Id');
-        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter($filters->get('index')));
-        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter($filters->get('sku')));
+        $result['index'] = new IntegerColumn('index', 'Index', new TextFilter());
+        $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter());
 
         foreach ($columns as $column) {
-            $code = $column->getColumn();
-            $key = $column->getKey();
-            $language = $column->getLanguage() ?: $defaultLanguage;
-            if (in_array($code, $codes, true)) {
-                $id = AttributeId::fromKey(new AttributeCode($code));
-                $attribute = $this->repository->load($id);
-                Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
+            if (!array_key_exists($column->getKey(), $result)) {
+                $code = $column->getColumn();
+                $key = $column->getKey();
+                $language = $column->getLanguage() ?: $defaultLanguage;
+                if (in_array($code, $codes, true)) {
+                    $id = AttributeId::fromKey(new AttributeCode($code));
+                    $attribute = $this->repository->load($id);
+                    Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
 
-                $new = $this->provider->provide($attribute, $language, $filters);
-                $new->setExtension('element_id', $id->getValue());
-                $new->setExtension('parameters', $attribute->getParameters());
-                $new->setEditable($attribute->isEditable());
-                $new->setDeletable($attribute->isDeletable());
+                    $new = $this->provider->provide($attribute, $language);
+                    $new->setExtension('element_id', $id->getValue());
+                    $new->setExtension('parameters', $attribute->getParameters());
+                    $new->setEditable($attribute->isEditable());
+                    $new->setDeletable($attribute->isDeletable());
+                    if (!$column->isShow()) {
+                        $new->setVisible(false);
+                    }
 
-                if ($column->getLanguage()) {
-                    $new->setLanguage($column->getLanguage());
+                    if ($column->getLanguage()) {
+                        $new->setLanguage($column->getLanguage());
+                    }
+
+                    $result[$key] = $new;
                 }
-
-                $result[$key] = $new;
             }
         }
 

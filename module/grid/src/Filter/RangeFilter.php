@@ -19,23 +19,16 @@ class RangeFilter implements FilterInterface
     public const TYPE = 'RANGE';
 
     /**
-     * @var array
-     */
-    private $values;
-
-    /**
      * @var Range
      */
     private $range;
 
     /**
      * @param Range $range
-     * @param array $values
      */
-    public function __construct(Range $range, array $values = [])
+    public function __construct(Range $range)
     {
         $this->range = $range;
-        $this->values = $values;
     }
 
     /**
@@ -55,21 +48,5 @@ class RangeFilter implements FilterInterface
     public function getType(): string
     {
         return self::TYPE;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEqual(): bool
-    {
-        return false;
-    }
-
-    /**
-     * @return array[]
-     */
-    public function getValues(): array
-    {
-        return $this->values;
     }
 }

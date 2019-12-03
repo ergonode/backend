@@ -17,11 +17,10 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\SelectFilter;
-use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
-class SelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
+class SelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**
      * {@inheritDoc}
@@ -34,7 +33,7 @@ class SelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
     /**
      * {@inheritDoc}
      */
-    public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
+    public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
         $options = [];
         foreach ($attribute->getOptions() as $id => $option) {
@@ -47,12 +46,10 @@ class SelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
 
         $columnKey = $attribute->getCode()->getValue();
 
-        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
-
         return new SelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new SelectFilter($options, $filter->get($filterKey))
+            new SelectFilter($options)
         );
     }
 }

@@ -25,16 +25,14 @@ class LanguageGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $code = new TextColumn('code', 'Name', new TextFilter($filters->get('code')));
+        $code = new TextColumn('code', 'Name', new TextFilter());
         $this->addColumn('code', $code);
-        $name = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
+        $name = new TextColumn('name', 'Name', new TextFilter());
         $this->addColumn('name', $name);
-        $active = new BoolColumn('active', 'active', new TextFilter($filters->get('active')));
+        $active = new BoolColumn('active', 'active', new TextFilter());
         $this->addColumn('active', $active);
     }
 }

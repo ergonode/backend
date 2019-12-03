@@ -56,6 +56,11 @@ interface ColumnInterface
     public function hasLanguage(): bool;
 
     /**
+     * @param bool $visible
+     */
+    public function setVisible(bool $visible): void;
+
+    /**
      * @param Language $language
      */
     public function setLanguage(Language $language): void;

@@ -29,17 +29,15 @@ class SegmentGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $statuses = array_combine(SegmentStatus::AVAILABLE, SegmentStatus::AVAILABLE);
 
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('code', new TextColumn('name', 'Code', new TextFilter($filters->get('code'))));
-        $this->addColumn('status', new TextColumn('status', 'Status', new SelectFilter($statuses, $filters->get('status'))));
-        $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter($filters->get('name'))));
-        $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter($filters->get('description'))));
+        $this->addColumn('code', new TextColumn('name', 'Code', new TextFilter()));
+        $this->addColumn('status', new TextColumn('status', 'Status', new SelectFilter($statuses)));
+        $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
+        $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter()));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_segment_read',

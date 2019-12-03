@@ -28,21 +28,19 @@ class CategoryGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
-        $index = new IntegerColumn('sequence', 'Index', new TextFilter($filters->get('sequence')));
+        $index = new IntegerColumn('sequence', 'Index', new TextFilter());
         $this->addColumn('sequence', $index);
 
-        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter($filters->get('code'))));
+        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
 
-        $name = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
+        $name = new TextColumn('name', 'Name', new TextFilter());
         $this->addColumn('name', $name);
 
-        $this->addColumn('elements_count', new IntegerColumn('elements_count', 'Number of products', new TextFilter($filters->get('elements_count'))));
+        $this->addColumn('elements_count', new IntegerColumn('elements_count', 'Number of products', new TextFilter()));
 
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [

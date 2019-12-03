@@ -11,6 +11,7 @@ namespace Ergonode\Grid\Renderer;
 
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\ColumnInterface;
+use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -38,29 +39,30 @@ class ColumnRenderer
     }
 
     /**
-     * @param AbstractGrid $grid
-     * @param array        $row
+     * @param AbstractGrid               $grid
+     * @param GridConfigurationInterface $configuration
      *
      * @return array
      */
-    public function render(AbstractGrid $grid, array $row): array
+    public function render(AbstractGrid $grid, GridConfigurationInterface $configuration): array
     {
         $result = [];
         foreach ($grid->getColumns() as $id => $column) {
-            $result[] = $this->renderColumn($id, $column, $grid->getConfiguration());
+            $result[] = $this->renderColumn($id, $column, $configuration, $grid->getConfiguration());
         }
 
         return $result;
     }
 
     /**
-     * @param string          $id
-     * @param ColumnInterface $column
-     * @param array           $configuration
+     * @param string                     $id
+     * @param ColumnInterface            $column
+     * @param GridConfigurationInterface $gridConfiguration
+     * @param array                      $configuration
      *
      * @return array
      */
-    public function renderColumn(string $id, ColumnInterface $column, array $configuration): array
+    public function renderColumn(string $id, ColumnInterface $column, GridConfigurationInterface $gridConfiguration, array $configuration): array
     {
         $result = [];
 
@@ -88,7 +90,7 @@ class ColumnRenderer
         }
 
         if ($column->getFilter()) {
-            $result['filter'] = $this->filterRenderer->render($column->getFilter());
+            $result['filter'] = $this->filterRenderer->render($column->getField(), $column->getFilter(), $gridConfiguration->getFilters());
         }
 
         foreach ($column->getExtensions() as $key => $value) {
