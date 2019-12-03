@@ -18,9 +18,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractDbalDataSet;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
-use Ergonode\Grid\FilterInterface;
+use Ergonode\Grid\Request\FilterValueCollection;
 use Ergonode\Product\Infrastructure\Grid\Builder\ProductFilterQueryBuilder;
-use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeQueryProvider;
 use Webmozart\Assert\Assert;
 
 /**
@@ -50,16 +49,17 @@ class DbalProductDataSet extends AbstractDbalDataSet
     }
 
     /**
-     * @param array       $columns
-     * @param int         $limit
-     * @param int         $offset
-     * @param string|null $field
-     * @param string      $order
+     * @param array                 $columns
+     * @param FilterValueCollection $values
+     * @param int                   $limit
+     * @param int                   $offset
+     * @param string|null           $field
+     * @param string                $order
      *
      * @return \Traversable
      * @throws \Exception
      */
-    public function getItems(array $columns, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable
+    public function getItems(array $columns, FilterValueCollection $values, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable
     {
         Assert::allIsInstanceOf($columns, ColumnInterface::class);
 
@@ -90,7 +90,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
         $qb->select('*');
         $qb->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        $qb = $this->builder->getFilter($qb, $columns);
+        $this->buildFilters($qb, $values, $columns);
 
         $qb->setMaxResults($limit);
         $qb->setFirstResult($offset);
@@ -104,17 +104,18 @@ class DbalProductDataSet extends AbstractDbalDataSet
     }
 
     /**
-     * @param FilterInterface[] $filters
+     * @param FilterValueCollection $values
+     * @param ColumnInterface[]     $columns
      *
      * @return int
      */
-    public function countItems(array $filters = []): int
+    public function countItems(FilterValueCollection $values, array $columns = []): int
     {
-        Assert::allIsInstanceOf($filters, ColumnInterface::class);
+        Assert::allIsInstanceOf($columns, ColumnInterface::class);
 
         $language = new Language(Language::EN);
         $query = $this->getQuery();
-        foreach ($filters as $key => $column) {
+        foreach ($columns as $key => $column) {
             if (!in_array($key, ['id', 'sku', 'index', 'version', 'esa_template', 'edit'])) {
                 $query->addSelect(\sprintf('(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id JOIN attribute a ON a.id = pv.attribute_id WHERE a.code = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id) AS "%s"', $key, $language->getCode(), $key));
             }
@@ -124,7 +125,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
         $qb->select('*');
         $qb->from(sprintf('(%s)', $query->getSQL()), 't');
 
-        $qb = $this->builder->getFilter($qb, $filters);
+        $this->buildFilters($qb, $values, $columns);
         $count = $qb->select('count(*) AS COUNT')
             ->execute()
             ->fetch(\PDO::FETCH_COLUMN);

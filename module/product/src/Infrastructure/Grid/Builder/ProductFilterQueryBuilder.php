@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\FilterInterface;
+use Ergonode\Grid\Request\FilterValueCollection;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeQueryProvider;
 use Webmozart\Assert\Assert;
 
@@ -42,20 +43,19 @@ class ProductFilterQueryBuilder
     }
 
     /**
-     * @param QueryBuilder      $queryBuilder
-     * @param ColumnInterface[] $filters
+     * @param QueryBuilder          $queryBuilder
+     * @param FilterValueCollection $values
+     * @param array                 $columns
      *
      * @return QueryBuilder
-     *
      * @throws \Exception
      */
-    public function getFilter(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    public function getFilter(QueryBuilder $queryBuilder, FilterValueCollection $values, array $columns = []): QueryBuilder
     {
-        Assert::allIsInstanceOf($filters, ColumnInterface::class);
-
-        foreach ($filters as $key => $column) {
+        Assert::allIsInstanceOf($columns, ColumnInterface::class);
+        $value = null;
+        foreach ($columns as $key => $column) {
             $filter = $column->getFilter();
-            $value = 'e';
             if ($filter instanceof FilterInterface) {
                 $attributeId = AttributeId::fromKey(new AttributeCode($column->getField()));
                 $attribute = $this->repository->load($attributeId);
@@ -64,8 +64,8 @@ class ProductFilterQueryBuilder
                     $query = $this->provider->provide($attribute, null, $value);
 
                     if ($query) {
-                        if($value) {
-                            $queryBuilder->join('t', '('.$query->getSQL().')','dd','dd.id = t.id');
+                        if ($value) {
+                            $queryBuilder->join('t', sprintf('(%s)', $query->getSQL()), 'dd', 'dd.id = t.id');
                         } else {
                             $queryBuilder->where($queryBuilder->expr()->notIn('id', $query->getSQL()));
                         }

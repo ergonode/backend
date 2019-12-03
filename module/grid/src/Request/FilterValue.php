@@ -4,14 +4,16 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Grid\Request;
 
-
 use Ergonode\Core\Domain\ValueObject\Language;
 
-class FilterData
+/**
+ *
+ */
+class FilterValue
 {
     /**
      * @var string

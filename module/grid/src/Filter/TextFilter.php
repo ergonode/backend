@@ -18,19 +18,6 @@ class TextFilter implements FilterInterface
     public const TYPE = 'TEXT';
 
     /**
-     * @var array
-     */
-    private $values;
-
-    /**
-     * @param array $values
-     */
-    public function __construct(array $values = [])
-    {
-        $this->values = $values;
-    }
-
-    /**
      * @return array
      */
     public function render(): array
@@ -44,21 +31,5 @@ class TextFilter implements FilterInterface
     public function getType(): string
     {
         return self::TYPE;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEqual(): bool
-    {
-        return false;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getValues(): array
-    {
-        return $this->values;
     }
 }

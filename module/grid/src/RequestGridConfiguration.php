@@ -11,7 +11,7 @@ namespace Ergonode\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Model\RequestColumn;
-use Ergonode\Grid\Request\FilterCollection;
+use Ergonode\Grid\Request\FilterValueCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 
@@ -96,7 +96,7 @@ class RequestGridConfiguration implements GridConfigurationInterface
         }
 
         $filters = $request->query->get('filter', self::FILTER);
-        $this->filters = new FilterCollection($filters);
+        $this->filters = new FilterValueCollection($filters);
 
         $this->view = $request->query->get('view', GridConfigurationInterface::VIEW_GRID);
         Assert::oneOf($this->order, self::ORDER);
@@ -135,9 +135,9 @@ class RequestGridConfiguration implements GridConfigurationInterface
     }
 
     /**
-     * @return FilterCollection
+     * @return FilterValueCollection
      */
-    public function getFilters(): FilterCollection
+    public function getFilters(): FilterValueCollection
     {
         return $this->filters;
     }

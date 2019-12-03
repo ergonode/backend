@@ -29,8 +29,8 @@ class InfoRender
         return [
                 'offset' => $configuration->getOffset(),
                 'limit' => $configuration->getLimit(),
-                'count' => $dataSet->countItems(),
-                'filtered' => $dataSet->countItems($grid->getColumns()),
+                'count' => $dataSet->countItems($configuration->getFilters()),
+                'filtered' =>  $dataSet->countItems($configuration->getFilters(), $grid->getColumns()),
                 'actions' => [],
         ];
     }

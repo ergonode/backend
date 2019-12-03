@@ -43,19 +43,18 @@ class CommentGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
         $userId = $this->userProvider->provide()->getId();
 
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
 
-        $this->addColumn('content', new TextColumn('content', 'Content', new TextFilter($filters->get('content'))));
-        $this->addColumn('object_id', new TextColumn('object_id', 'Object', new TextFilter($filters->get('object_id'))));
-        $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter($filters->get('author'))));
+        $this->addColumn('content', new TextColumn('content', 'Content', new TextFilter()));
+        $this->addColumn('object_id', new TextColumn('object_id', 'Object', new TextFilter()));
+        $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter()));
         $this->addColumn('avatar_id', new ImageColumn('avatar_id'));
-        $this->addColumn('created_at', new DateColumn('created_at', 'Avatar', new TextFilter($filters->get('created_at'))));
-        $this->addColumn('edited_at', new DateColumn('edited_at', 'Avatar', new TextFilter($filters->get('edited_at'))));
+        $this->addColumn('created_at', new DateColumn('created_at', 'Avatar', new TextFilter()));
+        $this->addColumn('edited_at', new DateColumn('edited_at', 'Avatar', new TextFilter()));
 
         $links = [
             'get' => [

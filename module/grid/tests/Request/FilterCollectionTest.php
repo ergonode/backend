@@ -9,7 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Tests\Request;
 
-use Ergonode\Grid\Request\FilterCollection;
+use Ergonode\Grid\Request\FilterValue;
+use Ergonode\Grid\Request\FilterValueCollection;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,18 +22,12 @@ class FilterCollectionTest extends TestCase
     public function testCreateCollection(): void
     {
         $string = 'key1=value1;key2=value2,value3;key3:PL=value4';
-        $collection = new FilterCollection($string);
-        $this->assertEquals(['=' => 'value1'], $collection->get('key1'));
-        $this->assertEquals(['=' => 'value2,value3'], $collection->get('key2'));
-        $this->assertEquals(['=' => 'value4'], $collection->get('key3:PL'));
-        $this->assertEquals(['=' => 'value4'], $collection->get('key3:PL'));
-    }
-
-    /**
-     */
-    public function testReturnValueForNotExistKey(): void
-    {
-        $collection = new FilterCollection();
-        $this->assertEquals([], $collection->get('key1'));
+        $collection = new FilterValueCollection($string);
+        $this->assertCount(3, $collection);
+        foreach ($collection as $elements) {
+            foreach ($elements as $element) {
+                $this->assertInstanceOf(FilterValue::class, $element);
+            }
+        }
     }
 }

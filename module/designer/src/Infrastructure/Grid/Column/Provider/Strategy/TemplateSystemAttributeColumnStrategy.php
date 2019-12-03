@@ -17,7 +17,7 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\SelectFilter;
-use Ergonode\Grid\Request\FilterCollection;
+use Ergonode\Grid\Request\FilterValueCollection;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AbstractLanguageColumnStrategy;
 
 /**
@@ -48,7 +48,7 @@ class TemplateSystemAttributeColumnStrategy extends AbstractLanguageColumnStrate
     /**
      * {@inheritDoc}
      */
-    public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
+    public function create(AbstractAttribute $attribute, Language $language, FilterValueCollection $filter): ColumnInterface
     {
         $options = $this->query->getDictionary($language);
 

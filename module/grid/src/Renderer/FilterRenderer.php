@@ -10,25 +10,24 @@ declare(strict_types = 1);
 namespace Ergonode\Grid\Renderer;
 
 use Ergonode\Grid\FilterInterface;
-use Ergonode\Grid\Request\FilterCollection;
+use Ergonode\Grid\Request\FilterValueCollection;
 
 /**
  */
 class FilterRenderer
 {
     /**
-     * @param string           $key
-     * @param FilterInterface  $filter
+     * @param string                $key
+     * @param FilterInterface       $filter
      *
-     * @param FilterCollection $filters
+     * @param FilterValueCollection $filters
      *
      * @return array
      */
-    public function render(string $key, FilterInterface $filter, FilterCollection $filters): array
+    public function render(string $key, FilterInterface $filter, FilterValueCollection $filters): array
     {
         $result = [
             'type' => $filter->getType(),
-            'value' => $filters->has($key) ? $filter->getValues() : null,
         ];
 
         return array_merge($result, $filter->render());

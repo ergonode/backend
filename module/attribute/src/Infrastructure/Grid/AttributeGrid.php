@@ -59,21 +59,19 @@ class AttributeGrid extends AbstractGrid
         $types = $this->attributeTypeDictionaryProvider->getDictionary($language);
         $groups = $this->attributeGroupDictionaryProvider->getDictionary($language);
 
-        $filters = $configuration->getFilters();
-
-        $id = new TextColumn('id', 'Id', new TextFilter($filters->get('id')));
+        $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $index = new IntegerColumn('index', 'Index', new TextFilter($filters->get('index')));
+        $index = new IntegerColumn('index', 'Index', new TextFilter());
         $this->addColumn('index', $index);
-        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter($filters->get('code'))));
-        $column = new TextColumn('label', 'Name', new TextFilter($filters->get('label')));
+        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
+        $column = new TextColumn('label', 'Name', new TextFilter());
         $this->addColumn('label', $column);
-        $column = new TextColumn('type', 'Type', new SelectFilter($types, $filters->get('type')));
+        $column = new TextColumn('type', 'Type', new SelectFilter($types));
         $this->addColumn('type', $column);
         $column = new BoolColumn('multilingual', 'Multilingual');
         $this->addColumn('multilingual', $column);
-        $this->addColumn('groups', new MultiSelectColumn('groups', 'Groups', new MultiSelectFilter($groups, $filters->get('groups'))));
+        $this->addColumn('groups', new MultiSelectColumn('groups', 'Groups', new MultiSelectFilter($groups)));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'privilege' => 'ATTRIBUTE_READ',

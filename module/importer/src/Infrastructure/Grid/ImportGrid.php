@@ -27,18 +27,16 @@ class ImportGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $name = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
+        $name = new TextColumn('name', 'Name', new TextFilter());
         $this->addColumn('name', $name);
-        $status = new TextColumn('status', 'Status', new TextFilter($filters->get('status')));
+        $status = new TextColumn('status', 'Status', new TextFilter());
         $this->addColumn('status', $status);
-        $index = new IntegerColumn('lines', 'Lines', new TextFilter($filters->get('lines')));
+        $index = new IntegerColumn('lines', 'Lines', new TextFilter());
         $this->addColumn('lines', $index);
-        $createdAt = new DateColumn('created_at', 'Created at', new TextFilter($filters->get('created_at')));
+        $createdAt = new DateColumn('created_at', 'Created at', new TextFilter());
         $this->addColumn('created_at', $createdAt);
     }
 }

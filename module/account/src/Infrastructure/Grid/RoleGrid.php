@@ -29,14 +29,12 @@ class RoleGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter($filters->get('name'))));
-        $this->addColumn('description', new TextAreaColumn('description', 'Description', new TextFilter($filters->get('description'))));
-        $this->addColumn('users_count', new NumericColumn('users_count', 'Users', new TextFilter($filters->get('users_count'))));
+        $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
+        $this->addColumn('description', new TextAreaColumn('description', 'Description', new TextFilter()));
+        $this->addColumn('users_count', new NumericColumn('users_count', 'Users', new TextFilter()));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_account_role_read',

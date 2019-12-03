@@ -28,14 +28,12 @@ class ReaderGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $status = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
+        $status = new TextColumn('name', 'Name', new TextFilter());
         $this->addColumn('name', $status);
-        $type = new IntegerColumn('type', 'Type', new TextFilter($filters->get('type')));
+        $type = new IntegerColumn('type', 'Type', new TextFilter());
         $this->addColumn('type', $type);
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [

@@ -13,7 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
-class FilterCollection
+class FilterValueCollection implements \IteratorAggregate
 {
     public const DELIMITER = ';';
     public const LANGUAGE_SEPARATOR = ':';
@@ -64,17 +64,17 @@ class FilterCollection
                     }
 
 
-                    $this->filters[$matches[1][0]][] = new FilterData($columnName, $matches[2][0], $value, $columnLanguage);
+                    $this->filters[$matches[1][0]][] = new FilterValue($columnName, $matches[2][0], $value, $columnLanguage);
                 }
             }
         }
     }
 
     /**
-     * @return FilterData[]
+     * @return \ArrayIterator|\Traversable
      */
-    public function getFilters(): array
+    public function getIterator(): \Traversable
     {
-        return $this->filters;
+        return new \ArrayIterator($this->filters);
     }
 }

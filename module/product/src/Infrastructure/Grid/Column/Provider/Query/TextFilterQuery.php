@@ -62,7 +62,7 @@ class TextFilterQuery implements FilterQueryInterface
         }
 
         $qb->andWhere($qb->expr()->eq('pv.attribute_id', $qb->createNamedParameter($attribute->getId()->getValue())));
-        if($value) {
+        if ($value) {
             $qb->andWhere(\sprintf('vt.value ILIKE %s', $qb->createNamedParameter(\sprintf('%%%s%%', $this->escape($value)))));
         }
 

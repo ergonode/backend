@@ -12,7 +12,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
@@ -63,7 +62,7 @@ class SelectFilterQuery implements FilterQueryInterface
         }
 
         $qb->andWhere($qb->expr()->eq('pv.attribute_id', $qb->createNamedParameter($attribute->getId()->getValue())));
-        if($value) {
+        if ($value) {
             $qb->andWhere(\sprintf('vt.value ILIKE %s', $qb->createNamedParameter(\sprintf('%%%s%%', $this->escape($value)))));
         }
 

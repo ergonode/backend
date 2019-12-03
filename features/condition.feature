@@ -15,7 +15,7 @@ Feature: Condition module
     Then not found response is received
 
   Scenario: Get numeric condition (not authorized)
-    When I request "/api/v1/EN/conditions/NUMERIC_ATTRIBUTE_VALUE_CONDITION" using HTTP GET
+    When I request "/api/v1/ zvxv `1/conditions/NUMERIC_ATTRIBUTE_VALUE_CONDITION" using HTTP GET
     Then unauthorized response is received
 
   Scenario: Get numeric condition

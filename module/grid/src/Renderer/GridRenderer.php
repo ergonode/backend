@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\Request\FilterValueCollection;
 
 /**
  */
@@ -62,11 +63,12 @@ class GridRenderer
 
         $field = $configuration->getField() ?: $grid->getField();
         $order = $configuration->getOrder() ?: $grid->getOrder();
-        $records = $dataSet->getItems($grid->getColumns(), $configuration->getLimit(), $configuration->getOffset(), $field, $order);
+        $records = $dataSet->getItems($grid->getColumns(), $configuration->getFilters(), $configuration->getLimit(), $configuration->getOffset(), $field, $order);
 
         if (GridConfigurationInterface::VIEW_GRID === $configuration->getView()) {
             $result['configuration'] = $grid->getConfiguration();
-            $result['columns'] = $this->columnRenderer->render($grid, []);
+            $result['columns'] = $this->columnRenderer->render($grid, $configuration);
+
             if (!empty($configuration->getColumns())) {
                 $columnsOrdered = [];
                 foreach (array_keys($configuration->getColumns()) as $name) {

@@ -47,5 +47,4 @@ class AttributeQueryProvider
 
         return null;
     }
-
 }

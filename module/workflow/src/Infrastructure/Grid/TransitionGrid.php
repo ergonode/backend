@@ -46,22 +46,21 @@ class TransitionGrid extends AbstractGrid
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $statuses = $this->statusQuery->getAllStatuses($language);
-        $filters = $configuration->getFilters();
         $codes = [];
         foreach ($statuses as $code => $status) {
             $codes[$code] = $status['name'];
         }
 
-        $code = new LabelColumn('source', 'Source', $statuses, new SelectFilter($codes, $filters->get('source')));
+        $code = new LabelColumn('source', 'Source', $statuses, new SelectFilter($codes));
         $this->addColumn('source', $code);
 
-        $code = new LabelColumn('destination', 'Destination', $statuses, new SelectFilter($codes, $filters->get('destination')));
+        $code = new LabelColumn('destination', 'Destination', $statuses, new SelectFilter($codes));
         $this->addColumn('destination', $code);
 
-        $column = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
+        $column = new TextColumn('name', 'Name', new TextFilter());
         $this->addColumn('name', $column);
 
-        $column = new TextColumn('description', 'Description', new TextFilter($filters->get('description')));
+        $column = new TextColumn('description', 'Description', new TextFilter());
         $this->addColumn('description', $column);
 
         $this->addColumn('_links', new LinkColumn('hal', [

@@ -27,12 +27,10 @@ class HistoryGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $id = new IntegerColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('recorded_at', new TextColumn('recorded_at', 'Time', new TextFilter($filters->get('recorded_at'))));
+        $this->addColumn('recorded_at', new TextColumn('recorded_at', 'Time', new TextFilter()));
         $column = new HistoryColumn('event', 'payload', 'Message', $language);
         $this->addColumn('event', $column);
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);

@@ -43,12 +43,11 @@ class TemplateGrid extends AbstractGrid
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $collection = $this->query->getDictionary();
-        $filters = $configuration->getFilters();
 
         $this->addColumn('id', new TextColumn('id', 'Id'));
-        $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter($filters->get('name'))));
-        $this->addColumn('image_id', new TextColumn('image_id', 'Icon', new TextFilter($filters->get('image_id'))));
-        $this->addColumn('group_id', new TextColumn('group_id', 'Group', new SelectFilter($collection, $filters->get('group_id'))));
+        $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
+        $this->addColumn('image_id', new TextColumn('image_id', 'Icon', new TextFilter()));
+        $this->addColumn('group_id', new TextColumn('group_id', 'Group', new SelectFilter($collection)));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_condition_conditionset_read',

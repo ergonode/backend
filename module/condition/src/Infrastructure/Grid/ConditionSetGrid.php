@@ -26,12 +26,10 @@ class ConditionSetGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter($filters->get('code'))));
+        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_designer_template_read',

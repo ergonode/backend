@@ -27,15 +27,13 @@ class TreeGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $code = new TextColumn('code', 'Code', new TextFilter($filters->get('code')));
+        $code = new TextColumn('code', 'Code', new TextFilter());
         $this->addColumn('code', $code);
         $this->orderBy('code', 'ASC');
-        $name = new TextColumn('name', 'Name', new TextFilter($filters->get('name')));
+        $name = new TextColumn('name', 'Name', new TextFilter());
         $this->addColumn('name', $name);
         $this->addColumn('_links', new LinkColumn('', [
             'get' => [
