@@ -11,7 +11,6 @@ namespace Ergonode\Product;
 
 use Ergonode\Core\Application\AbstractModule;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeColumnStrategyStrategyCompilerPass;
-use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeQueryStrategyStrategyCompilerPass;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductFactoryProviderCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -27,7 +26,6 @@ class ErgonodeProductBundle extends AbstractModule
         parent::build($container);
 
         $container->addCompilerPass(new AttributeColumnStrategyStrategyCompilerPass());
-        $container->addCompilerPass(new AttributeQueryStrategyStrategyCompilerPass());
         $container->addCompilerPass(new ProductFactoryProviderCompilerPass());
     }
 }

@@ -13,7 +13,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Grid\Request\FilterValueCollection;
 
 /**
  */

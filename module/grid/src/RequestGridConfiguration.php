@@ -10,7 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Model\RequestColumn;
+use Ergonode\Grid\Request\FilterValue;
+use Ergonode\Grid\Request\RequestColumn;
 use Ergonode\Grid\Request\FilterValueCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
@@ -77,6 +78,16 @@ class RequestGridConfiguration implements GridConfigurationInterface
         $this->offset = (int) $request->query->get('offset', self::OFFSET);
         $this->field = $request->query->has('field') ? (string) $request->query->get('field') : null;
         $this->order = strtoupper($request->query->get('order', self::DESC));
+
+        $filters = $request->query->get('filter', self::FILTER);
+        $this->filters = new FilterValueCollection($filters);
+        foreach ($this->filters as $key => $elements) {
+            /** @var FilterValue $element */
+            foreach ($elements as $element) {
+                $this->columns[$key] = new RequestColumn($element->getColumn(), $element->getLanguage(), false);
+            }
+        }
+
         if ($request->query->has('columns')) {
             $columns = array_map('trim', explode(',', $request->query->get('columns')));
             foreach ($columns as $column) {
@@ -94,9 +105,6 @@ class RequestGridConfiguration implements GridConfigurationInterface
                 $this->columns[$column] = new RequestColumn($key, $language);
             }
         }
-
-        $filters = $request->query->get('filter', self::FILTER);
-        $this->filters = new FilterValueCollection($filters);
 
         $this->view = $request->query->get('view', GridConfigurationInterface::VIEW_GRID);
         Assert::oneOf($this->order, self::ORDER);

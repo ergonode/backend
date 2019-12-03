@@ -6,18 +6,13 @@
 
 namespace Ergonode\Grid;
 
-use Ergonode\Grid\Model\RequestColumn;
 use Ergonode\Grid\Request\FilterValueCollection;
+use Ergonode\Grid\Request\RequestColumn;
 
 /**
  */
 interface GridConfigurationInterface
 {
-    public const CONFIGURATION_SHOW_DATA = 'DATA';
-    public const CONFIGURATION_SHOW_COLUMN = 'COLUMN';
-    public const CONFIGURATION_SHOW_INFO = 'INFO';
-    public const CONFIGURATION_SHOW_CONFIGURATION = 'CONFIGURATION';
-
     public const PARAMETER_ALLOW_COLUMN_RESIZE = 'allow_column_resize';
     public const PARAMETER_ALLOW_COLUMN_EDIT = 'allow_column_edit';
     public const PARAMETER_ALLOW_COLUMN_MOVE = 'allow_column_move';

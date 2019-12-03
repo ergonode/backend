@@ -63,7 +63,6 @@ class FilterValueCollection implements \IteratorAggregate
                         $columnLanguage = new Language($columnData[1]);
                     }
 
-
                     $this->filters[$matches[1][0]][] = new FilterValue($columnName, $matches[2][0], $value, $columnLanguage);
                 }
             }
@@ -71,7 +70,7 @@ class FilterValueCollection implements \IteratorAggregate
     }
 
     /**
-     * @return \ArrayIterator|\Traversable
+     * @return \ArrayIterator|\Traversable|FilterValue[]
      */
     public function getIterator(): \Traversable
     {
