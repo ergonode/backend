@@ -19,7 +19,6 @@ use Ergonode\Grid\AbstractDbalDataSet;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Request\FilterValueCollection;
-use Ergonode\Product\Infrastructure\Grid\Builder\ProductFilterQueryBuilder;
 use Webmozart\Assert\Assert;
 
 /**
@@ -34,18 +33,11 @@ class DbalProductDataSet extends AbstractDbalDataSet
     private $connection;
 
     /**
-     * @var ProductFilterQueryBuilder
+     * @param Connection $connection
      */
-    private $builder;
-
-    /**
-     * @param Connection                $connection
-     * @param ProductFilterQueryBuilder $builder
-     */
-    public function __construct(Connection $connection, ProductFilterQueryBuilder $builder)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->builder = $builder;
     }
 
     /**
