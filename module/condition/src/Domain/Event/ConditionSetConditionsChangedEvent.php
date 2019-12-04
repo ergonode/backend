@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Event;
 
-use Ergonode\Condition\Domain\Condition\ConditionInterface;
+use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -21,14 +21,14 @@ class ConditionSetConditionsChangedEvent implements DomainEventInterface
     /**
      * @var ConditionInterface[]
      *
-     * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
+     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
     private $from;
 
     /**
      * @var ConditionInterface[]
      *
-     * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
+     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
     private $to;
 

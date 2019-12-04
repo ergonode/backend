@@ -9,7 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Service;
 
-use Ergonode\Condition\Domain\Condition\ConditionInterface;
+use Ergonode\Condition\Domain\ConditionInterface;
+use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
@@ -17,14 +18,14 @@ use Ergonode\Core\Domain\ValueObject\Language;
 class ConditionConfigurator
 {
     /**
-     * @var ConfigurationStrategyInterface[]
+     * @var ConditionConfigurationStrategyInterface[]
      */
     private $strategies;
 
     /**
-     * @param ConfigurationStrategyInterface ...$strategies
+     * @param ConditionConfigurationStrategyInterface ...$strategies
      */
-    public function __construct(ConfigurationStrategyInterface ...$strategies)
+    public function __construct(ConditionConfigurationStrategyInterface ...$strategies)
     {
         $this->strategies = $strategies;
     }

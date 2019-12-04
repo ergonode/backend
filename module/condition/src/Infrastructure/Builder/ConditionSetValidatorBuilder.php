@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Infrastructure\Builder;
 
-use Ergonode\Condition\Infrastructure\Resolver\ConditionConstraintResolver;
+use Ergonode\Condition\Infrastructure\Provider\ConditionConstraintProvider;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Collection;
@@ -21,16 +21,16 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class ConditionSetValidatorBuilder
 {
     /**
-     * @var ConditionConstraintResolver
+     * @var ConditionConstraintProvider
      */
-    private $conditionConstraintResolver;
+    private $provider;
 
     /**
-     * @param ConditionConstraintResolver $conditionConstraintResolver
+     * @param ConditionConstraintProvider $provider
      */
-    public function __construct(ConditionConstraintResolver $conditionConstraintResolver)
+    public function __construct(ConditionConstraintProvider $provider)
     {
-        $this->conditionConstraintResolver = $conditionConstraintResolver;
+        $this->provider = $provider;
     }
 
     /**
@@ -50,7 +50,7 @@ class ConditionSetValidatorBuilder
                     throw new \InvalidArgumentException('Type not found in condition');
                 }
 
-                $constraint = $this->conditionConstraintResolver->resolve($condition['type'])->build($condition);
+                $constraint = $this->provider->resolve($condition['type'])->build($condition);
                 unset($condition['type']);
                 $violations = $context->getValidator()->validate($condition, $constraint);
                 if (0 !== $violations->count()) {

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Command;
 
-use Ergonode\Condition\Domain\Condition\ConditionInterface;
+use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use JMS\Serializer\Annotation as JMS;
 
@@ -27,7 +27,7 @@ class CreateConditionSetCommand
     /**
      * @var ConditionInterface[]
      *
-     * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
+     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
     private $conditions;
 

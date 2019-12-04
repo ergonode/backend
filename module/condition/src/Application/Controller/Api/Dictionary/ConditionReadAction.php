@@ -13,6 +13,7 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -42,7 +43,15 @@ class ConditionReadAction
      *     type="string",
      *     required=true,
      *     default="EN",
-     *     description="Language Code"
+     *     description="Language Code",
+     * )
+     * @SWG\Parameter(
+     *     name="group",
+     *     in="query",
+     *     type="string",
+     *     required=false,
+     *     enum={"segment", "workflow"},
+     *     description="Condition Group",
      * )
      * @SWG\Response(
      *     response=200,
@@ -54,12 +63,15 @@ class ConditionReadAction
      * )
      *
      * @param Language $language
+     * @param Request  $request
      *
      * @return Response
+     * @throws \ReflectionException
      */
-    public function __invoke(Language $language): Response
+    public function __invoke(Language $language, Request $request): Response
     {
-        $dictionary = $this->provider->getDictionary($language);
+        $group = $request->query->get('group', null);
+        $dictionary = $this->provider->getDictionary($language, $group);
 
         return new SuccessResponse($dictionary);
     }

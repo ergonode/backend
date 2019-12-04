@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Service;
 
 use Ergonode\Condition\Domain\Entity\ConditionSet;
-use Ergonode\Condition\Domain\Provider\ConditionCalculatorProvider;
+use Ergonode\Condition\Infrastructure\Provider\ConditionCalculatorProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 /**

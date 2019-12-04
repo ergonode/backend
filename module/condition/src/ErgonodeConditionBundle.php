@@ -11,6 +11,7 @@ namespace Ergonode\Condition;
 
 use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionCalculatorCompilerPass;
 use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionConfiguratorCompilerPass;
+use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionConstraintCompilerPass;
 use Ergonode\Core\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -27,5 +28,6 @@ class ErgonodeConditionBundle extends AbstractModule
 
         $container->addCompilerPass(new ConditionConfiguratorCompilerPass());
         $container->addCompilerPass(new ConditionCalculatorCompilerPass());
+        $container->addCompilerPass(new ConditionConstraintCompilerPass());
     }
 }

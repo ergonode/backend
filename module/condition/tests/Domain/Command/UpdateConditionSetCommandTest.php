@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Tests\Condition\Domain\Command;
 
 use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
-use Ergonode\Condition\Domain\Condition\ConditionInterface;
+use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use PHPUnit\Framework\TestCase;
 
