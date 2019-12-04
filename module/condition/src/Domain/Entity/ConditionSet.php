@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Entity;
 
-use Ergonode\Condition\Domain\Condition\ConditionInterface;
+use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
@@ -33,7 +33,7 @@ class ConditionSet extends AbstractAggregateRoot
     /**
      * @var ConditionInterface[]
      *
-     * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
+     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      * @JMS\Expose()
      */
     private $conditions;

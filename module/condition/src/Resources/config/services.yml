@@ -1,3 +1,21 @@
+parameters:
+    'condition.group.workflow':
+        - 'Ergonode\Condition\Domain\Condition\AttributeExistsCondition'
+        - 'Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\TextAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition'
+        - 'Ergonode\Condition\Domain\Condition\ProductCompletenessCondition'
+        - 'Ergonode\Condition\Domain\Condition\RoleExactlyCondition'
+        - 'Ergonode\Condition\Domain\Condition\UserExactlyCondition'
+    'condition.group.segment':
+        - 'Ergonode\Condition\Domain\Condition\AttributeExistsCondition'
+        - 'Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\TextAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition'
+        - 'Ergonode\Condition\Domain\Condition\ProductCompletenessCondition'
+
 services:
     _defaults:
         autowire: true
@@ -30,17 +48,6 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Condition\Infrastructure\Resolver\ConditionConstraintResolver:
-        calls:
-            - ['set', ['ATTRIBUTE_EXISTS_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\AttributeExistsConditionValidatorBuilder']]
-            - ['set', ['TEXT_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\TextAttributeValueConditionValidatorBuilder']]
-            - ['set', ['OPTION_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\OptionAttributeValueConditionValidatorBuilder']]
-            - ['set', ['NUMERIC_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\NumericAttributeValueConditionValidatorBuilder']]
-            - ['set', ['LANGUAGE_COMPLETENESS_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\LanguageCompletenessConditionValidatorBuilder']]
-            - ['set', ['PRODUCT_COMPLETENESS_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\ProductCompletenessConditionValidatorBuilder']]
-            - ['set', ['ROLE_EXACTLY_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\RoleExactlyConditionValidatorBuilder']]
-            - ['set', ['USER_EXACTLY_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\UserExactlyConditionValidatorBuilder']]
-
     Ergonode\Condition\Infrastructure\JMS\Serializer\Handler\ConditionInterfaceHandler:
         calls:
             - ['set', ['Ergonode\Condition\Domain\Condition\AttributeExistsCondition']]
@@ -51,6 +58,11 @@ services:
             - ['set', ['Ergonode\Condition\Domain\Condition\ProductCompletenessCondition']]
             - ['set', ['Ergonode\Condition\Domain\Condition\RoleExactlyCondition']]
             - ['set', ['Ergonode\Condition\Domain\Condition\UserExactlyCondition']]
+
+    Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider:
+        calls:
+            - ['set', ['workflow', '%condition.group.workflow%']]
+            - ['set', ['segment', '%condition.group.segment%']]
 
     Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Persistence\Dbal\Query\DbalConditionSetQuery'
     Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Persistence\Dbal\Repository\DbalConditionSetRepository'

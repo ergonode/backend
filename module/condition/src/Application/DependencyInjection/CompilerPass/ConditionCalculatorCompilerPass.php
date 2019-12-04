@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Application\DependencyInjection\CompilerPass;
 
-use Ergonode\Condition\Domain\Provider\ConditionCalculatorProvider;
+use Ergonode\Condition\Infrastructure\Provider\ConditionCalculatorProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

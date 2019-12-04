@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Event;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -28,7 +27,7 @@ class ConditionSetCreatedEvent implements DomainEventInterface
     /**
      * @var array
      *
-     * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
+     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
     private $conditions;
 
