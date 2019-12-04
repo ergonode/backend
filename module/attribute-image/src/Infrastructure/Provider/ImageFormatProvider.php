@@ -20,11 +20,6 @@ class ImageFormatProvider
      */
     public function dictionary(): array
     {
-        $result = [];
-        foreach (ImageFormat::AVAILABLE as $label) {
-            $result[$label] = ucfirst($label);
-        }
-
-        return $result;
+        return [];
     }
 }
