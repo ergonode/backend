@@ -86,10 +86,6 @@ class AttributeImportAction implements ImportActionInterface
             $property['format'] = $format->getValue();
         }
 
-        if ($attributeType->getValue() === ImageAttribute::TYPE) {
-            $property['formats'] = $record->has('format') ? [$record->get('format')->getValue()] : ImageFormat::AVAILABLE;
-        }
-
         if (null === $attributeModel) {
             $command = new CreateAttributeCommand(
                 $attributeType,

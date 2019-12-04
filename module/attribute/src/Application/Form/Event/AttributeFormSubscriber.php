@@ -12,17 +12,13 @@ namespace Ergonode\Attribute\Application\Form\Event;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\AttributeDate\Application\Form\Type\DateFormatFormType;
 use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
-use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
 use Ergonode\AttributePrice\Application\Form\Type\CurrencyFormType;
 use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\AttributeUnit\Application\Form\Type\UnitFormType;
 use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
@@ -80,23 +76,6 @@ class AttributeFormSubscriber implements EventSubscriberInterface
                 [
                     'constraints' => [
                         new NotNull(),
-                    ],
-                ]
-            );
-        }
-
-        if ($type && ImageAttribute::TYPE === $type->getValue()) {
-            $form->add(
-                'formats',
-                ChoiceType::class,
-                [
-                    'choices' => ImageFormat::AVAILABLE,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'invalid_message' => 'Unsupported image format, accept formats: <formats>',
-                    'invalid_message_parameters' => ['<formats>' => implode(', ', ImageFormat::AVAILABLE)],
-                    'constraints' => [
-                        new NotBlank(['message' => 'At least one image format is required']),
                     ],
                 ]
             );

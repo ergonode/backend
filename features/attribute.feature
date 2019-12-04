@@ -234,8 +234,7 @@ Feature: Attribute module
       {
           "code": "IMAGE_@@random_code@@",
           "type": "IMAGE",
-          "groups": [],
-          "parameters": {"formats": ["jpg"]}
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes" using HTTP POST
@@ -248,8 +247,7 @@ Feature: Attribute module
       """
       {
           "type": "IMAGE",
-          "groups": [],
-          "parameters": {"formats": ["jpg"]}
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes/@image_attribute@" using HTTP PUT

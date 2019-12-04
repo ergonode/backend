@@ -12,15 +12,12 @@ namespace Ergonode\Attribute\Tests\Application\Form\Event;
 use Ergonode\Attribute\Application\Form\Event\AttributeFormSubscriber;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\AttributeDate\Application\Form\Type\DateFormatFormType;
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
 use Ergonode\AttributePrice\Application\Form\Type\CurrencyFormType;
 use Ergonode\AttributeUnit\Application\Form\Type\UnitFormType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
@@ -43,7 +40,6 @@ class AttributeFormSubscriberTest extends TestCase
     }
 
     /**
-     *
      */
     public function testOnPreSubmitUnit()
     {
@@ -63,7 +59,6 @@ class AttributeFormSubscriberTest extends TestCase
     }
 
     /**
-     *
      */
     public function testOnPreSubmitCurrency()
     {
@@ -86,7 +81,6 @@ class AttributeFormSubscriberTest extends TestCase
     }
 
     /**
-     *
      */
     public function testOnPreSubmitFormat()
     {
@@ -100,31 +94,6 @@ class AttributeFormSubscriberTest extends TestCase
             [
                 'constraints' => [
                     new NotNull(),
-                ],
-            ]
-        );
-        $subscriber = new AttributeFormSubscriber($this->event);
-        $subscriber->onPreSubmit($this->event);
-    }
-
-    /**
-     *
-     */
-    public function testOnPreSubmitImage()
-    {
-        $this->event->expects($this->any())->method('getForm')->willReturn($this->form);
-        $this->event->expects($this->any())->method('getData')->willReturn(['type' => 'IMAGE']);
-        $this->formParameters->expects($this->once())->method('add')->with(
-            'formats',
-            ChoiceType::class,
-            [
-                'choices' => ImageFormat::AVAILABLE,
-                'multiple' => true,
-                'expanded' => true,
-                'invalid_message' => 'Unsupported image format, accept formats: <formats>',
-                'invalid_message_parameters' => ['<formats>' => implode(', ', ImageFormat::AVAILABLE)],
-                'constraints' => [
-                    new NotBlank(['message' => 'At least one image format is required']),
                 ],
             ]
         );
