@@ -14,7 +14,6 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Form\LanguageCollectionForm;
 use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
 use Ergonode\Core\Domain\Command\UpdateLanguageCommand;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Persistence\Dbal\Repository\DbalLanguageRepository;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -106,11 +105,9 @@ class LanguageChangeAction
                 /** @var LanguageCollectionFormModel $data */
                 $data = $form->getData();
                 $languages = $data->collection->getValues();
-                foreach ($languages as $language) {
-                    $command = new UpdateLanguageCommand(Language::fromString($language->code), $language->active);
-                    $this->messageBus->dispatch($command);
-                    $this->repository->save(Language::fromString($language->code), $language->active);
-                }
+
+                $command = new UpdateLanguageCommand($languages);
+                $this->messageBus->dispatch($command);
 
                 return new EmptyResponse();
             }

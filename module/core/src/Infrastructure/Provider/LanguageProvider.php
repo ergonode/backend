@@ -44,7 +44,7 @@ class LanguageProvider implements LanguageProviderInterface
      */
     public function getLanguages(Language $language): array
     {
-        return $this->map($language, $this->query->getLanguagesCodes());
+        return $this->map($language, $this->query->getAll());
     }
 
     /**
@@ -54,19 +54,20 @@ class LanguageProvider implements LanguageProviderInterface
      */
     public function getActiveLanguages(Language $language): array
     {
-        return $this->map($language, $this->query->getActiveLanguagesCodes());
+        return $this->map($language, $this->query->getActive());
     }
 
     /**
-     * @param Language $language
-     * @param array    $codes
+     * @param Language   $language
+     * @param Language[] $allLanguages
      *
      * @return array
      */
-    private function map(Language $language, array $codes): array
+    private function map(Language $language, array $allLanguages): array
     {
         $result = [];
-        foreach ($codes as $code) {
+        foreach ($allLanguages as $availableLanguage) {
+            $code = $availableLanguage->getCode();
             $result[$code] = $this->translator->trans($code, [], 'language', strtolower($language->getCode()));
         }
 

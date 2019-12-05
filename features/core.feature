@@ -81,12 +81,7 @@ Feature: Core module
     Given the request body is:
     """
       {
-        "collection":[
-           {
-              "code":"EN",
-              "active":true
-           }
-        ]
+        "collection":["EN"]
       }
     """
     When I request "/api/v1/EN/languages" using HTTP PUT
@@ -99,8 +94,7 @@ Feature: Core module
       {
          "collection":[
             {
-               "code":"EN",
-               "active":"test"
+               "code":"EN"
             }
          ]
       }
@@ -115,8 +109,7 @@ Feature: Core module
       {
          "collection":[
             {
-               "code":"ZZ",
-               "active":true
+               "code":"ZZ"
             }
          ]
       }
@@ -129,8 +122,7 @@ Feature: Core module
     Given the request body is:
     """
     {
-      "code": "ZZ",
-      "active": true
+      "code": "ZZ"
     }
     """
     When I request "/api/v1/EN/languages" using HTTP PUT
