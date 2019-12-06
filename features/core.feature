@@ -81,7 +81,7 @@ Feature: Core module
     Given the request body is:
     """
       {
-        "collection":["EN"]
+        "collection":["EN","PL","SQ"]
       }
     """
     When I request "/api/v1/EN/languages" using HTTP PUT

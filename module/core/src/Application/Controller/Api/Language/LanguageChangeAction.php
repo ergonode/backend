@@ -34,11 +34,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class LanguageChangeAction
 {
     /**
-     * @var DbalLanguageRepository
-     */
-    private $repository;
-
-    /**
      * @var MessageBusInterface
      */
     private $messageBus;
@@ -49,16 +44,13 @@ class LanguageChangeAction
     private $formFactory;
 
     /**
-     * @param DbalLanguageRepository $repository
      * @param MessageBusInterface    $messageBus
      * @param FormFactoryInterface   $formFactory
      */
     public function __construct(
-        DbalLanguageRepository $repository,
         MessageBusInterface $messageBus,
         FormFactoryInterface $formFactory
     ) {
-        $this->repository = $repository;
         $this->messageBus = $messageBus;
         $this->formFactory = $formFactory;
     }
