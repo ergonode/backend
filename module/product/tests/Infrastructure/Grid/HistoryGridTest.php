@@ -11,7 +11,7 @@ namespace Ergonode\Tests\Product\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Product\Infrastructure\Grid\HistoryGrid;
+use Ergonode\Product\Infrastructure\Grid\ProductHistoryGrid;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -26,7 +26,7 @@ class HistoryGridTest extends TestCase
         $configuration = $this->createMock(GridConfigurationInterface::class);
         /** @var Language $language */
         $language = $this->createMock(Language::class);
-        $grid = new HistoryGrid();
+        $grid = new ProductHistoryGrid();
         $grid->init($configuration, $language);
         $this->assertNotEmpty($grid->getColumns());
     }

@@ -15,7 +15,7 @@ use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Query\HistoryQueryInterface;
-use Ergonode\Product\Infrastructure\Grid\HistoryGrid;
+use Ergonode\Product\Infrastructure\Grid\ProductHistoryGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -41,19 +41,19 @@ class ProductHistoryReadAction
      */
     private $query;
     /**
-     * @var HistoryGrid
+     * @var ProductHistoryGrid
      */
     private $grid;
 
     /**
      * @param GridRenderer          $gridRenderer
      * @param HistoryQueryInterface $query
-     * @param HistoryGrid           $grid
+     * @param ProductHistoryGrid    $grid
      */
     public function __construct(
         GridRenderer $gridRenderer,
         HistoryQueryInterface $query,
-        HistoryGrid $grid
+        ProductHistoryGrid $grid
     ) {
         $this->gridRenderer = $gridRenderer;
         $this->query = $query;

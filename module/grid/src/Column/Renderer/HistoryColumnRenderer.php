@@ -12,6 +12,9 @@ namespace Ergonode\Grid\Column\Renderer;
 use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\HistoryColumn;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -54,6 +57,17 @@ class HistoryColumnRenderer implements ColumnRendererInterface
         foreach (json_decode($row[$column->getParameterField()], true) as $key => $parameter) {
             if (is_string($parameter)) {
                 $parameters[sprintf('%%%s%%', $key)] = $parameter;
+            }
+            if (is_array($parameter) && array_key_exists('type', $parameter) && array_key_exists('value', $parameter)) {
+                if ($parameter['type'] === StringValue::TYPE) {
+                    $parameters[sprintf('%%%s%%', $key)] = $parameter['value'];
+                }
+                if ($parameter['type'] === StringCollectionValue::TYPE) {
+                    $parameters[sprintf('%%%s%%', $key)] = implode(',', $parameter['value']);
+                }
+                if ($parameter['type'] === TranslatableStringValue::TYPE) {
+                    $parameters[sprintf('%%%s%%', $key)] = implode(',', $parameter['value']);
+                }
             }
         }
 

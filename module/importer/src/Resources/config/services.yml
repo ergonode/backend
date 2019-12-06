@@ -12,7 +12,6 @@ services:
 
     Ergonode\Importer\Application\:
         resource: '../../Application/*'
-        exclude: '../../Domain/{Model}'
 
     Ergonode\Importer\Domain\:
         resource: '../../Domain/*'
