@@ -38,9 +38,13 @@ class AttributeGroupDictionaryProvider
     {
         $collection = $this->attributeGroupQuery->getAttributeGroups($language);
         $result = [];
-        foreach ($collection as $element) {
+        foreach ($collection as $key => $element) {
             if (isset($element['id'])) {
-                $result[$element['id']] = $element['label'];
+                $result[$key]['id'] = $element['id'];
+                $result[$key]['code'] = $element['code'];
+                if (!empty($element['label'])) {
+                    $result[$key]['name'] = $element['label'];
+                }
             }
         }
 
