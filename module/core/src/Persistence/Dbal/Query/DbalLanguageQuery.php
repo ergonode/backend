@@ -134,7 +134,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
         }
 
         if ($field) {
-            $query->orderBy(sprintf('"%s"', $field), $order);
+            $query->orderBy($field, $order);
         }
 
         if ($limit) {
