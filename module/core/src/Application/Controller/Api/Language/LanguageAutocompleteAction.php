@@ -12,10 +12,10 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
 
 /**
  * @Route("language/autocomplete", methods={"GET"})
@@ -59,6 +59,21 @@ class LanguageAutocompleteAction
      *     type="integer",
      *     description="searched value count"
      * )
+     * @SWG\Parameter(
+     *     name="field",
+     *     in="query",
+     *     required=false,
+     *     type="string",
+     *     description="Order field",
+     * )
+     * @SWG\Parameter(
+     *     name="order",
+     *     in="query",
+     *     required=false,
+     *     type="string",
+     *     enum={"ASC","DESC"},
+     *     description="Order",
+     * )
      * @SWG\Response(
      *     response=200,
      *     description="Returns language",
@@ -75,8 +90,10 @@ class LanguageAutocompleteAction
     {
         $search = $request->query->get('search');
         $limit = $request->query->getInt('limit', null);
+        $field = $request->query->get('field');
+        $order = $request->query->get('order');
 
-        $data = $this->query->autocomplete($search, $limit);
+        $data = $this->query->autocomplete($search, $limit, $field, $order);
 
         return new SuccessResponse($data);
     }

@@ -14,7 +14,6 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Form\LanguageCollectionForm;
 use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
 use Ergonode\Core\Domain\Command\UpdateLanguageCommand;
-use Ergonode\Core\Persistence\Dbal\Repository\DbalLanguageRepository;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,8 +43,8 @@ class LanguageChangeAction
     private $formFactory;
 
     /**
-     * @param MessageBusInterface    $messageBus
-     * @param FormFactoryInterface   $formFactory
+     * @param MessageBusInterface  $messageBus
+     * @param FormFactoryInterface $formFactory
      */
     public function __construct(
         MessageBusInterface $messageBus,
