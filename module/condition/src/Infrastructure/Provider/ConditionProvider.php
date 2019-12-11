@@ -14,7 +14,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
-class ConditionDictionaryProvider
+class ConditionProvider
 {
     /**
      * @var TranslatorInterface
@@ -61,7 +61,7 @@ class ConditionDictionaryProvider
      *
      * @return array
      */
-    public function getDictionary(Language $language, string $requestedGroup = null): array
+    public function getConditions(Language $language, string $requestedGroup = null): array
     {
         $result = [];
         if ($requestedGroup) {

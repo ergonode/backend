@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Application\Controller\Api\Condition;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Condition\Infrastructure\Provider\ConditionDictionaryProvider;
+use Ergonode\Condition\Infrastructure\Provider\ConditionProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,14 +23,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConditionAction
 {
     /**
-     * @var ConditionDictionaryProvider
+     * @var ConditionProvider
      */
     private $provider;
 
     /**
-     * @param ConditionDictionaryProvider $provider
+     * @param ConditionProvider $provider
      */
-    public function __construct(ConditionDictionaryProvider $provider)
+    public function __construct(ConditionProvider $provider)
     {
         $this->provider = $provider;
     }
@@ -71,8 +71,8 @@ class ConditionAction
     public function __invoke(Language $language, Request $request): Response
     {
         $group = $request->query->get('group', null);
-        $dictionary = $this->provider->getDictionary($language, $group);
+        $conditions = $this->provider->getConditions($language, $group);
 
-        return new SuccessResponse($dictionary);
+        return new SuccessResponse($conditions);
     }
 }

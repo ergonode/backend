@@ -1,12 +1,12 @@
 Feature: Condition module
 
   Scenario: Get conditions dictionary (not authorized)
-    When I request "/api/v1/EN/dictionary/conditions" using HTTP GET
+    When I request "/api/v1/EN/conditions" using HTTP GET
     Then unauthorized response is received
 
   Scenario: Get conditions dictionary
     Given current authentication token
-    When I request "/api/v1/EN/dictionary/conditions" using HTTP GET
+    When I request "/api/v1/EN/conditions" using HTTP GET
     Then the response code is 200
 
   Scenario: Get condition (not found)

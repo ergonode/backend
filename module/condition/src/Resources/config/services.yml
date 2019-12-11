@@ -59,7 +59,7 @@ services:
             - ['set', ['Ergonode\Condition\Domain\Condition\RoleExactlyCondition']]
             - ['set', ['Ergonode\Condition\Domain\Condition\UserExactlyCondition']]
 
-    Ergonode\Condition\Infrastructure\Provider\ConditionDictionaryProvider:
+    Ergonode\Condition\Infrastructure\Provider\ConditionProvider:
         calls:
             - ['set', ['workflow', '%condition.group.workflow%']]
             - ['set', ['segment', '%condition.group.segment%']]
