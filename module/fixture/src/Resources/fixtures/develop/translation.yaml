@@ -44,3 +44,7 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             -   'PL': 'Szablon'
                 'EN': 'Template'
+    label_esa_categories:
+        __construct:
+            -   'PL': 'Kategorie'
+                'EN': 'Categories'

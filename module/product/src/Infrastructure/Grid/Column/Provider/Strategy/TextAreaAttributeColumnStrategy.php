@@ -25,7 +25,7 @@ class TextAreaAttributeColumnStrategy implements AttributeColumnStrategyInterfac
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() === TextareaAttribute::TYPE;
+        return $attribute instanceof TextareaAttribute;
     }
 
     /**

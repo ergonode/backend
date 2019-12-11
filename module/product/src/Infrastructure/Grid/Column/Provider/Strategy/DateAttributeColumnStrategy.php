@@ -25,7 +25,7 @@ class DateAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() === DateAttribute::TYPE;
+        return $attribute instanceof DateAttribute;
     }
 
     /**

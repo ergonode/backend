@@ -27,7 +27,7 @@ class MultiSelectAttributeColumnStrategy implements AttributeColumnStrategyInter
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() ===  MultiSelectAttribute::TYPE;
+        return $attribute instanceof MultiSelectAttribute;
     }
 
     /**
