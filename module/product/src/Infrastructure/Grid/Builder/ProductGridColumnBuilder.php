@@ -22,7 +22,6 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Request\RequestColumn;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 

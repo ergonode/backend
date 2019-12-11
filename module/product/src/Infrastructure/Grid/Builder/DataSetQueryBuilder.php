@@ -6,16 +6,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Grid\Builder;
+namespace Ergonode\Product\Infrastructure\Grid\Builder;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Builder\Select\AttributeDataSetQueryBuilderInterface;
+use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 
 /**
  */
-class DbalDataSetQueryBuilder
+class DataSetQueryBuilder
 {
     /**
      * @var AttributeDataSetQueryBuilderInterface[]

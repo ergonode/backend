@@ -6,13 +6,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Grid\Builder\Select;
+namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 
 /**
  */

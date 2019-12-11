@@ -15,8 +15,8 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractDbalDataSet;
 use Ergonode\Grid\ColumnInterface;
-use Ergonode\Grid\Builder\DbalDataSetQueryBuilder;
 use Ergonode\Grid\Request\FilterValueCollection;
+use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilder;
 use Webmozart\Assert\Assert;
 
 /**
@@ -31,15 +31,15 @@ class DbalProductDataSet extends AbstractDbalDataSet
     private $connection;
 
     /**
-     * @var DbalDataSetQueryBuilder
+     * @var DataSetQueryBuilder
      */
     private $provider;
 
     /**
-     * @param Connection              $connection
-     * @param DbalDataSetQueryBuilder $provider
+     * @param Connection          $connection
+     * @param DataSetQueryBuilder $provider
      */
-    public function __construct(Connection $connection, DbalDataSetQueryBuilder $provider)
+    public function __construct(Connection $connection, DataSetQueryBuilder $provider)
     {
         $this->connection = $connection;
         $this->provider = $provider;

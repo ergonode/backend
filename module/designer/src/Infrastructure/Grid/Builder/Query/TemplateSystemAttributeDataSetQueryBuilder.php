@@ -6,16 +6,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Grid\Builder\Select;
+namespace Ergonode\Designer\Infrastructure\Grid\Builder\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
+use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 
 /**
  */
-class CategorySystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
+class TemplateSystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
 {
     /**
      * @param AbstractAttribute $attribute
@@ -24,7 +25,7 @@ class CategorySystemAttributeDataSetQueryBuilder implements AttributeDataSetQuer
      */
     public function support(AbstractAttribute $attribute): bool
     {
-        return $attribute instanceof CategorySystemAttribute;
+        return $attribute instanceof TemplateSystemAttribute;
     }
 
     /**
@@ -36,6 +37,6 @@ class CategorySystemAttributeDataSetQueryBuilder implements AttributeDataSetQuer
      */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
-        $query->addSelect(sprintf('(SELECT jsonb_agg(category_id) FROM product_category_product pcp WHERE pcp . product_id = p . id LIMIT 1) AS "esa_category:%s"', $language->getCode()));
+        $query->addSelect(sprintf('p.template_id AS "esa_template:%s"', $language->getCode()));
     }
 }
