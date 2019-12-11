@@ -12,6 +12,7 @@ namespace Ergonode\Core\Persistence\Dbal\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 
@@ -76,43 +77,72 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
-     * @param array $codes
-     *
-     * @return array
+     * @return Language[]
      */
-    public function getLanguages(array $codes): array
+    public function getAll(): array
     {
-        $qb = $this->getQuery(self::ALL_FIELDS);
-
-        return $qb
-            ->where($qb->expr()->in('iso', ':iso'))
-            ->setParameter(':iso', $codes, $this->connection::PARAM_INT_ARRAY)
-            ->execute()
-            ->fetchAll();
-    }
-
-    /**
-     * @return array
-     */
-    public function getLanguagesCodes(): array
-    {
-        return $this->getQuery(self::CODE_FIELD)
+        $records = $this->getQuery(self::CODE_FIELD)
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $result = [];
+        foreach ($records as $record) {
+            $result[] = new Language($record);
+        }
+
+        return $result;
     }
 
     /**
-     * @return array
+     * @return Language[]
      */
-    public function getActiveLanguagesCodes(): array
+    public function getActive(): array
     {
         $qb = $this->getQuery(self::CODE_FIELD);
 
-        return $qb
+        $records = $qb
             ->where($qb->expr()->eq('active', ':active'))
             ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $result = [];
+        foreach ($records as $record) {
+            $result[] = new Language($record);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string|null $search
+     * @param int|null    $limit
+     * @param string|null $field
+     * @param string|null $order
+     *
+     * @return array
+     */
+    public function autocomplete(string $search = null, int $limit = null, string $field = null, ?string $order = 'ASC'): array
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->select(self::ALL_FIELDS)
+            ->from(self::TABLE);
+
+        if ($search) {
+            $query->orWhere(\sprintf('name ILIKE %s', $query->createNamedParameter(\sprintf('%%%s%%', $search))));
+            $query->orWhere(\sprintf('iso ILIKE %s', $query->createNamedParameter(\sprintf('%%%s%%', $search))));
+        }
+        if ($field) {
+            $query->orderBy($field, $order);
+        }
+
+        if ($limit) {
+            $query->setMaxResults($limit);
+        }
+
+        return $query
+            ->execute()
+            ->fetchAll();
     }
 
     /**

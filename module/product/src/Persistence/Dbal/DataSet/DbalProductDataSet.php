@@ -68,6 +68,10 @@ class DbalProductDataSet extends AbstractDbalDataSet
             if($attribute) {
                 $this->provider->provide($query, $key, $attribute, $language);
             }
+
+            if ($column->getField() === 'esa_category') {
+                $query->addSelect(sprintf('(SELECT jsonb_agg(category_id) FROM product_category_product pcp WHERE pcp . product_id = p . id LIMIT 1) AS "esa_category:%s"', $language->getCode()));
+            }
         }
 
         $qb = $this->connection->createQueryBuilder();
@@ -97,12 +101,16 @@ class DbalProductDataSet extends AbstractDbalDataSet
     {
         Assert::allIsInstanceOf($columns, ColumnInterface::class);
 
+
         $language = new Language(Language::EN);
         $query = $this->getQuery();
         foreach ($columns as $key => $column) {
             $attribute = $column->getAttribute();
             if($attribute) {
                 $this->provider->provide($query, $key, $attribute, $language);
+            }
+            if ($key === 'esa_category') {
+                $query->addSelect(sprintf('(SELECT jsonb_agg(category_id) FROM product_category_product pcp WHERE pcp . product_id = p . id LIMIT 1) AS "esa_category:%s"', $language->getCode()));
             }
         }
 

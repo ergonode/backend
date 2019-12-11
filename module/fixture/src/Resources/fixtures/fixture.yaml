@@ -300,6 +300,10 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             -   'PL': 'Szablon'
                 'EN': 'Template'
+    label_esa_categories:
+        __construct:
+            -   'PL': 'Kategorie'
+                'EN': 'Categories'
 
 Ergonode\Workflow\Domain\Entity\Status:
     status_new:
@@ -406,5 +410,12 @@ Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute:
     attribute_esa_template:
         __construct:
             - '@label_esa_template'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
+    attribute_esa_categories:
+        __construct:
+            - '@label_esa_categories'
             - '@empty'
             - '@empty'

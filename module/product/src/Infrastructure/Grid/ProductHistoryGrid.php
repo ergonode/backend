@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Grid;
 
+use Ergonode\Account\Infrastructure\Grid\Column\LogColumn;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\IntegerColumn;
@@ -19,7 +20,7 @@ use Ergonode\Product\Infrastructure\Grid\Column\HistoryColumn;
 
 /**
  */
-class HistoryGrid extends AbstractGrid
+class ProductHistoryGrid extends AbstractGrid
 {
     /**
      * @param GridConfigurationInterface $configuration
@@ -30,6 +31,7 @@ class HistoryGrid extends AbstractGrid
         $id = new IntegerColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
+        $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter()));
         $this->addColumn('recorded_at', new TextColumn('recorded_at', 'Time', new TextFilter()));
         $column = new HistoryColumn('event', 'payload', 'Message', $language);
         $this->addColumn('event', $column);

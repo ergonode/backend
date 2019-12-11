@@ -81,12 +81,7 @@ Feature: Core module
     Given the request body is:
     """
       {
-        "collection":[
-           {
-              "code":"EN",
-              "active":true
-           }
-        ]
+        "collection":["EN","PL","SQ"]
       }
     """
     When I request "/api/v1/EN/languages" using HTTP PUT
@@ -99,8 +94,7 @@ Feature: Core module
       {
          "collection":[
             {
-               "code":"EN",
-               "active":"test"
+               "code":"EN"
             }
          ]
       }
@@ -115,8 +109,7 @@ Feature: Core module
       {
          "collection":[
             {
-               "code":"ZZ",
-               "active":true
+               "code":"ZZ"
             }
          ]
       }
@@ -129,9 +122,77 @@ Feature: Core module
     Given the request body is:
     """
     {
-      "code": "ZZ",
-      "active": true
+      "code": "ZZ"
     }
     """
     When I request "/api/v1/EN/languages" using HTTP PUT
     Then validation error response is received
+
+
+  Scenario: Get language autocomplete
+    Given current authentication token
+    When I request "/api/v1/EN/language/autocomplete" using HTTP GET
+    Then the response code is 200
+    And the response body matches:
+    """
+      /"id"/
+    """
+
+  Scenario: Get language autocomplete (not authorized)
+    When I request "/api/v1/EN/language/autocomplete" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get language autocomplete (order by code)
+    Given current authentication token
+    When I request "/api/v1/EN/language/autocomplete?field=code" using HTTP GET
+    Then the response code is 200
+    And the response body matches:
+    """
+      /"id"/
+    """
+
+  Scenario: Get language autocomplete (order by name)
+    Given current authentication token
+    When I request "/api/v1/EN/language/autocomplete?field=name" using HTTP GET
+    Then the response code is 200
+    And the response body matches:
+    """
+      /"id"/
+    """
+
+  Scenario: Get language autocomplete (order by active)
+    Given current authentication token
+    When I request "/api/v1/EN/language/autocomplete?field=active" using HTTP GET
+    Then the response code is 200
+    And the response body matches:
+    """
+      /"id"/
+    """
+
+  Scenario: Get language autocomplete (order ASC)
+    Given current authentication token
+    When I request "/api/v1/EN/language/autocomplete?field=name&order=ASC" using HTTP GET
+    Then the response code is 200
+    And the response body matches:
+    """
+      /"id"/
+    """
+
+  Scenario: Get language autocomplete (order DESC)
+    Given current authentication token
+    When I request "/api/v1/EN/language/autocomplete?field=name&order=DESC" using HTTP GET
+    Then the response code is 200
+    And the response body matches:
+    """
+      /"id"/
+    """
+
+  Scenario: Get language autocomplete (search f limit 1)
+    Given current authentication token
+    When I request "/api/v1/EN/language/autocomplete?search=f&limit=1" using HTTP GET
+    Then the response code is 200
+    And the response body is a JSON array of length 1
+    And the response body matches:
+    """
+  /"name": [\n[ ]*"F"*/
+    """

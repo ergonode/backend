@@ -55,11 +55,12 @@ class DbalHistoryQuery implements HistoryQueryInterface
      */
     private function getQuery(): QueryBuilder
     {
-
         return $this->connection->createQueryBuilder()
-            ->select('es.id, es.payload, es.recorded_at')
+            ->select('es.id, es.payload, es.recorded_at, es.recorded_by AS author_id')
+            ->addSelect('coalesce(u.first_name || \' \' || u.last_name, \'System\') AS author')
             ->addSelect('ese.translation_key as event')
             ->from('public.event_store', 'es')
-            ->join('es', 'public.event_store_event', 'ese', 'es.event_id = ese.id');
+            ->join('es', 'public.event_store_event', 'ese', 'es.event_id = ese.id')
+            ->leftJoin('es', 'public.users', 'u', 'u.id = es.recorded_by');
     }
 }

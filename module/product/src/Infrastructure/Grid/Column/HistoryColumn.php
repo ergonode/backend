@@ -11,18 +11,12 @@ namespace Ergonode\Product\Infrastructure\Grid\Column;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\AbstractColumn;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class HistoryColumn extends AbstractColumn
 {
     public const TYPE = 'TEXT';
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
 
     /**
      * @var string

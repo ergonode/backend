@@ -11,48 +11,34 @@ namespace Ergonode\Core\Domain\Command;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class UpdateLanguageCommand
 {
     /**
-     * @var Language
+     * @var array<Language>
      *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
+     * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
-    private $code;
+    private $languages;
 
     /**
-     * @var bool
-     *
-     * @JMS\Type("bool")
+     * @param array $languages
      */
-    private $active;
-
-    /**
-     * @param Language $code
-     * @param bool     $active
-     */
-    public function __construct(Language $code, bool $active)
+    public function __construct(array $languages)
     {
-        $this->code = $code;
-        $this->active = $active;
+        Assert::allIsInstanceOf($languages, Language::class);
+
+        $this->languages = $languages;
     }
 
     /**
-     * @return Language
+     * @return array<Language>
      */
-    public function getCode(): Language
+    public function getLanguages(): array
     {
-        return $this->code;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isActive(): bool
-    {
-        return $this->active;
+        return $this->languages;
     }
 }
