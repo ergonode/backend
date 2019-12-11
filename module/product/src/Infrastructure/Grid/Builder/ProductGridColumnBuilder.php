@@ -101,6 +101,7 @@ class ProductGridColumnBuilder
                     Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
 
                     $new = $this->provider->provide($attribute, $language);
+                    $new->setAttribute($attribute);
                     $new->setExtension('element_id', $id->getValue());
                     $new->setExtension('parameters', $attribute->getParameters());
                     $new->setEditable($attribute->isEditable());

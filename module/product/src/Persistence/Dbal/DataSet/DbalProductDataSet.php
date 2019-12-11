@@ -12,12 +12,10 @@ namespace Ergonode\Product\Persistence\Dbal\DataSet;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractDbalDataSet;
-use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
+use Ergonode\Grid\Builder\DbalDataSetQueryBuilder;
 use Ergonode\Grid\Request\FilterValueCollection;
 use Webmozart\Assert\Assert;
 
@@ -33,15 +31,22 @@ class DbalProductDataSet extends AbstractDbalDataSet
     private $connection;
 
     /**
-     * @param Connection $connection
+     * @var DbalDataSetQueryBuilder
      */
-    public function __construct(Connection $connection)
+    private $provider;
+
+    /**
+     * @param Connection              $connection
+     * @param DbalDataSetQueryBuilder $provider
+     */
+    public function __construct(Connection $connection, DbalDataSetQueryBuilder $provider)
     {
         $this->connection = $connection;
+        $this->provider = $provider;
     }
 
     /**
-     * @param array                 $columns
+     * @param ColumnInterface[]     $columns
      * @param FilterValueCollection $values
      * @param int                   $limit
      * @param int                   $offset
@@ -58,23 +63,10 @@ class DbalProductDataSet extends AbstractDbalDataSet
         $userLanguage = new Language(Language::EN);
         $query = $this->getQuery();
         foreach ($columns as $key => $column) {
+            $attribute = $column->getAttribute();
             $language = $column->getLanguage() ?: $userLanguage;
-            if (!in_array($column->getField(), ['id', 'sku', 'index', 'version', 'esa_template'])) {
-                if ($column->getType() === MultiSelectColumn::TYPE) {
-                    $query->addSelect(sprintf(
-                        '(SELECT jsonb_agg(value) FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id WHERE pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
-                        AttributeId::fromKey(new AttributeCode($column->getField()))->getValue(),
-                        $language->getCode(),
-                        $key
-                    ));
-                } else {
-                    $query->addSelect(sprintf(
-                        '(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id  WHERE pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
-                        AttributeId::fromKey(new AttributeCode($column->getField()))->getValue(),
-                        $language->getCode(),
-                        $key
-                    ));
-                }
+            if($attribute) {
+                $this->provider->provide($query, $key, $attribute, $language);
             }
         }
 
@@ -108,8 +100,9 @@ class DbalProductDataSet extends AbstractDbalDataSet
         $language = new Language(Language::EN);
         $query = $this->getQuery();
         foreach ($columns as $key => $column) {
-            if (!in_array($key, ['id', 'sku', 'index', 'version', 'esa_template', 'edit'])) {
-                $query->addSelect(\sprintf('(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id JOIN attribute a ON a.id = pv.attribute_id WHERE a.code = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id) AS "%s"', $key, $language->getCode(), $key));
+            $attribute = $column->getAttribute();
+            if($attribute) {
+                $this->provider->provide($query, $key, $attribute, $language);
             }
         }
 

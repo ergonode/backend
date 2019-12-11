@@ -13,10 +13,19 @@ services:
     Ergonode\Grid\Filter\:
         resource: '../../Filter/*'
 
+    Ergonode\Grid\Builder\:
+        resource: '../../Builder/*'
+
     Ergonode\Grid\Renderer\:
         resource: '../../Renderer/*'
+
+    Ergonode\Grid\Persistence\:
+        resource: '../../Persistence/*'
 
     Ergonode\Grid\Request\:
         resource: '../../Request/*'
 
     Ergonode\Grid\Renderer\RowRendererInterface: '@Ergonode\Grid\Renderer\RowRenderer'
+    Ergonode\Grid\Builder\DbalDataSetQueryBuilder:
+        arguments:
+            - '@Ergonode\Grid\Builder\Select\MultiSelectAttributeDataSetQueryBuilder'
