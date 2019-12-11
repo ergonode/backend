@@ -40,16 +40,6 @@ class DbalLanguageRepository implements LanguageRepositoryInterface
     }
 
     /**
-     * @param array $codes
-     *
-     * @return array
-     */
-    public function load(array $codes): array
-    {
-        return $this->query->getLanguages($codes);
-    }
-
-    /**
      * @param Language $language
      * @param bool     $active
      *

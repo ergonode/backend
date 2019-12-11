@@ -14,8 +14,6 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Form\LanguageCollectionForm;
 use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
 use Ergonode\Core\Domain\Command\UpdateLanguageCommand;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Persistence\Dbal\Repository\DbalLanguageRepository;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,11 +33,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class LanguageChangeAction
 {
     /**
-     * @var DbalLanguageRepository
-     */
-    private $repository;
-
-    /**
      * @var MessageBusInterface
      */
     private $messageBus;
@@ -50,16 +43,13 @@ class LanguageChangeAction
     private $formFactory;
 
     /**
-     * @param DbalLanguageRepository $repository
-     * @param MessageBusInterface    $messageBus
-     * @param FormFactoryInterface   $formFactory
+     * @param MessageBusInterface  $messageBus
+     * @param FormFactoryInterface $formFactory
      */
     public function __construct(
-        DbalLanguageRepository $repository,
         MessageBusInterface $messageBus,
         FormFactoryInterface $formFactory
     ) {
-        $this->repository = $repository;
         $this->messageBus = $messageBus;
         $this->formFactory = $formFactory;
     }
@@ -106,11 +96,9 @@ class LanguageChangeAction
                 /** @var LanguageCollectionFormModel $data */
                 $data = $form->getData();
                 $languages = $data->collection->getValues();
-                foreach ($languages as $language) {
-                    $command = new UpdateLanguageCommand(Language::fromString($language->code), $language->active);
-                    $this->messageBus->dispatch($command);
-                    $this->repository->save(Language::fromString($language->code), $language->active);
-                }
+
+                $command = new UpdateLanguageCommand($languages);
+                $this->messageBus->dispatch($command);
 
                 return new EmptyResponse();
             }

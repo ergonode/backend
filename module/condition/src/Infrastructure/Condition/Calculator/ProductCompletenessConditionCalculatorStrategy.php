@@ -81,8 +81,8 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
 
         $result = true;
 
-        foreach ($this->query->getActiveLanguagesCodes() as $code) {
-            $calculation = $this->calculator->calculate($draft, $template, new Language($code));
+        foreach ($this->query->getActive() as $code) {
+            $calculation = $this->calculator->calculate($draft, $template, $code);
             if ($configuration->getCompleteness() === ProductCompletenessCondition::COMPLETE) {
                 if ($calculation->getPercent() < 100) {
                     $result = false;
