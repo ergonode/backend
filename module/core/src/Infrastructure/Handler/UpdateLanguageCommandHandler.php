@@ -46,11 +46,8 @@ class UpdateLanguageCommandHandler
         $activeLanguages = $command->getLanguages();
         $allLanguages = $this->query->getAll();
         foreach ($allLanguages as $language) {
-            if ($this->hasCode($language, $activeLanguages)) {
-                $this->repository->save($language, true);
-            } else {
-                $this->repository->save($language, false);
-            }
+            $hasCode = $this->hasCode($language, $activeLanguages);
+            $this->repository->save($language, $hasCode);
         }
     }
 
