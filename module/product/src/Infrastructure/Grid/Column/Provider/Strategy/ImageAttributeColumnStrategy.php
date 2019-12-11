@@ -24,7 +24,7 @@ class ImageAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() === ImageAttribute::TYPE;
+        return $attribute instanceof ImageAttribute;
     }
 
     /**

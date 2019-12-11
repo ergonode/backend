@@ -7,30 +7,30 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Infrastructure\Grid\Column\Provider\Strategy;
+namespace Ergonode\Category\Infrastructure\Grid\Column\Builder;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute;
+use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
-use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
-use Ergonode\Grid\Column\SelectColumn;
+use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 
 /**
  */
-class TemplateSystemAttributeColumnStrategy implements AttributeColumnStrategyInterface
+class CategorySystemAttributeColumnBuilderStrategy implements AttributeColumnStrategyInterface
 {
     /**
-     * @var TemplateQueryInterface
+     * @var CategoryQueryInterface
      */
     private $query;
 
     /**
-     * @param TemplateQueryInterface $query
+     * @param CategoryQueryInterface $query
      */
-    public function __construct(TemplateQueryInterface $query)
+    public function __construct(CategoryQueryInterface $query)
     {
         $this->query = $query;
     }
@@ -40,7 +40,7 @@ class TemplateSystemAttributeColumnStrategy implements AttributeColumnStrategyIn
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() === TemplateSystemAttribute::TYPE;
+        return $attribute instanceof CategorySystemAttribute;
     }
 
     /**
@@ -48,11 +48,16 @@ class TemplateSystemAttributeColumnStrategy implements AttributeColumnStrategyIn
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
-        $options = $this->query->getDictionary($language);
+        $categories = $this->query->getDictionary($language);
+
+        $options = [];
+        foreach ($categories as $id => $option) {
+            $options[$id] = $option;
+        }
 
         $columnKey = $attribute->getCode()->getValue();
 
-        return new SelectColumn(
+        return new MultiSelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
             new SelectFilter($options)

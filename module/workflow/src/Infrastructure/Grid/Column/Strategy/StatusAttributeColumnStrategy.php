@@ -39,7 +39,7 @@ class StatusAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() === StatusSystemAttribute::TYPE;
+        return $attribute instanceof StatusSystemAttribute;
     }
 
     /**

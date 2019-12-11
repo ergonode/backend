@@ -41,7 +41,9 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return in_array($attribute->getType(), [NumericAttribute::TYPE, PriceAttribute::TYPE, UnitAttribute::TYPE], true);
+        return $attribute instanceof NumericAttribute
+            || $attribute instanceof PriceAttribute
+            || $attribute instanceof UnitAttribute;
     }
 
     /**

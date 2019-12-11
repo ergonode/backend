@@ -133,3 +133,10 @@ Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute:
             - '@label_esa_template'
             - '@empty'
             - '@empty'
+
+Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
+    attribute_esa_categories:
+        __construct:
+            - '@label_esa_categories'
+            - '@empty'
+            - '@empty'

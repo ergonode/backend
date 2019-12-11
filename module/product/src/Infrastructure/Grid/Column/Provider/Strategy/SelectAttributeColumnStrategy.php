@@ -27,7 +27,7 @@ class SelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() === SelectAttribute::TYPE;
+        return $attribute->getType() instanceof SelectAttribute;
     }
 
     /**

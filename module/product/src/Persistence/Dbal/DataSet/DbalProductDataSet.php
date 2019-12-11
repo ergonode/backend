@@ -59,8 +59,8 @@ class DbalProductDataSet extends AbstractDbalDataSet
         $query = $this->getQuery();
         foreach ($columns as $key => $column) {
             $language = $column->getLanguage() ?: $userLanguage;
-            if (!in_array($column->getField(), ['id', 'sku', 'index', 'version', 'esa_template'])) {
-                if ($column->getType() === MultiSelectColumn::TYPE) {
+            if (!in_array($column->getField(), ['id', 'sku', 'index', 'version', 'esa_template', 'esa_category'])) {
+                if ($column instanceof MultiSelectColumn) {
                     $query->addSelect(sprintf(
                         '(SELECT jsonb_agg(value) FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id WHERE pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
                         AttributeId::fromKey(new AttributeCode($column->getField()))->getValue(),
@@ -75,6 +75,10 @@ class DbalProductDataSet extends AbstractDbalDataSet
                         $key
                     ));
                 }
+            }
+
+            if ($column->getField() === 'esa_category') {
+                $query->addSelect(sprintf('(SELECT jsonb_agg(category_id) FROM product_category_product pcp WHERE pcp . product_id = p . id LIMIT 1) AS "esa_category:%s"', $language->getCode()));
             }
         }
 
@@ -105,11 +109,15 @@ class DbalProductDataSet extends AbstractDbalDataSet
     {
         Assert::allIsInstanceOf($columns, ColumnInterface::class);
 
+
         $language = new Language(Language::EN);
         $query = $this->getQuery();
         foreach ($columns as $key => $column) {
-            if (!in_array($key, ['id', 'sku', 'index', 'version', 'esa_template', 'edit'])) {
+            if (!in_array($key, ['id', 'sku', 'index', 'version', 'esa_template', 'esa_category', 'edit'])) {
                 $query->addSelect(\sprintf('(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id JOIN attribute a ON a.id = pv.attribute_id WHERE a.code = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id) AS "%s"', $key, $language->getCode(), $key));
+            }
+            if ($key === 'esa_category') {
+                $query->addSelect(sprintf('(SELECT jsonb_agg(category_id) FROM product_category_product pcp WHERE pcp . product_id = p . id LIMIT 1) AS "esa_category:%s"', $language->getCode()));
             }
         }
 
