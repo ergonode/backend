@@ -117,10 +117,12 @@ class DbalLanguageQuery implements LanguageQueryInterface
     /**
      * @param string|null $search
      * @param int|null    $limit
+     * @param string|null $field
+     * @param string|null $order
      *
      * @return array
      */
-    public function autocomplete(string $search = null, int $limit = null): array
+    public function autocomplete(string $search = null, int $limit = null, string $field = null, ?string $order = 'ASC'): array
     {
         $query = $this->connection->createQueryBuilder()
             ->select(self::ALL_FIELDS)
@@ -129,6 +131,9 @@ class DbalLanguageQuery implements LanguageQueryInterface
         if ($search) {
             $query->orWhere(\sprintf('name ILIKE %s', $query->createNamedParameter(\sprintf('%%%s%%', $search))));
             $query->orWhere(\sprintf('iso ILIKE %s', $query->createNamedParameter(\sprintf('%%%s%%', $search))));
+        }
+        if ($field) {
+            $query->orderBy($field, $order);
         }
 
         if ($limit) {
