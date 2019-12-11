@@ -20,7 +20,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/conditions/{condition}", methods={"GET"})
+ * @Route(
+ *     name="ergonode_condition_read",
+ *     path="/conditions/{condition}",
+ *     methods={"GET"},
+ * )
  */
 class ConditionConfigurationReadAction
 {

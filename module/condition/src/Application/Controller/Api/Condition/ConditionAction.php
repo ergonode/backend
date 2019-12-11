@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Condition\Application\Controller\Api\Dictionary;
+namespace Ergonode\Condition\Application\Controller\Api\Condition;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider;
+use Ergonode\Condition\Infrastructure\Provider\ConditionDictionaryProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("conditions", methods={"GET"})
+ * @Route("/conditions", methods={"GET"})
  */
-class ConditionReadAction
+class ConditionAction
 {
     /**
      * @var ConditionDictionaryProvider
@@ -36,7 +36,7 @@ class ConditionReadAction
     }
 
     /**
-     * @SWG\Tag(name="Dictionary")
+     * @SWG\Tag(name="Condition")
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
