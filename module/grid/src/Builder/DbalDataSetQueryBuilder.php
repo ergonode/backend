@@ -41,6 +41,7 @@ class DbalDataSetQueryBuilder
         foreach ($this->strategies as $strategy) {
             if ($strategy->support($attribute)) {
                 $strategy->addSelect($query, $key, $attribute, $language);
+
                 return;
             }
         }

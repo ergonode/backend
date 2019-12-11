@@ -58,21 +58,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
      */
     public function getItems(array $columns, FilterValueCollection $values, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable
     {
-        Assert::allIsInstanceOf($columns, ColumnInterface::class);
-
-        $userLanguage = new Language(Language::EN);
-        $query = $this->getQuery();
-        foreach ($columns as $key => $column) {
-            $attribute = $column->getAttribute();
-            $language = $column->getLanguage() ?: $userLanguage;
-            if($attribute) {
-                $this->provider->provide($query, $key, $attribute, $language);
-            }
-
-            if ($column->getField() === 'esa_category') {
-                $query->addSelect(sprintf('(SELECT jsonb_agg(category_id) FROM product_category_product pcp WHERE pcp . product_id = p . id LIMIT 1) AS "esa_category:%s"', $language->getCode()));
-            }
-        }
+        $query = $this->build($columns);
 
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*');
@@ -99,20 +85,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
      */
     public function countItems(FilterValueCollection $values, array $columns = []): int
     {
-        Assert::allIsInstanceOf($columns, ColumnInterface::class);
-
-
-        $language = new Language(Language::EN);
-        $query = $this->getQuery();
-        foreach ($columns as $key => $column) {
-            $attribute = $column->getAttribute();
-            if($attribute) {
-                $this->provider->provide($query, $key, $attribute, $language);
-            }
-            if ($key === 'esa_category') {
-                $query->addSelect(sprintf('(SELECT jsonb_agg(category_id) FROM product_category_product pcp WHERE pcp . product_id = p . id LIMIT 1) AS "esa_category:%s"', $language->getCode()));
-            }
-        }
+        $query = $this->build($columns);
 
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*');
@@ -131,12 +104,34 @@ class DbalProductDataSet extends AbstractDbalDataSet
     }
 
     /**
+     * @param array                 $columns
+     *
+     * @return QueryBuilder
+     */
+    private function build(array $columns): QueryBuilder
+    {
+        Assert::allIsInstanceOf($columns, ColumnInterface::class);
+
+        $userLanguage = new Language(Language::EN);
+        $query = $this->getQuery();
+        foreach ($columns as $key => $column) {
+            $attribute = $column->getAttribute();
+            $language = $column->getLanguage() ?: $userLanguage;
+            if ($attribute) {
+                $this->provider->provide($query, $key, $attribute, $language);
+            }
+        }
+
+        return $query;
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('p.id, p.index, p.sku, p.version, p.template_id AS esa_template')
+            ->select('p.id, p.index, p.sku, p.version')
             ->from(self::PRODUCT_TABLE, 'p');
     }
 }

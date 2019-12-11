@@ -10,13 +10,12 @@ namespace Ergonode\Grid\Builder\Select;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
+use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 
 /**
  */
-class MultiSelectAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
+class TemplateSystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
 {
     /**
      * @param AbstractAttribute $attribute
@@ -25,7 +24,7 @@ class MultiSelectAttributeDataSetQueryBuilder implements AttributeDataSetQueryBu
      */
     public function support(AbstractAttribute $attribute): bool
     {
-        return $attribute instanceof MultiSelectAttribute;
+        return $attribute instanceof TemplateSystemAttribute;
     }
 
     /**
@@ -37,11 +36,6 @@ class MultiSelectAttributeDataSetQueryBuilder implements AttributeDataSetQueryBu
      */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
-        $query->addSelect(sprintf(
-            '(SELECT jsonb_agg(value) FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id WHERE pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
-            $attribute->getId()->getValue(),
-            $language->getCode(),
-            $key
-        ));
+        $query->addSelect(sprintf('p.template_id AS "esa_template:%s"', $language->getCode()));
     }
 }

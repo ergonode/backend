@@ -19,9 +19,6 @@ services:
     Ergonode\Grid\Renderer\:
         resource: '../../Renderer/*'
 
-    Ergonode\Grid\Persistence\:
-        resource: '../../Persistence/*'
-
     Ergonode\Grid\Request\:
         resource: '../../Request/*'
 
@@ -29,3 +26,5 @@ services:
     Ergonode\Grid\Builder\DbalDataSetQueryBuilder:
         arguments:
             - '@Ergonode\Grid\Builder\Select\MultiSelectAttributeDataSetQueryBuilder'
+            - '@Ergonode\Grid\Builder\Select\CategorySystemAttributeDataSetQueryBuilder'
+            - '@Ergonode\Grid\Builder\Select\TemplateSystemAttributeDataSetQueryBuilder'

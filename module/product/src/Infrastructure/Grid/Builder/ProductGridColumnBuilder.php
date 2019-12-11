@@ -14,7 +14,6 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Grid\Column\CheckColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\LinkColumn;
@@ -80,8 +79,6 @@ class ProductGridColumnBuilder
                 new RequestColumn('id'),
                 new RequestColumn('index'),
                 new RequestColumn('sku'),
-                new RequestColumn(StatusSystemAttribute::CODE),
-                new RequestColumn(TemplateSystemAttribute::CODE),
             ],
             $configuration->getColumns()
         );
