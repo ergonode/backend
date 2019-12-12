@@ -39,7 +39,7 @@ class DataSetQueryBuilder
     public function provide(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
         foreach ($this->strategies as $strategy) {
-            if ($strategy->support($attribute)) {
+            if ($strategy->supports($attribute)) {
                 $strategy->addSelect($query, $key, $attribute, $language);
 
                 return;

@@ -19,21 +19,15 @@ use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuil
 class CategorySystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
 {
     /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function support(AbstractAttribute $attribute): bool
+    public function supports(AbstractAttribute $attribute): bool
     {
         return $attribute instanceof CategorySystemAttribute;
     }
 
     /**
-     * @param QueryBuilder      $query
-     * @param string            $key
-     * @param AbstractAttribute $attribute
-     * @param Language          $language
-     *
+     * {@inheritDoc}
      */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {

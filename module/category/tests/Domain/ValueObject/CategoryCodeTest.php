@@ -45,7 +45,11 @@ class CategoryCodeTest extends TestCase
     public function validDataProvider(): array
     {
         return [
+            ['valida_code'],
+            ['valida-code'],
+            ['valida code 12'],
             ['valida code'],
+            ['a'],
             ['a'],
             [str_repeat('a', 255)],
         ];
@@ -58,6 +62,14 @@ class CategoryCodeTest extends TestCase
     {
         return [
             [''],
+            [' '],
+            [' a'],
+            ['a '],
+            [' &'],
+            ['!'],
+            ['['],
+            [str_repeat(' ', 255)],
+            [PHP_EOL],
             [str_repeat('a', 256)],
         ];
     }

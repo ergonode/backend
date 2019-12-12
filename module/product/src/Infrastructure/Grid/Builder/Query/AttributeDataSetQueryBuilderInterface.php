@@ -21,14 +21,13 @@ interface AttributeDataSetQueryBuilderInterface
      *
      * @return bool
      */
-    public function support(AbstractAttribute $attribute): bool;
+    public function supports(AbstractAttribute $attribute): bool;
 
     /**
      * @param QueryBuilder      $query
      * @param string            $key
      * @param AbstractAttribute $attribute
      * @param Language          $language
-     *
      */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void;
 }

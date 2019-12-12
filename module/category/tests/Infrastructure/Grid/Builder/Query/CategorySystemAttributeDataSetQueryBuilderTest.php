@@ -24,7 +24,7 @@ class CategorySystemAttributeDataSetQueryBuilderTest extends TestCase
     public function testSupportedType(): void
     {
         $builder = new CategorySystemAttributeDataSetQueryBuilder();
-        $this->assertTrue($builder->support($this->createMock(CategorySystemAttribute::class)));
+        $this->assertTrue($builder->supports($this->createMock(CategorySystemAttribute::class)));
     }
 
     /**
@@ -32,7 +32,7 @@ class CategorySystemAttributeDataSetQueryBuilderTest extends TestCase
     public function testUnSupportedType(): void
     {
         $builder = new CategorySystemAttributeDataSetQueryBuilder();
-        $this->assertFalse($builder->support($this->createMock(AbstractAttribute::class)));
+        $this->assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
     }
 
     /**
