@@ -4,7 +4,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Category\Tests\Infrastructure\Grid\Column\Builder;
 
@@ -16,6 +16,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class CategorySystemAttributeColumnBuilderStrategyTest extends TestCase
 {
     /**
