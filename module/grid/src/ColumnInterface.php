@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid;
 
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
@@ -85,4 +86,14 @@ interface ColumnInterface
      * @return array
      */
     public function getExtensions(): array;
+
+    /**
+     * @return AbstractAttribute|null
+     */
+    public function getAttribute(): ?AbstractAttribute;
+
+    /**
+     * @param AbstractAttribute $attribute
+     */
+    public function setAttribute(AbstractAttribute $attribute): void;
 }

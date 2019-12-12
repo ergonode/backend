@@ -41,7 +41,6 @@ class RowRenderer implements RowRendererInterface
                 $columnId = sprintf('%s:%s', $column->getField(), $column->getLanguage()->getCode());
             }
 
-            // @todo Might be slow, we need to group it in my opinion
             foreach ($this->rendererCollection as $renderer) {
                 if ($renderer->supports($column)) {
                     $result[$columnId] = $renderer->render($column, $id, $row);

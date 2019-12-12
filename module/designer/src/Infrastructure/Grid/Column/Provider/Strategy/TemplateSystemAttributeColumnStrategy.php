@@ -40,7 +40,7 @@ class TemplateSystemAttributeColumnStrategy implements AttributeColumnStrategyIn
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() === TemplateSystemAttribute::TYPE;
+        return $attribute instanceof TemplateSystemAttribute;
     }
 
     /**

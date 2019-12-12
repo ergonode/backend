@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Column;
 
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\FilterInterface;
@@ -56,6 +57,11 @@ abstract class AbstractColumn implements ColumnInterface
      * @var string[]
      */
     private $extensions;
+
+    /**
+     * @var AbstractAttribute
+     */
+    private $attribute;
 
     /**
      * @param string               $field
@@ -181,5 +187,21 @@ abstract class AbstractColumn implements ColumnInterface
     public function getExtensions(): array
     {
         return $this->extensions;
+    }
+
+    /**
+     * @return AbstractAttribute|null
+     */
+    public function getAttribute(): ?AbstractAttribute
+    {
+        return $this->attribute;
+    }
+
+    /**
+     * @param AbstractAttribute $attribute
+     */
+    public function setAttribute(AbstractAttribute $attribute): void
+    {
+        $this->attribute = $attribute;
     }
 }

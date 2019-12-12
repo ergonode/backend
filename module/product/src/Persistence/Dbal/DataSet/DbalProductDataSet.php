@@ -12,13 +12,11 @@ namespace Ergonode\Product\Persistence\Dbal\DataSet;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractDbalDataSet;
-use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Request\FilterValueCollection;
+use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilder;
 use Webmozart\Assert\Assert;
 
 /**
@@ -33,15 +31,22 @@ class DbalProductDataSet extends AbstractDbalDataSet
     private $connection;
 
     /**
-     * @param Connection $connection
+     * @var DataSetQueryBuilder
      */
-    public function __construct(Connection $connection)
+    private $provider;
+
+    /**
+     * @param Connection          $connection
+     * @param DataSetQueryBuilder $provider
+     */
+    public function __construct(Connection $connection, DataSetQueryBuilder $provider)
     {
         $this->connection = $connection;
+        $this->provider = $provider;
     }
 
     /**
-     * @param array                 $columns
+     * @param ColumnInterface[]     $columns
      * @param FilterValueCollection $values
      * @param int                   $limit
      * @param int                   $offset
@@ -53,34 +58,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
      */
     public function getItems(array $columns, FilterValueCollection $values, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable
     {
-        Assert::allIsInstanceOf($columns, ColumnInterface::class);
-
-        $userLanguage = new Language(Language::EN);
-        $query = $this->getQuery();
-        foreach ($columns as $key => $column) {
-            $language = $column->getLanguage() ?: $userLanguage;
-            if (!in_array($column->getField(), ['id', 'sku', 'index', 'version', 'esa_template', 'esa_category'])) {
-                if ($column instanceof MultiSelectColumn) {
-                    $query->addSelect(sprintf(
-                        '(SELECT jsonb_agg(value) FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id WHERE pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
-                        AttributeId::fromKey(new AttributeCode($column->getField()))->getValue(),
-                        $language->getCode(),
-                        $key
-                    ));
-                } else {
-                    $query->addSelect(sprintf(
-                        '(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id  WHERE pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
-                        AttributeId::fromKey(new AttributeCode($column->getField()))->getValue(),
-                        $language->getCode(),
-                        $key
-                    ));
-                }
-            }
-
-            if ($column->getField() === 'esa_category') {
-                $query->addSelect(sprintf('(SELECT jsonb_agg(category_id) FROM product_category_product pcp WHERE pcp . product_id = p . id LIMIT 1) AS "esa_category:%s"', $language->getCode()));
-            }
-        }
+        $query = $this->build($columns);
 
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*');
@@ -107,19 +85,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
      */
     public function countItems(FilterValueCollection $values, array $columns = []): int
     {
-        Assert::allIsInstanceOf($columns, ColumnInterface::class);
-
-
-        $language = new Language(Language::EN);
-        $query = $this->getQuery();
-        foreach ($columns as $key => $column) {
-            if (!in_array($key, ['id', 'sku', 'index', 'version', 'esa_template', 'esa_category', 'edit'])) {
-                $query->addSelect(\sprintf('(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id JOIN attribute a ON a.id = pv.attribute_id WHERE a.code = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id) AS "%s"', $key, $language->getCode(), $key));
-            }
-            if ($key === 'esa_category') {
-                $query->addSelect(sprintf('(SELECT jsonb_agg(category_id) FROM product_category_product pcp WHERE pcp . product_id = p . id LIMIT 1) AS "esa_category:%s"', $language->getCode()));
-            }
-        }
+        $query = $this->build($columns);
 
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*');
@@ -138,12 +104,34 @@ class DbalProductDataSet extends AbstractDbalDataSet
     }
 
     /**
+     * @param array                 $columns
+     *
+     * @return QueryBuilder
+     */
+    private function build(array $columns): QueryBuilder
+    {
+        Assert::allIsInstanceOf($columns, ColumnInterface::class);
+
+        $userLanguage = new Language(Language::EN);
+        $query = $this->getQuery();
+        foreach ($columns as $key => $column) {
+            $attribute = $column->getAttribute();
+            $language = $column->getLanguage() ?: $userLanguage;
+            if ($attribute) {
+                $this->provider->provide($query, $key, $attribute, $language);
+            }
+        }
+
+        return $query;
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('p.id, p.index, p.sku, p.version, p.template_id AS esa_template')
+            ->select('p.id, p.index, p.sku, p.version')
             ->from(self::PRODUCT_TABLE, 'p');
     }
 }

@@ -17,7 +17,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
  */
 class CategorySystemAttribute extends AbstractOptionAttribute
 {
-    public const TYPE = 'STATUS';
+    public const TYPE = 'MULTI_SELECT';
     public const CODE = 'esa_category';
 
     /**

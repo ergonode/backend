@@ -17,7 +17,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
  */
 class TemplateSystemAttribute extends AbstractOptionAttribute
 {
-    public const TYPE = 'TEMPLATE';
+    public const TYPE = 'SELECT';
     public const CODE = 'esa_template';
 
     /**
