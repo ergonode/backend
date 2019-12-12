@@ -43,7 +43,7 @@ class DbalAccountQuery implements AccountQueryInterface
      */
     public function __construct(Connection $connection)
     {
-        $this->connection = $connection;    
+        $this->connection = $connection;
     }
 
     /**
