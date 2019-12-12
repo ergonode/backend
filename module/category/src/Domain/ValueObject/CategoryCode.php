@@ -53,6 +53,7 @@ class CategoryCode
      */
     public static function isValid(string $value): bool
     {
-        return strlen($value) <= 255;
+        return '' !== $value
+            && strlen($value) < 256;
     }
 }

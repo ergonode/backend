@@ -13,12 +13,14 @@ use Ergonode\Category\Domain\Command\CreateCategoryCommand;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 class CreateCategoryCommandTest extends TestCase
 {
     /**
+     * @throws \Exception
      */
     public function testCommand(): void
     {
@@ -28,5 +30,6 @@ class CreateCategoryCommandTest extends TestCase
         $command = new CreateCategoryCommand($code, $name);
         $this->assertEquals($code, $command->getCode());
         $this->assertEquals($name, $command->getName());
+        $this->assertTrue(Uuid::isValid($command->getId()->getValue()));
     }
 }
