@@ -75,6 +75,10 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("CONDITION_READ")>'
                 - '<privilege("CONDITION_UPDATE")>'
                 - '<privilege("CONDITION_DELETE")>'
+                - '<privilege("CHANNEL_CREATE")>'
+                - '<privilege("CHANNEL_READ")>'
+                - '<privilege("CHANNEL_UPDATE")>'
+                - '<privilege("CHANNEL_DELETE")>'
             - true
     admin_role:
         __construct:
@@ -138,6 +142,10 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("CONDITION_READ")>'
                 - '<privilege("CONDITION_UPDATE")>'
                 - '<privilege("CONDITION_DELETE")>'
+                - '<privilege("CHANNEL_CREATE")>'
+                - '<privilege("CHANNEL_READ")>'
+                - '<privilege("CHANNEL_UPDATE")>'
+                - '<privilege("CHANNEL_DELETE")>'
     data_inputer_role:
         __construct:
             - '@data_inputer_role_id'

@@ -25,6 +25,7 @@ return [
     Ergonode\Authentication\ErgonodeAuthenticationBundle::class => ['all' => true],
     Ergonode\Importer\ErgonodeImporterBundle::class => ['all' => true],
     Ergonode\Reader\ErgonodeReaderBundle::class => ['all' => true],
+    Ergonode\Channel\ErgonodeChannelBundle::class => ['all' => true],
     Ergonode\Transformer\ErgonodeTransformerBundle::class => ['all' => true],
     Ergonode\Condition\ErgonodeConditionBundle::class => ['all' => true],
     Ergonode\Segment\ErgonodeSegmentBundle::class => ['all' => true],
