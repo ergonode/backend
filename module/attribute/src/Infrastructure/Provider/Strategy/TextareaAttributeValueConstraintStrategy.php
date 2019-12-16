@@ -39,7 +39,7 @@ class TextareaAttributeValueConstraintStrategy implements AttributeValueConstrai
     {
         return new Collection([
             'value' => [
-                new Length(['max' => 255]),
+                new Length(['max' => 5000]),
             ],
         ]);
     }
