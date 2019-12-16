@@ -32,7 +32,6 @@
             <directory>./module/*/src/Application</directory>
             <directory>./module/*/src/Domain</directory>
             <directory>./module/*/src/Infrastructure</directory>
-            <directory>./module/grid/src/*</directory>
             <directory>./src/</directory>
             <exclude>
                 <directory suffix="Kernel.php">./src</directory>
