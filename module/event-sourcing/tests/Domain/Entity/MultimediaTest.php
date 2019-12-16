@@ -51,7 +51,7 @@ class MultimediaTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(MultimediaId::class);
         $this->name = 'name';

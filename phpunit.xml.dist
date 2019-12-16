@@ -8,12 +8,12 @@
          bootstrap="vendor/autoload.php"
 >
     <php>
-        <ini name="error_reporting" value="-1" />
-        <env name="KERNEL_CLASS" value="App\Kernel" />
-        <env name="APP_ENV" value="test" />
-        <env name="APP_DEBUG" value="1" />
-        <env name="APP_SECRET" value="s$cretf0rt3st" />
-        <env name="SHELL_VERBOSITY" value="-1" />
+        <ini name="error_reporting" value="-1"/>
+        <env name="KERNEL_CLASS" value="App\Kernel"/>
+        <env name="APP_ENV" value="test"/>
+        <env name="APP_DEBUG" value="1"/>
+        <env name="APP_SECRET" value="s$cretf0rt3st"/>
+        <env name="SHELL_VERBOSITY" value="-1"/>
         <env name="JWT_PRIVATE_KEY_PATH" value="config/jwt/private.pem"/>
         <env name="JWT_PUBLIC_KEY_PATH" value="config/jwt/public.pem"/>
         <env name="JWT_PASSPHRASE" value="b6fd44d9376e585e5309b9c3175acb9a"/>
@@ -32,6 +32,7 @@
             <directory>./module/*/src/Application</directory>
             <directory>./module/*/src/Domain</directory>
             <directory>./module/*/src/Infrastructure</directory>
+            <directory>./module/grid/src/*</directory>
             <directory>./src/</directory>
             <exclude>
                 <directory suffix="Kernel.php">./src</directory>
@@ -43,7 +44,7 @@
     </filter>
 
     <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
     </listeners>
     <logging>
         <log type="coverage-clover" target="build/reports/phpunit-clover.xml"/>git stat

@@ -48,7 +48,7 @@ class TransitionTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(TransitionId::class);
         $this->from = $this->createMock(StatusCode::class);
@@ -59,7 +59,7 @@ class TransitionTest extends TestCase
 
     /**
      */
-    public function testMultimediaCreation(): void
+    public function testTransitionCreation(): void
     {
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
         $this->assertSame($this->id, $transition->getId());
@@ -76,7 +76,6 @@ class TransitionTest extends TestCase
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds);
         $this->assertEmpty($transition->changeConditionSetId());
     }
-
 
     /**
      */

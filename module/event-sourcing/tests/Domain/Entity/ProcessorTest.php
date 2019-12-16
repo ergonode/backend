@@ -43,7 +43,7 @@ class ProcessorTest extends TestCase
     /**
      *
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(ProcessorId::class);
         $this->transformerId = $this->createMock(TransformerId::class);
@@ -76,17 +76,18 @@ class ProcessorTest extends TestCase
     /**
      * @expectedException \LogicException
      */
-    public function testEnd()
+    public function testEnd(): void
     {
         $processor = new Processor($this->id, $this->transformerId, $this->importId, $this->action);
         $processor->process();
         $processor->end();
         $processor->end();
     }
+
     /**
      * @expectedException \LogicException
      */
-    public function testStop()
+    public function testStop(): void
     {
         $processor = new Processor($this->id, $this->transformerId, $this->importId, $this->action);
         $processor->stop();
