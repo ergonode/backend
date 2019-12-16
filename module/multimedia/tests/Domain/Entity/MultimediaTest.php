@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\EventSourcing\Tests\Domain\Entity;
+namespace Ergonode\Multimedia\Tests\Domain\Entity;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;

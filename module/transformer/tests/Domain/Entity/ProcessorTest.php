@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\EventSourcing\Tests\Domain\Entity;
+namespace Ergonode\Transformer\Tests\Domain\Entity;
 
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Entity\Processor;

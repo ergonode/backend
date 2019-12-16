@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\EventSourcing\Tests\Domain\Entity;
+namespace Ergonode\Workflow\Tests\Domain\Entity;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
