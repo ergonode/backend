@@ -67,20 +67,6 @@ class GridRenderer
         if (GridConfigurationInterface::VIEW_GRID === $configuration->getView()) {
             $result['configuration'] = $grid->getConfiguration();
             $result['columns'] = $this->columnRenderer->render($grid, $configuration);
-
-            if (!empty($configuration->getColumns())) {
-                $columnsOrdered = [];
-                foreach (array_keys($configuration->getColumns()) as $name) {
-                    foreach ($result['columns'] as $key => $column) {
-                        if ($name === $column['id']) {
-                            $columnsOrdered[] = $result['columns'][$key];
-                            break;
-                        }
-                    }
-                }
-
-                $result['columns'] = $columnsOrdered;
-            }
         }
         $result['collection'] = [];
 
