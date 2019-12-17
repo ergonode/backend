@@ -5,10 +5,9 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Designer\Infrastructure\Strategy\Relationship;
-
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\Entity\AbstractId;
@@ -26,7 +25,6 @@ class TemplateAttributeRelationshipStrategy implements RelationshipStrategyInter
     private $query;
 
     /**
-     * TemplateAttributeRelationshipStrategy constructor.
      * @param TemplateQueryInterface $query
      */
     public function __construct(TemplateQueryInterface $query)
@@ -53,6 +51,4 @@ class TemplateAttributeRelationshipStrategy implements RelationshipStrategyInter
 
         return $this->query->findTemplateIdByAttributeId($id);
     }
-
-
 }

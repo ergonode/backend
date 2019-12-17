@@ -32,5 +32,4 @@ interface TemplateQueryInterface
      * @return array
      */
     public function findTemplateIdByAttributeId(AttributeId $attributeId): array;
-
 }
