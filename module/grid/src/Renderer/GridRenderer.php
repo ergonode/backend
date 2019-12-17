@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 
 /**
  */
@@ -68,7 +69,8 @@ class GridRenderer
             $result['configuration'] = $grid->getConfiguration();
             $result['columns'] = $this->columnRenderer->render($grid, $configuration);
 
-            if (!empty($configuration->getColumns())) {
+            // todo temporary hax - waiting for frontend changes
+            if ($grid instanceof ProductGrid && !empty($configuration->getColumns())) {
                 $columnsOrdered = [];
                 foreach (array_keys($configuration->getColumns()) as $name) {
                     foreach ($result['columns'] as $key => $column) {

@@ -31,6 +31,6 @@ class TemplateSystemAttributeDataSetQueryBuilder implements AttributeDataSetQuer
      */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
-        $query->addSelect(sprintf('p.template_id AS "esa_template:%s"', $language->getCode()));
+        $query->addSelect(sprintf('p.template_id AS "%s"', $key));
     }
 }

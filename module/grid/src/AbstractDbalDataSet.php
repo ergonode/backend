@@ -14,11 +14,14 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\Request\FilterValueCollection;
 use Ergonode\Grid\Request\FilterValue;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 abstract class AbstractDbalDataSet implements DataSetInterface
 {
+    public const NAMESPACE = 'b2e8fb6d-e1ac-4322-bd54-6e78926ba365';
+
     /**
      * @param QueryBuilder          $query
      * @param FilterValueCollection $values
@@ -32,6 +35,9 @@ abstract class AbstractDbalDataSet implements DataSetInterface
                 foreach ($filters as $filter) {
                     $columnFilter = $columns[$name]->getFilter();
                     if ($columnFilter) {
+                        if ($columns[$name]->getAttribute()) {
+                            $name = Uuid::uuid5(self::NAMESPACE, $name)->toString();
+                        }
                         if ($columnFilter instanceof TextFilter) {
                             $this->buildTextQuery($query, $name, $filter->getOperator(), $filter->getValue());
                         } elseif ($columnFilter instanceof MultiSelectFilter) {
