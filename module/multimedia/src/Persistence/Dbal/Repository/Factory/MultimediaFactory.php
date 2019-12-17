@@ -11,47 +11,14 @@ namespace Ergonode\Multimedia\Persistence\Dbal\Repository\Factory;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  */
 class MultimediaFactory
 {
-    /**
-     * @param array $record
-     *
-     * @return Multimedia
-     *
-     * @throws \ReflectionException
-     */
-    public function create(array $record): Multimedia
+    public static function createFromFile(MultimediaId $id, string $name, File $file, string $crc): Multimedia
     {
-        $reflector = new \ReflectionClass(Multimedia::class);
-        /** @var Multimedia $object */
-        $object =  $reflector->newInstanceWithoutConstructor();
-
-        foreach ($this->getMap($record) as $key => $value) {
-            $property = $reflector->getProperty($key);
-            $property->setAccessible(true);
-            $property->setValue($object, $value);
-        }
-
-        return $object;
-    }
-
-    /**
-     * @param array $record
-     *
-     * @return array
-     */
-    private function getMap(array $record): array
-    {
-        return [
-            'id' => new MultimediaId($record['id']),
-            'name' => $record['name'],
-            'extension' => $record['extension'],
-            'size' => $record['extension'],
-            'crc' => $record['extension'],
-            'mime' => $record['mime'],
-        ];
+        return new Multimedia($id, $name, $file->getExtension(), $file->getSize(), $crc, $file->getMimeType());
     }
 }

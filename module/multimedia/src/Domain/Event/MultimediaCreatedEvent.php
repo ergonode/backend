@@ -11,36 +11,44 @@ namespace Ergonode\Multimedia\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use JMS\Serializer\Annotation as JMS;
 
 class MultimediaCreatedEvent implements DomainEventInterface
 {
     /**
      * @var MultimediaId
+     *
+     * @JMS\Type("Ergonode\Multimedia\Domain\Entity\MultimediaId")
      */
     private $id;
 
     /**
      * @var string
+     * @JMS\Type("string")
      */
     private $name;
 
     /**
-     * @var string;
+     * @var string
+     * @JMS\Type("string")
      */
     private $extension;
 
     /**
-     * @var string|null;
+     * @var string|null
+     * @JMS\Type("string")
      */
     private $mime;
 
     /**
      * @var int
+     * @JMS\Type("int")
      */
     private $size;
 
     /**
-     * @var string;
+     * @var string
+     * @JMS\Type("string")
      */
     private $crc;
 
@@ -52,8 +60,14 @@ class MultimediaCreatedEvent implements DomainEventInterface
      * @param int $size
      * @param string $crc
      */
-    public function __construct(MultimediaId $id, string $name, string $extension, ?string $mime, int $size, string $crc)
-    {
+    public function __construct(
+        MultimediaId $id,
+        string $name,
+        string $extension,
+        int $size,
+        string $crc,
+        ?string $mime = null
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->extension = $extension;

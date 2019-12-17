@@ -12,7 +12,6 @@ namespace Ergonode\Multimedia\Domain\Entity;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  */
@@ -57,32 +56,24 @@ class Multimedia extends AbstractAggregateRoot
      * @param string|null $mime
      * @throws \Exception
      */
-    public function __construct(MultimediaId $id, string $name, string $extension, int $size, string $crc, ?string $mime = null)
-    {
-
+    public function __construct(
+        MultimediaId $id,
+        string $name,
+        string $extension,
+        int $size,
+        string $crc,
+        ?string $mime = null
+    ) {
         $this->apply(
             new MultimediaCreatedEvent(
                 $id,
                 $name,
                 $extension,
-                $mime,
                 $size,
-                $crc
+                $crc,
+                $mime
             )
         );
-    }
-
-    /**
-     * @param MultimediaId $id
-     * @param string       $name
-     * @param File         $file
-     * @param string       $crc
-     *
-     * @return Multimedia
-     */
-    public static function createFromFile(MultimediaId $id, string $name, File $file, string $crc): self
-    {
-        return new self($id, $name, $file->getExtension(), $file->getSize(), $crc, $file->getMimeType());
     }
 
     /**
