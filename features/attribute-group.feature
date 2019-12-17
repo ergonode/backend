@@ -65,7 +65,7 @@ Feature: Attribute module
     """
     And the response body matches:
     """
-      /"name": "Attribute group EN"/
+      /"value": "Attribute group EN"/
     """
 
   Scenario: Get attribute groups (not authorized)
@@ -115,7 +115,7 @@ Feature: Attribute module
     """
     And the response body matches:
     """
-      /"name": "EN"/
+      /"value": "EN"/
     """
 
   Scenario: Delete attribute group
