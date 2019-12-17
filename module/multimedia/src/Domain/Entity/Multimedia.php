@@ -9,11 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\Entity;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
  */
-class Multimedia
+class Multimedia extends AbstractAggregateRoot
 {
     /**
      * @var MultimediaId
@@ -46,27 +49,27 @@ class Multimedia
     private $crc;
 
     /**
-     * @param MultimediaId  $id
-     * @param string        $name
-     * @param string        $extension
-     * @param int           $size
-     * @param string        $crc
-     * @param string|string $mime
+     * @param MultimediaId $id
+     * @param string $name
+     * @param string $extension
+     * @param int $size
+     * @param string $crc
+     * @param string|null $mime
+     * @throws \Exception
      */
-    public function __construct(
-        MultimediaId $id,
-        string $name,
-        string $extension,
-        int $size,
-        string $crc,
-        ?string $mime = null
-    ) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->extension = $extension;
-        $this->mime = $mime;
-        $this->size = $size;
-        $this->crc = $crc;
+    public function __construct(MultimediaId $id, string $name, string $extension, int $size, string $crc, ?string $mime = null)
+    {
+
+        $this->apply(
+            new MultimediaCreatedEvent(
+                $id,
+                $name,
+                $extension,
+                $mime,
+                $size,
+                $crc
+            )
+        );
     }
 
     /**
@@ -91,9 +94,9 @@ class Multimedia
     }
 
     /**
-     * @return MultimediaId
+     * @return AbstractId
      */
-    public function getId(): MultimediaId
+    public function getId(): AbstractId
     {
         return $this->id;
     }
@@ -136,5 +139,15 @@ class Multimedia
     public function getCrc(): string
     {
         return $this->crc;
+    }
+
+    protected function applyMultimediaCreatedEvent(MultimediaCreatedEvent $event)
+    {
+        $this->id = $event->getId();
+        $this->name = $event->getName();
+        $this->extension = $event->getExtension();
+        $this->mime = $event->getMime();
+        $this->size = $event->getSize();
+        $this->crc = $event->getCrc();
     }
 }
