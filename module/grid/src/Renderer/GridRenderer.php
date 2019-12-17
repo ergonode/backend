@@ -70,7 +70,7 @@ class GridRenderer
             $result['columns'] = $this->columnRenderer->render($grid, $configuration);
 
             // todo temporary hax - waiting for frontend changes
-            if ( $grid instanceof ProductGrid && !empty($configuration->getColumns())) {
+            if ($grid instanceof ProductGrid && !empty($configuration->getColumns())) {
                 $columnsOrdered = [];
                 foreach (array_keys($configuration->getColumns()) as $name) {
                     foreach ($result['columns'] as $key => $column) {
