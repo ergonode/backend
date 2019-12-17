@@ -43,7 +43,13 @@ class RowRenderer implements RowRendererInterface
 
             foreach ($this->rendererCollection as $renderer) {
                 if ($renderer->supports($column)) {
-                    $result[$columnId] = $renderer->render($column, $id, $row);
+                    $result[$columnId]['value'] = $renderer->render($column, $id, $row);
+                    if ($column->getPrefix()) {
+                        $result[$columnId]['prefix'] = $column->getPrefix();
+                    }
+                    if ($column->getSuffix()) {
+                        $result[$columnId]['suffix'] = $column->getSuffix();
+                    }
                     break;
                 }
             }

@@ -10,9 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\NumericColumn;
@@ -21,7 +19,7 @@ use Ergonode\Grid\Filter\RangeFilter;
 
 /**
  */
-class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
+class UnitAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**
      * @var AttributeQueryInterface
@@ -41,7 +39,7 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute instanceof NumericAttribute;
+        return $attribute instanceof UnitAttribute;
     }
 
     /**
@@ -49,10 +47,14 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
+        /** @var UnitAttribute $attribute */
         $range = $this->query->getAttributeValueRange($attribute->getId());
         $columnKey = $attribute->getCode()->getValue();
         $columnFilter = new RangeFilter($range);
 
-        return new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
+        $column =  new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
+        $column->setSuffix($attribute->getUnit()->getCode());
+
+        return $column;
     }
 }
