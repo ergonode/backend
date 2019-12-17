@@ -112,7 +112,7 @@ class UpdateProductCommandHandler
      */
     private function attributeUpdate(AbstractProduct $product, AttributeCode $code, ValueInterface $value): void
     {
-        if(!$product->hasAttribute($code)) {
+        if (!$product->hasAttribute($code)) {
             $product->addAttribute($code, $value);
         } else {
             $product->changeAttribute($code, $value);

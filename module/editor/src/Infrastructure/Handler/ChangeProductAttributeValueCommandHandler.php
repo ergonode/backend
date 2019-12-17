@@ -67,8 +67,7 @@ class ChangeProductAttributeValueCommandHandler
         ValueManipulationService $service,
         AttributeRepositoryInterface $attributeRepository,
         TokenStorageInterface $tokenStorage
-    )
-    {
+    ) {
         $this->repository = $repository;
         $this->service = $service;
         $this->attributeRepository = $attributeRepository;
