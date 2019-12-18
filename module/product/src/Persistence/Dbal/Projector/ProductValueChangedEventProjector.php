@@ -15,7 +15,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Product\Domain\Event\ProductValueChanged;
+use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -47,7 +47,7 @@ class ProductValueChangedEventProjector implements DomainEventProjectorInterface
      */
     public function supports(DomainEventInterface $event): bool
     {
-        return $event instanceof ProductValueChanged;
+        return $event instanceof ProductValueChangedEvent;
     }
 
     /**
@@ -56,7 +56,7 @@ class ProductValueChangedEventProjector implements DomainEventProjectorInterface
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
         if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductValueChanged::class);
+            throw new UnsupportedEventException($event, ProductValueChangedEvent::class);
         }
 
         $this->connection->transactional(function () use ($aggregateId, $event) {

@@ -52,12 +52,12 @@ final class Version20180619083830 extends AbstractErgonodeMigration
         $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'PRODUCT_DELETE', 'Product']);
 
         $this->createEventStoreEvents([
-            'Ergonode\Product\Domain\Event\ProductAddedToCategory' => 'Product added to category',
-            'Ergonode\Product\Domain\Event\ProductCreated' => 'Product created',
-            'Ergonode\Product\Domain\Event\ProductRemovedFromCategory' => 'Product removed from category',
-            'Ergonode\Product\Domain\Event\ProductValueAdded' => 'Product attribute value added',
-            'Ergonode\Product\Domain\Event\ProductValueChanged' => 'Product attribute value changed',
-            'Ergonode\Product\Domain\Event\ProductValueRemoved' => 'Product attribute value removed',
+            'Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent' => 'Product added to category',
+            'Ergonode\Product\Domain\Event\ProductCreatedEvent' => 'Product created',
+            'Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent' => 'Product removed from category',
+            'Ergonode\Product\Domain\Event\ProductValueAddedEvent' => 'Product attribute value added',
+            'Ergonode\Product\Domain\Event\ProductValueChangedEvent' => 'Product attribute value changed',
+            'Ergonode\Product\Domain\Event\ProductValueRemovedEvent' => 'Product attribute value removed',
             'Ergonode\Product\Domain\Event\ProductDeletedEvent' => 'Product deleted',
         ]);
     }

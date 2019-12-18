@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductVersionIncreased implements DomainEventInterface
+class ProductVersionIncreasedEvent implements DomainEventInterface
 {
     /**
      * @var int

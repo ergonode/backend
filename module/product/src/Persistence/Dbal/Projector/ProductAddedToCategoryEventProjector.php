@@ -15,7 +15,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Product\Domain\Event\ProductAddedToCategory;
+use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
 
 /**
  */
@@ -29,7 +29,7 @@ class ProductAddedToCategoryEventProjector implements DomainEventProjectorInterf
     private $connection;
 
     /**
-     * ProductCreateEventProjector constructor.
+     * ProductCreatedEventProjector constructor.
      *
      * @param Connection $connection
      */
@@ -43,7 +43,7 @@ class ProductAddedToCategoryEventProjector implements DomainEventProjectorInterf
      */
     public function supports(DomainEventInterface $event): bool
     {
-        return $event instanceof ProductAddedToCategory;
+        return $event instanceof ProductAddedToCategoryEvent;
     }
 
     /**
@@ -52,7 +52,7 @@ class ProductAddedToCategoryEventProjector implements DomainEventProjectorInterf
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
         if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductAddedToCategory::class);
+            throw new UnsupportedEventException($event, ProductAddedToCategoryEvent::class);
         }
 
         $this->connection->insert(

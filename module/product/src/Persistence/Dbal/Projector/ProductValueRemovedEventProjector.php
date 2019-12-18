@@ -15,7 +15,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Product\Domain\Event\ProductValueRemoved;
+use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
 
 /**
  */
@@ -41,7 +41,7 @@ class ProductValueRemovedEventProjector implements DomainEventProjectorInterface
      */
     public function supports(DomainEventInterface $event): bool
     {
-        return $event instanceof ProductValueRemoved;
+        return $event instanceof ProductValueRemovedEvent;
     }
 
     /**
@@ -50,7 +50,7 @@ class ProductValueRemovedEventProjector implements DomainEventProjectorInterface
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
         if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductValueRemoved::class);
+            throw new UnsupportedEventException($event, ProductValueRemovedEvent::class);
         }
 
         $this->delete($aggregateId->getValue(), AttributeId::fromKey($event->getAttributeCode())->getValue());

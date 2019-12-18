@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductValueAdded implements DomainEventInterface
+class ProductValueRemovedEvent implements DomainEventInterface
 {
     /**
      * @var AttributeCode
@@ -30,16 +30,16 @@ class ProductValueAdded implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
-    private $value;
+    private $old;
 
     /**
      * @param AttributeCode  $code
-     * @param ValueInterface $value
+     * @param ValueInterface $old
      */
-    public function __construct(AttributeCode $code, ValueInterface $value)
+    public function __construct(AttributeCode $code, ValueInterface $old)
     {
         $this->code = $code;
-        $this->value = $value;
+        $this->old = $old;
     }
 
     /**
@@ -53,8 +53,8 @@ class ProductValueAdded implements DomainEventInterface
     /**
      * @return ValueInterface
      */
-    public function getValue(): ValueInterface
+    public function getOld(): ValueInterface
     {
-        return $this->value;
+        return $this->old;
     }
 }
