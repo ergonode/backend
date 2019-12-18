@@ -10,15 +10,24 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Event\Transition;
 
 use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Workflow\Domain\Entity\TransitionId;
+use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class TransitionRoleIdsChangedEvent implements DomainEventInterface
+class TransitionRoleIdsChangedEvent implements DomainAggregateEventInterface
 {
+    /**
+     * @var WorkflowId
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
+     */
+    private $id;
+
     /**
      * @var TransitionId
      *
@@ -34,15 +43,25 @@ class TransitionRoleIdsChangedEvent implements DomainEventInterface
     private $roleIds;
 
     /**
+     * @param WorkflowId   $id
      * @param TransitionId $transitionId
      * @param RoleId[]     $roleIds
      */
-    public function __construct(TransitionId $transitionId, array $roleIds = [])
+    public function __construct(WorkflowId $id, TransitionId $transitionId, array $roleIds = [])
     {
         Assert::allIsInstanceOf($roleIds, RoleId::class);
 
+        $this->id = $id;
         $this->transitionId = $transitionId;
         $this->roleIds = $roleIds;
+    }
+
+    /**
+     * @return AbstractId|WorkflowId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**
@@ -51,14 +70,6 @@ class TransitionRoleIdsChangedEvent implements DomainEventInterface
     public function getTransitionId(): TransitionId
     {
         return $this->transitionId;
-    }
-
-    /**
-     * @param TransitionId $transitionId
-     */
-    public function setTransitionId(TransitionId $transitionId): void
-    {
-        $this->transitionId = $transitionId;
     }
 
     /**

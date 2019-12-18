@@ -19,7 +19,7 @@ abstract class AbstractEntity
     /**
      * @var AbstractAggregateRoot|null
      */
-    private $aggregateRoot;
+    protected $aggregateRoot;
 
     /**
      * @param DomainEventInterface $event

@@ -9,16 +9,17 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Status;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class StatusCreatedEvent implements DomainEventInterface
+class StatusCreatedEvent implements DomainAggregateEventInterface
 {
     /**
      * @var StatusId
@@ -72,9 +73,9 @@ class StatusCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return StatusId
+     * @return StatusId|AbstractId
      */
-    public function getId(): StatusId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

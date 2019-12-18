@@ -9,7 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Workflow;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
@@ -17,7 +18,7 @@ use Webmozart\Assert\Assert;
 
 /**
  */
-class WorkflowCreatedEvent implements DomainEventInterface
+class WorkflowCreatedEvent implements DomainAggregateEventInterface
 {
     /**
      * @var WorkflowId
@@ -55,9 +56,9 @@ class WorkflowCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return WorkflowId
+     * @return WorkflowId|AbstractId
      */
-    public function getId(): WorkflowId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }
