@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\EventSourcing\Domain;
 
-use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 

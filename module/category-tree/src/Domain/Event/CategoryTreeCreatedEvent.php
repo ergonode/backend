@@ -10,13 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Domain\Event;
 
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CategoryTreeCreatedEvent implements DomainEventInterface
+class CategoryTreeCreatedEvent implements DomainAggregateEventInterface
 {
     /**
      * @var CategoryTreeId
@@ -52,12 +53,14 @@ class CategoryTreeCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return CategoryTreeId
+     * @return CategoryTreeId|AbstractId
      */
-    public function getId(): CategoryTreeId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }
+
+
 
     /**
      * @return string

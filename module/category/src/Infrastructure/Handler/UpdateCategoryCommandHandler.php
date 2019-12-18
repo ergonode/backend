@@ -32,6 +32,8 @@ class UpdateCategoryCommandHandler
 
     /**
      * @param UpdateCategoryCommand $command
+     *
+     * @throws \Exception
      */
     public function __invoke(UpdateCategoryCommand $command): void
     {

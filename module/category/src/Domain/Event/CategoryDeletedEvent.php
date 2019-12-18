@@ -9,11 +9,36 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Domain\Event;
 
+use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CategoryDeletedEvent extends AbstractDeleteEvent
+class CategoryDeletedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
 {
+    /**
+     * @var CategoryId
+     *
+     * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
+     */
+    private $id;
 
+    /**
+     * @param CategoryId $id
+     */
+    public function __construct(CategoryId $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return AbstractId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
+    }
 }

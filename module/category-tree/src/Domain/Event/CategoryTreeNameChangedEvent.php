@@ -9,10 +9,41 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Domain\Event;
 
+use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CategoryTreeNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent
+class CategoryTreeNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent implements DomainAggregateEventInterface
 {
+    /**
+     * @var CategoryTreeId
+     *
+     * @JMS\Type("Ergonode\CategoryTree\Domain\Entity\CategoryTreeId")
+     */
+    private $id;
+
+    /**
+     * @param CategoryTreeId     $id
+     * @param TranslatableString $from
+     * @param TranslatableString $to
+     */
+    public function __construct(CategoryTreeId $id, TranslatableString $from, TranslatableString $to)
+    {
+        parent::__construct($from, $to);
+
+        $this->id = $id;
+    }
+
+    /**
+     * @return AbstractId|CategoryTreeId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
+    }
 }

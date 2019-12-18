@@ -10,14 +10,23 @@ declare(strict_types = 1);
 namespace Ergonode\Value\Domain\Event;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ValueRemovedEvent implements DomainEventInterface
+class ValueRemovedEvent implements DomainAggregateEventInterface
 {
+    /**
+     * @var CategoryId
+     *
+     * @JMS\Type(" Ergonode\Category\Domain\Entity\CategoryId")
+     */
+    private $id;
+
     /**
      * @var AttributeCode
      *
@@ -33,13 +42,23 @@ class ValueRemovedEvent implements DomainEventInterface
     private $old;
 
     /**
+     * @param CategoryId     $id
      * @param AttributeCode  $code
      * @param ValueInterface $old
      */
-    public function __construct(AttributeCode $code, ValueInterface $old)
+    public function __construct(CategoryId $id, AttributeCode $code, ValueInterface $old)
     {
+        $this->id = $id;
         $this->code = $code;
         $this->old = $old;
+    }
+
+    /**
+     * @return AbstractId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**

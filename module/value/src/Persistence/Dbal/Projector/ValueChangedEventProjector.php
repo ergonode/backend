@@ -11,17 +11,14 @@ namespace Ergonode\Value\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use Ergonode\Value\Domain\Event\ValueAddedEvent;
 use Ergonode\Value\Domain\Event\ValueChangedEvent;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ValueChangedEventProjector implements DomainEventProjectorInterface
+class ValueChangedEventProjector
 {
     private const NAMESPACE = '0cc20207-d1b7-460b-8ef6-6898d00de4c0';
     private const VALUE_TABLE = 'attribute_value';
@@ -48,29 +45,13 @@ class ValueChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
+     * @param ValueChangedEvent $event
      *
-     * @return bool
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof ValueChangedEvent;
-    }
-
-    /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
      * @throws \Throwable
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(ValueChangedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ValueChangedEvent::class);
-        }
-
-        $this->connection->transactional(function () use ($event, $aggregateId) {
+        $this->connection->transactional(function () use ($event) {
             $attributeId = AttributeId::fromKey($event->getAttributeCode());
             $type = get_class($event->getTo());
             $newValue = $this->serializer->serialize($event->getTo(), 'json');
@@ -97,7 +78,7 @@ class ValueChangedEventProjector implements DomainEventProjectorInterface
             $this->connection->insert(
                 self::RELATION_TABLE,
                 [
-                    'entity_id' => $aggregateId->getValue(),
+                    'entity_id' => $event->getAggregateId()->getValue(),
                     'attribute_id' => $attributeId->getValue(),
                     'value_id' => $newValueId->toString(),
                 ]
@@ -106,7 +87,7 @@ class ValueChangedEventProjector implements DomainEventProjectorInterface
             $this->connection->delete(
                 self::RELATION_TABLE,
                 [
-                    'entity_id' => $aggregateId->getValue(),
+                    'entity_id' => $event->getAggregateId()->getValue(),
                     'attribute_id' => $attributeId->getValue(),
                     'value_id' => $oldValueId->toString(),
                 ]
