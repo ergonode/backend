@@ -9,13 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event\Group;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Entity\TemplateGroupId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TemplateGroupCreatedEvent implements DomainEventInterface
+class TemplateGroupCreatedEvent implements DomainAggregateEventInterface
 {
     /**
      * @var TemplateGroupId
@@ -41,9 +42,9 @@ class TemplateGroupCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return TemplateGroupId
+     * @return TemplateGroupId|AbstractId
      */
-    public function getId(): TemplateGroupId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

@@ -9,14 +9,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TemplateImageRemovedEvent implements DomainEventInterface
+class TemplateImageRemovedEvent implements DomainAggregateEventInterface
 {
+    /**
+     * @var TemplateId
+     *
+     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateId")
+     */
+    private $id;
+
     /**
      * @var MultimediaId
      *
@@ -25,11 +34,21 @@ class TemplateImageRemovedEvent implements DomainEventInterface
     private $imageId;
 
     /**
+     * @param TemplateId   $id
      * @param MultimediaId $imageId
      */
-    public function __construct(MultimediaId $imageId)
+    public function __construct(TemplateId $id, MultimediaId $imageId)
     {
+        $this->id = $id;
         $this->imageId = $imageId;
+    }
+
+    /**
+     * @return AbstractId|TemplateId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**

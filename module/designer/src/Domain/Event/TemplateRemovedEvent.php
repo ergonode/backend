@@ -9,13 +9,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TemplateRemovedEvent extends AbstractDeleteEvent
+class TemplateRemovedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
 {
+    /**
+     * @var TemplateId
+     *
+     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateId")
+     */
+    private $id;
+
     /**
      * @var string|null
      *
@@ -24,11 +34,21 @@ class TemplateRemovedEvent extends AbstractDeleteEvent
     private $reason;
 
     /**
+     * @param TemplateId  $id
      * @param string|null $reason
      */
-    public function __construct(?string $reason = null)
+    public function __construct(TemplateId $id, ?string $reason = null)
     {
+        $this->id = $id;
         $this->reason = $reason;
+    }
+
+    /**
+     * @return AbstractId|TemplateId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**
