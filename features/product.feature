@@ -16,18 +16,10 @@ Feature: Product module
     Then created response is received
     And remember response param "id" as "product_template_attribute"
 
-  Scenario: Create image attribute
+  Scenario: Multimedia upload image
     Given current authentication token
-    Given the request body is:
-      """
-      {
-          "code": "IMAGE_@@random_code@@",
-          "type": "IMAGE",
-          "groups": [],
-          "parameters": {"formats": ["jpg"]}
-      }
-      """
-    When I request "/api/v1/EN/attributes" using HTTP POST
+    Given I attach "features/image/test.jpg" to the request as "upload"
+    When I request "/api/v1/multimedia/upload" using HTTP POST
     Then created response is received
     And remember response param "id" as "product_image_attribute"
 
