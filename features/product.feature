@@ -21,7 +21,7 @@ Feature: Product module
     Given I attach "features/image/test.jpg" to the request as "upload"
     When I request "/api/v1/multimedia/upload" using HTTP POST
     Then created response is received
-    And remember response param "id" as "product_image_attribute"
+    And remember response param "id" as "multimedia_id"
 
   Scenario: Create template
     Given current authentication token
@@ -29,7 +29,7 @@ Feature: Product module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@product_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
