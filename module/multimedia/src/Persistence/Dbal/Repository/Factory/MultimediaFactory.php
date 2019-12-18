@@ -17,6 +17,14 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class MultimediaFactory
 {
+    /**
+     * @param MultimediaId $id
+     * @param string       $name
+     * @param File         $file
+     * @param string       $crc
+     * @return Multimedia
+     * @throws \Exception
+     */
     public static function createFromFile(MultimediaId $id, string $name, File $file, string $crc): Multimedia
     {
         return new Multimedia($id, $name, $file->getExtension(), $file->getSize(), $crc, $file->getMimeType());

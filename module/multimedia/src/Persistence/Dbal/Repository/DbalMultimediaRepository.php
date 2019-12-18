@@ -32,7 +32,7 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
     private $eventDispatcher;
 
     /**
-     * @param DomainEventStoreInterface $eventStore
+     * @param DomainEventStoreInterface      $eventStore
      * @param DomainEventDispatcherInterface $eventDispatcher
      */
     public function __construct(
@@ -91,6 +91,7 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
     public function exists(AbstractId $id): bool
     {
         $eventStream = $this->eventStore->load($id);
+
         return count($eventStream) > 0;
     }
 

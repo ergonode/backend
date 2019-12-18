@@ -49,11 +49,11 @@ class Multimedia extends AbstractAggregateRoot
 
     /**
      * @param MultimediaId $id
-     * @param string $name
-     * @param string $extension
-     * @param int $size
-     * @param string $crc
-     * @param string|null $mime
+     * @param string       $name
+     * @param string       $extension
+     * @param int          $size
+     * @param string       $crc
+     * @param string|null  $mime
      * @throws \Exception
      */
     public function __construct(

@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Persistence\Dbal\Projector;
 
@@ -16,6 +16,8 @@ use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 
+/**
+ */
 class MultimediaCreatedEventProjector implements DomainEventProjectorInterface
 {
     private const TABLE = 'multimedia';
@@ -25,16 +27,29 @@ class MultimediaCreatedEventProjector implements DomainEventProjectorInterface
      */
     protected $connection;
 
+    /**
+     * @param Connection $connection
+     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
+    /**
+     * @param DomainEventInterface $event
+     * @return bool
+     */
     public function supports(DomainEventInterface $event): bool
     {
         return $event instanceof MultimediaCreatedEvent;
     }
 
+    /**
+     * @param AbstractId           $aggregateId
+     * @param DomainEventInterface $event
+     * @throws UnsupportedEventException
+     * @throws \Doctrine\DBAL\DBALException
+     */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
         if (!$this->supports($event)) {

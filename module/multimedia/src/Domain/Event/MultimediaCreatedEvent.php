@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\Event;
 
@@ -13,6 +13,8 @@ use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 
+/**
+ */
 class MultimediaCreatedEvent implements DomainEventInterface
 {
     /**
@@ -54,11 +56,11 @@ class MultimediaCreatedEvent implements DomainEventInterface
 
     /**
      * @param MultimediaId $id
-     * @param string $name
-     * @param string $extension
-     * @param string|null $mime
-     * @param int $size
-     * @param string $crc
+     * @param string       $name
+     * @param string       $extension
+     * @param int          $size
+     * @param string       $crc
+     * @param string|null  $mime
      */
     public function __construct(
         MultimediaId $id,

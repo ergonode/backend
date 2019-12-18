@@ -33,14 +33,13 @@ class UploadMultimediaCommand
     private $file;
 
     /**
-     * @param string       $name
-     * @param UploadedFile $file
-     *
-     * @throws \Exception
+     * @param string              $name
+     * @param UploadedFile        $file
+     * @param MultimediaIdFactory $multimediaIdFactory
      */
-    public function __construct(string $name, UploadedFile $file)
+    public function __construct(string $name, UploadedFile $file, MultimediaIdFactory $multimediaIdFactory)
     {
-        $this->id = MultimediaIdFactory::createFromFile($file);
+        $this->id = $multimediaIdFactory->createFromFile($file);
         $this->name = $name;
         $this->file = $file;
     }

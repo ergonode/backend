@@ -13,10 +13,15 @@ use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class MultimediaTest extends TestCase
 {
 
-    public function testMultimediaCreate()
+    /**
+     * @throws \Exception
+     */
+    public function testMultimediaCreate(): void
     {
         $multimediaId = $this->createMock(MultimediaId::class);
         $name = 'name';

@@ -36,12 +36,12 @@ final class Version20180807065948 extends AbstractErgonodeMigration
                 'MULTIMEDIA_CREATE',
                 'MULTIMEDIA_READ',
                 'MULTIMEDIA_UPDATE',
-                'MULTIMEDIA_DELETE'
+                'MULTIMEDIA_DELETE',
             ]
         );
 
         $this->createEventStoreEvents([
-            MultimediaCreatedEvent::class => 'Multimedia added'
+            MultimediaCreatedEvent::class => 'Multimedia added',
         ]);
     }
 
