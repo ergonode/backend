@@ -17,7 +17,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Product\Domain\Event\ProductCreated;
+use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -26,7 +26,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ProductCreateEventProjector implements DomainEventProjectorInterface
+class ProductCreatedEventProjector implements DomainEventProjectorInterface
 {
     private const NAMESPACE = 'cb2600df-94fb-4755-9e6a-a15591a8e510';
     private const TABLE_PRODUCT = 'product';
@@ -57,7 +57,7 @@ class ProductCreateEventProjector implements DomainEventProjectorInterface
      */
     public function supports(DomainEventInterface $event): bool
     {
-        return $event instanceof ProductCreated;
+        return $event instanceof ProductCreatedEvent;
     }
 
     /**
@@ -66,7 +66,7 @@ class ProductCreateEventProjector implements DomainEventProjectorInterface
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
         if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductCreated::class);
+            throw new UnsupportedEventException($event, ProductCreatedEvent::class);
         }
 
         $this->connection->transactional(function () use ($aggregateId, $event) {

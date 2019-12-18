@@ -19,7 +19,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductCreated implements DomainEventInterface
+class ProductCreatedEvent implements DomainEventInterface
 {
     /**
      * @var ProductId

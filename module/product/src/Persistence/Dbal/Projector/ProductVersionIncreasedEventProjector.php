@@ -14,7 +14,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Product\Domain\Event\ProductVersionIncreased;
+use Ergonode\Product\Domain\Event\ProductVersionIncreasedEvent;
 
 /**
  */
@@ -40,7 +40,7 @@ class ProductVersionIncreasedEventProjector implements DomainEventProjectorInter
      */
     public function supports(DomainEventInterface $event): bool
     {
-        return $event instanceof ProductVersionIncreased;
+        return $event instanceof ProductVersionIncreasedEvent;
     }
 
     /**
@@ -49,7 +49,7 @@ class ProductVersionIncreasedEventProjector implements DomainEventProjectorInter
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
         if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductVersionIncreased::class);
+            throw new UnsupportedEventException($event, ProductVersionIncreasedEvent::class);
         }
 
         $this->connection->update(

@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductAddedToCategory implements DomainEventInterface
+class ProductAddedToCategoryEvent implements DomainEventInterface
 {
     /**
      * @var CategoryCode

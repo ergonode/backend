@@ -15,7 +15,7 @@ use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
 use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Product\Domain\Event\ProductRemovedFromCategory;
+use Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent;
 
 /**
  */
@@ -41,7 +41,7 @@ class ProductRemovedFromCategoryEventProjector implements DomainEventProjectorIn
      */
     public function supports(DomainEventInterface $event): bool
     {
-        return $event instanceof ProductRemovedFromCategory;
+        return $event instanceof ProductRemovedFromCategoryEvent;
     }
 
     /**
@@ -50,7 +50,7 @@ class ProductRemovedFromCategoryEventProjector implements DomainEventProjectorIn
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {
         if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductRemovedFromCategory::class);
+            throw new UnsupportedEventException($event, ProductRemovedFromCategoryEvent::class);
         }
 
         $this->connection->delete(
