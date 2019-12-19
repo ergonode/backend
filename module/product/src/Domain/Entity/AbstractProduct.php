@@ -155,7 +155,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     public function addToCategory(CategoryCode $categoryCode): void
     {
         if (!$this->belongToCategory($categoryCode)) {
-            $this->apply(new ProductAddedToCategory($categoryCode));
+            $this->apply(new ProductAddedToCategory($this->id, $categoryCode));
         }
     }
 
@@ -167,7 +167,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     public function removeFromCategory(CategoryCode $categoryCode): void
     {
         if ($this->belongToCategory($categoryCode)) {
-            $this->apply(new ProductRemovedFromCategory($categoryCode));
+            $this->apply(new ProductRemovedFromCategory($this->id, $categoryCode));
         }
     }
 
@@ -215,7 +215,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             throw new \RuntimeException('Value already exists');
         }
 
-        $this->apply(new ProductValueAdded($attributeCode, $value));
+        $this->apply(new ProductValueAdded($this->id, $attributeCode, $value));
     }
 
     /**
@@ -239,7 +239,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
         }
 
         if ((string) $this->attributes[$attributeCode->getValue()] !== (string) $value) {
-            $this->apply(new ProductValueChanged($attributeCode, $this->attributes[$attributeCode->getValue()], $value));
+            $this->apply(new ProductValueChanged($this->id, $attributeCode, $this->attributes[$attributeCode->getValue()], $value));
         }
     }
 
@@ -254,7 +254,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             throw new \RuntimeException('Value note exists');
         }
 
-        $this->apply(new ProductValueRemoved($attributeCode, $this->attributes[$attributeCode->getValue()]));
+        $this->apply(new ProductValueRemoved($this->id, $attributeCode, $this->attributes[$attributeCode->getValue()]));
     }
 
     /**
@@ -262,7 +262,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
      */
     protected function applyProductCreated(ProductCreated $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->sku = $event->getSku();
         $this->attributes = [];
         $this->categories = [];

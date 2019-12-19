@@ -10,8 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
@@ -19,7 +20,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductCreated implements DomainEventInterface
+class ProductCreated implements DomainAggregateEventInterface
 {
     /**
      * @var ProductId
@@ -75,7 +76,7 @@ class ProductCreated implements DomainEventInterface
     /**
      * @return ProductId
      */
-    public function getId(): ProductId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }
