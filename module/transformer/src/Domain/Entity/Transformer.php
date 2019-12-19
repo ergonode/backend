@@ -91,7 +91,7 @@ class Transformer extends AbstractAggregateRoot
             throw new \InvalidArgumentException(sprintf('converter for field %s already exists', $field));
         }
 
-        $this->apply(new TransformerConverterAddedEvent($collection, $field, $converter));
+        $this->apply(new TransformerConverterAddedEvent($this->id, $collection, $field, $converter));
 
         return $this;
     }
@@ -120,7 +120,7 @@ class Transformer extends AbstractAggregateRoot
      */
     protected function applyTransformerCreatedEvent(TransformerCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->key = $event->getKey();
         $this->name = $event->getName();
         $this->converters = [];

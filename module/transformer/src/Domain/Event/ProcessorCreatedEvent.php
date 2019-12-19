@@ -9,7 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Event;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Entity\ProcessorId;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
@@ -17,7 +18,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProcessorCreatedEvent implements DomainEventInterface
+class ProcessorCreatedEvent implements DomainAggregateEventInterface
 {
     /**
      * @var ProcessorId
@@ -62,9 +63,9 @@ class ProcessorCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return ProcessorId
+     * @return ProcessorId|AbstractId
      */
-    public function getId(): ProcessorId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

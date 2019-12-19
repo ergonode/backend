@@ -27,7 +27,7 @@ class TransformerCreatedEventTest extends TestCase
         $key = 'Any Key';
 
         $result = new TransformerCreatedEvent($id, $name, $key);
-        $this->assertEquals($id, $result->getId());
+        $this->assertEquals($id, $result->getAggregateId());
         $this->assertEquals($name, $result->getName());
         $this->assertEquals($key, $result->getKey());
     }
