@@ -10,15 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Product\Domain\Event\ProductCreated;
 
 /**
  */
-class ProductCreatedEventProjector implements DomainEventProjectorInterface
+class ProductCreatedEventProjector
 {
     private const TABLE = 'designer.product';
 
@@ -36,26 +32,16 @@ class ProductCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param ProductCreated $event
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(ProductCreated $event): void
     {
-        return $event instanceof ProductCreated;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductCreated::class);
-        }
-
         $this->connection->insert(
             self::TABLE,
             [
-                'product_id' => $aggregateId->getValue(),
+                'product_id' => $event->getAggregateId()->getValue(),
                 'template_id' => $event->getTemplateId()->getValue(),
             ]
         );
