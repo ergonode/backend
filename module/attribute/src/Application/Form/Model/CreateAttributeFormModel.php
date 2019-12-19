@@ -82,6 +82,10 @@ class CreateAttributeFormModel
 
     /**
      * @var ArrayCollection|AttributeOptionModel[]
+     *
+     * @Assert\Valid()
+     * @AppAssert\AttributeOptionDuplicates()
+     *
      */
     public $options;
 
