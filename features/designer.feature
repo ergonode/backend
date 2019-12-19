@@ -16,20 +16,12 @@ Feature: Designer module
     Then created response is received
     And remember response param "id" as "template_text_attribute"
 
-  Scenario: Create image attribute
+  Scenario: Multimedia upload image
     Given current authentication token
-    Given the request body is:
-      """
-      {
-          "code": "IMAGE_@@random_code@@",
-          "type": "IMAGE",
-          "groups": [],
-          "parameters": {"formats": ["jpg"]}
-      }
-      """
-    When I request "/api/v1/EN/attributes" using HTTP POST
+    Given I attach "features/image/test.jpg" to the request as "upload"
+    When I request "/api/v1/multimedia/upload" using HTTP POST
     Then created response is received
-    And remember response param "id" as "template_image_attribute"
+    And remember response param "id" as "multimedia_id"
 
   Scenario: Create template
     Given current authentication token
@@ -37,7 +29,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -90,7 +82,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": "test", "y": 0},
@@ -114,7 +106,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -138,7 +130,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -162,7 +154,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -186,7 +178,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 10, "y": 10},
@@ -243,7 +235,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": "test", "y": 10},
@@ -267,7 +259,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 10, "y": 10},
@@ -291,7 +283,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 10, "y": 10},
@@ -315,7 +307,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 10, "y": 10},

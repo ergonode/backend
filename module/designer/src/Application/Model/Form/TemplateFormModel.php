@@ -11,6 +11,7 @@ namespace Ergonode\Designer\Application\Model\Form;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
+use Ergonode\Multimedia\Application\Validator\Constraint\MultimediaExists;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -29,6 +30,7 @@ class TemplateFormModel
      * @var string
      *
      * @Assert\Uuid()
+     * @MultimediaExists()
      */
     public $image;
 
