@@ -151,7 +151,7 @@ class Segment extends AbstractAggregateRoot
     public function changeStatus(SegmentStatus $status): void
     {
         if (!$status->isEqual($this->status)) {
-            $this->apply(new SegmentStatusChangedEvent($this->status, $status));
+            $this->apply(new SegmentStatusChangedEvent($this->id, $this->status, $status));
         }
     }
 
@@ -163,7 +163,7 @@ class Segment extends AbstractAggregateRoot
     public function changeName(TranslatableString $name): void
     {
         if (!$name->isEqual($this->name)) {
-            $this->apply(new SegmentNameChangedEvent($this->name, $name));
+            $this->apply(new SegmentNameChangedEvent($this->id, $this->name, $name));
         }
     }
 
@@ -175,7 +175,7 @@ class Segment extends AbstractAggregateRoot
     public function changeDescription(TranslatableString $description): void
     {
         if (!$description->isEqual($this->description)) {
-            $this->apply(new SegmentDescriptionChangedEvent($this->description, $description));
+            $this->apply(new SegmentDescriptionChangedEvent($this->id, $this->description, $description));
         }
     }
 
@@ -195,7 +195,7 @@ class Segment extends AbstractAggregateRoot
     public function changeConditionSet(?ConditionSetId $conditionSetId = null): void
     {
         if ($this->conditionSetId !== null || $conditionSetId !== null) {
-            $this->apply(new SegmentConditionSetChangedEvent($this->conditionSetId, $conditionSetId));
+            $this->apply(new SegmentConditionSetChangedEvent($this->id, $this->conditionSetId, $conditionSetId));
         }
     }
 
@@ -204,7 +204,7 @@ class Segment extends AbstractAggregateRoot
      */
     protected function applySegmentCreatedEvent(SegmentCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->code = $event->getCode();
         $this->conditionSetId = $event->getConditionSetId();
         $this->name = $event->getName();

@@ -10,8 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Domain\Event;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
@@ -19,7 +20,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class SegmentCreatedEvent implements DomainEventInterface
+class SegmentCreatedEvent implements DomainAggregateEventInterface
 {
     /**
      * @var SegmentId
@@ -90,7 +91,7 @@ class SegmentCreatedEvent implements DomainEventInterface
     /**
      * @return SegmentId
      */
-    public function getId(): SegmentId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

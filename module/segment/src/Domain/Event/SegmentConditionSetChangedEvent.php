@@ -10,14 +10,23 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Domain\Event;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\Segment\Domain\Entity\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 use Zend\EventManager\Exception\DomainException;
 
 /**
  */
-class SegmentConditionSetChangedEvent implements DomainEventInterface
+class SegmentConditionSetChangedEvent implements DomainAggregateEventInterface
 {
+    /**
+     * @var SegmentId
+     *
+     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     */
+    private $id;
+
     /**
      * @var ConditionSetId|null
      *
@@ -33,17 +42,27 @@ class SegmentConditionSetChangedEvent implements DomainEventInterface
     private $to;
 
     /**
+     * @param SegmentId      $id
      * @param ConditionSetId $from
      * @param ConditionSetId $to
      */
-    public function __construct(?ConditionSetId $from = null, ?ConditionSetId $to = null)
+    public function __construct(SegmentId $id, ?ConditionSetId $from = null, ?ConditionSetId $to = null)
     {
         if ($from === null && $to === null) {
             throw new DomainException('Condition set from and to cannot be booth null');
         }
 
+        $this->id = $id;
         $this->from = $from;
         $this->to = $to;
+    }
+
+    /**
+     * @return SegmentId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**
