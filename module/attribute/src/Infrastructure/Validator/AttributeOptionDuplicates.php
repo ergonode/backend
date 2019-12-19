@@ -14,15 +14,10 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class AttributeGroupCode extends Constraint
+class AttributeOptionDuplicates extends Constraint
 {
     /**
      * @var string
      */
-    public $validMessage = 'Given value {{ value }} is not valid attribute group code';
-
-    /**
-     * @var string
-     */
-    public $uniqueMessage = 'The value is not unique.';
+    public $message = 'Option code have to be unique';
 }
