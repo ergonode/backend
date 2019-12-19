@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupDeletedEvent;
 use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 
@@ -27,18 +28,18 @@ class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
     private $eventStore;
 
     /**
-     * @var DomainEventDispatcherInterface
+     * @var EventBusInterface
      */
-    private $eventDispatcher;
+    private $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $eventStore
-     * @param DomainEventDispatcherInterface $eventDispatcher
+     * @param DomainEventStoreInterface $eventStore
+     * @param EventBusInterface         $eventBus
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
+    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
     {
         $this->eventStore = $eventStore;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -77,7 +78,7 @@ class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
 
         $this->eventStore->append($aggregateRoot->getId(), $events);
         foreach ($events as $envelope) {
-            $this->eventDispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
     }
 
@@ -88,7 +89,7 @@ class DbalAttributeGroupRepository implements AttributeGroupRepositoryInterface
      */
     public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
-        $aggregateRoot->apply(new AttributeGroupDeletedEvent());
+        $aggregateRoot->apply(new AttributeGroupDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
         $this->eventStore->delete($aggregateRoot->getId());

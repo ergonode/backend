@@ -11,13 +11,14 @@ namespace Ergonode\Attribute\Domain\Event\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AttributeCreatedEvent implements DomainEventInterface
+class AttributeCreatedEvent implements DomainAggregateEventInterface
 {
     /**
      * @var AttributeId
@@ -148,7 +149,7 @@ class AttributeCreatedEvent implements DomainEventInterface
     /**
      * @return AttributeId
      */
-    public function getId(): AttributeId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

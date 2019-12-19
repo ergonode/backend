@@ -9,15 +9,24 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Event;
 
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AttributeOptionChangedEvent implements DomainEventInterface
+class AttributeOptionChangedEvent implements DomainAggregateEventInterface
 {
+    /**
+     * @var AttributeId
+     *
+     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
+     */
+    private $id;
+
     /**
      * @var OptionKey
      *
@@ -40,15 +49,25 @@ class AttributeOptionChangedEvent implements DomainEventInterface
     private $to;
 
     /**
+     * @param AttributeId     $id
      * @param OptionKey       $key
      * @param OptionInterface $from
      * @param OptionInterface $to
      */
-    public function __construct(OptionKey $key, OptionInterface $from, OptionInterface $to)
+    public function __construct(AttributeId $id, OptionKey $key, OptionInterface $from, OptionInterface $to)
     {
+        $this->id = $id;
         $this->key = $key;
         $this->from = $from;
         $this->to = $to;
+    }
+
+    /**
+     * @return AttributeId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**
