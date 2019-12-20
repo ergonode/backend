@@ -46,7 +46,7 @@ class MethodBuilder
         }
 
         if (null !== $returnType) {
-            if ($returnType !== 'void') {
+            if ('void' !== $returnType) {
                 $path = explode('\\', $returnType);
                 $baseReturnType = array_pop($path);
                 $method->addComment('');

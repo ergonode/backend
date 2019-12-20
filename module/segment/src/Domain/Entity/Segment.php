@@ -194,7 +194,7 @@ class Segment extends AbstractAggregateRoot
      */
     public function changeConditionSet(?ConditionSetId $conditionSetId = null): void
     {
-        if ($this->conditionSetId !== null || $conditionSetId !== null) {
+        if (null !== $this->conditionSetId || null !== $conditionSetId) {
             $this->apply(new SegmentConditionSetChangedEvent($this->conditionSetId, $conditionSetId));
         }
     }

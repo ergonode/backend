@@ -38,7 +38,7 @@ class SegmentConditionSetChangedEvent implements DomainEventInterface
      */
     public function __construct(?ConditionSetId $from = null, ?ConditionSetId $to = null)
     {
-        if ($from === null && $to === null) {
+        if (null === $from && null === $to) {
             throw new DomainException('Condition set from and to cannot be booth null');
         }
 

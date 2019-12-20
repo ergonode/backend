@@ -103,7 +103,7 @@ class ProductValueChangedEventProjector implements DomainEventProjectorInterface
      */
     private function insert(string $productId, string $attributeId, string $value, string $language = null): void
     {
-        if ($value !== '') {
+        if ('' !== $value) {
             $valueId = Uuid::uuid5(ValueInterface::NAMESPACE, implode('|', [$value, $language]));
 
             $qb = $this->connection->createQueryBuilder();
