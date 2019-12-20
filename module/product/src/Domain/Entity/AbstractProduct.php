@@ -47,7 +47,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     private $designTemplateId;
 
     /**
-     * @var integer
+     * @var int
      */
     private $version;
 

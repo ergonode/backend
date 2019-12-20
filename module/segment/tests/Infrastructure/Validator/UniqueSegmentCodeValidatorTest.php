@@ -25,6 +25,8 @@ class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
      */
     private $query;
 
+    /**
+     */
     protected function setUp(): void
     {
         $this->query = $this->createMock(SegmentQueryInterface::class);

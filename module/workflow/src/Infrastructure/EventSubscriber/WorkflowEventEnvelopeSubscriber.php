@@ -113,7 +113,12 @@ class WorkflowEventEnvelopeSubscriber implements EventSubscriberInterface
                         $recipients = $this->userIdsProvider->getUserIds($roleIds);
                         $user = $this->userProvider->provide();
 
-                        $notification = new StatusChangedNotification($product->getSku(), $transition->getFrom(), $transition->getTo(), $user);
+                        $notification = new StatusChangedNotification(
+                            $product->getSku(),
+                            $transition->getFrom(),
+                            $transition->getTo(),
+                            $user
+                        );
                         $command = new SendNotificationCommand($notification, $recipients);
 
                         $this->bus->dispatch($command);

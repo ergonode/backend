@@ -44,6 +44,7 @@ class DbalTemplateRepository implements TemplateRepositoryInterface
      * {@inheritDoc}
      *
      * @return Template|null
+     *
      * @throws \ReflectionException
      */
     public function load(TemplateId $id): ?Template

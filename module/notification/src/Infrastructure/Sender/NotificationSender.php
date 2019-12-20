@@ -25,7 +25,7 @@ class NotificationSender
     /**
      * @param NotificationStrategyInterface ...$strategies
      */
-    public function __construct(NotificationStrategyInterface... $strategies)
+    public function __construct(NotificationStrategyInterface...$strategies)
     {
         $this->strategies = $strategies;
     }

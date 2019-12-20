@@ -43,8 +43,11 @@ class MultimediaParamConverter implements ParamConverterInterface
      * @param MultimediaFileProviderInterface $fileProvider
      * @param FileExistCheckService           $fileExistCheckService
      */
-    public function __construct(MultimediaRepositoryInterface $repository, MultimediaFileProviderInterface $fileProvider, FileExistCheckService $fileExistCheckService)
-    {
+    public function __construct(
+        MultimediaRepositoryInterface $repository,
+        MultimediaFileProviderInterface $fileProvider,
+        FileExistCheckService $fileExistCheckService
+    ) {
         $this->repository = $repository;
         $this->fileProvider = $fileProvider;
         $this->fileExistCheckService = $fileExistCheckService;

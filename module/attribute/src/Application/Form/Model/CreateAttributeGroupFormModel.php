@@ -22,6 +22,7 @@ class CreateAttributeGroupFormModel
      *
      * @Assert\NotBlank(message="Attribute code is required")
      * @Assert\Length(max=128)
+     *
      * @AppAssert\AttributeGroupCode()
      */
     public $code;

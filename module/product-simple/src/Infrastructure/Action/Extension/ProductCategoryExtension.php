@@ -38,6 +38,7 @@ class ProductCategoryExtension
      * @param array  $data
      *
      * @return array
+     *
      * @throws \Exception
      */
     public function extend(Record $record, array $data): array

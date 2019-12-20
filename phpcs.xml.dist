@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+    <arg name="basepath" value="."/>
+    <arg name="cache" value=".phpcs-cache"/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="80"/>
+    <arg value="p"/>
+    <config name="installed_paths" value="vendor/escapestudios/symfony2-coding-standard"/>
+
+    <!-- Include full Symfony2 Coding Standard -->
+    <rule ref="Symfony"/>
+    <rule ref="Symfony.Functions.Arguments.Invalid">
+        <type>warning</type>
+    </rule>
+    <rule ref="Symfony.ControlStructure.YodaConditions.Invalid">
+        <type>warning</type>
+    </rule>
+    <rule ref="Generic.Files.LineLength.MaxExceeded">
+         <type>warning</type>
+    </rule>
+
+    <!-- Directories to be checked -->
+    <file>config/</file>
+    <file>public/</file>
+    <file>src/</file>
+    <file>tests/</file>
+    <!--<file>features/</file>-->
+    <file>module/</file>
+    <exclude-pattern>bin/.phpunit</exclude-pattern>
+    <exclude-pattern>src/Migrations</exclude-pattern>
+</ruleset>

@@ -143,7 +143,6 @@ class ProductCreatedEventProjector implements DomainEventProjectorInterface
             }
 
             $this->connection->insert(
-
                 self::TABLE_PRODUCT_VALUE,
                 [
                     'product_id' => $productId,

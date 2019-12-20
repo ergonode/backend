@@ -55,8 +55,12 @@ class MultimediaIdHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, MultimediaId $multimediaId, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        MultimediaId $multimediaId,
+        array $type,
+        Context $context
+    ): string {
         return $multimediaId->getValue();
     }
 
@@ -68,8 +72,12 @@ class MultimediaIdHandler implements SubscribingHandlerInterface
      *
      * @return MultimediaId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): MultimediaId
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): MultimediaId {
         return new MultimediaId($data);
     }
 }

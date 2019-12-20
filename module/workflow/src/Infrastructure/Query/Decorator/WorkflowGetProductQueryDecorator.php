@@ -82,6 +82,7 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
      * @param Language  $language
      *
      * @return array
+     *
      * @throws \Exception
      */
     public function query(ProductId $productId, Language $language): array

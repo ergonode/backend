@@ -71,6 +71,7 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
      * @param ConditionInterface|ProductCompletenessCondition $configuration
      *
      * @return bool
+     *
      * @throws \Exception
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool

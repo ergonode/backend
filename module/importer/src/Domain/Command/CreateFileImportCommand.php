@@ -69,8 +69,13 @@ class CreateFileImportCommand
      *
      * @throws \Exception
      */
-    public function __construct(string $name, string $fileName, ReaderId $readerId, TransformerId $transformerId, string $action)
-    {
+    public function __construct(
+        string $name,
+        string $fileName,
+        ReaderId $readerId,
+        TransformerId $transformerId,
+        string $action
+    ) {
         $this->id = ImportId::generate();
         $this->name = $name;
         $this->filename = $fileName;

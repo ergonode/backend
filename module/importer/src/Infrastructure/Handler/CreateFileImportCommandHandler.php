@@ -32,8 +32,10 @@ class CreateFileImportCommandHandler
      * @param ImportService             $service
      * @param ImportRepositoryInterface $repository
      */
-    public function __construct(ImportService $service, ImportRepositoryInterface $repository)
-    {
+    public function __construct(
+        ImportService $service,
+        ImportRepositoryInterface $repository
+    ) {
         $this->service = $service;
         $this->repository = $repository;
     }
@@ -45,7 +47,12 @@ class CreateFileImportCommandHandler
      */
     public function __invoke(CreateFileImportCommand $command)
     {
-        $import = new FileImport($command->getId(), $command->getName(), $command->getReaderId(), $command->getFilename());
+        $import = new FileImport(
+            $command->getId(),
+            $command->getName(),
+            $command->getReaderId(),
+            $command->getFilename()
+        );
         $this->repository->save($import);
         $this->service->import($import, $command->getTransformerId(), $command->getAction());
     }

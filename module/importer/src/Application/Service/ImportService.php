@@ -52,8 +52,12 @@ class ImportService
      * @param MessageBusInterface       $commandBus
      * @param string                    $directory
      */
-    public function __construct(ReaderProcessorProvider $provider, ReaderRepositoryInterface $repository, MessageBusInterface $commandBus, string $directory)
-    {
+    public function __construct(
+        ReaderProcessorProvider $provider,
+        ReaderRepositoryInterface $repository,
+        MessageBusInterface $commandBus,
+        string $directory
+    ) {
         $this->provider = $provider;
         $this->repository = $repository;
         $this->commandBus = $commandBus;

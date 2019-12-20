@@ -62,8 +62,12 @@ class CreateStatusCommand
      *
      * @throws \Exception
      */
-    public function __construct(StatusCode $code, Color $color, TranslatableString $name, TranslatableString $description)
-    {
+    public function __construct(
+        StatusCode $code,
+        Color $color,
+        TranslatableString $name,
+        TranslatableString $description
+    ) {
         $this->id = StatusId::fromCode($code);
         $this->code = $code;
         $this->color = $color;

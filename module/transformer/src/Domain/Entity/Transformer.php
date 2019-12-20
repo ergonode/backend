@@ -83,6 +83,7 @@ class Transformer extends AbstractAggregateRoot
      * @param string             $collection
      *
      * @return $this
+     *
      * @throws \Exception
      */
     public function addConverter(string $field, ConverterInterface $converter, string $collection = self::DEFAULT): self

@@ -82,6 +82,7 @@ class ProductCreateAction
      * @param Request $request
      *
      * @return Response
+     *
      * @throws \Exception
      */
     public function __invoke(Request $request): Response

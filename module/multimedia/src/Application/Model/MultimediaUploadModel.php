@@ -22,6 +22,7 @@ class MultimediaUploadModel
 {
     /**
      * @Assert\File(maxSize="100M")
+     *
      * @Vich\UploadableField(mapping="attachment", fileNameProperty="fileName", size="fileSize")
      *
      * @var UploadedFile
@@ -30,11 +31,16 @@ class MultimediaUploadModel
 
     /**
      * @Assert\Callback
+     *
      * @param ExecutionContextInterface $context
      */
     public function validate(ExecutionContextInterface $context): void
     {
-        $isFileExtensionValid = \in_array(strtolower($this->upload->getClientOriginalExtension()), ImageFormat::AVAILABLE, true);
+        $isFileExtensionValid = \in_array(
+            strtolower($this->upload->getClientOriginalExtension()),
+            ImageFormat::AVAILABLE,
+            true
+        );
 
         if ($this->upload && !$isFileExtensionValid) {
             $context
