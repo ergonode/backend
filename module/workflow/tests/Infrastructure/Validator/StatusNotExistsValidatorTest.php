@@ -67,7 +67,9 @@ class StatusNotExistsValidatorTest extends ConstraintValidatorTestCase
     {
         $this->repository->method('load')->willReturn($this->createMock(Status::class));
         $constraint = new StatusNotExists();
-        $value = '5XPeqpDgL2sJXSKSkgq7Wf3J0oI9fSAMznAdUJ16Jynr6ZYmL87ougT4WlHylg2iIYEkIhDy6icd5yhw2Bnx0l9agBlYf80MIqBtNyNO6znSxwEYWdcSKocDdrbn5hvpjjY4S4W5MzEL5qnKz7TB8T8sldbWHUwjyom5E0B4vOxIpGE2R65bqbtMELA6ui777cXLrfasTwmQWDGSGUICGLdEEdhWMfbli6bsEuecWK8TLqoAvM476tkkuHzxc7gEJVR0';
+        $value = '5XPeqpDgL2sJXSKSkgq7Wf3J0oI9fSAMznAdUJ16Jynr6ZYmL87ougT4WlHylg2iIYEkIhDy6icd5yhw2Bnx0l9agBlYf80MI'.
+            'qBtNyNO6znSxwEYWdcSKocDdrbn5hvpjjY4S4W5MzEL5qnKz7TB8T8sldbWHUwjyom5E0B4vOxIpGE2R65bqbtMELA6ui777cXLrfa'.
+            'sTwmQWDGSGUICGLdEEdhWMfbli6bsEuecWK8TLqoAvM476tkkuHzxc7gEJVR0';
         $this->validator->validate($value, $constraint);
 
         $assertion = $this->buildViolation($constraint->message)->setParameter('{{ value }}', $value);

@@ -140,22 +140,17 @@
 
     <!-- PHP code style check -->
     <target name="check:cs" description="PHPCS checker">
-        <phpcodesniffer haltonerror="true"
-                        standard="${project.basedir}/vendor/escapestudios/symfony2-coding-standard/Symfony2"
-                        allowedFileExtensions="php"
-                        ignorePatterns="autoload.php"
-                        showSniffs="false"
-                        showSources="false"
-                        showWarnings="true"
-                        verbosity="0">
-            <fileset dir="${dir.src}">
-                <include name="**/*.php"/>
-            </fileset>
-            <fileset dir="${dir.module}">
-                <include name="**/*.php"/>
-            </fileset>
-            <formatter type="full" usefile="false"/>
-<!--            <formatter type="checkstyle" outfile="${dir.reports}/checkstyle-cs.xml"/>-->
-        </phpcodesniffer>
+        <exec command="bin/phpcs -n"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
+
+    <!-- PHP code fix code style -->
+    <target name="check:cbf" description="PHPCBF fixer">
+        <exec command="bin/phpcbf"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
     </target>
 </project>

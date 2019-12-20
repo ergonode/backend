@@ -61,6 +61,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
      * @param string                $order
      *
      * @return \Traversable
+     *
      * @throws \Exception
      */
     public function getItems(array $columns, FilterValueCollection $values, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable

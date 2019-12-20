@@ -97,6 +97,7 @@ class ProductChangeAction
      * @param Request         $request
      *
      * @return Response
+     *
      * @throws \Exception
      */
     public function __invoke(AbstractProduct $product, Request $request): Response

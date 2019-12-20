@@ -45,6 +45,7 @@ class TranslatableColumnRenderer implements ColumnRendererInterface
      * @param array                              $row
      *
      * @return string|null
+     *
      * @throws UnsupportedColumnException
      */
     public function render(ColumnInterface $column, string $id, array $row): ?string

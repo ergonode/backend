@@ -30,7 +30,7 @@ class EntityGenerator
      * @param FilePersister    $persister
      * @param BuilderInterface ...$builders
      */
-    public function __construct(FilePersister $persister, BuilderInterface... $builders)
+    public function __construct(FilePersister $persister, BuilderInterface...$builders)
     {
         $this->persister = $persister;
         $this->builders = $builders;

@@ -88,6 +88,7 @@ abstract class AbstractId
 
     /**
      * @param AbstractId $id
+     *
      * @return bool
      */
     public function isEqual(AbstractId $id): bool

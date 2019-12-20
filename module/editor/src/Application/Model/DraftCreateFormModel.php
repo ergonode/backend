@@ -17,6 +17,7 @@ class DraftCreateFormModel
 {
     /**
      * @var string
+     *
      * @Assert\NotBlank()
      */
     public $productId;

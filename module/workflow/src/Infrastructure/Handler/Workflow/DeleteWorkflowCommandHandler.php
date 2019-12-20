@@ -50,7 +50,11 @@ class DeleteWorkflowCommandHandler
     public function __invoke(DeleteWorkflowCommand $command)
     {
         $workflow = $this->repository->load($command->getId());
-        Assert::isInstanceOf($workflow, Workflow::class, sprintf('Can\'t find workflow with ID "%s"', $command->getId()));
+        Assert::isInstanceOf(
+            $workflow,
+            Workflow::class,
+            sprintf('Can\'t find workflow with ID "%s"', $command->getId())
+        );
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
         if (!$relationships->isEmpty()) {

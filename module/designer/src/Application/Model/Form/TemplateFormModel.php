@@ -30,6 +30,7 @@ class TemplateFormModel
      * @var string
      *
      * @Assert\Uuid()
+     *
      * @MultimediaExists()
      */
     public $image;

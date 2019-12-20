@@ -26,6 +26,8 @@ class UserUniqueValidatorTest extends ConstraintValidatorTestCase
      */
     private $repository;
 
+    /**
+     */
     protected function setUp(): void
     {
         $this->repository = $this->createMock(UserRepositoryInterface::class);

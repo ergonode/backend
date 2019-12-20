@@ -39,6 +39,7 @@ class DomainUserProvider implements UserProviderInterface
      * @param string $username
      *
      * @return UserInterface
+     *
      * @throws \Exception
      */
     public function loadUserByUsername($username): UserInterface
@@ -69,6 +70,7 @@ class DomainUserProvider implements UserProviderInterface
      * @param UserInterface $user
      *
      * @return UserInterface
+     *
      * @throws \Exception
      */
     public function refreshUser(UserInterface $user): UserInterface

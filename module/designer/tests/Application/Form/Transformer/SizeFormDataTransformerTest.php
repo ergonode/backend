@@ -23,6 +23,8 @@ class SizeFormDataTransformerTest extends TestCase
      */
     protected $transformer;
 
+    /**
+     */
     protected function setUp()
     {
         $this->transformer = new SizeFormDataTransformer();
@@ -41,6 +43,7 @@ class SizeFormDataTransformerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     *
      * @expectedExceptionMessage Invalid Size object
      */
     public function testTransformException(): void
@@ -62,6 +65,7 @@ class SizeFormDataTransformerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     *
      * @expectedExceptionMessage invalid size -1,-2 value
      */
     public function testReverseTransformException(): void

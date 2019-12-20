@@ -125,6 +125,7 @@ class WorkflowTest extends TestCase
 
     /**
      * @expectedException \RuntimeException
+     *
      * @expectedExceptionMessage Transition from "A" to "B" not exists
      *
      * @throws \Exception
@@ -138,6 +139,7 @@ class WorkflowTest extends TestCase
 
     /**
      * @expectedException \RuntimeException
+     *
      * @expectedExceptionMessage Status "A" already exists
      *
      * @throws \Exception
@@ -151,6 +153,7 @@ class WorkflowTest extends TestCase
 
     /**
      * @expectedException \RuntimeException
+     *
      * @expectedExceptionMessage Transition from "A" to "B" already exists
      *
      * @throws \Exception
@@ -169,6 +172,7 @@ class WorkflowTest extends TestCase
 
     /**
      * @expectedException \RuntimeException
+     *
      * @expectedExceptionMessage Transition source status "A" not exists
      *
      * @throws \Exception
@@ -185,6 +189,7 @@ class WorkflowTest extends TestCase
 
     /**
      * @expectedException \RuntimeException
+     *
      * @expectedExceptionMessage Transition destination status "B" not exists
      *
      * @throws \Exception

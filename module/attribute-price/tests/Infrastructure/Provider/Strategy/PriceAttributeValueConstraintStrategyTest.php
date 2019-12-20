@@ -30,6 +30,8 @@ class PriceAttributeValueConstraintStrategyTest extends TestCase
      */
     private $attribute;
 
+    /**
+     */
     protected function setUp()
     {
         $this->strategy = new PriceAttributeValueConstraintStrategy();
