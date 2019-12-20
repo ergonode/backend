@@ -15,13 +15,13 @@ use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserCreatedEvent implements DomainAggregateEventInterface
+class UserCreatedEvent implements DomainEventInterface
 {
     /**
      * @var UserId

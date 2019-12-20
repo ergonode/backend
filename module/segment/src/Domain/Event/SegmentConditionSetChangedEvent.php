@@ -11,14 +11,14 @@ namespace Ergonode\Segment\Domain\Event;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 use Zend\EventManager\Exception\DomainException;
 
 /**
  */
-class SegmentConditionSetChangedEvent implements DomainAggregateEventInterface
+class SegmentConditionSetChangedEvent implements DomainEventInterface
 {
     /**
      * @var SegmentId

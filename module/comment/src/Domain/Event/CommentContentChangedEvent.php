@@ -11,12 +11,12 @@ namespace Ergonode\Comment\Domain\Event;
 
 use Ergonode\Comment\Domain\Entity\CommentId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CommentContentChangedEvent implements DomainAggregateEventInterface
+class CommentContentChangedEvent implements DomainEventInterface
 {
     /**
      * @var CommentId $id

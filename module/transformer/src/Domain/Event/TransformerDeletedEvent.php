@@ -11,13 +11,12 @@ namespace Ergonode\Transformer\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TransformerDeletedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
+class TransformerDeletedEvent extends AbstractDeleteEvent
 {
     /**
      * @var TransformerId

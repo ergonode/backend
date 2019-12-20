@@ -12,7 +12,7 @@ namespace Ergonode\Segment\Domain\Event;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
@@ -20,7 +20,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class SegmentCreatedEvent implements DomainAggregateEventInterface
+class SegmentCreatedEvent implements DomainEventInterface
 {
     /**
      * @var SegmentId

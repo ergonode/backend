@@ -13,13 +13,13 @@ use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CategoryCreatedEvent implements DomainAggregateEventInterface
+class CategoryCreatedEvent implements DomainEventInterface
 {
     /**
      * @var CategoryId

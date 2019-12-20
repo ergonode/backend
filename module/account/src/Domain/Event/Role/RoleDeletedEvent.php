@@ -12,11 +12,11 @@ namespace Ergonode\Account\Domain\Event\Role;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class RoleDeletedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
+class RoleDeletedEvent extends AbstractDeleteEvent
 {
     /**
      * @var RoleId

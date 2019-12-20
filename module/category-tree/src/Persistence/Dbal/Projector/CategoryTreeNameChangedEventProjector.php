@@ -11,7 +11,6 @@ namespace Ergonode\CategoryTree\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeNameChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -38,14 +37,6 @@ class CategoryTreeNameChangedEventProjector
     {
         $this->connection = $connection;
         $this->serializer = $serializer;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof CategoryTreeNameChangedEvent;
     }
 
     /**

@@ -12,13 +12,13 @@ namespace Ergonode\CategoryTree\Domain\Event;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class CategoryTreeCategoriesChangedEvent implements DomainAggregateEventInterface
+class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
 {
     /**
      * @var CategoryTreeId

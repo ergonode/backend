@@ -10,14 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TransformerConverterAddedEvent implements DomainAggregateEventInterface
+class TransformerConverterAddedEvent implements DomainEventInterface
 {
     /**
      * @var TransformerId

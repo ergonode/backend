@@ -12,11 +12,11 @@ namespace Ergonode\Account\Domain\Event\User;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\Event\AbstractStringBasedChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserFirstNameChangedEvent extends AbstractStringBasedChangedEvent implements DomainAggregateEventInterface
+class UserFirstNameChangedEvent extends AbstractStringBasedChangedEvent
 {
     /**
      * @var UserId

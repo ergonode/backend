@@ -11,12 +11,12 @@ namespace Ergonode\Account\Domain\Event\User;
 
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserDeactivatedEvent implements DomainAggregateEventInterface
+class UserDeactivatedEvent implements DomainEventInterface
 {
     /**
      * @var UserId

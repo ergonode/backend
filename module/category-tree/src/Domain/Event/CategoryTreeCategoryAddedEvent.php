@@ -12,12 +12,12 @@ namespace Ergonode\CategoryTree\Domain\Event;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CategoryTreeCategoryAddedEvent implements DomainAggregateEventInterface
+class CategoryTreeCategoryAddedEvent implements DomainEventInterface
 {
     /**
      * @var CategoryTreeId

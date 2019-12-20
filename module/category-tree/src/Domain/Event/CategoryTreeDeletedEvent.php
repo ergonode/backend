@@ -12,12 +12,11 @@ namespace Ergonode\CategoryTree\Domain\Event;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CategoryTreeDeletedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
+class CategoryTreeDeletedEvent extends AbstractDeleteEvent
 {
     /**
      * @var CategoryTreeId

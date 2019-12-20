@@ -11,14 +11,13 @@ namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductRemovedFromCategory implements DomainAggregateEventInterface
+class ProductRemovedFromCategory implements DomainEventInterface
 {
     /**
      * @var ProductId

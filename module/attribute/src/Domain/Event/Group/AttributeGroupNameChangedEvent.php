@@ -12,12 +12,12 @@ namespace Ergonode\Attribute\Domain\Event\Group;
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AttributeGroupNameChangedEvent implements DomainAggregateEventInterface
+class AttributeGroupNameChangedEvent implements DomainEventInterface
 {
     /**
      * @var AttributeGroupId

@@ -11,13 +11,12 @@ namespace Ergonode\Segment\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class SegmentDeletedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
+class SegmentDeletedEvent extends AbstractDeleteEvent
 {
     /**
      * @var SegmentId

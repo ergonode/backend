@@ -11,14 +11,14 @@ namespace Ergonode\Workflow\Domain\Event\Transition;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Workflow\Domain\Entity\TransitionId;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TransitionConditionSetChangedEvent implements DomainAggregateEventInterface
+class TransitionConditionSetChangedEvent implements DomainEventInterface
 {
     /**
      * @var WorkflowId

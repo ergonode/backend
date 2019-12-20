@@ -12,11 +12,11 @@ namespace Ergonode\Account\Domain\Event\Role;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\Event\AbstractStringBasedChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class RoleNameChangedEvent extends AbstractStringBasedChangedEvent implements DomainAggregateEventInterface
+class RoleNameChangedEvent extends AbstractStringBasedChangedEvent
 {
     /**
      * @var RoleId

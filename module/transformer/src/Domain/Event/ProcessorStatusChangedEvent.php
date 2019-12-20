@@ -10,14 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Transformer\Domain\Entity\ProcessorId;
 use Ergonode\Transformer\Domain\ValueObject\ProcessorStatus;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProcessorStatusChangedEvent implements DomainAggregateEventInterface
+class ProcessorStatusChangedEvent implements DomainEventInterface
 {
     /**
      * @var ProcessorId

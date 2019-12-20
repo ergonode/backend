@@ -12,13 +12,12 @@ namespace Ergonode\Workflow\Domain\Event\Status;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class StatusDescriptionChangedEvent extends AbstractTranslatableStringBasedChangedEvent implements DomainAggregateEventInterface
+class StatusDescriptionChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
     /**
      * @var StatusId

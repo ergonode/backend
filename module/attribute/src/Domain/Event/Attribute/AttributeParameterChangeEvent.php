@@ -11,12 +11,12 @@ namespace Ergonode\Attribute\Domain\Event\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AttributeParameterChangeEvent implements DomainAggregateEventInterface
+class AttributeParameterChangeEvent implements DomainEventInterface
 {
     /**
      * @var AttributeId

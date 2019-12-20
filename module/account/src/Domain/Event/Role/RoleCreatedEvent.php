@@ -12,13 +12,13 @@ namespace Ergonode\Account\Domain\Event\Role;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class RoleCreatedEvent implements DomainAggregateEventInterface
+class RoleCreatedEvent implements DomainEventInterface
 {
     /**
      * @var RoleId

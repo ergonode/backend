@@ -12,12 +12,11 @@ namespace Ergonode\Designer\Domain\Event;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TemplateRemovedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
+class TemplateRemovedEvent extends AbstractDeleteEvent
 {
     /**
      * @var TemplateId

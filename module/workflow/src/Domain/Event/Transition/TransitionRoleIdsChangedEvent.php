@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Domain\Event\Transition;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Workflow\Domain\Entity\TransitionId;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
@@ -19,7 +19,7 @@ use Webmozart\Assert\Assert;
 
 /**
  */
-class TransitionRoleIdsChangedEvent implements DomainAggregateEventInterface
+class TransitionRoleIdsChangedEvent implements DomainEventInterface
 {
     /**
      * @var WorkflowId

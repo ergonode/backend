@@ -12,12 +12,12 @@ namespace Ergonode\Attribute\Domain\Event;
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AttributeGroupRemovedEvent implements DomainAggregateEventInterface
+class AttributeGroupRemovedEvent implements DomainEventInterface
 {
     /**
      * @var AttributeId

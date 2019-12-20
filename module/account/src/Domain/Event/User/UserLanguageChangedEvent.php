@@ -12,12 +12,12 @@ namespace Ergonode\Account\Domain\Event\User;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserLanguageChangedEvent implements DomainAggregateEventInterface
+class UserLanguageChangedEvent implements DomainEventInterface
 {
     /**
      * @var UserId

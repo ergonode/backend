@@ -12,7 +12,6 @@ namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserActivatedEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 
 /**
  */
@@ -31,16 +30,6 @@ class UserActivatedEventProjector
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-    }
-
-    /**
-     * @param DomainEventInterface $event
-     *
-     * @return bool
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof UserActivatedEvent;
     }
 
     /**

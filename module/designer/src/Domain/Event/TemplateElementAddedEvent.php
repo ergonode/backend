@@ -12,12 +12,12 @@ namespace Ergonode\Designer\Domain\Event;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TemplateElementAddedEvent implements DomainAggregateEventInterface
+class TemplateElementAddedEvent implements DomainEventInterface
 {
     /**
      * @var TemplateId

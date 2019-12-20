@@ -11,7 +11,6 @@ namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
@@ -19,7 +18,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductValueChanged implements DomainAggregateEventInterface
+class ProductValueChanged implements DomainEventInterface
 {
     /**
      * @var ProductId

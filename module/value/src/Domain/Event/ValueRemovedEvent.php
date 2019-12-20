@@ -12,13 +12,13 @@ namespace Ergonode\Value\Domain\Event;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ValueRemovedEvent implements DomainAggregateEventInterface
+class ValueRemovedEvent implements DomainEventInterface
 {
     /**
      * @var CategoryId

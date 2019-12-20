@@ -120,7 +120,7 @@ class Role extends AbstractAggregateRoot
     public function changeName(string $name): void
     {
         if ($name !== $this->name) {
-            $this->apply(new RoleNameChangedEvent($this->name, $name));
+            $this->apply(new RoleNameChangedEvent($this->id, $this->name, $name));
         }
     }
 
@@ -131,7 +131,7 @@ class Role extends AbstractAggregateRoot
     {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
-        $this->apply(new RolePrivilegesChangedEvent($this->privileges, $privileges));
+        $this->apply(new RolePrivilegesChangedEvent($this->id, $this->privileges, $privileges));
     }
 
     /**
@@ -140,7 +140,7 @@ class Role extends AbstractAggregateRoot
     public function changeDescription(string $description): void
     {
         if ($description !== $this->name) {
-            $this->apply(new RoleDescriptionChangedEvent($this->description, $description));
+            $this->apply(new RoleDescriptionChangedEvent($this->id, $this->description, $description));
         }
     }
 
@@ -169,7 +169,7 @@ class Role extends AbstractAggregateRoot
             throw new \RuntimeException(sprintf('Privilege %s already exists', $privilege->getValue()));
         }
 
-        $this->apply(new AddPrivilegeToRoleEvent($privilege));
+        $this->apply(new AddPrivilegeToRoleEvent($this->id, $privilege));
     }
 
     /**
@@ -181,7 +181,7 @@ class Role extends AbstractAggregateRoot
             throw new \RuntimeException(sprintf('Privilege %s not exists', $privilege->getValue()));
         }
 
-        $this->apply(new RemovePrivilegeFromRoleEvent($privilege));
+        $this->apply(new RemovePrivilegeFromRoleEvent($this->id, $privilege));
     }
 
     /**
@@ -189,7 +189,7 @@ class Role extends AbstractAggregateRoot
      */
     protected function applyRoleCreatedEvent(RoleCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->name = $event->getName();
         $this->description = $event->getDescription();
         $this->privileges = $event->getPrivileges();

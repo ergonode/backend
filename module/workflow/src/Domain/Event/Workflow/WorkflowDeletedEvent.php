@@ -11,13 +11,12 @@ namespace Ergonode\Workflow\Domain\Event\Workflow;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class WorkflowDeletedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
+class WorkflowDeletedEvent extends AbstractDeleteEvent
 {
     /**
      * @var WorkflowId

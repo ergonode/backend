@@ -12,12 +12,12 @@ namespace Ergonode\Account\Domain\Event\User;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserPasswordChangedEvent implements DomainAggregateEventInterface
+class UserPasswordChangedEvent implements DomainEventInterface
 {
     /**
      * @var UserId

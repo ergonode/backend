@@ -72,7 +72,7 @@ class DateAttribute extends AbstractAttribute
     public function changeFormat(DateFormat $new): void
     {
         if ($this->getFormat()->getFormat() !== $new->getFormat()) {
-            $this->apply(new AttributeParameterChangeEvent(self::FORMAT, $this->getFormat()->getFormat(), $new->getFormat()));
+            $this->apply(new AttributeParameterChangeEvent($this->id, self::FORMAT, $this->getFormat()->getFormat(), $new->getFormat()));
         }
     }
 }

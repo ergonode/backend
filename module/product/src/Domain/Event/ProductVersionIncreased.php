@@ -10,13 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductVersionIncreased implements DomainAggregateEventInterface
+class ProductVersionIncreased implements DomainEventInterface
 {
     /**
      * @var ProductId

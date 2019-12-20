@@ -10,14 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Event\Workflow;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class WorkflowTransitionRemovedEvent implements DomainAggregateEventInterface
+class WorkflowTransitionRemovedEvent implements DomainEventInterface
 {
     /**
      * @var WorkflowId

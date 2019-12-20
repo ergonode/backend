@@ -11,13 +11,12 @@ namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductDeletedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
+class ProductDeletedEvent extends AbstractDeleteEvent
 {
     /**
      * @var ProductId

@@ -11,14 +11,14 @@ namespace Ergonode\Comment\Domain\Event;
 
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Comment\Domain\Entity\CommentId;
 use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class CommentCreatedEvent implements DomainAggregateEventInterface
+class CommentCreatedEvent implements DomainEventInterface
 {
     /**
      * @var CommentId $id

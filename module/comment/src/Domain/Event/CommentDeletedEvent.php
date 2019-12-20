@@ -12,12 +12,11 @@ namespace Ergonode\Comment\Domain\Event;
 use Ergonode\Comment\Domain\Entity\CommentId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CommentDeletedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
+class CommentDeletedEvent extends AbstractDeleteEvent
 {
     /**
      * @var CommentId $id

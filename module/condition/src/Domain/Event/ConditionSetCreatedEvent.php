@@ -11,12 +11,12 @@ namespace Ergonode\Condition\Domain\Event;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ConditionSetCreatedEvent implements DomainAggregateEventInterface
+class ConditionSetCreatedEvent implements DomainEventInterface
 {
     /**
      * @var ConditionSetId

@@ -12,13 +12,12 @@ namespace Ergonode\Segment\Domain\Event;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class SegmentDescriptionChangedEvent extends AbstractTranslatableStringBasedChangedEvent implements DomainAggregateEventInterface
+class SegmentDescriptionChangedEvent extends AbstractTranslatableStringBasedChangedEvent
 {
     /**
      * @var SegmentId

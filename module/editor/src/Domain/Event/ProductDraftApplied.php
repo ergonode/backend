@@ -11,12 +11,12 @@ namespace Ergonode\Editor\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Entity\ProductDraftId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductDraftApplied implements DomainAggregateEventInterface
+class ProductDraftApplied implements DomainEventInterface
 {
     /**
      * @var ProductDraftId

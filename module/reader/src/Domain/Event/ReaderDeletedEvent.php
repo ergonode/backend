@@ -11,13 +11,12 @@ namespace Ergonode\Reader\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Reader\Domain\Entity\ReaderId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ReaderDeletedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
+class ReaderDeletedEvent extends AbstractDeleteEvent
 {
     /**
      * @var ReaderId

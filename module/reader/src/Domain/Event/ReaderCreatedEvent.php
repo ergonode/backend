@@ -10,14 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Reader\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Reader\Domain\Entity\ReaderId;
 use Ergonode\Reader\Domain\FormatterInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ReaderCreatedEvent implements DomainAggregateEventInterface
+class ReaderCreatedEvent implements DomainEventInterface
 {
     /**
      * @var ReaderId

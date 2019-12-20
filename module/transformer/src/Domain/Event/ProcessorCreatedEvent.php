@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Entity\ProcessorId;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
@@ -18,7 +18,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProcessorCreatedEvent implements DomainAggregateEventInterface
+class ProcessorCreatedEvent implements DomainEventInterface
 {
     /**
      * @var ProcessorId

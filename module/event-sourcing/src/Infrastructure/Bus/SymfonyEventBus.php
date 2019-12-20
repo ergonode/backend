@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Bus;
 
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
@@ -30,9 +30,9 @@ class SymfonyEventBus implements EventBusInterface
     }
 
     /**
-     * @param DomainAggregateEventInterface $event
+     * @param DomainEventInterface $event
      */
-    public function dispatch(DomainAggregateEventInterface $event): void
+    public function dispatch(DomainEventInterface $event): void
     {
         $this->eventBus->dispatch($event);
     }

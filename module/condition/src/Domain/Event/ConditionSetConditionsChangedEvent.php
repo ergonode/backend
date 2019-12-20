@@ -12,13 +12,13 @@ namespace Ergonode\Condition\Domain\Event;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class ConditionSetConditionsChangedEvent implements DomainAggregateEventInterface
+class ConditionSetConditionsChangedEvent implements DomainEventInterface
 {
     /**
      * @var ConditionSetId

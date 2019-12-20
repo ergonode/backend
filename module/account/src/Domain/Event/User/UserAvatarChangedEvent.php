@@ -11,13 +11,13 @@ namespace Ergonode\Account\Domain\Event\User;
 
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserAvatarChangedEvent implements DomainAggregateEventInterface
+class UserAvatarChangedEvent implements DomainEventInterface
 {
     /**
      * @var UserId

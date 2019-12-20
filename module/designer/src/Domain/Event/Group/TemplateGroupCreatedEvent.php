@@ -11,12 +11,12 @@ namespace Ergonode\Designer\Domain\Event\Group;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Entity\TemplateGroupId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TemplateGroupCreatedEvent implements DomainAggregateEventInterface
+class TemplateGroupCreatedEvent implements DomainEventInterface
 {
     /**
      * @var TemplateGroupId

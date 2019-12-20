@@ -11,13 +11,13 @@ namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductAddedToCategory implements DomainAggregateEventInterface
+class ProductAddedToCategory implements DomainEventInterface
 {
     /**
      * @var ProductId

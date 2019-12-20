@@ -11,13 +11,12 @@ namespace Ergonode\Workflow\Domain\Event\Status;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class StatusDeletedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
+class StatusDeletedEvent extends AbstractDeleteEvent
 {
     /**
      * @var StatusId

@@ -12,14 +12,14 @@ namespace Ergonode\Workflow\Domain\Event\Status;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class StatusCreatedEvent implements DomainAggregateEventInterface
+class StatusCreatedEvent implements DomainEventInterface
 {
     /**
      * @var StatusId

@@ -11,12 +11,11 @@ namespace Ergonode\Attribute\Domain\Event\Group;
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AttributeGroupDeletedEvent extends AbstractDeleteEvent implements DomainAggregateEventInterface
+class AttributeGroupDeletedEvent extends AbstractDeleteEvent
 {
     /**
      * @var AttributeGroupId

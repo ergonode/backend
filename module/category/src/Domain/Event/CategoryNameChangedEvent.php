@@ -12,12 +12,12 @@ namespace Ergonode\Category\Domain\Event;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CategoryNameChangedEvent implements DomainAggregateEventInterface
+class CategoryNameChangedEvent implements DomainEventInterface
 {
     /**
      * @var CategoryId

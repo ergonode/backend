@@ -10,8 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Comment\Domain\Event\CommentDeletedEvent;
 
 /**
@@ -34,31 +33,17 @@ class CommentDeletedEventProjector
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof CommentDeletedEvent;
-    }
-
-    /**
      * @param CommentDeletedEvent $event
      *
-     * @throws \Throwable
+     * @throws DBALException
      */
     public function __invoke(CommentDeletedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, CommentDeletedEvent::class);
-        }
-
-        $this->connection->transactional(function () use ($event) {
-            $this->connection->delete(
-                self::TABLE,
-                [
-                    'id' => $event->getAggregateId()->getValue(),
-                ]
-            );
-        });
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'id' => $event->getAggregateId()->getValue(),
+            ]
+        );
     }
 }

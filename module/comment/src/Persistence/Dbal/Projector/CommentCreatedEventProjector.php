@@ -10,14 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Comment\Domain\Event\CommentCreatedEvent;
 
 /**
  */
 class CommentCreatedEventProjector
 {
-    private const TABLE =  'comment';
+    private const TABLE = 'comment';
 
     /**
      * @var Connection
@@ -33,31 +33,21 @@ class CommentCreatedEventProjector
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof CommentCreatedEvent;
-    }
-
-    /**
      * @param CommentCreatedEvent $event
      *
-     * @throws \Throwable
+     * @throws DBALException
      */
     public function __invoke(CommentCreatedEvent $event): void
     {
-        $this->connection->transactional(function () use ($event) {
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'id' => $event->getAggregateId()->getValue(),
-                    'author_id' => $event->getAuthorId()->getValue(),
-                    'object_id' => $event->getObjectId()->toString(),
-                    'created_at' => $event->getCreatedAt()->format('Y-m-d H:i:s'),
-                    'content' => $event->getContent(),
-                ]
-            );
-        });
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'id' => $event->getAggregateId()->getValue(),
+                'author_id' => $event->getAuthorId()->getValue(),
+                'object_id' => $event->getObjectId()->toString(),
+                'created_at' => $event->getCreatedAt()->format('Y-m-d H:i:s'),
+                'content' => $event->getContent(),
+            ]
+        );
     }
 }
