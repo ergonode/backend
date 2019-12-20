@@ -55,7 +55,7 @@ class AttributeGroup extends AbstractAggregateRoot
     public function changeName(TranslatableString $name): void
     {
         if (!$name->isEqual($this->name)) {
-            $this->apply(new AttributeGroupNameChangedEvent($this->name, $name));
+            $this->apply(new AttributeGroupNameChangedEvent($this->id, $this->name, $name));
         }
     }
 
@@ -88,7 +88,7 @@ class AttributeGroup extends AbstractAggregateRoot
      */
     protected function applyAttributeGroupCreatedEvent(AttributeGroupCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->code = $event->getCode();
         $this->name = $event->getName();
     }

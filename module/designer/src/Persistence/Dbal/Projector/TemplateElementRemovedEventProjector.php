@@ -10,15 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Event\TemplateElementRemovedEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class TemplateElementRemovedEventProjector implements DomainEventProjectorInterface
+class TemplateElementRemovedEventProjector
 {
     private const ELEMENT_TABLE = 'designer.template_element';
 
@@ -38,24 +34,12 @@ class TemplateElementRemovedEventProjector implements DomainEventProjectorInterf
     /**
      * {@inheritDoc}
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(TemplateElementRemovedEvent $event): void
     {
-        return $event instanceof TemplateElementRemovedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, TemplateElementRemovedEvent::class);
-        }
-
         $this->connection->delete(
             self::ELEMENT_TABLE,
             [
-                'template_id' => $aggregateId->getValue(),
+                'template_id' => $event->getAggregateId()->getValue(),
                 'x' => $event->getPosition()->getX(),
                 'y' => $event->getPosition()->getY(),
             ]

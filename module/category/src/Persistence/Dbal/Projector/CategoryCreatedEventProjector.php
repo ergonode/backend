@@ -13,16 +13,12 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class CategoryCreatedEventProjector implements DomainEventProjectorInterface
+class CategoryCreatedEventProjector
 {
     private const TABLE = 'category';
     private const VALUE_TABLE = 'attribute_value';
@@ -49,30 +45,19 @@ class CategoryCreatedEventProjector implements DomainEventProjectorInterface
         $this->serializer = $serializer;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof CategoryCreatedEvent;
-    }
 
     /**
      * {@inheritDoc}
      *
      * @throws \Throwable
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(CategoryCreatedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, CategoryCreatedEvent::class);
-        }
-
-        $this->connection->transactional(function () use ($aggregateId, $event) {
+        $this->connection->transactional(function () use ($event) {
             $this->connection->insert(
                 self::TABLE,
                 [
-                    'id' => $aggregateId->getValue(),
+                    'id' => $event->getAggregateId()->getValue(),
                     'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
                     'code' => $event->getCode()->getValue(),
                 ]
@@ -103,7 +88,7 @@ class CategoryCreatedEventProjector implements DomainEventProjectorInterface
                 $this->connection->insert(
                     self::RELATION_TABLE,
                     [
-                        'entity_id' => $aggregateId->getValue(),
+                        'entity_id' => $event->getAggregateId()->getValue(),
                         'attribute_id' => $attributeId->getValue(),
                         'value_id' => $valueId->toString(),
                     ]

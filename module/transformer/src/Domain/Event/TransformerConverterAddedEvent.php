@@ -9,7 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Event;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -17,6 +19,13 @@ use JMS\Serializer\Annotation as JMS;
  */
 class TransformerConverterAddedEvent implements DomainEventInterface
 {
+    /**
+     * @var TransformerId
+     *
+     * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
+     */
+    private $id;
+
     /**
      * @var string
      *
@@ -39,15 +48,25 @@ class TransformerConverterAddedEvent implements DomainEventInterface
     private $converter;
 
     /**
+     * @param TransformerId      $id
      * @param string             $collection
      * @param string             $field
      * @param ConverterInterface $converter
      */
-    public function __construct(string $collection, string $field, ConverterInterface $converter)
+    public function __construct(TransformerId $id, string $collection, string $field, ConverterInterface $converter)
     {
+        $this->id = $id;
         $this->collection = $collection;
         $this->field = $field;
         $this->converter = $converter;
+    }
+
+    /**
+     * @return AbstractId|TransformerId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**

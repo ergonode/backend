@@ -11,15 +11,11 @@ namespace Ergonode\Segment\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
 
 /**
  */
-class SegmentConditionSetChangedEventProjector implements DomainEventProjectorInterface
+class SegmentConditionSetChangedEventProjector
 {
     private const TABLE = 'segment';
 
@@ -37,35 +33,19 @@ class SegmentConditionSetChangedEventProjector implements DomainEventProjectorIn
     }
 
     /**
-     * @param DomainEventInterface $event
+     * @param SegmentConditionSetChangedEvent $event
      *
-     * @return bool
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof SegmentConditionSetChangedEvent;
-    }
-
-    /**
-     * @param AbstractId                                           $aggregateId
-     * @param DomainEventInterface|SegmentConditionSetChangedEvent $event
-     *
-     * @throws UnsupportedEventException
      * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(SegmentConditionSetChangedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, SegmentConditionSetChangedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'condition_set_id' => $event->getTo() ? $event->getTo()->getValue() : null,
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

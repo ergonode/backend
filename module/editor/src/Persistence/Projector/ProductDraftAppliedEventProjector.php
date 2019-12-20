@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Editor\Domain\Event\ProductDraftApplied;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class ProductDraftAppliedEventProjector implements DomainEventProjectorInterface
+class ProductDraftAppliedEventProjector
 {
     private const DRAFT_TABLE = 'designer.draft';
 
@@ -36,29 +33,19 @@ class ProductDraftAppliedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param ProductDraftApplied $event
+     *
+     * @throws DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(ProductDraftApplied $event): void
     {
-        return $event instanceof ProductDraftApplied;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductDraftApplied::class);
-        }
-
         $this->connection->update(
             self::DRAFT_TABLE,
             [
                 'applied' => true,
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ],
             [
                 'applied' => \PDO::PARAM_BOOL,

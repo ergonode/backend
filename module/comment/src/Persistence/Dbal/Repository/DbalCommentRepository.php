@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Comment\Domain\Entity\Comment;
 use Ergonode\Comment\Domain\Entity\CommentId;
@@ -22,24 +22,27 @@ use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
 class DbalCommentRepository implements CommentRepositoryInterface
 {
     /**
-     * @var DomainEventStoreInterface $store
+     * @var DomainEventStoreInterface
      */
     private $store;
 
     /**
-     * @var DomainEventDispatcherInterface $dispatcher
+     * @var EventBusInterface
      */
-    private $dispatcher;
+    private $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $store
-     * @param DomainEventDispatcherInterface $dispatcher
+     * @param DomainEventStoreInterface $store
+     * @param EventBusInterface         $eventBus
      */
-    public function __construct(DomainEventStoreInterface $store, DomainEventDispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        DomainEventStoreInterface $store,
+        EventBusInterface $eventBus
+    ) {
         $this->store = $store;
-        $this->dispatcher = $dispatcher;
+        $this->eventBus = $eventBus;
     }
+
 
     /**
      * @param CommentId $id
@@ -73,7 +76,7 @@ class DbalCommentRepository implements CommentRepositoryInterface
         $events = $object->popEvents();
         $this->store->append($object->getId(), $events);
         foreach ($events as $envelope) {
-            $this->dispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
     }
 
@@ -94,7 +97,7 @@ class DbalCommentRepository implements CommentRepositoryInterface
      */
     public function delete(Comment $object): void
     {
-        $object->apply(new CommentDeletedEvent());
+        $object->apply(new CommentDeletedEvent($object->getId()));
         $this->save($object);
 
         $this->store->delete($object->getId());

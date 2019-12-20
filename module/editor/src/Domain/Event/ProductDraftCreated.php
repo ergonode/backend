@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Domain\Event;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Entity\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
@@ -45,7 +46,7 @@ class ProductDraftCreated implements DomainEventInterface
     /**
      * @return ProductDraftId
      */
-    public function getId(): ProductDraftId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

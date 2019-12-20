@@ -11,11 +11,12 @@ namespace Ergonode\Multimedia\Persistence\Dbal\Repository;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
+use Ergonode\Multimedia\Domain\Event\MultimediaDeletedEvent;
 
 /**
  */
@@ -27,20 +28,20 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
     private $eventStore;
 
     /**
-     * @var DomainEventDispatcherInterface
+     * @var EventBusInterface
      */
-    private $eventDispatcher;
+    private $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $eventStore
-     * @param DomainEventDispatcherInterface $eventDispatcher
+     * @param DomainEventStoreInterface $eventStore
+     * @param EventBusInterface         $eventBus
      */
     public function __construct(
         DomainEventStoreInterface $eventStore,
-        DomainEventDispatcherInterface $eventDispatcher
+        EventBusInterface $eventBus
     ) {
         $this->eventStore = $eventStore;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -79,7 +80,7 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
         $this->eventStore->append($aggregateRoot->getId(), $events);
 
         foreach ($events as $envelope) {
-            $this->eventDispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
     }
 
@@ -96,10 +97,15 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
     }
 
     /**
-     * @param MultimediaId $id
+     * {@inheritDoc}
+     *
+     * @throws \Exception
      */
-    public function remove(MultimediaId $id): void
+    public function delete(Multimedia $multimedia): void
     {
-        $this->eventStore->delete($id);
+        $multimedia->apply(new MultimediaDeletedEvent($multimedia->getId()));
+        $this->save($multimedia);
+
+        $this->eventStore->delete($multimedia->getId());
     }
 }

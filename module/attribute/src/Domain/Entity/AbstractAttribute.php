@@ -169,7 +169,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function changeLabel(TranslatableString $label): void
     {
         if ($this->label->getTranslations() !== $label->getTranslations()) {
-            $this->apply(new AttributeLabelChangedEvent($this->label, $label));
+            $this->apply(new AttributeLabelChangedEvent($this->id, $this->label, $label));
         }
     }
 
@@ -181,7 +181,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function changeHint(TranslatableString $hint): void
     {
         if ($this->hint->getTranslations() !== $hint->getTranslations()) {
-            $this->apply(new AttributeHintChangedEvent($this->hint, $hint));
+            $this->apply(new AttributeHintChangedEvent($this->id, $this->hint, $hint));
         }
     }
 
@@ -193,7 +193,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function changePlaceholder(TranslatableString $placeholder): void
     {
         if ($this->placeholder->getTranslations() !== $placeholder->getTranslations()) {
-            $this->apply(new AttributePlaceholderChangedEvent($this->placeholder, $placeholder));
+            $this->apply(new AttributePlaceholderChangedEvent($this->id, $this->placeholder, $placeholder));
         }
     }
 
@@ -247,7 +247,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function addGroup(AttributeGroupId $groupId): void
     {
         if (!$this->inGroup($groupId)) {
-            $this->apply(new AttributeGroupAddedEvent($groupId));
+            $this->apply(new AttributeGroupAddedEvent($this->id, $groupId));
         }
     }
 
@@ -259,7 +259,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function removeGroup(AttributeGroupId $groupId): void
     {
         if ($this->inGroup($groupId)) {
-            $this->apply(new AttributeGroupRemovedEvent($groupId));
+            $this->apply(new AttributeGroupRemovedEvent($this->id, $groupId));
         }
     }
 
@@ -305,7 +305,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      */
     protected function applyAttributeCreatedEvent(AttributeCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->code = $event->getCode();
         $this->label = $event->getLabel();
         $this->groups = [];

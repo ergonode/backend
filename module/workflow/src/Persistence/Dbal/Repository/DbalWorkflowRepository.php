@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
@@ -27,18 +27,20 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
     private $eventStore;
 
     /**
-     * @var DomainEventDispatcherInterface
+     * @var EventBusInterface
      */
-    private $eventDispatcher;
+    private $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $eventStore
-     * @param DomainEventDispatcherInterface $eventDispatcher
+     * DbalWorkflowRepository constructor.
+     *
+     * @param DomainEventStoreInterface $eventStore
+     * @param EventBusInterface         $eventBus
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
+    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
     {
         $this->eventStore = $eventStore;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -74,7 +76,7 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
 
         $this->eventStore->append($aggregateRoot->getId(), $events);
         foreach ($events as $envelope) {
-            $this->eventDispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
     }
 
@@ -85,7 +87,7 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
      */
     public function delete(AbstractAggregateRoot $aggregateRoot): void
     {
-        $aggregateRoot->apply(new WorkflowDeletedEvent());
+        $aggregateRoot->apply(new WorkflowDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
         $this->eventStore->delete($aggregateRoot->getId());

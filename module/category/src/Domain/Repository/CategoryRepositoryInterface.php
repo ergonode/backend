@@ -11,7 +11,6 @@ namespace Ergonode\Category\Domain\Repository;
 
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
  */
@@ -27,17 +26,17 @@ interface CategoryRepositoryInterface
     /**
      * @param CategoryId $id
      *
-     * @return AbstractAggregateRoot|Category
+     * @return Category|Category
      */
-    public function load(CategoryId $id): ?AbstractAggregateRoot;
+    public function load(CategoryId $id): ?Category;
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param Category $category
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
+    public function save(Category $category): void;
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param Category $category
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void;
+    public function delete(Category $category): void;
 }

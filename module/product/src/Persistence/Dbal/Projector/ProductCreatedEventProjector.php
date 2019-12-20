@@ -10,13 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -26,7 +23,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ProductCreatedEventProjector implements DomainEventProjectorInterface
+class ProductCreatedEventProjector
 {
     private const NAMESPACE = 'cb2600df-94fb-4755-9e6a-a15591a8e510';
     private const TABLE_PRODUCT = 'product';
@@ -53,50 +50,36 @@ class ProductCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param ProductCreatedEvent $event
+     *
+     * @throws DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(ProductCreatedEvent $event): void
     {
-        return $event instanceof ProductCreatedEvent;
-    }
+        $this->connection->insert(
+            self::TABLE_PRODUCT,
+            [
+                'id' => $event->getAggregateId()->getValue(),
+                'sku' => $event->getSku()->getValue(),
+                'template_id' => $event->getTemplateId()->getValue(),
+                'status' => 'new',
+            ]
+        );
 
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductCreatedEvent::class);
-        }
-
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $productId = $aggregateId->getValue();
-
+        foreach ($event->getCategories() as $categoryCode) {
             $this->connection->insert(
-                self::TABLE_PRODUCT,
+                self::TABLE_PRODUCT_CATEGORY,
                 [
-                    'id' => $aggregateId->getValue(),
-                    'sku' => $event->getSku()->getValue(),
-                    'template_id' => $event->getTemplateId()->getValue(),
-                    'status' => 'new',
+                    'product_id' => $event->getAggregateId()->getValue(),
+                    'category_id' => CategoryId::fromCode($categoryCode),
                 ]
             );
+        }
 
-            foreach ($event->getCategories() as $categoryCode) {
-                $this->connection->insert(
-                    self::TABLE_PRODUCT_CATEGORY,
-                    [
-                        'product_id' => $aggregateId->getValue(),
-                        'category_id' => CategoryId::fromCode($categoryCode),
-                    ]
-                );
-            }
-
-            foreach ($event->getAttributes() as $code => $value) {
-                $attributeId = AttributeId::fromKey(new AttributeCode($code))->getValue();
-                $this->insertValue($productId, $attributeId, $value);
-            }
-        });
+        foreach ($event->getAttributes() as $code => $value) {
+            $attributeId = AttributeId::fromKey(new AttributeCode($code))->getValue();
+            $this->insertValue($event->getAggregateId()->getValue(), $attributeId, $value);
+        }
     }
 
     /**

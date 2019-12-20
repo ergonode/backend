@@ -135,7 +135,7 @@ class Transition extends AbstractEntity
             return;
         }
 
-        $this->apply(new TransitionConditionSetChangedEvent($this->id, $conditionSetId));
+        $this->apply(new TransitionConditionSetChangedEvent($this->aggregateRoot->getId(), $this->id, $conditionSetId));
     }
 
     /**
@@ -147,7 +147,7 @@ class Transition extends AbstractEntity
     {
         Assert::allIsInstanceOf($roleIds, RoleId::class);
 
-        $this->apply(new TransitionRoleIdsChangedEvent($this->id, $roleIds));
+        $this->apply(new TransitionRoleIdsChangedEvent($this->aggregateRoot->getId(), $this->id, $roleIds));
     }
 
     /**

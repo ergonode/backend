@@ -11,6 +11,7 @@ namespace Ergonode\Category\Domain\Event;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
@@ -63,9 +64,9 @@ class CategoryCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return CategoryId
+     * @return AbstractId
      */
-    public function getId(): CategoryId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

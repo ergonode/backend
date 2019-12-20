@@ -51,8 +51,12 @@ class NotificationGridReadAction
      * @param GridRenderer                       $gridRenderer
      * @param AuthenticatedUserProviderInterface $userProvider
      */
-    public function __construct(NotificationGrid $grid, NotificationQueryInterface $query, GridRenderer $gridRenderer, AuthenticatedUserProviderInterface $userProvider)
-    {
+    public function __construct(
+        NotificationGrid $grid,
+        NotificationQueryInterface $query,
+        GridRenderer $gridRenderer,
+        AuthenticatedUserProviderInterface $userProvider
+    ) {
         $this->grid = $grid;
         $this->query = $query;
         $this->gridRenderer = $gridRenderer;
@@ -108,7 +112,7 @@ class NotificationGridReadAction
      *     type="string",
      *     description="Filter"
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,

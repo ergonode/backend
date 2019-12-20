@@ -126,7 +126,7 @@ class Status extends AbstractAggregateRoot
     public function changeName(TranslatableString $name): void
     {
         if (!$name->isEqual($this->name)) {
-            $this->apply(new StatusNameChangedEvent($this->name, $name));
+            $this->apply(new StatusNameChangedEvent($this->id, $this->name, $name));
         }
     }
 
@@ -138,7 +138,7 @@ class Status extends AbstractAggregateRoot
     public function changeDescription(TranslatableString $description): void
     {
         if (!$description->isEqual($this->description)) {
-            $this->apply(new StatusDescriptionChangedEvent($this->description, $description));
+            $this->apply(new StatusDescriptionChangedEvent($this->id, $this->description, $description));
         }
     }
 
@@ -150,7 +150,7 @@ class Status extends AbstractAggregateRoot
     public function changeColor(Color $color): void
     {
         if (!$color->isEqual($this->color)) {
-            $this->apply(new StatusColorChangedEvent($this->color, $color));
+            $this->apply(new StatusColorChangedEvent($this->id, $this->color, $color));
         }
     }
 
@@ -159,7 +159,7 @@ class Status extends AbstractAggregateRoot
      */
     protected function applyStatusCreatedEvent(StatusCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->code = $event->getCode();
         $this->color = $event->getColor();
         $this->name = $event->getName();

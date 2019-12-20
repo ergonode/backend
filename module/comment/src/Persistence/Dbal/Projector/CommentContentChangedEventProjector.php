@@ -10,15 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Comment\Domain\Event\CommentContentChangedEvent;
 
 /**
  */
-class CommentContentChangedEventProjector implements DomainEventProjectorInterface
+class CommentContentChangedEventProjector
 {
     private const TABLE = 'comment';
 
@@ -36,27 +32,13 @@ class CommentContentChangedEventProjector implements DomainEventProjectorInterfa
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof CommentContentChangedEvent;
-    }
-
-    /**
-     * @param AbstractId                                      $aggregateId
-     * @param DomainEventInterface|CommentContentChangedEvent $event
+     * @param CommentContentChangedEvent $event
      *
-     * @throws UnsupportedEventException
      * @throws \Throwable
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(CommentContentChangedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, CommentContentChangedEvent::class);
-        }
-
-        $this->connection->transactional(function () use ($aggregateId, $event) {
+        $this->connection->transactional(function () use ($event) {
             $this->connection->update(
                 self::TABLE,
                 [
@@ -64,7 +46,7 @@ class CommentContentChangedEventProjector implements DomainEventProjectorInterfa
                     'content' => $event->getTo(),
                 ],
                 [
-                    'id' => $aggregateId->getValue(),
+                    'id' => $event->getAggregateId()->getValue(),
                 ]
             );
         });

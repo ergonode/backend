@@ -38,7 +38,7 @@ interface MultimediaRepositoryInterface
     public function exists(AbstractId $id): bool;
 
     /**
-     * @param MultimediaId $id
+     * @param Multimedia $id
      */
-    public function remove(MultimediaId $id): void;
+    public function delete(Multimedia $id): void;
 }

@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class UserCreatedEventProjector implements DomainEventProjectorInterface
+class UserCreatedEventProjector
 {
     private const TABLE = 'users';
 
@@ -36,26 +33,16 @@ class UserCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param UserCreatedEvent $event
+     *
+     * @throws DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(UserCreatedEvent $event): void
     {
-        return $event instanceof UserCreatedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, UserCreatedEvent::class);
-        }
-
         $this->connection->insert(
             self::TABLE,
             [
-                'id' => $event->getId()->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
                 'first_name' => $event->getFirstName(),
                 'last_name' => $event->getLastName(),
                 'username' => $event->getEmail(),

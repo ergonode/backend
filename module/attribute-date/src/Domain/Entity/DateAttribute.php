@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\AttributeDate\Domain\Entity;
 
@@ -80,13 +80,13 @@ class DateAttribute extends AbstractAttribute
     public function changeFormat(DateFormat $new): void
     {
         if ($this->getFormat()->getFormat() !== $new->getFormat()) {
-            $this->apply(
-                new AttributeParameterChangeEvent(
-                    self::FORMAT,
-                    $this->getFormat()->getFormat(),
-                    $new->getFormat()
-                )
+            $event = new AttributeParameterChangeEvent(
+                $this->id,
+                self::FORMAT,
+                $this->getFormat()->getFormat(),
+                $new->getFormat()
             );
+            $this->apply($event);
         }
     }
 }

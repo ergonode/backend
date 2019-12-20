@@ -146,6 +146,14 @@
         </exec>
     </target>
 
+    <!-- PHP code style check -->
+    <target name="check:cs:warning" description="PHPCS checker - warnings">
+        <exec command="bin/phpcs -p"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
+
     <!-- PHP code fix code style -->
     <target name="check:cbf" description="PHPCBF fixer">
         <exec command="bin/phpcbf"

@@ -100,7 +100,7 @@ class Reader extends AbstractAggregateRoot
      */
     protected function applyReaderCreatedEvent(ReaderCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->name = $event->getName();
         $this->type = $event->getType();
         $this->configuration = $event->getConfiguration();

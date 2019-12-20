@@ -10,11 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -24,7 +21,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ProductValueAddedEventProjector implements DomainEventProjectorInterface
+class ProductValueAddedEventProjector
 {
     private const TABLE_PRODUCT_VALUE = 'product_value';
     private const TABLE_VALUE_TRANSLATION = 'value_translation';
@@ -43,30 +40,16 @@ class ProductValueAddedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof ProductValueAddedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param ProductValueAddedEvent $event
      *
-     * @throws \Throwable
+     * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(ProductValueAddedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductValueAddedEvent::class);
-        }
+        $productId = $event->getAggregateId()->getValue();
 
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $productId = $aggregateId->getValue();
-
-            $attributeId = AttributeId::fromKey($event->getAttributeCode())->getValue();
-            $this->insertValue($productId, $attributeId, $event->getValue());
-        });
+        $attributeId = AttributeId::fromKey($event->getAttributeCode())->getValue();
+        $this->insertValue($productId, $attributeId, $event->getValue());
     }
 
     /**
@@ -74,7 +57,7 @@ class ProductValueAddedEventProjector implements DomainEventProjectorInterface
      * @param string         $attributeId
      * @param ValueInterface $value
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
     private function insertValue(string $productId, string $attributeId, ValueInterface $value): void
     {
@@ -100,7 +83,7 @@ class ProductValueAddedEventProjector implements DomainEventProjectorInterface
      * @param string      $value
      * @param string|null $language
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
     private function insert(string $productId, string $attributeId, string $value, string $language = null): void
     {

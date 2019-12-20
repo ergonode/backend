@@ -115,7 +115,7 @@ class Workflow extends AbstractAggregateRoot
         }
 
         if ($this->defaultStatus && !$code->isEqual($this->defaultStatus)) {
-            $this->apply(new WorkflowDefaultStatusSetEvent($code));
+            $this->apply(new WorkflowDefaultStatusSetEvent($this->id, $code));
         }
     }
 
@@ -167,7 +167,7 @@ class Workflow extends AbstractAggregateRoot
             throw  new \RuntimeException(sprintf('Status "%s" already exists', $code->getValue()));
         }
 
-        $this->apply(new WorkflowStatusAddedEvent($code));
+        $this->apply(new WorkflowStatusAddedEvent($this->id, $code));
     }
 
     /**
@@ -196,7 +196,7 @@ class Workflow extends AbstractAggregateRoot
 
         $transition = new Transition(TransitionId::generate(), $from, $to);
 
-        $this->apply(new WorkflowTransitionAddedEvent($transition));
+        $this->apply(new WorkflowTransitionAddedEvent($this->id, $transition));
     }
 
     /**
@@ -260,7 +260,7 @@ class Workflow extends AbstractAggregateRoot
      */
     public function removeTransition(StatusCode $from, StatusCode $to): void
     {
-        $this->apply(new WorkflowTransitionRemovedEvent($from, $to));
+        $this->apply(new WorkflowTransitionRemovedEvent($this->id, $from, $to));
     }
 
     /**
@@ -320,7 +320,7 @@ class Workflow extends AbstractAggregateRoot
             throw  new \RuntimeException(sprintf('Status ID "%s" not exists', $id));
         }
 
-        $this->apply(new WorkflowStatusRemovedEvent($id));
+        $this->apply(new WorkflowStatusRemovedEvent($this->id, $id));
     }
 
     /**
@@ -336,7 +336,7 @@ class Workflow extends AbstractAggregateRoot
      */
     protected function applyWorkflowCreatedEvent(WorkflowCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->code = $event->getCode();
         $this->statuses = [];
         $this->transitions = [];

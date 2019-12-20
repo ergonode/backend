@@ -72,7 +72,7 @@ class UnitAttribute extends AbstractAttribute
     public function changeUnit(Unit $new): void
     {
         if ($this->getUnit()->getCode() !== $new->getCode()) {
-            $this->apply(new AttributeParameterChangeEvent(self::CODE, $this->getUnit()->getCode(), $new->getCode()));
+            $this->apply(new AttributeParameterChangeEvent($this->id, self::CODE, $this->getUnit()->getCode(), $new->getCode()));
         }
     }
 }
