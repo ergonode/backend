@@ -67,8 +67,13 @@ class Role extends AbstractAggregateRoot
      *
      * @throws \Exception
      */
-    public function __construct(RoleId $id, string $name, string $description, array $privileges = [], bool $hidden = false)
-    {
+    public function __construct(
+        RoleId $id,
+        string $name,
+        string $description,
+        array $privileges = [],
+        bool $hidden = false
+    ) {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
         $this->apply(new RoleCreatedEvent($id, $name, $description, $privileges, $hidden));

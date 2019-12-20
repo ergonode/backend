@@ -14,7 +14,8 @@ use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Mock Controller overriding "magic" JWT authorization action. Required for showing proper description in NelmioApiDoc page
+ * Mock Controller overriding "magic" JWT authorization action.
+ * Required for showing proper description in NelmioApiDoc page
  *
  * @Route("/api/v1/login", methods={"POST"})
  */

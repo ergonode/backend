@@ -111,7 +111,8 @@ class Template extends AbstractAggregateRoot
     public function getElement(Position $position): TemplateElement
     {
         if (!$this->hasElement($position)) {
-            throw new \InvalidArgumentException(\sprintf('There is no element on position %sx%s', $position->getX(), $position->getY()));
+            $message = \sprintf('There is no element on position %sx%s', $position->getX(), $position->getY());
+            throw new \InvalidArgumentException($message);
         }
 
         return $this->elements[(string) $position];
@@ -203,7 +204,8 @@ class Template extends AbstractAggregateRoot
     {
         $position = $element->getPosition();
         if ($this->hasElement($element->getPosition())) {
-            throw new \InvalidArgumentException(\sprintf('There is already element on position %sx%s', $position->getX(), $position->getY()));
+            $message = \sprintf('There is element on position %sx%s', $position->getX(), $position->getY());
+            throw new \InvalidArgumentException($message);
         }
 
         $this->apply(new TemplateElementAddedEvent($this->id, $element));
@@ -219,7 +221,8 @@ class Template extends AbstractAggregateRoot
         $position = $element->getPosition();
 
         if (!$this->hasElement($element->getPosition())) {
-            throw new \InvalidArgumentException(\sprintf('There is no element on position %sx%s', $position->getX(), $position->getY()));
+            $message = \sprintf('There is no element on position %sx%s', $position->getX(), $position->getY());
+            throw new \InvalidArgumentException($message);
         }
 
         $this->apply(new TemplateElementChangedEvent($this->id, $element));

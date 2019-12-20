@@ -50,7 +50,11 @@ class DeleteTemplateHandler
     public function __invoke(DeleteTemplateCommand $command)
     {
         $template = $this->repository->load($command->getId());
-        Assert::isInstanceOf($template, Template::class, sprintf('Can\'t find template with ID "%s"', $command->getId()));
+        Assert::isInstanceOf(
+            $template,
+            Template::class,
+            sprintf('Can\'t find template with ID "%s"', $command->getId())
+        );
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
         if (!$relationships->isEmpty()) {
