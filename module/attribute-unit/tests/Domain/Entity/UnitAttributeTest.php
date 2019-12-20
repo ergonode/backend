@@ -59,7 +59,7 @@ class UnitAttributeTest extends TestCase
         $this->label = $this->createMock(TranslatableString::class);
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
-        $this->unit = $unit = new Unit('UNIT');
+        $this->unit = new Unit('UNIT');
     }
 
     /**
@@ -67,7 +67,14 @@ class UnitAttributeTest extends TestCase
      */
     public function testAttributeCreation(): void
     {
-        $attribute = new UnitAttribute($this->id, $this->code, $this->label, $this->placeholder, $this->hint, $this->unit);
+        $attribute = new UnitAttribute(
+            $this->id,
+            $this->code,
+            $this->label,
+            $this->placeholder,
+            $this->hint,
+            $this->unit
+        );
         $this->assertEquals($this->unit, $attribute->getUnit());
         $this->assertEquals($this->id, $attribute->getId());
         $this->assertEquals($this->code, $attribute->getCode());
@@ -83,7 +90,14 @@ class UnitAttributeTest extends TestCase
     {
         /** @var Unit|MockObject $unit */
         $unit = new Unit('NEW');
-        $attribute = new UnitAttribute($this->id, $this->code, $this->label, $this->placeholder, $this->hint, $this->unit);
+        $attribute = new UnitAttribute(
+            $this->id,
+            $this->code,
+            $this->label,
+            $this->placeholder,
+            $this->hint,
+            $this->unit
+        );
         $attribute->changeUnit($unit);
         $this->assertNotEquals($this->unit, $attribute->getUnit());
         $this->assertEquals($unit, $attribute->getUnit());

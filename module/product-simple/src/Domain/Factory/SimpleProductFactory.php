@@ -44,8 +44,13 @@ class SimpleProductFactory implements ProductFactoryInterface
      *
      * @throws \Exception
      */
-    public function create(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = []): AbstractProduct
-    {
+    public function create(
+        ProductId $id,
+        Sku $sku,
+        TemplateId $templateId,
+        array $categories = [],
+        array $attributes = []
+    ): AbstractProduct {
         Assert::allIsInstanceOf($categories, CategoryCode::class);
         Assert::allIsInstanceOf($attributes, ValueInterface::class);
 

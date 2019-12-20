@@ -54,7 +54,7 @@ class ExceptionListenerTest extends TestCase
 
     /**
      */
-    public function testInvokeWithoutMapping()
+    public function testInvokeWithoutMapping(): void
     {
         $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
         $this->event->expects($this->once())->method('getException')->willReturn($this->authenticationCredentialNotFoundException);
@@ -64,13 +64,13 @@ class ExceptionListenerTest extends TestCase
                 $this->assertInstanceOf(ExceptionResponse::class, $response);
                 $this->assertEquals(500, $response->getStatusCode());
             });
-        $listner = new ExceptionListener($this->exceptionMapper);
-        $listner($this->event);
+        $listener = new ExceptionListener($this->exceptionMapper);
+        $listener($this->event);
     }
 
     /**
      */
-    public function testInvokeWithoutMappingWithHandlerFailedException()
+    public function testInvokeWithoutMappingWithHandlerFailedException(): void
     {
         $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
         $this->event->expects($this->once())->method('getException')->willReturn($this->handlerFailedException);
@@ -81,13 +81,13 @@ class ExceptionListenerTest extends TestCase
                 $this->assertInstanceOf(ExceptionResponse::class, $response);
                 $this->assertEquals(500, $response->getStatusCode());
             });
-        $listner = new ExceptionListener($this->exceptionMapper);
-        $listner($this->event);
+        $listener = new ExceptionListener($this->exceptionMapper);
+        $listener($this->event);
     }
 
     /**
      */
-    public function testInvokeWithMappingWithHandlerFailedException()
+    public function testInvokeWithMappingWithHandlerFailedException(): void
     {
         $this->exceptionMapper->method('map')->willReturn([
             'http' => [
@@ -106,13 +106,13 @@ class ExceptionListenerTest extends TestCase
                 $this->assertInstanceOf(ExceptionResponse::class, $response);
                 $this->assertEquals(403, $response->getStatusCode());
             });
-        $listner = new ExceptionListener($this->exceptionMapper);
-        $listner($this->event);
+        $listener = new ExceptionListener($this->exceptionMapper);
+        $listener($this->event);
     }
 
     /**
      */
-    public function testInvokeWithMapping()
+    public function testInvokeWithMapping(): void
     {
         $this->exceptionMapper->expects($this->once())->method('map')->willReturn([
             'http' => [
@@ -130,7 +130,7 @@ class ExceptionListenerTest extends TestCase
                 $this->assertInstanceOf(ExceptionResponse::class, $response);
                 $this->assertEquals(403, $response->getStatusCode());
             });
-        $listner = new ExceptionListener($this->exceptionMapper);
-        $listner($this->event);
+        $listener = new ExceptionListener($this->exceptionMapper);
+        $listener($this->event);
     }
 }

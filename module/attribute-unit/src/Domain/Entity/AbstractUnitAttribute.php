@@ -42,7 +42,15 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
         TranslatableString $placeholder,
         Unit $unit
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, [self::CODE => $unit->getCode()]);
+        parent::__construct(
+            $id,
+            $code,
+            $label,
+            $hint,
+            $placeholder,
+            false,
+            [self::CODE => $unit->getCode()]
+        );
     }
 
     /**
@@ -72,7 +80,13 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
     public function changeUnit(Unit $new): void
     {
         if ($this->getUnit()->getCode() !== $new->getCode()) {
-            $this->apply(new AttributeParameterChangeEvent($this->id, self::CODE, $this->getUnit()->getCode(), $new->getCode()));
+            $event = new AttributeParameterChangeEvent(
+                $this->id,
+                self::CODE,
+                $this->getUnit()->getCode(),
+                $new->getCode()
+            );
+            $this->apply($event);
         }
     }
 }
