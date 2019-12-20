@@ -45,10 +45,7 @@ class MultimediaCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     * @throws UnsupportedEventException
-     * @throws \Doctrine\DBAL\DBALException
+     * @inheritDoc
      */
     public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
     {

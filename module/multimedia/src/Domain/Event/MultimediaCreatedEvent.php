@@ -43,6 +43,8 @@ class MultimediaCreatedEvent implements DomainEventInterface
     private $mime;
 
     /**
+     * The file size in bytes.
+     *
      * @var int
      * @JMS\Type("int")
      */
@@ -58,7 +60,7 @@ class MultimediaCreatedEvent implements DomainEventInterface
      * @param MultimediaId $id
      * @param string       $name
      * @param string       $extension
-     * @param int          $size
+     * @param int          $size The file size in bytes.
      * @param string       $crc
      * @param string|null  $mime
      */

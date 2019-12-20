@@ -38,6 +38,8 @@ class Multimedia extends AbstractAggregateRoot
     private $mime;
 
     /**
+     * The file size in bytes.
+     *
      * @var int
      */
     private $size;
@@ -51,7 +53,7 @@ class Multimedia extends AbstractAggregateRoot
      * @param MultimediaId $id
      * @param string       $name
      * @param string       $extension
-     * @param int          $size
+     * @param int          $size The file size in bytes.
      * @param string       $crc
      * @param string|null  $mime
      * @throws \Exception
@@ -132,6 +134,9 @@ class Multimedia extends AbstractAggregateRoot
         return $this->crc;
     }
 
+    /**
+     * @param MultimediaCreatedEvent $event
+     */
     protected function applyMultimediaCreatedEvent(MultimediaCreatedEvent $event)
     {
         $this->id = $event->getId();

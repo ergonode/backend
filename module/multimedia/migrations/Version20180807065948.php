@@ -45,7 +45,6 @@ final class Version20180807065948 extends AbstractErgonodeMigration
         ]);
     }
 
-
     /**
      * @param array $collection
      *
