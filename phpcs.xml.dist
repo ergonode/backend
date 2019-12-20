@@ -16,9 +16,6 @@
     <rule ref="Symfony.Functions.Arguments.Invalid">
          <severity>0</severity>
     </rule>
-    <rule ref="Symfony.ControlStructure.YodaConditions.Invalid">
-        <type>warning</type>
-    </rule>
     <rule ref="Generic.Files.LineLength.MaxExceeded">
          <type>warning</type>
     </rule>

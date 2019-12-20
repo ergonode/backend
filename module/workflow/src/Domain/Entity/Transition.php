@@ -124,12 +124,12 @@ class Transition extends AbstractEntity
      */
     public function changeConditionSetId(?ConditionSetId $conditionSetId = null): void
     {
-        if ($conditionSetId === null && $this->conditionSetId === null) {
+        if (null === $conditionSetId && null === $this->conditionSetId) {
             return;
         }
 
-        if ($conditionSetId !== null &&
-            $this->conditionSetId !== null &&
+        if (null !== $conditionSetId &&
+            null !==  $this->conditionSetId &&
             $conditionSetId->isEqual($this->conditionSetId)
         ) {
             return;

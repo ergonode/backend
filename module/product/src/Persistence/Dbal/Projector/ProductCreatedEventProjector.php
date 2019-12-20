@@ -117,7 +117,7 @@ class ProductCreatedEventProjector
      */
     private function insert(string $productId, string $attributeId, string $value, string $language = null): void
     {
-        if ($value !== '') {
+        if ('' !== $value) {
             $valueId = Uuid::uuid5(self::NAMESPACE, implode('|', [$value, $language]))->toString();
 
             if (!array_key_exists($valueId, $this->cache)) {
