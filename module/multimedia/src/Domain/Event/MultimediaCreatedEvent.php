@@ -12,6 +12,7 @@ namespace Ergonode\Multimedia\Domain\Event;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\Core\Domain\Entity\AbstractId;
 
 /**
  */
@@ -90,7 +91,7 @@ class MultimediaCreatedEvent implements DomainEventInterface
     /**
      * @return MultimediaId
      */
-    public function getId(): MultimediaId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

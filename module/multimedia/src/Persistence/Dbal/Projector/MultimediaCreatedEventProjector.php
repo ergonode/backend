@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
-class MultimediaCreatedEventProjector implements DomainEventProjectorInterface
+class MultimediaCreatedEventProjector
 {
     private const TABLE = 'multimedia';
 
@@ -36,29 +33,19 @@ class MultimediaCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @inheritDoc
+     * @param MultimediaCreatedEvent $event
+     *
+     * @throws DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(MultimediaCreatedEvent $event): void
     {
-        return $event instanceof MultimediaCreatedEvent;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, MultimediaCreatedEvent::class);
-        }
-
         /**
          * @var $event MultimediaCreatedEvent
          */
         $this->connection->insert(
             self::TABLE,
             [
-                'id' => $event->getId(),
+                'id' => $event->getAggregateId(),
                 'name' => $event->getName(),
                 'extension' => $event->getExtension(),
                 'size' => $event->getSize(),

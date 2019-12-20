@@ -140,9 +140,9 @@ class Multimedia extends AbstractAggregateRoot
     /**
      * @param MultimediaCreatedEvent $event
      */
-    protected function applyMultimediaCreatedEvent(MultimediaCreatedEvent $event)
+    protected function applyMultimediaCreatedEvent(MultimediaCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->name = $event->getName();
         $this->extension = $event->getExtension();
         $this->mime = $event->getMime();

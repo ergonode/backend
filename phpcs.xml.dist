@@ -14,7 +14,7 @@
     <!-- Include full Symfony2 Coding Standard -->
     <rule ref="Symfony"/>
     <rule ref="Symfony.Functions.Arguments.Invalid">
-        <type>warning</type>
+         <severity>0</severity>
     </rule>
     <rule ref="Symfony.ControlStructure.YodaConditions.Invalid">
         <type>warning</type>
