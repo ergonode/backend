@@ -132,7 +132,7 @@ class ChangeProductAttributeValueCommandHandler
      */
     private function createValue(Language $language, AbstractAttribute $attribute, $value): ?ValueInterface
     {
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             return null;
         }
 
