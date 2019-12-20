@@ -11,13 +11,14 @@ namespace Ergonode\Account\Domain\Event\Role;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class RoleCreatedEvent implements DomainEventInterface
+class RoleCreatedEvent implements DomainAggregateEventInterface
 {
     /**
      * @var RoleId
@@ -75,7 +76,7 @@ class RoleCreatedEvent implements DomainEventInterface
     /**
      * @return RoleId
      */
-    public function getId(): RoleId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

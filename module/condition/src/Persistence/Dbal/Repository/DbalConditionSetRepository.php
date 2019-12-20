@@ -15,7 +15,6 @@ use Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 
 /**

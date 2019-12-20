@@ -9,14 +9,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
+use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserPasswordChangedEvent implements DomainEventInterface
+class UserPasswordChangedEvent implements DomainAggregateEventInterface
 {
+    /**
+     * @var UserId
+     *
+     * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
+     */
+    private $id;
+
     /**
      * @var Password
      *
@@ -25,11 +34,21 @@ class UserPasswordChangedEvent implements DomainEventInterface
     private $password;
 
     /**
+     * @param UserId   $id
      * @param Password $password
      */
-    public function __construct(Password $password)
+    public function __construct(UserId $id, Password $password)
     {
+        $this->id = $id;
         $this->password = $password;
+    }
+
+    /**
+     * @return UserId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**

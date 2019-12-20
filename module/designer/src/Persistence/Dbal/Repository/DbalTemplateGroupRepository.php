@@ -14,7 +14,6 @@ use Ergonode\Designer\Domain\Entity\TemplateGroupId;
 use Ergonode\Designer\Domain\Repository\TemplateGroupRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 
 /**

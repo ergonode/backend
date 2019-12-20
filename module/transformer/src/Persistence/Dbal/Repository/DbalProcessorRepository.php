@@ -11,7 +11,6 @@ namespace Ergonode\Transformer\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Transformer\Domain\Entity\Processor;
 use Ergonode\Transformer\Domain\Entity\ProcessorId;

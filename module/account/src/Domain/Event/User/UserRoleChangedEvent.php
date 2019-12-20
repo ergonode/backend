@@ -10,13 +10,22 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Domain\Event\User;
 
 use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Infrastructure\DomainAggregateEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserRoleChangedEvent implements DomainEventInterface
+class UserRoleChangedEvent implements DomainAggregateEventInterface
 {
+    /**
+     * @var UserId
+     *
+     * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
+     */
+    private $id;
+
     /**
      * @var RoleId
      *
@@ -32,13 +41,23 @@ class UserRoleChangedEvent implements DomainEventInterface
     private $to;
 
     /**
+     * @param UserId $id
      * @param RoleId $from
      * @param RoleId $to
      */
-    public function __construct(RoleId $from, RoleId $to)
+    public function __construct(UserId $id, RoleId $from, RoleId $to)
     {
+        $this->id = $id;
         $this->from = $from;
         $this->to = $to;
+    }
+
+    /**
+     * @return UserId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**
