@@ -22,5 +22,5 @@ interface DomainEventFactoryInterface
      *
      * @return DomainEventEnvelope[]
      */
-    public function create(AbstractId $id, array $records): array ;
+    public function create(AbstractId $id, array $records): array;
 }

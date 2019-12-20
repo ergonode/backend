@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Product\Domain\Event\ProductCreated;
+use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 
 /**
  */
@@ -32,11 +32,11 @@ class ProductCreatedEventProjector
     }
 
     /**
-     * @param ProductCreated $event
+     * @param ProductCreatedEvent $event
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function __invoke(ProductCreated $event): void
+    public function __invoke(ProductCreatedEvent $event): void
     {
         $this->connection->insert(
             self::TABLE,

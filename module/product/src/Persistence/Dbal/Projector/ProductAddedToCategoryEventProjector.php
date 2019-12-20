@@ -12,7 +12,7 @@ namespace Ergonode\Product\Persistence\Dbal\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\Product\Domain\Event\ProductAddedToCategory;
+use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
 
 /**
  */
@@ -34,11 +34,11 @@ class ProductAddedToCategoryEventProjector
     }
 
     /**
-     * @param ProductAddedToCategory $event
+     * @param ProductAddedToCategoryEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductAddedToCategory $event): void
+    public function __invoke(ProductAddedToCategoryEvent $event): void
     {
         $this->connection->insert(
             self::TABLE_PRODUCT_CATEGORY,

@@ -53,8 +53,14 @@ class Multimedia
      * @param string        $crc
      * @param string|string $mime
      */
-    public function __construct(MultimediaId $id, string $name, string $extension, int $size, string $crc, ?string $mime = null)
-    {
+    public function __construct(
+        MultimediaId $id,
+        string $name,
+        string $extension,
+        int $size,
+        string $crc,
+        ?string $mime = null
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->extension = $extension;

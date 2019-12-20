@@ -94,6 +94,11 @@ class TransportMessageSerializer implements MessageSerializerInterface
         return $stamps;
     }
 
+    /**
+     * @param Envelope $envelope
+     *
+     * @return array
+     */
     private function encodeStamps(Envelope $envelope): array
     {
         if (!$allStamps = $envelope->all()) {

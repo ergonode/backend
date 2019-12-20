@@ -14,7 +14,7 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\Product\Domain\Event\ProductCreated;
+use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -50,11 +50,11 @@ class ProductCreateEventProjector
     }
 
     /**
-     * @param ProductCreated $event
+     * @param ProductCreatedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductCreated $event): void
+    public function __invoke(ProductCreatedEvent $event): void
     {
         $this->connection->insert(
             self::TABLE_PRODUCT,
@@ -126,7 +126,6 @@ class ProductCreateEventProjector
             }
 
             $this->connection->insert(
-
                 self::TABLE_PRODUCT_VALUE,
                 [
                     'product_id' => $productId,

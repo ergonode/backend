@@ -29,8 +29,12 @@ class StatusFactory
      *
      * @throws \Exception
      */
-    public function create(StatusCode $code, Color $color, TranslatableString $name, TranslatableString $description): Status
-    {
+    public function create(
+        StatusCode $code,
+        Color $color,
+        TranslatableString $name,
+        TranslatableString $description
+    ): Status {
         return new Status(
             StatusId::fromCode($code),
             $code,

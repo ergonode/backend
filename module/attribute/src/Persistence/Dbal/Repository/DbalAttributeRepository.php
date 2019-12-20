@@ -46,6 +46,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
      * {@inheritDoc}
      *
      * @return AbstractAggregateRoot
+     *
      * @throws \ReflectionException
      */
     public function load(AttributeId $id): ?AbstractAggregateRoot

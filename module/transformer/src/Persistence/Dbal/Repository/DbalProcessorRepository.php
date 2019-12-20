@@ -48,6 +48,7 @@ class DbalProcessorRepository implements ProcessorRepositoryInterface
      * @param ProcessorId $id
      *
      * @return AbstractAggregateRoot
+     *
      * @throws \ReflectionException
      */
     public function load(ProcessorId $id): AbstractAggregateRoot

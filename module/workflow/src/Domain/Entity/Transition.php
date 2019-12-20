@@ -63,8 +63,13 @@ class Transition extends AbstractEntity
      * @param array               $roleIds
      * @param ConditionSetId|null $conditionSetId
      */
-    public function __construct(TransitionId $id, StatusCode $from, StatusCode $to, array $roleIds = [], ?ConditionSetId $conditionSetId = null)
-    {
+    public function __construct(
+        TransitionId $id,
+        StatusCode $from,
+        StatusCode $to,
+        array $roleIds = [],
+        ?ConditionSetId $conditionSetId = null
+    ) {
         $this->id = $id;
         $this->from = $from;
         $this->to = $to;
@@ -123,7 +128,10 @@ class Transition extends AbstractEntity
             return;
         }
 
-        if ($conditionSetId !== null && $this->conditionSetId !== null && $conditionSetId->isEqual($this->conditionSetId)) {
+        if ($conditionSetId !== null &&
+            $this->conditionSetId !== null &&
+            $conditionSetId->isEqual($this->conditionSetId)
+        ) {
             return;
         }
 

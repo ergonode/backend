@@ -179,7 +179,9 @@ class Workflow extends AbstractAggregateRoot
     public function addTransition(StatusCode $from, StatusCode $to): void
     {
         if ($this->hasTransition($from, $to)) {
-            throw  new \RuntimeException(sprintf('Transition from "%s" to "%s" already exists', $from->getValue(), $to->getValue()));
+            throw  new \RuntimeException(
+                sprintf('Transition from "%s" to "%s" already exists', $from->getValue(), $to->getValue())
+            );
         }
 
         if (!$this->hasStatus($from)) {
@@ -187,7 +189,9 @@ class Workflow extends AbstractAggregateRoot
         }
 
         if (!$this->hasStatus($to)) {
-            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $to->getValue()));
+            throw  new \RuntimeException(
+                sprintf('Transition destination status "%s" not exists', $to->getValue())
+            );
         }
 
         $transition = new Transition(TransitionId::generate(), $from, $to);
@@ -202,8 +206,11 @@ class Workflow extends AbstractAggregateRoot
      *
      * @throws \Exception
      */
-    public function changeTransitionConditionSetId(StatusCode $from, StatusCode $to, ConditionSetId $conditionSetId = null): void
-    {
+    public function changeTransitionConditionSetId(
+        StatusCode $from,
+        StatusCode $to,
+        ConditionSetId $conditionSetId = null
+    ): void {
         if (!$this->hasTransition($from, $to)) {
             throw  new \RuntimeException('Transition not exists');
         }
@@ -270,7 +277,11 @@ class Workflow extends AbstractAggregateRoot
             }
         }
 
-        throw  new \RuntimeException(sprintf('Transition from "%s" to "%s" not exists', $from->getValue(), $to->getValue()));
+        throw new \RuntimeException(sprintf(
+            'Transition from "%s" to "%s" not exists',
+            $from->getValue(),
+            $to->getValue()
+        ));
     }
 
     /**
@@ -379,7 +390,9 @@ class Workflow extends AbstractAggregateRoot
     protected function applyWorkflowTransitionRemovedEvent(WorkflowTransitionRemovedEvent $event): void
     {
         foreach ($this->transitions as $key => $transition) {
-            if ($event->getSource()->isEqual($transition->getFrom()) && $event->getDestination()->isEqual($transition->getTo())) {
+            if ($event->getSource()->isEqual($transition->getFrom()) &&
+                $event->getDestination()->isEqual($transition->getTo())
+            ) {
                 unset($this->transitions[$key]);
             }
         }

@@ -11,7 +11,7 @@ namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Product\Domain\Event\ProductVersionIncreased;
+use Ergonode\Product\Domain\Event\ProductVersionIncreasedEvent;
 
 /**
  */
@@ -33,11 +33,11 @@ class ProductVersionIncreasedEventProjector
     }
 
     /**
-     * @param ProductVersionIncreased $event
+     * @param ProductVersionIncreasedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductVersionIncreased $event): void
+    public function __invoke(ProductVersionIncreasedEvent $event): void
     {
         $this->connection->update(
             self::TABLE_PRODUCT,

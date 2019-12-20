@@ -25,6 +25,7 @@ interface ImportLineRepositoryInterface
 
     /**
      * @param ImportId $importId
+     *
      * @return ArrayCollection|ImportLine[]
      */
     public function findCollectionByImport(ImportId $importId): ArrayCollection;

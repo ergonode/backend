@@ -63,8 +63,13 @@ class StatusCreatedEvent implements DomainEventInterface
      * @param TranslatableString $name
      * @param TranslatableString $description
      */
-    public function __construct(StatusId $id, StatusCode $code, Color $color, TranslatableString $name, TranslatableString $description)
-    {
+    public function __construct(
+        StatusId $id,
+        StatusCode $code,
+        Color $color,
+        TranslatableString $name,
+        TranslatableString $description
+    ) {
         $this->id = $id;
         $this->code = $code;
         $this->color = $color;

@@ -12,7 +12,7 @@ namespace Ergonode\Product\Persistence\Dbal\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\Product\Domain\Event\ProductRemovedFromCategory;
+use Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent;
 
 /**
  */
@@ -34,11 +34,11 @@ class ProductRemovedFromCategoryEventProjector
     }
 
     /**
-     * @param ProductRemovedFromCategory $event
+     * @param ProductRemovedFromCategoryEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductRemovedFromCategory $event): void
+    public function __invoke(ProductRemovedFromCategoryEvent $event): void
     {
         $this->connection->delete(
             self::TABLE_PRODUCT_CATEGORY,

@@ -24,6 +24,7 @@ class CreateAttributeFormModel
      *
      * @Assert\NotBlank(message="Attribute code is required")
      * @Assert\Length(max=128)
+     *
      * @AppAssert\AttributeCode()
      */
     public $code;
@@ -82,6 +83,11 @@ class CreateAttributeFormModel
 
     /**
      * @var ArrayCollection|AttributeOptionModel[]
+     *
+     * @Assert\Valid()
+     *
+     * @AppAssert\AttributeOptionDuplicates()
+     *
      */
     public $options;
 

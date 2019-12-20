@@ -34,6 +34,7 @@ class SegmentGeneratorProvider
      * @param string $type
      *
      * @return SegmentGeneratorInterface
+     *
      * @throws SegmentGeneratorProviderException
      */
     public function provide(string $type): SegmentGeneratorInterface

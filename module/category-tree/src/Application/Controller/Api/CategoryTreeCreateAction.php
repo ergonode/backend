@@ -93,6 +93,7 @@ class CategoryTreeCreateAction
      * @param Request $request
      *
      * @return Response
+     *
      * @throws \Exception
      *
      * @todo Validation required

@@ -12,7 +12,7 @@ namespace Ergonode\Product\Persistence\Dbal\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Product\Domain\Event\ProductValueRemoved;
+use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
 
 /**
  */
@@ -34,11 +34,11 @@ class ProductValueRemovedEventProjector
     }
 
     /**
-     * @param ProductValueRemoved $event
+     * @param ProductValueRemovedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductValueRemoved $event): void
+    public function __invoke(ProductValueRemovedEvent $event): void
     {
         $this->delete($event->getAggregateId()->getValue(), AttributeId::fromKey($event->getAttributeCode())->getValue());
     }

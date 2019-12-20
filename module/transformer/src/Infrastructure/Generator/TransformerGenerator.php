@@ -35,6 +35,7 @@ class TransformerGenerator
      * @param array  $options
      *
      * @return Transformer
+     *
      * @throws \Exception
      */
     public function generate(string $name, string $type, array $options = []): Transformer

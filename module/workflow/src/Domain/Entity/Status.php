@@ -68,8 +68,13 @@ class Status extends AbstractAggregateRoot
      *
      * @throws \Exception
      */
-    public function __construct(StatusId $id, StatusCode $code, Color $color, TranslatableString $name, TranslatableString $description)
-    {
+    public function __construct(
+        StatusId $id,
+        StatusCode $code,
+        Color $color,
+        TranslatableString $name,
+        TranslatableString $description
+    ) {
         $this->apply(new StatusCreatedEvent($id, $code, $color, $name, $description));
     }
 

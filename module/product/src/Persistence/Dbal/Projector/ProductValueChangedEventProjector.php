@@ -12,7 +12,7 @@ namespace Ergonode\Product\Persistence\Dbal\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Product\Domain\Event\ProductValueChanged;
+use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -40,11 +40,11 @@ class ProductValueChangedEventProjector
     }
 
     /**
-     * @param ProductValueChanged $event
+     * @param ProductValueChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductValueChanged $event): void
+    public function __invoke(ProductValueChangedEvent $event): void
     {
         $productId = $event->getAggregateId()->getValue();
         $attributeId = AttributeId::fromKey($event->getAttributeCode())->getValue();

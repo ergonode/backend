@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Event;
 
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
@@ -16,7 +17,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductVersionIncreased implements DomainEventInterface
+class ProductAddedToCategoryEvent implements DomainEventInterface
 {
     /**
      * @var ProductId
@@ -26,29 +27,20 @@ class ProductVersionIncreased implements DomainEventInterface
     private $id;
 
     /**
-     * @var int
+     * @var CategoryCode
      *
-     * @JMS\Type("integer")
+     * @JMS\Type("Ergonode\Category\Domain\ValueObject\CategoryCode")
      */
-    private $from;
+    private $categoryCode;
 
     /**
-     * @var int
-     *
-     * @JMS\Type("integer")
+     * @param ProductId    $id
+     * @param CategoryCode $categoryCode
      */
-    private $to;
-
-    /**
-     * @param ProductId $id
-     * @param int       $from
-     * @param int       $to
-     */
-    public function __construct(ProductId $id, int $from, int $to)
+    public function __construct(ProductId $id, CategoryCode $categoryCode)
     {
         $this->id = $id;
-        $this->from = $from;
-        $this->to = $to;
+        $this->categoryCode = $categoryCode;
     }
 
     /**
@@ -60,18 +52,10 @@ class ProductVersionIncreased implements DomainEventInterface
     }
 
     /**
-     * @return int
+     * @return CategoryCode
      */
-    public function getFrom(): int
+    public function getCategoryCode(): CategoryCode
     {
-        return $this->from;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTo(): int
-    {
-        return $this->to;
+        return $this->categoryCode;
     }
 }

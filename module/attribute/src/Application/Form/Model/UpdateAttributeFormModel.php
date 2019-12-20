@@ -11,6 +11,7 @@ namespace Ergonode\Attribute\Application\Form\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -63,9 +64,11 @@ class UpdateAttributeFormModel
     public $parameters;
 
     /**
+     * @var ArrayCollection|AttributeOptionModel[]
+     *
      * @Assert\Valid()
      *
-     * @var ArrayCollection|AttributeOptionModel[]
+     * @AppAssert\AttributeOptionDuplicates()
      */
     public $options;
 

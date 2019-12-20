@@ -13,7 +13,7 @@ use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\Product\Domain\Entity\ProductId;
-use Ergonode\Product\Domain\Event\ProductValueChanged;
+use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Entity\Workflow;
@@ -94,7 +94,7 @@ class WorkflowEventEnvelopeSubscriber implements EventSubscriberInterface
     public function handle(DomainEventEnvelope $envelope): void
     {
         $event = $envelope->getEvent();
-        if ($event instanceof ProductValueChanged) {
+        if ($event instanceof ProductValueChangedEvent) {
             $attributeCode = $event->getAttributeCode();
             if ($attributeCode->getValue() === StatusSystemAttribute::CODE) {
                 $workflowId = WorkflowId::fromCode(Workflow::DEFAULT);
@@ -113,7 +113,12 @@ class WorkflowEventEnvelopeSubscriber implements EventSubscriberInterface
                         $recipients = $this->userIdsProvider->getUserIds($roleIds);
                         $user = $this->userProvider->provide();
 
-                        $notification = new StatusChangedNotification($product->getSku(), $transition->getFrom(), $transition->getTo(), $user);
+                        $notification = new StatusChangedNotification(
+                            $product->getSku(),
+                            $transition->getFrom(),
+                            $transition->getTo(),
+                            $user
+                        );
                         $command = new SendNotificationCommand($notification, $recipients);
 
                         $this->bus->dispatch($command);

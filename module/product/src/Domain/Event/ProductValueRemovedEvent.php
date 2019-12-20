@@ -18,7 +18,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductValueRemoved implements DomainEventInterface
+class ProductValueRemovedEvent implements DomainEventInterface
 {
     /**
      * @var ProductId

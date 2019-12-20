@@ -342,6 +342,7 @@ class ProductDraftController extends AbstractController
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
      * @return Response
+     *
      * @throws \Exception
      */
     public function applyDraft(AbstractProduct $product): Response

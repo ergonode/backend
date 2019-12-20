@@ -22,6 +22,7 @@ class TemplateId extends AbstractId
      * @param string $value
      *
      * @return TemplateId
+     *
      * @throws \Exception
      */
     public static function fromKey(string $value): TemplateId
