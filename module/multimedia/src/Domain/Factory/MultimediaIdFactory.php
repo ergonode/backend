@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Multimedia\Persistence\Dbal\Repository\Factory;
+namespace Ergonode\Multimedia\Domain\Factory;
 
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Ramsey\Uuid\Uuid;
@@ -21,7 +21,7 @@ class MultimediaIdFactory
      *
      * @return MultimediaId
      */
-    public function createFromFile(\SplFileInfo $file): MultimediaId
+    public static function createFromFile(\SplFileInfo $file): MultimediaId
     {
         return new MultimediaId(Uuid::uuid5(MultimediaId::NAMESPACE, sha1_file($file->getRealPath()))->toString());
     }

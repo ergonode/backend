@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Domain\Command;
 
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
-use Ergonode\Multimedia\Persistence\Dbal\Repository\Factory\MultimediaIdFactory;
+use Ergonode\Multimedia\Domain\Factory\MultimediaIdFactory;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -33,13 +33,12 @@ class UploadMultimediaCommand
     private $file;
 
     /**
-     * @param string              $name
-     * @param UploadedFile        $file
-     * @param MultimediaIdFactory $multimediaIdFactory
+     * @param string       $name
+     * @param UploadedFile $file
      */
-    public function __construct(string $name, UploadedFile $file, MultimediaIdFactory $multimediaIdFactory)
+    public function __construct(string $name, UploadedFile $file)
     {
-        $this->id = $multimediaIdFactory->createFromFile($file);
+        $this->id = MultimediaIdFactory::createFromFile($file);
         $this->name = $name;
         $this->file = $file;
     }

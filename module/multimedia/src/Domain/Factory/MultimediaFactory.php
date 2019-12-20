@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Multimedia\Persistence\Dbal\Repository\Factory;
+namespace Ergonode\Multimedia\Domain\Factory;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;

@@ -55,6 +55,8 @@ class MultimediaCreatedEvent implements DomainEventInterface
     private $size;
 
     /**
+     * The crc is hashed with crc32b hashing algorithm
+     *
      * @var string
      *
      * @JMS\Type("string")
@@ -66,7 +68,7 @@ class MultimediaCreatedEvent implements DomainEventInterface
      * @param string       $name
      * @param string       $extension
      * @param int          $size      The file size in bytes.
-     * @param string       $crc
+     * @param string       $crc       The crc is hashed with crc32b hashing algorithm
      * @param string|null  $mime
      */
     public function __construct(

@@ -13,7 +13,7 @@ use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use Ergonode\Multimedia\Infrastructure\Service\Upload\MultimediaUploadService;
-use Ergonode\Multimedia\Persistence\Dbal\Repository\Factory\MultimediaFactory;
+use Ergonode\Multimedia\Domain\Factory\MultimediaFactory;
 
 /**
  */

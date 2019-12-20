@@ -17,7 +17,6 @@ use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
-use Ergonode\Multimedia\Persistence\Dbal\Repository\Factory\MultimediaIdFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,27 +44,20 @@ class MultimediaController extends AbstractController
      */
     private $multimediaRepository;
 
-    /**
-     * @var MultimediaIdFactory
-     */
-    private $multimediaIdFactory;
 
     /**
      * @param MultimediaFileProviderInterface $fileProvider
      * @param MessageBusInterface             $messageBus
      * @param MultimediaRepositoryInterface   $multimediaRepository
-     * @param MultimediaIdFactory             $multimediaIdFactory
      */
     public function __construct(
         MultimediaFileProviderInterface $fileProvider,
         MessageBusInterface $messageBus,
-        MultimediaRepositoryInterface $multimediaRepository,
-        MultimediaIdFactory $multimediaIdFactory
+        MultimediaRepositoryInterface $multimediaRepository
     ) {
         $this->fileProvider = $fileProvider;
         $this->messageBus = $messageBus;
         $this->multimediaRepository = $multimediaRepository;
-        $this->multimediaIdFactory = $multimediaIdFactory;
     }
 
     /**
@@ -102,7 +94,7 @@ class MultimediaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $command = new UploadMultimediaCommand('Default', $uploadModel->upload, $this->multimediaIdFactory);
+            $command = new UploadMultimediaCommand('Default', $uploadModel->upload);
             if (!$this->multimediaRepository->exists($command->getId())) {
                 $this->messageBus->dispatch($command);
             }

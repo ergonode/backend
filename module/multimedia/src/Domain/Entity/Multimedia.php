@@ -45,6 +45,8 @@ class Multimedia extends AbstractAggregateRoot
     private $size;
 
     /**
+     * The crc is hashed with crc32b hashing algorithm
+     *
      * @var string;
      */
     private $crc;
@@ -54,7 +56,7 @@ class Multimedia extends AbstractAggregateRoot
      * @param string       $name
      * @param string       $extension
      * @param int          $size      The file size in bytes.
-     * @param string       $crc
+     * @param string       $crc       The crc is hashed with crc32b hashing algorithm
      * @param string|null  $mime
      *
      * @throws \Exception
