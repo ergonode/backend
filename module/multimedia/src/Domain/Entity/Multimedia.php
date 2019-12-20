@@ -53,9 +53,10 @@ class Multimedia extends AbstractAggregateRoot
      * @param MultimediaId $id
      * @param string       $name
      * @param string       $extension
-     * @param int          $size The file size in bytes.
+     * @param int          $size      The file size in bytes.
      * @param string       $crc
      * @param string|null  $mime
+     *
      * @throws \Exception
      */
     public function __construct(

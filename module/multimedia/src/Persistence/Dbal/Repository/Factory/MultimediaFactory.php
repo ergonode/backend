@@ -22,7 +22,9 @@ class MultimediaFactory
      * @param string       $name
      * @param File         $file
      * @param string       $crc
+     *
      * @return Multimedia
+     *
      * @throws \Exception
      */
     public static function createFromFile(MultimediaId $id, string $name, File $file, string $crc): Multimedia

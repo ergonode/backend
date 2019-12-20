@@ -51,7 +51,9 @@ class MultimediaProvider
 
     /**
      * @param \SplFileInfo $file
+     *
      * @return Multimedia
+     *
      * @throws \Exception
      */
     public function provide(\SplFileInfo $file): Multimedia

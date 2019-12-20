@@ -18,6 +18,7 @@ class MultimediaIdFactory
 {
     /**
      * @param \SplFileInfo $file
+     *
      * @return MultimediaId
      */
     public function createFromFile(\SplFileInfo $file): MultimediaId

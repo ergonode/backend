@@ -37,6 +37,7 @@ class MultimediaCreatedEventProjector implements DomainEventProjectorInterface
 
     /**
      * @param DomainEventInterface $event
+     *
      * @return bool
      */
     public function supports(DomainEventInterface $event): bool
