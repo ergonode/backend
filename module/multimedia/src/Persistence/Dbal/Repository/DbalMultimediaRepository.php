@@ -9,54 +9,38 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Persistence\Dbal\Repository;
 
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
-use Ergonode\Multimedia\Persistence\Dbal\Repository\Factory\MultimediaFactory;
-use Ergonode\Multimedia\Persistence\Dbal\Repository\Mapper\MultimediaMapper;
 
 /**
  */
 class DbalMultimediaRepository implements MultimediaRepositoryInterface
 {
-    private const TABLE = 'multimedia';
-    private const FIELDS = [
-        'id',
-        'name',
-        'extension',
-        'size',
-        'mime',
-        'extension',
-    ];
+    /**
+     * @var DomainEventStoreInterface
+     */
+    private $eventStore;
 
     /**
-     * @var Connection
+     * @var DomainEventDispatcherInterface
      */
-    private $connection;
+    private $eventDispatcher;
 
     /**
-     * @var MultimediaMapper;
+     * @param DomainEventStoreInterface      $eventStore
+     * @param DomainEventDispatcherInterface $eventDispatcher
      */
-    private $mapper;
-
-    /**
-     * @var MultimediaFactory
-     */
-    private $factory;
-
-    /**
-     * @param Connection        $connection
-     * @param MultimediaMapper  $mapper
-     * @param MultimediaFactory $factory
-     */
-    public function __construct(Connection $connection, MultimediaMapper $mapper, MultimediaFactory $factory)
-    {
-        $this->connection = $connection;
-        $this->mapper = $mapper;
-        $this->factory = $factory;
+    public function __construct(
+        DomainEventStoreInterface $eventStore,
+        DomainEventDispatcherInterface $eventDispatcher
+    ) {
+        $this->eventStore = $eventStore;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -66,113 +50,56 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
      *
      * @throws \ReflectionException
      */
-    public function load(MultimediaId $id): ?Multimedia
+    public function load(MultimediaId $id): ?AbstractAggregateRoot
     {
-        $qb = $this->getQuery();
-        $record = $qb->where($qb->expr()->eq('id', ':id'))
-            ->setParameter(':id', $id->getValue())
-            ->execute()
-            ->fetch();
+        $eventStream = $this->eventStore->load($id);
 
-        if ($record) {
-            return $this->factory->create($record);
+        if (count($eventStream) > 0) {
+            $class = new \ReflectionClass(Multimedia::class);
+            /** @var AbstractAggregateRoot $aggregate */
+            $aggregate = $class->newInstanceWithoutConstructor();
+            if (!$aggregate instanceof AbstractAggregateRoot) {
+                throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));
+            }
+
+            $aggregate->initialize($eventStream);
+
+            return $aggregate;
         }
 
         return null;
     }
 
     /**
-     * @param Multimedia $multimedia
-     *
-     * @throws DBALException
+     * @param Multimedia $aggregateRoot
      */
-    public function save(Multimedia $multimedia): void
+    public function save(Multimedia $aggregateRoot): void
     {
-        if ($this->exists($multimedia->getId())) {
-            $this->update($multimedia);
-        } else {
-            $this->insert($multimedia);
+        $events = $aggregateRoot->popEvents();
+        $this->eventStore->append($aggregateRoot->getId(), $events);
+
+        foreach ($events as $envelope) {
+            $this->eventDispatcher->dispatch($envelope);
         }
     }
 
     /**
-     * @param MultimediaId $id
+     * @param AbstractId $id
      *
      * @return bool
      */
-    public function exists(MultimediaId $id): bool
+    public function exists(AbstractId $id): bool
     {
-        $query = $this->connection->createQueryBuilder();
-        $result = $query->select(1)
-            ->from(self::TABLE)
-            ->where($query->expr()->eq('id', ':id'))
-            ->setParameter(':id', $id->getValue())
-            ->execute()
-            ->rowCount();
+        $eventStream = $this->eventStore->load($id);
 
-        if ($result) {
-            return true;
-        }
-
-        return false;
+        return count($eventStream) > 0;
     }
 
     /**
      * @param MultimediaId $id
-     *
-     * @throws DBALException
-     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */
     public function remove(MultimediaId $id): void
     {
-        $this->connection->delete(
-            self::TABLE,
-            [
-                'id' => $id->getValue(),
-            ]
-        );
-    }
-
-    /**
-     * @param Multimedia $multimedia
-     *
-     * @throws DBALException
-     */
-    private function update(Multimedia $multimedia): void
-    {
-        $multimediaArray = $this->mapper->map($multimedia);
-
-        $this->connection->update(
-            self::TABLE,
-            $multimediaArray,
-            [
-                'id' => $multimedia->getId()->getValue(),
-            ]
-        );
-    }
-
-    /**
-     * @param Multimedia $multimedia
-     *
-     * @throws DBALException
-     */
-    private function insert(Multimedia $multimedia): void
-    {
-        $multimediaArray = $this->mapper->map($multimedia);
-
-        $this->connection->insert(
-            self::TABLE,
-            $multimediaArray
-        );
-    }
-
-    /**
-     * @return QueryBuilder
-     */
-    private function getQuery(): QueryBuilder
-    {
-        return $this->connection->createQueryBuilder()
-            ->select(self::FIELDS)
-            ->from(self::TABLE);
+        $this->eventStore->delete($id);
     }
 }

@@ -184,6 +184,15 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     }
 
     /**
+     * @Then /^print last api response$/
+     */
+    public function printLastApiResponse(): void
+    {
+        $this->requireResponse();
+        echo $this->response->getBody();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function assertResponseCodeIs($code): void

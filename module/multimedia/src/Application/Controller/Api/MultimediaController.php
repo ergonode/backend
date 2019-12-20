@@ -15,6 +15,7 @@ use Ergonode\Multimedia\Application\Form\MultimediaUploadForm;
 use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
 use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
+use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -39,13 +40,24 @@ class MultimediaController extends AbstractController
     private $messageBus;
 
     /**
+     * @var MultimediaRepositoryInterface
+     */
+    private $multimediaRepository;
+
+
+    /**
      * @param MultimediaFileProviderInterface $fileProvider
      * @param MessageBusInterface             $messageBus
+     * @param MultimediaRepositoryInterface   $multimediaRepository
      */
-    public function __construct(MultimediaFileProviderInterface $fileProvider, MessageBusInterface $messageBus)
-    {
+    public function __construct(
+        MultimediaFileProviderInterface $fileProvider,
+        MessageBusInterface $messageBus,
+        MultimediaRepositoryInterface $multimediaRepository
+    ) {
         $this->fileProvider = $fileProvider;
         $this->messageBus = $messageBus;
+        $this->multimediaRepository = $multimediaRepository;
     }
 
     /**
@@ -80,9 +92,12 @@ class MultimediaController extends AbstractController
 
         $form = $this->createForm(MultimediaUploadForm::class, $uploadModel);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $command = new UploadMultimediaCommand('Default', $uploadModel->upload);
-            $this->messageBus->dispatch($command);
+            if (!$this->multimediaRepository->exists($command->getId())) {
+                $this->messageBus->dispatch($command);
+            }
 
             $response = new CreatedResponse($command->getId());
         } else {
