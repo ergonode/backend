@@ -13,6 +13,7 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Product\Domain\Entity\ProductId;
 
 /**
  */
@@ -22,9 +23,12 @@ class ProductAddedToCategoryEventTest extends TestCase
      */
     public function testEventCreation(): void
     {
+        /** @var ProductId|MockObject $id */
+        $id = $this->createMock(ProductId::class);
         /** @var CategoryCode|MockObject $categoryCode */
         $categoryCode = $this->createMock(CategoryCode::class);
-        $event = new ProductAddedToCategoryEvent($categoryCode);
+        $event = new ProductAddedToCategoryEvent($id, $categoryCode);
+        $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($categoryCode, $event->getCategoryCode());
     }
 }

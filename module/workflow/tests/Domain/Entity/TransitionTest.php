@@ -16,6 +16,8 @@ use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\Workflow\Domain\Entity\TransitionId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\Workflow\Domain\Entity\WorkflowId;
 
 /**
  */
@@ -47,14 +49,22 @@ class TransitionTest extends TestCase
     private $roleIds;
 
     /**
+     * @var AbstractAggregateRoot
+     */
+    private $aggregateRoot;
+
+    /**
      */
     protected function setUp(): void
     {
         $this->id = $this->createMock(TransitionId::class);
+        $this->id->method('isEqual')->willReturn(true);
         $this->from = $this->createMock(StatusCode::class);
         $this->to = $this->createMock(StatusCode::class);
         $this->roleIds = [$this->createMock(RoleId::class), $this->createMock(RoleId::class)];
         $this->conditionSetId = $this->createMock(ConditionSetId::class);
+        $this->aggregateRoot = $this->createMock(AbstractAggregateRoot::class);
+        $this->aggregateRoot->method('getId')->willReturn($this->createMock(WorkflowId::class));
     }
 
     /**
@@ -73,36 +83,32 @@ class TransitionTest extends TestCase
      */
     public function testChangingConditionSetNull(): void
     {
-        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds);
-        $this->assertEmpty($transition->changeConditionSetId());
+        $this->aggregateRoot->expects($this->once())->method('apply');
+        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
+        $transition->setAggregateRoot($this->aggregateRoot);
+        $transition->changeConditionSetId();
     }
 
     /**
      */
-    public function testChangingConditiondSetForTheSame(): void
+    public function testChangingConditionSetForTheSame(): void
     {
+        $this->aggregateRoot->expects($this->never())->method('apply');
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
         $conditionSetId = $this->createMock(ConditionSetId::class);
         $conditionSetId->method('isEqual')->willReturn(true);
-        $this->assertEmpty($transition->changeConditionSetId($conditionSetId));
+        $transition->changeConditionSetId($conditionSetId);
     }
 
     /**
-     */
-    public function testChangingConditiondSet(): void
-    {
-        $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
-        $transition->setAggregateRoot($this->createMock(AbstractAggregateRoot::class));
-        $this->assertEmpty($transition->changeConditionSetId());
-    }
-
-    /**
+     * @throws \Exception
      */
     public function testChangingRoleIds(): void
     {
+        $this->aggregateRoot->expects($this->once())->method('apply');
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
-        $transition->setAggregateRoot($this->createMock(AbstractAggregateRoot::class));
-        $this->assertEmpty($transition->changeRoleIds($this->roleIds));
+        $transition->setAggregateRoot($this->aggregateRoot);
+        $transition->changeRoleIds($this->roleIds);
     }
 
     /**
@@ -111,7 +117,7 @@ class TransitionTest extends TestCase
     public function testChangingRoleIdsException(): void
     {
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
-        $transition->setAggregateRoot($this->createMock(AbstractAggregateRoot::class));
+        $transition->setAggregateRoot($this->aggregateRoot);
         $transition->changeRoleIds(['example', 'example2']);
     }
 }
