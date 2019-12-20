@@ -23,7 +23,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ProductCreateEventProjector
+class ProductCreatedEventProjector
 {
     private const NAMESPACE = 'cb2600df-94fb-4755-9e6a-a15591a8e510';
     private const TABLE_PRODUCT = 'product';
