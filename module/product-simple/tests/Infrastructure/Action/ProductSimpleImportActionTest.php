@@ -72,6 +72,8 @@ class ProductSimpleImportActionTest extends TestCase
      */
     private $action;
 
+    /**
+     */
     protected function setUp()
     {
         $this->templateProvider = $this->createMock(TemplateProvider::class);

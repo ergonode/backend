@@ -10,16 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Persistence\Dbal\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class AttributeParameterChangeEventProjector implements DomainEventProjectorInterface
+class AttributeParameterChangeEventProjector
 {
     private const TABLE_PARAMETER = 'attribute_parameter';
 
@@ -44,22 +41,12 @@ class AttributeParameterChangeEventProjector implements DomainEventProjectorInte
     }
 
     /**
-     * {@inheritDoc}
+     * @param AttributeParameterChangeEvent $event
+     *
+     * @throws DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(AttributeParameterChangeEvent $event): void
     {
-        return $event instanceof AttributeParameterChangeEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, AttributeParameterChangeEvent::class);
-        }
-
         if (!empty($event->getTo())) {
             $this->connection->update(
                 self::TABLE_PARAMETER,
@@ -67,7 +54,7 @@ class AttributeParameterChangeEventProjector implements DomainEventProjectorInte
                     'value' => $this->serializer->serialize($event->getTo(), 'json'),
                 ],
                 [
-                    'attribute_id' => $aggregateId->getValue(),
+                    'attribute_id' => $event->getAggregateId()->getValue(),
                     'type' => $event->getName(),
                 ]
             );

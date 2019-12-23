@@ -50,13 +50,19 @@ class EndProcessImportCommandHandler
         $import = $this->repository->load($command->getImportId());
 
         if (null === $import) {
-            throw new \LogicException(\sprintf('Can\'t find import with id %s', $command->getImportId()->getValue()));
+            throw new \LogicException(
+                \sprintf('Can\'t find import with id %s', $command->getImportId()->getValue())
+            );
         }
 
         $import->end();
         $this->repository->save($import);
         if ($command->getTransformerId() && $command->getAction()) {
-            $command = new CreateProcessorCommand($command->getImportId(), $command->getTransformerId(), $command->getAction());
+            $command = new CreateProcessorCommand(
+                $command->getImportId(),
+                $command->getTransformerId(),
+                $command->getAction()
+            );
             $this->messageBus->dispatch($command);
         }
     }

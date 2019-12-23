@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Domain\Event;
 
+use Ergonode\Comment\Domain\Entity\CommentId;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -16,6 +18,13 @@ use JMS\Serializer\Annotation as JMS;
  */
 class CommentContentChangedEvent implements DomainEventInterface
 {
+    /**
+     * @var CommentId $id
+     *
+     * @JMS\Type("Ergonode\Comment\Domain\Entity\CommentId")
+     */
+    private $id;
+
     /**
      * @var string
      *
@@ -38,15 +47,25 @@ class CommentContentChangedEvent implements DomainEventInterface
     private $editedAt;
 
     /**
+     * @param CommentId $id
      * @param string    $from
      * @param string    $to
      * @param \DateTime $editedAt
      */
-    public function __construct(string $from, string $to, \DateTime $editedAt)
+    public function __construct(CommentId $id, string $from, string $to, \DateTime $editedAt)
     {
+        $this->id = $id;
         $this->from = $from;
         $this->to = $to;
         $this->editedAt = $editedAt;
+    }
+
+    /**
+     * @return CommentId|AbstractId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**

@@ -67,7 +67,14 @@ class DateAttributeTest extends TestCase
      */
     public function testAttributeCreation(): void
     {
-        $attribute = new DateAttribute($this->id, $this->code, $this->label, $this->placeholder, $this->hint, $this->format);
+        $attribute = new DateAttribute(
+            $this->id,
+            $this->code,
+            $this->label,
+            $this->placeholder,
+            $this->hint,
+            $this->format
+        );
         $this->assertEquals($this->format, $attribute->getFormat());
         $this->assertEquals($this->id, $attribute->getId());
         $this->assertEquals($this->code, $attribute->getCode());
@@ -82,7 +89,14 @@ class DateAttributeTest extends TestCase
     public function testAttributeFormatChange(): void
     {
         $format = new DateFormat(DateFormat::YYYY_MM_DD);
-        $attribute = new DateAttribute($this->id, $this->code, $this->label, $this->placeholder, $this->hint, $this->format);
+        $attribute = new DateAttribute(
+            $this->id,
+            $this->code,
+            $this->label,
+            $this->placeholder,
+            $this->hint,
+            $this->format
+        );
         $attribute->changeFormat($format);
         $this->assertNotEquals($this->format, $attribute->getFormat());
         $this->assertEquals($format, $attribute->getFormat());

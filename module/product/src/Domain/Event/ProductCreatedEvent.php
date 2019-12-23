@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
@@ -75,7 +76,7 @@ class ProductCreatedEvent implements DomainEventInterface
     /**
      * @return ProductId
      */
-    public function getId(): ProductId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

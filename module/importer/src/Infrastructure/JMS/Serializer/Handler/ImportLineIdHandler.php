@@ -55,8 +55,12 @@ class ImportLineIdHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, ImportLineId $id, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        ImportLineId $id,
+        array $type,
+        Context $context
+    ): string {
         return $id->getValue();
     }
 
@@ -68,8 +72,12 @@ class ImportLineIdHandler implements SubscribingHandlerInterface
      *
      * @return ImportLineId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): ImportLineId
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): ImportLineId {
         return new ImportLineId($data);
     }
 }

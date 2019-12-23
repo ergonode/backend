@@ -78,8 +78,15 @@ class AddWorkflowTransitionCommand
      * @param RoleId[]            $roleIds
      * @param ConditionSetId|null $conditionSetId
      */
-    public function __construct(WorkflowId $workflowId, StatusCode $source, StatusCode $destination, TranslatableString $name, TranslatableString $description, array $roleIds = [], ?ConditionSetId $conditionSetId = null)
-    {
+    public function __construct(
+        WorkflowId $workflowId,
+        StatusCode $source,
+        StatusCode $destination,
+        TranslatableString $name,
+        TranslatableString $description,
+        array $roleIds = [],
+        ?ConditionSetId $conditionSetId = null
+    ) {
         $this->workflowId = $workflowId;
         $this->source = $source;
         $this->destination = $destination;

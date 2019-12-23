@@ -11,16 +11,12 @@ namespace Ergonode\Workflow\Persistence\Dbal\Projector\Workflow;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
 
 /**
  */
-class WorkflowCreatedEventProjector implements DomainEventProjectorInterface
+class WorkflowCreatedEventProjector
 {
     private const TABLE = 'workflow';
 
@@ -38,26 +34,12 @@ class WorkflowCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof WorkflowCreatedEvent;
-    }
-
-    /**
-     * @param AbstractId                                $aggregateId
-     * @param DomainEventInterface|WorkflowCreatedEvent $event
+     * @param WorkflowCreatedEvent $event
      *
-     * @throws UnsupportedEventException
      * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(WorkflowCreatedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, WorkflowCreatedEvent::class);
-        }
-
         $status = null;
         if (!empty($event->getStatuses())) {
             $statuses = $event->getStatuses();
@@ -67,7 +49,7 @@ class WorkflowCreatedEventProjector implements DomainEventProjectorInterface
         $this->connection->insert(
             self::TABLE,
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
                 'code' => $event->getCode(),
                 'default_status' => $status ? StatusId::fromCode($status)->getValue(): null,
             ]

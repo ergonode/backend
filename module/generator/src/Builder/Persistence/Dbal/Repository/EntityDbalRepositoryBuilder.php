@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Generator\Builder\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Generator\Builder\BuilderInterface;
 use Ergonode\Generator\Builder\FileBuilder;
@@ -74,7 +74,7 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
 
         $properties = [
             'store' => DomainEventStoreInterface::class,
-            'dispatcher' => DomainEventDispatcherInterface::class,
+            'dispatcher' => EventBusInterface::class,
         ];
 
         foreach ($properties as $name => $type) {

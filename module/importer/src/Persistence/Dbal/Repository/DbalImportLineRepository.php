@@ -150,6 +150,7 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
      * @param ImportId $id
      *
      * @return ArrayCollection
+     *
      * @throws \ReflectionException
      */
     public function findCollectionByImport(ImportId $id): ArrayCollection

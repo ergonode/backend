@@ -17,14 +17,4 @@ use Ramsey\Uuid\Uuid;
 class MultimediaId extends AbstractId
 {
     public const NAMESPACE = '690c9b97-57bc-4c71-9b62-37093c578836';
-
-    /**
-     * @param \SplFileInfo $file
-     *
-     * @return MultimediaId
-     */
-    public static function createFromFile(\SplFileInfo $file): self
-    {
-        return new self(Uuid::uuid5(self::NAMESPACE, sha1_file($file->getRealPath()))->toString());
-    }
 }
