@@ -10,14 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Tests\Domain\Event\Group;
 
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
-use Ergonode\Attribute\Domain\Event\Group\AttributeGroupNameChangedEvent;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Attribute\Domain\Event\Group\AttributeGroupDeletedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class AttributeGroupNameChangedEventTest extends TestCase
+class AttributeGroupDeletedEventTest extends TestCase
 {
     /**
      */
@@ -26,15 +25,8 @@ class AttributeGroupNameChangedEventTest extends TestCase
         /** @var AttributeGroupId | MockObject $id */
         $id = $this->createMock(AttributeGroupId::class);
 
-        /** @var TranslatableString | MockObject $from */
-        $from = $this->createMock(TranslatableString::class);
+        $event = new AttributeGroupDeletedEvent($id);
 
-        /** @var TranslatableString | MockObject $to */
-        $to = $this->createMock(TranslatableString::class);
-
-        $event = new AttributeGroupNameChangedEvent($id, $from, $to);
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
-        $this->assertSame($to, $event->getTo());
     }
 }
