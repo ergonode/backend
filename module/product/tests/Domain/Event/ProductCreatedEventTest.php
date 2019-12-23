@@ -33,7 +33,7 @@ class ProductCreatedEventTest extends TestCase
         $categories = ['example1', 'example2'];
         $attributes = ['example1', 'example2'];
         $event = new ProductCreatedEvent($id, $sku, $templateId, $categories, $attributes);
-        $this->assertEquals($id, $event->getId());
+        $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($sku, $event->getSku());
         $this->assertEquals($templateId, $event->getTemplateId());
         $this->assertEquals($categories, $event->getCategories());

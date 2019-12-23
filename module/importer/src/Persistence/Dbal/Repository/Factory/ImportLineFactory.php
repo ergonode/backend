@@ -42,6 +42,7 @@ class ImportLineFactory
 
     /**
      * @param array $record
+     *
      * @return array
      */
     private function getMap(array $record): array

@@ -22,7 +22,9 @@ class ProductCreateFormModel
      * @var string
      *
      * @Assert\NotBlank(message="Sku is required")
+     *
      * @Sku()
+     *
      * @SkuExists()
      */
     public $sku;
@@ -37,6 +39,7 @@ class ProductCreateFormModel
      *
      * @Assert\NotBlank(message="Template is required")
      * @Assert\Uuid()
+     *
      * @TemplateExists()
      */
     public $template;

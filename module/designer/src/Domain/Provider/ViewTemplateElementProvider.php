@@ -42,6 +42,12 @@ class ViewTemplateElementProvider
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\'t find strategy for %s and %s ', $element->getProperties()->getVariant(), $element->getType()));
+        throw new \RuntimeException(
+            sprintf(
+                'Can\'t find strategy for %s and %s ',
+                $element->getProperties()->getVariant(),
+                $element->getType()
+            )
+        );
     }
 }

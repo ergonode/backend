@@ -31,6 +31,8 @@ class AttributeFormSubscriberTest extends TestCase
     private $form;
     private $formParameters;
 
+    /**
+     */
     protected function setUp()
     {
         $this->event = $this->createMock(FormEvent::class);

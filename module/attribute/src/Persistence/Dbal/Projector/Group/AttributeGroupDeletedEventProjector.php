@@ -11,16 +11,11 @@ namespace Ergonode\Attribute\Persistence\Dbal\Projector\Group;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupDeletedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class AttributeGroupDeletedEventProjector implements DomainEventProjectorInterface
+class AttributeGroupDeletedEventProjector
 {
     private const TABLE = 'attribute_group';
 
@@ -38,30 +33,16 @@ class AttributeGroupDeletedEventProjector implements DomainEventProjectorInterfa
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof AttributeGroupDeletedEvent;
-    }
-
-    /**
-     * @param AbstractId                                      $aggregateId
-     * @param DomainEventInterface|AttributeGroupCreatedEvent $event
+     * @param AttributeGroupDeletedEvent $event
      *
-     * @throws UnsupportedEventException
      * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(AttributeGroupDeletedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, AttributeGroupDeletedEvent::class);
-        }
-
         $this->connection->delete(
             self::TABLE,
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

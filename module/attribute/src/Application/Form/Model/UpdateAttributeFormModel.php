@@ -67,6 +67,7 @@ class UpdateAttributeFormModel
      * @var ArrayCollection|AttributeOptionModel[]
      *
      * @Assert\Valid()
+     *
      * @AppAssert\AttributeOptionDuplicates()
      */
     public $options;

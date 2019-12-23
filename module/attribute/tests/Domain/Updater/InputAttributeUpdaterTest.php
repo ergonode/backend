@@ -24,6 +24,8 @@ class InputAttributeUpdaterTest extends TestCase
      */
     private $updateCommand;
 
+    /**
+     */
     protected function setUp()
     {
         $this->updateCommand = $this->createMock(UpdateAttributeCommand::class);

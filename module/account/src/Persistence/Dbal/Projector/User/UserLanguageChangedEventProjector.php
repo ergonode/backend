@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class UserLanguageChangedEventProjector implements DomainEventProjectorInterface
+class UserLanguageChangedEventProjector
 {
     private const TABLE = 'users';
 
@@ -36,29 +33,19 @@ class UserLanguageChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param UserLanguageChangedEvent $event
+     *
+     * @throws DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(UserLanguageChangedEvent $event): void
     {
-        return $event instanceof UserLanguageChangedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, UserLanguageChangedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'language' => $event->getTo()->getCode(),
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

@@ -55,8 +55,12 @@ class ImportStatusHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, ImportStatus $id, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        ImportStatus $id,
+        array $type,
+        Context $context
+    ): string {
         return $id->getValue();
     }
 
@@ -68,8 +72,12 @@ class ImportStatusHandler implements SubscribingHandlerInterface
      *
      * @return ImportStatus
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): ImportStatus
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): ImportStatus {
         return new ImportStatus($data);
     }
 }

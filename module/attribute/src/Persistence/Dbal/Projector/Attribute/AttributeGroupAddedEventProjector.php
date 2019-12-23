@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Persistence\Dbal\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class AttributeGroupAddedEventProjector implements DomainEventProjectorInterface
+class AttributeGroupAddedEventProjector
 {
     private const TABLE = 'attribute_group_attribute';
 
@@ -36,26 +33,16 @@ class AttributeGroupAddedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param AttributeGroupAddedEvent $event
+     *
+     * @throws DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(AttributeGroupAddedEvent $event): void
     {
-        return $event instanceof AttributeGroupAddedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, AttributeGroupAddedEvent::class);
-        }
-
         $this->connection->insert(
             self::TABLE,
             [
-                'attribute_id' => $aggregateId->getValue(),
+                'attribute_id' => $event->getAggregateId()->getValue(),
                 'attribute_group_id' => $event->getGroupId()->getValue(),
             ]
         );

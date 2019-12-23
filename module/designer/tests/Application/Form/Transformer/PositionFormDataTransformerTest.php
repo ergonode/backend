@@ -23,6 +23,8 @@ class PositionFormDataTransformerTest extends TestCase
      */
     protected $transformer;
 
+    /**
+     */
     protected function setUp()
     {
         $this->transformer = new PositionFormDataTransformer();
@@ -41,6 +43,7 @@ class PositionFormDataTransformerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     *
      * @expectedExceptionMessage Invalid Position object
      */
     public function testTransformException(): void
@@ -62,6 +65,7 @@ class PositionFormDataTransformerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     *
      * @expectedExceptionMessage Invalid Position -1,-2 value
      */
     public function testReverseTransformException(): void

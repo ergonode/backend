@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Entity\TemplateGroupId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
@@ -62,9 +63,9 @@ class TemplateCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return TemplateId
+     * @return TemplateId|AbstractId
      */
-    public function getId(): TemplateId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

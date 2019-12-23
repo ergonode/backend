@@ -22,6 +22,8 @@ class PasswordDataTransformerTest extends TestCase
      */
     protected $transformer;
 
+    /**
+     */
     protected function setUp()
     {
         $this->transformer = new PasswordDataTransformer();
@@ -51,6 +53,7 @@ class PasswordDataTransformerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     *
      * @expectedExceptionMessage Invalid "pass" value
      */
     public function testReverseTransformException(): void

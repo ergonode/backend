@@ -38,6 +38,7 @@ class RecordTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     *
      * @expectedExceptionMessage Record haven't column test
      */
     public function testGetException(): void

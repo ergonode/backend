@@ -11,6 +11,7 @@ namespace Ergonode\Attribute\Domain\Event\Group;
 
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -55,7 +56,7 @@ class AttributeGroupCreatedEvent implements DomainEventInterface
     /**
      * @return AttributeGroupId
      */
-    public function getId(): AttributeGroupId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

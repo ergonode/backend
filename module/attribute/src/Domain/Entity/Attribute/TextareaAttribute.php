@@ -13,7 +13,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class TextareaAttribute
  */
 class TextareaAttribute extends AbstractAttribute
 {

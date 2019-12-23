@@ -23,6 +23,8 @@ class OptionKeyDataTransformerTest extends TestCase
      */
     protected $transformer;
 
+    /**
+     */
     protected function setUp()
     {
         $this->transformer = new OptionKeyDataTransformer();
@@ -41,6 +43,7 @@ class OptionKeyDataTransformerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     *
      * @expectedExceptionMessage Invalid OptionKey object
      */
     public function testTransformException(): void
@@ -62,6 +65,7 @@ class OptionKeyDataTransformerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     *
      * @expectedExceptionMessage Invalid Option Key qSYF4E9y2lg10jL5lGAduJw6NqPmeFgZ0e4GeVksl0SpGfvbLmr1OkueTExXYU2Vn3Behf3GaZUPNduEoS0rMJny1uHKWYeGXn9Vn2Mv7TJZ3AyHonXnE1Ox5e3ZYSuiXhtTgnTPJk8cR7dLAL2lgWO5OYMNSdmh3w5Tuqs44xXu0DdYDvXj2bhukrfOXVl8PZapcujYo5KDIRVeBNIeOHw6zbQv80uUvl73Ul9VH8NQmSqDIcHXarYyZUWDlbmQO6lJ
      * value
      */

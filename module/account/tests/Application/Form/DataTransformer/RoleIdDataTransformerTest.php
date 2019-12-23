@@ -23,6 +23,8 @@ class RoleIdDataTransformerTest extends TestCase
      */
     protected $transformer;
 
+    /**
+     */
     protected function setUp()
     {
         $this->transformer = new RoleIdDataTransformer();
@@ -41,6 +43,7 @@ class RoleIdDataTransformerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     *
      * @expectedExceptionMessage Invalid RoleId object
      */
     public function testTransformException(): void
@@ -63,6 +66,7 @@ class RoleIdDataTransformerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     *
      * @expectedExceptionMessage Invalid "not_uuid" value
      */
     public function testReverseTransformException(): void

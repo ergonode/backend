@@ -26,9 +26,14 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
+    Ergonode\Designer\Persistence\Dbal\Projector\:
+        resource: '../../Persistence/Dbal/Projector/*'
+        tags: ['messenger.message_handler']
+
     Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
+
 
     Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\TemplateElementPropertyInterfaceHandler:
         arguments:

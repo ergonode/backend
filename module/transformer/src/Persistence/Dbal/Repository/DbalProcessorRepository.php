@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Transformer\Domain\Entity\Processor;
 use Ergonode\Transformer\Domain\Entity\ProcessorId;
@@ -28,24 +28,27 @@ class DbalProcessorRepository implements ProcessorRepositoryInterface
     private $eventStore;
 
     /**
-     * @var DomainEventDispatcherInterface
+     * @var EventBusInterface
      */
-    private $eventDispatcher;
+    private $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $eventStore
-     * @param DomainEventDispatcherInterface $eventDispatcher
+     * DbalProcessorRepository constructor.
+     *
+     * @param DomainEventStoreInterface $eventStore
+     * @param EventBusInterface         $eventBus
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
+    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
     {
         $this->eventStore = $eventStore;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventBus = $eventBus;
     }
 
     /**
      * @param ProcessorId $id
      *
      * @return AbstractAggregateRoot
+     *
      * @throws \ReflectionException
      */
     public function load(ProcessorId $id): AbstractAggregateRoot
@@ -73,7 +76,7 @@ class DbalProcessorRepository implements ProcessorRepositoryInterface
 
         $this->eventStore->append($aggregateRoot->getId(), $events, self::TABLE);
         foreach ($events as $envelope) {
-            $this->eventDispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
     }
 }

@@ -10,7 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -18,6 +20,13 @@ use JMS\Serializer\Annotation as JMS;
  */
 class ProductValueChangedEvent implements DomainEventInterface
 {
+    /**
+     * @var ProductId
+     *
+     * @JMS\Type("Ergonode\Product\Domain\Entity\ProductId")
+     */
+    private $id;
+
     /**
      * @var AttributeCode
      *
@@ -40,15 +49,25 @@ class ProductValueChangedEvent implements DomainEventInterface
     private $to;
 
     /**
+     * @param ProductId      $id
      * @param AttributeCode  $code
      * @param ValueInterface $from
      * @param ValueInterface $to
      */
-    public function __construct(AttributeCode $code, ValueInterface $from, ValueInterface $to)
+    public function __construct(ProductId $id, AttributeCode $code, ValueInterface $from, ValueInterface $to)
     {
+        $this->id = $id;
         $this->code = $code;
         $this->from = $from;
         $this->to = $to;
+    }
+
+    /**
+     * @return ProductId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**
