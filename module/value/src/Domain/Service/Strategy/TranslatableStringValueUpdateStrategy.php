@@ -34,11 +34,23 @@ class TranslatableStringValueUpdateStrategy implements ValueUpdateStrategyInterf
     public function calculate(ValueInterface $oldValue, ValueInterface $newValue): ValueInterface
     {
         if (!$oldValue instanceof TranslatableStringValue) {
-            throw new \InvalidArgumentException(\sprintf('Old value must be type %s, given %s', TranslatableStringValue::class, \get_class($oldValue)));
+            throw new \InvalidArgumentException(
+                \sprintf(
+                    'Old value must be type %s, given %s',
+                    TranslatableStringValue::class,
+                    \get_class($oldValue)
+                )
+            );
         }
 
         if (!$newValue instanceof TranslatableStringValue) {
-            throw new \InvalidArgumentException(\sprintf('New value must be type %s, given %s', TranslatableStringValue::class, \get_class($newValue)));
+            throw new \InvalidArgumentException(
+                \sprintf(
+                    'New value must be type %s, given %s',
+                    TranslatableStringValue::class,
+                    \get_class($newValue)
+                )
+            );
         }
 
         $oldTranslation = $oldValue->getValue()->getTranslations();

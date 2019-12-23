@@ -50,7 +50,11 @@ class DeleteCategoryCommandHandler
     public function __invoke(DeleteCategoryCommand $command): void
     {
         $category = $this->repository->load($command->getId());
-        Assert::isInstanceOf($category, Category::class, sprintf('Can\'t find category with id "%s"', $command->getId()));
+        Assert::isInstanceOf(
+            $category,
+            Category::class,
+            sprintf('Can\'t find category with id "%s"', $command->getId())
+        );
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
         if (!$relationships->isEmpty()) {

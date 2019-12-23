@@ -27,8 +27,12 @@ class CategoryFactoryTest extends TestCase
      *
      * @dataProvider dataProvider
      */
-    public function testCreation(CategoryId $id, CategoryCode $code, TranslatableString $name, array $attributes = []): void
-    {
+    public function testCreation(
+        CategoryId $id,
+        CategoryCode $code,
+        TranslatableString $name,
+        array $attributes = []
+    ): void {
         $factory = new CategoryFactory();
         $category = $factory->create($id, $code, $name, $attributes);
         $this->assertSame($id, $category->getId());

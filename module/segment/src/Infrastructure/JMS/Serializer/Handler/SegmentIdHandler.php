@@ -55,8 +55,12 @@ class SegmentIdHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, SegmentId $id, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        SegmentId $id,
+        array $type,
+        Context $context
+    ): string {
         return $id->getValue();
     }
 
@@ -68,8 +72,12 @@ class SegmentIdHandler implements SubscribingHandlerInterface
      *
      * @return SegmentId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): SegmentId
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): SegmentId {
         return new SegmentId($data);
     }
 }

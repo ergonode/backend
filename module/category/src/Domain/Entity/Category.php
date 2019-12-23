@@ -166,7 +166,9 @@ class Category extends AbstractAggregateRoot
         }
 
         if ((string) $this->attributes[$attributeCode->getValue()] !== (string) $value) {
-            $this->apply(new ValueChangedEvent($this->id, $attributeCode, $this->attributes[$attributeCode->getValue()], $value));
+            $this->apply(
+                new ValueChangedEvent($this->id, $attributeCode, $this->attributes[$attributeCode->getValue()], $value)
+            );
         }
     }
 

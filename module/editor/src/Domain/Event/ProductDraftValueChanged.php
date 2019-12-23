@@ -54,8 +54,12 @@ class ProductDraftValueChanged implements DomainEventInterface
      * @param ValueInterface $from
      * @param ValueInterface $to
      */
-    public function __construct(ProductDraftId $id, AttributeCode $attributeCode, ValueInterface $from, ValueInterface $to)
-    {
+    public function __construct(
+        ProductDraftId $id,
+        AttributeCode $attributeCode,
+        ValueInterface $from,
+        ValueInterface $to
+    ) {
         $this->id = $id;
         $this->attributeCode = $attributeCode;
         $this->from = $from;

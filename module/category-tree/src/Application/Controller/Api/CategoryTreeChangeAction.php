@@ -106,13 +106,16 @@ class CategoryTreeChangeAction
     {
         try {
             $model = new CategoryTreeUpdateFormModel();
-            $form = $this->formFactory->create(CategoryTreeUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $form = $this
+                ->formFactory
+                ->create(CategoryTreeUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var CategoryTreeUpdateFormModel $data */
                 $data = $form->getData();
-                $command = new UpdateTreeCommand($tree->getId(), new TranslatableString($data->name), $data->categories);
+                $command =
+                    new UpdateTreeCommand($tree->getId(), new TranslatableString($data->name), $data->categories);
                 $this->messageBus->dispatch($command);
 
                 return new EmptyResponse();

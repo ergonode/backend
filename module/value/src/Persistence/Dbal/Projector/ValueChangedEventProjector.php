@@ -70,7 +70,10 @@ class ValueChangedEventProjector
 
             if (false === $result) {
                 $this->connection->executeQuery(
-                    sprintf('INSERT INTO %s (id, type, value) VALUES (?, ?, ?) ON CONFLICT DO NOTHING', self::VALUE_TABLE),
+                    sprintf(
+                        'INSERT INTO %s (id, type, value) VALUES (?, ?, ?) ON CONFLICT DO NOTHING',
+                        self::VALUE_TABLE
+                    ),
                     [$newValueId->toString(), $type, $newValueId]
                 );
             }
