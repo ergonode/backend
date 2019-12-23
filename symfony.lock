@@ -410,6 +410,9 @@
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
     },
+    "sensiolabs-de/deptrac-shim": {
+        "version": "0.6.0"
+    },
     "squizlabs/php_codesniffer": {
         "version": "3.3.0"
     },
