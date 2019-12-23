@@ -9,15 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Tests\Domain\Event\Status;
 
-use Ergonode\Core\Domain\ValueObject\Color;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Entity\StatusId;
-use Ergonode\Workflow\Domain\Event\Status\StatusColorChangedEvent;
+use Ergonode\Workflow\Domain\Event\Status\StatusDescriptionChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class StatusColorChangedEventTest extends TestCase
+class StatusDescriptionChangedEventTest extends TestCase
 {
     /**
      */
@@ -26,13 +26,13 @@ class StatusColorChangedEventTest extends TestCase
         /** @var StatusId | MockObject $id */
         $id = $this->createMock(StatusId::class);
 
-        /** @var Color |MockObject $from */
-        $from = $this->createMock(Color::class);
+        /** @var TranslatableString | MockObject $from */
+        $from = $this->createMock(TranslatableString::class);
 
-        /** @var Color |MockObject $to */
-        $to = $this->createMock(Color::class);
+        /** @var TranslatableString | MockObject $to */
+        $to = $this->createMock(TranslatableString::class);
 
-        $event = new StatusColorChangedEvent($id, $from, $to);
+        $event = new StatusDescriptionChangedEvent($id, $from, $to);
 
         $this->assertSame($id, $event->getAggregateId());
         $this->assertSame($from, $event->getFrom());

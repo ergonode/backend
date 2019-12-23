@@ -9,15 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Tests\Domain\Event\Status;
 
-use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Workflow\Domain\Entity\StatusId;
-use Ergonode\Workflow\Domain\Event\Status\StatusColorChangedEvent;
+use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class StatusColorChangedEventTest extends TestCase
+class StatusDeletedEventTest extends TestCase
 {
     /**
      */
@@ -26,16 +25,8 @@ class StatusColorChangedEventTest extends TestCase
         /** @var StatusId | MockObject $id */
         $id = $this->createMock(StatusId::class);
 
-        /** @var Color |MockObject $from */
-        $from = $this->createMock(Color::class);
-
-        /** @var Color |MockObject $to */
-        $to = $this->createMock(Color::class);
-
-        $event = new StatusColorChangedEvent($id, $from, $to);
+        $event = new StatusDeletedEvent($id);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($from, $event->getFrom());
-        $this->assertSame($to, $event->getTo());
     }
 }
