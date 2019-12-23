@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Migration\Command;
 
-use Doctrine\DBAL\Migrations\Configuration\Configuration;
-use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
+use Doctrine\Migrations\Configuration\Configuration;
+use Doctrine\Migrations\Tools\Console\Command\AbstractCommand;
 use Ergonode\Migration\Provider\MigrationConfigurationProvider;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

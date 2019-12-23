@@ -6,7 +6,7 @@
     "license": "OSL-3.0",
     "require": {
         "php": "^7.2",
-        "doctrine/migrations": "1.8.x",
+        "doctrine/migrations": "2.2.x",
         "symfony/config": "^4.3",
         "symfony/dependency-injection": "^4.3",
         "symfony/http-kernel": "^4.3",
