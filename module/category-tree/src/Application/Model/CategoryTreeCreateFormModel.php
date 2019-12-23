@@ -20,7 +20,10 @@ class CategoryTreeCreateFormModel
      *
      * @Assert\NotBlank(message="Category tree code is required")
      * @Assert\Length(max=64)
-     * @Assert\Regex(pattern="/^[a-zA-Z0-9-_]+$/i", message="Category tree code can have only letters, digits or underscore symbol")
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z0-9-_]+$/i",
+     *      message="Category tree code can have only letters, digits or underscore symbol"
+     * )
      */
     public $code;
 
@@ -29,7 +32,10 @@ class CategoryTreeCreateFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=255, maxMessage="Category tree name is to long, It should have {{ limit }} character or less.")
+     *     @Assert\Length(
+     *       max=255,
+     *       maxMessage="Category tree name is to long, It should have {{ limit }} character or less."
+     *     )
      * })
      */
     public $name;

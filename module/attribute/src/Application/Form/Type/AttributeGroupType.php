@@ -33,8 +33,10 @@ class AttributeGroupType extends AbstractType
      * @param AttributeGroupDictionaryProvider   $provider
      * @param AuthenticatedUserProviderInterface $userProvider
      */
-    public function __construct(AttributeGroupDictionaryProvider $provider, AuthenticatedUserProviderInterface $userProvider)
-    {
+    public function __construct(
+        AttributeGroupDictionaryProvider $provider,
+        AuthenticatedUserProviderInterface $userProvider
+    ) {
         $this->provider = $provider;
         $this->userProvider = $userProvider;
     }

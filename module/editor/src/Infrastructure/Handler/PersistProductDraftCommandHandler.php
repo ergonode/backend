@@ -32,8 +32,10 @@ class PersistProductDraftCommandHandler
      * @param ProductDraftRepositoryInterface $draftRepository
      * @param ProductRepositoryInterface      $productRepository
      */
-    public function __construct(ProductDraftRepositoryInterface $draftRepository, ProductRepositoryInterface $productRepository)
-    {
+    public function __construct(
+        ProductDraftRepositoryInterface $draftRepository,
+        ProductRepositoryInterface $productRepository
+    ) {
         $this->draftRepository = $draftRepository;
         $this->productRepository = $productRepository;
     }

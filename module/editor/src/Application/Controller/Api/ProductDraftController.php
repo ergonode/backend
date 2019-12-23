@@ -211,7 +211,11 @@ class ProductDraftController extends AbstractController
     }
 
     /**
-     * @Route("/products/{draft}", methods={"GET"}, requirements={"draft" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @Route(
+     *     "/products/{draft}",
+     *      methods={"GET"},
+     *      requirements={"draft" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+     * )
      *
      * @IsGranted("PRODUCT_READ")
      *
@@ -417,8 +421,12 @@ class ProductDraftController extends AbstractController
      *
      * @throws \Exception
      */
-    public function changeDraftAttribute(AbstractProduct $product, Language $language, AbstractAttribute $attribute, Request $request): Response
-    {
+    public function changeDraftAttribute(
+        AbstractProduct $product,
+        Language $language,
+        AbstractAttribute $attribute,
+        Request $request
+    ): Response {
         $draft = $this->draftProvider->provide($product);
         $value = $request->request->get('value');
         $value = ($value !== '') ? $value : null;

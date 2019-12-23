@@ -55,8 +55,12 @@ class AttributeGroupCodeHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, AttributeGroupCode $attributeCode, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        AttributeGroupCode $attributeCode,
+        array $type,
+        Context $context
+    ): string {
         return $attributeCode->getValue();
     }
 
@@ -68,8 +72,12 @@ class AttributeGroupCodeHandler implements SubscribingHandlerInterface
      *
      * @return AttributeGroupCode
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): AttributeGroupCode
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): AttributeGroupCode {
         return new AttributeGroupCode($data);
     }
 }
