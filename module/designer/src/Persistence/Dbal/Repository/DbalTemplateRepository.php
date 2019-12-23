@@ -13,7 +13,7 @@ use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Event\TemplateRemovedEvent;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 
 /**
@@ -26,24 +26,25 @@ class DbalTemplateRepository implements TemplateRepositoryInterface
     private $eventStore;
 
     /**
-     * @var DomainEventDispatcherInterface
+     * @var EventBusInterface
      */
-    private $eventDispatcher;
+    private $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $eventStore
-     * @param DomainEventDispatcherInterface $eventDispatcher
+     * @param DomainEventStoreInterface $eventStore
+     * @param EventBusInterface         $eventBus
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
+    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
     {
         $this->eventStore = $eventStore;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventBus = $eventBus;
     }
 
     /**
      * {@inheritDoc}
      *
      * @return Template|null
+     *
      * @throws \ReflectionException
      */
     public function load(TemplateId $id): ?Template
@@ -74,7 +75,7 @@ class DbalTemplateRepository implements TemplateRepositoryInterface
 
         $this->eventStore->append($template->getId(), $events);
         foreach ($events as $envelope) {
-            $this->eventDispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
     }
 
@@ -85,7 +86,7 @@ class DbalTemplateRepository implements TemplateRepositoryInterface
      */
     public function delete(Template $template): void
     {
-        $template->apply(new TemplateRemovedEvent());
+        $template->apply(new TemplateRemovedEvent($template->getId()));
         $this->save($template);
 
         $this->eventStore->delete($template->getId());

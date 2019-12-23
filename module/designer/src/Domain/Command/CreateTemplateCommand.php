@@ -57,7 +57,11 @@ class CreateTemplateCommand
      */
     public function __construct(string $name, ArrayCollection $elements, ?MultimediaId $imageId = null)
     {
-        Assert::allIsInstanceOf($elements->toArray(), TemplateElement::class, 'Template elements should by %2$s class. Got: %s');
+        Assert::allIsInstanceOf(
+            $elements->toArray(),
+            TemplateElement::class,
+            'Template elements should by %2$s class. Got: %s'
+        );
 
         $this->templateId = TemplateId::generate();
         $this->name = $name;

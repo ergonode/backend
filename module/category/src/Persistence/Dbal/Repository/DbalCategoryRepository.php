@@ -13,8 +13,7 @@ use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Event\CategoryDeletedEvent;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 
 /**
@@ -27,18 +26,18 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     private $eventStore;
 
     /**
-     * @var DomainEventDispatcherInterface
+     * @var EventBusInterface
      */
-    private $eventDispatcher;
+    private $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $eventStore
-     * @param DomainEventDispatcherInterface $eventDispatcher
+     * @param DomainEventStoreInterface $eventStore
+     * @param EventBusInterface         $eventBus
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
+    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
     {
         $this->eventStore = $eventStore;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -54,14 +53,14 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
      *
      * @throws \ReflectionException
      */
-    public function load(CategoryId $id): ?AbstractAggregateRoot
+    public function load(CategoryId $id): ?Category
     {
         $eventStream = $this->eventStore->load($id);
         if ($eventStream->count() > 0) {
             $class = new \ReflectionClass(Category::class);
-            /** @var AbstractAggregateRoot $aggregate */
+            /** @var Category $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
+            if (!$aggregate instanceof Category) {
                 throw new \LogicException(sprintf('Impossible to initialize "%s"', Category::class));
             }
             $aggregate->initialize($eventStream);
@@ -75,13 +74,13 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(Category $aggregateRoot): void
     {
         $events = $aggregateRoot->popEvents();
 
         $this->eventStore->append($aggregateRoot->getId(), $events);
         foreach ($events as $envelope) {
-            $this->eventDispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
     }
 
@@ -90,11 +89,11 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
      *
      * @throws \Exception
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    public function delete(Category $category): void
     {
-        $aggregateRoot->apply(new CategoryDeletedEvent());
-        $this->save($aggregateRoot);
+        $category->apply(new CategoryDeletedEvent($category->getId()));
+        $this->save($category);
 
-        $this->eventStore->delete($aggregateRoot->getId());
+        $this->eventStore->delete($category->getId());
     }
 }

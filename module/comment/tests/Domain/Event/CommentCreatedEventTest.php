@@ -37,7 +37,7 @@ class CommentCreatedEventTest extends TestCase
         $this->assertSame($userId, $command->getAuthorId());
         $this->assertSame($objectId, $command->getObjectId());
         $this->assertSame($content, $command->getContent());
-        $this->assertSame($commentId, $command->getId());
+        $this->assertSame($commentId, $command->getAggregateId());
         $this->assertSame($createAt, $command->getCreatedAt());
     }
 }

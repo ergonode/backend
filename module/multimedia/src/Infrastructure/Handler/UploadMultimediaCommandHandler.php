@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Infrastructure\Handler;
 
 use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use Ergonode\Multimedia\Infrastructure\Service\Upload\MultimediaUploadService;
+use Ergonode\Multimedia\Domain\Factory\MultimediaFactory;
 
 /**
  */
@@ -59,7 +59,7 @@ class UploadMultimediaCommandHandler
         $file = $this->uploadService->upload($id, $uploadedFile);
         $crc = $this->hashService->calculateHash($file);
 
-        $multimedia = Multimedia::createFromFile($id, $uploadedFile->getClientOriginalName(), $file, $crc);
+        $multimedia = MultimediaFactory::createFromFile($id, $uploadedFile->getClientOriginalName(), $file, $crc);
 
         $this->repository->save($multimedia);
     }

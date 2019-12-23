@@ -115,7 +115,7 @@ class Workflow extends AbstractAggregateRoot
         }
 
         if ($this->defaultStatus && !$code->isEqual($this->defaultStatus)) {
-            $this->apply(new WorkflowDefaultStatusSetEvent($code));
+            $this->apply(new WorkflowDefaultStatusSetEvent($this->id, $code));
         }
     }
 
@@ -167,7 +167,7 @@ class Workflow extends AbstractAggregateRoot
             throw  new \RuntimeException(sprintf('Status "%s" already exists', $code->getValue()));
         }
 
-        $this->apply(new WorkflowStatusAddedEvent($code));
+        $this->apply(new WorkflowStatusAddedEvent($this->id, $code));
     }
 
     /**
@@ -179,7 +179,9 @@ class Workflow extends AbstractAggregateRoot
     public function addTransition(StatusCode $from, StatusCode $to): void
     {
         if ($this->hasTransition($from, $to)) {
-            throw  new \RuntimeException(sprintf('Transition from "%s" to "%s" already exists', $from->getValue(), $to->getValue()));
+            throw  new \RuntimeException(
+                sprintf('Transition from "%s" to "%s" already exists', $from->getValue(), $to->getValue())
+            );
         }
 
         if (!$this->hasStatus($from)) {
@@ -187,12 +189,14 @@ class Workflow extends AbstractAggregateRoot
         }
 
         if (!$this->hasStatus($to)) {
-            throw  new \RuntimeException(sprintf('Transition destination status "%s" not exists', $to->getValue()));
+            throw  new \RuntimeException(
+                sprintf('Transition destination status "%s" not exists', $to->getValue())
+            );
         }
 
         $transition = new Transition(TransitionId::generate(), $from, $to);
 
-        $this->apply(new WorkflowTransitionAddedEvent($transition));
+        $this->apply(new WorkflowTransitionAddedEvent($this->id, $transition));
     }
 
     /**
@@ -202,8 +206,11 @@ class Workflow extends AbstractAggregateRoot
      *
      * @throws \Exception
      */
-    public function changeTransitionConditionSetId(StatusCode $from, StatusCode $to, ConditionSetId $conditionSetId = null): void
-    {
+    public function changeTransitionConditionSetId(
+        StatusCode $from,
+        StatusCode $to,
+        ConditionSetId $conditionSetId = null
+    ): void {
         if (!$this->hasTransition($from, $to)) {
             throw  new \RuntimeException('Transition not exists');
         }
@@ -253,7 +260,7 @@ class Workflow extends AbstractAggregateRoot
      */
     public function removeTransition(StatusCode $from, StatusCode $to): void
     {
-        $this->apply(new WorkflowTransitionRemovedEvent($from, $to));
+        $this->apply(new WorkflowTransitionRemovedEvent($this->id, $from, $to));
     }
 
     /**
@@ -270,7 +277,11 @@ class Workflow extends AbstractAggregateRoot
             }
         }
 
-        throw  new \RuntimeException(sprintf('Transition from "%s" to "%s" not exists', $from->getValue(), $to->getValue()));
+        throw new \RuntimeException(sprintf(
+            'Transition from "%s" to "%s" not exists',
+            $from->getValue(),
+            $to->getValue()
+        ));
     }
 
     /**
@@ -309,7 +320,7 @@ class Workflow extends AbstractAggregateRoot
             throw  new \RuntimeException(sprintf('Status ID "%s" not exists', $id));
         }
 
-        $this->apply(new WorkflowStatusRemovedEvent($id));
+        $this->apply(new WorkflowStatusRemovedEvent($this->id, $id));
     }
 
     /**
@@ -325,7 +336,7 @@ class Workflow extends AbstractAggregateRoot
      */
     protected function applyWorkflowCreatedEvent(WorkflowCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->code = $event->getCode();
         $this->statuses = [];
         $this->transitions = [];
@@ -379,7 +390,9 @@ class Workflow extends AbstractAggregateRoot
     protected function applyWorkflowTransitionRemovedEvent(WorkflowTransitionRemovedEvent $event): void
     {
         foreach ($this->transitions as $key => $transition) {
-            if ($event->getSource()->isEqual($transition->getFrom()) && $event->getDestination()->isEqual($transition->getTo())) {
+            if ($event->getSource()->isEqual($transition->getFrom()) &&
+                $event->getDestination()->isEqual($transition->getTo())
+            ) {
                 unset($this->transitions[$key]);
             }
         }

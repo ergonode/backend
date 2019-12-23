@@ -10,17 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Comment\Domain\Event\CommentCreatedEvent;
 
 /**
  */
-class CommentCreatedEventProjector implements DomainEventProjectorInterface
+class CommentCreatedEventProjector
 {
-    private const TABLE =  'comment';
+    private const TABLE = 'comment';
 
     /**
      * @var Connection
@@ -36,37 +33,21 @@ class CommentCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof CommentCreatedEvent;
-    }
-
-    /**
-     * @param AbstractId                               $aggregateId
-     * @param DomainEventInterface|CommentCreatedEvent $event
+     * @param CommentCreatedEvent $event
      *
-     * @throws UnsupportedEventException
-     * @throws \Throwable
+     * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(CommentCreatedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, CommentCreatedEvent::class);
-        }
-
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $this->connection->insert(
-                self::TABLE,
-                [
-                    'id' => $aggregateId->getValue(),
-                    'author_id' => $event->getAuthorId()->getValue(),
-                    'object_id' => $event->getObjectId()->toString(),
-                    'created_at' => $event->getCreatedAt()->format('Y-m-d H:i:s'),
-                    'content' => $event->getContent(),
-                ]
-            );
-        });
+        $this->connection->insert(
+            self::TABLE,
+            [
+                'id' => $event->getAggregateId()->getValue(),
+                'author_id' => $event->getAuthorId()->getValue(),
+                'object_id' => $event->getObjectId()->toString(),
+                'created_at' => $event->getCreatedAt()->format('Y-m-d H:i:s'),
+                'content' => $event->getContent(),
+            ]
+        );
     }
 }

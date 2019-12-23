@@ -80,7 +80,9 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
 
         Assert::notNull($attribute);
 
-        $label = $attribute->getLabel()->has($language) ? $attribute->getLabel()->get($language) : $attribute->getCode()->getValue();
+        $label = $attribute->getLabel()->has($language)
+            ? $attribute->getLabel()->get($language)
+            : $attribute->getCode()->getValue();
 
         $properties = [
             'attribute_id' => $attribute->getId()->getValue(),

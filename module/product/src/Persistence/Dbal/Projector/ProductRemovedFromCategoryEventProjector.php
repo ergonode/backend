@@ -10,16 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent;
 
 /**
  */
-class ProductRemovedFromCategoryEventProjector implements DomainEventProjectorInterface
+class ProductRemovedFromCategoryEventProjector
 {
     private const TABLE_PRODUCT_CATEGORY = 'product_category_product';
 
@@ -37,26 +34,16 @@ class ProductRemovedFromCategoryEventProjector implements DomainEventProjectorIn
     }
 
     /**
-     * {@inheritDoc}
+     * @param ProductRemovedFromCategoryEvent $event
+     *
+     * @throws DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(ProductRemovedFromCategoryEvent $event): void
     {
-        return $event instanceof ProductRemovedFromCategoryEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductRemovedFromCategoryEvent::class);
-        }
-
         $this->connection->delete(
             self::TABLE_PRODUCT_CATEGORY,
             [
-                'product_id' => $aggregateId->getValue(),
+                'product_id' => $event->getAggregateId()->getValue(),
                 'category_id' => CategoryId::fromCode($event->getCategoryCode()),
             ]
         );

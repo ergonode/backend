@@ -105,8 +105,10 @@ class AttributeGroupChangeAction
      *
      * @return Response
      */
-    public function __invoke(AttributeGroup $attributeGroup, Request $request): Response
-    {
+    public function __invoke(
+        AttributeGroup $attributeGroup,
+        Request $request
+    ): Response {
         try {
             $model = new UpdateAttributeGroupFormModel();
             $form = $this->formFactory->create(AttributeGroupUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);

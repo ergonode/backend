@@ -64,6 +64,7 @@ class ProductGridColumnBuilder
      * @param Language                   $defaultLanguage
      *
      * @return array
+     *
      * @throws \Exception
      */
     public function build(GridConfigurationInterface $configuration, Language $defaultLanguage): array

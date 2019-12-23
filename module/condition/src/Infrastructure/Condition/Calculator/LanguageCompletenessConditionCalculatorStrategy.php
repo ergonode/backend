@@ -65,6 +65,7 @@ class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalcul
      * @param ConditionInterface|LanguageCompletenessCondition $configuration
      *
      * @return bool
+     *
      * @throws \Exception
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool

@@ -30,6 +30,8 @@ class TemplateGroup extends AbstractAggregateRoot
     /**
      * @param TemplateGroupId $id
      * @param string          $name
+     *
+     * @throws \Exception
      */
     public function __construct(TemplateGroupId $id, string $name)
     {
@@ -57,7 +59,7 @@ class TemplateGroup extends AbstractAggregateRoot
      */
     protected function applyTemplateGroupCreatedEvent(TemplateGroupCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->name = $event->getName();
     }
 }

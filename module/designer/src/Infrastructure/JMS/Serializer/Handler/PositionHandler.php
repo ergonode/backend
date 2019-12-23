@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\JMS\Serializer\Handler;
 
@@ -55,8 +55,12 @@ class PositionHandler implements SubscribingHandlerInterface
      *
      * @return array
      */
-    public function serialize(SerializationVisitorInterface $visitor, Position $position, array $type, Context $context): array
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        Position $position,
+        array $type,
+        Context $context
+    ): array {
         return ['x' => $position->getX(), 'y' => $position->getY()];
     }
 
@@ -68,8 +72,12 @@ class PositionHandler implements SubscribingHandlerInterface
      *
      * @return Position
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Position
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): Position {
         return new Position($data['x'], $data['y']);
     }
 }

@@ -47,8 +47,6 @@ class CategoryTree extends AbstractAggregateRoot
     private $categories;
 
     /**
-     * CategoryTree constructor.
-     *
      * @param CategoryTreeId     $id
      * @param string             $code
      * @param TranslatableString $name
@@ -86,17 +84,21 @@ class CategoryTree extends AbstractAggregateRoot
 
     /**
      * @param TranslatableString $name
+     *
+     * @throws \Exception
      */
     public function changeName(TranslatableString $name): void
     {
         if ($this->name->getTranslations() !== $name->getTranslations()) {
-            $this->apply(new CategoryTreeNameChangedEvent($this->name, $name));
+            $this->apply(new CategoryTreeNameChangedEvent($this->id, $this->name, $name));
         }
     }
 
     /**
-     * @param CategoryId $categoryId
-     * @param CategoryId $parentId
+     * @param CategoryId      $categoryId
+     * @param CategoryId|null $parentId
+     *
+     * @throws \Exception
      */
     public function addCategory(CategoryId $categoryId, CategoryId $parentId = null): void
     {
@@ -104,17 +106,19 @@ class CategoryTree extends AbstractAggregateRoot
             throw new \InvalidArgumentException(\sprintf('Category %s already exists', $categoryId->getValue()));
         }
 
-        $this->apply(new CategoryTreeCategoryAddedEvent($categoryId, $parentId));
+        $this->apply(new CategoryTreeCategoryAddedEvent($this->id, $categoryId, $parentId));
     }
 
     /**
-     * @param Node[] $categories
+     * @param array $categories
+     *
+     * @throws \Exception
      */
     public function updateCategories(array $categories): void
     {
         Assert::allIsInstanceOf($categories, Node::class);
 
-        $this->apply(new CategoryTreeCategoriesChangedEvent($categories));
+        $this->apply(new CategoryTreeCategoriesChangedEvent($this->id, $categories));
     }
 
     /**
@@ -142,7 +146,7 @@ class CategoryTree extends AbstractAggregateRoot
     protected function applyCategoryTreeCreatedEvent(CategoryTreeCreatedEvent $event): void
     {
         $this->categories = [];
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->code = $event->getCode();
         $this->name = $event->getName();
     }
@@ -169,7 +173,7 @@ class CategoryTree extends AbstractAggregateRoot
     protected function applyCategoryTreeCategoryAddedEvent(CategoryTreeCategoryAddedEvent $event): void
     {
         $parent = $event->getParentId() ? $this->findNode($event->getParentId()) : null;
-        $node = new Node($event->getId());
+        $node = new Node($event->getCategoryId());
         if ($parent) {
             $parent->addChildren($node);
         } else {

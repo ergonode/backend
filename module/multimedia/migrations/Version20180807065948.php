@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
+use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -14,6 +15,8 @@ final class Version20180807065948 extends AbstractErgonodeMigration
 {
     /**
      * @param Schema $schema
+     *
+     * @throws \Exception
      */
     public function up(Schema $schema): void
     {
@@ -29,9 +32,49 @@ final class Version20180807065948 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'MULTIMEDIA_CREATE', 'Multimedia']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'MULTIMEDIA_READ', 'Multimedia']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'MULTIMEDIA_UPDATE', 'Multimedia']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'MULTIMEDIA_DELETE', 'Multimedia']);
+        $this->createMultimediaPrivileges(
+            [
+                'MULTIMEDIA_CREATE',
+                'MULTIMEDIA_READ',
+                'MULTIMEDIA_UPDATE',
+                'MULTIMEDIA_DELETE',
+            ]
+        );
+
+        $this->createEventStoreEvents([
+            MultimediaCreatedEvent::class => 'Multimedia added',
+        ]);
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Exception
+     */
+    private function createMultimediaPrivileges(array $collection): void
+    {
+        foreach ($collection as $code) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => 'Multimedia',
+            ]);
+        }
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Exception
+     */
+    private function createEventStoreEvents(array $collection): void
+    {
+        foreach ($collection as $class => $translation) {
+            $this->connection->insert('event_store_event', [
+                'id' => Uuid::uuid4()->toString(),
+                'event_class' => $class,
+                'translation_key' => $translation,
+            ]);
+        }
     }
 }

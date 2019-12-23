@@ -23,6 +23,8 @@ class AttributeCodeDataTransformerTest extends TestCase
      */
     protected $transformer;
 
+    /**
+     */
     protected function setUp()
     {
         $this->transformer = new AttributeCodeDataTransformer();
@@ -41,6 +43,7 @@ class AttributeCodeDataTransformerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     *
      * @expectedExceptionMessage Invalid AttributeCode object
      */
     public function testTransformException(): void
@@ -62,6 +65,7 @@ class AttributeCodeDataTransformerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     *
      * @expectedExceptionMessage Invalid attribute code color/col value
      */
     public function testReverseTransformException(): void

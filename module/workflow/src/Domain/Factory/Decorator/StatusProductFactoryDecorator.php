@@ -65,8 +65,13 @@ class StatusProductFactoryDecorator implements ProductFactoryInterface
      *
      * @throws \Exception
      */
-    public function create(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = []): AbstractProduct
-    {
+    public function create(
+        ProductId $id,
+        Sku $sku,
+        TemplateId $templateId,
+        array $categories = [],
+        array $attributes = []
+    ): AbstractProduct {
         $workflow = $this->repository->load(WorkflowId::fromCode(Workflow::DEFAULT));
         if ($workflow && $workflow->hasDefaultStatus()) {
             $attributes[StatusSystemAttribute::CODE] = new StringValue($workflow->getDefaultStatus()->getValue());

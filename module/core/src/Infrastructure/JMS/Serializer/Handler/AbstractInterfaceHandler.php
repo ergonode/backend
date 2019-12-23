@@ -80,6 +80,7 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
      * @param Context                         $context
      *
      * @return object
+     *
      * @throws \ReflectionException
      */
     public function deserialize(DeserializationVisitorInterface $visitor, array $data, array $type, Context $context)

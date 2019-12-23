@@ -24,6 +24,8 @@ class PriceAttributeFactoryTest extends TestCase
      */
     private $createCommand;
 
+    /**
+     */
     protected function setUp()
     {
         $this->createCommand = $this->createMock(CreateAttributeCommand::class);
