@@ -4,11 +4,18 @@
     "description": "Ergonode - Attribute Image",
     "homepage": "https://ergonode.com",
     "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.2",
         "doctrine/collections": "^1.6",
-        "ergonode/api": "dev-master",
-        "ergonode/attribute": "dev-master",
+        "ergonode/api": "^0.5.1",
+        "ergonode/attribute": "^0.5.1",
         "jms/serializer": "^3.1",
         "nelmio/api-doc-bundle": "^3.4",
         "symfony/http-foundation": "^4.3"

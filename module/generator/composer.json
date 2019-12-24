@@ -4,13 +4,20 @@
     "description": "Ergonode - Generator",
     "homepage": "https://ergonode.com",
     "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.2",
         "ext-json": "*",
         "doctrine/collections": "^1.6",
         "doctrine/dbal": "^2.9",
-        "ergonode/core": "dev-master",
-        "ergonode/es": "dev-master",
+        "ergonode/core": "^0.5.1",
+        "ergonode/es": "^0.5.1",
         "nette/php-generator": "^3.2",
         "symfony/http-foundation": "^4.2"
     },

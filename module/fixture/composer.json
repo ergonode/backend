@@ -4,9 +4,16 @@
     "description": "Ergonode - Fixture",
     "homepage": "https://ergonode.com",
     "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.2",
-        "ergonode/es": "dev-master",
+        "ergonode/es": "^0.5.1",
         "nelmio/alice": "^3.5",
         "symfony/config": "^4.3",
         "symfony/dependency-injection": "^4.3",

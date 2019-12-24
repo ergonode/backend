@@ -4,12 +4,19 @@
     "description": "Ergonode - Value",
     "homepage": "https://ergonode.com",
     "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.9",
-        "ergonode/attribute": "dev-master",
-        "ergonode/core": "dev-master",
-        "ergonode/es": "dev-master",
+        "ergonode/attribute": "^0.5.1",
+        "ergonode/core": "^0.5.1",
+        "ergonode/es": "^0.5.1",
         "jms/serializer": "^3.1",
         "ramsey/uuid": "^3.8"
     },

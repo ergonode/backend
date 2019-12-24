@@ -4,13 +4,20 @@
     "description": "Ergonode - Category Tree",
     "homepage": "https://ergonode.com",
     "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.9",
-        "ergonode/api": "dev-master",
-        "ergonode/category": "dev-master",
-        "ergonode/es": "dev-master",
-        "ergonode/migration": "dev-master",
+        "ergonode/api": "^0.5.1",
+        "ergonode/category": "^0.5.1",
+        "ergonode/es": "^0.5.1",
+        "ergonode/migration": "^0.5.1",
         "friendsofsymfony/rest-bundle": "^2.5",
         "jms/serializer": "^3.1",
         "nelmio/api-doc-bundle": "^3.4",

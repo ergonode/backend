@@ -4,16 +4,23 @@
     "description": "Ergonode - Editor",
     "homepage": "https://ergonode.com",
     "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.9",
-        "ergonode/api": "dev-master",
-        "ergonode/attribute": "dev-master",
-        "ergonode/core": "dev-master",
-        "ergonode/es": "dev-master",
-        "ergonode/grid": "dev-master",
-        "ergonode/product": "dev-master",
-        "ergonode/value": "dev-master",
+        "ergonode/api": "^0.5.1",
+        "ergonode/attribute": "^0.5.1",
+        "ergonode/core": "^0.5.1",
+        "ergonode/es": "^0.5.1",
+        "ergonode/grid": "^0.5.1",
+        "ergonode/product": "^0.5.1",
+        "ergonode/value": "^0.5.1",
         "jms/serializer": "^3.1",
         "nelmio/api-doc-bundle": "^3.4",
         "ramsey/uuid": "^3.8",

@@ -4,13 +4,21 @@
     "description": "Ergonode - Grid",
     "homepage": "https://ergonode.com",
     "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.2",
         "ext-json": "*",
         "doctrine/collections": "^1.6",
         "doctrine/dbal": "^2.9",
-        "ergonode/api": "dev-master",
-        "ergonode/core": "dev-master",
+        "ergonode/attribute": "^0.5.1",
+        "ergonode/api": "^0.5.1",
+        "ergonode/core": "^0.5.1",
         "symfony/http-foundation": "^4.3"
     },
     "require-dev": {
