@@ -48,8 +48,7 @@ class CreateAttributeCommandTest extends TestCase
         array $parameters,
         array $options,
         bool $system
-    ): void
-    {
+    ): void {
         $command = new CreateAttributeCommand(
             $type,
             $attributeCode,
