@@ -50,7 +50,11 @@ class DeleteAttributeCommandHandler
     public function __invoke(DeleteAttributeCommand $command): void
     {
         $attribute = $this->repository->load($command->getId());
-        Assert::isInstanceOf($attribute, AbstractAttribute::class, sprintf('Attribute with ID "%s" not found', $command->getId()));
+        Assert::isInstanceOf(
+            $attribute,
+            AbstractAttribute::class,
+            sprintf('Attribute with ID "%s" not found', $command->getId())
+        );
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
         if (!$relationships->isEmpty()) {

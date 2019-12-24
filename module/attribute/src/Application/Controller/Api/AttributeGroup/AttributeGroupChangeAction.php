@@ -111,7 +111,9 @@ class AttributeGroupChangeAction
     ): Response {
         try {
             $model = new UpdateAttributeGroupFormModel();
-            $form = $this->formFactory->create(AttributeGroupUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $form = $this
+                ->formFactory
+                ->create(AttributeGroupUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {

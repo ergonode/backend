@@ -48,7 +48,10 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select(sprintf('ag.id, ag.name->>\'%s\' AS label', $language->getCode()))
-            ->addSelect('(SELECT count(*) FROM attribute_group_attribute WHERE attribute_group_id = ag.id) AS elements_count')
+            ->addSelect(
+                '(SELECT count(*) FROM attribute_group_attribute '.
+                ' WHERE attribute_group_id = ag.id) AS elements_count'
+            )
             ->from(self::TABLE, 'ag')
             ->execute()
             ->fetchAll();
@@ -124,7 +127,10 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select(sprintf('ag.id, ag.code, ag.name->>\'%s\' AS name', $language->getCode()))
-            ->addSelect('(SELECT count(*) FROM attribute_group_attribute WHERE attribute_group_id = ag.id) AS elements_count')
+            ->addSelect(
+                '(SELECT count(*) FROM attribute_group_attribute  WHERE attribute_group_id = ag.id)'.
+                ' AS elements_count'
+            )
             ->from(self::TABLE, 'ag');
     }
 }

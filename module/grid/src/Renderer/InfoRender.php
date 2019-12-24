@@ -24,8 +24,11 @@ class InfoRender
      *
      * @return array
      */
-    public function render(AbstractGrid $grid, GridConfigurationInterface $configuration, DataSetInterface $dataSet): array
-    {
+    public function render(
+        AbstractGrid $grid,
+        GridConfigurationInterface $configuration,
+        DataSetInterface $dataSet
+    ): array {
         return [
                 'offset' => $configuration->getOffset(),
                 'limit' => $configuration->getLimit(),

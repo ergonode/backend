@@ -51,7 +51,9 @@ class AddAttributeOptionCommandHandler
         $attributeId = $command->getAttributeId();
         $attributeType = $this->query->findAttributeType($command->getAttributeId());
 
-        if ($attributeType && in_array($attributeType->getValue(), [SelectAttribute::TYPE, MultiSelectAttribute::TYPE], true)) {
+        if ($attributeType &&
+            in_array($attributeType->getValue(), [SelectAttribute::TYPE, MultiSelectAttribute::TYPE], true)
+        ) {
             $oldOption = $this->query->findAttributeOption($command->getAttributeId(), $key);
             $newOption = $command->getOption();
 

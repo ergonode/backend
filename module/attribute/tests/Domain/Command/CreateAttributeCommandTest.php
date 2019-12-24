@@ -46,7 +46,17 @@ class CreateAttributeCommandTest extends TestCase
         array $parameters,
         array $options
     ): void {
-        $command = new CreateAttributeCommand($type, $attributeCode, $label, $hint, $placeholder, $multilingual, $groups, $parameters, $options);
+        $command = new CreateAttributeCommand(
+            $type,
+            $attributeCode,
+            $label,
+            $hint,
+            $placeholder,
+            $multilingual,
+            $groups,
+            $parameters,
+            $options
+        );
         $this->assertInstanceOf(AttributeId::class, $command->getId());
         $this->assertSame($type, $command->getType());
         $this->assertSame($attributeCode, $command->getCode());

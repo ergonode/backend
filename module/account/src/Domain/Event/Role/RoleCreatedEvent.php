@@ -62,8 +62,13 @@ class RoleCreatedEvent implements DomainEventInterface
      * @param Privilege[] $privileges
      * @param bool        $hidden
      */
-    public function __construct(RoleId $id, string $name, string $description, array $privileges = [], bool $hidden = false)
-    {
+    public function __construct(
+        RoleId $id,
+        string $name,
+        string $description,
+        array $privileges = [],
+        bool $hidden = false
+    ) {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
         $this->id = $id;

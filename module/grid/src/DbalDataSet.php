@@ -40,8 +40,14 @@ class DbalDataSet extends AbstractDbalDataSet
      *
      * @return \Traversable
      */
-    public function getItems(array $columns, FilterValueCollection $values, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable
-    {
+    public function getItems(
+        array $columns,
+        FilterValueCollection $values,
+        int $limit,
+        int $offset,
+        ?string $field = null,
+        string $order = 'ASC'
+    ): \Traversable {
         $queryBuilder = clone $this->queryBuilder;
         $this->buildFilters($queryBuilder, $values, $columns);
         $queryBuilder->setMaxResults($limit);

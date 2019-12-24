@@ -63,7 +63,8 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
         $className = sprintf('%sRepository', $entity);
         $entityClass = sprintf('Ergonode\%s\Domain\Entity\%s', ucfirst($module), $entity);
         $entityIdClass = sprintf('Ergonode\%s\Domain\Entity\%sId', ucfirst($module), $entity);
-        $repositoryInterface = sprintf('Ergonode\%s\Domain\Repository\%sRepositoryInterface', ucfirst($module), $entity);
+        $repositoryInterface =
+            sprintf('Ergonode\%s\Domain\Repository\%sRepositoryInterface', ucfirst($module), $entity);
         $namespace = sprintf('Ergonode\%s\Persistence\Dbal\Repository', ucfirst($module));
 
         $phpNamespace = $file->addNamespace($namespace);
@@ -90,7 +91,13 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
         $property->addBody(sprintf('    $class = new \ReflectionClass(%s::class);', ucfirst($entity)));
         $property->addBody('    $aggregate = $class->newInstanceWithoutConstructor();');
         $property->addBody('    if (!$aggregate instanceof AbstractAggregateRoot) {');
-        $property->addBody(sprintf('        throw new \LogicException(sprintf(\'Impossible to initialize "%%s"\', %s::class));', ucfirst($entity)));
+        $property
+            ->addBody(
+                sprintf(
+                    '        throw new \LogicException(sprintf(\'Impossible to initialize "%%s"\', %s::class));',
+                    ucfirst($entity)
+                )
+            );
         $property->addBody('    }');
         $property->addBody('    $aggregate->initialize($stream);');
         $property->addBody('');

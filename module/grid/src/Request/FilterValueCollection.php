@@ -63,7 +63,8 @@ class FilterValueCollection implements \IteratorAggregate
                         $columnLanguage = new Language($columnData[1]);
                     }
 
-                    $this->filters[$matches[1][0]][] = new FilterValue($columnName, $matches[2][0], $value, $columnLanguage);
+                    $this->filters[$matches[1][0]][] =
+                        new FilterValue($columnName, $matches[2][0], $value, $columnLanguage);
                 }
             }
         }

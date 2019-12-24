@@ -58,7 +58,8 @@ class CreateCommandHandlerClassBuilder implements BuilderInterface
     {
         $file = $this->builder->build();
         $className = sprintf('Create%sCommandHandler', $entity);
-        $repositoryInterface = sprintf('Ergonode\%s\Domain\Repository\%sRepositoryInterface', ucfirst($module), $entity);
+        $repositoryInterface =
+            sprintf('Ergonode\%s\Domain\Repository\%sRepositoryInterface', ucfirst($module), $entity);
         $factoryInterface = sprintf('Ergonode\%s\Domain\Factory\%sFactoryInterface', ucfirst($module), $entity);
 
         $namespace = sprintf('Ergonode\%s\Infrastructure\Handler', ucfirst($module));
@@ -90,10 +91,14 @@ class CreateCommandHandlerClassBuilder implements BuilderInterface
      */
     private function buildConstructor(string $module, string $entity, array $properties = []): Method
     {
-        $repositoryInterface = sprintf('Ergonode\%s\Domain\Repository\%sRepositoryInterface', ucfirst($module), $entity);
-        $factoryInterface = sprintf('Ergonode\%s\Domain\Factory\%sFactoryInterface', ucfirst($module), $entity);
+        $repositoryInterface =
+            sprintf('Ergonode\%s\Domain\Repository\%sRepositoryInterface', ucfirst($module), $entity);
+        $factoryInterface =
+            sprintf('Ergonode\%s\Domain\Factory\%sFactoryInterface', ucfirst($module), $entity);
 
-        $method = $this->methodBuilder->build('__construct', ['repository' => $repositoryInterface, 'factory' => $factoryInterface]);
+        $method = $this
+            ->methodBuilder
+            ->build('__construct', ['repository' => $repositoryInterface, 'factory' => $factoryInterface]);
         $method->addBody('$this->repository = $repository;');
         $method->addBody('$this->factory = $factory;');
 

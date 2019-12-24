@@ -146,7 +146,15 @@ class ProductDraft extends AbstractAggregateRoot
         }
 
         if ((string) $this->attributes[$attributeCode->getValue()] !== (string) $new) {
-            $this->apply(new ProductDraftValueChanged($this->id, $attributeCode, $this->attributes[$attributeCode->getValue()], $new));
+            $this
+                ->apply(
+                    new ProductDraftValueChanged(
+                        $this->id,
+                        $attributeCode,
+                        $this->attributes[$attributeCode->getValue()],
+                        $new
+                    )
+                );
         }
     }
 
@@ -159,7 +167,14 @@ class ProductDraft extends AbstractAggregateRoot
             throw new \RuntimeException('Value note exists');
         }
 
-        $this->apply(new ProductDraftValueRemoved($this->id, $attributeCode, $this->attributes[$attributeCode->getValue()]));
+        $this
+            ->apply(
+                new ProductDraftValueRemoved(
+                    $this->id,
+                    $attributeCode,
+                    $this->attributes[$attributeCode->getValue()]
+                )
+            );
     }
 
     /**
