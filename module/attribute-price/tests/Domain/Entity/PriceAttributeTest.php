@@ -67,7 +67,14 @@ class PriceAttributeTest extends TestCase
      */
     public function testAttributeCreation(): void
     {
-        $attribute = new PriceAttribute($this->id, $this->code, $this->label, $this->placeholder, $this->hint, $this->currency);
+        $attribute = new PriceAttribute(
+            $this->id,
+            $this->code,
+            $this->label,
+            $this->placeholder,
+            $this->hint,
+            $this->currency
+        );
         $this->assertEquals($this->currency, $attribute->getCurrency());
         $this->assertEquals($this->id, $attribute->getId());
         $this->assertEquals($this->code, $attribute->getCode());
@@ -82,7 +89,14 @@ class PriceAttributeTest extends TestCase
     public function testAttributeCurrencyChange(): void
     {
         $currency = new Currency('NEW');
-        $attribute = new PriceAttribute($this->id, $this->code, $this->label, $this->placeholder, $this->hint, $this->currency);
+        $attribute = new PriceAttribute(
+            $this->id,
+            $this->code,
+            $this->label,
+            $this->placeholder,
+            $this->hint,
+            $this->currency
+        );
         $attribute->changeCurrency($currency);
         $this->assertNotEquals($this->currency, $attribute->getCurrency());
         $this->assertEquals($currency, $attribute->getCurrency());
