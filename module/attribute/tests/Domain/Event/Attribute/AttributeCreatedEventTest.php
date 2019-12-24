@@ -44,7 +44,20 @@ class AttributeCreatedEventTest extends TestCase
         $class = 'class';
         $parameters = [];
 
-        $event = new AttributeCreatedEvent($attributeId, $attributeCode, $label, $hint, $placeholder, $multilingual, $type, $class, $parameters, $editable, $deletable, $system);
+        $event = new AttributeCreatedEvent(
+            $attributeId,
+            $attributeCode,
+            $label,
+            $hint,
+            $placeholder,
+            $multilingual,
+            $type,
+            $class,
+            $parameters,
+            $editable,
+            $deletable,
+            $system
+        );
 
         $this->assertSame($type, $event->getType());
         $this->assertSame($attributeCode, $event->getCode());
