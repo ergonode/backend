@@ -9,15 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Tests\Domain\Event;
 
-use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
+use Ergonode\Designer\Domain\Event\TemplateRemovedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class TemplateElementAddedEventTest extends TestCase
+class TemplateRemovedEventTest extends TestCase
 {
     /**
      */
@@ -25,13 +24,11 @@ class TemplateElementAddedEventTest extends TestCase
     {
         /** @var TemplateId | MockObject $id */
         $id = $this->createMock(TemplateId::class);
+        $reason = 'reason';
 
-        /** @var TemplateElement | MockObject $element */
-        $element = $this->createMock(TemplateElement::class);
-
-        $event = new TemplateElementAddedEvent($id, $element);
+        $event = new TemplateRemovedEvent($id, $reason);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($element, $event->getElement());
+        $this->assertSame($reason, $event->getReason());
     }
 }

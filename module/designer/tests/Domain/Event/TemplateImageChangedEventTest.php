@@ -9,15 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Tests\Domain\Event;
 
-use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
+use Ergonode\Designer\Domain\Event\TemplateImageChangedEvent;
+use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class TemplateElementAddedEventTest extends TestCase
+class TemplateImageChangedEventTest extends TestCase
 {
     /**
      */
@@ -26,12 +26,16 @@ class TemplateElementAddedEventTest extends TestCase
         /** @var TemplateId | MockObject $id */
         $id = $this->createMock(TemplateId::class);
 
-        /** @var TemplateElement | MockObject $element */
-        $element = $this->createMock(TemplateElement::class);
+        /** @var MultimediaId | MockObject $from */
+        $from = $this->createMock(MultimediaId::class);
 
-        $event = new TemplateElementAddedEvent($id, $element);
+        /** @var MultimediaId | MockObject $to */
+        $to = $this->createMock(MultimediaId::class);
+
+        $event = new TemplateImageChangedEvent($id, $from, $to);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($element, $event->getElement());
+        $this->assertSame($from, $event->getFrom());
+        $this->assertSame($to, $event->getTo());
     }
 }
