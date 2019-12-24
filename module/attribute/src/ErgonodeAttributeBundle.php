@@ -15,6 +15,8 @@ use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeVal
 use Ergonode\Core\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+// phpcs:ignore
+
 /**
  */
 class ErgonodeAttributeBundle extends AbstractModule

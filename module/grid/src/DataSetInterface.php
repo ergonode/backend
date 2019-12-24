@@ -25,7 +25,14 @@ interface DataSetInterface
      *
      * @return \Traversable
      */
-    public function getItems(array $columns, FilterValueCollection $values, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable;
+    public function getItems(
+        array $columns,
+        FilterValueCollection $values,
+        int $limit,
+        int $offset,
+        ?string $field = null,
+        string $order = 'ASC'
+    ): \Traversable;
 
     /**
      * @param FilterValueCollection $values

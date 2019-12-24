@@ -45,15 +45,24 @@ class AttributeTypeDictionaryProvider
      */
     public function getDictionary(Language $language): array
     {
-        $result[TextAttribute::TYPE] = $this->translator->trans(TextAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[TextareaAttribute::TYPE] = $this->translator->trans(TextareaAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[NumericAttribute::TYPE] = $this->translator->trans(NumericAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[SelectAttribute::TYPE] = $this->translator->trans(SelectAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[MultiSelectAttribute::TYPE] = $this->translator->trans(MultiSelectAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[PriceAttribute::TYPE] = $this->translator->trans(PriceAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[DateAttribute::TYPE] = $this->translator->trans(DateAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[UnitAttribute::TYPE] = $this->translator->trans(UnitAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[ImageAttribute::TYPE] = $this->translator->trans(ImageAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[TextAttribute::TYPE] =
+            $this->translator->trans(TextAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[TextareaAttribute::TYPE] =
+            $this->translator->trans(TextareaAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[NumericAttribute::TYPE] =
+            $this->translator->trans(NumericAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[SelectAttribute::TYPE] =
+            $this->translator->trans(SelectAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[MultiSelectAttribute::TYPE] =
+            $this->translator->trans(MultiSelectAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[PriceAttribute::TYPE] =
+            $this->translator->trans(PriceAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[DateAttribute::TYPE] =
+            $this->translator->trans(DateAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[UnitAttribute::TYPE] =
+            $this->translator->trans(UnitAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[ImageAttribute::TYPE] =
+            $this->translator->trans(ImageAttribute::TYPE, [], 'attribute', $language->getCode());
 
         return $result;
     }

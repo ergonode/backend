@@ -11,7 +11,6 @@ namespace Ergonode\Value\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Value\Domain\Event\ValueAddedEvent;
 use Ergonode\Value\Domain\Event\ValueChangedEvent;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
@@ -70,7 +69,10 @@ class ValueChangedEventProjector
 
             if (false === $result) {
                 $this->connection->executeQuery(
-                    sprintf('INSERT INTO %s (id, type, value) VALUES (?, ?, ?) ON CONFLICT DO NOTHING', self::VALUE_TABLE),
+                    sprintf(
+                        'INSERT INTO %s (id, type, value) VALUES (?, ?, ?) ON CONFLICT DO NOTHING',
+                        self::VALUE_TABLE
+                    ),
                     [$newValueId->toString(), $type, $newValueId]
                 );
             }

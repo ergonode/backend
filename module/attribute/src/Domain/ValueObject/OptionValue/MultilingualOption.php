@@ -74,6 +74,7 @@ class MultilingualOption implements OptionInterface
     public function equal(OptionInterface $value): bool
     {
         return $value instanceof self &&
-            array_diff_assoc($value->getValue()->getTranslations(), $this->value->getTranslations()) === array_diff_assoc($this->value->getTranslations(), $value->getValue()->getTranslations());
+            array_diff_assoc($value->getValue()->getTranslations(), $this->value->getTranslations()) ===
+            array_diff_assoc($this->value->getTranslations(), $value->getValue()->getTranslations());
     }
 }
