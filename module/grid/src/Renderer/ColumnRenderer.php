@@ -62,8 +62,12 @@ class ColumnRenderer
      *
      * @return array
      */
-    public function renderColumn(string $id, ColumnInterface $column, GridConfigurationInterface $gridConfiguration, array $configuration): array
-    {
+    public function renderColumn(
+        string $id,
+        ColumnInterface $column,
+        GridConfigurationInterface $gridConfiguration,
+        array $configuration
+    ): array {
         $result = [];
 
         if ($column->hasLanguage()) {
@@ -77,20 +81,27 @@ class ColumnRenderer
         $result['label'] = $column->getLabel() ? $this->translator->trans($column->getLabel(), [], 'grid') : null;
         $result['visible'] = $column->isVisible();
 
-        if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) && $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true) {
+        if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) &&
+            $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true
+        ) {
             $result['editable'] = $column->isEditable();
         } else {
             $result['editable'] = false;
         }
 
-        if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) && $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true) {
+        if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) &&
+            $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true
+        ) {
             $result['deletable'] = $column->isDeletable();
         } else {
             $result['deletable'] = false;
         }
 
         if ($column->getFilter()) {
-            $result['filter'] = $this->filterRenderer->render($column->getField(), $column->getFilter(), $gridConfiguration->getFilters());
+            $result['filter'] =
+                $this
+                    ->filterRenderer
+                    ->render($column->getField(), $column->getFilter(), $gridConfiguration->getFilters());
         }
 
         foreach ($column->getExtensions() as $key => $value) {

@@ -68,8 +68,12 @@ abstract class AbstractDbalDataSet implements DataSetInterface
      * @param string       $operator
      * @param string|null  $givenValue
      */
-    private function buildMultiSelectQuery(QueryBuilder $query, string $field, string $operator, string $givenValue = null): void
-    {
+    private function buildMultiSelectQuery(
+        QueryBuilder $query,
+        string $field,
+        string $operator,
+        string $givenValue = null
+    ): void {
         if (null !== $givenValue) {
             $values = explode(',', $givenValue);
             foreach ($values as $value) {

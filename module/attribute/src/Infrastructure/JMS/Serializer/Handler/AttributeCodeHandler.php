@@ -56,8 +56,12 @@ class AttributeCodeHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, AttributeCode $attributeCode, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        AttributeCode $attributeCode,
+        array $type,
+        Context $context
+    ): string {
         return $attributeCode->getValue();
     }
 
@@ -69,8 +73,12 @@ class AttributeCodeHandler implements SubscribingHandlerInterface
      *
      * @return AttributeCode
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): AttributeCode
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): AttributeCode {
         return new AttributeCode($data);
     }
 }

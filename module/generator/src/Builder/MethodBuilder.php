@@ -24,8 +24,12 @@ class MethodBuilder
      *
      * @return Method
      */
-    public function build(string $methodName, array $properties = [], string $returnType = null, bool $nullable = false): Method
-    {
+    public function build(
+        string $methodName,
+        array $properties = [],
+        string $returnType = null,
+        bool $nullable = false
+    ): Method {
         $method = new Method($methodName);
         $method->setVisibility(ClassType::VISIBILITY_PUBLIC);
 

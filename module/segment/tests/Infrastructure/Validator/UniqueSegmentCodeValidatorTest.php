@@ -65,7 +65,8 @@ class UniqueSegmentCodeValidatorTest extends ConstraintValidatorTestCase
     public function testSegmentCodeNotValidValidation(): void
     {
         $constraint = new UniqueSegmentCode();
-        $value = '5XPeqpDgL2sJXSKSkgq7Wf3J0oI9fSAMznAdUJ16Jynr6ZYmL87ougT4WlHylg2iIYEkIhDy6icd5yhw2Bnx0l9agBlYf80MIqBtN';
+        $value =
+            '5XPeqpDgL2sJXSKSkgq7Wf3J0oI9fSAMznAdUJ16Jynr6ZYmL87ougT4WlHylg2iIYEkIhDy6icd5yhw2Bnx0l9agBlYf80MIqBtN';
         $this->validator->validate($value, $constraint);
 
         $assertion = $this->buildViolation($constraint->validMessage)->setParameter('{{ value }}', $value);

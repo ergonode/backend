@@ -48,7 +48,8 @@ class ExceptionListenerTest extends TestCase
     {
         $this->exceptionMapper = $this->createMock(ExceptionMapperInterface::class);
         $this->event = $this->createMock(ExceptionEvent::class);
-        $this->authenticationCredentialNotFoundException = $this->createMock(AuthenticationCredentialsNotFoundException::class);
+        $this->authenticationCredentialNotFoundException =
+            $this->createMock(AuthenticationCredentialsNotFoundException::class);
         $this->handlerFailedException = $this->createMock(HandlerFailedException::class);
     }
 
@@ -57,7 +58,10 @@ class ExceptionListenerTest extends TestCase
     public function testInvokeWithoutMapping()
     {
         $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
-        $this->event->expects($this->once())->method('getException')->willReturn($this->authenticationCredentialNotFoundException);
+        $this
+            ->event
+            ->expects($this->once())
+            ->method('getException')->willReturn($this->authenticationCredentialNotFoundException);
         $this->event
             ->expects($this->once())
             ->method('setResponse')->willreturnCallback(function ($response) {
@@ -73,8 +77,12 @@ class ExceptionListenerTest extends TestCase
     public function testInvokeWithoutMappingWithHandlerFailedException()
     {
         $this->exceptionMapper->expects($this->once())->method('map')->willReturn(null);
-        $this->event->expects($this->once())->method('getException')->willReturn($this->handlerFailedException);
-        $this->handlerFailedException->method('getNestedExceptions')->willReturn([$this->authenticationCredentialNotFoundException]);
+        $this
+            ->event
+            ->expects($this->once())->method('getException')->willReturn($this->handlerFailedException);
+        $this
+            ->handlerFailedException
+            ->method('getNestedExceptions')->willReturn([$this->authenticationCredentialNotFoundException]);
         $this->event
             ->expects($this->once())
             ->method('setResponse')->willreturnCallback(function ($response) {
@@ -98,8 +106,13 @@ class ExceptionListenerTest extends TestCase
                 'message' => 'test message',
             ],
         ]);
-        $this->event->expects($this->once())->method('getException')->willReturn($this->handlerFailedException);
-        $this->handlerFailedException->expects($this->once())->method('getNestedExceptions')->willReturn([$this->authenticationCredentialNotFoundException]);
+        $this
+            ->event
+            ->expects($this->once())->method('getException')->willReturn($this->handlerFailedException);
+        $this
+            ->handlerFailedException
+            ->expects($this->once())
+            ->method('getNestedExceptions')->willReturn([$this->authenticationCredentialNotFoundException]);
         $this->event
             ->expects($this->once())
             ->method('setResponse')->willreturnCallback(function ($response) {
@@ -123,7 +136,10 @@ class ExceptionListenerTest extends TestCase
                 'message' => 'test message',
             ],
         ]);
-        $this->event->expects($this->once())->method('getException')->willReturn($this->authenticationCredentialNotFoundException);
+        $this
+            ->event
+            ->expects($this->once())
+            ->method('getException')->willReturn($this->authenticationCredentialNotFoundException);
         $this->event
             ->expects($this->once())
             ->method('setResponse')->willreturnCallback(function ($response) {

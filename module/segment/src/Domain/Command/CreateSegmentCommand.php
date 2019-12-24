@@ -60,8 +60,12 @@ class CreateSegmentCommand
      * @param TranslatableString  $description
      * @param ConditionSetId|null $conditionSetId
      */
-    public function __construct(SegmentCode $code, TranslatableString $name, TranslatableString $description, ?ConditionSetId $conditionSetId = null)
-    {
+    public function __construct(
+        SegmentCode $code,
+        TranslatableString $name,
+        TranslatableString $description,
+        ?ConditionSetId $conditionSetId = null
+    ) {
         $this->id = SegmentId::fromCode($code);
         $this->code = $code;
         $this->name = $name;

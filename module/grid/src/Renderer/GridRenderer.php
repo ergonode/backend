@@ -57,13 +57,24 @@ class GridRenderer
      *
      * @return array
      */
-    public function render(AbstractGrid $grid, GridConfigurationInterface $configuration, DataSetInterface $dataSet, Language $language): array
-    {
+    public function render(
+        AbstractGrid $grid,
+        GridConfigurationInterface $configuration,
+        DataSetInterface $dataSet,
+        Language $language
+    ): array {
         $grid->init($configuration, $language);
 
         $field = $configuration->getField() ?: $grid->getField();
         $order = $configuration->getOrder() ?: $grid->getOrder();
-        $records = $dataSet->getItems($grid->getColumns(), $configuration->getFilters(), $configuration->getLimit(), $configuration->getOffset(), $field, $order);
+        $records = $dataSet->getItems(
+            $grid->getColumns(),
+            $configuration->getFilters(),
+            $configuration->getLimit(),
+            $configuration->getOffset(),
+            $field,
+            $order
+        );
 
         if (GridConfigurationInterface::VIEW_GRID === $configuration->getView()) {
             $result['configuration'] = $grid->getConfiguration();

@@ -50,7 +50,14 @@ class DeleteTreeCommandHandler
     public function __invoke(DeleteTreeCommand $command): void
     {
         $categoryTree = $this->repository->load($command->getId());
-        Assert::isInstanceOf($categoryTree, CategoryTree::class, sprintf('Can\'t find category tree with ID "%s"', $command->getId()));
+        Assert::isInstanceOf(
+            $categoryTree,
+            CategoryTree::class,
+            sprintf(
+                'Can\'t find category tree with ID "%s"',
+                $command->getId()
+            )
+        );
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
         if (!$relationships->isEmpty()) {

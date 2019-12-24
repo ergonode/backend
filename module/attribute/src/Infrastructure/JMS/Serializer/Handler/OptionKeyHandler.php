@@ -55,8 +55,12 @@ class OptionKeyHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, OptionKey $optionKey, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        OptionKey $optionKey,
+        array $type,
+        Context $context
+    ): string {
         return $optionKey->getValue();
     }
 
@@ -68,8 +72,12 @@ class OptionKeyHandler implements SubscribingHandlerInterface
      *
      * @return OptionKey
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): OptionKey
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): OptionKey {
         return new OptionKey($data);
     }
 }
