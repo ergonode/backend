@@ -21,8 +21,14 @@ use PHPUnit\Framework\TestCase;
 class AttributeCreatedEventTest extends TestCase
 {
     /**
+     * @param $multilingual
+     * @param $editable
+     * @param $deletable
+     * @param $system
+     *
+     * @dataProvider dataProvider
      */
-    public function testEventCreation(): void
+    public function testEventCreation($multilingual, $editable, $deletable, $system): void
     {
         /** @var AttributeId|MockObject $attributeId */
         $attributeId = $this->createMock(AttributeId::class);
@@ -34,13 +40,9 @@ class AttributeCreatedEventTest extends TestCase
         $hint = $this->createMock(TranslatableString::class);
         /** @var TranslatableString | MockObject $placeholder */
         $placeholder = $this->createMock(TranslatableString::class);
-        $multilingual = true;
         $type = 'string';
         $class = 'class';
         $parameters = [];
-        $editable = false;
-        $deletable = false;
-        $system = true;
 
         $event = new AttributeCreatedEvent($attributeId, $attributeCode, $label, $hint, $placeholder, $multilingual, $type, $class, $parameters, $editable, $deletable, $system);
 
@@ -50,10 +52,31 @@ class AttributeCreatedEventTest extends TestCase
         $this->assertSame($label, $event->getLabel());
         $this->assertSame($hint, $event->getHint());
         $this->assertSame($placeholder, $event->getPlaceholder());
-        $this->assertTrue($event->isMultilingual());
+        $this->assertSame($multilingual, $event->isMultilingual());
         $this->assertSame($parameters, $event->getParameters());
         $this->assertSame($editable, $event->isEditable());
         $this->assertSame($deletable, $event->isDeletable());
-        $this->assertTrue($event->isSystem());
+        $this->assertSame($system, $event->isSystem());
+    }
+
+    /**
+     * @return array
+     */
+    public function dataProvider(): array
+    {
+        return [
+            [
+                'multilingual' => true,
+                'editable' => true,
+                'deletable' => true,
+                'system' => true,
+            ],
+            [
+                'multilingual' => false,
+                'editable' => false,
+                'deletable' => false,
+                'system' => false,
+            ],
+        ];
     }
 }
