@@ -12,8 +12,8 @@ namespace Ergonode\Grid;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
-use Ergonode\Grid\Request\FilterValue;
 use Ergonode\Grid\Request\FilterValueCollection;
+use Ergonode\Grid\Request\FilterValue;
 use Ramsey\Uuid\Uuid;
 
 /**

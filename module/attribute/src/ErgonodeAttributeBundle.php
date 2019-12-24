@@ -11,11 +11,10 @@ namespace Ergonode\Attribute;
 
 use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeFactoryInterfaceCompilerPass;
 use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeUpdaterInterfaceCompilerPass;
+// phpcs:ignore
 use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeValueConstraintStrategyInterfaceCompilerPass;
 use Ergonode\Core\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-
-// phpcs:ignore
 
 /**
  */
