@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductSimple\Infrastructure\Action\Extension;
+namespace Ergonode\Transformer\Infrastructure\Action\Extension;
 
 use Ergonode\Attribute\Domain\Command\AddAttributeOptionCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;

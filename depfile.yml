@@ -83,34 +83,14 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Authentication\\.*
-#  - name: Condition
-#    collectors:
-#      - type: className
-#        regex: .*Ergonode\\Condition\\.*
-#  - name: Designer
-#    collectors:
-#      - type: className
-#        regex: .*Ergonode\\Designer\\.*
-#  - name: Editor
-#    collectors:
-#      - type: className
-#        regex: .*Ergonode\\Editor\\.*
-  - name: Fixture
+  - name: Condition
     collectors:
       - type: className
-        regex: .*Ergonode\\Fixture\\.*
-#  - name: Generator
-#    collectors:
-#      - type: className
-#        regex: .*Ergonode\\Workflow\\.*
-  - name: Importer
+        regex: .*Ergonode\\Condition\\.*
+  - name: Designer
     collectors:
       - type: className
-        regex: .*Ergonode\\Importer\\.*
-  - name: Migration
-    collectors:
-      - type: className
-        regex: .*Ergonode\\Migration\\.*
+        regex: .*Ergonode\\Designer\\.*
   - name: Multimedia
     collectors:
       - type: className
@@ -119,6 +99,10 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Reader\\.*
+  - name: Importer
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Importer\\.*
   - name: Transformer
     collectors:
       - type: className
@@ -146,32 +130,40 @@ ruleset:
     - Grid
     - EventSourcing
     - Api
+    - Value
+    - Account
   AttributeDate:
     - Core
     - EventSourcing
     - Attribute
     - Api
+    - Value
   AttributeImage:
     - Core
     - EventSourcing
+    - Multimedia
     - Attribute
     - Api
+    - Value
   AttributePrice:
     - Core
     - EventSourcing
     - Attribute
     - Api
+    - Value
   AttributeUnit:
     - Core
     - EventSourcing
     - Attribute
     - Api
+    - Value
   Category:
     - Core
     - Grid
     - EventSourcing
     - Attribute
     - Api
+    - Value
   Comment:
     - Core
     - Grid
@@ -184,11 +176,14 @@ ruleset:
     - EventSourcing
     - Category
     - Api
+    - Value
   Completeness:
     - Core
     - Attribute
     - Product
     - Api
+    - Value
+    - Designer
   Product:
     - Core
     - Grid
@@ -197,19 +192,25 @@ ruleset:
     - AttributeDate
     - AttributeImage
     - AttributePrice
+    - AttributeUnit
     - Category
     - Api
+    - Value
+    - Account
+    - Designer
   ProductSimple:
     - Core
     - EventSourcing
     - Product
     - Category
     - Attribute
+    - Value
   Segment:
     - Core
     - EventSourcing
     - Grid
     - Api
+    - Condition
   Workflow:
     - Core
     - EventSourcing
@@ -221,10 +222,15 @@ ruleset:
     - Api
     - Account
     - Value
+    - Condition
+    - Designer
   Account:
     - Core
     - EventSourcing
+    - Grid
     - Api
+    - Multimedia
+    - Value
   Authentication:
     - Core
     - Account
@@ -232,7 +238,10 @@ ruleset:
     - Grid
     - Core
     - Api
+    - EventSourcing
+    - Multimedia
   Importer:
+    - Api
     - Core
     - Grid
     - Reader
@@ -241,14 +250,19 @@ ruleset:
     - Core
     - EventSourcing
     - Api
+    - Category
+    - CategoryTree
+    - Designer
+    - Product
+    - Value
+    - Attribute
   Reader:
     - Core
     - EventSourcing
     - Api
     - Grid
-  Fixture:
-    - Core
   Multimedia:
+    - Core
     - Api
     - EventSourcing
   TranslationDeepl:
@@ -256,6 +270,15 @@ ruleset:
     - Core
   Api:
     - Core
-  #Condition: ~
-  #Editor: ~
-  #Generator: ~
+  Value:
+    - EventSourcing
+  Condition:
+    - Api
+    - Core
+    - Completeness
+    - EventSourcing
+    - Grid
+    - Account
+    - Designer
+    - Product
+    - Attribute

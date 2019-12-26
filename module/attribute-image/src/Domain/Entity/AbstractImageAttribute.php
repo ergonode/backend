@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
+use Ergonode\Multimedia\Domain\ValueObject\ImageFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**

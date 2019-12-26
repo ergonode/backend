@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Application\Model;
 
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
+use Ergonode\Multimedia\Domain\ValueObject\ImageFormat;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;

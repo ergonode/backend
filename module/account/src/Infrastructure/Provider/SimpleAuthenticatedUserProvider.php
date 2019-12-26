@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\Provider;
+namespace Ergonode\Account\Infrastructure\Provider;
 
 use Ergonode\Account\Domain\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

@@ -17,7 +17,3 @@ services:
 
     Ergonode\AttributeImage\Infrastructure\:
         resource: '../../Infrastructure/*'
-
-    Ergonode\AttributeImage\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']

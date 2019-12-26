@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Multimedia\Application\Controller\Api;
+namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;

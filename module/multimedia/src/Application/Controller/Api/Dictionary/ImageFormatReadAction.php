@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\AttributeImage\Application\Controller\Api\Dictionary;
+namespace Ergonode\Multimedia\Application\Controller\Api\Dictionary;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\AttributeImage\Infrastructure\Provider\ImageFormatProvider;
+use Ergonode\Multimedia\Infrastructure\Provider\ImageFormatProvider;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

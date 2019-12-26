@@ -7,19 +7,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Grid\Column\Renderer;
+namespace Ergonode\Account\Infrastructure\Grid\Column\Renderer;
 
+use Ergonode\Account\Infrastructure\Grid\Column\LogColumn;
 use Ergonode\Grid\Column\Exception\UnsupportedColumnException;
 use Ergonode\Grid\ColumnInterface;
-use Ergonode\Product\Infrastructure\Grid\Column\HistoryColumn;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Ergonode\Grid\Column\Renderer\ColumnRendererInterface;
 
 /**
  */
-class HistoryColumnRenderer implements ColumnRendererInterface
+class LogColumnRenderer implements ColumnRendererInterface
 {
     /**
      * @var TranslatorInterface
@@ -39,7 +40,7 @@ class HistoryColumnRenderer implements ColumnRendererInterface
      */
     public function supports(ColumnInterface $column): bool
     {
-        return $column instanceof HistoryColumn;
+        return $column instanceof LogColumn;
     }
 
     /**
@@ -63,10 +64,10 @@ class HistoryColumnRenderer implements ColumnRendererInterface
                     $parameters[sprintf('%%%s%%', $key)] = $parameter['value'];
                 }
                 if ($parameter['type'] === StringCollectionValue::TYPE) {
-                    $parameters[sprintf('%%%s%%', $key)] = implode(',', $parameter['value']);
+                    $parameters[sprintf('%%%s%%', $key)] = implode(', ', $parameter['value']);
                 }
                 if ($parameter['type'] === TranslatableStringValue::TYPE) {
-                    $parameters[sprintf('%%%s%%', $key)] = implode(',', $parameter['value']);
+                    $parameters[sprintf('%%%s%%', $key)] = implode(', ', $parameter['value']);
                 }
             }
         }

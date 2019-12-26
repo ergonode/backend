@@ -14,7 +14,6 @@ use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -82,15 +81,5 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array
     {
         return $this->query->findProductIdByAttributeId($attributeId, $valueId);
-    }
-
-    /**
-     * @param StatusId $statusId
-     *
-     * @return array
-     */
-    public function findProductIdByStatusId(StatusId $statusId): array
-    {
-        return $this->query->findProductIdByStatusId($statusId);
     }
 }

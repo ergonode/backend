@@ -7,11 +7,11 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductSimple\Tests\Infrastructure\Action\Extension;
+namespace Ergonode\Transformer\Tests\Infrastructure\Action\Extension;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\ProductSimple\Infrastructure\Action\Extension\ProductAttributeExtension;
+use Ergonode\Transformer\Infrastructure\Action\Extension\ProductAttributeExtension;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -62,7 +62,7 @@ class ProductAttributeExtensionTest extends TestCase
 
     /**
      */
-    public function testNoValuesExtend()
+    public function testNoValuesExtend(): void
     {
         $this->record->expects($this->once())->method('has')->willReturn(false);
         $result = $this->extension->extend($this->record, $this->data);

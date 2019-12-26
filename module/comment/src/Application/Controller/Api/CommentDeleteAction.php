@@ -12,7 +12,7 @@ namespace Ergonode\Comment\Application\Controller\Api;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Comment\Domain\Command\DeleteCommentCommand;
 use Ergonode\Comment\Domain\Entity\Comment;
-use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
+use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;

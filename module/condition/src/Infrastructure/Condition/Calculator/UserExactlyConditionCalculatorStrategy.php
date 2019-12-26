@@ -13,7 +13,7 @@ use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Condition\Domain\Condition\UserExactlyCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
-use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
+use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Webmozart\Assert\Assert;

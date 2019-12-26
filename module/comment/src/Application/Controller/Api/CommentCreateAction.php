@@ -9,10 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Application\Controller\Api;
 
-use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
+use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Comment\Application\Form\CreateCommentForm;
 use Ergonode\Comment\Application\Form\Model\CreateCommentFormModel;
 use Ergonode\Comment\Domain\Command\CreateCommentCommand;
