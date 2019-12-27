@@ -29,5 +29,10 @@
         "psr-4": {
             "Ergonode\\AttributeUnit\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\AttributeUnit\\Tests\\": "tests/"
+        }
     }
 }

@@ -36,5 +36,10 @@
         "psr-4": {
             "Ergonode\\Importer\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\Importer\\Tests\\": "tests/"
+        }
     }
 }

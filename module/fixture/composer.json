@@ -30,5 +30,10 @@
         "psr-4": {
             "Ergonode\\Fixture\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\Fixture\\Tests\\": "tests/"
+        }
     }
 }

@@ -26,5 +26,10 @@
         "psr-4": {
             "Ergonode\\Migration\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\Migration\\Tests\\": "tests/"
+        }
     }
 }

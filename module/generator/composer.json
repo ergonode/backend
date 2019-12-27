@@ -28,5 +28,10 @@
         "psr-4": {
             "Ergonode\\Generator\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\Generator\\Tests\\": "tests/"
+        }
     }
 }

@@ -35,5 +35,10 @@
         "psr-4": {
             "Ergonode\\Reader\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\Reader\\Tests\\": "tests/"
+        }
     }
 }

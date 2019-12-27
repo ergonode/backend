@@ -35,5 +35,10 @@
         "psr-4": {
             "Ergonode\\Comment\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\Comment\\Tests\\": "tests/"
+        }
     }
 }

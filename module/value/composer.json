@@ -27,5 +27,10 @@
         "psr-4": {
             "Ergonode\\Value\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\Value\\Tests\\": "tests/"
+        }
     }
 }

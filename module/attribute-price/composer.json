@@ -31,5 +31,10 @@
         "psr-4": {
             "Ergonode\\AttributePrice\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\AttributePrice\\Tests\\": "tests/"
+        }
     }
 }

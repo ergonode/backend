@@ -38,5 +38,10 @@
         "psr-4": {
             "Ergonode\\Product\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\Product\\Tests\\": "tests/"
+        }
     }
 }

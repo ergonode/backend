@@ -33,5 +33,10 @@
         "psr-4": {
             "Ergonode\\CategoryTree\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\CategoryTree\\Tests\\": "tests/"
+        }
     }
 }

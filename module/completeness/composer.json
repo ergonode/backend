@@ -35,5 +35,10 @@
         "psr-4": {
             "Ergonode\\Completeness\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\Completeness\\Tests\\": "tests/"
+        }
     }
 }
