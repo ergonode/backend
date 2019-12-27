@@ -26,6 +26,7 @@ class EmailTest extends TestCase
         $email = new Email($value);
         $this->assertEquals($value, $email->getValue());
         $this->assertEquals($value, (string) $email);
+        $this->assertTrue($email->isEqual($email));
     }
 
     /**
