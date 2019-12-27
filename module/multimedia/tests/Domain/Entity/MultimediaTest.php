@@ -11,6 +11,7 @@ namespace Ergonode\Multimedia\Tests\Domain\Entity;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,6 +24,7 @@ class MultimediaTest extends TestCase
      */
     public function testMultimediaCreate(): void
     {
+        /** @var MultimediaId | MockObject $multimediaId */
         $multimediaId = $this->createMock(MultimediaId::class);
         $name = 'name';
         $ext = 'extension';
@@ -44,5 +46,6 @@ class MultimediaTest extends TestCase
         $this->assertEquals($ext, $multimedia->getExtension());
         $this->assertEquals($size, $multimedia->getSize());
         $this->assertEquals($mime, $multimedia->getMime());
+        $this->assertEquals($crc, $multimedia->getCrc());
     }
 }
