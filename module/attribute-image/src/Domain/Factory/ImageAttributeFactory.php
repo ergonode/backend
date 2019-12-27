@@ -14,7 +14,6 @@ use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
 
 /**
  */

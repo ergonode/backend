@@ -12,7 +12,7 @@ namespace Ergonode\Account\Application\Controller\Api\Log;
 use Ergonode\Account\Domain\Query\LogQueryInterface;
 use Ergonode\Account\Infrastructure\Grid\LogGrid;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
+use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

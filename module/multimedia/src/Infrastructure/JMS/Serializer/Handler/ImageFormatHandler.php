@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\AttributeImage\Infrastructure\JMS\Serializer\Handler;
+namespace Ergonode\Multimedia\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
+use Ergonode\Multimedia\Domain\ValueObject\ImageFormat;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;

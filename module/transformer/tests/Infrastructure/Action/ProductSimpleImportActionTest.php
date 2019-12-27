@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductSimple\Tests\Infrastructure\Action;
+namespace Ergonode\Transformer\Tests\Infrastructure\Action;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Designer\Domain\Entity\Template;
@@ -19,9 +19,9 @@ use Ergonode\Product\Domain\Provider\ProductFactoryProvider;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\ProductSimple\Infrastructure\Action\Extension\ProductAttributeExtension;
-use Ergonode\ProductSimple\Infrastructure\Action\Extension\ProductCategoryExtension;
-use Ergonode\ProductSimple\Infrastructure\Action\ProductSimpleImportAction;
+use Ergonode\Transformer\Infrastructure\Action\Extension\ProductAttributeExtension;
+use Ergonode\Transformer\Infrastructure\Action\Extension\ProductCategoryExtension;
+use Ergonode\Transformer\Infrastructure\Action\ProductSimpleImportAction;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use InvalidArgumentException;

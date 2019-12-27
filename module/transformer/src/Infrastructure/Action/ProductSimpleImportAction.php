@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductSimple\Infrastructure\Action;
+namespace Ergonode\Transformer\Infrastructure\Action;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Designer\Infrastructure\Generator\DefaultTemplateGenerator;
@@ -19,8 +19,8 @@ use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
-use Ergonode\ProductSimple\Infrastructure\Action\Extension\ProductAttributeExtension;
-use Ergonode\ProductSimple\Infrastructure\Action\Extension\ProductCategoryExtension;
+use Ergonode\Transformer\Infrastructure\Action\Extension\ProductAttributeExtension;
+use Ergonode\Transformer\Infrastructure\Action\Extension\ProductCategoryExtension;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Infrastructure\Action\ImportActionInterface;
 use Ergonode\Transformer\Infrastructure\Exception\ProcessorException;

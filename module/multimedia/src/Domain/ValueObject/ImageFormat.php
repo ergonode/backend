@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\AttributeImage\Domain\ValueObject;
+namespace Ergonode\Multimedia\Domain\ValueObject;
 
 /**
  */

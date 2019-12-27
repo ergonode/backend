@@ -7,9 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\AttributeImage\Infrastructure\Provider;
-
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
+namespace Ergonode\Multimedia\Infrastructure\Provider;
 
 /**
  */

@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Infrastructure\Action;
+namespace Ergonode\Transformer\Infrastructure\Action;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
@@ -18,7 +18,6 @@ use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Transformer\Infrastructure\Action\ImportActionInterface;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 

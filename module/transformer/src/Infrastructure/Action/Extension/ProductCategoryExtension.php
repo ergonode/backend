@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductSimple\Infrastructure\Action\Extension;
+namespace Ergonode\Transformer\Infrastructure\Action\Extension;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;

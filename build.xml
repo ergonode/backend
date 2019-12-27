@@ -162,25 +162,25 @@
         </exec>
     </target>
 
-    <target name="deptrac:dump-png" description="Deptrac dump to png image">
-        <exec command="./bin/deptrac analyze --formatter-graphviz=1 --formatter-graphviz-dump-image=deptrac.png"
+    <target name="check:dependencies:report-png" description="Deptrac dump to png image">
+        <exec command="./bin/deptrac analyze --formatter-graphviz=1 --formatter-graphviz-dump-image=${dir.reports}/deptrac.png"
               checkreturn="true"
               logoutput="true">
         </exec>
     </target>
-    <target name="deptrac:dump-dot" description="Deptrac dump to dot file">
-        <exec command="./bin/deptrac analyze --formatter-graphviz=1  --formatter-graphviz-dump-dot=deptrac.dot"
+    <target name="check:dependencies:report-dot" description="Deptrac dump to dot file">
+        <exec command="./bin/deptrac analyze --formatter-graphviz=1  --formatter-graphviz-dump-dot=${dir.reports}/deptrac.dot"
               checkreturn="false"
               logoutput="true">
         </exec>
     </target>
-    <target name="deptrac:dump-svg"  depends="deptrac:dump-dot"  description="Deptrac dump to svg image">
-        <exec command="dot deptrac.dot -Tsvg  -o deptrac.svg"
+    <target name="check:dependencies:report-svg"  depends="check:dependencies:report-dot"  description="Deptrac dump to svg image">
+        <exec command="dot deptrac.dot -Tsvg  -o ${dir.reports}/deptrac.svg"
               checkreturn="true"
               logoutput="true">
         </exec>
     </target>
-    <target name="deptrac:check-dependencies" description="Deptrac check dependencies">
+    <target name="check:dependencies" description="Deptrac check dependencies">
         <exec command="./bin/deptrac"
               checkreturn="true"
               logoutput="true">

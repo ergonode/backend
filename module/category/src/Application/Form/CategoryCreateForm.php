@@ -45,7 +45,7 @@ class CategoryCreateForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CategoryCreateFormModel::class,
-            'translation_domain' => 'product',
+            'translation_domain' => 'category',
         ]);
     }
 

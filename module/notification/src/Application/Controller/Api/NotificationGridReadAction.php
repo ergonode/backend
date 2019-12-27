@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Notification\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
+use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
