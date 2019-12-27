@@ -10,7 +10,7 @@ namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 
 /**

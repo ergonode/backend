@@ -14,10 +14,10 @@ use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
-use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
-use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
