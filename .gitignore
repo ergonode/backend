@@ -12,3 +12,4 @@
 /behat.yml
 /.env.local.php
 /.phpcs-cache
+/.deptrac.cache

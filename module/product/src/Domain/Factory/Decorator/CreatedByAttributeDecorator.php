@@ -63,13 +63,19 @@ class CreatedByAttributeDecorator implements ProductFactoryInterface
      *
      * @throws \Exception
      */
-    public function create(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = []): AbstractProduct
-    {
+    public function create(
+        ProductId $id,
+        Sku $sku,
+        TemplateId $templateId,
+        array $categories = [],
+        array $attributes = []
+    ): AbstractProduct {
         $token = $this->tokenStorage->getToken();
         if ($token) {
             /** @var User $user */
             $user = $token->getUser();
-            $attributes[CreatedBySystemAttribute::CODE] = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
+            $value = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
+            $attributes[CreatedBySystemAttribute::CODE] = $value;
         }
 
         return $this->factory->create($id, $sku, $templateId, $categories, $attributes);

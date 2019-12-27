@@ -7,17 +7,9 @@ services:
     Ergonode\AttributeImage\Application\:
         resource: '../../Application/*'
 
-    Ergonode\AttributeImage\Application\Controller\Api\:
-        resource: '../../Application/Controller/Api/*'
-        tags: ['controller.service_arguments']
-
     Ergonode\AttributeImage\Domain\:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject,Type}'
 
     Ergonode\AttributeImage\Infrastructure\:
         resource: '../../Infrastructure/*'
-
-    Ergonode\AttributeImage\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']

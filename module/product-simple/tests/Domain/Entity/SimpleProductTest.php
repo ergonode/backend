@@ -70,7 +70,13 @@ class SimpleProductTest extends TestCase
      */
     public function testConstruct(): void
     {
-        $product = new SimpleProduct($this->id, $this->sku, $this->template, [$this->category], [$this->code->getValue() => $this->attribute]);
+        $product = new SimpleProduct(
+            $this->id,
+            $this->sku,
+            $this->template,
+            [$this->category],
+            [$this->code->getValue() => $this->attribute]
+        );
         $this->assertEquals($this->id, $product->getId());
         $this->assertEquals($this->sku, $product->getSku());
         $this->assertEquals($this->template, $product->getTemplateId());
@@ -103,7 +109,13 @@ class SimpleProductTest extends TestCase
      */
     public function testAttributeManipulation(): void
     {
-        $product = new SimpleProduct($this->id, $this->sku, $this->template, [$this->category], [$this->code->getValue() => $this->attribute]);
+        $product = new SimpleProduct(
+            $this->id,
+            $this->sku,
+            $this->template,
+            [$this->category],
+            [$this->code->getValue() => $this->attribute]
+        );
         $this->assertTrue($product->hasAttribute($this->code));
         $product->removeAttribute($this->code);
         $this->assertFalse($product->hasAttribute($this->code));
