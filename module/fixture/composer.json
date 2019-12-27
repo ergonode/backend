@@ -13,12 +13,14 @@
     },
     "require": {
         "php": "^7.2",
+        "ergonode/condition": "^0.5.1",
         "ergonode/es": "^0.5.1",
+        "ergonode/workflow": "^0.5.1",
         "nelmio/alice": "^3.5",
         "symfony/config": "^4.3",
+        "symfony/console": "^4.3",
         "symfony/dependency-injection": "^4.3",
         "symfony/http-kernel": "^4.3",
-        "symfony/command": "^4.3",
         "symfony/yaml": "^4.3"
     },
     "require-dev": {
