@@ -39,6 +39,7 @@
         "symfony/monolog-bundle": "^3.4",
         "symfony/options-resolver": "^4.3",
         "symfony/orm-pack": "^1.0",
+        "symfony/security": "^4.3",
         "symfony/security-csrf": "^4.3",
         "symfony/serializer": "^4.3",
         "symfony/stopwatch": "^4.3",
