@@ -118,7 +118,16 @@ class ProductSimpleImportActionTest extends TestCase
         $template->expects($this->once())->method('getId')->willReturn($templateId);
         $this->templateProvider->expects($this->once())->method('provide')->willReturn($template);
         $productFactoryInterface = $this->createMock(ProductFactoryInterface::class);
-        $productFactoryInterface->expects($this->any())->method('create')->with($this->isInstanceOf(ProductId::class), new Sku('sku'), $templateId, [new CategoryCode('example')], ['color' => new StringValue('example')]);
+        $productFactoryInterface
+            ->expects($this->any())
+            ->method('create')
+            ->with(
+                $this->isInstanceOf(ProductId::class),
+                new Sku('sku'),
+                $templateId,
+                [new CategoryCode('example')],
+                ['color' => new StringValue('example')]
+            );
         $this->productFactoryProvider->expects($this->once())->method('provide')->willReturn($productFactoryInterface);
         $this->productRepository->expects($this->once())->method('save');
         $this->action->action($this->record);
@@ -141,7 +150,16 @@ class ProductSimpleImportActionTest extends TestCase
         $template->expects($this->once())->method('getId')->willReturn($templateId);
         $this->templateProvider->expects($this->once())->method('provide')->willReturn($template);
         $productFactoryInterface = $this->createMock(ProductFactoryInterface::class);
-        $productFactoryInterface->expects($this->any())->method('create')->with($this->isInstanceOf(ProductId::class), new Sku('string'), $templateId, [new CategoryCode('example')], ['color' => new StringValue('example')]);
+        $productFactoryInterface
+            ->expects($this->any())
+            ->method('create')
+            ->with(
+                $this->isInstanceOf(ProductId::class),
+                new Sku('string'),
+                $templateId,
+                [new CategoryCode('example')],
+                ['color' => new StringValue('example')]
+            );
         $this->productFactoryProvider->expects($this->once())->method('provide')->willReturn($productFactoryInterface);
         $this->productRepository->expects($this->once())->method('save');
         $this->action->action($this->record);
@@ -159,7 +177,11 @@ class ProductSimpleImportActionTest extends TestCase
                 'categories' => [new CategoryCode('example')],
             ]
         );
-        $this->productQuery->expects($this->once())->method('findBySku')->willReturn(['id' => 'a499cff6-e402-4d7b-b370-7b1850620871']);
+        $this
+            ->productQuery
+            ->expects($this->once())
+            ->method('findBySku')
+            ->willReturn(['id' => 'a499cff6-e402-4d7b-b370-7b1850620871']);
         $this->action->action($this->record);
     }
 }

@@ -60,7 +60,8 @@ class TemplateElementPropertyInterfaceHandlerTest extends TestCase
      */
     public function testDeserializeAttributeTemplateElementProperty(): void
     {
-        $testValue = '{"variant":"attribute","attribute_id":{"value":"c33ad15f-9719-53c5-bba7-22ebee12855e"},"required":false}';
+        $testValue =
+            '{"variant":"attribute","attribute_id":{"value":"c33ad15f-9719-53c5-bba7-22ebee12855e"},"required":false}';
 
         /** @var AttributeTemplateElementProperty $result */
         $result = $this->serializer->deserialize($testValue, TemplateElementPropertyInterface::class, 'json');

@@ -32,13 +32,39 @@ final class Version20180619083830 extends AbstractErgonodeMigration
         ');
         $this->addSql('CREATE UNIQUE INDEX product_sku_key ON product USING btree(sku)');
 
-        $this->addSql('CREATE TABLE product_value (product_id UUID NOT NULL, attribute_id UUID NOT NULL, value_id UUID NOT NULL, PRIMARY KEY(product_id, attribute_id, value_id))');
-        $this->addSql('ALTER TABLE product_value ADD CONSTRAINT product_value_product_id_fk FOREIGN KEY (product_id) REFERENCES public.product on update cascade on delete cascade');
-        $this->addSql('ALTER TABLE product_value ADD CONSTRAINT product_value_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES public.attribute on update cascade on delete cascade');
+        $this->addSql('
+            CREATE TABLE product_value
+                (
+                    product_id UUID NOT NULL,
+                    attribute_id UUID NOT NULL,
+                    value_id UUID NOT NULL,
+                    PRIMARY KEY(product_id, attribute_id, value_id)
+                )');
+        $this->addSql(
+            'ALTER TABLE product_value 
+                    ADD CONSTRAINT product_value_product_id_fk
+                        FOREIGN KEY (product_id) REFERENCES public.product on update cascade on delete cascade'
+        );
+        $this->addSql('
+                ALTER TABLE product_value
+                    ADD CONSTRAINT product_value_attribute_id_fk
+                        FOREIGN KEY (attribute_id) REFERENCES public.attribute on update cascade on delete cascade');
 
-        $this->addSql('CREATE TABLE product_category_product (category_id UUID NOT NULL, product_id UUID NOT NULL, PRIMARY KEY(category_id, product_id))');
-        $this->addSql('ALTER TABLE product_category_product ADD CONSTRAINT product_category_product_product_id_fk FOREIGN KEY (product_id) REFERENCES public.product on update cascade on delete cascade');
-        $this->addSql('ALTER TABLE product_category_product ADD CONSTRAINT product_category_product_category_id_fk FOREIGN KEY (category_id) REFERENCES public.category on update cascade on delete cascade');
+        $this->addSql('
+                CREATE TABLE product_category_product
+                    (
+                        category_id UUID NOT NULL,
+                        product_id UUID NOT NULL,
+                        PRIMARY KEY(category_id, product_id)
+                    )');
+        $this->addSql('
+            ALTER TABLE product_category_product
+                ADD CONSTRAINT product_category_product_product_id_fk
+                    FOREIGN KEY (product_id) REFERENCES public.product on update cascade on delete cascade');
+        $this->addSql('
+            ALTER TABLE product_category_product
+                ADD CONSTRAINT product_category_product_category_id_fk
+                    FOREIGN KEY (category_id) REFERENCES public.category on update cascade on delete cascade');
 
         $this->addSql('CREATE TABLE product_status (code VARCHAR(32), name VARCHAR(64), PRIMARY KEY(code))');
         $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['DRAFT', 'Draft']);
@@ -46,10 +72,22 @@ final class Version20180619083830 extends AbstractErgonodeMigration
         $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['TO_ACCEPTED', 'To accept']);
         $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['TO_CORRECT', 'To correct']);
 
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'PRODUCT_CREATE', 'Product']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'PRODUCT_READ', 'Product']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'PRODUCT_UPDATE', 'Product']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'PRODUCT_DELETE', 'Product']);
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'PRODUCT_CREATE', 'Product']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'PRODUCT_READ', 'Product']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'PRODUCT_UPDATE', 'Product']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'PRODUCT_DELETE', 'Product']
+        );
 
         $this->createEventStoreEvents([
             'Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent' => 'Product added to category',

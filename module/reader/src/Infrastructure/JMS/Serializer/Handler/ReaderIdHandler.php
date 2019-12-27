@@ -55,8 +55,12 @@ class ReaderIdHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, ReaderId $id, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        ReaderId $id,
+        array $type,
+        Context $context
+    ): string {
         return $id->getValue();
     }
 
@@ -68,8 +72,12 @@ class ReaderIdHandler implements SubscribingHandlerInterface
      *
      * @return ReaderId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): ReaderId
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): ReaderId {
         return new ReaderId($data);
     }
 }

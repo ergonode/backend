@@ -51,8 +51,11 @@ class CompletenessReadAction
      * @param TemplateRepositoryInterface $repository
      * @param DraftProvider               $provider
      */
-    public function __construct(CompletenessCalculator $calculator, TemplateRepositoryInterface $repository, DraftProvider $provider)
-    {
+    public function __construct(
+        CompletenessCalculator $calculator,
+        TemplateRepositoryInterface $repository,
+        DraftProvider $provider
+    ) {
         $this->calculator = $calculator;
         $this->repository = $repository;
         $this->provider = $provider;

@@ -93,7 +93,11 @@ class ProductCreateAction
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var ProductCreateFormModel $data */
             $data = $form->getData();
-            $command = new CreateProductCommand(new Sku($data->sku), new TemplateId($data->template), $data->categories);
+            $command = new CreateProductCommand(
+                new Sku($data->sku),
+                new TemplateId($data->template),
+                $data->categories
+            );
             $this->messageBus->dispatch($command);
 
             return new CreatedResponse($command->getId());

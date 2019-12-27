@@ -64,8 +64,14 @@ class DbalProductDataSet extends AbstractDbalDataSet
      *
      * @throws \Exception
      */
-    public function getItems(array $columns, FilterValueCollection $values, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable
-    {
+    public function getItems(
+        array $columns,
+        FilterValueCollection $values,
+        int $limit,
+        int $offset,
+        ?string $field = null,
+        string $order = 'ASC'
+    ): \Traversable {
         $query = $this->build($columns);
 
         $qb = $this->connection->createQueryBuilder();

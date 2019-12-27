@@ -32,7 +32,9 @@ final class Version20180101000000 extends AbstractErgonodeMigration
                 CONSTRAINT event_store_pkey PRIMARY KEY (id)
             )
         ');
-        $this->addSql('CREATE UNIQUE INDEX event_store_unique_key ON event_store USING btree (aggregate_id, sequence)');
+        $this->addSql(
+            'CREATE UNIQUE INDEX event_store_unique_key ON event_store USING btree (aggregate_id, sequence)'
+        );
 
         $this->addSql('
             CREATE TABLE event_store_history (
@@ -47,7 +49,10 @@ final class Version20180101000000 extends AbstractErgonodeMigration
                 CONSTRAINT event_store_history_pkey PRIMARY KEY (id)
             )
         ');
-        $this->addSql('CREATE UNIQUE INDEX event_store_history_unique_key ON event_store_history USING btree (aggregate_id, sequence, variant)');
+        $this->addSql(
+            'CREATE UNIQUE INDEX event_store_history_unique_key 
+                    ON event_store_history USING btree (aggregate_id, sequence, variant)'
+        );
 
         $this->addSql('
             CREATE TABLE event_store_event (
@@ -57,6 +62,8 @@ final class Version20180101000000 extends AbstractErgonodeMigration
                 CONSTRAINT event_store_event_pkey PRIMARY KEY (id)
             )
         ');
-        $this->addSql('CREATE UNIQUE INDEX event_store_event_unique_key ON event_store_event USING btree (event_class)');
+        $this->addSql(
+            'CREATE UNIQUE INDEX event_store_event_unique_key ON event_store_event USING btree (event_class)'
+        );
     }
 }

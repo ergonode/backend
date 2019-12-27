@@ -41,8 +41,11 @@ class CreateProductCommandHandler
      * @param CategoryRepositoryInterface $categoryRepository
      * @param ProductFactoryProvider      $productFactoryProvider
      */
-    public function __construct(ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository, ProductFactoryProvider $productFactoryProvider)
-    {
+    public function __construct(
+        ProductRepositoryInterface $productRepository,
+        CategoryRepositoryInterface $categoryRepository,
+        ProductFactoryProvider $productFactoryProvider
+    ) {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
         $this->productFactoryProvider = $productFactoryProvider;

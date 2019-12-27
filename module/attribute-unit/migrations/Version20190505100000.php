@@ -21,10 +21,15 @@ final class Version20190505100000 extends AbstractErgonodeMigration
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "ltree"');
 
-        $this->addSql('CREATE TABLE unit (id UUID NOT NULL, name VARCHAR(64), unit VARCHAR(8) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql(
+            'CREATE TABLE unit (id UUID NOT NULL, name VARCHAR(64), unit VARCHAR(8) NOT NULL, PRIMARY KEY(id))'
+        );
 
         foreach ($this->getUnits() as $name => $unit) {
-            $this->addSql('INSERT INTO unit (id, name, unit) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), $name, $unit]);
+            $this->addSql(
+                'INSERT INTO unit (id, name, unit) VALUES (?, ?, ?)',
+                [Uuid::uuid4()->toString(), $name, $unit]
+            );
         }
     }
 
