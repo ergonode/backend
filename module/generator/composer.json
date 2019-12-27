@@ -16,8 +16,8 @@
         "ext-json": "*",
         "doctrine/collections": "^1.6",
         "doctrine/dbal": "^2.9",
-        "ergonode/core": "^0.5.1",
-        "ergonode/es": "^0.5.1",
+        "ergonode/core": "^0.5.0",
+        "ergonode/es": "^0.5.0",
         "nette/php-generator": "^3.2",
         "symfony/http-foundation": "^4.2"
     },
