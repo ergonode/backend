@@ -99,7 +99,19 @@ class User extends AbstractAggregateRoot implements UserInterface
         ?MultimediaId $avatarId = null,
         bool $isActive = true
     ) {
-        $this->apply(new UserCreatedEvent($id, $firstName, $lastName, $email, $language, $password, $roleId, $isActive, $avatarId));
+        $this->apply(
+            new UserCreatedEvent(
+                $id,
+                $firstName,
+                $lastName,
+                $email,
+                $language,
+                $password,
+                $roleId,
+                $isActive,
+                $avatarId
+            )
+        );
     }
 
     /**

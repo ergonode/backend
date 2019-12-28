@@ -50,8 +50,12 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
      * @param LanguageQueryInterface      $query
      * @param DraftProvider               $provider
      */
-    public function __construct(CompletenessCalculator $calculator, TemplateRepositoryInterface $repository, LanguageQueryInterface $query, DraftProvider $provider)
-    {
+    public function __construct(
+        CompletenessCalculator $calculator,
+        TemplateRepositoryInterface $repository,
+        LanguageQueryInterface $query,
+        DraftProvider $provider
+    ) {
         $this->calculator = $calculator;
         $this->repository = $repository;
         $this->query = $query;

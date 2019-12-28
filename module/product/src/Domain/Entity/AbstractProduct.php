@@ -74,8 +74,13 @@ abstract class AbstractProduct extends AbstractAggregateRoot
      *
      * @throws \Exception
      */
-    public function __construct(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = [])
-    {
+    public function __construct(
+        ProductId $id,
+        Sku $sku,
+        TemplateId $templateId,
+        array $categories = [],
+        array $attributes = []
+    ) {
         Assert::allIsInstanceOf($categories, CategoryCode::class);
 
         $attributes = array_filter(
@@ -239,7 +244,14 @@ abstract class AbstractProduct extends AbstractAggregateRoot
         }
 
         if ((string) $this->attributes[$attributeCode->getValue()] !== (string) $value) {
-            $this->apply(new ProductValueChangedEvent($this->id, $attributeCode, $this->attributes[$attributeCode->getValue()], $value));
+            $this->apply(
+                new ProductValueChangedEvent(
+                    $this->id,
+                    $attributeCode,
+                    $this->attributes[$attributeCode->getValue()],
+                    $value
+                )
+            );
         }
     }
 
@@ -254,7 +266,9 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             throw new \RuntimeException('Value note exists');
         }
 
-        $this->apply(new ProductValueRemovedEvent($this->id, $attributeCode, $this->attributes[$attributeCode->getValue()]));
+        $this->apply(
+            new ProductValueRemovedEvent($this->id, $attributeCode, $this->attributes[$attributeCode->getValue()])
+        );
     }
 
     /**

@@ -122,8 +122,12 @@ class DbalLanguageQuery implements LanguageQueryInterface
      *
      * @return array
      */
-    public function autocomplete(string $search = null, int $limit = null, string $field = null, ?string $order = 'ASC'): array
-    {
+    public function autocomplete(
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array {
         $query = $this->connection->createQueryBuilder()
             ->select(self::ALL_FIELDS)
             ->from(self::TABLE);

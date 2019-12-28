@@ -47,7 +47,9 @@ class DataSetQueryBuilder
         }
 
         $query->addSelect(sprintf(
-            '(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id  WHERE pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
+            '(SELECT value FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id  WHERE 
+            pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1)
+              AS "%s"',
             $attribute->getId()->getValue(),
             $language->getCode(),
             $key

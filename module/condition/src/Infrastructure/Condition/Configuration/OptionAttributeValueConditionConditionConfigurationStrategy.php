@@ -58,8 +58,12 @@ class OptionAttributeValueConditionConditionConfigurationStrategy implements Con
 
         return [
             'type' => OptionAttributeValueCondition::TYPE,
-            'name' => $this->translator->trans(OptionAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
-            'phrase' => $this->translator->trans(OptionAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
+            'name' => $this
+                ->translator
+                ->trans(OptionAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
+            'phrase' => $this
+                ->translator
+                ->trans(OptionAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
             'parameters' => [
                 [
                     'name' => 'attribute',

@@ -135,7 +135,9 @@ class DbalDomainEventStore implements DomainEventStoreInterface
         $table = $table ?: self::TABLE;
 
         $this->connection->transactional(function () use ($id, $stream, $table) {
-            $userId = $this->tokenStorage->getToken() ? $this->tokenStorage->getToken()->getUser()->getId()->getValue() : null;
+            $userId = $this->tokenStorage->getToken() ?
+                $this->tokenStorage->getToken()->getUser()->getId()->getValue() :
+                null;
             foreach ($stream as $envelope) {
                 $payload = $this->serializer->serialize($envelope->getEvent(), 'json');
                 $this->connection->insert(
@@ -181,7 +183,8 @@ class DbalDomainEventStore implements DomainEventStoreInterface
             $this->connection->executeQuery(
                 sprintf(
                     'INSERT INTO %s (aggregate_id, sequence, event_id, payload, recorded_by, recorded_at, variant) 
-                    SELECT aggregate_id, sequence, event_id, payload, recorded_by, recorded_at, %d FROM %s WHERE aggregate_id = ?',
+                    SELECT aggregate_id, sequence, event_id, payload, recorded_by, recorded_at, %d FROM %s WHERE 
+                     aggregate_id = ?',
                     $historyTable,
                     $version + 1,
                     $dataTable

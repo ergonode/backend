@@ -32,8 +32,10 @@ class CreateProcessorCommandHandler
      * @param TransformerRepositoryInterface $transformerRepository
      * @param ProcessorProcess               $processorProcess
      */
-    public function __construct(TransformerRepositoryInterface $transformerRepository, ProcessorProcess $processorProcess)
-    {
+    public function __construct(
+        TransformerRepositoryInterface $transformerRepository,
+        ProcessorProcess $processorProcess
+    ) {
         $this->transformerRepository = $transformerRepository;
         $this->processorProcess = $processorProcess;
     }
@@ -43,7 +45,12 @@ class CreateProcessorCommandHandler
      */
     public function __invoke(CreateProcessorCommand $command)
     {
-        $processor = new processor($command->getId(), $command->getTransformerId(), $command->getImportId(), $command->getAction());
+        $processor = new processor(
+            $command->getId(),
+            $command->getTransformerId(),
+            $command->getImportId(),
+            $command->getAction()
+        );
         $this->transformerRepository->save($processor);
         $this->processorProcess->process($processor);
     }

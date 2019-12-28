@@ -27,8 +27,13 @@ class ReaderFactory
      *
      * @return Reader
      */
-    public function create(ReaderId $readerId, string $name, string $type, array $configuration = [], array $formatters = []): Reader
-    {
+    public function create(
+        ReaderId $readerId,
+        string $name,
+        string $type,
+        array $configuration = [],
+        array $formatters = []
+    ): Reader {
         Assert::allIsInstanceOf($formatters, FormatterInterface::class);
 
         return new Reader(

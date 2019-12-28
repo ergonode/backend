@@ -30,8 +30,11 @@ class UiTemplateElementCompletenessStrategy implements TemplateElementCompletene
     /**
      * {@inheritDoc}
      */
-    public function getElementCompleteness(ProductDraft $draft, Language $language, TemplateElementPropertyInterface $properties): ?CompletenessElementReadModel
-    {
+    public function getElementCompleteness(
+        ProductDraft $draft,
+        Language $language,
+        TemplateElementPropertyInterface $properties
+    ): ?CompletenessElementReadModel {
         return null;
     }
 }

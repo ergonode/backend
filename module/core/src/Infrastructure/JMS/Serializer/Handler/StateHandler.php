@@ -55,8 +55,12 @@ class StateHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, State $state, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        State $state,
+        array $type,
+        Context $context
+    ): string {
         return $state->getValue();
     }
 

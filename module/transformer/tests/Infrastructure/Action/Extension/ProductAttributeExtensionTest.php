@@ -87,7 +87,11 @@ class ProductAttributeExtensionTest extends TestCase
         $this->record->expects($this->once())->method('has')->willReturn(true);
         $this->record->expects($this->once())->method('getColumns')->willReturn(['color' => new StringValue('black')]);
         $this->query->expects($this->any())->method('findAttributeType')->willReturn(new AttributeType('SELECT'));
-        $this->messageBus->expects($this->once())->method('dispatch')->willReturn(new Envelope($this->createMock(AttributeType::class)));
+        $this
+            ->messageBus
+            ->expects($this->once())
+            ->method('dispatch')
+            ->willReturn(new Envelope($this->createMock(AttributeType::class)));
         $result = $this->extension->extend($this->record, $this->data);
         $this->assertEquals('black', $result['attributes']['color']->getValue());
     }

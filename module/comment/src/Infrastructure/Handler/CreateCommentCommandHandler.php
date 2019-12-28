@@ -42,7 +42,14 @@ class CreateCommentCommandHandler
      */
     public function __invoke(CreateCommentCommand $command): void
     {
-        $entity = $this->factory->create($command->getId(), $command->getAuthorId(), $command->getObjectId(), $command->getContent());
+        $entity = $this
+            ->factory
+            ->create(
+                $command->getId(),
+                $command->getAuthorId(),
+                $command->getObjectId(),
+                $command->getContent()
+            );
         $this->repository->save($entity);
     }
 }
