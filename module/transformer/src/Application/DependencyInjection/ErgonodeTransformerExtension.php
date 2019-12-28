@@ -17,6 +17,8 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\ConverterMapperCompilerPass;
+use Ergonode\Transformer\Infrastructure\Converter\Mapper\ConverterMapperInterface;
 
 /**
  */
@@ -42,6 +44,10 @@ class ErgonodeTransformerExtension extends Extension
         $container
             ->registerForAutoconfiguration(ImportActionInterface::class)
             ->addTag(TransformerActionCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(ConverterMapperInterface::class)
+            ->addTag(ConverterMapperCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

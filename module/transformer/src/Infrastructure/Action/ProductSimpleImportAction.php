@@ -22,7 +22,6 @@ use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
 use Ergonode\Transformer\Infrastructure\Action\Extension\ProductAttributeExtension;
 use Ergonode\Transformer\Infrastructure\Action\Extension\ProductCategoryExtension;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Transformer\Infrastructure\Action\ImportActionInterface;
 use Ergonode\Transformer\Infrastructure\Exception\ProcessorException;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Webmozart\Assert\Assert;
