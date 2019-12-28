@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
 declare(strict_types = 1);
 
 namespace Ergonode\Migration;
@@ -8,7 +13,6 @@ use Doctrine\DBAL\Schema\Schema;
 use Ramsey\Uuid\Uuid;
 
 /**
- * Auto-generated Ergonode Migration Class:
  */
 final class Version20191104140000 extends AbstractErgonodeMigration
 {
