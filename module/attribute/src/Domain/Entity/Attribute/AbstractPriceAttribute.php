@@ -72,7 +72,15 @@ abstract class AbstractPriceAttribute extends AbstractAttribute
     public function changeCurrency(Currency $new): void
     {
         if ($this->getCurrency()->getCode() !== $new->getCode()) {
-            $this->apply(new AttributeParameterChangeEvent($this->id, self::CURRENCY, $this->getCurrency()->getCode(), $new->getCode()));
+            $this
+                ->apply(
+                    new AttributeParameterChangeEvent(
+                        $this->id,
+                        self::CURRENCY,
+                        $this->getCurrency()->getCode(),
+                        $new->getCode()
+                    )
+                );
         }
     }
 }

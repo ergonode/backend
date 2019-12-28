@@ -21,10 +21,15 @@ final class Version20190505110000 extends AbstractErgonodeMigration
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "ltree"');
 
-        $this->addSql('CREATE TABLE currency (id UUID NOT NULL, iso VARCHAR(3) NOT NULL, name VARCHAR(64), PRIMARY KEY(id))');
+        $this->addSql(
+            'CREATE TABLE currency (id UUID NOT NULL, iso VARCHAR(3) NOT NULL, name VARCHAR(64), PRIMARY KEY(id))'
+        );
 
         foreach ($this->getCurrencies() as $iso => $name) {
-            $this->addSql('INSERT INTO currency (id, iso, name) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), $iso, $name]);
+            $this->addSql(
+                'INSERT INTO currency (id, iso, name) VALUES (?, ?, ?)',
+                [Uuid::uuid4()->toString(), $iso, $name]
+            );
         }
     }
 

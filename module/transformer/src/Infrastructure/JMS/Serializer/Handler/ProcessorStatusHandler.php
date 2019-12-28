@@ -55,8 +55,12 @@ class ProcessorStatusHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, ProcessorStatus $id, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        ProcessorStatus $id,
+        array $type,
+        Context $context
+    ): string {
         return (string) $id;
     }
 
@@ -68,8 +72,12 @@ class ProcessorStatusHandler implements SubscribingHandlerInterface
      *
      * @return ProcessorStatus
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): ProcessorStatus
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): ProcessorStatus {
         return new ProcessorStatus($data);
     }
 }

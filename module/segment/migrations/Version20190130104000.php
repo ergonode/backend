@@ -36,10 +36,22 @@ final class Version20190130104000 extends AbstractErgonodeMigration
         ');
         $this->addSql('CREATE UNIQUE index segment_code_uindex ON segment (code)');
 
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_CREATE', 'Segment']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_READ', 'Segment']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_UPDATE', 'Segment']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'SEGMENT_DELETE', 'Segment']);
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'SEGMENT_CREATE', 'Segment']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'SEGMENT_READ', 'Segment']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'SEGMENT_UPDATE', 'Segment']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'SEGMENT_DELETE', 'Segment']
+        );
 
         $this->createEventStoreEvents([
             'Ergonode\Segment\Domain\Event\SegmentCreatedEvent' => 'Segment created',

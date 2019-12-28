@@ -50,7 +50,11 @@ class DeleteTransformerCommandHandler
     public function __invoke(DeleteTransformerCommand $command)
     {
         $transformer = $this->repository->load($command->getId());
-        Assert::isInstanceOf($transformer, Transformer::class, sprintf('Can\'t find transformer with ID "%s"', $command->getId()));
+        Assert::isInstanceOf(
+            $transformer,
+            Transformer::class,
+            sprintf('Can\'t find transformer with ID "%s"', $command->getId())
+        );
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
         if (!$relationships->isEmpty()) {

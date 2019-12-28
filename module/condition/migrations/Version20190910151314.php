@@ -33,15 +33,28 @@ final class Version20190910151314 extends AbstractErgonodeMigration
         ');
         $this->addSql('CREATE UNIQUE index condition_set_code_uindex ON condition_set (code)');
 
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_CREATE', 'Condition']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_READ', 'Condition']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_UPDATE', 'Condition']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CONDITION_DELETE', 'Condition']);
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'CONDITION_CREATE', 'Condition']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'CONDITION_READ', 'Condition']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'CONDITION_UPDATE', 'Condition']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'CONDITION_DELETE', 'Condition']
+        );
 
         $this->createEventStoreEvents([
             'Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent' => 'Condition set created',
             'Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent' => 'Condition set deleted',
-            'Ergonode\Condition\Domain\Event\ConditionSetDescriptionChangedEvent' => 'Condition set description changed',
+            'Ergonode\Condition\Domain\Event\ConditionSetDescriptionChangedEvent' =>
+                'Condition set description changed',
             'Ergonode\Condition\Domain\Event\ConditionSetNameChangedEvent' => 'Condition set name changed',
             'Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent' => 'Condition set conditions changed',
         ]);

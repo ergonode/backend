@@ -61,8 +61,13 @@ class ReaderCreatedEvent implements DomainEventInterface
      * @param string[]             $configuration
      * @param FormatterInterface[] $formatters
      */
-    public function __construct(ReaderId $id, string $name, string $type, array $configuration = [], array $formatters = [])
-    {
+    public function __construct(
+        ReaderId $id,
+        string $name,
+        string $type,
+        array $configuration = [],
+        array $formatters = []
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->type = $type;

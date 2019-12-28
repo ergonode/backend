@@ -55,8 +55,12 @@ class CurrencyHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, Currency $currency, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        Currency $currency,
+        array $type,
+        Context $context
+    ): string {
         return $currency->getCode();
     }
 
@@ -68,8 +72,12 @@ class CurrencyHandler implements SubscribingHandlerInterface
      *
      * @return Currency
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Currency
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): Currency {
         return new Currency($data);
     }
 }

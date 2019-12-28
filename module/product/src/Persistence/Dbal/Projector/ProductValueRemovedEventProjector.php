@@ -40,7 +40,11 @@ class ProductValueRemovedEventProjector
      */
     public function __invoke(ProductValueRemovedEvent $event): void
     {
-        $this->delete($event->getAggregateId()->getValue(), AttributeId::fromKey($event->getAttributeCode())->getValue());
+        $this
+            ->delete(
+                $event->getAggregateId()->getValue(),
+                AttributeId::fromKey($event->getAttributeCode())->getValue()
+            );
     }
 
     /**
