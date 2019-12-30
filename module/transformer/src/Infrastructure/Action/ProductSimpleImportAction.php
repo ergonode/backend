@@ -160,8 +160,11 @@ class ProductSimpleImportAction implements ImportActionInterface
      *
      * @throws \Exception
      */
-    private function updateProduct(AbstractProduct $product, AttributeCode $attributeCode, ?ValueInterface $value = null): void
-    {
+    private function updateProduct(
+        AbstractProduct $product,
+        AttributeCode $attributeCode,
+        ?ValueInterface $value = null
+    ): void {
         if (null !== $value) {
             if (!$product->hasAttribute($attributeCode)) {
                 $product->addAttribute($attributeCode, $value);

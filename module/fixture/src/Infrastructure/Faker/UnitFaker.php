@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\AttributeUnit\Domain\ValueObject\Unit;
+use Ergonode\Attribute\Domain\ValueObject\Unit;
 use Faker\Provider\Base as BaseProvider;
 
 /**

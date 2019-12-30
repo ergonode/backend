@@ -17,7 +17,7 @@
          <severity>0</severity>
     </rule>
     <rule ref="Generic.Files.LineLength.MaxExceeded">
-         <type>warning</type>
+         <type>error</type>
     </rule>
 
     <!-- Directories to be checked -->

@@ -54,8 +54,13 @@ class CreatedAtAttributeDecorator implements ProductFactoryInterface
      *
      * @throws \Exception
      */
-    public function create(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = []): AbstractProduct
-    {
+    public function create(
+        ProductId $id,
+        Sku $sku,
+        TemplateId $templateId,
+        array $categories = [],
+        array $attributes = []
+    ): AbstractProduct {
         $createdAt = new \DateTime();
         $attributes[CreatedAtSystemAttribute::CODE] = new StringValue($createdAt->format('Y-m-d H:i:s'));
 

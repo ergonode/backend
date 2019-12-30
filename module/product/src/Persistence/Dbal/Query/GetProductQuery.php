@@ -60,11 +60,17 @@ class GetProductQuery implements GetProductQueryInterface
             'design_template_id' => $product->getTemplateId(),
             '_links' => [
                 'edit' => [
-                    'href' =>  $this->router->generate('ergonode_product_read', [ 'product' => $productId->getValue(), 'language' => $language->getCode()]),
+                    'href' =>  $this->router->generate(
+                        'ergonode_product_read',
+                        [ 'product' => $productId->getValue(), 'language' => $language->getCode()]
+                    ),
                     'method' => Request::METHOD_PUT,
                 ],
                 'delete' => [
-                    'href' => $this->router->generate('ergonode_product_delete', [ 'product' => $productId->getValue(), 'language' => $language->getCode()]),
+                    'href' => $this->router->generate(
+                        'ergonode_product_delete',
+                        [ 'product' => $productId->getValue(), 'language' => $language->getCode()]
+                    ),
                     'method' => Request::METHOD_DELETE,
                 ],
             ],

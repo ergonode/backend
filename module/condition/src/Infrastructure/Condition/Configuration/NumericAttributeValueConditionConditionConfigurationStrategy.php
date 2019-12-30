@@ -57,8 +57,12 @@ class NumericAttributeValueConditionConditionConfigurationStrategy implements Co
 
         return [
             'type' => NumericAttributeValueCondition::TYPE,
-            'name' => $this->translator->trans(NumericAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
-            'phrase' => $this->translator->trans(NumericAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
+            'name' => $this
+                ->translator
+                ->trans(NumericAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
+            'phrase' => $this
+                ->translator
+                ->trans(NumericAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
             'parameters' => [
                 [
                     'name' => 'attribute',

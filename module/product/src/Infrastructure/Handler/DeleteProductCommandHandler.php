@@ -50,7 +50,11 @@ class DeleteProductCommandHandler
     public function __invoke(DeleteProductCommand $command): void
     {
         $product = $this->repository->load($command->getId());
-        Assert::isInstanceOf($product, AbstractProduct::class, sprintf('Can\'t find product with id "%s"', $command->getId()));
+        Assert::isInstanceOf(
+            $product,
+            AbstractProduct::class,
+            sprintf('Can\'t find product with id "%s"', $command->getId())
+        );
 
         $relationships = $this->relationshipsResolver->resolve($command->getId());
         if (!$relationships->isEmpty()) {

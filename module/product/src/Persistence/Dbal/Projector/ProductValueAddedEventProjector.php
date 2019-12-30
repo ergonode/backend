@@ -100,7 +100,8 @@ class ProductValueAddedEventProjector
 
             if (false === $result) {
                 $this->connection->executeQuery(
-                    'INSERT INTO value_translation (id, value_id, value, language) VALUES (?, ?, ?, ?) ON CONFLICT DO NOTHING',
+                    'INSERT INTO value_translation (id, value_id, value, language) '.
+                    ' VALUES (?, ?, ?, ?) ON CONFLICT DO NOTHING',
                     [$valueId->toString(), $valueId->toString(), $value, $language ?: null]
                 );
             }
