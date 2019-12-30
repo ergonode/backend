@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\AttributeUnit\Tests\Domain\ValueObject;
+namespace Ergonode\Attribute\Tests\Domain\ValueObject;
 
-use Ergonode\AttributeUnit\Domain\ValueObject\Unit;
+use Ergonode\Attribute\Domain\ValueObject\Unit;
 use PHPUnit\Framework\TestCase;
 
 /**
