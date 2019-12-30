@@ -17,10 +17,12 @@ use PHPUnit\Framework\TestCase;
 class ImageFormatTest extends TestCase
 {
     /**
+     * @param $format
+     *
+     * @dataProvider dataProvider
      */
-    public function testValueCreation(): void
+    public function testValueCreation($format): void
     {
-        $format = 'jpg';
 
         $valueObject = new ImageFormat($format);
 
@@ -35,5 +37,21 @@ class ImageFormatTest extends TestCase
         $format = 'format';
 
         $valueObject = new ImageFormat($format);
+    }
+
+    /**
+     * @return array
+     */
+    public function dataProvider(): array
+    {
+        return [
+            ['format' => 'jpg'],
+            ['format' => 'jpeg'],
+            ['format' => 'gif'],
+            ['format' => 'tiff'],
+            ['format' => 'tif'],
+            ['format' => 'png'],
+            ['format' => 'bmp'],
+        ];
     }
 }
