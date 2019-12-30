@@ -34,5 +34,11 @@ interface ProductFactoryInterface
      *
      * @return AbstractProduct
      */
-    public function create(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = []): AbstractProduct;
+    public function create(
+        ProductId $id,
+        Sku $sku,
+        TemplateId $templateId,
+        array $categories = [],
+        array $attributes = []
+    ): AbstractProduct;
 }

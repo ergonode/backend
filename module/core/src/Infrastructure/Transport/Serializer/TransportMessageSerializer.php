@@ -54,7 +54,9 @@ class TransportMessageSerializer implements MessageSerializerInterface
 
         $stamps = $this->decodeStamps($encodedEnvelope);
 
-        $message = $this->serializer->deserialize($encodedEnvelope['body'], $encodedEnvelope['headers']['type'], $this->format);
+        $message = $this
+            ->serializer
+            ->deserialize($encodedEnvelope['body'], $encodedEnvelope['headers']['type'], $this->format);
 
         return new Envelope($message, ...$stamps);
     }
@@ -85,7 +87,9 @@ class TransportMessageSerializer implements MessageSerializerInterface
                 continue;
             }
 
-            $stamps[] = $this->serializer->deserialize($value, substr($name, \strlen(self::STAMP_HEADER_PREFIX)).'[]', $this->format);
+            $stamps[] = $this
+                ->serializer
+                ->deserialize($value, substr($name, \strlen(self::STAMP_HEADER_PREFIX)).'[]', $this->format);
         }
         if ($stamps) {
             $stamps = array_merge(...$stamps);

@@ -64,8 +64,13 @@ class ProductCreatedEvent implements DomainEventInterface
      * @param array      $categories
      * @param array      $attributes
      */
-    public function __construct(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = [])
-    {
+    public function __construct(
+        ProductId $id,
+        Sku $sku,
+        TemplateId $templateId,
+        array $categories = [],
+        array $attributes = []
+    ) {
         $this->id = $id;
         $this->sku = $sku;
         $this->templateId = $templateId;

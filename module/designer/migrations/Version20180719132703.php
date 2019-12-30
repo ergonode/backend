@@ -39,7 +39,11 @@ final class Version20180719132703 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
-        $this->addSql('ALTER TABLE designer.template ADD CONSTRAINT template_template_group_id_fk FOREIGN KEY (template_group_id) REFERENCES designer.template_group (id) ON DELETE CASCADE');
+        $this->addSql(
+            'ALTER TABLE designer.template 
+                    ADD CONSTRAINT template_template_group_id_fk 
+                        FOREIGN KEY (template_group_id) REFERENCES designer.template_group (id) ON DELETE CASCADE'
+        );
 
         $this->addSql('
             CREATE TABLE designer.template_element (
@@ -52,7 +56,10 @@ final class Version20180719132703 extends AbstractErgonodeMigration
                 PRIMARY KEY(template_id, x, y)
             )
         ');
-        $this->addSql('ALTER TABLE designer.template_element ADD CONSTRAINT template_element_template_id_fk FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE CASCADE');
+        $this->addSql('
+            ALTER TABLE designer.template_element
+                ADD CONSTRAINT template_element_template_id_fk 
+                    FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE CASCADE');
 
         $this->addSql('
             CREATE TABLE designer.element_type (
@@ -74,7 +81,10 @@ final class Version20180719132703 extends AbstractErgonodeMigration
                 PRIMARY KEY(product_id, template_id)
             )
         ');
-        $this->addSql('ALTER TABLE designer.product ADD CONSTRAINT product_template_id_fk FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE CASCADE');
+        $this->addSql('
+            ALTER TABLE designer.product 
+                ADD CONSTRAINT product_template_id_fk
+                    FOREIGN KEY (template_id) REFERENCES designer.template (id) ON DELETE CASCADE');
 
         $this->addType('TEXT', 'attribute', 'Text');
         $this->addType('NUMERIC', 'attribute', 'Numeric');
@@ -90,10 +100,22 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         $this->addGroup('418c48d3-d2c3-4c30-b627-93850c38d59c', 'Suggested');
         $this->addGroup('641c614f-0732-461f-892f-b6df97939599', 'My templates', true);
 
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_CREATE', 'Template designer']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_READ', 'Template designer']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_UPDATE', 'Template designer']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_DELETE', 'Template designer']);
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_CREATE', 'Template designer']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_READ', 'Template designer']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_UPDATE', 'Template designer']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'TEMPLATE_DESIGNER_DELETE', 'Template designer']
+        );
 
         $this->createEventStoreEvents([
             'Ergonode\Designer\Domain\Event\TemplateCreatedEvent' => 'Template created',
@@ -119,7 +141,10 @@ final class Version20180719132703 extends AbstractErgonodeMigration
     private function addGroup(string $uuid, string $name, bool $custom = false): TemplateGroupId
     {
         $id = new TemplateGroupId($uuid);
-        $this->addSql('INSERT INTO designer.template_group (id, name, custom) VALUES (?, ?, ?)', [$id, $name, (int) $custom]);
+        $this->addSql(
+            'INSERT INTO designer.template_group (id, name, custom) VALUES (?, ?, ?)',
+            [$id, $name, (int) $custom]
+        );
 
         return $id;
     }
@@ -142,7 +167,21 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         int $maxWidth = 4,
         int $maxHeight = 1
     ): void {
-        $this->addSql(\sprintf('INSERT INTO designer.element_type (type, variant, label, min_width, min_height, max_width, max_height) VALUES (\'%s\',  \'%s\', \'%s\', %d, %d, %d, %d)', $code, $variant, $label, $minWidth, $minHeight, $maxWidth, $maxHeight));
+        $this
+            ->addSql(
+                \sprintf(
+                    'INSERT INTO designer.element_type 
+                                (type, variant, label, min_width, min_height, max_width, max_height) 
+                                VALUES (\'%s\',  \'%s\', \'%s\', %d, %d, %d, %d)',
+                    $code,
+                    $variant,
+                    $label,
+                    $minWidth,
+                    $minHeight,
+                    $maxWidth,
+                    $maxHeight
+                )
+            );
     }
 
     /**

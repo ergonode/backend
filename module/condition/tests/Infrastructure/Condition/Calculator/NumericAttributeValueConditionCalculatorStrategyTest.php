@@ -61,8 +61,15 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
     {
         $object = $this->createMock(AbstractProduct::class);
         $configuration = $this->createMock(NumericAttributeValueCondition::class);
-        $configuration->expects($this->once())->method('getAttribute')->willReturn($this->createMock(AttributeId::class));
-        $this->repository->expects($this->once())->method('load')->willReturn($this->createMock(AbstractAttribute::class));
+        $configuration
+            ->expects($this->once())
+            ->method('getAttribute')
+            ->willReturn($this->createMock(AttributeId::class));
+        $this
+            ->repository
+            ->expects($this->once())
+            ->method('load')
+            ->willReturn($this->createMock(AbstractAttribute::class));
         $configuration->expects($this->once())->method('getOption')->willReturn($option);
         $configuration->expects($this->once())->method('getValue')->willReturn($expected);
         $object->expects($this->once())->method('hasAttribute')->willReturn(true);

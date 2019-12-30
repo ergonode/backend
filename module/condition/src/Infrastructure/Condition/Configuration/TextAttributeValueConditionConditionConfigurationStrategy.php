@@ -58,8 +58,12 @@ class TextAttributeValueConditionConditionConfigurationStrategy implements Condi
 
         return [
             'type' => TextAttributeValueCondition::TYPE,
-            'name' => $this->translator->trans(TextAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
-            'phrase' => $this->translator->trans(TextAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
+            'name' => $this
+                ->translator
+                ->trans(TextAttributeValueCondition::TYPE, [], 'condition', $language->getCode()),
+            'phrase' => $this
+                ->translator
+                ->trans(TextAttributeValueCondition::PHRASE, [], 'condition', $language->getCode()),
             'parameters' => [
                 [
                     'name' => 'attribute',

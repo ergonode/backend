@@ -64,7 +64,9 @@ class ProductAttributeExtension
                 if (null !== $value) {
                     $attributeId = AttributeId::fromKey($attributeCode);
                     $attributeType = $this->query->findAttributeType($attributeId);
-                    if ($attributeType && in_array($attributeType->getValue(), [SelectAttribute::TYPE, MultiSelectAttribute::TYPE], true)) {
+                    if ($attributeType &&
+                        in_array($attributeType->getValue(), [SelectAttribute::TYPE, MultiSelectAttribute::TYPE], true)
+                    ) {
                         $value = $this->process($attributeId, $value);
                     }
 
