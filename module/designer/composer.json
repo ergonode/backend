@@ -4,6 +4,13 @@
     "description": "Ergonode - Designer",
     "homepage": "https://ergonode.com",
     "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.9",

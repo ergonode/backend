@@ -16,7 +16,6 @@ use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\Workflow\Domain\Entity\TransitionId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 
 /**
