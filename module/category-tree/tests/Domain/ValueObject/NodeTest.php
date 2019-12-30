@@ -53,6 +53,7 @@ class NodeTest extends TestCase
      */
     public function testAddChildren(): void
     {
+
         $categoryId2 = new CategoryId('cde02652-70ce-484e-bc9d-3bf61391522d');
 
         /** @var Node|MockObject $children */

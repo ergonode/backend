@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Tests\Domain\ValueObject\OptionValue;
 
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,7 +21,6 @@ class MultilingualOptionTest extends TestCase
      */
     public function testValueCreation(): void
     {
-        /** @var TranslatableString | MockObject $value */
         $value = new TranslatableString(['en' => 'english', 'pl' => 'polish']);
 
         $valueObject = new MultilingualOption($value);
@@ -31,6 +29,31 @@ class MultilingualOptionTest extends TestCase
         $this->assertSame(MultilingualOption::TYPE, $valueObject->getType());
         $this->assertSame('english,polish', (string) $valueObject);
         $this->assertTrue($valueObject->isMultilingual());
-        $this->assertTrue($valueObject->equal($valueObject));
+    }
+
+    /**
+     */
+    public function testEqualValue(): void
+    {
+        $value1 = new TranslatableString(['en' => 'english', 'pl' => 'polish']);
+        $value2 = new TranslatableString(['en' => 'english', 'pl' => 'polish']);
+
+        $valueObject1 = new MultilingualOption($value1);
+        $valueObject2 = new MultilingualOption($value2);
+
+        $this->assertTrue($valueObject1->equal($valueObject2));
+    }
+
+    /**
+     */
+    public function testNotEqualValue(): void
+    {
+        $value1 = new TranslatableString(['en' => 'english', 'fr' => 'franch']);
+        $value2 = new TranslatableString(['en' => 'english', 'pl' => 'polish']);
+
+        $valueObject1 = new MultilingualOption($value1);
+        $valueObject2 = new MultilingualOption($value2);
+
+        $this->assertFalse($valueObject1->equal($valueObject2));
     }
 }

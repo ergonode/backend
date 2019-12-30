@@ -27,6 +27,15 @@ class UnitTest extends TestCase
 
         $this->assertSame($check, $valueObject->getCode());
         $this->assertSame($check, (string) $valueObject);
+    }
+
+    /**
+     */
+    public function testFromStringCreation(): void
+    {
+        $code = ' code ';
+        $check = 'CODE';
+
         $this->assertSame($check, Unit::fromString($code)->getCode());
     }
 }

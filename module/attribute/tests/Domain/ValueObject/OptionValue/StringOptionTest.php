@@ -27,7 +27,32 @@ class StringOptionTest extends TestCase
         $this->assertSame($value, $valueObject->getValue());
         $this->assertSame(StringOption::TYPE, $valueObject->getType());
         $this->assertSame($value, (string) $valueObject);
-        $this->assertTrue($valueObject->equal($valueObject));
         $this->assertFalse($valueObject->isMultilingual());
+    }
+
+    /**
+     */
+    public function testEqualValue(): void
+    {
+        $value1 = 'value1';
+        $value2 = 'value1';
+
+        $valueObject1 = new StringOption($value1);
+        $valueObject2 = new StringOption($value2);
+
+        $this->assertTrue($valueObject1->equal($valueObject2));
+    }
+
+    /**
+     */
+    public function testNotEqualValue(): void
+    {
+        $value1 = 'value1';
+        $value2 = 'value2';
+
+        $valueObject1 = new StringOption($value1);
+        $valueObject2 = new StringOption($value2);
+
+        $this->assertFalse($valueObject1->equal($valueObject2));
     }
 }
