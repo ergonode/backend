@@ -106,7 +106,9 @@ class Processor extends AbstractAggregateRoot
             );
         }
 
-        $this->apply(new ProcessorStatusChangedEvent($this->id, $this->status, new ProcessorStatus(ProcessorStatus::PRECESSED)));
+        $this->apply(
+            new ProcessorStatusChangedEvent($this->id, $this->status, new ProcessorStatus(ProcessorStatus::PRECESSED))
+        );
     }
 
     /**
@@ -120,7 +122,14 @@ class Processor extends AbstractAggregateRoot
             );
         }
 
-        $this->apply(new ProcessorStatusChangedEvent($this->id, $this->status, new ProcessorStatus(ProcessorStatus::STOPPED), $reason));
+        $this->apply(
+            new ProcessorStatusChangedEvent(
+                $this->id,
+                $this->status,
+                new ProcessorStatus(ProcessorStatus::STOPPED),
+                $reason
+            )
+        );
     }
 
     /**
@@ -133,7 +142,10 @@ class Processor extends AbstractAggregateRoot
             );
         }
 
-        $this->apply(new ProcessorStatusChangedEvent($this->id, $this->status, new ProcessorStatus(ProcessorStatus::ENDED)));
+        $this
+            ->apply(
+                new ProcessorStatusChangedEvent($this->id, $this->status, new ProcessorStatus(ProcessorStatus::ENDED))
+            );
     }
 
     /**

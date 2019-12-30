@@ -55,8 +55,12 @@ class ImageFormatHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, ImageFormat $format, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        ImageFormat $format,
+        array $type,
+        Context $context
+    ): string {
         return $format->getFormat();
     }
 
@@ -68,8 +72,12 @@ class ImageFormatHandler implements SubscribingHandlerInterface
      *
      * @return ImageFormat
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): ImageFormat
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): ImageFormat {
         return new ImageFormat($data);
     }
 }

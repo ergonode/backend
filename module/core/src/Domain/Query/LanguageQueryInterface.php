@@ -46,5 +46,10 @@ interface LanguageQueryInterface
      *
      * @return array
      */
-    public function autocomplete(string $search = null, int $limit = null, string $field = null, ?string $order = 'ASC'): array;
+    public function autocomplete(
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array;
 }

@@ -10,8 +10,8 @@ namespace Ergonode\Product\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
-use Ergonode\AttributeDate\Domain\ValueObject\DateFormat;
+use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
+use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**

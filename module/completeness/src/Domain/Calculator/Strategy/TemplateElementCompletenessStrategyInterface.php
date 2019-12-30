@@ -33,5 +33,9 @@ interface TemplateElementCompletenessStrategyInterface
      *
      * @return CompletenessElementReadModel|null
      */
-    public function getElementCompleteness(ProductDraft $draft, Language $language, TemplateElementPropertyInterface $properties): ?CompletenessElementReadModel;
+    public function getElementCompleteness(
+        ProductDraft $draft,
+        Language $language,
+        TemplateElementPropertyInterface $properties
+    ): ?CompletenessElementReadModel;
 }

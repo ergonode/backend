@@ -33,7 +33,15 @@ final class Version20180619083829 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
-        $this->addSql('CREATE TABLE importer.transformer_converter (id UUID NOT NULL, transformer_id UUID NOT NULL, field VARCHAR(64) NOT NULL, type VARCHAR(255) NOT NULL, options JSON NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('
+            CREATE TABLE importer.transformer_converter
+             (
+                id UUID NOT NULL,
+                transformer_id UUID NOT NULL,
+                field VARCHAR(64) NOT NULL,
+                type VARCHAR(255) NOT NULL,
+                options JSON NOT NULL, PRIMARY KEY(id)
+             )');
 
         $this->addSql('
             CREATE TABLE importer.processor (

@@ -66,11 +66,16 @@ class CategoryCodeDataTransformerTest extends TestCase
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
-     * @expectedExceptionMessage Invalid category code CS2ZiKK4TzJNNmZReVBFYwPZg2zUOL3RLv7L2VgG6nDnz8enH8nGy4iz1yQZuppKDAHfHUVEHpZZ7Ca0Tu4wZHwrpqNKdEw6bNRSulWLxHpEODnbWH9iosh0e0AxYkzA2EFPmPm0faRUq5ae9EeQ5IpgUxFxFmwzpOGm5DJhR0gczdEdL0KxJmYzWY0fV34H8QzcCAt3nAfAHWStwVhWNv2L2GcLMjUTXEwTODyi0XMk4ZBFcaIk9S3igHo6C2cg9IVQ value
+     * @expectedExceptionMessage Invalid category code
+     * CS2ZiKK4TzJNNmZReVBFYwPZg2zUOL3RLv7L2VgG6nDnz8enH8nGy4iz1yQZuppKDAHfHUVEHpZZ7Ca0Tu4wZHwrpqNKdEw6bNRSulWLxHpEODnb
+     * WH9iosh0e0AxYkzA2EFPmPm0faRUq5ae9EeQ5IpgUxFxFmwzpOGm5DJhR0gczdEdL0KxJmYzWY0fV34H8QzcCAt3nAfAHWStwVhWNv2L2GcLMjUT
+     * XEwTODyi0XMk4ZBFcaIk9S3igHo6C2cg9IVQ value
      */
     public function testReverseTransformException(): void
     {
-        $value = 'CS2ZiKK4TzJNNmZReVBFYwPZg2zUOL3RLv7L2VgG6nDnz8enH8nGy4iz1yQZuppKDAHfHUVEHpZZ7Ca0Tu4wZHwrpqNKdEw6bNRSulWLxHpEODnbWH9iosh0e0AxYkzA2EFPmPm0faRUq5ae9EeQ5IpgUxFxFmwzpOGm5DJhR0gczdEdL0KxJmYzWY0fV34H8QzcCAt3nAfAHWStwVhWNv2L2GcLMjUTXEwTODyi0XMk4ZBFcaIk9S3igHo6C2cg9IVQ';
+        $value = 'CS2ZiKK4TzJNNmZReVBFYwPZg2zUOL3RLv7L2VgG6nDnz8enH8nGy4iz1yQZuppKDAHfHUVEHpZZ7Ca0Tu4wZHwrpqNKdEw6bN'.
+            'RSulWLxHpEODnbWH9iosh0e0AxYkzA2EFPmPm0faRUq5ae9EeQ5IpgUxFxFmwzpOGm5DJhR0gczdEdL0KxJmYzWY0fV34H8QzcCAt3nA'.
+            'fAHWStwVhWNv2L2GcLMjUTXEwTODyi0XMk4ZBFcaIk9S3igHo6C2cg9IVQ';
         $this->transformer->reverseTransform($value);
     }
 

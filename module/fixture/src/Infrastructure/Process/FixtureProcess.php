@@ -50,8 +50,12 @@ class FixtureProcess
      * @param FixtureManager $manager
      * @param Connection     $connection
      */
-    public function __construct(FixtureLoader $loader, Generator $generator, FixtureManager $manager, Connection $connection)
-    {
+    public function __construct(
+        FixtureLoader $loader,
+        Generator $generator,
+        FixtureManager $manager,
+        Connection $connection
+    ) {
         $this->loader = $loader;
         $this->generator = $generator;
         $this->manager = $manager;
