@@ -28,7 +28,6 @@ class ProductDraftGrid extends AbstractGrid
     {
         $this->addColumn('id', new TextColumn('id', 'Id'));
         $this->addColumn('product_id', new TextColumn('product_id', 'Product Id'));
-        $this->addColumn('template_id', new TextColumn('template_id', 'Template Id'));
         $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
         $this->addColumn('type', new TextColumn('type', 'Type'));
         $this->addColumn('applied', new BoolColumn('applied', 'Id'));

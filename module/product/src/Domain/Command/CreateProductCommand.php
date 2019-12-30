@@ -35,13 +35,6 @@ class CreateProductCommand
     private $sku;
 
     /**
-     * @var TemplateId
-     *
-     * @JMS\Type("Ergonode\Designer\Domain\Entity\DesignerTemplateId")
-     */
-    private $templateId;
-
-    /**
      * @var CategoryId[]
      *
      * @JMS\Type("array<string, Ergonode\Category\Domain\Entity\CategoryId>")
@@ -56,19 +49,16 @@ class CreateProductCommand
     private $attributes;
 
     /**
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     *
-     * @param array      $attributes
+     * @param Sku   $sku
+     * @param array $categories
+     * @param array $attributes
      *
      * @throws \Exception
      */
-    public function __construct(Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = [])
+    public function __construct(Sku $sku, array $categories = [], array $attributes = [])
     {
         $this->id = ProductId::generate();
         $this->sku = $sku;
-        $this->templateId = $templateId;
         $this->categories = $categories;
         $this->attributes = $attributes;
     }
@@ -87,14 +77,6 @@ class CreateProductCommand
     public function getSku(): Sku
     {
         return $this->sku;
-    }
-
-    /**
-     * @return TemplateId
-     */
-    public function getTemplateId(): TemplateId
-    {
-        return $this->templateId;
     }
 
     /**

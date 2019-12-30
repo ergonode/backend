@@ -63,13 +63,8 @@ class CreateProductCommandHandler
             $categories[] = $category->getCode();
         }
 
-        $product = $this->productFactoryProvider->provide(SimpleProduct::TYPE)->create(
-            $command->getId(),
-            $command->getSku(),
-            $command->getTemplateId(),
-            $categories,
-            $command->getAttributes()
-        );
+        $factory = $this->productFactoryProvider->provide(SimpleProduct::TYPE);
+        $product = $factory->create($command->getId(), $command->getSku(), $categories, $command->getAttributes());
 
         $this->productRepository->save($product);
     }

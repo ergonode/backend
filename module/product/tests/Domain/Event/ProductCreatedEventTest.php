@@ -29,13 +29,11 @@ class ProductCreatedEventTest extends TestCase
         /** @var Sku|MockObject $sku */
         $sku = $this->createMock(Sku::class);
         /** @var TemplateId|MockObject $templateId */
-        $templateId = $this->createMock(TemplateId::class);
         $categories = ['example1', 'example2'];
         $attributes = ['example1', 'example2'];
-        $event = new ProductCreatedEvent($id, $sku, $templateId, $categories, $attributes);
+        $event = new ProductCreatedEvent($id, $sku, $categories, $attributes);
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($sku, $event->getSku());
-        $this->assertEquals($templateId, $event->getTemplateId());
         $this->assertEquals($categories, $event->getCategories());
         $this->assertEquals($attributes, $event->getAttributes());
     }

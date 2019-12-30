@@ -34,7 +34,7 @@ Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute:
             - '@hint_<current()>'
             - '@placeholder_<current()>'
 
-Ergonode\AttributeDate\Domain\Entity\DateAttribute:
+Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute:
     attribute_{26..30}:
         __construct:
             - '<AttributeId(code_<current()>)>'
@@ -44,7 +44,7 @@ Ergonode\AttributeDate\Domain\Entity\DateAttribute:
             - '@placeholder_<current()>'
             - '<DateFormat()>'
 
-Ergonode\AttributePrice\Domain\Entity\PriceAttribute:
+Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute:
     attribute_{31..35}:
         __construct:
             - '<AttributeId(code_<current()>)>'
@@ -54,7 +54,7 @@ Ergonode\AttributePrice\Domain\Entity\PriceAttribute:
             - '@placeholder_<current()>'
             - '<Currency()>'
 
-Ergonode\AttributeUnit\Domain\Entity\UnitAttribute:
+Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute:
     attribute_{36..40}:
         __construct:
             - '<AttributeId(code_<current()>)>'
