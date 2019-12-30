@@ -48,7 +48,15 @@ class AddWorkflowTransitionCommandTest extends TestCase
         /** @var ConditionSetId | MockObject $conditionSetId */
         $conditionSetId = $this->createMock(ConditionSetId::class);
 
-        $command = new AddWorkflowTransitionCommand($workflowId, $source, $destination, $name, $description, $roleIds, $conditionSetId);
+        $command = new AddWorkflowTransitionCommand(
+            $workflowId,
+            $source,
+            $destination,
+            $name,
+            $description,
+            $roleIds,
+            $conditionSetId
+        );
 
         $this->assertSame($workflowId, $command->getWorkflowId());
         $this->assertSame($source, $command->getSource());
