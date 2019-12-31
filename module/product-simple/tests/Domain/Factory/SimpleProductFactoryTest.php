@@ -33,18 +33,15 @@ class SimpleProductFactoryTest extends TestCase
         /** @var Sku | MockObject $sku */
         $sku = $this->createMock(Sku::class);
 
-        /** @var TemplateId | MockObject $templateId */
-        $templateId = $this->createMock(TemplateId::class);
         $categories = [$this->createMock(CategoryCode::class)];
         $attributes = [$this->createMock(ValueInterface::class)];
 
         $factory = new SimpleProductFactory();
         $this->assertTrue($factory->isSupportedBy(SimpleProduct::TYPE));
-        $product = $factory->create($productId, $sku, $templateId, $categories, $attributes);
+        $product = $factory->create($productId, $sku, $categories, $attributes);
         $this->assertInstanceOf(SimpleProduct::class, $product);
         $this->assertSame($productId, $product->getId());
         $this->assertSame($sku, $product->getSku());
-        $this->assertSame($templateId, $product->getTemplateId());
         $this->assertSame($categories, $product->getCategories());
         $this->assertSame($attributes, $product->getAttributes());
     }

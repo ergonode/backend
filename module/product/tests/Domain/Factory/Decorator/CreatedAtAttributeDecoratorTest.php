@@ -37,13 +37,11 @@ class CreatedAtAttributeDecoratorTest extends TestCase
         /** @var Sku | MockObject $sku */
         $sku = $this->createMock(Sku::class);
 
-        /** @var TemplateId | MockObject $templateId */
-        $templateId = $this->createMock(TemplateId::class);
         $categories = [$this->createMock(CategoryCode::class)];
         $attributes = [$this->createMock(ValueInterface::class)];
 
         $decorator = new CreatedAtAttributeDecorator($factory);
 
-        $decorator->create($productId, $sku, $templateId, $categories, $attributes);
+        $decorator->create($productId, $sku, $categories, $attributes);
     }
 }
