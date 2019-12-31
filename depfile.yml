@@ -157,7 +157,6 @@ ruleset:
     - Api
     - Value
     - Account
-    - Designer
   ProductSimple:
     - Core
     - EventSourcing
@@ -201,6 +200,7 @@ ruleset:
     - EventSourcing
     - Multimedia
     - Attribute
+    - Product
   Importer:
     - Api
     - Core

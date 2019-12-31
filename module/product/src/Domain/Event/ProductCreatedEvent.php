@@ -37,13 +37,6 @@ class ProductCreatedEvent implements DomainEventInterface
     private $sku;
 
     /**
-     * @var TemplateId
-     *
-     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateId")
-     */
-    private $templateId;
-
-    /**
      * @var CategoryCode[]
      *
      * @JMS\Type("array<Ergonode\Category\Domain\ValueObject\CategoryCode>")
@@ -58,22 +51,19 @@ class ProductCreatedEvent implements DomainEventInterface
     private $attributes;
 
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param ProductId $id
+     * @param Sku       $sku
+     * @param array     $categories
+     * @param array     $attributes
      */
     public function __construct(
         ProductId $id,
         Sku $sku,
-        TemplateId $templateId,
         array $categories = [],
         array $attributes = []
     ) {
         $this->id = $id;
         $this->sku = $sku;
-        $this->templateId = $templateId;
         $this->categories = $categories;
         $this->attributes = $attributes;
     }

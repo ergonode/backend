@@ -22,7 +22,6 @@ final class Version20180619083830 extends AbstractErgonodeMigration
             CREATE TABLE IF NOT EXISTS product (
                 id UUID NOT NULL,
                 index SERIAL,
-                template_id UUID NOT NULL,
                 sku VARCHAR(128) NOT NULL,
                 status VARCHAR(32) NOT NULL,
                 version INT NOT NULL DEFAULT 0,
