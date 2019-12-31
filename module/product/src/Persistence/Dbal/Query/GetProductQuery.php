@@ -57,7 +57,6 @@ class GetProductQuery implements GetProductQueryInterface
             'sku' => $product->getSku(),
             'attributes' => $product->getAttributes(),
             'categories' => $product->getCategories(),
-            'design_template_id' => $product->getTemplateId(),
             '_links' => [
                 'edit' => [
                     'href' =>  $this->router->generate(

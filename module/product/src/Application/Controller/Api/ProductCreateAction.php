@@ -23,6 +23,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 
 /**
  * @Route("products", methods={"POST"})
@@ -95,8 +97,8 @@ class ProductCreateAction
             $data = $form->getData();
             $command = new CreateProductCommand(
                 new Sku($data->sku),
-                new TemplateId($data->template),
-                $data->categories
+                $data->categories,
+                [TemplateSystemAttribute::CODE => new StringValue($data->template)]
             );
             $this->messageBus->dispatch($command);
 

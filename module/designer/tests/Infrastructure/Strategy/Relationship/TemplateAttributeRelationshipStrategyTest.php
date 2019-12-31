@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Tests\Infrastructure\Strategy\Relationship;
 
-use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Infrastructure\Strategy\Relationship\TemplateAttributeRelationshipStrategy;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Core\Domain\Entity\AbstractId;
 
 /**
  */
@@ -47,7 +47,7 @@ class TemplateAttributeRelationshipStrategyTest extends TestCase
     public function testIsNotSupported(): void
     {
         $templateAttributeRelationshipStrategy = new TemplateAttributeRelationshipStrategy($this->query);
-        $roleId = $this->createMock(RoleId::class);
+        $roleId = $this->createMock(AbstractId::class);
         $this->assertFalse($templateAttributeRelationshipStrategy->supports($roleId));
     }
 

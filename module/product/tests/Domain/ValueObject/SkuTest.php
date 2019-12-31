@@ -30,6 +30,18 @@ class SkuTest extends TestCase
     }
 
     /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidValue(): void
+    {
+        $sku = new Sku(
+            'yKL3rWXluEM7NapnMSVpYHpicQJkpJ0Obfx91mma0xwnQxUfsrwy5Nfki1LUZR4qYolBTlUFDO4RkeINIkjPzMfTSit0bQ
+            ZJevXA6GMsj0LnSZaiT1bBfr00vtKWqLAPollonRzb6GBVlT5U9I6nC49r3Vnj2jUgpA73CvfnVnFBNnHqCaI2Cu48SKaVSRGgROho
+            D1dGPvvq98okavZ3ktVHk0TcyyiyfoH52U3gP3J5bNTVZngivjPJAqtOW8TO'
+        );
+    }
+
+    /**
      * @return array
      */
     public function data(): array

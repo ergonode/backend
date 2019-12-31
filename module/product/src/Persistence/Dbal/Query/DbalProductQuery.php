@@ -13,7 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
@@ -24,7 +23,6 @@ use Ramsey\Uuid\Uuid;
 class DbalProductQuery implements ProductQueryInterface
 {
     private const PRODUCT_TABLE = 'public.product';
-    private const TEMPLATE_TABLE = 'designer.template';
     private const VALUE_TABLE = 'public.product_value';
 
     /**
@@ -97,29 +95,6 @@ class DbalProductQuery implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
-    public function findProductIdByTemplateId(TemplateId $templateId): array
-    {
-        $queryBuilder = $this->getQuery();
-        $queryBuilder
-            ->select('p.id')
-            ->where($queryBuilder->expr()->eq('p.template_id', ':templateId'))
-            ->setParameter(':templateId', $templateId->getValue());
-        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
-
-        if (false === $result) {
-            $result = [];
-        }
-
-        foreach ($result as &$item) {
-            $item = new ProductId($item);
-        }
-
-        return $result;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array
     {
         $queryBuilder = $this->connection->createQueryBuilder()
@@ -151,8 +126,7 @@ class DbalProductQuery implements ProductQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('p.id, p.index, p.sku, p.version, t.name AS template')
-            ->from(self::PRODUCT_TABLE, 'p')
-            ->join('p', self::TEMPLATE_TABLE, 't', 't.id = p.template_id');
+            ->select('p.id, p.index, p.sku, p.version')
+            ->from(self::PRODUCT_TABLE, 'p');
     }
 }

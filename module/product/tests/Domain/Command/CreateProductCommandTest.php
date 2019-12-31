@@ -31,10 +31,9 @@ class CreateProductCommandTest extends TestCase
      */
     public function testCreateCommand(Sku $sku, TemplateId $templateId, array $categories, array $attributes): void
     {
-        $command = new CreateProductCommand($sku, $templateId, $categories, $attributes);
+        $command = new CreateProductCommand($sku, $categories, $attributes);
 
         $this->assertSame($sku, $command->getSku());
-        $this->assertSame($templateId, $command->getTemplateId());
         $this->assertSame($categories, $command->getCategories());
         $this->assertSame($attributes, $command->getAttributes());
         $this->assertNotNull($command->getId());

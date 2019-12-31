@@ -17,12 +17,14 @@ use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Product\Domain\Entity\ProductId;
 
 /**
  */
 class DbalTemplateQuery implements TemplateQueryInterface
 {
     private const TABLE = 'designer.template';
+    private const PRODUCT_TABLE = 'designer.product';
     private const FIELDS = [
         't.id',
         't.name',
@@ -92,6 +94,49 @@ class DbalTemplateQuery implements TemplateQueryInterface
         }
 
         return $result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductIdByTemplateId(TemplateId $templateId): array
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('p.product_id')
+            ->from(self::PRODUCT_TABLE, 'p')
+            ->where($queryBuilder->expr()->eq('p.template_id', ':templateId'))
+            ->setParameter(':templateId', $templateId->getValue());
+        $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param ProductId $productId
+     *
+     * @return TemplateId
+     */
+    public function findProductTemplateId(ProductId $productId): TemplateId
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $result = $queryBuilder
+            ->select('p.template_id')
+            ->from(self::PRODUCT_TABLE, 'p')
+            ->where($queryBuilder->expr()->eq('p.product_id', ':productId'))
+            ->setParameter(':productId', $productId->getValue())
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        return new TemplateId($result);
     }
 
     /**

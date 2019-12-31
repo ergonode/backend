@@ -42,6 +42,9 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
+use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 /**
  */
@@ -526,7 +529,10 @@ class ProductDraftController extends AbstractController
      */
     public function getProductTemplate(AbstractProduct $product, Language $language): Response
     {
-        $template = $this->templateRepository->load($product->getTemplateId());
+        $attributeCode = new AttributeCode(TemplateSystemAttribute::CODE);
+        $templateId = new TemplateId($product->getAttribute($attributeCode)->getValue());
+
+        $template = $this->templateRepository->load($templateId);
 
         Assert::notNull($template);
 
