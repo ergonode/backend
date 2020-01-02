@@ -17,6 +17,7 @@
         "ergonode/core": "^0.5.0",
         "jms/serializer": "^3.1",
         "nelmio/api-doc-bundle": "^3.4",
+        "nelmio/cors-bundle": "^1.5 || ^2.0",
         "ramsey/uuid": "^3.8",
         "sensio/framework-extra-bundle": "^5.4",
         "symfony/http-foundation": "^4.3",
