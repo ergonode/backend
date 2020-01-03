@@ -21,7 +21,7 @@ class PrivilegeGroupedByAreaProviderTest extends TestCase
 {
     /**
      */
-    public function testProvideCreation(): void
+    public function testProvidingPrivilegeGroupedByArea(): void
     {
         /** @var PrivilegeQueryInterface | MockObject $query */
         $query = $this->createMock(PrivilegeQueryInterface::class);

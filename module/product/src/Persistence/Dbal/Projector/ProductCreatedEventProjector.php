@@ -61,7 +61,6 @@ class ProductCreatedEventProjector
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'sku' => $event->getSku()->getValue(),
-                'template_id' => $event->getTemplateId()->getValue(),
                 'status' => 'new',
             ]
         );
@@ -87,7 +86,7 @@ class ProductCreatedEventProjector
      * @param string         $attributeId
      * @param ValueInterface $value
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
     private function insertValue(string $productId, string $attributeId, ValueInterface $value): void
     {

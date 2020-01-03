@@ -7,12 +7,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Infrastructure\Strategy\Relationship;
+namespace Ergonode\Designer\Infrastructure\Strategy\Relationship;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
@@ -20,14 +20,14 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class ProductTemplateRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**
-     * @var ProductQueryInterface
+     * @var TemplateQueryInterface
      */
     private $query;
 
     /**
-     * @param ProductQueryInterface $query
+     * @param TemplateQueryInterface $query
      */
-    public function __construct(ProductQueryInterface $query)
+    public function __construct(TemplateQueryInterface $query)
     {
         $this->query = $query;
     }

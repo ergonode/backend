@@ -15,9 +15,12 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
+use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
+use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Application\Form\DraftCreateForm;
 use Ergonode\Editor\Application\Model\DraftCreateFormModel;
@@ -526,7 +529,10 @@ class ProductDraftController extends AbstractController
      */
     public function getProductTemplate(AbstractProduct $product, Language $language): Response
     {
-        $template = $this->templateRepository->load($product->getTemplateId());
+        $attributeCode = new AttributeCode(TemplateSystemAttribute::CODE);
+        $templateId = new TemplateId($product->getAttribute($attributeCode)->getValue());
+
+        $template = $this->templateRepository->load($templateId);
 
         Assert::notNull($template);
 

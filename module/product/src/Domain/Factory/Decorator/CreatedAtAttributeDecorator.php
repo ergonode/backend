@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Factory\Decorator;
 
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
 use Ergonode\Product\Domain\Entity\ProductId;
@@ -44,11 +43,10 @@ class CreatedAtAttributeDecorator implements ProductFactoryInterface
     }
 
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param ProductId $id
+     * @param Sku       $sku
+     * @param array     $categories
+     * @param array     $attributes
      *
      * @return AbstractProduct
      *
@@ -57,13 +55,12 @@ class CreatedAtAttributeDecorator implements ProductFactoryInterface
     public function create(
         ProductId $id,
         Sku $sku,
-        TemplateId $templateId,
         array $categories = [],
         array $attributes = []
     ): AbstractProduct {
         $createdAt = new \DateTime();
         $attributes[CreatedAtSystemAttribute::CODE] = new StringValue($createdAt->format('Y-m-d H:i:s'));
 
-        return $this->factory->create($id, $sku, $templateId, $categories, $attributes);
+        return $this->factory->create($id, $sku, $categories, $attributes);
     }
 }

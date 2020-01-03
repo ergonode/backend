@@ -4,6 +4,13 @@
     "description": "Ergonode - Product",
     "homepage": "https://ergonode.com",
     "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.9",
@@ -24,9 +31,17 @@
         "symfony/translation": "^4.3",
         "symfony/validator": "^4.3"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    },
     "autoload": {
         "psr-4": {
             "Ergonode\\Product\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\Product\\Tests\\": "tests/"
         }
     }
 }

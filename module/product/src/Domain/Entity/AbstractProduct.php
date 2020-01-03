@@ -12,7 +12,6 @@ namespace Ergonode\Product\Domain\Entity;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
@@ -42,11 +41,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     private $sku;
 
     /**
-     * @var TemplateId
-     */
-    private $designTemplateId;
-
-    /**
      * @var int
      */
     private $version;
@@ -66,18 +60,16 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     private $categories;
 
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param ProductId $id
+     * @param Sku       $sku
+     * @param array     $categories
+     * @param array     $attributes
      *
      * @throws \Exception
      */
     public function __construct(
         ProductId $id,
         Sku $sku,
-        TemplateId $templateId,
         array $categories = [],
         array $attributes = []
     ) {
@@ -90,7 +82,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             }
         );
 
-        $this->apply(new ProductCreatedEvent($id, $sku, $templateId, $categories, $attributes));
+        $this->apply(new ProductCreatedEvent($id, $sku, $categories, $attributes));
     }
 
     /**
@@ -106,7 +98,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot
      */
     public function getTemplateId(): TemplateId
     {
-        return $this->designTemplateId;
     }
 
     /**
@@ -280,7 +271,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot
         $this->sku = $event->getSku();
         $this->attributes = [];
         $this->categories = [];
-        $this->designTemplateId = $event->getTemplateId();
         $this->version = 1;
         foreach ($event->getCategories() as $category) {
             $this->categories[$category->getValue()] = $category;

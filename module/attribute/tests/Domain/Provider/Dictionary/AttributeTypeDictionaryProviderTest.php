@@ -21,7 +21,7 @@ class AttributeTypeDictionaryProviderTest extends TestCase
 {
     /**
      */
-    public function testProviderCreation(): void
+    public function testProvidingAttributeTypeDictionary(): void
     {
         /** @var TranslatorInterface | MockObject $translator */
         $translator = $this->createMock(TranslatorInterface::class);

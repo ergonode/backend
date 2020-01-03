@@ -21,7 +21,7 @@ class AttributeGroupDictionaryProviderTest extends TestCase
 {
     /**
      */
-    public function testProviderCreation(): void
+    public function testProvidingAttributeGroupDictionary(): void
     {
         /** @var AttributeGroupQueryInterface | MockObject $attributeGroupQuery */
         $attributeGroupQuery = $this->createMock(AttributeGroupQueryInterface::class);

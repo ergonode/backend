@@ -23,6 +23,7 @@ class AttributeCodeTest extends TestCase
     {
         $attributeCode = new AttributeCode($value);
         $this->assertEquals($value, $attributeCode->getValue());
+        $this->assertEquals($value, (string) $attributeCode);
     }
 
     /**

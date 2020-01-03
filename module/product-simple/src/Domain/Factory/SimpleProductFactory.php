@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\ProductSimple\Domain\Factory;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
@@ -34,11 +33,10 @@ class SimpleProductFactory implements ProductFactoryInterface
     }
 
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param ProductId $id
+     * @param Sku       $sku
+     * @param array     $categories
+     * @param array     $attributes
      *
      * @return AbstractProduct
      *
@@ -47,7 +45,6 @@ class SimpleProductFactory implements ProductFactoryInterface
     public function create(
         ProductId $id,
         Sku $sku,
-        TemplateId $templateId,
         array $categories = [],
         array $attributes = []
     ): AbstractProduct {
@@ -57,7 +54,6 @@ class SimpleProductFactory implements ProductFactoryInterface
         return new SimpleProduct(
             $id,
             $sku,
-            $templateId,
             $categories,
             $attributes
         );

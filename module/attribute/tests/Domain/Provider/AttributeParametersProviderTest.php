@@ -20,7 +20,7 @@ class AttributeParametersProviderTest extends TestCase
 {
     /**
      */
-    public function testProviderCreation(): void
+    public function testProvidingAttributeParameters(): void
     {
         /** @var AbstractAttribute | MockObject $attribute */
         $attribute = $this->createMock(AbstractAttribute::class);

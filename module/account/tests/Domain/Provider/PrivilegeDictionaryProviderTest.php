@@ -24,7 +24,7 @@ class PrivilegeDictionaryProviderTest extends TestCase
 {
     /**
      */
-    public function testProvideCreation(): void
+    public function testProvidingPrivilegeDictionary(): void
     {
         /** @var PrivilegeQueryInterface | MockObject $query */
         $query = $this->createMock(PrivilegeQueryInterface::class);

@@ -20,7 +20,7 @@ class PrivilegeCodeProviderTest extends TestCase
 {
     /**
      */
-    public function testProviderCreation(): void
+    public function testProvidingPrivilegeCode(): void
     {
         /** @var PrivilegeQueryInterface | MockObject $query */
         $query = $this->createMock(PrivilegeQueryInterface::class);
