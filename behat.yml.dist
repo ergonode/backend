@@ -12,13 +12,13 @@ default:
                 - AttributeContext:
 
     extensions:
+        App\Tests\Behat\Extension\EnvVarProcessorExtension: ~
         Behat\Symfony2Extension:
             kernel:
                 bootstrap: 'features/bootstrap/bootstrap.php'
                 class: 'App\Kernel'
         Imbo\BehatApiExtension:
             apiClient:
-                base_uri: 'http://nginx'
+                base_uri: '%env(APP_URL)%'
                 timeout: 5.0
                 verify: false
-
