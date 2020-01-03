@@ -11,12 +11,14 @@ namespace Ergonode\Fixture\Infrastructure\Process;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ConnectionException;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Fixture\Exception\FixtureException;
 use Ergonode\Fixture\Infrastructure\Loader\FixtureLoader;
-use Ergonode\Fixture\Infrastructure\Manager\FixtureManager;
 use Faker\Generator;
 use Nelmio\Alice\Loader\NativeLoader;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\Fixture\Infrastructure\Manager\FixtureManager;
 
 /**
  */
@@ -33,6 +35,11 @@ class FixtureProcess
     private $generator;
 
     /**
+     * @var CommandBusInterface
+     */
+    private $commandBus;
+
+    /**
      * @var FixtureManager
      */
     private $manager;
@@ -43,21 +50,22 @@ class FixtureProcess
     private $connection;
 
     /**
-     * FixtureProcess constructor.
-     *
-     * @param FixtureLoader  $loader
-     * @param Generator      $generator
-     * @param FixtureManager $manager
-     * @param Connection     $connection
+     * @param FixtureLoader       $loader
+     * @param Generator           $generator
+     * @param CommandBusInterface $commandBus
+     * @param FixtureManager      $manager
+     * @param Connection          $connection
      */
     public function __construct(
         FixtureLoader $loader,
         Generator $generator,
+        CommandBusInterface $commandBus,
         FixtureManager $manager,
         Connection $connection
     ) {
         $this->loader = $loader;
         $this->generator = $generator;
+        $this->commandBus = $commandBus;
         $this->manager = $manager;
         $this->connection = $connection;
     }
@@ -78,6 +86,9 @@ class FixtureProcess
             $objectSet = $loader->loadFiles($files);
 
             foreach ($objectSet->getObjects() as $key => $object) {
+                if ($object instanceof DomainCommandInterface) {
+                    $this->commandBus->dispatch($object);
+                }
                 if ($object instanceof AbstractAggregateRoot) {
                     $this->manager->persist($object);
                 }

@@ -15,10 +15,11 @@ use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class UpdateTreeCommand
+class UpdateTreeCommand implements DomainCommandInterface
 {
     /**
      * @var CategoryTreeId

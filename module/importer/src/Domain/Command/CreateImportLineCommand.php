@@ -12,11 +12,11 @@ namespace Ergonode\Importer\Domain\Command;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Importer\Domain\Entity\ImportLineId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
- * Class CreateImportLineCommand
  */
-class CreateImportLineCommand
+class CreateImportLineCommand implements DomainCommandInterface
 {
     /**
      * @var ImportLineId

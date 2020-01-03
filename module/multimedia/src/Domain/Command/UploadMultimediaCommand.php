@@ -12,10 +12,11 @@ namespace Ergonode\Multimedia\Domain\Command;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Ergonode\Multimedia\Domain\Factory\MultimediaIdFactory;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class UploadMultimediaCommand
+class UploadMultimediaCommand implements DomainCommandInterface
 {
     /**
      * @var MultimediaId

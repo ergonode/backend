@@ -11,10 +11,11 @@ namespace Ergonode\Designer\Domain\Command;
 
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class DeleteTemplateCommand
+class DeleteTemplateCommand implements DomainCommandInterface
 {
     /**
      * @var TemplateId

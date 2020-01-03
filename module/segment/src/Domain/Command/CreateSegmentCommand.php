@@ -14,10 +14,11 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class CreateSegmentCommand
+class CreateSegmentCommand implements DomainCommandInterface
 {
     /**
      * @var SegmentId

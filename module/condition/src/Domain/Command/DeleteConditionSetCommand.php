@@ -11,10 +11,11 @@ namespace Ergonode\Condition\Domain\Command;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class DeleteConditionSetCommand
+class DeleteConditionSetCommand implements DomainCommandInterface
 {
     /**
      * @var ConditionSetId

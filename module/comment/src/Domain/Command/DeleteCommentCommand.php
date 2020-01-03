@@ -11,10 +11,11 @@ namespace Ergonode\Comment\Domain\Command;
 
 use Ergonode\Comment\Domain\Entity\CommentId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class DeleteCommentCommand
+class DeleteCommentCommand implements DomainCommandInterface
 {
     /**
      * @var CommentId $id

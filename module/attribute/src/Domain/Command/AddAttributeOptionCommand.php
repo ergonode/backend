@@ -13,10 +13,11 @@ use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class AddAttributeOptionCommand
+class AddAttributeOptionCommand implements DomainCommandInterface
 {
     /**
      * @var AttributeId

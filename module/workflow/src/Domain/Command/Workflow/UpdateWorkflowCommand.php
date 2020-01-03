@@ -13,10 +13,11 @@ use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class UpdateWorkflowCommand
+class UpdateWorkflowCommand implements DomainCommandInterface
 {
     /**
      * @var WorkflowId

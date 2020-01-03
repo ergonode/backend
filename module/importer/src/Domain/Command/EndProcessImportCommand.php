@@ -12,11 +12,11 @@ namespace Ergonode\Importer\Domain\Command;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
- * Class EndProcessImport
  */
-class EndProcessImportCommand
+class EndProcessImportCommand implements DomainCommandInterface
 {
     /**
      * @var ImportId

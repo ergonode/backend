@@ -13,10 +13,11 @@ use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class UpdateSegmentCommand
+class UpdateSegmentCommand implements DomainCommandInterface
 {
     /**
      * @var SegmentId

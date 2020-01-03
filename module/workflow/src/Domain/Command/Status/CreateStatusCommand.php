@@ -14,10 +14,11 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class CreateStatusCommand
+class CreateStatusCommand implements DomainCommandInterface
 {
     /**
      * @var StatusId

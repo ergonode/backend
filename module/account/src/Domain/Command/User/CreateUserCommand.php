@@ -15,10 +15,11 @@ use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class CreateUserCommand
+class CreateUserCommand implements DomainCommandInterface
 {
     /**
      * @var UserId

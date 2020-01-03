@@ -6,5 +6,5 @@ Ergonode\Condition\Domain\Condition\AttributeExistsCondition:
 Ergonode\Condition\Domain\Entity\ConditionSet:
     condition_set:
         __construct:
-            - '<conditionSetId("0b10ffb4-75ff-494e-92a6-814ccf8aae42")>'
+            - '<conditionSetId("test_condition")>'
             - ['@condition_attribute_exists']

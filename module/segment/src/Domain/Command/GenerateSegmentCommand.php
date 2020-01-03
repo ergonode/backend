@@ -11,10 +11,11 @@ namespace Ergonode\Segment\Domain\Command;
 
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class GenerateSegmentCommand
+class GenerateSegmentCommand implements DomainCommandInterface
 {
     /**
      * @var SegmentId

@@ -11,10 +11,11 @@ namespace Ergonode\Account\Domain\Command\User;
 
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class ChangeUserAvatarCommand
+class ChangeUserAvatarCommand implements DomainCommandInterface
 {
     /**
      * @var UserId

@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Factory\Decorator;
 
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
@@ -19,6 +18,7 @@ use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
+use Webmozart\Assert\Assert;
 
 /**
  */

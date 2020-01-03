@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Domain\Command;
 
 use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class DeleteSegmentCommand
+class DeleteSegmentCommand implements DomainCommandInterface
 {
     /**
      * @var SegmentId

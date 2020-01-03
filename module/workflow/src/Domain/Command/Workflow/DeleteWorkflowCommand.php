@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Command\Workflow;
 
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class DeleteWorkflowCommand
+class DeleteWorkflowCommand implements DomainCommandInterface
 {
     /**
      * @var WorkflowId

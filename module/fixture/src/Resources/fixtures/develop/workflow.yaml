@@ -1,51 +1,50 @@
-Ergonode\Core\Domain\ValueObject\TranslatableString:
-    status_new_translation:
-        __construct:
-            -
-                'PL': 'Nowy'
-                'EN': 'New'
-    status_draft_translation:
-        __construct:
-            -
-                'PL': 'Szkic'
-                'EN': 'Draft'
-    transition_name_translation:
-        __construct:
-            -
-                'PL': 'Rozpocznij'
-                'EN': 'Start'
-    transition_description_translation:
-        __construct:
-            -
-                'PL': 'Rozpocznij opis'
-                'EN': 'Start Description'
+parameters:
+  status_new_translation:
+    'PL': 'Nowy'
+    'EN': 'New'
+  status_draft_translation:
+    'PL': 'Szkic'
+    'EN': 'Draft'
+  transition_name_translation:
+    'PL': 'Rozpocznij'
+    'EN': 'Start'
+  transition_description_translation:
+    'PL': 'Rozpocznij opis'
+    'EN': 'Start Description'
 
 Ergonode\Workflow\Domain\Entity\Status:
-    status_new:
-        __construct:
-            - '<statusId(STATUS_NEW)>'
-            - '<statusCode(STATUS_NEW)>'
-            - '<color(#33373E)>'
-            - '@status_new_translation'
-            - '@status_new_translation'
-    status_draft:
-        __construct:
-            - '<statusId(STATUS_DRAFT)>'
-            - '<statusCode(STATUS_DRAFT)>'
-            - '<color(#FFC108)>'
-            - '@status_draft_translation'
-            - '@status_draft_translation'
+  status_new:
+    __construct:
+      - '<statusId("new")>'
+      - '<statusCode("new")>'
+      - '<color(#33373E)>'
+      - '<translation(<{status_new_translation}>)>'
+      - '<translation(<{status_new_translation}>)>'
+  status_draft:
+    __construct:
+      - '<statusId("draft")>'
+      - '<statusCode("draft")>'
+      - '<color(#FFC108)>'
+      - '<translation(<{status_draft_translation}>)>'
+      - '<translation(<{status_draft_translation}>)>'
 
-Ergonode\Workflow\Domain\Entity\Workflow:
-    default_workflow:
-        __construct:
-            - '<workflowId(default)>'
-            - 'default'
-        __calls:
-            - addStatus:
-                  - '<statusCode(STATUS_NEW)>'
-            - addStatus:
-                  - '<statusCode(STATUS_DRAFT)>'
-            - addTransition:
-                  - '<statusCode(STATUS_NEW)>'
-                  - '<statusCode(STATUS_DRAFT)>'
+Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand:
+  default_workflow:
+    __construct:
+      - 'default'
+      -
+        - '<statusCode("new")>'
+        - '<statusCode("draft")>'
+        - '<statusCode("to approve")>'
+        - '<statusCode("ready to publish")>'
+        - '<statusCode("to correct")>'
+        - '<statusCode("published")>'
+
+Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand:
+  add_status_new:
+    __construct:
+      - '<workflowId(default)>'
+      - '<statusCode("new")>'
+      - '<statusCode("draft")>'
+      - '<translation(<{transition_name_translation}>)>'
+      - '<translation(<{transition_description_translation}>)>'
