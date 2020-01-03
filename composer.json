@@ -10,7 +10,6 @@
         "behat/symfony2-extension": "^2.1",
         "doctrine/migrations": "2.2.x",
         "egulias/email-validator": "^2.1",
-        "gfreeau/get-jwt-bundle": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
         "imbo/behat-api-extension": "^2.1",
         "jms/serializer": "^3.1",
