@@ -10,10 +10,11 @@ namespace Ergonode\Attribute\Domain\Command\Group;
 
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class UpdateAttributeGroupCommand
+class UpdateAttributeGroupCommand implements DomainCommandInterface
 {
     /**
      * @var AttributeGroupId

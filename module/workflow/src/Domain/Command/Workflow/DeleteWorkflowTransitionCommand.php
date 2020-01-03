@@ -12,10 +12,11 @@ namespace Ergonode\Workflow\Domain\Command\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class DeleteWorkflowTransitionCommand
+class DeleteWorkflowTransitionCommand implements DomainCommandInterface
 {
     /**
      * @var WorkflowId

@@ -1,7 +1,33 @@
+Ergonode\CategoryTree\Domain\Entity\CategoryTreeId:
+    category_tree_id:
+        __construct:
+            - '<Uuid()>'
+
+Ergonode\CategoryTree\Domain\Entity\CategoryTree:
+    category_tree:
+        __construct:
+            - '@category_tree_id'
+            - 'default'
+            - '@category_tree_name'
+
+Ergonode\Account\Domain\Entity\RoleId:
+    superadmin_role_id:
+        __construct:
+            - '<Uuid()>'
+    admin_role_id:
+        __construct:
+            - '<Uuid()>'
+    data_inputer_role_id:
+        __construct:
+            - '<Uuid()>'
+    category_manager_role_id:
+        __construct:
+            - '<Uuid()>'
+
 Ergonode\Account\Domain\Entity\Role:
     superadmin_role:
         __construct:
-            - '<roleId("Superadmin")>'
+            - '@superadmin_role_id'
             - 'Superadmin'
             - 'Manages Ergonode system, manages access to all permissions for other users.'
             -
@@ -64,7 +90,7 @@ Ergonode\Account\Domain\Entity\Role:
             - true
     admin_role:
         __construct:
-            - '<roleId("Admin")>'
+            - '@admin_role_id'
             - 'Admin'
             - 'Manages Ergonode system, manages access to all permissions for other users.'
             -
@@ -126,7 +152,7 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("CONDITION_DELETE")>'
     data_inputer_role:
         __construct:
-            - '<roleId("Data inputer")>'
+            - '@data_inputer_role_id'
             - 'Data inputer'
             - 'Enriches product information: manages attributes and updates products data. Has access to product categories and updates them. Is responsible for data enrichment.'
             -
@@ -158,7 +184,7 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("MULTIMEDIA_UPDATE")>'
     category_manager_role:
         __construct:
-            - '<roleId("Category manager")>'
+            - '@category_manager_role_id'
             - 'Category manager'
             - 'Assures product data are correct and ready to publish. Manages product categories, verifies products statuses. Is responsible for product data completness.'
             -
@@ -194,3 +220,202 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("MULTIMEDIA_READ")>'
                 - '<privilege("MULTIMEDIA_UPDATE")>'
                 - '<privilege("MULTIMEDIA_DELETE")>'
+
+Ergonode\Account\Domain\ValueObject\Password:
+    superadmin_user_password:
+        __construct:
+            - 'GeyK6ku29LJhJf3htswrpu1eh68=' # abcd1234
+
+Ergonode\Account\Domain\Entity\User:
+    superadmin:
+        __construct:
+            - '<userId(test@ergonode.com)>'
+            - 'Johnny'
+            - 'Bravo'
+            - '<userEmail(test@ergonode.com)>'
+            - '<language(EN)>'
+            - '@superadmin_user_password'
+            - '@superadmin_role_id'
+
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+    status_new_translation:
+        __construct:
+            -
+                'PL': 'Nowy'
+                'EN': 'New'
+    status_draft_translation:
+        __construct:
+            -
+                'PL': 'Szkic'
+                'EN': 'Draft'
+    status_to_approve_translation:
+        __construct:
+            -
+                'PL': 'Do akceptacji'
+                'EN': 'To approve'
+    status_ready_to_publish_translation:
+        __construct:
+            -
+                'PL': 'Gotowy do publikacji'
+                'EN': 'Ready to publish'
+    status_to_correct_translation:
+        __construct:
+            -
+                'PL': 'Do poprawy'
+                'EN': 'To correct'
+    status_published_translation:
+        __construct:
+            -
+                'PL': 'Opublikowany'
+                'EN': 'Published'
+    category_tree_name:
+        __construct:
+            - 'PL': 'Polish_name'
+              'EN': 'English_name'
+              'ZH': 'Chinese_name'
+    empty:
+        __construct:
+            - []
+    label_esa_status:
+        __construct:
+            -   'PL': 'Status'
+                'EN': 'Status'
+    label_esa_created_at:
+        __construct:
+            -   'PL': 'Czas utworzenia'
+                'EN': 'Created at'
+    label_esa_edited_at:
+        __construct:
+            -   'PL': 'Czas edycji'
+                'EN': 'Edited at'
+    label_esa_created_by:
+        __construct:
+            -   'PL': 'Utworzone przez'
+                'EN': 'Created by'
+    label_esa_edited_by:
+        __construct:
+            -   'PL': 'Edytowane przez'
+                'EN': 'Edited by'
+    label_esa_template:
+        __construct:
+            -   'PL': 'Szablon'
+                'EN': 'Template'
+    label_esa_categories:
+        __construct:
+            -   'PL': 'Kategorie'
+                'EN': 'Categories'
+
+Ergonode\Workflow\Domain\Entity\Status:
+    status_new:
+        __construct:
+            - '<statusId("new")>'
+            - '<statusCode("new")>'
+            - '<color(#33373E)>'
+            - '@status_new_translation'
+            - '@status_new_translation'
+    status_draft:
+        __construct:
+            - '<statusId("draft")>'
+            - '<statusCode("draft")>'
+            - '<color(#FFC108)>'
+            - '@status_draft_translation'
+            - '@status_draft_translation'
+    status_to_approve:
+        __construct:
+            - '<statusId("to approve")>'
+            - '<statusCode("to approve")>'
+            - '<color(#AA00FF)>'
+            - '@status_to_approve_translation'
+            - '@status_to_approve_translation'
+    status_ready_to_publish:
+        __construct:
+            - '<statusId("ready to publish")>'
+            - '<statusCode("ready to publish")>'
+            - '<color(#43A047)>'
+            - '@status_ready_to_publish_translation'
+            - '@status_ready_to_publish_translation'
+    status_to_correct:
+        __construct:
+            - '<statusId("to correct")>'
+            - '<statusCode("to correct")>'
+            - '<color(#C62828)>'
+            - '@status_to_correct_translation'
+            - '@status_to_correct_translation'
+    status_published:
+        __construct:
+            - '<statusId("published")>'
+            - '<statusCode("published")>'
+            - '<color(#2096F3)>'
+            - '@status_published_translation'
+            - '@status_published_translation'
+
+Ergonode\Workflow\Domain\Entity\Workflow:
+    default_workflow:
+        __construct:
+            - '<workflowId(default)>'
+            - 'default'
+        __calls:
+            - addStatus:
+                  - '<statusCode("new")>'
+            - addStatus:
+                  - '<statusCode("draft")>'
+            - addStatus:
+                  - '<statusCode("to approve")>'
+            - addStatus:
+                  - '<statusCode("ready to publish")>'
+            - addStatus:
+                  - '<statusCode("to correct")>'
+            - addStatus:
+                  - '<statusCode("published")>'
+            - addTransition:
+                  - '<statusCode("new")>'
+                  - '<statusCode("draft")>'
+
+Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
+    attribute_esa_status:
+        __construct:
+            - '@label_esa_status'
+            - '@empty'
+            - '@empty'
+            -
+Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute:
+    attribute_esa_created_at:
+        __construct:
+            - '@label_esa_created_at'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute:
+    attribute_esa_edited_at:
+        __construct:
+            - '@label_esa_edited_at'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute:
+    attribute_esa_created_by:
+        __construct:
+            - '@label_esa_created_by'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute:
+    attribute_esa_edited_by:
+        __construct:
+            - '@label_esa_edited_by'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute:
+    attribute_esa_template:
+        __construct:
+            - '@label_esa_template'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
+    attribute_esa_categories:
+        __construct:
+            - '@label_esa_categories'
+            - '@empty'
+            - '@empty'

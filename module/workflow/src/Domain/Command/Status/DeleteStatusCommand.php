@@ -11,10 +11,11 @@ namespace Ergonode\Workflow\Domain\Command\Status;
 
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class DeleteStatusCommand
+class DeleteStatusCommand implements DomainCommandInterface
 {
     /**
      * @var StatusId

@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\EventSourcing\Infrastructure\Bus;
 
 use Symfony\Component\Messenger\MessageBusInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
@@ -29,9 +30,9 @@ class SymfonyCommandBus implements CommandBusInterface
     }
 
     /**
-     * @param object $command
+     * @param DomainCommandInterface $command
      */
-    public function dispatch(object $command): void
+    public function dispatch(DomainCommandInterface $command): void
     {
         $this->bus->dispatch($command);
     }

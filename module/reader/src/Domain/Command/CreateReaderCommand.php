@@ -11,10 +11,11 @@ namespace Ergonode\Reader\Domain\Command;
 
 use Ergonode\Reader\Domain\Entity\ReaderId;
 use Ergonode\Reader\Domain\FormatterInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class CreateReaderCommand
+class CreateReaderCommand implements DomainCommandInterface
 {
     /**
      * @var ReaderId

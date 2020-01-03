@@ -11,10 +11,11 @@ namespace Ergonode\Transformer\Domain\Command;
 
 use Ergonode\Transformer\Domain\Entity\ProcessorId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class EndProcessImportLineCommand
+class EndProcessImportLineCommand implements DomainCommandInterface
 {
     /**
      * @var ProcessorId

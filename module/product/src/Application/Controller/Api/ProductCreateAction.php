@@ -25,6 +25,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Product\Domain\Entity\ProductId;
 
 /**
  * @Route("products", methods={"POST"})
@@ -96,6 +97,7 @@ class ProductCreateAction
             /** @var ProductCreateFormModel $data */
             $data = $form->getData();
             $command = new CreateProductCommand(
+                ProductId::generate(),
                 new Sku($data->sku),
                 $data->categories,
                 [TemplateSystemAttribute::CODE => new StringValue($data->template)]

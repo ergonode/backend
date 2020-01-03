@@ -11,10 +11,11 @@ namespace Ergonode\Product\Domain\Command;
 
 use Ergonode\Product\Domain\Entity\ProductId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class DeleteProductCommand
+class DeleteProductCommand implements DomainCommandInterface
 {
     /**
      * @var ProductId

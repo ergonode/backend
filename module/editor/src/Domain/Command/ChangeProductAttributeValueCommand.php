@@ -13,10 +13,11 @@ use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Editor\Domain\Entity\ProductDraftId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class ChangeProductAttributeValueCommand
+class ChangeProductAttributeValueCommand implements DomainCommandInterface
 {
     /**
      * @var ProductDraftId

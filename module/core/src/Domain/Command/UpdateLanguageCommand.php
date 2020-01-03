@@ -12,10 +12,11 @@ namespace Ergonode\Core\Domain\Command;
 use Ergonode\Core\Domain\ValueObject\Language;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class UpdateLanguageCommand
+class UpdateLanguageCommand implements DomainCommandInterface
 {
     /**
      * @var array<Language>

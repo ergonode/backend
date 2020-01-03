@@ -15,10 +15,11 @@ use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class CreateTemplateCommand
+class CreateTemplateCommand implements DomainCommandInterface
 {
     /**
      * @var TemplateId

@@ -12,10 +12,11 @@ namespace Ergonode\Product\Domain\Command;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Product\Domain\Entity\ProductId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class UpdateProductCommand
+class UpdateProductCommand implements DomainCommandInterface
 {
     /**
      * @var ProductId

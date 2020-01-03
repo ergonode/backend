@@ -13,10 +13,11 @@ use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class CreateRoleCommand
+class CreateRoleCommand implements DomainCommandInterface
 {
     /**
      * @var RoleId

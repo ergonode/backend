@@ -15,10 +15,11 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class AddWorkflowTransitionCommand
+class AddWorkflowTransitionCommand implements DomainCommandInterface
 {
     /**
      * @var WorkflowId

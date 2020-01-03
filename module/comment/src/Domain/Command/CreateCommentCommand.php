@@ -13,10 +13,11 @@ use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Comment\Domain\Entity\CommentId;
 use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class CreateCommentCommand
+class CreateCommentCommand implements DomainCommandInterface
 {
     /**
      * @var CommentId $id

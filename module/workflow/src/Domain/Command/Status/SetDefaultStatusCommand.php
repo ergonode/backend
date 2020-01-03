@@ -12,10 +12,11 @@ namespace Ergonode\Workflow\Domain\Command\Status;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class SetDefaultStatusCommand
+class SetDefaultStatusCommand implements DomainCommandInterface
 {
     /**
      * @var StatusCode

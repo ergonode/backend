@@ -10,15 +10,15 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Command;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class CreateProductCommand
+class CreateProductCommand implements DomainCommandInterface
 {
     /**
      * @var ProductId
@@ -49,15 +49,15 @@ class CreateProductCommand
     private $attributes;
 
     /**
-     * @param Sku   $sku
-     * @param array $categories
-     * @param array $attributes
+     * @param ProductId $id
+     * @param Sku       $sku
+     * @param array     $categories
+     * @param array     $attributes
      *
-     * @throws \Exception
      */
-    public function __construct(Sku $sku, array $categories = [], array $attributes = [])
+    public function __construct(ProductId $id, Sku $sku, array $categories = [], array $attributes = [])
     {
-        $this->id = ProductId::generate();
+        $this->id = $id;
         $this->sku = $sku;
         $this->categories = $categories;
         $this->attributes = $attributes;
