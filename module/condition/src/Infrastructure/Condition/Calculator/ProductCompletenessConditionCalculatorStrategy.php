@@ -9,12 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
 use Ergonode\Condition\Domain\Condition\ProductCompletenessCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
+use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -81,8 +84,17 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
         $draft = $this->provider->provide($object);
-        $template = $this->repository->load($object->getTemplateId());
-        Assert::notNull($template, sprintf('Can\'t find template %s', $object->getTemplateId()->getValue()));
+
+        $templateId = new TemplateId(
+            $object->getAttribute(
+                new AttributeCode(
+                    TemplateSystemAttribute::CODE
+                )
+            )->getValue()
+        );
+
+        $template = $this->repository->load($templateId);
+        Assert::notNull($template, sprintf('Can\'t find template %s', $templateId->getValue()));
 
         $result = true;
 
@@ -92,10 +104,8 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
                 if ($calculation->getPercent() < 100) {
                     $result = false;
                 }
-            } else {
-                if ($calculation->getPercent() > 0) {
-                    $result = false;
-                }
+            } elseif ($calculation->getPercent() === 100) {
+                $result = false;
             }
         }
 
