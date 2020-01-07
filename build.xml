@@ -25,7 +25,28 @@
     </target>
 
     <!-- Tests -->
-    <target name="test" depends="database:drop, database:create, database:migrate, cache:clear, database:fixture, test:unit, test:behat" description="Execute tests with database recreation."/>
+    <target
+            name="test"
+            depends="test:database:drop, test:database:create, test:database:migrate, test:cache:clear, test:database:fixture, test:unit, test:behat"
+            description="Execute tests with database recreation."
+    >
+    </target>
+
+
+    <target name="test:server:start" description="Starts a local test web server in the background">
+        <exec
+                command="${dir.console} server:start -e test --pidfile=./.web-server-8001.pid 127.0.0.1:8001"
+                logoutput="true"
+                spawn="true"
+        />
+    </target>
+
+    <target name="test:server:stop" description="Stops the local test web server">
+        <exec
+                command="${dir.console} server:stop -e test --pidfile=./.web-server-8001.pid"
+                logoutput="true"
+        />
+    </target>
 
     <!-- PHP Unit -->
     <target name="test:unit" description="Executes unit tests.">
@@ -50,9 +71,9 @@
     </target>
 
     <!-- Behat -->
-    <target name="test:behat" description="Executes behat tests.">
+    <target name="test:behat" depends="test:server:start" description="Executes behat tests." >
         <echo msg="Running behat tests..."/>
-        <exec command="bin/behat"
+        <exec command="APP_ENV=test APP_URL=http://localhost:8001 bin/behat --colors --stop-on-failure"
               checkreturn="true"
               logoutput="true"
               passthru="true"
@@ -66,6 +87,11 @@
         <exec command="${dir.console} cache:clear --no-interaction" logoutput="true" checkreturn="true" />
     </target>
 
+    <target name="test:cache:clear" description="Clear test cache">
+        <echo msg="Start clearing cache"/>
+        <exec command="${dir.console} cache:clear -e test --no-interaction" logoutput="true" checkreturn="true" />
+    </target>
+
     <!-- Database -->
     <target name="database:rebuild" depends="database:drop, database:create, database:migrate, cache:clear" description="Database rebuild"/>
 
@@ -74,19 +100,42 @@
         <exec command="${dir.console} ergonode:migrations:migrate --no-interaction --allow-no-migration" logoutput="true" checkreturn="true" />
     </target>
 
+    <target name="test:database:migrate" description="Migrate migrations">
+        <echo msg="Executing test database migrations..."/>
+        <exec command="${dir.console} ergonode:migrations:migrate -e test --no-interaction --allow-no-migration" logoutput="true" checkreturn="true" />
+    </target>
+
     <target name="database:create" description="Create database">
         <echo msg="Create database..."/>
         <exec command="${dir.console} doctrine:database:create --no-interaction" logoutput="true" checkreturn="true" />
     </target>
 
+    <target name="test:database:create" description="Create database">
+        <echo msg="Create test database..."/>
+        <exec command="${dir.console} doctrine:database:create -e test --no-interaction" logoutput="true" checkreturn="true" />
+    </target>
+
     <target name="database:drop" description="Drop database">
         <echo msg="Drop database..."/>
-        <exec command="${dir.console} doctrine:database:drop --no-interaction --force" logoutput="true" checkreturn="true" />
+        <exec command="${dir.console} doctrine:database:drop --if-exists --no-interaction --force" logoutput="true" checkreturn="true" />
+    </target>
+
+    <target name="test:database:drop" description="Drop database">
+        <echo msg="Drop test database..."/>
+        <exec command="${dir.console} doctrine:database:drop -e test --if-exists --no-interaction --force" logoutput="true" checkreturn="true" />
     </target>
 
     <target name="database:fixture" description="Fill database with basic data">
         <echo msg="Fill database with fixtures ..."/>
         <exec command="${dir.console} ergonode:fixture:load --no-interaction"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
+
+    <target name="test:database:fixture" description="Fill database with basic data">
+        <echo msg="Fill test database with fixtures ..."/>
+        <exec command="${dir.console} ergonode:fixture:load -e test --no-interaction"
               checkreturn="true"
               logoutput="true">
         </exec>
