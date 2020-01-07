@@ -14,11 +14,12 @@ use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 
 /**
  */
-class CreateUserCommand
+class CreateUserCommand implements DomainCommandInterface
 {
     /**
      * @var UserId

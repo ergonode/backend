@@ -1,40 +1,34 @@
+parameters:
+  category_tree_name:
+    'PL': 'Drzewo kategorii'
+    'EN': 'Category tree'
+
 Ergonode\Core\Domain\ValueObject\TranslatableString:
-    category_name_{1..10}:
-        __construct:
-            - {PL : <category()>}
-    category_tree_name:
-        __construct:
-            -
-                'PL': 'Polish_name'
-                'EN': 'English_name'
-                'ZH': 'Chinese_name'
+  category_name_{1..10}:
+    __construct:
+      - {PL: <category()>}
 
 Ergonode\Category\Domain\Entity\Category:
-    category_{1..10}:
-        __construct:
-            - '<categoryId(code_<current()>)>'
-            - '<categoryCode(code_<current()>)>'
-            - '@category_name_<current()>'
-
-Ergonode\CategoryTree\Domain\Entity\CategoryTreeId:
-    category_tree_id:
-        __construct:
-            - '<Uuid()>'
+  category_{1..10}:
+    __construct:
+      - '<categoryId(code_<current()>)>'
+      - '<categoryCode(code_<current()>)>'
+      - '@category_name_<current()>'
 
 Ergonode\CategoryTree\Domain\Entity\CategoryTree:
-    category_tree:
-        __construct:
-            - '@category_tree_id'
-            - 'default'
-            - '@category_tree_name'
-            - '<categoryId(code_1)>'
-        __calls:
-            - addCategory: ['<categoryId(code_2)>', '<categoryId(code_1)>']
-            - addCategory: ['<categoryId(code_3)>', '<categoryId(code_1)>']
-            - addCategory: ['<categoryId(code_4)>', '<categoryId(code_2)>']
-            - addCategory: ['<categoryId(code_5)>', '<categoryId(code_2)>']
-            - addCategory: ['<categoryId(code_6)>', '<categoryId(code_3)>']
-            - addCategory: ['<categoryId(code_7)>', '<categoryId(code_3)>']
-            - addCategory: ['<categoryId(code_8)>', '<categoryId(code_4)>']
-            - addCategory: ['<categoryId(code_9)>', '<categoryId(code_4)>']
-            - addCategory: ['<categoryId(code_10)>', '<categoryId(code_4)>']
+  category_tree:
+    __construct:
+      - '<categoryTreeId(default)>'
+      - 'default'
+      - '<translation(<{category_tree_name}>)>'
+      - '<categoryId(code_1)>'
+    __calls:
+      - addCategory: ['<categoryId(code_2)>', '<categoryId(code_1)>']
+      - addCategory: ['<categoryId(code_3)>', '<categoryId(code_1)>']
+      - addCategory: ['<categoryId(code_4)>', '<categoryId(code_2)>']
+      - addCategory: ['<categoryId(code_5)>', '<categoryId(code_2)>']
+      - addCategory: ['<categoryId(code_6)>', '<categoryId(code_3)>']
+      - addCategory: ['<categoryId(code_7)>', '<categoryId(code_3)>']
+      - addCategory: ['<categoryId(code_8)>', '<categoryId(code_4)>']
+      - addCategory: ['<categoryId(code_9)>', '<categoryId(code_4)>']
+      - addCategory: ['<categoryId(code_10)>', '<categoryId(code_4)>']

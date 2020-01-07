@@ -31,7 +31,7 @@ class CreateTreeCommandTest extends TestCase
         string $code,
         array $categories
     ): void {
-        $command = new CreateTreeCommand($name, $code, $categories);
+        $command = new CreateTreeCommand($code, $name, $categories);
         $this->assertSame($name, $command->getName());
         $this->assertSame($code, $command->getCode());
         foreach ($command->getCategories() as $category) {

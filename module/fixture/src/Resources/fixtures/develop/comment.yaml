@@ -1,6 +1,6 @@
 Ramsey\Uuid\Uuid:
     object_id_{1..100}:
-        __factory: { fromString: ['<uuid(@product_id_<current()>)>'] }
+        __factory: { fromString: ['<uuid(<productId(SKU_<current()>)>)>'] }
 
 Ergonode\Comment\Domain\Entity\Comment:
     note_{1..1000}:

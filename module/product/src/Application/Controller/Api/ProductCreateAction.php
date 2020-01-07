@@ -15,6 +15,7 @@ use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Product\Application\Form\ProductCreateForm;
 use Ergonode\Product\Application\Model\ProductCreateFormModel;
 use Ergonode\Product\Domain\Command\CreateProductCommand;
+use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -95,6 +96,7 @@ class ProductCreateAction
             /** @var ProductCreateFormModel $data */
             $data = $form->getData();
             $command = new CreateProductCommand(
+                ProductId::generate(),
                 new Sku($data->sku),
                 $data->categories,
                 [TemplateSystemAttribute::CODE => new StringValue($data->template)]
