@@ -32,16 +32,21 @@ abstract class AbstractDbalDataSet implements DataSetInterface
         /** @var FilterValue $filter */
         foreach ($values as $name => $filters) {
             if (array_key_exists($name, $columns)) {
-                foreach ($filters as $filter) {
-                    $columnFilter = $columns[$name]->getFilter();
-                    if ($columnFilter) {
-                        if ($columns[$name]->getAttribute()) {
-                            $name = Uuid::uuid5(self::NAMESPACE, $name)->toString();
-                        }
+                $columnFilter = $columns[$name]->getFilter();
+                if ($columnFilter) {
+                    if ($columns[$name]->getAttribute()) {
+                        $name = Uuid::uuid5(self::NAMESPACE, $name)->toString();
+                    }
+                    foreach ($filters as $filter) {
                         if ($columnFilter instanceof TextFilter) {
                             $this->buildTextQuery($query, $name, $filter->getOperator(), $filter->getValue());
                         } elseif ($columnFilter instanceof MultiSelectFilter) {
-                            $this->buildMultiSelectQuery($query, $name, $filter->getOperator(), $filter->getValue());
+                            $this->buildMultiSelectQuery(
+                                $query,
+                                $name,
+                                $filter->getOperator(),
+                                $filter->getValue()
+                            );
                         } else {
                             $this->buildDefaultQuery($query, $name, $filter->getOperator(), $filter->getValue());
                         }
