@@ -12,10 +12,10 @@ namespace Ergonode\Workflow\Domain\Command\Workflow;
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */

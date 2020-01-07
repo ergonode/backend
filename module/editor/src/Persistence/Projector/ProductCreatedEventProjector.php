@@ -10,9 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
+use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 
 /**
  */

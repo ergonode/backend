@@ -11,11 +11,13 @@ namespace Ergonode\Product\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Product\Application\Form\ProductCreateForm;
 use Ergonode\Product\Application\Model\ProductCreateFormModel;
 use Ergonode\Product\Domain\Command\CreateProductCommand;
+use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -23,9 +25,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Product\Domain\Entity\ProductId;
 
 /**
  * @Route("products", methods={"POST"})

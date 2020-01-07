@@ -10,9 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Infrastructure\Query\Decorator;
 
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
-use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 
 /**
  */

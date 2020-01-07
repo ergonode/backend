@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Command\Status;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */

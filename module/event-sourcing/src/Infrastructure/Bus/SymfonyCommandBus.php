@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Bus;
 
-use Symfony\Component\Messenger\MessageBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  */

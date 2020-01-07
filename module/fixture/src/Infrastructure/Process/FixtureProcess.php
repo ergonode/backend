@@ -11,14 +11,14 @@ namespace Ergonode\Fixture\Infrastructure\Process;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ConnectionException;
-use Ergonode\Fixture\Exception\FixtureException;
-use Ergonode\Fixture\Infrastructure\Loader\FixtureLoader;
-use Faker\Generator;
-use Nelmio\Alice\Loader\NativeLoader;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\Fixture\Exception\FixtureException;
+use Ergonode\Fixture\Infrastructure\Loader\FixtureLoader;
 use Ergonode\Fixture\Infrastructure\Manager\FixtureManager;
+use Faker\Generator;
+use Nelmio\Alice\Loader\NativeLoader;
 
 /**
  */

@@ -11,9 +11,9 @@ namespace Ergonode\Comment\Domain\Command;
 
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Comment\Domain\Entity\CommentId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */

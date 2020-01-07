@@ -14,9 +14,9 @@ use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\Workflow\Domain\Entity\TransitionId;
+use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
 
 /**
  */

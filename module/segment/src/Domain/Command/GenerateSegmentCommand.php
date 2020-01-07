@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */

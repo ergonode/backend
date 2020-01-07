@@ -18,7 +18,6 @@ use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Entity\Workflow;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
-use Webmozart\Assert\Assert;
 
 /**
  */

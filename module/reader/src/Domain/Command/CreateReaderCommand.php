@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Reader\Domain\Entity\ReaderId;
 use Ergonode\Reader\Domain\FormatterInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */

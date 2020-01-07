@@ -11,9 +11,9 @@ namespace Ergonode\Account\Domain\Command\Role;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */

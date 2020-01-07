@@ -11,8 +11,8 @@ namespace Ergonode\Account\Domain\Command\Role;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */

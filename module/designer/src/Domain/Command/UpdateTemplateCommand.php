@@ -12,10 +12,10 @@ namespace Ergonode\Designer\Domain\Command;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */

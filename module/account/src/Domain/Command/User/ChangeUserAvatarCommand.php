@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Domain\Command\User;
 
 use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 
 /**
  */

@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Faker\Provider\Base as BaseProvider;
 use Ergonode\Product\Domain\Entity\ProductId;
+use Faker\Provider\Base as BaseProvider;
 
 /**
  */

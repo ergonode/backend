@@ -8,8 +8,8 @@ namespace Ergonode\Designer\Domain\Query;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\DataSetInterface;
 use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\Grid\DataSetInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 
 /**

@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Command;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */

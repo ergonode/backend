@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Notification\Domain\Command;
 
 use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Notification\Domain\NotificationInterface;
 
 /**
  */

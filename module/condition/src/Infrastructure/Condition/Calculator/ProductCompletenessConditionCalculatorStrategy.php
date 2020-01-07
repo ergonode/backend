@@ -15,7 +15,6 @@ use Ergonode\Condition\Domain\Condition\ProductCompletenessCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
