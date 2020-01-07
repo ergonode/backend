@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Tests\Infrastructure\Strategy\Relationship;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Infrastructure\Strategy\Relationship\TemplateAttributeRelationshipStrategy;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Core\Domain\Entity\AbstractId;
 
 /**
  */

@@ -1,22 +1,16 @@
-Ergonode\Core\Domain\ValueObject\TranslatableString:
-    segment_name:
-        __construct:
-            -
-                'PL': 'Polish_segment_name'
-                'EN': 'English_segment_name'
-                'ZH': 'Chinese_segment_name'
-    segment_description:
-        __construct:
-            -
-                'PL': 'Polish_segment_name'
-                'EN': 'English_segment_name'
-                'ZH': 'Chinese_segment_name'
+parameters:
+  segment_name:
+    'PL': 'Polish_segment_name'
+    'EN': 'English_segment_name'
+  segment_description:
+    'PL': 'Polish_segment_name'
+    'EN': 'English_segment_name'
 
 Ergonode\Segment\Domain\Entity\Segment:
-    test_segment:
-        __construct:
-            - '<segmentId("test_segment")>'
-            - '<segmentCode("test_segment")>'
-            - '@segment_name'
-            - '@segment_description'
-            - '<conditionSetId("0b10ffb4-75ff-494e-92a6-814ccf8aae42")>'
+  test_segment:
+    __construct:
+      - '<segmentId("test_segment")>'
+      - '<segmentCode("test_segment")>'
+      - '<translation(<{segment_name}>)>'
+      - '<translation(<{segment_description}>)>'
+      - '<conditionSetId("test_condition")>'

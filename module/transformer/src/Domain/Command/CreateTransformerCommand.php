@@ -9,12 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CreateTransformerCommand
+class CreateTransformerCommand implements DomainCommandInterface
 {
     /**
      * @var TransformerId

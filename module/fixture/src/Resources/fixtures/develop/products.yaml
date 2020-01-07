@@ -1,13 +1,3 @@
-Ergonode\Product\Domain\ValueObject\Sku:
-    sku_{1..1000}:
-        __construct:
-            - 'SKU_<unixTime()>_<current()>'
-
-Ergonode\Product\Domain\Entity\ProductId:
-    product_id_{1..1000}:
-        __construct:
-            - '<Uuid()>'
-
 Ergonode\Value\Domain\ValueObject\StringValue:
     status_value_new:
         __construct:
@@ -16,12 +6,11 @@ Ergonode\Value\Domain\ValueObject\StringValue:
         __construct:
             - 'd346465c-a4fe-4564-a149-a0e8311013a3'
 
-Ergonode\ProductSimple\Domain\Entity\SimpleProduct:
+Ergonode\Product\Domain\Command\CreateProductCommand:
     product_{1..1000}:
         __construct:
-            - '@product_id_<current()>'
-            - '@sku_<current()>'
+            - '<productId(SKU_<current()>)>'
+            - '<sku(SKU_<current()>)>'
             - []
             -
-                'esa_status': '@status_value_new'
                 'esa_template': '@template_value'

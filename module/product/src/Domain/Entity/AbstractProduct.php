@@ -94,13 +94,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
-     * @return TemplateId
-     */
-    public function getTemplateId(): TemplateId
-    {
-    }
-
-    /**
      * @return Sku
      */
     public function getSku(): Sku

@@ -25,7 +25,7 @@
     </target>
 
     <!-- Tests -->
-    <target name="test" depends="database:drop, database:create, database:migrate, database:fixture, cache:clear, test:unit, test:behat" description="Execute tests with database recreation."/>
+    <target name="test" depends="database:drop, database:create, database:migrate, cache:clear, database:fixture, test:unit, test:behat" description="Execute tests with database recreation."/>
 
     <!-- PHP Unit -->
     <target name="test:unit" description="Executes unit tests.">
