@@ -452,6 +452,17 @@ nelmio_api_doc:
                     name:
                         PL: 'Nazwa grupy PL'
                         EN: 'Name of group EN'
+            attribute_group_upd:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                        description: attribute group name
+                example:
+                    name:
+                        PL: 'Nazwa grupy PL'
+                        EN: 'Name of group EN'
             attribute:
                 type: object
                 properties:

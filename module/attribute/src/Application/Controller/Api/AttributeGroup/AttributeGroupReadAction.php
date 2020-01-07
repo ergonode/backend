@@ -32,10 +32,10 @@ class AttributeGroupReadAction
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
-     *     name="attribute",
+     *     name="group",
      *     in="path",
      *     type="string",
-     *     description="Attribute id",
+     *     description="Attribute Group id",
      * )
      * @SWG\Parameter(
      *     name="language",
