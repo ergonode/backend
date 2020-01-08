@@ -68,15 +68,10 @@ Ergonode\Designer\Domain\Entity\TemplateGroupId:
         __construct:
             - '<Uuid(418c48d3-d2c3-4c30-b627-93850c38d59c)>'
 
-Ergonode\Designer\Domain\Entity\TemplateId:
-    template_id:
-        __construct:
-            - '<Uuid(d346465c-a4fe-4564-a149-a0e8311013a3)>'
-
 Ergonode\Designer\Domain\Entity\Template:
     template:
         __construct:
-            - '@template_id'
+            - '<templateId()>'
             - '@template_group_id'
             - 'Template'
         __calls:

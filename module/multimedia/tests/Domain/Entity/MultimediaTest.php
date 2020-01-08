@@ -29,14 +29,14 @@ class MultimediaTest extends TestCase
         $name = 'name';
         $ext = 'extension';
         $size = 123;
-        $crc = 'afd';
+        $hash = 'afd';
         $mime = 'text/json';
         $multimedia = new Multimedia(
             $multimediaId,
             $name,
             $ext,
             $size,
-            $crc,
+            $hash,
             $mime
         );
 
@@ -46,6 +46,6 @@ class MultimediaTest extends TestCase
         $this->assertEquals($ext, $multimedia->getExtension());
         $this->assertEquals($size, $multimedia->getSize());
         $this->assertEquals($mime, $multimedia->getMime());
-        $this->assertEquals($crc, $multimedia->getCrc());
+        $this->assertEquals($hash, $multimedia->getHash());
     }
 }

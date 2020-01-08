@@ -5,6 +5,15 @@ Ergonode\Attribute\Domain\Entity\AttributeGroup:
             - '<AttributeGroupCode(group_code_<current()>)>'
             - '@label_<current()>'
 
+Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute:
+    attribute_image:
+        __construct:
+            - '<AttributeId(image_attribute)>'
+            - '<AttributeCode(image_attribute)>'
+            - '@label_1'
+            - '@hint_1'
+            - '@placeholder_1'
+
 Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
     attribute_{1..10}:
         __construct:

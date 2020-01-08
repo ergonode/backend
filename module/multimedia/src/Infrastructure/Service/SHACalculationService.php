@@ -11,7 +11,7 @@ namespace Ergonode\Multimedia\Infrastructure\Service;
 
 /**
  */
-class CRCCalculationService implements HashCalculationServiceInterface
+class SHACalculationService implements HashCalculationServiceInterface
 {
     /**
      * @param \SplFileInfo $file
@@ -20,7 +20,12 @@ class CRCCalculationService implements HashCalculationServiceInterface
      */
     public function calculateHash(\SplFileInfo $file): string
     {
-        return hash_file('crc32b', $file->getRealPath());
+        $result = sha1_file($file->getRealPath());
+        if ($result) {
+            return $result;
+        }
+
+        throw new \RuntimeException(sprintf('Can\'t calculate has for %s file', $file->getFilename()));
     }
 }
 

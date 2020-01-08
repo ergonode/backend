@@ -45,18 +45,18 @@ class Multimedia extends AbstractAggregateRoot
     private $size;
 
     /**
-     * The crc is hashed with crc32b hashing algorithm
+     * File hash
      *
      * @var string;
      */
-    private $crc;
+    private $hash;
 
     /**
      * @param MultimediaId $id
      * @param string       $name
      * @param string       $extension
      * @param int          $size      The file size in bytes.
-     * @param string       $crc       The crc is hashed with crc32b hashing algorithm
+     * @param string       $hash      Calculated file Hash
      * @param string|null  $mime
      *
      * @throws \Exception
@@ -66,7 +66,7 @@ class Multimedia extends AbstractAggregateRoot
         string $name,
         string $extension,
         int $size,
-        string $crc,
+        string $hash,
         ?string $mime = null
     ) {
         $this->apply(
@@ -75,7 +75,7 @@ class Multimedia extends AbstractAggregateRoot
                 $name,
                 $extension,
                 $size,
-                $crc,
+                $hash,
                 $mime
             )
         );
@@ -132,9 +132,9 @@ class Multimedia extends AbstractAggregateRoot
     /**
      * @return string
      */
-    public function getCrc(): string
+    public function getHash(): string
     {
-        return $this->crc;
+        return $this->hash;
     }
 
     /**
@@ -147,6 +147,6 @@ class Multimedia extends AbstractAggregateRoot
         $this->extension = $event->getExtension();
         $this->mime = $event->getMime();
         $this->size = $event->getSize();
-        $this->crc = $event->getCrc();
+        $this->hash = $event->getHash();
     }
 }

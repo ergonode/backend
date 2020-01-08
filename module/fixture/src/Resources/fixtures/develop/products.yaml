@@ -1,16 +1,9 @@
-Ergonode\Value\Domain\ValueObject\StringValue:
-    status_value_new:
-        __construct:
-            - 'STATUS_NEW'
-    template_value:
-        __construct:
-            - 'd346465c-a4fe-4564-a149-a0e8311013a3'
-
 Ergonode\Product\Domain\Command\CreateProductCommand:
-    product_{1..1000}:
+    product_{1..10000}:
         __construct:
             - '<productId(SKU_<current()>)>'
             - '<sku(SKU_<current()>)>'
             - []
             -
-                'esa_template': '@template_value'
+                'esa_template': '<stringValue(@template->id)>'
+                'image_attribute': '<stringValue(@image_*->id)>'

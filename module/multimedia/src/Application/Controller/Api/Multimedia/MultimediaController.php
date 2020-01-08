@@ -13,7 +13,7 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Multimedia\Application\Form\MultimediaUploadForm;
 use Ergonode\Multimedia\Application\Model\MultimediaUploadModel;
-use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
+use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
@@ -94,7 +94,7 @@ class MultimediaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $command = new UploadMultimediaCommand('Default', $uploadModel->upload);
+            $command = new AddMultimediaCommand('Default', $uploadModel->upload);
             if (!$this->multimediaRepository->exists($command->getId())) {
                 $this->messageBus->dispatch($command);
             }

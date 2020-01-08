@@ -1,0 +1,6 @@
+Ergonode\Multimedia\Domain\Command\AddMultimediaCommand:
+    image_{1..3}:
+        __construct:
+            - 'image_<current()>'
+            - '<multimediaFile(<current()>.jpg)>'
+

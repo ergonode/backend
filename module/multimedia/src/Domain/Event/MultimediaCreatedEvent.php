@@ -56,20 +56,20 @@ class MultimediaCreatedEvent implements DomainEventInterface
     private $size;
 
     /**
-     * The crc is hashed with crc32b hashing algorithm
+     * Calculated File hash
      *
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $crc;
+    private $hash;
 
     /**
      * @param MultimediaId $id
      * @param string       $name
      * @param string       $extension
      * @param int          $size      The file size in bytes.
-     * @param string       $crc       The crc is hashed with crc32b hashing algorithm
+     * @param string       $hash
      * @param string|null  $mime
      */
     public function __construct(
@@ -77,7 +77,7 @@ class MultimediaCreatedEvent implements DomainEventInterface
         string $name,
         string $extension,
         int $size,
-        string $crc,
+        string $hash,
         ?string $mime = null
     ) {
         $this->id = $id;
@@ -85,7 +85,7 @@ class MultimediaCreatedEvent implements DomainEventInterface
         $this->extension = $extension;
         $this->mime = $mime;
         $this->size = $size;
-        $this->crc = $crc;
+        $this->hash = $hash;
     }
 
     /**
@@ -131,8 +131,8 @@ class MultimediaCreatedEvent implements DomainEventInterface
     /**
      * @return string
      */
-    public function getCrc(): string
+    public function getHash(): string
     {
-        return $this->crc;
+        return $this->hash;
     }
 }

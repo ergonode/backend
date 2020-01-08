@@ -50,7 +50,7 @@ class MultimediaCreatedEventProjector
                 'extension' => $event->getExtension(),
                 'size' => $event->getSize(),
                 'mime' => $event->getMime(),
-                'crc' => $event->getCrc(),
+                'hash' => $event->getHash(),
             ]
         );
     }
