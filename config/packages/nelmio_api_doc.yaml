@@ -397,22 +397,11 @@ nelmio_api_doc:
                 properties:
                     collection:
                         type: array
-                        required: true
                         items:
-                            $ref: "#/definitions/language_req"
-            language_req:
-                type: object
-                properties:
-                    code:
-                        type: string
-                        required: true
-                        description: Language code
-                        example: EN
-                    active:
-                        type: bool
-                        required: true
-                        description: Show if language is enabled in the system
-                        example: true
+                            type: string
+                        description: Collection of languages
+                        example:
+                                [ PL, EN ]
             language_res:
                 type: object
                 properties:
