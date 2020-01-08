@@ -137,16 +137,21 @@ Open your terminal in local project, and execute:
 ```
 composer install
 ``` 
-In .env file you need to configure database connection
+In .env.local file you need to configure database connection
 ```
 DATABASE_URL=pgsql://db_user:db_password@127.0.0.1:5432/db_name
 ```
-Generate keys
+
+And you need configure your jwt passphrase in .env.local file.
+
 ```
-openssl genrsa -out config/jwt/private.pem -aes256 4096
-openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+JWT_PASSPHRASE=your jwt passphrase
 ```
-While executing above commends you would be asked about password. This password needs to be saved then in .env file in line `JWT_PASSPHRASE=yourpassword`
+
+Now you need generate jwt keys with command
+```
+bin/console ergonode:jwt:generate-keys
+```
 
 In terminal execute command which configure application (Available phing commands):
 ```
