@@ -15,7 +15,7 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
-use Ergonode\Grid\Filter\SelectFilter;
+use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 
 /**
@@ -60,7 +60,7 @@ class CategorySystemAttributeColumnBuilderStrategy implements AttributeColumnStr
         return new MultiSelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new SelectFilter($options)
+            new MultiSelectFilter($options)
         );
     }
 }
