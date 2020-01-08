@@ -52,7 +52,10 @@ class JwtGenerateKeys extends Command
 
     public function configure()
     {
-        $this->addOption(
+        $this
+            ->setDescription(
+                'Generates jwt private and public key in accordance with the app configuration'
+        )->addOption(
             'overwrite',
             'o',
             InputOption::VALUE_OPTIONAL,

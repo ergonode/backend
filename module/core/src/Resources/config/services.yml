@@ -54,3 +54,6 @@ services:
         $publicKeyPath:  '%kernel.project_dir%/%env(JWT_PUBLIC_KEY_PATH)%'
         $secretKeyPassword: '%env(JWT_PASSPHRASE)%'
 
+    Ergonode\Core\Application\Command\JwtFixPermissions:
+        $secretKeyPath: '%kernel.project_dir%/%env(JWT_PRIVATE_KEY_PATH)%'
+        $publicKeyPath:  '%kernel.project_dir%/%env(JWT_PUBLIC_KEY_PATH)%'
