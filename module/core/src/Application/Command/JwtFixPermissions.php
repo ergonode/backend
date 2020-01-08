@@ -15,6 +15,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Fixes file permission for jwt private and public key
+ */
 class JwtFixPermissions extends Command
 {
     /**
@@ -40,12 +43,14 @@ class JwtFixPermissions extends Command
         parent::__construct('ergonode:jwt:fix-permissions');
     }
 
+    /**
+     */
     public function configure()
     {
         $this
             ->setDescription(
                 'Fixes file permission for jwt private and public key'
-        )
+            )
         ->addOption(
             'private-key-group',
             'g',
@@ -54,6 +59,10 @@ class JwtFixPermissions extends Command
         );
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
     public function execute(InputInterface $input, OutputInterface $output): void
     {
         $group = $input->getOption('private-key-group');

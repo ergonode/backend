@@ -18,6 +18,9 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\InputStream;
 use Symfony\Component\Process\Process;
 
+/**
+ * Generates jwt private and public key in accordance with the app configuration
+ */
 class JwtGenerateKeys extends Command
 {
     /**
@@ -50,29 +53,35 @@ class JwtGenerateKeys extends Command
         parent::__construct('ergonode:jwt:generate-keys');
     }
 
+    /**
+     *
+     */
     public function configure()
     {
         $this
             ->setDescription(
                 'Generates jwt private and public key in accordance with the app configuration'
-        )->addOption(
-            'overwrite',
-            'o',
-            InputOption::VALUE_OPTIONAL,
-            'Should overwrite existing keys?',
-            false
-        );
+            )->addOption(
+                'overwrite',
+                'o',
+                InputOption::VALUE_OPTIONAL,
+                'Should overwrite existing keys?',
+                false
+            );
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
     public function execute(InputInterface $input, OutputInterface $output): void
     {
-        if (!$this->canGenerateKeys($input))
-        {
+        if (!$this->canGenerateKeys($input)) {
             $output->writeln(
                 '<comment>Keys already exists for overwriting please use --overwrite option</comment>'
             );
-            return;
 
+            return;
         }
 
         $this->generateJwtPrivateKey($output);
@@ -83,6 +92,7 @@ class JwtGenerateKeys extends Command
 
     /**
      * @param InputInterface $input
+     *
      * @return bool
      */
     private function canGenerateKeys(InputInterface $input): bool
@@ -111,7 +121,7 @@ class JwtGenerateKeys extends Command
                 'stdin',
                 '-out',
                 $this->secretKeyPath,
-                4096
+                4096,
             ],
             $this->secretKeyPassword,
             $output
@@ -141,8 +151,8 @@ class JwtGenerateKeys extends Command
     }
 
     /**
-     * @param array $command
-     * @param string $secretKeyPassword
+     * @param array           $command
+     * @param string          $secretKeyPassword
      * @param OutputInterface $output
      */
     private function executeCommand(array $command, string $secretKeyPassword, OutputInterface $output): void
@@ -154,7 +164,7 @@ class JwtGenerateKeys extends Command
         $process->start();
         $input->write($secretKeyPassword);
         $input->close();
-        $process->waitUntil(function ($type ,$cmdOutput) use ($output) {
+        $process->waitUntil(function ($type, $cmdOutput) use ($output) {
             $output->write($cmdOutput);
         });
 
