@@ -142,16 +142,14 @@ In .env.local file you need to configure database connection
 DATABASE_URL=pgsql://db_user:db_password@127.0.0.1:5432/db_name
 ```
 
-And you need configure your jwt passphrase in .env.local file.
-
-```
-JWT_PASSPHRASE=your jwt passphrase
-```
-
 Now you need generate jwt keys with command
 ```
-bin/console ergonode:jwt:generate-keys
+openssl genrsa -out config/jwt/private.pem -aes256 4096
+openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 ```
+
+While executing above commends you would be asked about password. This password needs to be saved then in .env.local file in line `JWT_PASSPHRASE=yourpassword`
+
 
 In terminal execute command which configure application (Available phing commands):
 ```
