@@ -1,7 +1,6 @@
 <?php
 
 return [
-    Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle::class => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
     JMS\SerializerBundle\JMSSerializerBundle::class => ['all' => true],
@@ -13,7 +12,6 @@ return [
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
     Nelmio\ApiDocBundle\NelmioApiDocBundle::class => ['all' => true],
     Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle::class => ['dev' => true],
-    Gfreeau\Bundle\GetJWTBundle\GfreeauGetJWTBundle::class => ['all' => true],
     Ergonode\Migration\MigrationBundle::class => ['all' => true],
     Ergonode\Core\ErgonodeCoreBundle::class => ['all' => true],
     Ergonode\Notification\ErgonodeNotificationBundle::class => ['all' => true],

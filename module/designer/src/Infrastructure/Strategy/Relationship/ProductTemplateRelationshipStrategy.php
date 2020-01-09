@@ -12,8 +12,8 @@ namespace Ergonode\Designer\Infrastructure\Strategy\Relationship;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  */

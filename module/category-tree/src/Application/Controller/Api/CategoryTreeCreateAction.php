@@ -109,7 +109,7 @@ class CategoryTreeCreateAction
             $tree = $this->treeRepository->exists(CategoryTreeId::fromKey($data->code));
 
             if (!$tree) {
-                $command = new CreateTreeCommand(new TranslatableString($data->name), $data->code);
+                $command = new CreateTreeCommand($data->code, new TranslatableString($data->name));
                 $this->messageBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());

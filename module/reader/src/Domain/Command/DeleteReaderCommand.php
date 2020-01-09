@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Reader\Domain\Entity\ReaderId;
 
 /**
  */
-class DeleteReaderCommand
+class DeleteReaderCommand implements DomainCommandInterface
 {
     /**
      * @var ReaderId

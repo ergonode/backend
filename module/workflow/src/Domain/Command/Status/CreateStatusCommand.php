@@ -11,13 +11,14 @@ namespace Ergonode\Workflow\Domain\Command\Status;
 
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CreateStatusCommand
+class CreateStatusCommand implements DomainCommandInterface
 {
     /**
      * @var StatusId

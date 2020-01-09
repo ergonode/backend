@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Entity\ProcessorId;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
@@ -16,7 +17,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CreateProcessorCommand
+class CreateProcessorCommand implements DomainCommandInterface
 {
     /**
      * @var ProcessorId

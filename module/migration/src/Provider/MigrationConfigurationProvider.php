@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Migration\Provider;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Migrations\Configuration\Configuration;
+use Doctrine\Migrations\Configuration\Configuration;
 
 /**
  */

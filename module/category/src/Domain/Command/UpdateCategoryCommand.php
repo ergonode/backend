@@ -11,11 +11,12 @@ namespace Ergonode\Category\Domain\Command;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UpdateCategoryCommand
+class UpdateCategoryCommand implements DomainCommandInterface
 {
     /**
      * @var CategoryId

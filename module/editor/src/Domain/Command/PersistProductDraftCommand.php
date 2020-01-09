@@ -10,11 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Domain\Command;
 
 use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class PersistProductDraftCommand
+class PersistProductDraftCommand implements DomainCommandInterface
 {
     /**
      * @var ProductDraftId

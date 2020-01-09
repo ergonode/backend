@@ -14,11 +14,12 @@ use Ergonode\CategoryTree\Application\Model\TreeNodeFormModel;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CreateTreeCommand
+class CreateTreeCommand implements DomainCommandInterface
 {
     /**
      * @var CategoryTreeId
@@ -49,15 +50,13 @@ class CreateTreeCommand
     private $categories;
 
     /**
-     * CreateTreeCommand constructor.
-     *
-     * @param TranslatableString $name
      * @param string             $code
+     * @param TranslatableString $name
      * @param array              $categories
      *
      * @throws \Exception
      */
-    public function __construct(TranslatableString $name, string $code, array $categories = [])
+    public function __construct(string $code, TranslatableString $name, array $categories = [])
     {
         $this->id = CategoryTreeId::fromKey($code);
         $this->name = $name;
