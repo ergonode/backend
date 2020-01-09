@@ -206,6 +206,13 @@ nelmio_api_doc:
                         type: string
                         requied: false
                         description: id of condition set
+                    roles:
+                        type: array
+                        items:
+                            type: string
+                            description: Collection of role Ids
+                            example:
+                                    [ 1143a5e9-11ec-5b47-b881-4099d5d066a2, 1253f558-e921-440e-8ae5-15104b886859]
             workflow:
                 type: object
                 properties:
