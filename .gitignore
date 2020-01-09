@@ -1,4 +1,5 @@
 /.env
+/.env.local
 /public/bundles/
 /var/
 /vendor/

@@ -10,26 +10,26 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Tests\Domain\Factory\Decorator;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
 use Ergonode\Product\Domain\Entity\ProductId;
-use Ergonode\Product\Domain\Factory\Decorator\CreatedAtAttributeDecorator;
+use Ergonode\Product\Domain\Factory\Decorator\CreateAtAttributeProductFactoryDecorator;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class CreatedAtAttributeDecoratorTest extends TestCase
+class CreatedAtAttributeProductFactoryDecoratorTest extends TestCase
 {
     /**
      */
-    public function testDecoratorCreation(): void
+    public function testCreateMethod(): void
     {
+
         /** @var ProductFactoryInterface| MockObject $factory */
         $factory = $this->createMock(ProductFactoryInterface::class);
-        $factory->expects($this->once())->method('create');
+        $factory->expects($this->once())->method('create')->with($this->anything(), $this->anything(),$this->anything(), $this->arrayHasKey(CreatedAtSystemAttribute::CODE));
 
         /** @var ProductId | MockObject $productId */
         $productId = $this->createMock(ProductId::class);
@@ -38,10 +38,10 @@ class CreatedAtAttributeDecoratorTest extends TestCase
         $sku = $this->createMock(Sku::class);
 
         $categories = [$this->createMock(CategoryCode::class)];
-        $attributes = [$this->createMock(ValueInterface::class)];
+//        $attributes = [$this->createMock(ValueInterface::class)];
 
-        $decorator = new CreatedAtAttributeDecorator($factory);
+        $decorator = new CreateAtAttributeProductFactoryDecorator($factory);
 
-        $decorator->create($productId, $sku, $categories, $attributes);
+        $decorator->create($productId, $sku, $categories);
     }
 }
