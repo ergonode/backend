@@ -32,7 +32,14 @@ class CreatedByAttributeProductFactoryDecoratorTest extends TestCase
     {
         /** @var ProductFactoryInterface| MockObject $factory */
         $factory = $this->createMock(ProductFactoryInterface::class);
-        $factory->expects($this->once())->method('create')->with($this->anything(), $this->anything(), $this->anything(), $this->arrayHasKey(CreatedBySystemAttribute::CODE));
+        $factory->expects($this->once())
+            ->method('create')
+            ->with(
+                $this->anything(),
+                $this->anything(),
+                $this->anything(),
+                $this->arrayHasKey(CreatedBySystemAttribute::CODE)
+            );
 
         /** @var User | MockObject $user */
         $user = $this->createMock(User::class);

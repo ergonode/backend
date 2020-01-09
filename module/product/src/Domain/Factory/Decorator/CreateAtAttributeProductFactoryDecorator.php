@@ -60,6 +60,7 @@ class CreateAtAttributeProductFactoryDecorator implements ProductFactoryInterfac
     ): AbstractProduct {
         $createdAt = new \DateTime();
         $attributes[CreatedAtSystemAttribute::CODE] = new StringValue($createdAt->format('Y-m-d H:i:s'));
+
         return $this->factory->create($id, $sku, $categories, $attributes);
     }
 }

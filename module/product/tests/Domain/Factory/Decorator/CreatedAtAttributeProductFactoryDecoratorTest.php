@@ -29,7 +29,14 @@ class CreatedAtAttributeProductFactoryDecoratorTest extends TestCase
 
         /** @var ProductFactoryInterface| MockObject $factory */
         $factory = $this->createMock(ProductFactoryInterface::class);
-        $factory->expects($this->once())->method('create')->with($this->anything(), $this->anything(),$this->anything(), $this->arrayHasKey(CreatedAtSystemAttribute::CODE));
+        $factory->expects($this->once())
+            ->method('create')
+            ->with(
+                $this->anything(),
+                $this->anything(),
+                $this->anything(),
+                $this->arrayHasKey(CreatedAtSystemAttribute::CODE)
+            );
 
         /** @var ProductId | MockObject $productId */
         $productId = $this->createMock(ProductId::class);
@@ -38,7 +45,6 @@ class CreatedAtAttributeProductFactoryDecoratorTest extends TestCase
         $sku = $this->createMock(Sku::class);
 
         $categories = [$this->createMock(CategoryCode::class)];
-//        $attributes = [$this->createMock(ValueInterface::class)];
 
         $decorator = new CreateAtAttributeProductFactoryDecorator($factory);
 

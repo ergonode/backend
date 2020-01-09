@@ -51,6 +51,5 @@ class SimpleProductFactoryTest extends TestCase
         $factory = new SimpleProductFactory();
         $this->assertTrue($factory->isSupportedBy(SimpleProduct::TYPE));
         $this->assertFalse($factory->isSupportedBy('incorectType'));
-
     }
 }
