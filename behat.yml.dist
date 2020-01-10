@@ -38,7 +38,9 @@ default:
                 - module/workflow/features
                 - module/product-collection/features
             contexts:
+                - App\Tests\Behat\Context\StoreRestResponseParamContext
                 - App\Tests\Behat\Context\UserContext
+                - App\Tests\Behat\Context\ResolveVarsContext
                 - App\Tests\Behat\Context\ApiAuthContext:
                     JWTTokenManager: '@lexik_jwt_authentication.jwt_manager'
                     request: '@Behatch\HttpCall\Request'
