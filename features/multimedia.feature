@@ -1,6 +1,6 @@
 Feature: Multimedia
   In order to mange Multimedia
-  I need abe able to create and retrieve through the API.'
+  I need to be able to create and retrieve through the API.
 
   Scenario: Upload new multimedia file
     Given current authentication token
@@ -14,12 +14,6 @@ Feature: Multimedia
     And I attach "features/multimedia-test-image.png" to the request as upload
     When I request "/api/v1/multimedia/upload" using HTTP POST
     Then created response is received
-
-  Scenario: Download uploaded multimedia file
-    Given current authentication token
-    And I request "api/v1/multimedia/@multimedia_id@" using HTTP GET
-    Then the response code is 200
-    And the "Content-Length" response header is 1229
 
   Scenario: Upload new multimedia file without auth token
     Given I request "/api/v1/multimedia/upload" using HTTP POST
