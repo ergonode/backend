@@ -8,16 +8,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Factory\Decorator;
 
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
+use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  */
-class CreatedAtAttributeDecorator implements ProductFactoryInterface
+class CreatedByAttributeProductFactoryDecorator implements ProductFactoryInterface
 {
     /**
      * @var ProductFactoryInterface
@@ -25,11 +27,18 @@ class CreatedAtAttributeDecorator implements ProductFactoryInterface
     private $factory;
 
     /**
-     * @param ProductFactoryInterface $factory
+     * @var TokenStorageInterface
      */
-    public function __construct(ProductFactoryInterface $factory)
+    private $tokenStorage;
+
+    /**
+     * @param ProductFactoryInterface $factory
+     * @param TokenStorageInterface   $tokenStorage
+     */
+    public function __construct(ProductFactoryInterface $factory, TokenStorageInterface $tokenStorage)
     {
         $this->factory = $factory;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -58,8 +67,13 @@ class CreatedAtAttributeDecorator implements ProductFactoryInterface
         array $categories = [],
         array $attributes = []
     ): AbstractProduct {
-        $createdAt = new \DateTime();
-        $attributes[CreatedAtSystemAttribute::CODE] = new StringValue($createdAt->format('Y-m-d H:i:s'));
+        $token = $this->tokenStorage->getToken();
+        if ($token) {
+            /** @var User $user */
+            $user = $token->getUser();
+            $value = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
+            $attributes[CreatedBySystemAttribute::CODE] = $value;
+        }
 
         return $this->factory->create($id, $sku, $categories, $attributes);
     }

@@ -81,13 +81,17 @@ abstract class AbstractDbalDataSet implements DataSetInterface
     ): void {
         if (null !== $givenValue) {
             $values = explode(',', $givenValue);
+
+            $fields = [];
             foreach ($values as $value) {
-                $query->andWhere(sprintf(
-                    'jsonb_exists_any("%s"::jsonb, %s::text[])',
-                    $field,
-                    $query->createNamedParameter(sprintf('{%s}', $value))
-                ));
+                $fields[] =
+                    sprintf(
+                        'jsonb_exists_any("%s"::jsonb, %s::text[])',
+                        $field,
+                        $query->createNamedParameter(sprintf('{%s}', $value))
+                    );
             }
+            $query->andWhere(implode(' OR ', $fields));
         } else {
             $query->andWhere(sprintf('"%s"::TEXT = \'[]\'::TEXT', $field));
         }
