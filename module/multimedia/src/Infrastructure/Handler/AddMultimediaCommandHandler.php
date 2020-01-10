@@ -52,8 +52,13 @@ class AddMultimediaCommandHandler
      * @param MultimediaRepositoryInterface   $repository
      * @param MultimediaFactory               $factory
      */
-    public function __construct(MultimediaUploadService $uploadService, MultimediaQueryInterface $query, HashCalculationServiceInterface $hashService, MultimediaRepositoryInterface $repository, MultimediaFactory $factory)
-    {
+    public function __construct(
+        MultimediaUploadService $uploadService,
+        MultimediaQueryInterface $query,
+        HashCalculationServiceInterface $hashService,
+        MultimediaRepositoryInterface $repository,
+        MultimediaFactory $factory
+    ) {
         $this->uploadService = $uploadService;
         $this->query = $query;
         $this->hashService = $hashService;
@@ -71,7 +76,7 @@ class AddMultimediaCommandHandler
         $id = $command->getId();
         $file = $command->getFile();
         $hash = $this->hashService->calculateHash($file);
-        if(!$this->query->fileExists($hash)) {
+        if (!$this->query->fileExists($hash)) {
             $originalName = $file->getFilename();
             $file = $this->uploadService->upload($id, $file);
 

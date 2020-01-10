@@ -25,5 +25,3 @@ class CRCCalculationService implements HashCalculationServiceInterface
         return new Hash(hash_file('crc32b', $file->getRealPath()));
     }
 }
-
-

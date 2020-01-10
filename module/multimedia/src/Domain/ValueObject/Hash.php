@@ -59,7 +59,6 @@ class Hash
         return preg_match(self::PATTERN, $value, $matches) !== 0
             && mb_strlen($value) >= self::MIN_LENGTH
             && mb_strlen($value) <= self::MAX_LENGTH;
-
     }
 
     /**

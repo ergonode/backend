@@ -24,10 +24,9 @@ class StringValueFaker extends BaseProvider
      */
     public function stringValue($value): StringValue
     {
-        if($value instanceof AbstractId) {
+        if ($value instanceof AbstractId) {
             return new StringValue($value->getValue());
         }
-
 
         return new StringValue((string) $value);
     }

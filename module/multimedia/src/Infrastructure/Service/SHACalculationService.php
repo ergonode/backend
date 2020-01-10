@@ -30,5 +30,3 @@ class SHACalculationService implements HashCalculationServiceInterface
         throw new \RuntimeException(sprintf('Can\'t calculate has for %s file', $file->getFilename()));
     }
 }
-
-

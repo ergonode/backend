@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Persistence\Dbal\Query;
 
-
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;

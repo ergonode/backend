@@ -15,5 +15,10 @@ use Ergonode\Multimedia\Domain\ValueObject\Hash;
  */
 interface MultimediaQueryInterface
 {
+    /**
+     * @param Hash $hash
+     *
+     * @return bool
+     */
     public function fileExists(Hash $hash): bool;
 }

@@ -49,7 +49,7 @@ class HashHandler implements SubscribingHandlerInterface
 
     /**
      * @param SerializationVisitorInterface $visitor
-     * @param Hash                   $format
+     * @param Hash                          $format
      * @param array                         $type
      * @param Context                       $context
      *
