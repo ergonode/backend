@@ -1,9 +1,17 @@
 Ergonode\Product\Domain\Command\CreateProductCommand:
-    product_{1..10000}:
+    product_{1..1000}:
         __construct:
             - '<productId(SKU_<current()>)>'
             - '<sku(SKU_<current()>)>'
             - []
             -
                 'esa_template': '<stringValue(@template->id)>'
-                'image_attribute': '<stringValue(@image_*->id)>'
+                'image_attribute': '<stringValue(@product_image_*->id)>'
+                'code_1':  '<stringValue(<sentence(5)>)>'
+                'code_11':  '<stringValue(<paragraph(20)>)>'
+                'code_21':  '<stringValue(<randomFloat()>)>'
+                'code_26':  '<stringValue(<date(Y-m-d)>)>'
+                'code_31':  '<stringValue(<randomFloat(2)>)>'
+                'code_37':  '<stringValue(<randomFloat(2)>)>'
+                'code_41':  '<stringValue(key_41)>'
+                'code_46':  '<stringValue(key_46)>'

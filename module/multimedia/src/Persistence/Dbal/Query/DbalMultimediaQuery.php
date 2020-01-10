@@ -12,6 +12,7 @@ namespace Ergonode\Multimedia\Persistence\Dbal\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
+use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
 /**
  */
@@ -34,11 +35,11 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
     }
 
     /**
-     * @param string $hash
+     * @param Hash $hash
      *
      * @return bool
      */
-    public function fileExists(string $hash): bool
+    public function fileExists(Hash $hash): bool
     {
         $query = $this->getQuery();
         $result = $query

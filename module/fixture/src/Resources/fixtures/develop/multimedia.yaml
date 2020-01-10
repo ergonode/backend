@@ -1,6 +1,6 @@
 Ergonode\Multimedia\Domain\Command\AddMultimediaCommand:
-    image_{1..3}:
+    product_image_{1..10}:
         __construct:
-            - 'image_<current()>'
-            - '<multimediaFile(<current()>.jpg)>'
+            - 'product_image_<current()>'
+            - '<multimediaFile(product-<current()>.jpg)>'
 

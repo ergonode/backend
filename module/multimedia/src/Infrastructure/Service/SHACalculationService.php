@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Infrastructure\Service;
 
+use Ergonode\Multimedia\Domain\ValueObject\Hash;
+
 /**
  */
 class SHACalculationService implements HashCalculationServiceInterface
@@ -16,13 +18,13 @@ class SHACalculationService implements HashCalculationServiceInterface
     /**
      * @param \SplFileInfo $file
      *
-     * @return string
+     * @return Hash
      */
-    public function calculateHash(\SplFileInfo $file): string
+    public function calculateHash(\SplFileInfo $file): Hash
     {
         $result = sha1_file($file->getRealPath());
         if ($result) {
-            return $result;
+            return new Hash($result);
         }
 
         throw new \RuntimeException(sprintf('Can\'t calculate has for %s file', $file->getFilename()));

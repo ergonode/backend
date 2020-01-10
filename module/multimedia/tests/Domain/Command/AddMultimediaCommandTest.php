@@ -9,27 +9,24 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Tests\Domain\Command;
 
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
-use Ergonode\Multimedia\Domain\Factory\MultimediaIdFactory;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
+use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  */
-class UploadMultimediaCommandTest extends TestCase
+class AddMultimediaCommandTest extends TestCase
 {
     /**
      * @throws \Exception
      */
     public function testMultimediaCreate(): void
     {
+        /** @var UploadedFile $uploadedFile */
         $uploadedFile = $this->createMock(UploadedFile::class);
-        $uploadedFile->method('getRealPath')
-            ->willReturn(__FILE__);
 
-        $command = new UploadMultimediaCommand('some name', $uploadedFile);
+        $command = new AddMultimediaCommand('some name', $uploadedFile);
         $this->assertTrue(Uuid::isValid((string) $command->getId()));
         $this->assertEquals('some name', $command->getName());
         $this->assertEquals($uploadedFile, $command->getFile());

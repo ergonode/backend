@@ -12,6 +12,7 @@ namespace Ergonode\Multimedia\Domain\Entity;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
+use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
 /**
  */
@@ -45,9 +46,7 @@ class Multimedia extends AbstractAggregateRoot
     private $size;
 
     /**
-     * File hash
-     *
-     * @var string;
+     * @var Hash;
      */
     private $hash;
 
@@ -56,7 +55,7 @@ class Multimedia extends AbstractAggregateRoot
      * @param string       $name
      * @param string       $extension
      * @param int          $size      The file size in bytes.
-     * @param string       $hash      Calculated file Hash
+     * @param Hash         $hash
      * @param string|null  $mime
      *
      * @throws \Exception
@@ -66,7 +65,7 @@ class Multimedia extends AbstractAggregateRoot
         string $name,
         string $extension,
         int $size,
-        string $hash,
+        Hash $hash,
         ?string $mime = null
     ) {
         $this->apply(
@@ -130,9 +129,9 @@ class Multimedia extends AbstractAggregateRoot
     }
 
     /**
-     * @return string
+     * @return Hash
      */
-    public function getHash(): string
+    public function getHash(): Hash
     {
         return $this->hash;
     }

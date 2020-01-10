@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Infrastructure\Service;
 
+use Ergonode\Multimedia\Domain\ValueObject\Hash;
+
 /**
  */
 class CRCCalculationService implements HashCalculationServiceInterface
@@ -16,11 +18,11 @@ class CRCCalculationService implements HashCalculationServiceInterface
     /**
      * @param \SplFileInfo $file
      *
-     * @return string
+     * @return Hash
      */
-    public function calculateHash(\SplFileInfo $file): string
+    public function calculateHash(\SplFileInfo $file): Hash
     {
-        return hash_file('crc32b', $file->getRealPath());
+        return new Hash(hash_file('crc32b', $file->getRealPath()));
     }
 }
 

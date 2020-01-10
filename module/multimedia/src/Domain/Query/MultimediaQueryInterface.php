@@ -9,9 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\Query;
 
+use Ergonode\Multimedia\Domain\ValueObject\Hash;
+
 /**
  */
 interface MultimediaQueryInterface
 {
-    public function fileExists(string $hash): bool;
+    public function fileExists(Hash $hash): bool;
 }

@@ -11,6 +11,7 @@ namespace Ergonode\Multimedia\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\Entity\AbstractId;
 
@@ -56,11 +57,9 @@ class MultimediaCreatedEvent implements DomainEventInterface
     private $size;
 
     /**
-     * Calculated File hash
+     * @var Hash
      *
-     * @var string
-     *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Multimedia\Domain\ValueObject\Hash")
      */
     private $hash;
 
@@ -69,7 +68,7 @@ class MultimediaCreatedEvent implements DomainEventInterface
      * @param string       $name
      * @param string       $extension
      * @param int          $size      The file size in bytes.
-     * @param string       $hash
+     * @param Hash         $hash
      * @param string|null  $mime
      */
     public function __construct(
@@ -77,7 +76,7 @@ class MultimediaCreatedEvent implements DomainEventInterface
         string $name,
         string $extension,
         int $size,
-        string $hash,
+        Hash $hash,
         ?string $mime = null
     ) {
         $this->id = $id;
@@ -129,9 +128,9 @@ class MultimediaCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return string
+     * @return Hash
      */
-    public function getHash(): string
+    public function getHash(): Hash
     {
         return $this->hash;
     }

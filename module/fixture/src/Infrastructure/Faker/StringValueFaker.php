@@ -28,6 +28,7 @@ class StringValueFaker extends BaseProvider
             return new StringValue($value->getValue());
         }
 
-        return new StringValue($value);
+
+        return new StringValue((string) $value);
     }
 }
