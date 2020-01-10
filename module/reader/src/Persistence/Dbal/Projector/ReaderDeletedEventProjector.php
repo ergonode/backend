@@ -10,15 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Reader\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Reader\Domain\Event\ReaderDeletedEvent;
 
 /**
  */
-class ReaderDeletedEventProjector implements DomainEventProjectorInterface
+class ReaderDeletedEventProjector
 {
     private const TABLE = 'importer.reader';
 
@@ -36,26 +32,16 @@ class ReaderDeletedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param ReaderDeletedEvent $event
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(ReaderDeletedEvent $event): void
     {
-        return $event instanceof ReaderDeletedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ReaderDeletedEvent::class);
-        }
-
         $this->connection->delete(
             self::TABLE,
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

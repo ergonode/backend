@@ -14,11 +14,14 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\Request\FilterValueCollection;
 use Ergonode\Grid\Request\FilterValue;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 abstract class AbstractDbalDataSet implements DataSetInterface
 {
+    public const NAMESPACE = 'b2e8fb6d-e1ac-4322-bd54-6e78926ba365';
+
     /**
      * @param QueryBuilder          $query
      * @param FilterValueCollection $values
@@ -29,13 +32,21 @@ abstract class AbstractDbalDataSet implements DataSetInterface
         /** @var FilterValue $filter */
         foreach ($values as $name => $filters) {
             if (array_key_exists($name, $columns)) {
-                foreach ($filters as $filter) {
-                    $columnFilter = $columns[$name]->getFilter();
-                    if ($columnFilter) {
+                $columnFilter = $columns[$name]->getFilter();
+                if ($columnFilter) {
+                    if ($columns[$name]->getAttribute()) {
+                        $name = Uuid::uuid5(self::NAMESPACE, $name)->toString();
+                    }
+                    foreach ($filters as $filter) {
                         if ($columnFilter instanceof TextFilter) {
                             $this->buildTextQuery($query, $name, $filter->getOperator(), $filter->getValue());
                         } elseif ($columnFilter instanceof MultiSelectFilter) {
-                            $this->buildMultiSelectQuery($query, $name, $filter->getOperator(), $filter->getValue());
+                            $this->buildMultiSelectQuery(
+                                $query,
+                                $name,
+                                $filter->getOperator(),
+                                $filter->getValue()
+                            );
                         } else {
                             $this->buildDefaultQuery($query, $name, $filter->getOperator(), $filter->getValue());
                         }
@@ -62,17 +73,25 @@ abstract class AbstractDbalDataSet implements DataSetInterface
      * @param string       $operator
      * @param string|null  $givenValue
      */
-    private function buildMultiSelectQuery(QueryBuilder $query, string $field, string $operator, string $givenValue = null): void
-    {
+    private function buildMultiSelectQuery(
+        QueryBuilder $query,
+        string $field,
+        string $operator,
+        string $givenValue = null
+    ): void {
         if (null !== $givenValue) {
             $values = explode(',', $givenValue);
+
+            $fields = [];
             foreach ($values as $value) {
-                $query->andWhere(sprintf(
-                    'jsonb_exists_any("%s"::jsonb, %s::text[])',
-                    $field,
-                    $query->createNamedParameter(sprintf('{%s}', $value))
-                ));
+                $fields[] =
+                    sprintf(
+                        'jsonb_exists_any("%s"::jsonb, %s::text[])',
+                        $field,
+                        $query->createNamedParameter(sprintf('{%s}', $value))
+                    );
             }
+            $query->andWhere(implode(' OR ', $fields));
         } else {
             $query->andWhere(sprintf('"%s"::TEXT = \'[]\'::TEXT', $field));
         }

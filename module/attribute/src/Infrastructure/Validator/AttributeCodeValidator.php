@@ -60,7 +60,9 @@ class AttributeCodeValidator extends ConstraintValidator
         }
 
         // @todo split into two different validators if possible
-        $attribute = $this->query->checkAttributeExistsByCode(new \Ergonode\Attribute\Domain\ValueObject\AttributeCode($value));
+        $attribute = $this->query->checkAttributeExistsByCode(
+            new \Ergonode\Attribute\Domain\ValueObject\AttributeCode($value)
+        );
 
         if ($attribute) {
             $this->context->buildViolation($constraint->uniqueMessage)

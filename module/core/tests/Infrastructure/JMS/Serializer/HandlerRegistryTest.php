@@ -23,6 +23,8 @@ class HandlerRegistryTest extends TestCase
      */
     private $registry;
 
+    /**
+     */
     protected function setUp()
     {
         $this->registry = $this->createMock(HandlerRegistryInterface::class);

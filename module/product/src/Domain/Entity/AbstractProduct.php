@@ -12,16 +12,15 @@ namespace Ergonode\Product\Domain\Entity;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Product\Domain\Event\ProductAddedToCategory;
-use Ergonode\Product\Domain\Event\ProductCreated;
-use Ergonode\Product\Domain\Event\ProductRemovedFromCategory;
-use Ergonode\Product\Domain\Event\ProductValueAdded;
-use Ergonode\Product\Domain\Event\ProductValueChanged;
-use Ergonode\Product\Domain\Event\ProductValueRemoved;
-use Ergonode\Product\Domain\Event\ProductVersionIncreased;
+use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
+use Ergonode\Product\Domain\Event\ProductCreatedEvent;
+use Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent;
+use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
+use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
+use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
+use Ergonode\Product\Domain\Event\ProductVersionIncreasedEvent;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -42,12 +41,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     private $sku;
 
     /**
-     * @var TemplateId
-     */
-    private $designTemplateId;
-
-    /**
-     * @var integer
+     * @var int
      */
     private $version;
 
@@ -66,16 +60,19 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     private $categories;
 
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param ProductId $id
+     * @param Sku       $sku
+     * @param array     $categories
+     * @param array     $attributes
      *
      * @throws \Exception
      */
-    public function __construct(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = [])
-    {
+    public function __construct(
+        ProductId $id,
+        Sku $sku,
+        array $categories = [],
+        array $attributes = []
+    ) {
         Assert::allIsInstanceOf($categories, CategoryCode::class);
 
         $attributes = array_filter(
@@ -85,7 +82,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             }
         );
 
-        $this->apply(new ProductCreated($id, $sku, $templateId, $categories, $attributes));
+        $this->apply(new ProductCreatedEvent($id, $sku, $categories, $attributes));
     }
 
     /**
@@ -94,14 +91,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     public function getId(): AbstractId
     {
         return $this->id;
-    }
-
-    /**
-     * @return TemplateId
-     */
-    public function getTemplateId(): TemplateId
-    {
-        return $this->designTemplateId;
     }
 
     /**
@@ -155,7 +144,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     public function addToCategory(CategoryCode $categoryCode): void
     {
         if (!$this->belongToCategory($categoryCode)) {
-            $this->apply(new ProductAddedToCategory($categoryCode));
+            $this->apply(new ProductAddedToCategoryEvent($this->id, $categoryCode));
         }
     }
 
@@ -167,7 +156,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     public function removeFromCategory(CategoryCode $categoryCode): void
     {
         if ($this->belongToCategory($categoryCode)) {
-            $this->apply(new ProductRemovedFromCategory($categoryCode));
+            $this->apply(new ProductRemovedFromCategoryEvent($this->id, $categoryCode));
         }
     }
 
@@ -215,7 +204,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             throw new \RuntimeException('Value already exists');
         }
 
-        $this->apply(new ProductValueAdded($attributeCode, $value));
+        $this->apply(new ProductValueAddedEvent($this->id, $attributeCode, $value));
     }
 
     /**
@@ -239,7 +228,14 @@ abstract class AbstractProduct extends AbstractAggregateRoot
         }
 
         if ((string) $this->attributes[$attributeCode->getValue()] !== (string) $value) {
-            $this->apply(new ProductValueChanged($attributeCode, $this->attributes[$attributeCode->getValue()], $value));
+            $this->apply(
+                new ProductValueChangedEvent(
+                    $this->id,
+                    $attributeCode,
+                    $this->attributes[$attributeCode->getValue()],
+                    $value
+                )
+            );
         }
     }
 
@@ -254,19 +250,20 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             throw new \RuntimeException('Value note exists');
         }
 
-        $this->apply(new ProductValueRemoved($attributeCode, $this->attributes[$attributeCode->getValue()]));
+        $this->apply(
+            new ProductValueRemovedEvent($this->id, $attributeCode, $this->attributes[$attributeCode->getValue()])
+        );
     }
 
     /**
-     * @param ProductCreated $event
+     * @param ProductCreatedEvent $event
      */
-    protected function applyProductCreated(ProductCreated $event): void
+    protected function applyProductCreatedEvent(ProductCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->sku = $event->getSku();
         $this->attributes = [];
         $this->categories = [];
-        $this->designTemplateId = $event->getTemplateId();
         $this->version = 1;
         foreach ($event->getCategories() as $category) {
             $this->categories[$category->getValue()] = $category;
@@ -277,49 +274,49 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
-     * @param ProductAddedToCategory $event
+     * @param ProductAddedToCategoryEvent $event
      */
-    protected function applyProductAddedToCategory(ProductAddedToCategory $event): void
+    protected function applyProductAddedToCategoryEvent(ProductAddedToCategoryEvent $event): void
     {
         $this->categories[$event->getCategoryCode()->getValue()] = $event->getCategoryCode();
     }
 
     /**
-     * @param ProductRemovedFromCategory $event
+     * @param ProductRemovedFromCategoryEvent $event
      */
-    protected function applyProductRemovedFromCategory(ProductRemovedFromCategory $event): void
+    protected function applyProductRemovedFromCategoryEvent(ProductRemovedFromCategoryEvent $event): void
     {
         unset($this->categories[$event->getCategoryCode()->getValue()]);
     }
 
     /**
-     * @param ProductValueAdded $event
+     * @param ProductValueAddedEvent $event
      */
-    protected function applyProductValueAdded(ProductValueAdded $event): void
+    protected function applyProductValueAddedEvent(ProductValueAddedEvent $event): void
     {
         $this->attributes[$event->getAttributeCode()->getValue()] = $event->getValue();
     }
 
     /**
-     * @param ProductValueChanged $event
+     * @param ProductValueChangedEvent $event
      */
-    protected function applyProductValueChanged(ProductValueChanged $event): void
+    protected function applyProductValueChangedEvent(ProductValueChangedEvent $event): void
     {
         $this->attributes[$event->getAttributeCode()->getValue()] = $event->getTo();
     }
 
     /**
-     * @param ProductValueRemoved $event
+     * @param ProductValueRemovedEvent $event
      */
-    protected function applyProductValueRemoved(ProductValueRemoved $event): void
+    protected function applyProductValueRemovedEvent(ProductValueRemovedEvent $event): void
     {
         unset($this->attributes[$event->getAttributeCode()->getValue()]);
     }
 
     /**
-     * @param ProductVersionIncreased $event
+     * @param ProductVersionIncreasedEvent $event
      */
-    protected function applyProductVersionIncreased(ProductVersionIncreased $event): void
+    protected function applyProductVersionIncreasedEvent(ProductVersionIncreasedEvent $event): void
     {
         $this->version = $event->getTo();
     }

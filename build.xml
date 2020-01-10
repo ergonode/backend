@@ -25,7 +25,7 @@
     </target>
 
     <!-- Tests -->
-    <target name="test" depends="database:drop, database:create, database:migrate, database:fixture, cache:clear, test:unit, test:behat" description="Execute tests with database recreation."/>
+    <target name="test" depends="database:drop, database:create, database:migrate, cache:clear, database:fixture, test:unit, test:behat" description="Execute tests with database recreation."/>
 
     <!-- PHP Unit -->
     <target name="test:unit" description="Executes unit tests.">
@@ -140,22 +140,50 @@
 
     <!-- PHP code style check -->
     <target name="check:cs" description="PHPCS checker">
-        <phpcodesniffer haltonerror="true"
-                        standard="${project.basedir}/vendor/escapestudios/symfony2-coding-standard/Symfony2"
-                        allowedFileExtensions="php"
-                        ignorePatterns="autoload.php"
-                        showSniffs="false"
-                        showSources="false"
-                        showWarnings="true"
-                        verbosity="0">
-            <fileset dir="${dir.src}">
-                <include name="**/*.php"/>
-            </fileset>
-            <fileset dir="${dir.module}">
-                <include name="**/*.php"/>
-            </fileset>
-            <formatter type="full" usefile="false"/>
-<!--            <formatter type="checkstyle" outfile="${dir.reports}/checkstyle-cs.xml"/>-->
-        </phpcodesniffer>
+        <exec command="bin/phpcs -n"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
+
+    <!-- PHP code style check -->
+    <target name="check:cs:warning" description="PHPCS checker - warnings">
+        <exec command="bin/phpcs -p"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
+
+    <!-- PHP code fix code style -->
+    <target name="check:cbf" description="PHPCBF fixer">
+        <exec command="bin/phpcbf"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
+
+    <target name="check:dependencies:report-png" description="Deptrac dump to png image">
+        <exec command="./bin/deptrac analyze --formatter-graphviz=1 --formatter-graphviz-dump-image=${dir.reports}/deptrac.png"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
+    <target name="check:dependencies:report-dot" description="Deptrac dump to dot file">
+        <exec command="./bin/deptrac analyze --formatter-graphviz=1  --formatter-graphviz-dump-dot=${dir.reports}/deptrac.dot"
+              checkreturn="false"
+              logoutput="true">
+        </exec>
+    </target>
+    <target name="check:dependencies:report-svg"  depends="check:dependencies:report-dot"  description="Deptrac dump to svg image">
+        <exec command="dot deptrac.dot -Tsvg  -o ${dir.reports}/deptrac.svg"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
+    </target>
+    <target name="check:dependencies" description="Deptrac check dependencies">
+        <exec command="./bin/deptrac"
+              checkreturn="true"
+              logoutput="true">
+        </exec>
     </target>
 </project>

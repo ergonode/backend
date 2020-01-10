@@ -10,17 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Persistence\Dbal\Projector\Workflow;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
 
 /**
  */
-class WorkflowStatusAddedEventProjector implements DomainEventProjectorInterface
+class WorkflowStatusAddedEventProjector
 {
     private const TABLE = 'workflow';
 
@@ -40,32 +35,15 @@ class WorkflowStatusAddedEventProjector implements DomainEventProjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(WorkflowStatusAddedEvent $event): void
     {
-        return $event instanceof WorkflowStatusAddedEvent;
-    }
-
-    /**
-     * @param AbstractId                                    $aggregateId
-     * @param DomainEventInterface|WorkflowStatusAddedEvent $event
-     *
-     * @throws UnsupportedEventException
-     * @throws DBALException
-     * @throws \Exception
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, WorkflowStatusAddedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'default_status' => StatusId::fromCode($event->getCode())->getValue(),
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
                 'default_status' => null,
             ]
         );

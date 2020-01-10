@@ -52,7 +52,11 @@ class TemplateElementFactory
     {
         $properties['variant'] = $this->resolver->resolve($type);
 
-        $property = $this->serializer->deserialize(json_encode($properties), TemplateElementPropertyInterface::class, 'json');
+        $property = $this->serializer->deserialize(
+            json_encode($properties),
+            TemplateElementPropertyInterface::class,
+            'json'
+        );
 
         return new TemplateElement(
             $position,

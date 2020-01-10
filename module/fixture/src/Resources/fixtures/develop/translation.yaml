@@ -4,19 +4,16 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
             -
                 'PL': 'Polish_label_<current()>'
                 'EN': 'English_label_<current()>'
-                'ZH': 'Chinese_label_<current()>'
     hint_{1..50}:
         __construct:
             -
                 'PL': 'Polish_hint_<current()>'
                 'EN': 'English_hint_<current()>'
-                'ZH': 'Chinese_hint_<current()>'
     placeholder_{1..50}:
         __construct:
             -
                 'PL': 'Polish_placeholder_<current()>'
                 'EN': 'English_placeholder_<current()>'
-                'ZH': 'Chinese_placeholder_<current()>'
     empty:
         __construct:
             - []

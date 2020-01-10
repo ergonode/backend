@@ -10,7 +10,7 @@ namespace Ergonode\Comment\Tests\Infrastructure\Grid;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Comment\Infrastructure\Grid\CommentGrid;
-use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
+use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\GridConfigurationInterface;
 use PHPUnit\Framework\MockObject\MockObject;

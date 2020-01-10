@@ -23,6 +23,7 @@ class AttributeId extends AbstractId
      * @param AttributeCode $value
      *
      * @return AttributeId
+     *
      * @throws \Exception
      */
     public static function fromKey(AttributeCode $value): AttributeId

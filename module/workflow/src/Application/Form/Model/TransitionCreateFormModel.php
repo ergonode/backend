@@ -24,6 +24,7 @@ class TransitionCreateFormModel
      * @var string
      *
      * @Assert\NotBlank()
+     *
      * @ErgoAssert\StatusNotExists()
      */
     public $source;
@@ -32,6 +33,7 @@ class TransitionCreateFormModel
      * @var string
      *
      * @Assert\NotBlank()
+     *
      * @ErgoAssert\StatusNotExists()
      */
     public $destination;
@@ -41,7 +43,10 @@ class TransitionCreateFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=100, maxMessage="Status name is to long, It should have {{ limit }} character or less.")
+     *     @Assert\Length(
+     *      max=100,
+     *      maxMessage="Status name is to long, It should have {{ limit }} character or less."
+     *     )
      * })
      */
     public $name;
@@ -51,7 +56,10 @@ class TransitionCreateFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=500, maxMessage="Status description is to long,. It should have {{ limit }} character or less.")
+     *     @Assert\Length(
+     *       max=500,
+     *       maxMessage="Status description is to long,. It should have {{ limit }} character or less."
+     *     )
      * })
      */
     public $description;
@@ -72,6 +80,7 @@ class TransitionCreateFormModel
      * @Assert\All({
      *     @Assert\NotBlank(),
      *     @Assert\Uuid(strict=true),
+     *
      *     @RoleExists()
      *
      * })

@@ -20,7 +20,11 @@ class StatusChangeFormModel
      * @var Color
      *
      * @Assert\NotBlank()
-     * @Assert\Length(min=4, max="7", minMessage="Color must be in hex format", maxMessage="Color must be in hex format")
+     * @Assert\Length(
+     *     min=4,
+     *     max="7",
+     *     minMessage="Color must be in hex format", maxMessage="Color must be in hex format"
+     *  )
      */
     public $color;
 
@@ -29,7 +33,10 @@ class StatusChangeFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=100, maxMessage="Status name is to long, It should have {{ limit }} character or less.")
+     *     @Assert\Length(
+     *      max=100,
+     *      maxMessage="Status name is to long, It should have {{ limit }} character or less."
+     *  )
      * })
      */
     public $name;
@@ -39,7 +46,10 @@ class StatusChangeFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=500, maxMessage="Status description is to long,. It should have {{ limit }} character or less.")
+     *     @Assert\Length(
+     *      max=500,
+     *      maxMessage="Status description is to long,. It should have {{ limit }} character or less."
+     *  )
      * })
      */
     public $description;

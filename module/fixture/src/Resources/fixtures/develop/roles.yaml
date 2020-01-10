@@ -1,21 +1,7 @@
-Ergonode\Account\Domain\Entity\RoleId:
-    superadmin_role_id:
-        __construct:
-            - '<Uuid()>'
-    admin_role_id:
-        __construct:
-            - '<Uuid()>'
-    data_inputer_role_id:
-        __construct:
-            - '<Uuid()>'
-    category_manager_role_id:
-        __construct:
-            - '<Uuid()>'
-
 Ergonode\Account\Domain\Entity\Role:
     superadmin_role:
         __construct:
-            - '@superadmin_role_id'
+            - '<roleId("Superadmin")>'
             - 'Superadmin'
             - 'Manages Ergonode system, manages access to all permissions for other users.'
             -
@@ -78,7 +64,7 @@ Ergonode\Account\Domain\Entity\Role:
             - true
     admin_role:
         __construct:
-            - '@admin_role_id'
+            - '<roleId("Admin")>'
             - 'Admin'
             - 'Manages Ergonode system, manages access to all permissions for other users.'
             -
@@ -140,9 +126,9 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("CONDITION_DELETE")>'
     data_inputer_role:
         __construct:
-            - '@data_inputer_role_id'
+            - '<roleId("Data inputer")>'
             - 'Data inputer'
-            - 'Enriches product information: manages attributes and updates products data. Has to product categories and updates them. Is responsible for data enrichment.'
+            - 'Enriches product information: manages attributes and updates products data. Has access to product categories and updates them. Is responsible for data enrichment.'
             -
                 - '<privilege("IMPORT_CREATE")>'
                 - '<privilege("IMPORT_READ")>'
@@ -172,7 +158,7 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("MULTIMEDIA_UPDATE")>'
     category_manager_role:
         __construct:
-            - '@category_manager_role_id'
+            - '<roleId("Category manager")>'
             - 'Category manager'
             - 'Assures product data are correct and ready to publish. Manages product categories, verifies products statuses. Is responsible for product data completness.'
             -

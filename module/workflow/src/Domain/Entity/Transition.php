@@ -63,8 +63,13 @@ class Transition extends AbstractEntity
      * @param array               $roleIds
      * @param ConditionSetId|null $conditionSetId
      */
-    public function __construct(TransitionId $id, StatusCode $from, StatusCode $to, array $roleIds = [], ?ConditionSetId $conditionSetId = null)
-    {
+    public function __construct(
+        TransitionId $id,
+        StatusCode $from,
+        StatusCode $to,
+        array $roleIds = [],
+        ?ConditionSetId $conditionSetId = null
+    ) {
         $this->id = $id;
         $this->from = $from;
         $this->to = $to;
@@ -119,15 +124,18 @@ class Transition extends AbstractEntity
      */
     public function changeConditionSetId(?ConditionSetId $conditionSetId = null): void
     {
-        if ($conditionSetId === null && $this->conditionSetId === null) {
+        if (null === $conditionSetId && null === $this->conditionSetId) {
             return;
         }
 
-        if ($conditionSetId !== null && $this->conditionSetId !== null && $conditionSetId->isEqual($this->conditionSetId)) {
+        if (null !== $conditionSetId &&
+            null !==  $this->conditionSetId &&
+            $conditionSetId->isEqual($this->conditionSetId)
+        ) {
             return;
         }
 
-        $this->apply(new TransitionConditionSetChangedEvent($this->id, $conditionSetId));
+        $this->apply(new TransitionConditionSetChangedEvent($this->aggregateRoot->getId(), $this->id, $conditionSetId));
     }
 
     /**
@@ -139,7 +147,7 @@ class Transition extends AbstractEntity
     {
         Assert::allIsInstanceOf($roleIds, RoleId::class);
 
-        $this->apply(new TransitionRoleIdsChangedEvent($this->id, $roleIds));
+        $this->apply(new TransitionRoleIdsChangedEvent($this->aggregateRoot->getId(), $this->id, $roleIds));
     }
 
     /**

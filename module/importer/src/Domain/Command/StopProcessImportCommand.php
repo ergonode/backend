@@ -9,12 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class StopProcessImportCommand
+class StopProcessImportCommand implements DomainCommandInterface
 {
     /**
      * @var ImportId

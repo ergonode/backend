@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Product\Infrastructure\Grid\ProductGrid;
 
 /**
  */
@@ -56,19 +57,31 @@ class GridRenderer
      *
      * @return array
      */
-    public function render(AbstractGrid $grid, GridConfigurationInterface $configuration, DataSetInterface $dataSet, Language $language): array
-    {
+    public function render(
+        AbstractGrid $grid,
+        GridConfigurationInterface $configuration,
+        DataSetInterface $dataSet,
+        Language $language
+    ): array {
         $grid->init($configuration, $language);
 
         $field = $configuration->getField() ?: $grid->getField();
         $order = $configuration->getOrder() ?: $grid->getOrder();
-        $records = $dataSet->getItems($grid->getColumns(), $configuration->getFilters(), $configuration->getLimit(), $configuration->getOffset(), $field, $order);
+        $records = $dataSet->getItems(
+            $grid->getColumns(),
+            $configuration->getFilters(),
+            $configuration->getLimit(),
+            $configuration->getOffset(),
+            $field,
+            $order
+        );
 
         if (GridConfigurationInterface::VIEW_GRID === $configuration->getView()) {
             $result['configuration'] = $grid->getConfiguration();
             $result['columns'] = $this->columnRenderer->render($grid, $configuration);
 
-            if (!empty($configuration->getColumns())) {
+            // todo temporary hax - waiting for frontend changes
+            if ($grid instanceof ProductGrid && !empty($configuration->getColumns())) {
                 $columnsOrdered = [];
                 foreach (array_keys($configuration->getColumns()) as $name) {
                     foreach ($result['columns'] as $key => $column) {

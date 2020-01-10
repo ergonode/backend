@@ -46,6 +46,7 @@ class TransportMessageSerializerTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     *
      * @expectedExceptionMessage Encoded envelope should have at least a `body` and some `headers`.
      */
     public function testNoBodyDecode()
@@ -55,6 +56,7 @@ class TransportMessageSerializerTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     *
      * @expectedExceptionMessage Encoded envelope does not have a `type` header.
      */
     public function testNoTypeDecode()
@@ -66,7 +68,10 @@ class TransportMessageSerializerTest extends TestCase
      */
     public function testDecode()
     {
-        $this->serializer->expects($this->once())->method('deserialize')->willReturn($this->createMock(\stdClass::class));
+        $this
+            ->serializer
+            ->expects($this->once())
+            ->method('deserialize')->willReturn($this->createMock(\stdClass::class));
         $result = $this->messageSerializer->decode(['body' => 'example1', 'headers' => ['type' => 'example']]);
         $this->assertInstanceOf(Envelope::class, $result);
     }
@@ -76,7 +81,11 @@ class TransportMessageSerializerTest extends TestCase
     public function testStampDecode()
     {
         $this->serializer->expects($this->at(0))->method('deserialize')->willReturn([]);
-        $this->serializer->expects($this->at(1))->method('deserialize')->willReturn($this->createMock(\stdClass::class));
+        $this
+            ->serializer
+            ->expects($this->at(1))
+            ->method('deserialize')
+            ->willReturn($this->createMock(\stdClass::class));
         $result = $this->messageSerializer->decode([
             'body' => 'example1',
             'headers' => [

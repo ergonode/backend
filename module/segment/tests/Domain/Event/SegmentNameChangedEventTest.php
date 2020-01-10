@@ -3,7 +3,9 @@
 namespace Ergonode\Segment\Tests\Domain\Event;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Segment\Domain\Entity\SegmentId;
 use Ergonode\Segment\Domain\Event\SegmentNameChangedEvent;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,12 +16,15 @@ class SegmentNameChangedEventTest extends TestCase
      */
     public function testEventCreation(): void
     {
+        /** @var SegmentId|MockObject $id */
+        $id = $this->createMock(SegmentId::class);
         /** @var TranslatableString $from */
         $from = $this->createMock(TranslatableString::class);
         /** @var TranslatableString $to */
         $to = $this->createMock(TranslatableString::class);
 
-        $event = new SegmentNameChangedEvent($from, $to);
+        $event = new SegmentNameChangedEvent($id, $from, $to);
+        $this->assertSame($id, $event->getAggregateId());
         $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
     }

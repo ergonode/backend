@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Grid;
 
-use Ergonode\Account\Infrastructure\Grid\Column\LogColumn;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\IntegerColumn;

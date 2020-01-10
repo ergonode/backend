@@ -10,16 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Persistence\Dbal\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class AttributeLabelChangedEventProjector implements DomainEventProjectorInterface
+class AttributeLabelChangedEventProjector
 {
     private const TABLE = 'value_translation';
 
@@ -37,65 +35,52 @@ class AttributeLabelChangedEventProjector implements DomainEventProjectorInterfa
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof AttributeLabelChangedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param AttributeLabelChangedEvent $event
      *
-     * @throws \Throwable
+     * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(AttributeLabelChangedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, AttributeLabelChangedEvent::class);
-        }
-
         $from = $event->getFrom()->getTranslations();
         $to = $event->getTo()->getTranslations();
+        $aggregateId = $event->getAggregateId();
 
-        $this->connection->transactional(function () use ($aggregateId, $to, $from) {
-            foreach ($to as $language => $value) {
-                $result = $this->connection->update(
+        foreach ($to as $language => $value) {
+            $result = $this->connection->update(
+                self::TABLE,
+                [
+                    'language' => $language,
+                    'value' => $value,
+                ],
+                [
+                    'value_id' => $this->getTranslationId('label', $aggregateId),
+                    'language' => $language,
+                ]
+            );
+            if (!$result) {
+                $this->connection->insert(
                     self::TABLE,
                     [
+                        'id' => Uuid::uuid4()->toString(),
+                        'value_id' => $this->getTranslationId('label', $aggregateId),
                         'language' => $language,
                         'value' => $value,
-                    ],
+                    ]
+                );
+            }
+        }
+
+        foreach ($from as $language => $value) {
+            if (!isset($to[$language])) {
+                $this->connection->delete(
+                    self::TABLE,
                     [
                         'value_id' => $this->getTranslationId('label', $aggregateId),
                         'language' => $language,
                     ]
                 );
-                if (!$result) {
-                    $this->connection->insert(
-                        self::TABLE,
-                        [
-                            'id' => Uuid::uuid4()->toString(),
-                            'value_id' => $this->getTranslationId('label', $aggregateId),
-                            'language' => $language,
-                            'value' => $value,
-                        ]
-                    );
-                }
             }
-
-            foreach ($from as $language => $value) {
-                if (!isset($to[$language])) {
-                    $this->connection->delete(
-                        self::TABLE,
-                        [
-                            'value_id' => $this->getTranslationId('label', $aggregateId),
-                            'language' => $language,
-                        ]
-                    );
-                }
-            }
-        });
+        }
     }
 
     /**

@@ -29,7 +29,7 @@ class CategoryTreeCreatedEventTest extends TestCase
         $name = $this->createMock(TranslatableString::class);
         $code = 'Any tree code';
         $event = new CategoryTreeCreatedEvent($id, $code, $name);
-        $this->assertEquals($id, $event->getId());
+        $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($code, $event->getCode());
         $this->assertEquals($name, $event->getName());
     }

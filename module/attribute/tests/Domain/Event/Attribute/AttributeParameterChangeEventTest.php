@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Event\Attribute;
 
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use PHPUnit\Framework\TestCase;
 
@@ -16,15 +17,17 @@ use PHPUnit\Framework\TestCase;
 class AttributeParameterChangeEventTest extends TestCase
 {
     /**
-     * @param string $name
-     * @param string $from
-     * @param string $to
+     * @param AttributeId $id
+     * @param string      $name
+     * @param string      $from
+     * @param string      $to
      *
      * @dataProvider dataProvider
      */
-    public function testCreateEvent(string $name, string $from, string $to): void
+    public function testCreateEvent(AttributeId $id, string $name, string $from, string $to): void
     {
-        $event = new AttributeParameterChangeEvent($name, $from, $to);
+        $event = new AttributeParameterChangeEvent($id, $name, $from, $to);
+        $this->assertSame($id, $event->getAggregateId());
         $this->assertSame($name, $event->getName());
         $this->assertSame($from, $event->getFrom());
         $this->assertSame($to, $event->getTo());
@@ -39,6 +42,7 @@ class AttributeParameterChangeEventTest extends TestCase
     {
         return [
             [
+                $this->createMock(AttributeId::class),
                 'name',
                 'from',
                 'to',

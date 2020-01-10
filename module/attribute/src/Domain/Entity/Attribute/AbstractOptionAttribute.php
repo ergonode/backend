@@ -94,7 +94,7 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
             ));
         }
 
-        $this->apply(new AttributeOptionAddedEvent($key, $option));
+        $this->apply(new AttributeOptionAddedEvent($this->id, $key, $option));
     }
 
     /**
@@ -126,7 +126,7 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
         }
 
         if (!$from->equal($to)) {
-            $this->apply(new AttributeOptionChangedEvent($key, $from, $to));
+            $this->apply(new AttributeOptionChangedEvent($this->id, $key, $from, $to));
         }
     }
 
@@ -141,7 +141,7 @@ abstract class AbstractOptionAttribute extends AbstractAttribute
             throw new \InvalidArgumentException(sprintf('option value %s not exists', $key));
         }
 
-        $this->apply(new AttributeOptionRemovedEvent($key));
+        $this->apply(new AttributeOptionRemovedEvent($this->id, $key));
     }
 
     /**

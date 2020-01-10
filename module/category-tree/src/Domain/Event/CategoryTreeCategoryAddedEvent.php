@@ -10,6 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Domain\Event;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -18,11 +20,18 @@ use JMS\Serializer\Annotation as JMS;
 class CategoryTreeCategoryAddedEvent implements DomainEventInterface
 {
     /**
+     * @var CategoryTreeId
+     *
+     * @JMS\Type("Ergonode\CategoryTree\Domain\Entity\CategoryTreeId")
+     */
+    private $id;
+
+    /**
      * @var CategoryId
      *
      * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
      */
-    private $id;
+    private $categoryId;
 
     /**
      * @var CategoryId|null
@@ -32,21 +41,31 @@ class CategoryTreeCategoryAddedEvent implements DomainEventInterface
     private $parentId;
 
     /**
-     * @param CategoryId      $id
+     * @param CategoryTreeId  $id
+     * @param CategoryId      $categoryId
      * @param CategoryId|null $parentId
      */
-    public function __construct(CategoryId $id, ?CategoryId $parentId = null)
+    public function __construct(CategoryTreeId $id, CategoryId $categoryId, ?CategoryId $parentId = null)
     {
         $this->id = $id;
+        $this->categoryId = $categoryId;
         $this->parentId = $parentId;
+    }
+
+    /**
+     * @return AbstractId|CategoryTreeId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**
      * @return CategoryId
      */
-    public function getId(): CategoryId
+    public function getCategoryId(): CategoryId
     {
-        return $this->id;
+        return $this->categoryId;
     }
 
     /**

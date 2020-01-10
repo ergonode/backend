@@ -55,8 +55,12 @@ class TranslatableStringHandler implements SubscribingHandlerInterface
      *
      * @return array
      */
-    public function serialize(SerializationVisitorInterface $visitor, TranslatableString $translatableString, array $type, Context $context): array
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        TranslatableString $translatableString,
+        array $type,
+        Context $context
+    ): array {
         return $visitor->visitArray(
             $translatableString->getTranslations(),
             $type
@@ -71,8 +75,12 @@ class TranslatableStringHandler implements SubscribingHandlerInterface
      *
      * @return TranslatableString
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): TranslatableString
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): TranslatableString {
         return new TranslatableString($data);
     }
 }

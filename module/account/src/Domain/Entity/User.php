@@ -99,7 +99,19 @@ class User extends AbstractAggregateRoot implements UserInterface
         ?MultimediaId $avatarId = null,
         bool $isActive = true
     ) {
-        $this->apply(new UserCreatedEvent($id, $firstName, $lastName, $email, $language, $password, $roleId, $isActive, $avatarId));
+        $this->apply(
+            new UserCreatedEvent(
+                $id,
+                $firstName,
+                $lastName,
+                $email,
+                $language,
+                $password,
+                $roleId,
+                $isActive,
+                $avatarId
+            )
+        );
     }
 
     /**
@@ -190,7 +202,7 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function changeFirstName(string $firstName): void
     {
         if ($this->firstName !== $firstName) {
-            $this->apply(new UserFirstNameChangedEvent($this->firstName, $firstName));
+            $this->apply(new UserFirstNameChangedEvent($this->id, $this->firstName, $firstName));
         }
     }
 
@@ -202,7 +214,7 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function changeRole(RoleId $roleId): void
     {
         if (!$roleId->isEqual($this->roleId)) {
-            $this->apply(new UserRoleChangedEvent($this->roleId, $roleId));
+            $this->apply(new UserRoleChangedEvent($this->id, $this->roleId, $roleId));
         }
     }
 
@@ -214,7 +226,7 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function changeLastName(string $lastName): void
     {
         if ($this->lastName !== $lastName) {
-            $this->apply(new UserLastNameChangedEvent($this->lastName, $lastName));
+            $this->apply(new UserLastNameChangedEvent($this->id, $this->lastName, $lastName));
         }
     }
 
@@ -226,7 +238,7 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function changeLanguage(Language $language): void
     {
         if (!$language->isEqual($this->language)) {
-            $this->apply(new UserLanguageChangedEvent($this->language, $language));
+            $this->apply(new UserLanguageChangedEvent($this->id, $this->language, $language));
         }
     }
 
@@ -237,7 +249,7 @@ class User extends AbstractAggregateRoot implements UserInterface
      */
     public function changeAvatar(MultimediaId $avatarId = null): void
     {
-        $this->apply(new UserAvatarChangedEvent($avatarId));
+        $this->apply(new UserAvatarChangedEvent($this->id, $avatarId));
     }
 
     /**
@@ -247,7 +259,7 @@ class User extends AbstractAggregateRoot implements UserInterface
      */
     public function changePassword(Password $password): void
     {
-        $this->apply(new UserPasswordChangedEvent($password));
+        $this->apply(new UserPasswordChangedEvent($this->id, $password));
     }
 
     /**
@@ -259,7 +271,7 @@ class User extends AbstractAggregateRoot implements UserInterface
             throw new \LogicException('User already activated');
         }
 
-        $this->apply(new UserActivatedEvent());
+        $this->apply(new UserActivatedEvent($this->id));
     }
 
     /**
@@ -271,7 +283,7 @@ class User extends AbstractAggregateRoot implements UserInterface
             throw new \LogicException('User already deactivated');
         }
 
-        $this->apply(new UserDeactivatedEvent());
+        $this->apply(new UserDeactivatedEvent($this->id));
     }
 
     /**
@@ -303,7 +315,7 @@ class User extends AbstractAggregateRoot implements UserInterface
      */
     protected function applyUserCreatedEvent(UserCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->firstName = $event->getFirstName();
         $this->lastName = $event->getLastName();
         $this->email = $event->getEmail();
@@ -367,7 +379,7 @@ class User extends AbstractAggregateRoot implements UserInterface
      */
     protected function applyUserActivatedEvent(UserActivatedEvent $event): void
     {
-        $this->isActive = $event->isActive();
+        $this->isActive = true;
     }
 
     /**
@@ -375,6 +387,6 @@ class User extends AbstractAggregateRoot implements UserInterface
      */
     protected function applyUserDeactivatedEvent(UserDeactivatedEvent $event): void
     {
-        $this->isActive = $event->isActive();
+        $this->isActive = false;
     }
 }

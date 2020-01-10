@@ -60,7 +60,11 @@ class AttributeGroupCodeValidator extends ConstraintValidator
         }
 
         // @todo split into two different validators if possible
-        $attribute = $this->query->checkAttributeGroupExistsByCode(new \Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode($value));
+        $attribute = $this
+            ->query
+            ->checkAttributeGroupExistsByCode(
+                new \Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode($value)
+            );
 
         if ($attribute) {
             $this->context->buildViolation($constraint->uniqueMessage)

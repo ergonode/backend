@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Status;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
@@ -62,8 +63,13 @@ class StatusCreatedEvent implements DomainEventInterface
      * @param TranslatableString $name
      * @param TranslatableString $description
      */
-    public function __construct(StatusId $id, StatusCode $code, Color $color, TranslatableString $name, TranslatableString $description)
-    {
+    public function __construct(
+        StatusId $id,
+        StatusCode $code,
+        Color $color,
+        TranslatableString $name,
+        TranslatableString $description
+    ) {
         $this->id = $id;
         $this->code = $code;
         $this->color = $color;
@@ -72,9 +78,9 @@ class StatusCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return StatusId
+     * @return StatusId|AbstractId
      */
-    public function getId(): StatusId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

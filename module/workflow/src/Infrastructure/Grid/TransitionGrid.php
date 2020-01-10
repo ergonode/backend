@@ -66,16 +66,28 @@ class TransitionGrid extends AbstractGrid
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_workflow_transition_read',
-                'parameters' => ['language' => $language->getCode(), 'source' => '{source}', 'destination' => '{destination}'],
+                'parameters' => [
+                    'language' => $language->getCode(),
+                    'source' => '{source}',
+                    'destination' => '{destination}',
+                ],
             ],
             'edit' => [
                 'route' => 'ergonode_workflow_transition_change',
-                'parameters' => ['language' => $language->getCode(), 'source' => '{source}', 'destination' => '{destination}'],
+                'parameters' => [
+                    'language' => $language->getCode(),
+                    'source' => '{source}',
+                    'destination' => '{destination}',
+                ],
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'route' => 'ergonode_workflow_transition_delete',
-                'parameters' => ['language' => $language->getCode(), 'source' => '{source}', 'destination' => '{destination}'],
+                'parameters' => [
+                    'language' => $language->getCode(),
+                    'source' => '{source}',
+                    'destination' => '{destination}',
+                ],
                 'method' => Request::METHOD_DELETE,
             ],
         ]));

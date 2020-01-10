@@ -11,17 +11,13 @@ namespace Ergonode\Value\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Value\Domain\Event\ValueAddedEvent;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ValueAddedEventProjector implements DomainEventProjectorInterface
+class ValueAddedEventProjector
 {
     private const NAMESPACE = '0cc20207-d1b7-460b-8ef6-6898d00de4c0';
     private const VALUE_TABLE = 'attribute_value';
@@ -48,29 +44,13 @@ class ValueAddedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * @param DomainEventInterface $event
+     * @param ValueAddedEvent $event
      *
-     * @return bool
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof ValueAddedEvent;
-    }
-
-    /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
      * @throws \Throwable
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(ValueAddedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ValueAddedEvent::class);
-        }
-
-        $this->connection->transactional(function () use ($event, $aggregateId) {
+        $this->connection->transactional(function () use ($event) {
             $attributeId = AttributeId::fromKey($event->getAttributeCode());
             $type = get_class($event->getValue());
             $value = $this->serializer->serialize($event->getValue(), 'json');
@@ -87,7 +67,10 @@ class ValueAddedEventProjector implements DomainEventProjectorInterface
 
             if (false === $result) {
                 $this->connection->executeQuery(
-                    sprintf('INSERT INTO %s (id, type, value) VALUES (?, ?, ?) ON CONFLICT DO NOTHING', self::VALUE_TABLE),
+                    sprintf(
+                        'INSERT INTO %s (id, type, value) VALUES (?, ?, ?) ON CONFLICT DO NOTHING',
+                        self::VALUE_TABLE
+                    ),
                     [$valueId->toString(), $type, $value]
                 );
             }
@@ -95,7 +78,7 @@ class ValueAddedEventProjector implements DomainEventProjectorInterface
             $this->connection->insert(
                 self::RELATION_TABLE,
                 [
-                    'entity_id' => $aggregateId->getValue(),
+                    'entity_id' => $event->getAggregateId()->getValue(),
                     'attribute_id' => $attributeId->getValue(),
                     'value_id' => $valueId->toString(),
                 ]

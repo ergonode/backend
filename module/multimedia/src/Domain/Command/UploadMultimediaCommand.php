@@ -9,12 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\Multimedia\Domain\Factory\MultimediaIdFactory;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  */
-class UploadMultimediaCommand
+class UploadMultimediaCommand implements DomainCommandInterface
 {
     /**
      * @var MultimediaId
@@ -34,12 +36,10 @@ class UploadMultimediaCommand
     /**
      * @param string       $name
      * @param UploadedFile $file
-     *
-     * @throws \Exception
      */
     public function __construct(string $name, UploadedFile $file)
     {
-        $this->id = MultimediaId::createFromFile($file);
+        $this->id = MultimediaIdFactory::createFromFile($file);
         $this->name = $name;
         $this->file = $file;
     }

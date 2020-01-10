@@ -35,6 +35,9 @@ class WorkflowProviderTest extends TestCase
      */
     private $workflow;
 
+    /**
+     *
+     */
     protected function setUp()
     {
         $this->repository = $this->createMock(WorkflowRepositoryInterface::class);

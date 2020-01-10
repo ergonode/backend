@@ -45,6 +45,8 @@ class FormErrorMapperTest extends TestCase
      */
     private $errorFormElement;
 
+    /**
+     */
     protected function setUp()
     {
         $this->provider = $this->createMock(FormErrorMapperMessageProvider::class);

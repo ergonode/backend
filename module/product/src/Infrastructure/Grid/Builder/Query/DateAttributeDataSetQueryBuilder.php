@@ -10,7 +10,7 @@ namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
@@ -31,7 +31,8 @@ class DateAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderIn
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
         $query->addSelect(sprintf(
-            '(SELECT value::DATE FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id WHERE pv.attribute_id = \'%s\' AND vt.language IS NULL AND pv.product_id = p.id LIMIT 1) AS "%s"',
+            '(SELECT value::DATE FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id '.
+            ' WHERE pv.attribute_id = \'%s\' AND vt.language IS NULL AND pv.product_id = p.id LIMIT 1) AS "%s"',
             $attribute->getId()->getValue(),
             $key
         ));

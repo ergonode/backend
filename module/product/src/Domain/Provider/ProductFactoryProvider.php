@@ -23,7 +23,7 @@ class ProductFactoryProvider
     /**
      * @param ProductFactoryInterface ...$factories
      */
-    public function __construct(ProductFactoryInterface... $factories)
+    public function __construct(ProductFactoryInterface...$factories)
     {
         $this->factories = $factories;
     }

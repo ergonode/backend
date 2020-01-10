@@ -10,12 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Product\Domain\Event\ProductValueChanged;
+use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -24,7 +21,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ProductValueChangedEventProjector implements DomainEventProjectorInterface
+class ProductValueChangedEventProjector
 {
     private const TABLE_PRODUCT_VALUE = 'product_value';
     private const TABLE_VALUE_TRANSLATION = 'value_translation';
@@ -43,29 +40,17 @@ class ProductValueChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param ProductValueChangedEvent $event
+     *
+     * @throws DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(ProductValueChangedEvent $event): void
     {
-        return $event instanceof ProductValueChanged;
-    }
+        $productId = $event->getAggregateId()->getValue();
+        $attributeId = AttributeId::fromKey($event->getAttributeCode())->getValue();
 
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductValueChanged::class);
-        }
-
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $productId = $aggregateId->getValue();
-            $attributeId = AttributeId::fromKey($event->getAttributeCode())->getValue();
-
-            $this->delete($productId, $attributeId);
-            $this->insertValue($productId, $attributeId, $event->getTo());
-        });
+        $this->delete($productId, $attributeId);
+        $this->insertValue($productId, $attributeId, $event->getTo());
     }
 
     /**
@@ -73,7 +58,7 @@ class ProductValueChangedEventProjector implements DomainEventProjectorInterface
      * @param string         $attributeId
      * @param ValueInterface $value
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
     private function insertValue(string $productId, string $attributeId, ValueInterface $value): void
     {
@@ -89,7 +74,9 @@ class ProductValueChangedEventProjector implements DomainEventProjectorInterface
                 $this->insert($productId, $attributeId, $phrase, $language);
             }
         } else {
-            throw new \RuntimeException(sprintf(sprintf('Unknown Value class "%s"', \get_class($value->getValue()))));
+            throw new \RuntimeException(
+                sprintf(sprintf('Unknown Value class "%s"', \get_class($value->getValue())))
+            );
         }
     }
 
@@ -99,11 +86,11 @@ class ProductValueChangedEventProjector implements DomainEventProjectorInterface
      * @param string      $value
      * @param string|null $language
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
     private function insert(string $productId, string $attributeId, string $value, string $language = null): void
     {
-        if ($value !== '') {
+        if ('' !== $value) {
             $valueId = Uuid::uuid5(ValueInterface::NAMESPACE, implode('|', [$value, $language]));
 
             $qb = $this->connection->createQueryBuilder();
@@ -116,7 +103,8 @@ class ProductValueChangedEventProjector implements DomainEventProjectorInterface
 
             if (false === $result) {
                 $this->connection->executeQuery(
-                    'INSERT INTO value_translation (id, value_id, value, language) VALUES (?, ?, ?, ?) ON CONFLICT DO NOTHING',
+                    'INSERT INTO value_translation (id, value_id, value, language) '.
+                    ' VALUES (?, ?, ?, ?) ON CONFLICT DO NOTHING',
                     [$valueId->toString(), $valueId->toString(), $value, $language ?: null]
                 );
             }
@@ -136,8 +124,7 @@ class ProductValueChangedEventProjector implements DomainEventProjectorInterface
      * @param string $productId
      * @param string $attributeId
      *
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
+     * @throws DBALException
      */
     private function delete(string $productId, string $attributeId): void
     {

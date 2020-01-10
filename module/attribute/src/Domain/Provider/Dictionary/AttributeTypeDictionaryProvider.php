@@ -14,10 +14,10 @@ use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
-use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
-use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -45,15 +45,24 @@ class AttributeTypeDictionaryProvider
      */
     public function getDictionary(Language $language): array
     {
-        $result[TextAttribute::TYPE] = $this->translator->trans(TextAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[TextareaAttribute::TYPE] = $this->translator->trans(TextareaAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[NumericAttribute::TYPE] = $this->translator->trans(NumericAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[SelectAttribute::TYPE] = $this->translator->trans(SelectAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[MultiSelectAttribute::TYPE] = $this->translator->trans(MultiSelectAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[PriceAttribute::TYPE] = $this->translator->trans(PriceAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[DateAttribute::TYPE] = $this->translator->trans(DateAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[UnitAttribute::TYPE] = $this->translator->trans(UnitAttribute::TYPE, [], 'attribute', $language->getCode());
-        $result[ImageAttribute::TYPE] = $this->translator->trans(ImageAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[TextAttribute::TYPE] =
+            $this->translator->trans(TextAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[TextareaAttribute::TYPE] =
+            $this->translator->trans(TextareaAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[NumericAttribute::TYPE] =
+            $this->translator->trans(NumericAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[SelectAttribute::TYPE] =
+            $this->translator->trans(SelectAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[MultiSelectAttribute::TYPE] =
+            $this->translator->trans(MultiSelectAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[PriceAttribute::TYPE] =
+            $this->translator->trans(PriceAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[DateAttribute::TYPE] =
+            $this->translator->trans(DateAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[UnitAttribute::TYPE] =
+            $this->translator->trans(UnitAttribute::TYPE, [], 'attribute', $language->getCode());
+        $result[ImageAttribute::TYPE] =
+            $this->translator->trans(ImageAttribute::TYPE, [], 'attribute', $language->getCode());
 
         return $result;
     }

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Persistence\Dbal\Repository;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Reader\Domain\Entity\Reader;
 use Ergonode\Reader\Domain\Entity\ReaderId;
@@ -28,18 +28,18 @@ class DbalReaderRepository implements ReaderRepositoryInterface
     private $eventStore;
 
     /**
-     * @var DomainEventDispatcherInterface
+     * @var EventBusInterface
      */
-    private $eventDispatcher;
+    private $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $eventStore
-     * @param DomainEventDispatcherInterface $eventDispatcher
+     * @param DomainEventStoreInterface $eventStore
+     * @param EventBusInterface         $eventBus
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
+    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
     {
         $this->eventStore = $eventStore;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -84,7 +84,7 @@ class DbalReaderRepository implements ReaderRepositoryInterface
 
         $this->eventStore->append($aggregateRoot->getId(), $events, self::TABLE);
         foreach ($events as $envelope) {
-            $this->eventDispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
     }
 
@@ -95,7 +95,7 @@ class DbalReaderRepository implements ReaderRepositoryInterface
      */
     public function delete(Reader $reader): void
     {
-        $reader->apply(new ReaderDeletedEvent());
+        $reader->apply(new ReaderDeletedEvent($reader->getId()));
         $this->save($reader);
 
         $this->eventStore->delete($reader->getId());

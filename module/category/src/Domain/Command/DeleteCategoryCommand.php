@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Domain\Command;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class DeleteCategoryCommand
+class DeleteCategoryCommand implements DomainCommandInterface
 {
     /**
      * @var CategoryId

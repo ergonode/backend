@@ -55,8 +55,12 @@ class ConditionSetIdHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, ConditionSetId $id, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        ConditionSetId $id,
+        array $type,
+        Context $context
+    ): string {
         return $id->getValue();
     }
 
@@ -68,8 +72,12 @@ class ConditionSetIdHandler implements SubscribingHandlerInterface
      *
      * @return ConditionSetId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): ConditionSetId
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): ConditionSetId {
         return new ConditionSetId($data);
     }
 }

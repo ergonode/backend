@@ -50,8 +50,13 @@ class Reader extends AbstractAggregateRoot
      * @param string[]             $configuration
      * @param FormatterInterface[] $formatters
      */
-    public function __construct(ReaderId $id, string $name, string $type, array $configuration = [], array $formatters = [])
-    {
+    public function __construct(
+        ReaderId $id,
+        string $name,
+        string $type,
+        array $configuration = [],
+        array $formatters = []
+    ) {
         $this->apply(new ReaderCreatedEvent($id, $name, $type, $configuration, $formatters));
     }
 
@@ -100,7 +105,7 @@ class Reader extends AbstractAggregateRoot
      */
     protected function applyReaderCreatedEvent(ReaderCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->name = $event->getName();
         $this->type = $event->getType();
         $this->configuration = $event->getConfiguration();

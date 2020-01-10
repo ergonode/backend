@@ -89,12 +89,15 @@ class TranslationReadAction
     {
         try {
             $model = new TranslationDeeplFormModel();
-            $form = $this->formFactory->create(TranslationDeeplForm::class, $model, ['method' => Request::METHOD_GET]);
+            $form = $this
+                ->formFactory
+                ->create(TranslationDeeplForm::class, $model, ['method' => Request::METHOD_GET]);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var TranslationDeeplFormModel $data */
                 $data = $form->getData();
-                $translatedContent = $this->translationProvider->provide($data->content, $data->sourceLanguage, $data->targetLanguage);
+                $translatedContent =
+                    $this->translationProvider->provide($data->content, $data->sourceLanguage, $data->targetLanguage);
 
                 return new SuccessResponse(['content' => $translatedContent]);
             }

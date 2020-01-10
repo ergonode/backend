@@ -184,6 +184,15 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     }
 
     /**
+     * @Then /^print last api response$/
+     */
+    public function printLastApiResponse(): void
+    {
+        $this->requireResponse();
+        echo $this->response->getBody();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function assertResponseCodeIs($code): void
@@ -263,7 +272,7 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
      */
     protected function getResponseBody()
     {
-        $source = (string)$this->response->getBody();
+        $source = (string) $this->response->getBody();
         $body = json_decode($source, false);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
@@ -271,7 +280,8 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
                 'The response body does not contain valid JSON data. Received "%s"',
                 $source
             ));
-        } elseif (!is_array($body) && !($body instanceof stdClass)) {
+        }
+        if (!is_array($body) && !($body instanceof stdClass)) {
             throw new InvalidArgumentException(sprintf(
                 'The response body does not contain a valid JSON array / object. Received "%s"',
                 $source

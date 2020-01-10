@@ -10,16 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Transformer\Domain\Event\ProcessorStatusChangedEvent;
 use Ergonode\Transformer\Domain\ValueObject\ProcessorStatus;
 
 /**
  */
-class ProcessorStatusChangedEventProjector implements DomainEventProjectorInterface
+class ProcessorStatusChangedEventProjector
 {
     /**
      * @var Connection
@@ -37,46 +33,30 @@ class ProcessorStatusChangedEventProjector implements DomainEventProjectorInterf
     /**
      * {@inheritDoc}
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(ProcessorStatusChangedEvent $event): void
     {
-        return $event instanceof ProcessorStatusChangedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @throws \Throwable
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProcessorStatusChangedEvent::class);
+        $status = null;
+        if ($event->getTo()->isProcessed()) {
+            $status = ProcessorStatus::PRECESSED;
+        } elseif ($event->getTo()->isEnded()) {
+            $status = ProcessorStatus::ENDED;
+        } elseif ($event->getTo()->isStopped()) {
+            $status = ProcessorStatus::STOPPED;
         }
 
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $status = null;
-            if ($event->getTo()->isProcessed()) {
-                $status = ProcessorStatus::PRECESSED;
-            } elseif ($event->getTo()->isEnded()) {
-                $status = ProcessorStatus::ENDED;
-            } elseif ($event->getTo()->isStopped()) {
-                $status = ProcessorStatus::STOPPED;
-            }
-
-            if (null !== $status) {
-                $date = date('Y-m-d H:i:s');
-                $this->connection->update(
-                    'importer.processor',
-                    [
-                        'updated_at' => $date,
-                        'started_at' => $date,
-                        'status' => $status,
-                    ],
-                    [
-                        'id' => $aggregateId->getValue(),
-                    ]
-                );
-            }
-        });
+        if (null !== $status) {
+            $date = date('Y-m-d H:i:s');
+            $this->connection->update(
+                'importer.processor',
+                [
+                    'updated_at' => $date,
+                    'started_at' => $date,
+                    'status' => $status,
+                ],
+                [
+                    'id' => $event->getAggregateId()->getValue(),
+                ]
+            );
+        }
     }
 }

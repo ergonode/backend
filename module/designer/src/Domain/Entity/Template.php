@@ -61,6 +61,8 @@ class Template extends AbstractAggregateRoot
      * @param TemplateGroupId   $groupId
      * @param string            $name
      * @param MultimediaId|null $imageId
+     *
+     * @throws \Exception
      */
     public function __construct(TemplateId $id, TemplateGroupId $groupId, string $name, ?MultimediaId $imageId = null)
     {
@@ -109,7 +111,8 @@ class Template extends AbstractAggregateRoot
     public function getElement(Position $position): TemplateElement
     {
         if (!$this->hasElement($position)) {
-            throw new \InvalidArgumentException(\sprintf('There is no element on position %sx%s', $position->getX(), $position->getY()));
+            $message = \sprintf('There is no element on position %sx%s', $position->getX(), $position->getY());
+            throw new \InvalidArgumentException($message);
         }
 
         return $this->elements[(string) $position];
@@ -133,16 +136,20 @@ class Template extends AbstractAggregateRoot
 
     /**
      * @param string $name
+     *
+     * @throws \Exception
      */
     public function changeName(string $name): void
     {
         if ($name !== $this->name) {
-            $this->apply(new TemplateNameChangedEvent($this->name, $name));
+            $this->apply(new TemplateNameChangedEvent($this->id, $this->name, $name));
         }
     }
 
     /**
      * @param MultimediaId $imageId
+     *
+     * @throws \Exception
      */
     public function addImage(MultimediaId $imageId): void
     {
@@ -150,16 +157,18 @@ class Template extends AbstractAggregateRoot
             throw new \RuntimeException('Template image already added');
         }
 
-        $this->apply(new TemplateImageAddedEvent($imageId));
+        $this->apply(new TemplateImageAddedEvent($this->id, $imageId));
     }
 
     /**
      * @param MultimediaId $imageId
+     *
+     * @throws \Exception
      */
     public function changeImage(MultimediaId $imageId): void
     {
         if (!$imageId->isEqual($this->imageId)) {
-            $this->apply(new TemplateImageChangedEvent($this->imageId, $imageId));
+            $this->apply(new TemplateImageChangedEvent($this->id, $this->imageId, $imageId));
         }
     }
 
@@ -171,54 +180,64 @@ class Template extends AbstractAggregateRoot
             throw new \RuntimeException('Template image not exists');
         }
 
-        $this->apply(new TemplateImageRemovedEvent($this->imageId));
+        $this->apply(new TemplateImageRemovedEvent($this->id, $this->imageId));
     }
 
     /**
      * @param TemplateGroupId $groupId
+     *
+     * @throws \Exception
      */
     public function changeGroup(TemplateGroupId $groupId): void
     {
         if (!$groupId->isEqual($this->groupId)) {
-            $this->apply(new TemplateGroupChangedEvent($this->groupId, $groupId));
+            $this->apply(new TemplateGroupChangedEvent($this->id, $this->groupId, $groupId));
         }
     }
 
     /**
      * @param TemplateElement $element
+     *
+     * @throws \Exception
      */
     public function addElement(TemplateElement $element): void
     {
         $position = $element->getPosition();
         if ($this->hasElement($element->getPosition())) {
-            throw new \InvalidArgumentException(\sprintf('There is already element on position %sx%s', $position->getX(), $position->getY()));
+            $message = \sprintf('There is element on position %sx%s', $position->getX(), $position->getY());
+            throw new \InvalidArgumentException($message);
         }
 
-        $this->apply(new TemplateElementAddedEvent($element));
+        $this->apply(new TemplateElementAddedEvent($this->id, $element));
     }
 
     /**
      * @param TemplateElement $element
+     *
+     * @throws \Exception
      */
     public function changeElement(TemplateElement $element): void
     {
         $position = $element->getPosition();
 
         if (!$this->hasElement($element->getPosition())) {
-            throw new \InvalidArgumentException(\sprintf('There is no element on position %sx%s', $position->getX(), $position->getY()));
+            $message = \sprintf('There is no element on position %sx%s', $position->getX(), $position->getY());
+            throw new \InvalidArgumentException($message);
         }
 
-        $this->apply(new TemplateElementChangedEvent($element));
+        $this->apply(new TemplateElementChangedEvent($this->id, $element));
     }
 
     /**
      * @param Position $position
+     *
+     * @throws \Exception
      */
     public function removeElement(Position $position): void
     {
         $element = $this->getElement($position);
 
-        $this->apply(new TemplateElementRemovedEvent($element->getPosition()));
+        $this->apply(new TemplateElementRemovedEvent($this->id, $element->getPosition()));
     }
 
     /**
@@ -271,7 +290,7 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateCreatedEvent(TemplateCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->name = $event->getName();
         $this->imageId = $event->getImageId();
         $this->groupId = $event->getGroupId();

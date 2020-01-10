@@ -12,7 +12,7 @@ namespace Ergonode\Account\Application\Controller\Api;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Query\ProfileQueryInterface;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
+use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

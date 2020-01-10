@@ -33,8 +33,10 @@ class CreateProductDraftCommandHandler
      * @param ProductDraftRepositoryInterface $repository
      * @param ProductRepositoryInterface      $productRepository
      */
-    public function __construct(ProductDraftRepositoryInterface $repository, ProductRepositoryInterface $productRepository)
-    {
+    public function __construct(
+        ProductDraftRepositoryInterface $repository,
+        ProductRepositoryInterface $productRepository
+    ) {
         $this->repository = $repository;
         $this->productRepository = $productRepository;
     }
