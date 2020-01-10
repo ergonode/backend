@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,22 +6,22 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Multimedia\Tests\Domain\Entity;
+namespace Ergonode\Multimedia\Tests\Domain\Event;
 
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class MultimediaTest extends TestCase
+class MultimediaCreatedEventTest extends TestCase
 {
     /**
      * @throws \Exception
      */
-    public function testMultimediaCreate(): void
+    public function testEventCreate(): void
     {
         /** @var MultimediaId | MockObject $multimediaId */
         $multimediaId = $this->createMock(MultimediaId::class);
@@ -31,7 +30,7 @@ class MultimediaTest extends TestCase
         $size = 123;
         $hash = $this->createMock(Hash::class);
         $mime = 'text/json';
-        $multimedia = new Multimedia(
+        $event = new MultimediaCreatedEvent(
             $multimediaId,
             $name,
             $ext,
@@ -40,12 +39,11 @@ class MultimediaTest extends TestCase
             $mime
         );
 
-        $this->assertEquals($multimediaId, $multimedia->getId());
-        $this->assertEquals(sprintf('%s.%s', $multimediaId, $ext), $multimedia->getFileName());
-        $this->assertEquals($name, $multimedia->getName());
-        $this->assertEquals($ext, $multimedia->getExtension());
-        $this->assertEquals($size, $multimedia->getSize());
-        $this->assertEquals($mime, $multimedia->getMime());
-        $this->assertEquals($hash, $multimedia->getHash());
+        $this->assertEquals($multimediaId, $event->getAggregateId());
+        $this->assertEquals($name, $event->getName());
+        $this->assertEquals($ext, $event->getExtension());
+        $this->assertEquals($size, $event->getSize());
+        $this->assertEquals($mime, $event->getMime());
+        $this->assertEquals($hash, $event->getHash());
     }
 }

@@ -7,18 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Multimedia\Infrastructure\Service;
+namespace Ergonode\Multimedia\Domain\Query;
 
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
 /**
  */
-interface HashCalculationServiceInterface
+interface MultimediaQueryInterface
 {
     /**
-     * @param \SplFileInfo $file
+     * @param Hash $hash
      *
-     * @return Hash
+     * @return bool
      */
-    public function calculateHash(\SplFileInfo $file): Hash;
+    public function fileExists(Hash $hash): bool;
 }

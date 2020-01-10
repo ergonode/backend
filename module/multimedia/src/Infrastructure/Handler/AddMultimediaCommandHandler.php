@@ -9,7 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Infrastructure\Handler;
 
-use Ergonode\Multimedia\Domain\Command\UploadMultimediaCommand;
+use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
+use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use Ergonode\Multimedia\Infrastructure\Service\Upload\MultimediaUploadService;
@@ -17,12 +18,17 @@ use Ergonode\Multimedia\Domain\Factory\MultimediaFactory;
 
 /**
  */
-class UploadMultimediaCommandHandler
+class AddMultimediaCommandHandler
 {
     /**
      * @var MultimediaUploadService;
      */
     private $uploadService;
+
+    /**
+     * @var MultimediaQueryInterface
+     */
+    private $query;
 
     /**
      * @var HashCalculationServiceInterface
@@ -35,32 +41,48 @@ class UploadMultimediaCommandHandler
     private $repository;
 
     /**
+     * @var MultimediaFactory
+     */
+    private $factory;
+
+    /**
      * @param MultimediaUploadService         $uploadService
+     * @param MultimediaQueryInterface        $query
      * @param HashCalculationServiceInterface $hashService
      * @param MultimediaRepositoryInterface   $repository
+     * @param MultimediaFactory               $factory
      */
     public function __construct(
         MultimediaUploadService $uploadService,
+        MultimediaQueryInterface $query,
         HashCalculationServiceInterface $hashService,
-        MultimediaRepositoryInterface $repository
+        MultimediaRepositoryInterface $repository,
+        MultimediaFactory $factory
     ) {
         $this->uploadService = $uploadService;
+        $this->query = $query;
         $this->hashService = $hashService;
         $this->repository = $repository;
+        $this->factory = $factory;
     }
 
     /**
-     * @param UploadMultimediaCommand $command
+     * @param AddMultimediaCommand $command
+     *
+     * @throws \Exception
      */
-    public function __invoke(UploadMultimediaCommand $command)
+    public function __invoke(AddMultimediaCommand $command)
     {
         $id = $command->getId();
-        $uploadedFile = $command->getFile();
-        $file = $this->uploadService->upload($id, $uploadedFile);
-        $crc = $this->hashService->calculateHash($file);
+        $file = $command->getFile();
+        $hash = $this->hashService->calculateHash($file);
+        if (!$this->query->fileExists($hash)) {
+            $originalName = $file->getFilename();
+            $file = $this->uploadService->upload($id, $file);
 
-        $multimedia = MultimediaFactory::createFromFile($id, $uploadedFile->getClientOriginalName(), $file, $crc);
+            $multimedia = $this->factory->create($id, $originalName, $file, $hash);
 
-        $this->repository->save($multimedia);
+            $this->repository->save($multimedia);
+        }
     }
 }

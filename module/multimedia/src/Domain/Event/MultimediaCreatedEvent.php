@@ -11,6 +11,7 @@ namespace Ergonode\Multimedia\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\Entity\AbstractId;
 
@@ -56,20 +57,18 @@ class MultimediaCreatedEvent implements DomainEventInterface
     private $size;
 
     /**
-     * The crc is hashed with crc32b hashing algorithm
+     * @var Hash
      *
-     * @var string
-     *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Multimedia\Domain\ValueObject\Hash")
      */
-    private $crc;
+    private $hash;
 
     /**
      * @param MultimediaId $id
      * @param string       $name
      * @param string       $extension
      * @param int          $size      The file size in bytes.
-     * @param string       $crc       The crc is hashed with crc32b hashing algorithm
+     * @param Hash         $hash
      * @param string|null  $mime
      */
     public function __construct(
@@ -77,7 +76,7 @@ class MultimediaCreatedEvent implements DomainEventInterface
         string $name,
         string $extension,
         int $size,
-        string $crc,
+        Hash $hash,
         ?string $mime = null
     ) {
         $this->id = $id;
@@ -85,7 +84,7 @@ class MultimediaCreatedEvent implements DomainEventInterface
         $this->extension = $extension;
         $this->mime = $mime;
         $this->size = $size;
-        $this->crc = $crc;
+        $this->hash = $hash;
     }
 
     /**
@@ -129,10 +128,10 @@ class MultimediaCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return string
+     * @return Hash
      */
-    public function getCrc(): string
+    public function getHash(): Hash
     {
-        return $this->crc;
+        return $this->hash;
     }
 }

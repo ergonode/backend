@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\ValueObject;
 
 /**
- * Class Sku
  */
 class Sku
 {
@@ -26,7 +25,7 @@ class Sku
      */
     public function __construct(string $value)
     {
-        $value = \trim($value);
+        $value = trim($value);
 
         if (!self::isValid($value)) {
             throw new \InvalidArgumentException(\sprintf('Sku "%s" is incorrect', $value));
@@ -50,7 +49,7 @@ class Sku
      */
     public static function isValid(?string $value): bool
     {
-        return \strlen($value) <= self::LENGTH;
+        return strlen(trim($value)) <= self::LENGTH;
     }
 
     /**
