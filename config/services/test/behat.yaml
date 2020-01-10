@@ -10,3 +10,6 @@ services:
     public: true
     exclude:
       - '%kernel.project_dir%/tests/Behat/Context/ApiAuthContext.php'
+
+  StorageContext:
+    class: StorageContext
