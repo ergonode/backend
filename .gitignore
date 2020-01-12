@@ -17,3 +17,4 @@
 /behat.yml
 /.phpcs-cache
 /.deptrac.cache
+/.*.pid
