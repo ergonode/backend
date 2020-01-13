@@ -54,7 +54,7 @@ class ResolveVarsContext implements Context
             }
         }
 
-        $this->setArguments($step, $newArguments);
+        $this->setArguments($step, $newArguments) ;
 
         $text = $this->resolveText($event->getStep()->getText());
         $this->setText($step, $text);
@@ -67,12 +67,17 @@ class ResolveVarsContext implements Context
      */
     private function resolveTableNode(TableNode $tableNode) : TableNode
     {
-        $newTable = [];
-        foreach ($tableNode->getLines() as $line) {
-            $newTable[] = $this->resolveText($line);
+        $table = $tableNode->getTable();
+
+        foreach ($table as $lineNo => $lineValues) {
+            $newValues = [];
+            foreach ($lineValues as $lineValue) {
+                $newValues[] = $this->resolveText($lineValue);
+            }
+            $table[$lineNo] = $newValues;
         }
 
-        return new TableNode($newTable);
+        return new TableNode($table);
     }
 
     /**
