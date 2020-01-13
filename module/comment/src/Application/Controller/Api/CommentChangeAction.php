@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Application\Controller\Api;
 
-use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Comment\Application\Form\Model\CreateCommentFormModel;
 use Ergonode\Comment\Application\Form\Model\UpdateCommentFormModel;
 use Ergonode\Comment\Application\Form\UpdateCommentForm;
@@ -132,7 +132,7 @@ class CommentChangeAction
                 );
                 $this->messageBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return new EmptyResponse();
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
