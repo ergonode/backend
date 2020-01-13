@@ -13,6 +13,7 @@ use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
@@ -121,7 +122,7 @@ class UserCreatedEvent implements DomainEventInterface
     /**
      * @return UserId
      */
-    public function getId(): UserId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

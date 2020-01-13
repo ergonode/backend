@@ -12,14 +12,10 @@ namespace Ergonode\Attribute\Persistence\Dbal\Projector\Option;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\AttributeOptionRemovedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class AttributeOptionRemovedEventProjector implements DomainEventProjectorInterface
+class AttributeOptionRemovedEventProjector
 {
     private const TABLE_ATTRIBUTE_OPTION = 'attribute_option';
 
@@ -37,23 +33,13 @@ class AttributeOptionRemovedEventProjector implements DomainEventProjectorInterf
     }
 
     /**
-     * {@inheritDoc}
+     * @param AttributeOptionRemovedEvent $event
+     *
+     * @throws DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(AttributeOptionRemovedEvent $event): void
     {
-        return $event instanceof AttributeOptionRemovedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, AttributeOptionRemovedEvent::class);
-        }
-
-        $this->delete($event->getKey()->getValue(), $aggregateId->getValue());
+        $this->delete($event->getKey()->getValue(), $event->getAggregateId()->getValue());
     }
 
     /**
@@ -61,7 +47,6 @@ class AttributeOptionRemovedEventProjector implements DomainEventProjectorInterf
      * @param string $attributeId
      *
      * @throws DBALException
-     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */
     private function delete(string $key, string $attributeId): void
     {

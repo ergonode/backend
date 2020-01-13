@@ -43,6 +43,7 @@ class DraftProvider
      * @param AbstractProduct $product
      *
      * @return ProductDraft
+     *
      * @throws \Exception
      */
     public function provide(AbstractProduct $product): ProductDraft

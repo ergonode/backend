@@ -18,7 +18,6 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\Product\Domain\Entity\ProductId;
 
 /**
- * Class DbalDraftQuery
  */
 class DbalDraftQuery implements DraftQueryInterface
 {
@@ -58,9 +57,10 @@ class DbalDraftQuery implements DraftQueryInterface
     public function getDraftView(ProductDraftId $draftId, Language $language): array
     {
         $qb = $this->connection->createQueryBuilder();
-        $result = $qb->select('d.id AS draft_id, p.id AS product_id, p.template_id, p.sku')
+        $result = $qb->select('d.id AS draft_id, p.id AS product_id, pd.template_id, p.sku')
             ->from('designer.draft', 'd')
             ->join('d', 'product', 'p', 'p.id = d.product_id')
+            ->join('d', 'designer.product', 'pd', 'pd.product_id = d.product_id')
             ->where($qb->expr()->eq('d.id', ':id'))
             ->setParameter(':id', $draftId->getValue())
             ->execute()
@@ -108,7 +108,7 @@ class DbalDraftQuery implements DraftQueryInterface
     {
         $qb = $this->connection->createQueryBuilder();
 
-        $records = $qb
+        return $qb
             ->select('dv.element_id AS id, dv.value')
             ->from('designer.draft_value', 'dv')
             ->where($qb->expr()->eq('dv.draft_id', ':draftId'))
@@ -122,8 +122,6 @@ class DbalDraftQuery implements DraftQueryInterface
             ->setParameter(':language', $language->getCode())
             ->execute()
             ->fetchAll();
-
-        return $records;
     }
 
     /**

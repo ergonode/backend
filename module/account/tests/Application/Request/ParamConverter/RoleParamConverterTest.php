@@ -37,8 +37,8 @@ class RoleParamConverterTest extends TestCase
      */
     private $repository;
 
-
-
+    /**
+     */
     protected function setUp()
     {
         $this->request = $this->createMock(Request::class);

@@ -10,9 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Query;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -32,24 +30,10 @@ interface ProductQueryInterface
     public function getAllIds(): array;
 
     /**
-     * @param TemplateId $templateId
-     *
-     * @return array
-     */
-    public function findProductIdByTemplateId(TemplateId $templateId): array;
-
-    /**
      * @param AttributeId $attributeId
      * @param Uuid|null   $valueId
      *
      * @return array
      */
     public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array;
-
-    /**
-     * @param StatusId $statusId
-     *
-     * @return array
-     */
-    public function findProductIdByStatusId(StatusId $statusId): array;
 }

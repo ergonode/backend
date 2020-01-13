@@ -1,7 +1,6 @@
 <?php
 
 return [
-    Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle::class => ['all' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
     JMS\SerializerBundle\JMSSerializerBundle::class => ['all' => true],
@@ -12,14 +11,13 @@ return [
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
     Symfony\Bundle\TwigBundle\TwigBundle::class => ['all' => true],
     Nelmio\ApiDocBundle\NelmioApiDocBundle::class => ['all' => true],
-    Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle::class => ['dev' => true],
-    Gfreeau\Bundle\GetJWTBundle\GfreeauGetJWTBundle::class => ['all' => true],
+    Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle::class => ['dev' => true, 'test' => true],
     Ergonode\Migration\MigrationBundle::class => ['all' => true],
     Ergonode\Core\ErgonodeCoreBundle::class => ['all' => true],
     Ergonode\Notification\ErgonodeNotificationBundle::class => ['all' => true],
     Ergonode\Api\ErgonodeApiBundle::class => ['all' => true],
     Ergonode\EventSourcing\ErgonodeEventSourcingBundle::class => ['all' => true],
-    Ergonode\Fixture\ErgonodeFixtureBundle::class => ['dev' => true],
+    Ergonode\Fixture\ErgonodeFixtureBundle::class => ['dev' => true, 'test' => true],
     Ergonode\Account\ErgonodeAccountBundle::class => ['all' => true],
     Ergonode\Workflow\ErgonodeWorkflowBundle::class => ['all' => true],
     Ergonode\Authentication\ErgonodeAuthenticationBundle::class => ['all' => true],
@@ -34,10 +32,6 @@ return [
     Ergonode\ProductSimple\ErgonodeProductSimpleBundle::class => ['all' => true],
     Ergonode\Attribute\ErgonodeAttributeBundle::class => ['all' => true],
     Ergonode\Completeness\CompletenessBundle::class => ['all' => true],
-    Ergonode\AttributeDate\ErgonodeAttributeDateBundle::class => ['all' => true],
-    Ergonode\AttributePrice\ErgonodeAttributePriceBundle::class => ['all' => true],
-    Ergonode\AttributeUnit\ErgonodeAttributeUnitBundle::class => ['all' => true],
-    Ergonode\AttributeImage\ErgonodeAttributeImageBundle::class => ['all' => true],
     Ergonode\Designer\ErgonodeDesignerBundle::class => ['all' => true],
     Ergonode\Editor\ErgonodeEditorBundle::class => ['all' => true],
     Ergonode\Multimedia\ErgonodeMultimediaBundle::class => ['all' => true],
@@ -50,5 +44,5 @@ return [
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
-    Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
+    Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true, 'test' => true],
 ];

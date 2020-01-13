@@ -22,6 +22,7 @@ class TreeNodeFormModel
      *
      * @Assert\NotBlank(message="Category id is required")
      * @Assert\Uuid()
+     *
      * @CategoryExists(groups={"Category"})
      */
     public $categoryId;

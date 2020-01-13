@@ -58,6 +58,7 @@ class SplitConverter implements ConverterInterface
     /**
      * @param array  $line
      * @param string $field
+     *
      * @return ValueInterface|null
      */
     public function map(array $line, string $field): ?ValueInterface

@@ -54,8 +54,13 @@ class RequestBodyListenerTest extends TestCase
      *
      * @dataProvider dataProviderHappy
      */
-    public function testInvokeHappy(string $contentType, string $method, string $content, array $deserialize, string $expected): void
-    {
+    public function testInvokeHappy(
+        string $contentType,
+        string $method,
+        string $content,
+        array $deserialize,
+        string $expected
+    ): void {
         $this->event->expects($this->once())->method('getRequest')->willReturn($this->request);
         $this->request->expects($this->once())->method('getContentType')->willReturn($contentType);
         $this->request->expects($this->once())->method('getMethod')->willReturn($method);
@@ -102,8 +107,11 @@ class RequestBodyListenerTest extends TestCase
      *
      * @dataProvider dataProviderUnhappy
      */
-    public function testInvokeUnhappy(?string $contentType, ?string $method, ?string $content): void
-    {
+    public function testInvokeUnhappy(
+        ?string $contentType,
+        ?string $method,
+        ?string $content
+    ): void {
         $this->event->expects($this->once())->method('getRequest')->willReturn($this->request);
         $this->request->expects($this->once())->method('getContentType')->willReturn($contentType);
         $this->request->expects($this->once())->method('getMethod')->willReturn($method);

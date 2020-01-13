@@ -40,6 +40,7 @@ class CreateUserFormModel
      *
      * @Assert\NotBlank(message="User email is required")
      * @Assert\Email(mode="strict")
+     *
      * @UserUnique()
      */
     public $email;

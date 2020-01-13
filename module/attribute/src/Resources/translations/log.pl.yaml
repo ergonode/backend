@@ -9,4 +9,5 @@
 'Attribute option added': 'Opcja atrybutu "%key%" została dodana'
 'Attribute option removed': 'Opcja atrybutu "%key%" została zmieniona'
 'Attribute option changed': 'Opcja atrybutu "%key%" została usunięta'
+'Added format to image attribute': 'Dodano nowy format do atrybutu obrazka'
 

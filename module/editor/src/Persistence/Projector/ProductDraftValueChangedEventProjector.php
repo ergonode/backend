@@ -12,11 +12,7 @@ namespace Ergonode\Editor\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Event\ProductDraftValueChanged;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -25,7 +21,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ProductDraftValueChangedEventProjector implements DomainEventProjectorInterface
+class ProductDraftValueChangedEventProjector
 {
     private const DRAFT_VALUE_TABLE = 'designer.draft_value';
 
@@ -43,33 +39,19 @@ class ProductDraftValueChangedEventProjector implements DomainEventProjectorInte
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof ProductDraftValueChanged;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param ProductDraftValueChanged $event
      *
-     * @throws \Throwable
+     * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(ProductDraftValueChanged $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ProductDraftValueChanged::class);
-        }
+        $draftId = $event->getAggregateId()->getValue();
+        $elementId = AttributeId::fromKey($event->getAttributeCode())->getValue();
 
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $draftId = $aggregateId->getValue();
-            $elementId = AttributeId::fromKey($event->getAttributeCode())->getValue();
+        $value = $event->getTo();
 
-            $value = $event->getTo();
-
-            $this->delete($draftId, $elementId);
-            $this->insertValue($draftId, $elementId, $value);
-        });
+        $this->delete($draftId, $elementId);
+        $this->insertValue($draftId, $elementId, $value);
     }
 
     /**

@@ -31,7 +31,9 @@ class MultiSelectAttributeDataSetQueryBuilder implements AttributeDataSetQueryBu
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
         $query->addSelect(sprintf(
-            '(SELECT jsonb_agg(value) FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id WHERE pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
+            '(SELECT jsonb_agg(value) FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id '.
+            ' WHERE pv.attribute_id = \'%s\' AND '.
+            ' (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1) AS "%s"',
             $attribute->getId()->getValue(),
             $language->getCode(),
             $key

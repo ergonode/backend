@@ -22,6 +22,7 @@ class LanguageConfigurationFormTypeModel
      *
      * @Assert\NotBlank(message="Lanugage code is required")
      * @Assert\Length(max=2)
+     *
      * @CoreAssert\LanguageCodeConstraint();
      */
     public $code;

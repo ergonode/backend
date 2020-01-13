@@ -50,10 +50,22 @@ final class Version20190818160000 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'WORKFLOW_CREATE', 'Workflow']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'WORKFLOW_READ', 'Workflow']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'WORKFLOW_UPDATE', 'Workflow']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'WORKFLOW_DELETE', 'Workflow']);
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'WORKFLOW_CREATE', 'Workflow']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'WORKFLOW_READ', 'Workflow']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'WORKFLOW_UPDATE', 'Workflow']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'WORKFLOW_DELETE', 'Workflow']
+        );
 
         $this->createEventStoreEvents([
             'Ergonode\Workflow\Domain\Event\Status\StatusColorChangedEvent' => 'Status color changed',
@@ -65,12 +77,16 @@ final class Version20190818160000 extends AbstractErgonodeMigration
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent' => 'Added status to workflow',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent' => 'Deleted status from workflow',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionAddedEvent' => 'Added transition to workflow',
-            'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent' => 'Deleted transition from workflow',
-            'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionChangedEvent' => 'Changed transition in workflow',
+            'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent' =>
+                'Deleted transition from workflow',
+            'Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionChangedEvent' =>
+                'Changed transition in workflow',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent' => 'Workflow deleted',
             'Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent' => 'Workflow default status set',
-            'Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent' => 'Transition condition set change',
-            'Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent' => 'Transition Notification  roles changed',
+            'Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent' =>
+                'Transition condition set change',
+            'Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent' =>
+                'Transition Notification  roles changed',
         ]);
     }
 

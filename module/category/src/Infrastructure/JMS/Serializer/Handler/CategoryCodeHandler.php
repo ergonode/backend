@@ -55,8 +55,12 @@ class CategoryCodeHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, CategoryCode $id, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        CategoryCode $id,
+        array $type,
+        Context $context
+    ): string {
         return $id->getValue();
     }
 
@@ -68,8 +72,12 @@ class CategoryCodeHandler implements SubscribingHandlerInterface
      *
      * @return CategoryCode
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): CategoryCode
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): CategoryCode {
         return new CategoryCode($data);
     }
 }

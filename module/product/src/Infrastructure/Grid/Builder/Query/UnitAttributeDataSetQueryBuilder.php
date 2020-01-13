@@ -10,8 +10,7 @@ namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
-use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
@@ -32,7 +31,8 @@ class UnitAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderIn
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
         $query->addSelect(sprintf(
-            '(SELECT value::NUMERIC FROM value_translation vt JOIN product_value pv ON pv.value_id = vt.value_id  WHERE pv.attribute_id = \'%s\' AND vt.language IS NULL AND pv.product_id = p.id LIMIT 1) AS "%s"',
+            '(SELECT value::NUMERIC FROM value_translation vt JOIN product_value pv ON pv.value_id = vt.value_id '.
+            ' WHERE pv.attribute_id = \'%s\' AND vt.language IS NULL AND pv.product_id = p.id LIMIT 1) AS "%s"',
             $attribute->getId()->getValue(),
             $key
         ));

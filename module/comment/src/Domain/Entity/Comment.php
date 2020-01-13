@@ -78,11 +78,13 @@ class Comment extends AbstractAggregateRoot
 
     /**
      * @param string $contend
+     *
+     * @throws \Exception
      */
     public function changeContent(string $contend): void
     {
         if ($contend !== $this->content) {
-            $this->apply(new CommentContentChangedEvent($this->content, $contend, new \DateTime()));
+            $this->apply(new CommentContentChangedEvent($this->id, $this->content, $contend, new \DateTime()));
         }
     }
 
@@ -139,7 +141,7 @@ class Comment extends AbstractAggregateRoot
      */
     protected function applyCommentCreatedEvent(CommentCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->authorId = $event->getAuthorId();
         $this->objectId = $event->getObjectId();
         $this->createdAt = $event->getCreatedAt();

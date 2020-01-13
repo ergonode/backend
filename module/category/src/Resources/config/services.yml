@@ -27,6 +27,10 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
+    Ergonode\Category\Persistence\Dbal\Projector\:
+        resource: '../../Persistence/Dbal/Projector/*'
+        tags: ['messenger.message_handler']
+
     Ergonode\Category\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']

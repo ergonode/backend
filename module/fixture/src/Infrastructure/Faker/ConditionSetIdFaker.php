@@ -17,16 +17,16 @@ use Faker\Provider\Base as BaseProvider;
 class ConditionSetIdFaker extends BaseProvider
 {
     /**
-     * @param string|null $uuid
+     * @param string|null $name
      *
      * @return ConditionSetId
      *
      * @throws \Exception
      */
-    public function conditionSetId(?string $uuid = null): ConditionSetId
+    public function conditionSetId(?string $name = null): ConditionSetId
     {
-        if ($uuid) {
-            return new ConditionSetId($uuid);
+        if ($name) {
+            return ConditionSetId::fromString($name);
         }
 
         return ConditionSetId::generate();

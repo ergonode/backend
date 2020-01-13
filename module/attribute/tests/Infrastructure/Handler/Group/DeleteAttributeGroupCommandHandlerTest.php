@@ -55,10 +55,18 @@ class DeleteAttributeGroupCommandHandlerTest extends TestCase
      */
     public function testUpdate(): void
     {
-        $this->groupRepository->expects($this->once())->method('load')->willReturn($this->createMock(AttributeGroup::class));
+        $this->groupRepository
+            ->expects(
+                $this->once()
+            )
+            ->method('load')->willReturn($this->createMock(AttributeGroup::class));
         $this->groupRepository->expects($this->once())->method('delete');
 
-        $handler = new DeleteAttributeGroupCommandHandler($this->groupRepository, $this->attributeRepository, $this->query);
+        $handler = new DeleteAttributeGroupCommandHandler(
+            $this->groupRepository,
+            $this->attributeRepository,
+            $this->query
+        );
         $handler->__invoke($this->command);
     }
 }

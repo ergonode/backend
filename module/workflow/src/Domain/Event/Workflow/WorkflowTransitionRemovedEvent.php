@@ -9,7 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Workflow;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
@@ -17,6 +19,13 @@ use JMS\Serializer\Annotation as JMS;
  */
 class WorkflowTransitionRemovedEvent implements DomainEventInterface
 {
+    /**
+     * @var WorkflowId
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
+     */
+    private $id;
+
     /**
      * @var StatusCode
      *
@@ -32,14 +41,25 @@ class WorkflowTransitionRemovedEvent implements DomainEventInterface
     private $destination;
 
     /**
+     * @param WorkflowId $id
      * @param StatusCode $source
      * @param StatusCode $destination
      */
-    public function __construct(StatusCode $source, StatusCode $destination)
+    public function __construct(WorkflowId $id, StatusCode $source, StatusCode $destination)
     {
+        $this->id = $id;
         $this->source = $source;
         $this->destination = $destination;
     }
+
+    /**
+     * @return AbstractId|WorkflowId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
+    }
+
 
     /**
      * @return StatusCode

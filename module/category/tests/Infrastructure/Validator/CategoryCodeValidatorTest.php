@@ -64,7 +64,9 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
     public function testCategoryCodeInvalidValidation(): void
     {
         $constraint = new CategoryCode();
-        $value = 'P0kt9KzF1aUomd9mHQ1PKGhvgKKH4WtjrjExSWnokxv568g3WGLtZGfl9sJCBm4QqwZWX1Vks4UeRVIJJhEkTHjIkW5e4EKFlDEZZWeW5pl8FyyG8j534Zr6bTarhDl236Ma2U8ECDtTbMkr6ZN8X4PG7C2QFRCmU9rV15HwZXQibNH9hVwdDsWlIY0flMi6GoTpaunky1dyIwOW6lCeios94BeqRHN4iFTG7tSWhFTgUPbl5cXkDEasKkYxH7wPJswZ';
+        $value = 'P0kt9KzF1aUomd9mHQ1PKGhvgKKH4WtjrjExSWnokxv568g3WGLtZGfl9sJCBm4QqwZWX1Vks4UeRVIJJhEkTHjIkW5e4EKFlDEZ'.
+            'ZWeW5pl8FyyG8j534Zr6bTarhDl236Ma2U8ECDtTbMkr6ZN8X4PG7C2QFRCmU9rV15HwZXQibNH9hVwdDsWlIY0flMi6GoTpaunky1dyI'.
+            'wOW6lCeios94BeqRHN4iFTG7tSWhFTgUPbl5cXkDEasKkYxH7wPJswZ';
         $this->validator->validate($value, $constraint);
 
         $assertion = $this->buildViolation($constraint->validMessage)->setParameter('{{ value }}', $value);

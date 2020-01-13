@@ -1,0 +1,245 @@
+paths:
+  - ./module
+exclude_files:
+  - .*test.*
+layers:
+  - name: Core
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Core\\.*
+  - name: EventSourcing
+    collectors:
+      - type: className
+        regex: .*Ergonode\\EventSourcing\\.*
+  - name: Grid
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Grid\\.*
+  - name: Notification
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Notification\\.*
+  - name: Attribute
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Attribute\\.*
+  - name: Category
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Category\\.*
+  - name: CategoryTree
+    collectors:
+      - type: className
+        regex: .*Ergonode\\CategoryTree\\.*
+  - name: Comment
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Comment\\.*
+  - name: Completeness
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Completeness\\.*
+  - name: Product
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Product\\.*
+  - name: ProductSimple
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ProductSimple\\.*
+  - name: Segment
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Segment\\.*
+  - name: Workflow
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Workflow\\.*
+  - name: Account
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Account\\.*
+  - name: Api
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Api\\.*
+  - name: Authentication
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Authentication\\.*
+  - name: Condition
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Condition\\.*
+  - name: Designer
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Designer\\.*
+  - name: Multimedia
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Multimedia\\.*
+  - name: Reader
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Reader\\.*
+  - name: Importer
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Importer\\.*
+  - name: Transformer
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Transformer\\.*
+  - name: TranslationDeepl
+    collectors:
+      - type: className
+        regex: .*Ergonode\\TranslationDeepl\\.*
+  - name: Value
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Value\\.*
+ruleset:
+  Grid:
+    - Core
+  EventSourcing:
+    - Core
+  Notification:
+    - Core
+    - Grid
+    - Account
+    - Api
+  Attribute:
+    - Core
+    - Grid
+    - EventSourcing
+    - Api
+    - Value
+    - Account
+    - Multimedia
+  Category:
+    - Core
+    - Grid
+    - EventSourcing
+    - Attribute
+    - Api
+    - Value
+  Comment:
+    - Core
+    - Grid
+    - EventSourcing
+    - Api
+    - Account
+  CategoryTree:
+    - Core
+    - Grid
+    - EventSourcing
+    - Category
+    - Api
+    - Value
+  Completeness:
+    - Core
+    - Attribute
+    - Product
+    - Api
+    - Value
+    - Designer
+  Product:
+    - Core
+    - Grid
+    - EventSourcing
+    - Attribute
+    - AttributeDate
+    - AttributeImage
+    - AttributePrice
+    - AttributeUnit
+    - Category
+    - Api
+    - Value
+    - Account
+  ProductSimple:
+    - Core
+    - EventSourcing
+    - Product
+    - Category
+    - Attribute
+    - Value
+  Segment:
+    - Core
+    - EventSourcing
+    - Grid
+    - Api
+    - Condition
+  Workflow:
+    - Core
+    - EventSourcing
+    - Grid
+    - Product
+    - Attribute
+    - AttributePrice
+    - Notification
+    - Api
+    - Account
+    - Value
+    - Condition
+    - Designer
+  Account:
+    - Core
+    - EventSourcing
+    - Grid
+    - Api
+    - Multimedia
+    - Value
+  Authentication:
+    - Core
+    - Account
+  Designer:
+    - Grid
+    - Core
+    - Api
+    - EventSourcing
+    - Multimedia
+    - Attribute
+    - Product
+  Importer:
+    - Api
+    - Core
+    - Grid
+    - Reader
+    - Transformer
+  Transformer:
+    - Core
+    - EventSourcing
+    - Api
+    - Category
+    - CategoryTree
+    - Designer
+    - Product
+    - Value
+    - Attribute
+  Reader:
+    - Core
+    - EventSourcing
+    - Api
+    - Grid
+  Multimedia:
+    - Core
+    - Api
+    - EventSourcing
+  TranslationDeepl:
+    - Api
+    - Core
+  Api:
+    - Core
+  Value:
+    - EventSourcing
+  Condition:
+    - Api
+    - Core
+    - Completeness
+    - EventSourcing
+    - Grid
+    - Account
+    - Designer
+    - Product
+    - Attribute

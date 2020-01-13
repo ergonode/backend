@@ -9,10 +9,35 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Domain\Event;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\Editor\Domain\Entity\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
 class ProductDraftApplied implements DomainEventInterface
 {
+    /**
+     * @var ProductDraftId
+     *
+     * @JMS\Type("Ergonode\Editor\Domain\Entity\ProductDraftId")
+     */
+    private $id;
+
+    /**
+     * @param ProductDraftId $id
+     */
+    public function __construct(ProductDraftId $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return ProductDraftId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
+    }
 }

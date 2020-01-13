@@ -90,7 +90,11 @@ class LanguageChangeAction
     {
         try {
             $model = new LanguageCollectionFormModel();
-            $form = $this->formFactory->create(LanguageCollectionForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $form = $this->formFactory->create(
+                LanguageCollectionForm::class,
+                $model,
+                ['method' => Request::METHOD_PUT]
+            );
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var LanguageCollectionFormModel $data */

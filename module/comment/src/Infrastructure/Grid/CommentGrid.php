@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Infrastructure\Grid;
 
-use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
+use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\DateColumn;

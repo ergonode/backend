@@ -9,12 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Transformer\Domain\Entity\ProcessorId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class StopProcessImportLineCommand
+class StopProcessImportLineCommand implements DomainCommandInterface
 {
     /**
      * @var ProcessorId

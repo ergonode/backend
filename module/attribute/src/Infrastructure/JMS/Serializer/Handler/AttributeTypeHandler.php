@@ -55,8 +55,12 @@ class AttributeTypeHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, AttributeType $attributeType, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        AttributeType $attributeType,
+        array $type,
+        Context $context
+    ): string {
         return $attributeType->getValue();
     }
 
@@ -68,8 +72,12 @@ class AttributeTypeHandler implements SubscribingHandlerInterface
      *
      * @return AttributeType
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): AttributeType
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): AttributeType {
         return new AttributeType($data);
     }
 }

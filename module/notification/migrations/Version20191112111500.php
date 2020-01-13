@@ -35,6 +35,9 @@ final class Version20191112111500 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->addSql('ALTER TABLE users_notification ADD CONSTRAINT user_notifications_notification_fk FOREIGN KEY (notification_id) REFERENCES notification ON DELETE CASCADE');
+        $this->addSql('
+            ALTER TABLE users_notification
+                ADD CONSTRAINT user_notifications_notification_fk 
+                FOREIGN KEY (notification_id) REFERENCES notification ON DELETE CASCADE');
     }
 }

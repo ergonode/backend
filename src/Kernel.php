@@ -48,6 +48,12 @@ class Kernel extends BaseKernel
         }
     }
 
+    /**
+     * @param ContainerBuilder $container
+     * @param LoaderInterface  $loader
+     *
+     * @throws \Exception
+     */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $container->addResource(new FileResource($this->getProjectDir().'/config/bundles.php'));
@@ -63,6 +69,11 @@ class Kernel extends BaseKernel
         $loader->load($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
     }
 
+    /**
+     * @param RouteCollectionBuilder $routes
+     *
+     * @throws \Symfony\Component\Config\Exception\LoaderLoadException
+     */
     protected function configureRoutes(RouteCollectionBuilder $routes)
     {
         $confDir = $this->getProjectDir().'/config';
@@ -70,7 +81,11 @@ class Kernel extends BaseKernel
         foreach ($this->getBundles() as $bundle) {
             if ($bundle instanceof AbstractModule) {
                 if (file_exists($bundle->getPath().'/Application/Resources/config/')) {
-                    $routes->import($bundle->getPath().'/Application/Resources/config/{routes}'.self::CONFIG_EXTS, '/', 'glob');
+                    $routes->import(
+                        $bundle->getPath().'/Application/Resources/config/{routes}'.self::CONFIG_EXTS,
+                        '/',
+                        'glob'
+                    );
                 }
                 if (file_exists($bundle->getPath().'/Resources/config/')) {
                     $routes->import($bundle->getPath().'/Resources/config/{routes}'.self::CONFIG_EXTS, '/', 'glob');

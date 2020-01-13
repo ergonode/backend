@@ -12,11 +12,12 @@ namespace Ergonode\Editor\Domain\Command;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ChangeProductAttributeValueCommand
+class ChangeProductAttributeValueCommand implements DomainCommandInterface
 {
     /**
      * @var ProductDraftId

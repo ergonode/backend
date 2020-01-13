@@ -13,10 +13,11 @@ use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class UpdateUserCommand
+class UpdateUserCommand implements DomainCommandInterface
 {
     /**
      * @var UserId

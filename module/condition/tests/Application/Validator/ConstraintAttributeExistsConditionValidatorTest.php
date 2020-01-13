@@ -56,7 +56,11 @@ class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidato
      */
     public function testAttributeExistsValidation(): void
     {
-        $this->attributeQuery->expects($this->once())->method('findAttributeByCode')->willReturn($this->createMock(AttributeViewModel::class));
+        $this
+            ->attributeQuery
+            ->expects($this->once())
+            ->method('findAttributeByCode')
+            ->willReturn($this->createMock(AttributeViewModel::class));
         $this->validator->validate(['code' => 'value'], new ConstraintAttributeExistsCondition());
 
         $this->assertNoViolation();
@@ -84,7 +88,10 @@ class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidato
         $this->attributeQuery->expects($this->once())->method('findAttributeByCode')->willReturn(null);
         $this->validator->validate($value, $constraint);
 
-        $assertion = $this->buildViolation('Attribute code "value" not found')->setParameter('value', $value['code'])->atPath('property.path.code');
+        $assertion = $this
+            ->buildViolation('Attribute code "value" not found')
+            ->setParameter('value', $value['code'])
+            ->atPath('property.path.code');
         $assertion->assertRaised();
     }
 

@@ -6,8 +6,11 @@
 
 namespace Ergonode\Designer\Domain\Query;
 
+use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Grid\DataSetInterface;
+use Ergonode\Product\Domain\Entity\ProductId;
 
 /**
  */
@@ -24,4 +27,25 @@ interface TemplateQueryInterface
      * @return array
      */
     public function getDictionary(Language $language): array;
+
+    /**
+     * @param AttributeId $attributeId
+     *
+     * @return array
+     */
+    public function findTemplateIdByAttributeId(AttributeId $attributeId): array;
+
+    /**
+     * @param TemplateId $templateId
+     *
+     * @return ProductId[]
+     */
+    public function findProductIdByTemplateId(TemplateId $templateId): array;
+
+    /**
+     * @param ProductId $productId
+     *
+     * @return TemplateId
+     */
+    public function findProductTemplateId(ProductId $productId): TemplateId;
 }

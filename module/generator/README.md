@@ -1,4 +1,4 @@
-# Ergonode - Grid
+# Ergonode - Generator
 
 ## Documentation
 

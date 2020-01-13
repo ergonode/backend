@@ -11,6 +11,7 @@ namespace Ergonode\Attribute\Application\Form\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -32,7 +33,10 @@ class UpdateAttributeFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=32, maxMessage="Attribute name is to long. It should have {{ limit }} character or less.")
+     *     @Assert\Length(
+     *       max=32,
+     *       maxMessage="Attribute name is to long. It should have {{ limit }} character or less."
+     *     )
      * })
      */
     public $label;
@@ -42,7 +46,10 @@ class UpdateAttributeFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=4000, maxMessage="Attribute placeholder is to long. It should have {{ limit }} character or less.")
+     *     @Assert\Length(
+     *       max=4000,
+     *       maxMessage="Attribute placeholder is to long. It should have {{ limit }} character or less."
+     *     )
      * })
      */
     public $placeholder;
@@ -52,7 +59,10 @@ class UpdateAttributeFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
-     *     @Assert\Length(max=4000, maxMessage="Attribute hint is to long. It should have {{ limit }} character or less.")
+     *     @Assert\Length(
+     *       max=4000,
+     *       maxMessage="Attribute hint is to long. It should have {{ limit }} character or less."
+     *     )
      * })
      */
     public $hint;
@@ -63,9 +73,11 @@ class UpdateAttributeFormModel
     public $parameters;
 
     /**
+     * @var ArrayCollection|AttributeOptionModel[]
+     *
      * @Assert\Valid()
      *
-     * @var ArrayCollection|AttributeOptionModel[]
+     * @AppAssert\AttributeOptionDuplicates()
      */
     public $options;
 

@@ -19,7 +19,7 @@ class AttributeGroupCode extends Constraint
     /**
      * @var string
      */
-    public $validMessage = 'Given value is not valid attribute group code';
+    public $validMessage = 'Given value {{ value }} is not valid attribute group code';
 
     /**
      * @var string

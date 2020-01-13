@@ -24,7 +24,10 @@ services:
 
     Ergonode\Attribute\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
-        exclude: '../../Infrastructure/Handler/{Strategy}'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Attribute\Persistence\Dbal\Projector\:
+        resource: '../../Persistence/Dbal/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\:
@@ -50,4 +53,5 @@ services:
             - '@Ergonode\Attribute\Persistence\Dbal\Query\Decorator\CacheAttributeQueryDecorator.inner'
     Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeGroupQuery'
     Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeGridQuery'
-    Ergonode\Attribute\Domain\Query\AttributeTemplateQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeTemplateQuery'
+    Ergonode\Attribute\Domain\Query\CurrencyQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalCurrencyQuery'
+    Ergonode\Attribute\Domain\Query\UnitQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalUnitQuery'

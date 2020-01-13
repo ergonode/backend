@@ -55,8 +55,12 @@ class LanguageHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, Language $language, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        Language $language,
+        array $type,
+        Context $context
+    ): string {
         return $language->getCode();
     }
 
@@ -68,8 +72,12 @@ class LanguageHandler implements SubscribingHandlerInterface
      *
      * @return Language
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Language
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): Language {
         return new Language($data);
     }
 }

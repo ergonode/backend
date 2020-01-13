@@ -9,14 +9,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Workflow;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Workflow\Domain\Entity\Transition;
+use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
 class WorkflowTransitionAddedEvent implements DomainEventInterface
 {
+    /**
+     * @var WorkflowId
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
+     */
+    private $id;
+
     /**
      * @var Transition
      *
@@ -25,11 +34,21 @@ class WorkflowTransitionAddedEvent implements DomainEventInterface
     private $transition;
 
     /**
+     * @param WorkflowId $id
      * @param Transition $transition
      */
-    public function __construct(Transition $transition)
+    public function __construct(WorkflowId $id, Transition $transition)
     {
+        $this->id = $id;
         $this->transition = $transition;
+    }
+
+    /**
+     * @return AbstractId|WorkflowId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**

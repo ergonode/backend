@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Ergonode\Designer\Infrastructure\JMS\Serializer\Handler;
 
@@ -55,8 +55,12 @@ class TemplateElementIdHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, TemplateElementId $templateElementId, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        TemplateElementId $templateElementId,
+        array $type,
+        Context $context
+    ): string {
         return $templateElementId->getValue();
     }
 
@@ -68,8 +72,12 @@ class TemplateElementIdHandler implements SubscribingHandlerInterface
      *
      * @return TemplateElementId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): TemplateElementId
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): TemplateElementId {
         return new TemplateElementId($data);
     }
 }

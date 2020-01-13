@@ -24,7 +24,10 @@ services:
 
     Ergonode\Segment\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
-        exclude: '../../Infrastructure/Handler/{Strategy}'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Segment\Persistence\Dbal\Projector\:
+        resource: '../../Persistence/Dbal/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Segment\Infrastructure\JMS\Serializer\Handler\:

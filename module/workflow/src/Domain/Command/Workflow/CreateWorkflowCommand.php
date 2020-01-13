@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Command\Workflow;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
@@ -16,7 +17,7 @@ use Webmozart\Assert\Assert;
 
 /**
  */
-class CreateWorkflowCommand
+class CreateWorkflowCommand implements DomainCommandInterface
 {
     /**
      * @var WorkflowId

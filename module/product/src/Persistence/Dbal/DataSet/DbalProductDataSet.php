@@ -17,6 +17,7 @@ use Ergonode\Grid\AbstractDbalDataSet;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Request\FilterValueCollection;
 use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilder;
+use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
 /**
@@ -36,6 +37,11 @@ class DbalProductDataSet extends AbstractDbalDataSet
     private $provider;
 
     /**
+     * @var array
+     */
+    private $names;
+
+    /**
      * @param Connection          $connection
      * @param DataSetQueryBuilder $provider
      */
@@ -43,6 +49,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
     {
         $this->connection = $connection;
         $this->provider = $provider;
+        $this->names = [];
     }
 
     /**
@@ -54,10 +61,17 @@ class DbalProductDataSet extends AbstractDbalDataSet
      * @param string                $order
      *
      * @return \Traversable
+     *
      * @throws \Exception
      */
-    public function getItems(array $columns, FilterValueCollection $values, int $limit, int $offset, ?string $field = null, string $order = 'ASC'): \Traversable
-    {
+    public function getItems(
+        array $columns,
+        FilterValueCollection $values,
+        int $limit,
+        int $offset,
+        ?string $field = null,
+        string $order = 'ASC'
+    ): \Traversable {
         $query = $this->build($columns);
 
         $qb = $this->connection->createQueryBuilder();
@@ -69,10 +83,22 @@ class DbalProductDataSet extends AbstractDbalDataSet
         $qb->setMaxResults($limit);
         $qb->setFirstResult($offset);
         if ($field) {
+            if ($columns[$field]->getAttribute()) {
+                $field = Uuid::uuid5(self::NAMESPACE, $field)->toString();
+            }
             $qb->orderBy(sprintf('"%s"', $field), $order);
         }
 
-        $result = $qb->execute()->fetchAll();
+        $result = [];
+        foreach ($qb->execute()->fetchAll() as $row => $record) {
+            foreach ($record as $key => $value) {
+                if (isset($this->names[$key])) {
+                    $result[$row][$this->names[$key]] = $value;
+                } else {
+                    $result[$row][$key] = $value;
+                }
+            }
+        }
 
         return new ArrayCollection($result);
     }
@@ -104,7 +130,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
     }
 
     /**
-     * @param array                 $columns
+     * @param array $columns
      *
      * @return QueryBuilder
      */
@@ -118,7 +144,9 @@ class DbalProductDataSet extends AbstractDbalDataSet
             $attribute = $column->getAttribute();
             $language = $column->getLanguage() ?: $userLanguage;
             if ($attribute) {
-                $this->provider->provide($query, $key, $attribute, $language);
+                $hash = Uuid::uuid5(AbstractDbalDataSet::NAMESPACE, $key)->toString();
+                $this->names[$hash] = $key;
+                $this->provider->provide($query, $hash, $attribute, $language);
             }
         }
 

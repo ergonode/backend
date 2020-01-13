@@ -15,9 +15,12 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
+use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
+use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Application\Form\DraftCreateForm;
 use Ergonode\Editor\Application\Model\DraftCreateFormModel;
@@ -211,7 +214,11 @@ class ProductDraftController extends AbstractController
     }
 
     /**
-     * @Route("/products/{draft}", methods={"GET"}, requirements={"draft" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
+     * @Route(
+     *     "/products/{draft}",
+     *      methods={"GET"},
+     *      requirements={"draft" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+     * )
      *
      * @IsGranted("PRODUCT_READ")
      *
@@ -342,6 +349,7 @@ class ProductDraftController extends AbstractController
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
      * @return Response
+     *
      * @throws \Exception
      */
     public function applyDraft(AbstractProduct $product): Response
@@ -416,8 +424,12 @@ class ProductDraftController extends AbstractController
      *
      * @throws \Exception
      */
-    public function changeDraftAttribute(AbstractProduct $product, Language $language, AbstractAttribute $attribute, Request $request): Response
-    {
+    public function changeDraftAttribute(
+        AbstractProduct $product,
+        Language $language,
+        AbstractAttribute $attribute,
+        Request $request
+    ): Response {
         $draft = $this->draftProvider->provide($product);
         $value = $request->request->get('value');
         $value = ($value !== '') ? $value : null;
@@ -517,7 +529,10 @@ class ProductDraftController extends AbstractController
      */
     public function getProductTemplate(AbstractProduct $product, Language $language): Response
     {
-        $template = $this->templateRepository->load($product->getTemplateId());
+        $attributeCode = new AttributeCode(TemplateSystemAttribute::CODE);
+        $templateId = new TemplateId($product->getAttribute($attributeCode)->getValue());
+
+        $template = $this->templateRepository->load($templateId);
 
         Assert::notNull($template);
 
