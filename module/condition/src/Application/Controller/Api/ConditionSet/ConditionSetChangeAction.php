@@ -84,11 +84,17 @@ class ConditionSetChangeAction
      *     default="EN"
      * )
      * @SWG\Parameter(
+     *     name="conditionSet",
+     *     in="path",
+     *     type="string",
+     *     description="Condition Set Id",
+     * )
+     * @SWG\Parameter(
      *     name="body",
      *     in="body",
      *     description="Update condition set",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/conditionset_update")
+     *     @SWG\Schema(ref="#/definitions/conditionset")
      * )
      * @SWG\Response(
      *     response=204,

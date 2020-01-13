@@ -82,7 +82,7 @@ class ConditionSetCreateAction
      *     in="body",
      *     description="Create condition set",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/conditionset_create")
+     *     @SWG\Schema(ref="#/definitions/conditionset")
      * )
      * @SWG\Response(
      *     response=201,
