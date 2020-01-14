@@ -12,6 +12,7 @@ services:
         - '@Ergonode\Value\Domain\Service\Strategy\StringValueUpdateStrategy'
         - '@Ergonode\Value\Domain\Service\Strategy\StringCollectionValueUpdateStrategy'
         - '@Ergonode\Value\Domain\Service\Strategy\TranslatableStringValueUpdateStrategy'
+        - '@Ergonode\Value\Domain\Service\Strategy\StringValueToTranslatableStringValueUpdateStrategy'
 
     Ergonode\Value\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'

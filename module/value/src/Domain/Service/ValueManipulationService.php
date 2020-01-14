@@ -37,7 +37,7 @@ class ValueManipulationService
     public function calculate(ValueInterface $oldValue, ValueInterface $newValue): ValueInterface
     {
         foreach ($this->strategies as $strategy) {
-            if ($strategy->isSupported($oldValue)) {
+            if ($strategy->isSupported($oldValue, $newValue)) {
                 return $strategy->calculate($oldValue, $newValue);
             }
         }

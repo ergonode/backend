@@ -15,10 +15,11 @@ interface ValueUpdateStrategyInterface
 {
     /**
      * @param ValueInterface $oldValue
+     * @param ValueInterface $newValue
      *
      * @return bool
      */
-    public function isSupported(ValueInterface $oldValue): bool;
+    public function isSupported(ValueInterface $oldValue, ValueInterface $newValue): bool;
 
     /**
      * @param ValueInterface $oldValue

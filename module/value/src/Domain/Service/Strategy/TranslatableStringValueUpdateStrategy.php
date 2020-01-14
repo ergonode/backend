@@ -19,13 +19,11 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 class TranslatableStringValueUpdateStrategy implements ValueUpdateStrategyInterface
 {
     /**
-     * @param ValueInterface $oldValue
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(ValueInterface $oldValue): bool
+    public function isSupported(ValueInterface $oldValue, ValueInterface $newValue): bool
     {
-        return $oldValue instanceof TranslatableStringValue;
+        return $oldValue instanceof TranslatableStringValue && $newValue instanceof TranslatableStringValue;
     }
 
     /**

@@ -18,13 +18,11 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 class StringValueUpdateStrategy implements ValueUpdateStrategyInterface
 {
     /**
-     * @param ValueInterface $oldValue
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(ValueInterface $oldValue): bool
+    public function isSupported(ValueInterface $oldValue, ValueInterface $newValue): bool
     {
-        return $oldValue instanceof StringValue;
+        return $oldValue instanceof StringValue && $newValue instanceof StringValue;
     }
 
     /**
