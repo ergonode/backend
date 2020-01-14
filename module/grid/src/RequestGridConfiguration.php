@@ -68,6 +68,11 @@ class RequestGridConfiguration implements GridConfigurationInterface
     private $view;
 
     /**
+     * @var bool
+     */
+    private $extended;
+
+    /**
      * @param Request $request
      */
     public function __construct(Request $request)
@@ -107,6 +112,7 @@ class RequestGridConfiguration implements GridConfigurationInterface
         }
 
         $this->view = $request->query->get('view', GridConfigurationInterface::VIEW_GRID);
+        $this->extended = $request->query->has('extended') ? true : false;
         Assert::oneOf($this->order, self::ORDER);
     }
 
@@ -164,5 +170,13 @@ class RequestGridConfiguration implements GridConfigurationInterface
     public function getView(): string
     {
         return $this->view;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExtended(): bool
+    {
+        return $this->extended;
     }
 }
