@@ -22,7 +22,7 @@ Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
-            - true
+            - false
 
 Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute:
     attribute_{11..20}:
@@ -32,7 +32,7 @@ Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute:
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
-            - true
+            - false
 
 Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute:
     attribute_{21..25}:
