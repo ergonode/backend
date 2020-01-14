@@ -10,7 +10,7 @@ namespace Ergonode\Product\Tests\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Filter\TextFilter;

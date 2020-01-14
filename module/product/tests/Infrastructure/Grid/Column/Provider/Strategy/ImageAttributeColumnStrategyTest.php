@@ -10,11 +10,9 @@ namespace Ergonode\Product\Tests\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\AttributeImage\Domain\Entity\ImageAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\ImageColumn;
-use Ergonode\Grid\Column\TextAreaColumn;
-use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\ImageAttributeColumnStrategy;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

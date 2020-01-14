@@ -10,16 +10,18 @@ declare(strict_types = 1);
 namespace Ergonode\Grid\Renderer;
 
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\GridConfigurationInterface;
 
 /**
  */
 interface RowRendererInterface
 {
     /**
-     * @param AbstractGrid $grid
-     * @param array        $row
+     * @param AbstractGrid               $grid
+     * @param GridConfigurationInterface $configuration
+     * @param array                      $row
      *
      * @return array
      */
-    public function render(AbstractGrid $grid, array $row): array;
+    public function render(AbstractGrid $grid, GridConfigurationInterface $configuration, array $row): array;
 }

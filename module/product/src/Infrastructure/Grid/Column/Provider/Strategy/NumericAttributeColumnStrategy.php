@@ -12,12 +12,10 @@ namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\RangeFilter;
-use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 
 /**
  */

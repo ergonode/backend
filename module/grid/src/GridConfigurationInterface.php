@@ -60,4 +60,9 @@ interface GridConfigurationInterface
      * @return string
      */
     public function getView(): string;
+
+    /**
+     * @return bool
+     */
+    public function isExtended(): bool;
 }

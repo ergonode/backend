@@ -43,8 +43,6 @@ Feature: Product edit feature
     Then created response is received
     And remember response param "id" as "product_edit_date_attribute_code"
 
-
-
   Scenario: Create numeric attribute
     Given current authentication token
     Given the request body is:
@@ -58,6 +56,23 @@ Feature: Product edit feature
     When I request "/api/v1/EN/attributes" using HTTP POST
     Then created response is received
     And remember response param "id" as "product_edit_numeric_attribute"
+
+  Scenario: Create price attribute
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "PRICE_@@random_code@@",
+        "type": "PRICE",
+        "groups": [],
+        "parameters": {
+          "currency": "PLN"
+        }
+      }
+      """
+    When I request "/api/v1/EN/attributes" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "product_edit_price_attribute"
 
   Scenario: Get text attribute code
     Given current authentication token
@@ -76,6 +91,12 @@ Feature: Product edit feature
     When I request "/api/v1/EN/attributes/@product_edit_numeric_attribute@" using HTTP GET
     Then the response code is 200
     And remember response param "code" as "product_edit_numeric_attribute_code"
+
+  Scenario: Get price attribute code
+    Given current authentication token
+    When I request "/api/v1/EN/attributes/@product_edit_price_attribute@" using HTTP GET
+    Then the response code is 200
+    And remember response param "code" as "product_edit_price_attribute_code"
 
   Scenario: Create template
     Given current authentication token
@@ -137,6 +158,17 @@ Feature: Product edit feature
     When I request "api/v1/EN/products/@edit_product@/draft/@product_edit_numeric_attribute@/value" using HTTP PUT
     Then the response code is 200
 
+  Scenario: Edit product price value
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "value": "12.66"
+      }
+      """
+    When I request "api/v1/EN/products/@edit_product@/draft/@product_edit_price_attribute@/value" using HTTP PUT
+    Then the response code is 200
+
   Scenario: Apply product draft
     Given current authentication token
     When I request "api/v1/EN/products/@edit_product@/draft/persist" using HTTP PUT
@@ -163,6 +195,31 @@ Feature: Product edit feature
       /"deletable": true/
     """
 
+  Scenario: Request product grid filtered by text attribute with extended flag
+    Given current authentication token
+    When I request "api/v1/EN/products?extended&columns=@product_edit_text_attribute_code@&filter=@product_edit_text_attribute_code@=text" using HTTP GET
+    Then the response code is 200
+    And the response body matches:
+    """
+      /"filtered": 1/
+    """
+    And the response body matches:
+    """
+      /"visible": true/
+    """
+    And the response body matches:
+    """
+      /"editable": true/
+    """
+    And the response body matches:
+    """
+      /"deletable": true/
+    """
+    And the response body matches:
+    """
+      /"value": "text attribute value"/
+    """
+
   Scenario: Request product grid filtered by text attribute with long code
     Given current authentication token
     When I request "api/v1/EN/products?columns=@product_edit_text_attribute_long_code_code@&filter=@product_edit_text_attribute_long_code_code@=text" using HTTP GET
@@ -184,7 +241,7 @@ Feature: Product edit feature
       /"deletable": true/
     """
 
-  Scenario: Request product grid filtered by text attribute
+  Scenario: Request product grid filtered by numeric attribute
     Given current authentication token
     When I request "api/v1/EN/products?columns=@product_edit_numeric_attribute_code@&filter=@product_edit_numeric_attribute_code@=10.99" using HTTP GET
     Then the response code is 200
@@ -203,6 +260,81 @@ Feature: Product edit feature
     And the response body matches:
     """
       /"deletable": true/
+    """
+
+  Scenario: Request product grid filtered by numeric attribute with extended flag
+    Given current authentication token
+    When I request "api/v1/EN/products?extended&columns=@product_edit_numeric_attribute_code@&filter=@product_edit_numeric_attribute_code@=10.99" using HTTP GET
+    Then the response code is 200
+    And the response body matches:
+    """
+      /"filtered": 1/
+    """
+    And the response body matches:
+    """
+      /"visible": true/
+    """
+    And the response body matches:
+    """
+      /"editable": true/
+    """
+    And the response body matches:
+    """
+      /"deletable": true/
+    """
+    And the response body matches:
+    """
+      /"value": 10.99/
+    """
+
+  Scenario: Request product grid filtered by price attribute
+    Given current authentication token
+    When I request "api/v1/EN/products?columns=@product_edit_price_attribute_code@&filter=@product_edit_price_attribute_code@=12.66" using HTTP GET
+    Then the response code is 200
+    And the response body matches:
+    """
+      /"filtered": 1/
+    """
+    And the response body matches:
+    """
+      /"visible": true/
+    """
+    And the response body matches:
+    """
+      /"editable": true/
+    """
+    And the response body matches:
+    """
+      /"deletable": true/
+    """
+
+  Scenario: Request product grid filtered by price attribute with extended flag
+    Given current authentication token
+    When I request "api/v1/EN/products?extended&columns=@product_edit_price_attribute_code@&filter=@product_edit_price_attribute_code@=12.66" using HTTP GET
+    Then the response code is 200
+    And the response body matches:
+    """
+      /"filtered": 1/
+    """
+    And the response body matches:
+    """
+      /"visible": true/
+    """
+    And the response body matches:
+    """
+      /"editable": true/
+    """
+    And the response body matches:
+    """
+      /"deletable": true/
+    """
+    And the response body matches:
+    """
+      /"value": 12.66/
+    """
+    And the response body matches:
+    """
+      /"suffix": "PLN"/
     """
 
   Scenario: Request product grid filtered by text attribute null
