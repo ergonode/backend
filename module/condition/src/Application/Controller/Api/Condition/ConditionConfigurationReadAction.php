@@ -38,8 +38,6 @@ class ConditionConfigurationReadAction
     }
 
     /**
-     * @IsGranted("CONDITION_READ")
-     *
      * @SWG\Tag(name="Condition")
      * @SWG\Parameter(
      *     name="language",
