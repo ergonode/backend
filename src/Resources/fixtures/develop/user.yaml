@@ -11,7 +11,7 @@ Ergonode\Account\Domain\Entity\User:
     admin:
         __construct:
             - '<userId(admin@ergonode.com)>'
-            - 'Johnny'
+            - 'Dave'
             - 'Admin'
             - '<userEmail(admin@ergonode.com)>'
             - '<language(EN)>'
@@ -20,7 +20,7 @@ Ergonode\Account\Domain\Entity\User:
     data_inputer:
         __construct:
             - '<userId(data_inputer@ergonode.com)>'
-            - 'Johnny'
+            - 'Paul'
             - 'Data Inputer'
             - '<userEmail(data_inputer@ergonode.com)>'
             - '<language(EN)>'
@@ -29,7 +29,7 @@ Ergonode\Account\Domain\Entity\User:
     category_manager:
         __construct:
             - '<userId(category_manager@ergonode.com)>'
-            - 'Johnny'
+            - 'Karen'
             - 'Category Manager'
             - '<userEmail(category_manager@ergonode.com)>'
             - '<language(EN)>'
