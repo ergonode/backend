@@ -63,8 +63,6 @@ class ConditionSetDeleteAction
     }
 
     /**
-     * @IsGranted("CONDITION_DELETE")
-     *
      * @SWG\Tag(name="Condition")
      * @SWG\Parameter(
      *     name="language",
