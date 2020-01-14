@@ -28,8 +28,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConditionSetReadAction
 {
     /**
-     * @IsGranted("CONDITION_READ")
-     *
      * @SWG\Tag(name="Condition")
      * @SWG\Parameter(
      *     name="language",

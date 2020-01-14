@@ -63,7 +63,7 @@ class SegmentDeleteAction
     }
 
     /**
-     * @IsGranted("CONDITION_DELETE")
+     * @IsGranted("SEGMENT_DELETE")
      *
      * @SWG\Tag(name="Segment")
      * @SWG\Parameter(

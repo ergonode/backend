@@ -26,9 +26,8 @@ class AddMultimediaCommandTest extends TestCase
         /** @var UploadedFile $uploadedFile */
         $uploadedFile = $this->createMock(UploadedFile::class);
 
-        $command = new AddMultimediaCommand('some name', $uploadedFile);
+        $command = new AddMultimediaCommand($uploadedFile);
         $this->assertTrue(Uuid::isValid((string) $command->getId()));
-        $this->assertEquals('some name', $command->getName());
         $this->assertEquals($uploadedFile, $command->getFile());
     }
 }
