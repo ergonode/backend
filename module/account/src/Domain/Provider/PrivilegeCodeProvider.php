@@ -34,6 +34,6 @@ class PrivilegeCodeProvider
      */
     public function provide(): array
     {
-        return array_column($this->query->getPrivileges(), 'code');
+        return array_column($this->query->getPrivileges(true), 'code');
     }
 }

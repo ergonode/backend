@@ -45,7 +45,8 @@ class PrivilegeGroupedByAreaProvider
     public function provide(): array
     {
         $result = [];
-        foreach ($this->query->getPrivileges() as $record) {
+        $privileges = $this->query->getPrivileges(true);
+        foreach ($privileges as $record) {
             $privilegeType = $this->resolver->resolve(new Privilege($record['code']));
             $result[$record['area']][$privilegeType] = $record['code'];
         }

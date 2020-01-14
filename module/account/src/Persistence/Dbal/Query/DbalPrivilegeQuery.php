@@ -40,17 +40,20 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
     }
 
     /**
+     * @param bool $hidden
+     *
      * @return array
      */
-    public function getPrivileges(): array
+    public function getPrivileges(bool $hidden = false): array
     {
         $qb = $this->getQuery();
-        $qb->andWhere($qb->expr()->eq('active', ':active'))
-            ->setParameter(':active', 'true', \PDO::PARAM_BOOL);
 
-        return $qb
-            ->execute()
-            ->fetchAll();
+        if (false === $hidden) {
+            $qb->andWhere($qb->expr()->eq('active', ':active'))
+                ->setParameter(':active', 'true', \PDO::PARAM_BOOL);
+        }
+
+        return $qb->execute()->fetchAll();
     }
 
     /**
