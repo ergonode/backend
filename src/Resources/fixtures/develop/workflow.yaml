@@ -46,5 +46,3 @@ Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand:
       - '<workflowId(default)>'
       - '<statusCode("new")>'
       - '<statusCode("draft")>'
-      - '<translation(<{transition_name_translation}>)>'
-      - '<translation(<{transition_description_translation}>)>'
