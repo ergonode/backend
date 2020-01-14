@@ -40,7 +40,7 @@ class AddMultimediaCommand implements DomainCommandInterface
      */
     public function __construct(string $name, File $file)
     {
-        $this->id = MultimediaId::fromKey($name);
+        $this->id = MultimediaId::generate();
         $this->name = $name;
         $this->file = $file;
     }

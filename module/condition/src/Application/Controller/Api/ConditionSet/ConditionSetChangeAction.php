@@ -73,8 +73,6 @@ class ConditionSetChangeAction
     }
 
     /**
-     * @IsGranted("CONDITION_UPDATE")
-     *
      * @SWG\Tag(name="Condition")
      * @SWG\Parameter(
      *     name="language",

@@ -67,8 +67,6 @@ class ConditionSetCreateAction
     }
 
     /**
-     * @IsGranted("CONDITION_CREATE")
-     *
      * @SWG\Tag(name="Condition")
      * @SWG\Parameter(
      *     name="language",

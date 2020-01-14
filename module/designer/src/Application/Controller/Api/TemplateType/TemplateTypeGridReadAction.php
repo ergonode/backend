@@ -57,9 +57,7 @@ class TemplateTypeGridReadAction
     }
 
     /**
-     * @IsGranted("TEMPLATE_DESIGNER_READ")
-     *
-     * @SWG\Tag(name="Designer")
+;     * @SWG\Tag(name="Designer")
      * @SWG\Parameter(
      *     name="limit",
      *     in="query",

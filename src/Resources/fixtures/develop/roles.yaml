@@ -57,10 +57,6 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("SEGMENT_READ")>'
                 - '<privilege("SEGMENT_UPDATE")>'
                 - '<privilege("SEGMENT_DELETE")>'
-                - '<privilege("CONDITION_CREATE")>'
-                - '<privilege("CONDITION_READ")>'
-                - '<privilege("CONDITION_UPDATE")>'
-                - '<privilege("CONDITION_DELETE")>'
             - true
     admin_role:
         __construct:
@@ -120,10 +116,6 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("SEGMENT_READ")>'
                 - '<privilege("SEGMENT_UPDATE")>'
                 - '<privilege("SEGMENT_DELETE")>'
-                - '<privilege("CONDITION_CREATE")>'
-                - '<privilege("CONDITION_READ")>'
-                - '<privilege("CONDITION_UPDATE")>'
-                - '<privilege("CONDITION_DELETE")>'
     data_inputer_role:
         __construct:
             - '<roleId("Data inputer")>'
