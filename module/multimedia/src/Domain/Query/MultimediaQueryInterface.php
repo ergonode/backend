@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\Query;
 
+use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
 /**
@@ -21,4 +22,11 @@ interface MultimediaQueryInterface
      * @return bool
      */
     public function fileExists(Hash $hash): bool;
+
+    /**
+     * @param Hash $hash
+     *
+     * @return MultimediaId|null
+     */
+    public function findIdByHash(Hash $hash): ?MultimediaId;
 }

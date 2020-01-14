@@ -10,6 +10,7 @@ namespace Ergonode\Multimedia\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
@@ -49,6 +50,24 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
             ->fetch();
 
         return $result ? true : false;
+    }
+
+    /**
+     * @param Hash $hash
+     *
+     * @return MultimediaId|null
+     */
+    public function findIdByHash(Hash $hash): ?MultimediaId
+    {
+        $query = $this->getQuery();
+        $result = $query
+            ->select('id')
+            ->where($query->expr()->eq('hash', ':hash'))
+            ->setParameter(':hash', $hash)
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        return $result ? new MultimediaId($result) : null;
     }
 
     /**
