@@ -83,7 +83,9 @@ class ProductGridColumnBuilder
             $configuration->getColumns()
         );
 
-        $result['id'] = new CheckColumn('id', 'Id');
+        $id = new TextColumn('id', 'Id', new TextFilter());
+        $id->setVisible(false);
+        $result['id'] = $id;
         $result['index'] = new IntegerColumn('index', 'Index', new TextFilter());
         $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter());
 
