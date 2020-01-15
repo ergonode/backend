@@ -15,7 +15,6 @@ use Ergonode\Condition\Domain\Command\CreateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
 use JMS\Serializer\SerializerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,8 +66,6 @@ class ConditionSetCreateAction
     }
 
     /**
-     * @IsGranted("CONDITION_CREATE")
-     *
      * @SWG\Tag(name="Condition")
      * @SWG\Parameter(
      *     name="language",

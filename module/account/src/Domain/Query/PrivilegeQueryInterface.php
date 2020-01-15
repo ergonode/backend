@@ -14,7 +14,9 @@ namespace Ergonode\Account\Domain\Query;
 interface PrivilegeQueryInterface
 {
     /**
+     * @param bool $hidden
+     *
      * @return array
      */
-    public function getPrivileges(): array;
+    public function getPrivileges(bool $hidden = false): array;
 }

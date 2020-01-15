@@ -64,6 +64,16 @@ abstract class AbstractColumn implements ColumnInterface
     private $attribute;
 
     /**
+     * @var string|null
+     */
+    private $suffix;
+
+    /**
+     * @var string|null
+     */
+    private $prefix;
+
+    /**
      * @param string               $field
      * @param string               $label
      * @param FilterInterface|null $filter
@@ -203,5 +213,37 @@ abstract class AbstractColumn implements ColumnInterface
     public function setAttribute(AbstractAttribute $attribute): void
     {
         $this->attribute = $attribute;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSuffix(): ?string
+    {
+        return $this->suffix;
+    }
+
+    /**
+     * @param string|null $suffix
+     */
+    public function setSuffix(?string $suffix): void
+    {
+        $this->suffix = $suffix;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPrefix(): ?string
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * @param string|null $prefix
+     */
+    public function setPrefix(?string $prefix): void
+    {
+        $this->prefix = $prefix;
     }
 }

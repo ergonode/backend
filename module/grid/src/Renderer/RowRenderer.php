@@ -11,6 +11,7 @@ namespace Ergonode\Grid\Renderer;
 
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\Renderer\ColumnRendererInterface;
+use Ergonode\Grid\GridConfigurationInterface;
 
 /**
  */
@@ -32,7 +33,7 @@ class RowRenderer implements RowRendererInterface
     /**
      * {@inheritDoc}
      */
-    public function render(AbstractGrid $grid, array $row): array
+    public function render(AbstractGrid $grid, GridConfigurationInterface $configuration, array $row): array
     {
         $result = [];
         foreach ($grid->getColumns() as $id => $column) {
@@ -43,7 +44,17 @@ class RowRenderer implements RowRendererInterface
 
             foreach ($this->rendererCollection as $renderer) {
                 if ($renderer->supports($column)) {
-                    $result[$columnId] = $renderer->render($column, $id, $row);
+                    if ($configuration->isExtended()) {
+                        $result[$columnId]['value'] = $renderer->render($column, $id, $row);
+                        if ($column->getPrefix()) {
+                            $result[$columnId]['prefix'] = $column->getPrefix();
+                        }
+                        if ($column->getSuffix()) {
+                            $result[$columnId]['suffix'] = $column->getSuffix();
+                        }
+                    } else {
+                        $result[$columnId] = $renderer->render($column, $id, $row);
+                    }
                     break;
                 }
             }

@@ -11,6 +11,7 @@ namespace Ergonode\Multimedia\Domain\Factory;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -21,14 +22,14 @@ class MultimediaFactory
      * @param MultimediaId $id
      * @param string       $name
      * @param File         $file
-     * @param string       $crc
+     * @param Hash         $hash
      *
      * @return Multimedia
      *
      * @throws \Exception
      */
-    public static function createFromFile(MultimediaId $id, string $name, File $file, string $crc): Multimedia
+    public function create(MultimediaId $id, string $name, File $file, Hash $hash): Multimedia
     {
-        return new Multimedia($id, $name, $file->getExtension(), $file->getSize(), $crc, $file->getMimeType());
+        return new Multimedia($id, $name, $file->getExtension(), $file->getSize(), $hash, $file->getMimeType());
     }
 }

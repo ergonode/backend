@@ -27,7 +27,7 @@ final class Version20180807065948 extends AbstractErgonodeMigration
                 extension varchar(4) NOT NULL,
                 mime VARCHAR(255) NOT NULL,
                 size INTEGER NOT NULL,
-                crc VARCHAR(128) NOT NULL,
+                hash VARCHAR(128) NOT NULL,
                 PRIMARY KEY(id)
             )
         ');

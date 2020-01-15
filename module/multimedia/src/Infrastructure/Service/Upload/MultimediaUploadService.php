@@ -11,7 +11,6 @@ namespace Ergonode\Multimedia\Infrastructure\Service\Upload;
 
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  */
@@ -29,13 +28,13 @@ class MultimediaUploadService
 
     /**
      * @param MultimediaId $id
-     * @param UploadedFile $file
+     * @param File         $file
      *
      * @return File
      */
-    public function upload(MultimediaId $id, UploadedFile $file): File
+    public function upload(MultimediaId $id, File $file): File
     {
-        $fileName = sprintf('%s.%s', $id->getValue(), $file->guessClientExtension());
+        $fileName = sprintf('%s.%s', $id->getValue(), $file->getExtension());
 
         return $file->move($this->targetDirectory, $fileName);
     }
