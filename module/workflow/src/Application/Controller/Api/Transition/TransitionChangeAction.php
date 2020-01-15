@@ -13,7 +13,6 @@ use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Application\Form\Model\TransitionChangeFormModel;
 use Ergonode\Workflow\Application\Form\TransitionChangeForm;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
@@ -133,8 +132,6 @@ class TransitionChangeAction
                     $workflow->getId(),
                     $source->getCode(),
                     $destination->getCode(),
-                    new TranslatableString($data->name),
-                    new TranslatableString($data->description),
                     $roles,
                     $data->conditionSet ? new ConditionSetId($data->conditionSet) : null
                 );

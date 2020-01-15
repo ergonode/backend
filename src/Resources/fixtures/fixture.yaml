@@ -306,8 +306,6 @@ Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand:
       - '<workflowId(default)>'
       - '<statusCode("new")>'
       - '<statusCode("draft")>'
-      - '<translation(<{empty}>)>'
-      - '<translation(<{empty}>)>'
 
 Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
   attribute_esa_status:
