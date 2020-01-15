@@ -15,7 +15,6 @@ use Ergonode\Condition\Domain\Command\CreateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
 use JMS\Serializer\SerializerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,7 +79,7 @@ class ConditionSetCreateAction
      *     in="body",
      *     description="Create condition set",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/conditionset_create")
+     *     @SWG\Schema(ref="#/definitions/conditionset")
      * )
      * @SWG\Response(
      *     response=201,

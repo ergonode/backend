@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 use Doctrine\DBAL\DBALException;
+use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 
 /**
  */

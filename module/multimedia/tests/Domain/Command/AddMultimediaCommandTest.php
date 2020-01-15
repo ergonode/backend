@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Tests\Domain\Command;
 
-use PHPUnit\Framework\TestCase;
 use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
+use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Application\Controller\Api;
 
+use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Comment\Domain\Command\DeleteCommentCommand;
 use Ergonode\Comment\Domain\Entity\Comment;
-use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,6 +52,14 @@ class CommentDeleteAction
 
     /**
      * @SWG\Tag(name="Comment")
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language Code",
+     * )
      * @SWG\Parameter(
      *     name="comment",
      *     in="path",

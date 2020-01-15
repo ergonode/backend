@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Condition\Domain\Exception\ConditionStrategyNotFoundException;
 use Ergonode\Condition\Infrastructure\Provider\ConditionConfigurationProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

@@ -77,7 +77,7 @@ class TransitionCreateAction
      *     in="body",
      *     description="Add workflow",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/transition")
+     *     @SWG\Schema(ref="#/definitions/transition_create")
      * )
      * @SWG\Response(
      *     response=201,

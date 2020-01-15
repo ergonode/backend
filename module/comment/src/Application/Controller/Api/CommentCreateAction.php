@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Application\Controller\Api;
 
+use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Comment\Application\Form\CreateCommentForm;
 use Ergonode\Comment\Application\Form\Model\CreateCommentFormModel;
 use Ergonode\Comment\Domain\Command\CreateCommentCommand;
@@ -76,7 +76,7 @@ class CommentCreateAction
      *     in="body",
      *     description="Comment body",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/comment")
+     *     @SWG\Schema(ref="#/definitions/comment_create")
      * )
      * @SWG\Response(
      *     response=201,

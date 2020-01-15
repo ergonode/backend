@@ -15,7 +15,6 @@ use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Designer\Infrastructure\Grid\TemplateGrid;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;

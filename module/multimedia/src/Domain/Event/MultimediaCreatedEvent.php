@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\Event;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\Core\Domain\Entity\AbstractId;
 
 /**
  */

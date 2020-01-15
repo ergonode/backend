@@ -91,7 +91,7 @@ class CommentChangeAction
      *     in="body",
      *     description="Comment body",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/Comment")
+     *     @SWG\Schema(ref="#/definitions/comment_update")
      * )
      * @SWG\Response(
      *     response=204,

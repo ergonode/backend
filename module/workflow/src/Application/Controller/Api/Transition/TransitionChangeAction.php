@@ -70,14 +70,14 @@ class TransitionChangeAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Source status code",
+     *     description="Source status id",
      * )
      * @SWG\Parameter(
      *     name="destination",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Destination status code",
+     *     description="Destination status id",
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -91,7 +91,7 @@ class TransitionChangeAction
      *     in="body",
      *     description="Update workflow",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/transition")
+     *     @SWG\Schema(ref="#/definitions/transition_update")
      * )
      * @SWG\Response(
      *     response=204,

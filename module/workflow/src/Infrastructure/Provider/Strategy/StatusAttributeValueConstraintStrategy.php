@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Infrastructure\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
+use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;

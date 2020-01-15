@@ -15,7 +15,6 @@ use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
 use JMS\Serializer\SerializerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,11 +81,17 @@ class ConditionSetChangeAction
      *     default="EN"
      * )
      * @SWG\Parameter(
+     *     name="conditionSet",
+     *     in="path",
+     *     type="string",
+     *     description="Condition Set Id",
+     * )
+     * @SWG\Parameter(
      *     name="body",
      *     in="body",
      *     description="Update condition set",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/conditionset_update")
+     *     @SWG\Schema(ref="#/definitions/conditionset")
      * )
      * @SWG\Response(
      *     response=204,
