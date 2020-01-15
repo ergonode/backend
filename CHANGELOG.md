@@ -1,3 +1,18 @@
+## CHANGELOG FOR 0.6.0 
+ - feature - Add product history log
+ - feature - Add core notifications 
+ - feature - Add workflow notifications
+ - feature - Add comment module 
+ - feature - Add system attribute
+ - improvement - Grid query optimisation, add advanced filter support
+ - fix - .env according to Symfony 4.3 
+ - improvement - Behat optimisation and added more tests
+ - improvement - Upgrade Code Sniffer
+ - experimental - Add deptrac
+ - experimental - Remove GfreeauGetJWTBundle 
+ - improvement - Merge attribute to one module
+ - improvement - Change domain events to work with Symfony Message component
+  
 ## CHANGELOG FOR 0.5.0
  - feature [#115](https://github.com/ergonode/backend/issues/115) Product segment functionality (rprzedzik)
  - feature [#118](https://github.com/ergonode/backend/issues/118) Event store history (BastekBielawski)

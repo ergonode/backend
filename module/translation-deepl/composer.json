@@ -16,8 +16,8 @@
         "ext-json": "*",
         "doctrine/collections": "^1.6",
         "doctrine/dbal": "^2.9",
-        "ergonode/api": "^0.5.0",
-        "ergonode/core": "^0.5.0",
+        "ergonode/api": "^0.6.0",
+        "ergonode/core": "^0.6.0",
         "symfony/http-foundation": "^4.3",
         "scn/deepl-api-connector": "^2.0"
     },
