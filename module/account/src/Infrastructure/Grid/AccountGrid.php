@@ -62,7 +62,7 @@ class AccountGrid extends AbstractGrid
         $this->addColumn('last_name', new TextColumn('last_name', 'Last Name', new TextFilter()));
         $this->addColumn('language', new TextColumn('language', 'Language', new SelectFilter($languages)));
         $this->addColumn('role_id', new TextColumn('role_id', 'Roles', new SelectFilter($roles)));
-        $this->addColumn('is_active', new BoolColumn('is_active', 'Activity', new SelectFilter($activities)));
+        $this->addColumn('is_active', new BoolColumn('is_active', 'Activity'));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_account_user_read',

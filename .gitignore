@@ -1,7 +1,12 @@
-/.env
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
 /public/bundles/
 /var/
 /vendor/
+###< symfony/framework-bundle ###
 /import
 /tmp
 .history
@@ -10,6 +15,6 @@
 /build
 /phpunit.xml
 /behat.yml
-/.env.local.php
 /.phpcs-cache
 /.deptrac.cache
+/.*.pid

@@ -12,8 +12,6 @@ namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
-use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;
@@ -41,9 +39,7 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute instanceof NumericAttribute
-            || $attribute instanceof PriceAttribute
-            || $attribute instanceof UnitAttribute;
+        return $attribute instanceof NumericAttribute;
     }
 
     /**
@@ -52,9 +48,7 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
         $range = $this->query->getAttributeValueRange($attribute->getId());
-
         $columnKey = $attribute->getCode()->getValue();
-
         $columnFilter = new RangeFilter($range);
 
         return new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);

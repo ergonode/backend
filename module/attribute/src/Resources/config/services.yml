@@ -53,4 +53,5 @@ services:
             - '@Ergonode\Attribute\Persistence\Dbal\Query\Decorator\CacheAttributeQueryDecorator.inner'
     Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeGroupQuery'
     Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeGridQuery'
-    Ergonode\Attribute\Domain\Query\AttributeTemplateQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeTemplateQuery'
+    Ergonode\Attribute\Domain\Query\CurrencyQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalCurrencyQuery'
+    Ergonode\Attribute\Domain\Query\UnitQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalUnitQuery'

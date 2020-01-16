@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 
 /**
  */
-class DeleteTransformerCommand
+class DeleteTransformerCommand implements DomainCommandInterface
 {
     /**
      * @var TransformerId

@@ -1,0 +1,10 @@
+Ergonode\Condition\Domain\Condition\AttributeExistsCondition:
+    condition_attribute_exists:
+        __construct:
+            - '<AttributeId(code_1)>'
+
+Ergonode\Condition\Domain\Entity\ConditionSet:
+    condition_set:
+        __construct:
+            - '<conditionSetId("test_condition")>'
+            - ['@condition_attribute_exists']

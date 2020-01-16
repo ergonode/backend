@@ -8,6 +8,8 @@
     <property name="dir.docs" value="${dir.build}/docs"/>
     <property name="dir.reports" value="${dir.build}/reports"/>
     <property name="dir.console" value="bin/console"/>
+    <property name="APP_ENV" value="dev" />
+
 
     <!-- Build -->
     <target name="build" depends="cache:clear, create:directory, database:migrate" description="Standard build plan."/>
@@ -25,7 +27,12 @@
     </target>
 
     <!-- Tests -->
-    <target name="test" depends="database:drop, database:create, database:migrate, database:fixture, cache:clear, test:unit, test:behat" description="Execute tests with database recreation."/>
+    <target
+            name="test"
+            depends="test:unit, test:behat"
+            description="Execute tests with database recreation."
+    >
+    </target>
 
     <!-- PHP Unit -->
     <target name="test:unit" description="Executes unit tests.">
@@ -50,9 +57,9 @@
     </target>
 
     <!-- Behat -->
-    <target name="test:behat" description="Executes behat tests.">
+    <target name="test:behat" depends="override:property:APP_ENV, database:drop, database:create, database:migrate, cache:clear, database:fixture, server:start" description="Executes behat tests." >
         <echo msg="Running behat tests..."/>
-        <exec command="bin/behat"
+        <exec command="APP_ENV=${APP_ENV} APP_URL=http://localhost:8001 bin/behat --colors --stop-on-failure"
               checkreturn="true"
               logoutput="true"
               passthru="true"
@@ -63,7 +70,7 @@
     <!-- Cache -->
     <target name="cache:clear" description="Clear cache">
         <echo msg="Start clearing cache"/>
-        <exec command="${dir.console} cache:clear --no-interaction" logoutput="true" checkreturn="true" />
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} cache:clear --no-interaction" logoutput="true" checkreturn="true" />
     </target>
 
     <!-- Database -->
@@ -71,22 +78,22 @@
 
     <target name="database:migrate" description="Migrate migrations">
         <echo msg="Executing database migrations..."/>
-        <exec command="${dir.console} ergonode:migrations:migrate --no-interaction --allow-no-migration" logoutput="true" checkreturn="true" />
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:migrations:migrate --no-interaction --allow-no-migration" logoutput="true" checkreturn="true" />
     </target>
 
     <target name="database:create" description="Create database">
         <echo msg="Create database..."/>
-        <exec command="${dir.console} doctrine:database:create --no-interaction" logoutput="true" checkreturn="true" />
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} doctrine:database:create --no-interaction" logoutput="true" checkreturn="true" />
     </target>
 
     <target name="database:drop" description="Drop database">
         <echo msg="Drop database..."/>
-        <exec command="${dir.console} doctrine:database:drop --no-interaction --force" logoutput="true" checkreturn="true" />
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} doctrine:database:drop --if-exists --no-interaction --force" logoutput="true" checkreturn="true" />
     </target>
 
     <target name="database:fixture" description="Fill database with basic data">
         <echo msg="Fill database with fixtures ..."/>
-        <exec command="${dir.console} ergonode:fixture:load --no-interaction"
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:fixture:load --no-interaction"
               checkreturn="true"
               logoutput="true">
         </exec>
@@ -94,7 +101,7 @@
 
     <target name="database:fixture:dev" description="Fill database with development data">
         <echo msg="Fill database with dev fixtures ..."/>
-        <exec command="${dir.console} ergonode:fixture:load -g develop --no-interaction"
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} ergonode:fixture:load -g develop --no-interaction"
               checkreturn="true"
               logoutput="true">
         </exec>
@@ -185,5 +192,24 @@
               checkreturn="true"
               logoutput="true">
         </exec>
+    </target>
+
+    <target name="server:start" description="Starts a local test web server in the background">
+        <exec
+                command="APP_ENV=${APP_ENV} ${dir.console} server:start --pidfile=./.web-server-8001.pid 127.0.0.1:8001"
+                logoutput="true"
+                spawn="true"
+        />
+    </target>
+
+    <target name="server:stop" description="Stops the local test web server">
+        <exec
+                command="APP_ENV=${APP_ENV} ${dir.console} server:stop --pidfile=./.web-server-8001.pid"
+                logoutput="true"
+        />
+    </target>
+
+    <target name="override:property:APP_ENV" description="Overrides APP_ENV property with test value">
+        <property name="APP_ENV" value="test" override="true" />
     </target>
 </project>

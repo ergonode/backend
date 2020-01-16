@@ -10,14 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Infrastructure\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
  */

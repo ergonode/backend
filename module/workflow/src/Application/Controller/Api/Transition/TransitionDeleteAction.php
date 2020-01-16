@@ -51,14 +51,14 @@ class TransitionDeleteAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Source status code",
+     *     description="Source status id",
      * )
      * @SWG\Parameter(
      *     name="destination",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Destination status code",
+     *     description="Destination status id",
      * )
      * @SWG\Parameter(
      *     name="language",

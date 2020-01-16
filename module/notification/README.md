@@ -1,4 +1,4 @@
-# Ergonode - Product
+# Ergonode - Notification
 
 ## Documentation
 

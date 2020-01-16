@@ -96,4 +96,24 @@ interface ColumnInterface
      * @param AbstractAttribute $attribute
      */
     public function setAttribute(AbstractAttribute $attribute): void;
+
+    /**
+     * @return string|null
+     */
+    public function getSuffix(): ?string;
+
+    /**
+     * @param string|null $suffix
+     */
+    public function setSuffix(?string $suffix): void;
+
+    /**
+     * @return string|null
+     */
+    public function getPrefix(): ?string;
+
+    /**
+     * @param string|null $prefix
+     */
+    public function setPrefix(?string $prefix): void;
 }

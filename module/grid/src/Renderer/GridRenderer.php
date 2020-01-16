@@ -98,7 +98,7 @@ class GridRenderer
         $result['collection'] = [];
 
         foreach ($records as $row) {
-            $result['collection'][] = $this->rowRenderer->render($grid, $row);
+            $result['collection'][] = $this->rowRenderer->render($grid, $configuration, $row);
         }
 
         $result['info'] = $this->infoRenderer->render($grid, $configuration, $dataSet);

@@ -11,12 +11,13 @@ namespace Ergonode\Condition\Domain\Command;
 
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class UpdateConditionSetCommand
+class UpdateConditionSetCommand implements DomainCommandInterface
 {
     /**
      * @var ConditionSetId

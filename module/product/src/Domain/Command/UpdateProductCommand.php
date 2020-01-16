@@ -10,12 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Command;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UpdateProductCommand
+class UpdateProductCommand implements DomainCommandInterface
 {
     /**
      * @var ProductId

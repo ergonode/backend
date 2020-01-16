@@ -10,7 +10,7 @@ namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 
 /**

@@ -10,11 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Domain\Command;
 
 use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class DeleteTreeCommand
+class DeleteTreeCommand implements DomainCommandInterface
 {
     /**
      * @var CategoryTreeId

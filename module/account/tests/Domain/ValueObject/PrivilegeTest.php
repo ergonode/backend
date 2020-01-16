@@ -23,6 +23,8 @@ class PrivilegeTest extends TestCase
         $value = 'Any valid value';
         $privilege = new Privilege($value);
         $this->assertEquals(strtoupper($value), $privilege->getValue());
+        $this->assertEquals('ANY VALID VALUE', $privilege->jsonSerialize());
+        $this->assertEquals('ANY VALID VALUE', (string) $privilege);
     }
 
     /**

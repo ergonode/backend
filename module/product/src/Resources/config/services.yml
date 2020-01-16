@@ -40,15 +40,15 @@ services:
     Ergonode\Product\Domain\Query\HistoryQueryInterface: '@Ergonode\Product\Persistence\Dbal\Query\DbalHistoryQuery'
     Ergonode\Product\Domain\Query\GetProductQueryInterface: '@Ergonode\Product\Persistence\Dbal\Query\GetProductQuery'
 
-    Ergonode\Product\Domain\Factory\Decorator\CreatedAtAttributeDecorator:
+    Ergonode\Product\Domain\Factory\Decorator\CreateAtAttributeProductFactoryDecorator:
         decorates: Ergonode\ProductSimple\Domain\Factory\SimpleProductFactory
         arguments:
-            - '@Ergonode\Product\Domain\Factory\Decorator\CreatedAtAttributeDecorator.inner'
+            - '@Ergonode\Product\Domain\Factory\Decorator\CreateAtAttributeProductFactoryDecorator.inner'
 
-    Ergonode\Product\Domain\Factory\Decorator\CreatedByAttributeDecorator:
+    Ergonode\Product\Domain\Factory\Decorator\CreatedByAttributeProductFactoryDecorator:
         decorates: Ergonode\ProductSimple\Domain\Factory\SimpleProductFactory
         arguments:
-            - '@Ergonode\Product\Domain\Factory\Decorator\CreatedByAttributeDecorator.inner'
+            - '@Ergonode\Product\Domain\Factory\Decorator\CreatedByAttributeProductFactoryDecorator.inner'
 
     Ergonode\Product\Persistence\Dbal\Query\Decorator\CacheProductQueryDecorator:
         decorates: Ergonode\Product\Domain\Query\ProductQueryInterface

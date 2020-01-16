@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Migration\Command;
 
-use Doctrine\DBAL\Migrations\Tools\Console\Command\MigrateCommand;
+use Doctrine\Migrations\Tools\Console\Command\MigrateCommand;
 use Ergonode\Migration\Provider\MigrationConfigurationProvider;
 
 /**

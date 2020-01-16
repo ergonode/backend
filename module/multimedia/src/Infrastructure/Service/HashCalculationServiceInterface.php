@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Infrastructure\Service;
 
+use Ergonode\Multimedia\Domain\ValueObject\Hash;
+
 /**
  */
 interface HashCalculationServiceInterface
@@ -16,7 +18,7 @@ interface HashCalculationServiceInterface
     /**
      * @param \SplFileInfo $file
      *
-     * @return string
+     * @return Hash
      */
-    public function calculateHash(\SplFileInfo $file): string;
+    public function calculateHash(\SplFileInfo $file): Hash;
 }

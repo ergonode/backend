@@ -23,22 +23,6 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Attribute\\.*
-  - name: AttributeDate
-    collectors:
-      - type: className
-        regex: .*Ergonode\\AttributeDate\\.*
-  - name: AttributeImage
-    collectors:
-      - type: className
-        regex: .*Ergonode\\AttributeImage\\.*
-  - name: AttributePrice
-    collectors:
-      - type: className
-        regex: .*Ergonode\\AttributePrice\\.*
-  - name: AttributeUnit
-    collectors:
-      - type: className
-        regex: .*Ergonode\\AttributeUnit\\.*
   - name: Category
     collectors:
       - type: className
@@ -132,31 +116,7 @@ ruleset:
     - Api
     - Value
     - Account
-  AttributeDate:
-    - Core
-    - EventSourcing
-    - Attribute
-    - Api
-    - Value
-  AttributeImage:
-    - Core
-    - EventSourcing
     - Multimedia
-    - Attribute
-    - Api
-    - Value
-  AttributePrice:
-    - Core
-    - EventSourcing
-    - Attribute
-    - Api
-    - Value
-  AttributeUnit:
-    - Core
-    - EventSourcing
-    - Attribute
-    - Api
-    - Value
   Category:
     - Core
     - Grid
@@ -197,7 +157,6 @@ ruleset:
     - Api
     - Value
     - Account
-    - Designer
   ProductSimple:
     - Core
     - EventSourcing
@@ -240,6 +199,8 @@ ruleset:
     - Api
     - EventSourcing
     - Multimedia
+    - Attribute
+    - Product
   Importer:
     - Api
     - Core

@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -62,6 +63,48 @@ class DbalNotificationQuery implements NotificationQueryInterface
         $result->setParameter('user_id', $id->getValue());
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * @param UserId $id
+     *
+     * @return array
+     */
+    public function check(UserId $id): array
+    {
+        $query = $this->connection->createQueryBuilder();
+        $result = $query->select('count(*) as count')
+        ->from(self::USER_NOTIFICATION_TABLE)
+        ->andWhere($query->expr()->eq('recipient_id', ':id'))
+            ->andWhere($query->expr()->isNull('read_at'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        return [
+            'unread' => $result ?: 0,
+        ];
+    }
+
+    /**
+     * @param Uuid      $id
+     * @param UserId    $userId
+     * @param \DateTime $readAt
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function mark(Uuid $id, UserId $userId, \DateTime $readAt): void
+    {
+        $this->connection->update(
+            'users_notification',
+            [
+                'read_at' => $readAt->format('Y-m-d'),
+            ],
+            [
+                'recipient_id' => $userId->getValue(),
+                'notification_id' => $id->toString(),
+            ]
+        );
     }
 
     /**

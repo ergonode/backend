@@ -12,6 +12,7 @@ namespace Ergonode\Multimedia\Domain\Entity;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
+use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
 /**
  */
@@ -45,18 +46,16 @@ class Multimedia extends AbstractAggregateRoot
     private $size;
 
     /**
-     * The crc is hashed with crc32b hashing algorithm
-     *
-     * @var string;
+     * @var Hash;
      */
-    private $crc;
+    private $hash;
 
     /**
      * @param MultimediaId $id
      * @param string       $name
      * @param string       $extension
      * @param int          $size      The file size in bytes.
-     * @param string       $crc       The crc is hashed with crc32b hashing algorithm
+     * @param Hash         $hash
      * @param string|null  $mime
      *
      * @throws \Exception
@@ -66,7 +65,7 @@ class Multimedia extends AbstractAggregateRoot
         string $name,
         string $extension,
         int $size,
-        string $crc,
+        Hash $hash,
         ?string $mime = null
     ) {
         $this->apply(
@@ -75,7 +74,7 @@ class Multimedia extends AbstractAggregateRoot
                 $name,
                 $extension,
                 $size,
-                $crc,
+                $hash,
                 $mime
             )
         );
@@ -130,11 +129,11 @@ class Multimedia extends AbstractAggregateRoot
     }
 
     /**
-     * @return string
+     * @return Hash
      */
-    public function getCrc(): string
+    public function getHash(): Hash
     {
-        return $this->crc;
+        return $this->hash;
     }
 
     /**
@@ -147,6 +146,6 @@ class Multimedia extends AbstractAggregateRoot
         $this->extension = $event->getExtension();
         $this->mime = $event->getMime();
         $this->size = $event->getSize();
-        $this->crc = $event->getCrc();
+        $this->hash = $event->getHash();
     }
 }

@@ -9,10 +9,11 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Command\Group;
 
 use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class DeleteAttributeGroupCommand
+class DeleteAttributeGroupCommand implements DomainCommandInterface
 {
     /**
      * @var AttributeGroupId

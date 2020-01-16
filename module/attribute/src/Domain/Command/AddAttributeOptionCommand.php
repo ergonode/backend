@@ -12,11 +12,12 @@ namespace Ergonode\Attribute\Domain\Command;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AddAttributeOptionCommand
+class AddAttributeOptionCommand implements DomainCommandInterface
 {
     /**
      * @var AttributeId

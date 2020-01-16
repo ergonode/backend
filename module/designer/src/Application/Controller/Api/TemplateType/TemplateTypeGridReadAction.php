@@ -15,7 +15,6 @@ use Ergonode\Designer\Domain\Query\TemplateElementQueryInterface;
 use Ergonode\Designer\Infrastructure\Grid\TemplateTypeDictionaryGrid;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,8 +56,6 @@ class TemplateTypeGridReadAction
     }
 
     /**
-     * @IsGranted("TEMPLATE_DESIGNER_READ")
-     *
      * @SWG\Tag(name="Designer")
      * @SWG\Parameter(
      *     name="limit",

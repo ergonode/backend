@@ -10,12 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Application\Form\Event;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\AttributeDate\Application\Form\Type\DateFormatFormType;
-use Ergonode\AttributeDate\Domain\Entity\DateAttribute;
-use Ergonode\AttributePrice\Application\Form\Type\CurrencyFormType;
-use Ergonode\AttributePrice\Domain\Entity\PriceAttribute;
-use Ergonode\AttributeUnit\Application\Form\Type\UnitFormType;
-use Ergonode\AttributeUnit\Domain\Entity\UnitAttribute;
+use Ergonode\Attribute\Application\Form\Type\DateFormatFormType;
+use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
+use Ergonode\Attribute\Application\Form\Type\CurrencyFormType;
+use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
+use Ergonode\Attribute\Application\Form\Type\UnitFormType;
+use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;

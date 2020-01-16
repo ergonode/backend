@@ -9,12 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class DeleteProductCommand
+class DeleteProductCommand implements DomainCommandInterface
 {
     /**
      * @var ProductId

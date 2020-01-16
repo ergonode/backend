@@ -4,14 +4,21 @@
     "description": "Ergonode - Importer",
     "homepage": "https://ergonode.com",
     "license": "OSL-3.0",
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.9",
-        "ergonode/api": "^0.5.0",
-        "ergonode/core": "^0.5.0",
-        "ergonode/grid": "^0.5.0",
-        "ergonode/reader": "^0.5.0",
-        "ergonode/transformer": "^0.5.0",
+        "ergonode/api": "^0.6.0",
+        "ergonode/core": "^0.6.0",
+        "ergonode/grid": "^0.6.0",
+        "ergonode/reader": "^0.6.0",
+        "ergonode/transformer": "^0.6.0",
         "jms/serializer": "^3.1",
         "nelmio/api-doc-bundle": "^3.4",
         "ramsey/uuid": "^3.8",
@@ -22,9 +29,17 @@
         "symfony/validator": "^4.3",
         "vich/uploader-bundle": "^1.10"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    },
     "autoload": {
         "psr-4": {
             "Ergonode\\Importer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ergonode\\Importer\\Tests\\": "tests/"
         }
     }
 }

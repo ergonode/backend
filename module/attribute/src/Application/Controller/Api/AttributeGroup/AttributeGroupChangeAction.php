@@ -64,17 +64,17 @@ class AttributeGroupChangeAction
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
-     *     name="attribute",
+     *     name="group",
      *     in="path",
      *     type="string",
-     *     description="Attribute id",
+     *     description="Attribute Group id",
      * )
      * @SWG\Parameter(
      *     name="body",
      *     in="body",
      *     description="Add attribute",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/attribute_group")
+     *     @SWG\Schema(ref="#/definitions/attribute_group_upd")
      * )
      * @SWG\Parameter(
      *     name="language",
