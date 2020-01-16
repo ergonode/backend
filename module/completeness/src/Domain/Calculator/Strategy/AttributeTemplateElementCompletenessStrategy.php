@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
+use Ergonode\Value\Domain\Resolver\ValueResolver;
 use Webmozart\Assert\Assert;
 
 /**
@@ -27,19 +28,24 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
     private $repository;
 
     /**
-     * @param AttributeRepositoryInterface $repository
+     * @var ValueResolver
      */
-    public function __construct(AttributeRepositoryInterface $repository)
+    private $resolver;
+
+    /**
+     * @param AttributeRepositoryInterface $repository
+     * @param ValueResolver                $resolver
+     */
+    public function __construct(AttributeRepositoryInterface $repository, ValueResolver $resolver)
     {
         $this->repository = $repository;
+        $this->resolver = $resolver;
     }
 
     /**
-     * @param string $variant
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(string $variant): bool
+    public function supports(string $variant): bool
     {
         return AttributeTemplateElementProperty::VARIANT === $variant;
     }
@@ -47,15 +53,20 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
     /**
      * {@inheritDoc}
      */
-    public function getElementCompleteness(ProductDraft $draft, Language $language, TemplateElementPropertyInterface $properties): ?CompletenessElementReadModel
-    {
+    public function getElementCompleteness(
+        ProductDraft $draft,
+        Language $language,
+        TemplateElementPropertyInterface $properties
+    ): ?CompletenessElementReadModel {
         Assert::isInstanceOf($properties, AttributeTemplateElementProperty::class);
 
         $attribute = $this->repository->load($properties->getAttributeId());
         Assert::notNull($attribute, sprintf('Can\'t find attribute %s', $properties->getAttributeId()->getValue()));
-        $name = $attribute->getLabel()->has($language) ? $attribute->getLabel()->get($language) : $attribute->getCode()->getValue();
-        $value = $draft->hasAttribute($attribute->getCode()) ? (string) $draft->getAttribute($attribute->getCode()) : null;
+        $name = $attribute->getLabel()->has($language) ?
+            $attribute->getLabel()->get($language) : $attribute->getCode()->getValue();
+        $value = $draft->hasAttribute($attribute->getCode()) ? $draft->getAttribute($attribute->getCode()) : null;
+        $string = $this->resolver->resolve($language, $value);
 
-        return new CompletenessElementReadModel($attribute->getId(), $name, $properties->isRequired(), $value);
+        return new CompletenessElementReadModel($attribute->getId(), $name, $properties->isRequired(), $string);
     }
 }

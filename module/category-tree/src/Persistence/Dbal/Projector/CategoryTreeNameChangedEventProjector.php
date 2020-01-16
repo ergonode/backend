@@ -11,15 +11,11 @@ namespace Ergonode\CategoryTree\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeNameChangedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class CategoryTreeNameChangedEventProjector implements DomainEventProjectorInterface
+class CategoryTreeNameChangedEventProjector
 {
     private const TABLE = 'tree';
 
@@ -46,27 +42,15 @@ class CategoryTreeNameChangedEventProjector implements DomainEventProjectorInter
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(CategoryTreeNameChangedEvent $event): void
     {
-        return $event instanceof CategoryTreeNameChangedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof CategoryTreeNameChangedEvent) {
-            throw new UnsupportedEventException($event, CategoryTreeNameChangedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

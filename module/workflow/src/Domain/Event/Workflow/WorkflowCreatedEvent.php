@@ -9,9 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Workflow;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
@@ -34,20 +35,20 @@ class WorkflowCreatedEvent implements DomainEventInterface
     private $code;
 
     /**
-     * @var StatusId[]
+     * @var StatusCode[]
      *
-     * @JMS\Type("array<Ergonode\Workflow\Domain\Entity\StatusId>")
+     * @JMS\Type("array<Ergonode\Workflow\Domain\ValueObject\StatusCode>")
      */
     private $statuses;
 
     /**
-     * @param WorkflowId $id
-     * @param string     $code
-     * @param StatusId[] $statuses
+     * @param WorkflowId   $id
+     * @param string       $code
+     * @param StatusCode[] $statuses
      */
     public function __construct(WorkflowId $id, string $code, array $statuses = [])
     {
-        Assert::allIsInstanceOf($statuses, StatusId::class);
+        Assert::allIsInstanceOf($statuses, StatusCode::class);
 
         $this->id = $id;
         $this->code = $code;
@@ -55,9 +56,9 @@ class WorkflowCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return WorkflowId
+     * @return WorkflowId|AbstractId
      */
-    public function getId(): WorkflowId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }
@@ -71,7 +72,7 @@ class WorkflowCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return StatusId[]
+     * @return StatusCode[]
      */
     public function getStatuses(): array
     {

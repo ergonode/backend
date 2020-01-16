@@ -32,22 +32,9 @@ abstract class AbstractAggregateRoot
     protected $events = [];
 
     /**
-     * @var \DateTime
-     */
-    protected $editedAt;
-
-    /**
      * @return AbstractId
      */
     abstract public function getId(): AbstractId;
-
-    /**
-     * @return \DateTime
-     */
-    public function getEditedAt(): \DateTime
-    {
-        return $this->editedAt;
-    }
 
     /**
      * @param DomainEventInterface $event
@@ -93,22 +80,31 @@ abstract class AbstractAggregateRoot
     }
 
     /**
+     * @return AbstractEntity[]
+     */
+    protected function getEntities(): array
+    {
+        return [];
+    }
+
+    /**
      * @param DomainEventInterface $event
      * @param \DateTime            $recordedAt
      */
     private function handle(DomainEventInterface $event, \DateTime $recordedAt): void
     {
-        $this->editedAt = $recordedAt;
-
         if (!$event instanceof AbstractDeleteEvent) {
             $classArray = explode('\\', get_class($event));
             $class = end($classArray);
             $method = sprintf('apply%s', $class);
-            if (!method_exists($this, $method)) {
-                throw new \RuntimeException(sprintf('Can\'t find method  %s for event in aggregate %s', $method, get_class($this)));
+            if (method_exists($this, $method)) {
+                $this->$method($event);
             }
 
-            $this->$method($event);
+            foreach ($this->getEntities() as $entity) {
+                $entity->setAggregateRoot($this);
+                $entity->handle($event, $recordedAt);
+            }
         }
     }
 }

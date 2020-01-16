@@ -35,6 +35,7 @@ class TransformerGenerator
      * @param array  $options
      *
      * @return Transformer
+     *
      * @throws \Exception
      */
     public function generate(string $name, string $type, array $options = []): Transformer
@@ -45,6 +46,6 @@ class TransformerGenerator
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\'t find transformer %s generator ', $type));
+        throw new \RuntimeException(sprintf('Can\'t find transformer %s generator', $type));
     }
 }

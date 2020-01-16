@@ -10,15 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Event\TemplateImageAddedEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class TemplateImageAddedEventProjector implements DomainEventProjectorInterface
+class TemplateImageAddedEventProjector
 {
     private const TABLE = 'designer.template';
 
@@ -38,27 +34,15 @@ class TemplateImageAddedEventProjector implements DomainEventProjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(TemplateImageAddedEvent $event): void
     {
-        return $event instanceof TemplateImageAddedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof TemplateImageAddedEvent) {
-            throw new UnsupportedEventException($event, TemplateImageAddedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'image_id' => $event->getImageId()->getValue(),
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

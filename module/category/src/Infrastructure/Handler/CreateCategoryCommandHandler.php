@@ -14,7 +14,6 @@ use Ergonode\Category\Domain\Factory\CategoryFactory;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 
 /**
-
  */
 class CreateCategoryCommandHandler
 {
@@ -41,7 +40,7 @@ class CreateCategoryCommandHandler
     /**
      * @param CreateCategoryCommand $command
      */
-    public function __invoke(CreateCategoryCommand $command)
+    public function __invoke(CreateCategoryCommand $command): void
     {
         $category = $this->factory->create(
             $command->getId(),

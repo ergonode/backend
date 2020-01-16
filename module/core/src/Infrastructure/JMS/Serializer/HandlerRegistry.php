@@ -34,8 +34,11 @@ class HandlerRegistry implements HandlerRegistryInterface
      * @param iterable                      $handlers
      * @param HandlerRegistryInterface|null $registry
      */
-    public function __construct(ContainerInterface $container, iterable $handlers, HandlerRegistryInterface $registry = null)
-    {
+    public function __construct(
+        ContainerInterface $container,
+        iterable $handlers,
+        HandlerRegistryInterface $registry = null
+    ) {
         foreach ($handlers as $handler) {
             $registry->registerSubscribingHandler($handler);
         }

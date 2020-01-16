@@ -13,6 +13,7 @@ use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  */
@@ -43,9 +44,6 @@ class UpdateUserFormModel
 
     /**
      * @var Password|null
-     *
-     * @Assert\NotBlank(message="User password repeat is required")
-     * @Assert\EqualTo(propertyPath="password", message="This value should be same as password")
      */
     public $passwordRepeat;
 
@@ -76,4 +74,20 @@ class UpdateUserFormModel
      * @Assert\Uuid(message="Role Id must be valid uuid format")
      */
     public $roleId;
+
+    /**
+     * @Assert\Callback()
+     *
+     * @param ExecutionContextInterface $context
+     * @param mixed                     $payload
+     */
+    public function validatePassword(ExecutionContextInterface $context, $payload)
+    {
+        /** @var UpdateUserFormModel $data */
+        $data = $context->getValue();
+
+        if ((string) $data->password !== (string) $data->passwordRepeat) {
+            $context->addViolation('Password and password repeat must be identical');
+        }
+    }
 }

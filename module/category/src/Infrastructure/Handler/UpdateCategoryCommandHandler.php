@@ -23,8 +23,6 @@ class UpdateCategoryCommandHandler
     private $repository;
 
     /**
-     * UpdateCategoryCommandHandler constructor.
-     *
      * @param CategoryRepositoryInterface $repository
      */
     public function __construct(CategoryRepositoryInterface $repository)
@@ -34,8 +32,10 @@ class UpdateCategoryCommandHandler
 
     /**
      * @param UpdateCategoryCommand $command
+     *
+     * @throws \Exception
      */
-    public function __invoke(UpdateCategoryCommand $command)
+    public function __invoke(UpdateCategoryCommand $command): void
     {
         $category = $this->repository->load($command->getId());
         Assert::notNull($category);

@@ -53,7 +53,7 @@ class UserCreatedEventTest extends TestCase
             $multimediaId
         );
 
-        $this->assertEquals($id, $event->getId());
+        $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($firstName, $event->getFirstName());
         $this->assertEquals($lastName, $event->getLastName());
         $this->assertEquals($language, $event->getLanguage());

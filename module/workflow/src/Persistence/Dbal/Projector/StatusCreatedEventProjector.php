@@ -10,16 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class StatusCreatedEventProjector implements DomainEventProjectorInterface
+class StatusCreatedEventProjector
 {
     private const TABLE = 'status';
 
@@ -46,24 +42,12 @@ class StatusCreatedEventProjector implements DomainEventProjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(StatusCreatedEvent $event): void
     {
-        return $event instanceof StatusCreatedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof StatusCreatedEvent) {
-            throw new UnsupportedEventException($event, StatusCreatedEvent::class);
-        }
-
         $this->connection->insert(
             self::TABLE,
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
                 'code' => $event->getCode(),
                 'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
                 'description' => $this->serializer->serialize($event->getDescription()->getTranslations(), 'json'),

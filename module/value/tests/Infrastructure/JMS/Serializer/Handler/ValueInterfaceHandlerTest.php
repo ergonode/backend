@@ -12,7 +12,6 @@ namespace Ergonode\Value\Tests\Infrastructure\JMS\Serializer\Handler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Value\Infrastructure\JMS\Serializer\Handler\ValueInterfaceHandler;
@@ -38,7 +37,6 @@ class ValueInterfaceHandlerTest extends TestCase
         $handler->set(StringValue::class);
         $handler->set(TranslatableStringValue::class);
         $handler->set(StringCollectionValue::class);
-        $handler->set(TranslatableCollectionValue::class);
 
         $this->serializer = SerializerBuilder::create()
             ->configureHandlers(function (HandlerRegistry $handlerRegistry) use ($handler) {
@@ -102,21 +100,5 @@ class ValueInterfaceHandlerTest extends TestCase
         $this->assertEquals(StringCollectionValue::TYPE, $result->getType());
         $this->assertIsArray($result->getValue());
         $this->assertEquals(['test', 'test'], $result->getValue());
-    }
-
-    /**
-     */
-    public function testDeserializeTranslatableCollectionValue(): void
-    {
-        $testValue = '{"type":"translation_collection","value":[{"translations":{"PL":"a"}},{"translations":{"PL":"b"}}]}';
-
-        /** @var ValueInterface $result */
-        $result = $this->serializer->deserialize($testValue, ValueInterface::class, 'json');
-
-        $this->assertInstanceOf(TranslatableCollectionValue::class, $result);
-        $this->assertEquals(TranslatableCollectionValue::TYPE, $result->getType());
-        $this->assertIsArray($result->getValue());
-        $this->assertContainsOnlyInstancesOf(TranslatableString::class, $result->getValue());
-        $this->assertEquals(['PL' => 'a'], $result->getValue()[0]->getTranslations());
     }
 }

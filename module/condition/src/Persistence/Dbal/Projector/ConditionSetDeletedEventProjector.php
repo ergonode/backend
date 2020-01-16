@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class ConditionSetDeletedEventProjector implements DomainEventProjectorInterface
+class ConditionSetDeletedEventProjector
 {
     private const TABLE = 'condition_set';
 
@@ -36,26 +33,16 @@ class ConditionSetDeletedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param ConditionSetDeletedEvent $event
+     *
+     * @throws DBALException
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(ConditionSetDeletedEvent $event): void
     {
-        return $event instanceof ConditionSetDeletedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof ConditionSetDeletedEvent) {
-            throw new UnsupportedEventException($event, ConditionSetDeletedEvent::class);
-        }
-
         $this->connection->delete(
             self::TABLE,
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

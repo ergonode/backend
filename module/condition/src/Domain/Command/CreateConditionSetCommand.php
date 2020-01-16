@@ -9,14 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Command;
 
+use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Condition\Domain\ValueObject\ConditionSetCode;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CreateConditionSetCommand
+class CreateConditionSetCommand implements DomainCommandInterface
 {
     /**
      * @var ConditionSetId
@@ -26,37 +26,20 @@ class CreateConditionSetCommand
     private $id;
 
     /**
-     * @var ConditionSetCode
+     * @var ConditionInterface[]
      *
-     * @JMS\Type("Ergonode\Condition\Domain\ValueObject\ConditionSetCode")
+     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
-    private $code;
+    private $conditions;
 
     /**
-     * @var TranslatableString
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
+     * @param ConditionSetId $id
+     * @param array          $conditions
      */
-    private $name;
-
-    /**
-     * @var TranslatableString
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
-    private $description;
-
-    /**
-     * @param ConditionSetCode   $code
-     * @param TranslatableString $name
-     * @param TranslatableString $description
-     */
-    public function __construct(ConditionSetCode $code, TranslatableString $name, TranslatableString $description)
+    public function __construct(ConditionSetId $id, array $conditions = [])
     {
-        $this->id = ConditionSetId::fromCode($code);
-        $this->code = $code;
-        $this->name = $name;
-        $this->description = $description;
+        $this->id = $id;
+        $this->conditions = $conditions;
     }
 
     /**
@@ -68,26 +51,10 @@ class CreateConditionSetCommand
     }
 
     /**
-     * @return ConditionSetCode
+     * @return ConditionInterface[]
      */
-    public function getCode(): ConditionSetCode
+    public function getConditions(): array
     {
-        return $this->code;
-    }
-
-    /**
-     * @return TranslatableString
-     */
-    public function getName(): TranslatableString
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return TranslatableString
-     */
-    public function getDescription(): TranslatableString
-    {
-        return $this->description;
+        return $this->conditions;
     }
 }

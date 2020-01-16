@@ -9,10 +9,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Handler;
 
+use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Product\Domain\Command\UpdateProductCommand;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
+use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -30,13 +38,23 @@ class UpdateProductCommandHandler
     private $categoryRepository;
 
     /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
      * @param ProductRepositoryInterface  $productRepository
      * @param CategoryRepositoryInterface $categoryRepository
+     * @param TokenStorageInterface       $tokenStorage
      */
-    public function __construct(ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository)
-    {
+    public function __construct(
+        ProductRepositoryInterface $productRepository,
+        CategoryRepositoryInterface $categoryRepository,
+        TokenStorageInterface $tokenStorage
+    ) {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -69,6 +87,35 @@ class UpdateProductCommandHandler
             }
         }
 
+        $token = $this->tokenStorage->getToken();
+        if ($token) {
+            $updatedAt = new \DateTime();
+            $editedByCode = new AttributeCode(EditedBySystemAttribute::CODE);
+            $editedAtCode = new AttributeCode(EditedAtSystemAttribute::CODE);
+            /** @var User $user */
+            $user = $token->getUser();
+            $editedByValue = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
+            $editedAtValue = new StringValue($updatedAt->format('Y-m-d H:i:s'));
+            $this->attributeUpdate($product, $editedByCode, $editedByValue);
+            $this->attributeUpdate($product, $editedAtCode, $editedAtValue);
+        }
+
         $this->productRepository->save($product);
+    }
+
+    /**
+     * @param AbstractProduct $product
+     * @param AttributeCode   $code
+     * @param ValueInterface  $value
+     *
+     * @throws \Exception
+     */
+    private function attributeUpdate(AbstractProduct $product, AttributeCode $code, ValueInterface $value): void
+    {
+        if (!$product->hasAttribute($code)) {
+            $product->addAttribute($code, $value);
+        } else {
+            $product->changeAttribute($code, $value);
+        }
     }
 }

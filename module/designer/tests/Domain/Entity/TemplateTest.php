@@ -50,11 +50,10 @@ class TemplateTest extends TestCase
         $this->groupId = $this->createMock(TemplateGroupId::class);
         $this->name = 'Any template name';
         $this->element = $this->createMock(TemplateElement::class);
-        $this->element->method('getPosition')->willReturn(new Position(0,0));
+        $this->element->method('getPosition')->willReturn(new Position(0, 0));
     }
 
     /**
-     *
      */
     public function testCreateTemplate(): void
     {
@@ -67,7 +66,6 @@ class TemplateTest extends TestCase
     }
 
     /**
-     *
      */
     public function testAddedElementExists(): void
     {
@@ -100,6 +98,43 @@ class TemplateTest extends TestCase
         $template = $this->getTemplate();
 
         $template->changeElement($this->element);
+    }
+
+    /**
+     */
+    public function testTemplateEdit(): void
+    {
+        /** @var TemplateGroupId|MockObject $groupId */
+        $groupId = $this->createMock(TemplateGroupId::class);
+        $groupId->method('isEqual')->willReturn(false);
+        $name = 'New Name';
+
+        $template = $this->getTemplate();
+        $template->changeGroup($groupId);
+        $template->changeName($name);
+        $this->assertSame($groupId, $template->getGroupId());
+        $this->assertSame($name, $template->getName());
+    }
+
+    /**
+     */
+    public function testImageManipulation():void
+    {
+        /** @var MultimediaId|MockObject $imageId1 */
+        $imageId1 = $this->createMock(MultimediaId::class);
+        $imageId1->method('isEqual')->willReturn(false);
+        /** @var MultimediaId|MockObject $imageId2 */
+        $imageId2 = $this->createMock(MultimediaId::class);
+        $imageId2->method('isEqual')->willReturn(false);
+
+        $template = $this->getTemplate();
+        $this->assertNull($template->getImageId());
+        $template->addImage($imageId1);
+        $this->assertEquals($imageId1, $template->getImageId());
+        $template->changeImage($imageId2);
+        $this->assertEquals($imageId2, $template->getImageId());
+        $template->removeImage();
+        $this->assertNull($template->getImageId());
     }
 
     /**
@@ -138,7 +173,6 @@ class TemplateTest extends TestCase
             $this->groupId,
             $this->name,
             $multimediaId
-
         );
     }
 }

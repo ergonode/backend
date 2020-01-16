@@ -15,18 +15,14 @@ use Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class AttributeOptionAddedEventProjector implements DomainEventProjectorInterface
+class AttributeOptionAddedEventProjector
 {
-    private const TABLE_ATTRIBUTE_OPTION = 'attribute_option';
-    private const TABLE_VALUE_TRANSLATION = 'value_translation';
+    private const TABLE_ATTRIBUTE_OPTION = 'public.attribute_option';
+    private const TABLE_VALUE_TRANSLATION = 'public.value_translation';
 
     /**
      * @var Connection
@@ -42,38 +38,25 @@ class AttributeOptionAddedEventProjector implements DomainEventProjectorInterfac
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function support(DomainEventInterface $event): bool
-    {
-        return $event instanceof AttributeOptionAddedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param AttributeOptionAddedEvent $event
      *
-     * @throws \Throwable
+     * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(AttributeOptionAddedEvent $event): void
     {
-        if (!$event instanceof AttributeOptionAddedEvent) {
-            throw new UnsupportedEventException($event, AttributeOptionAddedEvent::class);
-        }
 
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $valueId = Uuid::uuid4()->toString();
+        $valueId = Uuid::uuid4()->toString();
 
-            $this->connection->insert(
-                self::TABLE_ATTRIBUTE_OPTION,
-                [
-                    'attribute_id' => $aggregateId->getValue(),
-                    'key' => $event->getKey()->getValue(),
-                    'value_id' => $valueId,
-                ]
-            );
+        $this->insertOption($valueId, $event->getOption());
 
-            $this->insertOption($valueId, $event->getOption());
-        });
+        $this->connection->insert(
+            self::TABLE_ATTRIBUTE_OPTION,
+            [
+                'key' => $event->getKey()->getValue(),
+                'attribute_id' => $event->getAggregateId()->getValue(),
+                'value_id' => $valueId,
+            ]
+        );
     }
 
     /**

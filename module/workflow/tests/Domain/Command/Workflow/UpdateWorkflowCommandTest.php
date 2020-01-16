@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Tests\Domain\Command\Workflow;
 
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
-use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -25,11 +25,22 @@ class UpdateWorkflowCommandTest extends TestCase
     {
         /** @var WorkflowId $id */
         $id = $this->createMock(WorkflowId::class);
-        /** @var StatusId $status */
-        $status = $this->createMock(StatusId::class);
+        /** @var StatusCode $status */
+        $status = $this->createMock(StatusCode::class);
 
         $command = new UpdateWorkflowCommand($id, [$status]);
         $this->assertSame([$status], $command->getStatuses());
         $this->assertSame($id, $command->getId());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testIncorrectStatusCode(): void
+    {
+        /** @var WorkflowId $id */
+        $id = $this->createMock(WorkflowId::class);
+
+        new UpdateWorkflowCommand($id, [new \stdClass()]);
     }
 }

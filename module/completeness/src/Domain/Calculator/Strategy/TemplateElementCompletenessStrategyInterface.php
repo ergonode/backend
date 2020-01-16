@@ -24,7 +24,7 @@ interface TemplateElementCompletenessStrategyInterface
      *
      * @return bool
      */
-    public function isSupported(string $variant): bool;
+    public function supports(string $variant): bool;
 
     /**
      * @param ProductDraft                                                      $draft
@@ -33,5 +33,9 @@ interface TemplateElementCompletenessStrategyInterface
      *
      * @return CompletenessElementReadModel|null
      */
-    public function getElementCompleteness(ProductDraft $draft, Language $language, TemplateElementPropertyInterface $properties): ?CompletenessElementReadModel;
+    public function getElementCompleteness(
+        ProductDraft $draft,
+        Language $language,
+        TemplateElementPropertyInterface $properties
+    ): ?CompletenessElementReadModel;
 }

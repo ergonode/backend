@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Tests\Domain\Event;
 
+use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoriesChangedEvent;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -23,6 +24,8 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
      */
     private $node;
 
+    /**
+     */
     protected function setUp()
     {
         $this->node = $this->createMock(Node::class);
@@ -33,19 +36,23 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
      */
     public function testCreateWithIncorrectTypeInserted(): void
     {
-        new CategoryTreeCategoriesChangedEvent([new \stdClass()]);
+        /** @var CategoryTreeId $id */
+        $id = $this->createMock(CategoryTreeId::class);
+        new CategoryTreeCategoriesChangedEvent($id, [new \stdClass()]);
     }
 
     /**
      */
     public function testCreateWithCorrectTypeInserted(): void
     {
+        /** @var CategoryTreeId $id */
+        $id = $this->createMock(CategoryTreeId::class);
         $collection = [
             $this->createMock(Node::class),
-            $this->createMock(Node::class)
+            $this->createMock(Node::class),
         ];
-        $result = new CategoryTreeCategoriesChangedEvent($collection);
+        $result = new CategoryTreeCategoriesChangedEvent($id, $collection);
+        $this->assertEquals($id, $result->getAggregateId());
         $this->assertEquals($collection, $result->getCategories());
-
     }
 }

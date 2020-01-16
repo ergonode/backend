@@ -44,7 +44,7 @@ class EmailTest extends TestCase
     }
 
     /**
-     * @param string
+     * @param string $value
      *
      * @expectedException \InvalidArgumentException
      *
@@ -63,7 +63,7 @@ class EmailTest extends TestCase
         return [
             [''],
             ['incorrect'],
-            ['incorr ect@email.com'],
+            ['incorrect ect@email.com'],
             ['forgot.monkey.com'],
         ];
     }
@@ -100,5 +100,25 @@ class EmailTest extends TestCase
                 'withspaces@email.com',
             ],
         ];
+    }
+
+    /**
+     */
+    public function testEqualValues(): void
+    {
+        $email1 = new Email('correct@email.com');
+        $email2 = new Email('correct@email.com');
+
+        $this->assertTrue($email1->isEqual($email2));
+    }
+
+    /**
+     */
+    public function testNotEqualValues(): void
+    {
+        $email1 = new Email('correct1@email.com');
+        $email2 = new Email('correct2@email.com');
+
+        $this->assertFalse($email1->isEqual($email2));
     }
 }

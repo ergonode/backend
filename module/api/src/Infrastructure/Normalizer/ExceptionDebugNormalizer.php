@@ -43,10 +43,28 @@ class ExceptionDebugNormalizer implements ExceptionNormalizerInterface
         $result = $this->exceptionNormalizer->normalize($exception, $code, $message);
 
         if ($this->debugMode) {
-            $result['message'] = $exception->getMessage();
-            $result['trace'] = explode(PHP_EOL, $exception->getTraceAsString());
+            $result['exception'] = [
+                'current' => $this->formatException($exception),
+            ];
+
+            if ($exception->getPrevious() instanceof \Exception) {
+                $result['exception']['previous'] = $this->formatException($exception->getPrevious());
+            }
         }
 
         return $result;
+    }
+
+    /**
+     * @param \Exception $exception
+     *
+     * @return array
+     */
+    private function formatException(\Exception $exception): array
+    {
+        return [
+            'message' => $exception->getMessage(),
+            'trace' => explode(PHP_EOL, $exception->getTraceAsString()),
+        ];
     }
 }

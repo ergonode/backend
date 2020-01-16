@@ -17,3 +17,11 @@ services:
     Ergonode\Fixture\Infrastructure\Faker\:
         resource: '../../Infrastructure/Faker/*'
         tags: ['nelmio_alice.faker.provider']
+
+    Ergonode\Fixture\Infrastructure\Loader\FixtureLoader:
+        arguments:
+            $root: '%kernel.project_dir%'
+
+    Ergonode\Fixture\Infrastructure\Faker\FileFaker:
+        arguments:
+            $root: '%kernel.project_dir%'

@@ -57,10 +57,14 @@ class PrivilegeDictionaryProvider
     public function provide(Language $language): array
     {
         $result = [];
-        foreach ($this->query->getPrivileges() as $record) {
+        $records = $this->query->getPrivileges();
+        foreach ($records as $record) {
             $privilege = new Privilege($record['code']);
             $privilegeType = $this->resolver->resolve($privilege);
-            $result[$record['area']]['name'] = $this->translator->trans($record['area'], [], 'privilege', $language->getCode());
+            $result[$record['area']]['name'] =
+                $this->translator->trans($record['area'], [], 'privilege', $language->getCode());
+            $result[$record['area']]['description'] =
+                $this->translator->trans($record['description'], [], 'privilege', $language->getCode());
             $result[$record['area']]['privileges'][$privilegeType] = $privilege;
         }
 

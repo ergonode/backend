@@ -22,7 +22,12 @@ interface TransformerGeneratorStrategyInterface
      *
      * @return Transformer
      */
-    public function generate(TransformerId $transformerId, string $name, string $field, array $options = []): Transformer;
+    public function generate(
+        TransformerId $transformerId,
+        string $name,
+        string $field,
+        array $options = []
+    ): Transformer;
 
     /**
      * @return string

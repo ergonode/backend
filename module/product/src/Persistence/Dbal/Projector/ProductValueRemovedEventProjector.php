@@ -10,16 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Product\Domain\Event\ProductValueRemoved;
+use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
 
 /**
  */
-class ProductValueRemovedEventProjector implements DomainEventProjectorInterface
+class ProductValueRemovedEventProjector
 {
     private const TABLE_PRODUCT_VALUE = 'product_value';
 
@@ -37,31 +34,24 @@ class ProductValueRemovedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param ProductValueRemovedEvent $event
+     *
+     * @throws DBALException
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(ProductValueRemovedEvent $event): void
     {
-        return $event instanceof ProductValueRemoved;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof ProductValueRemoved) {
-            throw new UnsupportedEventException($event, ProductValueRemoved::class);
-        }
-
-        $this->delete($aggregateId->getValue(), AttributeId::fromKey($event->getAttributeCode())->getValue());
+        $this
+            ->delete(
+                $event->getAggregateId()->getValue(),
+                AttributeId::fromKey($event->getAttributeCode())->getValue()
+            );
     }
 
     /**
      * @param string $productId
      * @param string $attributeId
      *
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
+     * @throws DBALException
      */
     private function delete(string $productId, string $attributeId): void
     {

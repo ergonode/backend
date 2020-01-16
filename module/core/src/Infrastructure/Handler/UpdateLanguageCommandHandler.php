@@ -10,7 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Infrastructure\Handler;
 
 use Ergonode\Core\Domain\Command\UpdateLanguageCommand;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\Repository\LanguageRepositoryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
@@ -22,11 +24,18 @@ class UpdateLanguageCommandHandler
     private $repository;
 
     /**
-     * @param LanguageRepositoryInterface $repository
+     * @var LanguageQueryInterface
      */
-    public function __construct(LanguageRepositoryInterface $repository)
+    private $query;
+
+    /**
+     * @param LanguageRepositoryInterface $repository
+     * @param LanguageQueryInterface      $query
+     */
+    public function __construct(LanguageRepositoryInterface $repository, LanguageQueryInterface $query)
     {
         $this->repository = $repository;
+        $this->query = $query;
     }
 
     /**
@@ -34,6 +43,28 @@ class UpdateLanguageCommandHandler
      */
     public function __invoke(UpdateLanguageCommand $command)
     {
-        $this->repository->save($command->getCode(), $command->isActive());
+        $activeLanguages = $command->getLanguages();
+        $allLanguages = $this->query->getAll();
+        foreach ($allLanguages as $language) {
+            $hasCode = $this->hasCode($language, $activeLanguages);
+            $this->repository->save($language, $hasCode);
+        }
+    }
+
+    /**
+     * @param Language $search
+     * @param array    $languages
+     *
+     * @return bool
+     */
+    private function hasCode(Language $search, array $languages): bool
+    {
+        foreach ($languages as $language) {
+            if ($search->isEqual($language)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

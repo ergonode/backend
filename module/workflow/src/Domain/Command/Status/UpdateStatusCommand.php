@@ -11,11 +11,13 @@ namespace Ergonode\Workflow\Domain\Command\Status;
 
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Workflow\Domain\Entity\StatusId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UpdateStatusCommand
+class UpdateStatusCommand implements DomainCommandInterface
 {
     /**
      * @var StatusId
@@ -53,7 +55,6 @@ class UpdateStatusCommand
      */
     public function __construct(StatusId $id, Color $color, TranslatableString $name, TranslatableString $description)
     {
-
         $this->id = $id;
         $this->color = $color;
         $this->name = $name;

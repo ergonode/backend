@@ -41,7 +41,6 @@ class CategoryType extends AbstractType
         $ids = array_keys($this->query->getDictionary($language));
         $choices = array_combine($ids, $ids);
 
-
         $resolver->setDefaults(
             [
                 'choices' => array_flip($choices),

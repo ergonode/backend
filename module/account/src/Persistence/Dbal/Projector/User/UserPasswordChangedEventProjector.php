@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class UserPasswordChangedEventProjector implements DomainEventProjectorInterface
+class UserPasswordChangedEventProjector
 {
     private const TABLE = 'users';
 
@@ -36,29 +33,19 @@ class UserPasswordChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param UserPasswordChangedEvent $event
+     *
+     * @throws DBALException
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(UserPasswordChangedEvent $event): void
     {
-        return $event instanceof UserPasswordChangedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof UserPasswordChangedEvent) {
-            throw new UnsupportedEventException($event, UserPasswordChangedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'password' => $event->getPassword(),
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

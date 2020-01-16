@@ -11,9 +11,10 @@ namespace Ergonode\Attribute\Persistence\Dbal\Repository;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 
@@ -27,24 +28,25 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
     private $eventStore;
 
     /**
-     * @var DomainEventDispatcherInterface
+     * @var EventBusInterface
      */
-    private $eventDispatcher;
+    private $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $eventStore
-     * @param DomainEventDispatcherInterface $eventDispatcher
+     * @param DomainEventStoreInterface $eventStore
+     * @param EventBusInterface         $eventBus
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
+    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
     {
         $this->eventStore = $eventStore;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventBus = $eventBus;
     }
 
     /**
-     * @param AttributeId $id
+     * {@inheritDoc}
      *
      * @return AbstractAggregateRoot
+     *
      * @throws \ReflectionException
      */
     public function load(AttributeId $id): ?AbstractAggregateRoot
@@ -73,7 +75,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * {@inheritDoc}
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
@@ -81,7 +83,20 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
 
         $this->eventStore->append($aggregateRoot->getId(), $events);
         foreach ($events as $envelope) {
-            $this->eventDispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Exception
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    {
+        $aggregateRoot->apply(new AttributeDeletedEvent($aggregateRoot->getId()));
+        $this->save($aggregateRoot);
+
+        $this->eventStore->delete($aggregateRoot->getId());
     }
 }

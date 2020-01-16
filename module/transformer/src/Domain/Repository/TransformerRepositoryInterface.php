@@ -20,9 +20,14 @@ interface TransformerRepositoryInterface
     /**
      * @param TransformerId $id
      *
-     * @return AbstractAggregateRoot|Transformer
+     * @return bool
+     */
+    public function exists(TransformerId $id): bool;
+
+    /**
+     * @param TransformerId $id
      *
-     * @throws \ReflectionException
+     * @return AbstractAggregateRoot|Transformer
      */
     public function load(TransformerId $id): ?AbstractAggregateRoot;
 
@@ -32,11 +37,7 @@ interface TransformerRepositoryInterface
     public function save(AbstractAggregateRoot $aggregateRoot): void;
 
     /**
-     * @param TransformerId $id
-     *
-     * @return bool
-     *
-     * @throws \ReflectionException
+     * @param AbstractAggregateRoot $aggregateRoot
      */
-    public function exists(TransformerId $id): bool ;
+    public function delete(AbstractAggregateRoot $aggregateRoot): void;
 }

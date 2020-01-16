@@ -39,9 +39,9 @@ class SegmentCreatedEventTest extends TestCase
         /** @var SegmentStatus|MockObject $status */
         $status = $this->createMock(SegmentStatus::class);
 
-        $event = new SegmentCreatedEvent($id, $code, $conditionSetId, $name, $description, $status);
+        $event = new SegmentCreatedEvent($id, $code, $name, $description, $status, $conditionSetId);
 
-        $this->assertSame($id, $event->getId());
+        $this->assertSame($id, $event->getAggregateId());
         $this->assertSame($code, $event->getCode());
         $this->assertSame($name, $event->getName());
         $this->assertSame($description, $event->getDescription());

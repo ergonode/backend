@@ -11,7 +11,6 @@ namespace Ergonode\Account\Infrastructure\Grid\Column;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\AbstractColumn;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -20,32 +19,20 @@ class LogColumn extends AbstractColumn
     public const TYPE = 'TEXT';
 
     /**
-     * @var Language
-     */
-    private $language;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
      * @var string
      */
     private $parameterField;
 
     /**
-     * @param string              $logField
-     * @param string              $parameterField
-     * @param string              $label
-     * @param Language            $language
-     * @param TranslatorInterface $translator
+     * @param string   $logField
+     * @param string   $parameterField
+     * @param string   $label
+     * @param Language $language
      */
-    public function __construct(string $logField, string $parameterField, string $label, Language $language, TranslatorInterface $translator)
+    public function __construct(string $logField, string $parameterField, string $label, Language $language)
     {
         parent::__construct($logField, $label);
-        $this->language = $language;
-        $this->translator = $translator;
+        $this->setLanguage($language);
         $this->parameterField = $parameterField;
     }
 
@@ -58,20 +45,10 @@ class LogColumn extends AbstractColumn
     }
 
     /**
-     * @param string $id
-     * @param array  $row
-     *
-     * @return null|string
+     * @return string
      */
-    public function render(string $id, array $row): ?string
+    public function getParameterField(): string
     {
-        $parameters = [];
-        foreach (json_decode($row[$this->parameterField], true) as $key => $parameter) {
-            if (is_string($parameter)) {
-                $parameters[sprintf('%%%s%%', $key)] = $parameter;
-            }
-        }
-
-        return $this->translator->trans($row[$id], $parameters, 'log', strtolower($this->language->getCode()));
+        return $this->parameterField;
     }
 }

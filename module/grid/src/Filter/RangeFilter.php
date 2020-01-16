@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Filter;
 
+use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Grid\FilterInterface;
 
 /**
@@ -18,30 +19,16 @@ class RangeFilter implements FilterInterface
     public const TYPE = 'RANGE';
 
     /**
-     * @var string
+     * @var Range
      */
-    private $value;
+    private $range;
 
     /**
-     * @var float
+     * @param Range $range
      */
-    private $min;
-
-    /**
-     * @var float
-     */
-    private $max;
-
-    /**
-     * @param float       $min
-     * @param float       $max
-     * @param string|null $value
-     */
-    public function __construct(float $min, float $max, ?string $value = null)
+    public function __construct(Range $range)
     {
-        $this->min = $min;
-        $this->max = $max;
-        $this->value = $value;
+        $this->range = $range;
     }
 
     /**
@@ -50,8 +37,8 @@ class RangeFilter implements FilterInterface
     public function render(): array
     {
         return [
-            'min' => $this->min,
-            'max' => $this->max,
+            'min' => $this->range->getMin(),
+            'max' => $this->range->getMax(),
         ];
     }
 
@@ -61,29 +48,5 @@ class RangeFilter implements FilterInterface
     public function getType(): string
     {
         return self::TYPE;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEqual(): bool
-    {
-        return false;
-    }
-
-    /**
-     * @return array[]|string
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param array|string $value
-     */
-    public function setValue($value): void
-    {
-        $this->value = $value;
     }
 }

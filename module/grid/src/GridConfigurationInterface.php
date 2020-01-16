@@ -6,18 +6,13 @@
 
 namespace Ergonode\Grid;
 
-use Ergonode\Grid\Model\RequestColumn;
-use Ergonode\Grid\Request\FilterCollection;
+use Ergonode\Grid\Request\FilterValueCollection;
+use Ergonode\Grid\Request\RequestColumn;
 
 /**
  */
 interface GridConfigurationInterface
 {
-    public const CONFIGURATION_SHOW_DATA = 'DATA';
-    public const CONFIGURATION_SHOW_COLUMN = 'COLUMN';
-    public const CONFIGURATION_SHOW_INFO = 'INFO';
-    public const CONFIGURATION_SHOW_CONFIGURATION = 'CONFIGURATION';
-
     public const PARAMETER_ALLOW_COLUMN_RESIZE = 'allow_column_resize';
     public const PARAMETER_ALLOW_COLUMN_EDIT = 'allow_column_edit';
     public const PARAMETER_ALLOW_COLUMN_MOVE = 'allow_column_move';
@@ -27,6 +22,9 @@ interface GridConfigurationInterface
         self::PARAMETER_ALLOW_COLUMN_EDIT => false,
         self::PARAMETER_ALLOW_COLUMN_MOVE => false,
     ];
+
+    public const VIEW_GRID = 'grid';
+    public const VIEW_LIST = 'list';
 
     /**
      * @return int
@@ -54,12 +52,17 @@ interface GridConfigurationInterface
     public function getColumns(): array;
 
     /**
-     * @return FilterCollection
+     * @return FilterValueCollection
      */
-    public function getFilters(): FilterCollection;
+    public function getFilters(): FilterValueCollection;
 
     /**
-     * @return array
+     * @return string
      */
-    public function getShow(): array;
+    public function getView(): string;
+
+    /**
+     * @return bool
+     */
+    public function isExtended(): bool;
 }

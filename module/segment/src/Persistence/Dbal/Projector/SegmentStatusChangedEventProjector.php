@@ -11,16 +11,11 @@ namespace Ergonode\Segment\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent;
-use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class SegmentStatusChangedEventProjector implements DomainEventProjectorInterface
+class SegmentStatusChangedEventProjector
 {
     private const TABLE = 'segment';
 
@@ -30,50 +25,27 @@ class SegmentStatusChangedEventProjector implements DomainEventProjectorInterfac
     private $connection;
 
     /**
-     * @var SerializerInterface
+     * @param Connection $connection
      */
-    private $serializer;
-
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
-    public function __construct(Connection $connection, SerializerInterface $serializer)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->serializer = $serializer;
     }
 
     /**
-     * @param DomainEventInterface $event
+     * @param SegmentStatusChangedEvent $event
      *
-     * @return bool
-     */
-    public function support(DomainEventInterface $event): bool
-    {
-        return $event instanceof SegmentStatusChangedEvent;
-    }
-
-    /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
      * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(SegmentStatusChangedEvent $event): void
     {
-        if (!$event instanceof SegmentStatusChangedEvent) {
-            throw new UnsupportedEventException($event, SegmentStatusChangedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'status' => (string) $event->getTo(),
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

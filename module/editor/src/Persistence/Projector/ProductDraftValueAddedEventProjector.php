@@ -12,21 +12,16 @@ namespace Ergonode\Editor\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Event\ProductDraftValueAdded;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\TranslatableCollectionValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class ProductDraftValueAddedEventProjector implements DomainEventProjectorInterface
+class ProductDraftValueAddedEventProjector
 {
     private const DRAFT_VALUE_TABLE = 'designer.draft_value';
 
@@ -44,31 +39,17 @@ class ProductDraftValueAddedEventProjector implements DomainEventProjectorInterf
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function support(DomainEventInterface $event): bool
-    {
-        return $event instanceof ProductDraftValueAdded;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param ProductDraftValueAdded $event
      *
-     * @throws \Throwable
+     * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(ProductDraftValueAdded $event): void
     {
-        if (!$event instanceof ProductDraftValueAdded) {
-            throw new UnsupportedEventException($event, ProductDraftValueAdded::class);
-        }
+        $draftId = $event->getAggregateId()->getValue();
+        $elementId = AttributeId::fromKey($event->getAttributeCode())->getValue();
+        $value = $event->getTo();
 
-        $this->connection->transactional(function () use ($aggregateId, $event) {
-            $draftId = $aggregateId->getValue();
-            $elementId = AttributeId::fromKey($event->getAttributeCode())->getValue();
-            $value = $event->getTo();
-
-            $this->insertValue($draftId, $elementId, $value);
-        });
+        $this->insertValue($draftId, $elementId, $value);
     }
 
     /**
@@ -90,13 +71,6 @@ class ProductDraftValueAddedEventProjector implements DomainEventProjectorInterf
             $translation = $value->getValue();
             foreach ($translation as $language => $phrase) {
                 $this->insert($draftId, $elementId, $phrase, $language);
-            }
-        } elseif ($value instanceof TranslatableCollectionValue) {
-            $collection = $value->getValue();
-            foreach ($collection as $translation) {
-                foreach ($translation as $language => $phrase) {
-                    $this->insert($draftId, $elementId, $phrase, $language);
-                }
             }
         } else {
             throw new \RuntimeException(sprintf(sprintf('Unknown Value class "%s"', \get_class($value->getValue()))));

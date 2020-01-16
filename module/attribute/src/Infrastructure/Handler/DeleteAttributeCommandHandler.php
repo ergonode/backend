@@ -10,8 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Infrastructure\Handler;
 
 use Ergonode\Attribute\Domain\Command\DeleteAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Core\Application\Exception\NotImplementedException;
+use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -21,28 +23,44 @@ class DeleteAttributeCommandHandler
     /**
      * @var AttributeRepositoryInterface
      */
-    private $attributeRepository;
+    private $repository;
 
     /**
-     * @param AttributeRepositoryInterface $attributeRepository
+     * @var RelationshipsResolverInterface
      */
-    public function __construct(AttributeRepositoryInterface $attributeRepository)
-    {
-        $this->attributeRepository = $attributeRepository;
+    private $relationshipsResolver;
+
+    /**
+     * @param AttributeRepositoryInterface   $repository
+     * @param RelationshipsResolverInterface $relationshipsResolver
+     */
+    public function __construct(
+        AttributeRepositoryInterface $repository,
+        RelationshipsResolverInterface $relationshipsResolver
+    ) {
+        $this->repository = $repository;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
      * @param DeleteAttributeCommand $command
      *
-     * @throws NotImplementedException
+     * @throws ExistingRelationshipsException
      */
-    public function __invoke(DeleteAttributeCommand $command)
+    public function __invoke(DeleteAttributeCommand $command): void
     {
-        $attribute = $this->attributeRepository->load($command->getId());
+        $attribute = $this->repository->load($command->getId());
+        Assert::isInstanceOf(
+            $attribute,
+            AbstractAttribute::class,
+            sprintf('Attribute with ID "%s" not found', $command->getId())
+        );
 
-        Assert::notNull($attribute);
+        $relationships = $this->relationshipsResolver->resolve($command->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsException($command->getId());
+        }
 
-        //@todo add remove attribute...
-        throw new NotImplementedException('Add attribute remove in future');
+        $this->repository->delete($attribute);
     }
 }

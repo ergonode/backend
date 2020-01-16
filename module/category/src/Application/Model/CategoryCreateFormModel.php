@@ -22,7 +22,11 @@ class CategoryCreateFormModel
      *
      * @Assert\NotBlank(message="Category code is required")
      * @Assert\Length(max=64)
-     * @Assert\Regex(pattern="/^[a-zA-Z0-9-_]+$/i", message="Category code can have only letters, digits or underscore symbol")
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z0-9-_]+$/i",
+     *     message="Category code can have only letters, digits or underscore symbol"
+     *  )
+     *
      * @CategoryAssert\CategoryCode();
      */
     public $code;
@@ -38,7 +42,6 @@ class CategoryCreateFormModel
     public $name;
 
     /**
-     * CategoryCreateFormModel constructor.
      */
     public function __construct()
     {

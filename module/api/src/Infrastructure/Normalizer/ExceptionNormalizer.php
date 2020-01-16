@@ -35,7 +35,7 @@ class ExceptionNormalizer implements ExceptionNormalizerInterface
     {
         $result = [
             'code' => $code ?? $exception->getCode(),
-            'message' => $message ?? $this->translator->trans($message, [], 'api'),
+            'message' => null !== $message ? $this->translator->trans($message, [], 'api') : null,
         ];
 
         return $result;

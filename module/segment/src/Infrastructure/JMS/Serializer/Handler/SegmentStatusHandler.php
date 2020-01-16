@@ -55,8 +55,12 @@ class SegmentStatusHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, SegmentStatus $status, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        SegmentStatus $status,
+        array $type,
+        Context $context
+    ): string {
         return (string) $status;
     }
 
@@ -68,8 +72,12 @@ class SegmentStatusHandler implements SubscribingHandlerInterface
      *
      * @return SegmentStatus
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): SegmentStatus
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): SegmentStatus {
         return new SegmentStatus($data);
     }
 }

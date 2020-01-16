@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Column;
 
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\FilterInterface;
@@ -33,11 +34,6 @@ abstract class AbstractColumn implements ColumnInterface
     private $filter;
 
     /**
-     * @var int
-     */
-    private $width;
-
-    /**
      * @var bool
      */
     private $visible = true;
@@ -48,6 +44,11 @@ abstract class AbstractColumn implements ColumnInterface
     private $editable = false;
 
     /**
+     * @var bool
+     */
+    private $deletable = false;
+
+    /**
      * @var Language|null;
      */
     private $language;
@@ -56,6 +57,21 @@ abstract class AbstractColumn implements ColumnInterface
      * @var string[]
      */
     private $extensions;
+
+    /**
+     * @var AbstractAttribute
+     */
+    private $attribute;
+
+    /**
+     * @var string|null
+     */
+    private $suffix;
+
+    /**
+     * @var string|null
+     */
+    private $prefix;
 
     /**
      * @param string               $field
@@ -95,22 +111,6 @@ abstract class AbstractColumn implements ColumnInterface
     }
 
     /**
-     * @return int|null
-     */
-    public function getWidth(): ?int
-    {
-        return $this->width;
-    }
-
-    /**
-     * @param int $width
-     */
-    public function setWidth(int $width): void
-    {
-        $this->width = $width;
-    }
-
-    /**
      * @param bool $visible
      */
     public function setVisible(bool $visible): void
@@ -143,11 +143,35 @@ abstract class AbstractColumn implements ColumnInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isDeletable(): bool
+    {
+        return $this->deletable;
+    }
+
+    /**
+     * @param bool $deletable
+     */
+    public function setDeletable(bool $deletable): void
+    {
+        $this->deletable = $deletable;
+    }
+
+    /**
      * @return Language|null
      */
     public function getLanguage(): ?Language
     {
         return $this->language;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasLanguage(): bool
+    {
+        return null !== $this->language;
     }
 
     /**
@@ -173,5 +197,53 @@ abstract class AbstractColumn implements ColumnInterface
     public function getExtensions(): array
     {
         return $this->extensions;
+    }
+
+    /**
+     * @return AbstractAttribute|null
+     */
+    public function getAttribute(): ?AbstractAttribute
+    {
+        return $this->attribute;
+    }
+
+    /**
+     * @param AbstractAttribute $attribute
+     */
+    public function setAttribute(AbstractAttribute $attribute): void
+    {
+        $this->attribute = $attribute;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSuffix(): ?string
+    {
+        return $this->suffix;
+    }
+
+    /**
+     * @param string|null $suffix
+     */
+    public function setSuffix(?string $suffix): void
+    {
+        $this->suffix = $suffix;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPrefix(): ?string
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * @param string|null $prefix
+     */
+    public function setPrefix(?string $prefix): void
+    {
+        $this->prefix = $prefix;
     }
 }

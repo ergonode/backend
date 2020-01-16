@@ -28,7 +28,6 @@ class CategoryTreeUpdateFormModel
     /**
      * @var TreeNodeFormModel[]
      *
-     * @Assert\NotBlank()
      * @Assert\Valid()
      */
     public $categories;

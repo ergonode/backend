@@ -24,11 +24,18 @@ class FixtureLoader
     private $kernel;
 
     /**
-     * @param KernelInterface $kernel
+     * @var string
      */
-    public function __construct(KernelInterface $kernel)
+    private $root;
+
+    /**
+     * @param KernelInterface $kernel
+     * @param string          $root
+     */
+    public function __construct(KernelInterface $kernel, string $root)
     {
         $this->kernel = $kernel;
+        $this->root = $root;
     }
 
     /**
@@ -48,6 +55,11 @@ class FixtureLoader
                     $files[] = $file;
                 }
             }
+        }
+
+        $file = str_replace('//', '/', sprintf(self::PATH, $this->root.'/src', $group));
+        if (file_exists($file)) {
+            $files[] = $file;
         }
 
         return $files;

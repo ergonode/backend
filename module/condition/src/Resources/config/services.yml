@@ -1,14 +1,33 @@
+parameters:
+    'condition.group.workflow':
+        - 'Ergonode\Condition\Domain\Condition\AttributeExistsCondition'
+        - 'Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\TextAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition'
+        - 'Ergonode\Condition\Domain\Condition\ProductCompletenessCondition'
+        - 'Ergonode\Condition\Domain\Condition\RoleExactlyCondition'
+        - 'Ergonode\Condition\Domain\Condition\UserExactlyCondition'
+    'condition.group.segment':
+        - 'Ergonode\Condition\Domain\Condition\AttributeExistsCondition'
+        - 'Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\TextAttributeValueCondition'
+        - 'Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition'
+        - 'Ergonode\Condition\Domain\Condition\ProductCompletenessCondition'
+
 services:
     _defaults:
         autowire: true
         autoconfigure: true
         public: false
-    _instanceof:
-        Ergonode\Condition\Domain\Service\ConfigurationStrategyInterface:
-            tags: ['component.condition.condition_set.configurator_interface']
 
     Ergonode\Condition\Application\:
         resource: '../../Application/*'
+
+    Ergonode\Condition\Application\Controller\Api\:
+        resource: '../../Application/Controller/Api/*'
+        tags: ['controller.service_arguments']
 
     Ergonode\Condition\Persistence\:
         resource: '../../Persistence/*'
@@ -22,19 +41,15 @@ services:
 
     Ergonode\Condition\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
-        exclude: '../../Infrastructure/Handler/{Strategy}'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Condition\Persistence\Dbal\Projector\:
+        resource: '../../Persistence/Dbal/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Condition\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
-
-    Ergonode\Condition\Infrastructure\Resolver\ConditionConstraintResolver:
-        calls:
-            - ['set', ['ATTRIBUTE_EXISTS_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\AttributeExistsConditionValidatorBuilder']]
-            - ['set', ['TEXT_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\TextAttributeValueConditionValidatorBuilder']]
-            - ['set', ['OPTION_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\OptionAttributeValueConditionValidatorBuilder']]
-            - ['set', ['NUMERIC_ATTRIBUTE_VALUE_CONDITION', '@Ergonode\Condition\Infrastructure\Builder\Condition\NumericAttributeValueConditionValidatorBuilder']]
 
     Ergonode\Condition\Infrastructure\JMS\Serializer\Handler\ConditionInterfaceHandler:
         calls:
@@ -42,6 +57,15 @@ services:
             - ['set', ['Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition']]
             - ['set', ['Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition']]
             - ['set', ['Ergonode\Condition\Domain\Condition\TextAttributeValueCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\ProductCompletenessCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\RoleExactlyCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\UserExactlyCondition']]
+
+    Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider:
+        calls:
+            - ['set', ['workflow', '%condition.group.workflow%']]
+            - ['set', ['segment', '%condition.group.segment%']]
 
     Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Persistence\Dbal\Query\DbalConditionSetQuery'
     Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Persistence\Dbal\Repository\DbalConditionSetRepository'

@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
@@ -44,6 +43,10 @@ class DbalStatusQuery implements StatusQueryInterface
     public function getDataSet(Language $language): DataSetInterface
     {
         $query = $this->getQuery($language);
+        $query->addSelect(
+            '(SELECT CASE WHEN count(*) > 0 THEN true ELSE false END FROM workflow w WHERE '.
+            ' w.default_status = a.id AND w.code =\'default\')::BOOLEAN AS is_default '
+        );
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
@@ -96,7 +99,11 @@ class DbalStatusQuery implements StatusQueryInterface
     private function getQuery(Language $language): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select(sprintf('id, code, color, name->>\'%s\' as name, description->>\'%s\' as description', $language->getCode(), $language->getCode()))
+            ->select(sprintf(
+                'id, code, code AS status, color, name->>\'%s\' as name, description->>\'%s\' as description',
+                $language->getCode(),
+                $language->getCode()
+            ))
             ->from(self::TABLE, 'a');
     }
 }

@@ -26,7 +26,7 @@ class MultiSelectAttributeFactory implements AttributeFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function isSupported(AttributeType $type): bool
+    public function supports(AttributeType $type): bool
     {
         return MultiSelectAttribute::TYPE === $type->getValue();
     }
@@ -44,8 +44,7 @@ class MultiSelectAttributeFactory implements AttributeFactoryInterface
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual(),
-            $command->isSystem()
+            $command->isMultilingual()
         );
 
         foreach ($command->getOptions() as $key => $option) {

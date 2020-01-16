@@ -9,8 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Infrastructure\Handler;
 
-use Ergonode\Designer\Domain\Checker\TemplateRelationChecker;
+use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Designer\Domain\Command\DeleteTemplateCommand;
+use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Webmozart\Assert\Assert;
 
@@ -24,35 +26,41 @@ class DeleteTemplateHandler
     private $repository;
 
     /**
-     * @var TemplateRelationChecker
+     * @var RelationshipsResolverInterface
      */
-    private $checker;
+    private $relationshipsResolver;
 
     /**
-     * @param TemplateRepositoryInterface $repository
-     * @param TemplateRelationChecker     $checker
+     * @param TemplateRepositoryInterface    $repository
+     * @param RelationshipsResolverInterface $relationshipsResolver
      */
-    public function __construct(TemplateRepositoryInterface $repository, TemplateRelationChecker $checker)
-    {
+    public function __construct(
+        TemplateRepositoryInterface $repository,
+        RelationshipsResolverInterface $relationshipsResolver
+    ) {
         $this->repository = $repository;
-        $this->checker = $checker;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
      * @param DeleteTemplateCommand $command
+     *
+     * @throws ExistingRelationshipsException
      */
     public function __invoke(DeleteTemplateCommand $command)
     {
         $template = $this->repository->load($command->getId());
+        Assert::isInstanceOf(
+            $template,
+            Template::class,
+            sprintf('Can\'t find template with ID "%s"', $command->getId())
+        );
 
-        Assert::notNull($template);
-
-        if ($this->checker->hasRelations($template)) {
-            throw new \RuntimeException('Can\'t delete template witch relations');
+        $relationships = $this->relationshipsResolver->resolve($command->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsException($command->getId());
         }
 
-        $template->remove();
-
-        $this->repository->save($template);
+        $this->repository->delete($template);
     }
 }

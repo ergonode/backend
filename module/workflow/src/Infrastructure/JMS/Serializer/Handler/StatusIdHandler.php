@@ -55,8 +55,12 @@ class StatusIdHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, StatusId $id, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        StatusId $id,
+        array $type,
+        Context $context
+    ): string {
         return $id->getValue();
     }
 
@@ -68,8 +72,12 @@ class StatusIdHandler implements SubscribingHandlerInterface
      *
      * @return StatusId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): StatusId
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): StatusId {
         return new StatusId($data);
     }
 }

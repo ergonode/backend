@@ -15,35 +15,30 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\TextAreaColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\TextFilter;
-use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
-class TextAreaAttributeColumnStrategy extends AbstractLanguageColumnStrategy
+class TextAreaAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(AbstractAttribute $attribute): bool
+    public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() === TextareaAttribute::TYPE;
+        return $attribute instanceof TextareaAttribute;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
+    public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
         $columnKey = $attribute->getCode()->getValue();
-
-        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
 
         return new TextAreaColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new TextFilter($filter->getString($filterKey))
+            new TextFilter()
         );
     }
 }

@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class UserAvatarChangedEventProjector implements DomainEventProjectorInterface
+class UserAvatarChangedEventProjector
 {
     private const TABLE = 'users';
 
@@ -36,29 +33,19 @@ class UserAvatarChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param UserAvatarChangedEvent $event
+     *
+     * @throws DBALException
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(UserAvatarChangedEvent $event): void
     {
-        return $event instanceof UserAvatarChangedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof UserAvatarChangedEvent) {
-            throw new UnsupportedEventException($event, UserAvatarChangedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'avatar_id' => $event->getAvatarId() ? $event->getAvatarId()->getValue() : null,
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

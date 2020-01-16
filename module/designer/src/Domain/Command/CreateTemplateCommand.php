@@ -12,13 +12,14 @@ namespace Ergonode\Designer\Domain\Command;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class CreateTemplateCommand
+class CreateTemplateCommand implements DomainCommandInterface
 {
     /**
      * @var TemplateId
@@ -57,7 +58,11 @@ class CreateTemplateCommand
      */
     public function __construct(string $name, ArrayCollection $elements, ?MultimediaId $imageId = null)
     {
-        Assert::allIsInstanceOf($elements->toArray(), TemplateElement::class, 'Template elements should by %2$s class. Got: %s');
+        Assert::allIsInstanceOf(
+            $elements->toArray(),
+            TemplateElement::class,
+            'Template elements should by %2$s class. Got: %s'
+        );
 
         $this->templateId = TemplateId::generate();
         $this->name = $name;

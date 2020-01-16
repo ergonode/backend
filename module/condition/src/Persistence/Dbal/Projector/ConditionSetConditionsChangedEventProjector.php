@@ -12,15 +12,11 @@ namespace Ergonode\Condition\Persistence\Dbal\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class ConditionSetConditionsChangedEventProjector implements DomainEventProjectorInterface
+class ConditionSetConditionsChangedEventProjector
 {
     private const TABLE = 'condition_set';
 
@@ -45,35 +41,19 @@ class ConditionSetConditionsChangedEventProjector implements DomainEventProjecto
     }
 
     /**
-     * @param DomainEventInterface $event
+     * @param ConditionSetConditionsChangedEvent $event
      *
-     * @return bool
-     */
-    public function support(DomainEventInterface $event): bool
-    {
-        return $event instanceof ConditionSetConditionsChangedEvent;
-    }
-
-    /**
-     * @param AbstractId           $aggregateId
-     * @param DomainEventInterface $event
-     *
-     * @throws UnsupportedEventException
      * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(ConditionSetConditionsChangedEvent $event): void
     {
-        if (!$event instanceof ConditionSetConditionsChangedEvent) {
-            throw new UnsupportedEventException($event, ConditionSetConditionsChangedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'conditions' => $this->serializer->serialize($event->getTo(), 'json'),
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

@@ -9,15 +9,39 @@ Feature: Attribute module
     When I request "/api/v1/EN/dictionary/attributes/types" using HTTP GET
     Then unauthorized response is received
 
-  Scenario: Get attribute groups dictionary
-    Given current authentication token
-    When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
-    Then the response code is 200
-    And remember first attribute group as "attribute_group"
-
   Scenario: Get attribute groups dictionary (not authorized)
     When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
     Then unauthorized response is received
+
+  Scenario: Get attributes (order by id)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?field=id" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (order by label)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?field=label" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (order ASC)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?field=label&order=ASC" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (order DESC)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?field=label&order=DESC" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (filter by label)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=label%3Dasd" using HTTP GET
+    Then grid response is received
+
+  Scenario: Get attributes (filter by id)
+    Given current authentication token
+    When I request "/api/v1/EN/attributes?limit=25&offset=0&filter=id%3DEN" using HTTP GET
+    Then grid response is received
 
   Scenario: Delete attribute (not found)
     Given current authentication token
@@ -36,7 +60,7 @@ Feature: Attribute module
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
           "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": []
       }
       """
@@ -44,20 +68,36 @@ Feature: Attribute module
     Then created response is received
     And remember response param "id" as "text_attribute"
 
+  Scenario: Create text attribute without group relation
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "code": "TEXT_@@random_code@@",
+          "type": "TEXT",
+          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
+          "groups": [],
+          "parameters": []
+      }
+      """
+    When I request "/api/v1/EN/attributes" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "text_attribute_without_group"
+
   Scenario: Update text attribute
     Given current authentication token
-    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP PUT
     Given the request body is:
       """
       {
           "type": "TEXT",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "label": {"PL": "PL", "EN": "EN"},
           "placeholder": {"PL": "PL", "EN": "EN"},
           "hint": {"PL": "PL", "EN": "EN"},
           "parameters": []
       }
       """
+    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP PUT
     Then empty response is received
 
   Scenario: Update text attribute (not authorized)
@@ -99,7 +139,7 @@ Feature: Attribute module
       {
           "code": "TEXTAREA_@@random_code@@",
           "type": "TEXTAREA",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": []
       }
       """
@@ -113,7 +153,7 @@ Feature: Attribute module
       """
       {
           "type": "TEXTAREA",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": []
       }
       """
@@ -132,7 +172,7 @@ Feature: Attribute module
       {
           "code": "SELECT_@@random_code@@",
           "type": "SELECT",
-          "groups": ["@attribute_group@"]
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes" using HTTP POST
@@ -145,7 +185,7 @@ Feature: Attribute module
       """
       {
           "type": "SELECT",
-          "groups": ["@attribute_group@"]
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes/@select_attribute@" using HTTP PUT
@@ -163,7 +203,7 @@ Feature: Attribute module
       {
           "code": "MULTISELECT_@@random_code@@",
           "type": "MULTI_SELECT",
-          "groups": ["@attribute_group@"]
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes" using HTTP POST
@@ -176,7 +216,7 @@ Feature: Attribute module
       """
       {
           "type": "MULTI_SELECT",
-          "groups": ["@attribute_group@"]
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes/@multiselect_attribute@" using HTTP PUT
@@ -194,8 +234,7 @@ Feature: Attribute module
       {
           "code": "IMAGE_@@random_code@@",
           "type": "IMAGE",
-          "groups": ["@attribute_group@"],
-          "parameters": {"formats": ["jpg"]}
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes" using HTTP POST
@@ -208,8 +247,7 @@ Feature: Attribute module
       """
       {
           "type": "IMAGE",
-          "groups": ["@attribute_group@"],
-          "parameters": {"formats": ["jpg"]}
+          "groups": []
       }
       """
     When I request "/api/v1/EN/attributes/@image_attribute@" using HTTP PUT
@@ -227,8 +265,8 @@ Feature: Attribute module
       {
           "code": "DATE_@@random_code@@",
           "type": "DATE",
-          "groups": ["@attribute_group@"],
-          "parameters": {"format": "YYYY-MM-DD"}
+          "groups": [],
+          "parameters": {"format": "yyyy-MM-dd"}
       }
       """
     When I request "/api/v1/EN/attributes" using HTTP POST
@@ -241,8 +279,8 @@ Feature: Attribute module
       """
       {
           "type": "DATE",
-          "groups": ["@attribute_group@"],
-          "parameters": {"format": "YYYY-MM-DD"}
+          "groups": [],
+          "parameters": {"format": "yyyy-MM-dd"}
       }
       """
     When I request "/api/v1/EN/attributes/@date_attribute@" using HTTP PUT
@@ -260,7 +298,7 @@ Feature: Attribute module
       {
           "code": "PRICE_@@random_code@@",
           "type": "PRICE",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"currency": "PLN"}
       }
       """
@@ -274,7 +312,7 @@ Feature: Attribute module
       """
       {
           "type": "PRICE",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"currency": "PLN"}
       }
       """
@@ -293,7 +331,7 @@ Feature: Attribute module
       {
           "code": "UNIT_@@random_code@@",
           "type": "UNIT",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"unit": "M"}
       }
       """
@@ -307,7 +345,7 @@ Feature: Attribute module
       """
       {
           "type": "UNIT",
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": {"unit": "M"}
       }
       """
@@ -403,6 +441,3 @@ Feature: Attribute module
   Scenario: Get attribute currencies date formats (not authorized)
     When I request "/api/v1/EN/dictionary/date_format" using HTTP GET
     Then unauthorized response is received
-
-  # TODO Check create attribute action with all incorrect possibilities
-  # TODO Check update attribute action with all incorrect possibilities

@@ -9,10 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Persistence\Dbal\Repository;
 
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Reader\Domain\Entity\Reader;
 use Ergonode\Reader\Domain\Entity\ReaderId;
+use Ergonode\Reader\Domain\Event\ReaderDeletedEvent;
 use Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface;
 
 /**
@@ -27,24 +28,30 @@ class DbalReaderRepository implements ReaderRepositoryInterface
     private $eventStore;
 
     /**
-     * @var DomainEventDispatcherInterface
+     * @var EventBusInterface
      */
-    private $eventDispatcher;
+    private $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $eventStore
-     * @param DomainEventDispatcherInterface $eventDispatcher
+     * @param DomainEventStoreInterface $eventStore
+     * @param EventBusInterface         $eventBus
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
+    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
     {
         $this->eventStore = $eventStore;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventBus = $eventBus;
     }
 
     /**
-     * @param ReaderId $id
-     *
-     * @return Reader
+     * {@inheritDoc}
+     */
+    public function exists(ReaderId $id) : bool
+    {
+        return $this->eventStore->load($id, self::TABLE)->count() > 0;
+    }
+
+    /**
+     * {@inheritDoc}
      *
      * @throws \ReflectionException
      */
@@ -69,7 +76,7 @@ class DbalReaderRepository implements ReaderRepositoryInterface
     }
 
     /**
-     * @param Reader $aggregateRoot
+     * {@inheritDoc}
      */
     public function save(Reader $aggregateRoot): void
     {
@@ -77,17 +84,20 @@ class DbalReaderRepository implements ReaderRepositoryInterface
 
         $this->eventStore->append($aggregateRoot->getId(), $events, self::TABLE);
         foreach ($events as $envelope) {
-            $this->eventDispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
     }
 
     /**
-     * @param ReaderId $id
+     * {@inheritDoc}
      *
-     * @return bool
+     * @throws \Exception
      */
-    public function exists(ReaderId $id) : bool
+    public function delete(Reader $reader): void
     {
-        return $this->eventStore->load($id, self::TABLE)->count() > 0;
+        $reader->apply(new ReaderDeletedEvent($reader->getId()));
+        $this->save($reader);
+
+        $this->eventStore->delete($reader->getId());
     }
 }

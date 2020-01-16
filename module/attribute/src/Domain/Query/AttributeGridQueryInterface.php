@@ -12,14 +12,14 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 
 /**
- * Class DbalAttributeGridQuery
  */
 interface AttributeGridQueryInterface
 {
     /**
      * @param Language $language
+     * @param bool     $system
      *
      * @return DataSetInterface
      */
-    public function getDataSet(Language $language): DataSetInterface;
+    public function getDataSet(Language $language, bool $system = false): DataSetInterface;
 }

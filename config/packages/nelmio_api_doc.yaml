@@ -98,7 +98,7 @@ nelmio_api_doc:
                         type: boolean
                         required: true
                         example: true
-            account_upd:
+            account_update:
                 type: object
                 properties:
                     firstName:
@@ -132,6 +132,32 @@ nelmio_api_doc:
                         type: boolean
                         required: true
                         example: true
+            account_change_password:
+                type: 'object'
+                properties:
+                    password:
+                        type: 'string'
+                        required: true
+                        description: 'New password'
+                        example: 'new_password'
+                    password_repeat:
+                        type: 'string'
+                        required: true
+                        description: 'Password repeat'
+                        example: 'new_password'
+            note:
+                type: object
+                properties:
+                    object_id:
+                        type: string
+                        requied: true
+                        description: Object Id
+                        example: uuid
+                    content:
+                        type: string
+                        requied: true
+                        description: Note content
+                        example: Message
             status:
                 type: object
                 properties:
@@ -155,21 +181,46 @@ nelmio_api_doc:
                         example:
                             PL: Description PL
                             EN: Description EN
-            transition:
+            transition_create:
                 type: object
                 properties:
                     source:
                         type: string
                         requied: true
                         description: id of source status
+                        example: 9b0ceb29-26ac-4852-a602-6e5680a3a029
                     destination:
                         type: string
                         requied: true
                         description: id of destination status
-                    name:
+                        example: b54f1c5a-5891-4b74-a3c2-18c55af42070
+                    condition_set:
                         type: string
-                        requied: true
-                        description: name of transition
+                        requied: false
+                        description: id of condition set
+                        example: 5f513032-c263-4d38-a4b6-a6b53b05735a
+                    roles:
+                        type: array
+                        items:
+                            type: string
+                            description: Collection of role Ids
+                            example:
+                                    1143a5e9-11ec-5b47-b881-4099d5d066a2
+            transition_update:
+                type: object
+                properties:
+                    condition_set:
+                        type: string
+                        requied: false
+                        description: id of condition set
+                        example: 86800536-0f2a-4920-9291-f35fdcea3839
+                    roles:
+                        type: array
+                        items:
+                            type: string
+                            description: Collection of role Ids
+                            example:
+                                1143a5e9-11ec-5b47-b881-4099d5d066a2
             workflow:
                 type: object
                 properties:
@@ -190,7 +241,7 @@ nelmio_api_doc:
                             $ref: "#/definitions/transition"
                             description: list of transisiotn between statuses
                         example: []
-            tree_req:
+            tree_request:
                 type: object
                 properties:
                     code:
@@ -244,7 +295,7 @@ nelmio_api_doc:
                         example:
                             DE: Name DE
                             EN: Name EN
-            category_upd:
+            category_update:
                 type: object
                 properties:
                     name:
@@ -265,16 +316,16 @@ nelmio_api_doc:
                         type: string
                         required: true
                         description: Template Id
-                    categortyIds:
+                    categoryIds:
                         type: array
                         items:
                             type: string
                         required: false
                         description: Lista id kategorii
-            product_upd:
+            product_update:
                 type: object
                 properties:
-                    categortyIds:
+                    categoryIds:
                         type: array
                         items:
                             type: string
@@ -356,28 +407,17 @@ nelmio_api_doc:
                     description:
                         PL: 'Opis'
                         EN: 'Description'
-            languages_req:
+            languages_request:
                 type: object
                 properties:
                     collection:
                         type: array
-                        required: true
                         items:
-                            $ref: "#/definitions/language_req"
-            language_req:
-                type: object
-                properties:
-                    code:
-                        type: string
-                        required: true
-                        description: Language code
-                        example: EN
-                    active:
-                        type: bool
-                        required: true
-                        description: Show if language is enabled in the system
-                        example: true
-            language_res:
+                            type: string
+                        description: Collection of languages
+                        example:
+                                [ PL, EN ]
+            language_response:
                 type: object
                 properties:
                     id:
@@ -400,6 +440,33 @@ nelmio_api_doc:
                         required: true
                         description: Show if language is enabled in the system
                         example: true
+            attribute_group:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        required: true
+                        description: attribute group code
+                    name:
+                        type: string
+                        required: true
+                        description: attribute group name
+                example:
+                    code: 'attribute_group_code'
+                    name:
+                        PL: 'Nazwa grupy PL'
+                        EN: 'Name of group EN'
+            attribute_group_update:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                        description: attribute group name
+                example:
+                    name:
+                        PL: 'Nazwa grupy PL'
+                        EN: 'Name of group EN'
             attribute:
                 type: object
                 properties:
@@ -496,7 +563,7 @@ nelmio_api_doc:
                         type: string
                         required: true
                         description: password
-                        example: 123
+                        example: abcd1234
             role:
                 type: object
                 properties:
@@ -518,28 +585,12 @@ nelmio_api_doc:
                         description: List of role privileges
                         example:
                             [ ATTRIBUTE_CREATE, ATTRIBUTE_READ, ATTRIBUTE_UPDATE, ATTRIBUTE_DELETE]
-            conditionset_create:
+            conditionset:
                 type: 'object'
                 properties:
-                    code:
-                        type: 'string'
-                        required: true
-                        description: 'Condition code'
-                        example: 'CONDITION_CODE'
-                    name:
-                        $ref: '#/definitions/translation'
-                    description:
-                        $ref: '#/definitions/translation'
-            conditionset_update:
-                type: 'object'
-                properties:
-                    name:
-                        $ref: '#/definitions/translation'
-                    description:
-                        $ref: '#/definitions/translation'
                     conditions:
                         type: 'array'
-                        example: []
+                        example: [{"type":"OPTION_ATTRIBUTE_VALUE_CONDITION","attribute":"e45ec75b-44e2-5dd2-a558-51ed3d0af06f","value":"test"}]
             authentication:
                 type: object
                 properties:
@@ -548,6 +599,27 @@ nelmio_api_doc:
                         required: true
                         description: JWT token
                         example: eyJhbGciOiJSUzI1NiJ9.eyJyb2xlcyI6W10sInVzZXJuYW1lIjoidGVzdEBib2xkLm5ldC5wbCIsImlhdCI6MTUyODQ2MzAwOCwiZXhwIjoxNTI4NTQ5NDA4fQ
+            comment_create:
+                type: object
+                properties:
+                    content:
+                        type: string
+                        required: true
+                        description: comment text
+                        example: example comment
+                    object_id:
+                        type: string
+                        required: true
+                        description: commented object id
+                        example: d48a1e58-4bf1-5014-9cc6-b879e5f044d0
+            comment_update:
+                type: object
+                properties:
+                    content:
+                        type: string
+                        required: true
+                        description: comment text
+                        example: example comment
     areas:
         path_patterns:
             - ^/api(?!/doc$)

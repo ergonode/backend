@@ -18,10 +18,6 @@ abstract class AbstractGrid
     public const PARAMETER_ALLOW_COLUMN_RESIZE = 'allow_column_resize';
     public const PARAMETER_ALLOW_COLUMN_EDIT = 'allow_column_edit';
     public const PARAMETER_ALLOW_COLUMN_MOVE = 'allow_column_move';
-    public const CONFIGURATION_SHOW_DATA = 'DATA';
-    public const CONFIGURATION_SHOW_COLUMN = 'COLUMN';
-    public const CONFIGURATION_SHOW_INFO = 'INFO';
-    public const CONFIGURATION_SHOW_CONFIGURATION = 'CONFIGURATION';
 
     public const DEFAULT = [
         self::PARAMETER_ALLOW_COLUMN_RESIZE => false,
@@ -119,5 +115,21 @@ abstract class AbstractGrid
     public function getConfiguration(): array
     {
         return array_merge(self::DEFAULT, $this->configuration);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getField(): ?string
+    {
+        return $this->field;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrder(): string
+    {
+        return $this->order;
     }
 }

@@ -17,17 +17,19 @@ use Ramsey\Uuid\Uuid;
 class UuidFaker extends BaseProvider
 {
     /**
-     * @param string|null $uuid
+     * @param mixed $uuid
      *
      * @return string
      *
      * @throws \Exception
      */
-    public function uuid(string $uuid = null): string
+    public function uuid($uuid = null): string
     {
         if (null === $uuid) {
             $uuid = Uuid::uuid4()->toString();
         }
+
+        $uuid = (string) $uuid;
 
         if (!Uuid::isValid($uuid)) {
             throw new \InvalidArgumentException(\sprintf('Incorrect uuid %s', $uuid));

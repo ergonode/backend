@@ -7,7 +7,3 @@ services:
     Ergonode\ProductSimple\Domain\:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject}'
-
-    Ergonode\ProductSimple\Infrastructure\:
-      resource: '../../Infrastructure/*'
-      exclude: '../../Infrastructure/{Message}'

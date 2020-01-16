@@ -55,8 +55,12 @@ class TemplateIdHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, TemplateId $templateId, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        TemplateId $templateId,
+        array $type,
+        Context $context
+    ): string {
         return $templateId->getValue();
     }
 
@@ -68,8 +72,12 @@ class TemplateIdHandler implements SubscribingHandlerInterface
      *
      * @return TemplateId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): TemplateId
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): TemplateId {
         return new TemplateId($data);
     }
 }

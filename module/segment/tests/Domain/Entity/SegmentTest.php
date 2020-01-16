@@ -63,7 +63,7 @@ class SegmentTest extends TestCase
      */
     public function testSegmentCreation():void
     {
-        $segment = new Segment($this->id, $this->code, $this->conditionSetId, $this->name, $this->description);
+        $segment = new Segment($this->id, $this->code, $this->name, $this->description, $this->conditionSetId);
 
         $this->assertEquals($this->id, $segment->getId());
         $this->assertEquals($this->code, $segment->getCode());
@@ -94,7 +94,7 @@ class SegmentTest extends TestCase
         $conditionSetId = $this->createMock(ConditionSetId::class);
         $conditionSetId->method('isEqual')->willReturn(false);
 
-        $segment = new Segment($this->id, $this->code, $this->conditionSetId, $this->name, $this->description);
+        $segment = new Segment($this->id, $this->code, $this->name, $this->description, $this->conditionSetId);
         $segment->changeStatus($status);
         $segment->changeName($name);
         $segment->changeDescription($description);

@@ -50,12 +50,18 @@ class ProcessorProcess
             $this->messageBus->dispatch(new StartProcessImportLineCommand($processor->getId()));
             $lines = $this->lineRepository->findCollectionByImport($processor->getImportId());
             foreach ($lines as $line) {
-                $newCommand = new ProcessImportLineCommand($processor->getTransformerId(), json_decode($line->getContent(), true), $processor->getAction());
+                $newCommand = new ProcessImportLineCommand(
+                    $processor->getTransformerId(),
+                    json_decode($line->getContent(), true),
+                    $processor->getAction()
+                );
                 $this->messageBus->dispatch($newCommand);
             }
             $this->messageBus->dispatch(new EndProcessImportLineCommand($processor->getId()));
         } catch (\Throwable $exception) {
-            $this->messageBus->dispatch(new StopProcessImportLineCommand($processor->getId(), $exception->getMessage()));
+            $this
+                ->messageBus
+                ->dispatch(new StopProcessImportLineCommand($processor->getId(), $exception->getMessage()));
         }
     }
 }

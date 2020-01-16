@@ -18,23 +18,16 @@ class SelectFilter implements FilterInterface
     public const TYPE = 'SELECT';
 
     /**
-     * @var string
-     */
-    private $value;
-
-    /**
      * @var array;
      */
     private $options;
 
     /**
-     * @param array       $options
-     * @param string|null $value
+     * @param array $options
      */
-    public function __construct(array $options, ?string $value = null)
+    public function __construct(array $options)
     {
         $this->options = $options;
-        $this->value = $value;
     }
 
     /**
@@ -51,29 +44,5 @@ class SelectFilter implements FilterInterface
     public function getType(): string
     {
         return self::TYPE;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEqual(): bool
-    {
-        return true;
-    }
-
-    /**
-     * @return string|array[]
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param array|string $value
-     */
-    public function setValue($value): void
-    {
-        $this->value = $value;
     }
 }

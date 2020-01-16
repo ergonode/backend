@@ -23,18 +23,11 @@ class MultiSelectFilter implements FilterInterface
     private $options;
 
     /**
-     * @var array
-     */
-    private $value;
-
-    /**
      * @param array $options
-     * @param array $value
      */
-    public function __construct(array $options, array $value = [])
+    public function __construct(array $options)
     {
         $this->options = $options;
-        $this->value = $value;
     }
 
     /**
@@ -51,29 +44,5 @@ class MultiSelectFilter implements FilterInterface
     public function getType(): string
     {
         return self::TYPE;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEqual(): bool
-    {
-        return false;
-    }
-
-    /**
-     * @return string|array[]
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param array|string $value
-     */
-    public function setValue($value): void
-    {
-        $this->value = $value;
     }
 }

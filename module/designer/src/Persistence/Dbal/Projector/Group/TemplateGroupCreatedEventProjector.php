@@ -10,15 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Projector\Group;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Event\Group\TemplateGroupCreatedEvent;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class TemplateGroupCreatedEventProjector implements DomainEventProjectorInterface
+class TemplateGroupCreatedEventProjector
 {
     private const TABLE = 'designer.template';
 
@@ -38,24 +34,12 @@ class TemplateGroupCreatedEventProjector implements DomainEventProjectorInterfac
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(TemplateGroupCreatedEvent $event): void
     {
-        return $event instanceof TemplateGroupCreatedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof TemplateGroupCreatedEvent) {
-            throw new UnsupportedEventException($event, TemplateGroupCreatedEvent::class);
-        }
-
         $this->connection->insert(
             self::TABLE,
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
                 'name' => $event->getName(),
             ]
         );

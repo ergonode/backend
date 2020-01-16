@@ -9,13 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Factory\Decorator;
 
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
+use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
+use Ergonode\Workflow\Domain\Entity\Workflow;
+use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 
 /**
  */
@@ -27,18 +29,18 @@ class StatusProductFactoryDecorator implements ProductFactoryInterface
     private $factory;
 
     /**
-     * @var StatusQueryInterface
+     * @var WorkflowRepositoryInterface
      */
-    private $query;
+    private $repository;
 
     /**
-     * @param ProductFactoryInterface $factory
-     * @param StatusQueryInterface    $query
+     * @param ProductFactoryInterface     $factory
+     * @param WorkflowRepositoryInterface $repository
      */
-    public function __construct(ProductFactoryInterface $factory, StatusQueryInterface $query)
+    public function __construct(ProductFactoryInterface $factory, WorkflowRepositoryInterface $repository)
     {
         $this->factory = $factory;
-        $this->query = $query;
+        $this->repository = $repository;
     }
 
     /**
@@ -52,22 +54,26 @@ class StatusProductFactoryDecorator implements ProductFactoryInterface
     }
 
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param ProductId $id
+     * @param Sku       $sku
+     * @param array     $categories
+     * @param array     $attributes
      *
      * @return AbstractProduct
+     *
+     * @throws \Exception
      */
-    public function create(ProductId $id, Sku $sku, TemplateId $templateId, array $categories = [], array $attributes = []): AbstractProduct
-    {
-        $statuses = $this->query->getAllCodes();
-        if (!empty($statuses)) {
-            $statusCode = reset($statuses);
-            $attributes[AbstractProduct::STATUS] = new StringValue($statusCode);
+    public function create(
+        ProductId $id,
+        Sku $sku,
+        array $categories = [],
+        array $attributes = []
+    ): AbstractProduct {
+        $workflow = $this->repository->load(WorkflowId::fromCode(Workflow::DEFAULT));
+        if ($workflow && $workflow->hasDefaultStatus()) {
+            $attributes[StatusSystemAttribute::CODE] = new StringValue($workflow->getDefaultStatus()->getValue());
         }
 
-        return $this->factory->create($id, $sku, $templateId, $categories, $attributes);
+        return $this->factory->create($id, $sku, $categories, $attributes);
     }
 }

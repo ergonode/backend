@@ -10,35 +10,42 @@ declare(strict_types = 1);
 namespace Ergonode\Grid\Column;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Grid\FilterInterface;
 
 /**
- * Class TranslatableColumn
  */
 class TranslatableColumn extends AbstractColumn
 {
     public const TYPE = 'TEXT';
 
     /**
-     * @var Language
+     * @var string|null
      */
-    private $language;
+    private $parameters;
 
     /**
-     * @param string               $field
-     * @param string               $label
-     * @param Language             $language
-     * @param FilterInterface|null $filter
+     * @var string|null
      */
-    public function __construct(string $field, string $label, Language $language, ?FilterInterface $filter = null)
-    {
-        parent::__construct($field, $label, $filter);
-        $this->language = $language;
+    private $domain;
+
+    /**
+     * @param string      $field
+     * @param string      $label
+     * @param string|null $parameters
+     * @param string|null $domain
+     */
+    public function __construct(
+        string $field,
+        string $label,
+        string $parameters = null,
+        string $domain = null
+    ) {
+        parent::__construct($field, $label);
+        $this->parameters = $parameters;
+        $this->domain = $domain;
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getType(): string
     {
@@ -46,15 +53,18 @@ class TranslatableColumn extends AbstractColumn
     }
 
     /**
-     * @param string $id
-     * @param array  $row
-     *
-     * @return null|string
+     * @return string|null
      */
-    public function render(string $id, array $row): ?string
+    public function getParameters(): ?string
     {
-        $string = new TranslatableString(\json_decode($row[$id] ?? '[]', true));
+        return $this->parameters;
+    }
 
-        return $string->get($this->language);
+    /**
+     * @return string|null
+     */
+    public function getDomain(): ?string
+    {
+        return $this->domain;
     }
 }

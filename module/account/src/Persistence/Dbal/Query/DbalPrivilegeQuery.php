@@ -17,11 +17,13 @@ use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
  */
 class DbalPrivilegeQuery implements PrivilegeQueryInterface
 {
-    public const TABLE = 'privileges';
+    public const PRIVILEGES_TABLE = 'privileges';
+    public const PRIVILEGES_GROUP_TABLE = 'privileges_group';
     public const FIELDS = [
-        'id',
-        'code',
-        'area',
+        'p.id',
+        'p.code',
+        'p.area',
+        'g.description',
     ];
 
     /**
@@ -38,15 +40,20 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
     }
 
     /**
+     * @param bool $hidden
+     *
      * @return array
      */
-    public function getPrivileges(): array
+    public function getPrivileges(bool $hidden = false): array
     {
         $qb = $this->getQuery();
 
-        return $qb
-            ->execute()
-            ->fetchAll();
+        if (false === $hidden) {
+            $qb->andWhere($qb->expr()->eq('active', ':active'))
+                ->setParameter(':active', 'true', \PDO::PARAM_BOOL);
+        }
+
+        return $qb->execute()->fetchAll();
     }
 
     /**
@@ -56,6 +63,7 @@ class DbalPrivilegeQuery implements PrivilegeQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select(self::FIELDS)
-            ->from(self::TABLE);
+            ->from(self::PRIVILEGES_TABLE, 'p')
+            ->leftJoin('p', self::PRIVILEGES_GROUP_TABLE, 'g', 'g.area = p.area');
     }
 }

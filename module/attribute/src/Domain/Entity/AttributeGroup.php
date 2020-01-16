@@ -10,7 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity;
 
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent;
+use Ergonode\Attribute\Domain\Event\Group\AttributeGroupNameChangedEvent;
+use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
@@ -23,17 +26,37 @@ class AttributeGroup extends AbstractAggregateRoot
     private $id;
 
     /**
-     * @var string
+     * @var AttributeGroupCode
      */
-    private $label;
+    private $code;
 
     /**
-     * @param AttributeGroupId $id
-     * @param string           $label
+     * @var TranslatableString
      */
-    public function __construct(AttributeGroupId $id, string $label)
+    private $name;
+
+    /**
+     * @param AttributeGroupId   $id
+     * @param AttributeGroupCode $code
+     * @param TranslatableString $name
+     *
+     * @throws \Exception
+     */
+    public function __construct(AttributeGroupId $id, AttributeGroupCode $code, TranslatableString $name)
     {
-        $this->apply(new AttributeGroupCreatedEvent($id, $label));
+        $this->apply(new AttributeGroupCreatedEvent($id, $code, $name));
+    }
+
+    /**
+     * @param TranslatableString $name
+     *
+     * @throws \Exception
+     */
+    public function changeName(TranslatableString $name): void
+    {
+        if (!$name->isEqual($this->name)) {
+            $this->apply(new AttributeGroupNameChangedEvent($this->id, $this->name, $name));
+        }
     }
 
     /**
@@ -45,19 +68,36 @@ class AttributeGroup extends AbstractAggregateRoot
     }
 
     /**
-     * @return string
+     * @return AttributeGroupCode
      */
-    public function getLabel(): string
+    public function getCode(): AttributeGroupCode
     {
-        return $this->label;
+        return $this->code;
+    }
+
+    /**
+     * @return TranslatableString
+     */
+    public function getName(): TranslatableString
+    {
+        return $this->name;
     }
 
     /**
      * @param AttributeGroupCreatedEvent $event
      */
-    protected function app(AttributeGroupCreatedEvent $event): void
+    protected function applyAttributeGroupCreatedEvent(AttributeGroupCreatedEvent $event): void
     {
-        $this->id = $event->getId();
-        $this->label = $event->getLabel();
+        $this->id = $event->getAggregateId();
+        $this->code = $event->getCode();
+        $this->name = $event->getName();
+    }
+
+    /**
+     * @param AttributeGroupNameChangedEvent $event
+     */
+    protected function applyAttributeGroupNameChangedEvent(AttributeGroupNameChangedEvent $event): void
+    {
+        $this->name = $event->getTo();
     }
 }

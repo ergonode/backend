@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Reader\Domain\Entity\ReaderId;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
@@ -16,7 +17,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CreateFileImportCommand
+class CreateFileImportCommand implements DomainCommandInterface
 {
     /**
      * @var ImportId
@@ -69,8 +70,13 @@ class CreateFileImportCommand
      *
      * @throws \Exception
      */
-    public function __construct(string $name, string $fileName, ReaderId $readerId, TransformerId $transformerId, string $action)
-    {
+    public function __construct(
+        string $name,
+        string $fileName,
+        ReaderId $readerId,
+        TransformerId $transformerId,
+        string $action
+    ) {
         $this->id = ImportId::generate();
         $this->name = $name;
         $this->filename = $fileName;

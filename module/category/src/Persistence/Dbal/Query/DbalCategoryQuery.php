@@ -103,8 +103,14 @@ class DbalCategoryQuery implements CategoryQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->addSelect('t.elements_count')
+            ->addSelect('COALESCE(t.elements_count, 0) AS elements_count')
             ->from(self::CATEGORY_TABLE, 'c')
-            ->leftJoin('c', '(SELECT count(*) as elements_count, pcp.category_id FROM product_category_product pcp GROUP BY pcp.category_id)', 't', 't.category_id = c.id');
+            ->leftJoin(
+                'c',
+                '(SELECT count(*) as elements_count, pcp.category_id FROM '.
+                'product_category_product pcp GROUP BY pcp.category_id)',
+                't',
+                't.category_id = c.id'
+            );
     }
 }

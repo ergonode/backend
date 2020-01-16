@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 
 /**
  */
-class ProductDeletedEventProjector implements DomainEventProjectorInterface
+class ProductDeletedEventProjector
 {
     private const TABLE = 'product';
 
@@ -36,26 +33,16 @@ class ProductDeletedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param ProductDeletedEvent $event
+     *
+     * @throws DBALException
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(ProductDeletedEvent $event): void
     {
-        return $event instanceof ProductDeletedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof ProductDeletedEvent) {
-            throw new UnsupportedEventException($event, ProductDeletedEvent::class);
-        }
-
         $this->connection->delete(
             self::TABLE,
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

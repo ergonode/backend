@@ -11,6 +11,8 @@ namespace Ergonode\Grid\Renderer;
 
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\ColumnInterface;
+use Ergonode\Grid\GridConfigurationInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -22,62 +24,84 @@ class ColumnRenderer
     private $filterRenderer;
 
     /**
-     * @param FilterRenderer $filterRenderer
+     * @var TranslatorInterface
      */
-    public function __construct(FilterRenderer $filterRenderer)
+    private $translator;
+
+    /**
+     * @param FilterRenderer      $filterRenderer
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(FilterRenderer $filterRenderer, TranslatorInterface $translator)
     {
         $this->filterRenderer = $filterRenderer;
+        $this->translator = $translator;
     }
 
     /**
-     * @param AbstractGrid $grid
-     * @param array        $row
+     * @param AbstractGrid               $grid
+     * @param GridConfigurationInterface $configuration
      *
      * @return array
      */
-    public function render(AbstractGrid $grid, array $row): array
+    public function render(AbstractGrid $grid, GridConfigurationInterface $configuration): array
     {
         $result = [];
         foreach ($grid->getColumns() as $id => $column) {
-            $result[] = $this->renderColumn($id, $column, $grid->getConfiguration());
+            $result[] = $this->renderColumn($id, $column, $configuration, $grid->getConfiguration());
         }
 
         return $result;
     }
 
     /**
-     * @param string          $id
-     * @param ColumnInterface $column
-     * @param array           $configuration
+     * @param string                     $id
+     * @param ColumnInterface            $column
+     * @param GridConfigurationInterface $gridConfiguration
+     * @param array                      $configuration
      *
      * @return array
      */
-    public function renderColumn(string $id, ColumnInterface $column, array $configuration): array
-    {
+    public function renderColumn(
+        string $id,
+        ColumnInterface $column,
+        GridConfigurationInterface $gridConfiguration,
+        array $configuration
+    ): array {
         $result = [];
-        $result['id'] = $id;
-        if ($column->getLanguage()) {
-            $result['id'] = sprintf('%s:%s', $column->getField(), $column->getLanguage()->getCode());
+
+        if ($column->hasLanguage()) {
+            $result['language'] = $column->getLanguage() ? $column->getLanguage()->getCode() : null;
+            $result['id'] = sprintf('%s:%s', $column->getField(), $result['language']);
+        } else {
+            $result['id'] = $id;
         }
+
         $result['type'] = $column->getType();
-        $result['label'] = $column->getLabel();
+        $result['label'] = $column->getLabel() ? $this->translator->trans($column->getLabel(), [], 'grid') : null;
         $result['visible'] = $column->isVisible();
-        if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) && $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true) {
+
+        if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) &&
+            $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true
+        ) {
             $result['editable'] = $column->isEditable();
         } else {
             $result['editable'] = false;
         }
 
-        if ($column->getLanguage()) {
-            $result['language'] = $column->getLanguage()->getCode();
+        if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) &&
+            $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true
+        ) {
+            $result['deletable'] = $column->isDeletable();
+        } else {
+            $result['deletable'] = false;
         }
 
         if ($column->getFilter()) {
-            $result['filter'] = $this->filterRenderer->render($column->getFilter());
-        }
-
-        if ($column->getWidth()) {
-            $result['width'] = $column->getWidth();
+            $result['filter'] =
+                $this
+                    ->filterRenderer
+                    ->render($column->getField(), $column->getFilter(), $gridConfiguration->getFilters());
         }
 
         foreach ($column->getExtensions() as $key => $value) {

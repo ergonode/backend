@@ -10,8 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Model\RequestColumn;
-use Ergonode\Grid\Request\FilterCollection;
+use Ergonode\Grid\Request\FilterValue;
+use Ergonode\Grid\Request\FilterValueCollection;
+use Ergonode\Grid\Request\RequestColumn;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 
@@ -20,12 +21,11 @@ use Webmozart\Assert\Assert;
 class RequestGridConfiguration implements GridConfigurationInterface
 {
     public const OFFSET = 0;
-    public const LIMIT = 50;
+    public const LIMIT = 1000;
     public const ASC = 'ASC';
     public const DESC = 'DESC';
     public const FILTER = null;
     public const COLUMNS = null;
-    public const SHOW = 'COLUMN, DATA, CONFIGURATION, INFO';
 
     private const ORDER = [
         self::ASC,
@@ -63,9 +63,14 @@ class RequestGridConfiguration implements GridConfigurationInterface
     private $columns;
 
     /**
-     * @var array
+     * @var string
      */
-    private $show;
+    private $view;
+
+    /**
+     * @var bool
+     */
+    private $extended;
 
     /**
      * @param Request $request
@@ -78,6 +83,16 @@ class RequestGridConfiguration implements GridConfigurationInterface
         $this->offset = (int) $request->query->get('offset', self::OFFSET);
         $this->field = $request->query->has('field') ? (string) $request->query->get('field') : null;
         $this->order = strtoupper($request->query->get('order', self::DESC));
+
+        $filters = $request->query->get('filter', self::FILTER);
+        $this->filters = new FilterValueCollection($filters);
+        foreach ($this->filters as $key => $elements) {
+            /** @var FilterValue $element */
+            foreach ($elements as $element) {
+                $this->columns[$key] = new RequestColumn($element->getColumn(), $element->getLanguage(), false);
+            }
+        }
+
         if ($request->query->has('columns')) {
             $columns = array_map('trim', explode(',', $request->query->get('columns')));
             foreach ($columns as $column) {
@@ -96,10 +111,8 @@ class RequestGridConfiguration implements GridConfigurationInterface
             }
         }
 
-        $filters = $request->query->get('filter', self::FILTER);
-        $this->filters = new FilterCollection($filters);
-
-        $this->show = array_map('trim', explode(',', $request->query->get('show', self::SHOW)));
+        $this->view = $request->query->get('view', GridConfigurationInterface::VIEW_GRID);
+        $this->extended = $request->query->has('extended') ? true : false;
         Assert::oneOf($this->order, self::ORDER);
     }
 
@@ -136,9 +149,9 @@ class RequestGridConfiguration implements GridConfigurationInterface
     }
 
     /**
-     * @return FilterCollection
+     * @return FilterValueCollection
      */
-    public function getFilters(): FilterCollection
+    public function getFilters(): FilterValueCollection
     {
         return $this->filters;
     }
@@ -152,10 +165,18 @@ class RequestGridConfiguration implements GridConfigurationInterface
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getShow(): array
+    public function getView(): string
     {
-        return $this->show;
+        return $this->view;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExtended(): bool
+    {
+        return $this->extended;
     }
 }

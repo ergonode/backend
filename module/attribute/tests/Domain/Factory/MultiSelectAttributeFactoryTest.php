@@ -24,6 +24,8 @@ class MultiSelectAttributeFactoryTest extends TestCase
      */
     private $createCommand;
 
+    /**
+     */
     protected function setUp()
     {
         $this->createCommand = $this->createMock(CreateAttributeCommand::class);
@@ -37,7 +39,7 @@ class MultiSelectAttributeFactoryTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new MultiSelectAttributeFactory();
-        $this->assertTrue($strategy->isSupported(new AttributeType(MultiSelectAttribute::TYPE)));
+        $this->assertTrue($strategy->supports(new AttributeType(MultiSelectAttribute::TYPE)));
     }
 
     /**
@@ -45,7 +47,7 @@ class MultiSelectAttributeFactoryTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new MultiSelectAttributeFactory();
-        $this->assertFalse($strategy->isSupported(new AttributeType('NOT-MATH')));
+        $this->assertFalse($strategy->supports(new AttributeType('NOT-MATH')));
     }
 
     /**

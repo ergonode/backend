@@ -10,8 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Application\DependencyInjection;
 
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeColumnStrategyStrategyCompilerPass;
+use Ergonode\Product\Application\DependencyInjection\CompilerPass\AttributeDataSetQueryBuilderCompilerPass;
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductFactoryProviderCompilerPass;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
+use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -40,10 +42,13 @@ class ErgonodeProductExtension extends Extension
             ->registerForAutoconfiguration(AttributeColumnStrategyInterface::class)
             ->addTag(AttributeColumnStrategyStrategyCompilerPass::TAG);
 
-
         $container
             ->registerForAutoconfiguration(ProductFactoryInterface::class)
             ->addTag(ProductFactoryProviderCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(AttributeDataSetQueryBuilderInterface::class)
+            ->addTag(AttributeDataSetQueryBuilderCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

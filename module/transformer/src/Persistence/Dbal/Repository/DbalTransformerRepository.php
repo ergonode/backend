@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\Transformer\Domain\Event\TransformerDeletedEvent;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 
 /**
@@ -28,24 +29,22 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
     private $eventStore;
 
     /**
-     * @var DomainEventDispatcherInterface
+     * @var EventBusInterface
      */
-    private $eventDispatcher;
+    private $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $eventStore
-     * @param DomainEventDispatcherInterface $eventDispatcher
+     * @param DomainEventStoreInterface $eventStore
+     * @param EventBusInterface         $eventBus
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
+    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
     {
         $this->eventStore = $eventStore;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventBus = $eventBus;
     }
 
     /**
-     * @param TransformerId $id
-     *
-     * @return null|AbstractAggregateRoot|Transformer
+     * {@inheritDoc}
      *
      * @throws \ReflectionException
      */
@@ -69,9 +68,7 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
     }
 
     /**
-     * @param TransformerId $id
-     *
-     * @return bool
+     * {@inheritDoc}
      */
     public function exists(TransformerId $id): bool
     {
@@ -81,7 +78,7 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * {@inheritDoc}
      */
     public function save(AbstractAggregateRoot $aggregateRoot): void
     {
@@ -89,7 +86,20 @@ class DbalTransformerRepository implements TransformerRepositoryInterface
 
         $this->eventStore->append($aggregateRoot->getId(), $events, self::TABLE);
         foreach ($events as $envelope) {
-            $this->eventDispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Exception
+     */
+    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    {
+        $aggregateRoot->apply(new TransformerDeletedEvent($aggregateRoot->getId()));
+        $this->save($aggregateRoot);
+
+        $this->eventStore->delete($aggregateRoot->getId());
     }
 }

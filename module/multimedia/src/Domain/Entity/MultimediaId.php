@@ -19,12 +19,14 @@ class MultimediaId extends AbstractId
     public const NAMESPACE = '690c9b97-57bc-4c71-9b62-37093c578836';
 
     /**
-     * @param \SplFileInfo $file
+     * @param string $value
      *
      * @return MultimediaId
+     *
+     * @throws \Exception
      */
-    public static function createFromFile(\SplFileInfo $file): self
+    public static function fromKey(string $value): MultimediaId
     {
-        return new self(Uuid::uuid5(self::NAMESPACE, sha1_file($file->getRealPath()))->toString());
+        return new static(Uuid::uuid5(self::NAMESPACE, $value)->toString());
     }
 }

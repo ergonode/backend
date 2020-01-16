@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Application\Form;
 
 use Ergonode\Core\Application\Form\Type\LanguageConfigurationFormType;
+use Ergonode\Core\Application\Form\Type\LanguageType;
 use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -31,7 +32,7 @@ class LanguageCollectionForm extends AbstractType
                 'collection',
                 CollectionType::class,
                 [
-                    'entry_type' => LanguageConfigurationFormType::class,
+                    'entry_type' => LanguageType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
                 ]

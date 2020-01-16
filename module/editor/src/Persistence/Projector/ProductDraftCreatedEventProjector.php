@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Editor\Domain\Event\ProductDraftCreated;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class ProductDraftCreatedEventProjector implements DomainEventProjectorInterface
+class ProductDraftCreatedEventProjector
 {
     private const DRAFT_TABLE = 'designer.draft';
 
@@ -36,28 +33,18 @@ class ProductDraftCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param ProductDraftCreated $event
+     *
+     * @throws DBALException
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(ProductDraftCreated $event): void
     {
-        return $event instanceof ProductDraftCreated;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof ProductDraftCreated) {
-            throw new UnsupportedEventException($event, ProductDraftCreated::class);
-        }
-
         $this->connection->insert(
             self::DRAFT_TABLE,
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
                 'product_id' => $event->getProductId() ? $event->getProductId()->getValue() : null,
-                'type' => $event->getProductId() ? 'EDITED': 'NEW',
+                'type' => $event->getProductId() ? 'EDITED' : 'NEW',
             ]
         );
     }

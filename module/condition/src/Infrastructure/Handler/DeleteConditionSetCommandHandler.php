@@ -11,6 +11,8 @@ namespace Ergonode\Condition\Infrastructure\Handler;
 
 use Ergonode\Condition\Domain\Command\DeleteConditionSetCommand;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
+use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -23,11 +25,20 @@ class DeleteConditionSetCommandHandler
     private $repository;
 
     /**
-     * @param ConditionSetRepositoryInterface $repository
+     * @var RelationshipsResolverInterface
      */
-    public function __construct(ConditionSetRepositoryInterface $repository)
-    {
+    private $relationshipsResolver;
+
+    /**
+     * @param ConditionSetRepositoryInterface $repository
+     * @param RelationshipsResolverInterface  $relationshipsResolver
+     */
+    public function __construct(
+        ConditionSetRepositoryInterface $repository,
+        RelationshipsResolverInterface $relationshipsResolver
+    ) {
         $this->repository = $repository;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
     /**
@@ -35,10 +46,15 @@ class DeleteConditionSetCommandHandler
      *
      * @throws \Exception
      */
-    public function __invoke(DeleteConditionSetCommand $command)
+    public function __invoke(DeleteConditionSetCommand $command): void
     {
         $conditionSet = $this->repository->load($command->getId());
         Assert::notNull($conditionSet);
+
+        $relationships = $this->relationshipsResolver->resolve($command->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsException($command->getId());
+        }
 
         $this->repository->delete($conditionSet);
     }

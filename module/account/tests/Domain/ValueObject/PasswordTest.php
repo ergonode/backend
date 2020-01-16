@@ -29,7 +29,7 @@ class PasswordTest extends TestCase
     }
 
     /**
-     * @param string
+     * @param string $value
      *
      * @expectedException \InvalidArgumentException
      *
@@ -48,7 +48,7 @@ class PasswordTest extends TestCase
         return [
             [
                 // minimal length
-                'Any correct password'
+                'Any correct password',
             ],
             [
                 // minimal length
@@ -57,7 +57,7 @@ class PasswordTest extends TestCase
             [
                 // maximal length
                 str_repeat('a', 32),
-            ]
+            ],
         ];
     }
 
@@ -74,7 +74,7 @@ class PasswordTest extends TestCase
             [
                 // to long value
                 str_repeat('a', 33),
-            ]
+            ],
         ];
     }
 }

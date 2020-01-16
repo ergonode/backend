@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Provider;
 
@@ -38,7 +38,7 @@ class AttributeFactoryProviderTest extends TestCase
     {
         /** @var AttributeFactoryInterface|MockObject $factory */
         $factory = $this->createMock(AttributeFactoryInterface::class);
-        $factory->method('isSupported')->willReturn(true);
+        $factory->method('supports')->willReturn(true);
 
         $provider = new AttributeFactoryProvider(...[$factory]);
         $result = $provider->provide($this->type);
@@ -52,7 +52,7 @@ class AttributeFactoryProviderTest extends TestCase
     {
         /** @var AttributeFactoryInterface|MockObject $factory */
         $factory = $this->createMock(AttributeFactoryInterface::class);
-        $factory->method('isSupported')->willReturn(false);
+        $factory->method('supports')->willReturn(false);
 
         $provider = new AttributeFactoryProvider(...[$factory]);
         $provider->provide($this->type);

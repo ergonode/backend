@@ -1,0 +1,28 @@
+parameters:
+    multimedia_directory: '%kernel.project_dir%/public/multimedia/'
+
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\Notification\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Notification\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Notification\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Message}'
+
+    Ergonode\Notification\Application\Controller\:
+        resource: '../../Application/Controller/*'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Notification\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Notification\Domain\Query\NotificationQueryInterface: '@Ergonode\Notification\Persistence\Dbal\Query\DbalNotificationQuery'

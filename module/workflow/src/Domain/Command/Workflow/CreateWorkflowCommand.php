@@ -9,15 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Command\Workflow;
 
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\Transition;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class CreateWorkflowCommand
+class CreateWorkflowCommand implements DomainCommandInterface
 {
     /**
      * @var WorkflowId
@@ -34,35 +34,25 @@ class CreateWorkflowCommand
     private $code;
 
     /**
-     * @var StatusId[]
+     * @var StatusCode[]
      *
-     * @JMS\Type("array<Ergonode\Workflow\Domain\Entity\StatusId>")
+     * @JMS\Type("array<Ergonode\Workflow\Domain\ValueObject\StatusCode>")
      */
     private $statuses;
 
     /**
-     * @var Transition[]
-     *
-     * @JMS\Type("array<Ergonode\Workflow\Domain\ValueObject\Transition>")
-     */
-    private $transitions;
-
-    /**
      * @param string $code
      * @param array  $statuses
-     * @param array  $transitions
      *
      * @throws \Exception
      */
-    public function __construct(string $code, array $statuses = [], array $transitions = [])
+    public function __construct(string $code, array $statuses = [])
     {
-        Assert::allIsInstanceOf($statuses, StatusId::class);
-        Assert::allIsInstanceOf($transitions, Transition::class);
+        Assert::allIsInstanceOf($statuses, StatusCode::class);
 
         $this->id = WorkflowId::fromCode($code);
         $this->code = $code;
         $this->statuses = $statuses;
-        $this->transitions = $transitions;
     }
 
     /**
@@ -82,18 +72,10 @@ class CreateWorkflowCommand
     }
 
     /**
-     * @return StatusId[]
+     * @return StatusCode[]
      */
     public function getStatuses(): array
     {
         return $this->statuses;
-    }
-
-    /**
-     * @return Transition[]
-     */
-    public function getTransitions(): array
-    {
-        return $this->transitions;
     }
 }

@@ -9,8 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Workflow;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -18,25 +20,43 @@ use JMS\Serializer\Annotation as JMS;
 class WorkflowStatusAddedEvent implements DomainEventInterface
 {
     /**
-     * @var StatusId
+     * @var WorkflowId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
+     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
      */
     private $id;
 
     /**
-     * @param StatusId $id
+     * @var StatusCode
+     *
+     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
-    public function __construct(StatusId $id)
+    private $code;
+
+    /**
+     * @param WorkflowId $id
+     * @param StatusCode $code
+     */
+    public function __construct(WorkflowId $id, StatusCode $code)
     {
         $this->id = $id;
+        $this->code = $code;
     }
 
     /**
-     * @return StatusId
+     * @return AbstractId|WorkflowId
      */
-    public function getId(): StatusId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
+    }
+
+
+    /**
+     * @return StatusCode
+     */
+    public function getCode(): StatusCode
+    {
+        return $this->code;
     }
 }

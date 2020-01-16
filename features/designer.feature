@@ -1,11 +1,5 @@
 Feature: Designer module
 
-  Scenario: Get attribute groups dictionary
-    Given current authentication token
-    When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
-    Then the response code is 200
-    And remember first attribute group as "attribute_group"
-
   Scenario: Create text attribute
     Given current authentication token
     Given the request body is:
@@ -14,7 +8,7 @@ Feature: Designer module
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
           "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": []
       }
       """
@@ -22,20 +16,12 @@ Feature: Designer module
     Then created response is received
     And remember response param "id" as "template_text_attribute"
 
-  Scenario: Create image attribute
+  Scenario: Multimedia upload image
     Given current authentication token
-    Given the request body is:
-      """
-      {
-          "code": "IMAGE_@@random_code@@",
-          "type": "IMAGE",
-          "groups": ["@attribute_group@"],
-          "parameters": {"formats": ["jpg"]}
-      }
-      """
-    When I request "/api/v1/EN/attributes" using HTTP POST
+    Given I attach "features/image/test.jpg" to the request as "upload"
+    When I request "/api/v1/multimedia/upload" using HTTP POST
     Then created response is received
-    And remember response param "id" as "template_image_attribute"
+    And remember response param "id" as "multimedia_id"
 
   Scenario: Create template
     Given current authentication token
@@ -43,7 +29,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -96,7 +82,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": "test", "y": 0},
@@ -120,7 +106,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -144,7 +130,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -168,7 +154,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -192,7 +178,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 10, "y": 10},
@@ -249,7 +235,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": "test", "y": 10},
@@ -273,7 +259,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 10, "y": 10},
@@ -297,7 +283,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 10, "y": 10},
@@ -321,7 +307,7 @@ Feature: Designer module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@template_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 10, "y": 10},
@@ -338,11 +324,6 @@ Feature: Designer module
       """
     When I request "/api/v1/EN/templates/@template@" using HTTP PUT
     Then validation error response is received
-
-  Scenario: Delete template
-    Given current authentication token
-    When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
-    Then empty response is received
 
   Scenario: Delete template (not authorized)
     When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
@@ -484,7 +465,6 @@ Feature: Designer module
     When I request "/api/v1/EN/templates/types" using HTTP GET
     Then unauthorized response is received
 
-
   Scenario: Get templates types (order by type)
     Given current authentication token
     When I request "/api/v1/EN/templates/types?field=type" using HTTP GET
@@ -570,3 +550,7 @@ Feature: Designer module
     When I request "/api/v1/EN/templates/types?limit=25&offset=0&filter=min_height%3D4fbba5a0-61c7-5dc8-ba1b-3314f398bfa2" using HTTP GET
     Then grid response is received
 
+  Scenario: Delete template
+    Given current authentication token
+    When I request "/api/v1/EN/templates/@template@" using HTTP DELETE
+    Then empty response is received

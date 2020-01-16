@@ -20,11 +20,9 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 class TextareaAttributeFactory implements AttributeFactoryInterface
 {
     /**
-     * @param AttributeType $type
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(AttributeType $type): bool
+    public function supports(AttributeType $type): bool
     {
         return TextareaAttribute::TYPE === $type->getValue();
     }
@@ -42,9 +40,7 @@ class TextareaAttributeFactory implements AttributeFactoryInterface
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual(),
-            [],
-            $command->isSystem()
+            $command->isMultilingual()
         );
     }
 }

@@ -17,8 +17,6 @@ use Ergonode\Designer\Domain\Entity\TemplateId;
  */
 interface TemplateGeneratorInterface
 {
-
-
     /**
      * @param TemplateId      $id
      * @param TemplateGroupId $groupId

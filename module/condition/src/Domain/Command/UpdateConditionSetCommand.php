@@ -9,15 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Command;
 
-use Ergonode\Condition\Domain\Condition\ConditionInterface;
+use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class UpdateConditionSetCommand
+class UpdateConditionSetCommand implements DomainCommandInterface
 {
     /**
      * @var ConditionSetId
@@ -27,43 +27,21 @@ class UpdateConditionSetCommand
     private $id;
 
     /**
-     * @var TranslatableString|null
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
-    private $name;
-
-    /**
-     * @var TranslatableString|null
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
-    private $description;
-
-    /**
      * @var ConditionInterface[]
      *
-     * @JMS\Type("array<Ergonode\Condition\Domain\Condition\ConditionInterface>")
+     * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
     private $conditions;
 
     /**
-     * @param ConditionSetId          $id
-     * @param array                   $conditions
-     * @param TranslatableString|null $name
-     * @param TranslatableString|null $description
+     * @param ConditionSetId $id
+     * @param array          $conditions
      */
-    public function __construct(
-        ConditionSetId $id,
-        array $conditions,
-        ?TranslatableString $name = null,
-        ?TranslatableString $description = null
-    ) {
+    public function __construct(ConditionSetId $id, array $conditions = [])
+    {
         Assert::allIsInstanceOf($conditions, ConditionInterface::class);
 
         $this->id = $id;
-        $this->name = $name;
-        $this->description = $description;
         $this->conditions = $conditions;
     }
 
@@ -73,38 +51,6 @@ class UpdateConditionSetCommand
     public function getId(): ConditionSetId
     {
         return $this->id;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasName(): bool
-    {
-        return $this->name instanceof TranslatableString;
-    }
-
-    /**
-     * @return TranslatableString|null
-     */
-    public function getName(): ?TranslatableString
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasDescription(): bool
-    {
-        return $this->description instanceof TranslatableString;
-    }
-
-    /**
-     * @return TranslatableString|null
-     */
-    public function getDescription(): ?TranslatableString
-    {
-        return $this->description;
     }
 
     /**

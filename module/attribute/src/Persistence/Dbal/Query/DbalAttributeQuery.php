@@ -22,6 +22,7 @@ use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
 use Ergonode\Attribute\Domain\View\Factory\AttributeViewModelFactory;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
@@ -229,7 +230,8 @@ class DbalAttributeQuery implements AttributeQueryInterface
     public function getDictionary(array $types = []): array
     {
         $qb = $this->getQuery()
-            ->select('id, code');
+            ->select('id, code')
+            ->andWhere('system = false');
 
         if ($types) {
             $qb->andWhere($qb->expr()->in('type', ':types'))
@@ -244,9 +246,9 @@ class DbalAttributeQuery implements AttributeQueryInterface
     /**
      * @param AttributeId $attributeId
      *
-     * @return array
+     * @return Range
      */
-    public function getAttributeValueRange(AttributeId $attributeId): array
+    public function getAttributeValueRange(AttributeId $attributeId): Range
     {
         $qb = $this->connection->createQueryBuilder();
 
@@ -259,10 +261,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->execute()
             ->fetch();
 
-        $result['min'] = (float) $result['min'];
-        $result['max'] = (float) $result['max'];
-
-        return $result;
+        return new Range((float) $result['min'], (float) $result['max']);
     }
 
     /**
@@ -360,8 +359,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select('id, code, type')
-            ->from(self::TABLE, 'a')
-            ->where('system = false');
+            ->from(self::TABLE, 'a');
     }
 
     /**

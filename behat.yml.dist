@@ -8,17 +8,17 @@ default:
                     kernel: '@kernel'
                 - AuthenticationContext:
                     username: 'test@ergonode.com'
-                    password: '123'
+                    password: 'abcd1234'
                 - AttributeContext:
 
     extensions:
+        App\Tests\Behat\Extension\EnvVarProcessorExtension: ~
         Behat\Symfony2Extension:
             kernel:
                 bootstrap: 'features/bootstrap/bootstrap.php'
                 class: 'App\Kernel'
         Imbo\BehatApiExtension:
             apiClient:
-                base_uri: 'http://localhost:8000'
+                base_uri: '%env(APP_URL)%'
                 timeout: 5.0
                 verify: false
-

@@ -11,10 +11,11 @@ namespace Ergonode\Account\Domain\Command\User;
 
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class ChangeUserPasswordCommand
+class ChangeUserPasswordCommand implements DomainCommandInterface
 {
     /**
      * @var UserId

@@ -11,6 +11,7 @@ namespace Ergonode\Workflow\Infrastructure\Validator;
 
 use Ergonode\Workflow\Domain\Entity\StatusId;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -37,6 +38,7 @@ class StatusNotExistsValidator extends ConstraintValidator
      * @param WorkflowExists|Constraint $constraint
      *
      * @throws \ReflectionException
+     * @throws \Exception
      */
     public function validate($value, Constraint $constraint): void
     {
@@ -54,12 +56,12 @@ class StatusNotExistsValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $workflow = false;
-        if (StatusId::isValid($value)) {
-            $workflow = $this->repository->load(new StatusId($value));
+        $status = null;
+        if (StatusCode::isValid($value)) {
+            $status = $this->repository->load(StatusId::fromCode(new StatusCode($value)));
         }
 
-        if (!$workflow) {
+        if (!$status) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

@@ -10,11 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Domain\Command\Role;
 
 use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class DeleteRoleCommand
+class DeleteRoleCommand implements DomainCommandInterface
 {
     /**
      * @var RoleId

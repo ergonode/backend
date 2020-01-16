@@ -88,8 +88,10 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
      *
      * @return UserInterface|null
      */
-    public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
-    {
+    public function getUser(
+        $credentials,
+        UserProviderInterface $userProvider
+    ): ?UserInterface {
         try {
             return $userProvider->loadUserByUsername($credentials['email']);
         } catch (InvalidEmailException $exception) {
@@ -103,8 +105,10 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
      *
      * @return bool
      */
-    public function checkCredentials($credentials, UserInterface $user): bool
-    {
+    public function checkCredentials(
+        $credentials,
+        UserInterface $user
+    ): bool {
         $isValid = $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
         if (!$isValid) {
             throw new AuthenticationException('Invalid password');
@@ -122,8 +126,11 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
      *
      * @throws \Exception
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): Response
-    {
+    public function onAuthenticationSuccess(
+        Request $request,
+        TokenInterface $token,
+        $providerKey
+    ): Response {
         return $this->successHandler->onAuthenticationSuccess($request, $token);
     }
 
@@ -133,8 +140,10 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
      *
      * @return Response
      */
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
-    {
+    public function onAuthenticationFailure(
+        Request $request,
+        AuthenticationException $exception
+    ): Response {
         return $this->failureHandler->onAuthenticationFailure($request, $exception);
     }
 
@@ -144,8 +153,10 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
      *
      * @return Response
      */
-    public function start(Request $request, AuthenticationException $authException = null): Response
-    {
+    public function start(
+        Request $request,
+        AuthenticationException $authException = null
+    ): Response {
         return new Response(null, Response::HTTP_UNAUTHORIZED);
     }
 

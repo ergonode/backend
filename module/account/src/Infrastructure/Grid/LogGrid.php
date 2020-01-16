@@ -16,25 +16,11 @@ use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class LogGrid extends AbstractGrid
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
@@ -43,27 +29,14 @@ class LogGrid extends AbstractGrid
     {
         $filters = $configuration->getFilters();
 
-        $id = new IntegerColumn('id', $this->trans('Id'));
+        $id = new IntegerColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('recorded_at', new TextColumn('recorded_at', $this->trans('Time'), new TextFilter($filters->getString('recorded_at'))));
-        $this->addColumn('author', new TextColumn('author', $this->trans('Author'), new TextFilter($filters->getString('author'))));
-        $column = new LogColumn('event', 'payload', $this->trans('Message'), $language, $this->translator);
-        $column->setWidth(600);
+        $this->addColumn('recorded_at', new TextColumn('recorded_at', 'Time', new TextFilter()));
+        $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter()));
+        $column = new LogColumn('event', 'payload', 'Message', $language);
         $this->addColumn('event', $column);
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
-
         $this->orderBy('recorded_at', 'DESC');
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
     }
 }

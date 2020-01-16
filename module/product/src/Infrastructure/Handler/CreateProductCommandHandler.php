@@ -41,8 +41,11 @@ class CreateProductCommandHandler
      * @param CategoryRepositoryInterface $categoryRepository
      * @param ProductFactoryProvider      $productFactoryProvider
      */
-    public function __construct(ProductRepositoryInterface $productRepository, CategoryRepositoryInterface $categoryRepository, ProductFactoryProvider $productFactoryProvider)
-    {
+    public function __construct(
+        ProductRepositoryInterface $productRepository,
+        CategoryRepositoryInterface $categoryRepository,
+        ProductFactoryProvider $productFactoryProvider
+    ) {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
         $this->productFactoryProvider = $productFactoryProvider;
@@ -60,13 +63,8 @@ class CreateProductCommandHandler
             $categories[] = $category->getCode();
         }
 
-        $product = $this->productFactoryProvider->provide(SimpleProduct::TYPE)->create(
-            $command->getId(),
-            $command->getSku(),
-            $command->getTemplateId(),
-            $categories,
-            $command->getAttributes()
-        );
+        $factory = $this->productFactoryProvider->provide(SimpleProduct::TYPE);
+        $product = $factory->create($command->getId(), $command->getSku(), $categories, $command->getAttributes());
 
         $this->productRepository->save($product);
     }

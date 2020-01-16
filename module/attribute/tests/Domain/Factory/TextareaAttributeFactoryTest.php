@@ -39,7 +39,7 @@ class TextareaAttributeFactoryTest extends TestCase
     public function testIsSupported(): void
     {
         $strategy = new TextareaAttributeFactory();
-        $this->assertTrue($strategy->isSupported(new AttributeType(TextareaAttribute::TYPE)));
+        $this->assertTrue($strategy->supports(new AttributeType(TextareaAttribute::TYPE)));
     }
 
     /**
@@ -47,7 +47,7 @@ class TextareaAttributeFactoryTest extends TestCase
     public function testIsNotSupported(): void
     {
         $strategy = new TextareaAttributeFactory();
-        $this->assertFalse($strategy->isSupported(new AttributeType('NOT-MATH')));
+        $this->assertFalse($strategy->supports(new AttributeType('NOT-MATH')));
     }
 
     /**

@@ -49,12 +49,20 @@ class NodeTest extends TestCase
         $this->assertEquals($parent, $node->getParent());
     }
 
-    public function testAddChildren():void
+    /**
+     */
+    public function testAddChildren(): void
     {
+
+        $categoryId2 = new CategoryId('cde02652-70ce-484e-bc9d-3bf61391522d');
+
         /** @var Node|MockObject $children */
-        $children = $this->createMock(Node::class);
+        $children = new Node($categoryId2);
         $node = new Node($this->categoryId);
+        $this->assertFalse($node->hasChildren($categoryId2));
         $node->addChildren($children);
         $this->assertEquals($children, $node->getChildrens()[0]);
+        $this->assertFalse($node->hasSuccessor($this->categoryId));
+        $this->assertTrue($node->hasChildren($categoryId2));
     }
 }

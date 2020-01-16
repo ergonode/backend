@@ -1,11 +1,11 @@
-Feature: Segment
+Feature: Segment module
 
   Scenario: Create condition set
     Given current authentication token
     Given the request body is:
       """
       {
-         "code": "SEGMENT_CONDITION_@@random_uuid@@"
+        "conditions": []
       }
       """
     Given I request "/api/v1/EN/conditionsets" using HTTP POST
@@ -110,7 +110,7 @@ Feature: Segment
       }
       """
     When I request "/api/v1/EN/segments" using HTTP POST
-    Then validation error response is received
+    Then created response is received
 
   Scenario: Update segment (not authorized)
     When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
@@ -182,7 +182,7 @@ Feature: Segment
       }
       """
     When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
-    Then validation error response is received
+    Then empty response is received
 
   Scenario: Get segment (not authorized)
     When I request "/api/v1/EN/segments/@segment@" using HTTP GET

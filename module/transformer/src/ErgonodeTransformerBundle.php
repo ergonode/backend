@@ -15,7 +15,6 @@ use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\Transforme
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Class ErgonodeTransformerBundle
  */
 class ErgonodeTransformerBundle extends AbstractModule
 {

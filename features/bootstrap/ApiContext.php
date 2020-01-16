@@ -128,6 +128,17 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     /**
      * @throws AssertionFailedException
      *
+     * @Then access denied response is received
+     */
+    public function assertResponseAccessDenied(): void
+    {
+        $this->requireResponse();
+        $this->assertResponseCodeIs(Response::HTTP_FORBIDDEN);
+    }
+
+    /**
+     * @throws AssertionFailedException
+     *
      * @Then unauthorized response is received
      */
     public function assertResponseUnauthorized(): void
@@ -173,24 +184,33 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     }
 
     /**
-     * {@inheritDoc}
+     * @Then /^print last api response$/
      */
-    public function assertResponseCodeIs($code)
+    public function printLastApiResponse(): void
     {
         $this->requireResponse();
+        echo $this->response->getBody();
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function assertResponseCodeIs($code): void
+    {
         try {
-            Assertion::same(
-                $actual = $this->response->getStatusCode(),
-                $expected = $this->validateResponseCode($code),
-                sprintf(
-                    'Expected response code "%d", got "%d". Revived "%s"',
-                    $expected,
-                    $actual,
-                    $this->response->getBody()
-                )
+            $actual = $this->response->getStatusCode();
+            $expected = $this->validateResponseCode($code);
+            $body = $this->response->getBody()->getContents();
+
+            $message = sprintf(
+                'Expected response code "%d", got "%d". Revived "%s"',
+                $expected,
+                $actual,
+                $body
             );
-        } catch (AssertionFailure $e) {
+
+            Assertion::same($actual, $expected, $message);
+        } catch (\Exception $e) {
             throw new AssertionFailedException($e->getMessage());
         }
     }
@@ -260,7 +280,8 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
                 'The response body does not contain valid JSON data. Received "%s"',
                 $source
             ));
-        } elseif (!is_array($body) && !($body instanceof stdClass)) {
+        }
+        if (!is_array($body) && !($body instanceof stdClass)) {
             throw new InvalidArgumentException(sprintf(
                 'The response body does not contain a valid JSON array / object. Received "%s"',
                 $source

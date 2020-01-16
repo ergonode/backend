@@ -10,49 +10,73 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Domain\Event;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Segment\Domain\Entity\SegmentId;
 use JMS\Serializer\Annotation as JMS;
+use Zend\EventManager\Exception\DomainException;
 
 /**
  */
 class SegmentConditionSetChangedEvent implements DomainEventInterface
 {
     /**
-     * @var ConditionSetId
+     * @var SegmentId
+     *
+     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     */
+    private $id;
+
+    /**
+     * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
     private $from;
 
     /**
-     * @var ConditionSetId
+     * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
     private $to;
 
     /**
+     * @param SegmentId      $id
      * @param ConditionSetId $from
      * @param ConditionSetId $to
      */
-    public function __construct(ConditionSetId $from, ConditionSetId $to)
+    public function __construct(SegmentId $id, ?ConditionSetId $from = null, ?ConditionSetId $to = null)
     {
+        if (null === $from && null === $to) {
+            throw new DomainException('Condition set from and to cannot be booth null');
+        }
+
+        $this->id = $id;
         $this->from = $from;
         $this->to = $to;
     }
 
     /**
-     * @return ConditionSetId
+     * @return SegmentId
      */
-    public function getFrom(): ConditionSetId
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return ConditionSetId|null
+     */
+    public function getFrom(): ?ConditionSetId
     {
         return $this->from;
     }
 
     /**
-     * @return ConditionSetId
+     * @return ConditionSetId|null
      */
-    public function getTo(): ConditionSetId
+    public function getTo(): ?ConditionSetId
     {
         return $this->to;
     }

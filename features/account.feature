@@ -9,6 +9,7 @@ Feature: Account module
     When I request "/api/v1/profile" using HTTP GET
     Then unauthorized response is received
 
+  @changePassword
   Scenario: Create role
     Given current authentication token
     Given the request body is:
@@ -102,7 +103,7 @@ Feature: Account module
     When I request "/api/v1/EN/roles" using HTTP POST
     Then validation error response is received
 
-  Scenario: Create role (empty privilages)
+  Scenario: Create role (empty privileges)
     Given current authentication token
     Given the request body is:
       """
@@ -115,7 +116,7 @@ Feature: Account module
     When I request "/api/v1/EN/roles" using HTTP POST
     Then created response is received
 
-  Scenario: Create role (no existing privilages)
+  Scenario: Create role (no existing privileges)
     Given current authentication token
     Given the request body is:
       """
@@ -213,7 +214,7 @@ Feature: Account module
       }
       """
     When I request "/api/v1/EN/roles/@role@" using HTTP PUT
-    Then validation error response is received
+    Then empty response is received
 
   Scenario: Update role (wrong parameter - name)
     Given current authentication token
@@ -265,7 +266,7 @@ Feature: Account module
       }
       """
     When I request "/api/v1/EN/roles/@role@" using HTTP PUT
-    Then validation error response is received
+    Then empty response is received
 
   Scenario: Update role (no existing privilages)
     Given current authentication token
@@ -338,6 +339,7 @@ Feature: Account module
     When I request "/api/v1/EN/roles" using HTTP GET
     Then unauthorized response is received
 
+  @changePassword
   Scenario: Create user
     Given current authentication token
     Given the request body is:
@@ -954,55 +956,87 @@ Feature: Account module
     When I request "/api/v1/EN/accounts?limit=25&offset=0&filter=is_active%3Dtrue" using HTTP GET
     Then grid response is received
 
-#  Scenario: Change password
-#    Given current authentication token
-#    Given the following form parameters are set:
-#      | name            | value    |
-#      | password        | 12345678 |
-#      | password_repeat | 12345678 |
-#    When I request "/api/v1/EN/accounts/@user@/password" using HTTP PUT
-#    Then created response is received
-#
-#  Scenario: Change password (recover default password)
-#    Given current authentication token
-#    Given the following form parameters are set:
-#      | name            | value                     |
-#      | password        | @@default_user_password@@ |
-#      | password_repeat | @@default_user_password@@ |
-#    When I request "/api/v1/EN/accounts/@user@/password" using HTTP PUT
-#    Then created response is received
+  @changePassword
+  Scenario: Change password
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "password": 12345678,
+          "password_repeat": 12345678
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@/password" using HTTP PUT
+    Then empty response is received
 
+  @changePassword
+  Scenario: Change password (recover default password)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "password": "@@default_user_password@@",
+          "password_repeat": "@@default_user_password@@"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@/password" using HTTP PUT
+    Then empty response is received
+
+  @changePassword
   Scenario: Change password (not authorized)
     When I request "/api/v1/EN/accounts/@user@/password" using HTTP PUT
     Then unauthorized response is received
 
+  @changePassword
   Scenario: Change password (not found)
     Given current authentication token
     When I request "/api/v1/EN/accounts/@@static_uuid@@/password" using HTTP PUT
     Then not found response is received
 
+  @changePassword
   Scenario: Change password (without data)
     Given current authentication token
     When I request "/api/v1/EN/accounts/@user@/password" using HTTP PUT
     Then validation error response is received
 
-  Scenario: Change password (with incorrect data)
+  @changePassword
+  Scenario: Change password (with too short password)
     Given current authentication token
-    Given the following form parameters are set:
-      | name            | value |
-      | password        | 123   |
-      | password_repeat | 123   |
+    Given the request body is:
+      """
+      {
+          "password": 123,
+          "password_repeat": 123
+      }
+      """
     When I request "/api/v1/EN/accounts/@user@/password" using HTTP PUT
     Then validation error response is received
 
-#  Scenario: Change password (with not identical passwords)
-#    Given current authentication token
-#    Given the following form parameters are set:
-#      | name            | value    |
-#      | password        | 12345678 |
-#      | password_repeat | 12345786 |
-#    When I request "/api/v1/EN/accounts/@user@/password" using HTTP PUT
-#    Then validation error response is received
+  @changePassword
+  Scenario: Change password (with empty repeated password)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "password": 12345678,
+          "password_repeat": ""
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@/password" using HTTP PUT
+    Then validation error response is received
+
+  @changePassword
+  Scenario: Change password (with not identical passwords)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "password": 12345678,
+          "password_repeat": "abc"
+      }
+      """
+    When I request "/api/v1/EN/accounts/@user@/password" using HTTP PUT
+    Then validation error response is received
 
   Scenario: Get privilege dictionary
     Given current authentication token
@@ -1011,64 +1045,6 @@ Feature: Account module
 
   Scenario: Get privilege dictionary (not authorized)
     When I request "/api/v1/EN/dictionary/privileges" using HTTP GET
-    Then unauthorized response is received
-
-  Scenario: Get profile log (order by author)
-    Given current authentication token
-    When I request "/api/v1/profile/log?field=author" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get profile log (order by recorded_at)
-    Given current authentication token
-    When I request "/api/v1/profile/log?field=recorded_at" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get profile log (order by event)
-    Given current authentication token
-    When I request "/api/v1/profile/log?field=event" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get profile log (filter by time)
-    Given current authentication token
-    When I request "/api/v1/profile/log?limit=25&offset=0&filter=recorded_at%3D2019" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get profile log (filter by author)
-    Given current authentication token
-    When I request "/api/v1/profile/log?limit=25&offset=0&filter=author%3DSystem" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get profile log (not authorized)
-    When I request "/api/v1/profile/log" using HTTP GET
-    Then unauthorized response is received
-
-  Scenario: Get accounts log (order by author)
-    Given current authentication token
-    When I request "/api/v1/EN/accounts/log?field=author" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get accounts log (order by recorded_at)
-    Given current authentication token
-    When I request "/api/v1/EN/accounts/log?field=recorded_at" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get accounts log (order by event)
-    Given current authentication token
-    When I request "/api/v1/EN/accounts/log?field=event" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get accounts log (filter by time)
-    Given current authentication token
-    When I request "/api/v1/EN/accounts/log?limit=25&offset=0&filter=recorded_at%3D2019" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get accounts log (filter by author)
-    Given current authentication token
-    When I request "/api/v1/EN/accounts/log?limit=25&offset=0&filter=author%3DSystem" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get accounts log (not authorized)
-    When I request "/api/v1/EN/accounts/log" using HTTP GET
     Then unauthorized response is received
 
   Scenario: Get accounts (order by id)
@@ -1141,10 +1117,11 @@ Feature: Account module
     When I request "/api/v1/EN/accounts?limit=25&offset=0&filter=language%3D1" using HTTP GET
     Then grid response is received
 
-  Scenario: Get accounts (filter by role_id)
-    Given current authentication token
-    When I request "/api/v1/EN/accounts?limit=25&offset=0&filter=role_id%3Dasd1" using HTTP GET
-    Then grid response is received
+#  TODO invalid input syntax for type uuid: "asd1"
+#  Scenario: Get accounts (filter by role_id)
+#    Given current authentication token
+#    When I request "/api/v1/EN/accounts?limit=25&offset=0&filter=role_id%3Dasd1" using HTTP GET
+#    Then grid response is received
 
   Scenario: Get accounts (filter by is_active)
     Given current authentication token

@@ -17,6 +17,7 @@ use Ergonode\Workflow\Domain\Event\Status\StatusColorChangedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusDescriptionChangedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusNameChangedEvent;
+use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -31,9 +32,9 @@ class Status extends AbstractAggregateRoot
     private $id;
 
     /**
-     * @var string
+     * @var StatusCode
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
     private $code;
 
@@ -60,15 +61,20 @@ class Status extends AbstractAggregateRoot
 
     /**
      * @param StatusId           $id
-     * @param string             $code
+     * @param StatusCode         $code
      * @param Color              $color
      * @param TranslatableString $name
      * @param TranslatableString $description
      *
      * @throws \Exception
      */
-    public function __construct(StatusId $id, string $code, Color $color, TranslatableString $name, TranslatableString $description)
-    {
+    public function __construct(
+        StatusId $id,
+        StatusCode $code,
+        Color $color,
+        TranslatableString $name,
+        TranslatableString $description
+    ) {
         $this->apply(new StatusCreatedEvent($id, $code, $color, $name, $description));
     }
 
@@ -81,9 +87,9 @@ class Status extends AbstractAggregateRoot
     }
 
     /**
-     * @return string
+     * @return StatusCode
      */
-    public function getCode(): string
+    public function getCode(): StatusCode
     {
         return $this->code;
     }
@@ -120,7 +126,7 @@ class Status extends AbstractAggregateRoot
     public function changeName(TranslatableString $name): void
     {
         if (!$name->isEqual($this->name)) {
-            $this->apply(new StatusNameChangedEvent($this->name, $name));
+            $this->apply(new StatusNameChangedEvent($this->id, $this->name, $name));
         }
     }
 
@@ -132,7 +138,7 @@ class Status extends AbstractAggregateRoot
     public function changeDescription(TranslatableString $description): void
     {
         if (!$description->isEqual($this->description)) {
-            $this->apply(new StatusDescriptionChangedEvent($this->description, $description));
+            $this->apply(new StatusDescriptionChangedEvent($this->id, $this->description, $description));
         }
     }
 
@@ -144,7 +150,7 @@ class Status extends AbstractAggregateRoot
     public function changeColor(Color $color): void
     {
         if (!$color->isEqual($this->color)) {
-            $this->apply(new StatusColorChangedEvent($this->color, $color));
+            $this->apply(new StatusColorChangedEvent($this->id, $this->color, $color));
         }
     }
 
@@ -153,7 +159,7 @@ class Status extends AbstractAggregateRoot
      */
     protected function applyStatusCreatedEvent(StatusCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->code = $event->getCode();
         $this->color = $event->getColor();
         $this->name = $event->getName();

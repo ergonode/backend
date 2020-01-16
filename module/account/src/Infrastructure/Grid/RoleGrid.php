@@ -11,56 +11,47 @@ namespace Ergonode\Account\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\Column\TextAreaColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
 class RoleGrid extends AbstractGrid
 {
     /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
-    /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
-        $id = new TextColumn('id', $this->trans('Id'));
+        $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('name', new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name'))));
-        $this->addColumn('description', new TextAreaColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description'))));
-        $this->addColumn('users_count', new NumericColumn('users_count', $this->trans('Users'), new TextFilter($filters->getString('users_count'))));
-        $this->addColumn('edit', new ActionColumn('edit'));
-    }
+        $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
+        $this->addColumn('description', new TextAreaColumn('description', 'Description', new TextFilter()));
+        $this->addColumn('users_count', new NumericColumn('users_count', 'Users', new TextFilter()));
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'get' => [
+                'route' => 'ergonode_account_role_read',
+                'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_account_role_change',
+                'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
+                'method' => Request::METHOD_PUT,
+            ],
+            'delete' => [
+                'route' => 'ergonode_account_role_delete',
+                'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
+                'method' => Request::METHOD_DELETE,
+            ],
+        ]));
 
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
+        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }

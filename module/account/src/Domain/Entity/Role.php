@@ -54,18 +54,29 @@ class Role extends AbstractAggregateRoot
     private $privileges;
 
     /**
+     * @var bool
+     */
+    private $hidden;
+
+    /**
      * @param RoleId $id
      * @param string $name
      * @param string $description
      * @param array  $privileges
+     * @param bool   $hidden
      *
      * @throws \Exception
      */
-    public function __construct(RoleId $id, string $name, string $description, array $privileges = [])
-    {
+    public function __construct(
+        RoleId $id,
+        string $name,
+        string $description,
+        array $privileges = [],
+        bool $hidden = false
+    ) {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
-        $this->apply(new RoleCreatedEvent($id, $name, $description, $privileges));
+        $this->apply(new RoleCreatedEvent($id, $name, $description, $privileges, $hidden));
     }
 
     /**
@@ -101,12 +112,20 @@ class Role extends AbstractAggregateRoot
     }
 
     /**
+     * @return bool
+     */
+    public function isHidden(): bool
+    {
+        return $this->hidden;
+    }
+
+    /**
      * @param string $name
      */
     public function changeName(string $name): void
     {
         if ($name !== $this->name) {
-            $this->apply(new RoleNameChangedEvent($this->name, $name));
+            $this->apply(new RoleNameChangedEvent($this->id, $this->name, $name));
         }
     }
 
@@ -117,7 +136,7 @@ class Role extends AbstractAggregateRoot
     {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
-        $this->apply(new RolePrivilegesChangedEvent($this->privileges, $privileges));
+        $this->apply(new RolePrivilegesChangedEvent($this->id, $this->privileges, $privileges));
     }
 
     /**
@@ -126,7 +145,7 @@ class Role extends AbstractAggregateRoot
     public function changeDescription(string $description): void
     {
         if ($description !== $this->name) {
-            $this->apply(new RoleDescriptionChangedEvent($this->description, $description));
+            $this->apply(new RoleDescriptionChangedEvent($this->id, $this->description, $description));
         }
     }
 
@@ -155,7 +174,7 @@ class Role extends AbstractAggregateRoot
             throw new \RuntimeException(sprintf('Privilege %s already exists', $privilege->getValue()));
         }
 
-        $this->apply(new AddPrivilegeToRoleEvent($privilege));
+        $this->apply(new AddPrivilegeToRoleEvent($this->id, $privilege));
     }
 
     /**
@@ -167,7 +186,7 @@ class Role extends AbstractAggregateRoot
             throw new \RuntimeException(sprintf('Privilege %s not exists', $privilege->getValue()));
         }
 
-        $this->apply(new RemovePrivilegeFromRoleEvent($privilege));
+        $this->apply(new RemovePrivilegeFromRoleEvent($this->id, $privilege));
     }
 
     /**
@@ -175,10 +194,11 @@ class Role extends AbstractAggregateRoot
      */
     protected function applyRoleCreatedEvent(RoleCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->name = $event->getName();
         $this->description = $event->getDescription();
         $this->privileges = $event->getPrivileges();
+        $this->hidden = false;
     }
 
     /**

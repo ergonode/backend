@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid;
 
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
@@ -31,11 +32,6 @@ interface ColumnInterface
     public function getType(): string;
 
     /**
-     * @return null|int
-     */
-    public function getWidth(): ?int;
-
-    /**
      * @return bool
      */
     public function isVisible(): bool;
@@ -46,22 +42,29 @@ interface ColumnInterface
     public function isEditable(): bool;
 
     /**
-     * @return Language
+     * @return bool
+     */
+    public function isDeletable(): bool;
+
+    /**
+     * @return Language|null
      */
     public function getLanguage(): ?Language;
+
+    /**
+     * @return bool
+     */
+    public function hasLanguage(): bool;
+
+    /**
+     * @param bool $visible
+     */
+    public function setVisible(bool $visible): void;
 
     /**
      * @param Language $language
      */
     public function setLanguage(Language $language): void;
-
-    /**
-     * @param string $id
-     * @param array  $row
-     *
-     * @return mixed
-     */
-    public function render(string $id, array $row);
 
     /**
      * @return FilterInterface|null
@@ -83,4 +86,34 @@ interface ColumnInterface
      * @return array
      */
     public function getExtensions(): array;
+
+    /**
+     * @return AbstractAttribute|null
+     */
+    public function getAttribute(): ?AbstractAttribute;
+
+    /**
+     * @param AbstractAttribute $attribute
+     */
+    public function setAttribute(AbstractAttribute $attribute): void;
+
+    /**
+     * @return string|null
+     */
+    public function getSuffix(): ?string;
+
+    /**
+     * @param string|null $suffix
+     */
+    public function setSuffix(?string $suffix): void;
+
+    /**
+     * @return string|null
+     */
+    public function getPrefix(): ?string;
+
+    /**
+     * @param string|null $prefix
+     */
+    public function setPrefix(?string $prefix): void;
 }

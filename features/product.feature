@@ -1,12 +1,5 @@
 Feature: Product module
 
-  # TODO Do something with this! How to chain them?
-  Scenario: Get attribute groups dictionary
-    Given current authentication token
-    When I request "/api/v1/EN/dictionary/attributes/groups" using HTTP GET
-    Then the response code is 200
-    And remember first attribute group as "attribute_group"
-
   Scenario: Create text attribute
     Given current authentication token
     Given the request body is:
@@ -15,7 +8,7 @@ Feature: Product module
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
           "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
-          "groups": ["@attribute_group@"],
+          "groups": [],
           "parameters": []
       }
       """
@@ -23,20 +16,12 @@ Feature: Product module
     Then created response is received
     And remember response param "id" as "product_template_attribute"
 
-  Scenario: Create image attribute
+  Scenario: Multimedia upload image
     Given current authentication token
-    Given the request body is:
-      """
-      {
-          "code": "IMAGE_@@random_code@@",
-          "type": "IMAGE",
-          "groups": ["@attribute_group@"],
-          "parameters": {"formats": ["jpg"]}
-      }
-      """
-    When I request "/api/v1/EN/attributes" using HTTP POST
+    Given I attach "features/image/test.jpg" to the request as "upload"
+    When I request "/api/v1/multimedia/upload" using HTTP POST
     Then created response is received
-    And remember response param "id" as "product_image_attribute"
+    And remember response param "id" as "multimedia_id"
 
   Scenario: Create template
     Given current authentication token
@@ -44,7 +29,7 @@ Feature: Product module
       """
       {
         "name": "@@random_md5@@",
-        "image": "@product_image_attribute@",
+        "image": "@multimedia_id@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -277,11 +262,6 @@ Feature: Product module
     When I request "/api/v1/EN/products?field=sku" using HTTP GET
     Then grid response is received
 
-  Scenario: Get products (order by template)
-    Given current authentication token
-    When I request "/api/v1/EN/products?field=template" using HTTP GET
-    Then grid response is received
-
   Scenario: Get products (order ASC)
     Given current authentication token
     When I request "/api/v1/EN/products?field=index&order=ASC" using HTTP GET
@@ -290,11 +270,6 @@ Feature: Product module
   Scenario: Get products (order DESC)
     Given current authentication token
     When I request "/api/v1/EN/products?field=index&order=DESC" using HTTP GET
-    Then grid response is received
-
-  Scenario: Get products (filter by template)
-    Given current authentication token
-    When I request "/api/v1/EN/products?limit=25&offset=0&filter=template%3D1" using HTTP GET
     Then grid response is received
 
   Scenario: Get products (filter by index)

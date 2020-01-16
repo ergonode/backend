@@ -55,8 +55,12 @@ class EmailHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, Email $email, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        Email $email,
+        array $type,
+        Context $context
+    ): string {
         return $email->getValue();
     }
 
@@ -68,8 +72,12 @@ class EmailHandler implements SubscribingHandlerInterface
      *
      * @return Email
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Email
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): Email {
         return new Email($data);
     }
 }

@@ -11,36 +11,30 @@ namespace Ergonode\Workflow\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
+use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\LabelColumn;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
 class StatusGrid extends AbstractGrid
 {
     /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
      * @var StatusQueryInterface
      */
     private $statusQuery;
 
     /**
-     * @param TranslatorInterface  $translator
      * @param StatusQueryInterface $statusQuery
      */
-    public function __construct(TranslatorInterface $translator, StatusQueryInterface $statusQuery)
+    public function __construct(StatusQueryInterface $statusQuery)
     {
-        $this->translator = $translator;
         $this->statusQuery = $statusQuery;
     }
 
@@ -53,40 +47,38 @@ class StatusGrid extends AbstractGrid
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
         $statuses = $this->statusQuery->getAllStatuses($language);
-        $filters = $configuration->getFilters();
+
         $codes = [];
-        foreach ($statuses as $code => $status) {
-            $codes[$code] = $status['name'];
+        foreach ($statuses as $id => $status) {
+            $codes[$id] = $status['name'];
         }
 
-        $id = new TextColumn('id', $this->trans('Id'), new TextFilter($filters->getString('id')));
+        $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
-        $id->setWidth(140);
         $this->addColumn('id', $id);
+        $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
+        $this->addColumn('status', new LabelColumn('status', 'Status', $statuses, new SelectFilter($codes)));
+        $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
+        $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter()));
+        $this->addColumn('is_default', new BoolColumn('is_default', 'Initial status'));
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'get' => [
+                'route' => 'ergonode_workflow_status_read',
+                'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_workflow_status_change',
+                'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+                'method' => Request::METHOD_PUT,
+            ],
+            'delete' => [
+                'route' => 'ergonode_workflow_status_delete',
+                'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+                'method' => Request::METHOD_DELETE,
+            ],
+        ]));
 
-        $code = new LabelColumn('code', $this->trans('Code'), $statuses, new SelectFilter($codes, $filters->getString('code')));
-        $this->addColumn('code', $code);
-
-        $column = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
-        $column->setWidth(200);
-        $this->addColumn('name', $column);
-
-        $column = new TextColumn('description', $this->trans('Description'), new TextFilter($filters->getString('description')));
-        $column->setWidth(300);
-        $this->addColumn('description', $column);
-
-        $this->addColumn('edit', new ActionColumn('edit'));
         $this->orderBy('code', 'DESC');
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
+        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }

@@ -1,9 +1,14 @@
 ergonode_attribute_api:
-    resource: '../../Application/Controller/Api/Attribute*'
-    type: annotation
-    prefix: /api/v1/{language}
+    resource: '../../Application/Controller/Api/Attribute/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'
+
+ergonode_attribute_group_api:
+    resource: '../../Application/Controller/Api/AttributeGroup/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'
 
 ergonode_attribute_dictionary:
-    resource: '../../Application/Controller/Api/Dictionary*'
-    type: annotation
-    prefix: /api/v1/{language}/dictionary
+    resource: '../../Application/Controller/Api/Dictionary/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'

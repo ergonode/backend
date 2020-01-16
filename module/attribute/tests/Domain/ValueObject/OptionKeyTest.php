@@ -23,6 +23,7 @@ class OptionKeyTest extends TestCase
     {
         $key = new OptionKey($value);
         $this->assertEquals($value, $key->getValue());
+        $this->assertEquals($value, (string) $key);
     }
 
     /**

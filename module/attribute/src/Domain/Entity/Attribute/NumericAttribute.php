@@ -9,23 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use JMS\Serializer\Annotation as JMS;
-
 /**
  */
-class NumericAttribute extends AbstractAttribute
+class NumericAttribute extends AbstractNumericAttribute
 {
-    public const TYPE = 'NUMERIC';
-
-    /**
-     * @JMS\virtualProperty();
-     * @JMS\SerializedName("type")
-     *
-     * @return string
-     */
-    public function getType(): string
-    {
-        return self::TYPE;
-    }
 }

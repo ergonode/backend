@@ -45,7 +45,7 @@ class CreateAttributeCommandHandler
      *
      * @throws \Exception
      */
-    public function __invoke(CreateAttributeCommand $command)
+    public function __invoke(CreateAttributeCommand $command): void
     {
         $strategy = $this->provider->provide($command->getType());
         $attribute = $strategy->create($command);

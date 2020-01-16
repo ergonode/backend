@@ -44,8 +44,10 @@ class UpdateAttributeCommandHandler
 
     /**
      * @param UpdateAttributeCommand $command
+     *
+     * @throws \Exception
      */
-    public function __invoke(UpdateAttributeCommand $command)
+    public function __invoke(UpdateAttributeCommand $command): void
     {
         $attribute = $this->attributeRepository->load($command->getId());
 

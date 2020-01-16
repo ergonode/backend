@@ -27,15 +27,30 @@ final class Version20180619083700 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CATEGORY_TREE_CREATE', 'Category tree']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CATEGORY_TREE_READ', 'Category tree']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CATEGORY_TREE_UPDATE', 'Category tree']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'CATEGORY_TREE_DELETE', 'Category tree']);
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'CATEGORY_TREE_CREATE', 'Category tree']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'CATEGORY_TREE_READ', 'Category tree']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'CATEGORY_TREE_UPDATE', 'Category tree']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'CATEGORY_TREE_DELETE', 'Category tree']
+        );
 
         $this->createEventStoreEvents([
-            'Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoriesChangedEvent' => 'Categories changed on category tree',
-            'Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryAddedEvent' => 'Category added to category tree',
-            'Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryRemovedEvent' => 'Category removed from category tree',
+            'Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoriesChangedEvent' =>
+                'Categories changed on category tree',
+            'Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryAddedEvent' =>
+                'Category added to category tree',
+            'Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryRemovedEvent' =>
+                'Category removed from category tree',
             'Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent' => 'Category tree created',
             'Ergonode\CategoryTree\Domain\Event\CategoryTreeNameChangedEvent' => 'Category tree name changed',
             'Ergonode\CategoryTree\Domain\Event\CategoryTreeDeletedEvent' => 'Category tree deleted',

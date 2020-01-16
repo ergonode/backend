@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Ergonode\Segment\Tests\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\Segment\Domain\Entity\SegmentId;
@@ -10,6 +12,8 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ */
 class SegmentIdHandlerTest extends TestCase
 {
     /**
@@ -70,7 +74,7 @@ class SegmentIdHandlerTest extends TestCase
      */
     public function testDeserialize(): void
     {
-        $testValue = Uuid::uuid4()->toString();;
+        $testValue = Uuid::uuid4()->toString();
         $result = $this->handler->deserialize($this->deserializerVisitor, $testValue, [], $this->context);
 
         $this->assertEquals($testValue, (string) $result);

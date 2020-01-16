@@ -10,16 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class RolePrivilegesChangedEventProjector implements DomainEventProjectorInterface
+class RolePrivilegesChangedEventProjector
 {
     private const TABLE = 'roles';
 
@@ -44,29 +41,19 @@ class RolePrivilegesChangedEventProjector implements DomainEventProjectorInterfa
     }
 
     /**
-     * {@inheritDoc}
+     * @param RolePrivilegesChangedEvent $event
+     *
+     * @throws DBALException
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(RolePrivilegesChangedEvent $event): void
     {
-        return $event instanceof RolePrivilegesChangedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof RolePrivilegesChangedEvent) {
-            throw new UnsupportedEventException($event, RolePrivilegesChangedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'privileges' => $this->serializer->serialize($event->getTo(), 'json'),
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

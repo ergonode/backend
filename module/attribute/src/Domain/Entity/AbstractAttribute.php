@@ -10,15 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeArrayParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeSystemChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
-use Ergonode\Attribute\Domain\Event\AttributeGroupDeletedEvent;
+use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -70,11 +68,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     protected $parameters;
 
     /**
-     * @var bool
-     */
-    protected $system;
-
-    /**
      * @param AttributeId        $id
      * @param AttributeCode      $code
      * @param TranslatableString $label
@@ -82,7 +75,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      * @param TranslatableString $placeholder
      * @param bool               $multilingual
      * @param array              $parameters
-     * @param bool               $system
      *
      * @throws \Exception
      */
@@ -93,8 +85,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
         TranslatableString $hint,
         TranslatableString $placeholder,
         bool $multilingual,
-        array $parameters = [],
-        bool $system = false
+        array $parameters = []
     ) {
         $this->apply(
             new AttributeCreatedEvent(
@@ -107,7 +98,9 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
                 $this->getType(),
                 \get_class($this),
                 $parameters,
-                $system
+                $this->isEditable(),
+                $this->isDeletable(),
+                $this->isSystem()
             )
         );
     }
@@ -117,8 +110,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      * @JMS\SerializedName("type")
      *
      * @return string
-     *
-     * @todo chane to AttributeType (static) ?
      */
     abstract public function getType(): string;
 
@@ -147,6 +138,30 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
+     * @return bool
+     */
+    public function isSystem(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEditable(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeletable(): bool
+    {
+        return true;
+    }
+
+    /**
      * @param TranslatableString $label
      *
      * @throws \Exception
@@ -154,7 +169,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function changeLabel(TranslatableString $label): void
     {
         if ($this->label->getTranslations() !== $label->getTranslations()) {
-            $this->apply(new AttributeLabelChangedEvent($this->label, $label));
+            $this->apply(new AttributeLabelChangedEvent($this->id, $this->label, $label));
         }
     }
 
@@ -166,7 +181,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function changeHint(TranslatableString $hint): void
     {
         if ($this->hint->getTranslations() !== $hint->getTranslations()) {
-            $this->apply(new AttributeHintChangedEvent($this->hint, $hint));
+            $this->apply(new AttributeHintChangedEvent($this->id, $this->hint, $hint));
         }
     }
 
@@ -178,19 +193,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function changePlaceholder(TranslatableString $placeholder): void
     {
         if ($this->placeholder->getTranslations() !== $placeholder->getTranslations()) {
-            $this->apply(new AttributePlaceholderChangedEvent($this->placeholder, $placeholder));
-        }
-    }
-
-    /**
-     * @param bool $system
-     *
-     * @throws \Exception
-     */
-    public function changeSystem(bool $system): void
-    {
-        if ($this->system !== $system) {
-            $this->apply(new AttributeSystemChangedEvent($this->system, $system));
+            $this->apply(new AttributePlaceholderChangedEvent($this->id, $this->placeholder, $placeholder));
         }
     }
 
@@ -244,7 +247,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function addGroup(AttributeGroupId $groupId): void
     {
         if (!$this->inGroup($groupId)) {
-            $this->apply(new AttributeGroupAddedEvent($groupId));
+            $this->apply(new AttributeGroupAddedEvent($this->id, $groupId));
         }
     }
 
@@ -256,7 +259,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     public function removeGroup(AttributeGroupId $groupId): void
     {
         if ($this->inGroup($groupId)) {
-            $this->apply(new AttributeGroupDeletedEvent($groupId));
+            $this->apply(new AttributeGroupRemovedEvent($this->id, $groupId));
         }
     }
 
@@ -302,7 +305,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      */
     protected function applyAttributeCreatedEvent(AttributeCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->code = $event->getCode();
         $this->label = $event->getLabel();
         $this->groups = [];
@@ -310,7 +313,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
         $this->multilingual = $event->isMultilingual();
         $this->placeholder = $event->getPlaceholder();
         $this->parameters = $event->getParameters();
-        $this->system = $event->isSystem();
     }
 
     /**
@@ -322,9 +324,9 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
-     * @param AttributeGroupDeletedEvent $event
+     * @param AttributeGroupRemovedEvent $event
      */
-    protected function applyAttributeGroupDeletedEvent(AttributeGroupDeletedEvent $event): void
+    protected function applyAttributeGroupRemovedEvent(AttributeGroupRemovedEvent $event): void
     {
         unset($this->groups[$event->getGroupId()->getValue()]);
     }
@@ -359,21 +361,5 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     protected function applyAttributeParameterChangeEvent(AttributeParameterChangeEvent $event): void
     {
         $this->setParameter($event->getName(), $event->getTo());
-    }
-
-    /**
-     * @param AttributeArrayParameterChangeEvent $event
-     */
-    protected function applyAttributeArrayParameterChangeEvent(AttributeArrayParameterChangeEvent $event): void
-    {
-        $this->setParameter($event->getName(), $event->getTo());
-    }
-
-    /**
-     * @param AttributeSystemChangedEvent $event
-     */
-    protected function applyAttributeSystemChangedEvent(AttributeSystemChangedEvent $event): void
-    {
-        $this->system = $event->getTo();
     }
 }

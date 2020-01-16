@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Domain\Event;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Segment\Domain\Entity\SegmentId;
@@ -36,13 +37,6 @@ class SegmentCreatedEvent implements DomainEventInterface
     private $code;
 
     /**
-     * @var ConditionSetId
-     *
-     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
-     */
-    private $conditionSetId;
-
-    /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
@@ -64,20 +58,27 @@ class SegmentCreatedEvent implements DomainEventInterface
     private $status;
 
     /**
-     * @param SegmentId          $id
-     * @param SegmentCode        $code
-     * @param ConditionSetId     $conditionSetId
-     * @param TranslatableString $name
-     * @param TranslatableString $description
-     * @param SegmentStatus      $status
+     * @var ConditionSetId|null
+     *
+     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     */
+    private $conditionSetId;
+
+    /**
+     * @param SegmentId           $id
+     * @param SegmentCode         $code
+     * @param TranslatableString  $name
+     * @param TranslatableString  $description
+     * @param SegmentStatus       $status
+     * @param ConditionSetId|null $conditionSetId
      */
     public function __construct(
         SegmentId $id,
         SegmentCode $code,
-        ConditionSetId $conditionSetId,
         TranslatableString $name,
         TranslatableString $description,
-        SegmentStatus $status
+        SegmentStatus $status,
+        ?ConditionSetId $conditionSetId = null
     ) {
         $this->id = $id;
         $this->code = $code;
@@ -90,7 +91,7 @@ class SegmentCreatedEvent implements DomainEventInterface
     /**
      * @return SegmentId
      */
-    public function getId(): SegmentId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }
@@ -104,9 +105,9 @@ class SegmentCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return ConditionSetId
+     * @return ConditionSetId|null
      */
-    public function getConditionSetId(): ConditionSetId
+    public function getConditionSetId(): ?ConditionSetId
     {
         return $this->conditionSetId;
     }

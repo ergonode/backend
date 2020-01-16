@@ -11,12 +11,13 @@ namespace Ergonode\Segment\Domain\Command;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UpdateSegmentCommand
+class UpdateSegmentCommand implements DomainCommandInterface
 {
     /**
      * @var SegmentId
@@ -40,21 +41,23 @@ class UpdateSegmentCommand
     private $description;
 
     /**
-     * @var ConditionSetId
+     * @var ConditionSetId|null
+     *
+     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
     private $conditionSetId;
 
     /**
-     * @param SegmentId          $id
-     * @param TranslatableString $name
-     * @param TranslatableString $description
-     * @param ConditionSetId     $conditionSetId
+     * @param SegmentId           $id
+     * @param TranslatableString  $name
+     * @param TranslatableString  $description
+     * @param ConditionSetId|null $conditionSetId
      */
     public function __construct(
         SegmentId $id,
         TranslatableString $name,
         TranslatableString $description,
-        ConditionSetId $conditionSetId
+        ?ConditionSetId $conditionSetId = null
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -87,9 +90,9 @@ class UpdateSegmentCommand
     }
 
     /**
-     * @return ConditionSetId
+     * @return ConditionSetId|null
      */
-    public function getConditionSetId(): ConditionSetId
+    public function getConditionSetId(): ?ConditionSetId
     {
         return $this->conditionSetId;
     }

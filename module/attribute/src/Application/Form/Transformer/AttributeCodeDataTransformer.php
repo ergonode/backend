@@ -14,7 +14,6 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
- * Class AttributeCodeDataTransformer
  */
 class AttributeCodeDataTransformer implements DataTransformerInterface
 {
@@ -47,7 +46,7 @@ class AttributeCodeDataTransformer implements DataTransformerInterface
             try {
                 return new AttributeCode($value);
             } catch (\InvalidArgumentException $e) {
-                throw new TransformationFailedException(sprintf('invalid attribute code %s value', $value));
+                throw new TransformationFailedException(sprintf('Invalid attribute code %s value', $value));
             }
         }
 

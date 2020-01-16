@@ -11,59 +11,46 @@ namespace Ergonode\CategoryTree\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
 class TreeGrid extends AbstractGrid
 {
     /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
-    /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $code = new TextColumn('code', 'Code', new TextFilter($filters->getString('code')));
-        $code->setWidth(280);
+        $code = new TextColumn('code', 'Code', new TextFilter());
         $this->addColumn('code', $code);
         $this->orderBy('code', 'ASC');
-        $name = new TextColumn('name', 'Name', new TextFilter($filters->getString('name')));
-        $name->setWidth(280);
+        $name = new TextColumn('name', 'Name', new TextFilter());
         $this->addColumn('name', $name);
+        $this->addColumn('_links', new LinkColumn('', [
+            'get' => [
+                'route' => 'ergonode_category_tree_read',
+                'parameters' => ['language' => $language->getCode(), 'tree' => '{id}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_category_tree_change',
+                'parameters' => ['language' => $language->getCode(), 'tree' => '{id}'],
+                'method' => Request::METHOD_PUT,
+            ],
+            'delete' => [
+                'route' => 'ergonode_category_tree_delete',
+                'parameters' => ['language' => $language->getCode(), 'tree' => '{id}'],
+                'method' => Request::METHOD_DELETE,
+            ],
+        ]));
         $this->orderBy('name', 'ASC');
-        $this->addColumn('edit', new ActionColumn('edit'));
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
     }
 }

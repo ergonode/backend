@@ -13,23 +13,18 @@ use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Infrastructure\Provider\LanguageProvider;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\BoolColumn;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
 class AccountGrid extends AbstractGrid
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
     /**
      * @var LanguageProvider
      */
@@ -41,13 +36,11 @@ class AccountGrid extends AbstractGrid
     private $roleQuery;
 
     /**
-     * @param TranslatorInterface $translator
-     * @param LanguageProvider    $languageProvider
-     * @param RoleQueryInterface  $roleQuery
+     * @param LanguageProvider   $languageProvider
+     * @param RoleQueryInterface $roleQuery
      */
-    public function __construct(TranslatorInterface $translator, LanguageProvider $languageProvider, RoleQueryInterface $roleQuery)
+    public function __construct(LanguageProvider $languageProvider, RoleQueryInterface $roleQuery)
     {
-        $this->translator = $translator;
         $this->languageProvider = $languageProvider;
         $this->roleQuery = $roleQuery;
     }
@@ -60,29 +53,28 @@ class AccountGrid extends AbstractGrid
         $languages = $this->languageProvider->getLanguages($language);
         $roles = $this->roleQuery->getDictionary();
         $activities = [1 => 'Active', 0 => 'In active'];
-        $filters = $configuration->getFilters();
 
-        $id = new TextColumn('id', $this->trans('Id'));
+        $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('email', new TextColumn('email', $this->trans('Email'), new TextFilter($filters->getString('email'))));
-        $this->addColumn('first_name', new TextColumn('first_name', $this->trans('First Name'), new TextFilter($filters->getString('first_name'))));
-        $this->addColumn('last_name', new TextColumn('last_name', $this->trans('Last Name'), new TextFilter($filters->getString('last_name'))));
-        $this->addColumn('language', new TextColumn('language', $this->trans('Language'), new SelectFilter($languages, $filters->getString('language'))));
-        $this->addColumn('role_id', new TextColumn('role_id', $this->trans('Roles'), new SelectFilter($roles, $filters->getString('role_id'))));
-        $this->addColumn('is_active', new BoolColumn('is_active', $this->trans('Activity'), new SelectFilter($activities, $filters->getString('is_active'))));
-        $this->addColumn('edit', new ActionColumn('edit'));
-        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
-    }
+        $this->addColumn('email', new TextColumn('email', 'Email', new TextFilter()));
+        $this->addColumn('first_name', new TextColumn('first_name', 'First Name', new TextFilter()));
+        $this->addColumn('last_name', new TextColumn('last_name', 'Last Name', new TextFilter()));
+        $this->addColumn('language', new TextColumn('language', 'Language', new SelectFilter($languages)));
+        $this->addColumn('role_id', new TextColumn('role_id', 'Roles', new SelectFilter($roles)));
+        $this->addColumn('is_active', new BoolColumn('is_active', 'Activity'));
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'get' => [
+                'route' => 'ergonode_account_user_read',
+                'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
+            ],
+            'edit' => [
+                'route' => 'ergonode_account_user_change',
+                'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
+                'method' => Request::METHOD_PUT,
+            ],
+        ]));
 
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
+        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }

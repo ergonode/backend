@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\User\UserActivatedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class UserActivatedEventProjector implements DomainEventProjectorInterface
+class UserActivatedEventProjector
 {
     private const TABLE = 'users';
 
@@ -36,29 +33,19 @@ class UserActivatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param UserActivatedEvent $event
+     *
+     * @throws DBALException
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(UserActivatedEvent $event): void
     {
-        return $event instanceof UserActivatedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof UserActivatedEvent) {
-            throw new UnsupportedEventException($event, UserActivatedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
-                'is_active' => $event->isActive(),
+                'is_active' => true,
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ],
             [
                 'is_active' => \PDO::PARAM_BOOL,

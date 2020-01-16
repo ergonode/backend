@@ -10,16 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Category\Domain\Event\CategoryNameChangedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class CategoryNameChangedEventProjector implements DomainEventProjectorInterface
+class CategoryNameChangedEventProjector
 {
     private const TABLE = 'category';
 
@@ -44,29 +41,19 @@ class CategoryNameChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param CategoryNameChangedEvent $event
+     *
+     * @throws DBALException
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(CategoryNameChangedEvent $event): void
     {
-        return $event instanceof CategoryNameChangedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof CategoryNameChangedEvent) {
-            throw new UnsupportedEventException($event, CategoryNameChangedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

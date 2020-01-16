@@ -16,13 +16,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
 interface LanguageRepositoryInterface
 {
     /**
-     * @param array $codes
-     *
-     * @return array
-     */
-    public function load(array $codes): array;
-
-    /**
      * @param Language $language
      * @param bool     $active
      */

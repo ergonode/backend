@@ -45,6 +45,8 @@ class Transformer extends AbstractAggregateRoot
      * @param TransformerId $id
      * @param string        $name
      * @param string        $key
+     *
+     * @throws \Exception
      */
     public function __construct(TransformerId $id, string $name, string $key)
     {
@@ -80,7 +82,9 @@ class Transformer extends AbstractAggregateRoot
      * @param ConverterInterface $converter
      * @param string             $collection
      *
-     * @return Transformer
+     * @return $this
+     *
+     * @throws \Exception
      */
     public function addConverter(string $field, ConverterInterface $converter, string $collection = self::DEFAULT): self
     {
@@ -88,7 +92,7 @@ class Transformer extends AbstractAggregateRoot
             throw new \InvalidArgumentException(sprintf('converter for field %s already exists', $field));
         }
 
-        $this->apply(new TransformerConverterAddedEvent($collection, $field, $converter));
+        $this->apply(new TransformerConverterAddedEvent($this->id, $collection, $field, $converter));
 
         return $this;
     }
@@ -117,7 +121,7 @@ class Transformer extends AbstractAggregateRoot
      */
     protected function applyTransformerCreatedEvent(TransformerCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->key = $event->getKey();
         $this->name = $event->getName();
         $this->converters = [];

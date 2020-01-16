@@ -18,6 +18,8 @@ final class Version20180619083829 extends AbstractErgonodeMigration
 {
     /**
      * @param Schema $schema
+     *
+     * @throws \Exception
      */
     public function up(Schema $schema): void
     {
@@ -31,7 +33,15 @@ final class Version20180619083829 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
-        $this->addSql('CREATE TABLE importer.transformer_converter (id UUID NOT NULL, transformer_id UUID NOT NULL, field VARCHAR(64) NOT NULL, type VARCHAR(255) NOT NULL, options JSON NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('
+            CREATE TABLE importer.transformer_converter
+             (
+                id UUID NOT NULL,
+                transformer_id UUID NOT NULL,
+                field VARCHAR(64) NOT NULL,
+                type VARCHAR(255) NOT NULL,
+                options JSON NOT NULL, PRIMARY KEY(id)
+             )');
 
         $this->addSql('
             CREATE TABLE importer.processor (
@@ -53,6 +63,7 @@ final class Version20180619083829 extends AbstractErgonodeMigration
             'Ergonode\Transformer\Domain\Event\ProcessorStatusChangedEvent' => 'Transformer processor status changed',
             'Ergonode\Transformer\Domain\Event\TransformerConverterAddedEvent' => 'Transformer converter added',
             'Ergonode\Transformer\Domain\Event\TransformerCreatedEvent' => 'Transformer created',
+            'Ergonode\Transformer\Domain\Event\TransformerDeletedEvent' => 'Transformer deleted',
         ]);
     }
 

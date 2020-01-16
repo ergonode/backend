@@ -9,11 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\AttributeDate\Domain\ValueObject\DateFormat;
+use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Faker\Provider\Base as BaseProvider;
 
 /**
- * Class AttributeDateFormatProvider
  */
 class AttributeDateFormatFaker extends BaseProvider
 {

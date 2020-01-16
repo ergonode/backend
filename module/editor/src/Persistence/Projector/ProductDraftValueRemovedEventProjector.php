@@ -12,15 +12,11 @@ namespace Ergonode\Editor\Persistence\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Event\ProductDraftValueRemoved;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class ProductDraftValueRemovedEventProjector implements DomainEventProjectorInterface
+class ProductDraftValueRemovedEventProjector
 {
     private const DRAFT_VALUE_TABLE = 'designer.draft_value';
 
@@ -38,23 +34,13 @@ class ProductDraftValueRemovedEventProjector implements DomainEventProjectorInte
     }
 
     /**
-     * {@inheritDoc}
+     * @param ProductDraftValueRemoved $event
+     *
+     * @throws DBALException
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(ProductDraftValueRemoved $event): void
     {
-        return $event instanceof ProductDraftValueRemoved;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof ProductDraftValueRemoved) {
-            throw new UnsupportedEventException($event, ProductDraftValueRemoved::class);
-        }
-
-        $draftId = $aggregateId->getValue();
+        $draftId = $event->getAggregateId()->getValue();
         $elementId = AttributeId::fromKey($event->getAttributeCode())->getValue();
 
         $this->delete($draftId, $elementId);

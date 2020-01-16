@@ -11,65 +11,32 @@ namespace Ergonode\Importer\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\ActionColumn;
 use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class ImportGrid extends AbstractGrid
 {
     /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
-    /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $filters = $configuration->getFilters();
-
-        $id = new TextColumn('id', $this->trans('Id'));
+        $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $name = new TextColumn('name', $this->trans('Name'), new TextFilter($filters->getString('name')));
-        $name->setWidth(240);
+        $name = new TextColumn('name', 'Name', new TextFilter());
         $this->addColumn('name', $name);
-        $status = new TextColumn('status', $this->trans('Status'), new TextFilter($filters->getString('status')));
-        $status->setWidth(140);
+        $status = new TextColumn('status', 'Status', new TextFilter());
         $this->addColumn('status', $status);
-        $index = new IntegerColumn('lines', $this->trans('Lines'), new TextFilter($filters->getString('lines')));
-        $index->setWidth(140);
+        $index = new IntegerColumn('lines', 'Lines', new TextFilter());
         $this->addColumn('lines', $index);
-        $createdAt = new DateColumn('created_at', $this->trans('Created at'), new TextFilter($filters->getString('created_at')));
-        $createdAt->setWidth(140);
+        $createdAt = new DateColumn('created_at', 'Created at', new TextFilter());
         $this->addColumn('created_at', $createdAt);
-        $this->addColumn('info', new ActionColumn('info'));
-    }
-
-    /**
-     * @param string $id
-     * @param array  $parameters
-     *
-     * @return string
-     */
-    private function trans(string $id, array $parameters = []): string
-    {
-        return $this->translator->trans($id, $parameters, 'grid');
     }
 }

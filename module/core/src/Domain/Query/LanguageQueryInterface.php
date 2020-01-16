@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Domain\Query;
 
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 
 /**
@@ -16,14 +17,14 @@ use Ergonode\Grid\DataSetInterface;
 interface LanguageQueryInterface
 {
     /**
-     * @return array
+     * @return Language[]
      */
-    public function getLanguagesCodes(): array;
+    public function getAll(): array;
 
     /**
-     * @return array
+     * @return Language[]
      */
-    public function getActiveLanguagesCodes(): array;
+    public function getActive(): array;
 
     /**
      * @param string $code
@@ -33,14 +34,22 @@ interface LanguageQueryInterface
     public function getLanguage(string $code): array;
 
     /**
-     * @param array $codes
-     *
-     * @return array
-     */
-    public function getLanguages(array $codes): array;
-
-    /**
      * @return DataSetInterface
      */
     public function getDataSet(): DataSetInterface;
+
+    /**
+     * @param string|null $search
+     * @param int|null    $limit
+     * @param string|null $field
+     * @param string|null $order
+     *
+     * @return array
+     */
+    public function autocomplete(
+        string $search = null,
+        int $limit = null,
+        string $field = null,
+        ?string $order = 'ASC'
+    ): array;
 }

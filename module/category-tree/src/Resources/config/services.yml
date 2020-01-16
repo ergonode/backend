@@ -1,8 +1,8 @@
 services:
     _defaults:
-            autowire: true
-            autoconfigure: true
-            public: false
+        autowire: true
+        autoconfigure: true
+        public: false
 
     Ergonode\CategoryTree\Persistence\:
         resource: '../../Persistence/*'
@@ -25,6 +25,10 @@ services:
 
     Ergonode\CategoryTree\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\CategoryTree\Persistence\Dbal\Projector\:
+        resource: '../../Persistence/Dbal/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\CategoryTree\Infrastructure\JMS\Serializer\Handler\:

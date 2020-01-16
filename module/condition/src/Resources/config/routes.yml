@@ -1,14 +1,14 @@
 ergonode_condition_dictionary:
-    resource: '../../Application/Controller/Api/Dictionary*'
+    resource: '../../Application/Controller/Api/Dictionary/*'
     type: 'annotation'
     prefix: '/api/v1/{language}/dictionary'
 
 ergonode_condition_api:
-    resource: '../../Application/Controller/Api/Condition*'
+    resource: '../../Application/Controller/Api/Condition/*'
     type: 'annotation'
     prefix: '/api/v1/{language}'
 
 ergonode_condition_set_api:
-    resource: '../../Application/Controller/Api/ConditionSet*'
+    resource: '../../Application/Controller/Api/ConditionSet/*'
     type: 'annotation'
     prefix: '/api/v1/{language}'

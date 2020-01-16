@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Condition\Domain\ValueObject\ConditionSetCode;
 use Faker\Provider\Base as BaseProvider;
 
 /**
@@ -18,16 +17,16 @@ use Faker\Provider\Base as BaseProvider;
 class ConditionSetIdFaker extends BaseProvider
 {
     /**
-     * @param string|null $code
+     * @param string|null $name
      *
      * @return ConditionSetId
      *
      * @throws \Exception
      */
-    public function conditionSetId(?string $code = null): ConditionSetId
+    public function conditionSetId(?string $name = null): ConditionSetId
     {
-        if ($code) {
-            return ConditionSetId::fromCode(new ConditionSetCode($code));
+        if ($name) {
+            return ConditionSetId::fromString($name);
         }
 
         return ConditionSetId::generate();

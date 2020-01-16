@@ -9,8 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Application\DependencyInjection;
 
+use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionCalculatorCompilerPass;
 use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionConfiguratorCompilerPass;
-use Ergonode\Condition\Domain\Service\SegmentConfigurationStrategyInterface;
+use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ConditionConstraintCompilerPass;
+use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
+use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyInterface;
+use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -33,9 +37,17 @@ class ErgonodeConditionExtension extends Extension
             new FileLocator(__DIR__.'/../../Resources/config')
         );
 
-          $container
-            ->registerForAutoconfiguration(ConditionConfigurationStrategyInteface::class)
+        $container
+            ->registerForAutoconfiguration(ConditionConfigurationStrategyInterface::class)
             ->addTag(ConditionConfiguratorCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(ConditionCalculatorStrategyInterface::class)
+            ->addTag(ConditionCalculatorCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(ConditionValidatorStrategyInterface::class)
+            ->addTag(ConditionConstraintCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

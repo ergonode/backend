@@ -10,15 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Workflow\Domain\Event\Status\StatusColorChangedEvent;
 
 /**
  */
-class StatusColorChangedEventProjector implements DomainEventProjectorInterface
+class StatusColorChangedEventProjector
 {
     private const TABLE = 'status';
 
@@ -38,27 +34,15 @@ class StatusColorChangedEventProjector implements DomainEventProjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(StatusColorChangedEvent $event): void
     {
-        return $event instanceof StatusColorChangedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof StatusColorChangedEvent) {
-            throw new UnsupportedEventException($event, StatusColorChangedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'color' => $event->getTo()->getValue(),
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

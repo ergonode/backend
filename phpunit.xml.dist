@@ -29,10 +29,16 @@
 
     <filter>
         <whitelist>
-            <directory>./module/*/src/</directory>
+            <directory>./module/*/src/Application</directory>
+            <directory>./module/*/src/Domain</directory>
+            <directory>./module/*/src/Infrastructure</directory>
+            <directory>./module/grid/src/*</directory>
             <directory>./src/</directory>
             <exclude>
                 <directory suffix="Kernel.php">./src</directory>
+                <directory>./module/*/src/Application/Controller</directory>
+                <directory>./module/*/src/Application/Command</directory>
+                <directory>./module/*/src/Application/DependencyInjection</directory>
             </exclude>
         </whitelist>
     </filter>

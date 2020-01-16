@@ -13,6 +13,8 @@ namespace Ergonode\Category\Domain\ValueObject;
  */
 class CategoryCode
 {
+    private const PATTERN = '/[a-zA-Z0-9-_]+\b/i';
+
     /**
      * @var string
      */
@@ -53,6 +55,14 @@ class CategoryCode
      */
     public static function isValid(string $value): bool
     {
-        return strlen($value) <= 255;
+        if (preg_match(self::PATTERN, $value, $matches) === 0) {
+            return false;
+        }
+
+        if (trim($value) !== $value) {
+            return false;
+        }
+
+        return strlen($value) < 256;
     }
 }

@@ -55,8 +55,12 @@ class RoleIdHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, RoleId $roleId, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        RoleId $roleId,
+        array $type,
+        Context $context
+    ): string {
         return $roleId->getValue();
     }
 
@@ -68,8 +72,12 @@ class RoleIdHandler implements SubscribingHandlerInterface
      *
      * @return RoleId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): RoleId
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): RoleId {
         return new RoleId($data);
     }
 }

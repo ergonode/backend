@@ -17,26 +17,23 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
-use Ergonode\Grid\Request\FilterCollection;
 
 /**
  */
-class MultiSelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
+class MultiSelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
     /**
-     * @param AbstractAttribute $attribute
-     *
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isSupported(AbstractAttribute $attribute): bool
+    public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute->getType() ===  MultiSelectAttribute::TYPE;
+        return $attribute instanceof MultiSelectAttribute;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function create(AbstractAttribute $attribute, Language $language, FilterCollection $filter): ColumnInterface
+    public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
         $options = [];
         foreach ($attribute->getOptions() as $id => $option) {
@@ -47,14 +44,12 @@ class MultiSelectAttributeColumnStrategy extends AbstractLanguageColumnStrategy
             }
         }
 
-        $columnKey = $filterKey = $attribute->getCode()->getValue();
-
-        $filterKey = $this->getFilterKey($columnKey, $language->getCode(), $filter);
+        $columnKey = $attribute->getCode()->getValue();
 
         return new MultiSelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new MultiSelectFilter($options, $filter->getArray($filterKey))
+            new MultiSelectFilter($options)
         );
     }
 }

@@ -27,8 +27,12 @@ class LabelColumn extends AbstractColumn
      *
      * @throws \Exception
      */
-    public function __construct(string $field, string $label, array $statuses, FilterInterface $filter = null)
-    {
+    public function __construct(
+        string $field,
+        ?string $label = null,
+        array $statuses = [],
+        FilterInterface $filter = null
+    ) {
         parent::__construct($field, $label, $filter);
 
         $colors = [];
@@ -36,26 +40,15 @@ class LabelColumn extends AbstractColumn
             $colors[$code] = $status['color'];
         }
 
-        $this->setExtension('attribute_id', AttributeId::fromKey(new AttributeCode($field))->getValue());
+        $this->setExtension('element_id', AttributeId::fromKey(new AttributeCode($field))->getValue());
         $this->setExtension('colors', $colors);
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
     public function getType(): string
     {
         return self::TYPE;
-    }
-
-    /**
-     * @param string $id
-     * @param array  $row
-     *
-     * @return string|null
-     */
-    public function render(string $id, array $row): ?string
-    {
-        return $row[$id] ?? null;
     }
 }

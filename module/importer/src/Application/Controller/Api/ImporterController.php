@@ -13,8 +13,8 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Grid\Response\GridResponse;
 use Ergonode\Importer\Application\Form\UploadForm;
 use Ergonode\Importer\Application\Model\Form\UploadModel;
 use Ergonode\Importer\Application\Service\Upload\UploadServiceInterface;
@@ -58,12 +58,19 @@ class ImporterController extends AbstractController
     private $messageBus;
 
     /**
+     * @var GridRenderer
+     */
+    private $gridRenderer;
+
+    /**
+     * @param GridRenderer           $gridRenderer
      * @param ImportGrid             $importGrid
      * @param ImportQueryInterface   $importQuery
      * @param UploadServiceInterface $uploadService
      * @param MessageBusInterface    $messageBus
      */
     public function __construct(
+        GridRenderer $gridRenderer,
         ImportGrid $importGrid,
         ImportQueryInterface $importQuery,
         UploadServiceInterface $uploadService,
@@ -73,6 +80,7 @@ class ImporterController extends AbstractController
         $this->importQuery = $importQuery;
         $this->uploadService = $uploadService;
         $this->messageBus = $messageBus;
+        $this->gridRenderer = $gridRenderer;
     }
 
     /**
@@ -128,13 +136,13 @@ class ImporterController extends AbstractController
      *     type="string",
      *     description="Filter"
      * )
-     * @SWG\Parameter(
-     *     name="show",
+    * @SWG\Parameter(
+     *     name="view",
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"COLUMN","DATA"},
-     *     description="Specify what response should containts"
+     *     enum={"grid","list"},
+     *     description="Specify respons format"
      * )
      * @SWG\Response(
      *     response=200,
@@ -150,7 +158,14 @@ class ImporterController extends AbstractController
      */
     public function getImports(Language $language, RequestGridConfiguration $configuration): Response
     {
-        return new GridResponse($this->importGrid, $configuration, $this->importQuery->getDataSet(), $language);
+        $data = $this->gridRenderer->render(
+            $this->importGrid,
+            $configuration,
+            $this->importQuery->getDataSet(),
+            $language
+        );
+
+        return new SuccessResponse($data);
     }
 
     /**

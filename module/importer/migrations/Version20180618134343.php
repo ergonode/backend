@@ -47,6 +47,11 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
+        $this->addSql('CREATE INDEX import_line_import_id_idx ON importer.import_line USING btree (import_id)');
+        $this->addSql(
+            'ALTER TABLE importer.import_line ADD CONSTRAINT import_line_import_id_fk FOREIGN KEY (import_id) '.
+            'REFERENCES importer.import ON UPDATE CASCADE ON DELETE CASCADE'
+        );
 
         $this->addSql('
             CREATE TABLE importer.event_store (
@@ -74,14 +79,26 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 CONSTRAINT event_store_history_pkey PRIMARY KEY (id)
             )
         ');
-        $this->addSql('CREATE UNIQUE INDEX importer_event_store_history_unique_key ON importer.event_store_history USING btree (aggregate_id, sequence, variant)');
+        $this->addSql(
+            'CREATE UNIQUE INDEX importer_event_store_history_unique_key ON importer.event_store_history '.
+            ' USING btree (aggregate_id, sequence, variant)'
+        );
 
-        $this->addSql('CREATE INDEX import_line_import_id_idx ON importer.import_line USING btree (import_id)');
-        $this->addSql('ALTER TABLE importer.import_line ADD CONSTRAINT import_line_import_id_fk FOREIGN KEY (import_id) REFERENCES importer.import (id) ON DELETE CASCADE');
-
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'IMPORT_CREATE', 'Import']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'IMPORT_READ', 'Import']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'IMPORT_UPDATE', 'Import']);
-        $this->addSql('INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), 'IMPORT_DELETE', 'Import']);
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'IMPORT_CREATE', 'Import']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'IMPORT_READ', 'Import']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'IMPORT_UPDATE', 'Import']
+        );
+        $this->addSql(
+            'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
+            [Uuid::uuid4()->toString(), 'IMPORT_DELETE', 'Import']
+        );
     }
 }

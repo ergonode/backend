@@ -80,7 +80,9 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
 
         Assert::notNull($attribute);
 
-        $label = $attribute->getLabel()->has($language) ? $attribute->getLabel()->get($language) : $attribute->getCode()->getValue();
+        $label = $attribute->getLabel()->has($language)
+            ? $attribute->getLabel()->get($language)
+            : $attribute->getCode()->getValue();
 
         $properties = [
             'attribute_id' => $attribute->getId()->getValue(),
@@ -100,7 +102,11 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
             foreach ($attribute->getOptions() as $key => $option) {
                 $options[$key] = $this->resolver->resolve($option, $language);
             }
-            $properties['options'] = $options;
+            if (!empty($options)) {
+                $properties['options'] = $options;
+            } else {
+                $properties['options'] = new \stdClass();
+            }
         }
 
         return new ViewTemplateElement(

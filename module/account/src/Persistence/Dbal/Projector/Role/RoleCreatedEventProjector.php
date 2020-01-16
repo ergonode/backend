@@ -11,15 +11,11 @@ namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Account\Domain\Event\Role\RoleCreatedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class RoleCreatedEventProjector implements DomainEventProjectorInterface
+class RoleCreatedEventProjector
 {
     private const TABLE = 'roles';
 
@@ -44,29 +40,23 @@ class RoleCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param RoleCreatedEvent $event
+     *
+     * @throws \Doctrine\DBAL\DBALException
      */
-    public function support(DomainEventInterface $event): bool
+    public function __invoke(RoleCreatedEvent $event): void
     {
-        return $event instanceof RoleCreatedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$event instanceof RoleCreatedEvent) {
-            throw new UnsupportedEventException($event, RoleCreatedEvent::class);
-        }
-
         $this->connection->insert(
             self::TABLE,
             [
-                'id' => $event->getId()->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
                 'name' => $event->getName(),
                 'description' => $event->getDescription(),
                 'privileges' => $this->serializer->serialize($event->getPrivileges(), 'json'),
+                'hidden' => $event->isHidden(),
+            ],
+            [
+                'hidden' => \PDO::PARAM_BOOL,
             ]
         );
     }
