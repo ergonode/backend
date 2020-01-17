@@ -113,7 +113,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
     ): void {
         $query->andWhere(
             \sprintf(
-                '"%s"::TEXT = %s::TEXT',
+                '"%s"::TEXT = %s',
                 $field,
                 $query->createNamedParameter(sprintf('%s', $givenValue))
             )
