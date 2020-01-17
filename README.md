@@ -84,9 +84,9 @@ The project is in early stage and we have got a lot of milestones to develop.  W
 
 #### Backend Technologies
 
-- PHP 7.2
+- PHP 7.4
 - Symfony 4.3
-- Postgres 9.6 (uuid-ossp, ltree)
+- Postgres 10 (uuid-ossp, ltree)
 - RabbitMQ (optional)
 - Redis (optional)
 - Elasticsearch (optional)
