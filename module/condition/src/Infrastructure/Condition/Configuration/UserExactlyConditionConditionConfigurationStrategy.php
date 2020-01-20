@@ -22,12 +22,12 @@ class UserExactlyConditionConditionConfigurationStrategy implements ConditionCon
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @var UserQueryInterface
      */
-    private $userQuery;
+    private UserQueryInterface $userQuery;
 
     /**
      * @param TranslatorInterface $translator

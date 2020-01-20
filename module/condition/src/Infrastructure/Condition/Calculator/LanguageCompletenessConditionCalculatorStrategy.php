@@ -28,17 +28,17 @@ class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalcul
     /**
      * @var CompletenessCalculator
      */
-    private $calculator;
+    private CompletenessCalculator $calculator;
 
     /**
      * @var TemplateRepositoryInterface
      */
-    private $repository;
+    private TemplateRepositoryInterface $repository;
 
     /**
      * @var DraftProvider
      */
-    private $provider;
+    private DraftProvider $provider;
 
     /**
      * @param CompletenessCalculator      $calculator

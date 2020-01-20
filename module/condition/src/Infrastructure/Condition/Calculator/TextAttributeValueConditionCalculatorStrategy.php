@@ -23,7 +23,7 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
     /**
      * @var AttributeRepositoryInterface
      */
-    private $repository;
+    private AttributeRepositoryInterface $repository;
 
     /**
      * @param AttributeRepositoryInterface $repository

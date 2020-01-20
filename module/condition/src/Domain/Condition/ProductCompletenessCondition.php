@@ -28,7 +28,7 @@ class ProductCompletenessCondition implements ConditionInterface
      *
      * @JMS\Type("string")
      */
-    private $completeness;
+    private string $completeness;
 
     /**
      * @param string $completeness

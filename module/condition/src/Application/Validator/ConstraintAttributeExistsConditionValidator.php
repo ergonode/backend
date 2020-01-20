@@ -23,7 +23,7 @@ class ConstraintAttributeExistsConditionValidator extends ConstraintValidator
     /**
      * @var AttributeQueryInterface
      */
-    private $attributeQuery;
+    private AttributeQueryInterface $attributeQuery;
 
     /**
      * @param AttributeQueryInterface $attributeQuery

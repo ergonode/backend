@@ -19,12 +19,12 @@ class ConditionDictionaryProvider
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @var array
      */
-    private $groups;
+    private array $groups;
 
     /**
      * @param TranslatorInterface $translator

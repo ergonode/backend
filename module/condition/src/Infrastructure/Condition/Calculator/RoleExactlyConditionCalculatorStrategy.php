@@ -25,12 +25,12 @@ class RoleExactlyConditionCalculatorStrategy implements ConditionCalculatorStrat
     /**
      * @var RoleRepositoryInterface
      */
-    private $roleRepository;
+    private RoleRepositoryInterface $roleRepository;
 
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $authenticatedUserProvider;
+    private AuthenticatedUserProviderInterface $authenticatedUserProvider;
 
     /**
      * @param RoleRepositoryInterface            $roleRepository
