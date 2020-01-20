@@ -54,7 +54,7 @@ class ProductDraft extends AbstractAggregateRoot
         $this->apply(new ProductDraftCreated($id, $product->getId()));
 
         foreach ($product->getAttributes() as $attributeCode => $value) {
-            $this->apply(new ProductDraftValueAdded(new AttributeCode((string) $attributeCode), $value));
+            $this->apply(new ProductDraftValueAdded($this->id, new AttributeCode((string) $attributeCode), $value));
         }
     }
 
@@ -86,7 +86,7 @@ class ProductDraft extends AbstractAggregateRoot
      */
     public function applied(): void
     {
-        $this->apply(new ProductDraftApplied());
+        $this->apply(new ProductDraftApplied($this->id));
     }
 
     /**
@@ -132,7 +132,7 @@ class ProductDraft extends AbstractAggregateRoot
             throw new \RuntimeException('Value already exists');
         }
 
-        $this->apply(new ProductDraftValueAdded($attributeCode, $valueInterface));
+        $this->apply(new ProductDraftValueAdded($this->id, $attributeCode, $valueInterface));
     }
 
     /**
@@ -146,7 +146,15 @@ class ProductDraft extends AbstractAggregateRoot
         }
 
         if ((string) $this->attributes[$attributeCode->getValue()] !== (string) $new) {
-            $this->apply(new ProductDraftValueChanged($attributeCode, $this->attributes[$attributeCode->getValue()], $new));
+            $this
+                ->apply(
+                    new ProductDraftValueChanged(
+                        $this->id,
+                        $attributeCode,
+                        $this->attributes[$attributeCode->getValue()],
+                        $new
+                    )
+                );
         }
     }
 
@@ -159,7 +167,14 @@ class ProductDraft extends AbstractAggregateRoot
             throw new \RuntimeException('Value note exists');
         }
 
-        $this->apply(new ProductDraftValueRemoved($attributeCode, $this->attributes[$attributeCode->getValue()]));
+        $this
+            ->apply(
+                new ProductDraftValueRemoved(
+                    $this->id,
+                    $attributeCode,
+                    $this->attributes[$attributeCode->getValue()]
+                )
+            );
     }
 
     /**
@@ -167,7 +182,7 @@ class ProductDraft extends AbstractAggregateRoot
      */
     protected function applyProductDraftCreated(ProductDraftCreated $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->productId = $event->getProductId();
         $this->attributes = [];
         $this->applied = false;

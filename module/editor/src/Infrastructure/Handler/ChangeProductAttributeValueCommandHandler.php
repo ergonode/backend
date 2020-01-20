@@ -9,20 +9,25 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Infrastructure\Handler;
 
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
+use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
+use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
 use Ergonode\Value\Domain\Service\ValueManipulationService;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -45,16 +50,30 @@ class ChangeProductAttributeValueCommandHandler
     private $attributeRepository;
 
     /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
+     * ChangeProductAttributeValueCommandHandler constructor.
+     *
      * @param ProductDraftRepositoryInterface $repository
      * @param ValueManipulationService        $service
      * @param AttributeRepositoryInterface    $attributeRepository
+     * @param TokenStorageInterface           $tokenStorage
      */
-    public function __construct(ProductDraftRepositoryInterface $repository, ValueManipulationService $service, AttributeRepositoryInterface $attributeRepository)
-    {
+    public function __construct(
+        ProductDraftRepositoryInterface $repository,
+        ValueManipulationService $service,
+        AttributeRepositoryInterface $attributeRepository,
+        TokenStorageInterface $tokenStorage
+    ) {
         $this->repository = $repository;
         $this->service = $service;
         $this->attributeRepository = $attributeRepository;
+        $this->tokenStorage = $tokenStorage;
     }
+
 
     /**
      * @param ChangeProductAttributeValueCommand $command
@@ -86,6 +105,19 @@ class ChangeProductAttributeValueCommandHandler
             $draft->removeAttribute($attribute->getCode());
         }
 
+        $token = $this->tokenStorage->getToken();
+        if ($token) {
+            $updatedAt = new \DateTime();
+            $editedByCode = new AttributeCode(EditedBySystemAttribute::CODE);
+            $editedAtCode = new AttributeCode(EditedAtSystemAttribute::CODE);
+            /** @var User $user */
+            $user = $token->getUser();
+            $editedByValue = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
+            $editedAtValue = new StringValue($updatedAt->format('Y-m-d H:i:s'));
+            $this->attributeUpdate($draft, $editedByCode, $editedByValue);
+            $this->attributeUpdate($draft, $editedAtCode, $editedAtValue);
+        }
+
         $this->repository->save($draft);
     }
 
@@ -100,7 +132,7 @@ class ChangeProductAttributeValueCommandHandler
      */
     private function createValue(Language $language, AbstractAttribute $attribute, $value): ?ValueInterface
     {
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             return null;
         }
 
@@ -117,5 +149,21 @@ class ChangeProductAttributeValueCommandHandler
         }
 
         return new StringValue($value);
+    }
+
+    /**
+     * @param ProductDraft   $product
+     * @param AttributeCode  $code
+     * @param ValueInterface $value
+     *
+     * @throws \Exception
+     */
+    private function attributeUpdate(ProductDraft $product, AttributeCode $code, ValueInterface $value): void
+    {
+        if (!$product->hasAttribute($code)) {
+            $product->addAttribute($code, $value);
+        } else {
+            $product->changeAttribute($code, $value);
+        }
     }
 }

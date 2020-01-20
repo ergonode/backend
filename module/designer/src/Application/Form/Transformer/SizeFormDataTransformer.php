@@ -19,6 +19,7 @@ class SizeFormDataTransformer implements DataTransformerInterface
 {
     /**
      * @param Size|null $value
+     *
      * @return array|null
      */
     public function transform($value): ?array
@@ -38,6 +39,7 @@ class SizeFormDataTransformer implements DataTransformerInterface
 
     /**
      * @param array|null $value
+     *
      * @return Size|null
      */
     public function reverseTransform($value): ?Size

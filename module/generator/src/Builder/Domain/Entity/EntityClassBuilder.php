@@ -114,7 +114,13 @@ class EntityClassBuilder implements BuilderInterface
     private function buildCreateEvent(string $module, string $entity, array $properties = []): Method
     {
         $eventClass = sprintf('Ergonode\%s\Domain\Event\%sCreatedEvent', ucfirst($module), ucfirst($entity));
-        $method = $this->methodBuilder->build(sprintf('apply%sCreatedEvent', ucfirst($entity)), ['event' => $eventClass], 'void');
+        $method = $this
+            ->methodBuilder
+            ->build(
+                sprintf('apply%sCreatedEvent', ucfirst($entity)),
+                ['event' => $eventClass],
+                'void'
+            );
         $method->setVisibility(ClassType::VISIBILITY_PROTECTED);
         foreach ($properties as $name => $property) {
             $method->addBody(sprintf('$this->%s = $event->get%s();', $name, ucfirst($name)));

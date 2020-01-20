@@ -9,14 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Importer\Domain\Entity\ImportLineId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class CreateImportLineCommand
  */
-class CreateImportLineCommand
+class CreateImportLineCommand implements DomainCommandInterface
 {
     /**
      * @var ImportLineId

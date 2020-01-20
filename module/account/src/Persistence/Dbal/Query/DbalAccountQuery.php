@@ -52,10 +52,13 @@ class DbalAccountQuery implements AccountQueryInterface
     public function getDataSet(): DataSetInterface
     {
         $query = $this->getQuery();
+        $query->join('a', 'roles', 'r', 'r.id = a.role_id')
+            ->andWhere($query->expr()->eq('hidden', ':hidden'));
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
+        $result->setParameter(':hidden', false, \PDO::PARAM_BOOL);
 
         return new DbalDataSet($result);
     }

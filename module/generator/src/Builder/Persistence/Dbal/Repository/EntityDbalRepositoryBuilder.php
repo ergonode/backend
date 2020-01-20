@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Generator\Builder\Persistence\Dbal\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Generator\Builder\BuilderInterface;
 use Ergonode\Generator\Builder\FileBuilder;
@@ -63,7 +63,8 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
         $className = sprintf('%sRepository', $entity);
         $entityClass = sprintf('Ergonode\%s\Domain\Entity\%s', ucfirst($module), $entity);
         $entityIdClass = sprintf('Ergonode\%s\Domain\Entity\%sId', ucfirst($module), $entity);
-        $repositoryInterface = sprintf('Ergonode\%s\Domain\Repository\%sRepositoryInterface', ucfirst($module), $entity);
+        $repositoryInterface =
+            sprintf('Ergonode\%s\Domain\Repository\%sRepositoryInterface', ucfirst($module), $entity);
         $namespace = sprintf('Ergonode\%s\Persistence\Dbal\Repository', ucfirst($module));
 
         $phpNamespace = $file->addNamespace($namespace);
@@ -74,7 +75,7 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
 
         $properties = [
             'store' => DomainEventStoreInterface::class,
-            'dispatcher' => DomainEventDispatcherInterface::class,
+            'dispatcher' => EventBusInterface::class,
         ];
 
         foreach ($properties as $name => $type) {
@@ -90,7 +91,13 @@ class EntityDbalRepositoryBuilder implements BuilderInterface
         $property->addBody(sprintf('    $class = new \ReflectionClass(%s::class);', ucfirst($entity)));
         $property->addBody('    $aggregate = $class->newInstanceWithoutConstructor();');
         $property->addBody('    if (!$aggregate instanceof AbstractAggregateRoot) {');
-        $property->addBody(sprintf('        throw new \LogicException(sprintf(\'Impossible to initialize "%%s"\', %s::class));', ucfirst($entity)));
+        $property
+            ->addBody(
+                sprintf(
+                    '        throw new \LogicException(sprintf(\'Impossible to initialize "%%s"\', %s::class));',
+                    ucfirst($entity)
+                )
+            );
         $property->addBody('    }');
         $property->addBody('    $aggregate->initialize($stream);');
         $property->addBody('');

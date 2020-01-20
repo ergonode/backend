@@ -34,10 +34,21 @@ final class Version20180610093112 extends AbstractErgonodeMigration
                       PRIMARY KEY(id)
               )'
         );
-        $this->addSql('CREATE TABLE translation (translation_id UUID NOT NULL, language VARCHAR(2) NOT NULL, phrase VARCHAR(255), PRIMARY KEY(translation_id, language))');
+        $this->addSql(
+            'CREATE TABLE translation
+                    (
+                        translation_id UUID NOT NULL,
+                        language VARCHAR(2) NOT NULL,
+                        phrase VARCHAR(255),
+                        PRIMARY KEY(translation_id, language)
+                    )'
+        );
 
         foreach ($this->getLanguages() as $iso => $name) {
-            $this->addSql('INSERT INTO language (id, iso, name) VALUES (?, ?, ?)', [Uuid::uuid4()->toString(), $iso, $name]);
+            $this->addSql(
+                'INSERT INTO language (id, iso, name) VALUES (?, ?, ?)',
+                [Uuid::uuid4()->toString(), $iso, $name]
+            );
         }
 
         $this->addSql('UPDATE language SET system = true WHERE iso in (\'EN\', \'PL\')');

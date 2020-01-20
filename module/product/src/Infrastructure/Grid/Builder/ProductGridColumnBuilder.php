@@ -14,7 +14,6 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\Column\CheckColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
@@ -64,6 +63,7 @@ class ProductGridColumnBuilder
      * @param Language                   $defaultLanguage
      *
      * @return array
+     *
      * @throws \Exception
      */
     public function build(GridConfigurationInterface $configuration, Language $defaultLanguage): array
@@ -82,7 +82,9 @@ class ProductGridColumnBuilder
             $configuration->getColumns()
         );
 
-        $result['id'] = new CheckColumn('id', 'Id');
+        $id = new TextColumn('id', 'Id', new TextFilter());
+        $id->setVisible(false);
+        $result['id'] = $id;
         $result['index'] = new IntegerColumn('index', 'Index', new TextFilter());
         $result['sku'] = new TextColumn('sku', 'Sku', new TextFilter());
 

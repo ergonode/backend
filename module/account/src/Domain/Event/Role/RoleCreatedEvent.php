@@ -11,6 +11,7 @@ namespace Ergonode\Account\Domain\Event\Role;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -61,8 +62,13 @@ class RoleCreatedEvent implements DomainEventInterface
      * @param Privilege[] $privileges
      * @param bool        $hidden
      */
-    public function __construct(RoleId $id, string $name, string $description, array $privileges = [], bool $hidden = false)
-    {
+    public function __construct(
+        RoleId $id,
+        string $name,
+        string $description,
+        array $privileges = [],
+        bool $hidden = false
+    ) {
         Assert::allIsInstanceOf($privileges, Privilege::class);
 
         $this->id = $id;
@@ -75,7 +81,7 @@ class RoleCreatedEvent implements DomainEventInterface
     /**
      * @return RoleId
      */
-    public function getId(): RoleId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

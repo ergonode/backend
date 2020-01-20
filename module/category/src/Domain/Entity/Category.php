@@ -59,7 +59,9 @@ class Category extends AbstractAggregateRoot
      * @param CategoryId         $id
      * @param CategoryCode       $code
      * @param TranslatableString $name
-     * @param ValueInterface[]   $attributes
+     * @param array              $attributes
+     *
+     * @throws \Exception
      */
     public function __construct(CategoryId $id, CategoryCode $code, TranslatableString $name, array $attributes = [])
     {
@@ -94,11 +96,13 @@ class Category extends AbstractAggregateRoot
 
     /**
      * @param TranslatableString $title
+     *
+     * @throws \Exception
      */
     public function changeName(TranslatableString $title): void
     {
         if ($this->name->getTranslations() !== $title->getTranslations()) {
-            $this->apply(new CategoryNameChangedEvent($this->name, $title));
+            $this->apply(new CategoryNameChangedEvent($this->id, $this->name, $title));
         }
     }
 
@@ -129,6 +133,8 @@ class Category extends AbstractAggregateRoot
     /**
      * @param AttributeCode  $attributeCode
      * @param ValueInterface $value
+     *
+     * @throws \Exception
      */
     public function addAttribute(AttributeCode $attributeCode, ValueInterface $value): void
     {
@@ -136,7 +142,7 @@ class Category extends AbstractAggregateRoot
             throw new \RuntimeException('Value already exists');
         }
 
-        $this->apply(new ValueAddedEvent($attributeCode, $value));
+        $this->apply(new ValueAddedEvent($this->id, $attributeCode, $value));
     }
 
     /**
@@ -150,6 +156,8 @@ class Category extends AbstractAggregateRoot
     /**
      * @param AttributeCode  $attributeCode
      * @param ValueInterface $value
+     *
+     * @throws \Exception
      */
     public function changeAttribute(AttributeCode $attributeCode, ValueInterface $value): void
     {
@@ -158,12 +166,21 @@ class Category extends AbstractAggregateRoot
         }
 
         if ((string) $this->attributes[$attributeCode->getValue()] !== (string) $value) {
-            $this->apply(new ValueChangedEvent($attributeCode, $this->attributes[$attributeCode->getValue()], $value));
+            $this->apply(
+                new ValueChangedEvent(
+                    $this->id,
+                    $attributeCode,
+                    $this->attributes[$attributeCode->getValue()],
+                    $value
+                )
+            );
         }
     }
 
     /**
      * @param AttributeCode $attributeCode
+     *
+     * @throws \Exception
      */
     public function removeAttribute(AttributeCode $attributeCode): void
     {
@@ -171,7 +188,7 @@ class Category extends AbstractAggregateRoot
             throw new \RuntimeException('Value note exists');
         }
 
-        $this->apply(new ValueRemovedEvent($attributeCode, $this->attributes[$attributeCode->getValue()]));
+        $this->apply(new ValueRemovedEvent($this->id, $attributeCode, $this->attributes[$attributeCode->getValue()]));
     }
 
     /**
@@ -179,7 +196,7 @@ class Category extends AbstractAggregateRoot
      */
     protected function applyCategoryCreatedEvent(CategoryCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->code = $event->getCode();
         $this->name = $event->getName();
         $this->attributes = $event->getAttributes();

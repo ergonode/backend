@@ -9,7 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Event;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\Transformer\Domain\Entity\ProcessorId;
 use Ergonode\Transformer\Domain\ValueObject\ProcessorStatus;
 use JMS\Serializer\Annotation as JMS;
 
@@ -17,6 +19,13 @@ use JMS\Serializer\Annotation as JMS;
  */
 class ProcessorStatusChangedEvent implements DomainEventInterface
 {
+    /**
+     * @var ProcessorId
+     *
+     * @JMS\Type("Ergonode\Transformer\Domain\Entity\ProcessorId")
+     */
+    private $id;
+
     /**
      * @var ProcessorStatus
      *
@@ -39,15 +48,25 @@ class ProcessorStatusChangedEvent implements DomainEventInterface
     private $reason;
 
     /**
+     * @param ProcessorId     $id
      * @param ProcessorStatus $from
      * @param ProcessorStatus $to
      * @param null|string     $reason
      */
-    public function __construct(ProcessorStatus $from, ProcessorStatus $to, ?string $reason = null)
+    public function __construct(ProcessorId $id, ProcessorStatus $from, ProcessorStatus $to, ?string $reason = null)
     {
+        $this->id = $id;
         $this->from = $from;
         $this->to = $to;
         $this->reason = $reason;
+    }
+
+    /**
+     * @return AbstractId|ProcessorId
+     */
+    public function getAggregateId(): AbstractId
+    {
+        return $this->id;
     }
 
     /**

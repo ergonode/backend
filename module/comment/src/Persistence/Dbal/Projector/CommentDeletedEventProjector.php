@@ -10,16 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
-use Ergonode\Comment\Domain\Event\CommentCreatedEvent;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Comment\Domain\Event\CommentDeletedEvent;
 
 /**
  */
-class CommentDeletedEventProjector implements DomainEventProjectorInterface
+class CommentDeletedEventProjector
 {
     private const TABLE = 'comment';
 
@@ -37,33 +33,17 @@ class CommentDeletedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof CommentDeletedEvent;
-    }
-
-    /**
-     * @param AbstractId                               $aggregateId
-     * @param DomainEventInterface|CommentCreatedEvent $event
+     * @param CommentDeletedEvent $event
      *
-     * @throws UnsupportedEventException
-     * @throws \Throwable
+     * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(CommentDeletedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, CommentDeletedEvent::class);
-        }
-
-        $this->connection->transactional(function () use ($aggregateId) {
-            $this->connection->delete(
-                self::TABLE,
-                [
-                    'id' => $aggregateId->getValue(),
-                ]
-            );
-        });
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'id' => $event->getAggregateId()->getValue(),
+            ]
+        );
     }
 }

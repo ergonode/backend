@@ -24,8 +24,12 @@ class MethodBuilder
      *
      * @return Method
      */
-    public function build(string $methodName, array $properties = [], string $returnType = null, bool $nullable = false): Method
-    {
+    public function build(
+        string $methodName,
+        array $properties = [],
+        string $returnType = null,
+        bool $nullable = false
+    ): Method {
         $method = new Method($methodName);
         $method->setVisibility(ClassType::VISIBILITY_PUBLIC);
 
@@ -46,7 +50,7 @@ class MethodBuilder
         }
 
         if (null !== $returnType) {
-            if ($returnType !== 'void') {
+            if ('void' !== $returnType) {
                 $path = explode('\\', $returnType);
                 $baseReturnType = array_pop($path);
                 $method->addComment('');

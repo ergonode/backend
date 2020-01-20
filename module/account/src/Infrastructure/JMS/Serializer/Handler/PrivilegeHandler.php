@@ -55,8 +55,12 @@ class PrivilegeHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, Privilege $privilege, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        Privilege $privilege,
+        array $type,
+        Context $context
+    ): string {
         return $privilege->getValue();
     }
 
@@ -68,8 +72,12 @@ class PrivilegeHandler implements SubscribingHandlerInterface
      *
      * @return Privilege
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Privilege
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): Privilege {
         return new Privilege($data);
     }
 }

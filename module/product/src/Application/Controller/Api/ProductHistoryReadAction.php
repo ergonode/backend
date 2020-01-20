@@ -139,8 +139,11 @@ class ProductHistoryReadAction
      *
      * @return Response
      */
-    public function __invoke(Language $language, AbstractProduct $product, RequestGridConfiguration $configuration): Response
-    {
+    public function __invoke(
+        Language $language,
+        AbstractProduct $product,
+        RequestGridConfiguration $configuration
+    ): Response {
         $data = $this->gridRenderer->render(
             $this->grid,
             $configuration,

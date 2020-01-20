@@ -11,9 +11,9 @@ namespace Ergonode\Attribute\Tests\Application\Form\Event;
 
 use Ergonode\Attribute\Application\Form\Event\AttributeFormSubscriber;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\AttributeDate\Application\Form\Type\DateFormatFormType;
-use Ergonode\AttributePrice\Application\Form\Type\CurrencyFormType;
-use Ergonode\AttributeUnit\Application\Form\Type\UnitFormType;
+use Ergonode\Attribute\Application\Form\Type\DateFormatFormType;
+use Ergonode\Attribute\Application\Form\Type\CurrencyFormType;
+use Ergonode\Attribute\Application\Form\Type\UnitFormType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormEvent;
@@ -31,6 +31,8 @@ class AttributeFormSubscriberTest extends TestCase
     private $form;
     private $formParameters;
 
+    /**
+     */
     protected function setUp()
     {
         $this->event = $this->createMock(FormEvent::class);

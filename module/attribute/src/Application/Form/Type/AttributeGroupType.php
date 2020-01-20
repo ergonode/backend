@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Application\Form\Type;
 
 use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeGroupDictionaryProvider;
-use Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface;
+use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,8 +33,10 @@ class AttributeGroupType extends AbstractType
      * @param AttributeGroupDictionaryProvider   $provider
      * @param AuthenticatedUserProviderInterface $userProvider
      */
-    public function __construct(AttributeGroupDictionaryProvider $provider, AuthenticatedUserProviderInterface $userProvider)
-    {
+    public function __construct(
+        AttributeGroupDictionaryProvider $provider,
+        AuthenticatedUserProviderInterface $userProvider
+    ) {
         $this->provider = $provider;
         $this->userProvider = $userProvider;
     }

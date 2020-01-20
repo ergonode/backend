@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Application\Model;
 
-use Ergonode\AttributeImage\Domain\ValueObject\ImageFormat;
+use Ergonode\Multimedia\Domain\ValueObject\ImageFormat;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -22,6 +22,7 @@ class MultimediaUploadModel
 {
     /**
      * @Assert\File(maxSize="100M")
+     *
      * @Vich\UploadableField(mapping="attachment", fileNameProperty="fileName", size="fileSize")
      *
      * @var UploadedFile
@@ -30,11 +31,16 @@ class MultimediaUploadModel
 
     /**
      * @Assert\Callback
+     *
      * @param ExecutionContextInterface $context
      */
     public function validate(ExecutionContextInterface $context): void
     {
-        $isFileExtensionValid = \in_array(strtolower($this->upload->getClientOriginalExtension()), ImageFormat::AVAILABLE, true);
+        $isFileExtensionValid = \in_array(
+            strtolower($this->upload->getClientOriginalExtension()),
+            ImageFormat::AVAILABLE,
+            true
+        );
 
         if ($this->upload && !$isFileExtensionValid) {
             $context

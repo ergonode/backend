@@ -1,0 +1,151 @@
+Ergonode\Attribute\Domain\Entity\AttributeGroup:
+    attribute_group_{1..10}:
+        __construct:
+            - '<AttributeGroupId()>'
+            - '<AttributeGroupCode(group_code_<current()>)>'
+            - '@label_<current()>'
+
+Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute:
+    attribute_image:
+        __construct:
+            - '<AttributeId(image_attribute)>'
+            - '<AttributeCode(image_attribute)>'
+            - '@label_1'
+            - '@hint_1'
+            - '@placeholder_1'
+
+Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
+    attribute_{1..10}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - false
+
+Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute:
+    attribute_{11..20}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - false
+
+Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute:
+    attribute_{21..25}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+
+Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute:
+    attribute_{26..30}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - '<DateFormat()>'
+
+Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute:
+    attribute_{31..35}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - '<Currency()>'
+
+Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute:
+    attribute_{36..40}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - '<Unit()>'
+
+Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute:
+    attribute_{41..45}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+        __calls:
+            - addOption:
+                - '<OptionKey(key_<current()>)>'
+                - '@value_<current()>'
+
+Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute:
+    attribute_{46..50}:
+        __construct:
+            - '<AttributeId(code_<current()>)>'
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+        __calls:
+            - addOption:
+                - '<OptionKey(key_<current()>)>'
+                - '@value_<current()>'
+
+Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
+    attribute_esa_status:
+        __construct:
+            - '@label_esa_status'
+            - '@empty'
+            - '@empty'
+            -
+Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute:
+    attribute_esa_created_at:
+        __construct:
+            - '@label_esa_created_at'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute:
+    attribute_esa_edited_at:
+        __construct:
+            - '@label_esa_edited_at'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute:
+    attribute_esa_created_by:
+        __construct:
+            - '@label_esa_created_by'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute:
+    attribute_esa_edited_by:
+        __construct:
+            - '@label_esa_edited_by'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute:
+    attribute_esa_template:
+        __construct:
+            - '@label_esa_template'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
+    attribute_esa_categories:
+        __construct:
+            - '@label_esa_categories'
+            - '@empty'
+            - '@empty'

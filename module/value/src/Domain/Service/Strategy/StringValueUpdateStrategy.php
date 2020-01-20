@@ -33,11 +33,15 @@ class StringValueUpdateStrategy implements ValueUpdateStrategyInterface
     public function calculate(ValueInterface $oldValue, ValueInterface $newValue): ValueInterface
     {
         if (!$oldValue instanceof StringValue) {
-            throw new \InvalidArgumentException(\sprintf('Old value must be type %s given %s', StringValue::class, get_class($newValue)));
+            throw new \InvalidArgumentException(
+                \sprintf('Old value must be type %s given %s', StringValue::class, get_class($newValue))
+            );
         }
 
         if (!$newValue instanceof StringValue) {
-            throw new \InvalidArgumentException(\sprintf('New value must be type %s given %s ', StringValue::class, get_class($newValue)));
+            throw new \InvalidArgumentException(
+                \sprintf('New value must be type %s given %s ', StringValue::class, get_class($newValue))
+            );
         }
 
         return new StringValue($newValue->getValue());

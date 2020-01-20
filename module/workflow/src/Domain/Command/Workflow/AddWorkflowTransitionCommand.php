@@ -11,14 +11,14 @@ namespace Ergonode\Workflow\Domain\Command\Workflow;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AddWorkflowTransitionCommand
+class AddWorkflowTransitionCommand implements DomainCommandInterface
 {
     /**
      * @var WorkflowId
@@ -42,20 +42,6 @@ class AddWorkflowTransitionCommand
     private $destination;
 
     /**
-     * @var TranslatableString
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
-    private $name;
-
-    /**
-     * @var TranslatableString
-     *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
-     */
-    private $description;
-
-    /**
      * @var RoleId[]
      *
      * @JMS\Type("array<Ergonode\Account\Domain\Entity\RoleId>")
@@ -73,18 +59,19 @@ class AddWorkflowTransitionCommand
      * @param WorkflowId          $workflowId
      * @param StatusCode          $source
      * @param StatusCode          $destination
-     * @param TranslatableString  $name
-     * @param TranslatableString  $description
      * @param RoleId[]            $roleIds
      * @param ConditionSetId|null $conditionSetId
      */
-    public function __construct(WorkflowId $workflowId, StatusCode $source, StatusCode $destination, TranslatableString $name, TranslatableString $description, array $roleIds = [], ?ConditionSetId $conditionSetId = null)
-    {
+    public function __construct(
+        WorkflowId $workflowId,
+        StatusCode $source,
+        StatusCode $destination,
+        array $roleIds = [],
+        ?ConditionSetId $conditionSetId = null
+    ) {
         $this->workflowId = $workflowId;
         $this->source = $source;
         $this->destination = $destination;
-        $this->name = $name;
-        $this->description = $description;
         $this->roleIds = $roleIds;
         $this->conditionSetId = $conditionSetId;
     }
@@ -112,22 +99,6 @@ class AddWorkflowTransitionCommand
     public function getDestination(): StatusCode
     {
         return $this->destination;
-    }
-
-    /**
-     * @return TranslatableString
-     */
-    public function getName(): TranslatableString
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return TranslatableString
-     */
-    public function getDescription(): TranslatableString
-    {
-        return $this->description;
     }
 
     /**

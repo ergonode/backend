@@ -22,6 +22,7 @@ class AttributeElementPropertyTypeModel
      *
      * @Assert\NotBlank(message="Attribute id is required")
      * @Assert\Uuid()
+     *
      * @AttributeExists(groups={"Attribute"})
      */
     public $attributeId;

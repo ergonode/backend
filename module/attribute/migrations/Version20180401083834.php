@@ -87,7 +87,10 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 PRIMARY KEY(entity_id, attribute_id, value_id)
             )
         ');
-        $this->addSql('ALTER TABLE entity_attribute_value ADD CONSTRAINT entity_attribute_value_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
+        $this->addSql('
+            ALTER TABLE entity_attribute_value 
+                ADD CONSTRAINT entity_attribute_value_attribute_id_fk 
+                    FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
 
         $this->addSql('
             CREATE TABLE attribute_option (                 
@@ -97,7 +100,10 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 PRIMARY KEY(attribute_id, value_id)
             )
         ');
-        $this->addSql('ALTER TABLE attribute_option ADD CONSTRAINT attribute_option_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
+        $this->addSql('
+            ALTER TABLE attribute_option 
+                ADD CONSTRAINT attribute_option_attribute_id_fk 
+                    FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
 
         // @todo verify is really needed
         $this->addSql('
@@ -108,7 +114,10 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 PRIMARY KEY(attribute_id, type)
             )
         ');
-        $this->addSql('ALTER TABLE attribute_parameter ADD CONSTRAINT attribute_parameter_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
+        $this->addSql('
+            ALTER TABLE attribute_parameter 
+                ADD CONSTRAINT attribute_parameter_attribute_id_fk 
+                    FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
 
         $this->addSql('
             CREATE TABLE attribute_group_attribute (
@@ -117,8 +126,14 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 PRIMARY KEY(attribute_id, attribute_group_id)
             )
         ');
-        $this->addSql('ALTER TABLE attribute_group_attribute ADD CONSTRAINT attribute_group_attribute_attribute_id_fk FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE RESTRICT ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE attribute_group_attribute ADD CONSTRAINT attribute_group_attribute_group_id_fk FOREIGN KEY (attribute_group_id) REFERENCES attribute_group ON UPDATE RESTRICT ON DELETE RESTRICT');
+        $this->addSql('
+            ALTER TABLE attribute_group_attribute
+                ADD CONSTRAINT attribute_group_attribute_attribute_id_fk 
+                    FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE RESTRICT ON DELETE CASCADE');
+        $this->addSql('
+            ALTER TABLE attribute_group_attribute 
+                ADD CONSTRAINT attribute_group_attribute_group_id_fk 
+                    FOREIGN KEY (attribute_group_id) REFERENCES attribute_group ON UPDATE RESTRICT ON DELETE RESTRICT');
 
         $this->createPrivileges([
             'ATTRIBUTE_CREATE' => 'Attribute',
@@ -135,8 +150,10 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent' => 'Attribute added',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent' => 'Attribute hint changed',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent' => 'Attribute label changed',
-            'Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent' => 'Attribute placeholder changed',
-            'Ergonode\Attribute\Domain\Event\Attribute\AttributeArrayParameterChangeEvent' => 'Attribute parameters changed',
+            'Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent' =>
+                'Attribute placeholder changed',
+            'Ergonode\Attribute\Domain\Event\Attribute\AttributeArrayParameterChangeEvent' =>
+                'Attribute parameters changed',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent' => 'Attribute parameter changed',
             'Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent' => 'Attribute group created',
             'Ergonode\Attribute\Domain\Event\Group\AttributeGroupDeletedEvent' => 'Attribute group removed',

@@ -17,12 +17,20 @@ services:
         resource: '../../Infrastructure/*'
         exclude: '../../Infrastructure/{Message}'
 
+    Ergonode\Multimedia\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
+
     Ergonode\Multimedia\Application\Controller\:
         resource: '../../Application/Controller/*'
         tags: ['controller.service_arguments']
 
     Ergonode\Multimedia\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Multimedia\Persistence\Dbal\Projector\:
+        resource: '../../Persistence/Dbal/Projector/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Multimedia\Infrastructure\JMS\Serializer\Handler\:
@@ -33,4 +41,6 @@ services:
         arguments:
             $targetDirectory: '%multimedia_directory%'
 
+    Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface: '@Ergonode\Multimedia\Persistence\Dbal\Query\DbalMultimediaQuery'
     Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface: '@Ergonode\Multimedia\Persistence\Dbal\Repository\DbalMultimediaRepository'
+    Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface: '@Ergonode\Multimedia\Infrastructure\Service\SHACalculationService'

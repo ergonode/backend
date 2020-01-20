@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Domain\Event;
 
+use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Reader\Domain\Entity\ReaderId;
 use Ergonode\Reader\Domain\FormatterInterface;
@@ -60,8 +61,13 @@ class ReaderCreatedEvent implements DomainEventInterface
      * @param string[]             $configuration
      * @param FormatterInterface[] $formatters
      */
-    public function __construct(ReaderId $id, string $name, string $type, array $configuration = [], array $formatters = [])
-    {
+    public function __construct(
+        ReaderId $id,
+        string $name,
+        string $type,
+        array $configuration = [],
+        array $formatters = []
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->type = $type;
@@ -72,7 +78,7 @@ class ReaderCreatedEvent implements DomainEventInterface
     /**
      * @return ReaderId
      */
-    public function getId(): ReaderId
+    public function getAggregateId(): AbstractId
     {
         return $this->id;
     }

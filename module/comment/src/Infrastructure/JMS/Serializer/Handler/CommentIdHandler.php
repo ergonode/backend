@@ -55,8 +55,12 @@ class CommentIdHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, CommentId $id, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        CommentId $id,
+        array $type,
+        Context $context
+    ): string {
         return $id->getValue();
     }
 
@@ -68,8 +72,12 @@ class CommentIdHandler implements SubscribingHandlerInterface
      *
      * @return CommentId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): CommentId
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): CommentId {
         return new CommentId($data);
     }
 }

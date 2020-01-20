@@ -64,17 +64,17 @@ class AttributeGroupChangeAction
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
-     *     name="attribute",
+     *     name="group",
      *     in="path",
      *     type="string",
-     *     description="Attribute id",
+     *     description="Attribute Group id",
      * )
      * @SWG\Parameter(
      *     name="body",
      *     in="body",
      *     description="Add attribute",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/attribute_group")
+     *     @SWG\Schema(ref="#/definitions/attribute_group_upd")
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -105,11 +105,15 @@ class AttributeGroupChangeAction
      *
      * @return Response
      */
-    public function __invoke(AttributeGroup $attributeGroup, Request $request): Response
-    {
+    public function __invoke(
+        AttributeGroup $attributeGroup,
+        Request $request
+    ): Response {
         try {
             $model = new UpdateAttributeGroupFormModel();
-            $form = $this->formFactory->create(AttributeGroupUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $form = $this
+                ->formFactory
+                ->create(AttributeGroupUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {

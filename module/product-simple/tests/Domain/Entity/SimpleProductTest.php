@@ -11,7 +11,6 @@ namespace Ergonode\ProductSimple\Tests\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
@@ -34,11 +33,6 @@ class SimpleProductTest extends TestCase
     private $sku;
 
     /**
-     * @var TemplateId|MockObject
-     */
-    private $template;
-
-    /**
      * @var CategoryCode|MockObject
      */
     private $category;
@@ -59,7 +53,6 @@ class SimpleProductTest extends TestCase
     {
         $this->id = $this->createMock(ProductId::class);
         $this->sku = $this->createMock(Sku::class);
-        $this->template = $this->createMock(TemplateId::class);
         $this->category = $this->createMock(CategoryCode::class);
         $this->code = $this->createMock(AttributeCode::class);
         $this->code->method('getValue')->willReturn('code');
@@ -70,10 +63,14 @@ class SimpleProductTest extends TestCase
      */
     public function testConstruct(): void
     {
-        $product = new SimpleProduct($this->id, $this->sku, $this->template, [$this->category], [$this->code->getValue() => $this->attribute]);
+        $product = new SimpleProduct(
+            $this->id,
+            $this->sku,
+            [$this->category],
+            [$this->code->getValue() => $this->attribute]
+        );
         $this->assertEquals($this->id, $product->getId());
         $this->assertEquals($this->sku, $product->getSku());
-        $this->assertEquals($this->template, $product->getTemplateId());
         $this->assertEquals([$this->category], $product->getCategories());
         $this->assertEquals([$this->code->getValue() => $this->attribute], $product->getAttributes());
     }
@@ -84,14 +81,14 @@ class SimpleProductTest extends TestCase
     public function testConstructWitchBadCategoryObject(): void
     {
         $categories = [$this->createMock(\stdClass::class)];
-        new SimpleProduct($this->id, $this->sku, $this->template, $categories, []);
+        new SimpleProduct($this->id, $this->sku, $categories, []);
     }
 
     /**
      */
     public function testCategoryManipulation(): void
     {
-        $product = new SimpleProduct($this->id, $this->sku, $this->template, [$this->category], []);
+        $product = new SimpleProduct($this->id, $this->sku, [$this->category], []);
         $this->assertTrue($product->belongToCategory($this->category));
         $product->removeFromCategory($this->category);
         $this->assertFalse($product->belongToCategory($this->category));
@@ -103,7 +100,12 @@ class SimpleProductTest extends TestCase
      */
     public function testAttributeManipulation(): void
     {
-        $product = new SimpleProduct($this->id, $this->sku, $this->template, [$this->category], [$this->code->getValue() => $this->attribute]);
+        $product = new SimpleProduct(
+            $this->id,
+            $this->sku,
+            [$this->category],
+            [$this->code->getValue() => $this->attribute]
+        );
         $this->assertTrue($product->hasAttribute($this->code));
         $product->removeAttribute($this->code);
         $this->assertFalse($product->hasAttribute($this->code));

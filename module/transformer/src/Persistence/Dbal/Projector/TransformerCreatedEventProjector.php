@@ -10,15 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use Ergonode\Transformer\Domain\Event\TransformerCreatedEvent;
 
 /**
  */
-class TransformerCreatedEventProjector implements DomainEventProjectorInterface
+class TransformerCreatedEventProjector
 {
     /**
      * @var Connection
@@ -36,24 +32,12 @@ class TransformerCreatedEventProjector implements DomainEventProjectorInterface
     /**
      * {@inheritDoc}
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(TransformerCreatedEvent $event): void
     {
-        return $event instanceof TransformerCreatedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, TransformerCreatedEvent::class);
-        }
-
         $this->connection->insert(
             'importer.transformer',
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
                 'name' => $event->getName(),
                 'key' => $event->getKey(),
             ]

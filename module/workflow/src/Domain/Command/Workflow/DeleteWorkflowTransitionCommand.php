@@ -9,13 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Command\Workflow;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class DeleteWorkflowTransitionCommand
+class DeleteWorkflowTransitionCommand implements DomainCommandInterface
 {
     /**
      * @var WorkflowId

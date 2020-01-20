@@ -68,7 +68,7 @@ class DateConverter implements ConverterInterface
         $field = $this->field ?: $field;
 
         $result = strtotime($line[$field]);
-        if ($result === false) {
+        if (false === $result) {
             throw new ConverterException(sprintf('"%s" is unknown format date', $result));
         }
 

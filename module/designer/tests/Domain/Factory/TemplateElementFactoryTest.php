@@ -37,7 +37,8 @@ class TemplateElementFactoryTest extends TestCase
     protected function setUp()
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
-        $this->serializer->method('deserialize')->willReturn($this->createMock(TemplateElementPropertyInterface::class));
+        $templateElement = $this->createMock(TemplateElementPropertyInterface::class);
+        $this->serializer->method('deserialize')->willReturn($templateElement);
         $this->resolver = $this->createMock(TemplateElementTypeResolver::class);
         $this->resolver->method('resolve')->willReturn('Resolver type');
     }

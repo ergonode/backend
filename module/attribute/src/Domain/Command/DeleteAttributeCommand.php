@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Command;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class DeleteAttributeCommand
+class DeleteAttributeCommand implements DomainCommandInterface
 {
     /**
      * @var AttributeId

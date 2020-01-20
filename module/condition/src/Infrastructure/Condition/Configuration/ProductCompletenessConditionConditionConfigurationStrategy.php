@@ -47,15 +47,23 @@ class ProductCompletenessConditionConditionConfigurationStrategy implements Cond
     {
         return [
             'type' => ProductCompletenessCondition::TYPE,
-            'name' => $this->translator->trans(ProductCompletenessCondition::TYPE, [], 'condition', $language->getCode()),
-            'phrase' => $this->translator->trans(ProductCompletenessCondition::PHRASE, [], 'condition', $language->getCode()),
+            'name' => $this
+                ->translator
+                ->trans(ProductCompletenessCondition::TYPE, [], 'condition', $language->getCode()),
+            'phrase' => $this
+                ->translator
+                ->trans(ProductCompletenessCondition::PHRASE, [], 'condition', $language->getCode()),
             'parameters' => [
                 [
                     'name' => 'completeness',
                     'type' => 'SELECT',
                     'options' => [
-                        ProductCompletenessCondition::COMPLETE => $this->translator->trans('Product is complete', [], 'condition', $language->getCode()),
-                        ProductCompletenessCondition::NOT_COMPLETE => $this->translator->trans('Product is not complete', [], 'condition', $language->getCode()),
+                        ProductCompletenessCondition::COMPLETE => $this
+                            ->translator
+                            ->trans('Product is complete', [], 'condition', $language->getCode()),
+                        ProductCompletenessCondition::NOT_COMPLETE => $this
+                            ->translator
+                            ->trans('Product is not complete', [], 'condition', $language->getCode()),
                     ],
                 ],
             ],

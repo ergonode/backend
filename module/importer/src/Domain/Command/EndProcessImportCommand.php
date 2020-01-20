@@ -9,14 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\Command;
 
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class EndProcessImport
  */
-class EndProcessImportCommand
+class EndProcessImportCommand implements DomainCommandInterface
 {
     /**
      * @var ImportId

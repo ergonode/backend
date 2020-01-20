@@ -10,15 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Persistence\Dbal\Projector\Role;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 
 /**
  */
-class RoleNameChangedEventProjector implements DomainEventProjectorInterface
+class RoleNameChangedEventProjector
 {
     private const TABLE = 'roles';
 
@@ -36,29 +33,19 @@ class RoleNameChangedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param RoleNameChangedEvent $event
+     *
+     * @throws DBALException
      */
-    public function supports(DomainEventInterface $event): bool
+    public function __invoke(RoleNameChangedEvent $event): void
     {
-        return $event instanceof RoleNameChangedEvent;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
-    {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, RoleNameChangedEvent::class);
-        }
-
         $this->connection->update(
             self::TABLE,
             [
                 'name' => $event->getTo(),
             ],
             [
-                'id' => $aggregateId->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

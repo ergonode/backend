@@ -55,8 +55,12 @@ class ColorHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, Color $color, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        Color $color,
+        array $type,
+        Context $context
+    ): string {
         return $color->getValue();
     }
 
@@ -68,8 +72,12 @@ class ColorHandler implements SubscribingHandlerInterface
      *
      * @return Color
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Color
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): Color {
         return new Color($data);
     }
 }

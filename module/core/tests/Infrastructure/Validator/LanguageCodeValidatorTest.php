@@ -65,6 +65,9 @@ class LanguageCodeValidatorTest extends ConstraintValidatorTestCase
         $assertion->assertRaised();
     }
 
+    /**
+     * @return LanguageCodeValidator
+     */
     protected function createValidator(): LanguageCodeValidator
     {
         return new LanguageCodeValidator();

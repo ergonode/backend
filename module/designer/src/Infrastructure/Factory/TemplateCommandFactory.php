@@ -48,6 +48,7 @@ class TemplateCommandFactory
      * @param TemplateFormModel $model
      *
      * @return CreateTemplateCommand
+     *
      * @throws \Exception
      */
     public function getCreateTemplateCommand(TemplateFormModel $model): CreateTemplateCommand

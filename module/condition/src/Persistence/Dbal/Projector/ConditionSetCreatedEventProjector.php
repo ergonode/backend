@@ -12,15 +12,11 @@ namespace Ergonode\Condition\Persistence\Dbal\Projector;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\EventSourcing\Infrastructure\Exception\UnsupportedEventException;
-use Ergonode\EventSourcing\Infrastructure\Projector\DomainEventProjectorInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class ConditionSetCreatedEventProjector implements DomainEventProjectorInterface
+class ConditionSetCreatedEventProjector
 {
     private const TABLE = 'condition_set';
 
@@ -45,30 +41,16 @@ class ConditionSetCreatedEventProjector implements DomainEventProjectorInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function supports(DomainEventInterface $event): bool
-    {
-        return $event instanceof ConditionSetCreatedEvent;
-    }
-
-    /**
-     * @param AbstractId                                    $aggregateId
-     * @param DomainEventInterface|ConditionSetCreatedEvent $event
+     * @param ConditionSetCreatedEvent $event
      *
-     * @throws UnsupportedEventException
      * @throws DBALException
      */
-    public function projection(AbstractId $aggregateId, DomainEventInterface $event): void
+    public function __invoke(ConditionSetCreatedEvent $event): void
     {
-        if (!$this->supports($event)) {
-            throw new UnsupportedEventException($event, ConditionSetCreatedEvent::class);
-        }
-
         $this->connection->insert(
             self::TABLE,
             [
-                'id' => $event->getId()->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
                 'conditions' => $this->serializer->serialize($event->getConditions(), 'json'),
             ]
         );

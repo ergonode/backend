@@ -92,8 +92,7 @@ Feature: Comment module
       }
       """
     When I request "/api/v1/EN/comments/@comment_id@" using HTTP PUT
-    Then created response is received
-    And remember response param "id" as "comment_id"
+    Then empty response is received
 
   Scenario: Change invalid comment
     Given current authentication token
@@ -118,6 +117,7 @@ Feature: Comment module
     """
       /New comment for comment to object/
     """
+
   Scenario: Delete comment
     Given current authentication token
     When I request "api/v1/EN/comments/@comment_id@" using HTTP DELETE

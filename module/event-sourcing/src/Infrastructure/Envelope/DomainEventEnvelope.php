@@ -43,8 +43,12 @@ class DomainEventEnvelope extends Event
      * @param DomainEventInterface $event
      * @param \DateTime            $recordedAt
      */
-    public function __construct(AbstractId $aggregateId, int $sequence, DomainEventInterface $event, \DateTime $recordedAt)
-    {
+    public function __construct(
+        AbstractId $aggregateId,
+        int $sequence,
+        DomainEventInterface $event,
+        \DateTime $recordedAt
+    ) {
         $this->aggregateId = $aggregateId;
         $this->sequence = $sequence;
         $this->event = $event;

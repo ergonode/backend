@@ -10,9 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Infrastructure\Provider;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
+use Ergonode\Multimedia\Domain\Factory\MultimediaIdFactory;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
 
 /**
@@ -33,8 +33,10 @@ class MultimediaProvider
      * @param HashCalculationServiceInterface $hashService
      * @param MultimediaRepositoryInterface   $repository
      */
-    public function __construct(HashCalculationServiceInterface $hashService, MultimediaRepositoryInterface $repository)
-    {
+    public function __construct(
+        HashCalculationServiceInterface $hashService,
+        MultimediaRepositoryInterface $repository
+    ) {
         $this->hashService = $hashService;
         $this->repository = $repository;
     }
@@ -43,11 +45,13 @@ class MultimediaProvider
      * @param \SplFileInfo $file
      *
      * @return Multimedia
+     *
+     * @throws \Exception
      */
     public function provide(\SplFileInfo $file): Multimedia
     {
         $hash = $this->hashService->calculateHash($file);
-        $multimediaId = MultimediaId::createFromFile($file);
+        $multimediaId = MultimediaIdFactory::createFromFile($file);
         $multimedia = $this->repository->load($multimediaId);
         $guesser = MimeTypeGuesser::getInstance();
         $mimeType = $guesser->guess($file->getPathname());

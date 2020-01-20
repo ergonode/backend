@@ -52,8 +52,12 @@ class TemplateElement
      * @param string                           $type
      * @param TemplateElementPropertyInterface $properties
      */
-    public function __construct(Position $position, Size $size, string $type, TemplateElementPropertyInterface $properties)
-    {
+    public function __construct(
+        Position $position,
+        Size $size,
+        string $type,
+        TemplateElementPropertyInterface $properties
+    ) {
         $this->position = $position;
         $this->size = $size;
         $this->properties = $properties;
