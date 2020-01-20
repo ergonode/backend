@@ -23,14 +23,14 @@ class ConditionSetCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
-    private $id;
+    private ConditionSetId $id;
 
     /**
      * @var array
      *
      * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
-    private $conditions;
+    private array $conditions;
 
     /**
      * @param ConditionSetId $id

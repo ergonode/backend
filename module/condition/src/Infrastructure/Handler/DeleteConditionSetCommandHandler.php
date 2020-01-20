@@ -22,12 +22,12 @@ class DeleteConditionSetCommandHandler
     /**
      * @var ConditionSetRepositoryInterface
      */
-    private $repository;
+    private ConditionSetRepositoryInterface $repository;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @param ConditionSetRepositoryInterface $repository

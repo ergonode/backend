@@ -24,12 +24,12 @@ class TextAttributeValueConditionConditionConfigurationStrategy implements Condi
     /**
      * @var AttributeQueryInterface
      */
-    private $query;
+    private AttributeQueryInterface $query;
 
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param AttributeQueryInterface $query

@@ -18,7 +18,7 @@ class ConditionCalculatorProvider
     /**
      * @var ConditionCalculatorStrategyInterface[]
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param ConditionCalculatorStrategyInterface ...$strategies

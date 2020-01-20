@@ -23,14 +23,14 @@ class CreateConditionSetCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
-    private $id;
+    private ConditionSetId $id;
 
     /**
      * @var ConditionInterface[]
      *
      * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
-    private $conditions;
+    private array $conditions;
 
     /**
      * @param ConditionSetId $id

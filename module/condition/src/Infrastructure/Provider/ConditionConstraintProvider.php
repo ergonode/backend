@@ -18,7 +18,7 @@ class ConditionConstraintProvider
     /**
      * @var ConditionValidatorStrategyInterface ...$strategies
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param ConditionValidatorStrategyInterface ...$strategies

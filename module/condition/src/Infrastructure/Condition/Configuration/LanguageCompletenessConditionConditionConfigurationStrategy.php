@@ -22,12 +22,12 @@ class LanguageCompletenessConditionConditionConfigurationStrategy implements Con
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @var LanguageProviderInterface
      */
-    private $languageProvider;
+    private LanguageProviderInterface $languageProvider;
 
     /**
      * @param TranslatorInterface       $translator

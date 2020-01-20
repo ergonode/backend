@@ -20,7 +20,7 @@ class ConditionConfigurationProvider
     /**
      * @var ConditionConfigurationStrategyInterface[]
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param ConditionConfigurationStrategyInterface ...$strategies

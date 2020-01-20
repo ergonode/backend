@@ -25,7 +25,7 @@ class ConditionSetParamConverter implements ParamConverterInterface
     /**
      * @var ConditionSetRepositoryInterface
      */
-    private $conditionSetRepository;
+    private ConditionSetRepositoryInterface $conditionSetRepository;
 
     /**
      * @param ConditionSetRepositoryInterface $conditionSetRepository
