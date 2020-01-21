@@ -12,6 +12,8 @@ use Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class ProductBelongCategoryConditionTest extends TestCase
 {
 

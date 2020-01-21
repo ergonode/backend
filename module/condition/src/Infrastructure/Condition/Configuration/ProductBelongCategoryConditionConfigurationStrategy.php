@@ -7,7 +7,6 @@
 
 namespace Ergonode\Condition\Infrastructure\Condition\Configuration;
 
-
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyInterface;
@@ -73,7 +72,6 @@ class ProductBelongCategoryConditionConfigurationStrategy implements ConditionCo
                     'name' => 'categories',
                     'type' => 'SELECT',
                     'options' => $categories,
-
                 ],
                 [
                     'name' => 'operator',

@@ -7,7 +7,6 @@
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
-
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
@@ -32,7 +31,6 @@ class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalcu
     {
         $this->repository = $repository;
     }
-
 
     /**
      * {@inheritDoc}

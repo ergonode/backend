@@ -7,7 +7,6 @@
 
 namespace Ergonode\Condition\Infrastructure\Condition\Validator;
 
-
 use Ergonode\Category\Infrastructure\Validator\CategoryExists;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
@@ -16,6 +15,8 @@ use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ */
 class ProductBelongCategoryConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
     /**
@@ -36,15 +37,13 @@ class ProductBelongCategoryConditionValidatorStrategy implements ConditionValida
             [
                 'categories' => [
                     new NotBlank(),
-                    new CategoryExists()
+                    new CategoryExists(),
                 ],
                 'operator' => [
                     new NotBlank(),
-                    new Choice(['equal', 'not_equal',]),
+                    new Choice(['equal', 'not_equal']),
                 ],
             ]
         );
-
     }
-
 }

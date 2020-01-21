@@ -7,19 +7,20 @@
 
 namespace Ergonode\Condition\Domain\Condition;
 
-
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 
+/**
+ */
 class ProductBelongCategoryCondition implements ConditionInterface
 {
-
     public const TYPE = 'PRODUCT_BELONG_CATEGORY_CONDITION';
     public const PHRASE = 'PRODUCT_BELONG_CATEGORY_CONDITION_PHRASE';
 
     /**
      * @var CategoryId
+     *
      * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
      */
     private CategoryId $categoryId;
@@ -34,7 +35,7 @@ class ProductBelongCategoryCondition implements ConditionInterface
     /**
      * ProductBelongCategoryCondition constructor.
      * @param CategoryId $categoryId
-     * @param string $operator
+     * @param string     $operator
      */
     public function __construct(CategoryId $categoryId, string $operator)
     {
@@ -67,5 +68,4 @@ class ProductBelongCategoryCondition implements ConditionInterface
     {
         return $this->operator;
     }
-
 }
