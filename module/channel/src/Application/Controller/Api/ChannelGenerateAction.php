@@ -82,7 +82,7 @@ class ChannelGenerateAction
         $name = $request->request->get('name');
         $type = $request->request->get('type');
         $command = new GenerateChannelCommand($name, $type);
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         return new CreatedResponse($command->getId());
     }
