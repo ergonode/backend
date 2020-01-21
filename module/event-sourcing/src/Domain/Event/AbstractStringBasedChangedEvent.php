@@ -21,14 +21,14 @@ abstract class AbstractStringBasedChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("string")
      */
-    private $from;
+    private string $from;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $to;
+    private string $to;
 
     /**
      * @param string $from

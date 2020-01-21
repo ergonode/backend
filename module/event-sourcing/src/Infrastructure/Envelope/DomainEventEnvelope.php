@@ -20,22 +20,22 @@ class DomainEventEnvelope extends Event
     /**
      * @var AbstractId
      */
-    private $aggregateId;
+    private AbstractId $aggregateId;
 
     /**
      * @var int
      */
-    private $sequence;
+    private int $sequence;
 
     /**
      * @var DomainEventInterface
      */
-    private $event;
+    private DomainEventInterface $event;
 
     /**
      * @var \DateTime
      */
-    private $recordedAt;
+    private \DateTime $recordedAt;
 
     /**
      * @param AbstractId           $aggregateId
