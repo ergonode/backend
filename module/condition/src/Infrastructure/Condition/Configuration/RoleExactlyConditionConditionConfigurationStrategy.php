@@ -22,12 +22,12 @@ class RoleExactlyConditionConditionConfigurationStrategy implements ConditionCon
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @var RoleQueryInterface
      */
-    private $roleQuery;
+    private RoleQueryInterface $roleQuery;
 
     /**
      * @param TranslatorInterface $translator

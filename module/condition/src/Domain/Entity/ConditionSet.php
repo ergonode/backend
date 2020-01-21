@@ -28,7 +28,7 @@ class ConditionSet extends AbstractAggregateRoot
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      * @JMS\Expose()
      */
-    private $id;
+    private ConditionSetId $id;
 
     /**
      * @var ConditionInterface[]
@@ -36,7 +36,7 @@ class ConditionSet extends AbstractAggregateRoot
      * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      * @JMS\Expose()
      */
-    private $conditions;
+    private array $conditions;
 
     /**
      * @param ConditionSetId $id

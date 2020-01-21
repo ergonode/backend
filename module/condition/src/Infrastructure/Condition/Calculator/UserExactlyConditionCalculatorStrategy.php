@@ -25,12 +25,12 @@ class UserExactlyConditionCalculatorStrategy implements ConditionCalculatorStrat
     /**
      * @var UserRepositoryInterface
      */
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $authenticatedUserProvider;
+    private AuthenticatedUserProviderInterface $authenticatedUserProvider;
 
     /**
      * @param UserRepositoryInterface            $userRepository

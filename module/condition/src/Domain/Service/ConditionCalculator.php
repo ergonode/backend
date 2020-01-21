@@ -20,7 +20,7 @@ class ConditionCalculator
     /**
      * @var ConditionCalculatorProvider
      */
-    private $provider;
+    private ConditionCalculatorProvider $provider;
 
     /**
      * @param ConditionCalculatorProvider $provider

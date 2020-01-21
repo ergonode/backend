@@ -25,7 +25,7 @@ class AttributeExistsCondition implements ConditionInterface
      *
      * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
      */
-    private $attribute;
+    private AttributeId $attribute;
 
     /**
      * @param AttributeId $attribute

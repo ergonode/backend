@@ -25,7 +25,7 @@ class UserExactlyCondition implements ConditionInterface
      *
      * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
      */
-    private $user;
+    private UserId $user;
 
     /**
      * @param UserId $user

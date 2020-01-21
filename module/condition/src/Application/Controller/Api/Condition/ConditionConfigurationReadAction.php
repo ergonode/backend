@@ -26,7 +26,7 @@ class ConditionConfigurationReadAction
     /**
      * @var ConditionConfigurationProvider
      */
-    private $provider;
+    private ConditionConfigurationProvider $provider;
 
     /**
      * @param ConditionConfigurationProvider $provider

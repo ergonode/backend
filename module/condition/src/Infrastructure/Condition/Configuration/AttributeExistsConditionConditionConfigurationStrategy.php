@@ -22,12 +22,12 @@ class AttributeExistsConditionConditionConfigurationStrategy implements Conditio
     /**
      * @var AttributeQueryInterface
      */
-    private $query;
+    private AttributeQueryInterface $query;
 
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param AttributeQueryInterface $query

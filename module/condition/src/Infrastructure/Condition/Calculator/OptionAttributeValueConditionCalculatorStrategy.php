@@ -24,7 +24,7 @@ class OptionAttributeValueConditionCalculatorStrategy implements ConditionCalcul
     /**
      * @var AttributeRepositoryInterface
      */
-    private $repository;
+    private AttributeRepositoryInterface $repository;
 
     /**
      * @param AttributeRepositoryInterface $repository

@@ -25,21 +25,21 @@ class NumericAttributeValueCondition implements ConditionInterface
      *
      * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
      */
-    private $attribute;
+    private AttributeId $attribute;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $operator;
+    private string $operator;
 
     /**
      * @var float
      *
      * @JMS\Type("float")
      */
-    private $value;
+    private float $value;
 
     /**
      * @param AttributeId $attribute

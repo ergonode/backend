@@ -25,21 +25,21 @@ class TextAttributeValueCondition implements ConditionInterface
      *
      * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
      */
-    private $attribute;
+    private AttributeId $attribute;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $operator;
+    private string $operator;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $value;
+    private string $value;
 
     /**
      * @param AttributeId $attribute

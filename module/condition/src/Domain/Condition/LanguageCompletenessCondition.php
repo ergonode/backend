@@ -29,14 +29,14 @@ class LanguageCompletenessCondition implements ConditionInterface
      *
      * @JMS\Type("string")
      */
-    private $completeness;
+    private string $completeness;
 
     /**
      * @var Language
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
-    private $language;
+    private Language $language;
 
     /**
      * @param string   $completeness

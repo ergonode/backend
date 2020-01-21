@@ -23,7 +23,7 @@ class ConditionSetDeletedEvent extends AbstractDeleteEvent
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
-    private $id;
+    private ConditionSetId $id;
 
     /**
      * @param ConditionSetId $id

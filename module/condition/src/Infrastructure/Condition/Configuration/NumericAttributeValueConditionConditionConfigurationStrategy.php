@@ -23,12 +23,12 @@ class NumericAttributeValueConditionConditionConfigurationStrategy implements Co
     /**
      * @var AttributeQueryInterface
      */
-    private $query;
+    private AttributeQueryInterface $query;
 
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param AttributeQueryInterface $query

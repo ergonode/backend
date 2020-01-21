@@ -36,22 +36,22 @@ class ConditionSetChangeAction
     /**
      * @var ValidatorInterface
      */
-    private $validator;
+    private ValidatorInterface $validator;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * @var ConditionSetValidatorBuilder
      */
-    private $conditionSetValidatorBuilder;
+    private ConditionSetValidatorBuilder $conditionSetValidatorBuilder;
 
     /**
      * @param ValidatorInterface           $validator
