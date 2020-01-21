@@ -1,3 +1,5 @@
+parameters:
+    messenger_default_bus:  "%env(MESSENGER_DEFAULT_BUS)%"
 framework:
     messenger:
         buses:
@@ -15,7 +17,7 @@ framework:
                 middleware:
                     - 'send_message'
                     - 'handle_message'
-        default_bus: messenger.bus.sync
+        default_bus: '%messenger_default_bus%'
         transports:
             import: "%env(MESSENGER_TRANSPORT_IMPORT_DSN)%"
             channel: "%env(MESSENGER_TRANSPORT_CHANNEL_DSN)%"
