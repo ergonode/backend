@@ -11,8 +11,10 @@ namespace Ergonode\Product\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Product\Infrastructure\Grid\Column\HistoryColumn;
@@ -31,7 +33,7 @@ class ProductHistoryGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter()));
-        $this->addColumn('recorded_at', new TextColumn('recorded_at', 'Time', new TextFilter()));
+        $this->addColumn('recorded_at', new DateColumn('recorded_at', 'Time', new DateFilter()));
         $column = new HistoryColumn('event', 'payload', 'Message', $language);
         $this->addColumn('event', $column);
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);

@@ -14,7 +14,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\ColumnInterface;
-use Ergonode\Grid\Filter\TextFilter;
+use Ergonode\Grid\Filter\DateFilter;
 
 /**
  */
@@ -38,7 +38,7 @@ class DateAttributeColumnStrategy implements AttributeColumnStrategyInterface
         return new DateColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new TextFilter()
+            new DateFilter()
         );
     }
 }
