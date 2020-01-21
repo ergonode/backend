@@ -12,8 +12,10 @@ namespace Ergonode\Account\Infrastructure\Grid;
 use Ergonode\Account\Infrastructure\Grid\Column\LogColumn;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 
@@ -32,7 +34,7 @@ class LogGrid extends AbstractGrid
         $id = new IntegerColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('recorded_at', new TextColumn('recorded_at', 'Time', new TextFilter()));
+        $this->addColumn('recorded_at', new DateColumn('recorded_at', 'Time', new DateFilter()));
         $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter()));
         $column = new LogColumn('event', 'payload', 'Message', $language);
         $this->addColumn('event', $column);
