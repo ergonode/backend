@@ -63,7 +63,7 @@ class Channel extends AbstractAggregateRoot
      */
     public function changeName(TranslatableString $name): void
     {
-        if(!$this->name->isEqual($name)) {
+        if (!$this->name->isEqual($name)) {
             $this->apply(new ChannelNameChangedEvent($this->id, $this->name, $name));
         }
     }
@@ -75,7 +75,7 @@ class Channel extends AbstractAggregateRoot
      */
     public function changeSegment(SegmentId $segmentId): void
     {
-        if(!$this->segmentId->isEqual($segmentId)) {
+        if (!$this->segmentId->isEqual($segmentId)) {
             $this->apply(new ChannelSegmentChangedEvent($this->id, $this->segmentId, $segmentId));
         }
     }

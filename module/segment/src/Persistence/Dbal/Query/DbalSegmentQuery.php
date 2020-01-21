@@ -99,16 +99,6 @@ class DbalSegmentQuery implements SegmentQueryInterface
     }
 
     /**
-     * @return QueryBuilder
-     */
-    private function getQuery(): QueryBuilder
-    {
-        return $this->connection->createQueryBuilder()
-            ->select(self::FIELDS)
-            ->from(self::TABLE, 't');
-    }
-
-    /**
      * @return array
      */
     public function getAllSegmentIds(): array
@@ -118,10 +108,20 @@ class DbalSegmentQuery implements SegmentQueryInterface
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 
-        if($result) {
+        if ($result) {
             return $result;
         }
 
         return [];
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    private function getQuery(): QueryBuilder
+    {
+        return $this->connection->createQueryBuilder()
+            ->select(self::FIELDS)
+            ->from(self::TABLE, 't');
     }
 }

@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Domain\Event;
 
-
 use Ergonode\Channel\Domain\Entity\ChannelId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -27,7 +26,7 @@ class ChannelNameChangedEvent extends AbstractTranslatableStringBasedChangedEven
     private ChannelId $id;
 
     /**
-     * @param ChannelId           $id
+     * @param ChannelId          $id
      * @param TranslatableString $from
      * @param TranslatableString $to
      */

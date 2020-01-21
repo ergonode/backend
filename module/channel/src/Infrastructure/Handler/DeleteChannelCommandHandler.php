@@ -39,7 +39,7 @@ class DeleteChannelCommandHandler
     {
         $channel = $this->repository->load($command->getId());
 
-        Assert::notNull($channel,sprintf('Can\'t fid channel "%s"', $command->getId()->getValue()));
+        Assert::notNull($channel, sprintf('Can\'t fid channel "%s"', $command->getId()->getValue()));
 
         $this->repository->delete($channel);
     }

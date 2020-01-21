@@ -117,7 +117,11 @@ class ChannelChangeAction
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var ChannelUpdateFormModel $data */
                 $data = $form->getData();
-                $command = new UpdateChannelCommand($channel->getId(), new TranslatableString($data->name), new SegmentId($data->segmentId));
+                $command = new UpdateChannelCommand(
+                    $channel->getId(),
+                    new TranslatableString($data->name),
+                    new SegmentId($data->segmentId)
+                );
                 $this->commandBus->dispatch($command);
 
                 return new EmptyResponse($command->getId());

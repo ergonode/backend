@@ -35,7 +35,7 @@ class ChannelUpdateForm extends AbstractType
                 'segment_id',
                 SegmentType::class,
                 [
-                    'property_path' => 'segmentId'
+                    'property_path' => 'segmentId',
                 ]
             );
     }

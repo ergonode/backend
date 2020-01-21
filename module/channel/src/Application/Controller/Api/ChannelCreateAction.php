@@ -103,7 +103,10 @@ class ChannelCreateAction
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var ChannelCreateFormModel $data */
                 $data = $form->getData();
-                $command = new CreateChannelCommand(new TranslatableString($data->name), new SegmentId($data->segmentId));
+                $command = new CreateChannelCommand(
+                    new TranslatableString($data->name),
+                    new SegmentId($data->segmentId)
+                );
                 $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());

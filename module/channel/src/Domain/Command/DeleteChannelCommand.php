@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Domain\Command;
 
-
 use Ergonode\Channel\Domain\Entity\ChannelId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
@@ -24,7 +23,7 @@ class DeleteChannelCommand implements DomainCommandInterface
     private ChannelId $id;
 
     /**
-     * @param ChannelId          $id
+     * @param ChannelId $id
      *
      * @throws \Exception
      */
