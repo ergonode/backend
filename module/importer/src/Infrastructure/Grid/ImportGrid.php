@@ -14,6 +14,7 @@ use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 
@@ -36,7 +37,7 @@ class ImportGrid extends AbstractGrid
         $this->addColumn('status', $status);
         $index = new IntegerColumn('lines', 'Lines', new TextFilter());
         $this->addColumn('lines', $index);
-        $createdAt = new DateColumn('created_at', 'Created at', new TextFilter());
+        $createdAt = new DateColumn('created_at', 'Created at', new DateFilter());
         $this->addColumn('created_at', $createdAt);
     }
 }
