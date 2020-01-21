@@ -19,7 +19,7 @@ class SymfonyEventBus implements EventBusInterface
     /**
      * @var MessageBusInterface
      */
-    private $eventBus;
+    private MessageBusInterface $eventBus;
 
     /**
      * @param MessageBusInterface $eventBus

@@ -19,12 +19,12 @@ class DomainEventProvider implements DomainEventProviderInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @var AdapterInterface
      */
-    private $cache;
+    private AdapterInterface $cache;
 
     /**
      * @param Connection       $connection

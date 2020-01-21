@@ -19,7 +19,7 @@ class SymfonyQueryBus implements QueryBusInterface
     /**
      * @var MessageBusInterface
      */
-    private $bus;
+    private MessageBusInterface $bus;
 
     /**
      * @param MessageBusInterface $bus
