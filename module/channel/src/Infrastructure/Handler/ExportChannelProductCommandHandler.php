@@ -9,19 +9,19 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Infrastructure\Handler;
 
-use Ergonode\Channel\Domain\Command\ExportProductCommand;
+use Ergonode\Channel\Domain\Command\ExportProductChannelCommand;
 use Ergonode\Core\Application\Exception\NotImplementedException;
 
 /**
  */
-class ExportChannelCommandHandler
+class ExportChannelProductCommandHandler
 {
     /**
-     * @param ExportProductCommand $command
+     * @param ExportProductChannelCommand $command
      *
      * @throws NotImplementedException
      */
-    public function __invoke(ExportProductCommand $command)
+    public function __invoke(ExportProductChannelCommand $command)
     {
         throw new NotImplementedException();
     }

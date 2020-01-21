@@ -60,7 +60,6 @@ class ExportChannelCommand extends Command
     }
 
     /**
-     * Command configuration
      */
     public function configure(): void
     {
@@ -92,7 +91,7 @@ class ExportChannelCommand extends Command
             $progressBar->advance();
             $progressBar->setMessage($id);
             $productId = new ProductId($id);
-            $command = new \Ergonode\Channel\Domain\Command\ExportProductCommand($channelId, $productId);
+            $command = new \Ergonode\Channel\Domain\Command\ExportProductChannelCommand($channelId, $productId);
             $this->commandBus->dispatch($command);
         }
 

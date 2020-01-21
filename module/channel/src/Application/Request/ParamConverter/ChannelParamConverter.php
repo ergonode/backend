@@ -35,7 +35,6 @@ class ChannelParamConverter implements ParamConverterInterface
         $this->repository = $repository;
     }
 
-
     /**
      * {@inheritDoc}
      */

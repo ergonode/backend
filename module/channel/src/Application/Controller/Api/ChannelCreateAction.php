@@ -54,7 +54,7 @@ class ChannelCreateAction
     /**
      * @IsGranted("CHANNEL_CREATE")
      *
-     * @SWG\Tag(name="Attribute")
+     * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
      *     name="language",
      *     in="path",

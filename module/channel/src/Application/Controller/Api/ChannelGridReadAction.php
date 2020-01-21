@@ -56,7 +56,7 @@ class ChannelGridReadAction
     /**
      * @IsGranted("CHANNEL_READ")
      *
-     * @SWG\Tag(name="channel")
+     * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
      *     name="language",
      *     in="path",

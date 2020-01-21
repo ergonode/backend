@@ -97,7 +97,7 @@ class ExportProductCommand extends Command
             )
         );
 
-        $command = new \Ergonode\Channel\Domain\Command\ExportProductCommand($channelId, $productId);
+        $command = new \Ergonode\Channel\Domain\Command\ExportProductChannelCommand($channelId, $productId);
 
         $this->commandBus->dispatch($command);
 

@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Channel\Application\Form\ChannelUpdateForm;
 use Ergonode\Channel\Application\Model\ChannelUpdateFormModel;

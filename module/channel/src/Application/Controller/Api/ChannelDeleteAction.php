@@ -65,7 +65,7 @@ class ChannelDeleteAction
     /**
      * @IsGranted("CHANNEL_DELETE")
      *
-     * @SWG\Tag(name="Attribute")
+     * @SWG\Tag(name="Channel")
      * @SWG\Parameter(
      *     name="attribute",
      *     in="path",
