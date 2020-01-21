@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/profile/log", methods={"GET"})
+ * @Route("/{language}/profile/log", methods={"GET"})
  */
 class ProfileReadAction
 {
