@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Application\Command;
 
+use Ergonode\Channel\Domain\Command\ExportProductChannelCommand as ExportProductChannelDomainCommand;
 use Ergonode\Channel\Domain\Entity\ChannelId;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -91,7 +92,7 @@ class ExportChannelCommand extends Command
             $progressBar->advance();
             $progressBar->setMessage($id);
             $productId = new ProductId($id);
-            $command = new \Ergonode\Channel\Domain\Command\ExportProductChannelCommand($channelId, $productId);
+            $command = new ExportProductChannelDomainCommand($channelId, $productId);
             $this->commandBus->dispatch($command);
         }
 
