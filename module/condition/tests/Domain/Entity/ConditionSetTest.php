@@ -14,7 +14,6 @@ use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Condition\Domain\ValueObject\ConditionSetCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
