@@ -7,14 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
+namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Channel\Domain\Command\GenerateChannelCommand;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -23,16 +23,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChannelGenerateAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
-     * @param MessageBusInterface $messageBus
+     * @param CommandBusInterface $commandBus
      */
-    public function __construct(MessageBusInterface $messageBus)
+    public function __construct(CommandBusInterface $commandBus)
     {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
     }
 
     /**

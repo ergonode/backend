@@ -55,8 +55,12 @@ class ChannelIdHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, ChannelId $id, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        ChannelId $id,
+        array $type,
+        Context $context
+    ): string {
         return $id->getValue();
     }
 
@@ -68,8 +72,12 @@ class ChannelIdHandler implements SubscribingHandlerInterface
      *
      * @return ChannelId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): ChannelId
-    {
+    public function deserialize(
+        DeserializationVisitorInterface $visitor,
+        $data,
+        array $type,
+        Context $context
+    ): ChannelId {
         return new ChannelId($data);
     }
 }

@@ -23,6 +23,7 @@ final class Version20181120151840 extends AbstractErgonodeMigration
             'CREATE TABLE exporter.channel(
                     id uuid NOT NULL,
                     name VARCHAR(120) NOT NULL,
+                    segment_id UUID NOT NULL,
                     PRIMARY KEY (id)
                  )'
         );
@@ -37,6 +38,8 @@ final class Version20181120151840 extends AbstractErgonodeMigration
         $this->createEventStoreEvents([
             'Ergonode\Channel\Domain\Event\ChannelCreatedEvent' => 'Channel created',
             'Ergonode\Channel\Domain\Event\ChannelDeletedEvent' => 'Channel deleted',
+            'Ergonode\Channel\Domain\Event\ChannelNameChangedEvent' => 'Channel name changed',
+            'Ergonode\Channel\Domain\Event\ChannelSegmentChangedEvent' => 'Channel segment deleted',
         ]);
     }
 

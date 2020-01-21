@@ -11,45 +11,48 @@ namespace Ergonode\Channel\Application\Command;
 
 use Ergonode\Channel\Domain\Entity\ChannelId;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  */
 class ExportProductCommand extends Command
 {
-    private const NAME = 'exporter:channel:export-product';
+    private const NAME = 'channel:export:product';
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var ChannelRepositoryInterface
      */
-    private $channelRepository;
+    private ChannelRepositoryInterface $channelRepository;
 
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
-     * @param MessageBusInterface        $messageBus
+     * @param CommandBusInterface        $commandBus
      * @param ChannelRepositoryInterface $channelRepository
      * @param ProductRepositoryInterface $productRepository
      */
-    public function __construct(MessageBusInterface $messageBus, ChannelRepositoryInterface $channelRepository, ProductRepositoryInterface $productRepository)
-    {
+    public function __construct(
+        CommandBusInterface $commandBus,
+        ChannelRepositoryInterface $channelRepository,
+        ProductRepositoryInterface $productRepository
+    ) {
         parent::__construct(static::NAME);
 
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->channelRepository = $channelRepository;
         $this->productRepository = $productRepository;
     }
@@ -86,11 +89,17 @@ class ExportProductCommand extends Command
             $output->writeln('Product not exists');
         }
 
-        $output->writeln(sprintf('Processing <comment>%s</comment> witch channel <comment>%s</comment>', $product->getSku()->getValue(), $channel->getName()));
+        $output->writeln(
+            sprintf(
+                'Processing <comment>%s</comment> witch channel <comment>%s</comment>',
+                $product->getSku()->getValue(),
+                $channel->getName()
+            )
+        );
 
         $command = new \Ergonode\Channel\Domain\Command\ExportProductCommand($channelId, $productId);
 
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         $output->writeln('<info>done.</info>');
     }

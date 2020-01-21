@@ -11,6 +11,7 @@ namespace Ergonode\Channel\Application\Command;
 
 use Ergonode\Channel\Domain\Entity\ChannelId;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Symfony\Component\Console\Command\Command;
@@ -19,43 +20,44 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\StreamOutput;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  */
 class ExportChannelCommand extends Command
 {
-    private const NAME = 'exporter:channel:export-all';
+    private const NAME = 'channel:export:all';
 
     /**
      * @var ProductQueryInterface
      */
-    private $query;
+    private ProductQueryInterface $query;
 
     /**
      * @var ChannelRepositoryInterface
      */
-    private $channelRepository;
+    private ChannelRepositoryInterface $channelRepository;
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @param ProductQueryInterface      $query
      * @param ChannelRepositoryInterface $channelRepository
-     * @param MessageBusInterface        $messageBus
+     * @param CommandBusInterface        $commandBus
      */
-    public function __construct(ProductQueryInterface $query, ChannelRepositoryInterface $channelRepository, MessageBusInterface $messageBus)
-    {
+    public function __construct(
+        ProductQueryInterface $query,
+        ChannelRepositoryInterface $channelRepository,
+        CommandBusInterface $commandBus
+    ) {
         parent::__construct(static::NAME);
 
         $this->query = $query;
         $this->channelRepository = $channelRepository;
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
     }
-
 
     /**
      * Command configuration
@@ -91,8 +93,9 @@ class ExportChannelCommand extends Command
             $progressBar->setMessage($id);
             $productId = new ProductId($id);
             $command = new \Ergonode\Channel\Domain\Command\ExportProductCommand($channelId, $productId);
-            $this->messageBus->dispatch($command);
+            $this->commandBus->dispatch($command);
         }
+
         $progressBar->finish();
     }
 }

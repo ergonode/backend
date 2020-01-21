@@ -13,14 +13,13 @@ use Ergonode\Channel\Infrastructure\Exception\ChannelGeneratorProviderNotFoundEx
 use Ergonode\Channel\Infrastructure\Generator\ChannelGeneratorInterface;
 
 /**
- *
  */
 class ChannelGeneratorProvider
 {
     /**
      * @var ChannelGeneratorInterface[]
      */
-    private $generators;
+    private array $generators;
 
     /**
      * @param ChannelGeneratorInterface ...$generators
@@ -34,6 +33,7 @@ class ChannelGeneratorProvider
      * @param string $type
      *
      * @return ChannelGeneratorInterface
+     *
      * @throws ChannelGeneratorProviderNotFoundException
      */
     public function provide(string $type): ChannelGeneratorInterface

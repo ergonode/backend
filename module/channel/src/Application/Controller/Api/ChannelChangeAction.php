@@ -7,17 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
+namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Attribute\Application\Form\AttributeUpdateForm;
-use Ergonode\Attribute\Application\Form\Model\UpdateAttributeFormModel;
-use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\Core\Application\Exception\NotImplementedException;
+use Ergonode\Channel\Application\Form\ChannelUpdateForm;
+use Ergonode\Channel\Application\Model\ChannelUpdateFormModel;
+use Ergonode\Channel\Domain\Command\UpdateChannelCommand;
+use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Segment\Domain\Entity\SegmentId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -25,7 +26,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -39,6 +39,26 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ChannelChangeAction
 {
+    /**
+     * @var FormFactoryInterface
+     */
+    private FormFactoryInterface $formFactory;
+
+    /**
+     * @var CommandBusInterface
+     */
+    private CommandBusInterface $commandBus;
+
+    /**
+     * @param FormFactoryInterface $formFactory
+     * @param CommandBusInterface  $commandBus
+     */
+    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
+    {
+        $this->formFactory = $formFactory;
+        $this->commandBus = $commandBus;
+    }
+
     /**
      * @IsGranted("CHANNEL_UPDATE")
      *
@@ -80,15 +100,32 @@ class ChannelChangeAction
      *
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
      *
-     * @param AbstractAttribute $attribute
-     * @param Request           $request
+     * @param Channel $channel
+     * @param Request $request
      *
      * @return Response
      *
-     * @throws NotImplementedException
+     * @throws \Exception
      */
-    public function __invoke(AbstractAttribute $attribute, Request $request): Response
+    public function __invoke(Channel $channel, Request $request): Response
     {
-        throw new NotImplementedException();
+        try {
+            $model = new ChannelUpdateFormModel();
+            $form = $this->formFactory->create(ChannelUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                /** @var ChannelUpdateFormModel $data */
+                $data = $form->getData();
+                $command = new UpdateChannelCommand($channel->getId(), new TranslatableString($data->name), new SegmentId($data->segmentId));
+                $this->commandBus->dispatch($command);
+
+                return new EmptyResponse($command->getId());
+            }
+        } catch (InvalidPropertyPathException $exception) {
+            throw new BadRequestHttpException('Invalid JSON format');
+        }
+
+        throw new FormValidationHttpException($form);
     }
 }

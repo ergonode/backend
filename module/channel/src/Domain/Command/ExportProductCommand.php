@@ -10,26 +10,27 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Domain\Command;
 
 use Ergonode\Channel\Domain\Entity\ChannelId;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ExportProductCommand
+class ExportProductCommand implements DomainCommandInterface
 {
     /**
      * @var ChannelId
      *
      * @JMS\Type("Ergonode\Channel\Domain\Entity\ChannelId")
      */
-    private $channelId;
+    private ChannelId $channelId;
 
     /**
      * @var ProductId
      *
      * @JMS\Type("Ergonode\Product\Domain\Entity\ProductId")
      */
-    private $productId;
+    private ProductId $productId;
 
     /**
      * @param ChannelId $channelId

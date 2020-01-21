@@ -21,12 +21,12 @@ class GenerateChannelCommandHandler
     /**
      * @var ChannelRepositoryInterface
      */
-    private $channelRepository;
+    private ChannelRepositoryInterface $channelRepository;
 
     /**
      * @var ChannelGeneratorProvider
      */
-    private $provider;
+    private ChannelGeneratorProvider $provider;
 
     /**
      * @param ChannelRepositoryInterface $channelRepository

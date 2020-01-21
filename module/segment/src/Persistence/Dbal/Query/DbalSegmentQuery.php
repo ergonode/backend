@@ -107,4 +107,21 @@ class DbalSegmentQuery implements SegmentQueryInterface
             ->select(self::FIELDS)
             ->from(self::TABLE, 't');
     }
+
+    /**
+     * @return array
+     */
+    public function getAllSegmentIds(): array
+    {
+        $query = $this->getQuery();
+        $result = $query->select('id')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if($result) {
+            return $result;
+        }
+
+        return [];
+    }
 }

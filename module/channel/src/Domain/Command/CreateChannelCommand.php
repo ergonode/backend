@@ -1,23 +1,22 @@
 <?php
-
 /**
- * Copyright © Ergonode Sp. z o.o. All rights reserved.
- * See license.txt for license details.
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Channel\Domain\Event;
+namespace Ergonode\Channel\Domain\Command;
+
 
 use Ergonode\Channel\Domain\Entity\ChannelId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Segment\Domain\Entity\SegmentId;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ChannelCreatedEvent implements DomainEventInterface
+class CreateChannelCommand implements DomainCommandInterface
 {
     /**
      * @var ChannelId
@@ -41,16 +40,14 @@ class ChannelCreatedEvent implements DomainEventInterface
     private SegmentId $segmentId;
 
     /**
-     * @param ChannelId          $channelId
      * @param TranslatableString $name
      * @param SegmentId          $segmentId
+     *
+     * @throws \Exception
      */
-    public function __construct(
-        ChannelId $channelId,
-        TranslatableString $name,
-        SegmentId $segmentId
-    ) {
-        $this->id = $channelId;
+    public function __construct(TranslatableString $name, SegmentId $segmentId)
+    {
+        $this->id = ChannelId::generate();
         $this->name = $name;
         $this->segmentId = $segmentId;
     }
@@ -58,7 +55,7 @@ class ChannelCreatedEvent implements DomainEventInterface
     /**
      * @return ChannelId
      */
-    public function getAggregateId(): ChannelId
+    public function getId(): ChannelId
     {
         return $this->id;
     }

@@ -10,7 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Domain\Entity;
 
 use Ergonode\Channel\Domain\Event\ChannelCreatedEvent;
+use Ergonode\Channel\Domain\Event\ChannelNameChangedEvent;
+use Ergonode\Channel\Domain\Event\ChannelSegmentChangedEvent;
 use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 
@@ -21,26 +24,26 @@ class Channel extends AbstractAggregateRoot
     /**
      * @var ChannelId
      */
-    private $id;
+    private ChannelId $id;
 
     /**
-     * @var string
+     * @var TranslatableString
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @var SegmentId
      */
-    private $segmentId;
+    private SegmentId $segmentId;
 
     /**
-     * @param ChannelId $channelId
-     * @param string    $name
-     * @param SegmentId $segmentId
+     * @param ChannelId          $channelId
+     * @param TranslatableString $name
+     * @param SegmentId          $segmentId
      *
      * @throws \Exception
      */
-    public function __construct(ChannelId $channelId, string $name, SegmentId $segmentId)
+    public function __construct(ChannelId $channelId, TranslatableString $name, SegmentId $segmentId)
     {
         $this->apply(new ChannelCreatedEvent($channelId, $name, $segmentId));
     }
@@ -54,9 +57,33 @@ class Channel extends AbstractAggregateRoot
     }
 
     /**
-     * @return string
+     * @param TranslatableString $name
+     *
+     * @throws \Exception
      */
-    public function getName(): string
+    public function changeName(TranslatableString $name): void
+    {
+        if(!$this->name->isEqual($name)) {
+            $this->apply(new ChannelNameChangedEvent($this->id, $this->name, $name));
+        }
+    }
+
+    /**
+     * @param SegmentId $segmentId
+     *
+     * @throws \Exception
+     */
+    public function changeSegment(SegmentId $segmentId): void
+    {
+        if(!$this->segmentId->isEqual($segmentId)) {
+            $this->apply(new ChannelSegmentChangedEvent($this->id, $this->segmentId, $segmentId));
+        }
+    }
+
+    /**
+     * @return TranslatableString
+     */
+    public function getName(): TranslatableString
     {
         return $this->name;
     }
@@ -74,8 +101,24 @@ class Channel extends AbstractAggregateRoot
      */
     public function applyChannelCreatedEvent(ChannelCreatedEvent $event): void
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAggregateId();
         $this->name = $event->getName();
         $this->segmentId = $event->getSegmentId();
+    }
+
+    /**
+     * @param ChannelNameChangedEvent $event
+     */
+    public function applyChannelNameChangedEvent(ChannelNameChangedEvent $event): void
+    {
+        $this->name = $event->getTo();
+    }
+
+    /**
+     * @param ChannelSegmentChangedEvent $event
+     */
+    public function applyChannelSegmentChangedEvent(ChannelSegmentChangedEvent $event): void
+    {
+        $this->segmentId = $event->getTo();
     }
 }

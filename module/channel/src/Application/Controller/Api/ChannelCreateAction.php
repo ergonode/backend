@@ -7,15 +7,23 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
+namespace Ergonode\Channel\Application\Controller\Api;
 
-use Ergonode\Core\Application\Exception\NotImplementedException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Channel\Application\Form\ChannelCreateForm;
+use Ergonode\Channel\Application\Model\ChannelCreateFormModel;
+use Ergonode\Channel\Domain\Command\CreateChannelCommand;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Segment\Domain\Entity\SegmentId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -24,25 +32,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChannelCreateAction
 {
     /**
-     * @var MessageBusInterface
-     */
-    private $messageBus;
-
-    /**
      * @var FormFactoryInterface
      */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
-     * @param FormFactoryInterface $formFactory
+     * @var CommandBusInterface
      */
-    public function __construct(
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
-        $this->messageBus = $messageBus;
+    private CommandBusInterface $commandBus;
+
+    /**
+     * @param FormFactoryInterface $formFactory
+     * @param CommandBusInterface  $commandBus
+     */
+    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
+    {
         $this->formFactory = $formFactory;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -63,7 +69,7 @@ class ChannelCreateAction
      *     required=true,
      *     @SWG\Schema(ref="#/definitions/attribute")
      * )
-     *  @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
@@ -89,6 +95,23 @@ class ChannelCreateAction
      */
     public function __invoke(Request $request): Response
     {
-        throw new NotImplementedException();
+        try {
+            $model = new ChannelCreateFormModel();
+            $form = $this->formFactory->create(ChannelCreateForm::class, $model);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                /** @var ChannelCreateFormModel $data */
+                $data = $form->getData();
+                $command = new CreateChannelCommand(new TranslatableString($data->name), new SegmentId($data->segmentId));
+                $this->commandBus->dispatch($command);
+
+                return new CreatedResponse($command->getId());
+            }
+        } catch (InvalidPropertyPathException $exception) {
+            throw new BadRequestHttpException('Invalid JSON format');
+        }
+
+        throw new FormValidationHttpException($form);
     }
 }

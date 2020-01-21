@@ -11,11 +11,11 @@ namespace Ergonode\Channel\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Channel\Domain\Event\ChannelCreatedEvent;
+use Ergonode\Channel\Domain\Event\ChannelSegmentChangedEvent;
 
 /**
  */
-class ChannelCreatedEventProjector
+class ChannelSegmentChangedEventProjector
 {
     private const TABLE = 'exporter.channel';
 
@@ -33,18 +33,19 @@ class ChannelCreatedEventProjector
     }
 
     /**
-     * @param ChannelCreatedEvent $event
+     * @param ChannelSegmentChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ChannelCreatedEvent $event): void
+    public function __invoke(ChannelSegmentChangedEvent $event): void
     {
-        $this->connection->insert(
+        $this->connection->update(
             self::TABLE,
             [
+                'segment_id' => $event->getTo()->getValue(),
+            ],
+            [
                 'id' => $event->getAggregateId()->getValue(),
-                'name' => $event->getName(),
-                'segment_id' => $event->getSegmentId()->getValue(),
             ]
         );
 

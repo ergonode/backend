@@ -7,20 +7,19 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
+namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Attribute\Domain\Command\DeleteAttributeCommand;
 use Ergonode\Channel\Domain\Command\DeleteChannelCommand;
 use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -34,46 +33,46 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChannelDeleteAction
 {
     /**
-     * @var MessageBusInterface
-     */
-    private $messageBus;
-
-    /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @var ExistingRelationshipMessageBuilderInterface
      */
-    private $existingRelationshipMessageBuilder;
+    private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
     /**
-     * @param MessageBusInterface                         $messageBus
+     * @var CommandBusInterface
+     */
+    private CommandBusInterface $commandBus;
+
+    /**
      * @param RelationshipsResolverInterface              $relationshipsResolver
      * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+     * @param CommandBusInterface                         $commandBus
      */
     public function __construct(
-        MessageBusInterface $messageBus,
         RelationshipsResolverInterface $relationshipsResolver,
-        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder,
+        CommandBusInterface $commandBus
     ) {
-        $this->messageBus = $messageBus;
         $this->relationshipsResolver = $relationshipsResolver;
         $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
+        $this->commandBus = $commandBus;
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_DELETE")
+     * @IsGranted("CHANNEL_DELETE")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
      *     name="attribute",
      *     in="path",
      *     type="string",
-     *     description="Attribute id"
+     *     description="Channel id"
      * )
-     *  @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
@@ -87,7 +86,7 @@ class ChannelDeleteAction
      * )
      * @SWG\Response(
      *     response=404,
-     *     description="Attribute not exists"
+     *     description="Channel not exists"
      * )
      * @SWG\Response(
      *     response=409,
@@ -99,6 +98,8 @@ class ChannelDeleteAction
      * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function __invoke(Channel $channel): Response
     {
@@ -108,7 +109,7 @@ class ChannelDeleteAction
         }
 
         $command = new DeleteChannelCommand($channel->getId());
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         return new EmptyResponse();
     }

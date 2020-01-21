@@ -15,7 +15,7 @@ use Ergonode\Channel\Domain\Event\ChannelCreatedEvent;
 
 /**
  */
-class ChannelCreatedEventProjector
+class ChannelDeletedEventProjector
 {
     private const TABLE = 'exporter.channel';
 
@@ -39,12 +39,10 @@ class ChannelCreatedEventProjector
      */
     public function __invoke(ChannelCreatedEvent $event): void
     {
-        $this->connection->insert(
+        $this->connection->delete(
             self::TABLE,
             [
                 'id' => $event->getAggregateId()->getValue(),
-                'name' => $event->getName(),
-                'segment_id' => $event->getSegmentId()->getValue(),
             ]
         );
 

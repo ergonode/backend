@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Channel\Application\Controller\Api\Attribute;
+namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Channel\Domain\Query\ChannelQueryInterface;
@@ -22,24 +22,24 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/attributes", methods={"GET"})
+ * @Route("/channels", methods={"GET"})
  */
 class ChannelGridReadAction
 {
     /**
      * @var ChannelGrid
      */
-    private $grid;
+    private ChannelGrid $grid;
 
     /**
      * @var ChannelQueryInterface
      */
-    private $query;
+    private ChannelQueryInterface $query;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param ChannelGrid           $grid

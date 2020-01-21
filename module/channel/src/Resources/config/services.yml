@@ -4,42 +4,40 @@ services:
         autoconfigure: true
         public: false
 
-    Ergonode\Component\Channel\Application\:
+    Ergonode\Channel\Application\:
         resource: '../../Application/*'
 
-    Ergonode\Component\Channel\Application\Command\:
+    Ergonode\Channel\Application\Command\:
         resource: '../../Application/Command/*'
         tags: ['console.command']
 
-    Ergonode\Component\Channel\Persistence\:
+    Ergonode\Channel\Application\Controller\:
+        resource: '../../Application/Controller'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Channel\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
+
+    Ergonode\Channel\Persistence\:
         resource: '../../Persistence/*'
 
-    Ergonode\Component\Channel\Infrastructure\:
+    Ergonode\Channel\Infrastructure\:
         resource: '../../Infrastructure/*'
         exclude: '../../Infrastructure/{Specification}'
 
-
-    Ergonode\Component\Channel\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
-    Ergonode\Component\Channel\Domain\Repository\ChannelRepositoryInterface: '@Ergonode\Component\Channel\Persistence\Dbal\Repository\DbalChannelRepository'
-    Ergonode\Component\Channel\Domain\Repository\ChannelProductRepositoryInterface: '@Ergonode\Component\Channel\Persistence\Dbal\Repository\DbalChannelProductRepository'
-    Ergonode\Component\Channel\Domain\Query\ChannelQueryInterface: '@Ergonode\Component\Channel\Persistence\Dbal\Query\DbalChannelQuery'
-    Ergonode\Component\Channel\Domain\Service\ChannelServiceInterface: '@Ergonode\Component\Channel\Infrastructure\Service\ChannelService'
-    Ergonode\Component\Channel\Domain\Provider\ChannelCollectionProviderInterface: '@Ergonode\Component\Channel\Infrastructure\Provider\ChannelCollectionProvider'
-    Ergonode\Component\Channel\Domain\Service\ChannelExportServiceInterface: '@Ergonode\Component\Channel\Infrastructure\Service\ChannelExportService'
-
-    Ergonode\Component\Channel\Infrastructure\Handler\:
+    Ergonode\Channel\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Component\Channel\Infrastructure\Service\Decorator\LoggerChannelExportServiceDecorator:
-        decorates: Ergonode\Component\Channel\Domain\Service\ChannelExportServiceInterface
-        arguments:
-        - '@Ergonode\Component\Channel\Infrastructure\Service\Decorator\LoggerChannelExportServiceDecorator.inner'
+    Ergonode\Channel\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Component\Channel\Persistence\Dbal\Repository\Decorator\DbalChannelRepositoryDecorator:
-        decorates: Ergonode\Component\Channel\Domain\Repository\ChannelRepositoryInterface
-        arguments:
-        - '@Ergonode\Component\Channel\Persistence\Dbal\Repository\Decorator\DbalChannelRepositoryDecorator.inner'
+    Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface: '@Ergonode\Channel\Persistence\Dbal\Repository\DbalChannelRepository'
+    Ergonode\Channel\Domain\Query\ChannelQueryInterface: '@Ergonode\Channel\Persistence\Dbal\Query\DbalChannelQuery'
+#    Ergonode\Channel\Domain\Service\ChannelServiceInterface: '@Ergonode\Channel\Infrastructure\Service\ChannelService'
+#    Ergonode\Channel\Domain\Provider\ChannelCollectionProviderInterface: '@Ergonode\Channel\Infrastructure\Provider\ChannelCollectionProvider'
+
+
+

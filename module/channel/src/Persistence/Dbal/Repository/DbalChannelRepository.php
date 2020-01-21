@@ -11,11 +11,13 @@ namespace Ergonode\Channel\Persistence\Dbal\Repository;
 
 use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\Channel\Domain\Entity\ChannelId;
+use Ergonode\Channel\Domain\Event\ChannelCreatedEvent;
 use Ergonode\Channel\Domain\Event\ChannelDeletedEvent;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\DomainEventDispatcherInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 
 /**
  */
@@ -24,21 +26,23 @@ class DbalChannelRepository implements ChannelRepositoryInterface
     /**
      * @var DomainEventStoreInterface
      */
-    private $eventStore;
+    private DomainEventStoreInterface $eventStore;
 
     /**
-     * @var DomainEventDispatcherInterface
+     * @var EventBusInterface
      */
-    private $eventDispatcher;
+    private EventBusInterface $eventBus;
 
     /**
-     * @param DomainEventStoreInterface      $eventStore
-     * @param DomainEventDispatcherInterface $eventDispatcher
+     * DbalChannelRepository constructor.
+     *
+     * @param DomainEventStoreInterface $eventStore
+     * @param EventBusInterface         $eventBus
      */
-    public function __construct(DomainEventStoreInterface $eventStore, DomainEventDispatcherInterface $eventDispatcher)
+    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
     {
         $this->eventStore = $eventStore;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventBus = $eventBus;
     }
 
     /**
@@ -81,7 +85,7 @@ class DbalChannelRepository implements ChannelRepositoryInterface
 
         $this->eventStore->append($aggregateRoot->getId(), $events);
         foreach ($events as $envelope) {
-            $this->eventDispatcher->dispatch($envelope);
+            $this->eventBus->dispatch($envelope->getEvent());
         }
     }
 
@@ -92,7 +96,7 @@ class DbalChannelRepository implements ChannelRepositoryInterface
      */
     public function delete(Channel $aggregateRoot): void
     {
-        $aggregateRoot->apply(new ChannelDeletedEvent());
+        $aggregateRoot->apply(new ChannelDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);
 
         $this->eventStore->delete($aggregateRoot->getId());

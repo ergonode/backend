@@ -11,7 +11,6 @@ namespace Ergonode\Channel\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Channel\Domain\Entity\ChannelId;
 use Ergonode\Channel\Domain\Query\ChannelQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
@@ -26,7 +25,7 @@ class DbalChannelQuery implements ChannelQueryInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection
@@ -37,24 +36,6 @@ class DbalChannelQuery implements ChannelQueryInterface
     }
 
     /**
-     * @return array
-     */
-    public function findAll(): array
-    {
-        $qb = $this->getQuery();
-
-        $results = $qb
-            ->execute()
-            ->fetchAll();
-
-        if (false !== $results) {
-            return $results;
-        }
-
-        return [];
-    }
-
-    /**
      * @param Language $language
      *
      * @return DataSetInterface
@@ -62,26 +43,6 @@ class DbalChannelQuery implements ChannelQueryInterface
     public function getDataSet(Language $language): DataSetInterface
     {
         return new DbalDataSet($this->getQuery());
-    }
-
-    /**
-     * @param ChannelId $channelId
-     *
-     * @return array|null
-     */
-    public function findOneById(ChannelId $channelId): ?array
-    {
-        $qb = $this->getQuery();
-        $result = $qb->where($qb->expr()->eq('id', ':id'))
-            ->setParameter(':id', $channelId->getValue())
-            ->execute()
-            ->fetch(\PDO::FETCH_ASSOC);
-
-        if ($result) {
-            return $result;
-        }
-
-        return null;
     }
 
     /**
