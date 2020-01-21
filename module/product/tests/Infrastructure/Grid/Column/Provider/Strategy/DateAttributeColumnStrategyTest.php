@@ -13,7 +13,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\DateColumn;
-use Ergonode\Grid\Filter\TextFilter;
+use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\DateAttributeColumnStrategy;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -59,6 +59,6 @@ class DateAttributeColumnStrategyTest extends TestCase
         $strategy = new DateAttributeColumnStrategy();
         $column = $strategy->create($this->attribute, $language);
         $this->assertInstanceOf(DateColumn::class, $column);
-        $this->assertInstanceOf(TextFilter::class, $column->getFilter());
+        $this->assertInstanceOf(DateFilter::class, $column->getFilter());
     }
 }
