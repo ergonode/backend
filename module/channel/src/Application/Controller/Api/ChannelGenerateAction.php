@@ -36,8 +36,6 @@ class ChannelGenerateAction
     }
 
     /**
-     * @Route("channels/Channel", methods={"POST"})
-     *
      * @SWG\Tag(name="Channel")
      *
      * @SWG\Parameter(
