@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter;
 
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -45,13 +43,10 @@ class ConstConverter implements ConverterInterface
     }
 
     /**
-     * @param array  $line
-     * @param string $field
-     *
-     * @return ValueInterface
+     * @return string
      */
-    public function map(array $line, string $field): ValueInterface
+    public function getValue(): string
     {
-        return new StringValue($this->value);
+        return $this->value;
     }
 }

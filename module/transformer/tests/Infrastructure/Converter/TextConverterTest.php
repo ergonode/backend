@@ -15,50 +15,12 @@ use PHPUnit\Framework\TestCase;
 class TextConverterTest extends TestCase
 {
     /**
-     * @dataProvider dataProvider
-     *
-     * @param string $field
-     * @param string $exception
      */
-    public function testConverter(string $field, string $exception): void
+    public function testConverter(): void
     {
-        $record = $this->getRecord();
-        $converter = new TextConverter();
+        $field = 'Any field name';
+        $converter = new TextConverter($field);
 
-        $result = $converter->map($record, $field);
-        $this->assertEquals($exception, $result->getValue());
-    }
-
-    /**
-     * @return array
-     */
-    public function dataProvider(): array
-    {
-        return [
-            [
-                'field' => 'first',
-                'result' => 'alpha',
-            ],
-            [
-                'field' => 'second',
-                'result' => 'beta',
-            ],
-            [
-                'field' => 'third',
-                'result' => 'gamma',
-            ],
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    private function getRecord(): array
-    {
-        return [
-            'first' => 'alpha',
-            'second' => 'beta',
-            'third' => 'gamma',
-        ];
+        $this->assertEquals($field, $converter->getField());
     }
 }
