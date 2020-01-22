@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\EventSourcing;
 
 use Ergonode\Core\Application\AbstractModule;
-use Ergonode\EventSourcing\Application\DependencyInjection\Compiler\ResolveMessengerDefaultBusCompilerPass;
+use Ergonode\EventSourcing\Application\DependencyInjection\Compiler\OverrideMessengerDefaultBusCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -24,7 +24,7 @@ class ErgonodeEventSourcingBundle extends AbstractModule
     {
         $container
             ->addCompilerPass(
-                new ResolveMessengerDefaultBusCompilerPass()
+                new OverrideMessengerDefaultBusCompilerPass()
             );
     }
 }
