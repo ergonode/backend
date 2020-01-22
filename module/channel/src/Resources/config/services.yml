@@ -1,0 +1,38 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\Channel\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Channel\Application\Controller\Api\:
+        resource: '../../Application/Controller/Api/*'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Channel\Application\Command\:
+        resource: '../../Application/Command/*'
+        tags: ['console.command']
+
+    Ergonode\Channel\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
+
+    Ergonode\Channel\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\Channel\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Specification}'
+
+    Ergonode\Channel\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Channel\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']
+
+    Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface: '@Ergonode\Channel\Persistence\Dbal\Repository\DbalChannelRepository'
+    Ergonode\Channel\Domain\Query\ChannelQueryInterface: '@Ergonode\Channel\Persistence\Dbal\Query\DbalChannelQuery'
