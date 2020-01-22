@@ -12,7 +12,7 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^7.4",
+        "php": "^7.2",
         "ergonode/designer": "^0.6.0",
         "ergonode/product": "^0.6.0"
     },

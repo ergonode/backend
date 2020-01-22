@@ -434,9 +434,6 @@
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
     },
-    "symfony/contracts": {
-        "version": "v1.1.0"
-    },
     "symfony/debug": {
         "version": "v4.1.0"
     },
@@ -448,9 +445,6 @@
     },
     "symfony/dotenv": {
         "version": "v4.1.0"
-    },
-    "symfony/error-handler": {
-        "version": "v4.4.2"
     },
     "symfony/event-dispatcher": {
         "version": "v4.1.0"
