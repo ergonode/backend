@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
 namespace Ergonode\Segment\Tests\Domain\Event;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;

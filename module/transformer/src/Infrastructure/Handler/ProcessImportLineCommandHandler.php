@@ -50,8 +50,6 @@ class ProcessImportLineCommandHandler
 
     /**
      * @param ProcessImportLineCommand $command
-     *
-     * @throws \ReflectionException
      */
     public function __invoke(ProcessImportLineCommand $command)
     {

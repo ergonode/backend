@@ -13,6 +13,7 @@ use Ergonode\Core\Application\AbstractModule;
 use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\TransformerActionCompilerPass;
 use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\TransformerGeneratorStrategyCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\ConverterMapperCompilerPass;
 
 /**
  */
@@ -27,5 +28,6 @@ class ErgonodeTransformerBundle extends AbstractModule
 
         $container->addCompilerPass(new TransformerGeneratorStrategyCompilerPass());
         $container->addCompilerPass(new TransformerActionCompilerPass());
+        $container->addCompilerPass(new ConverterMapperCompilerPass());
     }
 }
