@@ -36,7 +36,7 @@ class ExceptionListener
      */
     public function __invoke(ExceptionEvent $event): void
     {
-        $exception = $event->getThrowable();
+        $exception = $event->getException();
 
         // fix for Messenger exception envelope
         if ($exception instanceof HandlerFailedException) {
