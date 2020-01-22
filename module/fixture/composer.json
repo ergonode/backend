@@ -12,7 +12,7 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^7.4",
+        "php": "^7.2",
         "ergonode/account": "^0.6.0",
         "ergonode/attribute": "^0.6.0",
         "ergonode/category": "^0.6.0",
@@ -25,11 +25,11 @@
         "ergonode/segment": "^0.6.0",
         "ergonode/workflow": "^0.6.0",
         "nelmio/alice": "^3.5",
-        "symfony/config": "^4.4",
-        "symfony/console": "^4.4",
-        "symfony/dependency-injection": "^4.4",
-        "symfony/http-kernel": "^4.4",
-        "symfony/yaml": "^4.4"
+        "symfony/config": "^4.3",
+        "symfony/console": "^4.3",
+        "symfony/dependency-injection": "^4.3",
+        "symfony/http-kernel": "^4.3",
+        "symfony/yaml": "^4.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^7"

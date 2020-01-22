@@ -12,7 +12,7 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^7.4",
+        "php": "^7.2",
         "doctrine/dbal": "^2.9",
         "ergonode/api": "^0.6.0",
         "ergonode/core": "^0.6.0",
@@ -23,10 +23,10 @@
         "nelmio/api-doc-bundle": "^3.4",
         "ramsey/uuid": "^3.8",
         "sensio/framework-extra-bundle": "^5.4",
-        "symfony/form": "^4.4",
-        "symfony/messenger": "^4.4",
-        "symfony/translation": "^4.4",
-        "symfony/validator": "^4.4",
+        "symfony/form": "^4.3",
+        "symfony/messenger": "^4.3",
+        "symfony/translation": "^4.3",
+        "symfony/validator": "^4.3",
         "vich/uploader-bundle": "^1.10"
     },
     "require-dev": {
