@@ -33,7 +33,7 @@ class OverrideMessengerDefaultBusCompilerPass implements CompilerPassInterface
     }
 
     /**
-     * This is same code as FrameworkExtension class lines 1755-1757
+     * This is same code as FrameworkExtension section with message_bus
      *
      * @param ContainerBuilder $container
      * @param string           $defaultBusId
