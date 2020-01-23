@@ -18,12 +18,15 @@ class ProductBelongCategoryCondition implements ConditionInterface
     public const TYPE = 'PRODUCT_BELONG_CATEGORY_CONDITION';
     public const PHRASE = 'PRODUCT_BELONG_CATEGORY_CONDITION_PHRASE';
 
+    public const BELONG_TO = 'BELONG_TO';
+    public const NOT_BELONG_TO = 'NOT_BELONG_TO';
+
     /**
      * @var CategoryId
      *
      * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
      */
-    private CategoryId $categoryId;
+    private CategoryId $category;
 
     /**
      * @var string
@@ -34,12 +37,12 @@ class ProductBelongCategoryCondition implements ConditionInterface
 
     /**
      * ProductBelongCategoryCondition constructor.
-     * @param CategoryId $categoryId
+     * @param CategoryId $category
      * @param string     $operator
      */
-    public function __construct(CategoryId $categoryId, string $operator)
+    public function __construct(CategoryId $category, string $operator)
     {
-        $this->categoryId = $categoryId;
+        $this->category = $category;
         $this->operator = $operator;
     }
 
@@ -56,9 +59,9 @@ class ProductBelongCategoryCondition implements ConditionInterface
     /**
      * @return CategoryId
      */
-    public function getCategoryId(): CategoryId
+    public function getCategory(): CategoryId
     {
-        return $this->categoryId;
+        return $this->category;
     }
 
     /**

@@ -69,7 +69,7 @@ class ProductBelongCategoryConditionConfigurationStrategy implements ConditionCo
             ),
             'parameters' => [
                 [
-                    'name' => 'categories',
+                    'name' => 'category',
                     'type' => 'SELECT',
                     'options' => $categories,
                 ],
@@ -77,8 +77,22 @@ class ProductBelongCategoryConditionConfigurationStrategy implements ConditionCo
                     'name' => 'operator',
                     'type' => 'SELECT',
                     'options' => [
-                        'equal' => 'equal',
-                        'not_equal' => 'not_equal',
+                        ProductBelongCategoryCondition::BELONG_TO => $this
+                            ->translator
+                            ->trans(
+                                ProductBelongCategoryCondition::BELONG_TO,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
+                        ProductBelongCategoryCondition::NOT_BELONG_TO => $this
+                            ->translator
+                            ->trans(
+                                ProductBelongCategoryCondition::NOT_BELONG_TO,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                     ],
                 ],
             ],

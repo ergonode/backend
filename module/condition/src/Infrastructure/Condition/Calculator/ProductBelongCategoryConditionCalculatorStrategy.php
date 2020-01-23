@@ -45,13 +45,13 @@ class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalcu
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
-        $categoryId = $configuration->getCategoryId();
+        $categoryId = $configuration->getCategory();
 
         $category = $this->repository->load($categoryId);
         Assert::notNull($category);
 
-        $equal = $configuration->getOperator() === 'equal';
+        $belong = $configuration->getOperator() === ProductBelongCategoryCondition::BELONG_TO;
 
-        return $object->belongToCategory($category->getCode()) === $equal;
+        return $object->belongToCategory($category->getCode()) === $belong;
     }
 }

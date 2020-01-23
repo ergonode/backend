@@ -35,13 +35,18 @@ class ProductBelongCategoryConditionValidatorStrategy implements ConditionValida
 
         return new Collection(
             [
-                'categories' => [
+                'category' => [
                     new NotBlank(),
                     new CategoryExists(),
                 ],
                 'operator' => [
                     new NotBlank(),
-                    new Choice(['equal', 'not_equal']),
+                    new Choice(
+                        [
+                            ProductBelongCategoryCondition::BELONG_TO,
+                            ProductBelongCategoryCondition::NOT_BELONG_TO,
+                        ]
+                    ),
                 ],
             ]
         );
