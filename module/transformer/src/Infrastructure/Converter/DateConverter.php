@@ -9,9 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter;
 
-use Ergonode\Transformer\Infrastructure\Exception\ConverterException;
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -25,23 +22,24 @@ class DateConverter implements ConverterInterface
      *
      * @JMS\Type("string")
      */
-    private $format;
-
-    /**
-     * @var string|null
-     *
-     * @JMS\Type("string")
-     */
     private $field;
 
     /**
-     * @param string      $format
-     * @param null|string $field
+     * @var string
+     *
+     * @JMS\Type("string")
      */
-    public function __construct(string $format, ?string $field = null)
+    private $format;
+
+
+    /**
+     * @param string $field
+     * @param string $format
+     */
+    public function __construct(string $field, string $format)
     {
-        $this->format = $format;
         $this->field = $field;
+        $this->format = $format;
     }
 
     /**
@@ -55,25 +53,18 @@ class DateConverter implements ConverterInterface
     }
 
     /**
-     * @param array  $line
-     * @param string $field
-     *
-     * @return ValueInterface
-     *
-     * @throws ConverterException
-     * @throws \Exception
+     * @return string
      */
-    public function map(array $line, string $field): ValueInterface
+    public function getField(): string
     {
-        $field = $this->field ?: $field;
+        return $this->field;
+    }
 
-        $result = strtotime($line[$field]);
-        if (false === $result) {
-            throw new ConverterException(sprintf('"%s" is unknown format date', $result));
-        }
-
-        $result = new \DateTime('@'.$result);
-
-        return new StringValue($result->format($this->format));
+    /**
+     * @return string
+     */
+    public function getFormat(): string
+    {
+        return $this->format;
     }
 }

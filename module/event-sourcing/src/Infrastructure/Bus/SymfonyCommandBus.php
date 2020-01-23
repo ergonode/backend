@@ -19,7 +19,7 @@ class SymfonyCommandBus implements CommandBusInterface
     /**
      * @var MessageBusInterface
      */
-    private $bus;
+    private MessageBusInterface $bus;
 
     /**
      * @param MessageBusInterface $bus

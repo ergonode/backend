@@ -24,12 +24,12 @@ abstract class AbstractAggregateRoot
     /**
      * @var int
      */
-    protected $sequence = 0;
+    protected int $sequence = 0;
 
     /**
      * @var array
      */
-    protected $events = [];
+    protected array $events = [];
 
     /**
      * @return AbstractId

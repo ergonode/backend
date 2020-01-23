@@ -29,32 +29,32 @@ class DbalDomainEventStore implements DomainEventStoreInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * @var DomainEventFactoryInterface
      */
-    private $domainEventFactory;
+    private DomainEventFactoryInterface $domainEventFactory;
 
     /**
      * @var AdapterInterface
      */
-    private $cache;
+    private AdapterInterface $cache;
 
     /**
      * @var TokenStorageInterface
      */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     /**
      * @var DomainEventProviderInterface
      */
-    private $domainEventProvider;
+    private DomainEventProviderInterface $domainEventProvider;
 
     /**
      * @param Connection                   $connection

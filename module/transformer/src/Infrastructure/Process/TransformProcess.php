@@ -13,11 +13,25 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Infrastructure\Action\ImportActionInterface;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
+use Ergonode\Transformer\Infrastructure\Provider\ConverterMapperProvider;
 
 /**
  */
 class TransformProcess
 {
+    /**
+     * @var ConverterMapperProvider
+     */
+    private $provider;
+
+    /**
+     * @param ConverterMapperProvider $provider
+     */
+    public function __construct(ConverterMapperProvider $provider)
+    {
+        $this->provider = $provider;
+    }
+
     /**
      * @param Transformer           $transformer
      * @param ImportActionInterface $action
@@ -30,7 +44,8 @@ class TransformProcess
         foreach ($transformer->getConverters() as $collection => $converters) {
             /** @var ConverterInterface $converter */
             foreach ($converters as $field => $converter) {
-                $value = $converter->map($record, $field);
+                $mapper = $this->provider->provide($converter);
+                $value = $mapper->map($converter, $record);
                 $result->add($collection, $field, $value);
             }
         }

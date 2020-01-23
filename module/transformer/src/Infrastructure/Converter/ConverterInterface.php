@@ -19,12 +19,4 @@ interface ConverterInterface
      * @return string
      */
     public function getType(): string;
-
-    /**
-     * @param array  $line
-     * @param string $field
-     *
-     * @return ValueInterface
-     */
-    public function map(array $line, string $field): ?ValueInterface;
 }
