@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
  */
 abstract class AbstractTextareaAttribute extends AbstractAttribute
 {
-    public const TYPE = 'TEXTAREA';
+    public const TYPE = 'TEXT_AREA';
 
     /**
      * @JMS\VirtualProperty();
