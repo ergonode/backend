@@ -60,5 +60,4 @@ class ProductCollectionProductCollectionElementAddedEvent implements DomainEvent
     {
         return $this->productCollectionElement;
     }
-
 }

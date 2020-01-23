@@ -75,5 +75,4 @@ class ProductCollectionNameChangedEvent implements DomainEventInterface
     {
         return $this->to;
     }
-
 }

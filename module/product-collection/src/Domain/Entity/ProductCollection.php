@@ -76,8 +76,13 @@ class ProductCollection extends AbstractAggregateRoot
      * @param ProductCollectionTypeId $typeId
      * @param bool                    $allVisible
      */
-    public function __construct(ProductCollectionId $id, ProductCollectionCode $code, TranslatableString $name, ProductCollectionTypeId $typeId, bool $allVisible)
-    {
+    public function __construct(
+        ProductCollectionId $id,
+        ProductCollectionCode $code,
+        TranslatableString $name,
+        ProductCollectionTypeId $typeId,
+        bool $allVisible
+    ) {
 
         $this->apply(new ProductCollectionCreatedEvent($id, $code, $name, $typeId, $allVisible));
     }
@@ -171,7 +176,11 @@ class ProductCollection extends AbstractAggregateRoot
                 sprintf('Element with id "%s" is already added to collection.', $productId->getValue())
             );
         }
-        $productCollectionElement = new ProductCollectionElement(ProductCollectionElementId::generate(), $productId, $visible);
+        $productCollectionElement = new ProductCollectionElement(
+            ProductCollectionElementId::generate(),
+            $productId,
+            $visible
+        );
 
         $this->apply(new ProductCollectionProductCollectionElementAddedEvent($this->id, $productCollectionElement));
     }
@@ -242,16 +251,19 @@ class ProductCollection extends AbstractAggregateRoot
     /**
      * @param ProductCollectionProductCollectionElementAddedEvent $event
      */
-    protected function applyProductCollectionProductCollectionElementAddedEvent(ProductCollectionProductCollectionElementAddedEvent $event): void
-    {
-        $this->productCollectionElements[$event->getProductCollectionElement()->getId()->getValue()] = $event->getProductCollectionElement();
+    protected function applyProductCollectionProductCollectionElementAddedEvent(
+        ProductCollectionProductCollectionElementAddedEvent $event
+    ): void {
+        $this->productCollectionElements[$event->getProductCollectionElement()->getId()->getValue()]
+            = $event->getProductCollectionElement();
     }
 
     /**
      * @param ProductCollectionProductCollectionElementRemovedEvent $event
      */
-    protected function applyProductCollectionProductCollectionElementRemovedEvent(ProductCollectionProductCollectionElementRemovedEvent $event): void
-    {
+    protected function applyProductCollectionProductCollectionElementRemovedEvent(
+        ProductCollectionProductCollectionElementRemovedEvent $event
+    ): void {
         foreach ($this->productCollectionElements as $key => $productCollectionElement) {
             if ($event->getProductId()->isEqual($productCollectionElement->getProductId())) {
                 unset($this->productCollectionElements[$key]);

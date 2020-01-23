@@ -47,8 +47,11 @@ class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
      * @param ProductCollectionTypeId $typeId
      * @param ProductCollectionTypeId $newTypeId
      */
-    public function __construct(ProductCollectionId $id, ProductCollectionTypeId $typeId, ProductCollectionTypeId $newTypeId)
-    {
+    public function __construct(
+        ProductCollectionId $id,
+        ProductCollectionTypeId $typeId,
+        ProductCollectionTypeId $newTypeId
+    ) {
         $this->id = $id;
         $this->typeId = $typeId;
         $this->newTypeId = $newTypeId;

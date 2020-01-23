@@ -64,8 +64,13 @@ class ProductCollectionCreatedEvent implements DomainEventInterface
      * @param ProductCollectionTypeId $typeId
      * @param bool                    $allVisible
      */
-    public function __construct(ProductCollectionId $id, ProductCollectionCode $code, TranslatableString $name, ProductCollectionTypeId $typeId, bool $allVisible)
-    {
+    public function __construct(
+        ProductCollectionId $id,
+        ProductCollectionCode $code,
+        TranslatableString $name,
+        ProductCollectionTypeId $typeId,
+        bool $allVisible
+    ) {
         $this->id = $id;
         $this->code = $code;
         $this->name = $name;
