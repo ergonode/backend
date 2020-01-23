@@ -30,6 +30,7 @@ return [
     Ergonode\CategoryTree\ErgonodeCategoryTreeBundle::class => ['all' => true],
     Ergonode\Product\ErgonodeProductBundle::class => ['all' => true],
     Ergonode\ProductSimple\ErgonodeProductSimpleBundle::class => ['all' => true],
+    Ergonode\ProductCollection\ErgonodeProductCollectionBundle::class => ['all' => true],
     Ergonode\Attribute\ErgonodeAttributeBundle::class => ['all' => true],
     Ergonode\Completeness\CompletenessBundle::class => ['all' => true],
     Ergonode\Designer\ErgonodeDesignerBundle::class => ['all' => true],
