@@ -1,6 +1,6 @@
 TEXT: Pole tekstowe
 NUMERIC: Numeryczny
-TEXTAREA: Obszar tekstowy
+TEXT_AREA: Obszar tekstowy
 DATE: Data
 SELECT: Pole wyboru
 MULTI_SELECT: Lista Wyboru
