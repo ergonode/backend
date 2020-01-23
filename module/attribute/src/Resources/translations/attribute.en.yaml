@@ -1,6 +1,6 @@
 TEXT: Text
 NUMERIC: Numeric
-TEXTAREA: Textarea
+TEXT_AREA: Textarea
 DATE: Date
 SELECT: Select
 MULTI_SELECT: Multi select

@@ -55,8 +55,6 @@ class ChangeProductAttributeValueCommandHandler
     private $tokenStorage;
 
     /**
-     * ChangeProductAttributeValueCommandHandler constructor.
-     *
      * @param ProductDraftRepositoryInterface $repository
      * @param ValueManipulationService        $service
      * @param AttributeRepositoryInterface    $attributeRepository
@@ -141,14 +139,14 @@ class ChangeProductAttributeValueCommandHandler
         }
 
         if ($attribute instanceof SelectAttribute) {
-            return new StringValue($value);
+            return new StringValue((string) $value);
         }
 
         if ($attribute->isMultilingual()) {
             return new TranslatableStringValue(new TranslatableString([$language->getCode() => $value]));
         }
 
-        return new StringValue($value);
+        return new StringValue((string) $value);
     }
 
     /**

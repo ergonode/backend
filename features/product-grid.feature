@@ -271,7 +271,7 @@ Feature: Product edit feature
     Given the request body is:
       """
       {
-        "value": "10.99"
+        "value": 10.99
       }
       """
     When I request "api/v1/EN/products/@edit_product@/draft/@product_edit_numeric_attribute@/value" using HTTP PUT
@@ -282,7 +282,7 @@ Feature: Product edit feature
     Given the request body is:
       """
       {
-        "value": "12.66"
+        "value": 12.66
       }
       """
     When I request "api/v1/EN/products/@edit_product@/draft/@product_edit_price_attribute@/value" using HTTP PUT
