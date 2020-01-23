@@ -19,6 +19,13 @@ class ProductSkuExistsCondition implements ConditionInterface
     public const TYPE = 'PRODUCT_SKU_EXISTS_CONDITION';
     public const PHRASE = 'PRODUCT_SKU_EXISTS_CONDITION_PHRASE';
 
+
+    public const IS_EQUAL = '=';
+    public const IS_NOT_EQUAL = '<>';
+    public const HAS = 'HAS';
+    public const WILDCARD = 'WILDCARD';
+    public const REGEXP = 'REGEXP';
+
     /**
      * @var string
      *
@@ -41,5 +48,36 @@ class ProductSkuExistsCondition implements ConditionInterface
     public function getType(): string
     {
         return self::TYPE;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperator(): string
+    {
+        return $this->operator;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getChoices(): array
+    {
+        return
+            [
+                self::IS_EQUAL,
+                self::IS_NOT_EQUAL,
+                self::HAS,
+                self::WILDCARD,
+                self::REGEXP,
+            ];
     }
 }

@@ -58,10 +58,16 @@ class ProductSkuExistsConditionConfigurationStrategy implements ConditionConfigu
                     'name' => 'operator',
                     'type' => 'SELECT',
                     'options' => [
-                        '=' => $this->translator->trans('Is equal', [], 'condition', $language->getCode()),
-                        '<>' => $this->translator->trans('Is not equal', [], 'condition', $language->getCode()),
-                        '~' => $this->translator->trans('Has', [], 'condition', $language->getCode()),
-                        'REGEXP' => $this->translator->trans('Regexp', [], 'condition', $language->getCode()),
+                        ProductSkuExistsCondition::IS_EQUAL =>
+                            $this->translator->trans('Is equal', [], 'condition', $language->getCode()),
+                        ProductSkuExistsCondition::IS_NOT_EQUAL =>
+                            $this->translator->trans('Is not equal', [], 'condition', $language->getCode()),
+                        ProductSkuExistsCondition::HAS =>
+                            $this->translator->trans('Has', [], 'condition', $language->getCode()),
+                        ProductSkuExistsCondition::WILDCARD =>
+                            $this->translator->trans('Wildcard', [], 'condition', $language->getCode()),
+                        ProductSkuExistsCondition::REGEXP =>
+                            $this->translator->trans('Regexp', [], 'condition', $language->getCode()),
                     ],
                 ],
                 [
