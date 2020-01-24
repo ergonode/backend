@@ -1,3 +1,10 @@
+## CHANGELOG FOR 0.6.1
+ - fix - Add missing date filter for grid (WojFa)
+ - fix - Add missing date format validator (WojFa)
+ - fix - Validate data for numeric type (rprzedzik)
+ - fix - Filtering of data in the grid for a select filter (wiewiurdp)
+ - fix - Change template element type form TEXTAREA to TEXT_AREA (rprzedzik)
+
 ## CHANGELOG FOR 0.6.0 
  - feature - Add product history log
  - feature - Add core notifications 
