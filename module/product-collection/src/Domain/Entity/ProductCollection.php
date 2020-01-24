@@ -15,9 +15,9 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionCreatedEvent;
+use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementAddedEvent;
+use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementRemovedEvent;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionNameChangedEvent;
-use Ergonode\ProductCollection\Domain\Event\ProductCollectionProductCollectionElementAddedEvent;
-use Ergonode\ProductCollection\Domain\Event\ProductCollectionProductCollectionElementRemovedEvent;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeIdChangedEvent;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use JMS\Serializer\Annotation as JMS;
@@ -67,7 +67,7 @@ class ProductCollection extends AbstractAggregateRoot
      *
      * @JMS\Type("array<string, Ergonode\ProductCollection\Entity\ProductCollectionElement>")
      */
-    private array $productCollectionElements;
+    private array $elements;
 
     /**
      * @param ProductCollectionId     $id
@@ -156,10 +156,10 @@ class ProductCollection extends AbstractAggregateRoot
      *
      * @return bool
      */
-    public function hasProductCollectionElement(ProductId $productId): bool
+    public function hasElement(ProductId $productId): bool
     {
-        foreach ($this->productCollectionElements as $productCollectionElement) {
-            if ($productId->isEqual($productCollectionElement->getProductId())) {
+        foreach ($this->elements as $element) {
+            if ($productId->isEqual($element->getProductId())) {
                 return true;
             }
         }
@@ -169,28 +169,28 @@ class ProductCollection extends AbstractAggregateRoot
      * @param ProductId $productId
      * @param bool      $visible
      */
-    public function addProductCollectionElement(ProductId $productId, bool $visible): void
+    public function addElement(ProductId $productId, bool $visible): void
     {
-        if ($this->hasProductCollectionElement($productId)) {
+        if ($this->hasElement($productId)) {
             throw new \RuntimeException(
                 sprintf('Element with id "%s" is already added to collection.', $productId->getValue())
             );
         }
-        $productCollectionElement = new ProductCollectionElement(
+        $element = new ProductCollectionElement(
             ProductCollectionElementId::generate(),
             $productId,
             $visible
         );
 
-        $this->apply(new ProductCollectionProductCollectionElementAddedEvent($this->id, $productCollectionElement));
+        $this->apply(new ProductCollectionElementAddedEvent($this->id, $element));
     }
 
     /**
      * @param ProductId $productId
      */
-    public function removeProductCollectionElement(ProductId $productId): void
+    public function removeElement(ProductId $productId): void
     {
-        $this->apply(new ProductCollectionProductCollectionElementRemovedEvent($this->id, $productId));
+        $this->apply(new ProductCollectionElementRemovedEvent($this->id, $productId));
     }
 
     /**
@@ -198,11 +198,11 @@ class ProductCollection extends AbstractAggregateRoot
      *
      * @return ProductCollectionElement
      */
-    public function getProductCollectionElement(ProductId $productId): ProductCollectionElement
+    public function getElement(ProductId $productId): ProductCollectionElement
     {
-        foreach ($this->productCollectionElements as $productCollectionElement) {
-            if ($productId->isEqual($productCollectionElement->getProductId())) {
-                return $productCollectionElement;
+        foreach ($this->elements as $element) {
+            if ($productId->isEqual($element->getProductId())) {
+                return $element;
             }
         }
         throw new \RuntimeException(sprintf(
@@ -214,9 +214,9 @@ class ProductCollection extends AbstractAggregateRoot
     /**
      * @return ProductCollectionElement[]
      */
-    public function getProductCollectionElements(): array
+    public function getElements(): array
     {
-        return $this->productCollectionElements;
+        return $this->elements;
     }
 
     /**
@@ -229,7 +229,7 @@ class ProductCollection extends AbstractAggregateRoot
         $this->name = $event->getName();
         $this->typeId = $event->getTypeId();
         $this->allVisible = $event->isAllVisible();
-        $this->productCollectionElements = [];
+        $this->elements = [];
     }
 
     /**
@@ -249,24 +249,24 @@ class ProductCollection extends AbstractAggregateRoot
     }
 
     /**
-     * @param ProductCollectionProductCollectionElementAddedEvent $event
+     * @param ProductCollectionElementAddedEvent $event
      */
-    protected function applyProductCollectionProductCollectionElementAddedEvent(
-        ProductCollectionProductCollectionElementAddedEvent $event
+    protected function applyProductCollectionElementAddedEvent(
+        ProductCollectionElementAddedEvent $event
     ): void {
-        $this->productCollectionElements[$event->getProductCollectionElement()->getId()->getValue()]
-            = $event->getProductCollectionElement();
+        $this->elements[$event->getElement()->getId()->getValue()]
+            = $event->getElement();
     }
 
     /**
-     * @param ProductCollectionProductCollectionElementRemovedEvent $event
+     * @param ProductCollectionElementRemovedEvent $event
      */
-    protected function applyProductCollectionProductCollectionElementRemovedEvent(
-        ProductCollectionProductCollectionElementRemovedEvent $event
+    protected function applyProductElementRemovedEvent(
+        ProductCollectionElementRemovedEvent $event
     ): void {
-        foreach ($this->productCollectionElements as $key => $productCollectionElement) {
-            if ($event->getProductId()->isEqual($productCollectionElement->getProductId())) {
-                unset($this->productCollectionElements[$key]);
+        foreach ($this->elements as $key => $element) {
+            if ($event->getProductId()->isEqual($element->getProductId())) {
+                unset($this->elements[$key]);
             }
         }
     }
@@ -276,6 +276,6 @@ class ProductCollection extends AbstractAggregateRoot
      */
     protected function getEntities(): array
     {
-        return $this->productCollectionElements;
+        return $this->elements;
     }
 }

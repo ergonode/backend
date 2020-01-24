@@ -12,11 +12,11 @@ namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollectio
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
-use Ergonode\ProductCollection\Domain\Event\ProductCollectionProductCollectionElementRemovedEvent;
+use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementRemovedEvent;
 
 /**
  */
-class ProductCollectionProductCollectionElementRemovedEventProjector
+class ProductCollectionElementRemovedEventProjector
 {
     private const TABLE = 'collection_collection_element';
 
@@ -34,12 +34,12 @@ class ProductCollectionProductCollectionElementRemovedEventProjector
     }
 
     /**
-     * @param ProductCollectionProductCollectionElementRemovedEvent $event
+     * @param ProductCollectionElementRemovedEvent $event
      *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
-    public function __invoke(ProductCollectionProductCollectionElementRemovedEvent $event): void
+    public function __invoke(ProductCollectionElementRemovedEvent $event): void
     {
         $this->connection->delete(
             self::TABLE,

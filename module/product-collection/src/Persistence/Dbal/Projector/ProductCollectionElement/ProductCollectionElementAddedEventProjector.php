@@ -11,11 +11,11 @@ namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollectio
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\ProductCollection\Domain\Event\ProductCollectionProductCollectionElementAddedEvent;
+use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementAddedEvent;
 
 /**
  */
-class ProductCollectionProductCollectionElementAddedEventProjector
+class ProductCollectionElementAddedEventProjector
 {
     private const TABLE = 'collection_collection_element';
 
@@ -33,18 +33,18 @@ class ProductCollectionProductCollectionElementAddedEventProjector
     }
 
     /**
-     * @param ProductCollectionProductCollectionElementAddedEvent $event
+     * @param ProductCollectionElementAddedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductCollectionProductCollectionElementAddedEvent $event): void
+    public function __invoke(ProductCollectionElementAddedEvent $event): void
     {
         $this->connection->insert(
             self::TABLE,
             [
                 'product_collection_id' => $event->getAggregateId(),
-                'product_id' => $event->getProductCollectionElement()->getProductId(),
-                'visible' => $event->getProductCollectionElement()->isVisible(),
+                'product_id' => $event->getElement()->getProductId(),
+                'visible' => $event->getElement()->isVisible(),
             ]
         );
     }

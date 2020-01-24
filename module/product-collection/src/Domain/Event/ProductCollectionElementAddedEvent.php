@@ -11,13 +11,13 @@ namespace Ergonode\ProductCollection\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductCollectionProductCollectionElementRemovedEvent implements DomainEventInterface
+class ProductCollectionElementAddedEvent implements DomainEventInterface
 {
     /**
      * @var ProductCollectionId
@@ -27,22 +27,20 @@ class ProductCollectionProductCollectionElementRemovedEvent implements DomainEve
     private ProductCollectionId $id;
 
     /**
-     * @var ProductId
+     * @var ProductCollectionElement
      *
-     * @JMS\Type("Ergonode\Product)
+     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement")
      */
-    private ProductId $productId;
+    private ProductCollectionElement $element;
 
     /**
-     * ProductCollectionProductCollectionElementRemovedEvent constructor.
-     *
-     * @param ProductCollectionId $id
-     * @param ProductId           $productId
+     * @param ProductCollectionId      $id
+     * @param ProductCollectionElement $element
      */
-    public function __construct(ProductCollectionId $id, ProductId $productId)
+    public function __construct(ProductCollectionId $id, ProductCollectionElement $element)
     {
         $this->id = $id;
-        $this->productId = $productId;
+        $this->element = $element;
     }
 
     /**
@@ -54,10 +52,10 @@ class ProductCollectionProductCollectionElementRemovedEvent implements DomainEve
     }
 
     /**
-     * @return ProductId
+     * @return ProductCollectionElement
      */
-    public function getProductId(): ProductId
+    public function getElement(): ProductCollectionElement
     {
-        return $this->productId;
+        return $this->element;
     }
 }
