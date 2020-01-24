@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Entity;
 
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class Attribute
+abstract class AbstractAttribute
 {
     /**
      * @var string
@@ -23,18 +24,18 @@ class Attribute
     protected string $key;
 
     /**
-     * @var string
+     * @var ValueInterface
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
-    protected string  $value;
+    protected ValueInterface  $value;
 
     /**
      * AbstractAttribute constructor.
-     * @param string $key
-     * @param string $value
+     * @param string         $key
+     * @param ValueInterface $value
      */
-    public function __construct(string $key, string $value)
+    public function __construct(string $key, ValueInterface $value)
     {
         $this->key = $key;
         $this->value = $value;
@@ -49,9 +50,9 @@ class Attribute
     }
 
     /**
-     * @return string
+     * @return ValueInterface
      */
-    public function getValue(): string
+    public function getValue(): ValueInterface
     {
         return $this->value;
     }

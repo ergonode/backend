@@ -9,9 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Factory;
 
-use Ergonode\Exporter\Domain\Entity\Attribute;
-use Ergonode\Exporter\Domain\Entity\Attribute\TextAttribute;
-use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Exporter\Domain\Entity\AbstractAttribute;
+use Ergonode\Exporter\Domain\Entity\Attribute\DefaultAttribute;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
@@ -23,18 +22,11 @@ class AttributeFactory
      * @param string              $key
      * @param ValueInterface|null $attribute
      *
-     * @return Attribute
+     * @return AbstractAttribute
      */
-    public static function create(string $key, ?ValueInterface $attribute = null): Attribute
+    public static function create(string $key, ?ValueInterface $attribute = null): AbstractAttribute
     {
-        if (null === $attribute) {
-            return new Attribute($key, '');
-        }
-        if ($attribute instanceof StringValue) {
-            return new TextAttribute($key, $attribute->getValue());
-        }
-
-        return new TextAttribute($key, $attribute->getValue());
+        return new DefaultAttribute($key, $attribute);
     }
 
     /**

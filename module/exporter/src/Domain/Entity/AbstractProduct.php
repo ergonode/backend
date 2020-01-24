@@ -38,18 +38,18 @@ abstract class AbstractProduct
 
 
     /**
-     * @var Attribute[]
+     * @var AbstractAttribute[]
      *
-     * @JMS\Type("array<Ergonode\Exporter\Domain\Entity\Attribute>")
+     * @JMS\Type("array<Ergonode\Exporter\Domain\Entity\Attribute\DefaultAttribute>")
      */
     protected array $attributes;
 
     /**
      * AbstractProduct constructor.
-     * @param string               $id
-     * @param string               $sku
-     * @param array|CategoryCode[] $categories
-     * @param array|Attribute      $attributes
+     * @param string                  $id
+     * @param string                  $sku
+     * @param array|CategoryCode[]    $categories
+     * @param array|AbstractAttribute $attributes
      */
     public function __construct(string $id, string $sku, array $categories = [], array $attributes = [])
     {
@@ -84,7 +84,7 @@ abstract class AbstractProduct
     }
 
     /**
-     * @return Attribute[]
+     * @return AbstractAttribute[]
      */
     public function getAttributes(): array
     {
@@ -105,9 +105,9 @@ abstract class AbstractProduct
     }
 
     /**
-     * @param Attribute $attribute
+     * @param AbstractAttribute $attribute
      */
-    public function addAttribute(Attribute $attribute): void
+    public function addAttribute(AbstractAttribute $attribute): void
     {
         $this->attributes[] = $attribute;
     }
@@ -125,9 +125,9 @@ abstract class AbstractProduct
     }
 
     /**
-     * @param Attribute $attribute
+     * @param AbstractAttribute $attribute
      */
-    public function removeAttribute(Attribute $attribute): void
+    public function removeAttribute(AbstractAttribute $attribute): void
     {
         foreach ($this->attributes as $key => $productAttribute) {
             if ($productAttribute->getKey() === $attribute->getKey()) {
@@ -137,9 +137,9 @@ abstract class AbstractProduct
     }
 
     /**
-     * @param Attribute $newAttribute
+     * @param AbstractAttribute $newAttribute
      */
-    public function changeAttribute(Attribute $newAttribute): void
+    public function changeAttribute(AbstractAttribute $newAttribute): void
     {
         $this->removeAttribute($newAttribute);
         $this->addAttribute($newAttribute);

@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Entity\Product;
 
-use Ergonode\Exporter\Domain\Entity\Attribute;
-use Ergonode\Exporter\Domain\Entity\Attribute\TextAttribute;
+use Ergonode\Exporter\Domain\Entity\AbstractAttribute;
+use Ergonode\Exporter\Domain\Entity\Attribute\DefaultAttribute;
 use Ergonode\Exporter\Domain\Entity\CategoryCode;
 use Ergonode\Exporter\Domain\Entity\Product\SimpleProduct;
 use PHPUnit\Framework\TestCase;
@@ -35,7 +35,7 @@ class SimpleProductTest extends TestCase
     private array $category;
 
     /**
-     * @var Attribute[]
+     * @var AbstractAttribute[]
      */
     private array $attribute;
 
@@ -51,8 +51,8 @@ class SimpleProductTest extends TestCase
         ];
 
         $this->attribute = [
-            $this->createMock(Attribute::class),
-            $this->createMock(TextAttribute::class),
+            $this->createMock(AbstractAttribute::class),
+            $this->createMock(DefaultAttribute::class),
         ];
     }
 

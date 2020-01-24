@@ -14,8 +14,10 @@
     "require": {
         "php": "^7.4",
         "doctrine/dbal": "^2.9",
+        "ergonode/category": "^0.6.0",
         "ergonode/core": "^0.6.0",
         "ergonode/product": "^0.6.0",
+        "ergonode/value": "^0.6.0",
         "jms/serializer": "^3.1",
         "symfony/messenger": "^4.3"
     },

@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Entity\Attribute;
 
-use Ergonode\Exporter\Domain\Entity\Attribute;
+use Ergonode\Exporter\Domain\Entity\AbstractAttribute;
 
 /**
  */
-class TextAttribute extends Attribute
+class DefaultAttribute extends AbstractAttribute
 {
 
 }
