@@ -10,14 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
 use Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition;
-use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-
 use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductSkuExistsConditionCalculatorStrategy;
 
+/**
+ */
 class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
 {
     /**
@@ -25,6 +25,9 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
      */
     private ProductSkuExistsConditionCalculatorStrategy $strategy;
 
+    /**
+     *
+     */
     public function testSupports(): void
     {
         $this->assertTrue($this->strategy->supports('PRODUCT_SKU_EXISTS_CONDITION'));
@@ -36,7 +39,7 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
      * @param string $sku
      * @param string $operator
      * @param string $value
-     * @param bool $result
+     * @param bool   $result
      *
      * @dataProvider calculateProvider
      */
@@ -51,6 +54,9 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
         );
     }
 
+    /**
+     * @return array
+     */
     public function calculateProvider(): array
     {
         return [
@@ -59,123 +65,126 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
                     'SKU_123',
                     ProductSkuExistsCondition::IS_EQUAL,
                     'SKU_123',
-                    true
+                    true,
                 ],
             'IS_EQUAL false' =>
                 [
                     'SKU_123',
                     ProductSkuExistsCondition::IS_EQUAL,
                     'SKU_1213',
-                    false
+                    false,
                 ],
             'IS_NOT_EQUAL true' =>
                 [
                     'SKU_123',
                     ProductSkuExistsCondition::IS_NOT_EQUAL,
                     'SKU_123123',
-                    true
+                    true,
                 ],
             'IS_NOT_EQUAL false' =>
                 [
                     'SKU_123123',
                     ProductSkuExistsCondition::IS_NOT_EQUAL,
                     'SKU_123123',
-                    false
+                    false,
                 ],
             'HAS true 1' =>
                 [
                     'SKU_123123',
                     ProductSkuExistsCondition::HAS,
                     '123',
-                    true
+                    true,
                 ],
             'HAS true 2' =>
                 [
                     'SKU_123123',
                     ProductSkuExistsCondition::HAS,
                     'SKU',
-                    true
+                    true,
                 ],
             'HAS true 3' =>
                 [
                     'SKU_1231239',
                     ProductSkuExistsCondition::HAS,
                     '9',
-                    true
+                    true,
                 ],
             'WILDCARD true 1' =>
                 [
                     'SKU_1231239',
                     ProductSkuExistsCondition::WILDCARD,
                     'SKU*',
-                    true
+                    true,
                 ],
             'WILDCARD true 2' =>
                 [
                     'SKU_123',
                     ProductSkuExistsCondition::WILDCARD,
                     'SKU_?[23]3',
-                    true
+                    true,
                 ],
             'WILDCARD true 3' =>
                 [
                     'SKU_133',
                     ProductSkuExistsCondition::WILDCARD,
                     'SKU_?[23]3',
-                    true
+                    true,
                 ],
             'WILDCARD false 1' =>
                 [
                     'PKU_133',
                     ProductSkuExistsCondition::WILDCARD,
                     'SKU_*',
-                    false
+                    false,
                 ],
             'WILDCARD false 2' =>
                 [
                     'SKU_143',
                     ProductSkuExistsCondition::WILDCARD,
                     'SKU_?[23]3',
-                    false
+                    false,
                 ],
             'WILDCARD false 3' =>
                 [
                     'SKU_1',
                     ProductSkuExistsCondition::WILDCARD,
                     'SKU_?[23]3',
-                    false
+                    false,
                 ],
             'REGEXP true 1' =>
                 [
                     'SKU_123',
                     ProductSkuExistsCondition::WILDCARD,
                     'SKU_123',
-                    true
+                    true,
                 ],
             'REGEXP true 2' =>
                 [
                     'SKU_123',
                     ProductSkuExistsCondition::REGEXP,
                     '/SKU_[0-9]{3}/',
-                    true
+                    true,
                 ],
             'REGEXP false 1' =>
                 [
                     'SKU_123',
                     ProductSkuExistsCondition::REGEXP,
                     '/sku_123/',
-                    false
+                    false,
                 ],
             'REGEXP false 2' =>
                 [
                     'SKU_1234',
                     ProductSkuExistsCondition::REGEXP,
                     '/^SKU_[0-9]{3}$/',
-                    false
+                    false,
                 ],
         ];
     }
 
+    /**
+     *
+     */
     protected function setUp(): void
     {
         $this->strategy = new ProductSkuExistsConditionCalculatorStrategy();
@@ -184,6 +193,7 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
 
     /**
      * @param string $sku
+     *
      * @return AbstractProduct|MockObject
      */
     private function createProductMock(string $sku)
@@ -201,6 +211,7 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
     /**
      * @param string $operator
      * @param string $value
+     *
      * @return ProductSkuExistsCondition|MockObject
      */
     private function createProductSkuExistsConditionMock(string $operator, string $value)
@@ -212,5 +223,4 @@ class ProductSkuExistsConditionCalculatorStrategyTest extends TestCase
 
         return $conditionMock;
     }
-
 }

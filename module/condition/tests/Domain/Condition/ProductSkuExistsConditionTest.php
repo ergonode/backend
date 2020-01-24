@@ -12,6 +12,8 @@ namespace Ergonode\Condition\Tests\Domain\Condition;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition;
 
+/**
+ */
 class ProductSkuExistsConditionTest extends TestCase
 {
 
