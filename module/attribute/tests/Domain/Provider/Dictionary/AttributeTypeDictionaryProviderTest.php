@@ -41,7 +41,7 @@ class AttributeTypeDictionaryProviderTest extends TestCase
         $provider = new AttributeTypeDictionaryProvider($translator);
         $checkTranslations = [
             'TEXT' => 'text_translation',
-            'TEXTAREA' => 'textarea_translation',
+            'TEXT_AREA' => 'textarea_translation',
             'NUMERIC' => 'numeric_translation',
             'SELECT' => 'select_translation',
             'MULTI_SELECT' => 'multiselect_translation',
@@ -52,7 +52,7 @@ class AttributeTypeDictionaryProviderTest extends TestCase
         ];
         $checkTypes = [
             'TEXT',
-            'TEXTAREA',
+            'TEXT_AREA',
             'NUMERIC',
             'SELECT',
             'MULTI_SELECT',

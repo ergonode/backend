@@ -137,8 +137,8 @@ Feature: Attribute module
     Given the request body is:
       """
       {
-          "code": "TEXTAREA_@@random_code@@",
-          "type": "TEXTAREA",
+          "code": "TEXT_AREA_@@random_code@@",
+          "type": "TEXT_AREA",
           "groups": [],
           "parameters": []
       }
@@ -152,7 +152,7 @@ Feature: Attribute module
     Given the request body is:
       """
       {
-          "type": "TEXTAREA",
+          "type": "TEXT_AREA",
           "groups": [],
           "parameters": []
       }

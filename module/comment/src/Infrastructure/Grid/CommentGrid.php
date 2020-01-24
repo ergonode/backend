@@ -16,6 +16,7 @@ use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,8 +54,8 @@ class CommentGrid extends AbstractGrid
         $this->addColumn('object_id', new TextColumn('object_id', 'Object', new TextFilter()));
         $this->addColumn('author', new TextColumn('author', 'Author', new TextFilter()));
         $this->addColumn('avatar_id', new ImageColumn('avatar_id'));
-        $this->addColumn('created_at', new DateColumn('created_at', 'Avatar', new TextFilter()));
-        $this->addColumn('edited_at', new DateColumn('edited_at', 'Avatar', new TextFilter()));
+        $this->addColumn('created_at', new DateColumn('created_at', 'Avatar', new DateFilter()));
+        $this->addColumn('edited_at', new DateColumn('edited_at', 'Avatar', new DateFilter()));
 
         $links = [
             'get' => [

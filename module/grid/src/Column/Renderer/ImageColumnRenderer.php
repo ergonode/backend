@@ -36,11 +36,6 @@ class ImageColumnRenderer implements ColumnRendererInterface
             throw new UnsupportedColumnException($column);
         }
 
-        $image = $row[$id];
-        if ($column->hasUri() && $image) {
-            return sprintf('%s/%s', $column->getUri(), $image);
-        }
-
-        return $image;
+        return $row[$id];
     }
 }
