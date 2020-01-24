@@ -41,6 +41,17 @@ class ProductSkuExistsCondition implements ConditionInterface
     private string $value;
 
     /**
+     * @param string $operator
+     * @param string $value
+     */
+    public function __construct(string $operator, string $value)
+    {
+        $this->operator = $operator;
+        $this->value = $value;
+    }
+
+
+    /**
      * {@inheritDoc}
      *
      * @JMS\VirtualProperty()
@@ -69,7 +80,7 @@ class ProductSkuExistsCondition implements ConditionInterface
     /**
      * @return string[]
      */
-    public static function getChoices(): array
+    public static function getSupportedOperators(): array
     {
         return
             [

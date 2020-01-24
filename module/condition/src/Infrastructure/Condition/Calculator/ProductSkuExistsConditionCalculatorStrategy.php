@@ -46,7 +46,7 @@ class ProductSkuExistsConditionCalculatorStrategy implements ConditionCalculator
             case ProductSkuExistsCondition::WILDCARD:
                 return fnmatch($pattern, $sku) !== false;
             case ProductSkuExistsCondition::REGEXP:
-                return preg_match($pattern, $sku) >= 1;
+                return preg_match($configuration->getValue(), $object->getSku()->getValue()) >= 1;
         }
     }
 }

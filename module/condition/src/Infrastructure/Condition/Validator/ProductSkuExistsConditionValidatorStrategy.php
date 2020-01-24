@@ -37,7 +37,7 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
             [
                 'operator' => [
                     new Assert\NotBlank(),
-                    new Assert\Choice(ProductSkuExistsCondition::getChoices()),
+                    new Assert\Choice(ProductSkuExistsCondition::getSupportedOperators()),
                 ],
                 'value' => [
                     new Assert\NotBlank(),
@@ -55,7 +55,7 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
      */
     public function wildcardValidate($value, ExecutionContextInterface $context, $payload)
     {
-        $operator = $context->getRoot()['operator'];
+        $operator = $context->getRoot()['operator'] ?? null;
         if (ProductSkuExistsCondition::WILDCARD !== $operator) {
             return;
         }
@@ -75,7 +75,7 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
      */
     public function regexpValidate($value, ExecutionContextInterface $context, $payload)
     {
-        $operator = $context->getRoot()['operator'];
+        $operator = $context->getRoot()['operator'] ?? null;
         if (ProductSkuExistsCondition::REGEXP !== $operator) {
             return;
         }
