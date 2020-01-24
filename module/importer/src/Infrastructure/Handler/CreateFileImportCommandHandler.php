@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Handler;
 
-use Ergonode\Importer\Application\Service\ImportService;
 use Ergonode\Importer\Domain\Command\CreateFileImportCommand;
 use Ergonode\Importer\Domain\Entity\FileImport;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
@@ -19,24 +18,15 @@ use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 class CreateFileImportCommandHandler
 {
     /**
-     * @var ImportService
-     */
-    private $service;
-
-    /**
      * @var ImportRepositoryInterface
      */
-    private $repository;
+    private ImportRepositoryInterface $repository;
 
     /**
-     * @param ImportService             $service
      * @param ImportRepositoryInterface $repository
      */
-    public function __construct(
-        ImportService $service,
-        ImportRepositoryInterface $repository
-    ) {
-        $this->service = $service;
+    public function __construct(ImportRepositoryInterface $repository)
+    {
         $this->repository = $repository;
     }
 
@@ -50,10 +40,10 @@ class CreateFileImportCommandHandler
         $import = new FileImport(
             $command->getId(),
             $command->getName(),
-            $command->getReaderId(),
-            $command->getFilename()
+            $command->getFilename(),
+            $command->getSourceType(),
         );
+
         $this->repository->save($import);
-        $this->service->import($import, $command->getTransformerId(), $command->getAction());
     }
 }

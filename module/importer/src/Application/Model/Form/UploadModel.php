@@ -30,28 +30,14 @@ class UploadModel
      *
      * @var UploadedFile
      */
-    public $upload;
+    public ?UploadedFile $upload = null;
 
     /**
      * @var string
      *
      * @Assert\NotBlank()
      */
-    public $transformer;
-
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     */
-    public $reader;
-
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     */
-    public $action;
+    public ?string $sourceType = null;
 
     /**
      * @Assert\Callback

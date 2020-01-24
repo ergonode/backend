@@ -29,4 +29,11 @@ interface ImportLineRepositoryInterface
      * @return ArrayCollection|ImportLine[]
      */
     public function findCollectionByImport(ImportId $importId): ArrayCollection;
+
+    /**
+     * @param ImportId $importId
+     *
+     * @return array
+     */
+    public function getKeys(ImportId $importId): array;
 }

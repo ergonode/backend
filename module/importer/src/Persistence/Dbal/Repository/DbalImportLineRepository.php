@@ -34,17 +34,17 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @var ImportLineFactory
      */
-    private $factory;
+    private ImportLineFactory $factory;
 
     /**
      * @var ImportLineMapper
      */
-    private $mapper;
+    private ImportLineMapper $mapper;
 
     /**
      * @param Connection        $connection
@@ -168,6 +168,24 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param ImportId $id
+     *
+     * @return array
+     */
+    public function getKeys(ImportId $id): array
+    {
+        $qb = $this->getQuery();
+        $record = $qb->where($qb->expr()->eq('import_id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->orderBy('lp', 'ASC')
+            ->execute()
+            ->fetch();
+
+
+        return array_keys($record);
     }
 
     /**

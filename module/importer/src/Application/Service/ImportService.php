@@ -21,6 +21,7 @@ use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor;
 
 /**
  */
@@ -75,11 +76,13 @@ class ImportService
             $options = $import->getOptions();
             $filename = \sprintf('%s%s', $this->directory, $options['file']);
             $extension = pathinfo($filename, PATHINFO_EXTENSION);
+            /** @var CsvReaderProcessor $fileReader */
             $fileReader = $this->provider->getReader($extension);
             $reader = $this->repository->load($import->getReaderId());
             Assert::notNull($reader, sprintf('Can\'t find reader %s', $import->getReaderId()->getValue()));
 
             $fileReader->open($filename, $reader->getConfiguration(), $reader->getFormatters());
+
             $this->commandBus->dispatch(new StartProcessImportCommand($import->getId()));
             foreach ($fileReader->read() as $key => $row) {
                 $command = new CreateImportLineCommand(ImportLineId::generate(), $import->getId(), $row);

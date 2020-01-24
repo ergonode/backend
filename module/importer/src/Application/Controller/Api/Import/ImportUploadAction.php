@@ -16,8 +16,6 @@ use Ergonode\Importer\Application\Form\UploadForm;
 use Ergonode\Importer\Application\Model\Form\UploadModel;
 use Ergonode\Importer\Application\Service\Upload\UploadServiceInterface;
 use Ergonode\Importer\Domain\Command\CreateFileImportCommand;
-use Ergonode\Reader\Domain\Entity\ReaderId;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -26,7 +24,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("imports/upload", methods={"POST"})
+ * @Route(
+ *     name="ergonode_import_upload",
+ *     path="/imports/upload",
+ *     methods={"POST"}
+ * )
  */
 class ImportUploadAction
 {
@@ -63,7 +65,7 @@ class ImportUploadAction
     /**
      * @IsGranted("IMPORT_CREATE")
      *
-     * @SWG\Tag(name="Importer")
+     * @SWG\Tag(name="Import")
      * @SWG\Parameter(
      *     name="upload",
      *     in="formData",
@@ -79,22 +81,10 @@ class ImportUploadAction
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="transformer",
+     *     name="source_type",
      *     in="formData",
      *     type="string",
-     *     description="Transformer generator id",
-     * )
-     * @SWG\Parameter(
-     *     name="reader",
-     *     in="formData",
-     *     type="string",
-     *     description="Reader Id",
-     * )
-     * @SWG\Parameter(
-     *     name="action",
-     *     in="formData",
-     *     type="string",
-     *     description="Processor action",
+     *     description="Source Type",
      * )
      * @SWG\Response(
      *     response=201,
@@ -122,13 +112,10 @@ class ImportUploadAction
             /** @var UploadModel $data */
             $data = $form->getData();
             $file = $this->uploadService->upload($uploadModel->upload);
-            $action = $data->action;
             $command = new CreateFileImportCommand(
                 $uploadModel->upload->getClientOriginalName(),
                 $file->getFilename(),
-                new ReaderId($data->reader),
-                new TransformerId($data->transformer),
-                $action
+                $data->sourceType
             );
             $this->commandBus->dispatch($command);
 

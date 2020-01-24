@@ -22,7 +22,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/imports", methods={"GET"})
+ * @Route(
+ *     name="ergonode_channel_list",
+ *     path="/imports",
+ *     methods={"GET"},
+ * )
  */
 class ImportGridReadAction
 {
@@ -56,7 +60,7 @@ class ImportGridReadAction
     /**
      * @IsGranted("IMPORT_READ")
      *
-     * @SWG\Tag(name="Imports")
+     * @SWG\Tag(name="Import")
      * @SWG\Parameter(
      *     name="language",
      *     in="path",

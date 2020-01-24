@@ -20,15 +20,15 @@ class FileImport extends AbstractImport
     /**
      * @param ImportId $id
      * @param string   $name
-     * @param ReaderId $readerId
      * @param string   $filename
+     * @param string   $sourceType
      */
-    public function __construct(ImportId $id, string $name, ReaderId $readerId, string $filename)
+    public function __construct(ImportId $id, string $name, string $filename, string $sourceType)
     {
         parent::__construct($id, $name);
 
         $this->options['file'] = $filename;
-        $this->options['readerId'] = $readerId->getValue();
+        $this->options['source_type'] = $sourceType;
     }
 
     /**
@@ -48,10 +48,10 @@ class FileImport extends AbstractImport
     }
 
     /**
-     * @return ReaderId
+     * @return string
      */
-    public function getReaderId(): ReaderId
+    public function getSourceType(): string
     {
-        return new ReaderId($this->options['readerId']);
+        return $this->options['source_type'];
     }
 }
