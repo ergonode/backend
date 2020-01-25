@@ -31,14 +31,14 @@ class ProductCollectionTypeNameChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $from;
+    private TranslatableString $from;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $to;
+    private TranslatableString $to;
 
     /**
      * ProductCollectionTypeNameChangedEvent constructor.

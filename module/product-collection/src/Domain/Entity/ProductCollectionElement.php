@@ -11,6 +11,7 @@ namespace Ergonode\ProductCollection\Domain\Entity;
 
 use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementVisibleChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -74,5 +75,26 @@ class ProductCollectionElement extends AbstractEntity
     public function isVisible(): bool
     {
         return $this->visible;
+    }
+
+    /**
+     * @param bool $newVisible
+     */
+    public function changeVisible(bool $newVisible): void
+    {
+        if ($this->visible !== $newVisible) {
+            $this->apply(
+                new ProductCollectionElementVisibleChangedEvent($this->aggregateRoot->getId(), $this->id, $newVisible)
+            );
+        }
+    }
+
+    /**
+     * @param ProductCollectionElementVisibleChangedEvent $event
+     */
+    protected function applyProductCollectionElementVisibleChangedEvent(
+        ProductCollectionElementVisibleChangedEvent $event
+    ): void {
+        $this->visible = $event->isNewVisible();
     }
 }

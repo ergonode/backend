@@ -163,6 +163,8 @@ class ProductCollection extends AbstractAggregateRoot
                 return true;
             }
         }
+
+        return false;
     }
 
     /**
@@ -181,7 +183,6 @@ class ProductCollection extends AbstractAggregateRoot
             $productId,
             $visible
         );
-
         $this->apply(new ProductCollectionElementAddedEvent($this->id, $element));
     }
 
@@ -243,7 +244,7 @@ class ProductCollection extends AbstractAggregateRoot
     /**
      * @param ProductCollectionTypeIdChangedEvent $event
      */
-    protected function applyProductCollectionTypeChangedEvent(ProductCollectionTypeIdChangedEvent $event): void
+    protected function applyProductCollectionTypeIdChangedEvent(ProductCollectionTypeIdChangedEvent $event): void
     {
         $this->typeId = $event->getNewTypeId();
     }
@@ -254,14 +255,14 @@ class ProductCollection extends AbstractAggregateRoot
     protected function applyProductCollectionElementAddedEvent(
         ProductCollectionElementAddedEvent $event
     ): void {
-        $this->elements[$event->getElement()->getId()->getValue()]
+        $this->elements[]
             = $event->getElement();
     }
 
     /**
      * @param ProductCollectionElementRemovedEvent $event
      */
-    protected function applyProductElementRemovedEvent(
+    protected function applyProductCollectionElementRemovedEvent(
         ProductCollectionElementRemovedEvent $event
     ): void {
         foreach ($this->elements as $key => $element) {

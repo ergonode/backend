@@ -24,7 +24,7 @@ class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
      */
-    private $id;
+    private ProductCollectionId $id;
 
     /**
      * @var ProductCollectionTypeId

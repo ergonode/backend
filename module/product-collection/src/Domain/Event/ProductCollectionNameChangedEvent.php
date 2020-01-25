@@ -24,21 +24,21 @@ class ProductCollectionNameChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
      */
-    private $id;
+    private ProductCollectionId $id;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $from;
+    private TranslatableString $from;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $to;
+    private TranslatableString $to;
 
     /**
      * @param ProductCollectionId $id
@@ -53,7 +53,7 @@ class ProductCollectionNameChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AbstractID|ProductCollectionId
+     * @return AbstractId|ProductCollectionId
      */
     public function getAggregateId(): AbstractId
     {
