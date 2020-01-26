@@ -39,12 +39,10 @@ class ProductCollectionCreatedEventTest extends TestCase
             $code,
             $name,
             $typeId,
-            true
         );
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($code, $event->getCode());
         $this->assertEquals($name, $event->getName());
         $this->assertEquals($typeId, $event->getTypeId());
-        $this->assertTrue($event->isAllVisible());
     }
 }

@@ -51,31 +51,21 @@ class ProductCollectionCreatedEvent implements DomainEventInterface
     private ProductCollectionTypeId $typeId;
 
     /**
-     * @var bool
-     *
-     * @JMS\Type("string")
-     */
-    private bool $allVisible;
-
-    /**
      * @param ProductCollectionId     $id
      * @param ProductCollectionCode   $code
      * @param TranslatableString      $name
      * @param ProductCollectionTypeId $typeId
-     * @param bool                    $allVisible
      */
     public function __construct(
         ProductCollectionId $id,
         ProductCollectionCode $code,
         TranslatableString $name,
-        ProductCollectionTypeId $typeId,
-        bool $allVisible
+        ProductCollectionTypeId $typeId
     ) {
         $this->id = $id;
         $this->code = $code;
         $this->name = $name;
         $this->typeId = $typeId;
-        $this->allVisible = $allVisible;
     }
 
     /**
@@ -108,13 +98,5 @@ class ProductCollectionCreatedEvent implements DomainEventInterface
     public function getTypeId(): ProductCollectionTypeId
     {
         return $this->typeId;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAllVisible(): bool
-    {
-        return $this->allVisible;
     }
 }

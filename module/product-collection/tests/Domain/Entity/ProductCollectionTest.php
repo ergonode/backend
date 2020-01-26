@@ -63,19 +63,18 @@ class ProductCollectionTest extends TestCase
      */
     public function testCreateEntity(): void
     {
-        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId, true);
+        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId);
         $this->assertEquals($this->id, $entity->getId());
         $this->assertEquals($this->name, $entity->getName());
         $this->assertEquals($this->code, $entity->getCode());
         $this->assertEquals($this->typeId, $entity->getTypeId());
-        $this->assertTrue($entity->isAllVisible());
     }
 
     /**
      */
     public function testElementManipulation(): void
     {
-        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId, true);
+        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId);
         $entity->addElement($this->productId, true);
         $this->assertTrue($entity->hasElement($this->productId));
         $this->assertSame($this->productId, $entity->getElement($this->productId)->getProductId());
@@ -93,7 +92,7 @@ class ProductCollectionTest extends TestCase
      */
     public function testRemovingElement(): void
     {
-        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId, true);
+        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId);
         $entity->addElement($this->productId, true);
         $entity->removeElement($this->productId);
         $entity->getElement($this->productId);
@@ -104,7 +103,7 @@ class ProductCollectionTest extends TestCase
      */
     public function testAddingSameElement(): void
     {
-        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId, true);
+        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId);
         $entity->addElement($this->productId, true);
         $entity->addElement($this->productId, true);
     }
@@ -114,7 +113,7 @@ class ProductCollectionTest extends TestCase
      */
     public function testNotExistingElement(): void
     {
-        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId, true);
+        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId);
         $entity->getElement($this->productId);
     }
 }

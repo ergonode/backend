@@ -56,13 +56,6 @@ class ProductCollection extends AbstractAggregateRoot
     private ProductCollectionTypeId $typeId;
 
     /**
-     * @var bool
-     *
-     * @JMS\Type("string")
-     */
-    private bool $allVisible;
-
-    /**
      * @var ProductCollectionElement[]
      *
      * @JMS\Type("array<string, Ergonode\ProductCollection\Entity\ProductCollectionElement>")
@@ -74,17 +67,15 @@ class ProductCollection extends AbstractAggregateRoot
      * @param ProductCollectionCode   $code
      * @param TranslatableString      $name
      * @param ProductCollectionTypeId $typeId
-     * @param bool                    $allVisible
      */
     public function __construct(
         ProductCollectionId $id,
         ProductCollectionCode $code,
         TranslatableString $name,
-        ProductCollectionTypeId $typeId,
-        bool $allVisible
+        ProductCollectionTypeId $typeId
     ) {
 
-        $this->apply(new ProductCollectionCreatedEvent($id, $code, $name, $typeId, $allVisible));
+        $this->apply(new ProductCollectionCreatedEvent($id, $code, $name, $typeId));
     }
 
     /**
@@ -117,14 +108,6 @@ class ProductCollection extends AbstractAggregateRoot
     public function getTypeId(): ProductCollectionTypeId
     {
         return $this->typeId;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAllVisible(): bool
-    {
-        return $this->allVisible;
     }
 
     /**
@@ -229,7 +212,6 @@ class ProductCollection extends AbstractAggregateRoot
         $this->code = $event->getCode();
         $this->name = $event->getName();
         $this->typeId = $event->getTypeId();
-        $this->allVisible = $event->isAllVisible();
         $this->elements = [];
     }
 
