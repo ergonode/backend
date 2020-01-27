@@ -34,7 +34,8 @@ class CategoryCodeFactory
     {
         $result = [];
         foreach ($categories as $category) {
-            $result[] = $this->create($category->getValue());
+            $categoryValue = $category->getValue();
+            $result[$categoryValue] = $this->create($categoryValue);
         }
 
         return $result;

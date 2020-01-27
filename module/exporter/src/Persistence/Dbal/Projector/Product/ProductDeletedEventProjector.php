@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Persistence\Dbal\Projector;
+namespace Ergonode\Exporter\Persistence\Dbal\Projector\Product;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
