@@ -24,12 +24,19 @@ class ProductValueChangedEventProjector
     private ProductRepositoryInterface $productRepository;
 
     /**
+     * @var AttributeFactory
+     */
+    private AttributeFactory $attributeFactory;
+
+    /**
      * ProductValueChangedEventProjector constructor.
      * @param ProductRepositoryInterface $productRepository
+     * @param AttributeFactory           $attributeFactory
      */
-    public function __construct(ProductRepositoryInterface $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository, AttributeFactory $attributeFactory)
     {
         $this->productRepository = $productRepository;
+        $this->attributeFactory = $attributeFactory;
     }
 
     /**
@@ -44,7 +51,7 @@ class ProductValueChangedEventProjector
             throw new ProductNotFoundException($event->getAggregateId()->getValue());
         }
 
-        $newAttribute = AttributeFactory::create($event->getAttributeCode()->getValue(), $event->getTo());
+        $newAttribute = $this->attributeFactory->create($event->getAttributeCode()->getValue(), $event->getTo());
         $product->changeAttribute($newAttribute);
     }
 }

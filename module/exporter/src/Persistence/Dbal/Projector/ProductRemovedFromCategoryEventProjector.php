@@ -44,7 +44,7 @@ class ProductRemovedFromCategoryEventProjector
             throw new ProductNotFoundException($event->getAggregateId()->getValue());
         }
 
-        $product->removeCategory(CategoryCodeFactory::create($event->getCategoryCode()->getValue()));
+        $product->removeCategory($event->getCategoryCode()->getValue());
         $this->productRepository->save($product);
     }
 }

@@ -113,24 +113,24 @@ abstract class AbstractProduct
     }
 
     /**
-     * @param CategoryCode $category
+     * @param string $categoryCode
      */
-    public function removeCategory(CategoryCode $category): void
+    public function removeCategory(string $categoryCode): void
     {
         foreach ($this->categories as $key => $productCategory) {
-            if ($productCategory === $category) {
+            if ($productCategory->getCode() === $categoryCode) {
                 unset($this->categories[$key]);
             }
         }
     }
 
     /**
-     * @param AbstractAttribute $attribute
+     * @param string $attributeKey
      */
-    public function removeAttribute(AbstractAttribute $attribute): void
+    public function removeAttribute(string $attributeKey): void
     {
         foreach ($this->attributes as $key => $productAttribute) {
-            if ($productAttribute->getKey() === $attribute->getKey()) {
+            if ($productAttribute->getKey() === $attributeKey) {
                 unset($this->attributes[$key]);
             }
         }
@@ -141,7 +141,7 @@ abstract class AbstractProduct
      */
     public function changeAttribute(AbstractAttribute $newAttribute): void
     {
-        $this->removeAttribute($newAttribute);
+        $this->removeAttribute($newAttribute->getKey());
         $this->addAttribute($newAttribute);
     }
 }

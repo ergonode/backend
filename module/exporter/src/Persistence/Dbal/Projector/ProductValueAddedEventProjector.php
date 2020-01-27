@@ -25,12 +25,19 @@ class ProductValueAddedEventProjector
     private ProductRepositoryInterface $productRepository;
 
     /**
+     * @var AttributeFactory
+     */
+    private AttributeFactory $attributeFactory;
+
+    /**
      * ProductValueAddedEventProjector constructor.
      * @param ProductRepositoryInterface $productRepository
+     * @param AttributeFactory           $attributeFactory
      */
-    public function __construct(ProductRepositoryInterface $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository, AttributeFactory $attributeFactory)
     {
         $this->productRepository = $productRepository;
+        $this->attributeFactory = $attributeFactory;
     }
 
     /**
@@ -45,7 +52,9 @@ class ProductValueAddedEventProjector
             throw new ProductNotFoundException($event->getAggregateId()->getValue());
         }
 
-        $product->addAttribute(AttributeFactory::create($event->getAttributeCode()->getValue(), $event->getValue()));
+        $product->addAttribute(
+            $this->attributeFactory->create($event->getAttributeCode()->getValue(), $event->getValue())
+        );
         $this->productRepository->save($product);
     }
 }

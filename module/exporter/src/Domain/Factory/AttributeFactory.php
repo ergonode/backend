@@ -24,7 +24,7 @@ class AttributeFactory
      *
      * @return AbstractAttribute
      */
-    public static function create(string $key, ?ValueInterface $attribute = null): AbstractAttribute
+    public function create(string $key, ?ValueInterface $attribute = null): AbstractAttribute
     {
         return new DefaultAttribute($key, $attribute);
     }
@@ -34,11 +34,11 @@ class AttributeFactory
      *
      * @return array
      */
-    public static function createList(array $attributes): array
+    public function createList(array $attributes): array
     {
         $result = [];
         foreach ($attributes as $key => $attribute) {
-            $result[$key] = self::create($key, $attribute);
+            $result[$key] = $this->create($key, $attribute);
         }
 
         return $result;

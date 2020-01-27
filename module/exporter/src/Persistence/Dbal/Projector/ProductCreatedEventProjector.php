@@ -11,6 +11,7 @@ namespace Ergonode\Exporter\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Exporter\Domain\Factory\SimpleProductFactory;
+use Ergonode\Exporter\Domain\Provider\ProductProvider;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 
@@ -31,14 +32,24 @@ class ProductCreatedEventProjector
     private SerializerInterface $serializer;
 
     /**
+     * @var ProductProvider
+     */
+    private ProductProvider $productProvider;
+
+    /**
      * ProductCreatedEventProjector constructor.
      * @param Connection          $connection
      * @param SerializerInterface $serializer
+     * @param ProductProvider     $productProvider
      */
-    public function __construct(Connection $connection, SerializerInterface $serializer)
-    {
+    public function __construct(
+        Connection $connection,
+        SerializerInterface $serializer,
+        ProductProvider $productProvider
+    ) {
         $this->connection = $connection;
         $this->serializer = $serializer;
+        $this->productProvider = $productProvider;
     }
 
     /**
@@ -48,7 +59,7 @@ class ProductCreatedEventProjector
      */
     public function __invoke(ProductCreatedEvent $event): void
     {
-        $product = SimpleProductFactory::createFromEvent(
+        $product = $this->productProvider->createFromEvent(
             $event->getAggregateId()->getValue(),
             $event->getSku()->getValue(),
             $event->getCategories(),

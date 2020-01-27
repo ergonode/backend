@@ -24,12 +24,19 @@ class ProductAddedToCategoryEventProjector
     private ProductRepositoryInterface $productRepository;
 
     /**
+     * @var CategoryCodeFactory
+     */
+    private CategoryCodeFactory $categoryCodeFactory;
+
+    /**
      * ProductAddedToCategoryEventProjector constructor.
      * @param ProductRepositoryInterface $productRepository
+     * @param CategoryCodeFactory        $categoryCodeFactory
      */
-    public function __construct(ProductRepositoryInterface $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository, CategoryCodeFactory $categoryCodeFactory)
     {
         $this->productRepository = $productRepository;
+        $this->categoryCodeFactory = $categoryCodeFactory;
     }
 
     /**
@@ -44,7 +51,7 @@ class ProductAddedToCategoryEventProjector
             throw new ProductNotFoundException($event->getAggregateId()->getValue());
         }
 
-        $product->addCategory(CategoryCodeFactory::create($event->getCategoryCode()->getValue()));
+        $product->addCategory($this->categoryCodeFactory->create($event->getCategoryCode()->getValue()));
         $this->productRepository->save($product);
     }
 }

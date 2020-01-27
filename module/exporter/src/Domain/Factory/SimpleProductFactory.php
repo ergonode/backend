@@ -9,32 +9,37 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Factory;
 
+use Ergonode\Exporter\Domain\Entity\AbstractAttribute;
+use Ergonode\Exporter\Domain\Entity\CategoryCode;
 use Ergonode\Exporter\Domain\Entity\Product\SimpleProduct;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class SimpleProductFactory
 {
     /**
-     * @param string $id
-     * @param string $sku
-     * @param array  $categories
-     * @param array  $attributes
+     * @param string              $id
+     * @param string              $sku
+     * @param CategoryCode[]      $categories
+     * @param AbstractAttribute[] $attributes
      *
      * @return SimpleProduct
      */
-    public static function createFromEvent(
+    public function createFromEvent(
         string $id,
         string $sku,
         array $categories = [],
         array $attributes = []
     ): SimpleProduct {
+        Assert::allIsInstanceOf($categories, CategoryCode::class);
+        Assert::allIsInstanceOf($attributes, AbstractAttribute::class);
 
         return new SimpleProduct(
             $id,
             $sku,
-            CategoryCodeFactory::createList($categories),
-            AttributeFactory::createList($attributes)
+            $categories,
+            $attributes
         );
     }
 }

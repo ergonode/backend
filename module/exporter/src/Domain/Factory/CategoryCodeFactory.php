@@ -20,7 +20,7 @@ class CategoryCodeFactory
      *
      * @return CategoryCode
      */
-    public static function create(string $code): CategoryCode
+    public function create(string $code): CategoryCode
     {
         return new CategoryCode($code);
     }
@@ -30,11 +30,11 @@ class CategoryCodeFactory
      *
      * @return array
      */
-    public static function createList(array $categories): array
+    public function createList(array $categories): array
     {
         $result = [];
         foreach ($categories as $category) {
-            $result[] = self::create($category->getValue());
+            $result[] = $this->create($category->getValue());
         }
 
         return $result;

@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Persistence\Dbal\Projector;
 
 use Ergonode\Exporter\Domain\Exception\ProductNotFoundException;
-use Ergonode\Exporter\Domain\Factory\AttributeFactory;
 use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
 
@@ -43,6 +42,6 @@ class ProductValueRemovedEventProjector
         if (null === $product) {
             throw new ProductNotFoundException($event->getAggregateId()->getValue());
         }
-        $product->removeAttribute(AttributeFactory::create($event->getAttributeCode()->getValue()));
+        $product->removeAttribute($event->getAttributeCode()->getValue());
     }
 }
