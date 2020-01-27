@@ -84,8 +84,11 @@ Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute:
             - true
         __calls:
             - addOption:
-                - '<OptionKey(key_<current()>)>'
-                - '@value_<current()>'
+                - '<OptionKey(key_1_<current()>)>'
+                - '@value_1_<current()>'
+            - addOption:
+                - '<OptionKey(key_2_<current()>)>'
+                - '@value_2_<current()>'
 
 Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute:
     attribute_{46..50}:
@@ -98,8 +101,11 @@ Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute:
             - true
         __calls:
             - addOption:
-                - '<OptionKey(key_<current()>)>'
-                - '@value_<current()>'
+                - '<OptionKey(key_1_<current()>)>'
+                - '@value_1_<current()>'
+            - addOption:
+                - '<OptionKey(key_2_<current()>)>'
+                - '@value_2_<current()>'
 
 Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
     attribute_esa_status:

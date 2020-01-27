@@ -15,6 +15,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\Regex;
 
 /**
  */
@@ -35,7 +36,8 @@ class DateAttributeValueConstraintStrategy implements AttributeValueConstraintSt
     {
         return new Collection([
             'value' => [
-                new DateTime($attribute->getFormat()->getPhpFormat()),
+                new Regex(['pattern' => '([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))']),
+                new DateTime('Y-m-d'),
             ],
         ]);
     }

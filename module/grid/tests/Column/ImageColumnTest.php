@@ -18,9 +18,8 @@ class ImageColumnTest extends TestCase
     public function testGetters(): void
     {
         $field = 'Any id';
-        $url = 'Any url';
 
-        $column = new ImageColumn($field, $url);
+        $column = new ImageColumn($field);
         $this->assertSame($field, $column->getField());
         $this->assertNull($column->getLabel());
         $this->assertSame(ImageColumn::TYPE, $column->getType());

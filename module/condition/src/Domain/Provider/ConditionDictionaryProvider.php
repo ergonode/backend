@@ -63,16 +63,16 @@ class ConditionDictionaryProvider
      */
     public function getDictionary(Language $language, string $requestedGroup = null): array
     {
-        $result = [];
         if ($requestedGroup) {
-            $result = array_merge($result, $this->getGroup($language, $requestedGroup));
-        } else {
-            foreach (array_keys($this->groups) as $group) {
-                $result = array_merge($result, $this->getGroup($language, $group));
-            }
+            return $this->getGroup($language, $requestedGroup);
         }
 
-        return $result;
+        $result = [];
+        foreach (array_keys($this->groups) as $group) {
+            $result[] = $this->getGroup($language, $group);
+        }
+
+        return array_merge(...$result);
     }
 
     /**

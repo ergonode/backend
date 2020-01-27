@@ -19,8 +19,8 @@ Feature: Product edit feature
     Given the request body is:
       """
       {
-        "code": "TEXTAREA_@@random_code@@",
-        "type": "TEXTAREA",
+        "code": "TEXT_AREA_@@random_code@@",
+        "type": "TEXT_AREA",
         "groups": []
       }
       """

@@ -19,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class GenerateMigrationCommand extends AbstractCommand
 {
-    private const FILENAME_TEMPLATE = '%s/VersionModule%s.php';
+    private const FILENAME_TEMPLATE = '%s/Version%s.php';
 
     /**
      * @param MigrationConfigurationProvider $configurationService
