@@ -59,7 +59,7 @@ class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
         $configuration = $this->createMock(ProductBelongCategoryCondition::class);
         $configuration
             ->expects($this->once())
-            ->method('getCategoryId')
+            ->method('getCategory')
             ->willReturn($this->createMock(CategoryId::class));
         $this
             ->repository
@@ -78,11 +78,11 @@ class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
     {
         return [
             [
-                'operator' => 'equal',
+                'operator' => 'BELONG_TO',
                 'result' => false,
             ],
             [
-                'operator' => 'not_equal',
+                'operator' => 'NOT_BELONG_TO',
                 'result' => true,
             ],
         ];

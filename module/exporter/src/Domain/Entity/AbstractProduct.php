@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Domain\Entity;
 
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -32,7 +33,7 @@ abstract class AbstractProduct
     /**
      * @var CategoryCode[]
      *
-     * @JMS\Type("array<Ergonode\Exporter\Domain\Entity\CategoryCode>")
+     * @JMS\Type("array<string, Ergonode\Exporter\Domain\Entity\CategoryCode>")
      */
     protected array $categories;
 
@@ -40,7 +41,7 @@ abstract class AbstractProduct
     /**
      * @var AbstractAttribute[]
      *
-     * @JMS\Type("array<Ergonode\Exporter\Domain\Entity\Attribute\DefaultAttribute>")
+     * @JMS\Type("array<string, Ergonode\Exporter\Domain\Entity\Attribute\DefaultAttribute>")
      */
     protected array $attributes;
 
@@ -53,6 +54,11 @@ abstract class AbstractProduct
      */
     public function __construct(string $id, string $sku, array $categories = [], array $attributes = [])
     {
+        Assert::string($id);
+        Assert::string($sku);
+        Assert::allIsInstanceOf($categories, CategoryCode::class);
+        Assert::allIsInstanceOf($attributes, AbstractAttribute::class);
+
         $this->id = $id;
         $this->sku = $sku;
         $this->categories = $categories;
@@ -96,12 +102,7 @@ abstract class AbstractProduct
      */
     public function addCategory(CategoryCode $category): void
     {
-        foreach ($this->categories as $categoryCode) {
-            if ($categoryCode === $category) {
-                return;
-            }
-        }
-        $this->categories[] = $category;
+        $this->categories[$category->getCode()] = $category;
     }
 
     /**
@@ -109,7 +110,7 @@ abstract class AbstractProduct
      */
     public function addAttribute(AbstractAttribute $attribute): void
     {
-        $this->attributes[] = $attribute;
+        $this->attributes[$attribute->getKey()] = $attribute;
     }
 
     /**
@@ -117,11 +118,7 @@ abstract class AbstractProduct
      */
     public function removeCategory(string $categoryCode): void
     {
-        foreach ($this->categories as $key => $productCategory) {
-            if ($productCategory->getCode() === $categoryCode) {
-                unset($this->categories[$key]);
-            }
-        }
+        unset($this->categories[$categoryCode]);
     }
 
     /**
@@ -129,11 +126,7 @@ abstract class AbstractProduct
      */
     public function removeAttribute(string $attributeKey): void
     {
-        foreach ($this->attributes as $key => $productAttribute) {
-            if ($productAttribute->getKey() === $attributeKey) {
-                unset($this->attributes[$key]);
-            }
-        }
+        unset($this->attributes[$attributeKey]);
     }
 
     /**
