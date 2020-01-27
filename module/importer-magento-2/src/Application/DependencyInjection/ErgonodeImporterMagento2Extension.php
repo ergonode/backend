@@ -13,8 +13,6 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceCompilerPass;
-use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
 
 /**
  */

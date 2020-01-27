@@ -69,10 +69,6 @@ class DomainEntityCreatorCommand extends Command
             ]
         );
 
-        var_dump($this->processor->getHeaders());
-
-        var_dump('START');
-
         $headers = $this->processor->getHeaders();
         $lines = [];
 
@@ -83,10 +79,6 @@ class DomainEntityCreatorCommand extends Command
             $lines[] = $line;
         }
 
-        $result = $this->builder->propose($headers, $lines);
-
-       // echo print_r($result, true);
-
-        var_dump('END');
+         $this->builder->propose($headers, $lines);
     }
 }

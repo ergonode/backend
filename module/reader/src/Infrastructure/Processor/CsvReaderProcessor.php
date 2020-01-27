@@ -122,6 +122,14 @@ class CsvReaderProcessor implements ReaderProcessorInterface
     }
 
     /**
+     * @return array
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    /**
      * @return array|false|null
      */
     private function getCSV()
