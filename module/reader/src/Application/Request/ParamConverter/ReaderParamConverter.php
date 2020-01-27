@@ -25,7 +25,7 @@ class ReaderParamConverter implements ParamConverterInterface
     /**
      * @var ReaderRepositoryInterface
      */
-    private $readerRepository;
+    private ReaderRepositoryInterface $readerRepository;
 
     /**
      * @param ReaderRepositoryInterface $readerRepository

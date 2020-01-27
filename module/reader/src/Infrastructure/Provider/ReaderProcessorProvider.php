@@ -18,7 +18,7 @@ class ReaderProcessorProvider
     /**
      * @var ReaderProcessorInterface[]
      */
-    private $readers = [];
+    private array $readers = [];
 
     /**
      * @param string                   $key

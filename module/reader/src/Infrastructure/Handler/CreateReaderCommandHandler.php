@@ -20,12 +20,12 @@ class CreateReaderCommandHandler
     /**
      * @var ReaderFactory
      */
-    private $factory;
+    private ReaderFactory $factory;
 
     /**
      * @var ReaderRepositoryInterface
      */
-    private $repository;
+    private ReaderRepositoryInterface $repository;
 
     /**
      * @param ReaderFactory             $factory
