@@ -11,7 +11,6 @@ namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
 use Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition;
 use Ergonode\Designer\Domain\Entity\TemplateId;
-use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\ProductId;
 use PHPUnit\Framework\TestCase;
@@ -19,17 +18,14 @@ use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductHasTemplateCon
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
+/**
+ */
 class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
 {
     /**
      * @var TemplateQueryInterface|MockObject
      */
     private MockObject $templateQuery;
-
-    /**
-     * @var TemplateRepositoryInterface|MockObject
-     */
-    private MockObject $templateRepository;
 
     /**
      * @var ProductHasTemplateConditionCalculatorStrategy
@@ -60,11 +56,12 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
      * @param string $productTemplateName
      * @param string $searchedTemplateName
      * @param bool   $expectedResult
+     *
      * @throws \Exception
      *
      * @dataProvider calculateProvider
      */
-    public function  testCalculate(
+    public function testCalculate(
         string $operator,
         string $productTemplateName,
         string $searchedTemplateName,
@@ -94,26 +91,26 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
                 'HAS',
                 'aaa',
                 'aaa',
-                true
+                true,
             ],
             'HAS false' => [
                 'HAS',
                 'aaa',
                 'ccc',
-                false
+                false,
             ],
             'NOT_HAS false' => [
                 'NOT_HAS',
                 'aaa',
                 'aaa',
-                false
+                false,
             ],
             'NOT_HAS true' => [
                 'NOT_HAS',
                 'aaa',
                 'ccc',
-                true
-            ]
+                true,
+            ],
         ];
     }
 

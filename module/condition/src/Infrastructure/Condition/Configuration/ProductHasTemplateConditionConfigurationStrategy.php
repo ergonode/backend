@@ -12,8 +12,11 @@ namespace Ergonode\Condition\Infrastructure\Condition\Configuration;
 use Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ */
 class ProductHasTemplateConditionConfigurationStrategy implements ConditionConfigurationStrategyInterface
 {
     /**
@@ -22,13 +25,19 @@ class ProductHasTemplateConditionConfigurationStrategy implements ConditionConfi
     private TranslatorInterface $translator;
 
     /**
-     * @param TranslatorInterface $translator
+     * @var TemplateQueryInterface
      */
-    public function __construct(TranslatorInterface $translator)
+    private TemplateQueryInterface $templateQuery;
+
+    /**
+     * @param TranslatorInterface    $translator
+     * @param TemplateQueryInterface $templateQuery
+     */
+    public function __construct(TranslatorInterface $translator, TemplateQueryInterface $templateQuery)
     {
         $this->translator = $translator;
+        $this->templateQuery = $templateQuery;
     }
-
 
     /**
      * {@inheritDoc}
@@ -58,13 +67,14 @@ class ProductHasTemplateConditionConfigurationStrategy implements ConditionConfi
                     'options' => [
                         ProductHasTemplateCondition::HAS =>
                             $this->translator->trans('Has', [], 'condition', $language->getCode()),
-                        ProductHasTemplateCondition::NOT_HAS=>
-                            $this->translator->trans('Not has', [], 'condition', $language->getCode())
+                        ProductHasTemplateCondition::NOT_HAS =>
+                            $this->translator->trans('Not has', [], 'condition', $language->getCode()),
                     ],
                 ],
                 [
                     'name' => 'value',
-                    'type' => 'TEXT',
+                    'type' => 'SELECT',
+                    'options' => $this->templateQuery->getDictionary($language),
                 ],
             ],
         ];

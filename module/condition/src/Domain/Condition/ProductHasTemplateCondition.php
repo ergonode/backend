@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as JMS;
 class ProductHasTemplateCondition implements ConditionInterface
 {
     public const TYPE = 'PRODUCT_HAS_TEMPLATE_CONDITION';
-    public const PHARSE = 'PRODUCT_HAS_TEMPLATE_CONDITION_PHARSE';
+    public const PHRASE = 'PRODUCT_HAS_TEMPLATE_CONDITION_PHRASE';
 
     public const HAS = 'HAS';
     public const NOT_HAS = 'NOT_HAS';
@@ -80,7 +80,7 @@ class ProductHasTemplateCondition implements ConditionInterface
         return
             [
                 self::HAS,
-                self::NOT_HAS
+                self::NOT_HAS,
             ];
     }
 }

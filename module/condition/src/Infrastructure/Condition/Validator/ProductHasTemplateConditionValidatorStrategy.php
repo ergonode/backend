@@ -10,12 +10,13 @@ declare(strict_types=1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Validator;
 
-
 use Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ */
 class ProductHasTemplateConditionValidatorStrategy implements ConditionValidatorStrategyInterface
 {
 
@@ -43,7 +44,7 @@ class ProductHasTemplateConditionValidatorStrategy implements ConditionValidator
                     new Assert\Choice(ProductHasTemplateCondition::getSupportedOperators()),
                 ],
                 'value' => [
-                    new Assert\NotBlank()
+                    new Assert\NotBlank(),
                 ],
             ]
         );
