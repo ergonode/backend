@@ -63,7 +63,7 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
         try {
             fnmatch($value, "");
         } catch (\Throwable $exception) {
-            $context->buildViolation(trim($exception->getMessage()))
+            $context->buildViolation('Pattern is invalid')
                 ->addViolation();
         }
     }
@@ -83,11 +83,7 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
         try {
             preg_match($value, "");
         } catch (\Throwable $exception) {
-            $message = substr(
-                $exception->getMessage(),
-                strpos($exception->getMessage(), 'preg_match():') + strlen('preg_match():')
-            );
-            $context->buildViolation(trim($message))
+            $context->buildViolation('Pattern is invalid')
                 ->addViolation();
         }
     }
