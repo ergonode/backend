@@ -7,9 +7,9 @@
 
 namespace Ergonode\Importer\Tests\Infrastructure\Handler;
 
-use Ergonode\Importer\Domain\Command\CreateImportLineCommand;
+use Ergonode\Importer\Domain\Command\ProcessImportLineCommand;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
-use Ergonode\Importer\Infrastructure\Handler\CreateImportLineCommandHandler;
+use Ergonode\Importer\Infrastructure\Handler\ProcessLineCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -34,11 +34,11 @@ class CreateImportLineCommandHandlerTest extends TestCase
      */
     public function testHandleCommand(): void
     {
-        /** @var CreateImportLineCommand|MockObject $command */
-        $command = $this->createMock(CreateImportLineCommand::class);
+        /** @var ProcessImportLineCommand|MockObject $command */
+        $command = $this->createMock(ProcessImportLineCommand::class);
         $command->expects($this->once())->method('getCollection')->willReturn([]);
 
-        $handler = new CreateImportLineCommandHandler($this->repository);
+        $handler = new ProcessLineCommandHandler($this->repository);
 
         $handler->__invoke($command);
     }

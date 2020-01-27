@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Infrastructure\Process;
 
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
-use Ergonode\Transformer\Domain\Command\EndProcessImportLineCommand;
-use Ergonode\Transformer\Domain\Command\ProcessImportLineCommand;
-use Ergonode\Transformer\Domain\Command\StartProcessImportLineCommand;
-use Ergonode\Transformer\Domain\Command\StopProcessImportLineCommand;
+use Ergonode\Transformer\Domain\Command\EndImportCommand;
+use Ergonode\Transformer\Domain\Command\ProcessImportCommand;
+use Ergonode\Transformer\Domain\Command\StartImportCommand;
+use Ergonode\Transformer\Domain\Command\StopImportCommand;
 use Ergonode\Transformer\Domain\Entity\Processor;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -47,21 +47,21 @@ class ProcessorProcess
     public function process(Processor $processor): void
     {
         try {
-            $this->messageBus->dispatch(new StartProcessImportLineCommand($processor->getId()));
+            $this->messageBus->dispatch(new StartImportCommand($processor->getId()));
             $lines = $this->lineRepository->findCollectionByImport($processor->getImportId());
             foreach ($lines as $line) {
-                $newCommand = new ProcessImportLineCommand(
+                $newCommand = new ProcessImportCommand(
                     $processor->getTransformerId(),
                     json_decode($line->getContent(), true),
                     $processor->getAction()
                 );
                 $this->messageBus->dispatch($newCommand);
             }
-            $this->messageBus->dispatch(new EndProcessImportLineCommand($processor->getId()));
+            $this->messageBus->dispatch(new EndImportCommand($processor->getId()));
         } catch (\Throwable $exception) {
             $this
                 ->messageBus
-                ->dispatch(new StopProcessImportLineCommand($processor->getId(), $exception->getMessage()));
+                ->dispatch(new StopImportCommand($processor->getId(), $exception->getMessage()));
         }
     }
 }

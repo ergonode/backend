@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento2\Infrastructure\Generator;
 
+use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Infrastructure\Converter\TextConverter;
@@ -37,9 +38,9 @@ class Magento2TransformerGenerator
     }
 
     /**
-     * @param TransformerId       $transformerId
-     * @param string              $name
-     * @param ImportConfiguration $configuration
+     * @param TransformerId      $transformerId
+     * @param string             $name
+     * @param ConfigurationModel $configuration
      *
      * @return Transformer
      *
@@ -48,7 +49,7 @@ class Magento2TransformerGenerator
     public function generate(
         TransformerId $transformerId,
         string $name,
-        ImportConfiguration $configuration
+        ConfigurationModel $configuration
     ): Transformer {
         $transformer = new Transformer($transformerId, $name, $name);
 

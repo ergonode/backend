@@ -7,16 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Transformer\Infrastructure\Handler;
+namespace Ergonode\Importer\Infrastructure\Handler\Import;
 
-use Ergonode\Transformer\Domain\Command\ProcessImportLineCommand;
+use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Ergonode\Transformer\Infrastructure\Process\TransformProcess;
 use Ergonode\Transformer\Infrastructure\Provider\ImportActionProvider;
 
 /**
  */
-class ProcessImportLineCommandHandler
+class ProcessImportCommandHandler
 {
     /**
      * @var TransformerRepositoryInterface
@@ -31,7 +31,7 @@ class ProcessImportLineCommandHandler
     /**
      * @var ImportActionProvider
      */
-    private $importActionProvider;
+    private ImportActionProvider $importActionProvider;
 
     /**
      * @param TransformerRepositoryInterface $transformerRepository
@@ -49,9 +49,9 @@ class ProcessImportLineCommandHandler
     }
 
     /**
-     * @param ProcessImportLineCommand $command
+     * @param ProcessImportCommand $command
      */
-    public function __invoke(ProcessImportLineCommand $command)
+    public function __invoke(ProcessImportCommand $command)
     {
         $transformer = $this->transformerRepository->load($command->getTransformerId());
         $content = $command->getRow();
@@ -70,3 +70,11 @@ class ProcessImportLineCommandHandler
         }
     }
 }
+
+//$line = new ImportLine(
+//    $command->getId(),
+//    $command->getImportId(),
+//    \json_encode($command->getCollection())
+//);
+//
+//$this->repository->save($line);

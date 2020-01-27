@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Transformer\Domain\Command;
+namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProcessImportLineCommand implements DomainCommandInterface
+class ProcessImportCommand implements DomainCommandInterface
 {
     /**
      * @var TransformerId

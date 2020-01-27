@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Infrastructure\Handler;
+namespace Ergonode\Importer\Infrastructure\Handler\Source;
 
-use Ergonode\Importer\Domain\Command\CreateFileImportCommand;
+use Ergonode\Importer\Domain\Command\Source\CreateFileImportCommand;
 use Ergonode\Importer\Domain\Entity\FileImport;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 

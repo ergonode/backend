@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Transformer\Domain\Command;
+namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Transformer\Domain\Entity\ProcessorId;
@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class StopProcessImportLineCommand implements DomainCommandInterface
+class EndImportCommand implements DomainCommandInterface
 {
     /**
      * @var ProcessorId
@@ -25,20 +25,11 @@ class StopProcessImportLineCommand implements DomainCommandInterface
     private ProcessorId $id;
 
     /**
-     * @var string|null
-     *
-     * @JMS\Type("string")
-     */
-    private ?string $reason;
-
-    /**
      * @param ProcessorId $id
-     * @param null|string $reason
      */
-    public function __construct(ProcessorId $id, ?string $reason = null)
+    public function __construct(ProcessorId $id)
     {
         $this->id = $id;
-        $this->reason = $reason;
     }
 
     /**
@@ -47,13 +38,5 @@ class StopProcessImportLineCommand implements DomainCommandInterface
     public function getId(): ProcessorId
     {
         return $this->id;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getReason(): ?string
-    {
-        return $this->reason;
     }
 }

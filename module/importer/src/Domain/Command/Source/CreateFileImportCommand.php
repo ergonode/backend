@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Domain\Command;
+namespace Ergonode\Importer\Domain\Command\Source;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Importer\Domain\Entity\ImportId;

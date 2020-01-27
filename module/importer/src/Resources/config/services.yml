@@ -13,9 +13,9 @@ services:
     Ergonode\Importer\Application\:
         resource: '../../Application/*'
 
-    Ergonode\Importer\Application\Command\:
-        resource: '../../Application/Command/*'
-        tags: ['console.command']
+#    Ergonode\Importer\Application\Command\:
+#        resource: '../../Application/Command/*'
+#        tags: ['console.command']
 
     Ergonode\Importer\Application\Controller\Api\:
         resource: '../../Application/Controller/Api/*'
@@ -43,7 +43,3 @@ services:
     Ergonode\Importer\Application\Service\Upload\UploadService:
         arguments:
             $targetDirectory: '%import_directory%'
-
-    Ergonode\Importer\Application\Service\ImportService:
-        arguments:
-            $directory: '%import_directory%'
