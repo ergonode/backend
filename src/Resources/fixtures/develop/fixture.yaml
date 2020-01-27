@@ -12,3 +12,4 @@ include:
     - 'segments.yaml'
     - 'conditions.yaml'
     - 'comment.yaml'
+    - 'collections.yaml'

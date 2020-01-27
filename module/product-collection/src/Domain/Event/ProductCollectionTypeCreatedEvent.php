@@ -30,7 +30,7 @@ class ProductCollectionTypeCreatedEvent implements DomainEventInterface
     /**
      * @var ProductCollectionTypeCode
      *
-     * @JMS/Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode")
+     * @JMS\Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode")
      *
      */
     private ProductCollectionTypeCode $code;

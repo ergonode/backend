@@ -17,7 +17,7 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementVisibleChang
  */
 class ProductCollectionElementVisibleChangedEventProjector
 {
-    private const TABLE = 'collection_collection_element';
+    private const TABLE = 'collection_element';
 
     /**
      * @var Connection
