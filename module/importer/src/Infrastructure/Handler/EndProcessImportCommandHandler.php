@@ -21,12 +21,12 @@ class EndProcessImportCommandHandler
     /**
      * @var ImportRepositoryInterface;
      */
-    private $repository;
+    private ImportRepositoryInterface $repository;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @param ImportRepositoryInterface $repository

@@ -16,8 +16,8 @@ use Ergonode\ImporterMagento2\Infrastructure\Proposal\AttributeProposalStrategyI
 class TextProposalStrategy implements AttributeProposalStrategyInterface
 {
     /**
-     * @param string              $name
-     * @param array               $values
+     * @param string $name
+     * @param array  $values
      *
      * @return bool
      */
@@ -37,6 +37,6 @@ class TextProposalStrategy implements AttributeProposalStrategyInterface
      */
     public function getTypeProposal(): string
     {
-       return AbstractNumericAttribute::TYPE;
+        return AbstractNumericAttribute::TYPE;
     }
 }

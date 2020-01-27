@@ -62,6 +62,4 @@ class AttributeColumn implements ConfigurationColumnInterface
     {
         return true;
     }
-
-
 }

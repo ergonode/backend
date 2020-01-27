@@ -18,27 +18,27 @@ abstract class AbstractImport implements \JsonSerializable
     /**
      * @var ImportId;
      */
-    protected $id;
+    protected ImportId $id;
 
     /**
      * @var string
      */
-    protected $name;
+    protected string $name;
 
     /**
      * @var ImportStatus
      */
-    protected $status;
+    protected ImportStatus $status;
 
     /**
      * @var string
      */
-    protected $reason;
+    protected string $reason;
 
     /**
      * @var array
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * @param ImportId $id

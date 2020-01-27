@@ -42,6 +42,7 @@ class Magento2TransformerGenerator
      * @param ImportConfiguration $configuration
      *
      * @return Transformer
+     *
      * @throws \Exception
      */
     public function generate(

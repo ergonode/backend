@@ -48,9 +48,9 @@ class ImportUploadAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param FormFactoryInterface $formFactory
+     * @param FormFactoryInterface   $formFactory
      * @param UploadServiceInterface $uploadService
-     * @param CommandBusInterface $commandBus
+     * @param CommandBusInterface    $commandBus
      */
     public function __construct(
         FormFactoryInterface $formFactory,

@@ -26,8 +26,8 @@ class SourceTypeDictionaryProvider
     private array $sources;
 
     /**
-     * @param TranslatorInterface           $translator
-     * @param array|ImportSourceInterface[] $sources
+     * @param TranslatorInterface         $translator
+     * @param array|ImportSourceInterface ...$sources
      */
     public function __construct(TranslatorInterface $translator, ImportSourceInterface ...$sources)
     {

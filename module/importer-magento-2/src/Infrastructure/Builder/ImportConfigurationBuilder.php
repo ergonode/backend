@@ -84,6 +84,7 @@ class ImportConfigurationBuilder
         if (null === $attribute) {
             $calculator = $this->provider->provide($name, $values);
             $attributeType = $calculator->getTypeProposal();
+
             return new ProposalColumn(
                 $name,
                 $attributeCode->getValue(),

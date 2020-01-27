@@ -36,7 +36,7 @@ class AttributeProposalProvider
     public function provide(string $name, array $values): AttributeProposalStrategyInterface
     {
         foreach ($this->strategies as $strategy) {
-            if($strategy->support($name, $values)) {
+            if ($strategy->support($name, $values)) {
                 return $strategy;
             }
         }
@@ -45,6 +45,4 @@ class AttributeProposalProvider
 
         throw new \RuntimeException(sprintf('Can\'t find proposal for column %s values', $name));
     }
-
-
 }

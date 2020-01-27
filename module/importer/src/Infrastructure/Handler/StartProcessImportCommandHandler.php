@@ -13,14 +13,13 @@ use Ergonode\Importer\Domain\Command\StartProcessImportCommand;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 
 /**
- * Class StartProcessImportCommandHandler
  */
 class StartProcessImportCommandHandler
 {
     /**
      * @var ImportRepositoryInterface;
      */
-    private $repository;
+    private ImportRepositoryInterface $repository;
 
     /**
      * @param ImportRepositoryInterface $repository

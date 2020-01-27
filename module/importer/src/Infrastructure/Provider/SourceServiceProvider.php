@@ -18,7 +18,7 @@ class SourceServiceProvider
     private array $sources;
 
     /**
-     * @param ImportSourceInterface[] $sources
+     * @param ImportSourceInterface ...$sources
      */
     public function __construct(ImportSourceInterface ...$sources)
     {
@@ -34,7 +34,6 @@ class SourceServiceProvider
     {
         foreach ($this->sources as $source) {
             if ($source->supported($type)) {
-
                 return $source;
             }
         }

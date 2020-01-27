@@ -8,10 +8,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Provider;
 
-
 use Ergonode\Importer\Domain\Entity\AbstractImport;
 use Ergonode\ImporterMagento2\Infrastructure\Configuration\ImportConfiguration;
 
+/**
+ */
 interface ImportSourceInterface
 {
     /**

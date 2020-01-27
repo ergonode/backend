@@ -33,20 +33,20 @@ class DbalImportRepository implements ImportRepositoryInterface
         'reason',
     ];
 
-        /**
+    /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @var ImportFactory
      */
-    private $factory;
+    private ImportFactory $factory;
 
     /**
      * @var ImportMapper
      */
-    private $mapper;
+    private ImportMapper $mapper;
 
     /**
      * @param Connection    $connection

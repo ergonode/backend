@@ -18,8 +18,8 @@ class MultiSelectProposalStrategy implements AttributeProposalStrategyInterface
     private const SEPARATOR = '|';
 
     /**
-     * @param string              $name
-     * @param array               $values
+     * @param string $name
+     * @param array  $values
      *
      * @return bool
      */
@@ -41,6 +41,6 @@ class MultiSelectProposalStrategy implements AttributeProposalStrategyInterface
      */
     public function getTypeProposal(): string
     {
-       return MultiSelectAttribute::TYPE;
+        return MultiSelectAttribute::TYPE;
     }
 }

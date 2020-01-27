@@ -23,21 +23,21 @@ class CreateImportLineCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportLineId")
      */
-    private $id;
+    private ImportLineId $id;
 
     /**
      * @var ImportId
      *
      * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportId")
      */
-    private $importId;
+    private ImportId $importId;
 
     /**
      * @var array
      *
      * @JMS\Type("array")
      */
-    private $row;
+    private array $row;
 
     /**
      * @param ImportLineId $id

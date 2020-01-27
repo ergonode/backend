@@ -51,7 +51,7 @@ class SourceTypeDictionaryAction
      *     response=200,
      *     description="Returns import source dictionary",
      * )
-     * @param Language                 $language
+     * @param Language $language
      *
      * @return Response
      */

@@ -20,7 +20,7 @@ class CreateImportLineCommandHandler
     /**
      * @var ImportLineRepositoryInterface
      */
-    private $repository;
+    private ImportLineRepositoryInterface $repository;
 
     /**
      * @param ImportLineRepositoryInterface $repository

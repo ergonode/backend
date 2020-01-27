@@ -12,7 +12,6 @@ namespace Ergonode\Importer\Persistence\Dbal\Repository\Mapper;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 
 /**
- * Class ImportLineMapper
  */
 class ImportLineMapper
 {

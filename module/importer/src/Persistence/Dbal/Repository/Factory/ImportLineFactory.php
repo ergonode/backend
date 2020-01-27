@@ -14,7 +14,6 @@ use Ergonode\Importer\Domain\Entity\ImportLine;
 use Ergonode\Importer\Domain\Entity\ImportLineId;
 
 /**
- * Class ImportLineFactory
  */
 class ImportLineFactory
 {

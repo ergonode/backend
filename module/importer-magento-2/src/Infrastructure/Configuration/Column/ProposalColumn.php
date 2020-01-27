@@ -41,8 +41,8 @@ class ProposalColumn implements ConfigurationColumnInterface
 
     /**
      * @param string $field
-     * @param string $attributeType
      * @param string $attributeCode
+     * @param string $attributeType
      */
     public function __construct(string $field, string $attributeCode, string $attributeType)
     {

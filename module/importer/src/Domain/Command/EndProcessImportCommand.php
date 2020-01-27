@@ -23,21 +23,21 @@ class EndProcessImportCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportId")
      */
-    private $importId;
+    private ImportId $importId;
 
     /**
      * @var null|TransformerId
      *
      * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
      */
-    private $transformerId;
+    private ?TransformerId $transformerId;
 
     /**
      * @var null|string
      *
      * @JMS\Type("string")
      */
-    private $action;
+    private ?string $action;
 
     /**
      * @param ImportId      $importId

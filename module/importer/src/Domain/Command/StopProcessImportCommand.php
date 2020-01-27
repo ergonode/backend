@@ -22,14 +22,14 @@ class StopProcessImportCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportId")
      */
-    private $importId;
+    private ImportId $importId;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $reason;
+    private string $reason;
 
     /**
      * @param ImportId $importId

@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento2\Infrastructure\Configuration\Column;
 
-
 /**
  */
 interface ConfigurationColumnInterface

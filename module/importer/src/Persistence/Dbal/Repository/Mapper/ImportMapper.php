@@ -12,7 +12,6 @@ namespace Ergonode\Importer\Persistence\Dbal\Repository\Mapper;
 use Ergonode\Importer\Domain\Entity\AbstractImport;
 
 /**
- * Class ImportMapper
  */
 class ImportMapper
 {
@@ -27,7 +26,7 @@ class ImportMapper
             'id' => $import->getId(),
             'name' => $import->getName(),
             'status' => $import->getStatus(),
-            'options' => \json_encode($import->getOptions()),
+            'options' => \json_encode($import->getOptions(), JSON_THROW_ON_ERROR, 512),
             'type' => \get_class($import),
             'reason' => $import->getReason(),
         ];

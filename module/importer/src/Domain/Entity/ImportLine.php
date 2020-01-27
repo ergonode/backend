@@ -10,24 +10,23 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Entity;
 
 /**
- * Class ImportLine
  */
 class ImportLine
 {
     /**
      * @var ImportLineId
      */
-    private $id;
+    private ImportLineId $id;
 
     /**
      * @var ImportId
      */
-    private $importId;
+    private ImportId $importId;
 
     /**
      * @var string
      */
-    private $content;
+    private string $content;
 
     /**
      * @param ImportLineId $id

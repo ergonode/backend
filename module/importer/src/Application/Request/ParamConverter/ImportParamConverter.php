@@ -25,7 +25,7 @@ class ImportParamConverter implements ParamConverterInterface
     /**
      * @var ImportRepositoryInterface
      */
-    private $importRepository;
+    private ImportRepositoryInterface $importRepository;
 
     /**
      * @param ImportRepositoryInterface $importRepository

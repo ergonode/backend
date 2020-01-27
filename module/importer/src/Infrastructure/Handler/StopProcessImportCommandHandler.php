@@ -19,7 +19,7 @@ class StopProcessImportCommandHandler
     /**
      * @var ImportRepositoryInterface;
      */
-    private $repository;
+    private ImportRepositoryInterface $repository;
 
     /**
      * @param ImportRepositoryInterface $repository

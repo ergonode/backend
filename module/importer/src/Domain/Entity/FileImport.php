@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\Entity;
 
-use Ergonode\Reader\Domain\Entity\ReaderId;
-
 /**
  */
 class FileImport extends AbstractImport
