@@ -24,12 +24,12 @@ class ProcessorProcess
     /**
      * @var ImportLineRepositoryInterface
      */
-    private $lineRepository;
+    private ImportLineRepositoryInterface $lineRepository;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @param ImportLineRepositoryInterface $lineRepository

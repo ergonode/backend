@@ -22,14 +22,14 @@ class DateConverter implements ConverterInterface
      *
      * @JMS\Type("string")
      */
-    private $field;
+    private string $field;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $format;
+    private string $format;
 
 
     /**

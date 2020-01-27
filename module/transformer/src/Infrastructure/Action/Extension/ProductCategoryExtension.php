@@ -23,7 +23,7 @@ class ProductCategoryExtension
     /**
      * @var CategoryRepositoryInterface
      */
-    private $repository;
+    private CategoryRepositoryInterface $repository;
 
     /**
      * @param CategoryRepositoryInterface $repository

@@ -25,22 +25,22 @@ class Transformer extends AbstractAggregateRoot
     /**
      * @var TransformerId
      */
-    private $id;
+    private TransformerId $id;
 
     /**
      * @var string
      */
-    private $key;
+    private string $key;
 
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @var ConverterInterface[]
      */
-    private $converters;
+    private array $converters;
 
     /**
      * @param TransformerId $id

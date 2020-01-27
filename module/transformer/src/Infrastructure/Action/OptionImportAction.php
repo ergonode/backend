@@ -30,7 +30,7 @@ class OptionImportAction implements ImportActionInterface
     /**
      * @var AttributeRepositoryInterface
      */
-    private $attributeRepository;
+    private AttributeRepositoryInterface $attributeRepository;
 
     /**
      * @param AttributeRepositoryInterface $attributeRepository

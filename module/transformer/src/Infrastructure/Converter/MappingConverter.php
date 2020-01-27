@@ -23,14 +23,14 @@ class MappingConverter implements ConverterInterface
      *
      * @JMS\Type("string")
      */
-    private $field;
+    private string $field;
 
     /**
      * @var array
      *
      * @JMS\Type("array<string, string>")
      */
-    private $map;
+    private array $map;
 
     /**
      * @param string $field

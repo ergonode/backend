@@ -21,7 +21,7 @@ class DeleteTransformerCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
      */
-    private $id;
+    private TransformerId $id;
 
     /**
      * @param TransformerId $id

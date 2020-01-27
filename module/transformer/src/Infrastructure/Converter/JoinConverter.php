@@ -22,7 +22,7 @@ class JoinConverter implements ConverterInterface
      *
      * @JMS\Type("string")
      */
-    private $pattern;
+    private string $pattern;
 
     /**
      * @param string $pattern

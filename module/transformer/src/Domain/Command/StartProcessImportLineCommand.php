@@ -22,7 +22,7 @@ class StartProcessImportLineCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Transformer\Domain\Entity\ProcessorId")
      */
-    private $id;
+    private ProcessorId $id;
 
     /**
      * @param ProcessorId $id

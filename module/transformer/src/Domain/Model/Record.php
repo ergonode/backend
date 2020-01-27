@@ -18,7 +18,7 @@ class Record
     /**
      * @var array
      */
-    private $columns;
+    private array $columns;
 
     /**
      */

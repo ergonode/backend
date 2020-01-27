@@ -32,27 +32,27 @@ class CategoryImportAction implements ImportActionInterface
     /**
      * @var CategoryRepositoryInterface
      */
-    private $categoryRepository;
+    private CategoryRepositoryInterface $categoryRepository;
 
     /**
      * @var CategoryTreeProvider
      */
-    private $treeProvider;
+    private CategoryTreeProvider $treeProvider;
 
     /**
      * @var TreeRepositoryInterface
      */
-    private $treeRepository;
+    private TreeRepositoryInterface $treeRepository;
 
     /**
      * @var CategoryFactory
      */
-    private $factory;
+    private CategoryFactory $factory;
 
     /**
      * @var ProductAttributeExtension
      */
-    private $extension;
+    private ProductAttributeExtension $extension;
 
     /**
      * @param CategoryRepositoryInterface $categoryRepository

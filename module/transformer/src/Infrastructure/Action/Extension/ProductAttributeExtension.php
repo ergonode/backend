@@ -30,12 +30,12 @@ class ProductAttributeExtension
     /**
      * @var AttributeQueryInterface
      */
-    private $query;
+    private AttributeQueryInterface $query;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @param AttributeQueryInterface $query

@@ -21,7 +21,7 @@ class DbalProcessorQuery implements ProcessorQueryInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection

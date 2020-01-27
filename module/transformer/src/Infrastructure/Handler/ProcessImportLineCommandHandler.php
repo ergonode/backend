@@ -21,12 +21,12 @@ class ProcessImportLineCommandHandler
     /**
      * @var TransformerRepositoryInterface
      */
-    private $transformerRepository;
+    private TransformerRepositoryInterface $transformerRepository;
 
     /**
      * @var TransformProcess
      */
-    private $transformationProcess;
+    private TransformProcess $transformationProcess;
 
     /**
      * @var ImportActionProvider

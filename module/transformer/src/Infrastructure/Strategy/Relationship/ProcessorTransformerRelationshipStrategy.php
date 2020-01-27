@@ -22,7 +22,7 @@ class ProcessorTransformerRelationshipStrategy implements RelationshipStrategyIn
     /**
      * @var ProcessorQueryInterface
      */
-    private $query;
+    private ProcessorQueryInterface $query;
 
     /**
      * @param ProcessorQueryInterface $query

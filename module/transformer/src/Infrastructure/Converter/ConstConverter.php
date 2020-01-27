@@ -22,7 +22,7 @@ class ConstConverter implements ConverterInterface
      *
      * @JMS\Type("string")
      */
-    private $value;
+    private string $value;
 
     /**
      * @param string $value

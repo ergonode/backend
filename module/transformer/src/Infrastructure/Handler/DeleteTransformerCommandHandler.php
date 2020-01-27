@@ -23,12 +23,12 @@ class DeleteTransformerCommandHandler
     /**
      * @var TransformerRepositoryInterface
      */
-    private $repository;
+    private TransformerRepositoryInterface $repository;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @param TransformerRepositoryInterface $repository

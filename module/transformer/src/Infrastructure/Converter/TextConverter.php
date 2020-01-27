@@ -22,7 +22,7 @@ class TextConverter implements ConverterInterface
      *
      * @JMS\Type("string")
      */
-    private $field;
+    private string $field;
 
     /**
      * @param string $field

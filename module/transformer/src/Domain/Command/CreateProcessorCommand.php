@@ -24,28 +24,28 @@ class CreateProcessorCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Transformer\Domain\Entity\ProcessorId")
      */
-    private $id;
+    private ProcessorId $id;
 
     /**
      * @var ImportId
      *
      * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportId")
      */
-    private $importId;
+    private ImportId $importId;
 
     /**
      * @var TransformerId
      *
      * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
      */
-    private $transformerId;
+    private TransformerId $transformerId;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $action;
+    private string $action;
 
     /**
      * @param ImportId      $importId

@@ -20,7 +20,7 @@ class EndProcessImportLineCommandHandler
     /**
      * @var ProcessorRepositoryInterface
      */
-    private $processorRepository;
+    private ProcessorRepositoryInterface $processorRepository;
 
     /**
      * @param ProcessorRepositoryInterface $processorRepository

@@ -35,32 +35,32 @@ class ProductSimpleImportAction implements ImportActionInterface
     /**
      * @var TemplateProvider
      */
-    private $templateProvider;
+    private TemplateProvider $templateProvider;
 
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
      * @var ProductQueryInterface
      */
-    private $productQuery;
+    private ProductQueryInterface $productQuery;
 
     /**
      * @var ProductAttributeExtension
      */
-    private $attributeExtension;
+    private ProductAttributeExtension $attributeExtension;
 
     /**
      * @var ProductCategoryExtension
      */
-    private $categoryExtension;
+    private ProductCategoryExtension $categoryExtension;
 
     /**
      * @var ProductFactoryProvider
      */
-    private $productFactoryProvider;
+    private ProductFactoryProvider $productFactoryProvider;
 
     /**
      * @param TemplateProvider           $templateProvider

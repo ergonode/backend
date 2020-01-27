@@ -25,16 +25,14 @@ class DbalProcessorRepository implements ProcessorRepositoryInterface
     /**
      * @var DomainEventStoreInterface
      */
-    private $eventStore;
+    private DomainEventStoreInterface $eventStore;
 
     /**
      * @var EventBusInterface
      */
-    private $eventBus;
+    private EventBusInterface $eventBus;
 
     /**
-     * DbalProcessorRepository constructor.
-     *
      * @param DomainEventStoreInterface $eventStore
      * @param EventBusInterface         $eventBus
      */

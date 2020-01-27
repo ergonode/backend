@@ -24,28 +24,28 @@ class ProcessorStatusChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Transformer\Domain\Entity\ProcessorId")
      */
-    private $id;
+    private ProcessorId $id;
 
     /**
      * @var ProcessorStatus
      *
      * @JMS\Type("Ergonode\Transformer\Domain\ValueObject\ProcessorStatus")
      */
-    private $from;
+    private ProcessorStatus $from;
 
     /**
      * @var ProcessorStatus
      *
      * @JMS\Type("Ergonode\Transformer\Domain\ValueObject\ProcessorStatus")
      */
-    private $to;
+    private ProcessorStatus $to;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $reason;
+    private ?string $reason;
 
     /**
      * @param ProcessorId     $id

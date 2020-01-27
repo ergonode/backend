@@ -36,17 +36,17 @@ class TransformerController extends AbstractController
     /**
      * @var TransformerRepositoryInterface
      */
-    private $repository;
+    private TransformerRepositoryInterface $repository;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @var ExistingRelationshipMessageBuilderInterface

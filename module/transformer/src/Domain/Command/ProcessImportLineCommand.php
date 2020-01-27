@@ -22,21 +22,21 @@ class ProcessImportLineCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
      */
-    private $transformerId;
+    private TransformerId $transformerId;
 
     /**
      * @var array
      *
      * @JMS\Type("array")
      */
-    private $row;
+    private array $row;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $action;
+    private string $action;
 
     /**
      * @param TransformerId $transformerId

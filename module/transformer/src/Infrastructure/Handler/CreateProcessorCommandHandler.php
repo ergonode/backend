@@ -21,12 +21,12 @@ class CreateProcessorCommandHandler
     /**
      * @var TransformerRepositoryInterface
      */
-    private $transformerRepository;
+    private TransformerRepositoryInterface $transformerRepository;
 
     /**
      * @var ProcessorProcess
      */
-    private $processorProcess;
+    private ProcessorProcess $processorProcess;
 
     /**
      * @param TransformerRepositoryInterface $transformerRepository

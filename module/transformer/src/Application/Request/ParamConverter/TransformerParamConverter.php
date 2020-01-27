@@ -25,7 +25,7 @@ class TransformerParamConverter implements ParamConverterInterface
     /**
      * @var TransformerRepositoryInterface
      */
-    private $transformerRepository;
+    private TransformerRepositoryInterface $transformerRepository;
 
     /**
      * @param TransformerRepositoryInterface $transformerRepository

@@ -23,7 +23,7 @@ class TransformerDeletedEvent extends AbstractDeleteEvent
      *
      * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
      */
-    private $id;
+    private TransformerId $id;
 
     /**
      * @param TransformerId $id

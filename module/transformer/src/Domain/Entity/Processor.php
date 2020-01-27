@@ -23,33 +23,35 @@ class Processor extends AbstractAggregateRoot
     /**
      * @var ProcessorId
      */
-    private $id;
+    private ProcessorId $id;
 
     /**
      * @var TransformerId
      */
-    private $transformerId;
+    private TransformerId $transformerId;
 
     /**
      * @var ImportId
      */
-    private $importId;
+    private ImportId $importId;
 
     /**
      * @var string
      */
-    private $action;
+    private string $action;
 
     /**
      * @var ProcessorStatus
      */
-    private $status;
+    private ProcessorStatus $status;
 
     /**
      * @param ProcessorId   $id
      * @param TransformerId $transformerId
      * @param ImportId      $importId
      * @param string        $action
+     *
+     * @throws \Exception
      */
     public function __construct(ProcessorId $id, TransformerId $transformerId, ImportId $importId, string $action)
     {
