@@ -31,7 +31,7 @@ class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId")
      */
-    private ProductCollectionTypeId $typeId;
+    private ProductCollectionTypeId $oldTypeId;
 
     /**
      * @var ProductCollectionTypeId
@@ -53,7 +53,7 @@ class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
         ProductCollectionTypeId $newTypeId
     ) {
         $this->id = $id;
-        $this->typeId = $typeId;
+        $this->oldTypeId = $typeId;
         $this->newTypeId = $newTypeId;
     }
 
@@ -68,9 +68,9 @@ class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
     /**
      * @return ProductCollectionTypeId
      */
-    public function getTypeId(): ProductCollectionTypeId
+    public function getOldTypeId(): ProductCollectionTypeId
     {
-        return $this->typeId;
+        return $this->oldTypeId;
     }
 
     /**

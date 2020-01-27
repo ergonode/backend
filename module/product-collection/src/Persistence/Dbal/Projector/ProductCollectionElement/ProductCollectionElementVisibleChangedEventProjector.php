@@ -42,7 +42,7 @@ class ProductCollectionElementVisibleChangedEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'visible' => $event->isNewVisible(),
+                'visible' => $event->isVisible(),
             ],
             [
                 'product_collection_id' => $event->getAggregateId()->getValue(),

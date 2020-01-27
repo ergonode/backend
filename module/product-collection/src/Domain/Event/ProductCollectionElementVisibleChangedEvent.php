@@ -38,20 +38,20 @@ class ProductCollectionElementVisibleChangedEvent implements DomainEventInterfac
      *
      * @JMS\Type("bool")
      */
-    private bool $newVisible;
+    private bool $visible;
 
     /**
      * ProductCollectionElementVisibleChangedEvent constructor.
      *
      * @param ProductCollectionId        $id
      * @param ProductCollectionElementId $elementId
-     * @param bool                       $newVisible
+     * @param bool                       $visible
      */
-    public function __construct(ProductCollectionId $id, ProductCollectionElementId $elementId, bool $newVisible)
+    public function __construct(ProductCollectionId $id, ProductCollectionElementId $elementId, bool $visible)
     {
         $this->id = $id;
         $this->elementId = $elementId;
-        $this->newVisible = $newVisible;
+        $this->visible = $visible;
     }
 
     /**
@@ -73,8 +73,8 @@ class ProductCollectionElementVisibleChangedEvent implements DomainEventInterfac
     /**
      * @return bool
      */
-    public function isNewVisible(): bool
+    public function isVisible(): bool
     {
-        return $this->newVisible;
+        return $this->visible;
     }
 }

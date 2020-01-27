@@ -95,6 +95,6 @@ class ProductCollectionElement extends AbstractEntity
     protected function applyProductCollectionElementVisibleChangedEvent(
         ProductCollectionElementVisibleChangedEvent $event
     ): void {
-        $this->visible = $event->isNewVisible();
+        $this->visible = $event->isVisible();
     }
 }

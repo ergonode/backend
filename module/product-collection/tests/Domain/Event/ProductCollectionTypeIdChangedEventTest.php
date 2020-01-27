@@ -35,7 +35,7 @@ class ProductCollectionTypeIdChangedEventTest extends TestCase
         $event = new ProductCollectionTypeIdChangedEvent($id, $typeId, $newTypeId);
 
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($typeId, $event->getTypeId());
+        $this->assertEquals($typeId, $event->getOldTypeId());
         $this->assertEquals($newTypeId, $event->getNewTypeId());
     }
 }
