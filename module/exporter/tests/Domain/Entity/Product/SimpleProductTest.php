@@ -9,10 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Entity\Product;
 
-use Ergonode\Exporter\Domain\Entity\AbstractAttribute;
-use Ergonode\Exporter\Domain\Entity\Attribute\DefaultAttribute;
-use Ergonode\Exporter\Domain\Entity\CategoryCode;
-use Ergonode\Exporter\Domain\Entity\Product\SimpleProduct;
+use Ergonode\Exporter\Domain\Entity\AbstractExportAttributeValue;
+use Ergonode\Exporter\Domain\Entity\AttributeValue\DefaultExportAttributeValue;
+use Ergonode\Exporter\Domain\Entity\ExportCategoryCode;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -30,12 +29,12 @@ class SimpleProductTest extends TestCase
     private string $sku;
 
     /**
-     * @var CategoryCode[]
+     * @var ExportCategoryCode[]
      */
     private array $category;
 
     /**
-     * @var AbstractAttribute[]
+     * @var AbstractExportAttributeValue[]
      */
     private array $attribute;
 
@@ -47,12 +46,12 @@ class SimpleProductTest extends TestCase
         $this->sku = random_bytes(10);
 
         $this->category = [
-            $this->createMock(CategoryCode::class),
+            $this->createMock(ExportCategoryCode::class),
         ];
 
         $this->attribute = [
-            $this->createMock(AbstractAttribute::class),
-            $this->createMock(DefaultAttribute::class),
+            $this->createMock(AbstractExportAttributeValue::class),
+            $this->createMock(DefaultExportAttributeValue::class),
         ];
     }
 
@@ -60,7 +59,7 @@ class SimpleProductTest extends TestCase
      */
     public function testConstructor():void
     {
-        $product = new SimpleProduct(
+        $product = new SimpleExportProduct(
             $this->id,
             $this->sku,
             $this->category,

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Repository;
 
-use Ergonode\Exporter\Domain\Entity\AbstractProduct;
+use Ergonode\Exporter\Domain\Entity\AbstractExportProduct;
 
 /**
  */
@@ -18,12 +18,12 @@ interface ProductRepositoryInterface
     /**
      * @param string $id
      *
-     * @return AbstractProduct
+     * @return AbstractExportProduct
      */
-    public function load(string $id): ?AbstractProduct;
+    public function load(string $id): ?AbstractExportProduct;
 
     /**
-     * @param AbstractProduct $product
+     * @param AbstractExportProduct $product
      */
-    public function save(AbstractProduct $product): void;
+    public function save(AbstractExportProduct $product): void;
 }

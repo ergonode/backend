@@ -8,7 +8,7 @@
 namespace Ergonode\Exporter\Tests\Domain\Entity;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Exporter\Domain\Entity\Category;
+use Ergonode\Exporter\Domain\Entity\ExportCategory;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -43,7 +43,7 @@ class CategoryTest extends TestCase
      */
     public function testConstructor():void
     {
-        $category = new Category(
+        $category = new ExportCategory(
             $this->id,
             $this->code,
             $this->name

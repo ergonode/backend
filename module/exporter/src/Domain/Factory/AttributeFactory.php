@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Factory;
 
-use Ergonode\Exporter\Domain\Entity\AbstractAttribute;
-use Ergonode\Exporter\Domain\Entity\Attribute\DefaultAttribute;
+use Ergonode\Exporter\Domain\Entity\AbstractExportAttributeValue;
+use Ergonode\Exporter\Domain\Entity\AttributeValue\DefaultExportAttributeValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
@@ -22,11 +22,11 @@ class AttributeFactory
      * @param string              $key
      * @param ValueInterface|null $attribute
      *
-     * @return AbstractAttribute
+     * @return AbstractExportAttributeValue
      */
-    public function create(string $key, ?ValueInterface $attribute = null): AbstractAttribute
+    public function create(string $key, ?ValueInterface $attribute = null): AbstractExportAttributeValue
     {
-        return new DefaultAttribute($key, $attribute);
+        return new DefaultExportAttributeValue($key, $attribute);
     }
 
     /**

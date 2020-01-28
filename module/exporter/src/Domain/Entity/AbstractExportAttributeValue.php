@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
- *  See LICENSE.txt for license details.
+ * See LICENSE.txt for license details.
  *
  */
 
@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-abstract class AbstractAttribute
+abstract class AbstractExportAttributeValue
 {
     /**
      * @var string

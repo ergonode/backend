@@ -10,16 +10,15 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Exporter\Domain\Entity\AbstractExportProduct;
-use Ergonode\Exporter\Domain\Entity\Product\SimpleExportProduct;
-use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\Exporter\Domain\Entity\ExportAttribute;
+use Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class DbalProductRepository implements ProductRepositoryInterface
+class DbalAttributeRepository implements AttributeRepositoryInterface
 {
-    private const TABLE_PRODUCT = 'exporter.product';
+    private const TABLE_ATTRIBUTE = 'exporter.attribute';
 
     /**
      * @var Connection
@@ -32,7 +31,7 @@ class DbalProductRepository implements ProductRepositoryInterface
     private SerializerInterface $serializer;
 
     /**
-     * DbalProductRepository constructor.
+     * DbalAttributeRepository constructor.
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */
@@ -45,36 +44,36 @@ class DbalProductRepository implements ProductRepositoryInterface
     /**
      * @param string $id
      *
-     * @return AbstractExportProduct|null
+     * @return ExportAttribute|null
      */
-    public function load(string $id): ?AbstractExportProduct
+    public function load(string $id): ?ExportAttribute
     {
         $qb = $this->connection->createQueryBuilder();
         $result = $qb->select('*')
-            ->from(self::TABLE_PRODUCT)
+            ->from(self::TABLE_ATTRIBUTE)
             ->where($qb->expr()->eq('id', ':id'))
             ->setParameter(':id', $id)
             ->execute()
             ->fetch();
 
-        //todo if not or other product type or exeption
-        return $this->serializer->deserialize($result['data'], SimpleExportProduct::class, 'json');
+        //todo if not or other  type or exeption
+        return $this->serializer->deserialize($result['data'], ExportAttribute::class, 'json');
     }
 
     /**
-     * @param AbstractExportProduct $product
+     * @param ExportAttribute $attribute
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function save(AbstractExportProduct $product): void
+    public function save(ExportAttribute $attribute): void
     {
         $this->connection->update(
-            self::TABLE_PRODUCT,
+            self::TABLE_ATTRIBUTE,
             [
-                'data' => $this->serializer->serialize($product, 'json'),
+                'data' => $this->serializer->serialize($attribute, 'json'),
             ],
             [
-                'id' => $product->getId(),
+                'id' => $attribute->getId(),
             ]
         );
     }

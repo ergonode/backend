@@ -7,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Entity\Attribute;
+namespace Ergonode\Exporter\Domain\Entity\Product;
 
-use Ergonode\Exporter\Domain\Entity\AbstractAttribute;
+use Ergonode\Exporter\Domain\Entity\AbstractExportProduct;
 
 /**
  */
-class DefaultAttribute extends AbstractAttribute
+class SimpleExportProduct extends AbstractExportProduct
 {
 
 }

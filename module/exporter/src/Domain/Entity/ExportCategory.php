@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class Category
+class ExportCategory
 {
     /**
      * @var string

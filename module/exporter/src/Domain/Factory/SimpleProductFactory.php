@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Factory;
 
-use Ergonode\Exporter\Domain\Entity\AbstractAttribute;
-use Ergonode\Exporter\Domain\Entity\CategoryCode;
-use Ergonode\Exporter\Domain\Entity\Product\SimpleProduct;
+use Ergonode\Exporter\Domain\Entity\AbstractExportAttributeValue;
+use Ergonode\Exporter\Domain\Entity\ExportCategoryCode;
+use Ergonode\Exporter\Domain\Entity\Product\SimpleExportProduct;
 use Webmozart\Assert\Assert;
 
 /**
@@ -19,23 +19,23 @@ use Webmozart\Assert\Assert;
 class SimpleProductFactory
 {
     /**
-     * @param string              $id
-     * @param string              $sku
-     * @param CategoryCode[]      $categories
-     * @param AbstractAttribute[] $attributes
+     * @param string                         $id
+     * @param string                         $sku
+     * @param ExportCategoryCode[]           $categories
+     * @param AbstractExportAttributeValue[] $attributes
      *
-     * @return SimpleProduct
+     * @return SimpleExportProduct
      */
     public function createFromEvent(
         string $id,
         string $sku,
         array $categories = [],
         array $attributes = []
-    ): SimpleProduct {
-        Assert::allIsInstanceOf($categories, CategoryCode::class);
-        Assert::allIsInstanceOf($attributes, AbstractAttribute::class);
+    ): SimpleExportProduct {
+        Assert::allIsInstanceOf($categories, ExportCategoryCode::class);
+        Assert::allIsInstanceOf($attributes, AbstractExportAttributeValue::class);
 
-        return new SimpleProduct(
+        return new SimpleExportProduct(
             $id,
             $sku,
             $categories,

@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class CategoryCode
+class ExportCategoryCode
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ class CategoryCode
     private string $code;
 
     /**
-     * CategoryCode constructor.
+     * ExportCategoryCode constructor.
      * @param string $code
      */
     public function __construct(string $code)

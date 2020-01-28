@@ -9,21 +9,21 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Repository;
 
-use Ergonode\Exporter\Domain\Entity\ExportCategory;
+use Ergonode\Exporter\Domain\Entity\ExportAttribute;
 
 /**
  */
-interface CategoryRepositoryInterface
+interface AttributeRepositoryInterface
 {
     /**
      * @param string $id
      *
-     * @return ExportCategory
+     * @return ExportAttribute
      */
-    public function load(string $id): ?ExportCategory;
+    public function load(string $id): ?ExportAttribute;
 
     /**
-     * @param ExportCategory $category
+     * @param ExportAttribute $attribute
      */
-    public function save(ExportCategory $category): void;
+    public function save(ExportAttribute $attribute): void;
 }

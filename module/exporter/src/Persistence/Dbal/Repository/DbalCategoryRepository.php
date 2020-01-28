@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Exporter\Domain\Entity\Category;
+use Ergonode\Exporter\Domain\Entity\ExportCategory;
 use Ergonode\Exporter\Domain\Repository\CategoryRepositoryInterface;
 use JMS\Serializer\SerializerInterface;
 
@@ -44,9 +44,9 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     /**
      * @param string $id
      *
-     * @return Category|null
+     * @return ExportCategory|null
      */
-    public function load(string $id): ?Category
+    public function load(string $id): ?ExportCategory
     {
         $qb = $this->connection->createQueryBuilder();
         $result = $qb->select('*')
@@ -57,15 +57,15 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
             ->fetch();
 
         //todo if not or other product type or exeption
-        return $this->serializer->deserialize($result['data'], Category::class, 'json');
+        return $this->serializer->deserialize($result['data'], ExportCategory::class, 'json');
     }
 
     /**
-     * @param Category $category
+     * @param ExportCategory $category
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function save(Category $category): void
+    public function save(ExportCategory $category): void
     {
         $this->connection->update(
             self::TABLE_CATEGORY,
