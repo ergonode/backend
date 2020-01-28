@@ -37,7 +37,7 @@ class TransformProcess
      * @param ImportActionInterface $action
      * @param array                 $record
      */
-    public function process(Transformer $transformer, ImportActionInterface $action, array $record): void
+    public function rocess(Transformer $transformer, ImportActionInterface $action, array $record): void
     {
         $result = new Record();
 

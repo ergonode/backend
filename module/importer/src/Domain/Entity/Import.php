@@ -9,11 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\Entity;
 
+use Ergonode\Importer\Domain\Entity\Source\SourceId;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
+use Ergonode\Transformer\Domain\Entity\TransformerId;
 
 /**
  */
-abstract class AbstractImport implements \JsonSerializable
+class Import
 {
     /**
      * @var ImportId;
@@ -21,9 +23,14 @@ abstract class AbstractImport implements \JsonSerializable
     protected ImportId $id;
 
     /**
-     * @var string
+     * @var SourceId
      */
-    protected string $name;
+    protected SourceId $sourceId;
+
+    /**
+     * @var TransformerId
+     */
+    protected TransformerId $transformerId;
 
     /**
      * @var ImportStatus
@@ -31,23 +38,25 @@ abstract class AbstractImport implements \JsonSerializable
     protected ImportStatus $status;
 
     /**
-     * @var string
+     * @var \DateTime|null
      */
-    protected string $reason;
+    private ?\DateTime $startedAt;
 
     /**
-     * @var array
+     * @var \DateTime|null
      */
-    protected array $options = [];
+    private ?\DateTime $endedAt;
 
     /**
-     * @param ImportId $id
-     * @param string   $name
+     * @param ImportId      $id
+     * @param SourceId      $sourceId
+     * @param TransformerId $transformerId
      */
-    public function __construct(ImportId $id, string $name)
+    public function __construct(ImportId $id, SourceId $sourceId, TransformerId $transformerId)
     {
         $this->id = $id;
-        $this->name = $name;
+        $this->sourceId = $sourceId;
+        $this->transformerId = $transformerId;
         $this->status = new ImportStatus(ImportStatus::CREATED);
     }
 
@@ -60,11 +69,19 @@ abstract class AbstractImport implements \JsonSerializable
     }
 
     /**
-     * @return string
+     * @return SourceId
      */
-    public function getName(): string
+    public function getSourceId(): SourceId
     {
-        return $this->name;
+        return $this->sourceId;
+    }
+
+    /**
+     * @return TransformerId
+     */
+    public function getTransformerId(): TransformerId
+    {
+        return $this->transformerId;
     }
 
     /**
@@ -76,24 +93,24 @@ abstract class AbstractImport implements \JsonSerializable
     }
 
     /**
-     * @return string|null
+     * @return \DateTime|null
      */
-    public function getReason(): ?string
+    public function getStartedAt(): ?\DateTime
     {
-        return $this->reason;
+        return $this->startedAt;
     }
 
     /**
-     * @return array
+     * @return \DateTime|null
      */
-    public function getOptions(): array
+    public function getEndedAt(): ?\DateTime
     {
-        return $this->options;
+        return $this->endedAt;
     }
 
     /**
      */
-    public function process(): void
+    public function start(): void
     {
         if (!$this->getStatus()->isCreated()) {
             throw new \LogicException(
@@ -102,12 +119,12 @@ abstract class AbstractImport implements \JsonSerializable
         }
 
         $this->status = new ImportStatus(ImportStatus::PRECESSED);
+        $this->startedAt = new \DateTime();
     }
 
     /**
-     * @param string|null $reason
      */
-    public function stop(string $reason = null): void
+    public function stop(): void
     {
         if ($this->getStatus()->isStopped()) {
             throw new \LogicException(
@@ -116,7 +133,6 @@ abstract class AbstractImport implements \JsonSerializable
         }
 
         $this->status = new ImportStatus(ImportStatus::STOPPED);
-        $this->reason = $reason;
     }
 
     /**
@@ -130,23 +146,6 @@ abstract class AbstractImport implements \JsonSerializable
         }
 
         $this->status = new ImportStatus(ImportStatus::ENDED);
+        $this->endedAt = new \DateTime();
     }
-
-    /**
-     * @return array
-     */
-    public function jsonSerialize(): array
-    {
-        return [
-            'id' => $this->getId()->getValue(),
-            'name' => $this->getName(),
-            'type' => static::class,
-            'options' => $this->getOptions(),
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    abstract public function getType(): string;
 }

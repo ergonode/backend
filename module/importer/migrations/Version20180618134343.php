@@ -26,6 +26,17 @@ final class Version20180618134343 extends AbstractErgonodeMigration
         $this->addSql('CREATE SCHEMA IF NOT EXISTS importer');
 
         $this->addSql('
+            CREATE TABLE importer.source (
+                id UUID NOT NULL,              
+                type VARCHAR(255) NOT NULL,                
+                configuration JSON NOT NULL,                
+                created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+                updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,               
+                PRIMARY KEY(id)
+            )
+        ');
+
+        $this->addSql('
             CREATE TABLE importer.import (
                 id UUID NOT NULL,
                 name VARCHAR(128) NOT NULL,
@@ -43,13 +54,13 @@ final class Version20180618134343 extends AbstractErgonodeMigration
 
         $this->addSql('
             CREATE TABLE importer.import_line (
-                id UUID NOT NULL,
-                lp BIGSERIAL,
                 import_id UUID NOT NULL,
-                line JSON NOT NULL,
+                line BIGINT UNSIGNED,
+                content JSON NOT NULL,
                 created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                 updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-                PRIMARY KEY(id)
+                message TEXT DEFAULT NULL,                    
+                PRIMARY KEY(import_id, line)
             )
         ');
         $this->addSql('CREATE INDEX import_line_import_id_idx ON importer.import_line USING btree (import_id)');

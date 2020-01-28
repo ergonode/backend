@@ -11,7 +11,7 @@ namespace Ergonode\Importer\Domain\Command;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
-use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\Importer\Domain\Entity\Source\SourceId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -19,11 +19,11 @@ use JMS\Serializer\Annotation as JMS;
 class GenerateImportCommand implements DomainCommandInterface
 {
     /**
-     * @var ImportId
+     * @var SourceId
      *
-     * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportId")
+     * @JMS\Type("Ergonode\Importer\Domain\Entity\Source\SourceId")
      */
-    private ImportId $id;
+    private SourceId $id;
 
     /**
      * @var ConfigurationModel
@@ -31,21 +31,21 @@ class GenerateImportCommand implements DomainCommandInterface
     private ConfigurationModel $configuration;
 
     /**
-     * @param ImportId           $id
+     * @param SourceId           $id
      * @param ConfigurationModel $configuration
      *
      * @throws \Exception
      */
-    public function __construct(ImportId $id, ConfigurationModel $configuration)
+    public function __construct(SourceId $id, ConfigurationModel $configuration)
     {
         $this->id = $id;
         $this->configuration = $configuration;
     }
 
     /**
-     * @return ImportId
+     * @return SourceId
      */
-    public function getId(): ImportId
+    public function getId(): SourceId
     {
         return $this->id;
     }

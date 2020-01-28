@@ -8,7 +8,7 @@
 namespace Ergonode\Importer\Tests\Infrastructure\Handler;
 
 use Ergonode\Importer\Domain\Command\EndProcessImportCommand;
-use Ergonode\Importer\Domain\Entity\AbstractImport;
+use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Handler\EndProcessImportCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -41,7 +41,7 @@ class EndProcessImportCommandHandlerTest extends TestCase
      */
     public function testHandleWithImportCommand(): void
     {
-        $this->importRepository->method('load')->willReturn($this->createMock(AbstractImport::class));
+        $this->importRepository->method('load')->willReturn($this->createMock(Import::class));
         $this->importRepository->expects($this->once())->method('save');
         /** @var EndProcessImportCommand|MockObject $command */
         $command = $this->createMock(EndProcessImportCommand::class);

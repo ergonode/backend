@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
@@ -18,11 +19,18 @@ use JMS\Serializer\Annotation as JMS;
 class ProcessImportCommand implements DomainCommandInterface
 {
     /**
-     * @var TransformerId
+     * @var ImportId
      *
-     * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
+     * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportId")
      */
-    private TransformerId $transformerId;
+    private ImportId $importId;
+
+    /**
+     * @var int
+     *
+     * @JMS\Type("int")
+     */
+    private int $line;
 
     /**
      * @var array
@@ -39,23 +47,33 @@ class ProcessImportCommand implements DomainCommandInterface
     private string $action;
 
     /**
-     * @param TransformerId $transformerId
+     * @param ImportId      $importId
+     * @param int           $line
      * @param array         $row
      * @param string        $action
      */
-    public function __construct(TransformerId $transformerId, array $row, string $action)
+    public function __construct(ImportId $importId, int $line, array $row, string $action)
     {
-        $this->transformerId = $transformerId;
+        $this->importId = $importId;
+        $this->line = $line;
         $this->row = $row;
         $this->action = $action;
     }
 
     /**
-     * @return TransformerId
+     * @return ImportId
      */
-    public function getTransformerId(): TransformerId
+    public function getImportId(): ImportId
     {
-        return $this->transformerId;
+        return $this->importId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLine(): int
+    {
+        return $this->line;
     }
 
     /**

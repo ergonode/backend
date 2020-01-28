@@ -11,14 +11,11 @@ namespace Ergonode\Importer\Application\Controller\Api\Import;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Attribute\Application\Form\AttributeCreateForm;
-use Ergonode\Attribute\Application\Form\Model\CreateAttributeFormModel;
-use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Application\Form\ConfigurationForm;
 use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
 use Ergonode\Importer\Domain\Command\GenerateImportCommand;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -27,19 +24,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Importer\Domain\Entity\AbstractImport;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\Importer\Infrastructure\Provider\SourceServiceProvider;
 
 /**
  * @Route(
- *     name="ergonode_import_configure",
- *     path="/imports/{import}/configuration",
+ *     name="ergonode_source_configuration",
+ *     path="/sources/{source}/configuration",
  *     methods={"POST"},
- *     requirements={"import" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class ImportConfigurePostAction
+class SourcePostConfigurationAction
 {
     /**
      * @var FormFactoryInterface
@@ -89,16 +84,16 @@ class ImportConfigurePostAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\AbstractImport")
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
      *
-     * @param AbstractImport $import
+     * @param AbstractSource $source
      * @param Request        $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractImport $import, Request $request): Response
+    public function __invoke(AbstractSource $source, Request $request): Response
     {
         try {
             $model = new ConfigurationModel();
@@ -110,7 +105,7 @@ class ImportConfigurePostAction
                 $data = $form->getData();
 
                 $command = new GenerateImportCommand(
-                    $import->getId(),
+                    $source->getId(),
                     $data
                 );
                 $this->commandBus->dispatch($command);

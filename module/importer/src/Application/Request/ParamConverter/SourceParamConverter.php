@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Application\Request\ParamConverter;
 
-use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Importer\Domain\Entity\ImportId;
-use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
+use Ergonode\Importer\Domain\Entity\Source\SourceId;
+use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,19 +20,19 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  */
-class ImportParamConverter implements ParamConverterInterface
+class SourceParamConverter implements ParamConverterInterface
 {
     /**
-     * @var ImportRepositoryInterface
+     * @var SourceRepositoryInterface
      */
-    private ImportRepositoryInterface $importRepository;
+    private SourceRepositoryInterface $SourceRepository;
 
     /**
-     * @param ImportRepositoryInterface $importRepository
+     * @param SourceRepositoryInterface $SourceRepository
      */
-    public function __construct(ImportRepositoryInterface $importRepository)
+    public function __construct(SourceRepositoryInterface $SourceRepository)
     {
-        $this->importRepository = $importRepository;
+        $this->SourceRepository = $SourceRepository;
     }
 
     /**
@@ -40,20 +40,20 @@ class ImportParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
-        $parameter = $request->get('import');
+        $parameter = $request->get('source');
 
         if (null === $parameter) {
-            throw new BadRequestHttpException('Request parameter "import" is missing');
+            throw new BadRequestHttpException('Request parameter "source" is missing');
         }
 
-        if (!ImportId::isValid($parameter)) {
-            throw new BadRequestHttpException('Invalid import ID');
+        if (!SourceId::isValid($parameter)) {
+            throw new BadRequestHttpException('Invalid Source ID');
         }
 
-        $entity = $this->importRepository->load(new ImportId($parameter));
+        $entity = $this->SourceRepository->load(new SourceId($parameter));
 
         if (null === $entity) {
-            throw new NotFoundHttpException(sprintf('Import by ID "%s" not found', $parameter));
+            throw new NotFoundHttpException(sprintf('Source by ID "%s" not found', $parameter));
         }
 
         $request->attributes->set($configuration->getName(), $entity);
@@ -64,6 +64,6 @@ class ImportParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration): bool
     {
-        return Import::class === $configuration->getClass();
+        return AbstractSource::class === $configuration->getClass();
     }
 }

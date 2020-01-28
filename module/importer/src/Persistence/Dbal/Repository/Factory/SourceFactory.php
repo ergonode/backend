@@ -9,25 +9,24 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
 
-use Ergonode\Importer\Domain\Entity\ImportId;
-use Ergonode\Importer\Domain\Entity\ImportLine;
-use Ergonode\Importer\Domain\Entity\ImportLineId;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
+use Ergonode\Importer\Domain\Entity\Source\SourceId;
 
 /**
  */
-class ImportLineFactory
+class SourceFactory
 {
     /**
      * @param array $record
      *
-     * @return ImportLine
+     * @return AbstractSource
      *
      * @throws \ReflectionException
      */
-    public function create(array $record): ImportLine
+    public function create(array $record): AbstractSource
     {
-        $reflector = new \ReflectionClass(ImportLine::class);
-        /** @var ImportLine $object */
+        $reflector = new \ReflectionClass($record['type']);
+        /** @var AbstractSource $object */
         $object =  $reflector->newInstanceWithoutConstructor();
 
         foreach ($this->getMap($record) as $key => $value) {
@@ -47,9 +46,9 @@ class ImportLineFactory
     private function getMap(array $record): array
     {
         return [
-            'importId' => new ImportId($record['import_id']),
-            'line' => new ImportLineId($record['line']),
-            'content' => $record['content'],
+            'id' => new SourceId($record['id']),
+            'configuration' => \json_decode($record['configuration'], true, 512, JSON_THROW_ON_ERROR),
+            'reason' => $record['reason'],
         ];
     }
 }

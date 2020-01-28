@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
 
-use Ergonode\Importer\Domain\Entity\AbstractImport;
+use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
 
@@ -20,14 +20,14 @@ class ImportFactory
     /**
      * @param array $record
      *
-     * @return AbstractImport
+     * @return Import
      *
      * @throws \ReflectionException
      */
-    public function create(array $record): AbstractImport
+    public function create(array $record): Import
     {
         $reflector = new \ReflectionClass($record['type']);
-        /** @var AbstractImport $object */
+        /** @var Import $object */
         $object =  $reflector->newInstanceWithoutConstructor();
 
         foreach ($this->getMap($record) as $key => $value) {

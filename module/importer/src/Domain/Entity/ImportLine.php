@@ -14,9 +14,9 @@ namespace Ergonode\Importer\Domain\Entity;
 class ImportLine
 {
     /**
-     * @var ImportLineId
+     * @var int
      */
-    private ImportLineId $id;
+    private int $line;
 
     /**
      * @var ImportId
@@ -29,23 +29,23 @@ class ImportLine
     private string $content;
 
     /**
-     * @param ImportLineId $id
-     * @param ImportId     $importId
-     * @param string       $content
+     * @param ImportId $importId
+     * @param int      $line
+     * @param string   $content
      */
-    public function __construct(ImportLineId $id, ImportId $importId, string $content)
+    public function __construct(ImportId $importId, int $line, string $content)
     {
-        $this->id = $id;
+        $this->line = $line;
         $this->importId = $importId;
         $this->content = $content;
     }
 
     /**
-     * @return ImportLineId
+     * @return int
      */
-    public function getId(): ImportLineId
+    public function getLine(): int
     {
-        return $this->id;
+        return $this->line;
     }
 
     /**

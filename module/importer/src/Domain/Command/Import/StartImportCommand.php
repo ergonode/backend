@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Transformer\Domain\Entity\ProcessorId;
+use Ergonode\Importer\Domain\Entity\ImportId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -18,24 +18,24 @@ use JMS\Serializer\Annotation as JMS;
 class StartImportCommand implements DomainCommandInterface
 {
     /**
-     * @var ProcessorId
+     * @var ImportId
      *
-     * @JMS\Type("Ergonode\Transformer\Domain\Entity\ProcessorId")
+     * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportId")
      */
-    private ProcessorId $id;
+    private ImportId $id;
 
     /**
-     * @param ProcessorId $id
+     * @param ImportId $id
      */
-    public function __construct(ProcessorId $id)
+    public function __construct(ImportId $id)
     {
         $this->id = $id;
     }
 
     /**
-     * @return ProcessorId
+     * @return ImportId
      */
-    public function getId(): ProcessorId
+    public function getId(): ImportId
     {
         return $this->id;
     }

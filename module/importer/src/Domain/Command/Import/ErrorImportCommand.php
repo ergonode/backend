@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class StopImportCommand implements DomainCommandInterface
+class ErrorImportCommand implements DomainCommandInterface
 {
     /**
      * @var ImportId
@@ -25,20 +25,29 @@ class StopImportCommand implements DomainCommandInterface
     private ImportId $id;
 
     /**
-     * @var string|null
+     * @var int
+     *
+     * @JMS\Type("int")
+     */
+    private int $line;
+
+    /**
+     * @var string
      *
      * @JMS\Type("string")
      */
-    private ?string $reason;
+    private string $message;
 
     /**
-     * @param ImportId    $id
-     * @param null|string $reason
+     * @param ImportId $id
+     * @param int      $line
+     * @param string   $message
      */
-    public function __construct(ImportId $id, ?string $reason = null)
+    public function __construct(ImportId $id, int $line, string $message)
     {
         $this->id = $id;
-        $this->reason = $reason;
+        $this->line = $line;
+        $this->message = $message;
     }
 
     /**
@@ -50,10 +59,18 @@ class StopImportCommand implements DomainCommandInterface
     }
 
     /**
-     * @return null|string
+     * @return int
      */
-    public function getReason(): ?string
+    public function getLine(): int
     {
-        return $this->reason;
+        return $this->line;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage(): string
+    {
+        return $this->message;
     }
 }

@@ -8,12 +8,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento2\Infrastructure\Source;
 
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
-use Ergonode\Importer\Domain\Entity\AbstractImport;
+use Ergonode\ImporterMagento2\Domain\Entity\Source\Magento2CsvSource;
 use Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor;
 use Ergonode\ImporterMagento2\Infrastructure\Builder\ImportConfigurationBuilder;
 use Ergonode\ImporterMagento2\Infrastructure\Configuration\ImportConfiguration;
-use Ergonode\Importer\Domain\Entity\FileImport;
 
 /**
  */
@@ -67,19 +67,17 @@ class Magento2ImportSource implements ImportSourceInterface
     }
 
     /**
-     * @param AbstractImport|FileImport $import
+     * @param AbstractSource|Magento2CsvSource $source
      *
      * @return ImportConfiguration
      *
      * @throws \Exception
      */
-    public function process(AbstractImport $import): ImportConfiguration
+    public function process(AbstractSource $source): ImportConfiguration
     {
-        $this->processor->open(
-            $this->directory.$import->getFile(),
-            [],
-            []
-        );
+        $file = sprintf('%s%s', $this->directory, $source->getFile());
+
+        $this->processor->open($file, $source->getConfiguration());
 
         $headers = $this->processor->getHeaders();
         $lines = [];

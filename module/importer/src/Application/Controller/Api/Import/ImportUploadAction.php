@@ -15,7 +15,7 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Application\Form\UploadForm;
 use Ergonode\Importer\Application\Model\Form\UploadModel;
 use Ergonode\Importer\Application\Service\Upload\UploadServiceInterface;
-use Ergonode\Importer\Domain\Command\CreateFileImportCommand;
+use Ergonode\Importer\Domain\Command\Source\CreateSourceCommand;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -112,8 +112,7 @@ class ImportUploadAction
             /** @var UploadModel $data */
             $data = $form->getData();
             $file = $this->uploadService->upload($uploadModel->upload);
-            $command = new CreateFileImportCommand(
-                $uploadModel->upload->getClientOriginalName(),
+            $command = new CreateSourceCommand(
                 $file->getFilename(),
                 $data->sourceType
             );

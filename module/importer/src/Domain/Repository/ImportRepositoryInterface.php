@@ -7,7 +7,7 @@
 
 namespace Ergonode\Importer\Domain\Repository;
 
-use Ergonode\Importer\Domain\Entity\AbstractImport;
+use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\ImportId;
 
 /**
@@ -17,16 +17,16 @@ interface ImportRepositoryInterface
     /**
      * @param ImportId $id
      *
-     * @return AbstractImport|null
+     * @return Import|null
      *
      * @throws \ReflectionException
      */
-    public function load(ImportId $id): ?AbstractImport;
+    public function load(ImportId $id): ?Import;
 
     /**
-     * @param AbstractImport $import
+     * @param Import $import
      */
-    public function save(AbstractImport $import): void;
+    public function save(Import $import): void;
 
     /**
      * @param ImportId $id

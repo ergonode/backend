@@ -8,7 +8,7 @@
 namespace Ergonode\Importer\Tests\Infrastructure\Handler;
 
 use Ergonode\Importer\Domain\Command\StartProcessImportCommand;
-use Ergonode\Importer\Domain\Entity\AbstractImport;
+use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Manager\Import\ImportManagerInterface;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Handler\StartProcessImportCommandHandler;
@@ -35,7 +35,7 @@ class StartProcessImportCommandHandlerTest extends TestCase
      */
     public function testHandleWithImportCommand(): void
     {
-        $this->importRepository->method('load')->willReturn($this->createMock(AbstractImport::class));
+        $this->importRepository->method('load')->willReturn($this->createMock(Import::class));
         $this->importRepository->expects($this->once())->method('save');
         /** @var StartProcessImportCommand|MockObject $command */
         $command = $this->createMock(StartProcessImportCommand::class);

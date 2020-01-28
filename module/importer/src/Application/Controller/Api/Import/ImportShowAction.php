@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Application\Controller\Api\Import;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Importer\Domain\Entity\AbstractImport;
+use Ergonode\Importer\Domain\Entity\Import;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -54,13 +54,13 @@ class ImportShowAction
      *     description="Not found",
      * )
      *
-     * @param AbstractImport $import
+     * @param Import $import
      *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\AbstractImport")
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Import")
      *
      * @return Response
      */
-    public function __invoke(AbstractImport $import): Response
+    public function __invoke(Import $import): Response
     {
         return new SuccessResponse($import);
     }

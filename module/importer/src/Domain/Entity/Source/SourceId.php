@@ -7,12 +7,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Transformer\Domain\Entity;
+namespace Ergonode\Importer\Domain\Entity\Source;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 
 /**
  */
-class ProcessorId extends AbstractId
+class SourceId extends AbstractId
 {
 }

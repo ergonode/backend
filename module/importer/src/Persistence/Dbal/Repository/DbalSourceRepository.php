@@ -13,24 +13,21 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Importer\Domain\Entity\ImportId;
-use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
-use Ergonode\Importer\Persistence\Dbal\Repository\Factory\ImportFactory;
-use Ergonode\Importer\Persistence\Dbal\Repository\Mapper\ImportMapper;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
+use Ergonode\Importer\Domain\Entity\Source\SourceId;
+use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
+use Ergonode\Importer\Persistence\Dbal\Repository\Factory\SourceFactory;
+use Ergonode\Importer\Persistence\Dbal\Repository\Mapper\SourceMapper;
 
 /**
  */
-class DbalImportRepository implements ImportRepositoryInterface
+class DbalSourceRepository implements SourceRepositoryInterface
 {
-    private const TABLE = 'importer.import';
+    private const TABLE = 'Sourceer.source';
     private const FIELDS = [
         'id',
-        'name',
         'type',
-        'status',
-        'options',
-        'reason',
+        'configuration',
     ];
 
     /**
@@ -39,21 +36,21 @@ class DbalImportRepository implements ImportRepositoryInterface
     private Connection $connection;
 
     /**
-     * @var ImportFactory
+     * @var SourceFactory
      */
-    private ImportFactory $factory;
+    private SourceFactory $factory;
 
     /**
-     * @var ImportMapper
+     * @var SourceMapper
      */
-    private ImportMapper $mapper;
+    private SourceMapper $mapper;
 
     /**
      * @param Connection    $connection
-     * @param ImportFactory $factory
-     * @param ImportMapper  $mapper
+     * @param SourceFactory $factory
+     * @param SourceMapper  $mapper
      */
-    public function __construct(Connection $connection, ImportFactory $factory, ImportMapper $mapper)
+    public function __construct(Connection $connection, SourceFactory $factory, SourceMapper $mapper)
     {
         $this->connection = $connection;
         $this->factory = $factory;
@@ -61,13 +58,13 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param ImportId $id
+     * @param SourceId $id
      *
-     * @return Import|null
+     * @return AbstractSource|null
      *
      * @throws \ReflectionException
      */
-    public function load(ImportId $id): ?Import
+    public function load(SourceId $id): ?AbstractSource
     {
         $qb = $this->getQuery();
         $record = $qb->where($qb->expr()->eq('id', ':id'))
@@ -83,25 +80,25 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param Import $import
+     * @param AbstractSource $Source
      *
      * @throws DBALException
      */
-    public function save(Import $import): void
+    public function save(AbstractSource $Source): void
     {
-        if ($this->exists($import->getId())) {
-            $this->update($import);
+        if ($this->exists($Source->getId())) {
+            $this->update($Source);
         } else {
-            $this->insert($import);
+            $this->insert($Source);
         }
     }
 
     /**
-     * @param ImportId $id
+     * @param SourceId $id
      *
      * @return bool
      */
-    public function exists(ImportId $id): bool
+    public function exists(SourceId $id): bool
     {
         $query = $this->connection->createQueryBuilder();
         $result = $query->select(1)
@@ -119,54 +116,54 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param Import $import
+     * @param AbstractSource $Source
      *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
-    public function remove(Import $import): void
+    public function remove(AbstractSource $Source): void
     {
         $this->connection->delete(
             self::TABLE,
             [
-                'id' => $import->getId()->getValue(),
+                'id' => $Source->getId()->getValue(),
             ]
         );
     }
 
     /**
-     * @param Import $import
+     * @param AbstractSource $Source
      *
      * @throws DBALException
      */
-    private function update(Import $import): void
+    private function update(AbstractSource $Source): void
     {
-        $importArray = $this->mapper->map($import);
-        $importArray['updated_at'] = date('Y-m-d H:i:s');
+        $SourceArray = $this->mapper->map($Source);
+        $SourceArray['updated_at'] = date('Y-m-d H:i:s');
 
         $this->connection->update(
             self::TABLE,
-            $importArray,
+            $SourceArray,
             [
-                'id' => $import->getId()->getValue(),
+                'id' => $Source->getId()->getValue(),
             ]
         );
     }
 
     /**
-     * @param Import $import
+     * @param AbstractSource $Source
      *
      * @throws DBALException
      */
-    private function insert(Import $import): void
+    private function insert(AbstractSource $Source): void
     {
-        $importArray = $this->mapper->map($import);
-        $importArray['created_at'] = date('Y-m-d H:i:s');
-        $importArray['updated_at'] = date('Y-m-d H:i:s');
+        $SourceArray = $this->mapper->map($Source);
+        $SourceArray['created_at'] = date('Y-m-d H:i:s');
+        $SourceArray['updated_at'] = date('Y-m-d H:i:s');
 
         $this->connection->insert(
             self::TABLE,
-            $importArray
+            $SourceArray
         );
     }
 

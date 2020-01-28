@@ -23,9 +23,9 @@ class ImportLineMapper
     public function map(ImportLine $importLine): array
     {
         return [
-            'id' => $importLine->getId()->getValue(),
             'import_id' => $importLine->getImportId()->getValue(),
-            'line' => $importLine->getContent(),
+            'line' => $importLine->getLine(),
+            'content' => $importLine->getContent(),
         ];
     }
 }

@@ -51,7 +51,7 @@ class TransformerController extends AbstractController
     /**
      * @var ExistingRelationshipMessageBuilderInterface
      */
-    private $existingRelationshipMessageBuilder;
+    private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
     /**
      * @param TransformerRepositoryInterface              $repository

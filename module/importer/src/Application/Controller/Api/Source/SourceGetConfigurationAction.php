@@ -10,23 +10,23 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Application\Controller\Api\Import;
 
 use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Importer\Domain\Entity\AbstractImport;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Importer\Infrastructure\Provider\SourceServiceProvider;
 
 /**
  * @Route(
- *     name="ergonode_import_configure",
- *     path="/imports/{import}/configuration",
+ *     name="ergonode_sourcet_configuration",
+ *     path="/sources/{source}/configuration",
  *     methods={"GET"},
- *     requirements={"import" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class ImportConfigureAction
+class SourceGetConfigurationAction
 {
     /**
      * @var SourceServiceProvider
@@ -54,10 +54,10 @@ class ImportConfigureAction
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="import",
+     *     name="source",
      *     in="path",
      *     type="string",
-     *     description="Import id",
+     *     description="Source id",
      * )
      * @SWG\Response(
      *     response=201,
@@ -69,19 +69,18 @@ class ImportConfigureAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\AbstractImport")
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
      *
-     * @param AbstractImport $import
+     * @param AbstractSource $source
      *
      * @return Response
      *
-     * @throws \Exception
      */
-    public function __invoke(AbstractImport $import): Response
+    public function __invoke(AbstractSource $source): Response
     {
-        $service = $this->provider->provide($import->getSourceType());
+        $service = $this->provider->provide($source->getType());
 
-        $configuration = $service->process($import);
+        $configuration = $service->process($source);
 
         return new CreatedResponse($configuration);
     }

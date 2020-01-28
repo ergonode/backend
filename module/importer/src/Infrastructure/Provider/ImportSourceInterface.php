@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Provider;
 
-use Ergonode\Importer\Domain\Entity\AbstractImport;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\ImporterMagento2\Infrastructure\Configuration\ImportConfiguration;
 
 /**
@@ -28,9 +28,9 @@ interface ImportSourceInterface
     public function supported(string $type): bool;
 
     /**
-     * @param AbstractImport $import
+     * @param AbstractSource $source
      *
      * @return ImportConfiguration
      */
-    public function process(AbstractImport $import): ImportConfiguration;
+    public function process(AbstractSource $source): ImportConfiguration;
 }

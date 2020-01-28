@@ -13,8 +13,8 @@ use Ergonode\Importer\Domain\Command\ProcessImportLineCommand;
 use Ergonode\Importer\Domain\Command\EndProcessImportCommand;
 use Ergonode\Importer\Domain\Command\StartProcessImportCommand;
 use Ergonode\Importer\Domain\Command\StopProcessImportCommand;
-use Ergonode\Importer\Domain\Entity\AbstractImport;
-use Ergonode\Importer\Domain\Entity\FileImport;
+use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\ImportLineId;
 use Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface;
 use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
@@ -65,11 +65,11 @@ class ImportService
     }
 
     /**
-     * @param AbstractImport|FileImport $import
-     * @param TransformerId|null        $transformerId
-     * @param string                    $action
+     * @param Import|Import $import
+     * @param TransformerId|null    $transformerId
+     * @param string                $action
      */
-    public function import(AbstractImport $import, TransformerId $transformerId = null, string $action = null): void
+    public function import(Import $import, TransformerId $transformerId = null, string $action = null): void
     {
         try {
             $options = $import->getOptions();

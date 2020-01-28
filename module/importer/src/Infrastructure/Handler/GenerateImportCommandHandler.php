@@ -12,13 +12,14 @@ namespace Ergonode\Importer\Infrastructure\Handler;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\GenerateImportCommand;
 use Ergonode\Importer\Domain\Command\Import\StartImportCommand;
-use Ergonode\Importer\Domain\Entity\AbstractImport;
+use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
+use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Ergonode\ImporterMagento2\Infrastructure\Generator\Magento2TransformerGenerator;
-use Ergonode\Transformer\Domain\Entity\Processor;
-use Ergonode\Transformer\Domain\Entity\ProcessorId;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
-use Ergonode\Transformer\Infrastructure\Action\ProductSimpleImportAction;
+use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -28,7 +29,17 @@ class GenerateImportCommandHandler
     /**
      * @var ImportRepositoryInterface
      */
-    private $importRepository;
+    private ImportRepositoryInterface $importRepository;
+
+    /**
+     * @var SourceRepositoryInterface
+     */
+    private SourceRepositoryInterface $sourceRepository;
+
+    /**
+     * @var TransformerRepositoryInterface
+     */
+    private TransformerRepositoryInterface $transformerRepository;
 
     /**
      * @var Magento2TransformerGenerator
@@ -38,19 +49,25 @@ class GenerateImportCommandHandler
     /**
      * @var CommandBusInterface
      */
-    private $commandBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @param ImportRepositoryInterface $importRepository
+     * @param SourceRepositoryInterface $sourceRepository
+     * @param TransformerRepositoryInterface $transformerRepository
      * @param Magento2TransformerGenerator $generator
      * @param CommandBusInterface $commandBus
      */
     public function __construct(
         ImportRepositoryInterface $importRepository,
+        SourceRepositoryInterface $sourceRepository,
+        TransformerRepositoryInterface $transformerRepository,
         Magento2TransformerGenerator $generator,
         CommandBusInterface $commandBus
     ) {
         $this->importRepository = $importRepository;
+        $this->sourceRepository = $sourceRepository;
+        $this->transformerRepository = $transformerRepository;
         $this->generator = $generator;
         $this->commandBus = $commandBus;
     }
@@ -62,17 +79,17 @@ class GenerateImportCommandHandler
      */
     public function __invoke(GenerateImportCommand $command)
     {
-        $import = $this->importRepository->load($command->getId());
+        $source = $this->sourceRepository->load($command->getId());
 
-        Assert::isInstanceOf($import, AbstractImport::class);
+        Assert::isInstanceOf($source, AbstractSource::class);
 
         $transformerId = TransformerId::generate();
-        $transformer = $this->generator->generate($transformerId, $import->getName(), $command->getConfiguration());
+        $transformer = $this->generator->generate($transformerId, 'Name' , $command->getConfiguration());
+        $this->transformerRepository->save($transformer);
 
-        $process = new Processor(ProcessorId::generate(), $transformer->getId(), $command->getId(), ProductSimpleImportAction::TYPE);
+        $import = new Import(ImportId::generate(), $command->getId(), $transformerId);
+        $this->importRepository->save($import);
 
-        $command = new StartImportCommand($process->getId());
-
-        $this->commandBus->dispatch($command);
+        $this->commandBus->dispatch(new StartImportCommand($import->getId()));
     }
 }
