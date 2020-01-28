@@ -12,6 +12,10 @@ monolog:
             path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
             channels: ["!event"]
+        error:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%-error.log"
+            level: error
         console:
             type: console
             level: debug

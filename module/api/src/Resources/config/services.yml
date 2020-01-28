@@ -24,7 +24,7 @@ services:
 
     Ergonode\Api\Application\EventListener\ExceptionListener:
         tags:
-            - { name: 'kernel.event_listener', event: 'kernel.exception', priority: 1024 }
+            - { name: 'kernel.event_listener', event: 'kernel.exception', priority: -127 }
 
     Ergonode\Api\Infrastructure\JMS\Serializer\Handler\FormErrorHandler:
         arguments:

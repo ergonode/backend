@@ -21,7 +21,7 @@ class ExceptionListener
     /**
      * @var ExceptionMapperInterface
      */
-    private $exceptionMapper;
+    private ExceptionMapperInterface $exceptionMapper;
 
     /**
      * @param ExceptionMapperInterface $exceptionMapper
