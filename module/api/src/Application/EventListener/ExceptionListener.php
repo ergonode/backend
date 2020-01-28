@@ -21,7 +21,7 @@ class ExceptionListener
     /**
      * @var ExceptionMapperInterface
      */
-    private $exceptionMapper;
+    private ExceptionMapperInterface $exceptionMapper;
 
     /**
      * @param ExceptionMapperInterface $exceptionMapper
@@ -36,7 +36,7 @@ class ExceptionListener
      */
     public function __invoke(ExceptionEvent $event): void
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
 
         // fix for Messenger exception envelope
         if ($exception instanceof HandlerFailedException) {

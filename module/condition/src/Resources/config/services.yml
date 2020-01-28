@@ -8,6 +8,7 @@ parameters:
         - 'Ergonode\Condition\Domain\Condition\ProductCompletenessCondition'
         - 'Ergonode\Condition\Domain\Condition\RoleExactlyCondition'
         - 'Ergonode\Condition\Domain\Condition\UserExactlyCondition'
+        - 'Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition'
         - 'Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition'
     'condition.group.segment':
         - 'Ergonode\Condition\Domain\Condition\AttributeExistsCondition'
@@ -16,6 +17,7 @@ parameters:
         - 'Ergonode\Condition\Domain\Condition\TextAttributeValueCondition'
         - 'Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition'
         - 'Ergonode\Condition\Domain\Condition\ProductCompletenessCondition'
+        - 'Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition'
         - 'Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition'
 
 services:
@@ -63,6 +65,7 @@ services:
             - ['set', ['Ergonode\Condition\Domain\Condition\ProductCompletenessCondition']]
             - ['set', ['Ergonode\Condition\Domain\Condition\RoleExactlyCondition']]
             - ['set', ['Ergonode\Condition\Domain\Condition\UserExactlyCondition']]
+            - ['set', ['Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition' ]]
             - ['set', ['Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition']]
 
     Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider:
