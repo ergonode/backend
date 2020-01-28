@@ -10,17 +10,18 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Domain\Repository;
 
 use Ergonode\Exporter\Domain\Entity\ExportAttribute;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 interface AttributeRepositoryInterface
 {
     /**
-     * @param string $id
+     * @param Uuid $id
      *
      * @return ExportAttribute
      */
-    public function load(string $id): ?ExportAttribute;
+    public function load(Uuid $id): ?ExportAttribute;
 
     /**
      * @param ExportAttribute $attribute

@@ -13,6 +13,7 @@ use Ergonode\Exporter\Domain\Entity\Product\SimpleExportProduct;
 use Ergonode\Exporter\Domain\Factory\AttributeFactory;
 use Ergonode\Exporter\Domain\Factory\CategoryCodeFactory;
 use Ergonode\Exporter\Domain\Factory\SimpleProductFactory;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -50,7 +51,7 @@ class ProductProvider
     }
 
     /**
-     * @param string $id
+     * @param Uuid   $id
      * @param string $sku
      * @param array  $categories
      * @param array  $attributes
@@ -58,7 +59,7 @@ class ProductProvider
      * @return SimpleExportProduct
      */
     public function createFromEvent(
-        string $id,
+        Uuid $id,
         string $sku,
         array $categories = [],
         array $attributes = []

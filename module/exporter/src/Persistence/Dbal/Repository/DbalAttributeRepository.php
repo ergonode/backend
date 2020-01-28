@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Exporter\Domain\Entity\ExportAttribute;
 use Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface;
 use JMS\Serializer\SerializerInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -42,17 +43,17 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
     }
 
     /**
-     * @param string $id
+     * @param Uuid $id
      *
      * @return ExportAttribute|null
      */
-    public function load(string $id): ?ExportAttribute
+    public function load(Uuid $id): ?ExportAttribute
     {
         $qb = $this->connection->createQueryBuilder();
         $result = $qb->select('*')
             ->from(self::TABLE_ATTRIBUTE)
             ->where($qb->expr()->eq('id', ':id'))
-            ->setParameter(':id', $id)
+            ->setParameter(':id', $id->toString())
             ->execute()
             ->fetch();
 
@@ -73,7 +74,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
                 'data' => $this->serializer->serialize($attribute, 'json'),
             ],
             [
-                'id' => $attribute->getId(),
+                'id' => $attribute->getId()->toString(),
             ]
         );
     }

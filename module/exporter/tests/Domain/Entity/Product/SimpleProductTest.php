@@ -13,15 +13,16 @@ use Ergonode\Exporter\Domain\Entity\AbstractExportAttributeValue;
 use Ergonode\Exporter\Domain\Entity\AttributeValue\DefaultExportAttributeValue;
 use Ergonode\Exporter\Domain\Entity\ExportCategoryCode;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 class SimpleProductTest extends TestCase
 {
     /**
-     * @var string
+     * @var Uuid
      */
-    private string $id;
+    private Uuid $id;
 
     /**
      * @var string
@@ -42,7 +43,7 @@ class SimpleProductTest extends TestCase
      */
     protected function setUp()
     {
-        $this->id = random_bytes(10);
+        $this->id = Uuid::uuid4();
         $this->sku = random_bytes(10);
 
         $this->category = [

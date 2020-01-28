@@ -10,17 +10,18 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Domain\Repository;
 
 use Ergonode\Exporter\Domain\Entity\ExportCategory;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 interface CategoryRepositoryInterface
 {
     /**
-     * @param string $id
+     * @param Uuid $id
      *
      * @return ExportCategory
      */
-    public function load(string $id): ?ExportCategory;
+    public function load(Uuid $id): ?ExportCategory;
 
     /**
      * @param ExportCategory $category

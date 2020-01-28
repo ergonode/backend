@@ -12,6 +12,7 @@ namespace Ergonode\Exporter\Domain\Factory;
 use Ergonode\Exporter\Domain\Entity\AbstractExportAttributeValue;
 use Ergonode\Exporter\Domain\Entity\ExportCategoryCode;
 use Ergonode\Exporter\Domain\Entity\Product\SimpleExportProduct;
+use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
 /**
@@ -19,7 +20,7 @@ use Webmozart\Assert\Assert;
 class SimpleProductFactory
 {
     /**
-     * @param string                         $id
+     * @param Uuid                           $id
      * @param string                         $sku
      * @param ExportCategoryCode[]           $categories
      * @param AbstractExportAttributeValue[] $attributes
@@ -27,7 +28,7 @@ class SimpleProductFactory
      * @return SimpleExportProduct
      */
     public function createFromEvent(
-        string $id,
+        Uuid $id,
         string $sku,
         array $categories = [],
         array $attributes = []

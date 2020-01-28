@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
 use Ergonode\Exporter\Domain\Entity\ExportAttribute;
 use JMS\Serializer\SerializerInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -48,8 +49,9 @@ class AttributeCreatedEventProjector
      */
     public function __invoke(AttributeCreatedEvent $event): void
     {
+        $id = Uuid::fromString($event->getAggregateId()->getValue());
         $attribute = new ExportAttribute(
-            $event->getAggregateId()->getValue(),
+            $id,
             $event->getCode()->getValue(),
             $event->getLabel(),
             $event->getType(),
@@ -60,7 +62,7 @@ class AttributeCreatedEventProjector
         $this->connection->insert(
             self::TABLE_ATTRIBUTE,
             [
-                'id' => $attribute->getId(),
+                'id' => $attribute->getId()->toString(),
                 'data' => $this->serializer->serialize($attribute, 'json'),
             ]
         );

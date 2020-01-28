@@ -14,6 +14,7 @@ use Ergonode\Exporter\Domain\Factory\SimpleProductFactory;
 use Ergonode\Exporter\Domain\Provider\ProductProvider;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use JMS\Serializer\SerializerInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -59,8 +60,9 @@ class ProductCreatedEventProjector
      */
     public function __invoke(ProductCreatedEvent $event): void
     {
+        $id = Uuid::fromString($event->getAggregateId()->getValue());
         $product = $this->productProvider->createFromEvent(
-            $event->getAggregateId()->getValue(),
+            $id,
             $event->getSku()->getValue(),
             $event->getCategories(),
             $event->getAttributes()
@@ -69,7 +71,7 @@ class ProductCreatedEventProjector
         $this->connection->insert(
             self::TABLE_PRODUCT,
             [
-                'id' => $product->getId(),
+                'id' => $product->getId()->toString(),
                 'data' => $this->serializer->serialize($product, 'json'),
             ]
         );

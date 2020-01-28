@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Exporter\Domain\Entity\ExportCategory;
 use Ergonode\Exporter\Domain\Repository\CategoryRepositoryInterface;
 use JMS\Serializer\SerializerInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -42,17 +43,17 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     }
 
     /**
-     * @param string $id
+     * @param Uuid $id
      *
      * @return ExportCategory|null
      */
-    public function load(string $id): ?ExportCategory
+    public function load(Uuid $id): ?ExportCategory
     {
         $qb = $this->connection->createQueryBuilder();
         $result = $qb->select('*')
             ->from(self::TABLE_CATEGORY)
             ->where($qb->expr()->eq('id', ':id'))
-            ->setParameter(':id', $id)
+            ->setParameter(':id', $id->toString())
             ->execute()
             ->fetch();
 
@@ -73,7 +74,7 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
                 'data' => $this->serializer->serialize($category, 'json'),
             ],
             [
-                'id' => $category->getId(),
+                'id' => $category->getId()->toString(),
             ]
         );
     }

@@ -14,6 +14,7 @@ use Ergonode\Exporter\Domain\Entity\AbstractExportProduct;
 use Ergonode\Exporter\Domain\Entity\Product\SimpleExportProduct;
 use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
 use JMS\Serializer\SerializerInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -47,13 +48,13 @@ class DbalProductRepository implements ProductRepositoryInterface
      *
      * @return AbstractExportProduct|null
      */
-    public function load(string $id): ?AbstractExportProduct
+    public function load(Uuid $id): ?AbstractExportProduct
     {
         $qb = $this->connection->createQueryBuilder();
         $result = $qb->select('*')
             ->from(self::TABLE_PRODUCT)
             ->where($qb->expr()->eq('id', ':id'))
-            ->setParameter(':id', $id)
+            ->setParameter(':id', $id->toString())
             ->execute()
             ->fetch();
 
@@ -74,7 +75,7 @@ class DbalProductRepository implements ProductRepositoryInterface
                 'data' => $this->serializer->serialize($product, 'json'),
             ],
             [
-                'id' => $product->getId(),
+                'id' => $product->getId()->toString(),
             ]
         );
     }

@@ -11,6 +11,7 @@ namespace Ergonode\Exporter\Domain\Entity;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -19,46 +20,46 @@ class ExportAttribute
     public const OPTIONS = 'options';
 
     /**
-     * @var string
+     * @var Uuid
      *
-     * @JMS\Type("string")
+     * @JMS\Type("uuid")
      */
-    protected string $id;
+    private Uuid $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    protected string $code;
+    private string $code;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    protected TranslatableString $name;
+    private TranslatableString $name;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    protected string $type;
+    private string $type;
 
     /**
      * @var bool
      *
      * @JMS\Type("bool")
      */
-    protected bool $multilingual;
+    private bool $multilingual;
 
     /**
      * @var array
      *
      * @JMS\Type("array")
      */
-    protected array $parameters;
+    private array $parameters;
 
     /**
      * @var bool
@@ -69,7 +70,7 @@ class ExportAttribute
 
     /**
      * ExportAttribute constructor.
-     * @param string             $id
+     * @param Uuid               $id
      * @param string             $code
      * @param TranslatableString $name
      * @param string             $type
@@ -78,7 +79,7 @@ class ExportAttribute
      * @param bool               $system
      */
     public function __construct(
-        string $id,
+        Uuid $id,
         string $code,
         TranslatableString $name,
         string $type,
@@ -96,9 +97,9 @@ class ExportAttribute
     }
 
     /**
-     * @return string
+     * @return Uuid
      */
-    public function getId(): string
+    public function getId(): Uuid
     {
         return $this->id;
     }
@@ -180,7 +181,7 @@ class ExportAttribute
     /**
      * @param string $key
      */
-    public function removeOption(string $key):void
+    public function removeOption(string $key): void
     {
         unset($this->parameters[self::OPTIONS][$key]);
     }

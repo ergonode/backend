@@ -12,6 +12,7 @@ namespace Ergonode\Exporter\Persistence\Dbal\Projector\Attribute;
 use Ergonode\Attribute\Domain\Event\AttributeOptionRemovedEvent;
 use Ergonode\Exporter\Domain\Exception\AttributeNotFoundException;
 use Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -38,8 +39,8 @@ class AttributeOptionRemovedEventProjector
      */
     public function __invoke(AttributeOptionRemovedEvent $event): void
     {
-        $attribute = $this->repository->load($event->getAggregateId()->getValue());
-
+        $id = Uuid::fromString($event->getAggregateId()->getValue());
+        $attribute = $this->repository->load($id);
         if (null === $attribute) {
             throw new AttributeNotFoundException($event->getAggregateId()->getValue());
         }

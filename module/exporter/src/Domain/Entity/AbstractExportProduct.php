@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Domain\Entity;
 
 use JMS\Serializer\Annotation as JMS;
+use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
 /**
@@ -17,11 +18,11 @@ use Webmozart\Assert\Assert;
 abstract class AbstractExportProduct
 {
     /**
-     * @var string
+     * @var Uuid
      *
-     * @JMS\Type("string")
+     * @JMS\Type("uuid")
      */
-    protected string $id;
+    protected Uuid $id;
 
     /**
      * @var string
@@ -47,14 +48,14 @@ abstract class AbstractExportProduct
 
     /**
      * AbstractExportProduct constructor.
-     * @param string                             $id
+     * @param Uuid                               $id
      * @param string                             $sku
      * @param array|ExportCategoryCode[]         $categories
      * @param array|AbstractExportAttributeValue $attributes
      */
-    public function __construct(string $id, string $sku, array $categories = [], array $attributes = [])
+    public function __construct(Uuid $id, string $sku, array $categories = [], array $attributes = [])
     {
-        Assert::string($id);
+        Assert::Uuid($id);
         Assert::string($sku);
         Assert::allIsInstanceOf($categories, ExportCategoryCode::class);
         Assert::allIsInstanceOf($attributes, AbstractExportAttributeValue::class);
@@ -66,9 +67,9 @@ abstract class AbstractExportProduct
     }
 
     /**
-     * @return string
+     * @return Uuid
      */
-    public function getId(): string
+    public function getId(): Uuid
     {
         return $this->id;
     }

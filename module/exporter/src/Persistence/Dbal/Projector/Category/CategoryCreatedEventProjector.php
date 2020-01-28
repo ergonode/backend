@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
 use Ergonode\Exporter\Domain\Entity\ExportCategory;
 use JMS\Serializer\SerializerInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -48,8 +49,9 @@ class CategoryCreatedEventProjector
      */
     public function __invoke(CategoryCreatedEvent $event): void
     {
+        $id = Uuid::fromString($event->getAggregateId()->getValue());
         $category = new ExportCategory(
-            $event->getAggregateId()->getValue(),
+            $id,
             $event->getCode()->getValue(),
             $event->getName()
         );
