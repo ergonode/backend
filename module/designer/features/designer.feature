@@ -18,7 +18,7 @@ Feature: Designer module
 
   Scenario: Multimedia upload image
     Given current authentication token
-    Given I attach "features/image/test.jpg" to the request as "upload"
+    Given I attach "module/designer/features/image/test.jpg" to the request as "upload"
     When I request "/api/v1/multimedia/upload" using HTTP POST
     Then created response is received
     And remember response param "id" as "multimedia_id"

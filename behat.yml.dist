@@ -1,6 +1,39 @@
 default:
     suites:
         default:
+            paths:
+                - module/account/features
+                - module/api/features
+                - module/attribute/features
+                - module/authentication/features
+                - module/category/features
+                - module/category-tree/features
+                - module/channel/features
+                - module/comment/features
+                - module/completeness/features
+                - module/condition/features
+                - module/core/features
+                - module/deptrac.png/features
+                - module/designer/features
+                - module/editor/features
+                - module/event-sourcing/features
+                - module/exporter/features
+                - module/fixture/features
+                - module/generator/features
+                - module/grid/features
+                - module/importer/features
+                - module/migration/features
+                - module/multimedia/features
+                - module/notification/features
+                - module/product/features
+                - module/product-collection/features
+                - module/product-simple/features
+                - module/reader/features
+                - module/segment/features
+                - module/transformer/features
+                - module/translation-deepl/features
+                - module/value/features
+                - module/workflow/features
             contexts:
                 - StorageContext:
                 - ApiContext:
