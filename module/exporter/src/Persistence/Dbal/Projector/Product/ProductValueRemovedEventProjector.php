@@ -12,6 +12,7 @@ namespace Ergonode\Exporter\Persistence\Dbal\Projector\Product;
 use Ergonode\Exporter\Domain\Exception\ProductNotFoundException;
 use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -38,7 +39,8 @@ class ProductValueRemovedEventProjector
      */
     public function __invoke(ProductValueRemovedEvent $event): void
     {
-        $product = $this->productRepository->load($event->getAggregateId()->getValue());
+        $id = Uuid::fromString($event->getAggregateId()->getValue());
+        $product = $this->productRepository->load($id);
         if (null === $product) {
             throw new ProductNotFoundException($event->getAggregateId()->getValue());
         }

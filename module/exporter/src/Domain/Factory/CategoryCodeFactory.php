@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Factory;
 
-use Ergonode\Exporter\Domain\Entity\CategoryCode;
+use Ergonode\Exporter\Domain\Entity\ExportCategoryCode;
 
 /**
  */
@@ -18,11 +18,11 @@ class CategoryCodeFactory
     /**
      * @param string $code
      *
-     * @return CategoryCode
+     * @return ExportCategoryCode
      */
-    public function create(string $code): CategoryCode
+    public function create(string $code): ExportCategoryCode
     {
-        return new CategoryCode($code);
+        return new ExportCategoryCode($code);
     }
 
     /**

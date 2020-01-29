@@ -7,19 +7,19 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Persistence\Dbal\Projector\Category;
+namespace Ergonode\Exporter\Persistence\Dbal\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
-use Ergonode\Exporter\Domain\Entity\ExportCategory;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
+use Ergonode\Exporter\Domain\Entity\ExportAttribute;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class CategoryCreatedEventProjector
+class AttributeCreatedEventProjector
 {
-    private const TABLE_CATEGORY = 'exporter.category';
+    private const TABLE_ATTRIBUTE = 'exporter.attribute';
 
     /**
      * @var Connection
@@ -32,7 +32,7 @@ class CategoryCreatedEventProjector
     private SerializerInterface $serializer;
 
     /**
-     * CategoryCreatedEventProjector constructor.
+     * AttributeCreatedEventProjector constructor.
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */
@@ -43,24 +43,27 @@ class CategoryCreatedEventProjector
     }
 
     /**
-     * @param CategoryCreatedEvent $event
+     * @param AttributeCreatedEvent $event
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function __invoke(CategoryCreatedEvent $event): void
+    public function __invoke(AttributeCreatedEvent $event): void
     {
         $id = Uuid::fromString($event->getAggregateId()->getValue());
-        $category = new ExportCategory(
+        $attribute = new ExportAttribute(
             $id,
             $event->getCode()->getValue(),
-            $event->getName()
+            $event->getLabel(),
+            $event->getType(),
+            $event->isMultilingual(),
+            $event->getParameters()
         );
 
         $this->connection->insert(
-            self::TABLE_CATEGORY,
+            self::TABLE_ATTRIBUTE,
             [
-                'id' => $category->getId(),
-                'data' => $this->serializer->serialize($category, 'json'),
+                'id' => $attribute->getId()->toString(),
+                'data' => $this->serializer->serialize($attribute, 'json'),
             ]
         );
     }

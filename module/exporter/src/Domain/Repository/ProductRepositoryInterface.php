@@ -9,21 +9,22 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Repository;
 
-use Ergonode\Exporter\Domain\Entity\AbstractProduct;
+use Ergonode\Exporter\Domain\Entity\AbstractExportProduct;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 interface ProductRepositoryInterface
 {
     /**
-     * @param string $id
+     * @param Uuid $id
      *
-     * @return AbstractProduct
+     * @return AbstractExportProduct
      */
-    public function load(string $id): ?AbstractProduct;
+    public function load(Uuid $id): ?AbstractExportProduct;
 
     /**
-     * @param AbstractProduct $product
+     * @param AbstractExportProduct $product
      */
-    public function save(AbstractProduct $product): void;
+    public function save(AbstractExportProduct $product): void;
 }

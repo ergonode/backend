@@ -13,6 +13,7 @@ use Ergonode\Exporter\Domain\Exception\ProductNotFoundException;
 use Ergonode\Exporter\Domain\Factory\AttributeFactory;
 use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -46,7 +47,8 @@ class ProductValueChangedEventProjector
      */
     public function __invoke(ProductValueChangedEvent $event): void
     {
-        $product = $this->productRepository->load($event->getAggregateId()->getValue());
+        $id = Uuid::fromString($event->getAggregateId()->getValue());
+        $product = $this->productRepository->load($id);
         if (null === $product) {
             throw new ProductNotFoundException($event->getAggregateId()->getValue());
         }

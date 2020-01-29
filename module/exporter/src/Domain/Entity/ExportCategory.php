@@ -11,17 +11,18 @@ namespace Ergonode\Exporter\Domain\Entity;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
-class Category
+class ExportCategory
 {
     /**
-     * @var string
+     * @var Uuid
      *
-     * @JMS\Type("string")
+     * @JMS\Type("uuid")
      */
-    private string $id;
+    private Uuid $id;
 
     /**
      * @var string
@@ -39,11 +40,11 @@ class Category
 
     /**
      * Category constructor.
-     * @param string             $id
+     * @param Uuid               $id
      * @param string             $code
      * @param TranslatableString $name
      */
-    public function __construct(string $id, string $code, TranslatableString $name)
+    public function __construct(Uuid $id, string $code, TranslatableString $name)
     {
         $this->id = $id;
         $this->code = $code;
@@ -51,9 +52,9 @@ class Category
     }
 
     /**
-     * @return string
+     * @return Uuid
      */
-    public function getId(): string
+    public function getId(): Uuid
     {
         return $this->id;
     }

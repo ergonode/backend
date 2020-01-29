@@ -37,5 +37,13 @@ final class Version20200122064958 extends AbstractErgonodeMigration
                     PRIMARY KEY (id)
                  )'
         );
+
+        $this->addSql(
+            'CREATE TABLE exporter.attribute(
+                    id uuid NOT NULL,
+                    data jsonb NOT NULL,
+                    PRIMARY KEY (id)
+                 )'
+        );
     }
 }

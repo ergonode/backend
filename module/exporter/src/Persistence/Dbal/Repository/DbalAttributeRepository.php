@@ -10,16 +10,16 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Exporter\Domain\Entity\ExportCategory;
-use Ergonode\Exporter\Domain\Repository\CategoryRepositoryInterface;
+use Ergonode\Exporter\Domain\Entity\ExportAttribute;
+use Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class DbalCategoryRepository implements CategoryRepositoryInterface
+class DbalAttributeRepository implements AttributeRepositoryInterface
 {
-    private const TABLE_CATEGORY = 'exporter.category';
+    private const TABLE_ATTRIBUTE = 'exporter.attribute';
 
     /**
      * @var Connection
@@ -32,7 +32,7 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     private SerializerInterface $serializer;
 
     /**
-     * DbalCategoryRepository constructor.
+     * DbalAttributeRepository constructor.
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */
@@ -45,36 +45,36 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     /**
      * @param Uuid $id
      *
-     * @return ExportCategory|null
+     * @return ExportAttribute|null
      */
-    public function load(Uuid $id): ?ExportCategory
+    public function load(Uuid $id): ?ExportAttribute
     {
         $qb = $this->connection->createQueryBuilder();
         $result = $qb->select('*')
-            ->from(self::TABLE_CATEGORY)
+            ->from(self::TABLE_ATTRIBUTE)
             ->where($qb->expr()->eq('id', ':id'))
             ->setParameter(':id', $id->toString())
             ->execute()
             ->fetch();
 
-        //todo if not or other product type or exeption
-        return $this->serializer->deserialize($result['data'], ExportCategory::class, 'json');
+        //todo if not or other  type or exeption
+        return $this->serializer->deserialize($result['data'], ExportAttribute::class, 'json');
     }
 
     /**
-     * @param ExportCategory $category
+     * @param ExportAttribute $attribute
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function save(ExportCategory $category): void
+    public function save(ExportAttribute $attribute): void
     {
         $this->connection->update(
-            self::TABLE_CATEGORY,
+            self::TABLE_ATTRIBUTE,
             [
-                'data' => $this->serializer->serialize($category, 'json'),
+                'data' => $this->serializer->serialize($attribute, 'json'),
             ],
             [
-                'id' => $category->getId()->toString(),
+                'id' => $attribute->getId()->toString(),
             ]
         );
     }

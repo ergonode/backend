@@ -9,10 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Provider;
 
-use Ergonode\Exporter\Domain\Entity\Product\SimpleProduct;
+use Ergonode\Exporter\Domain\Entity\Product\SimpleExportProduct;
 use Ergonode\Exporter\Domain\Factory\AttributeFactory;
 use Ergonode\Exporter\Domain\Factory\CategoryCodeFactory;
 use Ergonode\Exporter\Domain\Factory\SimpleProductFactory;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
@@ -50,19 +51,19 @@ class ProductProvider
     }
 
     /**
-     * @param string $id
+     * @param Uuid   $id
      * @param string $sku
      * @param array  $categories
      * @param array  $attributes
      *
-     * @return SimpleProduct
+     * @return SimpleExportProduct
      */
     public function createFromEvent(
-        string $id,
+        Uuid $id,
         string $sku,
         array $categories = [],
         array $attributes = []
-    ): SimpleProduct {
+    ): SimpleExportProduct {
         $categories = $this->categoryCodeFactory->createList($categories);
         $attributes = $this->attributeFactory->createList($attributes);
 

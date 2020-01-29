@@ -9,22 +9,22 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Repository;
 
-use Ergonode\Exporter\Domain\Entity\ExportCategory;
+use Ergonode\Exporter\Domain\Entity\ExportAttribute;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-interface CategoryRepositoryInterface
+interface AttributeRepositoryInterface
 {
     /**
      * @param Uuid $id
      *
-     * @return ExportCategory
+     * @return ExportAttribute
      */
-    public function load(Uuid $id): ?ExportCategory;
+    public function load(Uuid $id): ?ExportAttribute;
 
     /**
-     * @param ExportCategory $category
+     * @param ExportAttribute $attribute
      */
-    public function save(ExportCategory $category): void;
+    public function save(ExportAttribute $attribute): void;
 }

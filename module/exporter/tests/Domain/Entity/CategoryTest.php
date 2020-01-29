@@ -8,17 +8,18 @@
 namespace Ergonode\Exporter\Tests\Domain\Entity;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Exporter\Domain\Entity\Category;
+use Ergonode\Exporter\Domain\Entity\ExportCategory;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 class CategoryTest extends TestCase
 {
     /**
-     * @var string
+     * @var Uuid
      */
-    private string $id;
+    private Uuid $id;
 
     /**
      * @var string
@@ -34,16 +35,16 @@ class CategoryTest extends TestCase
      */
     protected function setUp()
     {
-        $this->id = 'test';
-        $this->code = 'test';
-        $this->name = new TranslatableString([]);
+        $this->code = 'CODE';
+        $this->id = Uuid::uuid4();
+        $this->name = new TranslatableString(['en' => 'english', 'pl' => 'polish']);
     }
 
     /**
      */
     public function testConstructor():void
     {
-        $category = new Category(
+        $category = new ExportCategory(
             $this->id,
             $this->code,
             $this->name

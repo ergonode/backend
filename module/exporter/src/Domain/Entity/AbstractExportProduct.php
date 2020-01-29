@@ -10,18 +10,19 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Domain\Entity;
 
 use JMS\Serializer\Annotation as JMS;
+use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
 /**
  */
-abstract class AbstractProduct
+abstract class AbstractExportProduct
 {
     /**
-     * @var string
+     * @var Uuid
      *
-     * @JMS\Type("string")
+     * @JMS\Type("uuid")
      */
-    protected string $id;
+    protected Uuid $id;
 
     /**
      * @var string
@@ -31,33 +32,33 @@ abstract class AbstractProduct
     protected string $sku;
 
     /**
-     * @var CategoryCode[]
+     * @var ExportCategoryCode[]
      *
-     * @JMS\Type("array<string, Ergonode\Exporter\Domain\Entity\CategoryCode>")
+     * @JMS\Type("array<string, Ergonode\Exporter\Domain\Entity\ExportCategoryCode>")
      */
     protected array $categories;
 
 
     /**
-     * @var AbstractAttribute[]
+     * @var AbstractExportAttributeValue[]
      *
-     * @JMS\Type("array<string, Ergonode\Exporter\Domain\Entity\Attribute\DefaultAttribute>")
+     * @JMS\Type("array<string, Ergonode\Exporter\Domain\Entity\AttributeValue\DefaultExportAttributeValue>")
      */
     protected array $attributes;
 
     /**
-     * AbstractProduct constructor.
-     * @param string                  $id
-     * @param string                  $sku
-     * @param array|CategoryCode[]    $categories
-     * @param array|AbstractAttribute $attributes
+     * AbstractExportProduct constructor.
+     * @param Uuid                               $id
+     * @param string                             $sku
+     * @param array|ExportCategoryCode[]         $categories
+     * @param array|AbstractExportAttributeValue $attributes
      */
-    public function __construct(string $id, string $sku, array $categories = [], array $attributes = [])
+    public function __construct(Uuid $id, string $sku, array $categories = [], array $attributes = [])
     {
-        Assert::string($id);
+        Assert::Uuid($id);
         Assert::string($sku);
-        Assert::allIsInstanceOf($categories, CategoryCode::class);
-        Assert::allIsInstanceOf($attributes, AbstractAttribute::class);
+        Assert::allIsInstanceOf($categories, ExportCategoryCode::class);
+        Assert::allIsInstanceOf($attributes, AbstractExportAttributeValue::class);
 
         $this->id = $id;
         $this->sku = $sku;
@@ -66,9 +67,9 @@ abstract class AbstractProduct
     }
 
     /**
-     * @return string
+     * @return Uuid
      */
-    public function getId(): string
+    public function getId(): Uuid
     {
         return $this->id;
     }
@@ -82,7 +83,7 @@ abstract class AbstractProduct
     }
 
     /**
-     * @return CategoryCode[]
+     * @return ExportCategoryCode[]
      */
     public function getCategories(): array
     {
@@ -90,7 +91,7 @@ abstract class AbstractProduct
     }
 
     /**
-     * @return AbstractAttribute[]
+     * @return AbstractExportAttributeValue[]
      */
     public function getAttributes(): array
     {
@@ -98,17 +99,17 @@ abstract class AbstractProduct
     }
 
     /**
-     * @param CategoryCode $category
+     * @param ExportCategoryCode $category
      */
-    public function addCategory(CategoryCode $category): void
+    public function addCategory(ExportCategoryCode $category): void
     {
         $this->categories[$category->getCode()] = $category;
     }
 
     /**
-     * @param AbstractAttribute $attribute
+     * @param AbstractExportAttributeValue $attribute
      */
-    public function addAttribute(AbstractAttribute $attribute): void
+    public function addAttribute(AbstractExportAttributeValue $attribute): void
     {
         $this->attributes[$attribute->getKey()] = $attribute;
     }
@@ -130,9 +131,9 @@ abstract class AbstractProduct
     }
 
     /**
-     * @param AbstractAttribute $newAttribute
+     * @param AbstractExportAttributeValue $newAttribute
      */
-    public function changeAttribute(AbstractAttribute $newAttribute): void
+    public function changeAttribute(AbstractExportAttributeValue $newAttribute): void
     {
         $this->removeAttribute($newAttribute->getKey());
         $this->addAttribute($newAttribute);
