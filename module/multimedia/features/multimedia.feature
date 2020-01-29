@@ -4,14 +4,14 @@ Feature: Multimedia
 
   Scenario: Upload new multimedia file
     Given current authentication token
-    And I attach "features/multimedia-test-image.png" to the request as upload
+    And I attach "module/multimedia/features/multimedia-test-image.png" to the request as upload
     When I request "/api/v1/multimedia/upload" using HTTP POST
     Then created response is received
     And remember response param "id" as "multimedia_id"
 
   Scenario: Upload same multimedia file again
     Given current authentication token
-    And I attach "features/multimedia-test-image.png" to the request as upload
+    And I attach "module/multimedia/features/multimedia-test-image.png" to the request as upload
     When I request "/api/v1/multimedia/upload" using HTTP POST
     Then created response is received
 
@@ -26,7 +26,7 @@ Feature: Multimedia
 
   Scenario: Upload new multimedia with empty file
     Given current authentication token
-    And I attach "features/multimedia-test-empty-image.png" to the request as upload
+    And I attach "module/multimedia/features/multimedia-test-empty-image.png" to the request as upload
     When I request "/api/v1/multimedia/upload" using HTTP POST
     Then validation error response is received
 
