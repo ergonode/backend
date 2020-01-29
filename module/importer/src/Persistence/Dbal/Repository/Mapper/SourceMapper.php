@@ -24,7 +24,7 @@ class SourceMapper
     {
         return [
             'id' => $source->getId()->getValue(),
-            'options' => \json_encode($source->getConfiguration(), JSON_THROW_ON_ERROR, 512),
+            'configuration' => \json_encode($source->getConfiguration(), JSON_THROW_ON_ERROR, 512),
             'type' => \get_class($source),
         ];
     }

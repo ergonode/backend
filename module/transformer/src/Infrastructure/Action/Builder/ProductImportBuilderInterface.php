@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,23 +6,21 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Transformer\Infrastructure\Action;
+namespace Ergonode\Transformer\Infrastructure\Action\Builder;
+
 
 use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 
 /**
  */
-interface ImportActionInterface
+interface ProductImportBuilderInterface
 {
     /**
-     * @param Record        $record
      * @param ImportedProduct $product
+     * @param Record          $record
+     *
+     * @return ImportedProduct
      */
-    public function action(Record $record, ImportedProduct $product): void;
-
-    /**
-     * @return string
-     */
-    public function getType(): string;
+    public function build(ImportedProduct $product, Record $record): ImportedProduct;
 }

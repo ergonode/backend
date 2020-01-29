@@ -15,7 +15,7 @@ abstract class AbstractSource
     /**
      * @var SourceId
      */
-    private SourceId $id;
+    protected SourceId $id;
 
     /**
      * @var array $configuration

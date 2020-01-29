@@ -23,7 +23,7 @@ use Ergonode\Importer\Persistence\Dbal\Repository\Mapper\SourceMapper;
  */
 class DbalSourceRepository implements SourceRepositoryInterface
 {
-    private const TABLE = 'Sourceer.source';
+    private const TABLE = 'importer.source';
     private const FIELDS = [
         'id',
         'type',

@@ -10,7 +10,7 @@ namespace Ergonode\ImporterMagento2\Infrastructure\Source;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
-use Ergonode\ImporterMagento2\Domain\Entity\Source\Magento2CsvSource;
+use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 use Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor;
 use Ergonode\ImporterMagento2\Infrastructure\Builder\ImportConfigurationBuilder;
 use Ergonode\ImporterMagento2\Infrastructure\Configuration\ImportConfiguration;
@@ -19,7 +19,7 @@ use Ergonode\ImporterMagento2\Infrastructure\Configuration\ImportConfiguration;
  */
 class Magento2ImportSource implements ImportSourceInterface
 {
-    public const TYPE = 'magento-2';
+    public const TYPE = 'magento-2-csv';
 
     /**
      * @var CsvReaderProcessor

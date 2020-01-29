@@ -19,8 +19,6 @@ class ConfigurationModel
 {
     /**
      * @var ColumnModel[]
-     *
-     * @Assert\Valid()
      */
     public array $columns;
 

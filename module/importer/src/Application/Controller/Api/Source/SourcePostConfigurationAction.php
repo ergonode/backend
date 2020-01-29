@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Application\Controller\Api\Import;
+namespace Ergonode\Importer\Application\Controller\Api\Source;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;

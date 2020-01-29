@@ -29,6 +29,11 @@ class ImportLine
     private string $content;
 
     /**
+     * @var string|null
+     */
+    private ?string $error;
+
+    /**
      * @param ImportId $importId
      * @param int      $line
      * @param string   $content
@@ -38,6 +43,7 @@ class ImportLine
         $this->line = $line;
         $this->importId = $importId;
         $this->content = $content;
+        $this->error = null;
     }
 
     /**
@@ -62,5 +68,29 @@ class ImportLine
     public function getContent(): string
     {
         return $this->content;
+    }
+
+    /**
+     * @param string $error
+     */
+    public function addError(string $error): void
+    {
+        $this->error = $error;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getError(): ?string
+    {
+        return $this->error;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasError(): bool
+    {
+        return null !== $this->error;
     }
 }

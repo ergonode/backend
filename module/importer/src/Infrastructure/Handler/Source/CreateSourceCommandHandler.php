@@ -11,7 +11,7 @@ namespace Ergonode\Importer\Infrastructure\Handler\Source;
 
 use Ergonode\Importer\Domain\Command\Source\CreateSourceCommand;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
-use Ergonode\ImporterMagento2\Domain\Entity\Source\Magento2CsvSource;
+use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 
 /**
  */

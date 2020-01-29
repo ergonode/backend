@@ -58,6 +58,8 @@ class Import
         $this->sourceId = $sourceId;
         $this->transformerId = $transformerId;
         $this->status = new ImportStatus(ImportStatus::CREATED);
+        $this->startedAt = null;
+        $this->endedAt = null;
     }
 
     /**

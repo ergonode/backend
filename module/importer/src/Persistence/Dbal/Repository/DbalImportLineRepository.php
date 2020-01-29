@@ -28,6 +28,7 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
         'import_id',
         'line',
         'content',
+        'message'
     ];
 
     /**
@@ -77,7 +78,10 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
             ->execute()
             ->fetch();
 
+
+
         if ($record) {
+
             return $this->factory->create($record);
         }
 
@@ -109,10 +113,10 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
         $query = $this->connection->createQueryBuilder();
         $result = $query->select(1)
             ->from(self::TABLE)
-            ->andWhere($query->expr()->eq('import_id', ':import_id'))
+            ->andWhere($query->expr()->eq('import_id', ':id'))
             ->andWhere($query->expr()->eq('line', ':line'))
             ->setParameter(':id', $id->getValue())
-            ->setParameter(':line', $id->getValue())
+            ->setParameter(':line', $line)
             ->execute()
             ->rowCount();
 

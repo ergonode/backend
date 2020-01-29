@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Infrastructure\Process;
 
 use Ergonode\Transformer\Domain\Entity\Transformer;
+use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Infrastructure\Action\ImportActionInterface;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
@@ -37,7 +38,7 @@ class TransformProcess
      * @param ImportActionInterface $action
      * @param array                 $record
      */
-    public function rocess(Transformer $transformer, ImportActionInterface $action, array $record): void
+    public function process(Transformer $transformer, ImportActionInterface $action, array $record): void
     {
         $result = new Record();
 
@@ -50,6 +51,8 @@ class TransformProcess
             }
         }
 
-        $action->action($result);
+        $product = new ImportedProduct($result['sku']);
+
+        $action->action($result, $product);
     }
 }

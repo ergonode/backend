@@ -11,7 +11,6 @@ namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
 
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Importer\Domain\Entity\ImportLine;
-use Ergonode\Importer\Domain\Entity\ImportLineId;
 
 /**
  */
@@ -48,8 +47,9 @@ class ImportLineFactory
     {
         return [
             'importId' => new ImportId($record['import_id']),
-            'line' => new ImportLineId($record['line']),
+            'line' => $record['line'],
             'content' => $record['content'],
+            'error' => $record['message'],
         ];
     }
 }

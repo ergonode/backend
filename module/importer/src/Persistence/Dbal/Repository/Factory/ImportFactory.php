@@ -11,7 +11,9 @@ namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
 
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\Importer\Domain\Entity\Source\SourceId;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
+use Ergonode\Transformer\Domain\Entity\TransformerId;
 
 /**
  */
@@ -26,7 +28,7 @@ class ImportFactory
      */
     public function create(array $record): Import
     {
-        $reflector = new \ReflectionClass($record['type']);
+        $reflector = new \ReflectionClass(Import::class);
         /** @var Import $object */
         $object =  $reflector->newInstanceWithoutConstructor();
 
@@ -48,10 +50,9 @@ class ImportFactory
     {
         return [
             'id' => new ImportId($record['id']),
-            'name' => $record['name'],
             'status' => new ImportStatus($record['status']),
-            'options' => \json_decode($record['options'], true),
-            'reason' => $record['reason'],
+            'sourceId' => new SourceId($record['source_id']),
+            'transformerId' => new TransformerId($record['transformer_id']),
         ];
     }
 }

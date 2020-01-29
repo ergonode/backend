@@ -41,4 +41,17 @@ class ColumnModel
      * @Assert\NotBlank()
      */
     public ?bool $imported;
+
+    /**
+     * ColumnModel constructor.
+     */
+    public function __construct()
+    {
+        $this->column  = null;
+        $this->code = null;
+        $this->imported = null;
+        $this->type = null;
+    }
+
+
 }

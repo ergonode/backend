@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Application\Controller\Api\Import;
+namespace Ergonode\Importer\Application\Controller\Api\Source;
 
-use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
@@ -82,6 +82,6 @@ class SourceGetConfigurationAction
 
         $configuration = $service->process($source);
 
-        return new CreatedResponse($configuration);
+        return new SuccessResponse($configuration);
     }
 }

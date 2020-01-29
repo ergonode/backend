@@ -26,11 +26,9 @@ class DbalImportRepository implements ImportRepositoryInterface
     private const TABLE = 'importer.import';
     private const FIELDS = [
         'id',
-        'name',
-        'type',
         'status',
-        'options',
-        'reason',
+        'source_id',
+        'transformer_id',
     ];
 
     /**

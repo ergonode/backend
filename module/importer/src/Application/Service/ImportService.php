@@ -9,11 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Application\Service;
 
-use Ergonode\Importer\Domain\Command\ProcessImportLineCommand;
-use Ergonode\Importer\Domain\Command\EndProcessImportCommand;
-use Ergonode\Importer\Domain\Command\StartProcessImportCommand;
-use Ergonode\Importer\Domain\Command\StopProcessImportCommand;
-use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
+use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
+use Ergonode\Importer\Domain\Command\Import\StartImportCommand;
+use Ergonode\Importer\Domain\Command\Import\StopImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\ImportLineId;
 use Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface;
@@ -80,15 +79,15 @@ class ImportService
             Assert::notNull($reader, sprintf('Can\'t find reader %s', $import->getReaderId()->getValue()));
 
             $fileReader->open($filename, $reader->getConfiguration(), $reader->getFormatters());
-            $this->commandBus->dispatch(new StartProcessImportCommand($import->getId()));
+            $this->commandBus->dispatch(new StartImportCommand($import->getId()));
             foreach ($fileReader->read() as $key => $row) {
-                $command = new ProcessImportLineCommand(ImportLineId::generate(), $import->getId(), $row);
+                $command = new ProcessImportCommand(ImportLineId::generate(), $import->getId(), $row);
                 $this->commandBus->dispatch($command);
             }
             $fileReader->close();
-            $this->commandBus->dispatch(new EndProcessImportCommand($import->getId(), $transformerId, $action));
+            $this->commandBus->dispatch(new EndImportCommand($import->getId(), $transformerId, $action));
         } catch (\Exception $e) {
-            $this->commandBus->dispatch(new StopProcessImportCommand($import->getId(), $e->getMessage()));
+            $this->commandBus->dispatch(new StopImportCommand($import->getId(), $e->getMessage()));
         }
     }
 }

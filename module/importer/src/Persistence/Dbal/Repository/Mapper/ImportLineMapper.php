@@ -26,6 +26,7 @@ class ImportLineMapper
             'import_id' => $importLine->getImportId()->getValue(),
             'line' => $importLine->getLine(),
             'content' => $importLine->getContent(),
+            'message' => $importLine->getError(),
         ];
     }
 }

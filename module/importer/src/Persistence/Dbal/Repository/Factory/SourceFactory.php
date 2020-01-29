@@ -11,6 +11,7 @@ namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Importer\Domain\Entity\Source\SourceId;
+use http\Exception\RuntimeException;
 
 /**
  */
@@ -48,7 +49,6 @@ class SourceFactory
         return [
             'id' => new SourceId($record['id']),
             'configuration' => \json_decode($record['configuration'], true, 512, JSON_THROW_ON_ERROR),
-            'reason' => $record['reason'],
         ];
     }
 }

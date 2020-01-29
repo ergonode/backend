@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ImporterMagento2\Domain\Entity\Source;
+namespace Ergonode\ImporterMagento2\Domain\Entity;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Importer\Domain\Entity\Source\SourceId;
@@ -36,7 +36,7 @@ class Magento2CsvSource extends AbstractSource
         parent::__construct($id);
 
         $this->configuration['file'] = $filename;
-        $this->configuration = [$this->configuration, ...self::DEFAULT];
+        $this->configuration = array_merge(self::DEFAULT, $this->configuration);
     }
 
     /**

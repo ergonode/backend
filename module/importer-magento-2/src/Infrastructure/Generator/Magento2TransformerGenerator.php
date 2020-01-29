@@ -58,12 +58,12 @@ class Magento2TransformerGenerator
             ->addConverter('template', new TextConverter('attribute_set_code'))
             ->addConverter('name', new TextConverter('name'));
 
-        foreach ($configuration->columns as $column) {
-            $attributeCode = new AttributeCode($column->getField());
-            $attributeId = AttributeId::fromKey($attributeCode);
-            $attribute = $this->repository->load($attributeId);
-            Assert::notNull($attribute);
-        }
+//        foreach ($configuration->columns as $column) {
+//            $attributeCode = new AttributeCode($column->getField());
+//            $attributeId = AttributeId::fromKey($attributeCode);
+//            $attribute = $this->repository->load($attributeId);
+//            Assert::notNull($attribute);
+//        }
 
         return $transformer;
     }

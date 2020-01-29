@@ -39,11 +39,9 @@ final class Version20180618134343 extends AbstractErgonodeMigration
         $this->addSql('
             CREATE TABLE importer.import (
                 id UUID NOT NULL,
-                name VARCHAR(128) NOT NULL,
-                type VARCHAR(255) NOT NULL,
                 status VARCHAR(16) NOT NULL,
-                options JSON NOT NULL,
-                reason TEXT DEFAULT NULL,
+                source_id UUID NOT NULL,
+                transformer_id UUID NOT NULL,
                 created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                 updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                 started_at TIMESTAMP WITHOUT TIME ZONE,
@@ -55,7 +53,7 @@ final class Version20180618134343 extends AbstractErgonodeMigration
         $this->addSql('
             CREATE TABLE importer.import_line (
                 import_id UUID NOT NULL,
-                line BIGINT UNSIGNED,
+                line BIGINT,
                 content JSON NOT NULL,
                 created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                 updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,

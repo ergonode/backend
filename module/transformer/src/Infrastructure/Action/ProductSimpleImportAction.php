@@ -19,10 +19,10 @@ use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
-use Ergonode\Transformer\Infrastructure\Action\Extension\ProductAttributeExtension;
-use Ergonode\Transformer\Infrastructure\Action\Extension\ProductCategoryExtension;
 use Ergonode\Transformer\Domain\Model\Record;
+use Ergonode\Transformer\Infrastructure\Action\Builder\ProductImportBuilderInterface;
 use Ergonode\Transformer\Infrastructure\Exception\ProcessorException;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Webmozart\Assert\Assert;
 
@@ -48,42 +48,34 @@ class ProductSimpleImportAction implements ImportActionInterface
     private ProductQueryInterface $productQuery;
 
     /**
-     * @var ProductAttributeExtension
-     */
-    private ProductAttributeExtension $attributeExtension;
-
-    /**
-     * @var ProductCategoryExtension
-     */
-    private ProductCategoryExtension $categoryExtension;
-
-    /**
      * @var ProductFactoryProvider
      */
     private ProductFactoryProvider $productFactoryProvider;
 
     /**
-     * @param TemplateProvider           $templateProvider
-     * @param ProductRepositoryInterface $productRepository
-     * @param ProductQueryInterface      $productQuery
-     * @param ProductAttributeExtension  $attributeExtension
-     * @param ProductCategoryExtension   $categoryExtension
-     * @param ProductFactoryProvider     $productFactoryProvider
+     * @var ProductImportBuilderInterface ...$builders
+     */
+    private array $builders;
+
+    /**
+     * @param TemplateProvider                      $templateProvider
+     * @param ProductRepositoryInterface            $productRepository
+     * @param ProductQueryInterface                 $productQuery
+     * @param ProductFactoryProvider                $productFactoryProvider
+     * @param array|ProductImportBuilderInterface[] $builders
      */
     public function __construct(
         TemplateProvider $templateProvider,
         ProductRepositoryInterface $productRepository,
         ProductQueryInterface $productQuery,
-        ProductAttributeExtension $attributeExtension,
-        ProductCategoryExtension $categoryExtension,
-        ProductFactoryProvider $productFactoryProvider
+        ProductFactoryProvider $productFactoryProvider,
+        $builders
     ) {
         $this->templateProvider = $templateProvider;
         $this->productRepository = $productRepository;
         $this->productQuery = $productQuery;
-        $this->attributeExtension = $attributeExtension;
-        $this->categoryExtension = $categoryExtension;
         $this->productFactoryProvider = $productFactoryProvider;
+        $this->builders = $builders;
     }
 
     /**
@@ -98,31 +90,29 @@ class ProductSimpleImportAction implements ImportActionInterface
             'categories' => [],
         ];
 
-        $sku = $record->get('sku') ? new Sku($record->get('sku')->getValue()) : null;
+        $sku = $record->get('sku') ? new Sku($record->get('sku')) : null;
         Assert::notNull($sku, 'product import required "sku" field not exists');
         $productData = $this->productQuery->findBySku($sku);
 
-        $data = $this->categoryExtension->extend($record, $data);
-        $data = $this->attributeExtension->extend($record, $data);
-
         if (!$productData) {
-            if ($record->has('template') && null !== $record->get('template')) {
-                $template = $this->templateProvider->provide($record->get('template')->getValue());
-            } else {
+//            if ($record->has('template') && null !== $record->get('template')) {
+//                $template = $this->templateProvider->provide($record->get('template'));
+//            } else {
                 $template = $this->templateProvider->provide(DefaultTemplateGenerator::CODE);
-            }
+//            }
+
+            $data['attributes']['esa_template'] = new StringValue($template->getId()->getValue());
 
             $product = $this->productFactoryProvider->provide(SimpleProduct::TYPE)->create(
                 ProductId::generate(),
                 $sku,
-                $template->getId(),
                 $data['categories'],
                 $data['attributes']
             );
         } else {
             $product = $this->productRepository->load(new ProductId($productData['id']));
             if (!$product) {
-                throw new ProcessorException(sprintf('Can\'t find product "%s"', $sku->getValue()));
+                throw new \RuntimeException(sprintf('Can\'t find product "%s"', $sku->getValue()));
             }
 
             foreach ($data['attributes'] as $code => $value) {

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Infrastructure\Handler\Import;
 
 use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
-use Ergonode\Transformer\Domain\Repository\ProcessorRepositoryInterface;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Webmozart\Assert\Assert;
 
 /**
@@ -18,14 +18,14 @@ use Webmozart\Assert\Assert;
 class EndImportCommandHandler
 {
     /**
-     * @var ProcessorRepositoryInterface
+     * @var ImportRepositoryInterface
      */
-    private ProcessorRepositoryInterface $repository;
+    private ImportRepositoryInterface $repository;
 
     /**
-     * @param ProcessorRepositoryInterface $repository
+     * @param ImportRepositoryInterface $repository
      */
-    public function __construct(ProcessorRepositoryInterface $repository)
+    public function __construct(ImportRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }

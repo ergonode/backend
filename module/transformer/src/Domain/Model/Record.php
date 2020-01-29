@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Model;
 
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
-
 /**
  */
 class Record
@@ -28,11 +26,11 @@ class Record
     }
 
     /**
-     * @param string         $collection
-     * @param string         $name
-     * @param ValueInterface $value
+     * @param string $collection
+     * @param string $name
+     * @param string $value
      */
-    public function add(string $collection, string $name, ?ValueInterface $value = null): void
+    public function add(string $collection, string $name, ?string $value = null): void
     {
         $this->columns[$collection][$name] = $value;
     }
@@ -56,9 +54,9 @@ class Record
     /**
      * @param string $column
      *
-     * @return ValueInterface|null
+     * @return string|null
      */
-    public function get(string $column): ?ValueInterface
+    public function get(string $column): ?string
     {
         foreach ($this->columns as $collection) {
             if (array_key_exists($column, $collection)) {
@@ -72,7 +70,7 @@ class Record
     /**
      * @param string $collection
      *
-     * @return ValueInterface[]
+     * @return string[]
      */
     public function getColumns(string $collection): array
     {
