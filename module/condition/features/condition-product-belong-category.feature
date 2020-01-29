@@ -85,7 +85,7 @@ Feature: Condition Product belong category exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
               "operator": "NOT_BELONG_TO",
-              "category": "NOT_BELONG_TO"
+              "category": "2dbbaaa1-3053-4152-b324-862b6ff843e1"
             }
           ]
         }
