@@ -30,6 +30,4 @@ class UpdateCommentFormModel
     {
         $this->content = null;
     }
-
-
 }

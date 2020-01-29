@@ -31,5 +31,4 @@ class CategoryUpdateFormModel
     {
         $this->name = [];
     }
-
 }
