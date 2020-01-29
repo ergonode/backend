@@ -24,12 +24,12 @@ class DbalCommentRepository implements CommentRepositoryInterface
     /**
      * @var DomainEventStoreInterface
      */
-    private $store;
+    private DomainEventStoreInterface $store;
 
     /**
      * @var EventBusInterface
      */
-    private $eventBus;
+    private EventBusInterface $eventBus;
 
     /**
      * @param DomainEventStoreInterface $store

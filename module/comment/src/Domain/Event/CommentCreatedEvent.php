@@ -25,35 +25,35 @@ class CommentCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Comment\Domain\Entity\CommentId")
      */
-    private $id;
+    private CommentId $id;
 
     /**
      * @var UserId $authorId
      *
      * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
      */
-    private $authorId;
+    private UserId $authorId;
 
     /**
      * @var Uuid
      *
      * @JMS\Type("uuid")
      */
-    private $objectId;
+    private Uuid $objectId;
 
     /**
      * @var string $content
      *
      * @JMS\Type("string")
      */
-    private $content;
+    private string $content;
 
     /**
      * @var \DateTime $createdAt
      *
      * @JMS\Type("DateTime")
      */
-    private $createdAt;
+    private \DateTime $createdAt;
 
     /**
      * @param CommentId $id

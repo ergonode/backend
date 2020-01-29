@@ -29,17 +29,17 @@ class CommentGridAction
     /**
      * @var CommentGrid
      */
-    private $grid;
+    private CommentGrid $grid;
 
     /**
      * @var CommentQueryInterface
      */
-    private $query;
+    private CommentQueryInterface $query;
 
     /**
      * @var GridRenderer
      */
-    private $renderer;
+    private GridRenderer $renderer;
 
     /**
      * @param CommentGrid           $grid

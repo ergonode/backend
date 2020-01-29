@@ -26,42 +26,42 @@ class Comment extends AbstractAggregateRoot
      *
      * @JMS\Type("Ergonode\Comment\Domain\Entity\CommentId")
      */
-    private $id;
+    private CommentId $id;
 
     /**
      * @var UserId $authorId
      *
      * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
      */
-    private $authorId;
+    private UserId $authorId;
 
     /**
      * @var Uuid
      *
      * @JMS\Type("uuid")
      */
-    private $objectId;
+    private Uuid $objectId;
 
     /**
      * @var \DateTime $createdAt
      *
      * @JMS\Type("DateTime")
      */
-    private $createdAt;
+    private \DateTime $createdAt;
 
     /**
-     * @var \DateTime $editedAt
+     * @var null|\DateTime $editedAt
      *
      * @JMS\Type("DateTime")
      */
-    private $editedAt;
+    private ?\DateTime $editedAt = null;
 
     /**
      * @var string $content
      *
      * @JMS\Type("string")
      */
-    private $content;
+    private string $content;
 
     /**
      * @param CommentId $id

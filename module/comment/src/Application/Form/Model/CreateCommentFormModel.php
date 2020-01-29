@@ -16,18 +16,26 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CreateCommentFormModel
 {
     /**
-     * @var string
+     * @var null|string
      *
      * @Assert\NotBlank(message="Releted object is required"),
      * @Assert\Uuid(strict=true);
      */
-    public $objectId;
+    public ?string $objectId;
 
     /**
-     * @var string
+     * @var null|string
      *
      * @Assert\NotBlank(),
      * @Assert\Length(max=4000, maxMessage="Comment to long, max length is {{ limit }} characters")
      */
-    public $content;
+    public ?string $content;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->objectId = null;
+        $this->content = null;
+    }
 }

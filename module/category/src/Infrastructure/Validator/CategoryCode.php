@@ -19,10 +19,10 @@ class CategoryCode extends Constraint
     /**
      * @var string
      */
-    public $validMessage = 'The category code is not valid.';
+    public string $validMessage = 'The category code is not valid.';
 
     /**
      * @var string
      */
-    public $uniqueMessage = 'The category code is not unique.';
+    public string $uniqueMessage = 'The category code is not unique.';
 }

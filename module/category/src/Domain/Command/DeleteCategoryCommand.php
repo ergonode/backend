@@ -21,7 +21,7 @@ class DeleteCategoryCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
      */
-    private $id;
+    private CategoryId $id;
 
     /**
      * @param CategoryId $id

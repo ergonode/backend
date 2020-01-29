@@ -20,12 +20,12 @@ class CreateCommentCommandHandler
     /**
      * @var CommentRepositoryInterface $repository
      */
-    private $repository;
+    private CommentRepositoryInterface $repository;
 
     /**
      * @var CommentFactoryInterface $factory
      */
-    private $factory;
+    private CommentFactoryInterface $factory;
 
     /**
      * @param CommentRepositoryInterface $repository

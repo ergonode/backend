@@ -29,17 +29,17 @@ class CategoryGridReadAction
     /**
      * @var CategoryGrid
      */
-    private $categoryGrid;
+    private CategoryGrid $categoryGrid;
 
     /**
      * @var CategoryQueryInterface
      */
-    private $categoryQuery;
+    private CategoryQueryInterface $categoryQuery;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer           $gridRenderer

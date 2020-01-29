@@ -22,7 +22,7 @@ class CategoryType extends AbstractType
     /**
      * @var CategoryQueryInterface
      */
-    private $query;
+    private CategoryQueryInterface $query;
 
     /**
      * @param CategoryQueryInterface $query
