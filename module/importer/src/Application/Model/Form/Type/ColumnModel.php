@@ -7,8 +7,8 @@
 declare(strict_types = 1);
 
 namespace Ergonode\Importer\Application\Model\Form\Type;
-use Symfony\Component\Validator\Constraints as Assert;
 
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
@@ -52,6 +52,4 @@ class ColumnModel
         $this->imported = null;
         $this->type = null;
     }
-
-
 }

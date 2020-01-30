@@ -64,9 +64,9 @@ class ImportService
     }
 
     /**
-     * @param Import|Import $import
-     * @param TransformerId|null    $transformerId
-     * @param string                $action
+     * @param Import|Import      $import
+     * @param TransformerId|null $transformerId
+     * @param string             $action
      */
     public function import(Import $import, TransformerId $transformerId = null, string $action = null): void
     {

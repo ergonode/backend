@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Infrastructure\Process;
 
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Infrastructure\Action\ImportActionInterface;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
@@ -51,8 +50,6 @@ class TransformProcess
             }
         }
 
-        $product = new ImportedProduct($result['sku']);
-
-        $action->action($result, $product);
+        $action->action($result);
     }
 }

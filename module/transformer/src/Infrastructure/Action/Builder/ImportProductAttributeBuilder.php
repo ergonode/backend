@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Transformer\Infrastructure\Action\Extension;
+namespace Ergonode\Transformer\Infrastructure\Action\Builder;
 
 use Ergonode\Attribute\Domain\Command\AddAttributeOptionCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
@@ -17,6 +16,7 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
+use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -25,7 +25,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  */
-class ProductAttributeExtension
+class ImportProductAttributeBuilder implements ProductImportBuilderInterface
 {
     /**
      * @var AttributeQueryInterface
@@ -48,15 +48,14 @@ class ProductAttributeExtension
     }
 
     /**
-     * @param Record $record
+     * @param ImportedProduct $product
+     * @param Record          $record
      *
-     * @param array  $data
-     *
-     * @return array
+     * @return ImportedProduct
      *
      * @throws \Exception
      */
-    public function extend(Record $record, array $data): array
+    public function build(ImportedProduct $product, Record $record): ImportedProduct
     {
         if ($record->has('values')) {
             foreach ($record->getColumns('values') as $key => $value) {
@@ -71,13 +70,13 @@ class ProductAttributeExtension
                     }
 
                     if ($value) {
-                        $data['attributes'][$attributeCode->getValue()] = $value;
+                        $product->attributes[$attributeCode->getValue()] = $value;
                     }
                 }
             }
         }
 
-        return $data;
+        return $product;
     }
 
     /**

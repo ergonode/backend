@@ -47,10 +47,10 @@ class ProcessImportCommand implements DomainCommandInterface
     private string $action;
 
     /**
-     * @param ImportId      $importId
-     * @param int           $line
-     * @param array         $row
-     * @param string        $action
+     * @param ImportId $importId
+     * @param int      $line
+     * @param array    $row
+     * @param string   $action
      */
     public function __construct(ImportId $importId, int $line, array $row, string $action)
     {

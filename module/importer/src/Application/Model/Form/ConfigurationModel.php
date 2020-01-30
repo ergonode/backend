@@ -12,7 +12,6 @@ namespace Ergonode\Importer\Application\Model\Form;
 use Ergonode\Importer\Application\Model\Form\Type\ColumnModel;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  */
 class ConfigurationModel

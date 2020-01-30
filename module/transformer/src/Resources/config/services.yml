@@ -44,3 +44,10 @@ services:
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\MappingConverter']]
 
     Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface: '@Ergonode\Transformer\Persistence\Dbal\Repository\DbalTransformerRepository'
+
+    Ergonode\Transformer\Infrastructure\Action\ProductImportAction:
+        arguments:
+            $builders:
+                - '@Ergonode\Transformer\Infrastructure\Action\Builder\ImportProductAttributeBuilder'
+                - '@Ergonode\Transformer\Infrastructure\Action\Builder\ImportProductCategoryBuilder'
+                - '@Ergonode\Transformer\Infrastructure\Action\Builder\ImportProductTemplateBuilder'

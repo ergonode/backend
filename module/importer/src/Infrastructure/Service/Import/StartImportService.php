@@ -16,7 +16,7 @@ use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
-use Ergonode\Transformer\Infrastructure\Action\ProductSimpleImportAction;
+use Ergonode\Transformer\Infrastructure\Action\ProductImportAction;
 use Webmozart\Assert\Assert;
 
 /**
@@ -49,11 +49,11 @@ class StartImportService
     private string $directory;
 
     /**
-     * @param SourceRepositoryInterface      $sourceRepository
-     * @param ImportLineRepositoryInterface  $lineRepository
-     * @param ReaderProcessorProvider        $provider
-     * @param CommandBusInterface            $commandBus
-     * @param string                         $directory
+     * @param SourceRepositoryInterface     $sourceRepository
+     * @param ImportLineRepositoryInterface $lineRepository
+     * @param ReaderProcessorProvider       $provider
+     * @param CommandBusInterface           $commandBus
+     * @param string                        $directory
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
@@ -94,9 +94,10 @@ class StartImportService
             $line = new ImportLine($import->getId(), $i, json_encode($row, JSON_THROW_ON_ERROR, 512));
             try {
                 $this->lineRepository->save($line);
-                $this->commandBus->dispatch(new ProcessImportCommand($import->getId(), $i, $row, ProductSimpleImportAction::TYPE));
+                $command = new ProcessImportCommand($import->getId(), $i, $row, ProductImportAction::TYPE);
+                $this->commandBus->dispatch($command);
             } catch (\Exception $e) {
-               $line->addError($e->getTraceAsString());
+                $line->addError($e->getTraceAsString());
             }
             $this->lineRepository->save($line);
         }

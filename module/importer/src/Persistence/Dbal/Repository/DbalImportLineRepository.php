@@ -28,7 +28,7 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
         'import_id',
         'line',
         'content',
-        'message'
+        'message',
     ];
 
     /**
@@ -81,7 +81,6 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
 
 
         if ($record) {
-
             return $this->factory->create($record);
         }
 

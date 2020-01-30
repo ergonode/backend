@@ -50,11 +50,11 @@ class ProcessImportCommandHandler
     private ImportLineRepositoryInterface $repository;
 
     /**
-     * @param ImportRepositoryInterface $importerRepository
+     * @param ImportRepositoryInterface      $importerRepository
      * @param TransformerRepositoryInterface $transformerRepository
-     * @param TransformProcess $transformationProcess
-     * @param ImportActionProvider $importActionProvider
-     * @param ImportLineRepositoryInterface $repository
+     * @param TransformProcess               $transformationProcess
+     * @param ImportActionProvider           $importActionProvider
+     * @param ImportLineRepositoryInterface  $repository
      */
     public function __construct(
         ImportRepositoryInterface $importerRepository,
@@ -102,8 +102,6 @@ class ProcessImportCommandHandler
             if (!$action) {
                 throw new \RuntimeException(sprintf('Can\'t find action %s', $command->getAction()));
             }
-
-
 
             if ($content) {
                 $this->transformationProcess->process($transformer, $action, $content);

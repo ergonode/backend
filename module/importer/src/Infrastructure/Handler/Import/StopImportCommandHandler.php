@@ -38,7 +38,7 @@ class StopImportCommandHandler
      */
     public function __invoke(StopImportCommand $command)
     {
-        $import= $this->repository->load($command->getId());
+        $import = $this->repository->load($command->getId());
 
         Assert::isInstanceOf($import, Import::class);
 

@@ -80,16 +80,16 @@ class DbalSourceRepository implements SourceRepositoryInterface
     }
 
     /**
-     * @param AbstractSource $Source
+     * @param AbstractSource $source
      *
      * @throws DBALException
      */
-    public function save(AbstractSource $Source): void
+    public function save(AbstractSource $source): void
     {
-        if ($this->exists($Source->getId())) {
-            $this->update($Source);
+        if ($this->exists($source->getId())) {
+            $this->update($source);
         } else {
-            $this->insert($Source);
+            $this->insert($source);
         }
     }
 
@@ -116,54 +116,54 @@ class DbalSourceRepository implements SourceRepositoryInterface
     }
 
     /**
-     * @param AbstractSource $Source
+     * @param AbstractSource $source
      *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
-    public function remove(AbstractSource $Source): void
+    public function remove(AbstractSource $source): void
     {
         $this->connection->delete(
             self::TABLE,
             [
-                'id' => $Source->getId()->getValue(),
+                'id' => $source->getId()->getValue(),
             ]
         );
     }
 
     /**
-     * @param AbstractSource $Source
+     * @param AbstractSource $source
      *
      * @throws DBALException
      */
-    private function update(AbstractSource $Source): void
+    private function update(AbstractSource $source): void
     {
-        $SourceArray = $this->mapper->map($Source);
-        $SourceArray['updated_at'] = date('Y-m-d H:i:s');
+        $sourceArray = $this->mapper->map($source);
+        $sourceArray['updated_at'] = date('Y-m-d H:i:s');
 
         $this->connection->update(
             self::TABLE,
-            $SourceArray,
+            $sourceArray,
             [
-                'id' => $Source->getId()->getValue(),
+                'id' => $source->getId()->getValue(),
             ]
         );
     }
 
     /**
-     * @param AbstractSource $Source
+     * @param AbstractSource $source
      *
      * @throws DBALException
      */
-    private function insert(AbstractSource $Source): void
+    private function insert(AbstractSource $source): void
     {
-        $SourceArray = $this->mapper->map($Source);
-        $SourceArray['created_at'] = date('Y-m-d H:i:s');
-        $SourceArray['updated_at'] = date('Y-m-d H:i:s');
+        $sourceArray = $this->mapper->map($source);
+        $sourceArray['created_at'] = date('Y-m-d H:i:s');
+        $sourceArray['updated_at'] = date('Y-m-d H:i:s');
 
         $this->connection->insert(
             self::TABLE,
-            $SourceArray
+            $sourceArray
         );
     }
 

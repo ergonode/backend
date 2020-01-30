@@ -52,11 +52,11 @@ class GenerateImportCommandHandler
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ImportRepositoryInterface $importRepository
-     * @param SourceRepositoryInterface $sourceRepository
+     * @param ImportRepositoryInterface      $importRepository
+     * @param SourceRepositoryInterface      $sourceRepository
      * @param TransformerRepositoryInterface $transformerRepository
-     * @param Magento2TransformerGenerator $generator
-     * @param CommandBusInterface $commandBus
+     * @param Magento2TransformerGenerator   $generator
+     * @param CommandBusInterface            $commandBus
      */
     public function __construct(
         ImportRepositoryInterface $importRepository,
@@ -84,7 +84,7 @@ class GenerateImportCommandHandler
         Assert::isInstanceOf($source, AbstractSource::class);
 
         $transformerId = TransformerId::generate();
-        $transformer = $this->generator->generate($transformerId, 'Name' , $command->getConfiguration());
+        $transformer = $this->generator->generate($transformerId, 'Name', $command->getConfiguration());
         $this->transformerRepository->save($transformer);
 
         $import = new Import(ImportId::generate(), $command->getId(), $transformerId);

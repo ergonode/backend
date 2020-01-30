@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Model;
 
-
 /**
  */
 class ImportedProduct
@@ -24,11 +23,17 @@ class ImportedProduct
     public array $attributes;
 
     /**
+     * @var array
+     */
+    public array $categories;
+
+    /**
      * @param string $sku
      */
     public function __construct(string $sku)
     {
         $this->sku = $sku;
         $this->attributes = [];
+        $this->categories = [];
     }
 }

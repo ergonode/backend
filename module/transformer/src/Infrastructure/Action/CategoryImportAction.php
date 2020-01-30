@@ -16,7 +16,6 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Provider\CategoryTreeProvider;
-use Ergonode\Transformer\Infrastructure\Action\Extension\ProductAttributeExtension;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
 
@@ -50,29 +49,21 @@ class CategoryImportAction implements ImportActionInterface
     private CategoryFactory $factory;
 
     /**
-     * @var ProductAttributeExtension
-     */
-    private ProductAttributeExtension $extension;
-
-    /**
      * @param CategoryRepositoryInterface $categoryRepository
      * @param CategoryTreeProvider        $treeProvider
      * @param TreeRepositoryInterface     $treeRepository
      * @param CategoryFactory             $factory
-     * @param ProductAttributeExtension   $extension
      */
     public function __construct(
         CategoryRepositoryInterface $categoryRepository,
         CategoryTreeProvider $treeProvider,
         TreeRepositoryInterface $treeRepository,
-        CategoryFactory $factory,
-        ProductAttributeExtension $extension
+        CategoryFactory $factory
     ) {
         $this->categoryRepository = $categoryRepository;
         $this->treeProvider = $treeProvider;
         $this->treeRepository = $treeRepository;
         $this->factory = $factory;
-        $this->extension = $extension;
     }
 
     /**

@@ -25,14 +25,14 @@ class SourceParamConverter implements ParamConverterInterface
     /**
      * @var SourceRepositoryInterface
      */
-    private SourceRepositoryInterface $SourceRepository;
+    private SourceRepositoryInterface $sourceRepository;
 
     /**
-     * @param SourceRepositoryInterface $SourceRepository
+     * @param SourceRepositoryInterface $sourceRepository
      */
-    public function __construct(SourceRepositoryInterface $SourceRepository)
+    public function __construct(SourceRepositoryInterface $sourceRepository)
     {
-        $this->SourceRepository = $SourceRepository;
+        $this->sourceRepository = $sourceRepository;
     }
 
     /**
@@ -50,7 +50,7 @@ class SourceParamConverter implements ParamConverterInterface
             throw new BadRequestHttpException('Invalid Source ID');
         }
 
-        $entity = $this->SourceRepository->load(new SourceId($parameter));
+        $entity = $this->sourceRepository->load(new SourceId($parameter));
 
         if (null === $entity) {
             throw new NotFoundHttpException(sprintf('Source by ID "%s" not found', $parameter));

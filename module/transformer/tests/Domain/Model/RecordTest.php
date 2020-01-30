@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Tests\Transformer\Domain\Model;
 
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Value\Domain\ValueObject\StringValue;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -23,16 +22,15 @@ class RecordTest extends TestCase
     {
         $collection = 'example';
         $name = 'name';
-        $value = new StringValue('string');
+        $value = 'string';
         $record = new Record();
         $this->assertFalse($record->has($name));
         $record->add($collection, $name, $value);
         $column = $record->get($name);
-        $this->assertSame('string', $column->getValue());
+        $this->assertSame('string', $column);
         $this->assertTrue($record->has($name));
         $columns = $record->getColumns($collection);
-        $this->assertInstanceOf(StringValue::class, $columns['name']);
-        $this->assertSame('string', $columns['name']->getValue());
+        $this->assertSame('string', $columns['name']);
         $this->assertTrue($record->hasColumns($collection));
     }
 

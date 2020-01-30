@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Action\Builder;
 
-
 use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 

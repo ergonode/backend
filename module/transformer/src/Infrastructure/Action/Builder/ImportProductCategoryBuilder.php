@@ -7,18 +7,19 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Transformer\Infrastructure\Action\Extension;
+namespace Ergonode\Transformer\Infrastructure\Action\Builder;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
+use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class ProductCategoryExtension
+class ImportProductCategoryBuilder implements ProductImportBuilderInterface
 {
     /**
      * @var CategoryRepositoryInterface
@@ -34,14 +35,14 @@ class ProductCategoryExtension
     }
 
     /**
-     * @param Record $record
-     * @param array  $data
+     * @param ImportedProduct $product
+     * @param Record          $record
      *
-     * @return array
+     * @return ImportedProduct
      *
      * @throws \Exception
      */
-    public function extend(Record $record, array $data): array
+    public function build(ImportedProduct $product, Record $record): ImportedProduct
     {
         if ($record->hasColumns('categories')) {
             foreach ($record->getColumns('categories') as $key => $value) {
@@ -50,15 +51,11 @@ class ProductCategoryExtension
                     $categoryId = CategoryId::fromCode($categoryCode);
                     $category = $this->repository->load($categoryId);
                     Assert::notNull($category);
-                    $data['categories'][$value->getValue()] = $category->getCode();
-
-                    foreach ($category->getAttributes() as $code => $attributeValue) {
-                        $data['attributes'][$code] = $attributeValue;
-                    }
+                    $product->categories[$value->getValue()] = $category->getCode();
                 }
             }
         }
 
-        return $data;
+        return $product;
     }
 }
