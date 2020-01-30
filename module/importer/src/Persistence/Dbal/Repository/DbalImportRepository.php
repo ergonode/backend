@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Importer\Domain\Entity\AbstractImport;
+use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Persistence\Dbal\Repository\Factory\ImportFactory;
@@ -26,27 +26,25 @@ class DbalImportRepository implements ImportRepositoryInterface
     private const TABLE = 'importer.import';
     private const FIELDS = [
         'id',
-        'name',
-        'type',
         'status',
-        'options',
-        'reason',
+        'source_id',
+        'transformer_id',
     ];
 
-        /**
+    /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @var ImportFactory
      */
-    private $factory;
+    private ImportFactory $factory;
 
     /**
      * @var ImportMapper
      */
-    private $mapper;
+    private ImportMapper $mapper;
 
     /**
      * @param Connection    $connection
@@ -63,11 +61,11 @@ class DbalImportRepository implements ImportRepositoryInterface
     /**
      * @param ImportId $id
      *
-     * @return AbstractImport|null
+     * @return Import|null
      *
      * @throws \ReflectionException
      */
-    public function load(ImportId $id): ?AbstractImport
+    public function load(ImportId $id): ?Import
     {
         $qb = $this->getQuery();
         $record = $qb->where($qb->expr()->eq('id', ':id'))
@@ -83,11 +81,11 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param AbstractImport $import
+     * @param Import $import
      *
      * @throws DBALException
      */
-    public function save(AbstractImport $import): void
+    public function save(Import $import): void
     {
         if ($this->exists($import->getId())) {
             $this->update($import);
@@ -119,12 +117,12 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param AbstractImport $import
+     * @param Import $import
      *
      * @throws DBALException
      * @throws InvalidArgumentException
      */
-    public function remove(AbstractImport $import): void
+    public function remove(Import $import): void
     {
         $this->connection->delete(
             self::TABLE,
@@ -135,11 +133,11 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param AbstractImport $import
+     * @param Import $import
      *
      * @throws DBALException
      */
-    private function update(AbstractImport $import): void
+    private function update(Import $import): void
     {
         $importArray = $this->mapper->map($import);
         $importArray['updated_at'] = date('Y-m-d H:i:s');
@@ -154,11 +152,11 @@ class DbalImportRepository implements ImportRepositoryInterface
     }
 
     /**
-     * @param AbstractImport $import
+     * @param Import $import
      *
      * @throws DBALException
      */
-    private function insert(AbstractImport $import): void
+    private function insert(Import $import): void
     {
         $importArray = $this->mapper->map($import);
         $importArray['created_at'] = date('Y-m-d H:i:s');

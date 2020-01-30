@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Interface FileServiceInterface
  */
 interface UploadServiceInterface
 {

@@ -26,6 +26,8 @@ class ReaderFactory
      * @param array    $formatters
      *
      * @return Reader
+     *
+     * @throws \Exception
      */
     public function create(
         ReaderId $readerId,

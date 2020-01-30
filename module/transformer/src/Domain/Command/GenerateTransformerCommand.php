@@ -22,28 +22,28 @@ class GenerateTransformerCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
      */
-    private $id;
+    private TransformerId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $key;
+    private string $key;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $type;
+    private string $type;
 
     /**
      * @param string $name

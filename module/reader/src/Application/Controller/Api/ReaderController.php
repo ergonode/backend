@@ -40,32 +40,32 @@ class ReaderController extends AbstractController
     /**
      * @var ReaderQueryInterface
      */
-    private $query;
+    private ReaderQueryInterface $query;
 
     /**
      * @var ReaderGrid
      */
-    private $grid;
+    private ReaderGrid $grid;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @var ExistingRelationshipMessageBuilderInterface
      */
-    private $existingRelationshipMessageBuilder;
+    private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer                                $gridRenderer

@@ -21,12 +21,12 @@ class TransformerProvider
     /**
      * @var TransformerGenerator
      */
-    private $generator;
+    private TransformerGenerator $generator;
 
     /**
      * @var TransformerRepositoryInterface
      */
-    private $repository;
+    private TransformerRepositoryInterface $repository;
 
     /**
      * @param TransformerGenerator           $generator
@@ -44,7 +44,6 @@ class TransformerProvider
      *
      * @return Transformer
      *
-     * @throws \ReflectionException
      * @throws \Exception
      */
     public function provide(string $name, string $key): Transformer

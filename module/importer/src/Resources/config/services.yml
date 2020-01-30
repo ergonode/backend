@@ -13,17 +13,20 @@ services:
     Ergonode\Importer\Application\:
         resource: '../../Application/*'
 
+#    Ergonode\Importer\Application\Command\:
+#        resource: '../../Application/Command/*'
+#        tags: ['console.command']
+
+    Ergonode\Importer\Application\Controller\Api\:
+        resource: '../../Application/Controller/Api/*'
+        tags: ['controller.service_arguments']
+
     Ergonode\Importer\Domain\:
         resource: '../../Domain/*'
         exclude: '../../Domain/{Entity,ValueObject}'
 
     Ergonode\Importer\Infrastructure\:
         resource: '../../Infrastructure/*'
-        exclude: '../../Infrastructure/{Message}'
-
-    Ergonode\Importer\Application\Controller\:
-        resource: '../../Application/Controller/*'
-        tags: ['controller.service_arguments']
 
     Ergonode\Importer\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
@@ -40,7 +43,3 @@ services:
     Ergonode\Importer\Application\Service\Upload\UploadService:
         arguments:
             $targetDirectory: '%import_directory%'
-
-    Ergonode\Importer\Application\Service\ImportService:
-        arguments:
-            $directory: '%import_directory%'

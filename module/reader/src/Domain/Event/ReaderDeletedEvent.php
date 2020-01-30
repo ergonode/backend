@@ -23,7 +23,7 @@ class ReaderDeletedEvent extends AbstractDeleteEvent
      *
      * @JMS\Type("Ergonode\Reader\Domain\Entity\ReaderId")
      */
-    private $id;
+    private ReaderId $id;
 
     /**
      * @param ReaderId $id

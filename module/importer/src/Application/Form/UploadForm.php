@@ -26,16 +26,24 @@ class UploadForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('upload', FileType::class);
-        $builder->add('reader', TextType::class);
-        $builder->add('transformer', TextType::class);
-        $builder->add('action', TextType::class);
+        $builder
+            ->add(
+                'upload',
+                FileType::class
+            )
+            ->add(
+                'source_type',
+                TextType::class,
+                [
+                    'property_path' => 'sourceType',
+                ]
+            );
     }
 
     /**
      * @return null|string
      */
-    public function getBlockPrefix() :?string
+    public function getBlockPrefix(): ?string
     {
         return null;
     }

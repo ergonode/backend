@@ -18,7 +18,7 @@ class ImportActionProvider
     /**
      * @var ImportActionInterface[]
      */
-    private $actions;
+    private array $actions;
 
     /**
      * @param ImportActionInterface ...$actions

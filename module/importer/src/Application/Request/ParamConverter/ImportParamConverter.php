@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Application\Request\ParamConverter;
 
-use Ergonode\Importer\Domain\Entity\AbstractImport;
+use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -25,7 +25,7 @@ class ImportParamConverter implements ParamConverterInterface
     /**
      * @var ImportRepositoryInterface
      */
-    private $importRepository;
+    private ImportRepositoryInterface $importRepository;
 
     /**
      * @param ImportRepositoryInterface $importRepository
@@ -64,6 +64,6 @@ class ImportParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration): bool
     {
-        return AbstractImport::class === $configuration->getClass();
+        return Import::class === $configuration->getClass();
     }
 }

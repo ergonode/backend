@@ -10,43 +10,48 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Entity;
 
 /**
- * Class ImportLine
  */
 class ImportLine
 {
     /**
-     * @var ImportLineId
+     * @var int
      */
-    private $id;
+    private int $line;
 
     /**
      * @var ImportId
      */
-    private $importId;
+    private ImportId $importId;
 
     /**
      * @var string
      */
-    private $content;
+    private string $content;
 
     /**
-     * @param ImportLineId $id
-     * @param ImportId     $importId
-     * @param string       $content
+     * @var string|null
      */
-    public function __construct(ImportLineId $id, ImportId $importId, string $content)
+    private ?string $error;
+
+    /**
+     * @param ImportId $importId
+     * @param int      $line
+     * @param string   $content
+     */
+    public function __construct(ImportId $importId, int $line, string $content)
     {
-        $this->id = $id;
+        $this->line = $line;
         $this->importId = $importId;
         $this->content = $content;
+        $this->error = null;
     }
 
     /**
-     * @return ImportLineId
+     * @return int
      */
-    public function getId(): ImportLineId
+    public function getLine(): int
     {
-        return $this->id;
+        return $this->line;
     }
 
     /**
@@ -63,5 +68,29 @@ class ImportLine
     public function getContent(): string
     {
         return $this->content;
+    }
+
+    /**
+     * @param string $error
+     */
+    public function addError(string $error): void
+    {
+        $this->error = $error;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getError(): ?string
+    {
+        return $this->error;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasError(): bool
+    {
+        return null !== $this->error;
     }
 }

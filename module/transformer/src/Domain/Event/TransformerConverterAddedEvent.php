@@ -24,28 +24,28 @@ class TransformerConverterAddedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
      */
-    private $id;
+    private TransformerId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $collection;
+    private string $collection;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $field;
+    private string $field;
 
     /**
      * @var ConverterInterface
      *
      * @JMS\Type("Ergonode\Transformer\Infrastructure\Converter\ConverterInterface")
      */
-    private $converter;
+    private ConverterInterface $converter;
 
     /**
      * @param TransformerId      $id

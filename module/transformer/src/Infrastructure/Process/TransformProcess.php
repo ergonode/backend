@@ -22,7 +22,7 @@ class TransformProcess
     /**
      * @var ConverterMapperProvider
      */
-    private $provider;
+    private ConverterMapperProvider $provider;
 
     /**
      * @param ConverterMapperProvider $provider

@@ -18,7 +18,7 @@ class ConverterMapperProvider
     /**
      * @var ConverterMapperInterface[]
      */
-    private $mappers;
+    private array $mappers;
 
     /**
      * @param ConverterMapperInterface ...$mappers

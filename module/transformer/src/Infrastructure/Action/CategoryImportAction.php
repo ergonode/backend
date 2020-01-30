@@ -16,7 +16,6 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Infrastructure\Provider\CategoryTreeProvider;
-use Ergonode\Transformer\Infrastructure\Action\Extension\ProductAttributeExtension;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
 
@@ -32,47 +31,39 @@ class CategoryImportAction implements ImportActionInterface
     /**
      * @var CategoryRepositoryInterface
      */
-    private $categoryRepository;
+    private CategoryRepositoryInterface $categoryRepository;
 
     /**
      * @var CategoryTreeProvider
      */
-    private $treeProvider;
+    private CategoryTreeProvider $treeProvider;
 
     /**
      * @var TreeRepositoryInterface
      */
-    private $treeRepository;
+    private TreeRepositoryInterface $treeRepository;
 
     /**
      * @var CategoryFactory
      */
-    private $factory;
-
-    /**
-     * @var ProductAttributeExtension
-     */
-    private $extension;
+    private CategoryFactory $factory;
 
     /**
      * @param CategoryRepositoryInterface $categoryRepository
      * @param CategoryTreeProvider        $treeProvider
      * @param TreeRepositoryInterface     $treeRepository
      * @param CategoryFactory             $factory
-     * @param ProductAttributeExtension   $extension
      */
     public function __construct(
         CategoryRepositoryInterface $categoryRepository,
         CategoryTreeProvider $treeProvider,
         TreeRepositoryInterface $treeRepository,
-        CategoryFactory $factory,
-        ProductAttributeExtension $extension
+        CategoryFactory $factory
     ) {
         $this->categoryRepository = $categoryRepository;
         $this->treeProvider = $treeProvider;
         $this->treeRepository = $treeRepository;
         $this->factory = $factory;
-        $this->extension = $extension;
     }
 
     /**
@@ -90,8 +81,6 @@ class CategoryImportAction implements ImportActionInterface
         $data = [
             'attributes' => [],
         ];
-
-        $data = $this->extension->extend($record, $data);
 
         $tree = $this->treeProvider->getTree(CategoryTree::DEFAULT);
 

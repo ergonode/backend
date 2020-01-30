@@ -11,10 +11,8 @@ namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
 
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Importer\Domain\Entity\ImportLine;
-use Ergonode\Importer\Domain\Entity\ImportLineId;
 
 /**
- * Class ImportLineFactory
  */
 class ImportLineFactory
 {
@@ -48,9 +46,10 @@ class ImportLineFactory
     private function getMap(array $record): array
     {
         return [
-            'id' => new ImportLineId($record['id']),
-            'importId' => new ImportId($record['id']),
-            'content' => $record['line'],
+            'importId' => new ImportId($record['import_id']),
+            'line' => $record['line'],
+            'content' => $record['content'],
+            'error' => $record['message'],
         ];
     }
 }

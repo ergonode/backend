@@ -16,9 +16,9 @@ use Ergonode\Reader\Domain\Entity\Reader;
 class ReaderGenerator
 {
     /**
-     * @var ReaderGeneratorStrategyInterface[]
+     * @var ReaderGeneratorStrategyInterface ...$strategies
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param ReaderGeneratorStrategyInterface ...$strategies
