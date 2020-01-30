@@ -41,8 +41,6 @@ class AttributeProposalProvider
             }
         }
 
-        var_dump(count($this->strategies));
-
         throw new \RuntimeException(sprintf('Can\'t find proposal for column %s values', $name));
     }
 }

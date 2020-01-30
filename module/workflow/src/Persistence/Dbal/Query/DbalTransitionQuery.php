@@ -60,7 +60,7 @@ class DbalTransitionQuery implements TransitionQueryInterface
      * @param WorkflowId $workflowId
      * @param StatusId   $statusId
      *
-     * @return mixed
+     * @return bool
      */
     public function hasStatus(WorkflowId $workflowId, StatusId $statusId): bool
     {

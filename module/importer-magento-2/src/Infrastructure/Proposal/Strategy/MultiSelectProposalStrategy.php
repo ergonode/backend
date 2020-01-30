@@ -25,15 +25,13 @@ class MultiSelectProposalStrategy implements AttributeProposalStrategyInterface
      */
     public function support(string $name, array $values): bool
     {
-        $hasSeparator = false;
-
         foreach ($values as $value) {
             if (mb_strpos((string) $value, self::SEPARATOR)) {
-                $hasSeparator = true;
+                return true;
             }
         }
 
-        return $hasSeparator;
+        return false;
     }
 
     /**

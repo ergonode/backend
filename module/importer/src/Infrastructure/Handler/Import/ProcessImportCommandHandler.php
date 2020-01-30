@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Handler\Import;
 
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Domain\Command\Import\ErrorImportCommand;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
@@ -77,7 +75,6 @@ class ProcessImportCommandHandler
      */
     public function __invoke(ProcessImportCommand $command)
     {
-
         $importId = $command->getImportId();
         $lineNumber = $command->getLine();
         $content = $command->getRow();
@@ -89,8 +86,6 @@ class ProcessImportCommandHandler
             $import = $this->importerRepository->load($command->getImportId());
             Assert::isInstanceOf($import, Import::class);
             $transformer = $this->transformerRepository->load($import->getTransformerId());
-
-
 
 
             if (!$transformer) {
@@ -107,12 +102,9 @@ class ProcessImportCommandHandler
                 $this->transformationProcess->process($transformer, $action, $content);
             }
         } catch (\Throwable $exception) {
-            echo PHP_EOL.print_r($exception->getMessage(), true);
-            echo PHP_EOL.print_r($exception->getTraceAsString(), true);
             $line->addError($exception->getMessage());
         }
 
         $this->repository->save($line);
-        die($exception->getMessage());
     }
 }

@@ -82,8 +82,6 @@ class CategoryImportAction implements ImportActionInterface
             'attributes' => [],
         ];
 
-        $data = $this->extension->extend($record, $data);
-
         $tree = $this->treeProvider->getTree(CategoryTree::DEFAULT);
 
         $categoryId = CategoryId::fromCode($code);

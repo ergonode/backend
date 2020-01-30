@@ -118,11 +118,9 @@ class ImportUploadAction
             );
             $this->commandBus->dispatch($command);
 
-            $response = new CreatedResponse($command->getId());
-        } else {
-            throw new FormValidationHttpException($form);
+            return new CreatedResponse($command->getId());
         }
 
-        return $response;
+        throw new FormValidationHttpException($form);
     }
 }
