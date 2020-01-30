@@ -53,7 +53,7 @@ class ProductCollectionCreatedEventProjector
                 'id' => $event->getAggregateId(),
                 'code' => $event->getCode(),
                 'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
-                'typeId' => $event->getTypeId(),
+                'type_id' => $event->getTypeId(),
             ]
         );
     }

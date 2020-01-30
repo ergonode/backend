@@ -304,6 +304,39 @@ nelmio_api_doc:
                         example:
                             DE: Name DE
                             EN: Name EN
+            product_collection_create:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        description: Product collection code
+                        required: true
+                        example: product_collection_code_1
+                    name:
+                        type: object
+                        description: Product Collection name
+                        example:
+                            DE: Name DE
+                            EN: Name EN
+                    typeId:
+                        type: string
+                        description: Product Collection Type Id
+                        required: true
+                        example: ccd5c2b5-da15-4bd2-a476-bfa689560f22
+                product_collection_update:
+                    type: object
+                    properties:
+                        name:
+                            type: object
+                            description: Product Collection name
+                            example:
+                                DE: Name DE
+                                EN: Name EN
+                        typeId:
+                            type: string
+                            description: Product Collection Type Id
+                            required: true
+                            example: ccd5c2b5-da15-4bd2-a476-bfa689560f22
             product:
                 type: object
                 properties:

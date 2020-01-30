@@ -36,7 +36,7 @@ class ProductCollection extends AbstractAggregateRoot
     /**
      * @var ProductCollectionCode
      *
-     * @JMS/Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode")
+     * @JMS\Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode")
      *
      */
     private ProductCollectionCode $code;

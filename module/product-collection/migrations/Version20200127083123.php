@@ -22,7 +22,7 @@ final class Version20200127083123 extends AbstractErgonodeMigration
                     id uuid NOT NULL,
                     code VARCHAR(255) DEFAULT NULL, 
                     name JSONB NOT NULL, 
-                    typeId uuid NOT NULL,
+                    type_id uuid NOT NULL,
                     PRIMARY KEY (id)
                  )'
         );
@@ -63,6 +63,8 @@ final class Version20200127083123 extends AbstractErgonodeMigration
             => 'Product collection type id changed',
             'Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeNameChangedEvent'
             => 'Product collection type name changed',
+            'Ergonode\ProductCollection\Domain\Event\ProductCollectionDeletedEvent'
+            => 'Product collection removed',
         ]);
     }
 
