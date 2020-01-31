@@ -24,7 +24,7 @@ Feature: Account module
     And I send a "PUT" request to "/api/v1/EN/attributes/@text_attribute@" with body:
     """
     {
-        "type": "TEXTAREA",
+        "type": "TEXT_AREA",
         "groups": [],
         "parameters": []
     }
