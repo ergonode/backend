@@ -177,6 +177,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "behat": [
+            "php -d error_reporting='E_ALL & ~E_DEPRECATED'  ./bin/behat --colors --stop-on-failure"
         ]
     },
     "conflict": {
