@@ -4,32 +4,11 @@ services:
             autoconfigure: true
             public: false
 
-    Ergonode\Reader\Persistence\:
-        resource: '../../Persistence/*'
-
     Ergonode\Reader\Application\:
         resource: '../../Application/*'
-        exclude: '../../Domain/{Model}'
-
-    Ergonode\Reader\Domain\:
-        resource: '../../Domain/*'
-        exclude: '../../Domain/{Entity,ValueObject}'
 
     Ergonode\Reader\Infrastructure\:
         resource: '../../Infrastructure/*'
-        exclude: '../../Infrastructure/{Message}'
-
-    Ergonode\Reader\Application\Controller\:
-        resource: '../../Application/Controller/*'
-        tags: ['controller.service_arguments']
-
-    Ergonode\Reader\Infrastructure\Handler\:
-        resource: '../../Infrastructure/Handler/*'
-        tags: ['messenger.message_handler']
-
-    Ergonode\Reader\Persistence\Dbal\Projector\:
-        resource: '../../Persistence/Dbal/Projector/*'
-        tags: ['messenger.message_handler']
 
     Ergonode\Reader\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
@@ -37,11 +16,8 @@ services:
 
     Ergonode\Reader\Infrastructure\JMS\Serializer\Handler\FormatterInterfaceHandler:
         calls:
-            - ['set', ['Ergonode\Reader\Domain\Formatter\ReplaceFormatter']]
-            - ['set', ['Ergonode\Reader\Domain\Formatter\EncodingFormatter']]
-
-    Ergonode\Reader\Domain\Repository\ReaderRepositoryInterface: '@Ergonode\Reader\Persistence\Dbal\Repository\DbalReaderRepository'
-    Ergonode\Reader\Domain\Query\ReaderQueryInterface: '@Ergonode\Reader\Persistence\Dbal\Query\DbalReaderQuery'
+            - ['set', ['Ergonode\Reader\Infrastructure\Formatter\ReplaceFormatter']]
+            - ['set', ['Ergonode\Reader\Infrastructure\Formatter\EncodingFormatter']]
 
     Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider:
         calls:

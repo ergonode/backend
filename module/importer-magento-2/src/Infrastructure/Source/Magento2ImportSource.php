@@ -15,7 +15,6 @@ use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 use Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor;
 
-
 /**
  */
 class Magento2ImportSource implements ImportSourceInterface

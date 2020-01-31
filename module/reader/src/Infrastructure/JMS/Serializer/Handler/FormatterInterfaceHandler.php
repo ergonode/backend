@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Reader\Infrastructure\JMS\Serializer\Handler;
 
 use Ergonode\Core\Infrastructure\JMS\Serializer\Handler\AbstractInterfaceHandler;
-use Ergonode\Reader\Domain\FormatterInterface;
+use Ergonode\Reader\Infrastructure\FormatterInterface;
 
 /**
  */

@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Domain\Factory;
 
-
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Importer\Domain\Entity\Source\SourceId;
 use Ergonode\Importer\Domain\Factory\SourceFactoryInterface;
@@ -36,9 +35,9 @@ class Magento1SourceFactory implements SourceFactoryInterface
      */
     public function create(SourceId $sourceId, string $filename): AbstractSource
     {
-       return new Magento1CsvSource(
-           $sourceId,
-           $filename,
-       );
+        return new Magento1CsvSource(
+            $sourceId,
+            $filename,
+        );
     }
 }

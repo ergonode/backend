@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Reader\Domain;
+namespace Ergonode\Reader\Infrastructure;
 
 /**
  */

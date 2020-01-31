@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Application\DependencyInjection;
 
 use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\TransformerActionCompilerPass;
-use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\TransformerGeneratorStrategyCompilerPass;
 use Ergonode\Transformer\Infrastructure\Action\ImportActionInterface;
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 use Symfony\Component\Config\FileLocator;
@@ -19,6 +18,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\ConverterMapperCompilerPass;
 use Ergonode\Transformer\Infrastructure\Converter\Mapper\ConverterMapperInterface;
+use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\TransformerGeneratorProviderStrategyCompilerPass;
 
 /**
  */
@@ -38,16 +38,16 @@ class ErgonodeTransformerExtension extends Extension
         );
 
         $container
-            ->registerForAutoconfiguration(TransformerGeneratorStrategyInterface::class)
-            ->addTag(TransformerGeneratorStrategyCompilerPass::TAG);
-
-        $container
             ->registerForAutoconfiguration(ImportActionInterface::class)
             ->addTag(TransformerActionCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(ConverterMapperInterface::class)
             ->addTag(ConverterMapperCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(TransformerGeneratorStrategyInterface::class)
+            ->addTag(TransformerGeneratorProviderStrategyCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

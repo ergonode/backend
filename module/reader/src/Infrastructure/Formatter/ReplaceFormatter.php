@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Reader\Domain\Formatter;
+namespace Ergonode\Reader\Infrastructure\Formatter;
 
-use Ergonode\Reader\Domain\FormatterInterface;
+use Ergonode\Reader\Infrastructure\FormatterInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**

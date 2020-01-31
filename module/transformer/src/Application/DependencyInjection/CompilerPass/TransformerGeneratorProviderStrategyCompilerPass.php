@@ -9,23 +9,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Application\DependencyInjection\CompilerPass;
 
-use Ergonode\Transformer\Infrastructure\Generator\TransformerGenerator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use Ergonode\Transformer\Infrastructure\Provider\TransformerGeneratorProvider;
 
 /**
  */
-class TransformerGeneratorStrategyCompilerPass implements CompilerPassInterface
+class TransformerGeneratorProviderStrategyCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'component.transformer_generator.transformer_interface';
+    public const TAG = 'component.transformer_generator_strategy.transformer_interface';
 
     /**
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container): void
     {
-        if ($container->has(TransformerGenerator::class)) {
+        if ($container->has(TransformerGeneratorProvider::class)) {
             $this->processTransformers($container);
         }
     }
@@ -36,7 +36,7 @@ class TransformerGeneratorStrategyCompilerPass implements CompilerPassInterface
     private function processTransformers(ContainerBuilder $container): void
     {
         $arguments = [];
-        $definition = $container->findDefinition(TransformerGenerator::class);
+        $definition = $container->findDefinition(TransformerGeneratorProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
         foreach ($strategies as $id => $strategy) {

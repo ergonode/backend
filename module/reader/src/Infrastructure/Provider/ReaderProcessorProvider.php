@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Infrastructure\Provider;
 
-use Ergonode\Reader\Infrastructure\Processor\ReaderProcessorInterface;
+use Ergonode\Reader\Infrastructure\ReaderProcessorInterface;
 
 /**
  */
@@ -36,7 +36,7 @@ class ReaderProcessorProvider
      *
      * @return ReaderProcessorInterface
      */
-    public function getReader(string $extension): ReaderProcessorInterface
+    public function provide(string $extension): ReaderProcessorInterface
     {
         $extension = strtolower($extension);
 

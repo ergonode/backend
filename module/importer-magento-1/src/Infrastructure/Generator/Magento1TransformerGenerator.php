@@ -13,13 +13,13 @@ use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Infrastructure\Converter\TextConverter;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
+use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 
 /**
  */
-class Magento1TransformerGenerator
+class Magento1TransformerGenerator implements TransformerGeneratorStrategyInterface
 {
-    public const TYPE = 'MAGENTO_1';
-
     /**
      * @var AttributeRepositoryInterface
      */
@@ -30,7 +30,7 @@ class Magento1TransformerGenerator
      */
     public function getType(): string
     {
-        return self::TYPE;
+        return Magento1CsvSource::TYPE;
     }
 
     /**

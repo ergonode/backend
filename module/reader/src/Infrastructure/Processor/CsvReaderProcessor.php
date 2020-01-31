@@ -9,7 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Infrastructure\Processor;
 
-use Ergonode\Reader\Domain\FormatterInterface;
+use Ergonode\Reader\Infrastructure\FormatterInterface;
+use Ergonode\Reader\Infrastructure\ReaderProcessorInterface;
 
 /**
  */

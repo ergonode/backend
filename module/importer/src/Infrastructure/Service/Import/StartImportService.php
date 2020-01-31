@@ -84,7 +84,7 @@ class StartImportService
         $file = $source->getFile();
         $filename = \sprintf('%s%s', $this->directory, $file);
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
-        $fileReader = $this->provider->getReader($extension);
+        $fileReader = $this->provider->provide($extension);
 
         $fileReader->open($filename, $source->getConfiguration());
 

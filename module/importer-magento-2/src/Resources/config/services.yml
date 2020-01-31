@@ -7,9 +7,12 @@ services:
     Ergonode\ImporterMagento2\Application\:
         resource: '../../Application/*'
 
+    Ergonode\ImporterMagento2\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity}'
+
     Ergonode\ImporterMagento2\Infrastructure\:
         resource: '../../Infrastructure/*'
-
 
     Ergonode\ImporterMagento2\Infrastructure\Source\Magento2ImportSource:
       arguments:
