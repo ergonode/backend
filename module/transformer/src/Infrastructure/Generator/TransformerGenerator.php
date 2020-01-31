@@ -19,7 +19,7 @@ class TransformerGenerator
     /**
      * @var TransformerGeneratorStrategyInterface[]
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param TransformerGeneratorStrategyInterface ...$strategies

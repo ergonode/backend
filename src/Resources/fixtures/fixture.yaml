@@ -42,6 +42,12 @@ parameters:
   label_esa_categories:
     'PL': 'Kategorie'
     'EN': 'Categories'
+  name_product_collection_type_up-sell:
+    'PL': 'Up-sell'
+    'EN': 'Up-sell'
+  name_product_collection_type_cross-sell:
+    'PL': 'Cross-sell'
+    'EN': 'Cross-sell'
   empty: []
 
 Ergonode\CategoryTree\Domain\Command\CreateTreeCommand:
@@ -109,6 +115,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("SEGMENT_READ")>'
         - '<privilege("SEGMENT_UPDATE")>'
         - '<privilege("SEGMENT_DELETE")>'
+        - '<privilege("CHANNEL_CREATE")>'
+        - '<privilege("CHANNEL_READ")>'
+        - '<privilege("CHANNEL_UPDATE")>'
+        - '<privilege("CHANNEL_DELETE")>'
       - true
   admin_role:
     __construct:
@@ -168,6 +178,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("SEGMENT_READ")>'
         - '<privilege("SEGMENT_UPDATE")>'
         - '<privilege("SEGMENT_DELETE")>'
+        - '<privilege("CHANNEL_CREATE")>'
+        - '<privilege("CHANNEL_READ")>'
+        - '<privilege("CHANNEL_UPDATE")>'
+        - '<privilege("CHANNEL_DELETE")>'
   data_inputer_role:
     __construct:
       - '<roleId("Data inputer")>'
@@ -306,8 +320,6 @@ Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand:
       - '<workflowId(default)>'
       - '<statusCode("new")>'
       - '<statusCode("draft")>'
-      - '<translation(<{empty}>)>'
-      - '<translation(<{empty}>)>'
 
 Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
   attribute_esa_status:
@@ -357,3 +369,15 @@ Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
       - '<translation(<{label_esa_categories}>)>'
       - '<translation(<{empty}>)>'
       - '<translation(<{empty}>)>'
+  
+Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
+  product_collection_type_up-sell:
+    __construct:
+      - '<productCollectionTypeId("up-sell)>'
+      - '<productCollectionTypeCode("up-sell")>'
+      - '<translation(<{name_product_collection_type_up-sell}>)>'
+  product_collection_type_cross-sell:
+    __construct:
+      - '<productCollectionTypeId("cross-sell)>'
+      - '<productCollectionTypeCode("cross-sell")>'
+      - '<translation(<{name_product_collection_type_cross-sell}>)>'

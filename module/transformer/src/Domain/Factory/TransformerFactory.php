@@ -22,6 +22,8 @@ class TransformerFactory
      * @param string        $key
      *
      * @return Transformer
+     *
+     * @throws \Exception
      */
     public function create(Transformerid $id, string $name, string $key): Transformer
     {

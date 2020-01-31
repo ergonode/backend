@@ -25,7 +25,7 @@ class ConditionReadAction
     /**
      * @var ConditionDictionaryProvider
      */
-    private $provider;
+    private ConditionDictionaryProvider $provider;
 
     /**
      * @param ConditionDictionaryProvider $provider

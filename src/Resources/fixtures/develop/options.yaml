@@ -1,11 +1,19 @@
 Ergonode\Core\Domain\ValueObject\TranslatableString:
-    option_value_{1..50}:
+    option_value_1_{1..50}:
         __construct:
             -
-                'PL': 'Option_PL_<current()>'
-                'EN': 'Option_EN_<current()>'
+                'PL': 'Option_PL_1_<current()>'
+                'EN': 'Option_EN_1_<current()>'
+    option_value_2_{1..50}:
+        __construct:
+            -
+                'PL': 'Option_PL_2_<current()>'
+                'EN': 'Option_EN_2_<current()>'
 
 Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption:
-    value_{1..50}:
+    value_1_{1..50}:
         __construct:
-            - '@option_value_<current()>'
+            - '@option_value_1_<current()>'
+    value_2_{1..50}:
+        __construct:
+            - '@option_value_2_<current()>'

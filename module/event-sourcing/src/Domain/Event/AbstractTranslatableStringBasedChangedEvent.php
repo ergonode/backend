@@ -22,14 +22,14 @@ abstract class AbstractTranslatableStringBasedChangedEvent implements DomainEven
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $from;
+    private TranslatableString $from;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $to;
+    private TranslatableString $to;
 
     /**
      * @param TranslatableString $from

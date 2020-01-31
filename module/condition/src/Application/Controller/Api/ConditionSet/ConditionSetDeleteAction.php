@@ -14,7 +14,6 @@ use Ergonode\Condition\Domain\Command\DeleteConditionSetCommand;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
 use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,17 +34,17 @@ class ConditionSetDeleteAction
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @var ExistingRelationshipMessageBuilderInterface
      */
-    private $existingRelationshipMessageBuilder;
+    private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
     /**
      * @param MessageBusInterface                         $messageBus

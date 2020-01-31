@@ -13,11 +13,10 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Class FileService
  */
 class UploadService implements UploadServiceInterface
 {
-    private $targetDirectory;
+    private string $targetDirectory;
 
     /**
      * @param string $targetDirectory

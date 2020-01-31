@@ -11,8 +11,8 @@ namespace Ergonode\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Request\FilterValue;
-use Ergonode\Grid\Request\RequestColumn;
 use Ergonode\Grid\Request\FilterValueCollection;
+use Ergonode\Grid\Request\RequestColumn;
 use Symfony\Component\HttpFoundation\Request;
 use Webmozart\Assert\Assert;
 

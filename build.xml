@@ -182,7 +182,7 @@
         </exec>
     </target>
     <target name="check:dependencies:report-svg"  depends="check:dependencies:report-dot"  description="Deptrac dump to svg image">
-        <exec command="dot deptrac.dot -Tsvg  -o ${dir.reports}/deptrac.svg"
+        <exec command="dot '${dir.reports}/deptrac.dot' -Tsvg  -o ${dir.reports}/deptrac.svg"
               checkreturn="true"
               logoutput="true">
         </exec>

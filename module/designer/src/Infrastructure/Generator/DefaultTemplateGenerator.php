@@ -24,6 +24,8 @@ class DefaultTemplateGenerator implements TemplateGeneratorInterface
      * @param TemplateGroupId $groupId
      *
      * @return Template
+     *
+     * @throws \Exception
      */
     public function getTemplate(TemplateId $id, TemplateGroupId $groupId): Template
     {

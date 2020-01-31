@@ -23,12 +23,12 @@ class DeleteReaderCommandHandler
     /**
      * @var ReaderRepositoryInterface
      */
-    private $repository;
+    private ReaderRepositoryInterface $repository;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @param ReaderRepositoryInterface      $repository

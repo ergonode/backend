@@ -23,7 +23,7 @@ class ConditionSetValidatorBuilder
     /**
      * @var ConditionConstraintProvider
      */
-    private $provider;
+    private ConditionConstraintProvider $provider;
 
     /**
      * @param ConditionConstraintProvider $provider

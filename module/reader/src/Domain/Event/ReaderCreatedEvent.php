@@ -24,35 +24,35 @@ class ReaderCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Reader\Domain\Entity\ReaderId")
      */
-    private $id;
+    private ReaderId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $type;
+    private string $type;
 
     /**
      * @var array
      *
      * @JMS\Type("array<string, string>")
      */
-    private $configuration;
+    private array $configuration;
 
     /**
      * @var FormatterInterface[]
      *
      * @JMS\Type("array<Ergonode\Importer\Infrastructure\Formatter\AbstractFormatter>")
      */
-    private $formatters;
+    private array $formatters;
 
     /**
      * @param ReaderId             $id

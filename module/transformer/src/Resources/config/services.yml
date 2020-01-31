@@ -37,15 +37,17 @@ services:
     Ergonode\Transformer\Infrastructure\JMS\Serializer\Handler\ConverterInterfaceHandler:
         calls:
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\TextConverter']]
-            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\TranslationConverter']]
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\SlugConverter']]
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\JoinConverter']]
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\DateConverter']]
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\ConstConverter']]
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\MappingConverter']]
-            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\CollectionConverter']]
-            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\SplitConverter']]
 
     Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface: '@Ergonode\Transformer\Persistence\Dbal\Repository\DbalTransformerRepository'
-    Ergonode\Transformer\Domain\Repository\ProcessorRepositoryInterface: '@Ergonode\Transformer\Persistence\Dbal\Repository\DbalProcessorRepository'
-    Ergonode\Transformer\Domain\Query\ProcessorQueryInterface: '@Ergonode\Transformer\Persistence\Dbal\Query\DbalProcessorQuery'
+
+    Ergonode\Transformer\Infrastructure\Action\ProductImportAction:
+        arguments:
+            $builders:
+                - '@Ergonode\Transformer\Infrastructure\Action\Builder\ImportProductAttributeBuilder'
+                - '@Ergonode\Transformer\Infrastructure\Action\Builder\ImportProductCategoryBuilder'
+                - '@Ergonode\Transformer\Infrastructure\Action\Builder\ImportProductTemplateBuilder'

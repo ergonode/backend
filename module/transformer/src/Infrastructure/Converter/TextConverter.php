@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter;
 
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,17 +18,16 @@ class TextConverter implements ConverterInterface
     public const TYPE = 'text';
 
     /**
-     * @var null|string
+     * @var string
      *
      * @JMS\Type("string")
-     *
      */
-    private $field;
+    private string $field;
 
     /**
-     * @param string|null $field
+     * @param string $field
      */
-    public function __construct(?string $field = null)
+    public function __construct(string $field)
     {
         $this->field = $field;
     }
@@ -46,20 +43,10 @@ class TextConverter implements ConverterInterface
     }
 
     /**
-     * @param array            $line
-     * @param string           $field
-     * @param StringValue|null $default
-     *
-     * @return ValueInterface|null
+     * @return string
      */
-    public function map(array $line, string $field, ?StringValue $default = null): ?ValueInterface
+    public function getField(): string
     {
-        $field = $this->field ?: $field;
-
-        if ('' !== $line[$field]) {
-            return new StringValue($line[$field]);
-        }
-
-        return $default;
+        return $this->field;
     }
 }

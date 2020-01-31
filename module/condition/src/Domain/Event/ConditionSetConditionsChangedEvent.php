@@ -25,21 +25,21 @@ class ConditionSetConditionsChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
-    private $id;
+    private ConditionSetId $id;
 
     /**
      * @var ConditionInterface[]
      *
      * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
-    private $from;
+    private array $from;
 
     /**
      * @var ConditionInterface[]
      *
      * @JMS\Type("array<Ergonode\Condition\Domain\ConditionInterface>")
      */
-    private $to;
+    private array $to;
 
     /**
      * @param ConditionSetId $id

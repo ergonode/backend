@@ -35,22 +35,22 @@ class CsvReaderProcessor implements ReaderProcessorInterface
     /**
      * @var int
      */
-    private $count = 0;
+    private int $count = 0;
 
     /**
      * @var array
      */
-    private $headers = [];
+    private array $headers = [];
 
     /**
      * @var array
      */
-    private $configuration;
+    private array $configuration;
 
     /**
      * @var FormatterInterface[]
      */
-    private $formatters;
+    private array $formatters;
 
     /**
      * @param string $file
@@ -119,6 +119,14 @@ class CsvReaderProcessor implements ReaderProcessorInterface
     public function getIterator(): \Traversable
     {
         return $this->read();
+    }
+
+    /**
+     * @return array
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
     }
 
     /**

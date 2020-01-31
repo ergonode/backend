@@ -99,6 +99,23 @@ class DbalSegmentQuery implements SegmentQueryInterface
     }
 
     /**
+     * @return array
+     */
+    public function getAllSegmentIds(): array
+    {
+        $query = $this->getQuery();
+        $result = $query->select('id')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return $result;
+        }
+
+        return [];
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder

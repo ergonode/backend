@@ -31,12 +31,12 @@ class AttributeImportAction implements ImportActionInterface
     /**
      * @var AttributeQueryInterface
      */
-    private $attributeQuery;
+    private AttributeQueryInterface $attributeQuery;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @param AttributeQueryInterface $attributeQuery

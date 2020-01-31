@@ -20,7 +20,7 @@ class UpdateConditionSetCommandHandler
     /**
      * @var ConditionSetRepositoryInterface
      */
-    private $repository;
+    private ConditionSetRepositoryInterface $repository;
 
     /**
      * @param ConditionSetRepositoryInterface $repository

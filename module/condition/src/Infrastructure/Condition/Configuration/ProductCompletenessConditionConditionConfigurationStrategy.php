@@ -21,7 +21,7 @@ class ProductCompletenessConditionConditionConfigurationStrategy implements Cond
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
 
     /**

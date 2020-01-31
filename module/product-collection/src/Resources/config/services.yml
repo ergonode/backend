@@ -1,0 +1,27 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+    
+    Ergonode\ProductCollection\Application\:
+        resource: '../../Application/*'
+        exclude: '../../Application/{DependencyInjection}'
+    
+    Ergonode\ProductCollection\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{Entity,ValueObject}'
+    
+    Ergonode\ProductCollection\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
+    Ergonode\ProductCollection\Persistence\:
+        resource: '../../Persistence/*'
+        
+    Ergonode\ProductCollection\Persistence\Dbal\Projector\:
+        resource: '../../Persistence/Dbal/Projector/*'
+        tags: ['messenger.message_handler']
+        
+    Ergonode\ProductCollection\Infrastructure\JMS\Serializer\Handler\:
+        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
+        tags: ['jms_serializer.subscribing_handler']

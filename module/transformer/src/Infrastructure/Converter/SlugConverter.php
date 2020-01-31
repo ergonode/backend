@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter;
 
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,16 +18,16 @@ class SlugConverter implements ConverterInterface
     public const TYPE = 'slug';
 
     /**
-     * @var string|null
+     * @var string
      *
      * @JMS\Type("string")
      */
-    private $field;
+    private string $field;
 
     /**
-     * @param null|string $field
+     * @param string $field
      */
-    public function __construct(?string $field = null)
+    public function __construct(string $field)
     {
         $this->field = $field;
     }
@@ -45,22 +43,10 @@ class SlugConverter implements ConverterInterface
     }
 
     /**
-     * @param array  $line
-     * @param string $field
-     *
-     * @return ValueInterface
+     * @return string
      */
-    public function map(array $line, string $field): ValueInterface
+    public function getField(): ?string
     {
-        $field = $this->field ?: $field;
-
-        $text = preg_replace('~[^\pL\d]+~u', '_', $line[$field]);
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-        $text = preg_replace('~[^_\w]+~', '', $text);
-        $text = trim($text, '_');
-        $text = preg_replace('~_+~', '_', $text);
-        $text = strtolower($text);
-
-        return new StringValue($text);
+        return $this->field;
     }
 }

@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter;
 
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -24,7 +22,7 @@ class JoinConverter implements ConverterInterface
      *
      * @JMS\Type("string")
      */
-    private $pattern;
+    private string $pattern;
 
     /**
      * @param string $pattern
@@ -45,18 +43,10 @@ class JoinConverter implements ConverterInterface
     }
 
     /**
-     * @param array  $line
-     * @param string $field
-     *
-     * @return ValueInterface
+     * @return string
      */
-    public function map(array $line, string $field): ValueInterface
+    public function getPattern(): string
     {
-        $fields = [];
-        foreach ($line as $key => $value) {
-            $fields[sprintf('<%s>', $key)] = $value;
-        }
-
-        return new StringValue(str_replace(array_keys($fields), $fields, $this->pattern));
+        return $this->pattern;
     }
 }

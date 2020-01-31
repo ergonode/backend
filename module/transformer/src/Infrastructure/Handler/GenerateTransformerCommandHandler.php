@@ -20,12 +20,12 @@ class GenerateTransformerCommandHandler
     /**
      * @var TransformerRepositoryInterface
      */
-    private $transformerRepository;
+    private TransformerRepositoryInterface $transformerRepository;
 
     /**
      * @var TransformerGenerator
      */
-    private $generator;
+    private TransformerGenerator $generator;
 
     /**
      * @param TransformerRepositoryInterface $transformerRepository

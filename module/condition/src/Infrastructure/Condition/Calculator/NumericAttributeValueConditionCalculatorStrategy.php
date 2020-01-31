@@ -23,7 +23,7 @@ class NumericAttributeValueConditionCalculatorStrategy implements ConditionCalcu
     /**
      * @var AttributeRepositoryInterface
      */
-    private $repository;
+    private AttributeRepositoryInterface $repository;
 
     /**
      * @param AttributeRepositoryInterface $repository

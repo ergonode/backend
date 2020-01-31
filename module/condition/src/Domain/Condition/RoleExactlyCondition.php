@@ -25,7 +25,7 @@ class RoleExactlyCondition implements ConditionInterface
      *
      * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
      */
-    private $role;
+    private RoleId $role;
 
     /**
      * @param RoleId $role

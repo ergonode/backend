@@ -4,6 +4,7 @@
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
  */
+
 declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Entity;
@@ -24,22 +25,22 @@ class Transformer extends AbstractAggregateRoot
     /**
      * @var TransformerId
      */
-    private $id;
+    private TransformerId $id;
 
     /**
      * @var string
      */
-    private $key;
+    private string $key;
 
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @var ConverterInterface[]
      */
-    private $converters;
+    private array $converters;
 
     /**
      * @param TransformerId $id

@@ -25,7 +25,7 @@ class EncodingFormatter implements FormatterInterface
      *
      * @JMS\Type("string")
      */
-    private $encoding;
+    private string $encoding;
 
     /**
      * @param string $encoding

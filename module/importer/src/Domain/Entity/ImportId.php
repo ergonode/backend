@@ -12,9 +12,7 @@ namespace Ergonode\Importer\Domain\Entity;
 use Ergonode\Core\Domain\Entity\AbstractId;
 
 /**
- * Class ImportId
  */
 class ImportId extends AbstractId
 {
-
 }

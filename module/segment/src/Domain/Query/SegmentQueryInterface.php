@@ -38,4 +38,9 @@ interface SegmentQueryInterface
      * @return bool
      */
     public function isExistsByCode(SegmentCode $segmentCode): bool;
+
+    /**
+     * @return array
+     */
+    public function getAllSegmentIds(): array;
 }

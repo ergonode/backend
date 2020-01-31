@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use Faker\Provider\Base as BaseProvider;
 

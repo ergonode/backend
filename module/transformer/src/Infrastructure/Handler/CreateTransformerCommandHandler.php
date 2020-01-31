@@ -20,12 +20,12 @@ class CreateTransformerCommandHandler
     /**
      * @var TransformerRepositoryInterface
      */
-    private $repository;
+    private TransformerRepositoryInterface $repository;
 
     /**
      * @var TransformerFactory
      */
-    private $factory;
+    private TransformerFactory $factory;
 
     /**
      * @param TransformerRepositoryInterface $repository

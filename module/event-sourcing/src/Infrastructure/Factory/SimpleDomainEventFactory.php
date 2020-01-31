@@ -22,7 +22,7 @@ class SimpleDomainEventFactory implements DomainEventFactoryInterface
     /**
      * @var SerializerInterface;
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * @param SerializerInterface $serializer

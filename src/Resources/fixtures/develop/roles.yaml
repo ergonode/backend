@@ -57,6 +57,10 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("SEGMENT_READ")>'
                 - '<privilege("SEGMENT_UPDATE")>'
                 - '<privilege("SEGMENT_DELETE")>'
+                - '<privilege("CHANNEL_CREATE")>'
+                - '<privilege("CHANNEL_READ")>'
+                - '<privilege("CHANNEL_UPDATE")>'
+                - '<privilege("CHANNEL_DELETE")>'
             - true
     admin_role:
         __construct:
@@ -116,6 +120,10 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("SEGMENT_READ")>'
                 - '<privilege("SEGMENT_UPDATE")>'
                 - '<privilege("SEGMENT_DELETE")>'
+                - '<privilege("CHANNEL_CREATE")>'
+                - '<privilege("CHANNEL_READ")>'
+                - '<privilege("CHANNEL_UPDATE")>'
+                - '<privilege("CHANNEL_DELETE")>'
     data_inputer_role:
         __construct:
             - '<roleId("Data inputer")>'

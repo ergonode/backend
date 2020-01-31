@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
 declare(strict_types = 1);
 
 namespace Ergonode\Migration;
@@ -88,7 +93,7 @@ final class Version20180719132703 extends AbstractErgonodeMigration
 
         $this->addType('TEXT', 'attribute', 'Text');
         $this->addType('NUMERIC', 'attribute', 'Numeric');
-        $this->addType('TEXTAREA', 'attribute', 'Textarea', 1, 1, 4, 10);
+        $this->addType('TEXT_AREA', 'attribute', 'Textarea', 1, 1, 4, 10);
         $this->addType('DATE', 'attribute', 'Date');
         $this->addType('SELECT', 'attribute', 'Select');
         $this->addType('MULTI_SELECT', 'attribute', 'Multi Select');

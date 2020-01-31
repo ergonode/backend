@@ -1,0 +1,27 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\ImporterMagento2\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\ImporterMagento2\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
+
+    Ergonode\ImporterMagento2\Infrastructure\Provider\AttributeProposalProvider:
+      arguments:
+        - '@Ergonode\ImporterMagento2\Infrastructure\Proposal\Strategy\NumericProposalStrategy'
+        - '@Ergonode\ImporterMagento2\Infrastructure\Proposal\Strategy\MultiSelectProposalStrategy'
+        - '@Ergonode\ImporterMagento2\Infrastructure\Proposal\Strategy\TextProposalStrategy'
+
+
+    Ergonode\ImporterMagento2\Infrastructure\Source\Magento2ImportSource:
+      arguments:
+        $directory: '%import_directory%'
+
+    Ergonode\Importer\Infrastructure\Service\Import\StartImportService:
+      arguments:
+        $directory: '%import_directory%'

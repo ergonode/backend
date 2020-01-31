@@ -13,7 +13,6 @@ use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Application\Form\Model\TransitionChangeFormModel;
 use Ergonode\Workflow\Application\Form\TransitionChangeForm;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
@@ -70,14 +69,14 @@ class TransitionChangeAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Source status code",
+     *     description="Source status id",
      * )
      * @SWG\Parameter(
      *     name="destination",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Destination status code",
+     *     description="Destination status id",
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -91,7 +90,7 @@ class TransitionChangeAction
      *     in="body",
      *     description="Update workflow",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/transition")
+     *     @SWG\Schema(ref="#/definitions/transition_update")
      * )
      * @SWG\Response(
      *     response=204,
@@ -133,8 +132,6 @@ class TransitionChangeAction
                     $workflow->getId(),
                     $source->getCode(),
                     $destination->getCode(),
-                    new TranslatableString($data->name),
-                    new TranslatableString($data->description),
                     $roles,
                     $data->conditionSet ? new ConditionSetId($data->conditionSet) : null
                 );

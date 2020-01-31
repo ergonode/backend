@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Tests\Domain\Command\Workflow;
 
 use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
@@ -36,12 +35,6 @@ class UpdateWorkflowTransitionCommandTest extends TestCase
         /** @var StatusCode | MockObject $destination */
         $destination = $this->createMock(StatusCode::class);
 
-        /** @var TranslatableString | MockObject $name */
-        $name = $this->createMock(TranslatableString::class);
-
-        /** @var TranslatableString | MockObject $description */
-        $description = $this->createMock(TranslatableString::class);
-
         /** @var RoleId[] | MockObject[] $roleIds */
         $roleIds = [$this->createMock(RoleId::class)];
 
@@ -52,8 +45,6 @@ class UpdateWorkflowTransitionCommandTest extends TestCase
             $workflowId,
             $source,
             $destination,
-            $name,
-            $description,
             $roleIds,
             $conditionSetId
         );
@@ -61,8 +52,6 @@ class UpdateWorkflowTransitionCommandTest extends TestCase
         $this->assertSame($workflowId, $command->getWorkflowId());
         $this->assertSame($source, $command->getSource());
         $this->assertSame($destination, $command->getDestination());
-        $this->assertSame($name, $command->getName());
-        $this->assertSame($description, $command->getDescription());
         $this->assertSame($roleIds, $command->getRoleIds());
         $this->assertSame($conditionSetId, $command->getConditionSetId());
     }

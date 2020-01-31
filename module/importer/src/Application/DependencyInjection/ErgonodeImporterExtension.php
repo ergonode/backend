@@ -13,6 +13,9 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceCompilerPass;
+use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceCompilerPass;
 
 /**
  */
@@ -30,6 +33,11 @@ class ErgonodeImporterExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../../Resources/config')
         );
+
+        $container
+            ->registerForAutoconfiguration(ImportSourceInterface::class)
+            ->addTag(SourceCompilerPass::TAG)
+            ->addTag(ServiceCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

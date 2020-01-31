@@ -21,12 +21,12 @@ class ReaderProvider
     /**
      * @var ReaderRepositoryInterface
      */
-    private $repository;
+    private ReaderRepositoryInterface $repository;
 
     /**
      * @var ReaderGenerator
      */
-    private $generator;
+    private ReaderGenerator $generator;
 
     /**
      * @param ReaderRepositoryInterface $repository

@@ -18,7 +18,7 @@ class DomainEventStream implements \IteratorAggregate, \Countable
     /**
      * @var DomainEventEnvelope[]
      */
-    private $events;
+    private array $events;
 
     /**
      * @param DomainEventEnvelope[] $events

@@ -10,11 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Infrastructure\Handler;
 
 use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
+use Ergonode\Multimedia\Domain\Factory\MultimediaFactory;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use Ergonode\Multimedia\Infrastructure\Service\Upload\MultimediaUploadService;
-use Ergonode\Multimedia\Domain\Factory\MultimediaFactory;
 
 /**
  */

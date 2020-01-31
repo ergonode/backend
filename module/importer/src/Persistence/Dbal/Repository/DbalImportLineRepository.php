@@ -15,7 +15,6 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Importer\Domain\Entity\ImportLine;
-use Ergonode\Importer\Domain\Entity\ImportLineId;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Persistence\Dbal\Repository\Factory\ImportLineFactory;
 use Ergonode\Importer\Persistence\Dbal\Repository\Mapper\ImportLineMapper;
@@ -26,25 +25,26 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
 {
     private const TABLE = 'importer.import_line';
     private const FIELDS = [
-        'id',
         'import_id',
         'line',
+        'content',
+        'message',
     ];
 
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @var ImportLineFactory
      */
-    private $factory;
+    private ImportLineFactory $factory;
 
     /**
      * @var ImportLineMapper
      */
-    private $mapper;
+    private ImportLineMapper $mapper;
 
     /**
      * @param Connection        $connection
@@ -59,13 +59,42 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
     }
 
     /**
+     * @param ImportId $importId
+     * @param int      $line
+     *
+     * @return ImportLine|null
+     *
+     * @throws \ReflectionException
+     */
+    public function load(ImportId $importId, int $line): ?ImportLine
+    {
+        $qb = $this->getQuery();
+        $record = $qb
+            ->andWhere($qb->expr()->eq('import_id', ':id'))
+            ->andWhere($qb->expr()->eq('line', ':line'))
+            ->setParameter(':id', $importId->getValue())
+            ->setParameter(':line', $line)
+            ->orderBy('line', 'ASC')
+            ->execute()
+            ->fetch();
+
+
+
+        if ($record) {
+            return $this->factory->create($record);
+        }
+
+        return null;
+    }
+
+    /**
      * @param ImportLine $importLine
      *
      * @throws DBALException
      */
     public function save(ImportLine $importLine): void
     {
-        if ($this->exists($importLine->getId())) {
+        if ($this->exists($importLine->getImportId(), $importLine->getLine())) {
             $this->update($importLine);
         } else {
             $this->insert($importLine);
@@ -73,17 +102,20 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
     }
 
     /**
-     * @param ImportLineId $id
+     * @param ImportId $id
+     * @param int      $line
      *
      * @return bool
      */
-    public function exists(ImportLineId $id): bool
+    public function exists(ImportId $id, int $line): bool
     {
         $query = $this->connection->createQueryBuilder();
         $result = $query->select(1)
             ->from(self::TABLE)
-            ->where($query->expr()->eq('id', ':id'))
+            ->andWhere($query->expr()->eq('import_id', ':id'))
+            ->andWhere($query->expr()->eq('line', ':line'))
             ->setParameter(':id', $id->getValue())
+            ->setParameter(':line', $line)
             ->execute()
             ->rowCount();
 
@@ -95,17 +127,18 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
     }
 
     /**
-     * @param ImportLine $importLine
+     * @param ImportId $importId
+     * @param int      $line
      *
      * @throws DBALException
-     * @throws \InvalidArgumentException
      */
-    public function remove(ImportLine $importLine): void
+    public function remove(ImportId $importId, int $line): void
     {
         $this->connection->delete(
             self::TABLE,
             [
-                'id' => (string) $importLine->getId(),
+                'import_id' => $importId->getValue(),
+                'line' => $line,
             ]
         );
     }
@@ -124,7 +157,8 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
             self::TABLE,
             $importLineArray,
             [
-                'id' => (string) $importLine->getId(),
+                'import_id' => $importLine->getImportId()->getValue(),
+                'line' => $importLine->getLine(),
             ]
         );
     }
@@ -158,7 +192,7 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
         $qb = $this->getQuery();
         $records = $qb->where($qb->expr()->eq('import_id', ':id'))
             ->setParameter(':id', $id->getValue())
-            ->orderBy('lp', 'ASC')
+            ->orderBy('line', 'ASC')
             ->execute()
             ->fetchAll();
 
@@ -168,6 +202,24 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param ImportId $id
+     *
+     * @return array
+     */
+    public function getKeys(ImportId $id): array
+    {
+        $qb = $this->getQuery();
+        $record = $qb->where($qb->expr()->eq('import_id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->orderBy('lp', 'ASC')
+            ->execute()
+            ->fetch();
+
+
+        return array_keys($record);
     }
 
     /**

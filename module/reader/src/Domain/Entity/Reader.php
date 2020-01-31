@@ -21,27 +21,27 @@ class Reader extends AbstractAggregateRoot
     /**
      * @var ReaderId
      */
-    private $id;
+    private ReaderId $id;
 
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      */
-    private $type;
+    private string $type;
 
     /**
      * @var array
      */
-    private $configuration;
+    private array $configuration;
 
     /**
      * @var FormatterInterface[]
      */
-    private $formatters;
+    private array $formatters;
 
     /**
      * @param ReaderId             $id
@@ -49,6 +49,8 @@ class Reader extends AbstractAggregateRoot
      * @param string               $type
      * @param string[]             $configuration
      * @param FormatterInterface[] $formatters
+     *
+     * @throws \Exception
      */
     public function __construct(
         ReaderId $id,
