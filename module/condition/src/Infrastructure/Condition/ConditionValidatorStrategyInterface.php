@@ -28,4 +28,11 @@ interface ConditionValidatorStrategyInterface
      * @return Constraint
      */
     public function build(array $data): Constraint;
+
+    /**
+     * Returned class must implement same properties as validated object in the build
+     *
+     * @return string
+     */
+    public function getValidatedClass(): string;
 }

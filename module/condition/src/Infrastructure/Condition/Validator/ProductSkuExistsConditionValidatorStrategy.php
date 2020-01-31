@@ -87,4 +87,12 @@ class ProductSkuExistsConditionValidatorStrategy implements ConditionValidatorSt
                 ->addViolation();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValidatedClass(): string
+    {
+        return ProductSkuExistsCondition::class;
+    }
 }
