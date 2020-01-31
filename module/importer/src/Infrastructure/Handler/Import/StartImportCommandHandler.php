@@ -27,7 +27,7 @@ class StartImportCommandHandler
     /**
      * @var StartImportService
      */
-    private $service;
+    private StartImportService $service;
 
     /**
      * @param ImportRepositoryInterface $repository

@@ -17,6 +17,7 @@ use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Ergonode\Transformer\Infrastructure\Process\TransformProcess;
 use Ergonode\Transformer\Infrastructure\Provider\ImportActionProvider;
 use Webmozart\Assert\Assert;
+use Ergonode\Importer\Domain\Entity\ImportLine;
 
 /**
  */
@@ -75,18 +76,17 @@ class ProcessImportCommandHandler
      */
     public function __invoke(ProcessImportCommand $command)
     {
+        $startTime = microtime(true);
         $importId = $command->getImportId();
         $lineNumber = $command->getLine();
         $content = $command->getRow();
 
-        $line = $this->repository->load($importId, $lineNumber);
-        Assert::notNull($line);
+        $line = new ImportLine($importId, $lineNumber, json_encode($content, JSON_THROW_ON_ERROR, 512));
 
         try {
             $import = $this->importerRepository->load($command->getImportId());
             Assert::isInstanceOf($import, Import::class);
             $transformer = $this->transformerRepository->load($import->getTransformerId());
-
 
             if (!$transformer) {
                 throw new \RuntimeException(sprintf('Can\'t find transformer %s', $import->getTransformerId()));
@@ -104,6 +104,9 @@ class ProcessImportCommandHandler
         } catch (\Throwable $exception) {
             $line->addError($exception->getMessage());
         }
+        $endTime = microtime(true);
+        $executionTime = ($endTime - $startTime);
+        echo (new \DateTime())->format('H:i:s:v').' : '.round($executionTime, 4).PHP_EOL;
 
         $this->repository->save($line);
     }

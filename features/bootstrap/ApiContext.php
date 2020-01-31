@@ -193,6 +193,14 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     }
 
     /**
+     * @Then /^sleep$/
+     */
+    public function sleep(): void
+    {
+        sleep(1);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function assertResponseCodeIs($code): void

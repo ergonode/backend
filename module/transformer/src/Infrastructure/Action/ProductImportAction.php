@@ -51,9 +51,9 @@ class ProductImportAction implements ImportActionInterface
     private array $builders;
 
     /**
-     * @param ProductRepositoryInterface $productRepository
-     * @param ProductQueryInterface $productQuery
-     * @param CommandBusInterface $commandBus
+     * @param ProductRepositoryInterface            $productRepository
+     * @param ProductQueryInterface                 $productQuery
+     * @param CommandBusInterface                   $commandBus
      * @param array|ProductImportBuilderInterface[] $builders
      */
     public function __construct(

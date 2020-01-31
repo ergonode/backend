@@ -2,13 +2,14 @@ Feature: Category module
 
   Scenario: Upload magento 1 test import file
     Given current authentication token
-    And I attach "module/importer-magento-1/features/magento-1-test.csv" to the request as upload
+    And I attach "module/importer-magento-1/features/m1.csv" to the request as upload
     And the following form parameters are set:
       | name | value                  |
       | source_type | magento-1-csv |
     When I request "/api/v1/EN/imports/upload" using HTTP POST
     Then created response is received
     And remember response param "id" as "source_id"
+    And sleep
 
   Scenario: Get magento 1 configuration for given source
     Given current authentication token

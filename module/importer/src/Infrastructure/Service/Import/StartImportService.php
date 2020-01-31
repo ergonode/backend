@@ -91,9 +91,6 @@ class StartImportService
         $i = 0;
         foreach ($fileReader->read() as $key => $row) {
             $i++;
-            $line = new ImportLine($import->getId(), $i, json_encode($row, JSON_THROW_ON_ERROR, 512));
-
-            $this->lineRepository->save($line);
             $command = new ProcessImportCommand($import->getId(), $i, $row, ProductImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }

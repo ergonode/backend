@@ -28,8 +28,8 @@ class Record
     }
 
     /**
-     * @param string $collection
-     * @param string $name
+     * @param string              $collection
+     * @param string              $name
      * @param ValueInterface|null $value
      */
     public function add(string $collection, string $name, ?ValueInterface $value = null): void

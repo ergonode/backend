@@ -31,8 +31,8 @@ class MultilingualTextConverterMapper implements ConverterMapperInterface
 
     /**
      * @param ConverterInterface|MultilingualTextConverter $converter
-     * @param array                            $line
-     * @param string|null                      $default
+     * @param array                                        $line
+     * @param string|null                                  $default
      *
      * @return ValueInterface|null
      */
