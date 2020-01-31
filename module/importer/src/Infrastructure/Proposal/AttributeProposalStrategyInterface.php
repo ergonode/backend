@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ImporterMagento2\Infrastructure\Proposal;
+namespace Ergonode\Importer\Infrastructure\Proposal;
 
 /**
  */

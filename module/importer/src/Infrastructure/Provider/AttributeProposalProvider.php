@@ -6,9 +6,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ImporterMagento2\Infrastructure\Provider;
+namespace Ergonode\Importer\Infrastructure\Provider;
 
-use Ergonode\ImporterMagento2\Infrastructure\Proposal\AttributeProposalStrategyInterface;
+use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
 
 /**
  */

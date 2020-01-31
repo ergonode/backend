@@ -4,14 +4,18 @@ services:
             autoconfigure: true
             public: false
 
-    Ergonode\ImporterMagento2\Application\:
+    Ergonode\ImporterMagento1\Application\:
         resource: '../../Application/*'
 
-    Ergonode\ImporterMagento2\Infrastructure\:
-        resource: '../../Infrastructure/*'
+    Ergonode\ImporterMagento1\Domain\:
+      resource: '../../Domain/*'
+      exclude: '../../Domain/{Entity}'
+
+    Ergonode\ImporterMagento1\Infrastructure\:
+      resource: '../../Infrastructure/*'
 
 
-    Ergonode\ImporterMagento2\Infrastructure\Source\Magento2ImportSource:
+    Ergonode\ImporterMagento1\Infrastructure\Source\Magento1ImportSource:
       arguments:
         $directory: '%import_directory%'
 

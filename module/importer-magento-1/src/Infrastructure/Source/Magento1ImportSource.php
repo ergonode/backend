@@ -6,21 +6,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ImporterMagento2\Infrastructure\Source;
+namespace Ergonode\ImporterMagento1\Infrastructure\Source;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Importer\Infrastructure\Builder\ImportConfigurationBuilder;
 use Ergonode\Importer\Infrastructure\Configuration\ImportConfiguration;
 use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
-use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
+use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor;
-
 
 /**
  */
-class Magento2ImportSource implements ImportSourceInterface
+class Magento1ImportSource implements ImportSourceInterface
 {
-    public const TYPE = 'magento-2-csv';
+    public const TYPE = 'magento-1-csv';
 
     /**
      * @var CsvReaderProcessor
@@ -68,7 +67,7 @@ class Magento2ImportSource implements ImportSourceInterface
     }
 
     /**
-     * @param AbstractSource|Magento2CsvSource $source
+     * @param AbstractSource|Magento1CsvSource $source
      *
      * @return ImportConfiguration
      *

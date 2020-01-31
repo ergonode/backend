@@ -6,16 +6,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ImporterMagento2\Infrastructure\Builder;
+namespace Ergonode\Importer\Infrastructure\Builder;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\ImporterMagento2\Infrastructure\Provider\AttributeProposalProvider;
-use Ergonode\ImporterMagento2\Infrastructure\Configuration\ImportConfiguration;
-use Ergonode\ImporterMagento2\Infrastructure\Configuration\Column\ProposalColumn;
-use Ergonode\ImporterMagento2\Infrastructure\Configuration\Column\AttributeColumn;
-use Ergonode\ImporterMagento2\Infrastructure\Configuration\Column\ConfigurationColumnInterface;
+use Ergonode\Importer\Infrastructure\Provider\AttributeProposalProvider;
+use Ergonode\Importer\Infrastructure\Configuration\ImportConfiguration;
+use Ergonode\Importer\Infrastructure\Configuration\Column\ProposalColumn;
+use Ergonode\Importer\Infrastructure\Configuration\Column\AttributeColumn;
+use Ergonode\Importer\Infrastructure\Configuration\Column\ConfigurationColumnInterface;
 
 /**
  */

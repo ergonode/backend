@@ -43,3 +43,9 @@ services:
     Ergonode\Importer\Application\Service\Upload\UploadService:
         arguments:
             $targetDirectory: '%import_directory%'
+
+    Ergonode\Importer\Infrastructure\Provider\AttributeProposalProvider:
+        arguments:
+            - '@Ergonode\Importer\Infrastructure\Proposal\Strategy\NumericProposalStrategy'
+            - '@Ergonode\Importer\Infrastructure\Proposal\Strategy\MultiSelectProposalStrategy'
+            - '@Ergonode\Importer\Infrastructure\Proposal\Strategy\TextProposalStrategy'

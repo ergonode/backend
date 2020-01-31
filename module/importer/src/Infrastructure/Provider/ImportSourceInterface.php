@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Infrastructure\Provider;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\ImporterMagento2\Infrastructure\Configuration\ImportConfiguration;
+use Ergonode\Importer\Infrastructure\Configuration\ImportConfiguration;
 
 /**
  */

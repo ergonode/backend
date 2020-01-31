@@ -6,9 +6,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ImporterMagento2\Infrastructure\Configuration;
+namespace Ergonode\Importer\Infrastructure\Configuration;
 
-use Ergonode\ImporterMagento2\Infrastructure\Configuration\Column\ConfigurationColumnInterface;
+use Ergonode\Importer\Infrastructure\Configuration\Column\ConfigurationColumnInterface;
 
 /**
  */

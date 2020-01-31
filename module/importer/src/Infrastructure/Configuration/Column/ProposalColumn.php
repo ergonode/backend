@@ -6,18 +6,28 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ImporterMagento2\Infrastructure\Configuration\Column;
+namespace Ergonode\Importer\Infrastructure\Configuration\Column;
 
 /**
  */
-class AttributeColumn implements ConfigurationColumnInterface
+class ProposalColumn implements ConfigurationColumnInterface
 {
-    public const TYPE = 'ATTRIBUTE';
+    public const TYPE = 'PROPOSAL';
 
     /**
      * @var string
      */
     private string $field;
+
+    /**
+     * @var bool
+     */
+    private bool $imported;
+
+    /**
+     * @var string
+     */
+    private string $attributeType;
 
     /**
      * @var string
@@ -32,11 +42,14 @@ class AttributeColumn implements ConfigurationColumnInterface
     /**
      * @param string $field
      * @param string $attributeCode
+     * @param string $attributeType
      */
-    public function __construct(string $field, string $attributeCode)
+    public function __construct(string $field, string $attributeCode, string $attributeType)
     {
         $this->field = $field;
+        $this->imported = true;
         $this->attributeCode = $attributeCode;
+        $this->attributeType = $attributeType;
     }
 
     /**
@@ -48,6 +61,14 @@ class AttributeColumn implements ConfigurationColumnInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isImported(): bool
+    {
+        return $this->imported;
+    }
+
+    /**
      * @return string
      */
     public function getAttributeCode(): string
@@ -56,10 +77,10 @@ class AttributeColumn implements ConfigurationColumnInterface
     }
 
     /**
-     * @return bool
+     * @return string
      */
-    public function isImported(): bool
+    public function getAttributeType(): string
     {
-        return true;
+        return $this->attributeType;
     }
 }

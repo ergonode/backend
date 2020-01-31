@@ -6,10 +6,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ImporterMagento2\Infrastructure\Proposal\Strategy;
+namespace Ergonode\Importer\Infrastructure\Proposal\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
-use Ergonode\ImporterMagento2\Infrastructure\Proposal\AttributeProposalStrategyInterface;
+use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
 
 /**
  */

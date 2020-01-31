@@ -6,14 +6,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ImporterMagento2\Infrastructure\Proposal\Strategy;
+namespace Ergonode\Importer\Infrastructure\Proposal\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractNumericAttribute;
-use Ergonode\ImporterMagento2\Infrastructure\Proposal\AttributeProposalStrategyInterface;
+use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
 
 /**
  */
-class NumericProposalStrategy implements AttributeProposalStrategyInterface
+class TextProposalStrategy implements AttributeProposalStrategyInterface
 {
     /**
      * @param string $name
@@ -24,7 +24,7 @@ class NumericProposalStrategy implements AttributeProposalStrategyInterface
     public function support(string $name, array $values): bool
     {
         foreach ($values as $value) {
-            if (!is_numeric($value)) {
+            if (!is_string($value)) {
                 return false;
             }
         }

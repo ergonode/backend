@@ -10,23 +10,30 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Infrastructure\Handler\Source;
 
 use Ergonode\Importer\Domain\Command\Source\CreateSourceCommand;
+use Ergonode\Importer\Domain\Provider\SourceFactoryProvider;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
-use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 
 /**
  */
 class CreateSourceCommandHandler
 {
     /**
+     * @var SourceFactoryProvider
+     */
+    private SourceFactoryProvider $provider;
+
+    /**
      * @var SourceRepositoryInterface
      */
     private SourceRepositoryInterface $repository;
 
     /**
+     * @param SourceFactoryProvider     $provider
      * @param SourceRepositoryInterface $repository
      */
-    public function __construct(SourceRepositoryInterface $repository)
+    public function __construct(SourceFactoryProvider $provider, SourceRepositoryInterface $repository)
     {
+        $this->provider = $provider;
         $this->repository = $repository;
     }
 
@@ -37,7 +44,9 @@ class CreateSourceCommandHandler
      */
     public function __invoke(CreateSourceCommand $command)
     {
-        $source = new Magento2CsvSource(
+        $factory = $this->provider->provide($command->getSourceType());
+
+        $source = $factory->create(
             $command->getId(),
             $command->getFilename(),
         );
