@@ -32,28 +32,28 @@ class Category extends AbstractAggregateRoot
      *
      * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
      */
-    private $id;
+    private CategoryId $id;
 
     /**
      * @var CategoryCode
      *
      * @JMS\Type("Ergonode\Category\Domain\ValueObject\CategoryCode")
      */
-    private $code;
+    private CategoryCode $code;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @var ValueInterface[]
      *
      * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
-    private $attributes;
+    private array $attributes;
 
     /**
      * @param CategoryId         $id

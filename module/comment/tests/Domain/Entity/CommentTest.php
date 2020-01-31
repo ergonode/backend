@@ -37,7 +37,7 @@ class CommentTest extends TestCase
     /**
      * @var string
      */
-    private $content;
+    private string $content;
 
     /**
      */

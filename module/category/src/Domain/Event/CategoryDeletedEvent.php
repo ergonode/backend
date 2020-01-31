@@ -23,7 +23,7 @@ class CategoryDeletedEvent extends AbstractDeleteEvent
      *
      * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
      */
-    private $id;
+    private CategoryId $id;
 
     /**
      * @param CategoryId $id

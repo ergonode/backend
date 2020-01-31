@@ -23,28 +23,28 @@ class CommentContentChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Comment\Domain\Entity\CommentId")
      */
-    private $id;
+    private CommentId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $from;
+    private string $from;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $to;
+    private string $to;
 
     /**
      * @var \DateTime
      *
      * @JMS\Type("DateTime")
      */
-    private $editedAt;
+    private \DateTime $editedAt;
 
     /**
      * @param CommentId $id

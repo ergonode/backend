@@ -33,12 +33,12 @@ class CommentDeleteAction
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $userProvider;
+    private AuthenticatedUserProviderInterface $userProvider;
 
     /**
      * @param MessageBusInterface                $messageBus

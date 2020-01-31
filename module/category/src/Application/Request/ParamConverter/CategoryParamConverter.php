@@ -25,7 +25,7 @@ class CategoryParamConverter implements ParamConverterInterface
     /**
      * @var CategoryRepositoryInterface
      */
-    private $categoryRepository;
+    private CategoryRepositoryInterface $categoryRepository;
 
     /**
      * @param CategoryRepositoryInterface $categoryRepository

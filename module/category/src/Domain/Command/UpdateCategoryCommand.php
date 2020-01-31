@@ -23,14 +23,14 @@ class UpdateCategoryCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
      */
-    private $id;
+    private CategoryId $id;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @param CategoryId         $id

@@ -25,7 +25,7 @@ class CategorySystemAttributeColumnBuilderStrategy implements AttributeColumnStr
     /**
      * @var CategoryQueryInterface
      */
-    private $query;
+    private CategoryQueryInterface $query;
 
     /**
      * @param CategoryQueryInterface $query

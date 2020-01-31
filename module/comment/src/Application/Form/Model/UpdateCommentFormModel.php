@@ -21,5 +21,13 @@ class UpdateCommentFormModel
      * @Assert\NotBlank(),
      * @Assert\Length(max=4000, maxMessage="Comment to long, max length is {{ limit }} characters")
      */
-    public $content;
+    public ?string $content;
+
+    /**
+     * UpdateCommentFormModel constructor.
+     */
+    public function __construct()
+    {
+        $this->content = null;
+    }
 }

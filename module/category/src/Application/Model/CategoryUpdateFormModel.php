@@ -23,5 +23,12 @@ class CategoryUpdateFormModel
      *     @Assert\Length(max=32, maxMessage="Category name is to long, It should have {{ limit }} character or less.")
      * })
      */
-    public $name;
+    public array $name;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->name = [];
+    }
 }

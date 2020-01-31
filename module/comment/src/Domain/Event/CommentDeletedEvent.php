@@ -23,7 +23,7 @@ class CommentDeletedEvent extends AbstractDeleteEvent
      *
      * @JMS\Type("Ergonode\Comment\Domain\Entity\CommentId")
      */
-    private $id;
+    private CommentId $id;
 
     /**
      * @param CommentId $id

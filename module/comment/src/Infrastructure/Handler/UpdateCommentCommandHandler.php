@@ -20,7 +20,7 @@ class UpdateCommentCommandHandler
     /**
      * @var CommentRepositoryInterface $repository
      */
-    private $repository;
+    private CommentRepositoryInterface $repository;
 
     /**
      * @param CommentRepositoryInterface $repository

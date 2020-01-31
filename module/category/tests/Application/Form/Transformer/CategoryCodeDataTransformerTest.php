@@ -21,7 +21,7 @@ class CategoryCodeDataTransformerTest extends TestCase
     /**
      * @var CategoryCodeDataTransformer
      */
-    protected $transformer;
+    protected CategoryCodeDataTransformer $transformer;
 
     /**
      */

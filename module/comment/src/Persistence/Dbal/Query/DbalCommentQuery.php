@@ -26,7 +26,7 @@ class DbalCommentQuery implements CommentQueryInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection
