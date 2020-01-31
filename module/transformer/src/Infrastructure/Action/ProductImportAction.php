@@ -16,12 +16,13 @@ use Ergonode\Product\Domain\Provider\ProductFactoryProvider;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
 use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Infrastructure\Action\Builder\ProductImportBuilderInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Product\Domain\Command\CreateProductCommand;
 
 /**
  */
@@ -40,9 +41,9 @@ class ProductImportAction implements ImportActionInterface
     private ProductQueryInterface $productQuery;
 
     /**
-     * @var ProductFactoryProvider
+     * @var CommandBusInterface
      */
-    private ProductFactoryProvider $productFactoryProvider;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var ProductImportBuilderInterface ...$builders
@@ -50,20 +51,20 @@ class ProductImportAction implements ImportActionInterface
     private array $builders;
 
     /**
-     * @param ProductRepositoryInterface    $productRepository
-     * @param ProductQueryInterface         $productQuery
-     * @param ProductFactoryProvider        $productFactoryProvider
-     * @param ProductImportBuilderInterface ...$builders
+     * @param ProductRepositoryInterface $productRepository
+     * @param ProductQueryInterface $productQuery
+     * @param CommandBusInterface $commandBus
+     * @param array|ProductImportBuilderInterface[] $builders
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         ProductQueryInterface $productQuery,
-        ProductFactoryProvider $productFactoryProvider,
-        ProductImportBuilderInterface ...$builders
+        CommandBusInterface $commandBus,
+        $builders
     ) {
         $this->productRepository = $productRepository;
         $this->productQuery = $productQuery;
-        $this->productFactoryProvider = $productFactoryProvider;
+        $this->commandBus = $commandBus;
         $this->builders = $builders;
     }
 
@@ -74,7 +75,7 @@ class ProductImportAction implements ImportActionInterface
      */
     public function action(Record $record): void
     {
-        $sku = $record->get('sku') ? new Sku($record->get('sku')) : null;
+        $sku = $record->get('sku') ? new Sku($record->get('sku')->getValue()) : null;
         Assert::notNull($sku, 'product import required "sku" field not exists');
 
         $importedProduct = new ImportedProduct($sku->getValue());
@@ -86,12 +87,13 @@ class ProductImportAction implements ImportActionInterface
         $productData = $this->productQuery->findBySku($sku);
 
         if (!$productData) {
-            $product = $this->productFactoryProvider->provide(SimpleProduct::TYPE)->create(
+            $command = new CreateProductCommand(
                 ProductId::generate(),
                 $sku,
                 $importedProduct->categories,
                 $importedProduct->attributes,
             );
+            $this->commandBus->dispatch($command);
         } else {
             $product = $this->productRepository->load(new ProductId($productData['id']));
             if (!$product) {
@@ -112,9 +114,8 @@ class ProductImportAction implements ImportActionInterface
                     $product->removeFromCategory($category);
                 }
             }
+            $this->productRepository->save($product);
         }
-
-        $this->productRepository->save($product);
     }
 
     /**

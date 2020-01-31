@@ -11,6 +11,8 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\SlugConverter;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 
 /**
  */
@@ -31,19 +33,23 @@ class SlugConverterMapper implements ConverterMapperInterface
      * @param array                            $line
      * @param string|null                      $default
      *
-     * @return string|null
+     * @return ValueInterface
      */
-    public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
+    public function map(ConverterInterface $converter, array $line, ?string $default = null): ?ValueInterface
     {
         $field = $converter->getField();
 
-        $text = preg_replace('~[^\pL\d]+~u', '_', $line[$field]);
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-        $text = preg_replace('~[^_\w]+~', '', $text);
-        $text = trim($text, '_');
-        $text = preg_replace('~_+~', '_', $text);
-        $text = strtolower($text);
+        if ($field && '' !== $field) {
+            $text = preg_replace('~[^\pL\d]+~u', '_', $line[$field]);
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+            $text = preg_replace('~[^_\w]+~', '', $text);
+            $text = trim($text, '_');
+            $text = preg_replace('~_+~', '_', $text);
+            $text = strtolower($text);
 
-        return $text;
+            return new StringValue($text);
+        }
+
+        return $default ? new StringValue($default) : null;
     }
 }

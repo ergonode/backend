@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
  */
@@ -26,7 +27,7 @@ interface ConverterMapperInterface
      * @param array              $line
      * @param string|null        $default
      *
-     * @return string|null
+     * @return ValueInterface|null
      */
-    public function map(ConverterInterface $converter, array $line, string $default = null): ?string;
+    public function map(ConverterInterface $converter, array $line, string $default = null): ?ValueInterface;
 }

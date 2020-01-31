@@ -12,6 +12,8 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\DateConverter;
 use Ergonode\Transformer\Infrastructure\Exception\ConverterException;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 
 /**
  */
@@ -32,11 +34,11 @@ class DateConverterMapper implements ConverterMapperInterface
      * @param array                            $line
      * @param string|null                      $default
      *
-     * @return string|null
+     * @return ValueInterface|null
      *
      * @throws \Exception
      */
-    public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
+    public function map(ConverterInterface $converter, array $line, ?string $default = null): ?ValueInterface
     {
         $field = $converter->getField();
 
@@ -47,6 +49,6 @@ class DateConverterMapper implements ConverterMapperInterface
 
         $result = new \DateTime('@'.$result);
 
-        return $result->format($converter->getFormat());
+        return new StringValue($result->format($converter->getFormat()));
     }
 }

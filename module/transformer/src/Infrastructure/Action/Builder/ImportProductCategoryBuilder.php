@@ -15,7 +15,6 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Webmozart\Assert\Assert;
 
 /**
  */
@@ -46,12 +45,12 @@ class ImportProductCategoryBuilder implements ProductImportBuilderInterface
     {
         if ($record->hasColumns('categories')) {
             foreach ($record->getColumns('categories') as $key => $value) {
-                if ($value instanceof StringValue && !empty($value->getValue())) {
+                if ($value instanceof StringValue) {
                     $categoryCode = new CategoryCode($value->getValue());
                     $categoryId = CategoryId::fromCode($categoryCode);
-                    $category = $this->repository->load($categoryId);
-                    Assert::notNull($category);
-                    $product->categories[$value->getValue()] = $category->getCode();
+                    if ($this->repository->exists($categoryId)) {
+                        $product->categories[$value->getValue()] = $categoryCode;
+                    }
                 }
             }
         }

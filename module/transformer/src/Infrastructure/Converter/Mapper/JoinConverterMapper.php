@@ -11,6 +11,8 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 
 /**
  */
@@ -31,15 +33,17 @@ class JoinConverterMapper implements ConverterMapperInterface
      * @param array                            $line
      * @param string|null                      $default
      *
-     * @return string|null
+     * @return ValueInterface|null
      */
-    public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
+    public function map(ConverterInterface $converter, array $line, ?string $default = null): ?ValueInterface
     {
         $fields = [];
         foreach ($line as $key => $value) {
             $fields[sprintf('<%s>', $key)] = $value;
         }
 
-        return str_replace(array_keys($fields), $fields, $converter->getPattern());
+        $result = str_replace(array_keys($fields), $fields, $converter->getPattern());
+
+        return new StringValue($result);
     }
 }
