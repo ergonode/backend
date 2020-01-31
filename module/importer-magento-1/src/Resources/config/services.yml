@@ -1,0 +1,24 @@
+services:
+    _defaults:
+            autowire: true
+            autoconfigure: true
+            public: false
+
+    Ergonode\ImporterMagento1\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\ImporterMagento1\Domain\:
+      resource: '../../Domain/*'
+      exclude: '../../Domain/{Entity}'
+
+    Ergonode\ImporterMagento1\Infrastructure\:
+      resource: '../../Infrastructure/*'
+
+
+    Ergonode\ImporterMagento1\Infrastructure\Source\Magento1ImportSource:
+      arguments:
+        $directory: '%import_directory%'
+
+    Ergonode\Importer\Infrastructure\Service\Import\StartImportService:
+      arguments:
+        $directory: '%import_directory%'

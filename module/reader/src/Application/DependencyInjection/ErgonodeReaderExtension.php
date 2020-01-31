@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Application\DependencyInjection;
 
-use Ergonode\Reader\Application\DependencyInjection\CompilerPass\ReaderGeneratorStrategyCompilerPass;
-use Ergonode\Reader\Domain\Generator\ReaderGeneratorStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -32,10 +30,6 @@ class ErgonodeReaderExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../../Resources/config')
         );
-
-        $container
-            ->registerForAutoconfiguration(ReaderGeneratorStrategyInterface::class)
-            ->addTag(ReaderGeneratorStrategyCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

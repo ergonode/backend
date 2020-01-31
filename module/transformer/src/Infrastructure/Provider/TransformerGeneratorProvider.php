@@ -36,11 +36,11 @@ class TransformerGeneratorProvider
     public function provide(string $type): TransformerGeneratorStrategyInterface
     {
         foreach ($this->strategies as $strategy) {
-            if (strtoupper($type) === $strategy->getType()) {
+            if ($type === $strategy->getType()) {
                 return $strategy;
             }
         }
 
-        throw new \RuntimeException(sprintf('Can\'t find transformer %s generator', $type));
+        throw new \RuntimeException(sprintf('Can\'t find transformer "%s" generator', $type));
     }
 }

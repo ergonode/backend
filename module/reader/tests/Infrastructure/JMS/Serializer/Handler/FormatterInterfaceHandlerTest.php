@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Reader\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Reader\Domain\Formatter\EncodingFormatter;
-use Ergonode\Reader\Domain\Formatter\ReplaceFormatter;
-use Ergonode\Reader\Domain\FormatterInterface;
+use Ergonode\Reader\Infrastructure\Formatter\EncodingFormatter;
+use Ergonode\Reader\Infrastructure\Formatter\ReplaceFormatter;
+use Ergonode\Reader\Infrastructure\FormatterInterface;
 use Ergonode\Reader\Infrastructure\JMS\Serializer\Handler\FormatterInterfaceHandler;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
@@ -25,7 +25,7 @@ class FormatterInterfaceHandlerTest extends TestCase
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      */

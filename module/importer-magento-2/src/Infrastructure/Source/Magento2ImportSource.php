@@ -9,11 +9,11 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento2\Infrastructure\Source;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
+use Ergonode\Importer\Infrastructure\Builder\ImportConfigurationBuilder;
+use Ergonode\Importer\Infrastructure\Configuration\ImportConfiguration;
 use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 use Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor;
-use Ergonode\ImporterMagento2\Infrastructure\Builder\ImportConfigurationBuilder;
-use Ergonode\ImporterMagento2\Infrastructure\Configuration\ImportConfiguration;
 
 /**
  */

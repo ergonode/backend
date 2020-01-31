@@ -39,6 +39,8 @@ class CreateTransformerCommandHandler
 
     /**
      * @param CreateTransformerCommand $command
+     *
+     * @throws \Exception
      */
     public function __invoke(CreateTransformerCommand $command)
     {

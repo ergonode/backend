@@ -7,9 +7,9 @@
 
 namespace Ergonode\Reader\Tests\Infrastructure\Provider;
 
-use Ergonode\Reader\Infrastructure\Processor\ReaderProcessorInterface;
 use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Reader\Infrastructure\ReaderProcessorInterface;
 
 /**
  */
@@ -21,7 +21,7 @@ class ReaderProcessorProviderTest extends TestCase
     public function testProviderNotFoundReader(): void
     {
         $provider = new ReaderProcessorProvider();
-        $provider->getReader('any reader');
+        $provider->provide('any reader');
     }
 
     /**
@@ -35,7 +35,7 @@ class ReaderProcessorProviderTest extends TestCase
         $provider = new ReaderProcessorProvider();
         $provider->setReader($key, $reader);
 
-        $this->assertEquals($reader, $provider->getReader($key));
+        $this->assertEquals($reader, $provider->provide($key));
     }
 
     /**

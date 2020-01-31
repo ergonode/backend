@@ -84,7 +84,7 @@ class StartImportService
         $file = $source->getFile();
         $filename = \sprintf('%s%s', $this->directory, $file);
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
-        $fileReader = $this->provider->getReader($extension);
+        $fileReader = $this->provider->provide($extension);
 
         $fileReader->open($filename, $source->getConfiguration());
 
@@ -92,14 +92,10 @@ class StartImportService
         foreach ($fileReader->read() as $key => $row) {
             $i++;
             $line = new ImportLine($import->getId(), $i, json_encode($row, JSON_THROW_ON_ERROR, 512));
-            try {
-                $this->lineRepository->save($line);
-                $command = new ProcessImportCommand($import->getId(), $i, $row, ProductImportAction::TYPE);
-                $this->commandBus->dispatch($command);
-            } catch (\Exception $e) {
-                $line->addError($e->getTraceAsString());
-            }
+
             $this->lineRepository->save($line);
+            $command = new ProcessImportCommand($import->getId(), $i, $row, ProductImportAction::TYPE);
+            $this->commandBus->dispatch($command);
         }
 
         $fileReader->close();

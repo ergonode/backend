@@ -16,10 +16,7 @@ use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInter
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\Transformer\Domain\Command\CreateTransformerCommand;
 use Ergonode\Transformer\Domain\Command\DeleteTransformerCommand;
-use Ergonode\Transformer\Domain\Command\GenerateTransformerCommand;
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
-use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,11 +30,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TransformerController extends AbstractController
 {
-    /**
-     * @var TransformerRepositoryInterface
-     */
-    private TransformerRepositoryInterface $repository;
-
     /**
      * @var MessageBusInterface
      */
@@ -54,18 +46,15 @@ class TransformerController extends AbstractController
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
     /**
-     * @param TransformerRepositoryInterface              $repository
      * @param MessageBusInterface                         $messageBus
      * @param RelationshipsResolverInterface              $relationshipsResolver
      * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
-        TransformerRepositoryInterface $repository,
         MessageBusInterface $messageBus,
         RelationshipsResolverInterface $relationshipsResolver,
         ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
-        $this->repository = $repository;
         $this->messageBus = $messageBus;
         $this->relationshipsResolver = $relationshipsResolver;
         $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
@@ -131,55 +120,6 @@ class TransformerController extends AbstractController
         $this->messageBus->dispatch($command);
 
         return new CreatedResponse($command->getId());
-    }
-
-    /**
-     * @Route("/transformers/generate", methods={"POST"})
-     *
-     * @SWG\Tag(name="Transformer")
-     * @SWG\Parameter(
-     *     name="name",
-     *     in="formData",
-     *     type="string",
-     *     description="Transformer name"
-     * )
-     * @SWG\Parameter(
-     *     name="type",
-     *     in="formData",
-     *     type="string",
-     *     description="Transformer generator type"
-     * )
-     * @SWG\Response(
-     *     response=201,
-     *     description="Return id of created Transformer"
-     * )
-     * @SWG\Response(
-     *     response=409,
-     *     description="Transformer exists",
-     *     @SWG\Schema(ref="#/definitions/error_message")
-     * )
-     *
-     * @param Request $request
-     *
-     * @return Response
-     *
-     * @throws \Exception
-     */
-    public function generateAttributeGenerator(Request $request): Response
-    {
-        $name = $request->request->get('name');
-        $type = $request->request->get('type');
-
-        $id = TransformerId::fromKey($type);
-
-        if (!$this->repository->exists($id)) {
-            $command = new GenerateTransformerCommand($name, $type, $type);
-            $this->messageBus->dispatch($command);
-
-            return new CreatedResponse($command->getId());
-        }
-
-        throw new ConflictHttpException(sprintf('Transformer "%s" already exists', $name));
     }
 
     /**

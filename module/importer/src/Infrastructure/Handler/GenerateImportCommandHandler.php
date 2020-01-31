@@ -17,10 +17,11 @@ use Ergonode\Importer\Domain\Entity\ImportId;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
-use Ergonode\ImporterMagento2\Infrastructure\Generator\Magento2TransformerGenerator;
 use Ergonode\Transformer\Domain\Entity\TransformerId;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Transformer\Infrastructure\Provider\TransformerProvider;
+use Ergonode\Transformer\Infrastructure\Provider\TransformerGeneratorProvider;
 
 /**
  */
@@ -42,9 +43,9 @@ class GenerateImportCommandHandler
     private TransformerRepositoryInterface $transformerRepository;
 
     /**
-     * @var Magento2TransformerGenerator
+     * @var TransformerGeneratorProvider
      */
-    private Magento2TransformerGenerator $generator;
+    private TransformerGeneratorProvider $provider;
 
     /**
      * @var CommandBusInterface
@@ -55,20 +56,20 @@ class GenerateImportCommandHandler
      * @param ImportRepositoryInterface      $importRepository
      * @param SourceRepositoryInterface      $sourceRepository
      * @param TransformerRepositoryInterface $transformerRepository
-     * @param Magento2TransformerGenerator   $generator
+     * @param TransformerGeneratorProvider   $provider
      * @param CommandBusInterface            $commandBus
      */
     public function __construct(
         ImportRepositoryInterface $importRepository,
         SourceRepositoryInterface $sourceRepository,
         TransformerRepositoryInterface $transformerRepository,
-        Magento2TransformerGenerator $generator,
+        TransformerGeneratorProvider $provider,
         CommandBusInterface $commandBus
     ) {
         $this->importRepository = $importRepository;
         $this->sourceRepository = $sourceRepository;
         $this->transformerRepository = $transformerRepository;
-        $this->generator = $generator;
+        $this->provider = $provider;
         $this->commandBus = $commandBus;
     }
 
@@ -84,7 +85,9 @@ class GenerateImportCommandHandler
         Assert::isInstanceOf($source, AbstractSource::class);
 
         $transformerId = TransformerId::generate();
-        $transformer = $this->generator->generate($transformerId, 'Name', $command->getConfiguration());
+        $generator = $this->provider->provide($source->getType());
+        $transformer = $generator->generate($transformerId, 'Name', $command->getConfiguration());
+
         $this->transformerRepository->save($transformer);
 
         $import = new Import(ImportId::generate(), $command->getId(), $transformerId);
