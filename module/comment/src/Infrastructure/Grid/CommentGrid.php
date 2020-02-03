@@ -28,7 +28,7 @@ class CommentGrid extends AbstractGrid
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $userProvider;
+    private AuthenticatedUserProviderInterface $userProvider;
 
     /**
      * @param AuthenticatedUserProviderInterface $userProvider

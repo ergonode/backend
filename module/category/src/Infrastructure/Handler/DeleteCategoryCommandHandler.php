@@ -23,12 +23,12 @@ class DeleteCategoryCommandHandler
     /**
      * @var CategoryRepositoryInterface
      */
-    private $repository;
+    private CategoryRepositoryInterface $repository;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @param CategoryRepositoryInterface    $repository

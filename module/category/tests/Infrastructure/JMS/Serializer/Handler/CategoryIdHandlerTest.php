@@ -22,7 +22,7 @@ class CategoryIdHandlerTest extends TestCase
     /**
      * @var CategoryIdHandler
      */
-    private $handler;
+    private CategoryIdHandler $handler;
 
     /**
      * @var SerializationVisitorInterface

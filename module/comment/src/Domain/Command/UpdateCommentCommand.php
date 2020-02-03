@@ -22,14 +22,14 @@ class UpdateCommentCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Comment\Domain\Entity\CommentId")
      */
-    private $id;
+    private CommentId $id;
 
     /**
      * @var string $content
      *
      * @JMS\Type("string")
      */
-    private $content;
+    private string $content;
 
     /**
      * @param CommentId $id

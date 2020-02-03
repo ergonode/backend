@@ -20,12 +20,12 @@ class CreateCategoryCommandHandler
     /**
      * @var CategoryFactory
      */
-    private $factory;
+    private CategoryFactory $factory;
 
     /**
      * @var CategoryRepositoryInterface
      */
-    private $repository;
+    private CategoryRepositoryInterface $repository;
 
     /**
      * @param CategoryFactory             $factory

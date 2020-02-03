@@ -24,28 +24,28 @@ class CreateCommentCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Comment\Domain\Entity\CommentId")
      */
-    private $id;
+    private CommentId $id;
 
     /**
      * @var UserId $authorId
      *
      * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
      */
-    private $authorId;
+    private UserId $authorId;
 
     /**
      * @var Uuid
      *
      * @JMS\Type("Ramsey\Uuid\Uuid")
      */
-    private $objectId;
+    private Uuid $objectId;
 
     /**
      * @var string $content
      *
      * @JMS\Type("string")
      */
-    private $content;
+    private string $content;
 
     /**
      * @param UserId $authorId

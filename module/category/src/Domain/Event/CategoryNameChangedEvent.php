@@ -24,21 +24,21 @@ class CategoryNameChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
      */
-    private $id;
+    private CategoryId $id;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $from;
+    private TranslatableString $from;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $to;
+    private TranslatableString $to;
 
     /**
      * @param CategoryId         $id

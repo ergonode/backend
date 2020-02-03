@@ -25,7 +25,7 @@ class CommentParamConverter implements ParamConverterInterface
     /**
      * @var CommentRepositoryInterface
      */
-    private $repository;
+    private CommentRepositoryInterface $repository;
 
     /**
      * @param CommentRepositoryInterface $repository

@@ -24,21 +24,21 @@ class CreateCategoryCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
      */
-    private $id;
+    private CategoryId $id;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @var CategoryCode
      *
      * @JMS\Type("Ergonode\Category\Domain\ValueObject\CategoryCode")
      */
-    private $code;
+    private CategoryCode $code;
 
     /**
      * @param CategoryCode       $code

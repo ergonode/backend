@@ -22,7 +22,7 @@ class DeleteCommentCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Comment\Domain\Entity\CommentId")
      */
-    private $id;
+    private CommentId $id;
 
     /**
      * DeleteCommentCommand constructor.
