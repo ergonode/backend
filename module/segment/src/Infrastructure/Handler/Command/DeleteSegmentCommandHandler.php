@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Infrastructure\Handler;
+namespace Ergonode\Segment\Infrastructure\Handler\Command;
 
 use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
@@ -23,12 +23,12 @@ class DeleteSegmentCommandHandler
     /**
      * @var SegmentRepositoryInterface
      */
-    private $repository;
+    private SegmentRepositoryInterface $repository;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @param SegmentRepositoryInterface     $repository

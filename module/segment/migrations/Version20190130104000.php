@@ -36,6 +36,24 @@ final class Version20190130104000 extends AbstractErgonodeMigration
         ');
         $this->addSql('CREATE UNIQUE index segment_code_uindex ON segment (code)');
 
+        $this->addSql('
+            CREATE TABLE segment_product (
+                segment_id UUID NOT NULL,
+                product_id UUID NOT NULL,                
+                PRIMARY KEY(segment_id, product_id)
+            )
+        ');
+
+        $this->addSql('
+            ALTER TABLE segment_product
+                ADD CONSTRAINT segment_product_segment_id_fk
+                    FOREIGN KEY (segment_id) REFERENCES public.segment on delete cascade');
+
+        $this->addSql('
+            ALTER TABLE segment_product
+                ADD CONSTRAINT segment_product_product_id_fk
+                    FOREIGN KEY (product_id) REFERENCES public.product on delete cascade');
+
         $this->addSql(
             'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
             [Uuid::uuid4()->toString(), 'SEGMENT_CREATE', 'Segment']
@@ -57,7 +75,6 @@ final class Version20190130104000 extends AbstractErgonodeMigration
             'Ergonode\Segment\Domain\Event\SegmentCreatedEvent' => 'Segment created',
             'Ergonode\Segment\Domain\Event\SegmentDescriptionChangedEvent' => 'Segment description changed',
             'Ergonode\Segment\Domain\Event\SegmentNameChangedEvent' => 'Segment name changed',
-            'Ergonode\Segment\Domain\Event\SegmentSpecificationAddedEvent' => 'Segment specification added',
             'Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent' => 'Segment status changed',
             'Ergonode\Segment\Domain\Event\SegmentDeletedEvent' => 'Segment deleted',
             'Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent' => 'Segment condition set changed',

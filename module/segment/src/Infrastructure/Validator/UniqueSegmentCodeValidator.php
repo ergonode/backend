@@ -22,7 +22,7 @@ class UniqueSegmentCodeValidator extends ConstraintValidator
     /**
      * @var SegmentQueryInterface
      */
-    private $query;
+    private SegmentQueryInterface $query;
 
     /**
      * @param SegmentQueryInterface $query

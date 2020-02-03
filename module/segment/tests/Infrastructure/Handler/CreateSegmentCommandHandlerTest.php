@@ -10,7 +10,7 @@ namespace Ergonode\Segment\Tests\Infrastructure\Handler;
 
 use Ergonode\Segment\Domain\Command\CreateSegmentCommand;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
-use Ergonode\Segment\Infrastructure\Handler\CreateSegmentCommandHandler;
+use Ergonode\Segment\Infrastructure\Handler\Command\CreateSegmentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

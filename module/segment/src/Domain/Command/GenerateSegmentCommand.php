@@ -22,21 +22,21 @@ class GenerateSegmentCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
      */
-    private $id;
+    private SegmentId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $code;
+    private string $code;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $type;
+    private string $type;
 
     /**
      * @param string $code

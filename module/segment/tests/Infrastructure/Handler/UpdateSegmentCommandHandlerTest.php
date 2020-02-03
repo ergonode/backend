@@ -11,7 +11,7 @@ namespace Ergonode\Segment\Tests\Infrastructure\Handler;
 use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
-use Ergonode\Segment\Infrastructure\Handler\UpdateSegmentCommandHandler;
+use Ergonode\Segment\Infrastructure\Handler\Command\UpdateSegmentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

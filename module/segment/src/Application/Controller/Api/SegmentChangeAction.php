@@ -24,8 +24,8 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -38,25 +38,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class SegmentChangeAction
 {
     /**
-     * @var MessageBusInterface
-     */
-    private $messageBus;
-
-    /**
      * @var FormFactoryInterface
      */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
-     * @param FormFactoryInterface $formFactory
+     * @var CommandBusInterface
      */
-    public function __construct(
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
-        $this->messageBus = $messageBus;
+    private CommandBusInterface $commandBus;
+
+    /**
+     * @param FormFactoryInterface $formFactory
+     * @param CommandBusInterface  $commandBus
+     */
+    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
+    {
         $this->formFactory = $formFactory;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -115,7 +113,7 @@ class SegmentChangeAction
                 new TranslatableString($data->description),
                 $data->conditionSetId ? new ConditionSetId($data->conditionSetId) : null
             );
-            $this->messageBus->dispatch($command);
+            $this->commandBus->dispatch($command);
 
             return new EmptyResponse();
         }

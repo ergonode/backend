@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Infrastructure\Handler;
+namespace Ergonode\Segment\Infrastructure\Handler\Command;
 
 use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
@@ -20,7 +20,7 @@ class UpdateSegmentCommandHandler
     /**
      * @var SegmentRepositoryInterface
      */
-    private $repository;
+    private SegmentRepositoryInterface $repository;
 
     /**
      * @param SegmentRepositoryInterface $repository

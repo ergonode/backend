@@ -22,7 +22,7 @@ class ConditionSetSegmentRelationshipStrategy implements RelationshipStrategyInt
     /**
      * @var SegmentQueryInterface
      */
-    private $query;
+    private SegmentQueryInterface $query;
 
     /**
      * @param SegmentQueryInterface $query

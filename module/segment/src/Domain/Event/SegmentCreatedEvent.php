@@ -27,42 +27,42 @@ class SegmentCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
      */
-    private $id;
+    private SegmentId $id;
 
     /**
-     * @var string
+     * @var SegmentCode
      *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentCode")
      */
-    private $code;
+    private SegmentCode $code;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $description;
+    private TranslatableString $description;
 
     /**
      * @var SegmentStatus
      *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentStatus")
      */
-    private $status;
+    private SegmentStatus $status;
 
     /**
      * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
-    private $conditionSetId;
+    private ?ConditionSetId $conditionSetId;
 
     /**
      * @param SegmentId           $id

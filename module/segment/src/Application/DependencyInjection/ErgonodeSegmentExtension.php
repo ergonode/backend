@@ -9,9 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Application\DependencyInjection;
 
-use Ergonode\Segment\Application\DependencyInjection\CompilerPass\SegmentConditionConfiguratorCompilerPass;
 use Ergonode\Segment\Application\DependencyInjection\CompilerPass\SegmentGeneratorCompilerPass;
-use Ergonode\Segment\Domain\Service\SegmentConfigurationStrategyInterface;
 use Ergonode\Segment\Infrastructure\Generator\SegmentGeneratorInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
