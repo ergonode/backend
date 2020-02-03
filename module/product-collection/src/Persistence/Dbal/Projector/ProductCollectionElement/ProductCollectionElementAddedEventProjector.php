@@ -22,7 +22,7 @@ class ProductCollectionElementAddedEventProjector
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection
@@ -45,6 +45,9 @@ class ProductCollectionElementAddedEventProjector
                 'product_collection_id' => $event->getAggregateId(),
                 'product_id' => $event->getElement()->getProductId(),
                 'visible' => $event->getElement()->isVisible(),
+            ],
+            [
+                'visible' => \PDO::PARAM_BOOL,
             ]
         );
     }

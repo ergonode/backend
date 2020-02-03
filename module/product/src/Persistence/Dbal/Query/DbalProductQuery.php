@@ -121,6 +121,19 @@ class DbalProductQuery implements ProductQueryInterface
     }
 
     /**
+     * @return array
+     */
+    public function getDictionary(): array
+    {
+        $query = $this->getQuery();
+
+        return $query
+            ->select('id', 'sku')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder

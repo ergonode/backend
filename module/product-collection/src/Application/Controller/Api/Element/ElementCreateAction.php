@@ -7,15 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollection;
+namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\ProductCollection\Application\Form\ProductCollectionCreateForm;
-use Ergonode\ProductCollection\Application\Model\ProductCollectionCreateFormModel;
-use Ergonode\ProductCollection\Domain\Command\CreateProductCollectionCommand;
+use Ergonode\ProductCollection\Application\Form\ElementCreateForm;
+use Ergonode\ProductCollection\Application\Model\ElementCreateFormModel;
+use Ergonode\ProductCollection\Domain\Command\AddProductCollectionElementCommand;
+use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,12 +28,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     name="ergonode_product_collection_create",
- *     path="/collections",
- *     methods={"POST"}
+ *     name="ergonode_product_collection_element_create",
+ *     path="/collection/{collection}/elements",
+ *     methods={"POST"},
+ *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
  * )
  */
-class ProductCollectionCreateAction
+class ElementCreateAction
 {
     /**
      * @var MessageBusInterface
@@ -68,11 +70,18 @@ class ProductCollectionCreateAction
      *     default="EN"
      * )
      * @SWG\Parameter(
+     *     name="collection",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     description="Product collection ID",
+     * )
+     * @SWG\Parameter(
      *     name="body",
      *     in="body",
-     *     description="Add product collection",
+     *     description="Add workflow",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/product_collection_create")
+     *     @SWG\Schema(ref="#/definitions/element_create")
      * )
      * @SWG\Response(
      *     response=201,
@@ -84,30 +93,35 @@ class ProductCollectionCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
+     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
+     *
+     * @param ProductCollection $productCollection
+     * @param Request           $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(ProductCollection $productCollection, Request $request): Response
     {
         try {
-            $model = new ProductCollectionCreateFormModel();
-            $form = $this->formFactory->create(ProductCollectionCreateForm::class, $model);
+            $model = new ElementCreateFormModel($productCollection);
+            $form = $this->formFactory->create(ElementCreateForm::class, $model);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ProductCollectionCreateFormModel $data */
+                /** @var ElementCreateFormModel $data */
                 $data = $form->getData();
-                $command = new CreateProductCollectionCommand(
-                    $data->code,
-                    new TranslatableString($data->name),
-                    $data->typeId
+
+                $command = new AddProductCollectionElementCommand(
+                    $productCollection->getId(),
+                    $data->productId,
+                    $data->visible,
                 );
+
                 $this->messageBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
+                return new CreatedResponse($productCollection->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

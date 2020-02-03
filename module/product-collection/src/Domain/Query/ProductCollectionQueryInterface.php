@@ -22,4 +22,9 @@ interface ProductCollectionQueryInterface
      * @return DataSetInterface
      */
     public function getDataSet(Language $language): DataSetInterface;
+
+    /**
+     * @return string[]
+     */
+    public function getDictionary(): array;
 }

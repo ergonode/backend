@@ -58,7 +58,7 @@ class ProductCollection extends AbstractAggregateRoot
     /**
      * @var ProductCollectionElement[]
      *
-     * @JMS\Type("array<string, Ergonode\ProductCollection\Entity\ProductCollectionElement>")
+     * @JMS\Type("array<string, Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement>")
      */
     private array $elements;
 
@@ -237,7 +237,7 @@ class ProductCollection extends AbstractAggregateRoot
     protected function applyProductCollectionElementAddedEvent(
         ProductCollectionElementAddedEvent $event
     ): void {
-        $this->elements[]
+        $this->elements[$event->getElement()->getId()->getValue()]
             = $event->getElement();
     }
 

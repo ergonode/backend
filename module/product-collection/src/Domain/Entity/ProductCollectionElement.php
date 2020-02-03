@@ -40,8 +40,6 @@ class ProductCollectionElement extends AbstractEntity
     private bool $visible;
 
     /**
-     * ProductCollectionElement constructor.
-     *
      * @param ProductCollectionElementId $id
      * @param ProductId                  $productId
      * @param bool                       $visible
@@ -82,6 +80,7 @@ class ProductCollectionElement extends AbstractEntity
      */
     public function changeVisible(bool $newVisible): void
     {
+
         if ($this->visible !== $newVisible) {
             $this->apply(
                 new ProductCollectionElementVisibleChangedEvent($this->aggregateRoot->getId(), $this->id, $newVisible)

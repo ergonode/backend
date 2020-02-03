@@ -7,24 +7,23 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Domain\Event;
+namespace Ergonode\ProductCollection\Domain\Command;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductCollectionElementRemovedEvent implements DomainEventInterface
+class DeleteProductCollectionElementCommand implements DomainCommandInterface
 {
     /**
      * @var ProductCollectionId
      *
      * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
      */
-    private ProductCollectionId $id;
+    private ProductCollectionId $productCollectionId;
 
     /**
      * @var ProductId
@@ -34,21 +33,23 @@ class ProductCollectionElementRemovedEvent implements DomainEventInterface
     private ProductId $productId;
 
     /**
-     * @param ProductCollectionId $id
+     * DeleteProductCollectionElementCommand constructor.
+     *
+     * @param ProductCollectionId $productCollectionId
      * @param ProductId           $productId
      */
-    public function __construct(ProductCollectionId $id, ProductId $productId)
+    public function __construct(ProductCollectionId $productCollectionId, ProductId $productId)
     {
-        $this->id = $id;
+        $this->productCollectionId = $productCollectionId;
         $this->productId = $productId;
     }
 
     /**
-     * @return AbstractId|ProductCollectionId
+     * @return ProductCollectionId
      */
-    public function getAggregateId(): AbstractId
+    public function getProductCollectionId(): ProductCollectionId
     {
-        return $this->id;
+        return $this->productCollectionId;
     }
 
     /**

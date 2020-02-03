@@ -29,11 +29,10 @@ final class Version20200127083123 extends AbstractErgonodeMigration
 
         $this->addSql(
             'CREATE TABLE collection_element(
-                    id uuid NOT NULL,
                     product_collection_id uuid NOT NULL,
                     product_id uuid NOT NULL,
                     visible BOOLEAN NOT NULL,
-                    PRIMARY KEY (id)
+                    PRIMARY KEY (product_collection_id, product_id)
                  )'
         );
 

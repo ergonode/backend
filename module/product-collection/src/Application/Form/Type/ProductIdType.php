@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Application\Form\Type;
 
-use Ergonode\ProductCollection\Application\Form\Transformer\ProductCollectionTypeIdDataTransformer;
-use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\ProductCollection\Application\Form\Transformer\ProductIdDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,17 +18,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class ProductCollectionTypeIdType extends AbstractType
+class ProductIdType extends AbstractType
 {
     /**
-     * @var ProductCollectionTypeQueryInterface
+     * @var ProductQueryInterface
      */
-    private ProductCollectionTypeQueryInterface $query;
+    private ProductQueryInterface $query;
 
     /**
-     * @param ProductCollectionTypeQueryInterface $query
+     * @param ProductQueryInterface $query
      */
-    public function __construct(ProductCollectionTypeQueryInterface $query)
+    public function __construct(ProductQueryInterface $query)
     {
         $this->query = $query;
     }
@@ -39,7 +39,7 @@ class ProductCollectionTypeIdType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addModelTransformer(new ProductCollectionTypeIdDataTransformer());
+        $builder->addModelTransformer(new ProductIdDataTransformer());
     }
 
     /**
@@ -47,10 +47,10 @@ class ProductCollectionTypeIdType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $collectionTypes = $this->query->getDictionary();
+        $products = $this->query->getDictionary();
         $resolver->setDefaults(
             [
-                'choices' => array_flip($collectionTypes),
+                'choices' => array_flip($products),
                 'invalid_message' => 'Type is not valid',
             ]
         );

@@ -7,17 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollection;
+namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\ProductCollection\Application\Form\ProductCollectionUpdateForm;
-use Ergonode\ProductCollection\Application\Model\ProductCollectionUpdateFormModel;
-use Ergonode\ProductCollection\Domain\Command\UpdateProductCollectionCommand;
+use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\ProductCollection\Application\Form\ElementChangeForm;
+use Ergonode\ProductCollection\Application\Model\ElementChangeFormModel;
+use Ergonode\ProductCollection\Domain\Command\UpdateProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,23 +28,26 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     name="ergonode_product_collection_change",
- *     path="/collections/{collection}",
+ *     name="ergonode_product_collection_element_change",
+ *     path="/collections/{collection}/elements/{product}",
  *     methods={"PUT"},
- *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={
+ *     "collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+ *      "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+ *     },
  * )
  */
-class ProductCollectionChangeAction
+class ElementChangeAction
 {
     /**
      * @var MessageBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private $messageBus;
 
     /**
      * @var FormFactoryInterface
      */
-    private FormFactoryInterface $formFactory;
+    private $formFactory;
 
     /**
      * @param MessageBusInterface  $messageBus
@@ -63,32 +65,37 @@ class ProductCollectionChangeAction
      * @IsGranted("PRODUCT_COLLECTION_UPDATE")
      *
      * @SWG\Tag(name="Product Collection")
-     * @SWG\Parameter(
-     *     name="language",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     default="EN",
-     *     description="Language Code",
-     * )
-     *
-     * @SWG\Parameter(
+     * * @SWG\Parameter(
      *     name="collection",
      *     in="path",
      *     type="string",
      *     required=true,
-     *     description="Product collection ID",
+     *     description="Collection Id",
+     * )
+     * @SWG\Parameter(
+     *     name="product",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     description="Product Id",
+     * )
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     description="Language code",
+     *     default="EN"
      * )
      * @SWG\Parameter(
      *     name="body",
      *     in="body",
-     *     description="Category body",
+     *     description="Update workflow",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/product_collection_update")
+     *     @SWG\Schema(ref="#/definitions/element_update")
      * )
      * @SWG\Response(
      *     response=204,
-     *     description="Update product collection",
+     *     description="Success"
      * )
      * @SWG\Response(
      *     response=400,
@@ -96,34 +103,33 @@ class ProductCollectionChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
      *
      * @param ProductCollection $productCollection
      * @param Request           $request
      *
      * @return Response
-     *
-     * @throws \Exception
      */
     public function __invoke(ProductCollection $productCollection, Request $request): Response
     {
         try {
-            $model = new ProductCollectionUpdateFormModel();
-            $form = $this->formFactory->create(
-                ProductCollectionUpdateForm::class,
-                $model,
-                ['method' => Request::METHOD_PUT]
-            );
+            $model = new ElementChangeFormModel();
+            $form = $this->formFactory->create(ElementChangeForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ProductCollectionUpdateFormModel $data */
+                /** @var ElementChangeFormModel $data */
                 $data = $form->getData();
-                $command = new UpdateProductCollectionCommand(
+                $parameter = $request->get('product');
+
+                if (null === $parameter) {
+                    throw new BadRequestHttpException('Route parameter "product" is missing');
+                }
+                $command = new UpdateProductCollectionElementCommand(
                     $productCollection->getId(),
-                    new TranslatableString($data->name),
-                    $data->typeId
+                    new ProductId($parameter),
+                    $data->visible
                 );
+
                 $this->messageBus->dispatch($command);
 
                 return new EmptyResponse();

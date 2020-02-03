@@ -14,6 +14,7 @@ use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInter
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,6 +63,8 @@ class ProductCollectionDeleteAction
     }
 
     /**
+     * @IsGranted("PRODUCT_COLLECTION_DELETE")
+     *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(
      *     name="language",

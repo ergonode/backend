@@ -36,7 +36,7 @@ class ProductCollectionElementVisibleChangedEvent implements DomainEventInterfac
     /**
      * @var bool
      *
-     * @JMS\Type("bool")
+     * @JMS\Type("boolean")
      */
     private bool $visible;
 

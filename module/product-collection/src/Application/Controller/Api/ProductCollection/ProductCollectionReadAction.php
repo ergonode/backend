@@ -11,6 +11,7 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectio
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +28,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductCollectionReadAction
 {
     /**
+     * @IsGranted("PRODUCT_COLLECTION_READ")
+     *
      * @SWG\Tag(name="Product Collection")
      * @SWG\Parameter(
      *     name="language",

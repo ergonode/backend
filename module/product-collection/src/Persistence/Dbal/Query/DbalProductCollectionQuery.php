@@ -36,6 +36,19 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
     }
 
     /**
+     * @return string[]
+     */
+    public function getDictionary(): array
+    {
+        $query = $this->getQuery();
+
+        return $query
+            ->select('id', 'code')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
      * @param Language $language
      *
      * @return DataSetInterface

@@ -51,8 +51,8 @@ class ProductCollectionCreateFormModel
     /**
      * @var ProductCollectionTypeId | null
      *
-     * @Assert\NotBlank(message="Collection type is required")
-     * @Assert\Uuid(message="Collection type must be valid uuid format")
+     * @Assert\NotBlank(message="Collection type id is required")
+     * @Assert\Uuid(message="Collection type id must be valid uuid format")
      */
     public ?ProductCollectionTypeId $typeId;
 

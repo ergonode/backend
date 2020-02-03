@@ -9,26 +9,26 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Application\Form\Transformer;
 
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId;
+use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
  */
-class ProductCollectionTypeIdDataTransformer implements DataTransformerInterface
+class ProductCollectionIdDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param ProductCollectionTypeId|null $value
+     * @param ProductCollectionId|null $value
      *
      * @return null|string
      */
     public function transform($value): ?string
     {
         if ($value) {
-            if ($value instanceof ProductCollectionTypeId) {
+            if ($value instanceof ProductCollectionId) {
                 return $value->getValue();
             }
-            throw new TransformationFailedException('Invalid Product Collection Type Id object');
+            throw new TransformationFailedException('Invalid Product Collection Id object');
         }
 
         return null;
@@ -37,13 +37,13 @@ class ProductCollectionTypeIdDataTransformer implements DataTransformerInterface
     /**
      * @param string|null $value
      *
-     * @return ProductCollectionTypeId|null
+     * @return ProductCollectionId|null
      */
-    public function reverseTransform($value): ?ProductCollectionTypeId
+    public function reverseTransform($value): ?ProductCollectionId
     {
         if ($value) {
             try {
-                return new ProductCollectionTypeId($value);
+                return new ProductCollectionId($value);
             } catch (\InvalidArgumentException $e) {
                 throw new TransformationFailedException(sprintf('Invalid "%s" value', $value));
             }

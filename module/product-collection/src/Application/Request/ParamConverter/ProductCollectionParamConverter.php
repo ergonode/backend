@@ -55,7 +55,7 @@ class ProductCollectionParamConverter implements ParamConverterInterface
         $entity = $this->productCollectionRepository->load(new ProductCollectionId($parameter));
 
         if (null === $entity) {
-            throw new NotFoundHttpException(sprintf('Product collection by ID "%s" not found', $parameter));
+            throw new NotFoundHttpException(sprintf('Product collection ID "%s" not found', $parameter));
         }
 
         $request->attributes->set($configuration->getName(), $entity);

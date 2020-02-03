@@ -13,6 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface;
 
 /**
@@ -35,15 +36,19 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
     }
 
     /**
+     * @param ProductCollectionId $productCollectionId
+     *
      * @return DataSetInterface
      */
-    public function getDataSet(): DataSetInterface
+    public function getDataSet(ProductCollectionId $productCollectionId): DataSetInterface
     {
         $query = $this->getQuery();
+        $query->andWhere($query->expr()->eq('product_collection_id', ':productCollectionId'));
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
+        $result->setParameter(':productCollectionId', $productCollectionId->getValue());
 
         return new DbalDataSet($result);
     }
@@ -54,7 +59,7 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('p.id, p.product_collection_id AS element, p.product_id, p.visible')
+            ->select('p.product_collection_id, p.product_id, p.visible')
             ->from(self::PRODUCT_COLLECTION_ELEMENT_TABLE, 'p');
     }
 }

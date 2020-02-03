@@ -7,14 +7,15 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollection;
+namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
-use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionGrid;
+use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
+use Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface;
+use Ergonode\ProductCollection\Infrastructure\Grid\ProductCollectionElementGrid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -22,19 +23,23 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/collections", methods={"GET"})
+ * @Route(
+ *     path = "/collection/{collection}/elements",
+ *     methods={"GET"},
+ *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
+ *     )
  */
-class ProductCollectionGridReadAction
+class ElementGridReadAction
 {
     /**
-     * @var ProductCollectionGrid
+     * @var ProductCollectionElementGrid
      */
-    private ProductCollectionGrid $productCollectionGrid;
+    private ProductCollectionElementGrid $elementGrid;
 
     /**
-     * @var ProductCollectionQueryInterface
+     * @var ProductCollectionElementQueryInterface
      */
-    private ProductCollectionQueryInterface $collectionQuery;
+    private ProductCollectionElementQueryInterface $elementQuery;
 
     /**
      * @var GridRenderer
@@ -42,19 +47,19 @@ class ProductCollectionGridReadAction
     private GridRenderer $gridRenderer;
 
     /**
-     * ProductCollectionGridReadAction constructor.
+     * ElementGridReadAction constructor.
      *
-     * @param ProductCollectionGrid           $productCollectionGrid
-     * @param ProductCollectionQueryInterface $collectionQuery
-     * @param GridRenderer                    $gridRenderer
+     * @param ProductCollectionElementGrid           $elementGrid
+     * @param ProductCollectionElementQueryInterface $elementQuery
+     * @param GridRenderer                           $gridRenderer
      */
     public function __construct(
-        ProductCollectionGrid $productCollectionGrid,
-        ProductCollectionQueryInterface $collectionQuery,
+        ProductCollectionElementGrid $elementGrid,
+        ProductCollectionElementQueryInterface $elementQuery,
         GridRenderer $gridRenderer
     ) {
-        $this->productCollectionGrid = $productCollectionGrid;
-        $this->collectionQuery = $collectionQuery;
+        $this->elementGrid = $elementGrid;
+        $this->elementQuery = $elementQuery;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -106,7 +111,7 @@ class ProductCollectionGridReadAction
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"grid","list"},
+     *     enum={"product_collection_id","list"},
      *     description="Specify respons format"
      * )
      * @SWG\Parameter(
@@ -123,18 +128,23 @@ class ProductCollectionGridReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
      *
      * @param Language                 $language
      * @param RequestGridConfiguration $configuration
+     * @param ProductCollection        $productCollection
      *
      * @return Response
      */
-    public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
-    {
-        $dataSet = $this->collectionQuery->getDataSet($language);
+    public function __invoke(
+        Language $language,
+        RequestGridConfiguration $configuration,
+        ProductCollection $productCollection
+    ): Response {
+        $dataSet = $this->elementQuery->getDataSet($productCollection->getId());
 
         $data = $this->gridRenderer->render(
-            $this->productCollectionGrid,
+            $this->elementGrid,
             $configuration,
             $dataSet,
             $language
