@@ -87,6 +87,22 @@ class UpdateProductCommandHandler
             }
         }
 
+        foreach ($command->getAttributes() as $code => $attribute) {
+            $attributeCode = new AttributeCode($code);
+            if($product->hasAttribute($attributeCode)) {
+                $product->changeAttribute($attributeCode, $attribute);
+            } else {
+                $product->addAttribute($attributeCode, $attribute);
+            }
+        }
+
+        foreach ($product->getAttributes() as $code => $value) {
+            $attributeCode = new AttributeCode($code);
+            if (!array_key_exists($code, $command->getAttributes())) {
+                $product->removeAttribute($attributeCode);
+            }
+        }
+
         $token = $this->tokenStorage->getToken();
         if ($token) {
             $updatedAt = new \DateTime();

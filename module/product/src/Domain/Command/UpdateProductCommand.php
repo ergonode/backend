@@ -12,6 +12,7 @@ namespace Ergonode\Product\Domain\Command;
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -33,13 +34,22 @@ class UpdateProductCommand implements DomainCommandInterface
     private $categories;
 
     /**
+     * @var ValueInterface[]
+     *
+     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
+     */
+    private $attributes;
+
+    /**
      * @param ProductId $productId
      * @param array     $categories
+     * @param array     $attributes
      */
-    public function __construct(ProductId $productId, array $categories = [])
+    public function __construct(ProductId $productId, array $categories = [],  array $attributes = [])
     {
         $this->id = $productId;
         $this->categories = $categories;
+        $this->attributes = $attributes;
     }
 
     /**
@@ -56,5 +66,13 @@ class UpdateProductCommand implements DomainCommandInterface
     public function getCategories(): array
     {
         return $this->categories;
+    }
+
+    /**
+     * @return ValueInterface[]
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
     }
 }

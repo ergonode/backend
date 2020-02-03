@@ -76,7 +76,6 @@ class ProcessImportCommandHandler
      */
     public function __invoke(ProcessImportCommand $command)
     {
-        $startTime = microtime(true);
         $importId = $command->getImportId();
         $lineNumber = $command->getLine();
         $content = $command->getRow();
@@ -104,9 +103,6 @@ class ProcessImportCommandHandler
         } catch (\Throwable $exception) {
             $line->addError($exception->getMessage());
         }
-        $endTime = microtime(true);
-        $executionTime = ($endTime - $startTime);
-        echo (new \DateTime())->format('H:i:s:v').' : '.round($executionTime, 4).PHP_EOL;
 
         $this->repository->save($line);
     }
