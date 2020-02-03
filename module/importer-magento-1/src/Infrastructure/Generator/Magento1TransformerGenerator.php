@@ -15,6 +15,8 @@ use Ergonode\Transformer\Infrastructure\Converter\TextConverter;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
+use Ergonode\Transformer\Infrastructure\Converter\MappingConverter;
+use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
 
 /**
  */
@@ -52,7 +54,8 @@ class Magento1TransformerGenerator implements TransformerGeneratorStrategyInterf
         $transformer
             ->addConverter('sku', new TextConverter('sku'))
             ->addConverter('template', new TextConverter('_attribute_set'))
-            ->addConverter('name', new TextConverter('name'));
+            ->addConverter('name', new TextConverter('name'))
+            ->addConverter('type', new MappingConverter('_type', ['simple' => SimpleProduct::TYPE]));
 
         return $transformer;
     }
