@@ -43,6 +43,7 @@ class AddConditionsNodeSection
                         ->validate()
                             ->ifTrue(function ($v) {
                                 $class = new ReflectionClass($v);
+
                                 return !$class->hasConstant('TYPE');
                             })
                             ->thenInvalid('Class %s doesn\'t have constant TYPE')
