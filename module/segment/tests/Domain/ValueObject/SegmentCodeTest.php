@@ -67,7 +67,7 @@ class SegmentCodeTest extends TestCase
     {
         return [
             ['valid code'],
-            [str_repeat('a', 100)]
+            [str_repeat('a', 100)],
 
         ];
     }

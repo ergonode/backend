@@ -55,6 +55,5 @@ class SegmentCode
     {
         return '' !== $value
             && strlen($value) <= 100;
-
     }
 }
