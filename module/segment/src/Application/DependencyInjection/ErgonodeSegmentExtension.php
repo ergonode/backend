@@ -9,9 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Application\DependencyInjection;
 
-use Ergonode\Segment\Application\DependencyInjection\CompilerPass\SegmentConditionConfiguratorCompilerPass;
 use Ergonode\Segment\Application\DependencyInjection\CompilerPass\SegmentGeneratorCompilerPass;
-use Ergonode\Segment\Domain\Service\SegmentConfigurationStrategyInterface;
 use Ergonode\Segment\Infrastructure\Generator\SegmentGeneratorInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,6 +20,9 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 class ErgonodeSegmentExtension extends Extension
 {
+    public const CONDITION_GROUP_NAME = 'segment';
+    public const CONDITION_PARAMETER_NAME = 'ergonode_segment.conditions';
+
     /**
      * @param array            $configs
      * @param ContainerBuilder $container
@@ -40,5 +41,10 @@ class ErgonodeSegmentExtension extends Extension
             ->addTag(SegmentGeneratorCompilerPass::TAG);
 
         $loader->load('services.yml');
+
+        $configuration = new Configuration();
+        $processedConfig = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter(self::CONDITION_PARAMETER_NAME, $processedConfig['conditions']);
     }
 }
