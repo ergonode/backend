@@ -25,8 +25,6 @@ class SegmentProductService
     private Connection $connection;
 
     /**
-     * SegmentProductService constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)
@@ -42,11 +40,48 @@ class SegmentProductService
      */
     public function add(SegmentId $segmentId, ProductId $productId): void
     {
-        $this->connection->insert(
+        if (!$this->exists($segmentId, $productId)) {
+            $this->connection->insert(
+                self::TABLE,
+                [
+                    'segment_id' => $segmentId->getValue(),
+                    'product_id' => $productId->getValue(),
+                ]
+            );
+        } else {
+            $this->connection->update(
+                self::TABLE,
+                [
+                    'calculated_at' => null,
+                ],
+                [
+                    'segment_id' => $segmentId->getValue(),
+                    'product_id' => $productId->getValue(),
+                ]
+            );
+        }
+    }
+
+    /**
+     * @param SegmentId $segmentId
+     * @param ProductId $productId
+     *
+     * @throws DBALException
+     */
+    public function mark(SegmentId $segmentId, ProductId $productId): void
+    {
+        $this->connection->update(
             self::TABLE,
+            [
+                'available' => true,
+                'calculated_at' => (new \DateTime())->format('Y-m-d H:i:s'),
+            ],
             [
                 'segment_id' => $segmentId->getValue(),
                 'product_id' => $productId->getValue(),
+            ],
+            [
+                'available' => \PDO::PARAM_BOOL,
             ]
         );
     }
@@ -57,13 +92,20 @@ class SegmentProductService
      *
      * @throws DBALException
      */
-    public function remove(SegmentId $segmentId, ProductId $productId): void
+    public function unmark(SegmentId $segmentId, ProductId $productId): void
     {
-        $this->connection->delete(
+        $this->connection->update(
             self::TABLE,
+            [
+                'available' => false,
+                'calculated_at' => (new \DateTime())->format('Y-m-d H:i:s'),
+            ],
             [
                 'segment_id' => $segmentId->getValue(),
                 'product_id' => $productId->getValue(),
+            ],
+            [
+                'available' => \PDO::PARAM_BOOL,
             ]
         );
     }

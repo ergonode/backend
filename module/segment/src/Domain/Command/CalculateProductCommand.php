@@ -14,7 +14,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
  */
-class CalculateSegmentProductCommand implements DomainCommandInterface
+class CalculateProductCommand implements DomainCommandInterface
 {
     /**
      * @var ProductId

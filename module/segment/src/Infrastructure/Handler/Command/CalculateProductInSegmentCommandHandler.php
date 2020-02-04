@@ -9,25 +9,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Infrastructure\Handler\Command;
 
-use Ergonode\Segment\Domain\Command\CalculateSegmentProductCommand;
 use Ergonode\Condition\Domain\Service\ConditionCalculator;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
+use Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand;
 use Webmozart\Assert\Assert;
-use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
-use Ergonode\Segment\Domain\Entity\SegmentId;
 use Ergonode\Segment\Infrastructure\Service\SegmentProductService;
 
 /**
  */
-class CalculateSegmentProductCommandHandler
+class CalculateProductInSegmentCommandHandler
 {
-    /**
-     * @var SegmentQueryInterface
-     */
-    private SegmentQueryInterface $query;
-
     /**
      * @var ConditionCalculator
      */
@@ -54,7 +47,6 @@ class CalculateSegmentProductCommandHandler
     private SegmentProductService $service;
 
     /**
-     * @param SegmentQueryInterface           $query
      * @param ConditionCalculator             $calculator
      * @param ProductRepositoryInterface      $productRepository
      * @param ConditionSetRepositoryInterface $conditionRepository
@@ -62,14 +54,12 @@ class CalculateSegmentProductCommandHandler
      * @param SegmentProductService           $service
      */
     public function __construct(
-        SegmentQueryInterface $query,
         ConditionCalculator $calculator,
         ProductRepositoryInterface $productRepository,
         ConditionSetRepositoryInterface $conditionRepository,
         SegmentRepositoryInterface $segmentRepository,
         SegmentProductService $service
     ) {
-        $this->query = $query;
         $this->calculator = $calculator;
         $this->productRepository = $productRepository;
         $this->conditionRepository = $conditionRepository;
@@ -78,42 +68,28 @@ class CalculateSegmentProductCommandHandler
     }
 
     /**
-     * @param CalculateSegmentProductCommand $command
+     * @param CalculateProductInSegmentCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(CalculateSegmentProductCommand $command): void
+    public function __invoke(CalculateProductInSegmentCommand $command): void
     {
-        $segmentIds = $this->query->getAllSegmentIds();
-        if (!empty($segmentIds)) {
-            $productId = $command->getProductId();
-            $product = $this->productRepository->load($productId);
+        $productId = $command->getProductId();
+        $segmentId = $command->getSegmentId();
+        $product = $this->productRepository->load($productId);
+        Assert::notNull($product);
+        $segment = $this->segmentRepository->load($segmentId);
+        Assert::notNull($segment);
+        $conditionSet = $this->conditionRepository->load($segment->getConditionSetId());
 
-            foreach ($segmentIds as $segmentId) {
-                $segmentId = new SegmentId($segmentId);
-                $segment = $this->segmentRepository->load($segmentId);
-                Assert::notNull($segment);
-                $conditionSet = $this->conditionRepository->load($segment->getConditionSetId());
-                Assert::notNull($conditionSet);
+        Assert::notNull($conditionSet);
 
-                if($product) {
-                    $exists = $this->calculator->calculate($conditionSet, $product);
+        $exists = $this->calculator->calculate($conditionSet, $product);
 
-                    if ($exists) {
-                        if (!$this->service->exists($segmentId, $productId)) {
-                            $this->service->add($segmentId, $productId);
-                        }
-                    } else {
-                        if ($this->service->exists($segmentId, $productId)) {
-                            $this->service->remove($segmentId, $productId);
-                        }
-                    }
-                } else {
-                    if ($this->service->exists($segmentId, $productId)) {
-                        $this->service->remove($segmentId, $productId);
-                    }
-                }
-            }
+        if ($exists) {
+            $this->service->mark($segmentId, $productId);
+        } else {
+            $this->service->unmark($segmentId, $productId);
         }
     }
 }

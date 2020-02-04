@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Segment\Domain\Entity\SegmentId;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 
@@ -49,7 +50,17 @@ class DbalSegmentQuery implements SegmentQueryInterface
         $query = $this->getQuery();
         $query->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
         $query->addSelect(sprintf('(description->>\'%s\') AS description', $language->getCode()));
-
+        $query->addSelect('(SELECT count(*) FROM segment_product 
+            WHERE segment_id = t.id 
+            AND available = true) 
+            AS products_count');
+        $query->addSelect('(SELECT 
+            CASE
+                WHEN count(*) = 0 THEN \'new\'
+                WHEN round(count(calculated_at)::NUMERIC/count(*)::NUMERIC*100, 2) = 100  THEN \'calculated\' 
+                ELSE \'processed\' 
+            END 
+            FROM segment_product WHERE segment_id = t.id) as status');
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
@@ -67,7 +78,7 @@ class DbalSegmentQuery implements SegmentQueryInterface
             ->select('id')
             ->from(self::TABLE)
             ->where('condition_set_id = :id')
-            ->setParameter('id', $conditionSetId->getValue());
+            ->setParameter(':id', $conditionSetId->getValue());
         $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
         if (false === $result) {
@@ -75,7 +86,7 @@ class DbalSegmentQuery implements SegmentQueryInterface
         }
 
         foreach ($result as &$item) {
-            $item = new ConditionSetId($item);
+            $item = new SegmentId($item);
         }
 
         return $result;

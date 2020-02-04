@@ -10,13 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Infrastructure\Handler\Event;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Segment\Domain\Command\CalculateProductCommand;
+use Ergonode\Segment\Domain\Command\CalculateSegmentCommand;
+use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
-use Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent;
 
 /**
  */
-class ProductRemovedFromCategoryEventHandler implements MessageSubscriberInterface
+class SegmentConditionSetChangedEventHandler implements MessageSubscriberInterface
 {
     /**
      * @var CommandBusInterface
@@ -32,12 +32,14 @@ class ProductRemovedFromCategoryEventHandler implements MessageSubscriberInterfa
     }
 
     /**
-     * @param ProductRemovedFromCategoryEvent $event
+     * @param SegmentConditionSetChangedEvent $event
      */
-    public function __invoke(ProductRemovedFromCategoryEvent $event)
+    public function __invoke(SegmentConditionSetChangedEvent $event)
     {
-        $command = new CalculateProductCommand($event->getAggregateId());
-        $this->commandBus->dispatch($command);
+        if ($event->getTo()) {
+            $command = new CalculateSegmentCommand($event->getAggregateId());
+            $this->commandBus->dispatch($command);
+        }
     }
 
     /**
@@ -45,6 +47,6 @@ class ProductRemovedFromCategoryEventHandler implements MessageSubscriberInterfa
      */
     public static function getHandledMessages(): iterable
     {
-        yield ProductRemovedFromCategoryEvent::class => ['priority' => -100];
+        yield SegmentConditionSetChangedEvent::class => ['priority' => -100];
     }
 }

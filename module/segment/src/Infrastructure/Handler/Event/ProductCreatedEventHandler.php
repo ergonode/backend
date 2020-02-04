@@ -11,7 +11,7 @@ namespace Ergonode\Segment\Infrastructure\Handler\Event;
 
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Segment\Domain\Command\CalculateSegmentProductCommand;
+use Ergonode\Segment\Domain\Command\CalculateProductCommand;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 /**
@@ -36,7 +36,7 @@ class ProductCreatedEventHandler implements MessageSubscriberInterface
      */
     public function __invoke(ProductCreatedEvent $event)
     {
-        $command = new CalculateSegmentProductCommand($event->getAggregateId());
+        $command = new CalculateProductCommand($event->getAggregateId());
         $this->commandBus->dispatch($command);
     }
 

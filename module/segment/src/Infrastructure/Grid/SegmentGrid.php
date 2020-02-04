@@ -11,7 +11,9 @@ namespace Ergonode\Segment\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\LinkColumn;
+use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
@@ -35,9 +37,10 @@ class SegmentGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $this->addColumn('code', new TextColumn('name', 'Code', new TextFilter()));
-        $this->addColumn('status', new TextColumn('status', 'Status', new SelectFilter($statuses)));
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
         $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter()));
+        $this->addColumn('status', new TextColumn('status', 'Status', new TextFilter()));
+        $this->addColumn('products_count', new NumericColumn('products_count', 'Products ', new TextFilter()));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_segment_read',

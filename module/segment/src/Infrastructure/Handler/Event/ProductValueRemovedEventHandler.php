@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Infrastructure\Handler\Event;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Segment\Domain\Command\CalculateSegmentProductCommand;
+use Ergonode\Segment\Domain\Command\CalculateProductCommand;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
 
@@ -36,7 +36,7 @@ class ProductValueRemovedEventHandler implements MessageSubscriberInterface
      */
     public function __invoke(ProductValueRemovedEvent $event)
     {
-        $command = new CalculateSegmentProductCommand($event->getAggregateId());
+        $command = new CalculateProductCommand($event->getAggregateId());
         $this->commandBus->dispatch($command);
     }
 
