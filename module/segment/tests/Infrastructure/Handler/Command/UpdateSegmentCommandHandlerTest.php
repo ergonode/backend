@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Tests\Infrastructure\Handler;
+namespace Ergonode\Segment\Tests\Infrastructure\Handler\Command;
 
 use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
