@@ -8,7 +8,7 @@
 namespace Ergonode\Exporter\Tests\Domain\Entity;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Exporter\Domain\Entity\ExportCategory;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategory;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
