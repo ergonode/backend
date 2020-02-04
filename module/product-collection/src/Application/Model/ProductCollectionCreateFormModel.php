@@ -49,6 +49,19 @@ class ProductCollectionCreateFormModel
     public array $name;
 
     /**
+     * @var array
+     *
+     * @Assert\All({
+     *     @Assert\NotBlank(),
+     *     @Assert\Length(
+     *     max=100,
+     *     maxMessage="Product collection description is to long, It should have {{ limit }} character or less."
+     * )
+     * })
+     */
+    public array $description;
+
+    /**
      * @var ProductCollectionTypeId | null
      *
      * @Assert\NotBlank(message="Collection type id is required")
@@ -61,6 +74,7 @@ class ProductCollectionCreateFormModel
     public function __construct()
     {
         $this->name = [];
+        $this->description = [];
         $this->code = null;
         $this->typeId = null;
     }

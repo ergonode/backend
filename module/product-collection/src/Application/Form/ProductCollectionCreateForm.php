@@ -37,6 +37,10 @@ class ProductCollectionCreateForm extends AbstractType
                 TranslationType::class
             )
             ->add(
+                'description',
+                TranslationType::class
+            )
+            ->add(
                 'typeId',
                 ProductCollectionTypeIdType::class
             );

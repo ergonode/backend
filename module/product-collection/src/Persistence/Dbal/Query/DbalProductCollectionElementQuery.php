@@ -44,7 +44,7 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
     {
         $query = $this->getQuery();
         $query->andWhere($query->expr()->eq('product_collection_id', ':productCollectionId'));
-
+        $query->addSelect('created_at');
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');

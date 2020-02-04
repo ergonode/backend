@@ -38,6 +38,11 @@ class ProductCollectionTest extends TestCase
     private TranslatableString $name;
 
     /**
+     * @var TranslatableString
+     */
+    private TranslatableString $description;
+
+    /**
      * @var ProductCollectionTypeId
      */
     private ProductCollectionTypeId $typeId;
@@ -55,6 +60,7 @@ class ProductCollectionTest extends TestCase
         $this->id = $this->createMock(ProductCollectionId::class);
         $this->code = $this->createMock(ProductCollectionCode::class);
         $this->name = $this->createMock(TranslatableString::class);
+        $this->description = $this->createMock(TranslatableString::class);
         $this->typeId = $this->createMock(ProductCollectionTypeId::class);
         $this->productId = ProductId::fromString('test');
     }
@@ -63,9 +69,10 @@ class ProductCollectionTest extends TestCase
      */
     public function testCreateEntity(): void
     {
-        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId);
+        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
         $this->assertEquals($this->id, $entity->getId());
         $this->assertEquals($this->name, $entity->getName());
+        $this->assertEquals($this->description, $entity->getDescription());
         $this->assertEquals($this->code, $entity->getCode());
         $this->assertEquals($this->typeId, $entity->getTypeId());
     }
@@ -74,7 +81,7 @@ class ProductCollectionTest extends TestCase
      */
     public function testElementManipulation(): void
     {
-        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId);
+        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
         $entity->addElement($this->productId, true);
         $this->assertTrue($entity->hasElement($this->productId));
         $this->assertSame($this->productId, $entity->getElement($this->productId)->getProductId());
@@ -83,6 +90,9 @@ class ProductCollectionTest extends TestCase
         $newName = new TranslatableString(['en' => 'english']);
         $entity->changeName($newName);
         $this->assertEquals($newName, $entity->getName());
+        $newDescription = new TranslatableString(['en' => 'english']);
+        $entity->changeDescription($newDescription);
+        $this->assertEquals($newDescription, $entity->getDescription());
         $newTypeId = ProductCollectionTypeId::generate();
         $entity->changeType($newTypeId);
         $this->assertEquals($newTypeId, $entity->getTypeId());
@@ -93,7 +103,7 @@ class ProductCollectionTest extends TestCase
      */
     public function testRemovingElement(): void
     {
-        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId);
+        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
         $entity->addElement($this->productId, true);
         $entity->removeElement($this->productId);
         $entity->getElement($this->productId);
@@ -104,7 +114,7 @@ class ProductCollectionTest extends TestCase
      */
     public function testAddingSameElement(): void
     {
-        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId);
+        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
         $entity->addElement($this->productId, true);
         $entity->addElement($this->productId, true);
     }
@@ -114,7 +124,7 @@ class ProductCollectionTest extends TestCase
      */
     public function testNotExistingElement(): void
     {
-        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->typeId);
+        $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
         $entity->getElement($this->productId);
     }
 }

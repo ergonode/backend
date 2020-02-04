@@ -12,8 +12,10 @@ namespace Ergonode\ProductCollection\Infrastructure\Grid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\BoolColumn;
+use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +39,7 @@ class ProductCollectionElementGrid extends AbstractGrid
         ));
         $this->addColumn('product_id', new TextColumn('product_id', 'Product Id', new TextFilter()));
         $this->addColumn('visible', new BoolColumn('visible', 'Is this element visible for others from collection.'));
+        $this->addColumn('created_at', new DateColumn('created_at', 'Added at', new DateFilter()));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_product_collection_element_read',
@@ -65,7 +68,7 @@ class ProductCollectionElementGrid extends AbstractGrid
                 'method' => Request::METHOD_DELETE,
             ],
         ]));
-        $this->orderBy('product_collection_id', 'DESC');
+        $this->orderBy('created_at', 'DESC');
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }

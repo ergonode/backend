@@ -103,6 +103,7 @@ class ProductCollectionCreateAction
                 $command = new CreateProductCollectionCommand(
                     $data->code,
                     new TranslatableString($data->name),
+                    new TranslatableString($data->description),
                     $data->typeId
                 );
                 $this->messageBus->dispatch($command);

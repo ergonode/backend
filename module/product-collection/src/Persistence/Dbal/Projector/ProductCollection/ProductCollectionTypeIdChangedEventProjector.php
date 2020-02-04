@@ -45,6 +45,7 @@ class ProductCollectionTypeIdChangedEventProjector
             self::TABLE,
             [
                 'type_id' => $event->getNewTypeId()->getValue(),
+                'edited_at' => $event->getEditedAt()->format('Y-m-d H:i:s'),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

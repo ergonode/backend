@@ -111,7 +111,7 @@ class ElementGridReadAction
      *     in="query",
      *     required=false,
      *     type="string",
-     *     enum={"product_collection_id","list"},
+     *     enum={"grid","list"},
      *     description="Specify respons format"
      * )
      * @SWG\Parameter(

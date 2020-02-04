@@ -40,15 +40,30 @@ class ProductCollectionElement extends AbstractEntity
     private bool $visible;
 
     /**
+     * @var \DateTime $createdAt
+     *
+     * @JMS\Type("DateTime")
+     */
+    private \DateTime $createdAt;
+
+    /**
+     * ProductCollectionElement constructor.
+     *
      * @param ProductCollectionElementId $id
      * @param ProductId                  $productId
      * @param bool                       $visible
+     * @param \DateTime                  $createdAt
      */
-    public function __construct(ProductCollectionElementId $id, ProductId $productId, bool $visible)
-    {
+    public function __construct(
+        ProductCollectionElementId $id,
+        ProductId $productId,
+        bool $visible,
+        \DateTime $createdAt
+    ) {
         $this->id = $id;
         $this->productId = $productId;
         $this->visible = $visible;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -73,6 +88,14 @@ class ProductCollectionElement extends AbstractEntity
     public function isVisible(): bool
     {
         return $this->visible;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
     }
 
     /**

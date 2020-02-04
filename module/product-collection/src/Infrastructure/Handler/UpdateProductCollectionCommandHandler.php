@@ -11,7 +11,6 @@ namespace Ergonode\ProductCollection\Infrastructure\Handler;
 
 use Ergonode\ProductCollection\Domain\Command\UpdateProductCollectionCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
-use Ergonode\ProductCollection\Domain\Factory\ProductCollectionFactory;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface;
 use Webmozart\Assert\Assert;
 
@@ -26,9 +25,8 @@ class UpdateProductCollectionCommandHandler
 
     /**
      * @param ProductCollectionRepositoryInterface $repository
-     * @param ProductCollectionFactory             $factory
      */
-    public function __construct(ProductCollectionRepositoryInterface $repository, ProductCollectionFactory $factory)
+    public function __construct(ProductCollectionRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
@@ -44,6 +42,7 @@ class UpdateProductCollectionCommandHandler
         $productCollection = $this->repository->load($command->getId());
         Assert::notNull($productCollection);
         $productCollection->changeName($command->getName());
+        $productCollection->changeDescription($command->getDescription());
         $productCollection->changeType($command->getTypeId());
         $this->repository->save($productCollection);
     }

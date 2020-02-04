@@ -34,6 +34,7 @@ class ProductCollectionTypeGrid extends AbstractGrid
         $this->addColumn('id', $id);
         $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
+        $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter()));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_product_collection_type_read',

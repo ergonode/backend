@@ -29,20 +29,28 @@ class ProductCollectionCreatedEventTest extends TestCase
         $id = $this->createMock(ProductCollectionId::class);
         /** @var ProductCollectionCode | MockObject $code */
         $code = $this->createMock(ProductCollectionCode::class);
-        /** @var TranslatableString | MockObject $code */
+        /** @var TranslatableString | MockObject $name */
         $name = $this->createMock(TranslatableString::class);
-        /** @var ProductCollectionTypeId | MockObject $code */
+        /** @var TranslatableString | MockObject $description */
+        $description = $this->createMock(TranslatableString::class);
+        /** @var ProductCollectionTypeId | MockObject $typeId */
         $typeId = $this->createMock(ProductCollectionTypeId::class);
+        /** @var \DateTime | MockObject $dateTime */
+        $dateTime = $this->createMock(\DateTime::class);
 
         $event = new ProductCollectionCreatedEvent(
             $id,
             $code,
             $name,
+            $description,
             $typeId,
+            $dateTime
         );
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($code, $event->getCode());
         $this->assertEquals($name, $event->getName());
+        $this->assertEquals($description, $event->getDescription());
         $this->assertEquals($typeId, $event->getTypeId());
+        $this->assertEquals($dateTime, $event->getCreatedAt());
     }
 }

@@ -28,10 +28,13 @@ class ProductCollectionElementRemovedEventTest extends TestCase
 
         /** @var ProductId | MockObject $productId */
         $productId = $this->createMock(ProductId::class);
+        /** @var \DateTime | MockObject $dateTime */
+        $dateTime = $this->createMock(\DateTime::class);
 
-        $event = new ProductCollectionElementRemovedEvent($id, $productId);
+        $event = new ProductCollectionElementRemovedEvent($id, $productId, $dateTime);
 
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($productId, $event->getProductId());
+        $this->assertEquals($dateTime, $event->getCollectionEditedAt());
     }
 }

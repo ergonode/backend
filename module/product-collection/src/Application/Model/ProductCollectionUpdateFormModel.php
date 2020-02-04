@@ -30,6 +30,19 @@ class ProductCollectionUpdateFormModel
     public array $name;
 
     /**
+     * @var array
+     *
+     * @Assert\All({
+     *     @Assert\NotBlank(),
+     *     @Assert\Length(
+     *     max=100,
+     *      maxMessage="Product collection name is to long, It should have {{ limit }} character or less."
+     * )
+     * })
+     */
+    public array $description;
+
+    /**
      * @var ProductCollectionTypeId | null
      *
      * @Assert\NotBlank(message="Collection type is required")
@@ -42,6 +55,7 @@ class ProductCollectionUpdateFormModel
     public function __construct()
     {
         $this->name = [];
+        $this->description = [];
         $this->typeId = null;
     }
 }

@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ProductCollectionNameChangedEvent implements DomainEventInterface
+class ProductCollectionDescriptionChangedEvent implements DomainEventInterface
 {
     /**
      * @var ProductCollectionId
@@ -48,7 +48,7 @@ class ProductCollectionNameChangedEvent implements DomainEventInterface
     private \DateTime $editedAt;
 
     /**
-     * ProductCollectionNameChangedEvent constructor.
+     * ProductCollectionDescriptionChangedEvent constructor.
      *
      * @param ProductCollectionId $id
      * @param TranslatableString  $from

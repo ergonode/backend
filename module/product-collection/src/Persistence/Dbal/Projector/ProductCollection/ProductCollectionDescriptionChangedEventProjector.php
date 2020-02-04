@@ -11,12 +11,12 @@ namespace Ergonode\ProductCollection\Persistence\Dbal\Projector\ProductCollectio
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\ProductCollection\Domain\Event\ProductCollectionCreatedEvent;
+use Ergonode\ProductCollection\Domain\Event\ProductCollectionDescriptionChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class ProductCollectionCreatedEventProjector
+class ProductCollectionDescriptionChangedEventProjector
 {
     private const TABLE = 'collection';
 
@@ -31,6 +31,8 @@ class ProductCollectionCreatedEventProjector
     private SerializerInterface $serializer;
 
     /**
+     * ProductCollectionDescriptionChangedEventProjector constructor.
+     *
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */
@@ -41,21 +43,20 @@ class ProductCollectionCreatedEventProjector
     }
 
     /**
-     * @param ProductCollectionCreatedEvent $event
+     * @param ProductCollectionDescriptionChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductCollectionCreatedEvent $event): void
+    public function __invoke(ProductCollectionDescriptionChangedEvent $event): void
     {
-        $this->connection->insert(
+        $this->connection->update(
             self::TABLE,
             [
-                'id' => $event->getAggregateId(),
-                'code' => $event->getCode(),
-                'name' => $this->serializer->serialize($event->getName()->getTranslations(), 'json'),
-                'description' => $this->serializer->serialize($event->getDescription()->getTranslations(), 'json'),
-                'type_id' => $event->getTypeId(),
-                'created_at' => $event->getCreatedAt()->format('Y-m-d H:i:s'),
+                'description' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
+                'edited_at' => $event->getEditedAt()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

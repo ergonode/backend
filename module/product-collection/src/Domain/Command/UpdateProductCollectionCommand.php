@@ -33,6 +33,13 @@ class UpdateProductCollectionCommand implements DomainCommandInterface
     private TranslatableString $name;
 
     /**
+     * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
+     */
+    private TranslatableString $description;
+
+    /**
      * @var ProductCollectionTypeId
      *
      * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId")
@@ -42,12 +49,18 @@ class UpdateProductCollectionCommand implements DomainCommandInterface
     /**
      * @param ProductCollectionId     $id
      * @param TranslatableString      $name
+     * @param TranslatableString      $description
      * @param ProductCollectionTypeId $typeId
      */
-    public function __construct(ProductCollectionId $id, TranslatableString $name, ProductCollectionTypeId $typeId)
-    {
+    public function __construct(
+        ProductCollectionId $id,
+        TranslatableString $name,
+        TranslatableString $description,
+        ProductCollectionTypeId $typeId
+    ) {
         $this->id = $id;
         $this->name = $name;
+        $this->description = $description;
         $this->typeId = $typeId;
     }
 
@@ -65,6 +78,14 @@ class UpdateProductCollectionCommand implements DomainCommandInterface
     public function getName(): TranslatableString
     {
         return $this->name;
+    }
+
+    /**
+     * @return TranslatableString
+     */
+    public function getDescription(): TranslatableString
+    {
+        return $this->description;
     }
 
     /**

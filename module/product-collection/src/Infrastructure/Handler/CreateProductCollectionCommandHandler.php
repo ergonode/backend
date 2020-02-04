@@ -48,6 +48,7 @@ class CreateProductCollectionCommandHandler
             $command->getId(),
             $command->getCode(),
             $command->getName(),
+            $command->getDescription(),
             $command->getTypeId()
         );
         $this->repository->save($productCollection);

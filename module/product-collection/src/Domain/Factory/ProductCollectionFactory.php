@@ -23,6 +23,7 @@ class ProductCollectionFactory
      * @param ProductCollectionId     $id
      * @param ProductCollectionCode   $code
      * @param TranslatableString      $name
+     * @param TranslatableString      $description
      * @param ProductCollectionTypeId $typeId
      *
      * @return ProductCollection
@@ -31,12 +32,14 @@ class ProductCollectionFactory
         ProductCollectionId $id,
         ProductCollectionCode $code,
         TranslatableString $name,
+        TranslatableString $description,
         ProductCollectionTypeId $typeId
     ): ProductCollection {
         return new ProductCollection(
             $id,
             $code,
             $name,
+            $description,
             $typeId
         );
     }

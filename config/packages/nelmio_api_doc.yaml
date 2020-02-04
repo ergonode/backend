@@ -318,6 +318,12 @@ nelmio_api_doc:
                         example:
                             DE: Name DE
                             EN: Name EN
+                    description:
+                        type: object
+                        description: Product Collection description
+                        example:
+                            DE: Description DE
+                            EN: Description EN
                     typeId:
                         type: string
                         description: Product Collection Type Id
@@ -332,6 +338,12 @@ nelmio_api_doc:
                         example:
                             DE: Name DE
                             EN: Name EN
+                    description:
+                        type: object
+                        description: Product Collection description
+                        example:
+                            DE: Description DE
+                            EN: Description EN
                     typeId:
                         type: string
                         description: Product Collection Type Id

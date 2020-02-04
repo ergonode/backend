@@ -49,7 +49,7 @@ class ProductCollectionElementTest extends TestCase
      */
     public function testElementCreation(): void
     {
-        $entity = new ProductCollectionElement($this->id, $this->productId, true);
+        $entity = new ProductCollectionElement($this->id, $this->productId, true, new \DateTime());
         $this->assertSame($this->id, $entity->getId());
         $this->assertSame($this->productId, $entity->getProductId());
         $this->assertTrue($entity->isVisible());
@@ -60,7 +60,7 @@ class ProductCollectionElementTest extends TestCase
     public function testElementManipulation(): void
     {
         $this->aggregateRoot->expects($this->once())->method('apply');
-        $entity = new ProductCollectionElement($this->id, $this->productId, true);
+        $entity = new ProductCollectionElement($this->id, $this->productId, true, new \DateTime());
         $entity->setAggregateRoot($this->aggregateRoot);
         $entity->changeVisible(false);
     }

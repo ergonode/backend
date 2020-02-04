@@ -122,6 +122,7 @@ class ProductCollectionChangeAction
                 $command = new UpdateProductCollectionCommand(
                     $productCollection->getId(),
                     new TranslatableString($data->name),
+                    new TranslatableString($data->description),
                     $data->typeId
                 );
                 $this->messageBus->dispatch($command);
