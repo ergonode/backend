@@ -16,7 +16,7 @@ class SegmentCode
     /**
      * @var string
      */
-    private $value;
+    private string $value;
 
     /**
      * @param string $value
@@ -53,6 +53,7 @@ class SegmentCode
      */
     public static function isValid(string $value): bool
     {
-        return strlen($value) <= 100;
+        return '' !== $value
+            && strlen($value) <= 100;
     }
 }

@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 
@@ -22,12 +21,12 @@ interface SegmentRepositoryInterface
      *
      * @return Segment|null
      */
-    public function load(SegmentId $id): ?AbstractAggregateRoot;
+    public function load(SegmentId $id): ?Segment;
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param Segment $segment
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
+    public function save(Segment $segment): void;
 
     /**
      * @param SegmentId $id
@@ -37,7 +36,7 @@ interface SegmentRepositoryInterface
     public function exists(SegmentId $id): bool;
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param Segment $segment
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void;
+    public function delete(Segment $segment): void;
 }

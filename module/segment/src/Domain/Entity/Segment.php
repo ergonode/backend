@@ -33,7 +33,7 @@ class Segment extends AbstractAggregateRoot
      * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
      * @JMS\Expose()
      */
-    private $id;
+    private SegmentId $id;
 
     /**
      * @var SegmentStatus
@@ -41,7 +41,7 @@ class Segment extends AbstractAggregateRoot
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentStatus")
      * @JMS\Expose()
      */
-    private $status;
+    private SegmentStatus $status;
 
     /**
      * @var SegmentCode
@@ -49,7 +49,7 @@ class Segment extends AbstractAggregateRoot
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentCode")
      * @JMS\Expose()
      */
-    private $code;
+    private SegmentCode $code;
 
     /**
      * @var TranslatableString
@@ -57,7 +57,7 @@ class Segment extends AbstractAggregateRoot
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      * @JMS\Expose()
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @var TranslatableString
@@ -65,15 +65,15 @@ class Segment extends AbstractAggregateRoot
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      * @JMS\Expose()
      */
-    private $description;
+    private TranslatableString $description;
 
     /**
-     * @var ConditionSetId
+     * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      * @JMS\Expose()
      */
-    private $conditionSetId;
+    private ?ConditionSetId $conditionSetId;
 
     /**
      * @param SegmentId           $id

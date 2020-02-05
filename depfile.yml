@@ -87,6 +87,14 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Importer\\.*
+  - name: Importer-Magento-1
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ImporterMagento1\\.*
+  - name: Importer-Magento-2
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ImporterMagento1\\.*
   - name: Transformer
     collectors:
       - type: className
@@ -109,6 +117,7 @@ ruleset:
     - Grid
     - Account
     - Api
+    - EventSourcing
   Attribute:
     - Core
     - Grid
@@ -205,7 +214,16 @@ ruleset:
     - Api
     - Core
     - Grid
+    - EventSourcing
     - Reader
+    - Transformer
+  Importer-Magento-1:
+    - Core
+    - Importer
+    - Transformer
+  Importer-Magento-2:
+    - Core
+    - Importer
     - Transformer
   Transformer:
     - Core

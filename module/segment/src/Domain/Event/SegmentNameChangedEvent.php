@@ -24,7 +24,7 @@ class SegmentNameChangedEvent extends AbstractTranslatableStringBasedChangedEven
      *
      * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
      */
-    private $id;
+    private SegmentId $id;
 
     /**
      * @param SegmentId          $id

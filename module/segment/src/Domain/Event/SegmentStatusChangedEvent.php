@@ -24,21 +24,21 @@ class SegmentStatusChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
      */
-    private $id;
+    private SegmentId $id;
 
     /**
      * @var SegmentStatus
      *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentStatus")
      */
-    private $from;
+    private SegmentStatus $from;
 
     /**
      * @var SegmentStatus
      *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentStatus")
      */
-    private $to;
+    private SegmentStatus $to;
 
     /**
      * @param SegmentId     $id

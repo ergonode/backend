@@ -1,27 +1,3 @@
-parameters:
-    'condition.group.workflow':
-        - 'Ergonode\Condition\Domain\Condition\AttributeExistsCondition'
-        - 'Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition'
-        - 'Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition'
-        - 'Ergonode\Condition\Domain\Condition\TextAttributeValueCondition'
-        - 'Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition'
-        - 'Ergonode\Condition\Domain\Condition\ProductCompletenessCondition'
-        - 'Ergonode\Condition\Domain\Condition\RoleExactlyCondition'
-        - 'Ergonode\Condition\Domain\Condition\UserExactlyCondition'
-        - 'Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition'
-        - 'Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition'
-        - 'Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition'
-    'condition.group.segment':
-        - 'Ergonode\Condition\Domain\Condition\AttributeExistsCondition'
-        - 'Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition'
-        - 'Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition'
-        - 'Ergonode\Condition\Domain\Condition\TextAttributeValueCondition'
-        - 'Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition'
-        - 'Ergonode\Condition\Domain\Condition\ProductCompletenessCondition'
-        - 'Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition'
-        - 'Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition'
-        - 'Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition'
-
 services:
     _defaults:
         autowire: true
@@ -71,10 +47,7 @@ services:
             - ['set', ['Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition']]
             - ['set', ['Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition' ]]
 
-    Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider:
-        calls:
-            - ['set', ['workflow', '%condition.group.workflow%']]
-            - ['set', ['segment', '%condition.group.segment%']]
+    Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider: ~
 
     Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Persistence\Dbal\Query\DbalConditionSetQuery'
     Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Persistence\Dbal\Repository\DbalConditionSetRepository'
