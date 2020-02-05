@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -33,33 +34,33 @@ use Symfony\Component\Routing\Annotation\Route;
 class SegmentDeleteAction
 {
     /**
-     * @var MessageBusInterface
-     */
-    private $messageBus;
-
-    /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @var ExistingRelationshipTypeMessageBuilder
      */
-    private $existingRelationshipTypeMessageBuilder;
+    private ExistingRelationshipTypeMessageBuilder $existingRelationshipTypeMessageBuilder;
 
     /**
-     * @param MessageBusInterface                    $messageBus
+     * @var CommandBusInterface
+     */
+    private CommandBusInterface $commandBus;
+
+    /**
      * @param RelationshipsResolverInterface         $relationshipsResolver
      * @param ExistingRelationshipTypeMessageBuilder $existingRelationshipTypeMessageBuilder
+     * @param CommandBusInterface                    $commandBus
      */
     public function __construct(
-        MessageBusInterface $messageBus,
         RelationshipsResolverInterface $relationshipsResolver,
-        ExistingRelationshipTypeMessageBuilder $existingRelationshipTypeMessageBuilder
+        ExistingRelationshipTypeMessageBuilder $existingRelationshipTypeMessageBuilder,
+        CommandBusInterface $commandBus
     ) {
-        $this->messageBus = $messageBus;
         $this->relationshipsResolver = $relationshipsResolver;
         $this->existingRelationshipTypeMessageBuilder = $existingRelationshipTypeMessageBuilder;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -107,7 +108,7 @@ class SegmentDeleteAction
         }
 
         $command = new DeleteSegmentCommand($segment->getId());
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         return new EmptyResponse();
     }

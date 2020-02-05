@@ -369,7 +369,7 @@ Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
       - '<translation(<{label_esa_categories}>)>'
       - '<translation(<{empty}>)>'
       - '<translation(<{empty}>)>'
-  
+
 Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
   product_collection_type_up-sell:
     __construct:

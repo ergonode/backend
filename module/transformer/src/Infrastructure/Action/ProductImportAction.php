@@ -75,6 +75,7 @@ class ProductImportAction implements ImportActionInterface
     public function action(Record $record): void
     {
         $sku = $record->get('sku') ? new Sku($record->get('sku')) : null;
+        $type = $record->get('type');
         Assert::notNull($sku, 'product import required "sku" field not exists');
 
         $importedProduct = new ImportedProduct($sku->getValue());
@@ -86,7 +87,7 @@ class ProductImportAction implements ImportActionInterface
         $productData = $this->productQuery->findBySku($sku);
 
         if (!$productData) {
-            $product = $this->productFactoryProvider->provide(SimpleProduct::TYPE)->create(
+            $product = $this->productFactoryProvider->provide($type)->create(
                 ProductId::generate(),
                 $sku,
                 $importedProduct->categories,

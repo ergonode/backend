@@ -6,12 +6,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Tests\Infrastructure\Handler;
+namespace Ergonode\Segment\Tests\Infrastructure\Handler\Command;
 
 use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Entity\Segment;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
-use Ergonode\Segment\Infrastructure\Handler\UpdateSegmentCommandHandler;
+use Ergonode\Segment\Infrastructure\Handler\Command\UpdateSegmentCommandHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

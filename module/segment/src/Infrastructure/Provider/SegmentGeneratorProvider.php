@@ -20,7 +20,7 @@ class SegmentGeneratorProvider
     /**
      * @var SegmentGeneratorInterface[]
      */
-    private $generators;
+    private array $generators;
 
     /**
      * @param SegmentGeneratorInterface ...$generators

@@ -23,7 +23,7 @@ class SegmentDeletedEvent extends AbstractDeleteEvent
      *
      * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
      */
-    private $id;
+    private SegmentId $id;
 
     /**
      * @param SegmentId $id

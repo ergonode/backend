@@ -17,36 +17,38 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CreateSegmentFormModel
 {
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\Uuid()
      */
-    public $conditionSetId;
+    public ?string $conditionSetId;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\NotBlank(message="Segment code is required")
      * @Assert\Length(max=100)
      *
      * @UniqueSegmentCode()
      */
-    public $code;
+    public ?string $code;
 
     /**
      * @var array
      */
-    public $name;
+    public array $name;
 
     /**
      * @var array
      */
-    public $description;
+    public array $description;
 
     /**
      */
     public function __construct()
     {
+        $this->conditionSetId = null;
+        $this->code = null;
         $this->name = [];
         $this->description = [];
     }

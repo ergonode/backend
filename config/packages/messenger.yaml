@@ -22,6 +22,7 @@ framework:
             export: "%env(MESSENGER_TRANSPORT_EXPORT_DSN)%"
             core: "%env(MESSENGER_TRANSPORT_CORE_DSN)%"
             event: "%env(MESSENGER_TRANSPORT_DOMAIN_DSN)%"
+            segment: "%env(MESSENGER_TRANSPORT_SEGMENT_DSN)%"
         routing:
 #            'Ergonode\Importer\Domain\Command\CreateFileImportCommand' : import
 #            'Ergonode\Importer\Domain\Command\StartProcessImportCommand' : import
@@ -35,6 +36,9 @@ framework:
 #            'Ergonode\Transformer\Domain\Command\ProcessImportLineCommand' : import
 #            'Ergonode\Transformer\Domain\Command\StartProcessImportLineCommand' : import
 #            'Ergonode\Transformer\Domain\Command\StopProcessImportLineCommand' : import
+            'Ergonode\Segment\Domain\Command\CalculateProductCommand': segment
+            'Ergonode\Segment\Domain\Command\CalculateSegmentCommand': segment
+            'Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand': segment
             'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': core
             'Ergonode\Attribute\Domain\Command\DeleteAttributeCommand': core
             'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': core

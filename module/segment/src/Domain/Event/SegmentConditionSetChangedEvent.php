@@ -25,21 +25,21 @@ class SegmentConditionSetChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
      */
-    private $id;
+    private SegmentId $id;
 
     /**
      * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
-    private $from;
+    private ?ConditionSetId $from;
 
     /**
      * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
      */
-    private $to;
+    private ?ConditionSetId $to;
 
     /**
      * @param SegmentId      $id

@@ -22,12 +22,12 @@ class SegmentProvider
     /**
      * @var SegmentRepositoryInterface
      */
-    private $repository;
+    private SegmentRepositoryInterface $repository;
 
     /**
      * @var SegmentGeneratorProvider
      */
-    private $provider;
+    private SegmentGeneratorProvider $provider;
 
     /**
      * @param SegmentRepositoryInterface $repository

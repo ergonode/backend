@@ -29,17 +29,17 @@ class SegmentGridReadAction
     /**
      * @var SegmentGrid
      */
-    private $grid;
+    private SegmentGrid $grid;
 
     /**
      * @var SegmentQueryInterface
      */
-    private $query;
+    private SegmentQueryInterface $query;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer          $gridRenderer

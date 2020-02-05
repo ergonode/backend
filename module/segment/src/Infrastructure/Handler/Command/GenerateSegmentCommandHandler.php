@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Segment\Infrastructure\Handler;
+namespace Ergonode\Segment\Infrastructure\Handler\Command;
 
 use Ergonode\Segment\Domain\Command\GenerateSegmentCommand;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
@@ -21,12 +21,12 @@ class GenerateSegmentCommandHandler
     /**
      * @var SegmentRepositoryInterface
      */
-    private $repository;
+    private SegmentRepositoryInterface $repository;
 
     /**
      * @var SegmentGeneratorProvider
      */
-    private $generator;
+    private SegmentGeneratorProvider $generator;
 
     /**
      * @param SegmentRepositoryInterface $repository
