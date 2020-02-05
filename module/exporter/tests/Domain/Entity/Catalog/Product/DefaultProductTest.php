@@ -17,7 +17,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  */
-class SimpleProductTest extends TestCase
+class DefaultProductTest extends TestCase
 {
     /**
      * @var Uuid

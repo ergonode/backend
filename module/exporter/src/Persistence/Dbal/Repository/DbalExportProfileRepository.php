@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\Exporter\Domain\Entity\Profile\ExportProfileId;
 use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
+use Ergonode\Exporter\Persistence\Dbal\Repository\Factory\ExportProfileFactory;
 
 /**
  */
@@ -31,6 +32,11 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
      * @var Connection
      */
     private Connection $connection;
+
+    /**
+     * @var ExportProfileFactory
+     */
+    private ExportProfileFactory $factory;
 
     /**
      * DbalExportProfileRepository constructor.
@@ -53,7 +59,10 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
             ->setParameter(':id', $id->getValue())
             ->execute()
             ->fetch();
-        //todo create objecect
+
+        if ($record) {
+            return $this->factory->create($record);
+        }
 
         return null;
     }
@@ -122,9 +131,6 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
      */
     private function insert(AbstractExportProfile $exportProfile): void
     {
-
-        $exportProfileArray['created_at'] = date('Y-m-d H:i:s');
-        $exportProfileArray['updated_at'] = date('Y-m-d H:i:s');
 
         $this->connection->insert(
             self::TABLE,
