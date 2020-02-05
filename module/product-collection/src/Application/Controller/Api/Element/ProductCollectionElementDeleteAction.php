@@ -10,16 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -33,19 +31,19 @@ use Symfony\Component\Routing\Annotation\Route;
  *     },
  * )
  */
-class ElementDeleteAction
+class ProductCollectionElementDeleteAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
-     * @param MessageBusInterface $messageBus
+     * @param CommandBusInterface $commandBus
      */
-    public function __construct(MessageBusInterface $messageBus)
+    public function __construct(CommandBusInterface $commandBus)
     {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -87,21 +85,17 @@ class ElementDeleteAction
      * )
      *
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
      * @param ProductCollection $productCollection
-     * @param Request           $request
+     * @param AbstractProduct   $product
      *
      * @return Response
      */
-    public function __invoke(ProductCollection $productCollection, Request $request): Response
+    public function __invoke(ProductCollection $productCollection, AbstractProduct $product): Response
     {
-        $parameter = $request->get('product');
-
-        if (null === $parameter) {
-            throw new BadRequestHttpException('Route parameter "product" is missing');
-        }
-        $command = new DeleteProductCollectionElementCommand($productCollection->getId(), new ProductId($parameter));
-        $this->messageBus->dispatch($command);
+        $command = new DeleteProductCollectionElementCommand($productCollection->getId(), $product->getId());
+        $this->commandBus->dispatch($command);
 
         return new EmptyResponse();
     }

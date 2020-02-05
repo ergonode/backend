@@ -34,18 +34,11 @@ class ProductCollectionElementAddedEvent implements DomainEventInterface
     private ProductCollectionElement $element;
 
     /**
-     * @var \DateTime $elementCreatedAt
+     * @var \DateTime $currentDateTime
      *
      * @JMS\Type("DateTime")
      */
-    private \DateTime $elementCreatedAt;
-
-    /**
-     * @var \DateTime $collectionEditedAt
-     *
-     * @JMS\Type("DateTime")
-     */
-    private \DateTime $collectionEditedAt;
+    private \DateTime $currentDateTime;
 
     /**
      * @param ProductCollectionId      $id
@@ -56,24 +49,15 @@ class ProductCollectionElementAddedEvent implements DomainEventInterface
     {
         $this->id = $id;
         $this->element = $element;
-        $this->elementCreatedAt = $currentDateTime;
-        $this->collectionEditedAt = $currentDateTime;
+        $this->currentDateTime = $currentDateTime;
     }
 
     /**
      * @return \DateTime
      */
-    public function getCollectionEditedAt(): \DateTime
+    public function getCurrentDateTime(): \DateTime
     {
-        return $this->collectionEditedAt;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getElementCreatedAt(): \DateTime
-    {
-        return $this->elementCreatedAt;
+        return $this->currentDateTime;
     }
 
     /**

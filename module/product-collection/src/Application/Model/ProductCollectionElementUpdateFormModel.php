@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
-class ElementChangeFormModel
+class ProductCollectionElementUpdateFormModel
 {
     /**
      * @var bool | null

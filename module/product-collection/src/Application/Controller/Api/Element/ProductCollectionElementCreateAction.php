@@ -11,8 +11,9 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\ProductCollection\Application\Form\ElementCreateForm;
-use Ergonode\ProductCollection\Application\Model\ElementCreateFormModel;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\ProductCollection\Application\Form\ProductCollectionElementCreateForm;
+use Ergonode\ProductCollection\Application\Model\ProductCollectionElementCreateFormModel;
 use Ergonode\ProductCollection\Domain\Command\AddProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -22,7 +23,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -34,12 +34,12 @@ use Symfony\Component\Routing\Annotation\Route;
  *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
  * )
  */
-class ElementCreateAction
+class ProductCollectionElementCreateAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
@@ -47,14 +47,14 @@ class ElementCreateAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
+     * @param CommandBusInterface  $commandBus
      * @param FormFactoryInterface $formFactory
      */
     public function __construct(
-        MessageBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory
     ) {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
     }
 
@@ -105,12 +105,12 @@ class ElementCreateAction
     public function __invoke(ProductCollection $productCollection, Request $request): Response
     {
         try {
-            $model = new ElementCreateFormModel($productCollection);
-            $form = $this->formFactory->create(ElementCreateForm::class, $model);
+            $model = new ProductCollectionElementCreateFormModel($productCollection);
+            $form = $this->formFactory->create(ProductCollectionElementCreateForm::class, $model);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ElementCreateFormModel $data */
+                /** @var ProductCollectionElementCreateFormModel $data */
                 $data = $form->getData();
 
                 $command = new AddProductCollectionElementCommand(
@@ -119,7 +119,7 @@ class ElementCreateAction
                     $data->visible,
                 );
 
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($productCollection->getId());
             }

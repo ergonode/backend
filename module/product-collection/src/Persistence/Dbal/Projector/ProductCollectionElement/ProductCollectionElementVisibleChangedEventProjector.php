@@ -46,6 +46,7 @@ class ProductCollectionElementVisibleChangedEventProjector
             ],
             [
                 'product_collection_id' => $event->getAggregateId()->getValue(),
+                'product_id' => $event->getProductId()->getValue(),
             ],
             [
                 'visible' => \PDO::PARAM_BOOL,

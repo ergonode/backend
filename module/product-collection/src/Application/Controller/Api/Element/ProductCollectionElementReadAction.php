@@ -10,16 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -33,30 +29,8 @@ use Symfony\Component\Routing\Annotation\Route;
  *     },
  * )
  */
-class ElementReadAction
+class ProductCollectionElementReadAction
 {
-    /**
-     * @var MessageBusInterface
-     */
-    private MessageBusInterface $messageBus;
-
-    /**
-     * @var FormFactoryInterface
-     */
-    private FormFactoryInterface $formFactory;
-
-    /**
-     * @param MessageBusInterface  $messageBus
-     * @param FormFactoryInterface $formFactory
-     */
-    public function __construct(
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
-        $this->messageBus = $messageBus;
-        $this->formFactory = $formFactory;
-    }
-
     /**
      * @IsGranted("PRODUCT_COLLECTION_READ")
      *
@@ -93,26 +67,20 @@ class ElementReadAction
      * )
      *
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
      * @param ProductCollection $productCollection
-     * @param Request           $request
+     * @param AbstractProduct   $product
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(ProductCollection $productCollection, Request $request): Response
+    public function __invoke(ProductCollection $productCollection, AbstractProduct $product): Response
     {
-        $parameter = $request->get('product');
 
-        if (null === $parameter) {
-            throw new BadRequestHttpException('Route parameter "product" is missing');
-        }
-
-        $productId = new ProductId($parameter);
-
-        if ($productCollection->hasElement($productId)) {
-            return new SuccessResponse($productCollection->getElement($productId));
+        if ($productCollection->hasElement($product->getId())) {
+            return new SuccessResponse($productCollection->getElement($product->getId()));
         }
 
         return new SuccessResponse($productCollection);

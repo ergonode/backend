@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  */
-class ElementCreateFormModel
+class ProductCollectionElementCreateFormModel
 {
     /**
      * @var ProductId | null
@@ -56,7 +56,7 @@ class ElementCreateFormModel
      */
     public function validate(ExecutionContextInterface $context): void
     {
-        /** @var ElementCreateFormModel $data */
+        /** @var ProductCollectionElementCreateFormModel $data */
         $data = $context->getValue();
         if ($data->productCollection->hasElement($data->productId)) {
             $context->addViolation('Element exists');

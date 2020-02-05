@@ -106,7 +106,11 @@ class ProductCollectionElement extends AbstractEntity
 
         if ($this->visible !== $newVisible) {
             $this->apply(
-                new ProductCollectionElementVisibleChangedEvent($this->aggregateRoot->getId(), $this->id, $newVisible)
+                new ProductCollectionElementVisibleChangedEvent(
+                    $this->aggregateRoot->getId(),
+                    $this->productId,
+                    $newVisible
+                )
             );
         }
     }

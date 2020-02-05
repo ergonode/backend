@@ -46,7 +46,7 @@ class ProductCollectionElementAddedEventProjector
                 'product_collection_id' => $event->getAggregateId(),
                 'product_id' => $event->getElement()->getProductId(),
                 'visible' => $event->getElement()->isVisible(),
-                'created_at' => $event->getElementCreatedAt()->format('Y-m-d H:i:s'),
+                'created_at' => $event->getCurrentDateTime()->format('Y-m-d H:i:s'),
             ],
             [
                 'visible' => \PDO::PARAM_BOOL,
@@ -55,7 +55,7 @@ class ProductCollectionElementAddedEventProjector
         $this->connection->update(
             self::TABLE_COLLECTION,
             [
-                'edited_at' => $event->getCollectionEditedAt()->format('Y-m-d H:i:s'),
+                'edited_at' => $event->getCurrentDateTime()->format('Y-m-d H:i:s'),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

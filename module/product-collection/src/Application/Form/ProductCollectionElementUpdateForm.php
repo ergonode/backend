@@ -10,15 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Application\Form;
 
 use Ergonode\Core\Application\Form\Type\BooleanType;
-use Ergonode\ProductCollection\Application\Form\Type\ProductIdType;
-use Ergonode\ProductCollection\Application\Model\ElementCreateFormModel;
+use Ergonode\ProductCollection\Application\Model\ProductCollectionElementUpdateFormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class ElementCreateForm extends AbstractType
+class ProductCollectionElementUpdateForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,10 +26,6 @@ class ElementCreateForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add(
-                'productId',
-                ProductIdType::class
-            )
             ->add(
                 'visible',
                 BooleanType::class
@@ -43,7 +38,7 @@ class ElementCreateForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ElementCreateFormModel::class,
+            'data_class' => ProductCollectionElementUpdateFormModel::class,
             'translation_domain' => 'element',
         ]);
     }

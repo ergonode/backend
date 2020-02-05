@@ -324,7 +324,7 @@ class ProductCollection extends AbstractAggregateRoot
     ): void {
         $this->elements[$event->getElement()->getId()->getValue()]
             = $event->getElement();
-        $this->editedAt = $event->getCollectionEditedAt();
+        $this->editedAt = $event->getCurrentDateTime();
     }
 
     /**

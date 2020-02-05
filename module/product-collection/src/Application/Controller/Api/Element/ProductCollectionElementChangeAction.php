@@ -11,18 +11,19 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Product\Domain\Entity\ProductId;
-use Ergonode\ProductCollection\Application\Form\ElementChangeForm;
-use Ergonode\ProductCollection\Application\Model\ElementChangeFormModel;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\ProductCollection\Application\Form\ProductCollectionElementUpdateForm;
+use Ergonode\ProductCollection\Application\Model\ProductCollectionElementUpdateFormModel;
 use Ergonode\ProductCollection\Domain\Command\UpdateProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -37,27 +38,27 @@ use Symfony\Component\Routing\Annotation\Route;
  *     },
  * )
  */
-class ElementChangeAction
+class ProductCollectionElementChangeAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
      */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
+     * @param CommandBusInterface  $commandBus
      * @param FormFactoryInterface $formFactory
      */
     public function __construct(
-        MessageBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory
     ) {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
     }
 
@@ -102,35 +103,36 @@ class ElementChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
      *
      * @param ProductCollection $productCollection
+     * @param AbstractProduct   $product
      * @param Request           $request
      *
      * @return Response
      */
-    public function __invoke(ProductCollection $productCollection, Request $request): Response
+    public function __invoke(ProductCollection $productCollection, AbstractProduct $product, Request $request): Response
     {
         try {
-            $model = new ElementChangeFormModel();
-            $form = $this->formFactory->create(ElementChangeForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $model = new ProductCollectionElementUpdateFormModel();
+            $form = $this->formFactory->create(
+                ProductCollectionElementUpdateForm::class,
+                $model,
+                ['method' => Request::METHOD_PUT]
+            );
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ElementChangeFormModel $data */
+                /** @var ProductCollectionElementUpdateFormModel $data */
                 $data = $form->getData();
-                $parameter = $request->get('product');
-
-                if (null === $parameter) {
-                    throw new BadRequestHttpException('Route parameter "product" is missing');
-                }
                 $command = new UpdateProductCollectionElementCommand(
                     $productCollection->getId(),
-                    new ProductId($parameter),
+                    $product->getId(),
                     $data->visible
                 );
 
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new EmptyResponse();
             }

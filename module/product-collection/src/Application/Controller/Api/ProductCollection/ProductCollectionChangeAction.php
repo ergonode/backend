@@ -12,6 +12,7 @@ namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectio
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ProductCollection\Application\Form\ProductCollectionUpdateForm;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionUpdateFormModel;
 use Ergonode\ProductCollection\Domain\Command\UpdateProductCollectionCommand;
@@ -23,7 +24,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -38,9 +38,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductCollectionChangeAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
@@ -48,14 +48,14 @@ class ProductCollectionChangeAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
+     * @param CommandBusInterface  $commandBus
      * @param FormFactoryInterface $formFactory
      */
     public function __construct(
-        MessageBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory
     ) {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
     }
 
@@ -125,7 +125,7 @@ class ProductCollectionChangeAction
                     new TranslatableString($data->description),
                     $data->typeId
                 );
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new EmptyResponse();
             }

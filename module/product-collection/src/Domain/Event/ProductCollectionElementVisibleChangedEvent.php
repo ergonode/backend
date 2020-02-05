@@ -11,7 +11,7 @@ namespace Ergonode\ProductCollection\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElementId;
+use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
 use JMS\Serializer\Annotation as JMS;
 
@@ -27,11 +27,11 @@ class ProductCollectionElementVisibleChangedEvent implements DomainEventInterfac
     private ProductCollectionId $id;
 
     /**
-     * @var ProductCollectionElementId
+     * @var ProductId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionElementId")
+     * @JMS\Type("Ergonode\Product\Domain\Entity\ProductId")
      */
-    private ProductCollectionElementId $elementId;
+    private ProductId $productId;
 
     /**
      * @var bool
@@ -43,14 +43,14 @@ class ProductCollectionElementVisibleChangedEvent implements DomainEventInterfac
     /**
      * ProductCollectionElementVisibleChangedEvent constructor.
      *
-     * @param ProductCollectionId        $id
-     * @param ProductCollectionElementId $elementId
-     * @param bool                       $visible
+     * @param ProductCollectionId $id
+     * @param ProductId           $productId
+     * @param bool                $visible
      */
-    public function __construct(ProductCollectionId $id, ProductCollectionElementId $elementId, bool $visible)
+    public function __construct(ProductCollectionId $id, ProductId $productId, bool $visible)
     {
         $this->id = $id;
-        $this->elementId = $elementId;
+        $this->productId = $productId;
         $this->visible = $visible;
     }
 
@@ -63,11 +63,11 @@ class ProductCollectionElementVisibleChangedEvent implements DomainEventInterfac
     }
 
     /**
-     * @return ProductCollectionElementId
+     * @return ProductId
      */
-    public function getElementId(): ProductCollectionElementId
+    public function getProductId(): ProductId
     {
-        return $this->elementId;
+        return $this->productId;
     }
 
     /**

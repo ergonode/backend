@@ -29,7 +29,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
  *     )
  */
-class ElementGridReadAction
+class ProductCollectionElementGridReadAction
 {
     /**
      * @var ProductCollectionElementGrid
@@ -47,8 +47,6 @@ class ElementGridReadAction
     private GridRenderer $gridRenderer;
 
     /**
-     * ElementGridReadAction constructor.
-     *
      * @param ProductCollectionElementGrid           $elementGrid
      * @param ProductCollectionElementQueryInterface $elementQuery
      * @param GridRenderer                           $gridRenderer
