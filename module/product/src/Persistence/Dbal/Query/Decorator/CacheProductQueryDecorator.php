@@ -78,6 +78,14 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
+    public function getDictionary(): array
+    {
+        return $this->query->getDictionary();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array
     {
         return $this->query->findProductIdByAttributeId($attributeId, $valueId);

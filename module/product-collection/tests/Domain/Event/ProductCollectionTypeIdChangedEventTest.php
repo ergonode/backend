@@ -32,10 +32,14 @@ class ProductCollectionTypeIdChangedEventTest extends TestCase
         /** @var ProductCollectionTypeId | MockObject $newTypeId */
         $newTypeId = $this->createMock(ProductCollectionTypeId::class);
 
-        $event = new ProductCollectionTypeIdChangedEvent($id, $typeId, $newTypeId);
+        /** @var \DateTime | MockObject $dateTime */
+        $dateTime = $this->createMock(\DateTime::class);
+
+        $event = new ProductCollectionTypeIdChangedEvent($id, $typeId, $newTypeId, $dateTime);
 
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($typeId, $event->getOldTypeId());
         $this->assertEquals($newTypeId, $event->getNewTypeId());
+        $this->assertEquals($dateTime, $event->getEditedAt());
     }
 }

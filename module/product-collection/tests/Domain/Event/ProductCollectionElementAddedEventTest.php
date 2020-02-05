@@ -28,10 +28,13 @@ class ProductCollectionElementAddedEventTest extends TestCase
 
         /** @var ProductCollectionElement | MockObject $element */
         $element = $this->createMock(ProductCollectionElement::class);
+        /** @var \DateTime | MockObject $dateTime */
+        $dateTime = $this->createMock(\DateTime::class);
 
-        $event = new ProductCollectionElementAddedEvent($id, $element);
+        $event = new ProductCollectionElementAddedEvent($id, $element, $dateTime);
 
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($element, $event->getElement());
+        $this->assertEquals($dateTime, $event->getCurrentDateTime());
     }
 }

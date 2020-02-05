@@ -22,18 +22,21 @@ final class Version20200127083123 extends AbstractErgonodeMigration
                     id uuid NOT NULL,
                     code VARCHAR(255) DEFAULT NULL, 
                     name JSONB NOT NULL, 
-                    typeId uuid NOT NULL,
+                    description JSONB NOT NULL, 
+                    type_id uuid NOT NULL,
+                    created_at timestamp without time zone NOT NULL,
+                    edited_at timestamp without time zone DEFAULT NULL,
                     PRIMARY KEY (id)
                  )'
         );
 
         $this->addSql(
             'CREATE TABLE collection_element(
-                    id uuid NOT NULL,
                     product_collection_id uuid NOT NULL,
                     product_id uuid NOT NULL,
                     visible BOOLEAN NOT NULL,
-                    PRIMARY KEY (id)
+                    created_at timestamp without time zone NOT NULL,
+                    PRIMARY KEY (product_collection_id, product_id)
                  )'
         );
 
@@ -57,12 +60,16 @@ final class Version20200127083123 extends AbstractErgonodeMigration
             => 'Product collection element visible changed',
             'Ergonode\ProductCollection\Domain\Event\ProductCollectionNameChangedEvent'
             => 'Product collection name changed',
+            'Ergonode\ProductCollection\Domain\Event\ProductCollectionDescriptionChangedEvent'
+            => 'Product collection description changed',
             'Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeCreatedEvent'
             => 'Product collection type created',
             'Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeIdChangedEvent'
             => 'Product collection type id changed',
             'Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeNameChangedEvent'
             => 'Product collection type name changed',
+            'Ergonode\ProductCollection\Domain\Event\ProductCollectionDeletedEvent'
+            => 'Product collection removed',
         ]);
     }
 

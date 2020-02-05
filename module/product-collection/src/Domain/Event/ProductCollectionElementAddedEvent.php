@@ -34,13 +34,30 @@ class ProductCollectionElementAddedEvent implements DomainEventInterface
     private ProductCollectionElement $element;
 
     /**
+     * @var \DateTime $currentDateTime
+     *
+     * @JMS\Type("DateTime")
+     */
+    private \DateTime $currentDateTime;
+
+    /**
      * @param ProductCollectionId      $id
      * @param ProductCollectionElement $element
+     * @param \DateTime                $currentDateTime
      */
-    public function __construct(ProductCollectionId $id, ProductCollectionElement $element)
+    public function __construct(ProductCollectionId $id, ProductCollectionElement $element, \DateTime $currentDateTime)
     {
         $this->id = $id;
         $this->element = $element;
+        $this->currentDateTime = $currentDateTime;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCurrentDateTime(): \DateTime
+    {
+        return $this->currentDateTime;
     }
 
     /**

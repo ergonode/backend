@@ -40,17 +40,30 @@ class ProductCollectionElement extends AbstractEntity
     private bool $visible;
 
     /**
+     * @var \DateTime $createdAt
+     *
+     * @JMS\Type("DateTime")
+     */
+    private \DateTime $createdAt;
+
+    /**
      * ProductCollectionElement constructor.
      *
      * @param ProductCollectionElementId $id
      * @param ProductId                  $productId
      * @param bool                       $visible
+     * @param \DateTime                  $createdAt
      */
-    public function __construct(ProductCollectionElementId $id, ProductId $productId, bool $visible)
-    {
+    public function __construct(
+        ProductCollectionElementId $id,
+        ProductId $productId,
+        bool $visible,
+        \DateTime $createdAt
+    ) {
         $this->id = $id;
         $this->productId = $productId;
         $this->visible = $visible;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -78,13 +91,26 @@ class ProductCollectionElement extends AbstractEntity
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
      * @param bool $newVisible
      */
     public function changeVisible(bool $newVisible): void
     {
+
         if ($this->visible !== $newVisible) {
             $this->apply(
-                new ProductCollectionElementVisibleChangedEvent($this->aggregateRoot->getId(), $this->id, $newVisible)
+                new ProductCollectionElementVisibleChangedEvent(
+                    $this->aggregateRoot->getId(),
+                    $this->productId,
+                    $newVisible
+                )
             );
         }
     }
