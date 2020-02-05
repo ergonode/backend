@@ -9,8 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment;
 
+use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ProvideConditionDictionaryCompilerPass;
 use Ergonode\Core\Application\AbstractModule;
 use Ergonode\Segment\Application\DependencyInjection\CompilerPass\SegmentGeneratorCompilerPass;
+use Ergonode\Segment\Application\DependencyInjection\ErgonodeSegmentExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -26,5 +28,12 @@ class ErgonodeSegmentBundle extends AbstractModule
         parent::build($container);
 
         $container->addCompilerPass(new SegmentGeneratorCompilerPass());
+
+        $compiler = new ProvideConditionDictionaryCompilerPass(
+            ErgonodeSegmentExtension::CONDITION_GROUP_NAME,
+            ErgonodeSegmentExtension::CONDITION_PARAMETER_NAME
+        );
+
+        $container->addCompilerPass($compiler);
     }
 }
