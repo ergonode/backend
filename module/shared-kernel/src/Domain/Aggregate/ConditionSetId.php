@@ -1,20 +1,19 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
+ *
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Condition\Domain\Entity;
+namespace Ergonode\SharedKernel\Domain\Aggregate;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ramsey\Uuid\Uuid;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
-class ConditionSetId extends AbstractId
+class ConditionSetId extends AggregateId
 {
     public const NAMESPACE = '14343bf2-6c4c-47cc-92fc-3002a09521fc';
 
@@ -25,6 +24,6 @@ class ConditionSetId extends AbstractId
      */
     public static function fromString(string $name): ConditionSetId
     {
-        return new static(Uuid::uuid5(self::NAMESPACE, $name)->toString());
+        return new static(self::generateIdentifier(self::NAMESPACE, $name)->getValue());
     }
 }

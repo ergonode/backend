@@ -11,7 +11,7 @@ namespace Ergonode\Comment\Domain\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Comment\Domain\Entity\Comment;
-use Ergonode\Comment\Domain\Entity\CommentId;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 
 /**
  */

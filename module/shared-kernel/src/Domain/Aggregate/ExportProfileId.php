@@ -7,13 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Entity\Profile;
+namespace Ergonode\SharedKernel\Domain\Aggregate;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
-class ExportProfileId extends AbstractId
+class ExportProfileId extends AggregateId
 {
 
 }

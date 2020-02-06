@@ -14,7 +14,7 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\CategoryTree\Application\Form\CategoryTreeCreateForm;
 use Ergonode\CategoryTree\Application\Model\CategoryTreeCreateFormModel;
 use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

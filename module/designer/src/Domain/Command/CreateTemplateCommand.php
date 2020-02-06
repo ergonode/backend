@@ -11,7 +11,7 @@ namespace Ergonode\Designer\Domain\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
@@ -24,7 +24,7 @@ class CreateTemplateCommand implements DomainCommandInterface
     /**
      * @var TemplateId
      *
-     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
     private $templateId;
 

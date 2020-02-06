@@ -11,7 +11,7 @@ namespace Ergonode\Tests\CategoryTree\Domain\Command;
 
 use Ergonode\CategoryTree\Application\Model\TreeNodeFormModel;
 use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 

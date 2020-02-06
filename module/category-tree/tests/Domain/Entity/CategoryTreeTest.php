@@ -11,7 +11,7 @@ namespace Ergonode\CategoryTree\Tests\Domain\Entity;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;

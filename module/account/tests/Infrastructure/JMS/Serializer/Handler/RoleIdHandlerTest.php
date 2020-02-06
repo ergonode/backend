@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Infrastructure\JMS\Serializer\Handler\RoleIdHandler;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Domain\Event;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -22,7 +22,7 @@ class CategoryTreeCategoryRemovedEvent implements DomainEventInterface
     /**
      * @var CategoryTreeId
      *
-     * @JMS\Type("Ergonode\CategoryTree\Domain\Entity\CategoryTreeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private $id;
 
@@ -46,7 +46,7 @@ class CategoryTreeCategoryRemovedEvent implements DomainEventInterface
     /**
      * @return AbstractId|CategoryTreeId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): CategoryTreeId
     {
         return $this->id;
     }

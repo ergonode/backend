@@ -23,6 +23,8 @@ use Ergonode\Designer\Domain\Event\TemplateNameChangedEvent;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -72,7 +74,7 @@ class Template extends AbstractAggregateRoot
     /**
      * @return AbstractId|TemplateId
      */
-    public function getId(): AbstractId
+    public function getId(): TemplateId
     {
         return $this->id;
     }

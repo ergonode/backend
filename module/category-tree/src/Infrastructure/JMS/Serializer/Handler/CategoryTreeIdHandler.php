@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;

@@ -11,7 +11,7 @@ namespace Ergonode\Segment\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\Segment\Domain\Entity\SegmentId;

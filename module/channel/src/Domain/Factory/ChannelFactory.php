@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Domain\Factory;
 
 use Ergonode\Channel\Domain\Entity\Channel;
-use Ergonode\Channel\Domain\Entity\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Domain\Entity\SegmentId;
 

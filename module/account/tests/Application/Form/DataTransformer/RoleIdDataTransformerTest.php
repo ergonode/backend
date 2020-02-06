@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Tests\Account\Application\Form\DataTransformer;
 
 use Ergonode\Account\Application\Form\DataTransformer\RoleIdDataTransformer;
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;

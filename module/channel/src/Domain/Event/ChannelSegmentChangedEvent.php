@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Domain\Event;
 
-use Ergonode\Channel\Domain\Entity\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Segment\Domain\Entity\SegmentId;

@@ -12,6 +12,7 @@ namespace Ergonode\Designer\Domain\Entity;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Event\Group\TemplateGroupCreatedEvent;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 
 /**
  */
@@ -41,7 +42,7 @@ class TemplateGroup extends AbstractAggregateRoot
     /**
      * @return TemplateGroupId
      */
-    public function getId(): AbstractId
+    public function getId(): TemplateGroupId
     {
         return $this->id;
     }

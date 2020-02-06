@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Infrastructure\Validator;
 
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

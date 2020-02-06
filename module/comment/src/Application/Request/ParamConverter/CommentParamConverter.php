@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Application\Request\ParamConverter;
 
 use Ergonode\Comment\Domain\Entity\Comment;
-use Ergonode\Comment\Domain\Entity\CommentId;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;

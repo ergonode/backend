@@ -11,7 +11,7 @@ namespace Ergonode\Product\Persistence\Dbal\Query\Decorator;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ramsey\Uuid\Uuid;

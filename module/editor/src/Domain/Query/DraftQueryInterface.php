@@ -7,7 +7,7 @@
 namespace Ergonode\Editor\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 

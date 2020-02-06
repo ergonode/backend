@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Condition;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -23,7 +23,7 @@ class RoleExactlyCondition implements ConditionInterface
     /**
      * @var RoleId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private RoleId $role;
 

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;

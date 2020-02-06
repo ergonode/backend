@@ -116,7 +116,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     /**
      * @return AttributeId|AbstractId
      */
-    public function getId(): AbstractId
+    public function getId(): AttributeId
     {
         return $this->id;
     }

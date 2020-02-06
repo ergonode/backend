@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Tests\Domain\Event\Transition;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Workflow\Domain\Entity\TransitionId;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;
 use Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent;

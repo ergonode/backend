@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Domain\Event;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
 use Ergonode\Account\Domain\ValueObject\Email;

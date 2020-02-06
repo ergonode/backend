@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;

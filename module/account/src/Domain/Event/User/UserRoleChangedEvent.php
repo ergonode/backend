@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
@@ -29,14 +29,14 @@ class UserRoleChangedEvent implements DomainEventInterface
     /**
      * @var RoleId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private $from;
 
     /**
      * @var RoleId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private $to;
 

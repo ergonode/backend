@@ -1,20 +1,19 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
+ *
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Account\Domain\Entity;
+namespace Ergonode\SharedKernel\Domain\Aggregate;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ramsey\Uuid\Uuid;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
-class RoleId extends AbstractId
+class RoleId extends AggregateId
 {
     public const NAMESPACE = '6601b60b-1701-4db4-87da-944c03aae69f';
 
@@ -25,6 +24,6 @@ class RoleId extends AbstractId
      */
     public static function fromString(string $name): RoleId
     {
-        return new static(Uuid::uuid5(self::NAMESPACE, $name)->toString());
+        return new static(self::generateIdentifier(self::NAMESPACE, $name)->getValue());
     }
 }

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Domain\Command;
 
-use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use JMS\Serializer\Annotation as JMS;
@@ -21,7 +21,7 @@ class CreateProductDraftCommand implements DomainCommandInterface
     /**
      * @var ProductDraftId
      *
-     * @JMS\Type("Ergonode\Editor\Domain\Entity\ProductDraftId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
     private $id;
 

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Comment\Domain\Entity\CommentId;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
@@ -80,4 +80,6 @@ class CommentIdHandler implements SubscribingHandlerInterface
     ): CommentId {
         return new CommentId($data);
     }
+
+    //todo przeniesc do wspoldzelonego serca
 }

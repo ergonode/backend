@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Repository;
 
 use Ergonode\Designer\Domain\Entity\TemplateGroup;
-use Ergonode\Designer\Domain\Entity\TemplateGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\Designer\Domain\Repository\TemplateGroupRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;

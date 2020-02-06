@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Transition;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Workflow\Domain\Entity\TransitionId;
@@ -38,7 +38,7 @@ class TransitionRoleIdsChangedEvent implements DomainEventInterface
     /**
      * @var RoleId[]
      *
-     * @JMS\Type("array<Ergonode\Account\Domain\Entity\RoleId>")
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\RoleId>")
      */
     private $roleIds;
 

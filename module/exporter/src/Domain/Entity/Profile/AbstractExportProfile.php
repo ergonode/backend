@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Entity\Profile;
 
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+
 /**
  */
 abstract class AbstractExportProfile

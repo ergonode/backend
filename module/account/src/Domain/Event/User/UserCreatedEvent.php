@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Account\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
@@ -75,7 +75,7 @@ class UserCreatedEvent implements DomainEventInterface
     /**
      * @var RoleId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private $roleId;
 

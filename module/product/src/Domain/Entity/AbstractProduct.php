@@ -88,7 +88,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     /**
      * @return AbstractId|ProductId
      */
-    public function getId(): AbstractId
+    public function getId(): ProductId
     {
         return $this->id;
     }

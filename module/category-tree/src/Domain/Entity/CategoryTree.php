@@ -18,6 +18,7 @@ use Ergonode\CategoryTree\Domain\ValueObject\Node;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Webmozart\Assert\Assert;
 
 /**
@@ -61,7 +62,7 @@ class CategoryTree extends AbstractAggregateRoot
     /**
      * @return CategoryTreeId
      */
-    public function getId(): AbstractId
+    public function getId(): CategoryTreeId
     {
         return $this->id;
     }

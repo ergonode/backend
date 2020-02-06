@@ -8,7 +8,7 @@
 namespace Ergonode\Designer\Tests\Domain\Command;
 
 use Ergonode\Designer\Domain\Command\DeleteTemplateCommand;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

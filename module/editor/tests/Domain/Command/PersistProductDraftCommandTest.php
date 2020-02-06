@@ -7,7 +7,7 @@
 namespace Ergonode\Editor\Tests\Domain\Command;
 
 use Ergonode\Editor\Domain\Command\PersistProductDraftCommand;
-use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

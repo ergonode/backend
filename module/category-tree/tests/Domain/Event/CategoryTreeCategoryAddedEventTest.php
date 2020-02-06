@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Tests\Domain\Event;
 
 use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryAddedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

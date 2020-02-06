@@ -10,7 +10,7 @@ namespace Ergonode\Comment\Tests\Domain\Entity;
 
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\Comment\Domain\Entity\Comment;
-use Ergonode\Comment\Domain\Entity\CommentId;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

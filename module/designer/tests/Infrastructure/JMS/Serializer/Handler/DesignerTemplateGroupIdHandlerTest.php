@@ -6,7 +6,7 @@
 
 namespace Ergonode\Designer\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Designer\Domain\Entity\TemplateGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\Designer\Infrastructure\JMS\Serializer\Handler\TemplateGroupIdHandler;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;

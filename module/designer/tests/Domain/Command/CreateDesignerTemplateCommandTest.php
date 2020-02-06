@@ -10,7 +10,7 @@ namespace Ergonode\Designer\Tests\Domain\Command;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Multimedia\Domain\Entity\MultimediaId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

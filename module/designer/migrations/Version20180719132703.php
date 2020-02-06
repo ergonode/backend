@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
-use Ergonode\Designer\Domain\Entity\TemplateGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ramsey\Uuid\Uuid;
 
 /**

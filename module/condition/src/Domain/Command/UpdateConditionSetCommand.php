@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Command;
 
 use Ergonode\Condition\Domain\ConditionInterface;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -22,7 +22,7 @@ class UpdateConditionSetCommand implements DomainCommandInterface
     /**
      * @var ConditionSetId
      *
-     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private ConditionSetId $id;
 

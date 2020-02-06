@@ -10,9 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Domain\Event;
 
 use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Comment\Domain\Entity\CommentId;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 
@@ -23,7 +23,7 @@ class CommentCreatedEvent implements DomainEventInterface
     /**
      * @var CommentId $id
      *
-     * @JMS\Type("Ergonode\Comment\Domain\Entity\CommentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CommentId")
      */
     private CommentId $id;
 
@@ -72,9 +72,9 @@ class CommentCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return CommentId|AbstractId
+     * @return CommentId|AggregateId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): AggregateId
     {
         return $this->id;
     }

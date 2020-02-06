@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Tests\Domain\Command;
 
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Domain\Command\UpdateSegmentCommand;
 use Ergonode\Segment\Domain\Entity\SegmentId;

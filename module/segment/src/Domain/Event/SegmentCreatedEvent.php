@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Event;
 
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
@@ -60,7 +60,7 @@ class SegmentCreatedEvent implements DomainEventInterface
     /**
      * @var ConditionSetId|null
      *
-     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private ?ConditionSetId $conditionSetId;
 

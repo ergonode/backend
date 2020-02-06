@@ -9,13 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Domain\Entity;
 
+use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
  */
-abstract class AbstractId
+class AbstractId extends AggregateId
 {
     /**
      * @var string
@@ -86,13 +87,13 @@ abstract class AbstractId
         return $this->value;
     }
 
-    /**
-     * @param AbstractId $id
-     *
-     * @return bool
-     */
-    public function isEqual(AbstractId $id): bool
-    {
-        return $id->getValue() === $this->getValue();
-    }
+//    /**
+//     * @param AbstractId $id
+//     *
+//     * @return bool
+//     */
+//    public function isEqual(AbstractId $id): bool
+//    {
+//        return $id->getValue() === $this->getValue();
+//    }
 }

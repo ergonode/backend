@@ -8,8 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Comment\Domain\Entity\CommentId;
 use Ergonode\Comment\Infrastructure\JMS\Serializer\Handler\CommentIdHandler;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Domain\Provider;
 
 use Ergonode\Editor\Domain\Entity\ProductDraft;
-use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;

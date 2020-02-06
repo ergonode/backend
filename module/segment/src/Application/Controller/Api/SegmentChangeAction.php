@@ -11,7 +11,7 @@ namespace Ergonode\Segment\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Application\Form\Model\CreateSegmentFormModel;
 use Ergonode\Segment\Application\Form\Model\UpdateSegmentFormModel;

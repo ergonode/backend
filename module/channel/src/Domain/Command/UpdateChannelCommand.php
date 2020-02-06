@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Domain\Command;
 
-use Ergonode\Channel\Domain\Entity\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Segment\Domain\Entity\SegmentId;
@@ -20,7 +20,7 @@ class UpdateChannelCommand implements DomainCommandInterface
     /**
      * @var ChannelId
      *
-     * @JMS\Type("Ergonode\Channel\Domain\Entity\ChannelId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ChannelId")
      */
     private ChannelId $id;
 

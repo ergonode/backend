@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Entity;
 
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\AbstractEntity;

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\Comment\Domain\Entity\CommentId;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use Faker\Provider\Base as BaseProvider;
 
 /**

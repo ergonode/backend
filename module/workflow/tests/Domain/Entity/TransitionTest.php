@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Tests\Domain\Entity;
 
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\Workflow\Domain\Entity\TransitionId;
 use Ergonode\Workflow\Domain\Entity\WorkflowId;

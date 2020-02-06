@@ -6,7 +6,7 @@
 
 namespace Ergonode\Editor\Domain\Repository;
 
-use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**

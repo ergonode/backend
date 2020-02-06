@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Repository;
 
 use Ergonode\Condition\Domain\Entity\ConditionSet;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**

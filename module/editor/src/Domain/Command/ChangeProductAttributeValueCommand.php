@@ -11,7 +11,7 @@ namespace Ergonode\Editor\Domain\Command;
 
 use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -22,7 +22,7 @@ class ChangeProductAttributeValueCommand implements DomainCommandInterface
     /**
      * @var ProductDraftId
      *
-     * @JMS\Type("Ergonode\Editor\Domain\Entity\ProductDraftId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
     private $id;
 

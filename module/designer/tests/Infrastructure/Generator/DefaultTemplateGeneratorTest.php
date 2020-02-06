@@ -7,8 +7,8 @@
 
 namespace Ergonode\Designer\Tests\Infrastructure\Generator;
 
-use Ergonode\Designer\Domain\Entity\TemplateGroupId;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Infrastructure\Generator\DefaultTemplateGenerator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

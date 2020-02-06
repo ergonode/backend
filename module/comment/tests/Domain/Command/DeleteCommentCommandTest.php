@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Comment\Tests\Domain\Command;
 
 use Ergonode\Comment\Domain\Command\DeleteCommentCommand;
-use Ergonode\Comment\Domain\Entity\CommentId;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use PHPUnit\Framework\TestCase;
 
 /**
