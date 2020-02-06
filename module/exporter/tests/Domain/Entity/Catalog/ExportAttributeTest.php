@@ -5,10 +5,10 @@
  *
  */
 
-namespace Ergonode\Exporter\Tests\Domain\Entity;
+namespace Ergonode\Exporter\Tests\Domain\Entity\Catalog;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Exporter\Domain\Entity\ExportAttribute;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportAttribute;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 

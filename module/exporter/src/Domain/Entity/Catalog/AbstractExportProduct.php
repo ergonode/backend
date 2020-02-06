@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Entity;
+namespace Ergonode\Exporter\Domain\Entity\Catalog;
 
 use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
@@ -34,7 +34,7 @@ abstract class AbstractExportProduct
     /**
      * @var ExportCategoryCode[]
      *
-     * @JMS\Type("array<string, Ergonode\Exporter\Domain\Entity\ExportCategoryCode>")
+     * @JMS\Type("array<string, Ergonode\Exporter\Domain\Entity\Catalog\ExportCategoryCode>")
      */
     protected array $categories;
 
@@ -42,7 +42,7 @@ abstract class AbstractExportProduct
     /**
      * @var AbstractExportAttributeValue[]
      *
-     * @JMS\Type("array<string, Ergonode\Exporter\Domain\Entity\AttributeValue\DefaultExportAttributeValue>")
+     * @JMS\Type("array<string, Ergonode\Exporter\Domain\Entity\Catalog\AttributeValue\DefaultExportAttributeValue>")
      */
     protected array $attributes;
 

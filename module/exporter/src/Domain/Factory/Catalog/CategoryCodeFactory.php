@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Factory;
+namespace Ergonode\Exporter\Domain\Factory\Catalog;
 
-use Ergonode\Exporter\Domain\Entity\ExportCategoryCode;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategoryCode;
 
 /**
  */

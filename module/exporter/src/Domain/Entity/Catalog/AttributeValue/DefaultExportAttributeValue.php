@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Entity\AttributeValue;
+namespace Ergonode\Exporter\Domain\Entity\Catalog\AttributeValue;
 
-use Ergonode\Exporter\Domain\Entity\AbstractExportAttributeValue;
+use Ergonode\Exporter\Domain\Entity\Catalog\AbstractExportAttributeValue;
 
 /**
  */

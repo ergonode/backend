@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Entity\Product;
+namespace Ergonode\Exporter\Domain\Entity\Catalog\Product;
 
-use Ergonode\Exporter\Domain\Entity\AbstractExportAttributeValue;
-use Ergonode\Exporter\Domain\Entity\AttributeValue\DefaultExportAttributeValue;
-use Ergonode\Exporter\Domain\Entity\ExportCategoryCode;
+use Ergonode\Exporter\Domain\Entity\Catalog\AbstractExportAttributeValue;
+use Ergonode\Exporter\Domain\Entity\Catalog\AttributeValue\DefaultExportAttributeValue;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategoryCode;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class SimpleProductTest extends TestCase
+class DefaultProductTest extends TestCase
 {
     /**
      * @var Uuid
@@ -60,7 +60,7 @@ class SimpleProductTest extends TestCase
      */
     public function testConstructor():void
     {
-        $product = new SimpleExportProduct(
+        $product = new DefaultExportProduct(
             $this->id,
             $this->sku,
             $this->category,

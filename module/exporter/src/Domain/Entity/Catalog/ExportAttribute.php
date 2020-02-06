@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Entity;
+namespace Ergonode\Exporter\Domain\Entity\Catalog;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;

@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Factory;
+namespace Ergonode\Exporter\Domain\Factory\Catalog;
 
-use Ergonode\Exporter\Domain\Entity\AbstractExportAttributeValue;
-use Ergonode\Exporter\Domain\Entity\ExportCategoryCode;
-use Ergonode\Exporter\Domain\Entity\Product\SimpleExportProduct;
+use Ergonode\Exporter\Domain\Entity\Catalog\AbstractExportAttributeValue;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategoryCode;
+use Ergonode\Exporter\Domain\Entity\Catalog\Product\DefaultExportProduct;
 use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class SimpleProductFactory
+class DefaultProductFactory
 {
     /**
      * @param Uuid                           $id
@@ -25,18 +25,18 @@ class SimpleProductFactory
      * @param ExportCategoryCode[]           $categories
      * @param AbstractExportAttributeValue[] $attributes
      *
-     * @return SimpleExportProduct
+     * @return DefaultExportProduct
      */
     public function createFromEvent(
         Uuid $id,
         string $sku,
         array $categories = [],
         array $attributes = []
-    ): SimpleExportProduct {
+    ): DefaultExportProduct {
         Assert::allIsInstanceOf($categories, ExportCategoryCode::class);
         Assert::allIsInstanceOf($attributes, AbstractExportAttributeValue::class);
 
-        return new SimpleExportProduct(
+        return new DefaultExportProduct(
             $id,
             $sku,
             $categories,

@@ -11,7 +11,7 @@ namespace Ergonode\Exporter\Persistence\Dbal\Projector\Category;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
-use Ergonode\Exporter\Domain\Entity\ExportCategory;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategory;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 

@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Provider;
 
-use Ergonode\Exporter\Domain\Entity\Product\SimpleExportProduct;
-use Ergonode\Exporter\Domain\Factory\AttributeFactory;
-use Ergonode\Exporter\Domain\Factory\CategoryCodeFactory;
-use Ergonode\Exporter\Domain\Factory\SimpleProductFactory;
+use Ergonode\Exporter\Domain\Entity\Catalog\Product\DefaultExportProduct;
+use Ergonode\Exporter\Domain\Factory\Catalog\AttributeFactory;
+use Ergonode\Exporter\Domain\Factory\Catalog\CategoryCodeFactory;
+use Ergonode\Exporter\Domain\Factory\Catalog\DefaultProductFactory;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -20,9 +20,9 @@ use Ramsey\Uuid\Uuid;
 class ProductProvider
 {
     /**
-     * @var SimpleProductFactory
+     * @var DefaultProductFactory
      */
-    private SimpleProductFactory $productFactory;
+    private DefaultProductFactory $productFactory;
 
     /**
      * @var CategoryCodeFactory
@@ -36,12 +36,12 @@ class ProductProvider
 
     /**
      * ProductProvider constructor.
-     * @param SimpleProductFactory $productFactory
-     * @param CategoryCodeFactory  $categoryCodeFactory
-     * @param AttributeFactory     $attributeFactory
+     * @param DefaultProductFactory $productFactory
+     * @param CategoryCodeFactory   $categoryCodeFactory
+     * @param AttributeFactory      $attributeFactory
      */
     public function __construct(
-        SimpleProductFactory $productFactory,
+        DefaultProductFactory $productFactory,
         CategoryCodeFactory $categoryCodeFactory,
         AttributeFactory $attributeFactory
     ) {
@@ -56,14 +56,14 @@ class ProductProvider
      * @param array  $categories
      * @param array  $attributes
      *
-     * @return SimpleExportProduct
+     * @return DefaultExportProduct
      */
     public function createFromEvent(
         Uuid $id,
         string $sku,
         array $categories = [],
         array $attributes = []
-    ): SimpleExportProduct {
+    ): DefaultExportProduct {
         $categories = $this->categoryCodeFactory->createList($categories);
         $attributes = $this->attributeFactory->createList($attributes);
 

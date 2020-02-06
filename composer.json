@@ -112,6 +112,7 @@
             "Ergonode\\Workflow\\": "module/workflow/src",
             "Ergonode\\Comment\\": "module/comment/src",
             "Ergonode\\Exporter\\": "module/exporter/src",
+            "Ergonode\\ExporterMagento2\\": "module/exporter-magento2/src",
             "Ergonode\\Test\\": "module/test/src",
             "Ergonode\\ConnectorMagento\\": "module/connector-magento/src",
             "Ergonode\\TranslationDeepl\\": "module/translation-deepl/src"

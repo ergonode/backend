@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Factory;
+namespace Ergonode\Exporter\Domain\Factory\Catalog;
 
-use Ergonode\Exporter\Domain\Entity\AbstractExportAttributeValue;
-use Ergonode\Exporter\Domain\Entity\AttributeValue\DefaultExportAttributeValue;
+use Ergonode\Exporter\Domain\Entity\Catalog\AbstractExportAttributeValue;
+use Ergonode\Exporter\Domain\Entity\Catalog\AttributeValue\DefaultExportAttributeValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
