@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento1\Infrastructure\Generator;
 
 use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Infrastructure\Converter\TextConverter;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;

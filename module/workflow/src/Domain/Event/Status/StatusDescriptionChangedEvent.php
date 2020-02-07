@@ -12,7 +12,7 @@ namespace Ergonode\Workflow\Domain\Event\Status;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,7 +22,7 @@ class StatusDescriptionChangedEvent extends AbstractTranslatableStringBasedChang
     /**
      * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private $id;
 
@@ -38,9 +38,9 @@ class StatusDescriptionChangedEvent extends AbstractTranslatableStringBasedChang
     }
 
     /**
-     * @return AbstractId|StatusId
+     * @return StatusId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): StatusId
     {
         return $this->id;
     }

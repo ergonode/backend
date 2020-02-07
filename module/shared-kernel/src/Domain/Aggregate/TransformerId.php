@@ -1,20 +1,19 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
+ *
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Transformer\Domain\Entity;
+namespace Ergonode\SharedKernel\Domain\Aggregate;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ramsey\Uuid\Uuid;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
-class TransformerId extends AbstractId
+class TransformerId extends AggregateId
 {
     public const NAMESPACE = '9bbd658e-f383-4af3-8e07-308bf3375827';
 
@@ -22,11 +21,9 @@ class TransformerId extends AbstractId
      * @param string $value
      *
      * @return TransformerId
-     *
-     * @throws \Exception
      */
     public static function fromKey(string $value): TransformerId
     {
-        return new static(Uuid::uuid5(self::NAMESPACE, $value)->toString());
+        return new static(self::generateIdentifier(self::NAMESPACE, $value)->getValue());
     }
 }

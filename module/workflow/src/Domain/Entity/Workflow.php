@@ -14,6 +14,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
+use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
@@ -33,7 +35,7 @@ class Workflow extends AbstractAggregateRoot
     /**
      * @var WorkflowId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
     private $id;
 
@@ -80,7 +82,7 @@ class Workflow extends AbstractAggregateRoot
     /**
      * @return WorkflowId
      */
-    public function getId(): AbstractId
+    public function getId(): WorkflowId
     {
         return $this->id;
     }

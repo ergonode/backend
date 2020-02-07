@@ -11,6 +11,7 @@ namespace Ergonode\Workflow\Domain\Entity;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
+use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent;
 use Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
@@ -24,7 +25,7 @@ class Transition extends AbstractEntity
     /**
      * @var TransitionId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\TransitionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransitionId")
      */
     private $id;
 

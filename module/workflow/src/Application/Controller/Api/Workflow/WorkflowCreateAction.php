@@ -12,7 +12,7 @@ namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Infrastructure\Builder\WorkflowValidatorBuilder;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

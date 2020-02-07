@@ -7,7 +7,7 @@
 
 namespace Ergonode\Transformer\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Infrastructure\JMS\Serializer\Handler\TransformerIdHandler;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;

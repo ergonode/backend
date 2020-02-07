@@ -1,18 +1,19 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
+ *
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Domain\Entity\Source;
+namespace Ergonode\SharedKernel\Domain\Aggregate;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
-class SourceId extends AbstractId
+class ImportLineId extends AggregateId
 {
+
 }

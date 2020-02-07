@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Repository;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */

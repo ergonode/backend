@@ -11,7 +11,7 @@ namespace Ergonode\ProductCollection\Tests\Domain\Event;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionCreatedEvent;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use PHPUnit\Framework\MockObject\MockObject;

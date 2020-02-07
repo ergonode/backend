@@ -12,8 +12,8 @@ namespace Ergonode\Workflow\Domain\Event\Transition;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Workflow\Domain\Entity\TransitionId;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
@@ -24,14 +24,14 @@ class TransitionRoleIdsChangedEvent implements DomainEventInterface
     /**
      * @var WorkflowId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
     private $id;
 
     /**
      * @var TransitionId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\TransitionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransitionId")
      */
     private $transitionId;
 
@@ -57,9 +57,9 @@ class TransitionRoleIdsChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AbstractId|WorkflowId
+     * @return WorkflowId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): WorkflowId
     {
         return $this->id;
     }

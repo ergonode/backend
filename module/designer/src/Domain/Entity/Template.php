@@ -22,7 +22,7 @@ use Ergonode\Designer\Domain\Event\TemplateImageRemovedEvent;
 use Ergonode\Designer\Domain\Event\TemplateNameChangedEvent;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;

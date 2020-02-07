@@ -11,7 +11,8 @@ namespace Ergonode\Workflow\Domain\Event\Status;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -21,7 +22,7 @@ class StatusDeletedEvent extends AbstractDeleteEvent
     /**
      * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private $id;
 
@@ -34,9 +35,9 @@ class StatusDeletedEvent extends AbstractDeleteEvent
     }
 
     /**
-     * @return AbstractId|StatusId
+     * @return StatusId|AggregateId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): StatusId
     {
         return $this->id;
     }

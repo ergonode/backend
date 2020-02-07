@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Domain\Factory;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Symfony\Component\HttpFoundation\File\File;
 

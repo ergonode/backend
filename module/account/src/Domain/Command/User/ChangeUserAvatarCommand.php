@@ -11,7 +11,7 @@ namespace Ergonode\Account\Domain\Command\User;
 
 use Ergonode\Account\Domain\Entity\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */

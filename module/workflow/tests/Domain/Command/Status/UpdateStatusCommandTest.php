@@ -12,7 +12,7 @@ namespace Ergonode\Workflow\Tests\Domain\Command\Status;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use PHPUnit\Framework\TestCase;
 
 /**

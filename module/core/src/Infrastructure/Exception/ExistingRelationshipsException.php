@@ -9,16 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\Exception;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
 class ExistingRelationshipsException extends \Exception
 {
     /**
-     * @param AbstractId $id
+     * @param AggregateId $id
      */
-    public function __construct(AbstractId $id)
+    public function __construct(AggregateId $id)
     {
         $message = sprintf(
             'Element by ID "%s" has existing relationships',

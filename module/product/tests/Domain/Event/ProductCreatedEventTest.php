@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Tests\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use PHPUnit\Framework\MockObject\MockObject;

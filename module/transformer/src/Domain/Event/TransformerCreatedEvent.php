@@ -11,7 +11,7 @@ namespace Ergonode\Transformer\Domain\Event;
 
 use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -21,7 +21,7 @@ class TransformerCreatedEvent implements DomainEventInterface
     /**
      * @var TransformerId
      *
-     * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
      */
     private TransformerId $id;
 
@@ -52,9 +52,9 @@ class TransformerCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return TransformerId|AbstractId
+     * @return TransformerId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): TransformerId
     {
         return $this->id;
     }

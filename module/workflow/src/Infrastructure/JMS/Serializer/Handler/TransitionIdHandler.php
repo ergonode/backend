@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Workflow\Domain\Entity\TransitionId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\ProductSimple\Tests\Domain\Factory;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
 use Ergonode\ProductSimple\Domain\Factory\SimpleProductFactory;

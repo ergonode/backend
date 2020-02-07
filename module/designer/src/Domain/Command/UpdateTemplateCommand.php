@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
@@ -38,7 +38,7 @@ class UpdateTemplateCommand implements DomainCommandInterface
     /**
      * @var MultimediaId|null
      *
-     * @JMS\Type("Ergonode\Multimedia\Domain\Entity\MultimediaId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private $imageId;
 

@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\Entity;
 
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+
 /**
  */
 class ImportLine

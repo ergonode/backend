@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento2\Domain\Factory;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\Importer\Domain\Entity\Source\SourceId;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\Importer\Domain\Factory\SourceFactoryInterface;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 

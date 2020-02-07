@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Importer\Domain\Entity\ImportId;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -21,7 +21,7 @@ class ProcessImportCommand implements DomainCommandInterface
     /**
      * @var ImportId
      *
-     * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")
      */
     private ImportId $importId;
 

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,7 +20,7 @@ class StartImportCommand implements DomainCommandInterface
     /**
      * @var ImportId
      *
-     * @JMS\Type("Ergonode\Importer\Domain\Entity\ImportId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")
      */
     private ImportId $id;
 

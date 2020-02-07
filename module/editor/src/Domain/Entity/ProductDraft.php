@@ -18,7 +18,7 @@ use Ergonode\Editor\Domain\Event\ProductDraftValueChanged;
 use Ergonode\Editor\Domain\Event\ProductDraftValueRemoved;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
