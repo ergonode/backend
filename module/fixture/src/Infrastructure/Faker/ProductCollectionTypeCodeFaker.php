@@ -25,10 +25,10 @@ class ProductCollectionTypeCodeFaker extends BaseProvider
      */
     public function productCollectionTypeCode(?string $code = null): ProductCollectionTypeCode
     {
-        if ($code) {
-            return new ProductCollectionTypeCode($code);
-        }
+//        if ($code) {
+//            return new ProductCollectionTypeCode($code);
+//        }
 
-        return new ProductCollectionTypeCode(sprintf('code_%s_%s', random_int(1, 1000000), random_int(1, 1000000)));
+        return new ProductCollectionTypeCode('dupa');
     }
 }

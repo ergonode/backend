@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */

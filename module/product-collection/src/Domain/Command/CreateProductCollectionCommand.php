@@ -14,6 +14,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -29,7 +30,7 @@ class CreateProductCollectionCommand implements DomainCommandInterface
     /**
      * @var ProductCollectionCode
      *
-     * @JMS/Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode")
+     * @JMS\Type("Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode")
      *
      */
     private ProductCollectionCode $code;

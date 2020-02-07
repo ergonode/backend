@@ -14,6 +14,14 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
             -
                 'PL': 'Polish_placeholder_<current()>'
                 'EN': 'English_placeholder_<current()>'
+    name_{1..50}:
+        __construct:
+            -   'PL': 'Polish_name_<current()>'
+                'EN': 'English_name_<current()>'
+    description_{1..50}:
+        __construct:
+            -   'PL': 'Polish_description_<current()>'
+                'EN': 'English_description_<current()>'
     empty:
         __construct:
             - []

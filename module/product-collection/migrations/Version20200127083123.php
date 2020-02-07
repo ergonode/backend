@@ -66,6 +66,8 @@ final class Version20200127083123 extends AbstractErgonodeMigration
             => 'Product collection type created',
             'Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeIdChangedEvent'
             => 'Product collection type id changed',
+            'Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeDeletedEvent'
+            => 'Product collection type deleted',
             'Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeNameChangedEvent'
             => 'Product collection type name changed',
             'Ergonode\ProductCollection\Domain\Event\ProductCollectionDeletedEvent'

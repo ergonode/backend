@@ -370,6 +370,29 @@ nelmio_api_doc:
                         required: true
                         description: Show if product is visible for other products from collection
                         example: true
+            product_collection_type_create:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        description: Product collection type code
+                        required: true
+                        example: product_collection_type_code_1
+                    name:
+                        type: object
+                        description: Product Collection type name
+                        example:
+                            DE: Name DE
+                            EN: Name EN
+            product_collection_type_update:
+                type: object
+                properties:
+                    name:
+                        type: object
+                        description: Product Collection type name
+                        example:
+                            DE: Name DE
+                            EN: Name EN
             product:
                 type: object
                 properties:
