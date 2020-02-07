@@ -18,74 +18,49 @@ class Record
     /**
      * @var array
      */
-    private array $columns;
+    private array $elements;
 
     /**
      */
     public function __construct()
     {
-        $this->columns = [];
+        $this->elements = [];
     }
 
     /**
-     * @param string              $collection
      * @param string              $name
      * @param ValueInterface|null $value
      */
-    public function add(string $collection, string $name, ?ValueInterface $value = null): void
+    public function set(string $name, ?ValueInterface $value = null): void
     {
-        $this->columns[$collection][$name] = $value;
+        $this->elements[$name] = $value;
     }
 
     /**
-     * @param string $column
+     * @param string $name
      *
      * @return bool
      */
-    public function has(string $column): bool
+    public function has(string $name): bool
     {
-        foreach ($this->columns as $collection) {
-            if (array_key_exists($column, $collection)) {
-                return true;
-            }
+        if (array_key_exists($name, $this->elements)) {
+            return true;
         }
 
         return false;
     }
 
     /**
-     * @param string $column
+     * @param string $name
      *
      * @return ValueInterface|null
      */
-    public function get(string $column): ?ValueInterface
+    public function get(string $name): ?ValueInterface
     {
-        foreach ($this->columns as $collection) {
-            if (array_key_exists($column, $collection)) {
-                return $collection[$column];
-            }
+        if (array_key_exists($name, $this->elements)) {
+            return $this->elements[$name];
         }
 
-        throw new \InvalidArgumentException(\sprintf('Record haven\'t column %s', $column));
-    }
-
-    /**
-     * @param string $collection
-     *
-     * @return ValueInterface[]
-     */
-    public function getColumns(string $collection): array
-    {
-        return $this->columns[$collection];
-    }
-
-    /**
-     * @param string $collection
-     *
-     * @return bool
-     */
-    public function hasColumns(string $collection): bool
-    {
-        return isset($this->columns[$collection]);
+        throw new \InvalidArgumentException(\sprintf('Record haven\'t field %s', $name));
     }
 }

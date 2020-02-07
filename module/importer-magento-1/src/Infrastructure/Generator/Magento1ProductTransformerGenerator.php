@@ -22,7 +22,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
-class Magento1TransformerGenerator implements TransformerGeneratorStrategyInterface
+class Magento1ProductTransformerGenerator implements TransformerGeneratorStrategyInterface
 {
     /**
      * @var AttributeRepositoryInterface
@@ -63,6 +63,7 @@ class Magento1TransformerGenerator implements TransformerGeneratorStrategyInterf
 
         $transformer->addConverter('sku', new TextConverter('sku'));
         $transformer->addConverter('template', new TextConverter('_attribute_set'));
+        $transformer->addConverter('categories', new TextConverter('_category'));
 
         // system
         $this->addAttribute($transformer, new AttributeCode('sku'));
