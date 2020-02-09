@@ -8,13 +8,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Proposal\Strategy;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\AbstractNumericAttribute;
 use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
-use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextareaAttribute;
 
 /**
  */
-class TextProposalStrategy implements AttributeProposalStrategyInterface
+class TextAreaProposalStrategy implements AttributeProposalStrategyInterface
 {
     /**
      * @param string $name
@@ -25,12 +24,12 @@ class TextProposalStrategy implements AttributeProposalStrategyInterface
     public function support(string $name, array $values): bool
     {
         foreach ($values as $value) {
-            if (!is_string($value)) {
-                return false;
+            if (mb_strlen($value) > 255) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -38,6 +37,6 @@ class TextProposalStrategy implements AttributeProposalStrategyInterface
      */
     public function getTypeProposal(): string
     {
-        return AbstractTextAttribute::TYPE;
+        return AbstractTextareaAttribute::TYPE;
     }
 }

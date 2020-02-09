@@ -18,6 +18,7 @@ use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -85,13 +86,13 @@ class UpdateAttributeCommand implements DomainCommandInterface
     private $placeholder;
 
     /**
-     * @param AttributeId            $id
-     * @param TranslatableString     $label
-     * @param TranslatableString     $hint
-     * @param TranslatableString     $placeholder
-     * @param array                  $groups
-     * @param array                  $parameters
-     * @param AttributeOptionModel[] $options
+     * @param AttributeId        $id
+     * @param TranslatableString $label
+     * @param TranslatableString $hint
+     * @param TranslatableString $placeholder
+     * @param array              $groups
+     * @param array              $parameters
+     * @param OptionInterface[]  $options
      */
     public function __construct(
         AttributeId $id,
@@ -102,6 +103,7 @@ class UpdateAttributeCommand implements DomainCommandInterface
         array $parameters = [],
         array $options = []
     ) {
+        Assert::allIsInstanceOf($options, OptionInterface::class);
         $this->attributeId = $id;
         $this->parameters = $parameters;
         $this->groups = $groups;
@@ -109,16 +111,6 @@ class UpdateAttributeCommand implements DomainCommandInterface
         $this->hint = $hint;
         $this->placeholder = $placeholder;
         $this->options = [];
-        foreach ($options as $option) {
-            $value = $option->value;
-            if (null === $value) {
-                $this->options[$option->key] = null;
-            } elseif (is_array($value)) {
-                $this->options[$option->key] = new MultilingualOption(new TranslatableString($value));
-            } else {
-                $this->options[$option->key] = new StringOption($value);
-            }
-        }
     }
 
     /**

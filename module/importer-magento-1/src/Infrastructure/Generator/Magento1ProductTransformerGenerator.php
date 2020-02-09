@@ -66,7 +66,6 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
         $transformer->addConverter('categories', new TextConverter('_category'));
 
         // system
-        $this->addAttribute($transformer, new AttributeCode('sku'));
         $this->addAttribute($transformer, new AttributeCode('name'));
         $this->addAttribute($transformer, new AttributeCode('description'));
         $this->addAttribute($transformer, new AttributeCode('short_description'));

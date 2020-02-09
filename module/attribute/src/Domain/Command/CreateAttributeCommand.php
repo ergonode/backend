@@ -13,11 +13,10 @@ use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -94,13 +93,6 @@ class CreateAttributeCommand implements DomainCommandInterface
     private $options;
 
     /**
-     * @var bool
-     *
-     * @JMS\Type("bool")
-     */
-    private $system;
-
-    /**
      * @param AttributeType      $type
      * @param AttributeCode      $code
      * @param TranslatableString $label
@@ -109,8 +101,7 @@ class CreateAttributeCommand implements DomainCommandInterface
      * @param bool               $multilingual
      * @param array              $groups
      * @param array              $parameters
-     * @param array              $options
-     * @param bool               $system
+     * @param OptionInterface[]  $options
      *
      * @throws \Exception
      */
@@ -123,9 +114,10 @@ class CreateAttributeCommand implements DomainCommandInterface
         bool $multilingual,
         array $groups = [],
         array $parameters = [],
-        array $options = [],
-        bool $system = false
+        array $options = []
     ) {
+        Assert::allIsInstanceOf($options, OptionInterface::class);
+
         $this->attributeId = AttributeId::fromKey($code);
         $this->code = $code;
         $this->type = $type;
@@ -136,17 +128,6 @@ class CreateAttributeCommand implements DomainCommandInterface
         $this->groups = $groups;
         $this->parameters = $parameters;
         $this->options = [];
-        $this->system = $system;
-        foreach ($options as $option) {
-            $value = $option->value;
-            if (null === $value) {
-                $this->options[$option->key] = null;
-            } elseif (is_array($value)) {
-                $this->options[$option->key] = new MultilingualOption(new TranslatableString($value));
-            } else {
-                $this->options[$option->key] = new StringOption($value);
-            }
-        }
     }
 
     /**
@@ -247,13 +228,5 @@ class CreateAttributeCommand implements DomainCommandInterface
     public function getPlaceholder(): ?TranslatableString
     {
         return $this->placeholder;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isSystem(): bool
-    {
-        return $this->system;
     }
 }

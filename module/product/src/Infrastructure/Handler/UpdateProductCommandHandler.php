@@ -69,7 +69,7 @@ class UpdateProductCommandHandler
 
         $categories = [];
         foreach ($command->getCategories() as $categoryId) {
-            $category = $this->categoryRepository->load(new CategoryId($categoryId));
+            $category = $this->categoryRepository->load($categoryId);
             Assert::notNull($category);
             $code = $category->getCode();
             $categories[$code->getValue()] = $code;

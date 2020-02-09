@@ -34,3 +34,5 @@ framework:
             'Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand': segment
             'Ergonode\Product\Domain\Command\CreateProductCommand': core
             'Ergonode\Product\Domain\Command\UpdateProductCommand': core
+            'Ergonode\Category\Domain\Command\CreateCategoryCommand': core
+            'Ergonode\Category\Domain\Command\UpdateCategoryCommand': core

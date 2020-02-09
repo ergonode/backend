@@ -14,6 +14,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -47,6 +48,9 @@ class UpdateProductCommand implements DomainCommandInterface
      */
     public function __construct(ProductId $productId, array $categories = [],  array $attributes = [])
     {
+        Assert::allIsInstanceOf($categories, CategoryId::class);
+        Assert::allIsInstanceOf($attributes,  ValueInterface::class);
+
         $this->id = $productId;
         $this->categories = $categories;
         $this->attributes = $attributes;

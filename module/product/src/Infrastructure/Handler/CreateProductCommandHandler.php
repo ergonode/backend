@@ -56,16 +56,22 @@ class CreateProductCommandHandler
      */
     public function __invoke(CreateProductCommand $command)
     {
-        $categories = [];
-        foreach ($command->getCategories() as $categoryId) {
-            $category = $this->categoryRepository->load(new CategoryId($categoryId));
-            Assert::notNull($category);
-            $categories[] = $category->getCode();
+        try {
+            $categories = [];
+            foreach ($command->getCategories() as $categoryId) {
+                $category = $this->categoryRepository->load($categoryId);
+                Assert::notNull($category);
+                $categories[] = $category->getCode();
+            }
+
+            $factory = $this->productFactoryProvider->provide(SimpleProduct::TYPE);
+            $product = $factory->create($command->getId(), $command->getSku(), $categories, $command->getAttributes());
+
+            $this->productRepository->save($product);
+        } catch (\Throwable $exception) {
+            echo print_r($exception->getMessage(), true);
+            echo print_r($exception->getTraceAsString(), true);
+            die;
         }
-
-        $factory = $this->productFactoryProvider->provide(SimpleProduct::TYPE);
-        $product = $factory->create($command->getId(), $command->getSku(), $categories, $command->getAttributes());
-
-        $this->productRepository->save($product);
     }
 }

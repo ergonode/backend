@@ -15,6 +15,7 @@ use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -57,6 +58,9 @@ class CreateProductCommand implements DomainCommandInterface
      */
     public function __construct(ProductId $id, Sku $sku, array $categories = [], array $attributes = [])
     {
+        Assert::allIsInstanceOf($categories, CategoryId::class);
+        Assert::allIsInstanceOf($attributes,  ValueInterface::class);
+
         $this->id = $id;
         $this->sku = $sku;
         $this->categories = $categories;

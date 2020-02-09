@@ -77,11 +77,11 @@ class ProcessImportCommand implements DomainCommandInterface
     }
 
     /**
-     * @return array
+     * @return Record
      */
-    public function getRow(): array
+    public function getRecord(): Record
     {
-        return $this->row;
+        return $this->record;
     }
 
     /**

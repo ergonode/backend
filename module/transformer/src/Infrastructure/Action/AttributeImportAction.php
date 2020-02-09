@@ -21,6 +21,8 @@ use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
+use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 
 /**
  */
@@ -57,6 +59,7 @@ class AttributeImportAction implements ImportActionInterface
      */
     public function action(Record $record): void
     {
+        var_dump('IMPRT ATRRIBUTE');
         $property = [];
 
         $attributeCode = $record->get('code')?new AttributeCode($record->get('code')->getValue()):null;
@@ -75,12 +78,23 @@ class AttributeImportAction implements ImportActionInterface
             $multilingual = false;
         }
 
-        if (($attributeType->getValue() === PriceAttribute::TYPE) && $currency = $record->get('currency')) {
-            $property['currency'] = $currency->getValue();
+        if ($attributeType->getValue() === PriceAttribute::TYPE) {
+            $property['currency'] = $record->has('currency') ? $record->get('currency')->getValue() : null;
         }
 
-        if (($attributeType->getValue() === DateAttribute::TYPE) && $format = $record->get('format')) {
+        if ($attributeType->getValue() === DateAttribute::TYPE) {
+            $format = $record->has('format') ? $record->get('format')->getValue() : null;
             $property['format'] = $format->getValue();
+        }
+
+        if ($attributeType->getValue() === UnitAttribute::TYPE) {
+            $format = $record->has('unit') ? $record->get('unit')->getValue() : null;
+            $property['format'] = $format->getValue();
+        }
+
+        $options = [];
+        foreach ($record->getValues() as $key => $value) {
+            $options[$key] = new StringOption($value->getValue());
         }
 
         if (null === $attributeModel) {
@@ -92,7 +106,8 @@ class AttributeImportAction implements ImportActionInterface
                 new TranslatableString(),
                 $multilingual,
                 [],
-                $property
+                $property,
+                $options
             );
         } else {
             $command = new UpdateAttributeCommand(
@@ -101,7 +116,8 @@ class AttributeImportAction implements ImportActionInterface
                 new TranslatableString(),
                 new TranslatableString(),
                 [],
-                $property
+                $property,
+                $options
             );
         }
 

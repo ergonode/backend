@@ -9,23 +9,24 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Infrastructure\Service\Import;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
-use Ergonode\Reader\Infrastructure\ReaderProcessorInterface;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Infrastructure\Action\CategoryImportAction;
 use Ergonode\Transformer\Infrastructure\Action\ProductImportAction;
-use Ergonode\Value\Domain\ValueObject\StringValue;
 use Webmozart\Assert\Assert;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Provider\ConverterMapperProvider;
+use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1CategoryProcessor;
+use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1AttributeProcessor;
+use Ergonode\Transformer\Infrastructure\Action\AttributeImportAction;
 
 /**
  */
@@ -58,17 +59,29 @@ class StartImportService
     private CommandBusInterface $commandBus;
 
     /**
+     * @var Magento1CategoryProcessor
+     */
+    private Magento1CategoryProcessor $categoryProcessor;
+
+    /**
+     * @var Magento1AttributeProcessor
+     */
+    private Magento1AttributeProcessor $attributeProcessor;
+
+    /**
      * @var string
      */
     private string $directory;
 
     /**
-     * @param SourceRepositoryInterface      $sourceRepository
+     * @param SourceRepositoryInterface $sourceRepository
      * @param TransformerRepositoryInterface $transformerRepository
-     * @param ReaderProcessorProvider        $provider
-     * @param ConverterMapperProvider        $mapperProvider
-     * @param CommandBusInterface            $commandBus
-     * @param string                         $directory
+     * @param ReaderProcessorProvider $provider
+     * @param ConverterMapperProvider $mapperProvider
+     * @param CommandBusInterface $commandBus
+     * @param Magento1CategoryProcessor $categoryProcessor
+     * @param Magento1AttributeProcessor $attributeProcessor
+     * @param string $directory
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
@@ -76,6 +89,8 @@ class StartImportService
         ReaderProcessorProvider $provider,
         ConverterMapperProvider $mapperProvider,
         CommandBusInterface $commandBus,
+        Magento1CategoryProcessor $categoryProcessor,
+        Magento1AttributeProcessor $attributeProcessor,
         string $directory
     ) {
         $this->sourceRepository = $sourceRepository;
@@ -83,70 +98,104 @@ class StartImportService
         $this->provider = $provider;
         $this->mapperProvider = $mapperProvider;
         $this->commandBus = $commandBus;
+        $this->categoryProcessor = $categoryProcessor;
+        $this->attributeProcessor = $attributeProcessor;
         $this->directory = $directory;
     }
 
     /**
      * @param Import $import
-     *
-     * @throws \ReflectionException
-     * @throws \Doctrine\DBAL\DBALException
      */
     public function start(Import $import): void
     {
-        $start = microtime(true);
-        /** @var Magento2CsvSource $source */
-        $source = $this->sourceRepository->load($import->getSourceId());
-        Assert::notNull($source);
+        $language = new Language(Language::EN);
+        $importId = $import->getId();
 
-        $transformer = $this->transformerRepository->load($import->getTransformerId());
+        try {
+            $start = microtime(true);
+            /** @var Magento2CsvSource $source */
+            $source = $this->sourceRepository->load($import->getSourceId());
+            Assert::notNull($source);
 
-        Assert::notNull($transformer);
+            $transformer = $this->transformerRepository->load($import->getTransformerId());
 
-        $file = $source->getFile();
-        $filename = \sprintf('%s%s', $this->directory, $file);
-        $extension = pathinfo($filename, PATHINFO_EXTENSION);
-        $fileReader = $this->provider->provide($extension);
+            Assert::notNull($transformer);
 
-        $rows = [];
-        $fileReader->open($filename, $source->getConfiguration());
-        foreach ($fileReader->read() as $row) {
-            $rows[] = $row;
-        }
+            $file = $source->getFile();
+            $filename = \sprintf('%s%s', $this->directory, $file);
+            $extension = pathinfo($filename, PATHINFO_EXTENSION);
+            $fileReader = $this->provider->provide($extension);
 
-        $groups = $this->getGroupedSku($rows);
-        $categories = $this->getCategories($groups);
-
-        $i = 0;
-        foreach ($groups as $type => $products) {
-            foreach ($products as $sku => $product) {
-                $i++;
-                $row = $this->merge($product);
-                $result[$type][$sku] = $this->transform($row, $transformer);
+            $rows = [];
+            $fileReader->open($filename, $source->getConfiguration());
+            foreach ($fileReader->read() as $row) {
+                $rows[] = $row;
             }
-        }
 
+            $this->processAttributes($importId, $rows, $language);
+            $this->processCategories($importId, $rows, $language);
+            $this->processProducts($importId, $rows, $transformer);
+
+            $end = microtime(true);
+
+            echo ($end - $start).PHP_EOL;
+        } catch (\Throwable $exception) {
+            echo $exception->getMessage().PHP_EOL;
+            echo print_r($exception->getTraceAsString(), true);
+            die;
+        }
+    }
+
+    /**
+     * @param ImportId $id
+     * @param array    $rows
+     * @param Language $language
+     */
+    private function processCategories(ImportId $id, array $rows, Language $language): void
+    {
+        $categories = $this->categoryProcessor->process($rows, $language);
+        $i = 0;
         foreach ($categories as $category) {
-            $record = new Record();
-            $record->set('code', new StringValue($category['code']));
-            $record->set('name', new TranslatableString(['PL' => $category['name']]))
-            $command = new ProcessImportCommand($import->getId(), $i, reset($version), CategoryImportAction::TYPE);
+            $i++;
+            $command = new ProcessImportCommand($id, $i, $category, CategoryImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
+    }
 
+    /**
+     * @param ImportId $id
+     * @param array    $rows
+     * @param Language $language
+     *
+     * @throws \Exception
+     */
+    private function processAttributes(ImportId $id, array $rows, Language $language): void
+    {
+        $attributes = $this->attributeProcessor->process($rows, $language);
         $i = 0;
-        foreach ($groups as $type => $products) {
-            foreach ($products as $sku => $product) {
-                $i++;
-//            $command = new ProcessImportCommand($import->getId(), $i, reset($version), ProductImportAction::TYPE);
-//            $this->commandBus->dispatch($command);
-            }
+        foreach ($attributes as $attribute) {
+            $i++;
+            $command = new ProcessImportCommand($id, $i, $attribute, AttributeImportAction::TYPE);
+            $this->commandBus->dispatch($command);
         }
+    }
 
-        $end = microtime(true);
-
-        var_dump($i);
-        echo($end - $start);
+    /**
+     * @param ImportId    $id
+     * @param array       $rows
+     * @param Transformer $transformer
+     */
+    private function processProducts(ImportId $id, array $rows, Transformer $transformer): void
+    {
+        $i = 0;
+        $products = $this->getGroupedProducts($rows);
+        foreach ($products['simple'] as $key => $product) {
+            $product = reset($product);
+            $i++;
+            $record = $this->transform($product, $transformer);
+            $command = new ProcessImportCommand($id, $i, $record, ProductImportAction::TYPE);
+            $this->commandBus->dispatch($command);
+        }
     }
 
     /**
@@ -154,7 +203,7 @@ class StartImportService
      *
      * @return array
      */
-    private function getGroupedSku(array $rows): array
+    private function getGroupedProducts(array $rows): array
     {
         $products['simple'] = [];
         $products['configurable'] = [];
@@ -162,9 +211,8 @@ class StartImportService
         $sku = null;
         $type = null;
 
-
         foreach ($rows as $row) {
-            if (!empty($row['sku'])) {
+            if ($row['sku'] !== null && $row['sku'] !== '') {
                 $sku = $row['sku'];
                 $type = $row['_type'];
             }
@@ -175,28 +223,6 @@ class StartImportService
         }
 
         return $products;
-    }
-
-    /**
-     * @param array $rows
-     *
-     * @return array
-     */
-    public function getCategories(array $rows): array
-    {
-        $result = [];
-        foreach ($rows as $row) {
-            if($row['sku'] && $row('_category')) {
-                $categories = implode('\\', $row['_category']);
-                foreach ($categories as $category) {
-                    $result[$category]['code'] = $category;
-                    $language = $row['_store']?:Language::EN;
-                    $result[$category]['name'][$language] = $category;
-                }
-            }
-        }
-
-        return $result;
     }
 
     /**
@@ -213,7 +239,11 @@ class StartImportService
             foreach ($converters as $field => $converter) {
                 $mapper = $this->mapperProvider->provide($converter);
                 $value = $mapper->map($converter, $row);
-                $record->add($collection, $field, $value);
+                if ($collection === 'values') {
+                    $record->setValue($field, $value);
+                } else {
+                    $record->set($field, $value);
+                }
             }
         }
 
@@ -234,7 +264,7 @@ class StartImportService
                     if (!array_key_exists($key, $product)) {
                         $product[$key] = $value;
                     } else {
-                        $product[$key] .= ',' . $value;
+                        $product[$key] .= ','.$value;
                     }
                 }
             }

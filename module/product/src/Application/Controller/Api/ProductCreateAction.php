@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Category\Domain\Entity\CategoryId;
 
 /**
  * @Route("products", methods={"POST"})
@@ -95,10 +96,15 @@ class ProductCreateAction
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var ProductCreateFormModel $data */
             $data = $form->getData();
+            $categories = [];
+            foreach ($data->categories as $category) {
+
+                $categories[] = new CategoryId($category);
+            }
             $command = new CreateProductCommand(
                 ProductId::generate(),
                 new Sku($data->sku),
-                $data->categories,
+                $categories,
                 [TemplateSystemAttribute::CODE => new StringValue($data->template)]
             );
             $this->messageBus->dispatch($command);

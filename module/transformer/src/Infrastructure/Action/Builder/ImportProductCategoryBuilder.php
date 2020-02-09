@@ -43,16 +43,17 @@ class ImportProductCategoryBuilder implements ProductImportBuilderInterface
      */
     public function build(ImportedProduct $product, Record $record): ImportedProduct
     {
-        if ($record->hasColumns('categories')) {
-            foreach ($record->getColumns('categories') as $key => $value) {
-                if ($value instanceof StringValue) {
-                    $categoryCode = new CategoryCode($value->getValue());
-                    $categoryId = CategoryId::fromCode($categoryCode);
-                    if ($this->repository->exists($categoryId)) {
-                        $product->categories[$value->getValue()] = $categoryCode;
-                    }
+        if ($record->has('categories')) {
+            $value = $record->get('categories');
+
+            if ($value instanceof StringValue) {
+                $categoryCode = new CategoryCode($value->getValue());
+                $categoryId = CategoryId::fromCode($categoryCode);
+                if ($this->repository->exists($categoryId)) {
+                    $product->categories[$value->getValue()] = $categoryId;
                 }
             }
+
         }
 
         return $product;
