@@ -9,20 +9,13 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
+use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
-use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Transformer\Infrastructure\Action\ProductImportAction;
 use Webmozart\Assert\Assert;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
-use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
-use Ergonode\Transformer\Infrastructure\Provider\ConverterMapperProvider;
-use Ergonode\Importer\Domain\Entity\ImportId;
 
 /**
  */
@@ -81,9 +74,7 @@ class StartMagento1ImportProcess
      */
     public function start(Import $import): void
     {
-
-        $language = new Language(Language::EN);
-        $importId = $import->getId();
+        $defaultLanguage = new Language(Language::EN);
 
         try {
             $start = microtime(true);
@@ -100,14 +91,25 @@ class StartMagento1ImportProcess
             $extension = pathinfo($filename, PATHINFO_EXTENSION);
             $fileReader = $this->provider->provide($extension);
 
-            $rows = [];
+
+            /** @var ProductModel[] $products */
+            $products = [];
+            $sku = null;
+            $type = null;
             $fileReader->open($filename, $source->getConfiguration());
             foreach ($fileReader->read() as $row) {
-                $rows[] = $row;
+                if($row['sku']) {
+                    $sku = $row['sku'];
+                    $products[$sku] = new ProductModel();
+                }
+
+                $code = $row['_store'] ? $row['sku'] : 'default';
+                $products[$sku]->add($code, $row);
             }
 
+
             foreach ($this->steps as $step) {
-                $step->process($importId, $rows, $language);
+                $step->process($import, $products, $defaultLanguage);
             }
 
             $end = microtime(true);

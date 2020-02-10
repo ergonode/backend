@@ -10,7 +10,8 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
-use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -37,22 +38,27 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
     }
 
     /**
-     * @param ImportId $id
-     * @param string[] $rows
-     * @param Language $language
+     * @param Import         $import
+     * @param ProductModel[] $products
+     * @param Language       $defaultLanguage
      */
-    public function process(ImportId $id, array $rows, Language $language): void
+    public function process(Import $import, array $products, Language $defaultLanguage): void
     {
-        $defaultLanguage = $language->getCode();
         $result = [];
-        foreach ($rows as $row) {
-            if ($row['sku'] && $row['_category']) {
-                $categories = explode('/', $row['_category']);
+        foreach ($products as $sku => $product) {
+            $default = $product->get('default', true);
+            if (array_key_exists('_category', $default)) {
+                $categories = explode(',', $default['_category']);
                 foreach ($categories as $category) {
-                    $code = $category;
+                    $category = explode('/', $category);
+                    $code = end($category);
+                    $name = [$defaultLanguage->getCode() => end($category)];
                     if (!array_key_exists($code, $result)) {
-                        $language = !empty($row['_store']) ? $row['_store'] : $defaultLanguage;
-                        $name = [$language => $category];
+                        var_dump('xxxxxxxxxxxxxxxxxxxxx');
+                        var_dump($default['_category']);
+                        var_dump($categories);
+                        var_dump($category);
+                        var_dump($code);
                         $record = new Record();
                         $record->set('code', new StringValue($code));
                         $record->set('name', new TranslatableStringValue(new TranslatableString($name)));
@@ -65,7 +71,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
         $i = 0;
         foreach ($result as $category) {
             $i++;
-            $command = new ProcessImportCommand($id, $i, $category, CategoryImportAction::TYPE);
+            $command = new ProcessImportCommand($import->getId(), $i, $category, CategoryImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
     }

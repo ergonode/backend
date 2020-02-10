@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Action\Builder;
 
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringValue;

@@ -10,7 +10,8 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
-use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -37,26 +38,31 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
     }
 
     /**
-     * @param ImportId $id
-     * @param string[] $rows
-     * @param Language $language
+     * @param Import         $import
+     * @param ProductModel[] $products
+     * @param Language       $defaultLanguage
      */
-    public function process(ImportId $id, array $rows, Language $language): void
+    public function process(Import $import, array $products, Language $defaultLanguage): void
     {
-        $result = [];
-        foreach ($rows as $row) {
-            if ($row['sku'] && $row['_attribute_set']) {
-                $type = $row['_attribute_set'];
-                $result[$type] = new Record();
-                $result[$type]->set('code', new StringValue($type));
-                $result[$type]->set('name', new TranslatableStringValue(new TranslatableString([$language->getCode() => $type])));
+        $templates = [];
+        foreach ($products as $sku => $product) {
+            $default = $product->get('default', true);
+            if (array_key_exists('_attribute_set', $default)) {
+                $type = $default['_attribute_set'];
+                if (!array_key_exists($type, $templates)) {
+                    $templates[$type] = new Record();
+                    $templates[$type]->set('code', new StringValue($type));
+                    $templates[$type]->set('name', new TranslatableStringValue(
+                            new TranslatableString([$defaultLanguage->getCode() => $type]))
+                    );
+                }
             }
         }
 
         $i = 0;
-        foreach ($result as $template) {
+        foreach ($templates as $template) {
             $i++;
-            $command = new ProcessImportCommand($id, $i, $template, TemplateImportAction::TYPE);
+            $command = new ProcessImportCommand($import->getId(), $i, $template, TemplateImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
     }

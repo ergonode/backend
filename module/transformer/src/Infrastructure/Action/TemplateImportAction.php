@@ -12,9 +12,9 @@ namespace Ergonode\Transformer\Infrastructure\Action;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
 use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
 

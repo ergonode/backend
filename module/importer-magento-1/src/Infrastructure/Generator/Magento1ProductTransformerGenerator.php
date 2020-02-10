@@ -9,14 +9,14 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento1\Infrastructure\Generator;
 
 use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Infrastructure\Converter\TextConverter;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Transformer\Infrastructure\Converter\MultilingualTextConverter;
 use Ergonode\Core\Domain\ValueObject\Language;
 
@@ -86,7 +86,7 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
      */
     public function addAttribute(Transformer $transformer, AttributeCode $code): Transformer
     {
-        $attributeId = AttributeId::fromKey($code);
+        $attributeId = AttributeId::fromKey($code->getValue());
         $attribute = $this->repository->load($attributeId);
 
         if ($attribute) {

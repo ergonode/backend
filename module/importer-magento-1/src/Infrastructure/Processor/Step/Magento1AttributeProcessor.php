@@ -10,12 +10,13 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
-use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
@@ -65,19 +66,19 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
     }
 
     /**
-     * @param ImportId $id
-     * @param string[] $rows
-     * @param Language $language
+     * @param Import         $import
+     * @param ProductModel[] $products
+     * @param Language       $language
      *
      * @throws \Exception
      */
-    public function process(ImportId $id, array $rows, Language $language): void
+    public function process(Import $import, array $products, Language $language): void
     {
         $result = [];
         $columns = [];
         $headers = [];
-        foreach ($rows as $row) {
-            foreach ($row as $key => $item) {
+        foreach ($products as $product) {
+            foreach ($product->get('default', true) as $key => $item) {
                 if ($key[0] !== '_') {
                     $columns[$key][] = $item;
                     $headers[$key] = $key;
@@ -86,12 +87,12 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
         }
 
         $headers = array_keys($columns);
-        $configuration = $this->builder->propose($headers, $rows);
+        $configuration = $this->builder->propose($headers, $columns);
 
         foreach ($configuration->getColumns() as $column) {
-            if($column instanceof AttributeColumn) {
+            if ($column instanceof AttributeColumn) {
                 $attributeCode = new AttributeCode($column->getAttributeCode());
-                $attributeId = AttributeId::fromKey($attributeCode);
+                $attributeId = AttributeId::fromKey($attributeCode->getValue());
                 $attribute = $this->repository->load($attributeId);
                 Assert::notNull($attribute);
                 $record = new Record();
@@ -107,7 +108,7 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
                 }
                 $result[] = $record;
             }
-            if($column instanceof ProposalColumn) {
+            if ($column instanceof ProposalColumn) {
                 $record = new Record();
                 $record->set('code', new StringValue($column->getAttributeCode()));
                 $record->set('type', new StringValue($column->getAttributeType()));
@@ -126,7 +127,7 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
         $i = 0;
         foreach ($result as $attribute) {
             $i++;
-            $command = new ProcessImportCommand($id, $i, $attribute, AttributeImportAction::TYPE);
+            $command = new ProcessImportCommand($import->getId(), $i, $attribute, AttributeImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
     }
@@ -141,7 +142,7 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
         $result = [];
         $unique = array_unique($column);
         foreach ($unique as $element) {
-            if($element !== '' && $element !== null) {
+            if ($element !== '' && $element !== null) {
                 $result[$element] = new StringValue($element);
             }
         }

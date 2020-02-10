@@ -9,16 +9,16 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\Importer\Domain\Entity\Import;
 
 /**
  */
 interface Magento1ProcessorStepInterface
 {
     /**
-     * @param ImportId $id
+     * @param Import   $import
      * @param string[] $rows
      * @param Language $language
      */
-    public function process(ImportId $id, array $rows, Language $language): void;
+    public function process(Import $import, array $rows, Language $language): void;
 }

@@ -11,7 +11,7 @@ namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
+use Ergonode\Transformer\Domain\Model\Record;
 use JMS\Serializer\Annotation as JMS;
 
 /**
