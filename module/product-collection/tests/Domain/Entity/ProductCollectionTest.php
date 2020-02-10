@@ -75,6 +75,7 @@ class ProductCollectionTest extends TestCase
         $this->assertEquals($this->description, $entity->getDescription());
         $this->assertEquals($this->code, $entity->getCode());
         $this->assertEquals($this->typeId, $entity->getTypeId());
+        $this->assertNotNull($entity->getCreatedAt());
     }
 
     /**
@@ -96,6 +97,7 @@ class ProductCollectionTest extends TestCase
         $newTypeId = ProductCollectionTypeId::generate();
         $entity->changeType($newTypeId);
         $this->assertEquals($newTypeId, $entity->getTypeId());
+        $this->assertNotNull($entity->getEditedAt());
     }
 
     /**

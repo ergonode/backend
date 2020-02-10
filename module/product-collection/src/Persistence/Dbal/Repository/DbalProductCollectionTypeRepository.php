@@ -42,6 +42,14 @@ class DbalProductCollectionTypeRepository implements ProductCollectionTypeReposi
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function exists(ProductCollectionTypeId $id): bool
+    {
+        return $this->eventStore->load($id)->count() > 0;
+    }
+
+    /**
      * @param ProductCollectionTypeId $id
      *
      * @return AbstractAggregateRoot|null

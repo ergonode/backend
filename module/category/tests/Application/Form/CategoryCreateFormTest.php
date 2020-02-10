@@ -23,12 +23,12 @@ class CategoryCreateFormTest extends TypeTestCase
     {
         $formData = [
             'name' => ['PL' =>  'Any Name'],
-            'code' => 'any code',
+            'code' => 'any_code',
         ];
 
         $object = new CategoryCreateFormModel();
         $object->name = ['PL' =>  'Any Name'];
-        $object->code = new CategoryCode('any code');
+        $object->code = new CategoryCode('any_code');
 
         $objectToCompare = new CategoryCreateFormModel();
         $form = $this->factory->create(CategoryCreateForm::class, $objectToCompare);

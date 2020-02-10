@@ -28,7 +28,7 @@ class ProductCollectionCodeDataTransformer implements DataTransformerInterface
             if ($value instanceof ProductCollectionCode) {
                 return $value->getValue();
             }
-            throw new TransformationFailedException('Invalid Product Collection Type Id object');
+            throw new TransformationFailedException('Invalid Product Collection Code object');
         }
 
         return null;
