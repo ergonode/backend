@@ -18,9 +18,11 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -114,9 +116,9 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     abstract public function getType(): string;
 
     /**
-     * @return AttributeId|AbstractId
+     * @return AttributeId
      */
-    public function getId(): AbstractId
+    public function getId(): AttributeId
     {
         return $this->id;
     }

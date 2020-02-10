@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Notification\Domain\Query;
 
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ramsey\Uuid\Uuid;

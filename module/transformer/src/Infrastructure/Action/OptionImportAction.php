@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Infrastructure\Action;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
@@ -48,7 +48,7 @@ class OptionImportAction implements ImportActionInterface
     public function action(Record $record): void
     {
         $attributeCode = new AttributeCode($record->get('attribute')->getValue());
-        $attributeId = AttributeId::fromKey($attributeCode);
+        $attributeId = AttributeId::fromKey($attributeCode->getValue());
         $key = new OptionKey($record->get('key')->getValue());
         $option = $this->getOption($record->get('value'));
 

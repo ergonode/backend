@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Query;
 
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */

@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Notification\Infrastructure\Sender;
 
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\NotificationInterface;
 
 /**

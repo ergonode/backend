@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Domain\Command;
 
-use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -20,7 +20,7 @@ class PersistProductDraftCommand implements DomainCommandInterface
     /**
      * @var ProductDraftId
      *
-     * @JMS\Type("Ergonode\Editor\Domain\Entity\ProductDraftId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
     private $id;
 

@@ -11,7 +11,7 @@ namespace Ergonode\Attribute\Tests\Domain\Command;
 
 use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -64,7 +64,7 @@ class CreateAttributeCommandTest extends TestCase
         $this->assertInstanceOf(AttributeId::class, $command->getId());
         $this->assertSame($type, $command->getType());
         $this->assertSame($attributeCode, $command->getCode());
-        $this->assertEquals(AttributeId::fromKey($attributeCode), $command->getId());
+        $this->assertEquals(AttributeId::fromKey($attributeCode->getValue()), $command->getId());
         $this->assertSame($label, $command->getLabel());
         $this->assertSame($hint, $command->getHint());
         $this->assertSame($placeholder, $command->getPlaceholder());

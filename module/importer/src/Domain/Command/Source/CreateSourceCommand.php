@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Command\Source;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Importer\Domain\Entity\Source\SourceId;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,7 +20,7 @@ class CreateSourceCommand implements DomainCommandInterface
     /**
      * @var SourceId
      *
-     * @JMS\Type("Ergonode\Importer\Domain\Entity\Source\SourceId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
      */
     private $id;
 

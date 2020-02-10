@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Provider;
 
 use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Factory\WorkflowFactory;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 

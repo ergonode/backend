@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Domain\Event;
 
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use JMS\Serializer\Annotation as JMS;
 
@@ -21,7 +21,7 @@ class CategoryTreeDeletedEvent extends AbstractDeleteEvent
     /**
      * @var CategoryTreeId
      *
-     * @JMS\Type("Ergonode\CategoryTree\Domain\Entity\CategoryTreeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private $id;
 
@@ -34,9 +34,9 @@ class CategoryTreeDeletedEvent extends AbstractDeleteEvent
     }
 
     /**
-     * @return AbstractId|CategoryTreeId
+     * @return CategoryTreeId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): CategoryTreeId
     {
         return $this->id;
     }

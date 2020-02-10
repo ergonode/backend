@@ -9,18 +9,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Query\Decorator;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\Service\StatusCalculationService;
@@ -98,10 +98,10 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
             /** @var ValueInterface $value */
             $value = $result['attributes'][StatusSystemAttribute::CODE];
             $statusCode = new StatusCode($value->getValue());
-            $status = $this->statusRepository->load(StatusId::fromCode($statusCode));
+            $status = $this->statusRepository->load(StatusId::fromCode($statusCode->getValue()));
             Assert::notNull($status);
             $result['status'] = [
-                'attribute_id' => AttributeId::fromKey(new AttributeCode(StatusSystemAttribute::CODE)),
+                'attribute_id' => AttributeId::fromKey((new AttributeCode(StatusSystemAttribute::CODE))->getValue()),
                 'name' => $status->getName()->get($language),
                 'code' => $statusCode,
                 'color' => $status->getColor(),
@@ -112,7 +112,9 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
             $result['workflow'] = [];
             foreach ($transitions as $transition) {
                 if ($this->service->available($transition, $product)) {
-                    $destinationStatus = $this->statusRepository->load(StatusId::fromCode($transition->getTo()));
+                    $destinationStatus = $this->statusRepository->load(
+                        StatusId::fromCode($transition->getTo()->getValue())
+                    );
                     Assert::notNull($destinationStatus);
                     $result['workflow'][] = [
                         'name' => $destinationStatus->getName()->get($language),

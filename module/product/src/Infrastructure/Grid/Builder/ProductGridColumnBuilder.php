@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Builder;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -94,7 +94,7 @@ class ProductGridColumnBuilder
                 $key = $column->getKey();
                 $language = $column->getLanguage() ?: $defaultLanguage;
                 if (in_array($code, $codes, true)) {
-                    $id = AttributeId::fromKey(new AttributeCode($code));
+                    $id = AttributeId::fromKey((new AttributeCode($code))->getValue());
                     $attribute = $this->repository->load($id);
                     Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
 

@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Tests\Domain\Factory;
 
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\Designer\Domain\Entity\TemplateGroupId;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Factory\TemplateFactory;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use PHPUnit\Framework\MockObject\MockObject;

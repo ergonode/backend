@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Domain\Factory;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Factory\RoleFactory;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use PHPUnit\Framework\MockObject\MockObject;

@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Query;
 
-use Ergonode\Workflow\Domain\Entity\StatusId;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
 /**
  */

@@ -12,7 +12,7 @@ namespace Ergonode\Workflow\Domain\Command\Status;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,7 +22,7 @@ class UpdateStatusCommand implements DomainCommandInterface
     /**
      * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private $id;
 

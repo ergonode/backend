@@ -12,7 +12,7 @@ namespace Ergonode\Condition\Application\Controller\Api\ConditionSet;
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Condition\Domain\Command\CreateConditionSetCommand;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Condition\Infrastructure\Builder\ConditionSetValidatorBuilder;
 use JMS\Serializer\SerializerInterface;
 use Swagger\Annotations as SWG;

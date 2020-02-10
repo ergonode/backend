@@ -10,8 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Event\TransformerConverterAddedEvent;
 use Ergonode\Transformer\Domain\Event\TransformerCreatedEvent;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
@@ -57,7 +58,7 @@ class Transformer extends AbstractAggregateRoot
     /**
      * @return TransformerId
      */
-    public function getId(): AbstractId
+    public function getId(): TransformerId
     {
         return $this->id;
     }

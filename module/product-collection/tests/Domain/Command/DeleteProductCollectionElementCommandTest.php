@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Tests\Domain\Command;
 
-use Ergonode\Product\Domain\Entity\ProductId;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionElementCommand;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

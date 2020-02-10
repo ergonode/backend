@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Tests\Condition\Domain\Entity;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

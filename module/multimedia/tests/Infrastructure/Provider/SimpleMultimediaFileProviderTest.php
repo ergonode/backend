@@ -7,7 +7,7 @@
 namespace Ergonode\Multimedia\Tests\Infrastructure\Provider;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Infrastructure\Provider\SimpleMultimediaFileProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Domain\Event;
 
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -23,7 +23,7 @@ class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
     /**
      * @var CategoryTreeId
      *
-     * @JMS\Type("Ergonode\CategoryTree\Domain\Entity\CategoryTreeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
     private $id;
 
@@ -46,9 +46,9 @@ class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AbstractId|CategoryTreeId
+     * @return CategoryTreeId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): CategoryTreeId
     {
         return $this->id;
     }

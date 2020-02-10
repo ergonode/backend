@@ -11,7 +11,7 @@ namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -48,7 +48,7 @@ class ProductValueAddedEventProjector
     {
         $productId = $event->getAggregateId()->getValue();
 
-        $attributeId = AttributeId::fromKey($event->getAttributeCode())->getValue();
+        $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue())->getValue();
         $this->insertValue($productId, $attributeId, $event->getValue());
     }
 

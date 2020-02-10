@@ -9,9 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -21,7 +20,7 @@ class TransformerDeletedEvent extends AbstractDeleteEvent
     /**
      * @var TransformerId
      *
-     * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
      */
     private TransformerId $id;
 
@@ -34,9 +33,9 @@ class TransformerDeletedEvent extends AbstractDeleteEvent
     }
 
     /**
-     * @return AbstractId
+     * @return TransformerId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): TransformerId
     {
         return $this->id;
     }

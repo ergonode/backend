@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Domain\Command;
 
-use Ergonode\Comment\Domain\Entity\CommentId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,7 +20,7 @@ class UpdateCommentCommand implements DomainCommandInterface
     /**
      * @var CommentId $id
      *
-     * @JMS\Type("Ergonode\Comment\Domain\Entity\CommentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CommentId")
      */
     private CommentId $id;
 

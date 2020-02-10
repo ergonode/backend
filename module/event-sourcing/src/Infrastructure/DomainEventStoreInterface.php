@@ -9,31 +9,31 @@ declare(strict_types = 1);
 
 namespace Ergonode\EventSourcing\Infrastructure;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
 interface DomainEventStoreInterface
 {
     /**
-     * @param AbstractId $id
-     * @param string     $table
+     * @param AggregateId $id
+     * @param string      $table
      *
      * @return DomainEventStream
      */
-    public function load(AbstractId $id, ?string $table = null): DomainEventStream;
+    public function load(AggregateId $id, ?string $table = null): DomainEventStream;
 
     /**
-     * @param AbstractId        $id
+     * @param AggregateId       $id
      * @param DomainEventStream $stream
      * @param string            $table
      */
-    public function append(AbstractId $id, DomainEventStream $stream, ?string $table = null): void;
+    public function append(AggregateId $id, DomainEventStream $stream, ?string $table = null): void;
 
     /**
-     * @param AbstractId  $id
+     * @param AggregateId $id
      * @param string|null $table
      */
-    public function delete(AbstractId $id, ?string $table = null): void;
+    public function delete(AggregateId $id, ?string $table = null): void;
 }

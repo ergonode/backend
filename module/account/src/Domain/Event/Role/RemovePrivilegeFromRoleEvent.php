@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\Role;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -22,7 +22,7 @@ class RemovePrivilegeFromRoleEvent implements DomainEventInterface
     /**
      * @var RoleId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
     private $id;
 
@@ -46,7 +46,7 @@ class RemovePrivilegeFromRoleEvent implements DomainEventInterface
     /**
      * @return RoleId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): RoleId
     {
         return $this->id;
     }

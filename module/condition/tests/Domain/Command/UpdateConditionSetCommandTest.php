@@ -11,7 +11,7 @@ namespace Ergonode\Tests\Condition\Domain\Command;
 
 use Ergonode\Condition\Domain\Command\UpdateConditionSetCommand;
 use Ergonode\Condition\Domain\ConditionInterface;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use PHPUnit\Framework\TestCase;
 
 /**

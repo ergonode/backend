@@ -14,6 +14,7 @@ return [
     Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle::class => ['dev' => true, 'test' => true],
     Ergonode\Migration\MigrationBundle::class => ['all' => true],
     Ergonode\Core\ErgonodeCoreBundle::class => ['all' => true],
+    Ergonode\SharedKernel\ErgonodeSharedKernelBundle::class => ['all' => true],
     Ergonode\Notification\ErgonodeNotificationBundle::class => ['all' => true],
     Ergonode\Api\ErgonodeApiBundle::class => ['all' => true],
     Ergonode\EventSourcing\ErgonodeEventSourcingBundle::class => ['all' => true],

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterMagento2\Domain\Factory;
 
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
-use Ergonode\Exporter\Domain\Entity\Profile\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Ergonode\Exporter\Domain\Factory\ExportProfileFactoryInterface;
 use Ergonode\ExporterMagento2\Domain\Entity\Magento2ExportCsvProfile;
 

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Infrastructure\Generator;
 
 use Ergonode\Segment\Domain\Entity\Segment;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 /**
  */

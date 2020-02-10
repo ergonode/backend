@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Command\Workflow;
 
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
@@ -23,7 +23,7 @@ class UpdateWorkflowTransitionCommand implements DomainCommandInterface
     /**
      * @var WorkflowId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
     private $workflowId;
 
@@ -44,14 +44,14 @@ class UpdateWorkflowTransitionCommand implements DomainCommandInterface
     /**
      * @var RoleId[]
      *
-     * @JMS\Type("array<Ergonode\Account\Domain\Entity\RoleId>")
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\RoleId>")
      */
     private $roleIds;
 
     /**
      * @var ConditionSetId|null
      *
-     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private $conditionSetId;
 

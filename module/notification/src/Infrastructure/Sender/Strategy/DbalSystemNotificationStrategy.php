@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Notification\Infrastructure\Sender\Strategy;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\Notification\Infrastructure\Sender\NotificationStrategyInterface;
 use JMS\Serializer\SerializerInterface;

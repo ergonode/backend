@@ -12,9 +12,10 @@ namespace Ergonode\Attribute\Domain\Entity;
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupNameChangedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -62,7 +63,7 @@ class AttributeGroup extends AbstractAggregateRoot
     /**
      * @return AttributeGroupId
      */
-    public function getId(): AbstractId
+    public function getId(): AttributeGroupId
     {
         return $this->id;
     }

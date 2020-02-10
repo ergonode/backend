@@ -10,9 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,7 +22,7 @@ class ProductAddedToCategoryEvent implements DomainEventInterface
     /**
      * @var ProductId
      *
-     * @JMS\Type("Ergonode\Product\Domain\Entity\ProductId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private $id;
 
@@ -46,7 +46,7 @@ class ProductAddedToCategoryEvent implements DomainEventInterface
     /**
      * @return ProductId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): ProductId
     {
         return $this->id;
     }

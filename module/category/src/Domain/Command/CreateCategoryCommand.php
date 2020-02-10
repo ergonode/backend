@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Domain\Command;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
@@ -22,7 +22,7 @@ class CreateCategoryCommand implements DomainCommandInterface
     /**
      * @var CategoryId
      *
-     * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $id;
 
@@ -48,7 +48,7 @@ class CreateCategoryCommand implements DomainCommandInterface
      */
     public function __construct(CategoryCode $code, TranslatableString $name)
     {
-        $this->id = CategoryId::fromCode($code);
+        $this->id = CategoryId::fromCode($code->getValue());
         $this->code = $code;
         $this->name = $name;
     }

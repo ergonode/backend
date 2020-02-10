@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Persistence\Dbal\Projector\Workflow;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowTransitionRemovedEvent;
 
 /**
@@ -41,8 +41,8 @@ class WorkflowTransitionRemovedEventProjector
             self::TABLE,
             [
                 'workflow_id' => $event->getAggregateId()->getValue(),
-                'source_id' => StatusId::fromCode($event->getSource())->getValue(),
-                'destination_id' => StatusId::fromCode($event->getDestination())->getValue(),
+                'source_id' => StatusId::fromCode($event->getSource()->getValue())->getValue(),
+                'destination_id' => StatusId::fromCode($event->getDestination()->getValue())->getValue(),
             ]
         );
     }

@@ -11,7 +11,7 @@ namespace Ergonode\Product\Tests\Domain\Event;
 
 use Ergonode\Product\Domain\Event\ProductVersionIncreasedEvent;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**

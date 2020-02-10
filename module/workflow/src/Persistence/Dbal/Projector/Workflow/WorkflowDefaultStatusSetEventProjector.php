@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Persistence\Dbal\Projector\Workflow;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDefaultStatusSetEvent;
 
 /**
@@ -43,7 +43,7 @@ class WorkflowDefaultStatusSetEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'default_status' => StatusId::fromCode($event->getCode())->getValue(),
+                'default_status' => StatusId::fromCode($event->getCode()->getValue())->getValue(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Persistence\Dbal\Projector\Workflow;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusAddedEvent;
 
 /**
@@ -40,7 +40,7 @@ class WorkflowStatusAddedEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'default_status' => StatusId::fromCode($event->getCode())->getValue(),
+                'default_status' => StatusId::fromCode($event->getCode()->getValue())->getValue(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

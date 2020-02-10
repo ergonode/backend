@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\Model;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
@@ -21,9 +21,9 @@ class RelationshipCollection implements \Iterator
     private $collection = [];
 
     /**
-     * @param AbstractId $id
+     * @param AggregateId $id
      */
-    public function add(AbstractId $id): void
+    public function add(AggregateId $id): void
     {
         $this->collection[] = $id;
     }
@@ -31,19 +31,19 @@ class RelationshipCollection implements \Iterator
     /**
      * @param int $key
      *
-     * @return AbstractId
+     * @return AggregateId
      */
-    public function get(int $key): AbstractId
+    public function get(int $key): AggregateId
     {
         return $this->collection[$key];
     }
 
     /**
-     * @param AbstractId $id
+     * @param AggregateId $id
      *
      * @return bool
      */
-    public function has(AbstractId $id): bool
+    public function has(AggregateId $id): bool
     {
         return in_array($id, $this->collection, true);
     }
@@ -65,7 +65,7 @@ class RelationshipCollection implements \Iterator
     }
 
     /**
-     * @return AbstractId|bool
+     * @return AggregateId|bool
      */
     public function current()
     {
@@ -73,7 +73,7 @@ class RelationshipCollection implements \Iterator
     }
 
     /**
-     * @return AbstractId|bool
+     * @return AggregateId|bool
      */
     public function next()
     {
@@ -92,6 +92,6 @@ class RelationshipCollection implements \Iterator
      */
     public function valid(): bool
     {
-        return $this->current() instanceof AbstractId;
+        return $this->current() instanceof AggregateId;
     }
 }

@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Request\ParamConverter;
 
 use Ergonode\Account\Domain\Entity\Role;
-use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;

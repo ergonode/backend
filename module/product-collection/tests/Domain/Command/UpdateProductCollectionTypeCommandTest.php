@@ -11,7 +11,7 @@ namespace Ergonode\ProductCollection\Tests\Domain\Command;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ProductCollection\Domain\Command\UpdateProductCollectionTypeCommand;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

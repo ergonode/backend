@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Tests\Domain\Command\ExportProfile;
 
 use Ergonode\Exporter\Domain\Command\ExportProfile\CreateExportProfileCommand;
-use Ergonode\Exporter\Domain\Entity\Profile\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use PHPUnit\Framework\TestCase;
 
 /**

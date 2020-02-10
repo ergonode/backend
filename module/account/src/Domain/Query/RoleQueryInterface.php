@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Query;
 
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Grid\DataSetInterface;
 
 /**

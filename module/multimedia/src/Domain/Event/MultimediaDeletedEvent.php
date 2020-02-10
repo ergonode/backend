@@ -10,9 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\Core\Domain\Entity\AbstractId;
 
 /**
  */
@@ -21,7 +20,7 @@ class MultimediaDeletedEvent implements DomainEventInterface
     /**
      * @var MultimediaId
      *
-     * @JMS\Type("Ergonode\Multimedia\Domain\Entity\MultimediaId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
     private $id;
 
@@ -36,7 +35,7 @@ class MultimediaDeletedEvent implements DomainEventInterface
     /**
      * @return MultimediaId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): MultimediaId
     {
         return $this->id;
     }

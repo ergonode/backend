@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Tests\Domain\Command;
 
 use Ergonode\Segment\Domain\Command\DeleteSegmentCommand;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

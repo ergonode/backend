@@ -9,11 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Persistence\Dbal\Repository;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\Multimedia\Domain\Event\MultimediaDeletedEvent;
@@ -85,11 +84,11 @@ class DbalMultimediaRepository implements MultimediaRepositoryInterface
     }
 
     /**
-     * @param AbstractId $id
+     * @param MultimediaId $id
      *
      * @return bool
      */
-    public function exists(AbstractId $id): bool
+    public function exists(MultimediaId $id): bool
     {
         $eventStream = $this->eventStore->load($id);
 

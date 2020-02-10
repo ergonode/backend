@@ -8,10 +8,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Domain\Event;
 
-use Ergonode\Channel\Domain\Entity\ChannelId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -28,14 +28,14 @@ class ChannelSegmentChangedEvent implements DomainEventInterface
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $from;
 
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $to;
 
@@ -54,7 +54,7 @@ class ChannelSegmentChangedEvent implements DomainEventInterface
     /**
      * @return ChannelId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): ChannelId
     {
         return $this->id;
     }

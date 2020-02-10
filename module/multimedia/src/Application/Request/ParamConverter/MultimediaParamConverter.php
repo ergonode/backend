@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Application\Request\ParamConverter;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
 use Ergonode\Multimedia\Infrastructure\Service\FileExistCheckService;

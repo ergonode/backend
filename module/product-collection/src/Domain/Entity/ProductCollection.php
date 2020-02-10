@@ -9,11 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Domain\Entity;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionCreatedEvent;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionDescriptionChangedEvent;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementAddedEvent;
@@ -30,7 +32,7 @@ class ProductCollection extends AbstractAggregateRoot
     /**
      * @var ProductCollectionId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
@@ -59,7 +61,7 @@ class ProductCollection extends AbstractAggregateRoot
     /**
      * @var ProductCollectionTypeId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
      */
     private ProductCollectionTypeId $typeId;
 
@@ -112,7 +114,7 @@ class ProductCollection extends AbstractAggregateRoot
     /**
      * @return ProductCollectionId
      */
-    public function getId(): AbstractId
+    public function getId(): ProductCollectionId
     {
         return $this->id;
     }

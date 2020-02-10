@@ -11,7 +11,6 @@ namespace Ergonode\Product\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
@@ -22,6 +21,7 @@ use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
 use Ergonode\Product\Domain\Event\ProductVersionIncreasedEvent;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -86,9 +86,9 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
-     * @return AbstractId|ProductId
+     * @return ProductId
      */
-    public function getId(): AbstractId
+    public function getId(): ProductId
     {
         return $this->id;
     }

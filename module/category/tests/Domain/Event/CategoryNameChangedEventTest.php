@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Tests\Domain\Event;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Event\CategoryNameChangedEvent;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;

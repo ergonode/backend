@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Factory;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -35,7 +35,7 @@ class SimpleDomainEventFactory implements DomainEventFactoryInterface
     /**
      * {@inheritDoc}
      */
-    public function create(AbstractId $id, array $records): array
+    public function create(AggregateId $id, array $records): array
     {
         $result = [];
         foreach ($records as $record) {
@@ -46,12 +46,12 @@ class SimpleDomainEventFactory implements DomainEventFactoryInterface
     }
 
     /**
-     * @param AbstractId $id
-     * @param array      $record
+     * @param AggregateId $id
+     * @param array       $record
      *
      * @return DomainEventEnvelope
      */
-    private function createElement(AbstractId $id, array $record): DomainEventEnvelope
+    private function createElement(AggregateId $id, array $record): DomainEventEnvelope
     {
         return new DomainEventEnvelope(
             $id,

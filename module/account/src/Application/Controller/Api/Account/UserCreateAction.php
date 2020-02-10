@@ -12,7 +12,7 @@ namespace Ergonode\Account\Application\Controller\Api\Account;
 use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
 use Ergonode\Account\Application\Form\UserCreateForm;
 use Ergonode\Account\Domain\Command\User\CreateUserCommand;
-use Ergonode\Account\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

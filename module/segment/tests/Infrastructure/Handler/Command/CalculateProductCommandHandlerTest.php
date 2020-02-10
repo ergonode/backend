@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Tests\Infrastructure\Handler\Command;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Segment\Domain\Command\CalculateProductCommand;
 use Ergonode\Segment\Domain\Command\CreateSegmentCommand;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;

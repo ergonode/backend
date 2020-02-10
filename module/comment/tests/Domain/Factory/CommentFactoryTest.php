@@ -8,9 +8,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Tests\Domain\Factory;
 
-use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Comment\Domain\Entity\CommentId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Comment\Domain\Factory\CommentFactory;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 

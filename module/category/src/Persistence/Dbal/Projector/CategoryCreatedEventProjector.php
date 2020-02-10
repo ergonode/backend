@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
 use JMS\Serializer\SerializerInterface;
@@ -64,7 +64,7 @@ class CategoryCreatedEventProjector
             );
 
             foreach ($event->getAttributes() as $code => $value) {
-                $attributeId = AttributeId::fromKey(new AttributeCode($code));
+                $attributeId = AttributeId::fromKey((new AttributeCode($code))->getValue());
                 $type = get_class($value);
                 $value = $this->serializer->serialize($value, 'json');
 

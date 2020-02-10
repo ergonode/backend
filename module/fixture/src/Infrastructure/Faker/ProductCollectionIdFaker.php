@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Faker\Provider\Base as BaseProvider;
 
@@ -28,7 +28,7 @@ class ProductCollectionIdFaker extends BaseProvider
     {
 
         if ($code) {
-            return ProductCollectionId::fromCode(new ProductCollectionCode($code));
+            return ProductCollectionId::fromCode((new ProductCollectionCode($code))->getValue());
         }
 
         return ProductCollectionId::generate();

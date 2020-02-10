@@ -13,7 +13,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
-use Ergonode\Importer\Domain\Entity\ImportLineId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
 
 /**

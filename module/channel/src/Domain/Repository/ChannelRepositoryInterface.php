@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Domain\Repository;
 
 use Ergonode\Channel\Domain\Entity\Channel;
-use Ergonode\Channel\Domain\Entity\ChannelId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**

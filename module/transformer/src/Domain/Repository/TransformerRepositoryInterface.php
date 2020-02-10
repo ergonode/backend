@@ -11,7 +11,7 @@ namespace Ergonode\Transformer\Domain\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
 /**
  */

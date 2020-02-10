@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Persistence\Dbal\Repository;
 
 use Ergonode\Condition\Domain\Entity\ConditionSet;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Condition\Domain\Event\ConditionSetDeletedEvent;
 use Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;

@@ -10,11 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\EventSourcing\Infrastructure\Store;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventFactoryInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface;
 use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -85,7 +85,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
      *
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function load(AbstractId $id, ?string $table = null): DomainEventStream
+    public function load(AggregateId $id, ?string $table = null): DomainEventStream
     {
         $table = $table ?: self::TABLE;
 
@@ -130,7 +130,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
      *
      * @throws \Throwable
      */
-    public function append(AbstractId $id, DomainEventStream $stream, ?string $table = null): void
+    public function append(AggregateId $id, DomainEventStream $stream, ?string $table = null): void
     {
         $table = $table ?: self::TABLE;
 
@@ -161,7 +161,7 @@ class DbalDomainEventStore implements DomainEventStoreInterface
      * @throws \Throwable
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function delete(AbstractId $id, ?string $table = null): void
+    public function delete(AggregateId $id, ?string $table = null): void
     {
         $dataTable = $table ?? self::TABLE;
         $historyTable = sprintf('%s_history', $dataTable);

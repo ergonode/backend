@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Command\Group;
 
-use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
@@ -20,7 +20,7 @@ class CreateAttributeGroupCommand implements DomainCommandInterface
     /**
      * @var AttributeGroupId
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeGroupId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
      */
     private $id;
 

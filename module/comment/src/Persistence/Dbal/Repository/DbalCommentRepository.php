@@ -13,9 +13,9 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Comment\Domain\Entity\Comment;
-use Ergonode\Comment\Domain\Entity\CommentId;
 use Ergonode\Comment\Domain\Event\CommentDeletedEvent;
 use Ergonode\Comment\Domain\Repository\CommentRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 
 /**
  */

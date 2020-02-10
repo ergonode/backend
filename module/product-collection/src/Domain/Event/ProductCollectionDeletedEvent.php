@@ -9,9 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -21,7 +20,7 @@ class ProductCollectionDeletedEvent extends AbstractDeleteEvent
     /**
      * @var ProductCollectionId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
@@ -34,9 +33,9 @@ class ProductCollectionDeletedEvent extends AbstractDeleteEvent
     }
 
     /**
-     * @return AbstractId|ProductCollectionId
+     * @return ProductCollectionId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
     }

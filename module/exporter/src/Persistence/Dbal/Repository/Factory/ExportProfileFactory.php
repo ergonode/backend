@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Persistence\Dbal\Repository\Factory;
 
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
-use Ergonode\Exporter\Domain\Entity\Profile\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 
 /**
  */

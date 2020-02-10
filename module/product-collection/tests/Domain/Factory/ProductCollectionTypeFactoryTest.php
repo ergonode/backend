@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Tests\Domain\Factory;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\Factory\ProductCollectionTypeFactory;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use PHPUnit\Framework\MockObject\MockObject;

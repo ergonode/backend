@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Validator;
 
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeUnique;
@@ -57,7 +57,7 @@ class ProductCollectionCodeUniqueValidator extends ConstraintValidator
         $value = (string) $value;
 
         $code = new ProductCollectionCode($value);
-        $collection = $this->repository->exists(ProductCollectionId::fromCode($code));
+        $collection = $this->repository->exists(ProductCollectionId::fromCode($code->getValue()));
 
         if ($collection) {
             $this->context->buildViolation($constraint->message)

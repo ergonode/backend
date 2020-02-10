@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Tests\Domain\Command\Workflow;
 
 use Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\TestCase;
 

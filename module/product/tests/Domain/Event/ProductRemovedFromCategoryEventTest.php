@@ -13,7 +13,7 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Value\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\Event\ValueAddedEvent;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
@@ -51,7 +51,7 @@ class ValueAddedEventProjector
     public function __invoke(ValueAddedEvent $event): void
     {
         $this->connection->transactional(function () use ($event) {
-            $attributeId = AttributeId::fromKey($event->getAttributeCode());
+            $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue());
             $type = get_class($event->getValue());
             $value = $this->serializer->serialize($event->getValue(), 'json');
 

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Domain\Factory;
 
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
 /**
  */
