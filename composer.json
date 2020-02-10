@@ -126,6 +126,7 @@
             "Ergonode\\Account\\Tests\\": "module/account/tests",
             "Ergonode\\Authentication\\Tests\\": "module/authentication/tests",
             "Ergonode\\Core\\Tests\\": "module/core/tests",
+            "Ergonode\\SharedKernel\\Tests\\": "module/shared-kernel/tests",
             "Ergonode\\Notification\\Tests\\": "module/notification/tests",
             "Ergonode\\EventSourcing\\Tests\\": "module/event-sourcing/tests",
             "Ergonode\\Multimedia\\Tests\\": "module/multimedia/tests",

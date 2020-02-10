@@ -31,10 +31,6 @@ services:
         resource: '../../Persistence/Dbal/Projector/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\CategoryTree\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
     Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface: '@Ergonode\CategoryTree\Persistence\Dbal\Repository\DbalTreeRepository'
     Ergonode\CategoryTree\Domain\Query\TreeQueryInterface: '@Ergonode\CategoryTree\Persistence\Dbal\Query\DbalTreeQuery'
 
