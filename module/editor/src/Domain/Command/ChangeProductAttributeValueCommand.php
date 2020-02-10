@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Domain\Command;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
@@ -29,7 +29,7 @@ class ChangeProductAttributeValueCommand implements DomainCommandInterface
     /**
      * @var AttributeId
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private $attributeId;
 

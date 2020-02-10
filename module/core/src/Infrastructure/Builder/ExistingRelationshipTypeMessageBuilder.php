@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\Builder;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -54,7 +54,7 @@ class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMess
     private function groupByClass(RelationshipCollection $relationshipCollection): array
     {
         $classCollection = [];
-        /** @var AbstractId $item */
+        /** @var AggregateId $item */
         foreach ($relationshipCollection as $item) {
             $class = get_class($item);
             if (!in_array($class, $classCollection, true)) {

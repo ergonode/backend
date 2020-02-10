@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Domain\Entity;
 
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Comment\Domain\Event\CommentContentChangedEvent;
 use Ergonode\Comment\Domain\Event\CommentCreatedEvent;
@@ -31,7 +31,7 @@ class Comment extends AbstractAggregateRoot
     /**
      * @var UserId $authorId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $authorId;
 

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Event\Transition;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;

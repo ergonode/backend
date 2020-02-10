@@ -11,7 +11,7 @@ namespace Ergonode\Transformer\Infrastructure\Action\Builder;
 use Ergonode\Attribute\Domain\Command\AddAttributeOptionCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
@@ -61,7 +61,7 @@ class ImportProductAttributeBuilder implements ProductImportBuilderInterface
             foreach ($record->getColumns('values') as $key => $value) {
                 $attributeCode = new AttributeCode($key);
                 if (null !== $value) {
-                    $attributeId = AttributeId::fromKey($attributeCode);
+                    $attributeId = AttributeId::fromKey($attributeCode->getValue());
                     $attributeType = $this->query->findAttributeType($attributeId);
                     if ($attributeType &&
                         in_array($attributeType->getValue(), [SelectAttribute::TYPE, MultiSelectAttribute::TYPE], true)

@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
@@ -53,7 +52,7 @@ class TemplateImageChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AbstractId|TemplateId
+     * @return TemplateId
      */
     public function getAggregateId(): TemplateId
     {

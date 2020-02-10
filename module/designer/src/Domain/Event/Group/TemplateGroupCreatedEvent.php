@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event\Group;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -42,7 +41,7 @@ class TemplateGroupCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return TemplateGroupId|AbstractId
+     * @return TemplateGroupId
      */
     public function getAggregateId(): TemplateGroupId
     {

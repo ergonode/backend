@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Tests\Domain\Event;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionNameChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

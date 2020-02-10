@@ -7,8 +7,8 @@
 
 namespace Ergonode\Attribute\Domain\Query;
 
-use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;

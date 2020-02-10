@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Domain\Repository;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Infrastructure\Provider;
 
 use Ergonode\Segment\Domain\Entity\Segment;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\Segment\Infrastructure\Exception\SegmentGeneratorProviderException;
@@ -48,7 +48,7 @@ class SegmentProvider
      */
     public function provide(SegmentCode $code): Segment
     {
-        $segmentId = SegmentId::fromCode($code);
+        $segmentId = SegmentId::fromCode($code->getValue());
         $segment = $this->repository->load($segmentId);
         if (null === $segment) {
             $generator = $this->provider->provide($code->getValue());

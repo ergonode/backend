@@ -12,7 +12,6 @@ namespace Ergonode\Multimedia\Domain\Event;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\Core\Domain\Entity\AbstractId;
 
 /**
  */

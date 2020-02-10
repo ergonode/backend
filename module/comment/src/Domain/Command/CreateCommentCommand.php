@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Domain\Command;
 
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use JMS\Serializer\Annotation as JMS;
@@ -29,7 +29,7 @@ class CreateCommentCommand implements DomainCommandInterface
     /**
      * @var UserId $authorId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $authorId;
 

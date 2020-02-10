@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Application\Request\ParamConverter;
 
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;

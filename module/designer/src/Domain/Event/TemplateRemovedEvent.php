@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use JMS\Serializer\Annotation as JMS;
@@ -43,7 +42,7 @@ class TemplateRemovedEvent extends AbstractDeleteEvent
     }
 
     /**
-     * @return AbstractId|TemplateId
+     * @return TemplateId
      */
     public function getAggregateId(): TemplateId
     {

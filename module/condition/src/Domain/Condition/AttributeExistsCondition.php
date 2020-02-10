@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Condition;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -23,7 +23,7 @@ class AttributeExistsCondition implements ConditionInterface
     /**
      * @var AttributeId
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $attribute;
 

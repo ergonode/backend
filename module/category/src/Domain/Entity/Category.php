@@ -13,9 +13,10 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
 use Ergonode\Category\Domain\Event\CategoryNameChangedEvent;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Value\Domain\Event\ValueAddedEvent;
 use Ergonode\Value\Domain\Event\ValueChangedEvent;
 use Ergonode\Value\Domain\Event\ValueRemovedEvent;
@@ -30,7 +31,7 @@ class Category extends AbstractAggregateRoot
     /**
      * @var CategoryId
      *
-     * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $id;
 
@@ -73,7 +74,7 @@ class Category extends AbstractAggregateRoot
     /**
      * @return CategoryId
      */
-    public function getId(): AbstractId
+    public function getId(): CategoryId
     {
         return $this->id;
     }

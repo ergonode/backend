@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Workflow;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;

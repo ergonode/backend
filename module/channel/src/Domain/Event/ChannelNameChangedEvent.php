@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
 use JMS\Serializer\Annotation as JMS;
@@ -40,7 +40,7 @@ class ChannelNameChangedEvent extends AbstractTranslatableStringBasedChangedEven
     /**
      * @return ChannelId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): ChannelId
     {
         return $this->id;
     }

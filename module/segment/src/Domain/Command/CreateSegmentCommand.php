@@ -12,7 +12,7 @@ namespace Ergonode\Segment\Domain\Command;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use JMS\Serializer\Annotation as JMS;
 
@@ -23,7 +23,7 @@ class CreateSegmentCommand implements DomainCommandInterface
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $id;
 
@@ -67,7 +67,7 @@ class CreateSegmentCommand implements DomainCommandInterface
         TranslatableString $description,
         ?ConditionSetId $conditionSetId = null
     ) {
-        $this->id = SegmentId::fromCode($code);
+        $this->id = SegmentId::fromCode($code->getValue());
         $this->code = $code;
         $this->name = $name;
         $this->description = $description;

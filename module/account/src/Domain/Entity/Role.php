@@ -16,7 +16,7 @@ use Ergonode\Account\Domain\Event\Role\RoleDescriptionChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
 use Ergonode\Account\Domain\ValueObject\Privilege;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\AggregateId;

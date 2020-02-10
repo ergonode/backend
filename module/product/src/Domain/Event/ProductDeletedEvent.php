@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;

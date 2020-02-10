@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Infrastructure\JMS\Serializer\Handler\SegmentIdHandler;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;

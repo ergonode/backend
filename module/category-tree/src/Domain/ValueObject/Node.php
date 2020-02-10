@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Domain\ValueObject;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -26,7 +26,7 @@ class Node
     /**
      * @var CategoryId
      *
-     * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private $categoryId;
 

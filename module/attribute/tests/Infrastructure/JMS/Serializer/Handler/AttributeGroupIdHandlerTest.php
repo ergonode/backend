@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\AttributeGroupIdHandler;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;

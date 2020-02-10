@@ -11,7 +11,7 @@ namespace Ergonode\CategoryTree\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -46,7 +46,7 @@ class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AbstractId|CategoryTreeId
+     * @return CategoryTreeId
      */
     public function getAggregateId(): CategoryTreeId
     {

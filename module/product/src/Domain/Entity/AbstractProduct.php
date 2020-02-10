@@ -11,7 +11,6 @@ namespace Ergonode\Product\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
@@ -87,7 +86,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
-     * @return AbstractId|ProductId
+     * @return ProductId
      */
     public function getId(): ProductId
     {

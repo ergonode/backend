@@ -12,10 +12,9 @@ namespace Ergonode\Channel\Domain\Entity;
 use Ergonode\Channel\Domain\Event\ChannelCreatedEvent;
 use Ergonode\Channel\Domain\Event\ChannelNameChangedEvent;
 use Ergonode\Channel\Domain\Event\ChannelSegmentChangedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
@@ -50,7 +49,7 @@ class Channel extends AbstractAggregateRoot
     }
 
     /**
-     * @return AbstractId|ChannelId
+     * @return ChannelId
      */
     public function getId(): ChannelId
     {

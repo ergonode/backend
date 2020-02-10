@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Application\Request\ParamConverter;
 
 use Ergonode\Segment\Domain\Entity\Segment;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;

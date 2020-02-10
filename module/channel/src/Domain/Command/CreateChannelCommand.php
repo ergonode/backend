@@ -11,7 +11,7 @@ namespace Ergonode\Channel\Domain\Command;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 /**
  */
@@ -34,7 +34,7 @@ class CreateChannelCommand implements DomainCommandInterface
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $segmentId;
 

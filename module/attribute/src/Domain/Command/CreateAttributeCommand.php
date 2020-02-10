@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Command;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
@@ -26,7 +26,7 @@ class CreateAttributeCommand implements DomainCommandInterface
     /**
      * @var AttributeId
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private $attributeId;
 
@@ -126,7 +126,7 @@ class CreateAttributeCommand implements DomainCommandInterface
         array $options = [],
         bool $system = false
     ) {
-        $this->attributeId = AttributeId::fromKey($code);
+        $this->attributeId = AttributeId::fromKey($code->getValue());
         $this->code = $code;
         $this->type = $type;
         $this->label = $label;

@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Infrastructure\Service;
 
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;

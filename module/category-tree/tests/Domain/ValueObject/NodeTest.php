@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Tests\Domain\ValueObject;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

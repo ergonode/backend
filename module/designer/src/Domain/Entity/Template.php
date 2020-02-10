@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
@@ -72,7 +72,7 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @return AbstractId|TemplateId
+     * @return TemplateId
      */
     public function getId(): TemplateId
     {

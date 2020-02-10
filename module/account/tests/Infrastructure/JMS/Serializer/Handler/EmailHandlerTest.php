@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Account\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Infrastructure\JMS\Serializer\Handler\EmailHandler;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;

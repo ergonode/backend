@@ -11,7 +11,7 @@ namespace Ergonode\Condition\Domain\Event;
 
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -57,7 +57,7 @@ class ConditionSetConditionsChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AbstractId|ConditionSetId
+     * @return ConditionSetId
      */
     public function getAggregateId(): ConditionSetId
     {

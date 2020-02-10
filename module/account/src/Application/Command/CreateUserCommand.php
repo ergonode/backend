@@ -11,7 +11,7 @@ namespace Ergonode\Account\Application\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
-use Ergonode\Account\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\Console\Command\Command;

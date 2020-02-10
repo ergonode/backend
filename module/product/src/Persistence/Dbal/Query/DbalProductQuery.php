@@ -11,8 +11,8 @@ namespace Ergonode\Product\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;

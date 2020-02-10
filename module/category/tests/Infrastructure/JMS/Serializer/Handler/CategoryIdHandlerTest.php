@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Infrastructure\JMS\Serializer\Handler\CategoryIdHandler;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;

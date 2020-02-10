@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Tests\Domain\Command;
 
 use Ergonode\Category\Domain\Command\DeleteCategoryCommand;
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use PHPUnit\Framework\TestCase;
 
 /**

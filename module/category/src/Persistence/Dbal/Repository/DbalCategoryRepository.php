@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Persistence\Dbal\Repository;
 
 use Ergonode\Category\Domain\Entity\Category;
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Event\CategoryDeletedEvent;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;

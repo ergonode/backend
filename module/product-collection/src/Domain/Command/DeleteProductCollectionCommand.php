@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Domain\Command;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
 /**
  */
@@ -19,7 +19,7 @@ class DeleteProductCollectionCommand implements DomainCommandInterface
     /**
      * @var ProductCollectionId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 

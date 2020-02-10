@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Event\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use JMS\Serializer\Annotation as JMS;
 
@@ -21,7 +21,7 @@ class AttributeDeletedEvent extends AbstractDeleteEvent
     /**
      * @var AttributeId
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private $id;
 
@@ -36,7 +36,7 @@ class AttributeDeletedEvent extends AbstractDeleteEvent
     /**
      * @return AttributeId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): AttributeId
     {
         return $this->id;
     }

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -43,7 +43,7 @@ class ConditionSetCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return ConditionSetId|AbstractId
+     * @return ConditionSetId
      */
     public function getAggregateId(): ConditionSetId
     {

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Tests\Domain\Event;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Event\SegmentNameChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

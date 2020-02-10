@@ -9,10 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,7 +21,7 @@ class ProductCollectionElementRemovedEvent implements DomainEventInterface
     /**
      * @var ProductCollectionId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
@@ -54,9 +53,9 @@ class ProductCollectionElementRemovedEvent implements DomainEventInterface
 
 
     /**
-     * @return AbstractId|ProductCollectionId
+     * @return ProductCollectionId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
     }

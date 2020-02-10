@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Strategy\Relationship;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;

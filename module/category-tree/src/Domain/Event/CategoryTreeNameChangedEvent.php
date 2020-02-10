@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
 use JMS\Serializer\Annotation as JMS;
@@ -39,7 +38,7 @@ class CategoryTreeNameChangedEvent extends AbstractTranslatableStringBasedChange
     }
 
     /**
-     * @return AbstractId|CategoryTreeId
+     * @return CategoryTreeId
      */
     public function getAggregateId(): CategoryTreeId
     {

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Domain\Event;
 
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use Ergonode\SharedKernel\Domain\AggregateId;
@@ -30,7 +30,7 @@ class CommentCreatedEvent implements DomainEventInterface
     /**
      * @var UserId $authorId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $authorId;
 

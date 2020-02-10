@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Query\Decorator;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -101,7 +101,7 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
             $status = $this->statusRepository->load(StatusId::fromCode($statusCode->getValue()));
             Assert::notNull($status);
             $result['status'] = [
-                'attribute_id' => AttributeId::fromKey(new AttributeCode(StatusSystemAttribute::CODE)),
+                'attribute_id' => AttributeId::fromKey((new AttributeCode(StatusSystemAttribute::CODE))->getValue()),
                 'name' => $status->getName()->get($language),
                 'code' => $statusCode,
                 'color' => $status->getColor(),

@@ -6,7 +6,7 @@
 
 namespace Ergonode\Designer\Domain\Query;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Grid\DataSetInterface;

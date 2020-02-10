@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Strategy\Relationship;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
@@ -68,7 +68,7 @@ class StatusProductRelationshipStrategy implements RelationshipStrategyInterface
         $status = $this->repository->load($id);
         Assert::notNull($status);
 
-        $attributeId = AttributeId::fromKey(new AttributeCode(StatusSystemAttribute::CODE));
+        $attributeId = AttributeId::fromKey((new AttributeCode(StatusSystemAttribute::CODE))->getValue());
         /** @var Uuid $valueId */
         $valueId = Uuid::uuid5(ValueInterface::NAMESPACE, implode('|', [$status->getCode()->getValue(), null]));
 

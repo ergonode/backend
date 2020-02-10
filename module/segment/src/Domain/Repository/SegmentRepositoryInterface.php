@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Domain\Repository;
 
 use Ergonode\Segment\Domain\Entity\Segment;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 /**
  */

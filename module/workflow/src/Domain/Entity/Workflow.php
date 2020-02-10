@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;

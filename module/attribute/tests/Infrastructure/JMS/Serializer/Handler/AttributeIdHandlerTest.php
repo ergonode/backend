@@ -6,7 +6,7 @@
 
 namespace Ergonode\Attribute\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\AttributeIdHandler;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;

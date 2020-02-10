@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use JMS\Serializer\Annotation as JMS;
 
@@ -36,7 +36,7 @@ class ChannelDeletedEvent extends AbstractDeleteEvent
     /**
      * @return ChannelId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): ChannelId
     {
         return $this->id;
     }

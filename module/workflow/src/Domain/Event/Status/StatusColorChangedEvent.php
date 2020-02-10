@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Status;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;

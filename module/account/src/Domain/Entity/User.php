@@ -18,9 +18,10 @@ use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
-use Ergonode\Account\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
@@ -116,9 +117,9 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @return AbstractId|UserId
+     * @return UserId
      */
-    public function getId(): AbstractId
+    public function getId(): UserId
     {
         return $this->id;
     }

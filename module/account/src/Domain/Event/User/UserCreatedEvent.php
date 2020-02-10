@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Domain\Event\User;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Account\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
@@ -26,7 +26,7 @@ class UserCreatedEvent implements DomainEventInterface
     /**
      * @var UserId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private $id;
 
@@ -47,7 +47,7 @@ class UserCreatedEvent implements DomainEventInterface
     /**
      * @var Email
      *
-     * @JMS\Type("Ergonode\Account\Domain\ValueObject\Email")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\ValueObject\Email")
      */
     private $email;
 
@@ -122,7 +122,7 @@ class UserCreatedEvent implements DomainEventInterface
     /**
      * @return UserId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): UserId
     {
         return $this->id;
     }

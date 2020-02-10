@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Domain\Event;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
@@ -24,7 +24,7 @@ class CategoryCreatedEvent implements DomainEventInterface
     /**
      * @var CategoryId
      *
-     * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $id;
 
@@ -64,9 +64,9 @@ class CategoryCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AbstractId
+     * @return CategoryId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): CategoryId
     {
         return $this->id;
     }

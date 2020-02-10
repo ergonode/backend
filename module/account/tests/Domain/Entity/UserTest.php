@@ -11,8 +11,8 @@ namespace Ergonode\Account\Tests\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Account\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;

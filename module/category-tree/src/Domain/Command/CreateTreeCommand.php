@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Domain\Command;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\CategoryTree\Application\Model\TreeNodeFormModel;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;

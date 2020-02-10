@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Command;
 
 use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
@@ -26,7 +26,7 @@ class UpdateAttributeCommand implements DomainCommandInterface
     /**
      * @var AttributeId
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private $attributeId;
 

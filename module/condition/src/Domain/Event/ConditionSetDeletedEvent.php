@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Condition\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use JMS\Serializer\Annotation as JMS;
 
@@ -34,7 +34,7 @@ class ConditionSetDeletedEvent extends AbstractDeleteEvent
     }
 
     /**
-     * @return AbstractId|ConditionSetId
+     * @return ConditionSetId
      */
     public function getAggregateId(): ConditionSetId
     {

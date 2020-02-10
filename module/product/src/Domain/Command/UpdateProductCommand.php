@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Command;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
@@ -28,7 +28,7 @@ class UpdateProductCommand implements DomainCommandInterface
     /**
      * @var CategoryId[]
      *
-     * @JMS\Type("array<string, Ergonode\Category\Domain\Entity\CategoryId>")
+     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
     private $categories;
 

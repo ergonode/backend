@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Event\Group;
 
-use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -23,7 +23,7 @@ class AttributeGroupCreatedEvent implements DomainEventInterface
     /**
      * @var AttributeGroupId
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeGroupId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
      */
     private $id;
 
@@ -56,7 +56,7 @@ class AttributeGroupCreatedEvent implements DomainEventInterface
     /**
      * @return AttributeGroupId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): AttributeGroupId
     {
         return $this->id;
     }

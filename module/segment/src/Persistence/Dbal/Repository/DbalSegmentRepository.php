@@ -12,7 +12,7 @@ namespace Ergonode\Segment\Persistence\Dbal\Repository;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Segment\Domain\Entity\Segment;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Event\SegmentDeletedEvent;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 

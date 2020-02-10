@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use Ergonode\SharedKernel\Domain\AggregateId;

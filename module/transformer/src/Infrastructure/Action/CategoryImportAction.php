@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Action;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Factory\CategoryFactory;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
@@ -84,10 +84,10 @@ class CategoryImportAction implements ImportActionInterface
 
         $tree = $this->treeProvider->getTree(CategoryTree::DEFAULT);
 
-        $categoryId = CategoryId::fromCode($code);
+        $categoryId = CategoryId::fromCode($code->getValue());
 
         $parentCode = $record->get('parent')? new CategoryCode($record->get('parent')->getValue()): null;
-        $parentId = $parentCode? CategoryId::fromCode($parentCode): null;
+        $parentId = $parentCode? CategoryId::fromCode($parentCode->getValue()): null;
         $category = $this->categoryRepository->load($categoryId);
 
         if (!$category) {

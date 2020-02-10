@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Entity;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Designer\Domain\Event\Group\TemplateGroupCreatedEvent;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;

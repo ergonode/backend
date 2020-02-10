@@ -12,7 +12,7 @@ namespace Ergonode\ProductCollection\Tests\Domain\Entity;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use PHPUnit\Framework\TestCase;

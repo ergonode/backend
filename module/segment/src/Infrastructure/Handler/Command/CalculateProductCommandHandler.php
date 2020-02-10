@@ -13,7 +13,7 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Segment\Domain\Command\CalculateProductCommand;
 use Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 /**
  */

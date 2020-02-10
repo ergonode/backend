@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Tests\Domain\Command\Group;
 
 use Ergonode\Attribute\Domain\Command\Group\DeleteAttributeGroupCommand;
-use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

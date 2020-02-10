@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Tests\Domain\Entity;
 
 use Ergonode\Attribute\Domain\Entity\AttributeGroup;
-use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;

@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Authentication\Application\Security\Provider;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\Exception\InvalidEmailException;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\Account\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;

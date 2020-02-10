@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Workflow;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use JMS\Serializer\Annotation as JMS;

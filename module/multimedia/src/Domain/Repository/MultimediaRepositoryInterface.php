@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\Repository;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
@@ -31,11 +30,11 @@ interface MultimediaRepositoryInterface
     public function save(Multimedia $multimedia): void;
 
     /**
-     * @param AbstractId $id
+     * @param MultimediaId $id
      *
      * @return bool
      */
-    public function exists(AbstractId $id): bool;
+    public function exists(MultimediaId $id): bool;
 
     /**
      * @param Multimedia $id

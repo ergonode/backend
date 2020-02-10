@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Value\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\Event\ValueAddedEvent;
 use Ergonode\Value\Domain\Event\ValueChangedEvent;
 use JMS\Serializer\SerializerInterface;
@@ -52,7 +52,7 @@ class ValueChangedEventProjector
     public function __invoke(ValueChangedEvent $event): void
     {
         $this->connection->transactional(function () use ($event) {
-            $attributeId = AttributeId::fromKey($event->getAttributeCode());
+            $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue());
             $type = get_class($event->getTo());
             $newValue = $this->serializer->serialize($event->getTo(), 'json');
             $oldValue = $this->serializer->serialize($event->getTo(), 'json');

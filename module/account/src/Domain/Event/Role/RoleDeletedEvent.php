@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Domain\Event\Role;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use JMS\Serializer\Annotation as JMS;
 

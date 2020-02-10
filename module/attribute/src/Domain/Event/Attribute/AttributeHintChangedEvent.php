@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Event\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -22,7 +22,7 @@ class AttributeHintChangedEvent implements DomainEventInterface
     /**
      * @var AttributeId
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private $id;
 
@@ -55,7 +55,7 @@ class AttributeHintChangedEvent implements DomainEventInterface
     /**
      * @return AttributeId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): AttributeId
     {
         return $this->id;
     }

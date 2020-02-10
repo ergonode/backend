@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Event\TransformerConverterAddedEvent;

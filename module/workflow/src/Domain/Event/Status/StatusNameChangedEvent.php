@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Status;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;

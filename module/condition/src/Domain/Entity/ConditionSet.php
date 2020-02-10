@@ -12,7 +12,7 @@ namespace Ergonode\Condition\Domain\Entity;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Event\ConditionSetConditionsChangedEvent;
 use Ergonode\Condition\Domain\Event\ConditionSetCreatedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use JMS\Serializer\Annotation as JMS;
@@ -55,7 +55,7 @@ class ConditionSet extends AbstractAggregateRoot
     }
 
     /**
-     * @return ConditionSetId|AbstractId
+     * @return ConditionSetId
      */
     public function getId(): ConditionSetId
     {

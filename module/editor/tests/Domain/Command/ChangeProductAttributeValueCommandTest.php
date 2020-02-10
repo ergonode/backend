@@ -6,7 +6,7 @@
 
 namespace Ergonode\Editor\Tests\Domain\Command;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;

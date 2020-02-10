@@ -14,7 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DbalDataSet;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 

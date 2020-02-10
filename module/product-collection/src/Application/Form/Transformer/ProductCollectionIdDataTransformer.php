@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Application\Form\Transformer;
 
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 

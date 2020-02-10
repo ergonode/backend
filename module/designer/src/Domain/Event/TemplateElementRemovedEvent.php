@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
@@ -44,7 +43,7 @@ class TemplateElementRemovedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AbstractId
+     * @return TemplateId
      */
     public function getAggregateId(): TemplateId
     {

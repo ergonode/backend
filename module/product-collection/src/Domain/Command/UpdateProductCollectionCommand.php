@@ -11,7 +11,7 @@ namespace Ergonode\ProductCollection\Domain\Command;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 /**
@@ -21,7 +21,7 @@ class UpdateProductCollectionCommand implements DomainCommandInterface
     /**
      * @var ProductCollectionId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 

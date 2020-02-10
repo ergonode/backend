@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Persistence\Dbal\Repository\Decorator;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 

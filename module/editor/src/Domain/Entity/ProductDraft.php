@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Event\ProductDraftApplied;
 use Ergonode\Editor\Domain\Event\ProductDraftCreated;
 use Ergonode\Editor\Domain\Event\ProductDraftValueAdded;
@@ -60,7 +59,7 @@ class ProductDraft extends AbstractAggregateRoot
     }
 
     /**
-     * @return AbstractId|ProductDraftId
+     * @return ProductDraftId
      */
     public function getId(): ProductDraftId
     {

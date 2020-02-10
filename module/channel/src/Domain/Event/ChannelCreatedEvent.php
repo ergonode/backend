@@ -12,7 +12,7 @@ namespace Ergonode\Channel\Domain\Event;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -36,7 +36,7 @@ class ChannelCreatedEvent implements DomainEventInterface
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $segmentId;
 

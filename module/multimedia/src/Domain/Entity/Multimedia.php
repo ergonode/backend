@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\Entity;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Multimedia\Domain\Event\MultimediaCreatedEvent;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;

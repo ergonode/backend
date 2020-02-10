@@ -11,7 +11,7 @@ namespace Ergonode\Attribute\Tests\Domain\Command;
 
 use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 

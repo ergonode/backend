@@ -12,7 +12,7 @@ namespace Ergonode\Segment\Tests\Domain\Entity;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Segment\Domain\Entity\Segment;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use PHPUnit\Framework\MockObject\MockObject;

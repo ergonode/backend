@@ -11,7 +11,7 @@ namespace Ergonode\Designer\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Domain\Event;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;

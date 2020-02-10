@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Tests\Domain\Entity;
 
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Comment\Domain\Entity\Comment;
 use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use PHPUnit\Framework\MockObject\MockObject;
