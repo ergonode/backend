@@ -23,7 +23,7 @@ class CategoryCreateFormModel
      * @Assert\NotBlank(message="Category code is required")
      * @Assert\Length(max=64)
      * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9-_]+$/i",
+     *     pattern="/^[a-zA-Z0-9-_]+$\b/i",
      *     message="Category code can have only letters, digits or underscore symbol"
      *  )
      *

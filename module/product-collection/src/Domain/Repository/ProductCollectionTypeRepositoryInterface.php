@@ -19,6 +19,12 @@ interface ProductCollectionTypeRepositoryInterface
     /**
      * @param ProductCollectionTypeId $id
      *
+     * @return bool
+     */
+    public function exists(ProductCollectionTypeId $id): bool;
+    /**
+     * @param ProductCollectionTypeId $id
+     *
      * @return AbstractAggregateRoot|null
      */
     public function load(ProductCollectionTypeId $id): ?AbstractAggregateRoot;

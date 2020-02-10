@@ -48,8 +48,7 @@ class ProductCollectionTypeCodeTest extends TestCase
         return [
             ['valida_code'],
             ['valida-code'],
-            ['valida code 12'],
-            ['valida code'],
+            ['valida_code_12'],
             ['a'],
             ['a'],
             [str_repeat('a', 255)],
@@ -62,10 +61,10 @@ class ProductCollectionTypeCodeTest extends TestCase
     public function invalidDataProvider(): array
     {
         return [
-            [''],
+            ['fees&gdr '],
             [' '],
             [' a'],
-            ['a '],
+            ['a a'],
             [' &'],
             ['!'],
             ['['],

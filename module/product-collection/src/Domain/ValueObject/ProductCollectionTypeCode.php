@@ -13,7 +13,7 @@ namespace Ergonode\ProductCollection\Domain\ValueObject;
  */
 class ProductCollectionTypeCode
 {
-    private const PATTERN = '/[a-zA-Z0-9-_]+\b/i';
+    private const PATTERN = '/^[a-zA-Z0-9-_]+$\b/i';
 
     /**
      * @var string

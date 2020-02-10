@@ -387,13 +387,13 @@ Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
       - '<translation(<{empty}>)>'
 
 Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
-  product_collection_type_up-sell:
+  product_collection_type_up_sell:
     __construct:
-      - '<productCollectionTypeId("up-sell)>'
+      - '<productCollectionTypeId("up-sell")>'
       - '<productCollectionTypeCode("up-sell")>'
       - '<translation(<{name_product_collection_type_up-sell}>)>'
-  product_collection_type_cross-sell:
+  product_collection_type_cross_sell:
     __construct:
-      - '<productCollectionTypeId("cross-sell)>'
+      - '<productCollectionTypeId("cross-sell")>'
       - '<productCollectionTypeCode("cross-sell")>'
       - '<translation(<{name_product_collection_type_cross-sell}>)>'

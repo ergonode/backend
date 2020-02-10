@@ -27,8 +27,6 @@ class ProductCollectionCodeUniqueValidator extends ConstraintValidator
     private ProductCollectionRepositoryInterface $repository;
 
     /**
-     * ProductCollectionCodeValidator constructor.
-     *
      * @param ProductCollectionRepositoryInterface $repository
      */
     public function __construct(ProductCollectionRepositoryInterface $repository)

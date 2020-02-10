@@ -11,6 +11,7 @@ namespace Ergonode\ProductCollection\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */

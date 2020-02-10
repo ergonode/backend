@@ -6,14 +6,31 @@ parameters:
         'PL': 'Cross-sell'
         'EN': 'Cross-sell'
 
+Ergonode\ProductCollection\Domain\Entity\ProductCollection:
+    product_collection_{1..50}:
+        __construct:
+            - '<productCollectionId(product_collection_<current()>)>'
+            - '<productCollectionCode(product_collection_<current()>)>'
+            - '@name_<current()>'
+            - '@description_<current()>'
+            - '<productCollectionTypeId("up-sell")>'
+            -
+\Ergonode\ProductCollection\Domain\Command\AddProductCollectionElementCommand:
+    add_collection_element_{1..50}:
+        __construct:
+            - '<productCollectionId(product_collection_<current()>)>'
+            - '<productId(SKU_<current()>)>'
+            - true
+
+
 Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
     product_collection_type_up-sell:
         __construct:
-            - '<productCollectionTypeId("up-sell)>'
+            - '<productCollectionTypeId("up-sell")>'
             - '<productCollectionTypeCode("up-sell")>'
             - '<translation(<{name_product_collection_type_up-sell}>)>'
     product_collection_type_cross-sell:
         __construct:
-            - '<productCollectionTypeId("cross-sell)>'
+            - '<productCollectionTypeId("cross-sell")>'
             - '<productCollectionTypeCode("cross-sell")>'
             - '<translation(<{name_product_collection_type_cross-sell}>)>'

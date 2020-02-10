@@ -13,7 +13,7 @@ namespace Ergonode\Category\Domain\ValueObject;
  */
 class CategoryCode
 {
-    private const PATTERN = '/[a-zA-Z0-9-_]+\b/i';
+    private const PATTERN = '/^[a-zA-Z0-9-_]+$\b/i';
 
     /**
      * @var string

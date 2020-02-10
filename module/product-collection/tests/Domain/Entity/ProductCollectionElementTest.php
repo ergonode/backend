@@ -53,6 +53,7 @@ class ProductCollectionElementTest extends TestCase
         $this->assertSame($this->id, $entity->getId());
         $this->assertSame($this->productId, $entity->getProductId());
         $this->assertTrue($entity->isVisible());
+        $this->assertNotNull($entity->getCreatedAt());
     }
 
     /**

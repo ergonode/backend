@@ -16,6 +16,8 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use PHPUnit\Framework\TestCase;
 
+/**
+ */
 class TemplateIdHandlerTest extends TestCase
 {
     /**

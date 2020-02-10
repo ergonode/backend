@@ -11,6 +11,7 @@ namespace Ergonode\ProductCollection\Domain\Command;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
