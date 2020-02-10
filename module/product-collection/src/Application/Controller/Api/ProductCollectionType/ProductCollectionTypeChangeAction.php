@@ -40,7 +40,7 @@ class ProductCollectionTypeChangeAction
     /**
      * @var CommandBusInterface
      */
-    private CommandBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
@@ -48,14 +48,14 @@ class ProductCollectionTypeChangeAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param CommandBusInterface  $messageBus
+     * @param CommandBusInterface  $commandBus
      * @param FormFactoryInterface $formFactory
      */
     public function __construct(
-        CommandBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory
     ) {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
     }
 
@@ -123,7 +123,7 @@ class ProductCollectionTypeChangeAction
                     $productCollection->getId(),
                     new TranslatableString($data->name),
                 );
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new EmptyResponse();
             }

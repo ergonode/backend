@@ -37,7 +37,7 @@ class ProductCollectionTypeCreateAction
     /**
      * @var CommandBusInterface
      */
-    private CommandBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
@@ -45,14 +45,14 @@ class ProductCollectionTypeCreateAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param CommandBusInterface  $messageBus
+     * @param CommandBusInterface  $commandBus
      * @param FormFactoryInterface $formFactory
      */
     public function __construct(
-        CommandBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory
     ) {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
     }
 
@@ -104,7 +104,7 @@ class ProductCollectionTypeCreateAction
                     $data->code,
                     new TranslatableString($data->name),
                 );
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());
             }

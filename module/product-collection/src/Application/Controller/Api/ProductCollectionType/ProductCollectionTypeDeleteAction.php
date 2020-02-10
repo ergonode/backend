@@ -33,14 +33,14 @@ class ProductCollectionTypeDeleteAction
     /**
      * @var CommandBusInterface
      */
-    private CommandBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
-     * @param CommandBusInterface $messageBus
+     * @param CommandBusInterface $commandBus
      */
-    public function __construct(CommandBusInterface $messageBus)
+    public function __construct(CommandBusInterface $commandBus)
     {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -84,7 +84,7 @@ class ProductCollectionTypeDeleteAction
     public function __invoke(ProductCollectionType $productCollection, Request $request): Response
     {
         $command = new DeleteProductCollectionTypeCommand($productCollection->getId());
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         return new EmptyResponse();
     }
