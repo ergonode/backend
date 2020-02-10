@@ -4,6 +4,16 @@ services:
         autoconfigure: true
         public: false
 
+    Ergonode\Exporter\Application\Controller\Api\:
+        resource: '../../Application/Controller/Api/*'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Exporter\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Exporter\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
     Ergonode\Exporter\Persistence\:
         resource: '../../Persistence/*'
 
