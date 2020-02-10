@@ -31,37 +31,16 @@ class ProductModel
      */
     public function add(string $code, array $version): void
     {
-        if (!array_key_exists($code, $this->versions)) {
-            $this->versions[$code] = $version;
-        } else {
-            foreach ($version as $field => $value) {
-                if($value !== '') {
-                    $this->versions[$code][$field] .= ',' .$value;
-                }
-            }
-        }
+        $this->versions[$code] = $version;
     }
 
     /**
      * @param string $code
      *
-     * @param bool   $existed
-     *
      * @return array
      */
-    public function get(string $code, bool $existed = false): array
+    public function get(string $code): array
     {
-        if(!$existed) {
-            $result = $this->versions[$code];
-        } else {
-            $result = [];
-            foreach ($this->versions[$code] as $field => $value) {
-                if($value !== '') {
-                    $result[$field] = $value;
-                }
-            }
-        }
-
-        return $result;
+        return $this->versions[$code];
     }
 }

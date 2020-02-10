@@ -60,7 +60,7 @@ class CategoryImportAction implements ImportActionInterface
         Assert::notNull($code, 'Category import required "code" field not exists');
         Assert::notNull($name, 'Category import required "name" field not exists');
 
-        $categoryId = CategoryId::fromCode($code);
+        $categoryId = CategoryId::fromCode($code->getValue());
         $category = $this->categoryRepository->load($categoryId);
 
         if(!$category) {

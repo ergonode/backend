@@ -80,18 +80,19 @@ class Magento1ImportSource implements ImportSourceInterface
         $this->processor->open($file, $source->getConfiguration());
 
         $headers = $this->processor->getHeaders();
-        $lines = [];
+        $columns = [];
 
         $i = 0;
-        foreach ($this->processor->read() as $line) {
+        foreach ($this->processor->read() as $row) {
             $i++;
             if ($i > 100) {
                 break;
             }
-
-            $lines[] = $line;
+            foreach ($row as $key => $value) {
+                $columns[$key][] = $value;
+            }
         }
 
-        return $this->builder->propose($headers, $lines);
+        return $this->builder->propose($headers, $columns);
     }
 }

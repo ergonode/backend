@@ -91,8 +91,6 @@ class StartMagento1ImportProcess
             $extension = pathinfo($filename, PATHINFO_EXTENSION);
             $fileReader = $this->provider->provide($extension);
 
-
-            /** @var ProductModel[] $products */
             $products = [];
             $sku = null;
             $type = null;
@@ -100,16 +98,36 @@ class StartMagento1ImportProcess
             foreach ($fileReader->read() as $row) {
                 if($row['sku']) {
                     $sku = $row['sku'];
-                    $products[$sku] = new ProductModel();
+                    $products[$sku] = [];
                 }
 
                 $code = $row['_store'] ? $row['sku'] : 'default';
-                $products[$sku]->add($code, $row);
+                $row = $this->map($row);
+                if(!array_key_exists($code, $products[$sku])) {
+                    $products[$sku][$code] = $row;
+                } else {
+                    foreach ($row as $field => $value) {
+                        if($value !== '') {
+                            if($products[$sku][$code][$field] !== '') {
+                                $products[$sku][$code][$field] .= ',' . $value;
+                            }
+                        }
+                    }
+                }
             }
 
 
+            $result = [];
+            foreach ($products as $sku => $product)
+            {
+                $result[$sku] = new ProductModel();
+                foreach ($product as $code => $version) {
+                    $result[$sku]->add($code, $version);
+                }
+            }
+
             foreach ($this->steps as $step) {
-                $step->process($import, $products, $defaultLanguage);
+                $step->process($import, $result, $defaultLanguage);
             }
 
             $end = microtime(true);
@@ -141,6 +159,18 @@ class StartMagento1ImportProcess
                 }
             }
         }
+
+        return $product;
+    }
+
+    private function map(array $product): array
+    {
+        $product['categories'] = $product['_root_category'];
+        if($product['categories'] !== '' && $product['_category'] !== '') {
+            $product['categories'] .= '/' . $product['_category'];
+        }
+
+        unset($product['_root_category'], $product['_category']);
 
         return $product;
     }

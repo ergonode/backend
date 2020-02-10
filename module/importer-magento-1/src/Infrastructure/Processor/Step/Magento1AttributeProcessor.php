@@ -76,17 +76,16 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
     {
         $result = [];
         $columns = [];
-        $headers = [];
         foreach ($products as $product) {
-            foreach ($product->get('default', true) as $key => $item) {
+            foreach ($product->get('default') as $key => $item) {
                 if ($key[0] !== '_') {
                     $columns[$key][] = $item;
-                    $headers[$key] = $key;
                 }
             }
         }
 
         $headers = array_keys($columns);
+
         $configuration = $this->builder->propose($headers, $columns);
 
         foreach ($configuration->getColumns() as $column) {

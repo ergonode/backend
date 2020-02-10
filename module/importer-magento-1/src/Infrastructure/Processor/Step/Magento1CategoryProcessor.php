@@ -16,6 +16,7 @@ use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInte
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Transformer\Infrastructure\Action\CategoryImportAction;
+use Ergonode\Transformer\Infrastructure\Formatter\SlugFormatter;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -46,23 +47,20 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
     {
         $result = [];
         foreach ($products as $sku => $product) {
-            $default = $product->get('default', true);
-            if (array_key_exists('_category', $default)) {
-                $categories = explode(',', $default['_category']);
-                foreach ($categories as $category) {
-                    $category = explode('/', $category);
-                    $code = end($category);
-                    $name = [$defaultLanguage->getCode() => end($category)];
-                    if (!array_key_exists($code, $result)) {
-                        var_dump('xxxxxxxxxxxxxxxxxxxxx');
-                        var_dump($default['_category']);
-                        var_dump($categories);
-                        var_dump($category);
-                        var_dump($code);
-                        $record = new Record();
-                        $record->set('code', new StringValue($code));
-                        $record->set('name', new TranslatableStringValue(new TranslatableString($name)));
-                        $result[$code] = $record;
+            $default = $product->get('default');
+            if (array_key_exists('categories', $default)) {
+                if ($default['categories'] !== '') {
+                    $categories = explode(',', $default['categories']);
+                    foreach ($categories as $category) {
+                        $category = explode('/', $category);
+                        $code = end($category);
+                        $name = [$defaultLanguage->getCode() => end($category)];
+                        if (!array_key_exists($code, $result)) {
+                            $record = new Record();
+                            $record->set('code', new StringValue(SlugFormatter::format($code)));
+                            $record->set('name', new TranslatableStringValue(new TranslatableString($name)));
+                            $result[$code] = $record;
+                        }
                     }
                 }
             }
