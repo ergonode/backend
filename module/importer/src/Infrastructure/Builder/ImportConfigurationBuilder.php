@@ -10,7 +10,7 @@ namespace Ergonode\Importer\Infrastructure\Builder;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Importer\Infrastructure\Provider\AttributeProposalProvider;
 use Ergonode\Importer\Infrastructure\Configuration\ImportConfiguration;
 use Ergonode\Importer\Infrastructure\Configuration\Column\ProposalColumn;
@@ -77,7 +77,7 @@ class ImportConfigurationBuilder
     private function calculate(string $name, array $values): ConfigurationColumnInterface
     {
         $attributeCode = new AttributeCode($name);
-        $attributeId = AttributeId::fromKey($attributeCode);
+        $attributeId = AttributeId::fromKey($attributeCode->getValue());
 
         $attribute = $this->repository->load($attributeId);
 

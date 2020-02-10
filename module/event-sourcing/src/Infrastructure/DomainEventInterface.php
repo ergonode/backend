@@ -9,14 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\EventSourcing\Infrastructure;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
 interface DomainEventInterface
 {
     /**
-     * @return AbstractId
+     * @return AggregateId
      */
-    public function getAggregateId(): AbstractId;
+    public function getAggregateId(): AggregateId;
 }

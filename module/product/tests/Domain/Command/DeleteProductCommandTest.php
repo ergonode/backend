@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Tests\Domain\Command;
 
 use Ergonode\Product\Domain\Command\DeleteProductCommand;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 
 /**

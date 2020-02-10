@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Provider;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
 use Webmozart\Assert\Assert;
 

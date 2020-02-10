@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\Resolver;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
@@ -33,7 +33,7 @@ class RelationshipsResolver implements RelationshipsResolverInterface
     /**
      * {@inheritDoc}
      */
-    public function resolve(AbstractId $id): RelationshipCollection
+    public function resolve(AggregateId $id): RelationshipCollection
     {
         $collection = new RelationshipCollection();
 

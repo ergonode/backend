@@ -8,9 +8,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Entity;
 
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
+use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\Workflow\Domain\Event\Transition\TransitionConditionSetChangedEvent;
 use Ergonode\Workflow\Domain\Event\Transition\TransitionRoleIdsChangedEvent;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
@@ -24,7 +25,7 @@ class Transition extends AbstractEntity
     /**
      * @var TransitionId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\TransitionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransitionId")
      */
     private $id;
 
@@ -45,7 +46,7 @@ class Transition extends AbstractEntity
     /**
      * @var ConditionSetId|null
      *
-     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private $conditionSetId;
 

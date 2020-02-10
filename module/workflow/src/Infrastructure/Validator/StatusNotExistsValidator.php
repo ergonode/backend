@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Validator;
 
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Symfony\Component\Validator\Constraint;
@@ -58,7 +58,7 @@ class StatusNotExistsValidator extends ConstraintValidator
 
         $status = null;
         if (StatusCode::isValid($value)) {
-            $status = $this->repository->load(StatusId::fromCode(new StatusCode($value)));
+            $status = $this->repository->load(StatusId::fromCode((new StatusCode($value))->getValue()));
         }
 
         if (!$status) {

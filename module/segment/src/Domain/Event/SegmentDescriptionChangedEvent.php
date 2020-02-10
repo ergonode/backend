@@ -9,10 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,7 +21,7 @@ class SegmentDescriptionChangedEvent extends AbstractTranslatableStringBasedChan
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
     private SegmentId $id;
 
@@ -40,7 +39,7 @@ class SegmentDescriptionChangedEvent extends AbstractTranslatableStringBasedChan
     /**
      * @return SegmentId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): SegmentId
     {
         return $this->id;
     }

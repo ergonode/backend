@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Testes\Condition\Infrastructure\Condition\Calculator;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition;
 use Ergonode\Condition\Infrastructure\Condition\Calculator\NumericAttributeValueConditionCalculatorStrategy;

@@ -11,11 +11,11 @@ namespace Ergonode\Editor\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */

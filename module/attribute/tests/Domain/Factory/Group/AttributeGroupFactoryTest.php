@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Factory\Group;
 
-use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\Factory\Group\AttributeGroupFactory;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;

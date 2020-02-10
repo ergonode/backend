@@ -9,12 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Infrastructure\Strategy\Relationship;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
-use Ergonode\Workflow\Domain\Entity\StatusId;
-use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
-use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
+use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -39,7 +36,7 @@ class DefaultStatusRelationshipStrategy implements RelationshipStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function supports(AbstractId $id): bool
+    public function supports(AggregateId $id): bool
     {
         return $id instanceof StatusId;
     }
@@ -47,7 +44,7 @@ class DefaultStatusRelationshipStrategy implements RelationshipStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AbstractId $id): array
+    public function getRelationships(AggregateId $id): array
     {
         if (!$this->supports($id)) {
             throw new UnexpectedTypeException($id, StatusId::class);

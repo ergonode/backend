@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
@@ -22,7 +22,9 @@ use Ergonode\Designer\Domain\Event\TemplateImageRemovedEvent;
 use Ergonode\Designer\Domain\Event\TemplateNameChangedEvent;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -70,9 +72,9 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @return AbstractId|TemplateId
+     * @return TemplateId
      */
-    public function getId(): AbstractId
+    public function getId(): TemplateId
     {
         return $this->id;
     }

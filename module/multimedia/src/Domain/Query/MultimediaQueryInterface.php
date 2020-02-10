@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\Query;
 
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
 /**

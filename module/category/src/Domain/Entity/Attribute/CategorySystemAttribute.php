@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
@@ -41,7 +41,7 @@ class CategorySystemAttribute extends AbstractOptionAttribute
         TranslatableString $placeholder
     ) {
         $code = new AttributeCode(self::CODE);
-        $id = AttributeId::fromKey($code);
+        $id = AttributeId::fromKey($code->getValue());
 
         parent::__construct($id, $code, $label, $hint, $placeholder, false);
     }

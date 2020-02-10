@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Tests\Domain\Event;
 
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeIdChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

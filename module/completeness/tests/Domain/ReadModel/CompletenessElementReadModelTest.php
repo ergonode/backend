@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Completeness\Tests\Domain\ReadModel;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Infrastructure\Validator;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -64,7 +64,7 @@ class CategoryCodeValidator extends ConstraintValidator
 
         $code = new \Ergonode\Category\Domain\ValueObject\CategoryCode($value);
         // @todo split into two different validators if possible
-        $attribute = $this->repository->exists(CategoryId::fromCode($code));
+        $attribute = $this->repository->exists(CategoryId::fromCode($code->getValue()));
 
         if ($attribute) {
             $this->context->buildViolation($constraint->uniqueMessage)

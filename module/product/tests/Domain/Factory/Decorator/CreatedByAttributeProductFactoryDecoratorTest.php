@@ -12,7 +12,7 @@ namespace Ergonode\Product\Tests\Domain\Factory\Decorator;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Factory\Decorator\CreatedByAttributeProductFactoryDecorator;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;

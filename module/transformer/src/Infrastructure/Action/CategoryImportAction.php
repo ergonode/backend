@@ -9,9 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Action;
 
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\Category\Domain\Factory\CategoryFactory;
 use Ergonode\Category\Domain\Command\CreateCategoryCommand;
 use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
-use Ergonode\Category\Domain\Entity\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;

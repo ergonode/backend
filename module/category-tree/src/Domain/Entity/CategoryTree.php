@@ -9,15 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\CategoryTree\Domain\Entity;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoriesChangedEvent;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryAddedEvent;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeNameChangedEvent;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Webmozart\Assert\Assert;
 
 /**
@@ -61,7 +62,7 @@ class CategoryTree extends AbstractAggregateRoot
     /**
      * @return CategoryTreeId
      */
-    public function getId(): AbstractId
+    public function getId(): CategoryTreeId
     {
         return $this->id;
     }

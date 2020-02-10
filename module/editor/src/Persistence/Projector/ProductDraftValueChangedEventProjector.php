@@ -11,7 +11,7 @@ namespace Ergonode\Editor\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Editor\Domain\Event\ProductDraftValueChanged;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -46,7 +46,7 @@ class ProductDraftValueChangedEventProjector
     public function __invoke(ProductDraftValueChanged $event): void
     {
         $draftId = $event->getAggregateId()->getValue();
-        $elementId = AttributeId::fromKey($event->getAttributeCode())->getValue();
+        $elementId = AttributeId::fromKey($event->getAttributeCode()->getValue())->getValue();
 
         $value = $event->getTo();
 

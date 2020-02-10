@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\EventSourcing\Infrastructure\Envelope;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
@@ -18,9 +18,9 @@ use Symfony\Contracts\EventDispatcher\Event;
 class DomainEventEnvelope extends Event
 {
     /**
-     * @var AbstractId
+     * @var AggregateId
      */
-    private AbstractId $aggregateId;
+    private AggregateId $aggregateId;
 
     /**
      * @var int
@@ -38,13 +38,13 @@ class DomainEventEnvelope extends Event
     private \DateTime $recordedAt;
 
     /**
-     * @param AbstractId           $aggregateId
+     * @param AggregateId          $aggregateId
      * @param int                  $sequence
      * @param DomainEventInterface $event
      * @param \DateTime            $recordedAt
      */
     public function __construct(
-        AbstractId $aggregateId,
+        AggregateId $aggregateId,
         int $sequence,
         DomainEventInterface $event,
         \DateTime $recordedAt
@@ -56,9 +56,9 @@ class DomainEventEnvelope extends Event
     }
 
     /**
-     * @return AbstractId
+     * @return AggregateId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): AggregateId
     {
         return $this->aggregateId;
     }

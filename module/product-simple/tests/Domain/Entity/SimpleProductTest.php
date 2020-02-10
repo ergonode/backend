@@ -11,7 +11,7 @@ namespace Ergonode\ProductSimple\Tests\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;

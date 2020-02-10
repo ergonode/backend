@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Tests\Domain\Command\Status;
 
 use Ergonode\Workflow\Domain\Command\Status\DeleteStatusCommand;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use PHPUnit\Framework\TestCase;
 
 /**

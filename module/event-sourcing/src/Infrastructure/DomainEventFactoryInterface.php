@@ -9,18 +9,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\EventSourcing\Infrastructure;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
 interface DomainEventFactoryInterface
 {
     /**
-     * @param AbstractId $id
-     * @param array      $records
+     * @param AggregateId $id
+     * @param array       $records
      *
      * @return DomainEventEnvelope[]
      */
-    public function create(AbstractId $id, array $records): array;
+    public function create(AggregateId $id, array $records): array;
 }

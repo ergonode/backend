@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Tests\Domain\Command\Role;
 
 use Ergonode\Account\Domain\Command\Role\UpdateRoleCommand;
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

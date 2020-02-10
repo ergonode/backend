@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Tests\Domain\Entity;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElementId;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use PHPUnit\Framework\TestCase;
 
 /**

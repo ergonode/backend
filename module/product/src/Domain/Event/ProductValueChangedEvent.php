@@ -10,9 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -23,7 +23,7 @@ class ProductValueChangedEvent implements DomainEventInterface
     /**
      * @var ProductId
      *
-     * @JMS\Type("Ergonode\Product\Domain\Entity\ProductId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private $id;
 
@@ -65,7 +65,7 @@ class ProductValueChangedEvent implements DomainEventInterface
     /**
      * @return ProductId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): ProductId
     {
         return $this->id;
     }

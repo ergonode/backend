@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Entity;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Event\Status\StatusColorChangedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusCreatedEvent;
 use Ergonode\Workflow\Domain\Event\Status\StatusDescriptionChangedEvent;
@@ -27,7 +27,7 @@ class Status extends AbstractAggregateRoot
     /**
      * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private $id;
 
@@ -81,7 +81,7 @@ class Status extends AbstractAggregateRoot
     /**
      * @return StatusId
      */
-    public function getId(): AbstractId
+    public function getId(): StatusId
     {
         return $this->id;
     }

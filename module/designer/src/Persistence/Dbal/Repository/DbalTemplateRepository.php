@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Repository;
 
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Event\TemplateRemovedEvent;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;

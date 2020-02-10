@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Event;
 
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -21,7 +21,7 @@ class ConditionSetCreatedEvent implements DomainEventInterface
     /**
      * @var ConditionSetId
      *
-     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private ConditionSetId $id;
 
@@ -43,9 +43,9 @@ class ConditionSetCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return ConditionSetId|AbstractId
+     * @return ConditionSetId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): ConditionSetId
     {
         return $this->id;
     }

@@ -7,7 +7,7 @@
 namespace Ergonode\CategoryTree\Domain\Repository;
 
 use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**

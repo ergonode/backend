@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
 use Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductHasTemplateConditionCalculatorStrategy;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;

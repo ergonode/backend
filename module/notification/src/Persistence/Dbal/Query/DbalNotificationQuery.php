@@ -10,7 +10,7 @@ namespace Ergonode\Notification\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Notification\Domain\Query\NotificationQueryInterface;
 use Ergonode\Grid\DataSetInterface;

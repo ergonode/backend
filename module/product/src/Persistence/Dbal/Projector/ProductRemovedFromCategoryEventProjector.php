@@ -11,7 +11,7 @@ namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent;
 
 /**
@@ -44,7 +44,7 @@ class ProductRemovedFromCategoryEventProjector
             self::TABLE_PRODUCT_CATEGORY,
             [
                 'product_id' => $event->getAggregateId()->getValue(),
-                'category_id' => CategoryId::fromCode($event->getCategoryCode()),
+                'category_id' => CategoryId::fromCode($event->getCategoryCode()->getValue()),
             ]
         );
     }

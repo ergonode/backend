@@ -8,6 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\Entity\Source;
 
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
+
 /**
  */
 abstract class AbstractSource

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Domain\Command\ExportProfile;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Exporter\Domain\Entity\Profile\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,7 +20,7 @@ class CreateExportProfileCommand implements DomainCommandInterface
     /**
      * @var ExportProfileId
      *
-     * @JMS\Type("Ergonode\Exporter\Domain\Entity\Profile\ExportProfileId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId")
      */
     private ExportProfileId $id;
 

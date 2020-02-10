@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Generator;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -37,7 +37,7 @@ class StatusAttributeGenerator
     public function generate(): void
     {
         $attributeCode = new AttributeCode(StatusSystemAttribute::CODE);
-        $attributeId = AttributeId::fromKey($attributeCode);
+        $attributeId = AttributeId::fromKey($attributeCode->getValue());
         $attribute = $this->attributeRepository->load($attributeId);
         if (null === $attribute) {
             $attribute = new StatusSystemAttribute(

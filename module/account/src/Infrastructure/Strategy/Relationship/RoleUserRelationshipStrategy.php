@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Strategy\Relationship;
 
-use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
+use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
@@ -35,7 +35,7 @@ class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function supports(AbstractId $id): bool
+    public function supports(AggregateId $id): bool
     {
         return $id instanceof RoleId;
     }
@@ -43,7 +43,7 @@ class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AbstractId $id): array
+    public function getRelationships(AggregateId $id): array
     {
         if (!$this->supports($id)) {
             new UnexpectedTypeException($id, RoleId::class);

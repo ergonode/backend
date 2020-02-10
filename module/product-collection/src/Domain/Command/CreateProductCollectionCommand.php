@@ -11,8 +11,8 @@ namespace Ergonode\ProductCollection\Domain\Command;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use JMS\Serializer\Annotation as JMS;
 
@@ -23,7 +23,7 @@ class CreateProductCollectionCommand implements DomainCommandInterface
     /**
      * @var ProductCollectionId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
@@ -52,7 +52,7 @@ class CreateProductCollectionCommand implements DomainCommandInterface
     /**
      * @var ProductCollectionTypeId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
      */
     private ProductCollectionTypeId $typeId;
 
@@ -68,7 +68,7 @@ class CreateProductCollectionCommand implements DomainCommandInterface
         TranslatableString $description,
         ProductCollectionTypeId $typeId
     ) {
-        $this->id = ProductCollectionId::fromCode($code);
+        $this->id = ProductCollectionId::fromCode($code->getValue());
         $this->code = $code;
         $this->name = $name;
         $this->description = $description;

@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Editor\Domain\Event\ProductDraftApplied;
 use Ergonode\Editor\Domain\Event\ProductDraftCreated;
 use Ergonode\Editor\Domain\Event\ProductDraftValueAdded;
@@ -18,7 +17,8 @@ use Ergonode\Editor\Domain\Event\ProductDraftValueChanged;
 use Ergonode\Editor\Domain\Event\ProductDraftValueRemoved;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
@@ -59,9 +59,9 @@ class ProductDraft extends AbstractAggregateRoot
     }
 
     /**
-     * @return AbstractId|ProductDraftId
+     * @return ProductDraftId
      */
-    public function getId(): AbstractId
+    public function getId(): ProductDraftId
     {
         return $this->id;
     }

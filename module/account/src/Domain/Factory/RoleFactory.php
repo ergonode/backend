@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Domain\Factory;
 
 use Ergonode\Account\Domain\Entity\Role;
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Webmozart\Assert\Assert;
 

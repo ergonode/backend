@@ -8,8 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Tests\Domain\Event;
 
-use Ergonode\Comment\Domain\Entity\CommentId;
 use Ergonode\Comment\Domain\Event\CommentContentChangedEvent;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use PHPUnit\Framework\TestCase;
 
 /**

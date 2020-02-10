@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento1\Domain\Entity;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\Importer\Domain\Entity\Source\SourceId;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 /**
  */

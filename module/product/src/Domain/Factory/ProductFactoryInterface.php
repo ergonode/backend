@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Factory;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 
 /**

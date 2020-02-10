@@ -11,7 +11,7 @@ namespace Ergonode\Editor\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Editor\Domain\Event\ProductDraftValueRemoved;
 
 /**
@@ -41,7 +41,7 @@ class ProductDraftValueRemovedEventProjector
     public function __invoke(ProductDraftValueRemoved $event): void
     {
         $draftId = $event->getAggregateId()->getValue();
-        $elementId = AttributeId::fromKey($event->getAttributeCode())->getValue();
+        $elementId = AttributeId::fromKey($event->getAttributeCode()->getValue())->getValue();
 
         $this->delete($draftId, $elementId);
     }

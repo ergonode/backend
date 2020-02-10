@@ -10,7 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Domain\Entity;
 
 use Ergonode\EventSourcing\Domain\AbstractEntity;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementVisibleChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
@@ -21,14 +22,14 @@ class ProductCollectionElement extends AbstractEntity
     /**
      * @var ProductCollectionElementId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionElementId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId")
      */
     private ProductCollectionElementId $id;
 
     /**
      * @var ProductId
      *
-     * @JMS\Type("Ergonode\Product\Domain\Entity\ProductId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $productId;
 

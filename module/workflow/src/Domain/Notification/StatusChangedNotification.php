@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Notification;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\NotificationInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;

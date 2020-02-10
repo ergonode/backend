@@ -12,7 +12,7 @@ namespace Ergonode\Workflow\Domain\Factory;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 
 /**
@@ -36,7 +36,7 @@ class StatusFactory
         TranslatableString $description
     ): Status {
         return new Status(
-            StatusId::fromCode($code),
+            StatusId::fromCode($code->getValue()),
             $code,
             $color,
             $name,

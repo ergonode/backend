@@ -30,9 +30,5 @@ services:
         resource: '../../Persistence/Projector/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Editor\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
     Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface: '@Ergonode\Editor\Persistence\Repository\DbalProductDraftRepository'
     Ergonode\Editor\Domain\Query\DraftQueryInterface: '@Ergonode\Editor\Persistence\Query\DbalDraftQuery'

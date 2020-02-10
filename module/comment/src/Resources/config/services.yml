@@ -31,9 +31,5 @@ services:
         resource: '../../Persistence/Dbal/Projector/*'
         tags: ['messenger.message_handler']
 
-    Ergonode\Comment\Infrastructure\JMS\Serializer\Handler\:
-        resource: '../../Infrastructure/JMS/Serializer/Handler/*'
-        tags: ['jms_serializer.subscribing_handler']
-
     Ergonode\Comment\Domain\Repository\CommentRepositoryInterface: '@Ergonode\Comment\Persistence\Dbal\Repository\DbalCommentRepository'
     Ergonode\Comment\Domain\Query\CommentQueryInterface: '@Ergonode\Comment\Persistence\Dbal\Query\DbalCommentQuery'

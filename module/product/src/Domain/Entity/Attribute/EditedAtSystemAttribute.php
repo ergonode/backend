@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
@@ -34,7 +34,7 @@ class EditedAtSystemAttribute extends DateAttribute
         TranslatableString $placeholder
     ) {
         $code = new AttributeCode(self::CODE);
-        $id = AttributeId::fromKey($code);
+        $id = AttributeId::fromKey($code->getValue());
         $format = new DateFormat(DateFormat::YYYY_MM_DD);
 
         parent::__construct($id, $code, $label, $hint, $placeholder, $format);

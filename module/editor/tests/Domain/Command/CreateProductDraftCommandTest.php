@@ -7,7 +7,7 @@
 namespace Ergonode\Editor\Tests\Domain\Command;
 
 use Ergonode\Editor\Domain\Command\CreateProductDraftCommand;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 
 /**

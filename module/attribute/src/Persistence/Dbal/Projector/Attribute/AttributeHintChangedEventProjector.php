@@ -12,7 +12,8 @@ namespace Ergonode\Attribute\Persistence\Dbal\Projector\Attribute;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -84,12 +85,12 @@ class AttributeHintChangedEventProjector
     }
 
     /**
-     * @param string     $field
-     * @param AbstractId $attributeId
+     * @param string      $field
+     * @param AttributeId $attributeId
      *
      * @return string
      */
-    private function getTranslationId(string $field, AbstractId $attributeId): string
+    private function getTranslationId(string $field, AttributeId $attributeId): string
     {
         $qb = $this->connection->createQueryBuilder();
 

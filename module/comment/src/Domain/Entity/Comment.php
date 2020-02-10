@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Domain\Entity;
 
-use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Comment\Domain\Event\CommentContentChangedEvent;
 use Ergonode\Comment\Domain\Event\CommentCreatedEvent;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use JMS\Serializer\Annotation as JMS;
 use Ramsey\Uuid\Uuid;
 
@@ -24,14 +24,14 @@ class Comment extends AbstractAggregateRoot
     /**
      * @var CommentId $id
      *
-     * @JMS\Type("Ergonode\Comment\Domain\Entity\CommentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CommentId")
      */
     private CommentId $id;
 
     /**
      * @var UserId $authorId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
     private UserId $authorId;
 
@@ -91,7 +91,7 @@ class Comment extends AbstractAggregateRoot
     /**
      * @return CommentId
      */
-    public function getId(): AbstractId
+    public function getId(): CommentId
     {
         return $this->id;
     }
