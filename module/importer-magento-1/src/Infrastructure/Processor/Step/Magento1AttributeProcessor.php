@@ -6,16 +6,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ImporterMagento1\Infrastructure\Processor;
+namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
+use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\AttributeId;
-use Ergonode\Importer\Infrastructure\Provider\AttributeProposalProvider;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
+use Ergonode\Transformer\Infrastructure\Action\AttributeImportAction;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Importer\Infrastructure\Builder\ImportConfigurationBuilder;
 use Ergonode\Importer\Infrastructure\Configuration\Column\ProposalColumn;
@@ -28,7 +32,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  */
-class Magento1AttributeProcessor
+class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
 {
     /**
      * @var AttributeRepositoryInterface
@@ -41,24 +45,33 @@ class Magento1AttributeProcessor
     private ImportConfigurationBuilder $builder;
 
     /**
+     * @var CommandBusInterface
+     */
+    private CommandBusInterface $commandBus;
+
+    /**
      * @param AttributeRepositoryInterface $repository
      * @param ImportConfigurationBuilder   $builder
+     * @param CommandBusInterface          $commandBus
      */
-    public function __construct(AttributeRepositoryInterface $repository, ImportConfigurationBuilder $builder)
-    {
+    public function __construct(
+        AttributeRepositoryInterface $repository,
+        ImportConfigurationBuilder $builder,
+        CommandBusInterface $commandBus
+    ) {
         $this->repository = $repository;
         $this->builder = $builder;
+        $this->commandBus = $commandBus;
     }
 
     /**
+     * @param ImportId $id
      * @param string[] $rows
      * @param Language $language
      *
-     * @return Record[]
-     *
      * @throws \Exception
      */
-    public function process(array $rows, Language $language): array
+    public function process(ImportId $id, array $rows, Language $language): void
     {
         $result = [];
         $columns = [];
@@ -110,7 +123,12 @@ class Magento1AttributeProcessor
             }
         }
 
-        return $result;
+        $i = 0;
+        foreach ($result as $attribute) {
+            $i++;
+            $command = new ProcessImportCommand($id, $i, $attribute, AttributeImportAction::TYPE);
+            $this->commandBus->dispatch($command);
+        }
     }
 
     /**

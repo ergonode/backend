@@ -59,7 +59,6 @@ class AttributeImportAction implements ImportActionInterface
      */
     public function action(Record $record): void
     {
-        var_dump('IMPRT ATRRIBUTE');
         $property = [];
 
         $attributeCode = $record->get('code')?new AttributeCode($record->get('code')->getValue()):null;

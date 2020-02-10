@@ -8,8 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Action\Builder;
 
-use Ergonode\Designer\Infrastructure\Generator\DefaultTemplateGenerator;
-use Ergonode\Designer\Infrastructure\Provider\TemplateProvider;
+use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -18,19 +17,6 @@ use Ergonode\Value\Domain\ValueObject\StringValue;
  */
 class ImportProductTemplateBuilder implements ProductImportBuilderInterface
 {
-    /**
-     * @var TemplateProvider
-     */
-    private TemplateProvider $templateProvider;
-
-    /**
-     * @param TemplateProvider $templateProvider
-     */
-    public function __construct(TemplateProvider $templateProvider)
-    {
-        $this->templateProvider = $templateProvider;
-    }
-
     /**
      * @param ImportedProduct $product
      * @param Record          $record
@@ -41,9 +27,10 @@ class ImportProductTemplateBuilder implements ProductImportBuilderInterface
      */
     public function build(ImportedProduct $product, Record $record): ImportedProduct
     {
-        $template = $this->templateProvider->provide(DefaultTemplateGenerator::CODE);
+        $templateCode = $record->get('template')->getValue();
+        $templateId = TemplateId::fromKey($templateCode);
 
-        $product->attributes['esa_template'] = new StringValue($template->getId()->getValue());
+        $product->attributes['esa_template'] = new StringValue($templateId->getValue());
 
         return $product;
     }

@@ -12,7 +12,7 @@ namespace Ergonode\Importer\Infrastructure\Handler\Import;
 use Ergonode\Importer\Domain\Command\Import\StartImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
-use Ergonode\Importer\Infrastructure\Service\Import\StartImportService;
+use Ergonode\ImporterMagento1\Infrastructure\Processor\StartMagento1ImportProcess;
 use Webmozart\Assert\Assert;
 
 /**
@@ -25,15 +25,15 @@ class StartImportCommandHandler
     private ImportRepositoryInterface $repository;
 
     /**
-     * @var StartImportService
+     * @var StartMagento1ImportProcess
      */
-    private StartImportService $service;
+    private StartMagento1ImportProcess $service;
 
     /**
-     * @param ImportRepositoryInterface $repository
-     * @param StartImportService        $service
+     * @param ImportRepositoryInterface  $repository
+     * @param StartMagento1ImportProcess $service
      */
-    public function __construct(ImportRepositoryInterface $repository, StartImportService $service)
+    public function __construct(ImportRepositoryInterface $repository, StartMagento1ImportProcess $service)
     {
         $this->repository = $repository;
         $this->service = $service;
@@ -43,7 +43,6 @@ class StartImportCommandHandler
      * @param StartImportCommand $command
      *
      * @throws \ReflectionException
-     * @throws \Doctrine\DBAL\DBALException
      */
     public function __invoke(StartImportCommand $command)
     {
