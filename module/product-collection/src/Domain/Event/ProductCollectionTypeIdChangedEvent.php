@@ -41,21 +41,40 @@ class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
     private ProductCollectionTypeId $newTypeId;
 
     /**
+     * @var \DateTime
+     *
+     * @JMS\Type("DateTime")
+     */
+    private \DateTime $editedAt;
+
+    /**
      * ProductCollectionTypeIdChangedEvent constructor.
      *
      * @param ProductCollectionId     $id
-     * @param ProductCollectionTypeId $typeId
+     * @param ProductCollectionTypeId $oldTypeId
      * @param ProductCollectionTypeId $newTypeId
+     * @param \DateTime               $editedAt
      */
     public function __construct(
         ProductCollectionId $id,
-        ProductCollectionTypeId $typeId,
-        ProductCollectionTypeId $newTypeId
+        ProductCollectionTypeId $oldTypeId,
+        ProductCollectionTypeId $newTypeId,
+        \DateTime $editedAt
     ) {
         $this->id = $id;
-        $this->oldTypeId = $typeId;
+        $this->oldTypeId = $oldTypeId;
         $this->newTypeId = $newTypeId;
+        $this->editedAt = $editedAt;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEditedAt(): \DateTime
+    {
+        return $this->editedAt;
+    }
+
 
     /**
      * @return AbstractID|ProductCollectionId

@@ -18,7 +18,8 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementRemovedEvent
  */
 class ProductCollectionElementRemovedEventProjector
 {
-    private const TABLE = 'collection_element';
+    private const TABLE_ELEMENT = 'collection_element';
+    private const TABLE_COLLECTION = 'collection';
 
     /**
      * @var Connection
@@ -41,8 +42,17 @@ class ProductCollectionElementRemovedEventProjector
      */
     public function __invoke(ProductCollectionElementRemovedEvent $event): void
     {
+        $this->connection->update(
+            self::TABLE_COLLECTION,
+            [
+                'edited_at' => $event->getCollectionEditedAt()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => $event->getAggregateId()->getValue(),
+            ]
+        );
         $this->connection->delete(
-            self::TABLE,
+            self::TABLE_ELEMENT,
             [
                 'product_collection_id' => $event->getAggregateId(),
                 'product_id' => $event->getProductId(),

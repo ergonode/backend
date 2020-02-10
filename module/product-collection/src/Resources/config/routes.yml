@@ -1,0 +1,14 @@
+ergonode_product_collection_api:
+    resource: '../../Application/Controller/Api/ProductCollection/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}/'
+
+ergonode_product_collection_element_api:
+    resource: '../../Application/Controller/Api/Element/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'
+
+ergonode_product_collection_type_api:
+    resource: '../../Application/Controller/Api/ProductCollectionType/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'

@@ -119,6 +119,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("CHANNEL_READ")>'
         - '<privilege("CHANNEL_UPDATE")>'
         - '<privilege("CHANNEL_DELETE")>'
+        - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+        - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+        - '<privilege("PRODUCT_COLLECTION_READ")>'
+        - '<privilege("PRODUCT_COLLECTION_DELETE")>'
       - true
   admin_role:
     __construct:
@@ -182,6 +186,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("CHANNEL_READ")>'
         - '<privilege("CHANNEL_UPDATE")>'
         - '<privilege("CHANNEL_DELETE")>'
+        - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+        - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+        - '<privilege("PRODUCT_COLLECTION_READ")>'
+        - '<privilege("PRODUCT_COLLECTION_DELETE")>'
   data_inputer_role:
     __construct:
       - '<roleId("Data inputer")>'
@@ -214,6 +222,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("MULTIMEDIA_CREATE")>'
         - '<privilege("MULTIMEDIA_READ")>'
         - '<privilege("MULTIMEDIA_UPDATE")>'
+        - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+        - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+        - '<privilege("PRODUCT_COLLECTION_READ")>'
+        - '<privilege("PRODUCT_COLLECTION_DELETE")>'
   category_manager_role:
     __construct:
       - '<roleId("Category manager")>'
@@ -252,6 +264,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("MULTIMEDIA_READ")>'
         - '<privilege("MULTIMEDIA_UPDATE")>'
         - '<privilege("MULTIMEDIA_DELETE")>'
+        - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+        - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+        - '<privilege("PRODUCT_COLLECTION_READ")>'
+        - '<privilege("PRODUCT_COLLECTION_DELETE")>'
 
 Ergonode\Account\Domain\Entity\User:
   superadmin:
@@ -371,13 +387,13 @@ Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
       - '<translation(<{empty}>)>'
 
 Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
-  product_collection_type_up-sell:
+  product_collection_type_up_sell:
     __construct:
-      - '<productCollectionTypeId("up-sell)>'
+      - '<productCollectionTypeId("up-sell")>'
       - '<productCollectionTypeCode("up-sell")>'
       - '<translation(<{name_product_collection_type_up-sell}>)>'
-  product_collection_type_cross-sell:
+  product_collection_type_cross_sell:
     __construct:
-      - '<productCollectionTypeId("cross-sell)>'
+      - '<productCollectionTypeId("cross-sell")>'
       - '<productCollectionTypeCode("cross-sell")>'
       - '<translation(<{name_product_collection_type_cross-sell}>)>'

@@ -15,6 +15,10 @@ services:
         resource: '../../Persistence/Dbal/Projector/*'
         tags: ['messenger.message_handler']
 
+    Ergonode\Exporter\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
     Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalProductRepository'
     Ergonode\Exporter\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalCategoryRepository'
     Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalAttributeRepository'

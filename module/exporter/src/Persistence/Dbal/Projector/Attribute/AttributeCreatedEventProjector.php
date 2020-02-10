@@ -11,7 +11,7 @@ namespace Ergonode\Exporter\Persistence\Dbal\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
-use Ergonode\Exporter\Domain\Entity\ExportAttribute;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportAttribute;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 

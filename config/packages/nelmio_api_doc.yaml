@@ -11,7 +11,7 @@ nelmio_api_doc:
                 name: JWTAuthorization
                 in: header
         security:
-            - api_key: []
+            -   api_key: []
         definitions:
             point:
                 type: object
@@ -205,7 +205,7 @@ nelmio_api_doc:
                             type: string
                             description: Collection of role Ids
                             example:
-                                    1143a5e9-11ec-5b47-b881-4099d5d066a2
+                                1143a5e9-11ec-5b47-b881-4099d5d066a2
             transition_update:
                 type: object
                 properties:
@@ -255,7 +255,7 @@ nelmio_api_doc:
                         example:
                             DE: Name DE
                             EN: Name EN
-
+            
             tree:
                 type: object
                 properties:
@@ -301,6 +301,95 @@ nelmio_api_doc:
                     name:
                         type: object
                         description: category name
+                        example:
+                            DE: Name DE
+                            EN: Name EN
+            product_collection_create:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        description: Product collection code
+                        required: true
+                        example: product_collection_code_1
+                    name:
+                        type: object
+                        description: Product Collection name
+                        example:
+                            DE: Name DE
+                            EN: Name EN
+                    description:
+                        type: object
+                        description: Product Collection description
+                        example:
+                            DE: Description DE
+                            EN: Description EN
+                    typeId:
+                        type: string
+                        description: Product Collection Type Id
+                        required: true
+                        example: 21eca257-78ed-54ed-936e-ff6823a87da7
+            product_collection_update:
+                type: object
+                properties:
+                    name:
+                        type: object
+                        description: Product Collection name
+                        example:
+                            DE: Name DE
+                            EN: Name EN
+                    description:
+                        type: object
+                        description: Product Collection description
+                        example:
+                            DE: Description DE
+                            EN: Description EN
+                    typeId:
+                        type: string
+                        description: Product Collection Type Id
+                        required: true
+                        example: ccd5c2b5-da15-4bd2-a476-bfa689560f22
+            element_create:
+                type: object
+                properties:
+                    productId:
+                        type: string
+                        description: Product Id
+                        required: true
+                        example: ccd5c2b5-da15-4bd2-a476-bfa689560f22
+                    visible:
+                        type: bool
+                        required: true
+                        description: Show if product is visible for other products from collection
+                        example: true
+            element_update:
+                type: object
+                properties:
+                    visible:
+                        type: bool
+                        required: true
+                        description: Show if product is visible for other products from collection
+                        example: true
+            product_collection_type_create:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        description: Product collection type code
+                        required: true
+                        example: product_collection_type_code_1
+                    name:
+                        type: object
+                        description: Product Collection type name
+                        example:
+                            DE: Name DE
+                            EN: Name EN
+            product_collection_type_update:
+                type: object
+                properties:
+                    name:
+                        type: object
+                        description: Product Collection type name
                         example:
                             DE: Name DE
                             EN: Name EN
@@ -490,9 +579,9 @@ nelmio_api_doc:
                         type: array
                         required: true
                         items:
-                           type: string
+                            type: string
                         example:
-                          - 9b0ceb29-26ac-4852-a602-6e5680a3a029
+                            - 9b0ceb29-26ac-4852-a602-6e5680a3a029
                     multilingual:
                         type: bool
                         required: true
@@ -584,7 +673,7 @@ nelmio_api_doc:
                         required: false
                         description: List of role privileges
                         example:
-                            [ ATTRIBUTE_CREATE, ATTRIBUTE_READ, ATTRIBUTE_UPDATE, ATTRIBUTE_DELETE]
+                                [ ATTRIBUTE_CREATE, ATTRIBUTE_READ, ATTRIBUTE_UPDATE, ATTRIBUTE_DELETE]
             conditionset:
                 type: 'object'
                 properties:

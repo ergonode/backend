@@ -44,6 +44,13 @@ class ProductCollectionCreatedEvent implements DomainEventInterface
     private TranslatableString $name;
 
     /**
+     * @var TranslatableString
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
+     */
+    private TranslatableString $description;
+
+    /**
      * @var ProductCollectionTypeId
      *
      * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId")
@@ -51,22 +58,38 @@ class ProductCollectionCreatedEvent implements DomainEventInterface
     private ProductCollectionTypeId $typeId;
 
     /**
+     * @var \DateTime $createdAt
+     *
+     * @JMS\Type("DateTime")
+     */
+    private \DateTime $createdAt;
+
+    /**
+     * ProductCollectionCreatedEvent constructor.
+     *
      * @param ProductCollectionId     $id
      * @param ProductCollectionCode   $code
      * @param TranslatableString      $name
+     * @param TranslatableString      $description
      * @param ProductCollectionTypeId $typeId
+     * @param \DateTime               $createdAt
      */
     public function __construct(
         ProductCollectionId $id,
         ProductCollectionCode $code,
         TranslatableString $name,
-        ProductCollectionTypeId $typeId
+        TranslatableString $description,
+        ProductCollectionTypeId $typeId,
+        \DateTime $createdAt
     ) {
         $this->id = $id;
         $this->code = $code;
         $this->name = $name;
+        $this->description = $description;
         $this->typeId = $typeId;
+        $this->createdAt = $createdAt;
     }
+
 
     /**
      * @return ProductCollectionId
@@ -74,6 +97,14 @@ class ProductCollectionCreatedEvent implements DomainEventInterface
     public function getAggregateId(): AbstractId
     {
         return $this->id;
+    }
+
+    /**
+     * @return TranslatableString
+     */
+    public function getDescription(): TranslatableString
+    {
+        return $this->description;
     }
 
     /**
@@ -98,5 +129,13 @@ class ProductCollectionCreatedEvent implements DomainEventInterface
     public function getTypeId(): ProductCollectionTypeId
     {
         return $this->typeId;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
     }
 }

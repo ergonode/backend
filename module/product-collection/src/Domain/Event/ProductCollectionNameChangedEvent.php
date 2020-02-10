@@ -41,16 +41,40 @@ class ProductCollectionNameChangedEvent implements DomainEventInterface
     private TranslatableString $to;
 
     /**
+     * @var \DateTime
+     *
+     * @JMS\Type("DateTime")
+     */
+    private \DateTime $editedAt;
+
+    /**
+     * ProductCollectionNameChangedEvent constructor.
+     *
      * @param ProductCollectionId $id
      * @param TranslatableString  $from
      * @param TranslatableString  $to
+     * @param \DateTime           $editedAt
      */
-    public function __construct(ProductCollectionId $id, TranslatableString $from, TranslatableString $to)
-    {
+    public function __construct(
+        ProductCollectionId $id,
+        TranslatableString $from,
+        TranslatableString $to,
+        \DateTime $editedAt
+    ) {
         $this->id = $id;
         $this->from = $from;
         $this->to = $to;
+        $this->editedAt = $editedAt;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEditedAt(): \DateTime
+    {
+        return $this->editedAt;
+    }
+
 
     /**
      * @return AbstractId|ProductCollectionId

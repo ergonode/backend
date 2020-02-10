@@ -48,8 +48,7 @@ class ProductCollectionCodeTest extends TestCase
         return [
             ['valida_code'],
             ['valida-code'],
-            ['valida code 12'],
-            ['valida code'],
+            ['valida_code_12'],
             ['a'],
             ['a'],
             [str_repeat('a', 255)],

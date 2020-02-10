@@ -36,6 +36,7 @@ default:
                 - module/translation-deepl/features
                 - module/value/features
                 - module/workflow/features
+                - module/product-collection/features
             contexts:
                 - StorageContext:
                 - ApiContext:

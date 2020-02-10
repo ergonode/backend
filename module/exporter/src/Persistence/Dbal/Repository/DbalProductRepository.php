@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Exporter\Domain\Entity\AbstractExportProduct;
-use Ergonode\Exporter\Domain\Entity\Product\SimpleExportProduct;
+use Ergonode\Exporter\Domain\Entity\Catalog\AbstractExportProduct;
+use Ergonode\Exporter\Domain\Entity\Catalog\Product\DefaultExportProduct;
 use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
@@ -59,7 +59,7 @@ class DbalProductRepository implements ProductRepositoryInterface
             ->fetch();
 
         //todo if not or other product type or exeption
-        return $this->serializer->deserialize($result['data'], SimpleExportProduct::class, 'json');
+        return $this->serializer->deserialize($result['data'], DefaultExportProduct::class, 'json');
     }
 
     /**

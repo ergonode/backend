@@ -29,19 +29,29 @@ class ProductCollectionElementRemovedEvent implements DomainEventInterface
     /**
      * @var ProductId
      *
-     * @JMS\Type("Ergonode\Product)
+     * @JMS\Type("Ergonode\Product\Domain\Entity\ProductId")
      */
     private ProductId $productId;
 
     /**
+     * @var \DateTime
+     *
+     * @JMS\Type("DateTime")
+     */
+    private \DateTime $collectionEditedAt;
+
+    /**
      * @param ProductCollectionId $id
      * @param ProductId           $productId
+     * @param \DateTime           $collectionEditedAt
      */
-    public function __construct(ProductCollectionId $id, ProductId $productId)
+    public function __construct(ProductCollectionId $id, ProductId $productId, \DateTime $collectionEditedAt)
     {
         $this->id = $id;
         $this->productId = $productId;
+        $this->collectionEditedAt = $collectionEditedAt;
     }
+
 
     /**
      * @return AbstractId|ProductCollectionId
@@ -49,6 +59,14 @@ class ProductCollectionElementRemovedEvent implements DomainEventInterface
     public function getAggregateId(): AbstractId
     {
         return $this->id;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCollectionEditedAt(): \DateTime
+    {
+        return $this->collectionEditedAt;
     }
 
     /**

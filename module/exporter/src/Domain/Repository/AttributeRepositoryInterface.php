@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Repository;
 
-use Ergonode\Exporter\Domain\Entity\ExportAttribute;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportAttribute;
 use Ramsey\Uuid\Uuid;
 
 /**
