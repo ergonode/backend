@@ -33,21 +33,5 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Condition\Infrastructure\JMS\Serializer\Handler\ConditionInterfaceHandler:
-        calls:
-            - ['set', ['Ergonode\Condition\Domain\Condition\AttributeExistsCondition']]
-            - ['set', ['Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition']]
-            - ['set', ['Ergonode\Condition\Domain\Condition\OptionAttributeValueCondition']]
-            - ['set', ['Ergonode\Condition\Domain\Condition\TextAttributeValueCondition']]
-            - ['set', ['Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition']]
-            - ['set', ['Ergonode\Condition\Domain\Condition\ProductCompletenessCondition']]
-            - ['set', ['Ergonode\Condition\Domain\Condition\RoleExactlyCondition']]
-            - ['set', ['Ergonode\Condition\Domain\Condition\UserExactlyCondition']]
-            - ['set', ['Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition' ]]
-            - ['set', ['Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition']]
-            - ['set', ['Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition' ]]
-
-    Ergonode\Condition\Domain\Provider\ConditionDictionaryProvider: ~
-
     Ergonode\Condition\Domain\Query\ConditionSetQueryInterface: '@Ergonode\Condition\Persistence\Dbal\Query\DbalConditionSetQuery'
     Ergonode\Condition\Domain\Repository\ConditionSetRepositoryInterface: '@Ergonode\Condition\Persistence\Dbal\Repository\DbalConditionSetRepository'

@@ -44,4 +44,12 @@ class UserExactlyConditionValidatorStrategy implements ConditionValidatorStrateg
             ],
         ]);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValidatedClass(): string
+    {
+        return UserExactlyCondition::class;
+    }
 }
