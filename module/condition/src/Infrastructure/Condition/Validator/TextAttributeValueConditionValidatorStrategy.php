@@ -54,4 +54,12 @@ class TextAttributeValueConditionValidatorStrategy implements ConditionValidator
             ]
         );
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValidatedClass(): string
+    {
+        return TextAttributeValueCondition::class;
+    }
 }

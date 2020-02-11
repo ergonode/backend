@@ -49,4 +49,12 @@ class ProductHasTemplateConditionValidatorStrategy implements ConditionValidator
             ]
         );
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValidatedClass(): string
+    {
+        return ProductHasTemplateCondition::class;
+    }
 }

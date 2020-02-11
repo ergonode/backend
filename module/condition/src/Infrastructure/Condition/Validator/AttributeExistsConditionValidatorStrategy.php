@@ -46,4 +46,12 @@ class AttributeExistsConditionValidatorStrategy implements ConditionValidatorStr
             ]
         );
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValidatedClass(): string
+    {
+        return AttributeExistsCondition::class;
+    }
 }
