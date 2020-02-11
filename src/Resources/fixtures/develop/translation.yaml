@@ -1,18 +1,15 @@
 Ergonode\Core\Domain\ValueObject\TranslatableString:
     label_{1..50}:
         __construct:
-            -
-                'PL': 'Polish_label_<current()>'
+            -   'PL': 'Polish_label_<current()>'
                 'EN': 'English_label_<current()>'
     hint_{1..50}:
         __construct:
-            -
-                'PL': 'Polish_hint_<current()>'
+            -   'PL': 'Polish_hint_<current()>'
                 'EN': 'English_hint_<current()>'
     placeholder_{1..50}:
         __construct:
-            -
-                'PL': 'Polish_placeholder_<current()>'
+            -   'PL': 'Polish_placeholder_<current()>'
                 'EN': 'English_placeholder_<current()>'
     name_{1..50}:
         __construct:
@@ -53,3 +50,7 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             -   'PL': 'Kategorie'
                 'EN': 'Categories'
+    label_esa_product_collection:
+        __construct:
+            -   'PL': 'Kolekcje produktów'
+                'EN': 'Product collections'
