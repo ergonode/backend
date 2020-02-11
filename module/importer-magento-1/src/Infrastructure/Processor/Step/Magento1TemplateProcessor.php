@@ -47,8 +47,8 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
         $templates = [];
         foreach ($products as $sku => $product) {
             $default = $product->get('default');
-            if (array_key_exists('_attribute_set', $default)) {
-                $type = $default['_attribute_set'];
+            if (array_key_exists('esa_template', $default)) {
+                $type = $default['esa_template'];
                 if (!array_key_exists($type, $templates)) {
                     $templates[$type] = new Record();
                     $templates[$type]->set('code', new StringValue($type));

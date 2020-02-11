@@ -78,7 +78,7 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
         $columns = [];
         foreach ($products as $product) {
             foreach ($product->get('default') as $key => $item) {
-                if ($key[0] !== '_') {
+                if ('_' !== $key[0] && false !== strpos($key[0],'esa_')) {
                     $columns[$key][] = $item;
                 }
             }

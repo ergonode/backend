@@ -165,12 +165,13 @@ class StartMagento1ImportProcess
 
     private function map(array $product): array
     {
-        $product['categories'] = $product['_root_category'];
-        if($product['categories'] !== '' && $product['_category'] !== '') {
-            $product['categories'] .= '/' . $product['_category'];
+        $product['esa_categories'] = $product['_root_category'];
+        if($product['esa_categories'] !== '' && $product['_category'] !== '') {
+            $product['esa_categories'] .= '/' . $product['_category'];
         }
+        $product['esa_template'] = $product['_attribute_set'];
 
-        unset($product['_root_category'], $product['_category']);
+        unset($product['_root_category'], $product['_category'], $product['_attribute_set']);
 
         return $product;
     }

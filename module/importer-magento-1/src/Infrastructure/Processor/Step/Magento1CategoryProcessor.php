@@ -48,9 +48,9 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
         $result = [];
         foreach ($products as $sku => $product) {
             $default = $product->get('default');
-            if (array_key_exists('categories', $default)) {
-                if ($default['categories'] !== '') {
-                    $categories = explode(',', $default['categories']);
+            if (array_key_exists('esa_categories', $default)) {
+                if ($default['esa_categories'] !== '') {
+                    $categories = explode(',', $default['esa_categories']);
                     foreach ($categories as $category) {
                         $category = explode('/', $category);
                         $code = end($category);
