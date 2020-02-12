@@ -20,6 +20,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
 {
     private const PRODUCT_TABLE = 'public.product';
+    private const SEGMENT_PRODUCT_TABLE = 'public.segment_product';
 
     /**
      * @var Connection
@@ -40,9 +41,12 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
     public function getDataSet(SegmentId $segmentId): DbalDataSet
     {
         $query = $this->getQuery();
-        $query->leftJoin('p', 'public.segment_product', 'sp', 'p.id = sp.product_id')
+
+        $query->join('sp', self::PRODUCT_TABLE, 'p', 'p.id = sp.product_id')
+            ->select('p.id', 'p.sku')
             ->where($query->expr()->eq('sp.segment_id', ':segmentId'))
             ->andWhere('sp.available = true');
+
         $result = $this->connection->createQueryBuilder();
         $result->setParameter(':segmentId', $segmentId->getValue());
         $result->select('*');
@@ -57,7 +61,7 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('p.id, p.sku')
-            ->from(self::PRODUCT_TABLE, 'p');
+            ->select('sp.segment_id, sp.product_id')
+            ->from(self::SEGMENT_PRODUCT_TABLE, 'sp');
     }
 }
