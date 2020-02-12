@@ -11,8 +11,6 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\SlugConverter;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Value\Domain\ValueObject\StringValue;
 
 /**
  */
@@ -33,9 +31,9 @@ class SlugConverterMapper implements ConverterMapperInterface
      * @param array                            $line
      * @param string|null                      $default
      *
-     * @return ValueInterface
+     * @return string|null
      */
-    public function map(ConverterInterface $converter, array $line, ?string $default = null): ?ValueInterface
+    public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
         $field = $converter->getField();
 
@@ -47,9 +45,9 @@ class SlugConverterMapper implements ConverterMapperInterface
             $text = preg_replace('~_+~', '_', $text);
             $text = strtolower($text);
 
-            return new StringValue($text);
+            return $text;
         }
 
-        return $default ? new StringValue($default) : null;
+        return $default;
     }
 }

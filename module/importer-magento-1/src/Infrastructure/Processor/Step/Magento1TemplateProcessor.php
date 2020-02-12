@@ -19,6 +19,7 @@ use Ergonode\Transformer\Infrastructure\Action\TemplateImportAction;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
+use Ergonode\Transformer\Domain\Entity\Transformer;
 
 /**
  */
@@ -40,9 +41,10 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
     /**
      * @param Import         $import
      * @param ProductModel[] $products
+     * @param Transformer    $transformer
      * @param Language       $defaultLanguage
      */
-    public function process(Import $import, array $products, Language $defaultLanguage): void
+    public function process(Import $import, array $products, Transformer $transformer, Language $defaultLanguage): void
     {
         $templates = [];
         foreach ($products as $sku => $product) {
@@ -65,5 +67,7 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
             $command = new ProcessImportCommand($import->getId(), $i, $template, TemplateImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
+
+        echo print_r(sprintf('SEND %s Templates', $i), true).PHP_EOL;
     }
 }

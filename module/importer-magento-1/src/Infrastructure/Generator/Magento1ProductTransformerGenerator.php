@@ -19,6 +19,9 @@ use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyIn
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Transformer\Infrastructure\Converter\MultilingualTextConverter;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 
 /**
  */
@@ -61,44 +64,45 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
     ): Transformer {
         $transformer = new Transformer($transformerId, $name, $name);
 
-        $transformer->addConverter('sku', new TextConverter('sku'));
-        $transformer->addConverter('template', new TextConverter('_attribute_set'));
-        $transformer->addConverter('categories', new TextConverter('_category'));
-
         // system
-        $this->addAttribute($transformer, new AttributeCode('name'));
-        $this->addAttribute($transformer, new AttributeCode('description'));
-        $this->addAttribute($transformer, new AttributeCode('short_description'));
-        $this->addAttribute($transformer, new AttributeCode('weight'));
+        $transformer->addField('sku', new TextConverter('sku'));
+        $transformer->addField('esa_template', new TextConverter('_attribute_set'));
+        $transformer->addField('esa_tree', new TextConverter('_root_category'));
+        $transformer->addField('esa_categories', new JoinConverter('<_root_category>/<_category>'));
+        $transformer->addField('esa_type', new TextConverter('_type'));
 
-        // custom
-
-        return $transformer;
-    }
-
-    /**
-     * @param Transformer   $transformer
-     * @param AttributeCode $code
-     *
-     * @return Transformer
-     *
-     * @throws \Exception
-     */
-    public function addAttribute(Transformer $transformer, AttributeCode $code): Transformer
-    {
-        $attributeId = AttributeId::fromKey($code->getValue());
-        $attribute = $this->repository->load($attributeId);
-
-        if ($attribute) {
-            if ($attribute->isMultilingual()) {
-                $converter = new MultilingualTextConverter([Language::EN => $code->getValue()]);
-            } else {
-                $converter = new TextConverter($code->getValue());
-            }
-
-            $transformer->addConverter($code->getValue(), $converter, 'values');
-        }
+        // attributes
+        $transformer->addAttribute('name', TextAttribute::TYPE, true, new TextConverter('name'));
+        $transformer->addAttribute('description', TextAttribute::TYPE, true, new TextConverter('description'));
+        $transformer->addAttribute('short_description', TextAttribute::TYPE, true, new TextConverter('short_description'));
+        $transformer->addAttribute('weight', NumericAttribute::TYPE, false, new TextConverter('weight'));
 
         return $transformer;
     }
+
+//    /**
+//     * @param Transformer   $transformer
+//     * @param AttributeCode $code
+//     *
+//     * @return Transformer
+//     *
+//     * @throws \Exception
+//     */
+//    public function addAttribute(Transformer $transformer, AttributeCode $code): Transformer
+//    {
+//        $attributeId = AttributeId::fromKey($code->getValue());
+//        $attribute = $this->repository->load($attributeId);
+//
+//        if ($attribute) {
+//            if ($attribute->isMultilingual()) {
+//                $converter = new MultilingualTextConverter([Language::EN => $code->getValue()]);
+//            } else {
+//                $converter =;
+//            }
+//
+//            $transformer->addAttribute($code->getValue(), $attribute->getType(), $attribute->isMultilingual(), $converter);
+//        }
+//
+//        return $transformer;
+//    }
 }

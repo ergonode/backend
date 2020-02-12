@@ -13,23 +13,19 @@ use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
 use Ergonode\Transformer\Infrastructure\Action\AttributeImportAction;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Importer\Infrastructure\Builder\ImportConfigurationBuilder;
-use Ergonode\Importer\Infrastructure\Configuration\Column\ProposalColumn;
-use Ergonode\Importer\Infrastructure\Configuration\Column\AttributeColumn;
-use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Transformer\Domain\Entity\Transformer;
 
 /**
  */
@@ -68,60 +64,78 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
     /**
      * @param Import         $import
      * @param ProductModel[] $products
-     * @param Language       $language
-     *
-     * @throws \Exception
+     * @param Transformer    $transformer
+     * @param Language       $defaultLanguage
      */
-    public function process(Import $import, array $products, Language $language): void
+    public function process(Import $import, array $products, Transformer $transformer, Language $defaultLanguage): void
     {
         $result = [];
         $columns = [];
         foreach ($products as $product) {
             foreach ($product->get('default') as $key => $item) {
-                if ('_' !== $key[0] && false !== strpos($key[0],'esa_')) {
+                if ('_' !== $key[0] && false === strpos($key,'esa_')) {
                     $columns[$key][] = $item;
                 }
             }
         }
 
-        $headers = array_keys($columns);
-
-        $configuration = $this->builder->propose($headers, $columns);
-
-        foreach ($configuration->getColumns() as $column) {
-            if ($column instanceof AttributeColumn) {
-                $attributeCode = new AttributeCode($column->getAttributeCode());
-                $attributeId = AttributeId::fromKey($attributeCode->getValue());
-                $attribute = $this->repository->load($attributeId);
-                Assert::notNull($attribute);
-                $record = new Record();
-                $record->set('code', new StringValue($attributeCode->getValue()));
-                $record->set('type', new StringValue($attribute->getType()));
-                $record->set('multilingual', new StringValue('1'));
-                $record->set('label', new TranslatableStringValue($attribute->getLabel()));
-                if ($attribute instanceof AbstractOptionAttribute) {
-                    $options = $this->getOptions($columns[$column->getField()]);
-                    foreach ($options as $key => $option) {
-                        $record->setValue($key, $option);
-                    }
+        foreach ($transformer->getAttributes() as $field => $converter) {
+            $attributeCode = new AttributeCode($field);
+            $type = $transformer->getAttributeType($field);
+            $record = new Record();
+            $record->set('code', new StringValue($attributeCode->getValue()));
+            $record->set('type', new StringValue($type));
+            $multilingual = $transformer->isAttributeMultilingual($field) ? '1':'0';
+            $record->set('multilingual', new StringValue($multilingual));
+            $record->set('label',
+                new TranslatableStringValue(new TranslatableString([$defaultLanguage->getCode() => $field])));
+            if ($type === SelectAttribute::TYPE || $type === MultiSelectAttribute::TYPE) {
+                $options = $this->getOptions($columns[$field]);
+                foreach ($options as $key => $option) {
+                    $record->setValue($key, $option);
                 }
-                $result[] = $record;
             }
-            if ($column instanceof ProposalColumn) {
-                $record = new Record();
-                $record->set('code', new StringValue($column->getAttributeCode()));
-                $record->set('type', new StringValue($column->getAttributeType()));
-                $record->set('multilingual', new StringValue('1'));
-                $record->set('label', new TranslatableStringValue(new TranslatableString([$language->getCode() => $column->getField()])));
-                if ($column->getAttributeType() === SelectAttribute::TYPE || $column->getAttributeType() === MultiSelectAttribute::TYPE) {
-                    $options = $this->getOptions($columns[$column->getField()]);
-                    foreach ($options as $key => $option) {
-                        $record->setValue($key, $option);
-                    }
-                }
-                $result[] = $record;
-            }
+            $result[] = $record;
         }
+
+//        $headers = array_keys($columns);
+
+//        $configuration = $this->builder->propose($headers, $columns);
+//
+//        foreach ($configuration->getColumns() as $column) {
+//            if ($column instanceof AttributeColumn) {
+//                $attributeCode = new AttributeCode($column->getAttributeCode());
+//                $attributeId = AttributeId::fromKey($attributeCode->getValue());
+//                $attribute = $this->repository->load($attributeId);
+//                Assert::notNull($attribute);
+//                $record = new Record();
+//                $record->set('code', new StringValue($attributeCode->getValue()));
+//                $record->set('type', new StringValue($attribute->getType()));
+//                $record->set('multilingual', new StringValue('1'));
+//                $record->set('label', new TranslatableStringValue($attribute->getLabel()));
+//                if ($attribute instanceof AbstractOptionAttribute) {
+//                    $options = $this->getOptions($columns[$column->getField()]);
+//                    foreach ($options as $key => $option) {
+//                        $record->setValue($key, $option);
+//                    }
+//                }
+//                $result[] = $record;
+//            }
+//            if ($column instanceof ProposalColumn) {
+//                $record = new Record();
+//                $record->set('code', new StringValue($column->getAttributeCode()));
+//                $record->set('type', new StringValue($column->getAttributeType()));
+//                $record->set('multilingual', new StringValue('1'));
+//                $record->set('label', new TranslatableStringValue(new TranslatableString([$language->getCode() => $column->getField()])));
+//                if ($column->getAttributeType() === SelectAttribute::TYPE || $column->getAttributeType() === MultiSelectAttribute::TYPE) {
+//                    $options = $this->getOptions($columns[$column->getField()]);
+//                    foreach ($options as $key => $option) {
+//                        $record->setValue($key, $option);
+//                    }
+//                }
+//                $result[] = $record;
+//            }
+//        }
 
         $i = 0;
         foreach ($result as $attribute) {
@@ -129,6 +143,8 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
             $command = new ProcessImportCommand($import->getId(), $i, $attribute, AttributeImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
+
+        echo print_r(sprintf('SEND %s Attributes', $i), true).PHP_EOL;
     }
 
     /**

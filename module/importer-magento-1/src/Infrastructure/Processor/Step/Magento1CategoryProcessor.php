@@ -20,11 +20,15 @@ use Ergonode\Transformer\Infrastructure\Formatter\SlugFormatter;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ramsey\Uuid\Uuid;
+use Ergonode\Transformer\Domain\Entity\Transformer;
 
 /**
  */
 class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
 {
+    private const UUID = '5bfd053c-e39b-45f9-87a7-6ca1cc9d9830';
+
     /**
      * @var CommandBusInterface
      */
@@ -41,23 +45,27 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
     /**
      * @param Import         $import
      * @param ProductModel[] $products
+     * @param Transformer    $transformer
      * @param Language       $defaultLanguage
      */
-    public function process(Import $import, array $products, Language $defaultLanguage): void
+    public function process(Import $import, array $products, Transformer $transformer, Language $defaultLanguage): void
     {
         $result = [];
         foreach ($products as $sku => $product) {
             $default = $product->get('default');
-            if (array_key_exists('esa_categories', $default)) {
-                if ($default['esa_categories'] !== '') {
-                    $categories = explode(',', $default['esa_categories']);
-                    foreach ($categories as $category) {
-                        $category = explode('/', $category);
-                        $code = end($category);
+
+            if (array_key_exists('esa_categories', $default) && $default['esa_categories'] !== '') {
+                $categories = explode(',', $default['esa_categories']);
+                foreach ($categories as $category) {
+                    $category = explode('/', $category);
+                    $code = end($category);
+                    if ($code !== '') {
                         $name = [$defaultLanguage->getCode() => end($category)];
                         if (!array_key_exists($code, $result)) {
                             $record = new Record();
-                            $record->set('code', new StringValue(SlugFormatter::format($code)));
+                            $slug = SlugFormatter::format(Uuid::uuid5(self::UUID, $code)->toString());
+                            $record->set('id', new StringValue($code));
+                            $record->set('code', new StringValue($slug));
                             $record->set('name', new TranslatableStringValue(new TranslatableString($name)));
                             $result[$code] = $record;
                         }
@@ -72,5 +80,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
             $command = new ProcessImportCommand($import->getId(), $i, $category, CategoryImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
+
+        echo print_r(sprintf('SEND %s Categories', $i), true).PHP_EOL;
     }
 }

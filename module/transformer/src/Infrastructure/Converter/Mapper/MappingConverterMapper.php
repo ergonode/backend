@@ -11,8 +11,6 @@ namespace Ergonode\Transformer\Infrastructure\Converter\Mapper;
 
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 use Ergonode\Transformer\Infrastructure\Converter\MappingConverter;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Value\Domain\ValueObject\StringValue;
 
 /**
  */
@@ -33,18 +31,18 @@ class MappingConverterMapper implements ConverterMapperInterface
      * @param array                               $line
      * @param string|null                         $default
      *
-     * @return ValueInterface|null
+     * @return string|null
      */
-    public function map(ConverterInterface $converter, array $line, ?string $default = null): ?ValueInterface
+    public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
         $field = $converter->getField();
         $map = $converter->getMap();
         $value = $line[$field];
 
         if (array_key_exists($value, $map)) {
-            return new StringValue($map[$value]);
+            return $map[$value];
         }
 
-        return $default ? new StringValue($default) : null;
+        return $default ?: null;
     }
 }

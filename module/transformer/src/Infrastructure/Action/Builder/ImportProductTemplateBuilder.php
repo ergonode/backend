@@ -27,7 +27,7 @@ class ImportProductTemplateBuilder implements ProductImportBuilderInterface
      */
     public function build(ImportedProduct $product, Record $record): ImportedProduct
     {
-        $templateCode = $record->get('template')->getValue();
+        $templateCode = $record->get('esa_template')->getValue();
         $templateId = TemplateId::fromKey($templateCode);
 
         $product->attributes['esa_template'] = new StringValue($templateId->getValue());

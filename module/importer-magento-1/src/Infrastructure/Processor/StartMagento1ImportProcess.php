@@ -16,6 +16,9 @@ use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
 use Webmozart\Assert\Assert;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
+use Ergonode\Transformer\Infrastructure\Provider\ConverterMapperProvider;
+use Ergonode\Transformer\Domain\Entity\Transformer;
+use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 
 /**
  */
@@ -30,6 +33,11 @@ class StartMagento1ImportProcess
      * @var TransformerRepositoryInterface
      */
     private TransformerRepositoryInterface $transformerRepository;
+
+    /**
+     * @var ConverterMapperProvider
+     */
+    private ConverterMapperProvider $mapper;
 
     /**
      * @var ReaderProcessorProvider
@@ -50,6 +58,7 @@ class StartMagento1ImportProcess
      * @param SourceRepositoryInterface      $sourceRepository
      * @param TransformerRepositoryInterface $transformerRepository
      * @param ReaderProcessorProvider        $provider
+     * @param ConverterMapperProvider        $mapper
      * @param string                         $directory
      * @param Magento1ProcessorStepInterface ...$steps
      */
@@ -57,6 +66,7 @@ class StartMagento1ImportProcess
         SourceRepositoryInterface $sourceRepository,
         TransformerRepositoryInterface $transformerRepository,
         ReaderProcessorProvider $provider,
+        ConverterMapperProvider $mapper,
         string $directory,
         Magento1ProcessorStepInterface ...$steps
     ) {
@@ -64,6 +74,7 @@ class StartMagento1ImportProcess
 
         $this->sourceRepository = $sourceRepository;
         $this->transformerRepository = $transformerRepository;
+        $this->mapper = $mapper;
         $this->provider = $provider;
         $this->directory = $directory;
         $this->steps = $steps;
@@ -77,7 +88,6 @@ class StartMagento1ImportProcess
         $defaultLanguage = new Language(Language::EN);
 
         try {
-            $start = microtime(true);
             /** @var Magento2CsvSource $source */
             $source = $this->sourceRepository->load($import->getSourceId());
             Assert::notNull($source);
@@ -95,31 +105,30 @@ class StartMagento1ImportProcess
             $sku = null;
             $type = null;
             $fileReader->open($filename, $source->getConfiguration());
+
             foreach ($fileReader->read() as $row) {
-                if($row['sku']) {
+                if ($row['sku']) {
                     $sku = $row['sku'];
                     $products[$sku] = [];
                 }
 
-                $code = $row['_store'] ? $row['sku'] : 'default';
-                $row = $this->map($row);
-                if(!array_key_exists($code, $products[$sku])) {
+                $code = $row['_store'] ?: 'default';
+                $row = $this->process($transformer, $row);
+                if (!array_key_exists($code, $products[$sku])) {
                     $products[$sku][$code] = $row;
                 } else {
                     foreach ($row as $field => $value) {
-                        if($value !== '') {
-                            if($products[$sku][$code][$field] !== '') {
-                                $products[$sku][$code][$field] .= ',' . $value;
+                        if ($value !== '' && $value !== null) {
+                            if ($products[$sku][$code][$field] !== '') {
+                                $products[$sku][$code][$field] .= ','.$value;
                             }
                         }
                     }
                 }
             }
 
-
             $result = [];
-            foreach ($products as $sku => $product)
-            {
+            foreach ($products as $sku => $product) {
                 $result[$sku] = new ProductModel();
                 foreach ($product as $code => $version) {
                     $result[$sku]->add($code, $version);
@@ -127,14 +136,10 @@ class StartMagento1ImportProcess
             }
 
             foreach ($this->steps as $step) {
-                $step->process($import, $result, $defaultLanguage);
+                $step->process($import, $result, $transformer, $defaultLanguage);
             }
-
-            $end = microtime(true);
-
-            echo ($end - $start) . PHP_EOL;
         } catch (\Throwable $exception) {
-            echo $exception->getMessage() . PHP_EOL;
+            echo $exception->getMessage().PHP_EOL;
             echo print_r($exception->getTraceAsString(), true);
             die;
         }
@@ -154,7 +159,7 @@ class StartMagento1ImportProcess
                     if (!array_key_exists($key, $product)) {
                         $product[$key] = $value;
                     } else {
-                        $product[$key] .= ',' . $value;
+                        $product[$key] .= ','.$value;
                     }
                 }
             }
@@ -163,16 +168,31 @@ class StartMagento1ImportProcess
         return $product;
     }
 
-    private function map(array $product): array
+    /**
+     * @param Transformer $transformer
+     * @param array       $record
+     *
+     * @return array
+     */
+    public function process(Transformer $transformer, array $record): array
     {
-        $product['esa_categories'] = $product['_root_category'];
-        if($product['esa_categories'] !== '' && $product['_category'] !== '') {
-            $product['esa_categories'] .= '/' . $product['_category'];
+        $result = [];
+
+        foreach ($transformer->getAttributes() as $field => $converter) {
+            /** @var ConverterInterface $converter */
+            $mapper = $this->mapper->provide($converter);
+            $value = $mapper->map($converter, $record);
+            $result[$field] = $value;
+
         }
-        $product['esa_template'] = $product['_attribute_set'];
+        foreach ($transformer->getFields() as $field => $converter) {
+            /** @var ConverterInterface $converter */
+            $mapper = $this->mapper->provide($converter);
+            $value = $mapper->map($converter, $record);
+            $result[$field] = $value;
 
-        unset($product['_root_category'], $product['_category'], $product['_attribute_set']);
+        }
 
-        return $product;
+        return $result;
     }
 }
