@@ -44,4 +44,12 @@ class RoleExactlyConditionValidatorStrategy implements ConditionValidatorStrateg
             ],
         ]);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValidatedClass(): string
+    {
+        return RoleExactlyCondition::class;
+    }
 }

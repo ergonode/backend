@@ -155,3 +155,10 @@ Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
             - '@label_esa_categories'
             - '@empty'
             - '@empty'
+
+Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttribute:
+    attribute_esa_product_collection:
+        __construct:
+            - '@label_esa_product_collection'
+            - '@empty'
+            - '@empty'

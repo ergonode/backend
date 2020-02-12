@@ -56,4 +56,12 @@ class NumericAttributeValueConditionValidatorStrategy implements ConditionValida
             ]
         );
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValidatedClass(): string
+    {
+        return NumericAttributeValueCondition::class;
+    }
 }

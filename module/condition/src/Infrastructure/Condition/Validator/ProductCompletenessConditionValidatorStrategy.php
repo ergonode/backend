@@ -42,4 +42,12 @@ class ProductCompletenessConditionValidatorStrategy implements ConditionValidato
             ],
         ]);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValidatedClass(): string
+    {
+        return ProductCompletenessCondition::class;
+    }
 }
