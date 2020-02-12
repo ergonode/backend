@@ -1,5 +1,72 @@
 Feature: Segment module
 
+  Scenario: Create text attribute
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "code": "TEXT_@@random_code@@",
+          "type": "TEXT",
+          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
+          "groups": [],
+          "parameters": []
+      }
+      """
+    When I request "/api/v1/EN/attributes" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "product_template_attribute"
+
+  Scenario: Create template
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "name": "@@random_md5@@",
+        "elements": [
+          {
+            "position": {"x": 0, "y": 0},
+            "size": {"width": 2, "height": 1},
+            "variant": "attribute",
+            "type": "text",
+            "properties": {
+              "attribute_id": "@product_template_attribute@",
+              "required": true
+            }
+          }
+        ]
+      }
+      """
+    When I request "/api/v1/EN/templates" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "product_template"
+
+  Scenario: Create category
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "CATEGORY_@@random_uuid@@",
+        "name": {"DE": "Test DE", "EN": "Test EN"}
+      }
+      """
+    When I request "/api/v1/EN/categories" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "product_category"
+
+  Scenario: Create product
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@product_template@",
+        "categoryIds": ["@product_category@"]
+      }
+      """
+    When I request "/api/v1/EN/products" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "product"
+
   Scenario: Create condition set
     Given current authentication token
     Given the request body is:
@@ -69,6 +136,27 @@ Feature: Segment module
       """
     When I request "/api/v1/EN/segments" using HTTP POST
     Then created response is received
+
+  Scenario: Create segment
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "SEG_3_@@random_code@@",
+        "condition_set_id": "@segment_conditionset@",
+        "name": {
+          "PL": "Segment",
+          "EN": "Segment"
+        },
+        "description": {
+          "PL": "Opis segmentu",
+          "EN": "Segment description"
+        }
+      }
+      """
+    When I request "/api/v1/EN/segments" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "segment_3"
 
   Scenario: Create segment (without description and name)
     Given current authentication token
@@ -236,6 +324,67 @@ Feature: Segment module
     Given current authentication token
     When I request "/api/v1/EN/segments?limit=25&offset=0&filter=description%3Dsuper" using HTTP GET
     Then grid response is received
+
+  Scenario: Get products based on segment (not authorized)
+    When I request "/api/v1/EN/segments/@segment_3@/products" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get products based on segment (order by id)
+    Given current authentication token
+    When I request "/api/v1/EN/segments/@segment_3@/products?field=id" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"id"/
+    """
+
+  Scenario: Get products based on segment (order by sku)
+    Given current authentication token
+    When I request "/api/v1/EN/segments/@segment_3@/products?field=sku" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"sku"/
+    """
+
+  Scenario: Get products based on segment (filter by sku)
+    Given current authentication token
+    When I request "/api/v1/EN/segments/@segment_3@/products?limit=25&offset=0&filter=sku=SKU_" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+
+  Scenario: Get products based on segment (not authorized)
+    When I request "/api/v1/EN/segments/@segment_3@/products" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get products based on segment (order ASC)
+    Given current authentication token
+    When I request "/api/v1/EN/segments/@segment_3@/products?limit=50&offset=0&order=ASC" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+
+  Scenario: Get products based on segment (order DESC)
+    Given current authentication token
+    When I request "/api/v1/EN/segments/@segment_3@/products?limit=50&offset=0&order=DESC" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
 
   Scenario: Delete segment (not authorized)
     When I request "/api/v1/EN/segments/@segment@" using HTTP DELETE
