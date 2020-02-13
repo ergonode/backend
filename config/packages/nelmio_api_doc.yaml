@@ -255,7 +255,7 @@ nelmio_api_doc:
                         example:
                             DE: Name DE
                             EN: Name EN
-            
+
             tree:
                 type: object
                 properties:
@@ -709,6 +709,22 @@ nelmio_api_doc:
                         required: true
                         description: comment text
                         example: example comment
+            export_profile:
+                type: 'object'
+                properties:
+                    type:
+                        type: string
+                        required: true
+                        description: export_profile_key
+                        example: magento-2-csv
+                    name:
+                        type: string
+                        required: true
+                        description: export profile name
+                        example: Magento 2 csv
+                    params:
+                        type: 'array'
+                        example: {"filename":"m2.csv"}
     areas:
         path_patterns:
             - ^/api(?!/doc$)

@@ -29,7 +29,6 @@ class ExportProfileTypeDictionaryAction
      */
     private ExportProfileTypeDictionaryProvider $provider;
 
-
     /**
      * @param ExportProfileTypeDictionaryProvider $provider
      */

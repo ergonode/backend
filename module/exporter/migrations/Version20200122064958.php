@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Migration;
 
 use Doctrine\DBAL\Schema\Schema;
+use Ramsey\Uuid\Uuid;
 
 /**
 * Auto-generated Ergonode Migration Class:
@@ -17,8 +18,10 @@ use Doctrine\DBAL\Schema\Schema;
 final class Version20200122064958 extends AbstractErgonodeMigration
 {
     /**
-    * @param Schema $schema
-    */
+     * @param Schema $schema
+     *
+     * @throws \Exception
+     */
     public function up(Schema $schema) : void
     {
         $this->addSql('CREATE SCHEMA IF NOT EXISTS exporter');
@@ -57,5 +60,29 @@ final class Version20200122064958 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
+
+        $this->createPrivileges([
+            'EXPORT_PROFILE_CREATE' => 'Export Profile',
+            'EXPORT_PROFILE_READ' => 'Export Profile',
+            'EXPORT_PROFILE_UPDATE' => 'Export Profile',
+            'EXPORT_PROFILE_DELETE' => 'Export Profile',
+        ]);
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Export Profile']);
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Exception
+     */
+    private function createPrivileges(array $collection): void
+    {
+        foreach ($collection as $code => $area) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => $area,
+            ]);
+        }
     }
 }

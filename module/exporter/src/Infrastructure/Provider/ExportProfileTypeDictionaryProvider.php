@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Infrastructure\Provider;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Exporter\Domain\Factory\ExportProfileFactoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -23,15 +22,15 @@ class ExportProfileTypeDictionaryProvider
     private TranslatorInterface $translator;
 
     /**
-     * @var ExportProfileFactoryInterface ...$exportProfiles
+     * @var ExportProfileInterface ...$exportProfiles
      */
     private array $exportProfiles;
 
     /**
-     * @param TranslatorInterface                   $translator
-     * @param array|ExportProfileFactoryInterface[] $exportProfiles
+     * @param TranslatorInterface    $translator
+     * @param ExportProfileInterface ...$exportProfiles
      */
-    public function __construct(TranslatorInterface $translator, $exportProfiles)
+    public function __construct(TranslatorInterface $translator, ExportProfileInterface ...$exportProfiles)
     {
         $this->translator = $translator;
         $this->exportProfiles = $exportProfiles;
