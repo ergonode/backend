@@ -37,6 +37,16 @@ class ProductModel
     /**
      * @param string $code
      *
+     * @return bool
+     */
+    public function has(string $code): bool
+    {
+        return array_key_exists($code, $this->versions);
+    }
+
+    /**
+     * @param string $code
+     *
      * @return array
      */
     public function get(string $code): array

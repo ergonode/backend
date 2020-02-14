@@ -55,13 +55,13 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
         $products = $this->getGroupedProducts($products);
         /** @var ProductModel $product */
         foreach ($products['simple'] as $product) {
-            $i++;
             $record = $this->getRecord($product, $transformer, $source);
+            $i++;
             $command = new ProcessImportCommand($import->getId(), $i, $record, ProductImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
 
-        echo print_r(sprintf('SEND %s Products', $i), true) . PHP_EOL;
+        echo print_r(sprintf('SEND %s Products', $i), true).PHP_EOL;
     }
 
     /**
@@ -98,25 +98,33 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
         foreach ($default as $field => $value) {
             if ($transformer->hasAttribute($field)) {
                 $type = $transformer->getAttributeType($field);
+                $isMultilingual = $transformer->isAttributeMultilingual($field);
                 if (null === $value) {
                     $record->setValue($field, null);
                 } else {
                     if ($type === SelectAttribute::TYPE || $type === MultiSelectAttribute::TYPE) {
                         $record->setValue($field, new Stringvalue($value));
                     } elseif ($type === ImageAttribute::TYPE) {
-                        if($source->importMultimedia()) {
-                            $multimediaId = MultimediaId::fromKey($source->getUrl() . $value);
+                        if ($source->importMultimedia()) {
+                            $multimediaId = MultimediaId::fromKey($source->getUrl().$value);
                             $record->setValue($field, new Stringvalue($multimediaId->getValue()));
                         }
-                    } else {
+                    } elseif ($isMultilingual) {
                         $translation[Language::EN] = $value;
                         foreach ($source->getLanguages() as $key => $language) {
-                            $translatedVersion = $product->get($key);
-                            if (array_key_exists($field, $translatedVersion) && $translatedVersion[$field] !== null) {
-                                $translation[$language->getCode()] = $translatedVersion[$field];
+                            if ($product->has($key)) {
+                                $translatedVersion = $product->get($key);
+                                if (array_key_exists($field,
+                                        $translatedVersion) && $translatedVersion[$field] !== null) {
+                                    $translation[$language->getCode()] = $translatedVersion[$field];
+                                }
                             }
                         }
                         $record->setValue($field, new TranslatableStringValue(new TranslatableString($translation)));
+                    } else {
+                        if ($value !== null) {
+                            $record->setValue($field, new StringValue($value));
+                        }
                     }
                 }
             }

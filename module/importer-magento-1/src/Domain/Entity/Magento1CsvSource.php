@@ -117,4 +117,12 @@ class Magento1CsvSource extends AbstractSource
     {
         return false;
     }
+
+    /**
+     * @return bool
+     */
+    public function importCategory(): bool
+    {
+        return true;
+    }
 }
