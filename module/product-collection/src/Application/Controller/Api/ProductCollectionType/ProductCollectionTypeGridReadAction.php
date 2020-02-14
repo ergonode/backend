@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/collectionTypes", methods={"GET"})
+ * @Route("/collections/types", methods={"GET"})
  */
 class ProductCollectionTypeGridReadAction
 {

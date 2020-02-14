@@ -9,16 +9,17 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Application\Form;
 
-use Ergonode\Core\Application\Form\Type\BooleanType;
-use Ergonode\Product\Application\Form\Type\ProductIdType;
-use Ergonode\ProductCollection\Application\Model\ProductCollectionElementCreateFormModel;
+use Ergonode\Product\Application\Form\Type\SkuType;
+use Ergonode\ProductCollection\Application\Model\ProductCollectionElementMultipleCreateFormModel;
+use Ergonode\Segment\Application\Form\Type\SegmentType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class ProductCollectionElementCreateForm extends AbstractType
+class ProductCollectionElementMultipleCreateForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -28,12 +29,23 @@ class ProductCollectionElementCreateForm extends AbstractType
     {
         $builder
             ->add(
-                'productId',
-                ProductIdType::class
+                'segments',
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => SegmentType::class,
+                ]
             )
             ->add(
-                'visible',
-                BooleanType::class
+                'skus',
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => SkuType::class,
+
+                ]
             );
     }
 
@@ -43,7 +55,7 @@ class ProductCollectionElementCreateForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ProductCollectionElementCreateFormModel::class,
+            'data_class' => ProductCollectionElementMultipleCreateFormModel::class,
             'translation_domain' => 'element',
         ]);
     }

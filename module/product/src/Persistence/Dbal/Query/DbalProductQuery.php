@@ -11,11 +11,11 @@ namespace Ergonode\Product\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\Product\Domain\ValueObject\Sku;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -24,6 +24,7 @@ class DbalProductQuery implements ProductQueryInterface
 {
     private const PRODUCT_TABLE = 'public.product';
     private const VALUE_TABLE = 'public.product_value';
+    private const SEGMENT_PRODUCT_TABLE = 'public.segment_product';
 
     /**
      * @var Connection
@@ -60,11 +61,35 @@ class DbalProductQuery implements ProductQueryInterface
      */
     public function getAllIds(): array
     {
-        return $this->connection->createQueryBuilder()
+        $result = $this->connection->createQueryBuilder()
             ->select('id')
-            ->from('product')
+            ->from(self::PRODUCT_TABLE)
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false !== $result) {
+            return $result;
+        }
+
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAllSkus(): array
+    {
+        $result = $this->connection->createQueryBuilder()
+            ->select('sku')
+            ->from(self::PRODUCT_TABLE)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false !== $result) {
+            return $result;
+        }
+
+        return null;
     }
 
     /**
@@ -119,6 +144,64 @@ class DbalProductQuery implements ProductQueryInterface
 
         return $result;
     }
+
+    /**
+     * @param array $skus
+     *
+     * @return array
+     */
+    public function findProductIdsBySkus(array $skus = []): array
+    {
+        $qb = $this->connection->createQueryBuilder()
+            ->select('id')
+            ->from(self::PRODUCT_TABLE);
+
+        if ($skus) {
+            $qb->andWhere($qb->expr()->in('sku', ':skus'))
+                ->setParameter(':skus', $skus, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
+        }
+
+        $result = $qb->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param array $segmentIds
+     *
+     * @return array
+     */
+    public function findProductIdsBySegments(array $segmentIds): array
+    {
+        $qb = $this->connection->createQueryBuilder()
+            ->select('product_id')
+            ->from(self::SEGMENT_PRODUCT_TABLE);
+
+        if ($segmentIds) {
+            $qb->andWhere($qb->expr()->in('segment_id', ':segmentIds'))
+                ->setParameter(':segmentIds', $segmentIds, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
+        }
+
+        $result = $qb->execute()->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
+        }
+
+        return $result;
+    }
+
 
     /**
      * @return array

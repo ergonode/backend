@@ -10,12 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Application\Controller\Api\Element;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\ProductCollection\Application\Form\ProductCollectionElementUpdateForm;
-use Ergonode\ProductCollection\Application\Model\ProductCollectionElementUpdateFormModel;
-use Ergonode\ProductCollection\Domain\Command\UpdateProductCollectionElementCommand;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\ProductCollection\Application\Form\ProductCollectionElementMultipleCreateForm;
+use Ergonode\ProductCollection\Application\Model\ProductCollectionElementMultipleCreateFormModel;
+use Ergonode\ProductCollection\Domain\Command\AddMultipleProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -29,16 +29,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     name="ergonode_product_collection_element_change",
- *     path="/collections/{collection}/element/{product}",
- *     methods={"PUT"},
- *     requirements={
- *     "collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
- *      "product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
- *     },
+ *     name="ergonode_product_collection_element_multiple_create",
+ *     path="/collections/{collection}/elements",
+ *     methods={"POST"},
+ *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
  * )
  */
-class ProductCollectionElementChangeAction
+class ProductCollectionElementMultipleCreateAction
 {
     /**
      * @var CommandBusInterface
@@ -46,40 +43,35 @@ class ProductCollectionElementChangeAction
     private CommandBusInterface $commandBus;
 
     /**
+     * @var ProductQueryInterface
+     */
+    private ProductQueryInterface $productQuery;
+
+    /**
      * @var FormFactoryInterface
      */
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
+     * @param CommandBusInterface   $commandBus
+     * @param ProductQueryInterface $productQuery
+     * @param FormFactoryInterface  $formFactory
      */
     public function __construct(
         CommandBusInterface $commandBus,
+        ProductQueryInterface $productQuery,
         FormFactoryInterface $formFactory
     ) {
         $this->commandBus = $commandBus;
+        $this->productQuery = $productQuery;
         $this->formFactory = $formFactory;
     }
 
+
     /**
-     * @IsGranted("PRODUCT_COLLECTION_UPDATE")
+     * @IsGranted("PRODUCT_COLLECTION_CREATE")
      *
      * @SWG\Tag(name="Product Collection")
-     * * @SWG\Parameter(
-     *     name="collection",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     description="Collection Id",
-     * )
-     * @SWG\Parameter(
-     *     name="product",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     description="Product Id",
-     * )
      * @SWG\Parameter(
      *     name="language",
      *     in="path",
@@ -88,53 +80,61 @@ class ProductCollectionElementChangeAction
      *     default="EN"
      * )
      * @SWG\Parameter(
+     *     name="collection",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     description="Product collection ID",
+     * )
+     * @SWG\Parameter(
      *     name="body",
      *     in="body",
-     *     description="Update workflow",
+     *     description="Add workflow",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/element_update")
+     *     @SWG\Schema(ref="#/definitions/element_create_by_segment_and_sku")
      * )
      * @SWG\Response(
-     *     response=204,
-     *     description="Success"
+     *     response=201,
+     *     description="Returns product collection ID",
      * )
      * @SWG\Response(
      *     response=400,
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     *
      * @ParamConverter(class="Ergonode\ProductCollection\Domain\Entity\ProductCollection")
      *
      * @param ProductCollection $productCollection
-     * @param AbstractProduct   $product
      * @param Request           $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
-    public function __invoke(ProductCollection $productCollection, AbstractProduct $product, Request $request): Response
+    public function __invoke(ProductCollection $productCollection, Request $request): Response
     {
         try {
-            $model = new ProductCollectionElementUpdateFormModel();
-            $form = $this->formFactory->create(
-                ProductCollectionElementUpdateForm::class,
-                $model,
-                ['method' => Request::METHOD_PUT]
-            );
+            $model = new ProductCollectionElementMultipleCreateFormModel();
+            $form = $this->formFactory->create(ProductCollectionElementMultipleCreateForm::class, $model);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ProductCollectionElementUpdateFormModel $data */
+                /** @var ProductCollectionElementMultipleCreateFormModel $data */
                 $data = $form->getData();
-                $command = new UpdateProductCollectionElementCommand(
+
+                $productIdsFromSkus = $this->productQuery->findProductIdsBySkus($data->skus);
+                $productIdsBySegments = $this->productQuery->findProductIdsBySegments($data->segments);
+
+                $productIds = array_unique(array_merge($productIdsBySegments, $productIdsFromSkus));
+                $command = new AddMultipleProductCollectionElementCommand(
                     $productCollection->getId(),
-                    $product->getId(),
-                    $data->visible
+                    $productIds
                 );
 
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return new CreatedResponse($productCollection->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

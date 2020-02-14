@@ -370,6 +370,28 @@ nelmio_api_doc:
                         required: true
                         description: Show if product is visible for other products from collection
                         example: true
+
+            element_create_by_segment_and_sku:
+                type: object
+                properties:
+                    segments:
+                        type: array
+                        items:
+                            type: string
+                        required: false
+                        description: List of segment Ids
+                        example:
+                                [ a4898f22-bcca-5842-bc78-b2401191cea8, 1bdcab91-5fc1-42c0-8a7f-4602ca9a2511]
+                    skus:
+                        type: array
+                        items:
+                            type: string
+                        required: false
+                        description: List of Skus
+                        example:
+                                [ SKU_1, SKU_2]
+                        
+                        
             product_collection_type_create:
                 type: object
                 properties:

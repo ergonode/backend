@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Query;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -30,10 +30,35 @@ interface ProductQueryInterface
     public function getAllIds(): array;
 
     /**
+     * @return array
+     */
+    public function getAllSkus(): array;
+
+    /**
+     * @return array
+     */
+    public function getDictionary(): array;
+
+    /**
      * @param AttributeId $attributeId
      * @param Uuid|null   $valueId
      *
      * @return array
      */
     public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array;
+
+    /**
+     * @param Sku[] $skus
+     *
+     * @return array
+     */
+    public function findProductIdsBySkus(array $skus): array;
+
+
+    /**
+     * @param array $segmentIds
+     *
+     * @return array
+     */
+    public function findProductIdsBySegments(array $segmentIds): array;
 }

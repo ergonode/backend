@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_element_delete",
- *     path="/collections/{collection}/elements/{product}",
+ *     path="/collections/{collection}/element/{product}",
  *     methods={"DELETE"},
  *     requirements={
  *     "collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",

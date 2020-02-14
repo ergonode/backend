@@ -7,28 +7,28 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Application\Form\Transformer;
+namespace Ergonode\Product\Application\Form\Transformer;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\Product\Domain\ValueObject\Sku;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
  */
-class ProductIdDataTransformer implements DataTransformerInterface
+class SkuDataTransformer implements DataTransformerInterface
 {
     /**
-     * @param ProductId|null $value
+     * @param Sku|null $value
      *
      * @return null|string
      */
     public function transform($value): ?string
     {
         if ($value) {
-            if ($value instanceof ProductId) {
+            if ($value instanceof Sku) {
                 return $value->getValue();
             }
-            throw new TransformationFailedException('Invalid Product Id object');
+            throw new TransformationFailedException('Invalid Sku object');
         }
 
         return null;
@@ -37,15 +37,15 @@ class ProductIdDataTransformer implements DataTransformerInterface
     /**
      * @param string|null $value
      *
-     * @return ProductId|null
+     * @return Sku|null
      */
-    public function reverseTransform($value): ?ProductId
+    public function reverseTransform($value): ?Sku
     {
         if ($value) {
             try {
-                return new ProductId($value);
+                return new Sku($value);
             } catch (\InvalidArgumentException $e) {
-                throw new TransformationFailedException(sprintf('Invalid "%s" value', $value));
+                throw new TransformationFailedException(sprintf('Invalid Sku "%s" value', $value));
             }
         }
 

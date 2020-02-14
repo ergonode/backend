@@ -107,6 +107,10 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Value\\.*
+  - name: ProductCollection
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ProductCollection\\.*
 ruleset:
   Grid:
     - Core
@@ -261,3 +265,9 @@ ruleset:
     - Designer
     - Product
     - Attribute
+  ProductCollection:
+    - Api
+    - Core
+    - EventSourcing
+    - Segment
+    - Product

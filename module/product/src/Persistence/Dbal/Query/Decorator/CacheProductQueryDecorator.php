@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Persistence\Dbal\Query\Decorator;
 
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\Product\Domain\ValueObject\Sku;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -78,6 +78,14 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
+    public function getAllSkus(): array
+    {
+        return $this->query->getAllSkus();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getDictionary(): array
     {
         return $this->query->getDictionary();
@@ -89,5 +97,21 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array
     {
         return $this->query->findProductIdByAttributeId($attributeId, $valueId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductIdsBySkus(array $skus): array
+    {
+        return $this->query->findProductIdsBySkus($skus);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductIdsBySegments(array $segmentIds): array
+    {
+        return $this->query->findProductIdsBySegments($segmentIds);
     }
 }
