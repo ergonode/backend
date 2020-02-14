@@ -9,9 +9,10 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Application\Controller\Api\ExportProfile;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -67,19 +68,20 @@ class ExportProfileReadAction
      *     description="Not found"
      * )
      *
-     * @param string $exportProfile
+     * @param AbstractExportProfile $exportProfile
+     *
+     * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile")
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(string $exportProfile): Response
+    public function __invoke(AbstractExportProfile $exportProfile): Response
     {
-        $exportProfileId = new ExportProfileId($exportProfile);
-        $object = $this->repository->load($exportProfileId);
-        if ($object) {
-            return new SuccessResponse($object);
+        $result = $this->repository->load($exportProfile->getId());
+        if ($result) {
+            return new SuccessResponse($result);
         }
-        throw new  NotFoundHttpException($exportProfile);
+        throw new  NotFoundHttpException();
     }
 }

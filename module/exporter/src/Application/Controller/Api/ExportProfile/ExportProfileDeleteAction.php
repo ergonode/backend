@@ -13,12 +13,12 @@ use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInter
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Exporter\Domain\Command\ExportProfile\DeleteExportProfileCommand;
+use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
@@ -100,23 +100,21 @@ class ExportProfileDeleteAction
      *     description="Existing relationships"
      * )
      *
-     * @param string $exportProfile
+     * @param AbstractExportProfile $exportProfile
+     *
+     * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile")
      *
      * @return Response
      */
-    public function __invoke(string $exportProfile): Response
+    public function __invoke(AbstractExportProfile $exportProfile): Response
     {
-        $exportProfileId = new ExportProfileId($exportProfile);
-        if ($this->repository->exists($exportProfileId)) {
-            $relationships = $this->relationshipsResolver->resolve($exportProfileId);
-            if (!$relationships->isEmpty()) {
-                throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
-            }
-            $command = new DeleteExportProfileCommand($exportProfileId);
-            $this->commandBus->dispatch($command);
-
-            return new EmptyResponse();
+        $relationships = $this->relationshipsResolver->resolve($exportProfile->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relationships));
         }
-        throw new  NotFoundHttpException($exportProfile);
+        $command = new DeleteExportProfileCommand($exportProfile->getId());
+        $this->commandBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }

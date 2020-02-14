@@ -12,13 +12,13 @@ use Ergonode\Api\Application\Exception\ViolationsHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Exporter\Domain\Command\ExportProfile\UpdateExportProfileCommand;
+use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
 use Ergonode\Exporter\Infrastructure\Builder\ExportProfileValidatorBuilder;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -110,35 +110,31 @@ class ExportProfileChangeAction
      *     response=404,
      *     description="Not found"
      * )
+     * @param AbstractExportProfile $exportProfile
+     * @param Request               $request
      *
-     * @param string  $exportProfile
-     * @param Request $request
+     * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile")
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(string $exportProfile, Request $request): Response
+    public function __invoke(AbstractExportProfile $exportProfile, Request $request): Response
     {
         $data = $request->request->all();
-        $exportProfileId = new ExportProfileId($exportProfile);
+        $violations = $this->validator->validate($data, $this->builder->build($data));
+        if (0 === $violations->count()) {
+            $command = new UpdateExportProfileCommand(
+                $exportProfile->getId(),
+                $data['name'],
+                $data['type'],
+                $data['params']
+            );
 
-        if ($this->repository->exists($exportProfileId)) {
-            $violations = $this->validator->validate($data, $this->builder->build($data));
-            if (0 === $violations->count()) {
-                $command = new UpdateExportProfileCommand(
-                    $exportProfileId,
-                    $data['name'],
-                    $data['type'],
-                    $data['params']
-                );
+            $this->commandBus->dispatch($command);
 
-                $this->commandBus->dispatch($command);
-
-                return new EmptyResponse();
-            }
-            throw new ViolationsHttpException($violations);
+            return new EmptyResponse();
         }
-        throw new  NotFoundHttpException($exportProfile);
+        throw new ViolationsHttpException($violations);
     }
 }
