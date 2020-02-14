@@ -15,7 +15,7 @@ framework:
                 middleware:
                     - 'send_message'
                     - 'handle_message'
-        default_bus: messenger.bus.sync
+        default_bus: messenger.bus.async
         transports:
             import: "%env(MESSENGER_TRANSPORT_IMPORT_DSN)%"
             channel: "%env(MESSENGER_TRANSPORT_CHANNEL_DSN)%"
@@ -32,7 +32,12 @@ framework:
             'Ergonode\Segment\Domain\Command\CalculateProductCommand': segment
             'Ergonode\Segment\Domain\Command\CalculateSegmentCommand': segment
             'Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand': segment
-            'Ergonode\Product\Domain\Command\CreateProductCommand': core
-            'Ergonode\Product\Domain\Command\UpdateProductCommand': core
+            'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': core
+            'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': core
             'Ergonode\Category\Domain\Command\CreateCategoryCommand': core
             'Ergonode\Category\Domain\Command\UpdateCategoryCommand': core
+            'Ergonode\Designer\Domain\Command\CreateTemplateCommand': core
+            'Ergonode\Designer\Domain\Command\UpdateTemplateCommand': core
+            'Ergonode\Product\Domain\Command\CreateProductCommand': core
+            'Ergonode\Product\Domain\Command\UpdateProductCommand': core
+

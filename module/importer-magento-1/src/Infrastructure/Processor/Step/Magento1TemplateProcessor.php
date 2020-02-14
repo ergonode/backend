@@ -11,10 +11,10 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Transformer\Infrastructure\Action\TemplateImportAction;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -39,12 +39,12 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
     }
 
     /**
-     * @param Import         $import
-     * @param ProductModel[] $products
-     * @param Transformer    $transformer
-     * @param Language       $defaultLanguage
+     * @param Import            $import
+     * @param ProductModel[]    $products
+     * @param Transformer       $transformer
+     * @param Magento1CsvSource $source
      */
-    public function process(Import $import, array $products, Transformer $transformer, Language $defaultLanguage): void
+    public function process(Import $import, array $products, Transformer $transformer, Magento1CsvSource $source): void
     {
         $templates = [];
         foreach ($products as $sku => $product) {
@@ -55,7 +55,7 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
                     $templates[$type] = new Record();
                     $templates[$type]->set('code', new StringValue($type));
                     $templates[$type]->set('name', new TranslatableStringValue(
-                            new TranslatableString([$defaultLanguage->getCode() => $type]))
+                            new TranslatableString([$source->getDefaultLanguage()->getCode() => $type]))
                     );
                 }
             }

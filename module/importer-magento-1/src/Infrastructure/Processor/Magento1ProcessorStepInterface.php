@@ -8,8 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 
 /**
@@ -17,10 +17,10 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 interface Magento1ProcessorStepInterface
 {
     /**
-     * @param Import      $import
-     * @param string[]    $rows
-     * @param Transformer $transformer
-     * @param Language    $language
+     * @param Import            $import
+     * @param string[]          $rows
+     * @param Transformer       $transformer
+     * @param Magento1CsvSource $source $source
      */
-    public function process(Import $import, array $rows, Transformer $transformer, Language $language): void;
+    public function process(Import $import, array $rows, Transformer $transformer, Magento1CsvSource $source): void;
 }

@@ -28,13 +28,14 @@ class AddMultimediaCommand implements DomainCommandInterface
     private $file;
 
     /**
-     * @param File $file
+     * @param MultimediaId $id
+     * @param File         $file
      *
      * @throws \Exception
      */
-    public function __construct(File $file)
+    public function __construct(MultimediaId $id, File $file)
     {
-        $this->id = MultimediaId::generate();
+        $this->id = $id;
         $this->file = $file;
     }
 

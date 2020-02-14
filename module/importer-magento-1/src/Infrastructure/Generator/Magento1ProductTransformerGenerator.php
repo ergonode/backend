@@ -8,6 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Generator;
 
+use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
@@ -72,9 +74,10 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
         $transformer->addField('esa_type', new TextConverter('_type'));
 
         // attributes
+        $transformer->addAttribute('image', ImageAttribute::TYPE, false, new TextConverter('image'));
         $transformer->addAttribute('name', TextAttribute::TYPE, true, new TextConverter('name'));
-        $transformer->addAttribute('description', TextAttribute::TYPE, true, new TextConverter('description'));
-        $transformer->addAttribute('short_description', TextAttribute::TYPE, true, new TextConverter('short_description'));
+        $transformer->addAttribute('description', TextareaAttribute::TYPE, true, new TextConverter('description'));
+        $transformer->addAttribute('short_description', TextareaAttribute::TYPE, true, new TextConverter('short_description'));
         $transformer->addAttribute('weight', NumericAttribute::TYPE, false, new TextConverter('weight'));
 
         return $transformer;

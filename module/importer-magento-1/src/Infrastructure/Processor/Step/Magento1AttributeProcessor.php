@@ -11,10 +11,10 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
@@ -62,12 +62,12 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
     }
 
     /**
-     * @param Import         $import
-     * @param ProductModel[] $products
-     * @param Transformer    $transformer
-     * @param Language       $defaultLanguage
+     * @param Import            $import
+     * @param ProductModel[]    $products
+     * @param Transformer       $transformer
+     * @param Magento1CsvSource $source
      */
-    public function process(Import $import, array $products, Transformer $transformer, Language $defaultLanguage): void
+    public function process(Import $import, array $products, Transformer $transformer, Magento1CsvSource $source): void
     {
         $result = [];
         $columns = [];
@@ -88,7 +88,7 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
             $multilingual = $transformer->isAttributeMultilingual($field) ? '1':'0';
             $record->set('multilingual', new StringValue($multilingual));
             $record->set('label',
-                new TranslatableStringValue(new TranslatableString([$defaultLanguage->getCode() => $field])));
+                new TranslatableStringValue(new TranslatableString([$source->getDefaultLanguage()->getCode() => $field])));
             if ($type === SelectAttribute::TYPE || $type === MultiSelectAttribute::TYPE) {
                 $options = $this->getOptions($columns[$field]);
                 foreach ($options as $key => $option) {

@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Domain\Entity;
 
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
@@ -77,5 +78,43 @@ class Magento1CsvSource extends AbstractSource
     public function getEscape(): string
     {
         return $this->configuration[self::ESCAPE];
+    }
+
+    /**
+     * @return Language
+     */
+    public function getDefaultLanguage(): Language
+    {
+        return new Language(Language::PL);
+    }
+
+    /**
+     * @return Language[]
+     */
+    public function getLanguages(): array
+    {
+        return [
+            'poland_pl' => new Language(Language::PL),
+            'france_fr' => new Language(Language::FR),
+            'germany_de' => new Language(Language::DE),
+            'romania_ro' => new Language(Language::RO),
+            'turkey_tr' => new Language(Language::TR),
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return 'https://husse-eu.global.ssl.fastly.net/media/catalog/product/cache/8/image/9df78eab33525d08d6e5fb8d27136e95';
+    }
+
+    /**
+     * @return bool
+     */
+    public function importMultimedia(): bool
+    {
+        return false;
     }
 }

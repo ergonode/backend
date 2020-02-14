@@ -2,7 +2,7 @@ Feature: Category module
 
   Scenario: Upload magento 1 test import file
     Given current authentication token
-    And I attach "module/importer-magento-1/features/2019-02-12-husse-export-one-product.csv" to the request as upload
+    And I attach "module/importer-magento-1/features/2019-02-12-husse-prod-sample.csv" to the request as upload
     And the following form parameters are set:
       | name | value                  |
       | source_type | magento-1-csv |

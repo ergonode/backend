@@ -11,10 +11,10 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Transformer\Infrastructure\Action\CategoryImportAction;
 use Ergonode\Transformer\Infrastructure\Formatter\SlugFormatter;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -43,12 +43,12 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
     }
 
     /**
-     * @param Import         $import
-     * @param ProductModel[] $products
-     * @param Transformer    $transformer
-     * @param Language       $defaultLanguage
+     * @param Import            $import
+     * @param ProductModel[]    $products
+     * @param Transformer       $transformer
+     * @param Magento1CsvSource $source
      */
-    public function process(Import $import, array $products, Transformer $transformer, Language $defaultLanguage): void
+    public function process(Import $import, array $products, Transformer $transformer, Magento1CsvSource $source): void
     {
         $result = [];
         foreach ($products as $sku => $product) {
@@ -60,7 +60,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
                     $category = explode('/', $category);
                     $code = end($category);
                     if ($code !== '') {
-                        $name = [$defaultLanguage->getCode() => end($category)];
+                        $name = [$source->getDefaultLanguage()->getCode() => end($category)];
                         if (!array_key_exists($code, $result)) {
                             $record = new Record();
                             $slug = SlugFormatter::format(Uuid::uuid5(self::UUID, $code)->toString());

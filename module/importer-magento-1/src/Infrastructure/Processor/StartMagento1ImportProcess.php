@@ -11,8 +11,8 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
+use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
-use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
 use Webmozart\Assert\Assert;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
@@ -88,7 +88,7 @@ class StartMagento1ImportProcess
         $defaultLanguage = new Language(Language::EN);
 
         try {
-            /** @var Magento2CsvSource $source */
+            /** @var Magento1CsvSource $source */
             $source = $this->sourceRepository->load($import->getSourceId());
             Assert::notNull($source);
 
@@ -136,7 +136,7 @@ class StartMagento1ImportProcess
             }
 
             foreach ($this->steps as $step) {
-                $step->process($import, $result, $transformer, $defaultLanguage);
+                $step->process($import, $result, $transformer, $source);
             }
         } catch (\Throwable $exception) {
             echo $exception->getMessage().PHP_EOL;
