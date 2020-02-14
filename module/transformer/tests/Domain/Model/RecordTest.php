@@ -11,6 +11,7 @@ namespace Ergonode\Tests\Transformer\Domain\Model;
 
 use Ergonode\Transformer\Domain\Model\Record;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
  */
@@ -20,24 +21,18 @@ class RecordTest extends TestCase
      */
     public function testRecordManipulation(): void
     {
-        $collection = 'example';
         $name = 'name';
-        $value = 'string';
+        $value = $this->createMock(ValueInterface::class);
         $record = new Record();
         $this->assertFalse($record->has($name));
-        $record->add($collection, $name, $value);
-        $column = $record->get($name);
-        $this->assertSame('string', $column);
+        $record->set($name, $value);
+        $result = $record->get($name);
+        $this->assertSame($value, $result);
         $this->assertTrue($record->has($name));
-        $columns = $record->getColumns($collection);
-        $this->assertSame('string', $columns['name']);
-        $this->assertTrue($record->hasColumns($collection));
     }
 
     /**
      * @expectedException \InvalidArgumentException
-     *
-     * @expectedExceptionMessage Record haven't column test
      */
     public function testGetException(): void
     {

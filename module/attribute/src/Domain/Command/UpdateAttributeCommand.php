@@ -103,6 +103,7 @@ class UpdateAttributeCommand implements DomainCommandInterface
         array $parameters = [],
         array $options = []
     ) {
+        Assert::allString(array_keys($options));
         Assert::allIsInstanceOf($options, OptionInterface::class);
         $this->attributeId = $id;
         $this->parameters = $parameters;
@@ -110,7 +111,7 @@ class UpdateAttributeCommand implements DomainCommandInterface
         $this->label = $label;
         $this->hint = $hint;
         $this->placeholder = $placeholder;
-        $this->options = [];
+        $this->options = $options;
     }
 
     /**
