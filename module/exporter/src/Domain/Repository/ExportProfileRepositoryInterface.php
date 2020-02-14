@@ -36,4 +36,9 @@ interface ExportProfileRepositoryInterface
      * @return bool
      */
     public function exists(ExportProfileId $id): bool;
+
+    /**
+     * @param AbstractExportProfile $exportProfile
+     */
+    public function delete(AbstractExportProfile $exportProfile): void;
 }

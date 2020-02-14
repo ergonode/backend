@@ -2,20 +2,19 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Infrastructure\Handler\ExportProfile;
 
-use Ergonode\Exporter\Domain\Command\ExportProfile\CreateExportProfileCommand;
+use Ergonode\Exporter\Domain\Command\ExportProfile\UpdateExportProfileCommand;
 use Ergonode\Exporter\Domain\Provider\ExportProfileProvider;
 use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
 
 /**
  */
-class CreateExportProfileCommandHandler
+class UpdateExportProfileCommandHandler
 {
     /**
      * @var ExportProfileProvider
@@ -38,9 +37,9 @@ class CreateExportProfileCommandHandler
     }
 
     /**
-     * @param CreateExportProfileCommand $command
+     * @param UpdateExportProfileCommand $command
      */
-    public function __invoke(CreateExportProfileCommand $command)
+    public function __invoke(UpdateExportProfileCommand $command)
     {
         $factory = $this->provider->provide($command->getType());
 

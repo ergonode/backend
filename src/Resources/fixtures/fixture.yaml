@@ -126,6 +126,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
         - '<privilege("PRODUCT_COLLECTION_READ")>'
         - '<privilege("PRODUCT_COLLECTION_DELETE")>'
+        - '<privilege("EXPORT_PROFILE_CREATE")>'
+        - '<privilege("EXPORT_PROFILE_READ")>'
+        - '<privilege("EXPORT_PROFILE_UPDATE")>'
+        - '<privilege("EXPORT_PROFILE_DELETE")>'
       - true
   admin_role:
     __construct:
@@ -193,6 +197,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
         - '<privilege("PRODUCT_COLLECTION_READ")>'
         - '<privilege("PRODUCT_COLLECTION_DELETE")>'
+        - '<privilege("EXPORT_PROFILE_CREATE")>'
+        - '<privilege("EXPORT_PROFILE_READ")>'
+        - '<privilege("EXPORT_PROFILE_UPDATE")>'
+        - '<privilege("EXPORT_PROFILE_DELETE")>'
   data_inputer_role:
     __construct:
       - '<roleId("Data inputer")>'
