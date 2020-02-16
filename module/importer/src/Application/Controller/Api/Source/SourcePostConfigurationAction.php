@@ -18,13 +18,13 @@ use Ergonode\Importer\Domain\Command\GenerateImportCommand;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Ergonode\ImporterMagento1\Application\Factory\ImporterMagento1ConfigurationFormFactory;
 
 /**
  * @Route(
@@ -37,9 +37,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class SourcePostConfigurationAction
 {
     /**
-     * @var FormFactoryInterface
+     * @var ImporterMagento1ConfigurationFormFactory
      */
-    private FormFactoryInterface $formFactory;
+    private $configurationFormFactory;
 
     /**
      * @var CommandBusInterface
@@ -47,12 +47,14 @@ class SourcePostConfigurationAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param FormFactoryInterface $formFactory
-     * @param CommandBusInterface  $commandBus
+     * @param ImporterMagento1ConfigurationFormFactory $configurationFormFactory
+     * @param CommandBusInterface                      $commandBus
      */
-    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
-    {
-        $this->formFactory = $formFactory;
+    public function __construct(
+        ImporterMagento1ConfigurationFormFactory $configurationFormFactory,
+        CommandBusInterface $commandBus
+    ) {
+        $this->configurationFormFactory = $configurationFormFactory;
         $this->commandBus = $commandBus;
     }
 
@@ -96,8 +98,7 @@ class SourcePostConfigurationAction
     public function __invoke(AbstractSource $source, Request $request): Response
     {
         try {
-            $model = new ConfigurationModel();
-            $form = $this->formFactory->create(ConfigurationForm::class, $model);
+            $form = $this->configurationFormFactory->create($source);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
