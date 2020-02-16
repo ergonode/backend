@@ -40,11 +40,14 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
 
     /**
      * DbalExportProfileRepository constructor.
-     * @param Connection $connection
+     *
+     * @param Connection           $connection
+     * @param ExportProfileFactory $factory
      */
-    public function __construct(Connection $connection)
+    public function __construct(Connection $connection, ExportProfileFactory $factory)
     {
         $this->connection = $connection;
+        $this->factory = $factory;
     }
 
     /**
@@ -102,6 +105,23 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
 
         return false;
     }
+
+    /**
+     * @param AbstractExportProfile $exportProfile
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
+     */
+    public function delete(AbstractExportProfile $exportProfile): void
+    {
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'id' => $exportProfile->getId()->getValue(),
+            ]
+        );
+    }
+
 
     /**
      * @param AbstractExportProfile $exportProfile

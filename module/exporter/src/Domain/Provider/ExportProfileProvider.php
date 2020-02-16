@@ -21,7 +21,6 @@ class ExportProfileProvider
     private array $factories;
 
     /**
-     * ExportProfileProvider constructor.
      * @param ExportProfileFactoryInterface ...$factories
      */
     public function __construct(ExportProfileFactoryInterface ...$factories)
