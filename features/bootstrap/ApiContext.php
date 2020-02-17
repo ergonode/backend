@@ -189,7 +189,6 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     public function printLastApiResponse(): void
     {
         $this->requireResponse();
-        echo $this->response->getBody();
     }
 
     /**
@@ -208,16 +207,8 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
         try {
             $actual = $this->response->getStatusCode();
             $expected = $this->validateResponseCode($code);
-            $body = $this->response->getBody()->getContents();
 
-            $message = sprintf(
-                'Expected response code "%d", got "%d". Revived "%s"',
-                $expected,
-                $actual,
-                $body
-            );
-
-            Assertion::same($actual, $expected, $message);
+            Assertion::same($actual, $expected);
         } catch (\Exception $e) {
             throw new AssertionFailedException($e->getMessage());
         }

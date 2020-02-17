@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Application\Factory;
 
-
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\ImporterMagento1\Application\Form\ImporterMagento1ConfigurationForm;
@@ -34,11 +33,11 @@ class ImporterMagento1ConfigurationFormFactory
     }
 
     /**
-     * @param AbstractSource|Magento1CsvSource $source
+     * @param AbstractSource|Magento1CsvSource|null $source
      *
      * @return FormInterface
      */
-    public function create(AbstractSource $source): FormInterface
+    public function create(?AbstractSource $source = null): FormInterface
     {
         $model = new ImporterMagento1ConfigurationModel();
 

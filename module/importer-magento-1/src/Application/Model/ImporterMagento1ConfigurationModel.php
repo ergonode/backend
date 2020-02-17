@@ -8,9 +8,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Application\Model;
 
-
 use Ergonode\ImporterMagento1\Application\Model\Type\LanguageMapModel;
 
+/**
+ */
 class ImporterMagento1ConfigurationModel
 {
     /**
