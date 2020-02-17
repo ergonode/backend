@@ -77,9 +77,8 @@ class UpdateUserFormModel
 
     /**
      */
-    public function __construct(
-
-    ) {
+    public function __construct()
+    {
         $this->firstName = null;
         $this->lastName = null;
         $this->language = null;
