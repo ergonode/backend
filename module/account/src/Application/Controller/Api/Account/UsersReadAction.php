@@ -29,17 +29,17 @@ class UsersReadAction
     /**
      * @var AccountGrid
      */
-    private $grid;
+    private AccountGrid $grid;
 
     /**
      * @var AccountQueryInterface
      */
-    private $query;
+    private AccountQueryInterface $query;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer          $gridRenderer

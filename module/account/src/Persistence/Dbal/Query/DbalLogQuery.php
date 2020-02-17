@@ -23,7 +23,7 @@ class DbalLogQuery implements LogQueryInterface
     /**
      * @var  Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection

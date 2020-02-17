@@ -25,7 +25,7 @@ class CreateUserFormModel
      * @Assert\NotBlank(message="User first name is required")
      * @Assert\Length(min="1", max="128")
      */
-    public $firstName;
+    public ?string $firstName;
 
     /**
      * @var string
@@ -33,7 +33,7 @@ class CreateUserFormModel
      * @Assert\NotBlank(message="User last name is required")
      * @Assert\Length(min="3", max="128")
      */
-    public $lastName;
+    public ?string $lastName;
 
     /**
      * @var string
@@ -43,14 +43,14 @@ class CreateUserFormModel
      *
      * @UserUnique()
      */
-    public $email;
+    public ?string $email;
 
     /**
      * @var Language
      *
      * @Assert\NotBlank(message="User language is required")
      */
-    public $language;
+    public ?Language $language;
 
     /**
      * @var Password|null
@@ -63,7 +63,7 @@ class CreateUserFormModel
      *     maxMessage="User password is too long, should have at most {{ limit }} characters"
      * )
      */
-    public $password;
+    public ?Password $password;
 
     /**
      * @var Password|null
@@ -71,7 +71,7 @@ class CreateUserFormModel
      * @Assert\NotBlank(message="User password repeat is required")
      * @Assert\EqualTo(propertyPath="password", message="This value should be same as password")
      */
-    public $passwordRepeat;
+    public ?Password $passwordRepeat;
 
     /**
      * @var RoleId
@@ -79,7 +79,7 @@ class CreateUserFormModel
      * @Assert\NotBlank(message="Role Id is required")
      * @Assert\Uuid(message="Role Id must be valid uuid format")
      */
-    public $roleId;
+    public ?RoleId $roleId;
 
     /**
      * @var bool
@@ -87,5 +87,19 @@ class CreateUserFormModel
      * @Assert\NotNull(message="Activity is required")
      * @Assert\Type("boolean")
      */
-    public $isActive;
+    public ?bool $isActive;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->firstName = null;
+        $this->lastName = null;
+        $this->email = null;
+        $this->language = null;
+        $this->password = null;
+        $this->passwordRepeat = null;
+        $this->roleId = null;
+        $this->isActive = false;
+    }
 }

@@ -25,12 +25,12 @@ class ProfileReadAction
     /**
      * @var ProfileQueryInterface
      */
-    private $query;
+    private ProfileQueryInterface $query;
 
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $userProvider;
+    private AuthenticatedUserProviderInterface $userProvider;
 
     /**
      * @param ProfileQueryInterface              $query

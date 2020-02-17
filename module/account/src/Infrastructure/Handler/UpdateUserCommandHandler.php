@@ -22,12 +22,12 @@ class UpdateUserCommandHandler
     /**
      * @var UserRepositoryInterface
      */
-    private $repository;
+    private UserRepositoryInterface $repository;
 
     /**
      * @var UserPasswordEncoderInterface
      */
-    private $userPasswordEncoder;
+    private UserPasswordEncoderInterface $userPasswordEncoder;
 
     /**
      * @param UserRepositoryInterface      $repository

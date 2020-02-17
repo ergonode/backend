@@ -24,7 +24,7 @@ class PrivilegeReadAction
     /**
      * @var PrivilegeDictionaryProvider
      */
-    private $provider;
+    private PrivilegeDictionaryProvider $provider;
 
     /**
      * @param PrivilegeDictionaryProvider $provider

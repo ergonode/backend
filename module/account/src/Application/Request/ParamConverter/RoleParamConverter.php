@@ -25,7 +25,7 @@ class RoleParamConverter implements ParamConverterInterface
     /**
      * @var RoleRepositoryInterface
      */
-    private $roleRepository;
+    private RoleRepositoryInterface $roleRepository;
 
     /**
      * @param RoleRepositoryInterface $roleRepository

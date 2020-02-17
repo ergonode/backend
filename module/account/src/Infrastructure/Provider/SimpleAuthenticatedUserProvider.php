@@ -21,7 +21,7 @@ class SimpleAuthenticatedUserProvider implements AuthenticatedUserProviderInterf
     /**
      * @var TokenStorageInterface
      */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     /**
      * @param TokenStorageInterface $tokenStorage

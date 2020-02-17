@@ -22,7 +22,7 @@ class DeleteRoleCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $id;
+    private RoleId $id;
 
     /**
      * @param RoleId $id

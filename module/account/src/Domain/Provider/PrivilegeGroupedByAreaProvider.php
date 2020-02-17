@@ -20,12 +20,12 @@ class PrivilegeGroupedByAreaProvider
     /**
      * @var PrivilegeQueryInterface
      */
-    private $query;
+    private PrivilegeQueryInterface $query;
 
     /**
      * @var PrivilegeTypeResolverInterface
      */
-    private $resolver;
+    private PrivilegeTypeResolverInterface $resolver;
 
     /**
      * @param PrivilegeQueryInterface        $query

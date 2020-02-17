@@ -25,21 +25,21 @@ class RolePrivilegesChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $id;
+    private RoleId $id;
 
     /**
      * @var Privilege[]
      *
      * @JMS\Type("array<Ergonode\Account\Domain\ValueObject\Privilege>")
      */
-    private $from;
+    private array $from;
 
     /**
      * @var Privilege[]
      *
      * @JMS\Type("array<Ergonode\Account\Domain\ValueObject\Privilege>")
      */
-    private $to;
+    private array $to;
 
     /**
      * @param RoleId      $id

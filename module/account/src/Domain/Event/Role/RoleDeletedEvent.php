@@ -23,7 +23,7 @@ class RoleDeletedEvent extends AbstractDeleteEvent
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $id;
+    private RoleId $id;
 
     /**
      * @param RoleId $id
