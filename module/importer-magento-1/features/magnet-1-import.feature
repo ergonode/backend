@@ -2,10 +2,22 @@ Feature: Category module
 
   Scenario: Create Magento 1 CSV Source
     Given current authentication token
-    And the following form parameters are set:
-      | name        | value         |
-      | source_type | magento-1-csv |
+    Given the request body is:
+      """
+      {
+        "type": "magento-1-csv",
+        "test": "test",
+        "languages": [
+          {
+            "store": "pl",
+            "language": "PL"
+          }
+        ]
+      }
+
+      """
     When I request "/api/v1/EN/sources" using HTTP POST
+    And print last api response
     Then created response is received
     And remember response param "id" as "source_id"
     And sleep

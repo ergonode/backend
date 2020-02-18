@@ -41,7 +41,7 @@ class CreateSourceCommand implements DomainCommandInterface
      * @param string   $sourceType
      * @param array    $configuration
      */
-    public function __construct(SourceId $id, string $sourceType, array $configuration)
+    public function __construct(SourceId $id, string $sourceType, array $configuration = [])
     {
         $this->id = $id;
         $this->sourceType = $sourceType;

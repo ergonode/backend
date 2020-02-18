@@ -13,7 +13,6 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Source\CreateSourceCommand;
-use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationModel;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
@@ -26,7 +25,7 @@ use Ergonode\ImporterMagento1\Application\Factory\ImporterMagento1ConfigurationF
 
 /**
  * @Route(
- *     name="ergonode_source_configuration",
+ *     name="ergonode_source_create",
  *     path="/sources",
  *     methods={"POST"},
  * )
@@ -99,13 +98,8 @@ class CreateSourceAction
 
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var array $data */
-                $data = $form->getData();
+                $command = $form->getData();
 
-                $command = new CreateSourceCommand(
-                    SourceId::generate(),
-                    $type,
-                    $data
-                );
                 $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());

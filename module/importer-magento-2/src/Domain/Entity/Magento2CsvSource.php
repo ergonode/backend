@@ -29,14 +29,13 @@ class Magento2CsvSource extends AbstractSource
 
     /**
      * @param SourceId $id
-     * @param string   $filename
+     * @param array    $configuration
      */
-    public function __construct(SourceId $id, string $filename)
+    public function __construct(SourceId $id, array $configuration = [])
     {
         parent::__construct($id);
 
-        $this->configuration['file'] = $filename;
-        $this->configuration = array_merge(self::DEFAULT, $this->configuration);
+        $this->configuration = array_merge(self::DEFAULT,$configuration);
     }
 
     /**
