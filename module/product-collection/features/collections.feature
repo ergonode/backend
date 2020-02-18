@@ -906,10 +906,7 @@ Feature: Product collection module
             "segments": [
               "@segment@"
             ],
-            "skus": [
-              "@product_1_sku@",
-              "@product_2_sku@"
-            ]
+            "skus": "@product_1_sku@ , @product_2_sku@"
       }
       """
     When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST
@@ -967,10 +964,7 @@ Feature: Product collection module
     Given the request body is:
       """
       {
-            "skus": [
-              "@@random_code@@",
-              "@@random_code@@"
-            ]
+            "skus": "@@random_code@@ , @@random_code@@"
       }
       """
     When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST
@@ -982,9 +976,7 @@ Feature: Product collection module
     Given the request body is:
       """
       {
-            "sfesfeskus": [
-              "@product_1_sku@"
-            ]
+            "sfesfeskus": "@product_1_sku@"
       }
       """
     When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST

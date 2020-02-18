@@ -66,6 +66,13 @@ class ProductProductCollectionGridReadAction
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
+     *     name="product",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     description="product ID",
+     *     )
+     * @SWG\Parameter(
      *     name="limit",
      *     in="query",
      *     type="integer",
