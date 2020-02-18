@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
-use Ergonode\Product\Infrastructure\Validator\SkuNotExists;
+use Ergonode\Product\Infrastructure\Validator\SkusValid;
 use Ergonode\Segment\Infrastructure\Validator\ValidSegmentId;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -30,24 +30,17 @@ class ProductCollectionElementMultipleCreateFormModel
     public array $segments;
 
     /**
-     * @var array
+     * @var string|null
      *
-     * @Assert\All({
-     *     @Assert\NotBlank(),
-     *     @Assert\Length(
-     *     max=255,
-     *     maxMessage="Sku is to long, It should have {{ limit }} character or less."
-     * ),
-     *     @SkuNotExists()
-     * })
+     * @SkusValid()
      */
-    public array $skus;
+    public ?string $skus;
 
     /**
      */
     public function __construct()
     {
         $this->segments = [];
-        $this->skus = [];
+        $this->skus = null;
     }
 }

@@ -9,10 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Persistence\Dbal\Query\Decorator;
 
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\DataSetInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ramsey\Uuid\Uuid;
 
@@ -37,6 +40,18 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     {
         $this->query = $query;
     }
+
+    /**
+     * @param Language  $language
+     * @param ProductId $productId
+     *
+     * @return DataSetInterface
+     */
+    public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface
+    {
+        return $this->query->getDataSetByProduct($language, $productId);
+    }
+
 
     /**
      * {@inheritDoc}

@@ -16,12 +16,12 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  */
-class SkuNotExistsValidator extends ConstraintValidator
+class SkusValidValidator extends ConstraintValidator
 {
     /**
      * @var ProductQueryInterface
      */
-    private $query;
+    private ProductQueryInterface $query;
 
     /**
      * SkuExistsValidator constructor.
@@ -34,13 +34,13 @@ class SkuNotExistsValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed                   $value
-     * @param SkuNotExists|Constraint $constraint
+     * @param mixed                $value
+     * @param SkusValid|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof SkuNotExists) {
-            throw new UnexpectedTypeException($constraint, SkuNotExists::class);
+        if (!$constraint instanceof SkusValid) {
+            throw new UnexpectedTypeException($constraint, SkusValid::class);
         }
 
         if (null === $value || '' === $value) {
@@ -52,15 +52,22 @@ class SkuNotExistsValidator extends ConstraintValidator
         }
 
         $value = (string) $value;
+        $skus = array_map('trim', explode(',', $value));
 
-        $sku = new \Ergonode\Product\Domain\ValueObject\Sku($value);
+        foreach ($skus as $sku) {
+            if (!\Ergonode\Product\Domain\ValueObject\Sku::isValid($sku)) {
+                $this->context->buildViolation($constraint->invalidMessage)
+                    ->setParameter('{{ value }}', $sku)
+                    ->addViolation();
+            } else {
+                $result = $this->query->findBySku(new \Ergonode\Product\Domain\ValueObject\Sku($sku));
 
-        $result = $this->query->findBySku($sku);
-
-        if (empty($result)) {
-            $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ value }}', $value)
-                ->addViolation();
+                if (empty($result)) {
+                    $this->context->buildViolation($constraint->notExistsMessage)
+                        ->setParameter('{{ value }}', $sku)
+                        ->addViolation();
+                }
+            }
         }
     }
 }

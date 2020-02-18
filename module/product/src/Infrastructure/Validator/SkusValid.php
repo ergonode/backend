@@ -14,10 +14,15 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class SkuNotExists extends Constraint
+class SkusValid extends Constraint
 {
     /**
      * @var string
      */
-    public string $message = 'Sku {{ value }} doesn \'t exists.';
+    public string $notExistsMessage = 'Sku {{ value }} doesn\'t exist.';
+
+    /**
+     * @var string
+     */
+    public string $invalidMessage = 'Sku {{ value }} is not valid.';
 }
