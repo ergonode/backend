@@ -36,14 +36,14 @@ interface ProductQueryInterface
     public function findBySku(Sku $sku): ?array;
 
     /**
-     * @return array
+     * @return array | null
      */
-    public function getAllIds(): array;
+    public function getAllIds(): ?array;
 
     /**
-     * @return array
+     * @return array | null
      */
-    public function getAllSkus(): array;
+    public function getAllSkus(): ?array;
 
     /**
      * @return array

@@ -69,7 +69,7 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
-    public function getAllIds(): array
+    public function getAllIds(): ?array
     {
         return $this->query->getAllIds();
     }
@@ -93,7 +93,7 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
-    public function getAllSkus(): array
+    public function getAllSkus(): ?array
     {
         return $this->query->getAllSkus();
     }
