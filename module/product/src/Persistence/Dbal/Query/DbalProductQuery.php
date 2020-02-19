@@ -144,7 +144,7 @@ class DbalProductQuery implements ProductQueryInterface
         $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
         if (false === $result) {
-            $result = [];
+            return [];
         }
 
         foreach ($result as &$item) {
@@ -195,7 +195,7 @@ class DbalProductQuery implements ProductQueryInterface
 
         if ($skus) {
             $qb->andWhere($qb->expr()->in('sku', ':skus'))
-                ->setParameter(':skus', $skus, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
+                ->setParameter(':skus', $skus, Connection::PARAM_STR_ARRAY);
         }
 
         $result = $qb->execute()->fetchAll(\PDO::FETCH_COLUMN);
@@ -222,12 +222,12 @@ class DbalProductQuery implements ProductQueryInterface
             ->from(self::SEGMENT_PRODUCT_TABLE);
         if ($segmentIds) {
             $result = $qb->andWhere($qb->expr()->in('segment_id', ':segmentIds'))
-                ->setParameter(':segmentIds', $segmentIds, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY)
+                ->setParameter(':segmentIds', $segmentIds, Connection::PARAM_STR_ARRAY)
                 ->execute()->fetchAll(\PDO::FETCH_COLUMN);
         }
 
         if (!isset($result) || false === $result) {
-            $result = [];
+            return [];
         }
 
         foreach ($result as &$item) {

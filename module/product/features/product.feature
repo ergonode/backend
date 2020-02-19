@@ -87,7 +87,7 @@ Feature: Product module
                  }
       }
       """
-    When I request "/api/v1/EN/collections/types" using HTTP POST
+    When I request "/api/v1/EN/collections/type" using HTTP POST
     Then created response is received
     And remember response param "id" as "product_collection_type"
 

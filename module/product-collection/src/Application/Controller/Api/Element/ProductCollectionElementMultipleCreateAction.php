@@ -123,12 +123,14 @@ class ProductCollectionElementMultipleCreateAction
                 /** @var ProductCollectionElementMultipleCreateFormModel $data */
                 $data = $form->getData();
 
+                $productIds = $this->productQuery->findProductIdsBySegments($data->segments);
+
                 if ($data->skus) {
                     $skus = array_map('trim', explode(',', $data->skus));
                     $productIdsFromSkus = $this->productQuery->findProductIdsBySkus($skus);
+                    $productIds = array_unique(array_merge($productIds, $productIdsFromSkus));
                 }
-                $productIdsBySegments = $this->productQuery->findProductIdsBySegments($data->segments);
-                $productIds = array_unique(array_merge($productIdsBySegments, $productIdsFromSkus));
+
                 $command = new AddMultipleProductCollectionElementCommand(
                     $productCollection->getId(),
                     $productIds

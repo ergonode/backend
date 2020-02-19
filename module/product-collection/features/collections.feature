@@ -145,7 +145,7 @@ Feature: Product collection module
 
 
   Scenario: Create product collection type (not authorized)
-    When I request "/api/v1/EN/collections/types" using HTTP POST
+    When I request "/api/v1/EN/collections/type" using HTTP POST
     Then unauthorized response is received
 
   Scenario: Create first product collection type
@@ -160,7 +160,7 @@ Feature: Product collection module
                  }
       }
       """
-    When I request "/api/v1/EN/collections/types" using HTTP POST
+    When I request "/api/v1/EN/collections/type" using HTTP POST
     Then created response is received
     And remember response param "id" as "product_collection_type_1"
 
@@ -176,7 +176,7 @@ Feature: Product collection module
                  }
       }
       """
-    When I request "/api/v1/EN/collections/types" using HTTP POST
+    When I request "/api/v1/EN/collections/type" using HTTP POST
     Then created response is received
     And remember response param "id" as "product_collection_type_2"
 
@@ -192,7 +192,7 @@ Feature: Product collection module
                  }
       }
       """
-    When I request "/api/v1/EN/collections/types" using HTTP POST
+    When I request "/api/v1/EN/collections/type" using HTTP POST
     Then created response is received
     And remember response param "id" as "product_collection_type_3"
 
@@ -204,7 +204,7 @@ Feature: Product collection module
            "code": "TEXT_@@random_code@@"
       }
       """
-    When I request "/api/v1/EN/collections/types" using HTTP POST
+    When I request "/api/v1/EN/collections/type" using HTTP POST
     Then created response is received
 
   Scenario: Create product collection type (wrong not correct code)
@@ -215,7 +215,7 @@ Feature: Product collection module
            "code": "TEXT/. .,.]_@@random_code@@"
       }
       """
-    When I request "/api/v1/EN/collections/types" using HTTP POST
+    When I request "/api/v1/EN/collections/type" using HTTP POST
     Then validation error response is received
 
   Scenario: Create product collection type (wrong not correct name)
@@ -230,16 +230,16 @@ Feature: Product collection module
                  }
       }
       """
-    When I request "/api/v1/EN/collections/types" using HTTP POST
+    When I request "/api/v1/EN/collections/type" using HTTP POST
     Then validation error response is received
 
   Scenario: Update product collection type (not authorized)
-    When I request "/api/v1/EN/collections/types/@product_collection_type_1@" using HTTP PUT
+    When I request "/api/v1/EN/collections/type/@product_collection_type_1@" using HTTP PUT
     Then unauthorized response is received
 
   Scenario: Update product collection type (not found)
     Given current authentication token
-    When I request "/api/v1/EN/collections/types/@@static_uuid@@" using HTTP PUT
+    When I request "/api/v1/EN/collections/type/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
   Scenario: Update product collection type (no content)
@@ -249,7 +249,7 @@ Feature: Product collection module
       {
       }
       """
-    When I request "/api/v1/EN/collections/types/@product_collection_type_1@" using HTTP PUT
+    When I request "/api/v1/EN/collections/type/@product_collection_type_1@" using HTTP PUT
     Then validation error response is received
 
   Scenario: Update product collection type
@@ -263,21 +263,21 @@ Feature: Product collection module
                  }
       }
       """
-    When I request "/api/v1/EN/collections/types/@product_collection_type_1@" using HTTP PUT
+    When I request "/api/v1/EN/collections/type/@product_collection_type_1@" using HTTP PUT
     Then the response code is 204
 
   Scenario: Request product collection type (not authorized)
-    When I request "/api/v1/EN/collections/types/@product_collection_type_1@" using HTTP PUT
+    When I request "/api/v1/EN/collections/type/@product_collection_type_1@" using HTTP PUT
     Then unauthorized response is received
 
   Scenario: Request product collection type (not found)
     Given current authentication token
-    When I request "/api/v1/EN/collections/types/@@static_uuid@@" using HTTP GET
+    When I request "/api/v1/EN/collections/type/@@static_uuid@@" using HTTP GET
     Then not found response is received
 
   Scenario: Request product collection type
     Given current authentication token
-    When I request "/api/v1/EN/collections/types/@product_collection_type_1@" using HTTP GET
+    When I request "/api/v1/EN/collections/type/@product_collection_type_1@" using HTTP GET
     Then the response code is 200
     And the response body matches:
     """
@@ -285,12 +285,12 @@ Feature: Product collection module
     """
 
   Scenario: Get product collection type (not authorized)
-    When I request "/api/v1/EN/collections/types" using HTTP GET
+    When I request "/api/v1/EN/collections/type" using HTTP GET
     Then unauthorized response is received
 
   Scenario: Get product collection type (order by code)
     Given current authentication token
-    When I request "/api/v1/EN/collections/types?field=code" using HTTP GET
+    When I request "/api/v1/EN/collections/type?field=code" using HTTP GET
     Then grid response is received
     And the response body matches:
     """
@@ -303,7 +303,7 @@ Feature: Product collection module
 
   Scenario: Get product collection type (order by name)
     Given current authentication token
-    When I request "/api/v1/EN/collections/types?field=name" using HTTP GET
+    When I request "/api/v1/EN/collections/type?field=name" using HTTP GET
     Then grid response is received
     And the response body matches:
     """
@@ -316,7 +316,7 @@ Feature: Product collection module
 
   Scenario: Get product collection type (filter by code)
     Given current authentication token
-    When I request "/api/v1/EN/collections/types?limit=25&offset=0&filter=code=text_" using HTTP GET
+    When I request "/api/v1/EN/collections/type?limit=25&offset=0&filter=code=text_" using HTTP GET
     Then grid response is received
     And the response body matches:
     """
@@ -325,7 +325,7 @@ Feature: Product collection module
 
   Scenario: Get product collection type (filter by null code)
     Given current authentication token
-    When I request "/api/v1/EN/collections/types?limit=25&offset=0&filter=code=" using HTTP GET
+    When I request "/api/v1/EN/collections/type?limit=25&offset=0&filter=code=" using HTTP GET
     Then grid response is received
     And the response body matches:
     """
@@ -334,12 +334,12 @@ Feature: Product collection module
 
 
   Scenario: Get product collection type (not authorized)
-    When I request "/api/v1/EN/collections/types" using HTTP GET
+    When I request "/api/v1/EN/collections/type" using HTTP GET
     Then unauthorized response is received
 
   Scenario: Get product collection type (filter by name)
     Given current authentication token
-    When I request "/api/v1/EN/collections/types?limit=25&offset=0&filter=name=Name" using HTTP GET
+    When I request "/api/v1/EN/collections/type?limit=25&offset=0&filter=name=Name" using HTTP GET
     Then grid response is received
     And the response body matches:
     """
@@ -348,7 +348,7 @@ Feature: Product collection module
 
   Scenario: Get product collection type (order ASC)
     Given current authentication token
-    When I request "/api/v1/EN/collections/types?limit=50&offset=0&order=ASC" using HTTP GET
+    When I request "/api/v1/EN/collections/type?limit=50&offset=0&order=ASC" using HTTP GET
     Then grid response is received
     And the response body matches:
     """
@@ -357,7 +357,7 @@ Feature: Product collection module
 
   Scenario: Get products collection type  (order DESC)
     Given current authentication token
-    When I request "/api/v1/EN/collections/types?limit=50&offset=0&order=DESC" using HTTP GET
+    When I request "/api/v1/EN/collections/type?limit=50&offset=0&order=DESC" using HTTP GET
     Then grid response is received
     And the response body matches:
     """
@@ -366,22 +366,22 @@ Feature: Product collection module
 
   Scenario: Delete product collection type (not found)
     Given current authentication token
-    When I request "/api/v1/EN/collections/types/@@static_uuid@@" using HTTP DELETE
+    When I request "/api/v1/EN/collections/type/@@static_uuid@@" using HTTP DELETE
     Then not found response is received
 
   Scenario: Delete product collection type (not authorized)
-    When I request "/api/v1/EN/collections/types/@product_collection_type_2@" using HTTP DELETE
+    When I request "/api/v1/EN/collections/type/@product_collection_type_2@" using HTTP DELETE
     Then unauthorized response is received
 
   Scenario: Delete product collection type
     Given current authentication token
-    When I request "/api/v1/EN/collections/types/@product_collection_type_2@" using HTTP DELETE
+    When I request "/api/v1/EN/collections/type/@product_collection_type_2@" using HTTP DELETE
     Then empty response is received
 
 
   Scenario: Request product collection type after deletion
     Given current authentication token
-    When I request "/api/v1/EN/collections/types/@product_collection_type_2@" using HTTP GET
+    When I request "/api/v1/EN/collections/type/@product_collection_type_2@" using HTTP GET
     Then not found response is received
 
   Scenario: Create product collection (not authorized)

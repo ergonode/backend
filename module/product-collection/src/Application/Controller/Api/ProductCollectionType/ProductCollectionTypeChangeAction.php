@@ -30,7 +30,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_type_change",
- *     path="/collections/types/{type}",
+ *     path="/collections/type/{type}",
  *     methods={"PUT"},
  *     requirements={"type"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
