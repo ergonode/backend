@@ -32,6 +32,11 @@ class CreateSourceCommand implements DomainCommandInterface
     private string $sourceType;
 
     /**
+     * @var string
+     */
+    private string $name;
+
+    /**
      * @var array
      */
     private array $configuration;
@@ -39,12 +44,14 @@ class CreateSourceCommand implements DomainCommandInterface
     /**
      * @param SourceId $id
      * @param string   $sourceType
+     * @param string   $name
      * @param array    $configuration
      */
-    public function __construct(SourceId $id, string $sourceType, array $configuration = [])
+    public function __construct(SourceId $id, string $sourceType, string $name, array $configuration = [])
     {
         $this->id = $id;
         $this->sourceType = $sourceType;
+        $this->name = $name;
         $this->configuration = $configuration;
     }
 
@@ -54,6 +61,14 @@ class CreateSourceCommand implements DomainCommandInterface
     public function getId(): SourceId
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**

@@ -22,6 +22,9 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Importer\Domain\Command\Import\StartImportCommand;
+use Ergonode\Importer\Domain\Command\Source\UploadFileCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 /**
  * @Route(
@@ -112,9 +115,9 @@ class ImportUploadAction
             /** @var UploadModel $data */
             $data = $form->getData();
             $file = $this->uploadService->upload($uploadModel->upload);
-            $command = new CreateSourceCommand(
+            $command = new UploadFileCommand(
+                new SourceId($data->sourceId),
                 $file->getFilename(),
-                $data->sourceType
             );
             $this->commandBus->dispatch($command);
 

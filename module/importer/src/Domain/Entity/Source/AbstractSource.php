@@ -20,17 +20,18 @@ abstract class AbstractSource
     protected SourceId $id;
 
     /**
-     * @var array $configuration
+     * @var string
      */
-    protected array $configuration;
+    protected string $name;
 
     /**
      * @param SourceId $id
+     * @param string   $name
      */
-    public function __construct(SourceId $id)
+    public function __construct(SourceId $id, string $name)
     {
         $this->id = $id;
-        $this->configuration = [];
+        $this->name = $name;
     }
 
     /**
@@ -44,13 +45,13 @@ abstract class AbstractSource
     /**
      * @return string
      */
-    abstract public function getType(): string;
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getConfiguration(): array
-    {
-        return $this->configuration;
-    }
+    abstract public function getType(): string;
 }

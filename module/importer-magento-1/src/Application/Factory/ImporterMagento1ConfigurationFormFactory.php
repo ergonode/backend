@@ -37,8 +37,6 @@ class ImporterMagento1ConfigurationFormFactory
      */
     public function create(string $type = null): FormInterface
     {
-        $model = new ImporterMagento1ConfigurationModel();
-
-        return $this->formFactory->create(ImporterMagento1ConfigurationForm::class, $model);
+        return $this->formFactory->create(ImporterMagento1ConfigurationForm::class);
     }
 }

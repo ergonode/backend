@@ -12,10 +12,11 @@ namespace Ergonode\Importer\Infrastructure\Handler\Source;
 use Ergonode\Importer\Domain\Command\Source\CreateSourceCommand;
 use Ergonode\Importer\Domain\Provider\SourceFactoryProvider;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
+use Ergonode\Importer\Domain\Command\Source\UploadFileCommand;
 
 /**
  */
-class CreateSourceCommandHandler
+class UpdateFileCommandHandler
 {
     /**
      * @var SourceFactoryProvider
@@ -38,11 +39,11 @@ class CreateSourceCommandHandler
     }
 
     /**
-     * @param CreateSourceCommand $command
+     * @param UploadFileCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(CreateSourceCommand $command)
+    public function __invoke(UploadFileCommand $command)
     {
         $factory = $this->provider->provide($command->getSourceType());
 

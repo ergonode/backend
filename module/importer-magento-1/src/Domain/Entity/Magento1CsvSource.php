@@ -11,6 +11,8 @@ namespace Ergonode\ImporterMagento1\Domain\Entity;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
+use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -29,14 +31,43 @@ class Magento1CsvSource extends AbstractSource
     ];
 
     /**
-     * @param SourceId $id
-     * @param array    $configuration
+     * @var Language[]
+     *
+     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
      */
-    public function __construct(SourceId $id, array $configuration = [])
-    {
-        parent::__construct($id);
+    private array $languages;
 
-        $this->configuration = array_merge(self::DEFAULT, $configuration);
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
+    private string $host;
+
+    /**
+     * @var Language
+     *
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
+     */
+    private Language $defaultLanguage;
+
+    /**
+     * @param SourceId $id
+     * @param string   $name
+     * @param Language $defaultLanguage
+     * @param string   $host
+     * @param array    $languages
+     */
+    public function __construct(SourceId $id, string $name, Language $defaultLanguage, string $host, array $languages = [])
+    {
+        parent::__construct($id, $name);
+        Assert::allIsInstanceOf($languages, Language::class);
+        Assert::allString(array_keys($languages));
+        Assert::notEmpty($host);
+
+        $this->languages = $languages;
+        $this->host = $host;
+        $this->defaultLanguage = $defaultLanguage;
     }
 
     /**
@@ -50,17 +81,9 @@ class Magento1CsvSource extends AbstractSource
     /**
      * @return string
      */
-    public function getFile(): string
-    {
-        return $this->configuration['file'];
-    }
-
-    /**
-     * @return string
-     */
     public function getDelimiter(): string
     {
-        return $this->configuration[self::DELIMITER];
+        return self::DELIMITER;
     }
 
     /**
@@ -68,7 +91,7 @@ class Magento1CsvSource extends AbstractSource
      */
     public function getEnclosure(): string
     {
-        return $this->configuration[self::ENCLOSURE];
+        return self::ENCLOSURE;
     }
 
     /**
@@ -76,7 +99,7 @@ class Magento1CsvSource extends AbstractSource
      */
     public function getEscape(): string
     {
-        return $this->configuration[self::ESCAPE];
+        return self::ESCAPE;
     }
 
     /**
@@ -84,7 +107,7 @@ class Magento1CsvSource extends AbstractSource
      */
     public function getDefaultLanguage(): Language
     {
-        return new Language(Language::PL);
+        return $this->defaultLanguage;
     }
 
     /**
@@ -92,21 +115,15 @@ class Magento1CsvSource extends AbstractSource
      */
     public function getLanguages(): array
     {
-        return [
-            'poland_pl' => new Language(Language::PL),
-            'france_fr' => new Language(Language::FR),
-            'germany_de' => new Language(Language::DE),
-            'romania_ro' => new Language(Language::RO),
-            'turkey_tr' => new Language(Language::TR),
-        ];
+       return $this->languages;
     }
 
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getHost(): string
     {
-        return 'https://husse-eu.global.ssl.fastly.net/media/catalog/product/cache/8/image/9df78eab33525d08d6e5fb8d27136e95';
+        return $this->host;
     }
 
     /**

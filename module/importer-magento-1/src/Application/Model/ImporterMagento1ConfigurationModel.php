@@ -10,6 +10,7 @@ namespace Ergonode\ImporterMagento1\Application\Model;
 
 use Ergonode\ImporterMagento1\Application\Model\Type\LanguageMapModel;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
@@ -20,7 +21,20 @@ class ImporterMagento1ConfigurationModel
      *
      *@Assert\Length(min=2)
      */
-    public ?string $test;
+    public ?string $name;
+
+    /**
+     * @var string|null
+     *
+     *@Assert\NotBlank()
+     *@Assert\Url()
+     */
+    public ?string $host;
+
+    /**
+     * @var Language|null
+     */
+    public ?Language $defaultLanguage;
 
     /**
      * @var LanguageMapModel[]
@@ -34,6 +48,8 @@ class ImporterMagento1ConfigurationModel
     public function __construct()
     {
         $this->languages = [];
-        $this->test = null;
+        $this->name = null;
+        $this->host = null;
+        $this->defaultLanguage = null;
     }
 }

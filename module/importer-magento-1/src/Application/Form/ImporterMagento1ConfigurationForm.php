@@ -21,6 +21,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Ergonode\ImporterMagento1\Application\Form\Type\LanguageMapType;
 use Symfony\Component\Validator\Constraints\Length;
+use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationModel;
+use Ergonode\Core\Application\Form\Type\LanguageType;
+use Faker\Provider\Text;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Url;
 
 /**
  */
@@ -35,11 +40,23 @@ class ImporterMagento1ConfigurationForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('test',
+            ->add(
+                'name',
+                TextType::class
+            )
+            ->add(
+                'host',
                 TextType::class,
                 [
-                    'constraints' => new Length(['min' => 2])
+                    'constraints' => [
+                        new NotBlank(),
+                        new Url(),
+                    ]
                 ]
+            )
+            ->add(
+                'default_language',
+                LanguageType::class,
             )
             ->add(
                 'languages',
@@ -51,26 +68,33 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                 ]
             );
 
-        $builder ->addEventListener(FormEvents::SUBMIT, static function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, static function (FormEvent $event) {
 
+            /** @var array $data */
             $data = $event->getData();
 
             if (!$data) {
                 return;
             }
 
+            $languages = [];
+            foreach ($data['languages'] as $language) {
+                $languages[$language->store] = $language->language->getCode();
+            }
+            $language = $data['default_language']->getCode();
+            $name = $data['name'];
+            $host = $data['host'];
+
             $data = new CreateSourceCommand(
                 SourceId::generate(),
                 Magento1CsvSource::TYPE,
-                ['test' => $data->test]
+                $name,
+                ['languages' => $languages, 'defaultLanguage' => $language, 'host' => $host]
             );
 
             $event->setData($data);
         });
-
     }
-
-
 
     /**
      * @param OptionsResolver $resolver

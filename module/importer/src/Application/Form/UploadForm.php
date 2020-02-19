@@ -32,10 +32,10 @@ class UploadForm extends AbstractType
                 FileType::class
             )
             ->add(
-                'source_type',
+                'source_id',
                 TextType::class,
                 [
-                    'property_path' => 'sourceType',
+                    'property_path' => 'sourceId',
                 ]
             );
     }

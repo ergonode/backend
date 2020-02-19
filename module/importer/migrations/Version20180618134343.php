@@ -27,7 +27,8 @@ final class Version20180618134343 extends AbstractErgonodeMigration
 
         $this->addSql('
             CREATE TABLE importer.source (
-                id UUID NOT NULL,              
+                id UUID NOT NULL,
+                name VARCHAR(255) NOT NULL,                  
                 type VARCHAR(255) NOT NULL,                
                 configuration JSON NOT NULL,                
                 created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,

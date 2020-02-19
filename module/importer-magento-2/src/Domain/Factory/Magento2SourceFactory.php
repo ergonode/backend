@@ -29,11 +29,12 @@ class Magento2SourceFactory implements SourceFactoryInterface
 
     /**
      * @param SourceId $sourceId
+     * @param string   $name
      * @param array    $configuration
      *
      * @return AbstractSource
      */
-    public function create(SourceId $sourceId, array $configuration = []): AbstractSource
+    public function create(SourceId $sourceId, string $name, array $configuration = []): AbstractSource
     {
         return new Magento2CsvSource($sourceId, $configuration);
     }
