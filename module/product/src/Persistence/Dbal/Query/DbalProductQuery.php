@@ -29,7 +29,6 @@ class DbalProductQuery implements ProductQueryInterface
     private const VALUE_TABLE = 'public.product_value';
     private const SEGMENT_PRODUCT_TABLE = 'public.segment_product';
     private const PRODUCT_COLLECTION_TABLE = 'public.collection';
-    private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'public.collection_element';
 
     /**
      * @var Connection
@@ -172,7 +171,7 @@ class DbalProductQuery implements ProductQueryInterface
         $result = $queryBuilder->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
         if (false === $result) {
-            $result = [];
+            return [];
         }
 
         foreach ($result as &$item) {
@@ -200,7 +199,7 @@ class DbalProductQuery implements ProductQueryInterface
 
         $result = $qb->execute()->fetchAll(\PDO::FETCH_COLUMN);
         if (false === $result) {
-            $result = [];
+            return [];
         }
 
         foreach ($result as &$item) {
