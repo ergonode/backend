@@ -29,7 +29,7 @@ class CategoryTreeTest extends TestCase
     /**
      * @var string
      */
-    private $code;
+    private string $code;
 
     /**
      * @var TranslatableString|MockObject

@@ -20,7 +20,7 @@ class UpdateTreeCommandHandler
     /**
      * @var TreeRepositoryInterface
      */
-    private $repository;
+    private TreeRepositoryInterface $repository;
 
     /**
      * UpdateTreeCommandHandler constructor.

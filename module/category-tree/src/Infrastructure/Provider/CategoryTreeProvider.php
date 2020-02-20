@@ -21,7 +21,7 @@ class CategoryTreeProvider
     /**
      * @var TreeRepositoryInterface
      */
-    private $repository;
+    private TreeRepositoryInterface $repository;
 
     /**
      * @param TreeRepositoryInterface $repository

@@ -29,17 +29,17 @@ class CategoryTreeGridReadAction
     /**
      * @var TreeQueryInterface
      */
-    private $query;
+    private TreeQueryInterface $query;
 
     /**
      * @var TreeGrid
      */
-    private $grid;
+    private TreeGrid $grid;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer       $gridRenderer

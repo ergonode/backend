@@ -22,12 +22,12 @@ class CategoryTreeCreatedEventProjector
     /**
      * @var Connection
      */
-    protected $connection;
+    protected Connection $connection;
 
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * @param Connection          $connection

@@ -24,21 +24,21 @@ class CategoryTreeCategoryAddedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
-    private $id;
+    private CategoryTreeId $id;
 
     /**
      * @var CategoryId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
-    private $categoryId;
+    private CategoryId $categoryId;
 
     /**
      * @var CategoryId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
-    private $parentId;
+    private ?CategoryId $parentId;
 
     /**
      * @param CategoryTreeId  $id
