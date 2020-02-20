@@ -53,8 +53,8 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
      */
     public function process(Import $import, array $products, Transformer $transformer, Magento1CsvSource $source): void
     {
-        if(!$source->importMultimedia()) {
-            return ;
+        if (!$source->import(Magento1CsvSource::MULTIMEDIA)) {
+            return;
         }
 
         $cacheDir = sprintf('%s/import-%s', $this->kernel->getCacheDir(), $import->getId()->getValue());
@@ -64,7 +64,7 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
             if (array_key_exists('image', $default) && $default['image'] !== null) {
                 $images = explode(',', $default['image']);
                 foreach ($images as $image) {
-                    $result[$image] = $source->getUrl() . $image;
+                    $result[$image] = $source->getHost() . $image;
                 }
             }
         }

@@ -40,6 +40,6 @@ class JoinConverterMapper implements ConverterMapperInterface
             $fields[sprintf('<%s>', $key)] = $value;
         }
 
-        return str_replace( array_keys($fields), $fields, $converter->getPattern());
+        return str_replace(array_keys($fields), $fields, $converter->getPattern());
     }
 }

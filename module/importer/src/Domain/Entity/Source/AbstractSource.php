@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Entity\Source;
 
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -16,11 +17,15 @@ abstract class AbstractSource
 {
     /**
      * @var SourceId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
      */
     protected SourceId $id;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     protected string $name;
 

@@ -46,10 +46,10 @@ class UpdateProductCommand implements DomainCommandInterface
      * @param array     $categories
      * @param array     $attributes
      */
-    public function __construct(ProductId $productId, array $categories = [],  array $attributes = [])
+    public function __construct(ProductId $productId, array $categories = [], array $attributes = [])
     {
-        Assert::allIsInstanceOf($categories, CategoryId::class);
-        Assert::allIsInstanceOf($attributes,  ValueInterface::class);
+        Assert::allIsInstanceOf($categories,CategoryId::class);
+        Assert::allIsInstanceOf($attributes,ValueInterface::class);
 
         $this->id = $productId;
         $this->categories = $categories;

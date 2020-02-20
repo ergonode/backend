@@ -98,7 +98,6 @@ class ProductCreateAction
             $data = $form->getData();
             $categories = [];
             foreach ($data->categories as $category) {
-
                 $categories[] = new CategoryId($category);
             }
             $command = new CreateProductCommand(

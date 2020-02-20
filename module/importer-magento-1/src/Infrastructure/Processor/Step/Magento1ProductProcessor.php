@@ -61,7 +61,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
             $this->commandBus->dispatch($command);
         }
 
-        echo print_r(sprintf('SEND %s Products', $i), true).PHP_EOL;
+        echo print_r(sprintf('SEND %s Products', $i), true) . PHP_EOL;
     }
 
     /**
@@ -105,8 +105,8 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                     if ($type === SelectAttribute::TYPE || $type === MultiSelectAttribute::TYPE) {
                         $record->setValue($field, new Stringvalue($value));
                     } elseif ($type === ImageAttribute::TYPE) {
-                        if ($source->importMultimedia()) {
-                            $multimediaId = MultimediaId::fromKey($source->getUrl().$value);
+                        if ($source->import(Magento1CsvSource::MULTIMEDIA)) {
+                            $multimediaId = MultimediaId::fromKey($source->getHost() . $value);
                             $record->setValue($field, new Stringvalue($multimediaId->getValue()));
                         }
                     } elseif ($isMultilingual) {
@@ -133,6 +133,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                 $record->set($field, new StringValue($value));
             }
         }
+
         return $record;
     }
 }

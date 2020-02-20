@@ -12,5 +12,4 @@ namespace Ergonode\Importer\Domain\Entity\Source;
  */
 interface SourceConfigurationInterface
 {
-
 }

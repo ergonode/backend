@@ -54,7 +54,6 @@ class CreateProductCommand implements DomainCommandInterface
      * @param Sku       $sku
      * @param array     $categories
      * @param array     $attributes
-     *
      */
     public function __construct(ProductId $id, Sku $sku, array $categories = [], array $attributes = [])
     {

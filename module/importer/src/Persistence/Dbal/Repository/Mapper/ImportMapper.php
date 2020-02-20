@@ -27,6 +27,7 @@ class ImportMapper
             'status' => $import->getStatus(),
             'source_id' => $import->getSourceId()->getValue(),
             'transformer_id' => $import->getTransformerId()->getValue(),
+            'file' => $import->getFile(),
         ];
     }
 }

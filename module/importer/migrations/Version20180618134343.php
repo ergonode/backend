@@ -43,6 +43,7 @@ final class Version20180618134343 extends AbstractErgonodeMigration
                 status VARCHAR(16) NOT NULL,
                 source_id UUID NOT NULL,
                 transformer_id UUID NOT NULL,
+                file VARCHAR(255) NOT NULL,
                 created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                 updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                 started_at TIMESTAMP WITHOUT TIME ZONE,

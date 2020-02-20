@@ -9,10 +9,10 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento1\Application\Form;
 
 use Ergonode\Importer\Domain\Command\Source\CreateSourceCommand;
+use Ergonode\ImporterMagento1\Application\Form\Type\ImportStepType;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -20,10 +20,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Ergonode\ImporterMagento1\Application\Form\Type\LanguageMapType;
-use Symfony\Component\Validator\Constraints\Length;
-use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationModel;
 use Ergonode\Core\Application\Form\Type\LanguageType;
-use Faker\Provider\Text;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Url;
 
@@ -31,8 +28,6 @@ use Symfony\Component\Validator\Constraints\Url;
  */
 class ImporterMagento1ConfigurationForm extends AbstractType
 {
-
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -57,7 +52,7 @@ class ImporterMagento1ConfigurationForm extends AbstractType
             ->add(
                 'default_language',
                 LanguageType::class,
-            )
+                )
             ->add(
                 'languages',
                 CollectionType::class,
@@ -66,6 +61,10 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                     'allow_delete' => true,
                     'entry_type' => LanguageMapType::class,
                 ]
+            )
+            ->add(
+                'import',
+                ImportStepType::class
             );
 
         $builder->addEventListener(FormEvents::SUBMIT, static function (FormEvent $event) {
@@ -85,11 +84,13 @@ class ImporterMagento1ConfigurationForm extends AbstractType
             $name = $data['name'];
             $host = $data['host'];
 
+            $import = (array)$data['import'];
+
             $data = new CreateSourceCommand(
                 SourceId::generate(),
                 Magento1CsvSource::TYPE,
                 $name,
-                ['languages' => $languages, 'defaultLanguage' => $language, 'host' => $host]
+                ['import' => $import, 'languages' => $languages, 'defaultLanguage' => $language, 'host' => $host]
             );
 
             $event->setData($data);

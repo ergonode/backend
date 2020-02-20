@@ -89,7 +89,7 @@ class UpdateProductCommandHandler
 
         foreach ($command->getAttributes() as $code => $attribute) {
             $attributeCode = new AttributeCode($code);
-            if($product->hasAttribute($attributeCode)) {
+            if ($product->hasAttribute($attributeCode)) {
                 $product->changeAttribute($attributeCode, $attribute);
             } else {
                 $product->addAttribute($attributeCode, $attribute);

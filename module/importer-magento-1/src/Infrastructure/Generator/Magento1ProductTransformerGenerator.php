@@ -10,17 +10,12 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Generator;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
-use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Infrastructure\Converter\TextConverter;
-use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Transformer\Infrastructure\Converter\MultilingualTextConverter;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
@@ -30,19 +25,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 class Magento1ProductTransformerGenerator implements TransformerGeneratorStrategyInterface
 {
     /**
-     * @var AttributeRepositoryInterface
-     */
-    private AttributeRepositoryInterface $repository;
-
-    /**
-     * @param AttributeRepositoryInterface $repository
-     */
-    public function __construct(AttributeRepositoryInterface $repository)
-    {
-        $this->repository = $repository;
-    }
-
-    /**
      * @return string
      */
     public function getType(): string
@@ -51,9 +33,9 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
     }
 
     /**
-     * @param TransformerId      $transformerId
-     * @param string             $name
-     * @param ConfigurationModel $configuration
+     * @param TransformerId  $transformerId
+     * @param string         $name
+     * @param AbstractSource $source
      *
      * @return Transformer
      *
@@ -62,7 +44,7 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
     public function generate(
         TransformerId $transformerId,
         string $name,
-        ConfigurationModel $configuration
+        AbstractSource $source
     ): Transformer {
         $transformer = new Transformer($transformerId, $name, $name);
 

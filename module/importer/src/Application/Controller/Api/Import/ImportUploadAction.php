@@ -15,15 +15,14 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Application\Form\UploadForm;
 use Ergonode\Importer\Application\Model\Form\UploadModel;
 use Ergonode\Importer\Application\Service\Upload\UploadServiceInterface;
-use Ergonode\Importer\Domain\Command\Source\CreateSourceCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Importer\Domain\Command\Import\StartImportCommand;
-use Ergonode\Importer\Domain\Command\Source\UploadFileCommand;
+use Ergonode\Importer\Domain\Command\Import\UploadFileCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 /**
@@ -116,6 +115,7 @@ class ImportUploadAction
             $data = $form->getData();
             $file = $this->uploadService->upload($uploadModel->upload);
             $command = new UploadFileCommand(
+                ImportId::generate(),
                 new SourceId($data->sourceId),
                 $file->getFilename(),
             );

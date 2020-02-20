@@ -53,6 +53,7 @@ class ImportFactory
             'status' => new ImportStatus($record['status']),
             'sourceId' => new SourceId($record['source_id']),
             'transformerId' => new TransformerId($record['transformer_id']),
+            'file' => $record['file'],
         ];
     }
 }

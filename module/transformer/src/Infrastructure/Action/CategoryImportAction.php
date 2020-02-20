@@ -63,7 +63,7 @@ class CategoryImportAction implements ImportActionInterface
         $categoryId = CategoryId::fromCode($code->getValue());
         $category = $this->categoryRepository->load($categoryId);
 
-        if(!$category) {
+        if (!$category) {
             $command = new CreateCategoryCommand($code, $name);
         } else {
             $command = new UpdateCategoryCommand($categoryId, $name);

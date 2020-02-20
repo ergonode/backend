@@ -32,7 +32,6 @@ class CreateAttributeCommandTest extends TestCase
      * @param bool               $multilingual
      * @param array              $parameters
      * @param array              $options
-     * @param bool               $system
      *
      * @dataProvider dataProvider
      *

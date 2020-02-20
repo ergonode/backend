@@ -20,7 +20,7 @@ interface Magento1ProcessorStepInterface
      * @param Import            $import
      * @param string[]          $rows
      * @param Transformer       $transformer
-     * @param Magento1CsvSource $source $source
+     * @param Magento1CsvSource $source
      */
     public function process(Import $import, array $rows, Transformer $transformer, Magento1CsvSource $source): void;
 }

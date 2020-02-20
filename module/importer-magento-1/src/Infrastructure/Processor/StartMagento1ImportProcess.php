@@ -8,11 +8,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
+use Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor;
 use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
 use Webmozart\Assert\Assert;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
@@ -85,8 +85,6 @@ class StartMagento1ImportProcess
      */
     public function start(Import $import): void
     {
-        $defaultLanguage = new Language(Language::EN);
-
         try {
             /** @var Magento1CsvSource $source */
             $source = $this->sourceRepository->load($import->getSourceId());
@@ -96,15 +94,21 @@ class StartMagento1ImportProcess
 
             Assert::notNull($transformer);
 
-            $file = $source->getFile();
-            $filename = \sprintf('%s%s', $this->directory, $file);
+            $filename = \sprintf('%s%s', $this->directory, $import->getFile());
             $extension = pathinfo($filename, PATHINFO_EXTENSION);
             $fileReader = $this->provider->provide($extension);
 
             $products = [];
             $sku = null;
             $type = null;
-            $fileReader->open($filename, $source->getConfiguration());
+
+            $configuration = [
+                CsvReaderProcessor::DELIMITER => $source->getDelimiter(),
+                CsvReaderProcessor::ENCLOSURE => $source->getEnclosure(),
+                CsvReaderProcessor::ESCAPE => $source->getEscape(),
+            ];
+
+            $fileReader->open($filename, $configuration);
 
             foreach ($fileReader->read() as $row) {
                 if ($row['sku']) {
@@ -120,7 +124,7 @@ class StartMagento1ImportProcess
                     foreach ($row as $field => $value) {
                         if ($value !== '' && $value !== null) {
                             if ($products[$sku][$code][$field] !== '') {
-                                $products[$sku][$code][$field] .= ','.$value;
+                                $products[$sku][$code][$field] .= ',' . $value;
                             }
                         }
                     }
@@ -139,9 +143,7 @@ class StartMagento1ImportProcess
                 $step->process($import, $result, $transformer, $source);
             }
         } catch (\Throwable $exception) {
-            echo $exception->getMessage().PHP_EOL;
-            echo print_r($exception->getTraceAsString(), true);
-            die;
+
         }
     }
 
@@ -159,7 +161,7 @@ class StartMagento1ImportProcess
                     if (!array_key_exists($key, $product)) {
                         $product[$key] = $value;
                     } else {
-                        $product[$key] .= ','.$value;
+                        $product[$key] .= ',' . $value;
                     }
                 }
             }

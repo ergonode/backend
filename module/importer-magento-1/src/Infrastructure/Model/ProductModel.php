@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Model;
 
-
 /**
  */
 class ProductModel

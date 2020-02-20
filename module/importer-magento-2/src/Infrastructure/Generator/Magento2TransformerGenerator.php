@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento2\Infrastructure\Generator;
 
-use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Infrastructure\Converter\TextConverter;
@@ -34,9 +34,9 @@ class Magento2TransformerGenerator implements TransformerGeneratorStrategyInterf
     }
 
     /**
-     * @param TransformerId      $transformerId
-     * @param string             $name
-     * @param ConfigurationModel $configuration
+     * @param TransformerId  $transformerId
+     * @param string         $name
+     * @param AbstractSource $source
      *
      * @return Transformer
      *
@@ -45,14 +45,14 @@ class Magento2TransformerGenerator implements TransformerGeneratorStrategyInterf
     public function generate(
         TransformerId $transformerId,
         string $name,
-        ConfigurationModel $configuration
+        AbstractSource $source
     ): Transformer {
         $transformer = new Transformer($transformerId, $name, $name);
 
         $transformer
-            ->addConverter('sku', new TextConverter('sku'))
-            ->addConverter('template', new TextConverter('attribute_set_code'))
-            ->addConverter('name', new TextConverter('name'));
+            ->addField('sku', new TextConverter('sku'))
+            ->addField('template', new TextConverter('attribute_set_code'))
+            ->addField('name', new TextConverter('name'));
 
 //        foreach ($configuration->columns as $column) {
 //            $attributeCode = new AttributeCode($column->getField());

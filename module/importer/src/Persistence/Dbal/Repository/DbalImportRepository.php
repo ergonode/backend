@@ -29,6 +29,7 @@ class DbalImportRepository implements ImportRepositoryInterface
         'status',
         'source_id',
         'transformer_id',
+        'file',
     ];
 
     /**

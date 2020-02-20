@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -23,8 +22,6 @@ class SourceFactory
     private SerializerInterface $serializer;
 
     /**
-     * SourceFactory constructor.
-     *
      * @param SerializerInterface $serializer
      */
     public function __construct(SerializerInterface $serializer)
@@ -42,6 +39,6 @@ class SourceFactory
         $class = $record['type'];
         $data = $record['configuration'];
 
-        return $this->serializer->deserialize($data, $class,'json');
+        return $this->serializer->deserialize($data, $class, 'json');
     }
 }

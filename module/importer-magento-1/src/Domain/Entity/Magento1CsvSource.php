@@ -24,6 +24,12 @@ class Magento1CsvSource extends AbstractSource
     public const ENCLOSURE = 'enclosure';
     public const ESCAPE = 'escape';
 
+    public const MULTIMEDIA = 'multimedia';
+    public const PRODUCTS = 'products';
+    public const CATEGORIES = 'categories';
+    public const TEMPLATES = 'templates';
+    public const ATTRIBUTES = 'attributes';
+
     public const DEFAULT = [
         self::DELIMITER => ',',
         self::ENCLOSURE => '"',
@@ -52,22 +58,51 @@ class Magento1CsvSource extends AbstractSource
     private Language $defaultLanguage;
 
     /**
+     * @var array
+     *
+     * @JMS\Type("array<string, bool>")
+     */
+    private array $import;
+
+    /**
      * @param SourceId $id
      * @param string   $name
      * @param Language $defaultLanguage
      * @param string   $host
      * @param array    $languages
+     * @param array    $imports
      */
-    public function __construct(SourceId $id, string $name, Language $defaultLanguage, string $host, array $languages = [])
-    {
+    public function __construct(
+        SourceId $id,
+        string $name,
+        Language $defaultLanguage,
+        string $host,
+        array $languages = [],
+        array $imports = []
+    ) {
         parent::__construct($id, $name);
         Assert::allIsInstanceOf($languages, Language::class);
+        Assert::allBoolean($imports);
         Assert::allString(array_keys($languages));
+        Assert::allString(array_keys($imports));
         Assert::notEmpty($host);
 
         $this->languages = $languages;
         $this->host = $host;
         $this->defaultLanguage = $defaultLanguage;
+        $this->import = [
+            self::ATTRIBUTES => false,
+            self::TEMPLATES => false,
+            self::CATEGORIES => false,
+            self::MULTIMEDIA => false,
+            self::PRODUCTS => false,
+        ];
+
+        foreach ($imports as $key => $import) {
+            if (array_key_exists($key, $this->import)) {
+                $this->import[$key] = $import;
+            }
+        }
     }
 
     /**
@@ -83,7 +118,7 @@ class Magento1CsvSource extends AbstractSource
      */
     public function getDelimiter(): string
     {
-        return self::DELIMITER;
+        return self::DEFAULT[self::DELIMITER];
     }
 
     /**
@@ -91,7 +126,7 @@ class Magento1CsvSource extends AbstractSource
      */
     public function getEnclosure(): string
     {
-        return self::ENCLOSURE;
+        return self::DEFAULT[self::ENCLOSURE];
     }
 
     /**
@@ -99,7 +134,7 @@ class Magento1CsvSource extends AbstractSource
      */
     public function getEscape(): string
     {
-        return self::ESCAPE;
+        return self::DEFAULT[self::ESCAPE];
     }
 
     /**
@@ -115,7 +150,7 @@ class Magento1CsvSource extends AbstractSource
      */
     public function getLanguages(): array
     {
-       return $this->languages;
+        return $this->languages;
     }
 
     /**
@@ -127,18 +162,16 @@ class Magento1CsvSource extends AbstractSource
     }
 
     /**
+     * @param string $step
+     *
      * @return bool
      */
-    public function importMultimedia(): bool
+    public function import(string $step): bool
     {
-        return false;
-    }
+        if (array_key_exists($step, $this->import)) {
+            return $this->import($step);
+        }
 
-    /**
-     * @return bool
-     */
-    public function importCategory(): bool
-    {
-        return true;
+        return false;
     }
 }

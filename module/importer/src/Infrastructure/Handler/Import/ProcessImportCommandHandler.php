@@ -30,8 +30,8 @@ class ProcessImportCommandHandler
     private ImportLineRepositoryInterface $repository;
 
     /**
-     * @param ImportActionProvider           $importActionProvider
-     * @param ImportLineRepositoryInterface  $repository
+     * @param ImportActionProvider          $importActionProvider
+     * @param ImportLineRepositoryInterface $repository
      */
     public function __construct(
         ImportActionProvider $importActionProvider,
@@ -64,8 +64,6 @@ class ProcessImportCommandHandler
             $action->action($record);
 
         } catch (\Throwable $exception) {
-            var_dump($exception->getMessage());
-            echo print_r($exception->getTraceAsString(), true);
             $line->addError($exception->getMessage());
         }
 

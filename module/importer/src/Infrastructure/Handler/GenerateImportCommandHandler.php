@@ -90,7 +90,7 @@ class GenerateImportCommandHandler
 
         $this->transformerRepository->save($transformer);
 
-        $import = new Import(ImportId::generate(), $command->getId(), $transformerId);
+        $import = new Import(ImportId::generate(), $command->getId(), $transformerId, '');
         $this->importRepository->save($import);
 
         $this->commandBus->dispatch(new StartImportCommand($import->getId()));

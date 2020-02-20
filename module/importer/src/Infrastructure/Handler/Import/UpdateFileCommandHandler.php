@@ -7,35 +7,67 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Infrastructure\Handler\Source;
+namespace Ergonode\Importer\Infrastructure\Handler\Import;
 
-use Ergonode\Importer\Domain\Command\Source\CreateSourceCommand;
-use Ergonode\Importer\Domain\Provider\SourceFactoryProvider;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Importer\Domain\Command\Import\StartImportCommand;
+use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
-use Ergonode\Importer\Domain\Command\Source\UploadFileCommand;
+use Ergonode\Importer\Domain\Command\Import\UploadFileCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
+use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
+use Ergonode\Transformer\Infrastructure\Provider\TransformerGeneratorProvider;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class UpdateFileCommandHandler
 {
     /**
-     * @var SourceFactoryProvider
-     */
-    private SourceFactoryProvider $provider;
-
-    /**
      * @var SourceRepositoryInterface
      */
-    private SourceRepositoryInterface $repository;
+    private SourceRepositoryInterface $sourceRepository;
 
     /**
-     * @param SourceFactoryProvider     $provider
-     * @param SourceRepositoryInterface $repository
+     * @var TransformerRepositoryInterface
      */
-    public function __construct(SourceFactoryProvider $provider, SourceRepositoryInterface $repository)
-    {
+    private TransformerRepositoryInterface $transformerRepository;
+
+    /**
+     * @var ImportRepositoryInterface
+     */
+    private ImportRepositoryInterface $importRepository;
+
+    /**
+     * @var TransformerGeneratorProvider
+     */
+    private TransformerGeneratorProvider $provider;
+
+    /**
+     * @var CommandBusInterface
+     */
+    private CommandBusInterface $commandBus;
+
+    /**
+     * @param SourceRepositoryInterface $sourceRepository
+     * @param TransformerRepositoryInterface $transformerRepository
+     * @param ImportRepositoryInterface $importRepository
+     * @param TransformerGeneratorProvider $provider
+     * @param CommandBusInterface $commandBus
+     */
+    public function __construct(
+        SourceRepositoryInterface $sourceRepository,
+        TransformerRepositoryInterface $transformerRepository,
+        ImportRepositoryInterface $importRepository,
+        TransformerGeneratorProvider $provider,
+        CommandBusInterface $commandBus
+    ) {
+        $this->sourceRepository = $sourceRepository;
+        $this->transformerRepository = $transformerRepository;
+        $this->importRepository = $importRepository;
         $this->provider = $provider;
-        $this->repository = $repository;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -45,14 +77,21 @@ class UpdateFileCommandHandler
      */
     public function __invoke(UploadFileCommand $command)
     {
-        $factory = $this->provider->provide($command->getSourceType());
+        $source = $this->sourceRepository->load($command->getSourceId());
+        Assert::notNull($source);
+        $generator  = $this->provider->provide($source->getType());
+        $transformer = $generator->generate(TransformerId::generate(), 'name', $source);
 
-        $source = $factory->create(
+        $import = new Import(
             $command->getId(),
-            'name',
-            $command->getConfiguration(),
+            $command->getSourceId(),
+            $transformer->getId(),
+            $command->getFileName(),
         );
 
-        $this->repository->save($source);
+        $this->transformerRepository->save($transformer);
+        $this->importRepository->save($import);
+
+        $this->commandBus->dispatch(new StartImportCommand($import->getId()));
     }
 }

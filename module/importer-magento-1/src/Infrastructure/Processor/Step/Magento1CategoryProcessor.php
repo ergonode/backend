@@ -59,7 +59,7 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
                 foreach ($categories as $category) {
                     $category = explode('/', $category);
                     $code = end($category);
-                    if ($code !== '') {
+                    if ('' !== $code) {
                         $name = [$source->getDefaultLanguage()->getCode() => end($category)];
                         if (!array_key_exists($code, $result)) {
                             $record = new Record();
@@ -81,6 +81,6 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
             $this->commandBus->dispatch($command);
         }
 
-        echo print_r(sprintf('SEND %s Categories', $i), true).PHP_EOL;
+        echo print_r(sprintf('SEND %s Categories', $i), true) . PHP_EOL;
     }
 }
