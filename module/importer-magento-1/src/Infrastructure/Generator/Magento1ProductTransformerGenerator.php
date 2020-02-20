@@ -56,38 +56,42 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
         $transformer->addField('esa_type', new TextConverter('_type'));
 
         // attributes
-        $transformer->addAttribute('image', ImageAttribute::TYPE, false, new TextConverter('image'));
-        $transformer->addAttribute('name', TextAttribute::TYPE, true, new TextConverter('name'));
-        $transformer->addAttribute('description', TextareaAttribute::TYPE, true, new TextConverter('description'));
-        $transformer->addAttribute('short_description', TextareaAttribute::TYPE, true, new TextConverter('short_description'));
-        $transformer->addAttribute('weight', NumericAttribute::TYPE, false, new TextConverter('weight'));
+        $transformer->addAttribute(
+            'image',
+            ImageAttribute::TYPE,
+            false,
+            new TextConverter('image')
+        );
+
+        $transformer->addAttribute(
+            'name',
+            TextAttribute::TYPE,
+            true,
+            new TextConverter('name')
+        );
+
+        $transformer->addAttribute(
+            'description',
+            TextareaAttribute::TYPE,
+            true,
+            new
+            TextConverter('description')
+        );
+
+        $transformer->addAttribute(
+            'short_description',
+            TextareaAttribute::TYPE,
+            true,
+            new TextConverter('short_description')
+        );
+
+        $transformer->addAttribute(
+            'weight',
+            NumericAttribute::TYPE,
+            false,
+            new TextConverter('weight')
+        );
 
         return $transformer;
     }
-
-//    /**
-//     * @param Transformer   $transformer
-//     * @param AttributeCode $code
-//     *
-//     * @return Transformer
-//     *
-//     * @throws \Exception
-//     */
-//    public function addAttribute(Transformer $transformer, AttributeCode $code): Transformer
-//    {
-//        $attributeId = AttributeId::fromKey($code->getValue());
-//        $attribute = $this->repository->load($attributeId);
-//
-//        if ($attribute) {
-//            if ($attribute->isMultilingual()) {
-//                $converter = new MultilingualTextConverter([Language::EN => $code->getValue()]);
-//            } else {
-//                $converter =;
-//            }
-//
-//            $transformer->addAttribute($code->getValue(), $attribute->getType(), $attribute->isMultilingual(), $converter);
-//        }
-//
-//        return $transformer;
-//    }
 }

@@ -8,11 +8,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Formatter;
 
-
 /**
  */
 class SlugFormatter
 {
+    /**
+     * @param string $value
+     *
+     * @return string
+     */
     public static function format(string $value): string
     {
         $value = preg_replace('~[^\pL\d]+~u', '_', $value);

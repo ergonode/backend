@@ -53,7 +53,6 @@ class ImportProductCategoryBuilder implements ProductImportBuilderInterface
                     $product->categories[$value->getValue()] = $categoryId;
                 }
             }
-
         }
 
         return $product;

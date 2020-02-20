@@ -68,9 +68,13 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
             $record->set('type', new StringValue($type));
             $multilingual = $transformer->isAttributeMultilingual($field) ? '1' : '0';
             $record->set('multilingual', new StringValue($multilingual));
-            $record->set('label',
-                new TranslatableStringValue(new TranslatableString([$source->getDefaultLanguage()->getCode() => $field])));
-            if ($type === SelectAttribute::TYPE || $type === MultiSelectAttribute::TYPE) {
+            $record->set(
+                'label',
+                new TranslatableStringValue(
+                    new TranslatableString([$source->getDefaultLanguage()->getCode() => $field])
+                )
+            );
+            if (SelectAttribute::TYPE === $type || MultiSelectAttribute::TYPE === $type) {
                 $options = $this->getOptions($columns[$field]);
                 foreach ($options as $key => $option) {
                     $record->setValue($key, $option);
@@ -86,7 +90,7 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
             $this->commandBus->dispatch($command);
         }
 
-        echo print_r(sprintf('SEND %s Attributes', $i), true) . PHP_EOL;
+        echo print_r(sprintf('SEND %s Attributes', $i), true).PHP_EOL;
     }
 
     /**
@@ -99,7 +103,7 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
         $result = [];
         $unique = array_unique($column);
         foreach ($unique as $element) {
-            if ($element !== '' && $element !== null) {
+            if ('' !== $element && null !== $element) {
                 $result[$element] = new StringValue($element);
             }
         }

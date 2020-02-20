@@ -58,7 +58,7 @@ class CreateProductCommand implements DomainCommandInterface
     public function __construct(ProductId $id, Sku $sku, array $categories = [], array $attributes = [])
     {
         Assert::allIsInstanceOf($categories, CategoryId::class);
-        Assert::allIsInstanceOf($attributes,  ValueInterface::class);
+        Assert::allIsInstanceOf($attributes, ValueInterface::class);
 
         $this->id = $id;
         $this->sku = $sku;

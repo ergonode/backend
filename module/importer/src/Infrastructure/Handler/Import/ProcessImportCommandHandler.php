@@ -62,7 +62,6 @@ class ProcessImportCommandHandler
             }
 
             $action->action($record);
-
         } catch (\Throwable $exception) {
             $line->addError($exception->getMessage());
         }

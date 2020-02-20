@@ -122,9 +122,9 @@ class StartMagento1ImportProcess
                     $products[$sku][$code] = $row;
                 } else {
                     foreach ($row as $field => $value) {
-                        if ($value !== '' && $value !== null) {
+                        if ('' !== $value && null !== $value) {
                             if ($products[$sku][$code][$field] !== '') {
-                                $products[$sku][$code][$field] .= ',' . $value;
+                                $products[$sku][$code][$field] .= ','.$value;
                             }
                         }
                     }
@@ -143,7 +143,7 @@ class StartMagento1ImportProcess
                 $step->process($import, $result, $transformer, $source);
             }
         } catch (\Throwable $exception) {
-
+            throw $exception;
         }
     }
 
@@ -161,7 +161,7 @@ class StartMagento1ImportProcess
                     if (!array_key_exists($key, $product)) {
                         $product[$key] = $value;
                     } else {
-                        $product[$key] .= ',' . $value;
+                        $product[$key] .= ','.$value;
                     }
                 }
             }
@@ -185,14 +185,13 @@ class StartMagento1ImportProcess
             $mapper = $this->mapper->provide($converter);
             $value = $mapper->map($converter, $record);
             $result[$field] = $value;
-
         }
+
         foreach ($transformer->getFields() as $field => $converter) {
             /** @var ConverterInterface $converter */
             $mapper = $this->mapper->provide($converter);
             $value = $mapper->map($converter, $record);
             $result[$field] = $value;
-
         }
 
         return $result;

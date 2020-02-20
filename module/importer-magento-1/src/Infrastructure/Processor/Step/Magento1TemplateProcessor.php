@@ -54,8 +54,11 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
                 if (!array_key_exists($type, $templates)) {
                     $templates[$type] = new Record();
                     $templates[$type]->set('code', new StringValue($type));
-                    $templates[$type]->set('name', new TranslatableStringValue(
-                            new TranslatableString([$source->getDefaultLanguage()->getCode() => $type]))
+                    $templates[$type]->set(
+                        'name',
+                        new TranslatableStringValue(
+                            new TranslatableString([$source->getDefaultLanguage()->getCode() => $type])
+                        )
                     );
                 }
             }

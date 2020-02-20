@@ -64,7 +64,7 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
             if (array_key_exists('image', $default) && $default['image'] !== null) {
                 $images = explode(',', $default['image']);
                 foreach ($images as $image) {
-                    $result[$image] = $source->getHost() . $image;
+                    $result[$image] = $source->getHost().$image;
                 }
             }
         }
@@ -81,7 +81,7 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
             $this->commandBus->dispatch($command);
         }
 
-        echo print_r(sprintf('SEND %s Images', $i), true) . PHP_EOL;
+        echo print_r(sprintf('SEND %s Images', $i), true).PHP_EOL;
     }
 
     /**

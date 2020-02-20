@@ -64,7 +64,7 @@ class TemplateImportAction implements ImportActionInterface
         $templateId = TemplateId::fromKey($code);
         $template = $this->templateRepository->load($templateId);
 
-        if(!$template) {
+        if (!$template) {
             $command = new CreateTemplateCommand($code, new ArrayCollection());
         } else {
             $command = new UpdateTemplateCommand($templateId, $code, new ArrayCollection());

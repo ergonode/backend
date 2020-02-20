@@ -75,7 +75,7 @@ class CreateAttributeCommandTest extends TestCase
 
         $this->assertSame($commandOptions['key_1'], $options['key_1']);
         $this->assertSame($commandOptions['key_2'], $options['key_2']);
-        $this->assertSame($commandOptions['key_3'],  $options['key_3']);
+        $this->assertSame($commandOptions['key_3'], $options['key_3']);
     }
 
     /**

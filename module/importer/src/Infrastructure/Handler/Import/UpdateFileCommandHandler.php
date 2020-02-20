@@ -50,11 +50,11 @@ class UpdateFileCommandHandler
     private CommandBusInterface $commandBus;
 
     /**
-     * @param SourceRepositoryInterface $sourceRepository
+     * @param SourceRepositoryInterface      $sourceRepository
      * @param TransformerRepositoryInterface $transformerRepository
-     * @param ImportRepositoryInterface $importRepository
-     * @param TransformerGeneratorProvider $provider
-     * @param CommandBusInterface $commandBus
+     * @param ImportRepositoryInterface      $importRepository
+     * @param TransformerGeneratorProvider   $provider
+     * @param CommandBusInterface            $commandBus
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
@@ -79,7 +79,7 @@ class UpdateFileCommandHandler
     {
         $source = $this->sourceRepository->load($command->getSourceId());
         Assert::notNull($source);
-        $generator  = $this->provider->provide($source->getType());
+        $generator = $this->provider->provide($source->getType());
         $transformer = $generator->generate(TransformerId::generate(), 'name', $source);
 
         $import = new Import(

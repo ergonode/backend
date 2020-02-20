@@ -27,24 +27,24 @@ class ImportStepType extends AbstractType
         $builder
             ->add(
                 'templates',
-                BooleanType::class,
-                )
+                BooleanType::class
+            )
             ->add(
                 'attributes',
-                BooleanType::class,
-                )
+                BooleanType::class
+            )
             ->add(
                 'categories',
-                BooleanType::class,
-                )
+                BooleanType::class
+            )
             ->add(
                 'multimedia',
-                BooleanType::class,
-                )
+                BooleanType::class
+            )
             ->add(
                 'products',
-                BooleanType::class,
-                );
+                BooleanType::class
+            );
     }
 
     /**

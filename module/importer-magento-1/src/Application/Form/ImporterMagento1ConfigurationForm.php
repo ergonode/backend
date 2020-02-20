@@ -46,13 +46,13 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                     'constraints' => [
                         new NotBlank(),
                         new Url(),
-                    ]
+                    ],
                 ]
             )
             ->add(
                 'default_language',
-                LanguageType::class,
-                )
+                LanguageType::class
+            )
             ->add(
                 'languages',
                 CollectionType::class,
@@ -84,7 +84,7 @@ class ImporterMagento1ConfigurationForm extends AbstractType
             $name = $data['name'];
             $host = $data['host'];
 
-            $import = (array)$data['import'];
+            $import = (array) $data['import'];
 
             $data = new CreateSourceCommand(
                 SourceId::generate(),

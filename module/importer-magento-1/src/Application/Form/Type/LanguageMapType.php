@@ -32,8 +32,8 @@ class LanguageMapType extends AbstractType
             )
             ->add(
                 'language',
-                LanguageType::class,
-                );
+                LanguageType::class
+            );
     }
 
     /**

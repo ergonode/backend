@@ -26,7 +26,7 @@ class ImportProductAttributeBuilder implements ProductImportBuilderInterface
     public function build(ImportedProduct $product, Record $record): ImportedProduct
     {
         foreach ($record->getValues() as $key => $value) {
-            if ($value !== '' && $value !== null) {
+            if ('' !== $value && null !== $value) {
                 $product->attributes[$key] = $value;
             }
         }

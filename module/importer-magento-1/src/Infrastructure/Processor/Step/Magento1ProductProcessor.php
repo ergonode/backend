@@ -61,7 +61,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
             $this->commandBus->dispatch($command);
         }
 
-        echo print_r(sprintf('SEND %s Products', $i), true) . PHP_EOL;
+        echo print_r(sprintf('SEND %s Products', $i), true).PHP_EOL;
     }
 
     /**
@@ -75,7 +75,6 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
         foreach ($products as $product) {
             $type = $product->get('default')['esa_type'];
             $result[$type][] = $product;
-
         }
 
         return $result;
@@ -89,7 +88,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
      *
      * @return Record
      */
-    public function getRecord(ProductModel $product, Transformer $transformer, Magento1CsvSource $source): Record
+    private function getRecord(ProductModel $product, Transformer $transformer, Magento1CsvSource $source): Record
     {
         $default = $product->get('default');
 
@@ -102,34 +101,31 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                 if (null === $value) {
                     $record->setValue($field, null);
                 } else {
-                    if ($type === SelectAttribute::TYPE || $type === MultiSelectAttribute::TYPE) {
+                    if (SelectAttribute::TYPE === $type || MultiSelectAttribute::TYPE === $type) {
                         $record->setValue($field, new Stringvalue($value));
-                    } elseif ($type === ImageAttribute::TYPE) {
+                    } elseif (ImageAttribute::TYPE === $type) {
                         if ($source->import(Magento1CsvSource::MULTIMEDIA)) {
-                            $multimediaId = MultimediaId::fromKey($source->getHost() . $value);
+                            $multimediaId = MultimediaId::fromKey($source->getHost().$value);
                             $record->setValue($field, new Stringvalue($multimediaId->getValue()));
                         }
                     } elseif ($isMultilingual) {
                         $translation[Language::EN] = $value;
                         foreach ($source->getLanguages() as $key => $language) {
                             if ($product->has($key)) {
-                                $translatedVersion = $product->get($key);
-                                if (array_key_exists($field,
-                                        $translatedVersion) && $translatedVersion[$field] !== null) {
-                                    $translation[$language->getCode()] = $translatedVersion[$field];
+                                $translatedVer = $product->get($key);
+                                if (array_key_exists($field, $translatedVer) && null !== $translatedVer[$field]) {
+                                    $translation[$language->getCode()] = $translatedVer[$field];
                                 }
                             }
                         }
                         $record->setValue($field, new TranslatableStringValue(new TranslatableString($translation)));
-                    } else {
-                        if ($value !== null) {
-                            $record->setValue($field, new StringValue($value));
-                        }
+                    } else if (null !== $value) {
+                        $record->setValue($field, new StringValue($value));
                     }
                 }
             }
 
-            if ($transformer->hasField($field) && $value !== null) {
+            if ($transformer->hasField($field) && (null !== $value)) {
                 $record->set($field, new StringValue($value));
             }
         }
