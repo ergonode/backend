@@ -54,6 +54,21 @@ class DbalTreeQuery implements TreeQueryInterface
     }
 
     /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getDictionary(Language $language): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select(sprintf('id, COALESCE(name->>\'%s\', code)', $language->getCode()))
+            ->from(self::TREE_TABLE, 'c')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder

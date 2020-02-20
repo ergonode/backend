@@ -22,4 +22,11 @@ interface TreeQueryInterface
      * @return DataSetInterface
      */
     public function getDataSet(Language $language): DataSetInterface;
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getDictionary(Language $language): array;
 }
