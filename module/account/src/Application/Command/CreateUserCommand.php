@@ -29,12 +29,12 @@ class CreateUserCommand extends Command
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var RoleQueryInterface
      */
-    private $query;
+    private RoleQueryInterface $query;
 
     /**
      * @param MessageBusInterface $messageBus

@@ -29,22 +29,22 @@ class AccountReadAction
     /**
      * @var LogQueryInterface
      */
-    private $query;
+    private LogQueryInterface $query;
 
     /**
      * @var LogGrid
      */
-    private $grid;
+    private LogGrid $grid;
 
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $userProvider;
+    private AuthenticatedUserProviderInterface $userProvider;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer                       $gridRenderer

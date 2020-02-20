@@ -22,17 +22,17 @@ class PrivilegeDictionaryProvider
     /**
      * @var PrivilegeQueryInterface
      */
-    private $query;
+    private PrivilegeQueryInterface $query;
 
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @var PrivilegeTypeResolverInterface
      */
-    private $resolver;
+    private PrivilegeTypeResolverInterface $resolver;
 
     /**
      * @param PrivilegeQueryInterface        $query

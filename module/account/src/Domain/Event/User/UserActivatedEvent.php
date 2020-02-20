@@ -23,7 +23,7 @@ class UserActivatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @param UserId $id

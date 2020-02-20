@@ -25,7 +25,7 @@ class UpdateUserFormModel
      * @Assert\NotBlank(message="User first name is required")
      * @Assert\Length(min="1", max="128")
      */
-    public $firstName;
+    public ?string $firstName;
 
     /**
      * @var string
@@ -33,19 +33,19 @@ class UpdateUserFormModel
      * @Assert\NotBlank(message="User last name is required")
      * @Assert\Length(min="3", max="128")
      */
-    public $lastName;
+    public ?string $lastName;
 
     /**
      * @var Language
      *
      * @Assert\NotBlank(message="User language is required")
      */
-    public $language;
+    public ?Language $language;
 
     /**
      * @var Password|null
      */
-    public $passwordRepeat;
+    public ?Password $passwordRepeat;
 
     /**
      * @var Password|null
@@ -57,7 +57,7 @@ class UpdateUserFormModel
      *     maxMessage="User password is too long, should have at most {{ limit }} characters"
      * )
      */
-    public $password;
+    public ?Password $password;
 
     /**
      * @var bool
@@ -65,7 +65,7 @@ class UpdateUserFormModel
      * @Assert\NotNull(message="Activity is required")
      * @Assert\Type("bool")
      */
-    public $isActive;
+    public ?bool $isActive;
 
     /**
      * @var RoleId
@@ -73,7 +73,20 @@ class UpdateUserFormModel
      * @Assert\NotBlank(message="Role Id is required")
      * @Assert\Uuid(message="Role Id must be valid uuid format")
      */
-    public $roleId;
+    public ?RoleId $roleId;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->firstName = null;
+        $this->lastName = null;
+        $this->language = null;
+        $this->passwordRepeat = null;
+        $this->password = null;
+        $this->isActive = null;
+        $this->roleId = null;
+    }
 
     /**
      * @Assert\Callback()

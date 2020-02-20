@@ -21,7 +21,7 @@ class PrivilegeDataTransformerTest extends TestCase
     /**
      * @var PrivilegeDataTransformer
      */
-    protected $transformer;
+    protected PrivilegeDataTransformer $transformer;
 
     /**
      */

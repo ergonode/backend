@@ -23,7 +23,7 @@ class RoleIdType extends AbstractType
     /**
      * @var RoleQueryInterface
      */
-    private $query;
+    private RoleQueryInterface $query;
 
     /**
      * @param RoleQueryInterface $query

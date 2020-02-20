@@ -24,21 +24,21 @@ class UserRoleChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var RoleId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $from;
+    private RoleId $from;
 
     /**
      * @var RoleId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $to;
+    private RoleId $to;
 
     /**
      * @param UserId $id

@@ -38,22 +38,22 @@ class PasswordChangeAction
     /**
      * @var PasswordValidationBuilder
      */
-    private $builder;
+    private PasswordValidationBuilder $builder;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var ValidatorInterface
      */
-    private $validator;
+    private ValidatorInterface $validator;
 
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $userProvider;
+    private AuthenticatedUserProviderInterface $userProvider;
 
     /**
      * @param PasswordValidationBuilder          $builder

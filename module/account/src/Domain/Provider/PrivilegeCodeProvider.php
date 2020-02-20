@@ -19,7 +19,7 @@ class PrivilegeCodeProvider
     /**
      * @var PrivilegeQueryInterface
      */
-    private $query;
+    private PrivilegeQueryInterface $query;
 
     /**
      * @param PrivilegeQueryInterface $query

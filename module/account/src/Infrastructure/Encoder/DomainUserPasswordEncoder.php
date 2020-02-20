@@ -20,7 +20,7 @@ class DomainUserPasswordEncoder implements UserPasswordEncoderInterface
     /**
      * @var SecurityUserPasswordEncoderInterface
      */
-    private $userPasswordEncoder;
+    private SecurityUserPasswordEncoderInterface $userPasswordEncoder;
 
     /**
      * @param SecurityUserPasswordEncoderInterface $userPasswordEncoder

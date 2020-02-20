@@ -22,7 +22,7 @@ class RoleExistsValidator extends ConstraintValidator
     /**
      * @var RoleRepositoryInterface
      */
-    private $roleRepository;
+    private RoleRepositoryInterface $roleRepository;
 
     /**
      * @param RoleRepositoryInterface $roleRepository

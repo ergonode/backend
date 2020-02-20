@@ -32,33 +32,33 @@ class Role extends AbstractAggregateRoot
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $id;
+    private RoleId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $description;
+    private string $description;
 
     /**
      * @var Privilege[]
      *
      * @JMS\Type("array<Ergonode\Account\Domain\ValueObject\Privilege>")
      */
-    private $privileges;
+    private array $privileges;
 
     /**
      * @var bool
      */
-    private $hidden;
+    private bool $hidden;
 
     /**
      * @param RoleId $id

@@ -20,12 +20,12 @@ class ChangeUserAvatarCommand implements DomainCommandInterface
     /**
      * @var UserId
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var MultimediaId
      */
-    private $avatarId;
+    private ?MultimediaId $avatarId;
 
     /**
      * @param UserId            $id

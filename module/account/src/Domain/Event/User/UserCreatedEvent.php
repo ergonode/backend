@@ -28,63 +28,63 @@ class UserCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $firstName;
+    private string $firstName;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $lastName;
+    private string $lastName;
 
     /**
      * @var Email
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\ValueObject\Email")
      */
-    private $email;
+    private Email $email;
 
     /**
      * @var Password
      *
      * @JMS\Type("Ergonode\Account\Domain\ValueObject\Password")
      */
-    private $password;
+    private Password $password;
 
     /**
      * @var Language
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
-    private $language;
+    private Language $language;
 
     /**
      * @var MultimediaId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
-    private $avatarId;
+    private ?MultimediaId $avatarId;
 
     /**
      * @var RoleId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $roleId;
+    private RoleId $roleId;
 
     /**
      * @var bool
      *
      * @JMS\Type("boolean")
      */
-    private $isActive;
+    private bool $isActive;
 
     /**
      * @param UserId            $id

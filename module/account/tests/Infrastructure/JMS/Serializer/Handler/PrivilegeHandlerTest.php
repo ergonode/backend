@@ -23,7 +23,7 @@ class PrivilegeHandlerTest extends TestCase
     /**
      * @var PrivilegeHandler
      */
-    private $handler;
+    private PrivilegeHandler $handler;
 
     /**
      * @var SerializationVisitorInterface

@@ -19,5 +19,5 @@ class UserExists extends Constraint
     /**
      * @var string
      */
-    public $message = 'User {{ value }} not exists.';
+    public string $message = 'User {{ value }} not exists.';
 }
