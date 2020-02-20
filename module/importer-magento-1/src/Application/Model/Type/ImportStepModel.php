@@ -40,13 +40,23 @@ class ImportStepModel
     public bool $products;
 
     /**
+     * @param bool $attributes
+     * @param bool $templates
+     * @param bool $categories
+     * @param bool $multimedia
+     * @param bool $products
      */
-    public function __construct()
-    {
-        $this->attributes = false;
-        $this->categories = false;
-        $this->products = false;
-        $this->templates = false;
-        $this->multimedia = false;
+    public function __construct(
+        bool $attributes = false,
+        bool $templates = false,
+        bool $categories = false,
+        bool $multimedia = false,
+        bool $products = false
+    ) {
+        $this->attributes = $attributes;
+        $this->templates = $templates;
+        $this->categories = $categories;
+        $this->multimedia = $multimedia;
+        $this->products = $products;
     }
 }

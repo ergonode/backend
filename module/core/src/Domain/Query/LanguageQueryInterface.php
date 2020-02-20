@@ -27,6 +27,11 @@ interface LanguageQueryInterface
     public function getActive(): array;
 
     /**
+     * @return array
+     */
+    public function getDictionary(): array;
+
+    /**
      * @param string $code
      *
      * @return array

@@ -169,7 +169,7 @@ class Magento1CsvSource extends AbstractSource
     public function import(string $step): bool
     {
         if (array_key_exists($step, $this->import)) {
-            return $this->import($step);
+            return $this->import[$step];
         }
 
         return false;

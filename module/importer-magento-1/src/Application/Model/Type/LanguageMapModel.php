@@ -25,10 +25,12 @@ class LanguageMapModel
     public ?Language $language;
 
     /**
+     * @param string|null   $store
+     * @param Language|null $language
      */
-    public function __construct()
+    public function __construct(string $store = null, Language $language = null)
     {
-        $this->store = null;
-        $this->language = null;
+        $this->store = $store;
+        $this->language = $language;
     }
 }

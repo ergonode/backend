@@ -12,8 +12,8 @@ namespace Ergonode\Importer\Application\Controller\Api\Source;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Application\Form\ConfigurationForm;
 use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
+use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
 use Ergonode\Importer\Domain\Command\GenerateImportCommand;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -24,22 +24,21 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\ImporterMagento1\Application\Factory\ImporterMagento1ConfigurationFormFactory;
 
 /**
  * @Route(
- *     name="ergonode_source_configuration",
+ *     name="ergonode_source_update",
  *     path="/sources/{source}/configuration",
  *     methods={"POST"},
  *     requirements={"source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class SourcePostConfigurationAction
+class SourceUpdatedAction
 {
     /**
-     * @var ImporterMagento1ConfigurationFormFactory
+     * @var SourceFormFactoryProvider
      */
-    private $configurationFormFactory;
+    private SourceFormFactoryProvider $provider;
 
     /**
      * @var CommandBusInterface
@@ -47,14 +46,12 @@ class SourcePostConfigurationAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ImporterMagento1ConfigurationFormFactory $configurationFormFactory
-     * @param CommandBusInterface                      $commandBus
+     * @param SourceFormFactoryProvider $provider
+     * @param CommandBusInterface       $commandBus
      */
-    public function __construct(
-        ImporterMagento1ConfigurationFormFactory $configurationFormFactory,
-        CommandBusInterface $commandBus
-    ) {
-        $this->configurationFormFactory = $configurationFormFactory;
+    public function __construct(SourceFormFactoryProvider $provider, CommandBusInterface $commandBus)
+    {
+        $this->provider = $provider;
         $this->commandBus = $commandBus;
     }
 
@@ -98,7 +95,7 @@ class SourcePostConfigurationAction
     public function __invoke(AbstractSource $source, Request $request): Response
     {
         try {
-            $form = $this->configurationFormFactory->create($source);
+            $form = $this->provider->provide($source->getType())->create($source);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {

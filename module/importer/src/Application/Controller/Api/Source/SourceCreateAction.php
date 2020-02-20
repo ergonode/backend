@@ -12,6 +12,8 @@ namespace Ergonode\Importer\Application\Controller\Api\Source;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
+use Ergonode\Importer\Domain\Provider\SourceFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\ImporterMagento1\Application\Factory\ImporterMagento1ConfigurationFormFactory;
+use Ergonode\ImporterMagento1\Application\Factory\ImporterMagento1SourceFormFactory;
 
 /**
  * @Route(
@@ -28,12 +30,12 @@ use Ergonode\ImporterMagento1\Application\Factory\ImporterMagento1ConfigurationF
  *     methods={"POST"},
  * )
  */
-class CreateSourceAction
+class SourceCreateAction
 {
     /**
-     * @var ImporterMagento1ConfigurationFormFactory
+     * @var SourceFormFactoryProvider
      */
-    private ImporterMagento1ConfigurationFormFactory $configurationFormFactory;
+    private SourceFormFactoryProvider $provider;
 
     /**
      * @var CommandBusInterface
@@ -41,14 +43,12 @@ class CreateSourceAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ImporterMagento1ConfigurationFormFactory $configurationFormFactory
-     * @param CommandBusInterface                      $commandBus
+     * @param SourceFormFactoryProvider $provider
+     * @param CommandBusInterface       $commandBus
      */
-    public function __construct(
-        ImporterMagento1ConfigurationFormFactory $configurationFormFactory,
-        CommandBusInterface $commandBus
-    ) {
-        $this->configurationFormFactory = $configurationFormFactory;
+    public function __construct(SourceFormFactoryProvider $provider, CommandBusInterface $commandBus)
+    {
+        $this->provider = $provider;
         $this->commandBus = $commandBus;
     }
 
@@ -91,7 +91,7 @@ class CreateSourceAction
         $type = $request->get('type');
 
         try {
-            $form = $this->configurationFormFactory->create($type);
+            $form = $this->provider->provide($type)->create();
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {

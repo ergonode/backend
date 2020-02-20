@@ -10,6 +10,7 @@ namespace Ergonode\ImporterMagento1\Application\Form;
 
 use Ergonode\Importer\Domain\Command\Source\CreateSourceCommand;
 use Ergonode\ImporterMagento1\Application\Form\Type\ImportStepType;
+use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationModel;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Symfony\Component\Form\AbstractType;
@@ -37,7 +38,10 @@ class ImporterMagento1ConfigurationForm extends AbstractType
         $builder
             ->add(
                 'name',
-                TextType::class
+                TextType::class,
+                [
+                    'data' => 'wefwefwef',
+                ]
             )
             ->add(
                 'host',
@@ -51,15 +55,23 @@ class ImporterMagento1ConfigurationForm extends AbstractType
             )
             ->add(
                 'default_language',
-                LanguageType::class
+                LanguageType::class,
+                [
+                    'property_path' => 'defaultLanguage',
+                ]
             )
             ->add(
                 'languages',
                 CollectionType::class,
                 [
+                    'label' => 'Mapped Languages',
                     'allow_add' => true,
                     'allow_delete' => true,
                     'entry_type' => LanguageMapType::class,
+                    'liform' => [
+                        'format' => 'table',
+                        'widget' => 'table',
+                    ],
                 ]
             )
             ->add(
@@ -104,6 +116,7 @@ class ImporterMagento1ConfigurationForm extends AbstractType
     {
         $resolver->setDefaults([
             'translation_domain' => 'importer',
+            'data_class' => ImporterMagento1ConfigurationModel::class,
             'allow_extra_fields' => true,
         ]);
     }

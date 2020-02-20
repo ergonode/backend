@@ -10,7 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Application\DependencyInjection;
 
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFactoryCompilerPass;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFormFactoryCompilerPass;
 use Ergonode\Importer\Domain\Factory\SourceFactoryInterface;
+use Ergonode\ImporterMagento1\Application\Factory\SourceFormFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -44,6 +46,10 @@ class ErgonodeImporterExtension extends Extension
         $container
             ->registerForAutoconfiguration(SourceFactoryInterface::class)
             ->addTag(SourceFactoryCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(SourceFormFactoryInterface::class)
+            ->addTag(SourceFormFactoryCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

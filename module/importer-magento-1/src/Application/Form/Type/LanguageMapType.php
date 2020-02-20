@@ -28,11 +28,17 @@ class LanguageMapType extends AbstractType
         $builder
             ->add(
                 'store',
-                TextType::class
+                TextType::class,
+                [
+                    'label' => 'Magento store view code'
+                ]
             )
             ->add(
                 'language',
-                LanguageType::class
+                LanguageType::class,
+                [
+                    'label' => 'Language',
+                ]
             );
     }
 
