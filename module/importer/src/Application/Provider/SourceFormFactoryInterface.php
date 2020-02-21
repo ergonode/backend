@@ -6,8 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ImporterMagento1\Application\Factory;
-
+namespace Ergonode\Importer\Application\Provider;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Symfony\Component\Form\FormInterface;

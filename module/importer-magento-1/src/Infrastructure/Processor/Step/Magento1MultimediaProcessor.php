@@ -18,28 +18,26 @@ use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Symfony\Component\HttpFoundation\File\File;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
+use Ergonode\Transformer\Infrastructure\Action\CategoryImportAction;
+use Ergonode\Transformer\Domain\Model\Record;
+use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Transformer\Infrastructure\Action\MultimediaImportAction;
 
 /**
  */
 class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
 {
     /**
-     * @var KernelInterface
-     */
-    private KernelInterface $kernel;
-
-    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param KernelInterface     $kernel
      * @param CommandBusInterface $commandBus
      */
-    public function __construct(KernelInterface $kernel, CommandBusInterface $commandBus)
+    public function __construct(CommandBusInterface $commandBus)
     {
-        $this->kernel = $kernel;
         $this->commandBus = $commandBus;
     }
 
@@ -57,27 +55,26 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
             return;
         }
 
-        $cacheDir = sprintf('%s/import-%s', $this->kernel->getCacheDir(), $import->getId()->getValue());
         $result = [];
         foreach ($products as $product) {
             $default = $product->get('default');
             if (array_key_exists('image', $default) && $default['image'] !== null) {
                 $images = explode(',', $default['image']);
                 foreach ($images as $image) {
-                    $result[$image] = $source->getHost().$image;
+                    $record = new Record();
+                    $record->set('name', new StringValue($image));
+                    $record->set('id', new StringValue(MultimediaId::generate()->getValue()));
+                    $url = sprintf('%s/%s', $source->getHost(), $image);
+                    $record->set('url', new StringValue(str_replace('//', '/', $url)));
+                    $result[] = $record;
                 }
             }
         }
 
         $i = 0;
-        foreach ($result as $image => $url) {
+        foreach ($result as $images => $image) {
             $i++;
-            $content = file_get_contents($url);
-            $filePath = sprintf('%s/%s', $cacheDir, $image);
-            $this->saveFile($filePath, $content);
-            $file = new File($filePath);
-            $multimediaId = MultimediaId::fromKey($url);
-            $command = new AddMultimediaCommand($multimediaId, $file);
+            $command = new ProcessImportCommand($import->getId(), $i, $image, MultimediaImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
 

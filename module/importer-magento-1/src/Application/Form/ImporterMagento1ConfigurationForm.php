@@ -81,7 +81,7 @@ class ImporterMagento1ConfigurationForm extends AbstractType
 
         $builder->addEventListener(FormEvents::SUBMIT, static function (FormEvent $event) {
 
-            /** @var array $data */
+            /** @var ImporterMagento1ConfigurationModel $data */
             $data = $event->getData();
 
             if (!$data) {
@@ -89,14 +89,14 @@ class ImporterMagento1ConfigurationForm extends AbstractType
             }
 
             $languages = [];
-            foreach ($data['languages'] as $language) {
+            foreach ($data->languages as $language) {
                 $languages[$language->store] = $language->language->getCode();
             }
-            $language = $data['default_language']->getCode();
-            $name = $data['name'];
-            $host = $data['host'];
+            $language = $data->defaultLanguage->getCode();
+            $name = $data->name;
+            $host = $data->host;
 
-            $import = (array) $data['import'];
+            $import = (array) $data->import;
 
             $data = new CreateSourceCommand(
                 SourceId::generate(),

@@ -19,6 +19,7 @@ use Ergonode\Transformer\Infrastructure\Action\Builder\ProductImportBuilderInter
 use Webmozart\Assert\Assert;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Command\CreateProductCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 /**
  */
@@ -57,11 +58,12 @@ class ProductImportAction implements ImportActionInterface
     }
 
     /**
-     * @param Record $record
+     * @param ImportId $importId
+     * @param Record   $record
      *
      * @throws \Exception
      */
-    public function action(Record $record): void
+    public function action(ImportId $importId, Record $record): void
     {
         $sku = $record->get('sku') ? new Sku($record->get('sku')->getValue()) : null;
         Assert::notNull($sku, 'product import required "sku" field not exists');

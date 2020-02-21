@@ -12,13 +12,9 @@ use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
-use Ergonode\Reader\Infrastructure\Processor\CsvReaderProcessor;
-use Ergonode\Reader\Infrastructure\Provider\ReaderProcessorProvider;
 use Webmozart\Assert\Assert;
+use Ergonode\ImporterMagento1\Infrastructure\Reader\Magento1CsvReader;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
-use Ergonode\Transformer\Infrastructure\Provider\ConverterMapperProvider;
-use Ergonode\Transformer\Domain\Entity\Transformer;
-use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
 
 /**
  */
@@ -35,19 +31,9 @@ class StartMagento1ImportProcess
     private TransformerRepositoryInterface $transformerRepository;
 
     /**
-     * @var ConverterMapperProvider
+     * @var Magento1CsvReader
      */
-    private ConverterMapperProvider $mapper;
-
-    /**
-     * @var ReaderProcessorProvider
-     */
-    private ReaderProcessorProvider $provider;
-
-    /**
-     * @var string
-     */
-    private string $directory;
+    private Magento1CsvReader $reader;
 
     /**
      * @var Magento1ProcessorStepInterface[]
@@ -55,28 +41,20 @@ class StartMagento1ImportProcess
     private array $steps;
 
     /**
-     * @param SourceRepositoryInterface      $sourceRepository
-     * @param TransformerRepositoryInterface $transformerRepository
-     * @param ReaderProcessorProvider        $provider
-     * @param ConverterMapperProvider        $mapper
-     * @param string                         $directory
-     * @param Magento1ProcessorStepInterface ...$steps
+     * @param SourceRepositoryInterface            $sourceRepository
+     * @param TransformerRepositoryInterface       $transformerRepository
+     * @param Magento1CsvReader                    $reader
+     * @param array|Magento1ProcessorStepInterface ...$steps
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
         TransformerRepositoryInterface $transformerRepository,
-        ReaderProcessorProvider $provider,
-        ConverterMapperProvider $mapper,
-        string $directory,
+        Magento1CsvReader $reader,
         Magento1ProcessorStepInterface ...$steps
     ) {
-        Assert::allIsInstanceOf($steps, Magento1ProcessorStepInterface::class);
-
         $this->sourceRepository = $sourceRepository;
         $this->transformerRepository = $transformerRepository;
-        $this->mapper = $mapper;
-        $this->provider = $provider;
-        $this->directory = $directory;
+        $this->reader = $reader;
         $this->steps = $steps;
     }
 
@@ -89,47 +67,11 @@ class StartMagento1ImportProcess
             /** @var Magento1CsvSource $source */
             $source = $this->sourceRepository->load($import->getSourceId());
             Assert::notNull($source);
-
             $transformer = $this->transformerRepository->load($import->getTransformerId());
-
             Assert::notNull($transformer);
 
-            $filename = \sprintf('%s%s', $this->directory, $import->getFile());
-            $extension = pathinfo($filename, PATHINFO_EXTENSION);
-            $fileReader = $this->provider->provide($extension);
 
-            $products = [];
-            $sku = null;
-            $type = null;
-
-            $configuration = [
-                CsvReaderProcessor::DELIMITER => $source->getDelimiter(),
-                CsvReaderProcessor::ENCLOSURE => $source->getEnclosure(),
-                CsvReaderProcessor::ESCAPE => $source->getEscape(),
-            ];
-
-            $fileReader->open($filename, $configuration);
-
-            foreach ($fileReader->read() as $row) {
-                if ($row['sku']) {
-                    $sku = $row['sku'];
-                    $products[$sku] = [];
-                }
-
-                $code = $row['_store'] ?: 'default';
-                $row = $this->process($transformer, $row);
-                if (!array_key_exists($code, $products[$sku])) {
-                    $products[$sku][$code] = $row;
-                } else {
-                    foreach ($row as $field => $value) {
-                        if ('' !== $value && null !== $value) {
-                            if ($products[$sku][$code][$field] !== '') {
-                                $products[$sku][$code][$field] .= ','.$value;
-                            }
-                        }
-                    }
-                }
-            }
+            $products = $this->reader->read($source, $import, $transformer);
 
             $result = [];
             foreach ($products as $sku => $product) {
@@ -145,55 +87,5 @@ class StartMagento1ImportProcess
         } catch (\Throwable $exception) {
             throw $exception;
         }
-    }
-
-    /**
-     * @param array $versions
-     *
-     * @return array
-     */
-    public function merge(array $versions): array
-    {
-        $product = [];
-        foreach ($versions as $version) {
-            foreach ($version as $key => $value) {
-                if (null !== $value[$key]) {
-                    if (!array_key_exists($key, $product)) {
-                        $product[$key] = $value;
-                    } else {
-                        $product[$key] .= ','.$value;
-                    }
-                }
-            }
-        }
-
-        return $product;
-    }
-
-    /**
-     * @param Transformer $transformer
-     * @param array       $record
-     *
-     * @return array
-     */
-    public function process(Transformer $transformer, array $record): array
-    {
-        $result = [];
-
-        foreach ($transformer->getAttributes() as $field => $converter) {
-            /** @var ConverterInterface $converter */
-            $mapper = $this->mapper->provide($converter);
-            $value = $mapper->map($converter, $record);
-            $result[$field] = $value;
-        }
-
-        foreach ($transformer->getFields() as $field => $converter) {
-            /** @var ConverterInterface $converter */
-            $mapper = $this->mapper->provide($converter);
-            $value = $mapper->map($converter, $record);
-            $result[$field] = $value;
-        }
-
-        return $result;
     }
 }

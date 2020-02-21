@@ -23,6 +23,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 /**
  */
@@ -53,11 +54,12 @@ class AttributeImportAction implements ImportActionInterface
     }
 
     /**
-     * @param Record $record
+     * @param ImportId $importId
+     * @param Record   $record
      *
      * @throws \Exception
      */
-    public function action(Record $record): void
+    public function action(ImportId $importId, Record $record): void
     {
         $property = [];
 

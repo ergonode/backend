@@ -7,39 +7,27 @@ Feature: Category module
       {
         "type": "magento-1-csv",
         "name": "name",
-        "host": "https://husse-eu.global.ssl.fastly.net/media/catalog/product/cache/8/image/9df78eab33525d08d6e5fb8d27136e95",
+        "host": "https://stage-admin.husse.com/media/catalog/product",
         "import" : {
            "templates": true,
            "attributes": true,
            "categories": true,
-           "multimedia": true,
+           "multimedia": false,
            "products": true
         },
         "default_language": "EN",
         "languages": [
           {
-            "store": "poland_pl",
-            "language": "PL"
+            "store": "netherlands_nl",
+            "language": "NL"
           },
            {
-            "store": "france_fr",
-            "language": "FR"
+            "store": "us_en",
+            "language": "EN"
           },
           {
-            "store": "hungary_hu",
-            "language": "HU"
-          },
-          {
-            "store": "serbia_sr",
-            "language": "SR"
-          },
-          {
-            "store": "spain_es",
-            "language": "ES"
-          },
-          {
-            "store": "turkey_tr",
-            "language": "TR"
+            "store": "se_se",
+            "language": "SV"
           }
         ]
       }
@@ -52,7 +40,7 @@ Feature: Category module
 
   Scenario: Upload magento 1 test import file
     Given current authentication token
-    And I attach "module/importer-magento-1/features/2019-02-12-husse-prod-sample.csv" to the request as upload
+    And I attach "module/importer-magento-1/features/stage-2020-02-21.csv" to the request as upload
     And the following form parameters are set:
       | name        | value         |
       | source_id   | @source_id@ |

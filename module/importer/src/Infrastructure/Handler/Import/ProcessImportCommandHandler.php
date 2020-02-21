@@ -61,7 +61,7 @@ class ProcessImportCommandHandler
                 throw new \RuntimeException(sprintf('Can\'t find action %s', $command->getAction()));
             }
 
-            $action->action($record);
+            $action->action($command->getImportId(),$record);
         } catch (\Throwable $exception) {
             $line->addError($exception->getMessage());
         }

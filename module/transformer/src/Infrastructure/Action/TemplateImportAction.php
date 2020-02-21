@@ -17,6 +17,7 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 /**
  */
@@ -48,11 +49,12 @@ class TemplateImportAction implements ImportActionInterface
     }
 
     /**
-     * @param Record $record
+     * @param ImportId $importId
+     * @param Record   $record
      *
      * @throws \Exception
      */
-    public function action(Record $record): void
+    public function action(ImportId $importId, Record $record): void
     {
         /** @var string|null $code */
         $code = $record->get(self::CODE_FIELD) ? $record->get(self::CODE_FIELD)->getValue() : null;

@@ -12,7 +12,6 @@ namespace Ergonode\Importer\Application\DependencyInjection;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFactoryCompilerPass;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFormFactoryCompilerPass;
 use Ergonode\Importer\Domain\Factory\SourceFactoryInterface;
-use Ergonode\ImporterMagento1\Application\Factory\SourceFormFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -20,6 +19,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceCompilerPass;
 use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceCompilerPass;
+use Ergonode\Importer\Application\Provider\SourceFormFactoryInterface;
 
 /**
  */

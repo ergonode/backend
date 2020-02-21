@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\ImporterMagento1\Application\Form\ImporterMagento1ConfigurationForm;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationModel;
+use Ergonode\Importer\Application\Provider\SourceFormFactoryInterface;
 
 /**
  */

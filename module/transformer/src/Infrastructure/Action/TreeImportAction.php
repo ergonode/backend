@@ -17,6 +17,7 @@ use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
 use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 /**
  */
@@ -47,11 +48,12 @@ class TreeImportAction implements ImportActionInterface
     }
 
     /**
-     * @param Record $record
+     * @param ImportId $importId
+     * @param Record   $record
      *
      * @throws \Exception
      */
-    public function action(Record $record): void
+    public function action(ImportId $importId, Record $record): void
     {
         /** @var string|null $code */
         $code = $record->get(self::CODE_FIELD) ? $record->get(self::CODE_FIELD)->getValue() : null;
