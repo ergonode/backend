@@ -40,6 +40,8 @@ final class Version20180719132703 extends AbstractErgonodeMigration
                 id UUID NOT NULL,
                 name VARCHAR(255) NOT NULL,
                 image_id UUID DEFAULT NULL,
+                default_text UUID DEFAULT NULL,
+                default_image UUID DEFAULT NULL,
                 template_group_id UUID NOT NULL,                                   
                 PRIMARY KEY(id)
             )

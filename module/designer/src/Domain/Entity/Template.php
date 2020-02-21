@@ -10,8 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultImageChangedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultTextChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementRemovedEvent;
@@ -22,6 +23,7 @@ use Ergonode\Designer\Domain\Event\TemplateImageRemovedEvent;
 use Ergonode\Designer\Domain\Event\TemplateNameChangedEvent;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
@@ -49,7 +51,17 @@ class Template extends AbstractAggregateRoot
     /**
      * @var TemplateGroupId
      */
-    private $groupId;
+    private TemplateGroupId $groupId;
+
+    /**
+     * @var AttributeId
+     */
+    private AttributeId $defaultText;
+
+    /**
+     * @var AttributeId
+     */
+    private AttributeId $defaultImage;
 
     /**
      * @var TemplateElement[]
@@ -62,13 +74,15 @@ class Template extends AbstractAggregateRoot
      * @param TemplateId        $id
      * @param TemplateGroupId   $groupId
      * @param string            $name
+     * @param AttributeId       $defaultText
+     * @param AttributeId       $defaultImage
      * @param MultimediaId|null $imageId
      *
      * @throws \Exception
      */
-    public function __construct(TemplateId $id, TemplateGroupId $groupId, string $name, ?MultimediaId $imageId = null)
+    public function __construct(TemplateId $id, TemplateGroupId $groupId, string $name, AttributeId $defaultText, AttributeId $defaultImage, ?MultimediaId $imageId = null)
     {
-        $this->apply(new TemplateCreatedEvent($id, $groupId, $name, $imageId));
+        $this->apply(new TemplateCreatedEvent($id, $groupId, $name, $defaultText, $defaultImage, $imageId));
     }
 
     /**
@@ -93,6 +107,50 @@ class Template extends AbstractAggregateRoot
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return AttributeId
+     */
+    public function getDefaultText(): AttributeId
+    {
+        return $this->defaultText;
+    }
+
+    /**
+     * @param AttributeId $newDefaultText
+     */
+    public function changeDefaultText(AttributeId $newDefaultText)
+    {
+        if (!$this->defaultText->isEqual($newDefaultText)) {
+            $this->apply(new TemplateDefaultTextChangedEvent(
+                $this->id,
+                $this->getDefaultText(),
+                $newDefaultText,
+            ));
+        }
+    }
+
+    /**
+     * @param AttributeId $newDefaultImage
+     */
+    public function changeDefaultImage(AttributeId $newDefaultImage)
+    {
+        if (!$this->defaultText->isEqual($newDefaultImage)) {
+            $this->apply(new TemplateDefaultImageChangedEvent(
+                $this->id,
+                $this->getDefaultImage(),
+                $newDefaultImage,
+            ));
+        }
+    }
+
+    /**
+     * @return AttributeId
+     */
+    public function getDefaultImage(): AttributeId
+    {
+        return $this->defaultImage;
     }
 
     /**
@@ -321,5 +379,23 @@ class Template extends AbstractAggregateRoot
     protected function applyTemplateImageRemovedEvent(TemplateImageRemovedEvent $event): void
     {
         $this->imageId = null;
+    }
+
+    /**
+     * @param TemplateDefaultTextChangedEvent $event
+     */
+    protected function applyTemplateDefaultTextChangedEvent(
+        TemplateDefaultTextChangedEvent $event
+    ): void {
+        $this->defaultText = $event->getTo();
+    }
+
+    /**
+     * @param TemplateDefaultImageChangedEvent $event
+     */
+    protected function applyTemplateDefaultImageChangedEvent(
+        TemplateDefaultImageChangedEvent $event
+    ): void {
+        $this->defaultImage = $event->getTo();
     }
 }

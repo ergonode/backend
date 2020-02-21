@@ -21,17 +21,17 @@ class CreateTemplateHandler
     /**
      * @var TemplateRepositoryInterface
      */
-    private $templateRepository;
+    private TemplateRepositoryInterface $templateRepository;
 
     /**
      * @var TemplateFactory
      */
-    private $templateFactory;
+    private TemplateFactory $templateFactory;
 
     /**
      * @var TemplateGroupQueryInterface
      */
-    private $templateGroupQuery;
+    private TemplateGroupQueryInterface $templateGroupQuery;
 
     /**
      * @param TemplateRepositoryInterface $templateRepository
@@ -59,6 +59,8 @@ class CreateTemplateHandler
             $command->getId(),
             $groupId,
             $command->getName(),
+            $command->getDefaultText(),
+            $command->getDefaultImage(),
             $command->getElements()->toArray(),
             $command->getImageId()
         );

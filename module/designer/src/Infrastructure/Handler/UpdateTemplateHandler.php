@@ -21,7 +21,7 @@ class UpdateTemplateHandler
     /**
      * @var TemplateRepositoryInterface
      */
-    private $designerTemplateRepository;
+    private TemplateRepositoryInterface $designerTemplateRepository;
 
     /**
      * @param TemplateRepositoryInterface $designerTemplateRepository
@@ -43,6 +43,8 @@ class UpdateTemplateHandler
         Assert::notNull($template);
 
         $template->changeName($command->getName());
+        $template->changeDefaultText($command->getDefaultText());
+        $template->changeDefaultImage($command->getDefaultImage());
 
         foreach ($command->getElements() as $element) {
             $current[(string) $element->getPosition()] = $element;

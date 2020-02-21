@@ -10,18 +10,18 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultTextChangedEvent;
 
 /**
  */
-class TemplateCreatedEventProjector
+class TemplateDefaultTextChangedEventProjector
 {
     private const TABLE = 'designer.template';
 
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection
@@ -34,17 +34,15 @@ class TemplateCreatedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(TemplateCreatedEvent $event): void
+    public function __invoke(TemplateDefaultTextChangedEvent $event): void
     {
-        $this->connection->insert(
+        $this->connection->update(
             self::TABLE,
             [
+                'default_text' => $event->getTo()->getValue(),
+            ],
+            [
                 'id' => $event->getAggregateId()->getValue(),
-                'name' => $event->getName(),
-                'default_text' => $event->getDefaultText()->getValue(),
-                'default_image' => $event->getDefaultImage()->getValue(),
-                'image_id' => $event->getImageId() ? $event->getImageId()->getValue() : null,
-                'template_group_id' => $event->getGroupId()->getValue(),
             ]
         );
     }
