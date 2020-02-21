@@ -721,7 +721,7 @@ Feature: Product collection module
     Then not found response is received
 
   Scenario: Create product collection element (not authorized)
-    When I request "/api/v1/EN/collections/@product_collection_1@/element" using HTTP POST
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST
     Then unauthorized response is received
 
   Scenario: Add product collection element
@@ -733,7 +733,7 @@ Feature: Product collection module
           "visible": true
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection_1@/element" using HTTP POST
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST
     Then created response is received
 
   Scenario: Add product collection element (wrong product not uuid)
@@ -745,7 +745,7 @@ Feature: Product collection module
           "visible": true
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection_1@/element" using HTTP POST
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST
     Then validation error response is received
 
   Scenario: Add product collection element (wrong product doesn't exist)
@@ -757,21 +757,21 @@ Feature: Product collection module
           "visible": true
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection_1@/element" using HTTP POST
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST
     Then validation error response is received
 
   Scenario: Update product collection element (not authorized)
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@product_1@" using HTTP PUT
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@" using HTTP PUT
     Then unauthorized response is received
 
   Scenario: Update product collection element (not found product)
     Given current authentication token
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@@static_uuid@@" using HTTP PUT
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@@static_uuid@@" using HTTP PUT
     Then not found response is received
 
   Scenario: Update product collection element (not found collection)
     Given current authentication token
-    When I request "/api/v1/EN/collections/@@static_uuid@@/element/@product_1@" using HTTP PUT
+    When I request "/api/v1/EN/collections/@@static_uuid@@/elements/@product_1@" using HTTP PUT
     Then not found response is received
 
   Scenario: Update product collection element (no content)
@@ -781,7 +781,7 @@ Feature: Product collection module
       {
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@product_1@" using HTTP PUT
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@" using HTTP PUT
     Then validation error response is received
 
   Scenario: Update product collection element
@@ -792,21 +792,21 @@ Feature: Product collection module
         "visible": false
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@product_1@" using HTTP PUT
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@" using HTTP PUT
     Then the response code is 204
 
   Scenario: Request product collection element (not authorized)
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@product_1@" using HTTP PUT
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@" using HTTP PUT
     Then unauthorized response is received
 
   Scenario: Request product collection element (not found)
     Given current authentication token
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@@static_uuid@@" using HTTP GET
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@@static_uuid@@" using HTTP GET
     Then not found response is received
 
   Scenario: Request product collection element
     Given current authentication token
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@product_1@" using HTTP GET
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@" using HTTP GET
     Then the response code is 200
     And the response body matches:
     """
@@ -885,16 +885,16 @@ Feature: Product collection module
 
   Scenario: Delete product collection element (not found)
     Given current authentication token
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@@static_uuid@@" using HTTP DELETE
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@@static_uuid@@" using HTTP DELETE
     Then not found response is received
 
   Scenario: Delete product collection element (not authorized)
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@product_1@" using HTTP DELETE
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@" using HTTP DELETE
     Then unauthorized response is received
 
   Scenario: Delete product collection element
     Given current authentication token
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@product_1@" using HTTP DELETE
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@" using HTTP DELETE
     Then empty response is received
 
 
@@ -909,28 +909,28 @@ Feature: Product collection module
             "skus": "@product_1_sku@ , @product_2_sku@"
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/multiple" using HTTP POST
     Then created response is received
 
 
   Scenario: Get products collection element  (order DESC)
     Given current authentication token
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@segment_product_1@" using HTTP GET
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@segment_product_1@" using HTTP GET
     Then the response code is 200
 
   Scenario: Get products collection element  (order DESC)
     Given current authentication token
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@segment_product_2@" using HTTP GET
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@segment_product_2@" using HTTP GET
     Then the response code is 200
 
   Scenario: Get products collection element  (order DESC)
     Given current authentication token
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@product_1@" using HTTP GET
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@" using HTTP GET
     Then the response code is 200
 
   Scenario: Get products collection element  (order DESC)
     Given current authentication token
-    When I request "/api/v1/EN/collections/@product_collection_1@/element/@product_2@" using HTTP GET
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/@product_2@" using HTTP GET
     Then the response code is 200
 
   Scenario: Add multiple product collection element (wrong segment)
@@ -943,7 +943,7 @@ Feature: Product collection module
             ]
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/multiple" using HTTP POST
     Then validation error response is received
 
   Scenario: Add multiple product collection element (wrong segment not uuid)
@@ -956,7 +956,7 @@ Feature: Product collection module
             ]
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/multiple" using HTTP POST
     Then validation error response is received
 
   Scenario: Add multiple product collection element (wrong skus)
@@ -967,7 +967,7 @@ Feature: Product collection module
             "skus": "@@random_code@@ , @@random_code@@"
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/multiple" using HTTP POST
     Then validation error response is received
 
 
@@ -979,5 +979,5 @@ Feature: Product collection module
             "sfesfeskus": "@product_1_sku@"
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection_1@/elements" using HTTP POST
+    When I request "/api/v1/EN/collections/@product_collection_1@/elements/multiple" using HTTP POST
     Then validation error response is received

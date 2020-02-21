@@ -122,7 +122,7 @@ Feature: Product module
           "visible": true
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection@/element" using HTTP POST
+    When I request "/api/v1/EN/collections/@product_collection@/elements" using HTTP POST
     Then created response is received
 
   Scenario: Create product (not authorized)
