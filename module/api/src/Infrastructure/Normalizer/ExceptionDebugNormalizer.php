@@ -16,12 +16,12 @@ class ExceptionDebugNormalizer implements ExceptionNormalizerInterface
     /**
      * @var bool
      */
-    private $debugMode;
+    private bool $debugMode;
 
     /**
      * @var ExceptionNormalizerInterface
      */
-    private $exceptionNormalizer;
+    private ExceptionNormalizerInterface $exceptionNormalizer;
 
     /**
      * @param bool                         $debugMode

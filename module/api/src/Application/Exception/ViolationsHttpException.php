@@ -20,7 +20,7 @@ class ViolationsHttpException extends HttpException
     /**
      * @var ConstraintViolationListInterface
      */
-    private $violations;
+    private ConstraintViolationListInterface $violations;
 
     /**
      * @param ConstraintViolationListInterface $violations

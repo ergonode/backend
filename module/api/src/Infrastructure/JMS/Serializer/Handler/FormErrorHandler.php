@@ -25,12 +25,12 @@ class FormErrorHandler implements SubscribingHandlerInterface
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @var FormErrorMapper
      */
-    private $formErrorMapper;
+    private FormErrorMapper $formErrorMapper;
 
     /**
      * @param TranslatorInterface $translator

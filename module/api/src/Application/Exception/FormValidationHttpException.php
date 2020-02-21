@@ -20,7 +20,7 @@ class FormValidationHttpException extends HttpException
     /**
      * @var FormInterface
      */
-    private $form;
+    private FormInterface $form;
 
     /**
      * @param FormInterface $violations

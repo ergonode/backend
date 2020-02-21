@@ -22,7 +22,7 @@ class FormValidationExceptionHandler implements SubscribingHandlerInterface
     /**
      * @var FormErrorHandler
      */
-    private $formErrorHandler;
+    private FormErrorHandler $formErrorHandler;
 
     /**
      * @param FormErrorHandler $formErrorHandler
