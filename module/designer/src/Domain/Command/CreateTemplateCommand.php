@@ -65,15 +65,17 @@ class CreateTemplateCommand implements DomainCommandInterface
     private ArrayCollection $elements;
 
     /**
+     * CreateTemplateCommand constructor.
+     *
      * @param string            $name
      * @param ArrayCollection   $elements
-     * @param AttributeId       $defaultText
-     * @param AttributeId       $defaultImage
+     * @param AttributeId|null  $defaultText
+     * @param AttributeId|null  $defaultImage
      * @param MultimediaId|null $imageId
      *
      * @throws \Exception
      */
-    public function __construct(string $name, ArrayCollection $elements, AttributeId $defaultText, AttributeId $defaultImage, ?MultimediaId $imageId = null)
+    public function __construct(string $name, ArrayCollection $elements, ?AttributeId $defaultText = null, ?AttributeId $defaultImage = null, ?MultimediaId $imageId = null)
     {
         Assert::allIsInstanceOf(
             $elements->toArray(),

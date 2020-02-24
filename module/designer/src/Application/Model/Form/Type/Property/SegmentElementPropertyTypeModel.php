@@ -21,5 +21,5 @@ class SegmentElementPropertyTypeModel
      * @Assert\NotBlank()
      * @Assert\Length(max="32")
      */
-    public $label;
+    public string $label;
 }

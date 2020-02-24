@@ -10,13 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TemplateImageAddedEvent implements DomainEventInterface
+class TemplateDefaultTextAddedEvent implements DomainEventInterface
 {
     /**
      * @var TemplateId
@@ -26,20 +26,20 @@ class TemplateImageAddedEvent implements DomainEventInterface
     private TemplateId $id;
 
     /**
-     * @var MultimediaId
+     * @var AttributeId
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private MultimediaId $imageId;
+    private AttributeId $defaultText;
 
     /**
-     * @param TemplateId   $id
-     * @param MultimediaId $imageId
+     * @param TemplateId  $id
+     * @param AttributeId $defaultText
      */
-    public function __construct(TemplateId $id, MultimediaId $imageId)
+    public function __construct(TemplateId $id, AttributeId $defaultText)
     {
         $this->id = $id;
-        $this->imageId = $imageId;
+        $this->defaultText = $defaultText;
     }
 
     /**
@@ -51,10 +51,10 @@ class TemplateImageAddedEvent implements DomainEventInterface
     }
 
     /**
-     * @return MultimediaId
+     * @return AttributeId
      */
-    public function getImageId(): MultimediaId
+    public function getDefaultText(): AttributeId
     {
-        return $this->imageId;
+        return $this->defaultText;
     }
 }

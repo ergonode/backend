@@ -25,52 +25,54 @@ class TemplateCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
-    private $id;
+    private TemplateId $id;
 
     /**
      * @var TemplateGroupId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
-    private $groupId;
+    private TemplateGroupId $groupId;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
-     * @var AttributeId
+     * @var AttributeId | null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private $defaultText;
+    private ?AttributeId $defaultText;
 
     /**
-     * @var AttributeId
+     * @var AttributeId | null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private $defaultImage;
+    private ?AttributeId $defaultImage;
 
     /**
      * @var MultimediaId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
-    private $imageId;
+    private ?MultimediaId $imageId;
 
     /**
+     * TemplateCreatedEvent constructor.
+     *
      * @param TemplateId        $id
      * @param TemplateGroupId   $groupId
      * @param string            $name
-     * @param AttributeId       $defaultText
-     * @param AttributeId       $defaultImage
+     * @param AttributeId|null  $defaultText
+     * @param AttributeId|null  $defaultImage
      * @param MultimediaId|null $imageId
      */
-    public function __construct(TemplateId $id, TemplateGroupId $groupId, string $name, AttributeId $defaultText, AttributeId $defaultImage, ?MultimediaId $imageId)
+    public function __construct(TemplateId $id, TemplateGroupId $groupId, string $name, ?AttributeId $defaultText, ?AttributeId $defaultImage, ?MultimediaId $imageId)
     {
         $this->id = $id;
         $this->groupId = $groupId;
@@ -106,17 +108,17 @@ class TemplateCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AttributeId
+     * @return null | AttributeId
      */
-    public function getDefaultText(): AttributeId
+    public function getDefaultText(): ?AttributeId
     {
         return $this->defaultText;
     }
 
     /**
-     * @return AttributeId
+     * @return null | AttributeId
      */
-    public function getDefaultImage(): AttributeId
+    public function getDefaultImage(): ?AttributeId
     {
         return $this->defaultImage;
     }

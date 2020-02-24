@@ -10,13 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Designer\Domain\Event\TemplateElementRemovedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultTextAddedEvent;
 
 /**
  */
-class TemplateElementRemovedEventProjector
+class TemplateDefaultTextAddedEventProjector
 {
-    private const ELEMENT_TABLE = 'designer.template_element';
+    private const TABLE = 'designer.template';
 
     /**
      * @var Connection
@@ -34,14 +34,15 @@ class TemplateElementRemovedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(TemplateElementRemovedEvent $event): void
+    public function __invoke(TemplateDefaultTextAddedEvent $event): void
     {
-        $this->connection->delete(
-            self::ELEMENT_TABLE,
+        $this->connection->update(
+            self::TABLE,
             [
-                'template_id' => $event->getAggregateId()->getValue(),
-                'x' => $event->getPosition()->getX(),
-                'y' => $event->getPosition()->getY(),
+                'default_text' => $event->getDefaultText()->getValue(),
+            ],
+            [
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

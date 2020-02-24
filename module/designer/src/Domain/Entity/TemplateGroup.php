@@ -20,12 +20,12 @@ class TemplateGroup extends AbstractAggregateRoot
     /**
      * @var TemplateGroupId
      */
-    private $id;
+    private TemplateGroupId $id;
 
     /**
      * @var string
      */
-    private $name;
+    private TemplateGroupId $name;
 
     /**
      * @param TemplateGroupId $id

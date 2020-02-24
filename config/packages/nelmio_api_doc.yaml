@@ -433,7 +433,7 @@ nelmio_api_doc:
                         required: true
                         description: Attribute Id of default Text
                         example: d1b9b64a-fef6-440c-9560-cf73daa4b4d6
-                    defaulttImage:
+                    defaultImage:
                         type: string
                         required: true
                         description: Attribute Id of default Image

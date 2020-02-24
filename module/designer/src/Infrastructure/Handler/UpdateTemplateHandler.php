@@ -43,8 +43,6 @@ class UpdateTemplateHandler
         Assert::notNull($template);
 
         $template->changeName($command->getName());
-        $template->changeDefaultText($command->getDefaultText());
-        $template->changeDefaultImage($command->getDefaultImage());
 
         foreach ($command->getElements() as $element) {
             $current[(string) $element->getPosition()] = $element;
@@ -69,6 +67,26 @@ class UpdateTemplateHandler
             }
         } elseif ($template->getImageId()) {
             $template->removeImage();
+        }
+
+        if ($command->getDefaultText()) {
+            if ($template->getDefaultText()) {
+                $template->changeDefaultText($command->getDefaultText());
+            } else {
+                $template->addDefaultText($command->getDefaultText());
+            }
+        } elseif ($template->getDefaultText()) {
+            $template->removeDefaultText();
+        }
+
+        if ($command->getDefaultImage()) {
+            if ($template->getDefaultImage()) {
+                $template->changeDefaultImage($command->getDefaultImage());
+            } else {
+                $template->addDefaultImage($command->getDefaultImage());
+            }
+        } elseif ($template->getDefaultImage()) {
+            $template->removeDefaultImage();
         }
 
         $this->designerTemplateRepository->save($template);

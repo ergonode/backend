@@ -20,24 +20,24 @@ class TemplateElementTypeModel
     /**
      * @var Position
      */
-    public $position;
+    public Position $position;
 
     /**
      * @var Size
      */
-    public $size;
+    public Size $size;
 
     /**
      * @var string
      *
      * @Assert\NotBlank()
      */
-    public $type;
+    public string $type;
 
     /**
-     * @var mixed
+     * @var array
      *
      * @Assert\Valid()
      */
-    public $properties = [];
+    public array $properties = [];
 }

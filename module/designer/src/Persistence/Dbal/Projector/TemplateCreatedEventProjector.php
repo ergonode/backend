@@ -21,7 +21,7 @@ class TemplateCreatedEventProjector
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection
@@ -41,8 +41,8 @@ class TemplateCreatedEventProjector
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'name' => $event->getName(),
-                'default_text' => $event->getDefaultText()->getValue(),
-                'default_image' => $event->getDefaultImage()->getValue(),
+                'default_text' => $event->getDefaultText() ? $event->getDefaultText()->getValue() : null,
+                'default_image' => $event->getDefaultImage() ? $event->getDefaultImage()->getValue() : null,
                 'image_id' => $event->getImageId() ? $event->getImageId()->getValue() : null,
                 'template_group_id' => $event->getGroupId()->getValue(),
             ]

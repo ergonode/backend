@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,21 +22,21 @@ class TemplateNameChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
-    private $id;
+    private TemplateId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $from;
+    private string $from;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $to;
+    private string $to;
 
     /**
      * @param TemplateId $id

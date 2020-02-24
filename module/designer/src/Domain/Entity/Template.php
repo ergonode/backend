@@ -11,8 +11,12 @@ namespace Ergonode\Designer\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultImageAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateDefaultImageChangedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultImageRemovedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultTextAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateDefaultTextChangedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultTextRemovedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementRemovedEvent;
@@ -36,17 +40,17 @@ class Template extends AbstractAggregateRoot
     /**
      * @var TemplateId
      */
-    private $id;
+    private TemplateId $id;
 
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
-     * @var MultimediaId
+     * @var MultimediaId | null
      */
-    private $imageId;
+    private ?MultimediaId $imageId;
 
     /**
      * @var TemplateGroupId
@@ -54,21 +58,21 @@ class Template extends AbstractAggregateRoot
     private TemplateGroupId $groupId;
 
     /**
-     * @var AttributeId
+     * @var AttributeId | null
      */
-    private AttributeId $defaultText;
+    private ?AttributeId $defaultText;
 
     /**
-     * @var AttributeId
+     * @var AttributeId | null
      */
-    private AttributeId $defaultImage;
+    private ?AttributeId $defaultImage;
 
     /**
      * @var TemplateElement[]
      *
      * @JMS\Type("array<Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
-    private $elements;
+    private array $elements;
 
     /**
      * @param TemplateId        $id
@@ -80,7 +84,7 @@ class Template extends AbstractAggregateRoot
      *
      * @throws \Exception
      */
-    public function __construct(TemplateId $id, TemplateGroupId $groupId, string $name, AttributeId $defaultText, AttributeId $defaultImage, ?MultimediaId $imageId = null)
+    public function __construct(TemplateId $id, TemplateGroupId $groupId, string $name, ?AttributeId $defaultText = null, ?AttributeId $defaultImage = null, ?MultimediaId $imageId = null)
     {
         $this->apply(new TemplateCreatedEvent($id, $groupId, $name, $defaultText, $defaultImage, $imageId));
     }
@@ -110,17 +114,42 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @return AttributeId
+     * @return AttributeId | null
      */
-    public function getDefaultText(): AttributeId
+    public function getDefaultText(): ?AttributeId
     {
         return $this->defaultText;
     }
 
     /**
+     * @param AttributeId $defaultText
+     *
+     * @throws \Exception
+     */
+    public function addDefaultText(AttributeId $defaultText): void
+    {
+        if ($this->defaultText) {
+            throw new \RuntimeException('Template default text already added');
+        }
+
+        $this->apply(new TemplateDefaultTextAddedEvent($this->id, $defaultText));
+    }
+
+    /**
+     */
+    public function removeDefaultText(): void
+    {
+        if (!$this->defaultText) {
+            throw new \RuntimeException('Template default text not exists');
+        }
+
+        $this->apply(new TemplateDefaultTextRemovedEvent($this->id, $this->defaultText));
+    }
+
+    /**
      * @param AttributeId $newDefaultText
      */
-    public function changeDefaultText(AttributeId $newDefaultText)
+    public function changeDefaultText(AttributeId $newDefaultText): void
     {
         if (!$this->defaultText->isEqual($newDefaultText)) {
             $this->apply(new TemplateDefaultTextChangedEvent(
@@ -132,11 +161,36 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
+     * @param AttributeId $defaultImage
+     *
+     * @throws \Exception
+     */
+    public function addDefaultImage(AttributeId $defaultImage): void
+    {
+        if ($this->defaultImage) {
+            throw new \RuntimeException('Template default image already added');
+        }
+
+        $this->apply(new TemplateDefaultImageAddedEvent($this->id, $defaultImage));
+    }
+
+    /**
+     */
+    public function removeDefaultImage(): void
+    {
+        if (!$this->defaultImage) {
+            throw new \RuntimeException('Template default image not exists');
+        }
+
+        $this->apply(new TemplateDefaultImageRemovedEvent($this->id, $this->defaultImage));
+    }
+
+    /**
      * @param AttributeId $newDefaultImage
      */
-    public function changeDefaultImage(AttributeId $newDefaultImage)
+    public function changeDefaultImage(AttributeId $newDefaultImage): void
     {
-        if (!$this->defaultText->isEqual($newDefaultImage)) {
+        if (!$this->defaultImage->isEqual($newDefaultImage)) {
             $this->apply(new TemplateDefaultImageChangedEvent(
                 $this->id,
                 $this->getDefaultImage(),
@@ -146,9 +200,9 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @return AttributeId
+     * @return AttributeId | null
      */
-    public function getDefaultImage(): AttributeId
+    public function getDefaultImage(): ?AttributeId
     {
         return $this->defaultImage;
     }
@@ -160,7 +214,7 @@ class Template extends AbstractAggregateRoot
      */
     public function hasElement(Position $position): bool
     {
-        return isset($this->elements[(string) $position]);
+        return isset($this->elements[(string)$position]);
     }
 
     /**
@@ -175,7 +229,7 @@ class Template extends AbstractAggregateRoot
             throw new \InvalidArgumentException($message);
         }
 
-        return $this->elements[(string) $position];
+        return $this->elements[(string)$position];
     }
 
     /**
@@ -323,7 +377,7 @@ class Template extends AbstractAggregateRoot
     {
         $element = $event->getElement();
         $position = $element->getPosition();
-        $this->elements[(string) $position] = $event->getElement();
+        $this->elements[(string)$position] = $event->getElement();
     }
 
     /**
@@ -333,7 +387,7 @@ class Template extends AbstractAggregateRoot
     {
         $element = $event->getElement();
         $position = $element->getPosition();
-        $this->elements[(string) $position] = $event->getElement();
+        $this->elements[(string)$position] = $event->getElement();
     }
 
     /**
@@ -341,7 +395,7 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateElementRemovedEvent(TemplateElementRemovedEvent $event): void
     {
-        $position = (string) $event->getPosition();
+        $position = (string)$event->getPosition();
         unset($this->elements[$position]);
     }
 
@@ -352,6 +406,8 @@ class Template extends AbstractAggregateRoot
     {
         $this->id = $event->getAggregateId();
         $this->name = $event->getName();
+        $this->defaultText = $event->getDefaultText();
+        $this->defaultImage = $event->getDefaultImage();
         $this->imageId = $event->getImageId();
         $this->groupId = $event->getGroupId();
         $this->elements = [];
@@ -363,6 +419,23 @@ class Template extends AbstractAggregateRoot
     protected function applyTemplateImageAddedEvent(TemplateImageAddedEvent $event): void
     {
         $this->imageId = $event->getImageId();
+    }
+
+
+    /**
+     * @param TemplateDefaultTextAddedEvent $event
+     */
+    protected function applyTemplateDefaultTextAddedEvent(TemplateDefaultTextAddedEvent $event): void
+    {
+        $this->defaultText = $event->getDefaultText();
+    }
+
+    /**
+     * @param TemplateDefaultImageAddedEvent $event
+     */
+    protected function applyTemplateDefaultImageAddedEvent(TemplateDefaultImageAddedEvent $event): void
+    {
+        $this->defaultImage = $event->getDefaultImage();
     }
 
     /**
@@ -382,11 +455,28 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
+     * @param TemplateDefaultTextRemovedEvent $event
+     */
+    protected function applyTemplateDefaultTextRemovedEvent(TemplateDefaultTextRemovedEvent $event): void
+    {
+        $this->defaultText = null;
+    }
+
+    /**
+     * @param TemplateDefaultImageRemovedEvent $event
+     */
+    protected function applyTemplateDefaultImageRemovedEvent(TemplateDefaultImageRemovedEvent $event): void
+    {
+        $this->defaultImage = null;
+    }
+
+    /**
      * @param TemplateDefaultTextChangedEvent $event
      */
     protected function applyTemplateDefaultTextChangedEvent(
         TemplateDefaultTextChangedEvent $event
-    ): void {
+    ): void
+    {
         $this->defaultText = $event->getTo();
     }
 
@@ -395,7 +485,8 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateDefaultImageChangedEvent(
         TemplateDefaultImageChangedEvent $event
-    ): void {
+    ): void
+    {
         $this->defaultImage = $event->getTo();
     }
 }

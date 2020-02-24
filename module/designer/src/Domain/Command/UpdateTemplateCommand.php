@@ -62,7 +62,7 @@ class UpdateTemplateCommand implements DomainCommandInterface
      *
      * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
-    private $elements;
+    private ArrayCollection $elements;
 
     /**
      * @param TemplateId        $id
@@ -72,7 +72,7 @@ class UpdateTemplateCommand implements DomainCommandInterface
      * @param AttributeId       $defaultImage
      * @param MultimediaId|null $imageId
      */
-    public function __construct(TemplateId $id, string $name, ArrayCollection $elements, AttributeId $defaultText, AttributeId $defaultImage, ?MultimediaId $imageId = null)
+    public function __construct(TemplateId $id, string $name, ArrayCollection $elements, AttributeId $defaultText = null, AttributeId $defaultImage = null, ?MultimediaId $imageId = null)
     {
         Assert::allIsInstanceOf($elements, TemplateElement::class, 'Template elements should by %2$s class. Got: %s');
 

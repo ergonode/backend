@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -23,21 +23,21 @@ class TemplateImageChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
-    private $id;
+    private TemplateId$id;
 
     /**
      * @var MultimediaId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
-    private $from;
+    private MultimediaId $from;
 
     /**
      * @var MultimediaId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
-    private $to;
+    private MultimediaId $to;
 
     /**
      * @param TemplateId   $id

@@ -25,10 +25,10 @@ class AttributeElementPropertyTypeModel
      *
      * @AttributeExists(groups={"Attribute"})
      */
-    public $attributeId;
+    public string $attributeId;
 
     /**
      * @var bool
      */
-    public $required;
+    public bool $required;
 }
