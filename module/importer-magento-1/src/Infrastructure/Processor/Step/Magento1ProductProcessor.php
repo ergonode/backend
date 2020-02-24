@@ -60,8 +60,6 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
             $command = new ProcessImportCommand($import->getId(), $i, $record, ProductImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
-
-        echo print_r(sprintf('SEND %s Products', $i), true).PHP_EOL;
     }
 
     /**

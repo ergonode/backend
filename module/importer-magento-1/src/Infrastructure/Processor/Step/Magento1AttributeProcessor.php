@@ -89,8 +89,6 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
             $command = new ProcessImportCommand($import->getId(), $i, $attribute, AttributeImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
-
-        echo print_r(sprintf('SEND %s Attributes', $i), true).PHP_EOL;
     }
 
     /**

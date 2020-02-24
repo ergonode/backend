@@ -80,12 +80,8 @@ class SourceReadAction
      */
     public function __invoke(AbstractSource $source): Response
     {
-        try {
-            $form = $this->provider->provide($source->getType())->create($source);
+        $form = $this->provider->provide($source->getType())->create($source);
 
-            return new SuccessResponse($this->serializer->normalize($form));
-        } catch (\Exception $exception) {
-            var_dump($exception->getTraceAsString());
-        }
+        return new SuccessResponse($this->serializer->normalize($form));
     }
 }

@@ -116,7 +116,6 @@ class CreateAttributeCommand implements DomainCommandInterface
         array $parameters = [],
         array $options = []
     ) {
-        Assert::allString(array_keys($options));
         Assert::allIsInstanceOf($options, OptionInterface::class);
 
         $this->attributeId = AttributeId::fromKey($code->getValue());

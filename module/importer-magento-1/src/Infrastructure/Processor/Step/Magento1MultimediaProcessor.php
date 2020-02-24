@@ -77,8 +77,6 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
             $command = new ProcessImportCommand($import->getId(), $i, $image, MultimediaImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
-
-        echo print_r(sprintf('SEND %s Images', $i), true).PHP_EOL;
     }
 
     /**

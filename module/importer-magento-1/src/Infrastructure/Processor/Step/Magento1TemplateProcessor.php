@@ -70,7 +70,5 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
             $command = new ProcessImportCommand($import->getId(), $i, $template, TemplateImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
-
-        echo print_r(sprintf('SEND %s Templates', $i), true).PHP_EOL;
     }
 }

@@ -40,7 +40,7 @@ Feature: Category module
 
   Scenario: Upload magento 1 test import file
     Given current authentication token
-    And I attach "module/importer-magento-1/features/stage-2020-02-21.csv" to the request as upload
+    And I attach "module/importer-magento-1/features/magento-1-test.csv" to the request as upload
     And the following form parameters are set:
       | name        | value         |
       | source_id   | @source_id@ |

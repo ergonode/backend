@@ -80,7 +80,5 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
             $command = new ProcessImportCommand($import->getId(), $i, $category, CategoryImportAction::TYPE);
             $this->commandBus->dispatch($command);
         }
-
-        echo print_r(sprintf('SEND %s Categories', $i), true).PHP_EOL;
     }
 }
