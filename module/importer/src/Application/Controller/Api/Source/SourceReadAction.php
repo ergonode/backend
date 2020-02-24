@@ -12,7 +12,6 @@ namespace Ergonode\Importer\Application\Controller\Api\Source;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\ImporterMagento1\Application\Factory\ImporterMagento1SourceFormFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
