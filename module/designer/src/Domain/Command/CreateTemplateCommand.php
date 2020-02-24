@@ -75,8 +75,13 @@ class CreateTemplateCommand implements DomainCommandInterface
      *
      * @throws \Exception
      */
-    public function __construct(string $name, ArrayCollection $elements, ?AttributeId $defaultText = null, ?AttributeId $defaultImage = null, ?MultimediaId $imageId = null)
-    {
+    public function __construct(
+        string $name,
+        ArrayCollection $elements,
+        ?AttributeId $defaultText = null,
+        ?AttributeId $defaultImage = null,
+        ?MultimediaId $imageId = null
+    ) {
         Assert::allIsInstanceOf(
             $elements->toArray(),
             TemplateElement::class,

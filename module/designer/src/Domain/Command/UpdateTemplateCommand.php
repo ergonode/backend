@@ -72,8 +72,14 @@ class UpdateTemplateCommand implements DomainCommandInterface
      * @param AttributeId       $defaultImage
      * @param MultimediaId|null $imageId
      */
-    public function __construct(TemplateId $id, string $name, ArrayCollection $elements, AttributeId $defaultText = null, AttributeId $defaultImage = null, ?MultimediaId $imageId = null)
-    {
+    public function __construct(
+        TemplateId $id,
+        string $name,
+        ArrayCollection $elements,
+        AttributeId $defaultText = null,
+        AttributeId $defaultImage = null,
+        ?MultimediaId $imageId = null
+    ) {
         Assert::allIsInstanceOf($elements, TemplateElement::class, 'Template elements should by %2$s class. Got: %s');
 
         $this->id = $id;

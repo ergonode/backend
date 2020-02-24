@@ -84,8 +84,14 @@ class Template extends AbstractAggregateRoot
      *
      * @throws \Exception
      */
-    public function __construct(TemplateId $id, TemplateGroupId $groupId, string $name, ?AttributeId $defaultText = null, ?AttributeId $defaultImage = null, ?MultimediaId $imageId = null)
-    {
+    public function __construct(
+        TemplateId $id,
+        TemplateGroupId $groupId,
+        string $name,
+        ?AttributeId $defaultText = null,
+        ?AttributeId $defaultImage = null,
+        ?MultimediaId $imageId = null
+    ) {
         $this->apply(new TemplateCreatedEvent($id, $groupId, $name, $defaultText, $defaultImage, $imageId));
     }
 
@@ -214,7 +220,7 @@ class Template extends AbstractAggregateRoot
      */
     public function hasElement(Position $position): bool
     {
-        return isset($this->elements[(string)$position]);
+        return isset($this->elements[(string) $position]);
     }
 
     /**
@@ -229,7 +235,7 @@ class Template extends AbstractAggregateRoot
             throw new \InvalidArgumentException($message);
         }
 
-        return $this->elements[(string)$position];
+        return $this->elements[(string) $position];
     }
 
     /**
@@ -377,7 +383,7 @@ class Template extends AbstractAggregateRoot
     {
         $element = $event->getElement();
         $position = $element->getPosition();
-        $this->elements[(string)$position] = $event->getElement();
+        $this->elements[(string) $position] = $event->getElement();
     }
 
     /**
@@ -387,7 +393,7 @@ class Template extends AbstractAggregateRoot
     {
         $element = $event->getElement();
         $position = $element->getPosition();
-        $this->elements[(string)$position] = $event->getElement();
+        $this->elements[(string) $position] = $event->getElement();
     }
 
     /**
@@ -395,7 +401,7 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateElementRemovedEvent(TemplateElementRemovedEvent $event): void
     {
-        $position = (string)$event->getPosition();
+        $position = (string) $event->getPosition();
         unset($this->elements[$position]);
     }
 
@@ -475,8 +481,7 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateDefaultTextChangedEvent(
         TemplateDefaultTextChangedEvent $event
-    ): void
-    {
+    ): void {
         $this->defaultText = $event->getTo();
     }
 
@@ -485,8 +490,7 @@ class Template extends AbstractAggregateRoot
      */
     protected function applyTemplateDefaultImageChangedEvent(
         TemplateDefaultImageChangedEvent $event
-    ): void
-    {
+    ): void {
         $this->defaultImage = $event->getTo();
     }
 }

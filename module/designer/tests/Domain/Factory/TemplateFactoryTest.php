@@ -70,7 +70,14 @@ class TemplateFactoryTest extends TestCase
     public function testFactoryCreateTemplate(): void
     {
         $factory = new TemplateFactory();
-        $template = $factory->create($this->id, $this->groupId, $this->name, $this->defaultText, $this->defaultImage, [$this->element]);
+        $template = $factory->create(
+            $this->id,
+            $this->groupId,
+            $this->name,
+            $this->defaultText,
+            $this->defaultImage,
+            [$this->element]
+        );
 
         $this->assertEquals($this->id, $template->getId());
         $this->assertEquals($this->groupId, $template->getGroupId());

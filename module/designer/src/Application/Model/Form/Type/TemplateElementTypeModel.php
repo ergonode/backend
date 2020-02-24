@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Model\Form\Type;
 
+use Ergonode\Designer\Application\Model\Form\Type\Property\AttributeElementPropertyTypeModel;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\Designer\Domain\ValueObject\Size;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,26 +19,36 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TemplateElementTypeModel
 {
     /**
-     * @var Position
+     * @var Position | null
      */
-    public Position $position;
+    public ?Position $position;
 
     /**
-     * @var Size
+     * @var Size | null
      */
-    public Size $size;
+    public ?Size $size;
 
     /**
-     * @var string
+     * @var string | null
      *
      * @Assert\NotBlank()
      */
-    public string $type;
+    public ?string $type;
 
     /**
-     * @var array
+     * @var AttributeElementPropertyTypeModel | null
      *
      * @Assert\Valid()
      */
-    public array $properties = [];
+    public ?AttributeElementPropertyTypeModel $properties;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->position = null;
+        $this->size = null;
+        $this->type = null;
+        $this->properties = null;
+    }
 }

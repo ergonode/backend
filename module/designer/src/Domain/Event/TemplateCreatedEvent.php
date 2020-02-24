@@ -72,8 +72,14 @@ class TemplateCreatedEvent implements DomainEventInterface
      * @param AttributeId|null  $defaultImage
      * @param MultimediaId|null $imageId
      */
-    public function __construct(TemplateId $id, TemplateGroupId $groupId, string $name, ?AttributeId $defaultText, ?AttributeId $defaultImage, ?MultimediaId $imageId)
-    {
+    public function __construct(
+        TemplateId $id,
+        TemplateGroupId $groupId,
+        string $name,
+        ?AttributeId $defaultText,
+        ?AttributeId $defaultImage,
+        ?MultimediaId $imageId
+    ) {
         $this->id = $id;
         $this->groupId = $groupId;
         $this->name = $name;
