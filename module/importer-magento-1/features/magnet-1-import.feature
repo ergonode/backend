@@ -7,7 +7,7 @@ Feature: Category module
       {
         "type": "magento-1-csv",
         "name": "name",
-        "host": "https://stage-admin.husse.com/media/catalog/product",
+        "host": "",
         "import" : {
            "templates": true,
            "attributes": true,
