@@ -14,7 +14,10 @@
 .vscode
 /build
 /phpunit.xml
-/behat.yml
 /.phpcs-cache
 /.deptrac.cache
 /.*.pid
+
+###> friends-of-behat/symfony-extension ###
+/behat.yml
+###< friends-of-behat/symfony-extension ###
