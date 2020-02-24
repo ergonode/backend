@@ -108,7 +108,7 @@
     </target>
 
     <!-- Code style check -->
-    <target name="check:style" depends="check:cs" description="Check code style"/>
+    <target name="check:style" depends="check:cs, check:phpstan" description="Check code style"/>
 
     <!-- Mess detector -->
     <target name="check:md" description="Check PHP Mess Detector">
