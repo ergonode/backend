@@ -13,14 +13,15 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionElementQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
 /**
  */
 class DbalProductCollectionElementQuery implements ProductCollectionElementQueryInterface
 {
     private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'collection_element';
+    private const PRODUCT_TABLE = 'public.product';
 
     /**
      * @var Connection
@@ -44,7 +45,9 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
     {
         $query = $this->getQuery();
         $query->andWhere($query->expr()->eq('product_collection_id', ':productCollectionId'));
-        $query->addSelect('created_at');
+        $query->addSelect('created_at, sku');
+        $query->join('ce', self::PRODUCT_TABLE, 'cep', 'cep.id = ce.product_id');
+
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
@@ -59,7 +62,7 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('p.product_collection_id, p.product_id, p.visible')
-            ->from(self::PRODUCT_COLLECTION_ELEMENT_TABLE, 'p');
+            ->select('ce.product_collection_id, ce.product_id, ce.visible')
+            ->from(self::PRODUCT_COLLECTION_ELEMENT_TABLE, 'ce');
     }
 }

@@ -9,11 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Persistence\Dbal\Query\Decorator;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\DataSetInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -39,6 +42,18 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     }
 
     /**
+     * @param Language  $language
+     * @param ProductId $productId
+     *
+     * @return DataSetInterface
+     */
+    public function getDataSetByProduct(Language $language, ProductId $productId): DataSetInterface
+    {
+        return $this->query->getDataSetByProduct($language, $productId);
+    }
+
+
+    /**
      * {@inheritDoc}
      */
     public function findBySku(Sku $sku): ?array
@@ -54,7 +69,7 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
-    public function getAllIds(): array
+    public function getAllIds(): ?array
     {
         return $this->query->getAllIds();
     }
@@ -78,6 +93,14 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
+    public function getAllSkus(): ?array
+    {
+        return $this->query->getAllSkus();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getDictionary(): array
     {
         return $this->query->getDictionary();
@@ -89,5 +112,21 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     public function findProductIdByAttributeId(AttributeId $attributeId, ?Uuid $valueId = null): array
     {
         return $this->query->findProductIdByAttributeId($attributeId, $valueId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductIdsBySkus(array $skus): array
+    {
+        return $this->query->findProductIdsBySkus($skus);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductIdsBySegments(array $segmentIds): array
+    {
+        return $this->query->findProductIdsBySegments($segmentIds);
     }
 }

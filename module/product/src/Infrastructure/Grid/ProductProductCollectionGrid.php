@@ -7,22 +7,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Infrastructure\Grid;
+namespace Ergonode\Product\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\DateColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
-class ProductCollectionGrid extends AbstractGrid
+class ProductProductCollectionGrid extends AbstractGrid
 {
     /**
      * @param GridConfigurationInterface $configuration
@@ -35,13 +33,11 @@ class ProductCollectionGrid extends AbstractGrid
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $this->addColumn('type_id', new TextColumn('type_id', 'Type Id', new TextFilter()));
         $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
         $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter()));
-        $this->addColumn('elements_count', new IntegerColumn('elements_count', 'Number of products', new TextFilter()));
-        $this->addColumn('created_at', new DateColumn('created_at', 'Creation date', new DateFilter()));
-        $this->addColumn('edited_at', new DateColumn('edited_at', 'Last edit date', new DateFilter()));
+        $this->addColumn('type_id', new TextColumn('type_id', 'Type Id', new TextFilter()));
+        $this->addColumn('elements_count', new IntegerColumn('elements_count', 'Number of elements', new TextFilter()));
 
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
@@ -59,7 +55,7 @@ class ProductCollectionGrid extends AbstractGrid
                 'method' => Request::METHOD_DELETE,
             ],
         ]));
-        $this->orderBy('created_at', 'DESC');
+        $this->orderBy('id', 'DESC');
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }

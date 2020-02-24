@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AddProductCollectionElementCommand implements DomainCommandInterface
+class AddMultipleProductCollectionElementCommand implements DomainCommandInterface
 {
     /**
      * @var ProductCollectionId
@@ -26,31 +26,22 @@ class AddProductCollectionElementCommand implements DomainCommandInterface
     private ProductCollectionId $productCollectionId;
 
     /**
-     * @var ProductId
+     * @var ProductId[]
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
+     * @JMS\Type("array")
      */
-    private ProductId $productId;
+    private array $productIds;
 
     /**
-     * @var bool
-     *
-     * @JMS\Type("bool")
-     */
-    private bool $visible;
-
-    /**
-     * AddProductCollectionElementCommand constructor.
+     * AddMultipleProductCollectionElementCommand constructor.
      *
      * @param ProductCollectionId $productCollectionId
-     * @param ProductId           $productId
-     * @param bool                $visible
+     * @param array|ProductId[]   $productIds
      */
-    public function __construct(ProductCollectionId $productCollectionId, ProductId $productId, bool $visible = true)
+    public function __construct(ProductCollectionId $productCollectionId, $productIds)
     {
         $this->productCollectionId = $productCollectionId;
-        $this->productId = $productId;
-        $this->visible = $visible;
+        $this->productIds = $productIds;
     }
 
     /**
@@ -62,18 +53,10 @@ class AddProductCollectionElementCommand implements DomainCommandInterface
     }
 
     /**
-     * @return ProductId
+     * @return ProductId[]
      */
-    public function getProductId(): ProductId
+    public function getProductIds(): array
     {
-        return $this->productId;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isVisible(): bool
-    {
-        return $this->visible;
+        return $this->productIds;
     }
 }

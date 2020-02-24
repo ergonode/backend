@@ -75,6 +75,56 @@ Feature: Product module
     Then created response is received
     And remember response param "id" as "product"
 
+  Scenario: Create product collection type
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+           "code": "TEXT_@@random_code@@",
+              "name": {
+                 "DE": "Name DE",
+                 "EN": "Name EN"
+                 }
+      }
+      """
+    When I request "/api/v1/EN/collections/type" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "product_collection_type"
+
+
+  Scenario: Create first product collection
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "code": "TEXT_@@random_code@@",
+          "name": {
+             "DE": "Name DE",
+             "EN": "Name EN"
+          },
+          "description": {
+            "DE": "Description DE",
+            "EN": "Description EN"
+          },
+          "typeId": "@product_collection_type@"
+      }
+      """
+    When I request "/api/v1/EN/collections" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "product_collection"
+
+  Scenario: Add product collection element
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "productId": "@product@",
+          "visible": true
+      }
+      """
+    When I request "/api/v1/EN/collections/@product_collection@/elements" using HTTP POST
+    Then created response is received
+
   Scenario: Create product (not authorized)
     When I request "/api/v1/EN/products" using HTTP POST
     Then unauthorized response is received
@@ -232,6 +282,114 @@ Feature: Product module
     Given current authentication token
     When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP GET
     Then not found response is received
+
+  Scenario: Get product collections  (not authorized)
+    When I request "/api/v1/EN/products/@product@/collections" using HTTP GET
+    Then unauthorized response is received
+
+  Scenario: Get product collection element (order by code)
+    Given current authentication token
+    When I request "/api/v1/EN/products/@product@/collections?field=code&order=DESC" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"code"/
+    """
+
+  Scenario: Get product collection element (order by name)
+    Given current authentication token
+    When I request "/api/v1/EN/products/@product@/collections?field=name&order=DESC" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"name"/
+    """
+
+  Scenario: Get product collection element (order by description)
+    Given current authentication token
+    When I request "/api/v1/EN/products/@product@/collections?field=description&order=DESC" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"description"/
+    """
+
+  Scenario: Get product collection element (order by type_id)
+    Given current authentication token
+    When I request "/api/v1/EN/products/@product@/collections?field=type_id&order=DESC" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"type_id"/
+    """
+
+  Scenario: Get product collection element (order by elements_count)
+    Given current authentication token
+    When I request "/api/v1/EN/products/@product@/collections?field=elements_count&order=DESC" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"elements_count"/
+    """
+
+  Scenario: Get product collection element (filter by code)
+    Given current authentication token
+    When I request "/api/v1/EN/products/@product@/collections?&filter=code=TEXT" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"code"/
+    """
+
+  Scenario: Get product collection element (filter by name)
+    Given current authentication token
+    When I request "/api/v1/EN/products/@product@/collections?&filter=name=Name" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"name"/
+    """
+
+  Scenario: Get product collection element (filter by description)
+    Given current authentication token
+    When I request "/api/v1/EN/products/@product@/collections?&filter=description=Description" using HTTP GET
+    Then grid response is received
+    And the response body matches:
+    """
+      /"filtered": [^0]/
+    """
+    And the response body matches:
+    """
+      /"description"/
+    """
 
   Scenario: Delete product (not found)
     Given current authentication token
