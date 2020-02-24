@@ -11,8 +11,8 @@ namespace Ergonode\Designer\Infrastructure\Query\Decorator;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
@@ -21,12 +21,12 @@ class TemplateGetProductQueryDecorator implements GetProductQueryInterface
     /**
      * @var GetProductQueryInterface
      */
-    private $query;
+    private GetProductQueryInterface $query;
 
     /**
      * @var TemplateQueryInterface
      */
-    private $templateQuery;
+    private TemplateQueryInterface $templateQuery;
 
     /**
      * @param GetProductQueryInterface $query

@@ -18,17 +18,25 @@ use Symfony\Component\Validator\Constraints as Assert;
 class AttributeElementPropertyTypeModel
 {
     /**
-     * @var string
+     * @var string | null
      *
      * @Assert\NotBlank(message="Attribute id is required")
      * @Assert\Uuid()
      *
      * @AttributeExists(groups={"Attribute"})
      */
-    public $attributeId;
+    public ?string $attributeId;
 
     /**
-     * @var bool
+     * @var bool | null
      */
-    public $required;
+    public ?bool $required;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->attributeId = null;
+        $this->required = null;
+    }
 }

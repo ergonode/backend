@@ -19,5 +19,5 @@ class RoleExists extends Constraint
     /**
      * @var string
      */
-    public $message = 'Role {{ value }} not exists.';
+    public string $message = 'Role {{ value }} not exists.';
 }

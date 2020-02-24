@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Repository\Decorator;
 
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -20,12 +20,12 @@ class CacheTemplateRepositoryDecorator implements TemplateRepositoryInterface
     /**
      * @var TemplateRepositoryInterface
      */
-    private $repository;
+    private TemplateRepositoryInterface $repository;
 
     /**
      * @var array
      */
-    private $cache = [];
+    private array $cache = [];
 
     /**
      * @param TemplateRepositoryInterface $repository

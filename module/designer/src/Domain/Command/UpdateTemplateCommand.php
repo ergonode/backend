@@ -11,9 +11,10 @@ namespace Ergonode\Designer\Domain\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
@@ -26,42 +27,66 @@ class UpdateTemplateCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
-    private $id;
+    private TemplateId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @var MultimediaId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
-    private $imageId;
+    private ?MultimediaId $imageId;
+
+    /**
+     * @var AttributeId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $defaultText;
+
+    /**
+     * @var AttributeId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $defaultImage;
 
     /**
      * @var ArrayCollection|TemplateElement[]
      *
      * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
-    private $elements;
+    private ArrayCollection $elements;
 
     /**
      * @param TemplateId        $id
      * @param string            $name
      * @param ArrayCollection   $elements
+     * @param AttributeId       $defaultText
+     * @param AttributeId       $defaultImage
      * @param MultimediaId|null $imageId
      */
-    public function __construct(TemplateId $id, string $name, ArrayCollection $elements, ?MultimediaId $imageId = null)
-    {
+    public function __construct(
+        TemplateId $id,
+        string $name,
+        ArrayCollection $elements,
+        AttributeId $defaultText = null,
+        AttributeId $defaultImage = null,
+        ?MultimediaId $imageId = null
+    ) {
         Assert::allIsInstanceOf($elements, TemplateElement::class, 'Template elements should by %2$s class. Got: %s');
 
         $this->id = $id;
         $this->name = $name;
         $this->elements = $elements;
+        $this->defaultText = $defaultText;
+        $this->defaultImage = $defaultImage;
         $this->imageId = $imageId;
     }
 
@@ -87,6 +112,22 @@ class UpdateTemplateCommand implements DomainCommandInterface
     public function getImageId(): ?MultimediaId
     {
         return $this->imageId;
+    }
+
+    /**
+     * @return AttributeId|null
+     */
+    public function getDefaultText(): ?AttributeId
+    {
+        return $this->defaultText;
+    }
+
+    /**
+     * @return AttributeId|null
+     */
+    public function getDefaultImage(): ?AttributeId
+    {
+        return $this->defaultImage;
     }
 
     /**

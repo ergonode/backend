@@ -16,9 +16,9 @@ use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
 use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
 use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Factory\TemplateElementFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -27,12 +27,12 @@ class TemplateCommandFactory
     /**
      * @var TemplateElementFactory
      */
-    private $factory;
+    private TemplateElementFactory $factory;
 
     /**
      * @var SnakeCaseMapper
      */
-    private $mapper;
+    private SnakeCaseMapper $mapper;
 
     /**
      * @param TemplateElementFactory $factory
@@ -56,7 +56,9 @@ class TemplateCommandFactory
         return new CreateTemplateCommand(
             $model->name,
             $this->createElements($model),
-            $model->image?new MultimediaId($model->image):null
+            $model->defaultText,
+            $model->defaultImage,
+            $model->image ? new MultimediaId($model->image) : null
         );
     }
 
@@ -72,7 +74,9 @@ class TemplateCommandFactory
             $id,
             $model->name,
             $this->createElements($model),
-            $model->image?new MultimediaId($model->image):null
+            $model->defaultText,
+            $model->defaultImage,
+            $model->image ? new MultimediaId($model->image) : null
         );
     }
 

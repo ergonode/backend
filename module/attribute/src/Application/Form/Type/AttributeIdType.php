@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Application\Form\Type;
+namespace Ergonode\Attribute\Application\Form\Type;
 
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\ProductCollection\Application\Form\Transformer\ProductIdDataTransformer;
+use Ergonode\Attribute\Application\Form\Transformer\AttributeIdDataTransformer;
+use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,17 +18,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class ProductIdType extends AbstractType
+class AttributeIdType extends AbstractType
 {
     /**
-     * @var ProductQueryInterface
+     * @var AttributeQueryInterface
      */
-    private ProductQueryInterface $query;
+    private AttributeQueryInterface $query;
 
     /**
-     * @param ProductQueryInterface $query
+     * @param AttributeQueryInterface $query
      */
-    public function __construct(ProductQueryInterface $query)
+    public function __construct(AttributeQueryInterface $query)
     {
         $this->query = $query;
     }
@@ -39,7 +39,7 @@ class ProductIdType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addModelTransformer(new ProductIdDataTransformer());
+        $builder->addModelTransformer(new AttributeIdDataTransformer());
     }
 
     /**
@@ -47,11 +47,11 @@ class ProductIdType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $products = $this->query->getDictionary();
+        $collections = $this->query->getDictionary();
         $resolver->setDefaults(
             [
-                'choices' => array_flip($products),
-                'invalid_message' => 'Type is not valid',
+                'choices' => array_flip($collections),
+                'invalid_message' => 'Attribute is not valid',
             ]
         );
     }

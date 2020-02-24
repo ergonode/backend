@@ -26,7 +26,7 @@ class TemplateGrid extends AbstractGrid
     /**
      * @var TemplateGroupQueryInterface
      */
-    private $query;
+    private TemplateGroupQueryInterface $query;
 
     /**
      * @param TemplateGroupQueryInterface $query
@@ -46,6 +46,8 @@ class TemplateGrid extends AbstractGrid
 
         $this->addColumn('id', new TextColumn('id', 'Id'));
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
+        $this->addColumn('default_text', new TextColumn('default_text', 'Default text', new TextFilter()));
+        $this->addColumn('default_image', new TextColumn('default_image', 'Default Image', new TextFilter()));
         $this->addColumn('image_id', new TextColumn('image_id', 'Icon', new TextFilter()));
         $this->addColumn('group_id', new TextColumn('group_id', 'Group', new SelectFilter($collection)));
         $this->addColumn('_links', new LinkColumn('hal', [

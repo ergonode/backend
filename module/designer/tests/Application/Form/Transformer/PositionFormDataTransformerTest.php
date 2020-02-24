@@ -21,7 +21,7 @@ class PositionFormDataTransformerTest extends TestCase
     /**
      * @var PositionFormDataTransformer
      */
-    protected $transformer;
+    protected PositionFormDataTransformer $transformer;
 
     /**
      */

@@ -23,7 +23,7 @@ class RoleDescriptionChangedEvent extends AbstractStringBasedChangedEvent
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $id;
+    private RoleId $id;
 
     /**
      * @param RoleId $id

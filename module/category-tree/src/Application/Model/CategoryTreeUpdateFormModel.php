@@ -23,14 +23,14 @@ class CategoryTreeUpdateFormModel
      *     @Assert\Length(max=255, maxMessage="Category name is to long, It should have {{ limit }} character or less.")
      * })
      */
-    public $name;
+    public array $name;
 
     /**
      * @var TreeNodeFormModel[]
      *
      * @Assert\Valid()
      */
-    public $categories;
+    public array $categories;
 
     /**
      */

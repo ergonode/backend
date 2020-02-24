@@ -32,7 +32,7 @@ class UserReadAction
     /**
      * @var AccountQueryInterface
      */
-    private $query;
+    private AccountQueryInterface $query;
 
     /**
      * @param AccountQueryInterface $query

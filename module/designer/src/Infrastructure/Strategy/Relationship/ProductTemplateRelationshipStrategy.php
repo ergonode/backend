@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Infrastructure\Strategy\Relationship;
 
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -22,7 +22,7 @@ class ProductTemplateRelationshipStrategy implements RelationshipStrategyInterfa
     /**
      * @var TemplateQueryInterface
      */
-    private $query;
+    private TemplateQueryInterface $query;
 
     /**
      * @param TemplateQueryInterface $query

@@ -25,7 +25,7 @@ class TemplateElementPropertyInterfaceHandlerTest extends TestCase
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * @throws \ReflectionException

@@ -20,12 +20,12 @@ class ChangeUserPasswordCommand implements DomainCommandInterface
     /**
      * @var UserId
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var Password
      */
-    private $password;
+    private Password $password;
 
     /**
      * @param UserId   $id

@@ -25,7 +25,7 @@ class CategoryTreeCreateFormModel
      *      message="Category tree code can have only letters, digits or underscore symbol"
      * )
      */
-    public $code;
+    public ?string $code;
 
     /**
      * @var array
@@ -38,13 +38,14 @@ class CategoryTreeCreateFormModel
      *     )
      * })
      */
-    public $name;
+    public array $name;
 
     /**
      * CategoryCreateFormModel constructor.
      */
     public function __construct()
     {
+        $this->code = null;
         $this->name = [];
     }
 }

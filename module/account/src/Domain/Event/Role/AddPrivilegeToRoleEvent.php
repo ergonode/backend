@@ -23,14 +23,14 @@ class AddPrivilegeToRoleEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $id;
+    private RoleId $id;
 
     /**
      * @var Privilege
      *
      * @JMS\Type("Ergonode\Account\Domain\ValueObject\Privilege")
      */
-    private $privilege;
+    private Privilege $privilege;
 
     /**
      * @param RoleId    $id

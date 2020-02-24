@@ -27,7 +27,7 @@ class PasswordHandlerTest extends TestCase
     /**
      * @var PasswordHandler
      */
-    private $handler;
+    private PasswordHandler $handler;
 
     /**
      * @var SerializationVisitorInterface

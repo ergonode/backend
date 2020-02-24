@@ -11,7 +11,6 @@ namespace Ergonode\CategoryTree\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
-
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -25,14 +24,14 @@ class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
-    private $id;
+    private CategoryTreeId $id;
 
     /**
      * @var Node[]
      *
      * @JMS\Type("array<Ergonode\CategoryTree\Domain\ValueObject\Node>")
      */
-    private $categories;
+    private array $categories;
 
     /**
      * @param CategoryTreeId $id

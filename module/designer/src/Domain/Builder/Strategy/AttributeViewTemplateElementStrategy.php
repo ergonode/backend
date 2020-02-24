@@ -27,17 +27,17 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
     /**
      * @var AttributeRepositoryInterface
      */
-    private $attributeRepository;
+    private AttributeRepositoryInterface $attributeRepository;
 
     /**
      * @var TranslatedOptionValueResolver
      */
-    private $resolver;
+    private TranslatedOptionValueResolver $resolver;
 
     /**
      * @var AttributeParametersProvider
      */
-    private $provider;
+    private AttributeParametersProvider $provider;
 
     /**
      * @param AttributeRepositoryInterface  $attributeRepository

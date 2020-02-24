@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Application\Request\ParamConverter;
 
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ class TemplateParamConverter implements ParamConverterInterface
     /**
      * @var TemplateRepositoryInterface
      */
-    private $templateRepository;
+    private TemplateRepositoryInterface $templateRepository;
 
     /**
      * @param TemplateRepositoryInterface $templateRepository

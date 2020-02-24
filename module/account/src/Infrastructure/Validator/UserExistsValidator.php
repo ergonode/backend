@@ -22,7 +22,7 @@ class UserExistsValidator extends ConstraintValidator
     /**
      * @var UserRepositoryInterface
      */
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
     /**
      * @param UserRepositoryInterface $userRepository

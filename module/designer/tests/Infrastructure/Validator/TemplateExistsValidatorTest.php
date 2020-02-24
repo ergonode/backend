@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Tests\Designer\Infrastructure\Validator;
 
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Designer\Infrastructure\Validator\TemplateExists;
 use Ergonode\Designer\Infrastructure\Validator\TemplateExistsValidator;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
@@ -25,7 +25,7 @@ class TemplateExistsValidatorTest extends ConstraintValidatorTestCase
     /**
      * @var MockObject|TemplateRepositoryInterface
      */
-    private $templateRepository;
+    private MockObject $templateRepository;
 
     /**
      */

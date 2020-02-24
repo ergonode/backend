@@ -9,9 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Application\Form\Type;
 
+use Ergonode\Segment\Application\Form\DataTransformer\SegmentIdDataTransformer;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -31,6 +33,16 @@ class SegmentType extends AbstractType
         $this->query = $query;
     }
 
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder->addModelTransformer(new SegmentIdDataTransformer());
+    }
+
     /**
      * @param OptionsResolver $resolver
      */
@@ -42,7 +54,7 @@ class SegmentType extends AbstractType
         $resolver->setDefaults(
             [
                 'choices' => array_flip($choices),
-                'invalid_message' => 'Segment not exists',
+                'invalid_message' => 'Segment {{ value }} not exists',
                 'multiple' => false,
             ]
         );

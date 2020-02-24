@@ -23,7 +23,7 @@ class RoleFormModel
      * @Assert\NotBlank(message="Role name is required")
      * @Assert\Length(max="100")
      */
-    public $name;
+    public ?string $name;
 
     /**
      * @var string
@@ -31,19 +31,21 @@ class RoleFormModel
      * @Assert\NotBlank(message="Role description is required")
      * @Assert\Length(min="3", max="500")
      */
-    public $description;
+    public ?string $description;
 
     /**
      * @var Privilege[]
      *
      * @AccountAssert\ConstraintPrivilegeRelations()
      */
-    public $privileges;
+    public array $privileges;
 
     /**
      */
     public function __construct()
     {
+        $this->name = null;
+        $this->description = null;
         $this->privileges = [];
     }
 }

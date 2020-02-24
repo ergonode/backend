@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\CategoryTree\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
-
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -24,21 +23,21 @@ class CategoryTreeCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
-    private $id;
+    private CategoryTreeId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $code;
+    private string $code;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @param CategoryTreeId     $id
@@ -59,8 +58,6 @@ class CategoryTreeCreatedEvent implements DomainEventInterface
     {
         return $this->id;
     }
-
-
 
     /**
      * @return string

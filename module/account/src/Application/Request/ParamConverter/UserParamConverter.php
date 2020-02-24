@@ -25,7 +25,7 @@ class UserParamConverter implements ParamConverterInterface
     /**
      * @var UserRepositoryInterface
      */
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
     /**
      * @param UserRepositoryInterface $userRepository

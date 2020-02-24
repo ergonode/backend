@@ -11,6 +11,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
 use Imbo\BehatApiExtension\Exception\AssertionFailedException;
 use Symfony\Component\HttpFoundation\Response;
+use GuzzleHttp\Psr7;
 
 /**
  */
@@ -233,6 +234,10 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     {
         $string = $this->storageContext->replaceVars($string);
 
+        if ($this->isJson($string)) {
+            $this->setRequestHeader('Content-Type', self::JSON_CONTENT);
+        }
+
         return parent::setRequestBody($string);
     }
 
@@ -303,5 +308,20 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
         }
 
         return $body;
+    }
+
+    /**
+     * @param $resource
+     * @return bool
+     */
+    private function isJson($resource)
+    {
+        $string = (string) Psr7\stream_for($resource);
+        if (!$string) {
+            return false;
+        }
+        json_decode($string);
+
+        return JSON_ERROR_NONE === json_last_error();
     }
 }

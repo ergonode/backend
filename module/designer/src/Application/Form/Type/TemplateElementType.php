@@ -26,7 +26,7 @@ class TemplateElementType extends AbstractType implements EventSubscriberInterfa
     /**
      * @var TemplateElementFormTypeResolver
      */
-    private $resolver;
+    private TemplateElementFormTypeResolver $resolver;
 
     /**
      * @param TemplateElementFormTypeResolver $resolver

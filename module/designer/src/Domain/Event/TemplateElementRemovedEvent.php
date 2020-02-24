@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\ValueObject\Position;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -23,14 +23,14 @@ class TemplateElementRemovedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
-    private $id;
+    private TemplateId $id;
 
     /**
      * @var Position
      *
      * @JMS\Type("Ergonode\Designer\Domain\ValueObject\Position")
      */
-    private $position;
+    private Position $position;
 
     /**
      * @param TemplateId $id

@@ -22,7 +22,7 @@ class RoleUserRelationshipStrategy implements RelationshipStrategyInterface
     /**
      * @var AccountQueryInterface
      */
-    private $query;
+    private AccountQueryInterface $query;
 
     /**
      * @param AccountQueryInterface $query

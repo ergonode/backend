@@ -12,10 +12,6 @@ namespace Ergonode\ProductCollection\Domain\Entity;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionCreatedEvent;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionDescriptionChangedEvent;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementAddedEvent;
@@ -23,6 +19,10 @@ use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementRemovedEvent
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionNameChangedEvent;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionTypeIdChangedEvent;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -240,6 +240,26 @@ class ProductCollection extends AbstractAggregateRoot
             $currentDateTime
         );
         $this->apply(new ProductCollectionElementAddedEvent($this->id, $element, $currentDateTime));
+    }
+
+    /**
+     * @param array $productIds
+     * @param bool  $visible
+     */
+    public function addElements(array $productIds, bool $visible = true): void
+    {
+        foreach ($productIds as $productId) {
+            if (!$this->hasElement($productId)) {
+                $currentDateTime = new \DateTime();
+                $element = new ProductCollectionElement(
+                    ProductCollectionElementId::generate(),
+                    $productId,
+                    $visible,
+                    $currentDateTime
+                );
+                $this->apply(new ProductCollectionElementAddedEvent($this->id, $element, $currentDateTime));
+            }
+        }
     }
 
     /**

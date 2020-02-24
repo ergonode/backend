@@ -19,7 +19,7 @@ class ViewTemplateElementProvider
     /**
      * @var BuilderTemplateElementStrategyInterface[]
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param BuilderTemplateElementStrategyInterface ...$strategies

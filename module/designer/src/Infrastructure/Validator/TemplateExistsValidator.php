@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Infrastructure\Validator;
 
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -22,7 +22,7 @@ class TemplateExistsValidator extends ConstraintValidator
     /**
      * @var TemplateRepositoryInterface
      */
-    private $templateRepository;
+    private TemplateRepositoryInterface $templateRepository;
 
     /**
      * @param TemplateRepositoryInterface $templateRepository

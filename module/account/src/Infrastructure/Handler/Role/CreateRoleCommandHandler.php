@@ -20,12 +20,12 @@ class CreateRoleCommandHandler
     /**
      * @var RoleRepositoryInterface
      */
-    private $repository;
+    private RoleRepositoryInterface $repository;
 
     /**
      * @var RoleFactory
      */
-    private $factory;
+    private RoleFactory $factory;
 
     /**
      * @param RoleRepositoryInterface $repository

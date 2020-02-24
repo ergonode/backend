@@ -10,8 +10,9 @@ namespace Ergonode\Designer\Tests\Domain\Command;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -29,11 +30,17 @@ class UpdateDesignerTemplateCommandTest extends TestCase
         $elements->add($this->createMock(TemplateElement::class));
         /** @var MultimediaId $multimediaId */
         $multimediaId = $this->createMock(MultimediaId::class);
+        /** @var AttributeId $defaultText */
+        $defaultText = $this->createMock(AttributeId::class);
+        /** @var AttributeId $defaultImage */
+        $defaultImage = $this->createMock(AttributeId::class);
 
-        $command = new UpdateTemplateCommand($id, $name, $elements, $multimediaId);
+        $command = new UpdateTemplateCommand($id, $name, $elements, $defaultText, $defaultImage, $multimediaId);
         $this->assertSame($id, $command->getId());
         $this->assertSame($name, $command->getName());
-        $this->assertSame($elements, $command->getElements());
         $this->assertSame($multimediaId, $command->getImageId());
+        $this->assertSame($defaultText, $command->getDefaultText());
+        $this->assertSame($defaultImage, $command->getDefaultImage());
+        $this->assertSame($elements, $command->getElements());
     }
 }
