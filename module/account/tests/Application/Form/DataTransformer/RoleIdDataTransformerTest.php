@@ -21,7 +21,7 @@ class RoleIdDataTransformerTest extends TestCase
     /**
      * @var RoleIdDataTransformer
      */
-    protected $transformer;
+    protected RoleIdDataTransformer $transformer;
 
     /**
      */

@@ -23,7 +23,7 @@ class UserUniqueValidator extends ConstraintValidator
     /**
      * @var UserRepositoryInterface
      */
-    private $repository;
+    private UserRepositoryInterface $repository;
 
     /**
      * @param UserRepositoryInterface $repository

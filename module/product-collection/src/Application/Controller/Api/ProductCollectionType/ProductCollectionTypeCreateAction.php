@@ -28,7 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(
  *     name="ergonode_product_collection_type_create",
- *     path="/collectionTypes",
+ *     path="/collections/type",
  *     methods={"POST"}
  * )
  */

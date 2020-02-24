@@ -27,7 +27,7 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
     /**
      * @var RoleRepositoryInterface
      */
-    private $roleRepository;
+    private RoleRepositoryInterface $roleRepository;
 
     /**
      * @param RoleRepositoryInterface $roleRepository

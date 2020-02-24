@@ -27,12 +27,12 @@ class RoleTest extends TestCase
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      */
-    private $description;
+    private string $description;
 
     /**
      * @var Privilege|MockObject

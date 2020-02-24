@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Application\Form\Transformer;
+namespace Ergonode\Product\Application\Form\Transformer;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Form\DataTransformerInterface;

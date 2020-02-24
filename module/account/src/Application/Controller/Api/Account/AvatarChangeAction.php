@@ -29,7 +29,7 @@ class AvatarChangeAction
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @param MessageBusInterface $messageBus

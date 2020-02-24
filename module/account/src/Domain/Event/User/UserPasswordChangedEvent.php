@@ -24,14 +24,14 @@ class UserPasswordChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var Password
      *
      * @JMS\Type("Ergonode\Account\Domain\ValueObject\Password")
      */
-    private $password;
+    private Password $password;
 
     /**
      * @param UserId   $id

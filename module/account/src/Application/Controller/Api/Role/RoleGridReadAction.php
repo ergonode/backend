@@ -29,17 +29,17 @@ class RoleGridReadAction
     /**
      * @var RoleQueryInterface
      */
-    private $query;
+    private RoleQueryInterface $query;
 
     /**
      * @var RoleGrid
      */
-    private $grid;
+    private RoleGrid $grid;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer       $gridRenderer

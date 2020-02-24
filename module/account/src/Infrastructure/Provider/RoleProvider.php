@@ -18,7 +18,7 @@ class RoleProvider implements RoleProviderInterface
     /**
      * @var RoleQueryInterface
      */
-    private $roleQuery;
+    private RoleQueryInterface $roleQuery;
 
     /**
      * @param RoleQueryInterface $roleQuery

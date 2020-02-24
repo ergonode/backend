@@ -24,14 +24,14 @@ class UserAvatarChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var MultimediaId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
-    private $avatarId;
+    private ?MultimediaId $avatarId;
 
     /**
      * @param UserId            $id

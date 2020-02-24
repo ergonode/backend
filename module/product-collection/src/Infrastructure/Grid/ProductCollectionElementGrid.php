@@ -38,8 +38,9 @@ class ProductCollectionElementGrid extends AbstractGrid
             new TextFilter()
         ));
         $this->addColumn('product_id', new TextColumn('product_id', 'Product Id', new TextFilter()));
-        $this->addColumn('visible', new BoolColumn('visible', 'Is this element visible for others from collection.'));
-        $this->addColumn('created_at', new DateColumn('created_at', 'Added at', new DateFilter()));
+        $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
+        $this->addColumn('visible', new BoolColumn('visible', 'Product visible in collection'));
+        $this->addColumn('created_at', new DateColumn('created_at', 'Addition date', new DateFilter()));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_product_collection_element_read',

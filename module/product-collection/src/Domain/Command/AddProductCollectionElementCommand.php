@@ -10,8 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Domain\Command;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -46,7 +46,7 @@ class AddProductCollectionElementCommand implements DomainCommandInterface
      * @param ProductId           $productId
      * @param bool                $visible
      */
-    public function __construct(ProductCollectionId $productCollectionId, ProductId $productId, bool $visible)
+    public function __construct(ProductCollectionId $productCollectionId, ProductId $productId, bool $visible = true)
     {
         $this->productCollectionId = $productCollectionId;
         $this->productId = $productId;

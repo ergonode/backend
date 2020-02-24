@@ -24,21 +24,21 @@ class UserLanguageChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var Language
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
-    private $from;
+    private Language $from;
 
     /**
      * @var Language
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
-    private $to;
+    private Language $to;
 
     /**
      * @param UserId   $id

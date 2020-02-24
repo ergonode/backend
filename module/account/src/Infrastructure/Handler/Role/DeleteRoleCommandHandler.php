@@ -23,12 +23,12 @@ class DeleteRoleCommandHandler
     /**
      * @var RoleRepositoryInterface
      */
-    private $repository;
+    private RoleRepositoryInterface $repository;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @param RoleRepositoryInterface        $repository

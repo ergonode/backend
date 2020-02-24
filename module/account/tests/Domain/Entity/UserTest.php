@@ -31,12 +31,12 @@ class UserTest extends TestCase
     /**
      * @var string
      */
-    private $firstName;
+    private string $firstName;
 
     /**
      * @var string
      */
-    private $lastName;
+    private string $lastName;
 
     /**
      * @var Email\MockObject

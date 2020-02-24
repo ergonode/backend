@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *     name="ergonode_product_collection_read",
  *     path="/collections/{collection}",
  *     methods={"GET"},
- *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
+ *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class ProductCollectionReadAction

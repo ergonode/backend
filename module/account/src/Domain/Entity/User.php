@@ -35,47 +35,47 @@ class User extends AbstractAggregateRoot implements UserInterface
     /**
      * @var UserId
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var string
      */
-    private $firstName;
+    private string $firstName;
 
     /**
      * @var string
      */
-    private $lastName;
+    private string $lastName;
 
     /**
      * @var Email
      */
-    private $email;
+    private Email $email;
 
     /**
      * @var Password
      */
-    private $password;
+    private Password $password;
 
     /**
      * @var Language
      */
-    private $language;
+    private Language $language;
 
     /**
-     * @var MultimediaId
+     * @var MultimediaId|null
      */
-    private $avatarId;
+    private ?MultimediaId $avatarId;
 
     /**
      * @var RoleId
      */
-    private $roleId;
+    private RoleId $roleId;
 
     /**
      * @var bool
      */
-    private $isActive;
+    private bool $isActive;
 
     /**
      * @param UserId            $id

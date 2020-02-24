@@ -22,7 +22,7 @@ class ConstraintPrivilegeRelationsValidator extends ConstraintValidator
     /**
      * @var PrivilegeGroupedByAreaProvider
      */
-    private $privilegeGroupedByAreaProvider;
+    private PrivilegeGroupedByAreaProvider $privilegeGroupedByAreaProvider;
 
     /**
      * @param PrivilegeGroupedByAreaProvider $privilegeGroupedByAreaProvider
