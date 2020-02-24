@@ -21,7 +21,7 @@ class TemplateElementRemovedEventProjector
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection

@@ -25,12 +25,12 @@ class TemplateElementFactoryTest extends TestCase
     /**
      * @var SerializerInterface|MockObject
      */
-    private $serializer;
+    private MockObject $serializer;
 
     /**
      * @var TemplateElementTypeResolver
      */
-    private $resolver;
+    private TemplateElementTypeResolver $resolver;
 
     /**
      */

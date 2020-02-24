@@ -28,17 +28,17 @@ class TemplateGroupGridReadAction
     /**
      * @var TemplateGroupQueryInterface
      */
-    private $query;
+    private TemplateGroupQueryInterface $query;
 
     /**
      * @var TemplateGroupGrid
      */
-    private $grid;
+    private TemplateGroupGrid $grid;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer                $gridRenderer

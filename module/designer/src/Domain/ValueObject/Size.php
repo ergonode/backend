@@ -18,12 +18,12 @@ class Size
     /**
      * @var int
      */
-    private $width;
+    private int $width;
 
     /**
      * @var int
      */
-    private $height;
+    private int $height;
 
     /**
      * @param int $width

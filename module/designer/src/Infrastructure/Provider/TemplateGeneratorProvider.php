@@ -19,7 +19,7 @@ class TemplateGeneratorProvider
     /**
      * @var TemplateGeneratorInterface[]
      */
-    private $generators;
+    private array $generators;
 
     /**
      * @param TemplateGeneratorInterface ...$generators

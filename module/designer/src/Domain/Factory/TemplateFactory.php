@@ -11,9 +11,10 @@ namespace Ergonode\Designer\Domain\Factory;
 
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Webmozart\Assert\Assert;
 
 /**
@@ -24,15 +25,21 @@ class TemplateFactory
      * @param TemplateId        $id
      * @param TemplateGroupId   $groupId
      * @param string            $name
-     * @param TemplateElement[] $elements
+     * @param AttributeId|null  $defaultText
+     * @param AttributeId|null  $defaultImage
+     * @param array             $elements
      * @param MultimediaId|null $imageId
      *
      * @return Template
+     *
+     * @throws \Exception
      */
     public function create(
         TemplateId $id,
         TemplateGroupId $groupId,
         string $name,
+        ?AttributeId $defaultText = null,
+        ?AttributeId $defaultImage = null,
         array $elements = [],
         ?MultimediaId $imageId = null
     ): Template {
@@ -42,6 +49,8 @@ class TemplateFactory
             $id,
             $groupId,
             $name,
+            $defaultText,
+            $defaultImage,
             $imageId
         );
 

@@ -40,6 +40,8 @@ final class Version20180719132703 extends AbstractErgonodeMigration
                 id UUID NOT NULL,
                 name VARCHAR(255) NOT NULL,
                 image_id UUID DEFAULT NULL,
+                default_text UUID DEFAULT NULL,
+                default_image UUID DEFAULT NULL,
                 template_group_id UUID NOT NULL,                                   
                 PRIMARY KEY(id)
             )
@@ -131,6 +133,12 @@ final class Version20180719132703 extends AbstractErgonodeMigration
             'Ergonode\Designer\Domain\Event\TemplateImageAddedEvent' => 'Template image added',
             'Ergonode\Designer\Domain\Event\TemplateImageChangedEvent' => 'Template image changed',
             'Ergonode\Designer\Domain\Event\TemplateImageRemovedEvent' => 'Template image removed',
+            'Ergonode\Designer\Domain\Event\TemplateDefaultTextAddedEvent' => 'Template default text added',
+            'Ergonode\Designer\Domain\Event\TemplateDefaultTextChangedEvent' => 'Template default text  changed',
+            'Ergonode\Designer\Domain\Event\TemplateDefaultTextRemovedEvent' => 'Template default text removed',
+            'Ergonode\Designer\Domain\Event\TemplateDefaultImageAddedEvent' => 'Template default Image added',
+            'Ergonode\Designer\Domain\Event\TemplateDefaultImageChangedEvent' => 'Template default Image  changed',
+            'Ergonode\Designer\Domain\Event\TemplateDefaultImageRemovedEvent' => 'Template default Image removed',
             'Ergonode\Designer\Domain\Event\TemplateNameChangedEvent' => 'Template name changed',
             'Ergonode\Designer\Domain\Event\TemplateRemovedEvent' => 'Template removed',
         ]);

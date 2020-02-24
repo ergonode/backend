@@ -10,9 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Infrastructure\Provider;
 
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -21,17 +21,17 @@ class TemplateProvider
     /**
      * @var TemplateRepositoryInterface
      */
-    private $repository;
+    private TemplateRepositoryInterface $repository;
 
     /**
      * @var TemplateGroupQueryInterface
      */
-    private $query;
+    private TemplateGroupQueryInterface $query;
 
     /**
      * @var TemplateGeneratorProvider
      */
-    private $provider;
+    private TemplateGeneratorProvider $provider;
 
     /**
      * @param TemplateRepositoryInterface $repository

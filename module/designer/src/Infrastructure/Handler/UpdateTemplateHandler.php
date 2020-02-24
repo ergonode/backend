@@ -21,7 +21,7 @@ class UpdateTemplateHandler
     /**
      * @var TemplateRepositoryInterface
      */
-    private $designerTemplateRepository;
+    private TemplateRepositoryInterface $designerTemplateRepository;
 
     /**
      * @param TemplateRepositoryInterface $designerTemplateRepository
@@ -67,6 +67,26 @@ class UpdateTemplateHandler
             }
         } elseif ($template->getImageId()) {
             $template->removeImage();
+        }
+
+        if ($command->getDefaultText()) {
+            if ($template->getDefaultText()) {
+                $template->changeDefaultText($command->getDefaultText());
+            } else {
+                $template->addDefaultText($command->getDefaultText());
+            }
+        } elseif ($template->getDefaultText()) {
+            $template->removeDefaultText();
+        }
+
+        if ($command->getDefaultImage()) {
+            if ($template->getDefaultImage()) {
+                $template->changeDefaultImage($command->getDefaultImage());
+            } else {
+                $template->addDefaultImage($command->getDefaultImage());
+            }
+        } elseif ($template->getDefaultImage()) {
+            $template->removeDefaultImage();
         }
 
         $this->designerTemplateRepository->save($template);

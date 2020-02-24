@@ -11,9 +11,10 @@ namespace Ergonode\Designer\Domain\Command;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
@@ -26,38 +27,61 @@ class CreateTemplateCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
-    private $templateId;
+    private TemplateId $templateId;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @var MultimediaId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
-    private $imageId;
+    private ?MultimediaId $imageId;
+
+    /**
+     * @var AttributeId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $defaultText;
+
+    /**
+     * @var AttributeId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $defaultImage;
 
     /**
      * @var ArrayCollection|TemplateElement[]
      *
      * @JMS\Type("ArrayCollection<Ergonode\Designer\Domain\Entity\TemplateElement>")
      */
-    private $elements;
+    private ArrayCollection $elements;
 
     /**
+     * CreateTemplateCommand constructor.
+     *
      * @param string            $name
      * @param ArrayCollection   $elements
+     * @param AttributeId|null  $defaultText
+     * @param AttributeId|null  $defaultImage
      * @param MultimediaId|null $imageId
      *
      * @throws \Exception
      */
-    public function __construct(string $name, ArrayCollection $elements, ?MultimediaId $imageId = null)
-    {
+    public function __construct(
+        string $name,
+        ArrayCollection $elements,
+        ?AttributeId $defaultText = null,
+        ?AttributeId $defaultImage = null,
+        ?MultimediaId $imageId = null
+    ) {
         Assert::allIsInstanceOf(
             $elements->toArray(),
             TemplateElement::class,
@@ -66,6 +90,8 @@ class CreateTemplateCommand implements DomainCommandInterface
 
         $this->templateId = TemplateId::generate();
         $this->name = $name;
+        $this->defaultText = $defaultText;
+        $this->defaultImage = $defaultImage;
         $this->elements = $elements;
         $this->imageId = $imageId;
     }
@@ -84,6 +110,22 @@ class CreateTemplateCommand implements DomainCommandInterface
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return AttributeId|null
+     */
+    public function getDefaultText(): ?AttributeId
+    {
+        return $this->defaultText;
+    }
+
+    /**
+     * @return AttributeId|null
+     */
+    public function getDefaultImage(): ?AttributeId
+    {
+        return $this->defaultImage;
     }
 
     /**

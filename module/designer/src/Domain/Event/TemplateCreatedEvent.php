@@ -9,10 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -24,42 +25,69 @@ class TemplateCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
-    private $id;
+    private TemplateId $id;
 
     /**
      * @var TemplateGroupId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
-    private $groupId;
+    private TemplateGroupId $groupId;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
+
+    /**
+     * @var AttributeId | null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $defaultText;
+
+    /**
+     * @var AttributeId | null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
+     */
+    private ?AttributeId $defaultImage;
 
     /**
      * @var MultimediaId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
-    private $imageId;
+    private ?MultimediaId $imageId;
 
     /**
+     * TemplateCreatedEvent constructor.
+     *
      * @param TemplateId        $id
      * @param TemplateGroupId   $groupId
      * @param string            $name
+     * @param AttributeId|null  $defaultText
+     * @param AttributeId|null  $defaultImage
      * @param MultimediaId|null $imageId
      */
-    public function __construct(TemplateId $id, TemplateGroupId $groupId, string $name, ?MultimediaId $imageId = null)
-    {
+    public function __construct(
+        TemplateId $id,
+        TemplateGroupId $groupId,
+        string $name,
+        ?AttributeId $defaultText,
+        ?AttributeId $defaultImage,
+        ?MultimediaId $imageId
+    ) {
         $this->id = $id;
         $this->groupId = $groupId;
         $this->name = $name;
+        $this->defaultText = $defaultText;
+        $this->defaultImage = $defaultImage;
         $this->imageId = $imageId;
     }
+
 
     /**
      * @return TemplateId
@@ -83,6 +111,22 @@ class TemplateCreatedEvent implements DomainEventInterface
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return null | AttributeId
+     */
+    public function getDefaultText(): ?AttributeId
+    {
+        return $this->defaultText;
+    }
+
+    /**
+     * @return null | AttributeId
+     */
+    public function getDefaultImage(): ?AttributeId
+    {
+        return $this->defaultImage;
     }
 
     /**

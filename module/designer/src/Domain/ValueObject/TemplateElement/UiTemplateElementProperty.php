@@ -23,7 +23,7 @@ class UiTemplateElementProperty implements TemplateElementPropertyInterface
      *
      * @JMS\Type("string")
      */
-    private $label;
+    private string $label;
 
     /**
      * @param string $label

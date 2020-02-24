@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Tests\Domain\Factory;
 
 use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Factory\TemplateFactory;
 use Ergonode\Designer\Domain\ValueObject\Position;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -24,28 +25,40 @@ class TemplateFactoryTest extends TestCase
     /**
      * @var TemplateId|MockObject
      */
-    private $id;
+    private MockObject $id;
 
     /**
      * @var TemplateGroupId|MockObject
      */
-    private $groupId;
+    private MockObject $groupId;
 
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @var TemplateElement|MockObject
      */
-    private $element;
+    private MockObject $element;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private MockObject $defaultText;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private MockObject $defaultImage;
 
     /**
      */
     protected function setUp()
     {
         $this->id = $this->createMock(TemplateId::class);
+        $this->defaultText = $this->createMock(AttributeId::class);
+        $this->defaultImage = $this->createMock(AttributeId::class);
         $this->groupId = $this->createMock(TemplateGroupId::class);
         $this->name = 'Any template name';
         $this->element = $this->createMock(TemplateElement::class);
@@ -57,7 +70,14 @@ class TemplateFactoryTest extends TestCase
     public function testFactoryCreateTemplate(): void
     {
         $factory = new TemplateFactory();
-        $template = $factory->create($this->id, $this->groupId, $this->name, [$this->element]);
+        $template = $factory->create(
+            $this->id,
+            $this->groupId,
+            $this->name,
+            $this->defaultText,
+            $this->defaultImage,
+            [$this->element]
+        );
 
         $this->assertEquals($this->id, $template->getId());
         $this->assertEquals($this->groupId, $template->getGroupId());

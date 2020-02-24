@@ -10,11 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Repository;
 
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Event\TemplateRemovedEvent;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -23,12 +23,12 @@ class DbalTemplateRepository implements TemplateRepositoryInterface
     /**
      * @var DomainEventStoreInterface
      */
-    private $eventStore;
+    private DomainEventStoreInterface $eventStore;
 
     /**
      * @var EventBusInterface
      */
-    private $eventBus;
+    private EventBusInterface $eventBus;
 
     /**
      * @param DomainEventStoreInterface $eventStore

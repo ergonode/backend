@@ -11,10 +11,11 @@ namespace Ergonode\Designer\Tests\Domain\Entity;
 
 use Ergonode\Designer\Domain\Entity\Template;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
+use Ergonode\Designer\Domain\ValueObject\Position;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\Designer\Domain\ValueObject\Position;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -25,22 +26,22 @@ class TemplateTest extends TestCase
     /**
      * @var TemplateId|MockObject
      */
-    private $id;
+    private MockObject $id;
 
     /**
      * @var TemplateGroupId|MockObject
      */
-    private $groupId;
+    private MockObject $groupId;
 
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * @var TemplateElement|MockObject
      */
-    private $element;
+    private MockObject $element;
 
     /**
      */
@@ -159,6 +160,96 @@ class TemplateTest extends TestCase
         $template = $this->getTemplate();
         /** @var MultimediaId|MockObject $image */
         $template->removeImage();
+    }
+
+    /**
+     */
+    public function testDefaultTextManipulation():void
+    {
+        /** @var AttributeId|MockObject $defaultText1 */
+        $defaultText1 = $this->createMock(AttributeId::class);
+        $defaultText1->method('isEqual')->willReturn(false);
+        /** @var AttributeId|MockObject $defaultText2 */
+        $defaultText2 = $this->createMock(AttributeId::class);
+        $defaultText2->method('isEqual')->willReturn(false);
+
+        $template = $this->getTemplate();
+        $this->assertNull($template->getDefaultText());
+        $template->addDefaultText($defaultText1);
+        $this->assertEquals($defaultText1, $template->getDefaultText());
+        $template->changeDefaultText($defaultText2);
+        $this->assertEquals($defaultText2, $template->getDefaultText());
+        $template->removeDefaultText();
+        $this->assertNull($template->getDefaultText());
+    }
+
+    /**
+     */
+    public function testAddedDefaultTextExists(): void
+    {
+        $template = $this->getTemplate();
+        /** @var AttributeId|MockObject $defaultText */
+        $defaultText = $this->createMock(AttributeId::class);
+
+        $template->addDefaultText($defaultText);
+        $this->assertEquals($template->getDefaultText(), $defaultText);
+        $template->removeDefaultText();
+        $this->assertEquals(null, $template->getDefaultText());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testRemoveNotExistDefaultText(): void
+    {
+        $template = $this->getTemplate();
+        /** @var AttributeId|MockObject $defaultText */
+        $template->removeDefaultText();
+    }
+
+    /**
+     */
+    public function testDefaultImageManipulation():void
+    {
+        /** @var AttributeId|MockObject $defaultImage1 */
+        $defaultImage1 = $this->createMock(AttributeId::class);
+        $defaultImage1->method('isEqual')->willReturn(false);
+        /** @var AttributeId|MockObject $defaultImage2 */
+        $defaultImage2 = $this->createMock(AttributeId::class);
+        $defaultImage2->method('isEqual')->willReturn(false);
+
+        $template = $this->getTemplate();
+        $this->assertNull($template->getDefaultImage());
+        $template->addDefaultImage($defaultImage1);
+        $this->assertEquals($defaultImage1, $template->getDefaultImage());
+        $template->changeDefaultImage($defaultImage2);
+        $this->assertEquals($defaultImage2, $template->getDefaultImage());
+        $template->removeDefaultImage();
+        $this->assertNull($template->getDefaultImage());
+    }
+
+    /**
+     */
+    public function testAddedDefaultImageExists(): void
+    {
+        $template = $this->getTemplate();
+        /** @var AttributeId|MockObject $defaultImage */
+        $defaultImage = $this->createMock(AttributeId::class);
+
+        $template->addDefaultImage($defaultImage);
+        $this->assertEquals($template->getDefaultImage(), $defaultImage);
+        $template->removeDefaultImage();
+        $this->assertEquals(null, $template->getDefaultImage());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testRemoveNotExistDefaultImage(): void
+    {
+        $template = $this->getTemplate();
+        /** @var AttributeId|MockObject $defaultImage */
+        $template->removeDefaultImage();
     }
 
     /**

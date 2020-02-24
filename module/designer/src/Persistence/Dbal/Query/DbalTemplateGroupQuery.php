@@ -11,10 +11,10 @@ namespace Ergonode\Designer\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 
 /**
  */
@@ -30,7 +30,7 @@ class DbalTemplateGroupQuery implements TemplateGroupQueryInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * DesignerGroupQueryInterface constructor.

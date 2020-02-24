@@ -10,8 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Application\Model\Form;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
+use Ergonode\Attribute\Infrastructure\Validator\AttributeTypeValid;
 use Ergonode\Designer\Application\Model\Form\Type\TemplateElementTypeModel;
 use Ergonode\Multimedia\Application\Validator\Constraint\MultimediaExists;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,21 +22,40 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TemplateFormModel
 {
     /**
-     * @var string
+     * @var string | null
      *
      * @Assert\NotBlank(message="Template name is required")
      * @Assert\Length(min="3", max="32")
      */
-    public $name;
+    public ?string $name;
 
     /**
-     * @var string
+     * @var string | null
      *
      * @Assert\Uuid()
      *
      * @MultimediaExists()
      */
-    public $image;
+    public ?string $image;
+
+    /**
+     * @var AttributeId | null
+     *
+     * @AttributeExists()
+     *
+     * @AttributeTypeValid(type="TEXT")
+     *
+     */
+    public ?AttributeId $defaultText;
+
+    /**
+     * @var AttributeId | null
+     *
+     * @AttributeExists()
+     *
+     * @AttributeTypeValid(type="IMAGE")
+     */
+    public ?AttributeId $defaultImage;
 
     /**
      * @var ArrayCollection|TemplateElementTypeModel[]
@@ -41,12 +63,16 @@ class TemplateFormModel
      * @Assert\Valid()
      * @Assert\Collection()
      */
-    public $elements;
+    public ArrayCollection $elements;
 
     /**
      */
     public function __construct()
     {
+        $this->name = null;
+        $this->image = null;
+        $this->defaultText = null;
+        $this->defaultImage = null;
         $this->elements = new ArrayCollection();
     }
 }

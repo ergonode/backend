@@ -16,6 +16,23 @@ Feature: Designer module
     Then created response is received
     And remember response param "id" as "template_text_attribute"
 
+
+  Scenario: Create image attribute
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "code": "IMAGE_@@random_code@@",
+          "type": "IMAGE",
+          "label": {"PL": "Atrybut zdjeciowy", "EN": "Image attribute"},
+          "groups": [],
+          "parameters": []
+      }
+      """
+    When I request "/api/v1/EN/attributes" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "template_image_attribute"
+
   Scenario: Multimedia upload image
     Given current authentication token
     Given I attach "module/designer/features/image/test.jpg" to the request as "upload"
@@ -30,6 +47,8 @@ Feature: Designer module
       {
         "name": "@@random_md5@@",
         "image": "@multimedia_id@",
+        "defaultText": "@template_text_attribute@",
+        "defaultImage": "@template_image_attribute@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -47,6 +66,57 @@ Feature: Designer module
     When I request "/api/v1/EN/templates" using HTTP POST
     Then created response is received
     And remember response param "id" as "template"
+
+
+  Scenario: Create template (wrong default text attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "name": "@@random_md5@@",
+        "image": "@multimedia_id@",
+        "defaultText": "@template_image_attribute@",
+        "elements": [
+          {
+            "position": {"x": 0, "y": 0},
+            "size": {"width": 2, "height": 1},
+            "variant": "attribute",
+            "type": "text",
+            "properties": {
+              "attribute_id": "@template_text_attribute@",
+              "required": true
+            }
+          }
+        ]
+      }
+      """
+    When I request "/api/v1/EN/templates" using HTTP POST
+    Then validation error response is received
+
+  Scenario: Create template (wrong default image attribute)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "name": "@@random_md5@@",
+        "image": "@multimedia_id@",
+        "defaultImage": "@template_text_attribute@",
+        "elements": [
+          {
+            "position": {"x": 0, "y": 0},
+            "size": {"width": 2, "height": 1},
+            "variant": "attribute",
+            "type": "text",
+            "properties": {
+              "attribute_id": "@template_text_attribute@",
+              "required": true
+            }
+          }
+        ]
+      }
+      """
+    When I request "/api/v1/EN/templates" using HTTP POST
+    Then validation error response is received
 
   Scenario: Create template (not authorized)
     When I request "/api/v1/EN/templates" using HTTP POST

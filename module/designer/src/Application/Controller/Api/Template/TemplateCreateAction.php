@@ -30,17 +30,17 @@ class TemplateCreateAction
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var FormFactoryInterface
      */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     /**
      * @var TemplateCommandFactory
      */
-    private $commandFactory;
+    private TemplateCommandFactory $commandFactory;
 
     /**
      * @param MessageBusInterface    $messageBus

@@ -25,7 +25,7 @@ class TemplateSystemAttributeColumnStrategy implements AttributeColumnStrategyIn
     /**
      * @var TemplateQueryInterface
      */
-    private $query;
+    private TemplateQueryInterface $query;
 
     /**
      * @param TemplateQueryInterface $query

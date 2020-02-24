@@ -23,12 +23,12 @@ class DeleteTemplateHandler
     /**
      * @var TemplateRepositoryInterface
      */
-    private $repository;
+    private TemplateRepositoryInterface $repository;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @param TemplateRepositoryInterface    $repository

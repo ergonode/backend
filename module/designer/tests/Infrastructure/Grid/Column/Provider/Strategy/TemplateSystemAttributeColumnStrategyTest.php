@@ -23,12 +23,12 @@ class TemplateSystemAttributeColumnStrategyTest extends TestCase
     /**
      * @var TemplateQueryInterface|MockObject
      */
-    private $query;
+    private MockObject $query;
 
     /**
      * @var AbstractAttribute|MockObject
      */
-    private $attribute;
+    private MockObject $attribute;
 
     /**
      */

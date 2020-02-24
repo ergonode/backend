@@ -18,9 +18,9 @@ use Ergonode\Designer\Domain\Provider\ViewTemplateElementProvider;
 class ViewTemplateBuilder
 {
     /**
-     * @var ViewTemplateElementProvider
+     * @var  ViewTemplateElementProvider
      */
-    private $provider;
+    private ViewTemplateElementProvider $provider;
 
     /**
      * @param ViewTemplateElementProvider $provider

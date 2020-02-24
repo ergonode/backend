@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event\Group;
 
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,13 +22,13 @@ class TemplateGroupCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId")
      */
-    private $id;
+    private TemplateGroupId $id;
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @param TemplateGroupId $id
