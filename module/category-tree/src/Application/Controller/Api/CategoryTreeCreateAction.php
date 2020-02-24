@@ -34,17 +34,17 @@ class CategoryTreeCreateAction
     /**
      * @var TreeRepositoryInterface
      */
-    private $treeRepository;
+    private TreeRepositoryInterface $treeRepository;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var FormFactoryInterface
      */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     /**
      * @param TreeRepositoryInterface $treeRepository

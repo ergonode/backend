@@ -15,7 +15,6 @@ use Ergonode\CategoryTree\Domain\Event\CategoryTreeCategoryAddedEvent;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeCreatedEvent;
 use Ergonode\CategoryTree\Domain\Event\CategoryTreeNameChangedEvent;
 use Ergonode\CategoryTree\Domain\ValueObject\Node;
-
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
@@ -30,22 +29,22 @@ class CategoryTree extends AbstractAggregateRoot
     /**
      * @var CategoryTreeId
      */
-    private $id;
+    private CategoryTreeId $id;
 
     /**
      * @var string
      */
-    private $code;
+    private string $code;
 
     /**
      * @var TranslatableString
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @var Node[]
      */
-    private $categories;
+    private array $categories;
 
     /**
      * @param CategoryTreeId     $id

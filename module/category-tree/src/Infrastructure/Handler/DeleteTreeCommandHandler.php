@@ -23,12 +23,12 @@ class DeleteTreeCommandHandler
     /**
      * @var TreeRepositoryInterface
      */
-    private $repository;
+    private TreeRepositoryInterface $repository;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @param TreeRepositoryInterface        $repository

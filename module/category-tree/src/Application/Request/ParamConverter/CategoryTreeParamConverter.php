@@ -25,7 +25,7 @@ class CategoryTreeParamConverter implements ParamConverterInterface
     /**
      * @var TreeRepositoryInterface
      */
-    private $repository;
+    private TreeRepositoryInterface $repository;
 
     /**
      * @param TreeRepositoryInterface $repository

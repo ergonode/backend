@@ -22,7 +22,7 @@ class DeleteTreeCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
-    private $id;
+    private CategoryTreeId $id;
 
     /**
      * @param CategoryTreeId $id

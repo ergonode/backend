@@ -25,19 +25,20 @@ class TreeNodeFormModel
      *
      * @CategoryExists(groups={"Category"})
      */
-    public $categoryId;
+    public ?string $categoryId;
 
     /**
      * @var TreeNodeFormModel[]
      *
      * @Assert\Valid()
      */
-    public $childrens;
+    public array $childrens;
 
     /**
      */
     public function __construct()
     {
+        $this->categoryId = null;
         $this->childrens = [];
     }
 }

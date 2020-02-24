@@ -1,19 +1,19 @@
-Feature: Condition Product belong category exists
-  Scenario: Get product belong category exists condition
-    When I request "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_CONDITION" using HTTP GET
+Feature: Condition Product belong category tree exists
+  Scenario: Get product belong category tree exists condition
+    When I request "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_TREE_CONDITION" using HTTP GET
     Then unauthorized response is received
 
-  Scenario: Get product belong category exists condition
+  Scenario: Get product belong category tree exists condition
     Given current authentication token
-    When I request "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_CONDITION" using HTTP GET
+    When I request "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_TREE_CONDITION" using HTTP GET
     Then the response code is 200
 
-  Scenario: Create category
+  Scenario: Create category tree
     Given current authentication token
     Given the request body is:
       """
       {
-        "code": "CATEGORY_@@random_uuid@@",
+        "code": "TREE_@@random_code@@",
         "name": {
           "DE": "Test DE",
           "EN": "Test EN",
@@ -21,20 +21,20 @@ Feature: Condition Product belong category exists
         }
       }
       """
-    When I request "/api/v1/EN/categories" using HTTP POST
+    When I request "/api/v1/EN/trees" using HTTP POST
     Then created response is received
-    And remember response param "id" as "category"
+    And remember response param "id" as "category_tree"
 
-  Scenario: Post new BELONG_TO product category exists condition set
+  Scenario: Post new BELONG_TO product category tree exists condition set
     Given current authentication token
     Given the request body is:
       """
         {
           "conditions": [
             {
-              "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
+              "type": "PRODUCT_BELONG_CATEGORY_TREE_CONDITION",
               "operator": "BELONG_TO",
-              "category": "@category@"
+              "tree": "@category_tree@"
             }
           ]
         }
@@ -42,16 +42,16 @@ Feature: Condition Product belong category exists
     When I request "/api/v1/EN/conditionsets" using HTTP POST
     Then created response is received
 
-  Scenario: Post new NOT_BELONG_TO product category exists condition set
+  Scenario: Post new NOT_BELONG_TO product category tree exists condition set
     Given current authentication token
     Given the request body is:
       """
         {
           "conditions": [
             {
-              "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
+              "type": "PRODUCT_BELONG_CATEGORY_TREE_CONDITION",
               "operator": "NOT_BELONG_TO",
-              "category": "@category@"
+              "tree": "@category_tree@"
             }
           ]
         }
@@ -66,9 +66,9 @@ Feature: Condition Product belong category exists
         {
           "conditions": [
             {
-              "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
+              "type": "PRODUCT_BELONG_CATEGORY_TREE_CONDITION",
               "operator": "x",
-              "category": "@category@"
+              "tree": "@category_tree@"
             }
           ]
         }
@@ -76,16 +76,16 @@ Feature: Condition Product belong category exists
     When I request "/api/v1/EN/conditionsets" using HTTP POST
     Then validation error response is received
 
-  Scenario: Post new fail condition category doesn't exist
+  Scenario: Post new fail condition category tree doesn't exist
     Given current authentication token
     Given the request body is:
       """
         {
           "conditions": [
             {
-              "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
+              "type": "PRODUCT_BELONG_CATEGORY_TREE_CONDITION",
               "operator": "NOT_BELONG_TO",
-              "category": "@@random_uuid@@"
+              "tree": "@@random_uuid@@"
             }
           ]
         }

@@ -20,7 +20,7 @@ class CreateTreeCommandHandler
     /**
      * @var TreeRepositoryInterface
      */
-    private $repository;
+    private TreeRepositoryInterface $repository;
 
     /**
      * @param TreeRepositoryInterface $repository

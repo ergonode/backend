@@ -21,21 +21,21 @@ class Node
      *
      * @JMS\Exclude()
      */
-    private $parent;
+    private ?Node $parent;
 
     /**
      * @var CategoryId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
-    private $categoryId;
+    private CategoryId $categoryId;
 
     /**
      * @var Node[];
      *
      * @JMS\Type("array<Ergonode\CategoryTree\Domain\ValueObject\Node>")
      */
-    private $childrens;
+    private array $childrens;
 
     /**
      * @param CategoryId $categoryId

@@ -23,14 +23,14 @@ class CategoryTreeCategoryRemovedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
-    private $id;
+    private CategoryTreeId $id;
 
     /**
      * @var CategoryId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
-    private $categoryId;
+    private CategoryId $categoryId;
 
     /**
      * @param CategoryTreeId $id

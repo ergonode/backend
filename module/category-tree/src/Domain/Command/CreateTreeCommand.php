@@ -26,28 +26,28 @@ class CreateTreeCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
      */
-    private $id;
+    private CategoryTreeId $id;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $code;
+    private string $code;
 
     /**
      * @var Node[]
      *
      * @JMS\Type("array<Ergonode\CategoryTree\Domain\ValueObject\Node>")
      */
-    private $categories;
+    private array $categories;
 
     /**
      * @param string             $code
