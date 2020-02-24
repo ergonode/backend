@@ -15,10 +15,11 @@ use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Webmozart\Assert\Assert;
 use Ergonode\ImporterMagento1\Infrastructure\Reader\Magento1CsvReader;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
+use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
 
 /**
  */
-class StartMagento1ImportProcess
+class StartMagento1ImportProcess implements SourceImportProcessorInterface
 {
     /**
      * @var SourceRepositoryInterface
@@ -59,7 +60,19 @@ class StartMagento1ImportProcess
     }
 
     /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function supported(string $type): bool
+    {
+        return $type === Magento1CsvSource::TYPE;
+    }
+
+    /**
      * @param Import $import
+     *
+     * @throws \Throwable
      */
     public function start(Import $import): void
     {

@@ -77,8 +77,6 @@ class DownloadMultimediaCommandHandler
         $url = $command->getUrl();
         $name = $command->getName();
 
-
-
         $hash = $this->hashService->calculateHash($file);
         if (!$this->query->fileExists($hash)) {
             $originalName = $file->getFilename();

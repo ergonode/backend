@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Infrastructure\Handler\Import;
 
 use Ergonode\Importer\Domain\Command\Import\StartImportCommand;
-use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
-use Ergonode\ImporterMagento1\Infrastructure\Processor\StartMagento1ImportProcess;
 use Webmozart\Assert\Assert;
+use Ergonode\Importer\Infrastructure\Provider\ImportProcessorProvider;
+use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 
 /**
  */
@@ -22,21 +22,31 @@ class StartImportCommandHandler
     /**
      * @var ImportRepositoryInterface
      */
-    private ImportRepositoryInterface $repository;
+    private ImportRepositoryInterface $importRepository;
 
     /**
-     * @var StartMagento1ImportProcess
+     * @var SourceRepositoryInterface
      */
-    private StartMagento1ImportProcess $service;
+    private SourceRepositoryInterface $sourceRepository;
 
     /**
-     * @param ImportRepositoryInterface  $repository
-     * @param StartMagento1ImportProcess $service
+     * @var ImportProcessorProvider
      */
-    public function __construct(ImportRepositoryInterface $repository, StartMagento1ImportProcess $service)
-    {
-        $this->repository = $repository;
-        $this->service = $service;
+    private ImportProcessorProvider $provider;
+
+    /**
+     * @param ImportRepositoryInterface $importRepository
+     * @param SourceRepositoryInterface $sourceRepository
+     * @param ImportProcessorProvider   $provider
+     */
+    public function __construct(
+        ImportRepositoryInterface $importRepository,
+        SourceRepositoryInterface $sourceRepository,
+        ImportProcessorProvider $provider
+    ) {
+        $this->importRepository = $importRepository;
+        $this->sourceRepository = $sourceRepository;
+        $this->provider = $provider;
     }
 
     /**
@@ -46,15 +56,16 @@ class StartImportCommandHandler
      */
     public function __invoke(StartImportCommand $command)
     {
-        $import = $this->repository->load($command->getId());
-
+        $import = $this->importRepository->load($command->getId());
         Assert::notNull($import);
-        Assert::isInstanceOf($import, Import::class);
+        $source = $this->sourceRepository->load($import->getSourceId());
+        Assert::notNull($source);
 
         $import->start();
 
-        $this->service->start($import);
+        $processor = $this->provider->provide($source->getType());
+        $processor->start($import);
 
-        $this->repository->save($import);
+        $this->importRepository->save($import);
     }
 }

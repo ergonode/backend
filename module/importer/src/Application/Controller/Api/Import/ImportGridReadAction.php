@@ -131,8 +131,11 @@ class ImportGridReadAction
      *
      * @return Response
      */
-    public function __invoke(AbstractSource $source, Language $language, RequestGridConfiguration $configuration): Response
-    {
+    public function __invoke(
+        AbstractSource $source,
+        Language $language,
+        RequestGridConfiguration $configuration
+    ): Response {
         $dataSet = $this->query->getDataSet($source->getId());
 
         $data = $this->renderer->render(

@@ -74,11 +74,10 @@ class SourceTypeConfigurationAction
      */
     public function __invoke(string $type): Response
     {
-
             $form = $this->provider->provide($type)->create();
 
             $result = json_encode($this->liform->transform($form), JSON_THROW_ON_ERROR, 512);
-            return new SuccessResponse($result);
 
+            return new SuccessResponse($result);
     }
 }

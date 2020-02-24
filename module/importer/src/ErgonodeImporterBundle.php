@@ -15,6 +15,7 @@ use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFormFac
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceCompilerPass;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceCompilerPass;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceImportCompilerPass;
 
 /**
  */
@@ -31,5 +32,6 @@ class ErgonodeImporterBundle extends AbstractModule
         $container->addCompilerPass(new ServiceCompilerPass());
         $container->addCompilerPass(new SourceFactoryCompilerPass());
         $container->addCompilerPass(new SourceFormFactoryCompilerPass());
+        $container->addCompilerPass(new ServiceImportCompilerPass());
     }
 }

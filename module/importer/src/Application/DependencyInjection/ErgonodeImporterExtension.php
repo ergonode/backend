@@ -20,6 +20,8 @@ use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceCompile
 use Ergonode\Importer\Infrastructure\Provider\ImportSourceInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceCompilerPass;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryInterface;
+use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceImportCompilerPass;
 
 /**
  */
@@ -50,6 +52,10 @@ class ErgonodeImporterExtension extends Extension
         $container
             ->registerForAutoconfiguration(SourceFormFactoryInterface::class)
             ->addTag(SourceFormFactoryCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(SourceImportProcessorInterface::class)
+            ->addTag(ServiceImportCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

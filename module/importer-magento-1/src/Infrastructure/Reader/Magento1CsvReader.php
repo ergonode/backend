@@ -38,7 +38,7 @@ class Magento1CsvReader
     /**
      * @param ConverterMapperProvider $mapper
      * @param ReaderProcessorProvider $provider
-     * @param string $directory
+     * @param string                  $directory
      */
     public function __construct(
         ConverterMapperProvider $mapper,
@@ -97,7 +97,6 @@ class Magento1CsvReader
         }
 
         return $products;
-
     }
 
     /**
