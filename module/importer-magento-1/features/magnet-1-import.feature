@@ -7,7 +7,7 @@ Feature: Category module
       {
         "type": "magento-1-csv",
         "name": "name",
-        "host": "",
+        "host": "http://test.host",
         "import" : {
            "templates": true,
            "attributes": true,
@@ -16,20 +16,7 @@ Feature: Category module
            "products": true
         },
         "default_language": "EN",
-        "languages": [
-          {
-            "store": "netherlands_nl",
-            "language": "NL"
-          },
-           {
-            "store": "us_en",
-            "language": "EN"
-          },
-          {
-            "store": "se_se",
-            "language": "SV"
-          }
-        ]
+        "languages": []
       }
 
       """

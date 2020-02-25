@@ -48,7 +48,7 @@ class CreateSourceCommandHandler
 
         $source = $factory->create(
             $command->getId(),
-            'name',
+            $command->getName(),
             $command->getConfiguration(),
         );
 
