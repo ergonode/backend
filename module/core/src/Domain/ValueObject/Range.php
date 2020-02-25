@@ -16,12 +16,12 @@ class Range
     /**
      * @var float
      */
-    private $min;
+    private float $min;
 
     /**
      * @var float
      */
-    private $max;
+    private float $max;
 
     /**
      * @param float $min

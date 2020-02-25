@@ -20,7 +20,7 @@ class LanguageCodeConstraint extends Constraint
     /**
      * @var string
      */
-    public $message = 'The language code {{ language }} is not valid.';
+    public string $message = 'The language code {{ language }} is not valid.';
 
     /**
      * @return string

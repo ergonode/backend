@@ -20,7 +20,7 @@ class TranslatableString implements \IteratorAggregate
      *
      * @JMS\Type("array<string,string>")
      */
-    private $translations;
+    private array $translations;
 
     /**
      * @param array $translations

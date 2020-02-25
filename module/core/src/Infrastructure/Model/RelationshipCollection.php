@@ -18,7 +18,7 @@ class RelationshipCollection implements \Iterator
     /**
      * @var array
      */
-    private $collection = [];
+    private array $collection = [];
 
     /**
      * @param AggregateId $id
