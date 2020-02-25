@@ -123,8 +123,10 @@ class AttributeChangeAction
                 foreach ($data->options as $model) {
                     if (is_array($model->value)) {
                         $options[$model->key] = new MultilingualOption(new TranslatableString($model->value));
-                    } else {
+                    } elseif (is_string($model->value)) {
                         $options[$model->key] = new StringOption($model->value);
+                    } else {
+                        $options[$model->key] = null;
                     }
                 }
 

@@ -43,11 +43,6 @@ class AttributeCreateAction
     private $formFactory;
 
     /**
-     * @var Option
-     */
-    private $resolver;
-
-    /**
      * @param MessageBusInterface  $messageBus
      * @param FormFactoryInterface $formFactory
      */
@@ -77,7 +72,7 @@ class AttributeCreateAction
      *     required=true,
      *     @SWG\Schema(ref="#/definitions/attribute")
      * )
-     *  @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
@@ -116,8 +111,10 @@ class AttributeCreateAction
                 foreach ($data->options as $model) {
                     if (is_array($model->value)) {
                         $options[$model->key] = new MultilingualOption(new TranslatableString($model->value));
-                    } else {
+                    } elseif (is_string($model->value)) {
                         $options[$model->key] = new StringOption($model->value);
+                    } else {
+                        $options[$model->key] = null;
                     }
                 }
 
@@ -129,7 +126,7 @@ class AttributeCreateAction
                     new TranslatableString($data->placeholder),
                     $data->multilingual,
                     $data->groups,
-                    (array) $data->parameters,
+                    (array)$data->parameters,
                     $options
                 );
                 $this->messageBus->dispatch($command);

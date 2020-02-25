@@ -9,12 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Command;
 
-use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -103,8 +100,6 @@ class UpdateAttributeCommand implements DomainCommandInterface
         array $parameters = [],
         array $options = []
     ) {
-        Assert::allString(array_keys($options));
-        Assert::allIsInstanceOf($options, OptionInterface::class);
         $this->attributeId = $id;
         $this->parameters = $parameters;
         $this->groups = $groups;
