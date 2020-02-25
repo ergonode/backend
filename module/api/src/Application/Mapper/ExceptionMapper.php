@@ -16,7 +16,7 @@ class ExceptionMapper implements ExceptionMapperInterface
     /**
      * @var array
      */
-    private $map;
+    private array $map;
 
     /**
      * @param array $map

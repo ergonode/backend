@@ -28,12 +28,12 @@ class ExceptionHandler implements SubscribingHandlerInterface
     /**
      * @var ExceptionMapperInterface
      */
-    private $exceptionMapper;
+    private ExceptionMapperInterface $exceptionMapper;
 
     /**
      * @var ExceptionNormalizerInterface
      */
-    private $exceptionNormalizer;
+    private ExceptionNormalizerInterface $exceptionNormalizer;
 
     /**
      * @param ExceptionMapperInterface     $exceptionMapper
