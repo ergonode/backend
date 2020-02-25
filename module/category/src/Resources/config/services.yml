@@ -37,3 +37,6 @@ services:
 
     Ergonode\Category\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\Category\Persistence\Dbal\Repository\DbalCategoryRepository'
     Ergonode\Category\Domain\Query\CategoryQueryInterface: '@Ergonode\Category\Persistence\Dbal\Query\DbalCategoryQuery'
+
+    Ergonode\Category\Domain\Repository\TreeRepositoryInterface: '@Ergonode\Category\Persistence\Dbal\Repository\DbalTreeRepository'
+    Ergonode\Category\Domain\Query\TreeQueryInterface: '@Ergonode\Category\Persistence\Dbal\Query\DbalTreeQuery'

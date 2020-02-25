@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Validator;
 
-use Ergonode\CategoryTree\Infrastructure\Validator\CategoryTreeExists;
+use Ergonode\Category\Infrastructure\Validator\CategoryTreeExists;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryTreeCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 use Symfony\Component\Validator\Constraint;

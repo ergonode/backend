@@ -8,8 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
-use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
-use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
+use Ergonode\Category\Domain\Entity\CategoryTree;
+use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryTreeCondition;
 use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductBelongCategoryTreeConditionCalculatorStrategy;
 use Ergonode\Product\Domain\Entity\AbstractProduct;

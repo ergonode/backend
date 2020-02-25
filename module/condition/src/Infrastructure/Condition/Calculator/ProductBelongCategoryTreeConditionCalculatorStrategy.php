@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
-use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
+use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryTreeCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
@@ -26,7 +26,7 @@ class ProductBelongCategoryTreeConditionCalculatorStrategy implements ConditionC
     private TreeRepositoryInterface $repository;
 
     /**
-     * @param TreeRepositoryInterface $repository
+     * @param \Ergonode\Category\Domain\Repository\TreeRepositoryInterface $repository
      */
     public function __construct(TreeRepositoryInterface $repository)
     {

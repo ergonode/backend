@@ -19,6 +19,7 @@
         "ergonode/core": "^0.6.1",
         "ergonode/es": "^0.6.1",
         "ergonode/grid": "^0.6.1",
+        "ergonode/migration": "^0.6.1",
         "ergonode/value": "^0.6.1",
         "jms/serializer": "^3.1",
         "nelmio/api-doc-bundle": "^3.4",

@@ -15,7 +15,7 @@ Ergonode\Category\Domain\Entity\Category:
       - '<categoryCode(code_<current()>)>'
       - '@category_name_<current()>'
 
-Ergonode\CategoryTree\Domain\Entity\CategoryTree:
+Ergonode\Category\Domain\Entity\CategoryTree:
   category_tree:
     __construct:
       - '<categoryTreeId(default)>'
