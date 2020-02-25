@@ -126,7 +126,7 @@ class AttributeCreateAction
                     new TranslatableString($data->placeholder),
                     $data->multilingual,
                     $data->groups,
-                    (array)$data->parameters,
+                    (array) $data->parameters,
                     $options
                 );
                 $this->messageBus->dispatch($command);
