@@ -53,7 +53,7 @@ class CategoryTreeCategoriesChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return \Ergonode\Category\Domain\ValueObject\Node[]
+     * @return Node[]
      */
     public function getCategories(): array
     {

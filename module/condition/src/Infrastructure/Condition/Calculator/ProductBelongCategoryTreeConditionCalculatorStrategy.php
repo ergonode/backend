@@ -26,7 +26,7 @@ class ProductBelongCategoryTreeConditionCalculatorStrategy implements ConditionC
     private TreeRepositoryInterface $repository;
 
     /**
-     * @param \Ergonode\Category\Domain\Repository\TreeRepositoryInterface $repository
+     * @param TreeRepositoryInterface $repository
      */
     public function __construct(TreeRepositoryInterface $repository)
     {

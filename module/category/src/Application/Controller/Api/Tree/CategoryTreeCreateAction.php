@@ -47,9 +47,9 @@ class CategoryTreeCreateAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param \Ergonode\Category\Domain\Repository\TreeRepositoryInterface $treeRepository
-     * @param MessageBusInterface                                          $messageBus
-     * @param FormFactoryInterface                                         $formFactory
+     * @param TreeRepositoryInterface $treeRepository
+     * @param MessageBusInterface     $messageBus
+     * @param FormFactoryInterface    $formFactory
      */
     public function __construct(
         TreeRepositoryInterface $treeRepository,

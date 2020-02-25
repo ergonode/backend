@@ -91,7 +91,7 @@ class CreateTreeCommand implements DomainCommandInterface
     }
 
     /**
-     * @return \Ergonode\Category\Domain\ValueObject\Node[]
+     * @return Node[]
      */
     public function getCategories(): array
     {
@@ -101,7 +101,7 @@ class CreateTreeCommand implements DomainCommandInterface
     /**
      * @param TreeNodeFormModel $category
      *
-     * @return \Ergonode\Category\Domain\ValueObject\Node
+     * @return Node
      */
     private function createNode(TreeNodeFormModel $category): Node
     {

@@ -42,9 +42,9 @@ class CategoryTreeGridReadAction
     private GridRenderer $gridRenderer;
 
     /**
-     * @param GridRenderer                                       $gridRenderer
-     * @param \Ergonode\Category\Domain\Query\TreeQueryInterface $query
-     * @param TreeGrid                                           $grid
+     * @param GridRenderer       $gridRenderer
+     * @param TreeQueryInterface $query
+     * @param TreeGrid           $grid
      */
     public function __construct(
         GridRenderer $gridRenderer,
@@ -92,7 +92,7 @@ class CategoryTreeGridReadAction
      *     enum={"ASC","DESC"},
      *     description="Order",
      * )
-    * @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="view",
      *     in="query",
      *     required=false,

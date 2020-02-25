@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class CategoryTreeParamConverter implements ParamConverterInterface
 {
     /**
-     * @var \Ergonode\Category\Domain\Repository\TreeRepositoryInterface
+     * @var TreeRepositoryInterface
      */
     private TreeRepositoryInterface $repository;
 

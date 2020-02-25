@@ -199,8 +199,8 @@ class CategoryTree extends AbstractAggregateRoot
     }
 
     /**
-     * @param CategoryId                                 $categoryId
-     * @param \Ergonode\Category\Domain\ValueObject\Node $node
+     * @param CategoryId $categoryId
+     * @param Node       $node
      *
      * @return Node|null
      */
