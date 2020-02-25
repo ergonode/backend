@@ -395,6 +395,23 @@ Feature: Account module
     When I request "/api/v1/EN/accounts" using HTTP POST
     Then validation error response is received
 
+  Scenario: Create user (wrong email)
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+          "email": "noemail",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "EN",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@"
+      }
+      """
+    When I request "/api/v1/EN/accounts" using HTTP POST
+    Then validation error response is received
+
   Scenario: Create user (no firsName)
     Given current authentication token
     Given the request body is:
