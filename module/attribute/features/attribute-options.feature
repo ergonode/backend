@@ -5,19 +5,19 @@ Feature: Attribute options module
     Given the request body is:
       """
       {
-          "code": "SELECT_@@random_code@@",
-          "type": "SELECT",
-          "groups": [],
-          "multilingual": true,
-            "options": [
-    {
-      "key": "key_1",
-      "value": {
-        "PL": "Option PL 1",
-        "EN": "Option EN 1"
-        }
-        }
-  ]
+        "code": "SELECT_@@random_code@@",
+        "type": "SELECT",
+        "groups": [],
+        "multilingual": true,
+        "options": [
+          {
+            "key": "key_1",
+            "value": {
+              "PL": "Option PL 1",
+              "EN": "Option EN 1"
+            }
+          }
+        ]
       }
       """
     When I request "/api/v1/EN/attributes" using HTTP POST
@@ -29,26 +29,26 @@ Feature: Attribute options module
     Given the request body is:
       """
       {
-          "code": "SELECT_@@random_code@@",
-          "type": "SELECT",
-          "groups": [],
-          "multilingual": true,
-            "options": [
-    {
-      "key": "key_1",
-      "value": {
-        "PL": "Option PL 1",
-        "EN": "Option EN 1"
-      }
-    },
-    {
-      "key": "key_1",
-      "value": {
-        "PL": "Option PL 1",
-        "EN": "Option EN 1"
-      }
-    }
-  ]
+        "code": "SELECT_@@random_code@@",
+        "type": "SELECT",
+        "groups": [],
+        "multilingual": true,
+        "options": [
+          {
+            "key": "key_1",
+            "value": {
+              "PL": "Option PL 1",
+              "EN": "Option EN 1"
+            }
+          },
+          {
+            "key": "key_1",
+            "value": {
+              "PL": "Option PL 1",
+              "EN": "Option EN 1"
+            }
+          }
+        ]
       }
       """
     When I request "/api/v1/EN/attributes" using HTTP POST

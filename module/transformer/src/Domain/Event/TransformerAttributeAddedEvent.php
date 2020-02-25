@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TransformerConverterAddedEvent implements DomainEventInterface
+class TransformerAttributeAddedEvent implements DomainEventInterface
 {
     /**
      * @var TransformerId
@@ -24,13 +24,6 @@ class TransformerConverterAddedEvent implements DomainEventInterface
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
      */
     private TransformerId $id;
-
-    /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     */
-    private string $collection;
 
     /**
      * @var string
@@ -47,17 +40,38 @@ class TransformerConverterAddedEvent implements DomainEventInterface
     private ConverterInterface $converter;
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
+    private string $attributeType;
+
+    /**
+     * @var bool
+     *
+     * @JMS\Type("bool")
+     */
+    private bool $multilingual;
+
+    /**
      * @param TransformerId      $id
-     * @param string             $collection
      * @param string             $field
      * @param ConverterInterface $converter
+     * @param string             $attributeType
+     * @param bool               $multilingual
      */
-    public function __construct(TransformerId $id, string $collection, string $field, ConverterInterface $converter)
-    {
+    public function __construct(
+        TransformerId $id,
+        string $field,
+        ConverterInterface $converter,
+        string $attributeType,
+        bool $multilingual = true
+    ) {
         $this->id = $id;
-        $this->collection = $collection;
         $this->field = $field;
         $this->converter = $converter;
+        $this->attributeType = $attributeType;
+        $this->multilingual = $multilingual;
     }
 
     /**
@@ -66,14 +80,6 @@ class TransformerConverterAddedEvent implements DomainEventInterface
     public function getAggregateId(): TransformerId
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCollection(): string
-    {
-        return $this->collection;
     }
 
     /**
@@ -90,5 +96,21 @@ class TransformerConverterAddedEvent implements DomainEventInterface
     public function getConverter(): ConverterInterface
     {
         return $this->converter;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAttributeType(): string
+    {
+        return $this->attributeType;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultilingual(): bool
+    {
+        return $this->multilingual;
     }
 }

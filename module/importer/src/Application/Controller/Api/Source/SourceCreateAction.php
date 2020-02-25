@@ -12,34 +12,28 @@ namespace Ergonode\Importer\Application\Controller\Api\Source;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Application\Form\ConfigurationForm;
-use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
-use Ergonode\Importer\Domain\Command\GenerateImportCommand;
-use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
+use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route(
- *     name="ergonode_source_configuration",
- *     path="/sources/{source}/configuration",
+ *     name="ergonode_source_create",
+ *     path="/sources",
  *     methods={"POST"},
- *     requirements={"source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class SourcePostConfigurationAction
+class SourceCreateAction
 {
     /**
-     * @var FormFactoryInterface
+     * @var SourceFormFactoryProvider
      */
-    private FormFactoryInterface $formFactory;
+    private SourceFormFactoryProvider $provider;
 
     /**
      * @var CommandBusInterface
@@ -47,12 +41,12 @@ class SourcePostConfigurationAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param FormFactoryInterface $formFactory
-     * @param CommandBusInterface  $commandBus
+     * @param SourceFormFactoryProvider $provider
+     * @param CommandBusInterface       $commandBus
      */
-    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
+    public function __construct(SourceFormFactoryProvider $provider, CommandBusInterface $commandBus)
     {
-        $this->formFactory = $formFactory;
+        $this->provider = $provider;
         $this->commandBus = $commandBus;
     }
 
@@ -84,30 +78,24 @@ class SourcePostConfigurationAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
-     *
-     * @param AbstractSource $source
-     * @param Request        $request
+     * @param Request $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractSource $source, Request $request): Response
+    public function __invoke(Request $request): Response
     {
+        $type = $request->get('type');
+
         try {
-            $model = new ConfigurationModel();
-            $form = $this->formFactory->create(ConfigurationForm::class, $model);
+            $form = $this->provider->provide($type)->create();
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ConfigurationModel $data */
-                $data = $form->getData();
+                /** @var array $data */
+                $command = $form->getData();
 
-                $command = new GenerateImportCommand(
-                    $source->getId(),
-                    $data
-                );
                 $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());

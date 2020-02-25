@@ -40,7 +40,6 @@ class SourceFactoryProvider
             }
         }
 
-
         throw new \RuntimeException(sprintf('can\'t find source factory for %s type', $type));
     }
 }

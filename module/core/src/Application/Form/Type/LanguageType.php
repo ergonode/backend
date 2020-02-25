@@ -15,21 +15,29 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
 class LanguageType extends AbstractType
 {
     /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * @var LanguageQueryInterface
      */
     private $provider;
 
     /**
+     * @param TranslatorInterface    $translator
      * @param LanguageQueryInterface $provider
      */
-    public function __construct(LanguageQueryInterface $provider)
+    public function __construct(TranslatorInterface $translator, LanguageQueryInterface $provider)
     {
+        $this->translator = $translator;
         $this->provider = $provider;
     }
 
@@ -47,15 +55,17 @@ class LanguageType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $languages = $this->provider->getAll();
+        $languages = $this->provider->getDictionary();
         $codes = [];
-        foreach ($languages as $language) {
-            $codes[] = $language->getCode();
+        foreach ($languages as $code => $name) {
+            $codes[$code] =  $this->translator->trans($name);
         }
+
+        asort($codes);
 
         $resolver->setDefaults(
             [
-                'choices' => array_combine($codes, $codes),
+                'choices' => array_flip($codes),
                 'invalid_message' => 'Language {{ value }} is not valid',
             ]
         );

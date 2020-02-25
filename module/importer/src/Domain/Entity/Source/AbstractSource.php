@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Entity\Source;
 
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -16,21 +17,26 @@ abstract class AbstractSource
 {
     /**
      * @var SourceId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
      */
     protected SourceId $id;
 
     /**
-     * @var array $configuration
+     * @var string
+     *
+     * @JMS\Type("string")
      */
-    protected array $configuration;
+    protected string $name;
 
     /**
      * @param SourceId $id
+     * @param string   $name
      */
-    public function __construct(SourceId $id)
+    public function __construct(SourceId $id, string $name)
     {
         $this->id = $id;
-        $this->configuration = [];
+        $this->name = $name;
     }
 
     /**
@@ -44,13 +50,13 @@ abstract class AbstractSource
     /**
      * @return string
      */
-    abstract public function getType(): string;
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getConfiguration(): array
-    {
-        return $this->configuration;
-    }
+    abstract public function getType(): string;
 }

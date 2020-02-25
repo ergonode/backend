@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Infrastructure\Handler\Import;
 
 use Ergonode\Importer\Domain\Command\Import\StartImportCommand;
-use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
-use Ergonode\Importer\Infrastructure\Service\Import\StartImportService;
 use Webmozart\Assert\Assert;
+use Ergonode\Importer\Infrastructure\Provider\ImportProcessorProvider;
+use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 
 /**
  */
@@ -22,40 +22,50 @@ class StartImportCommandHandler
     /**
      * @var ImportRepositoryInterface
      */
-    private ImportRepositoryInterface $repository;
+    private ImportRepositoryInterface $importRepository;
 
     /**
-     * @var StartImportService
+     * @var SourceRepositoryInterface
      */
-    private $service;
+    private SourceRepositoryInterface $sourceRepository;
 
     /**
-     * @param ImportRepositoryInterface $repository
-     * @param StartImportService        $service
+     * @var ImportProcessorProvider
      */
-    public function __construct(ImportRepositoryInterface $repository, StartImportService $service)
-    {
-        $this->repository = $repository;
-        $this->service = $service;
+    private ImportProcessorProvider $provider;
+
+    /**
+     * @param ImportRepositoryInterface $importRepository
+     * @param SourceRepositoryInterface $sourceRepository
+     * @param ImportProcessorProvider   $provider
+     */
+    public function __construct(
+        ImportRepositoryInterface $importRepository,
+        SourceRepositoryInterface $sourceRepository,
+        ImportProcessorProvider $provider
+    ) {
+        $this->importRepository = $importRepository;
+        $this->sourceRepository = $sourceRepository;
+        $this->provider = $provider;
     }
 
     /**
      * @param StartImportCommand $command
      *
      * @throws \ReflectionException
-     * @throws \Doctrine\DBAL\DBALException
      */
     public function __invoke(StartImportCommand $command)
     {
-        $import = $this->repository->load($command->getId());
-
+        $import = $this->importRepository->load($command->getId());
         Assert::notNull($import);
-        Assert::isInstanceOf($import, Import::class);
+        $source = $this->sourceRepository->load($import->getSourceId());
+        Assert::notNull($source);
 
         $import->start();
 
-        $this->service->start($import);
+        $processor = $this->provider->provide($source->getType());
+        $processor->start($import);
 
-        $this->repository->save($import);
+        $this->importRepository->save($import);
     }
 }

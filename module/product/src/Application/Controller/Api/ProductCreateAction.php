@@ -15,6 +15,7 @@ use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Product\Application\Form\ProductCreateForm;
 use Ergonode\Product\Application\Model\ProductCreateFormModel;
 use Ergonode\Product\Domain\Command\CreateProductCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -95,10 +96,14 @@ class ProductCreateAction
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var ProductCreateFormModel $data */
             $data = $form->getData();
+            $categories = [];
+            foreach ($data->categories as $category) {
+                $categories[] = new CategoryId($category);
+            }
             $command = new CreateProductCommand(
                 ProductId::generate(),
                 new Sku($data->sku),
-                $data->categories,
+                $categories,
                 [TemplateSystemAttribute::CODE => new StringValue($data->template)]
             );
             $this->messageBus->dispatch($command);

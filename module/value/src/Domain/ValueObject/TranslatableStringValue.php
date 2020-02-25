@@ -23,7 +23,7 @@ class TranslatableStringValue implements ValueInterface
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $value;
+    private TranslatableString $value;
 
     /**
      * @param TranslatableString $value

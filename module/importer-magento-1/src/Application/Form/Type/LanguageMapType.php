@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,18 +6,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Importer\Application\Form;
+namespace Ergonode\ImporterMagento1\Application\Form\Type;
 
-use Ergonode\Importer\Application\Form\Type\ColumnType;
-use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Ergonode\Core\Application\Form\Type\LanguageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ergonode\ImporterMagento1\Application\Model\Type\LanguageMapModel;
 
 /**
  */
-class ConfigurationForm extends AbstractType
+class LanguageMapType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -28,22 +27,19 @@ class ConfigurationForm extends AbstractType
     {
         $builder
             ->add(
-                'columns',
-                CollectionType::class,
+                'store',
+                TextType::class,
                 [
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => ColumnType::class,
+                    'label' => 'Magento store view code',
+                ]
+            )
+            ->add(
+                'language',
+                LanguageType::class,
+                [
+                    'label' => 'Language',
                 ]
             );
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getBlockPrefix(): ?string
-    {
-        return null;
     }
 
     /**
@@ -52,8 +48,8 @@ class ConfigurationForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ConfigurationModel::class,
             'translation_domain' => 'import',
+            'data_class' => LanguageMapModel::class,
         ]);
     }
 }

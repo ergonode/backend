@@ -51,16 +51,9 @@ class ImportConfigurationBuilder
      */
     public function propose(array $headers, array $lines): ImportConfiguration
     {
-        $table = [];
-        foreach ($headers as $header) {
-            foreach ($lines as $line) {
-                $table[$header][] = $line[$header];
-            }
-        }
-
         $result = new ImportConfiguration();
-        foreach ($table as $name => $column) {
-            $result->add($this->calculate($name, $column));
+        foreach ($headers as $name) {
+            $result->add($this->calculate($name, $lines[$name]));
         }
 
         return $result;

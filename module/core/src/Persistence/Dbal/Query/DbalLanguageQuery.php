@@ -27,8 +27,14 @@ class DbalLanguageQuery implements LanguageQueryInterface
         'name',
         'active',
     ];
+
     private const CODE_FIELD = [
         'iso AS code',
+    ];
+
+    private const DICTIONARY_FIELD = [
+        'iso',
+        'name',
     ];
 
     /**
@@ -91,6 +97,16 @@ class DbalLanguageQuery implements LanguageQueryInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDictionary(): array
+    {
+        return $this->getQuery(self::DICTIONARY_FIELD)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
     /**

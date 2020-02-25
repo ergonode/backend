@@ -10,11 +10,25 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Persistence\Dbal\Repository\Mapper;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
 class SourceMapper
 {
+    /**
+     * @var SerializerInterface
+     */
+    private SerializerInterface $serializer;
+
+    /**
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(SerializerInterface $serializer)
+    {
+        $this->serializer = $serializer;
+    }
+
     /**
      * @param AbstractSource $source
      *
@@ -24,7 +38,8 @@ class SourceMapper
     {
         return [
             'id' => $source->getId()->getValue(),
-            'configuration' => \json_encode($source->getConfiguration(), JSON_THROW_ON_ERROR, 512),
+            'configuration' => $this->serializer->serialize($source, 'json'),
+            'name' => $source->getName(),
             'type' => \get_class($source),
         ];
     }

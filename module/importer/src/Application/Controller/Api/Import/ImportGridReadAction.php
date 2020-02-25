@@ -20,12 +20,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 
 /**
  * @Route(
- *     name="ergonode_channel_list",
- *     path="/imports",
+ *     name="ergonode_import_list",
+ *     path="/sources/{source}/imports",
  *     methods={"GET"},
+ *     requirements={"source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class ImportGridReadAction
@@ -120,16 +122,21 @@ class ImportGridReadAction
      *     description="Returns import collection",
      * )
      *
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
+     * @param AbstractSource           $source
      * @param Language                 $language
      * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
-    {
-        $dataSet = $this->query->getDataSet();
+    public function __invoke(
+        AbstractSource $source,
+        Language $language,
+        RequestGridConfiguration $configuration
+    ): Response {
+        $dataSet = $this->query->getDataSet($source->getId());
 
         $data = $this->renderer->render(
             $this->grid,

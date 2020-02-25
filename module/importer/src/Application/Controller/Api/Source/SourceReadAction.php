@@ -10,39 +10,47 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\Importer\Infrastructure\Provider\SourceServiceProvider;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route(
- *     name="ergonode_sourcet_configuration",
- *     path="/sources/{source}/configuration",
+ *     name="ergonode_source_read",
+ *     path="/sources/{source}",
  *     methods={"GET"},
  *     requirements={"source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class SourceGetConfigurationAction
+class SourceReadAction
 {
     /**
-     * @var SourceServiceProvider
+     * @var SourceFormFactoryProvider
      */
-    private SourceServiceProvider $provider;
+    private SourceFormFactoryProvider $provider;
 
     /**
-     * @param SourceServiceProvider $provider
+     * @var SerializerInterface
      */
-    public function __construct(SourceServiceProvider $provider)
+    private SerializerInterface $serializer;
+
+    /**
+     * @param SourceFormFactoryProvider $provider
+     * @param SerializerInterface       $serializer
+     */
+    public function __construct(SourceFormFactoryProvider $provider, SerializerInterface $serializer)
     {
         $this->provider = $provider;
+        $this->serializer = $serializer;
     }
 
     /**
-     * @IsGranted("IMPORT_CREATE")
+     * @IsGranted("IMPORT_READ")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(
@@ -52,12 +60,6 @@ class SourceGetConfigurationAction
      *     required=true,
      *     default="EN",
      *     description="Language Code",
-     * )
-     * @SWG\Parameter(
-     *     name="source",
-     *     in="path",
-     *     type="string",
-     *     description="Source id",
      * )
      * @SWG\Response(
      *     response=201,
@@ -78,10 +80,8 @@ class SourceGetConfigurationAction
      */
     public function __invoke(AbstractSource $source): Response
     {
-        $service = $this->provider->provide($source->getType());
+        $form = $this->provider->provide($source->getType())->create($source);
 
-        $configuration = $service->process($source);
-
-        return new SuccessResponse($configuration);
+        return new SuccessResponse($this->serializer->normalize($form));
     }
 }

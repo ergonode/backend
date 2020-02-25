@@ -1,12 +1,13 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "license": "OSL-3",
     "require": {
         "php": "^7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-pdo": "*",
+        "beberlei/assert": "2.x",
         "behat/symfony2-extension": "^2.1",
         "doctrine/migrations": "2.2.x",
         "egulias/email-validator": "^2.1",
@@ -15,6 +16,7 @@
         "jms/serializer": "^3.1",
         "jms/serializer-bundle": "^3.4",
         "lexik/jwt-authentication-bundle": "^2.6",
+        "limenius/liform-bundle": "^0.15.0",
         "mhujer/jms-serializer-uuid": "^3.1",
         "moneyphp/money": "^3.2",
         "nelmio/api-doc-bundle": "^3.4",

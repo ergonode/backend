@@ -17,7 +17,3 @@ services:
     Ergonode\ImporterMagento2\Infrastructure\Source\Magento2ImportSource:
       arguments:
         $directory: '%import_directory%'
-
-    Ergonode\Importer\Infrastructure\Service\Import\StartImportService:
-      arguments:
-        $directory: '%import_directory%'

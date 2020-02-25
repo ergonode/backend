@@ -94,7 +94,7 @@ layers:
   - name: Importer-Magento-2
     collectors:
       - type: className
-        regex: .*Ergonode\\ImporterMagento1\\.*
+        regex: .*Ergonode\\ImporterMagento2\\.*
   - name: Transformer
     collectors:
       - type: className
@@ -225,10 +225,18 @@ ruleset:
     - Core
     - Importer
     - Transformer
+    - Reader
+    - Multimedia
+    - Attribute
+    - Value
+    - EventSourcing
   Importer-Magento-2:
     - Core
     - Importer
     - Transformer
+    - Reader
+    - Multimedia
+    - Attribute
   Transformer:
     - Core
     - EventSourcing
@@ -265,6 +273,7 @@ ruleset:
     - Designer
     - Product
     - Attribute
+    - Category
   ProductCollection:
     - Api
     - Core

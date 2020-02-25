@@ -58,7 +58,7 @@ class CreateProductCommandHandler
     {
         $categories = [];
         foreach ($command->getCategories() as $categoryId) {
-            $category = $this->categoryRepository->load(new CategoryId($categoryId));
+            $category = $this->categoryRepository->load($categoryId);
             Assert::notNull($category);
             $categories[] = $category->getCode();
         }

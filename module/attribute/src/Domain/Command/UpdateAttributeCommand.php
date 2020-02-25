@@ -9,15 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Command;
 
-use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -85,13 +83,13 @@ class UpdateAttributeCommand implements DomainCommandInterface
     private $placeholder;
 
     /**
-     * @param AttributeId            $id
-     * @param TranslatableString     $label
-     * @param TranslatableString     $hint
-     * @param TranslatableString     $placeholder
-     * @param array                  $groups
-     * @param array                  $parameters
-     * @param AttributeOptionModel[] $options
+     * @param AttributeId        $id
+     * @param TranslatableString $label
+     * @param TranslatableString $hint
+     * @param TranslatableString $placeholder
+     * @param array              $groups
+     * @param array              $parameters
+     * @param OptionInterface[]  $options
      */
     public function __construct(
         AttributeId $id,
@@ -108,17 +106,7 @@ class UpdateAttributeCommand implements DomainCommandInterface
         $this->label = $label;
         $this->hint = $hint;
         $this->placeholder = $placeholder;
-        $this->options = [];
-        foreach ($options as $option) {
-            $value = $option->value;
-            if (null === $value) {
-                $this->options[$option->key] = null;
-            } elseif (is_array($value)) {
-                $this->options[$option->key] = new MultilingualOption(new TranslatableString($value));
-            } else {
-                $this->options[$option->key] = new StringOption($value);
-            }
-        }
+        $this->options = $options;
     }
 
     /**

@@ -11,7 +11,7 @@ namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
+use Ergonode\Transformer\Domain\Model\Record;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -33,11 +33,11 @@ class ProcessImportCommand implements DomainCommandInterface
     private int $line;
 
     /**
-     * @var array
+     * @var Record
      *
-     * @JMS\Type("array")
+     * @JMS\Type("Ergonode\Transformer\Domain\Model\Record")
      */
-    private array $row;
+    private Record $record;
 
     /**
      * @var string
@@ -49,14 +49,14 @@ class ProcessImportCommand implements DomainCommandInterface
     /**
      * @param ImportId $importId
      * @param int      $line
-     * @param array    $row
+     * @param Record   $record
      * @param string   $action
      */
-    public function __construct(ImportId $importId, int $line, array $row, string $action)
+    public function __construct(ImportId $importId, int $line, Record $record, string $action)
     {
         $this->importId = $importId;
         $this->line = $line;
-        $this->row = $row;
+        $this->record = $record;
         $this->action = $action;
     }
 
@@ -77,11 +77,11 @@ class ProcessImportCommand implements DomainCommandInterface
     }
 
     /**
-     * @return array
+     * @return Record
      */
-    public function getRow(): array
+    public function getRecord(): Record
     {
-        return $this->row;
+        return $this->record;
     }
 
     /**

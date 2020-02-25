@@ -15,6 +15,7 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 use Ergonode\Importer\Domain\Query\ImportQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 /**
  */
@@ -50,18 +51,22 @@ class DbalImportQuery implements ImportQueryInterface
             ->fetch();
 
         if ($record) {
-            return json_decode($record['line'], true);
+            return json_decode($record['line'], true, 512, JSON_THROW_ON_ERROR);
         }
 
         return [];
     }
 
     /**
+     * @param SourceId $id
+     *
      * @return DataSetInterface
      */
-    public function getDataSet(): DataSetInterface
+    public function getDataSet(SourceId $id): DataSetInterface
     {
         $qb = $this->getQuery();
+        $qb->andWhere($qb->expr()->eq('source_id', ':sourceId'))
+            ->setParameter('sourceId', $id->getValue());
 
         return new DbalDataSet($qb);
     }
