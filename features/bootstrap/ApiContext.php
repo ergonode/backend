@@ -190,11 +190,6 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     public function printLastApiResponse(): void
     {
         $this->requireResponse();
-
-        echo print_r($this->response->getBody()->getContents());
-
-        die;
-
     }
 
     /**
