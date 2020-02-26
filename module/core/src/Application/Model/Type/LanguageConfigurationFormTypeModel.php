@@ -25,7 +25,7 @@ class LanguageConfigurationFormTypeModel
      *
      * @CoreAssert\LanguageCodeConstraint();
      */
-    public Language $code;
+    public ?Language $code = null;
 
     /**
      * @var bool
@@ -33,5 +33,5 @@ class LanguageConfigurationFormTypeModel
      * @Assert\NotNull(),
      * @Assert\Type("boolean")
      */
-    public bool $active;
+    public ?bool $active = null;
 }
