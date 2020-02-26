@@ -10,16 +10,13 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
-use Symfony\Component\HttpFoundation\File\File;
 use Ergonode\Transformer\Domain\Entity\Transformer;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
-use Ergonode\Transformer\Infrastructure\Action\CategoryImportAction;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Transformer\Infrastructure\Action\MultimediaImportAction;
@@ -47,10 +44,17 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
      *
+     * @param Progress          $steps
+     *
      * @throws \Exception
      */
-    public function process(Import $import, array $products, Transformer $transformer, Magento1CsvSource $source): void
-    {
+    public function process(
+        Import $import,
+        array $products,
+        Transformer $transformer,
+        Magento1CsvSource $source,
+        Progress $steps
+    ): void {
         if (!$source->import(Magento1CsvSource::MULTIMEDIA)) {
             return;
         }
@@ -72,9 +76,17 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
         }
 
         $i = 0;
+        $count = count($result);
         foreach ($result as $images => $image) {
             $i++;
-            $command = new ProcessImportCommand($import->getId(), $i, $image, MultimediaImportAction::TYPE);
+            $records = new Progress($i, $count);
+            $command = new ProcessImportCommand(
+                $import->getId(),
+                $steps,
+                $records,
+                $image,
+                MultimediaImportAction::TYPE
+            );
             $this->commandBus->dispatch($command);
         }
     }

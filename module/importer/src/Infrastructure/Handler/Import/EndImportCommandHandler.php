@@ -37,11 +37,9 @@ class EndImportCommandHandler
      */
     public function __invoke(EndImportCommand $command)
     {
-        $process = $this->repository->load($command->getId());
-
-        Assert::notNull($process);
-
-        $process->end();
-        $this->repository->save($process);
+        $import = $this->repository->load($command->getId());
+        Assert::notNull($import);
+        $import->end();
+        $this->repository->save($import);
     }
 }

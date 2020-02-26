@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Handler\Import;
 
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Transformer\Infrastructure\Provider\ImportActionProvider;
@@ -30,15 +32,23 @@ class ProcessImportCommandHandler
     private ImportLineRepositoryInterface $repository;
 
     /**
+     * @var CommandBusInterface
+     */
+    private CommandBusInterface $commandBus;
+
+    /**
      * @param ImportActionProvider          $importActionProvider
      * @param ImportLineRepositoryInterface $repository
+     * @param CommandBusInterface           $commandBus
      */
     public function __construct(
         ImportActionProvider $importActionProvider,
-        ImportLineRepositoryInterface $repository
+        ImportLineRepositoryInterface $repository,
+        CommandBusInterface $commandBus
     ) {
         $this->importActionProvider = $importActionProvider;
         $this->repository = $repository;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -49,7 +59,7 @@ class ProcessImportCommandHandler
     public function __invoke(ProcessImportCommand $command)
     {
         $importId = $command->getImportId();
-        $lineNumber = $command->getLine();
+        $lineNumber = $command->getRecords()->getPosition();
         $record = $command->getRecord();
 
         $line = new ImportLine($importId, $lineNumber, '{}');
@@ -62,6 +72,13 @@ class ProcessImportCommandHandler
             }
 
             $action->action($command->getImportId(), $record);
+
+            $records = $command->getRecords();
+            $steps = $command->getSteps();
+
+            if ($steps->getCount() === $steps->getPosition() && $records->getCount() === $records->getPosition()) {
+                $this->commandBus->dispatch(new EndImportCommand($importId));
+            }
         } catch (\Throwable $exception) {
             $line->addError($exception->getMessage());
         }
