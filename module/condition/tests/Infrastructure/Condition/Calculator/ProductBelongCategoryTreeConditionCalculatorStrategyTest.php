@@ -24,7 +24,7 @@ class ProductBelongCategoryTreeConditionCalculatorStrategyTest extends TestCase
     /**
      * @var MockObject|TreeRepositoryInterface
      */
-    private $repository;
+    private MockObject $repository;
 
     /**
      * @var ProductBelongCategoryTreeConditionCalculatorStrategy

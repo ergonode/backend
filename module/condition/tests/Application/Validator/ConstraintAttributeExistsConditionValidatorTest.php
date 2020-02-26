@@ -24,7 +24,7 @@ class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidato
     /**
      * @var MockObject|AttributeQueryInterface
      */
-    private $attributeQuery;
+    private MockObject $attributeQuery;
 
     /**
      */

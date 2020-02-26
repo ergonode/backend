@@ -24,6 +24,9 @@ class LanguageCompletenessCondition implements ConditionInterface
     public const COMPLETE = 'complete';
     public const NOT_COMPLETE = 'not complete';
 
+    public const PRODUCT_TRANSLATION_COMPLETE = 'PRODUCT_TRANSLATION_COMPLETE';
+    public const PRODUCT_TRANSLATION_NOT_COMPLETE = 'PRODUCT_TRANSLATION_NOT_COMPLETE';
+
     /**
      * @var string
      *

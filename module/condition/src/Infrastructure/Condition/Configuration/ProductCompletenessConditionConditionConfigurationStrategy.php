@@ -60,10 +60,20 @@ class ProductCompletenessConditionConditionConfigurationStrategy implements Cond
                     'options' => [
                         ProductCompletenessCondition::COMPLETE => $this
                             ->translator
-                            ->trans('Product is complete', [], 'condition', $language->getCode()),
+                            ->trans(
+                                ProductCompletenessCondition::PRODUCT_COMPLETE,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                         ProductCompletenessCondition::NOT_COMPLETE => $this
                             ->translator
-                            ->trans('Product is not complete', [], 'condition', $language->getCode()),
+                            ->trans(
+                                ProductCompletenessCondition::PRODUCT_NOT_COMPLETE,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                     ],
                 ],
             ],

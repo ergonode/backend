@@ -28,7 +28,6 @@ class ProductBelongCategoryConditionConfigurationStrategy implements ConditionCo
     private CategoryQueryInterface $query;
 
     /**
-     * ProductBelongCategoryConditionConfigurationStrategy constructor.
      * @param TranslatorInterface    $translator
      * @param CategoryQueryInterface $query
      */
@@ -52,6 +51,7 @@ class ProductBelongCategoryConditionConfigurationStrategy implements ConditionCo
     public function getConfiguration(Language $language): array
     {
         $categories = $this->query->getDictionary($language);
+        asort($categories);
 
         return [
             'type' => ProductBelongCategoryCondition::TYPE,

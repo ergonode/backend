@@ -8,11 +8,11 @@
 namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
 use Ergonode\Category\Domain\Entity\Category;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition;
 use Ergonode\Condition\Infrastructure\Condition\Calculator\ProductBelongCategoryConditionCalculatorStrategy;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -24,7 +24,7 @@ class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
     /**
      * @var MockObject|CategoryRepositoryInterface
      */
-    private $repository;
+    private MockObject $repository;
 
     /**
      * @var ProductBelongCategoryConditionCalculatorStrategy

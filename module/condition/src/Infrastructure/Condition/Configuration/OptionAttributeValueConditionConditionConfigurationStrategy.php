@@ -55,6 +55,7 @@ class OptionAttributeValueConditionConditionConfigurationStrategy implements Con
     public function getConfiguration(Language $language): array
     {
         $codes = $this->query->getDictionary([SelectAttribute::TYPE, MultiSelectAttribute::TYPE]);
+        asort($codes);
 
         return [
             'type' => OptionAttributeValueCondition::TYPE,

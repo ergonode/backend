@@ -52,6 +52,7 @@ class ProductBelongCategoryTreeConditionConfigurationStrategy implements Conditi
     public function getConfiguration(Language $language): array
     {
         $tree = $this->query->getDictionary($language);
+        asort($tree);
 
         return [
             'type' => ProductBelongCategoryTreeCondition::TYPE,

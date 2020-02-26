@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Domain\Condition;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Condition\Domain\ConditionInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -19,6 +19,9 @@ class TextAttributeValueCondition implements ConditionInterface
 {
     public const TYPE = 'TEXT_ATTRIBUTE_VALUE_CONDITION';
     public const PHRASE = 'TEXT_ATTRIBUTE_VALUE_CONDITION_PHRASE';
+
+    public const HAS = 'HAS';
+    public const IS_EQUAL = 'IS_EQUAL';
 
     /**
      * @var AttributeId

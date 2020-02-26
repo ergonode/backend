@@ -23,6 +23,9 @@ class ProductCompletenessCondition implements ConditionInterface
     public const COMPLETE = 'complete';
     public const NOT_COMPLETE = 'not complete';
 
+    public const PRODUCT_COMPLETE = 'PRODUCT_COMPLETE';
+    public const PRODUCT_NOT_COMPLETE = 'PRODUCT_NOT_COMPLETE';
+
     /**
      * @var string
      *
