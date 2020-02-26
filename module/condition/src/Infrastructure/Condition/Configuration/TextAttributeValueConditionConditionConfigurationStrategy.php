@@ -55,6 +55,7 @@ class TextAttributeValueConditionConditionConfigurationStrategy implements Condi
     public function getConfiguration(Language $language): array
     {
         $codes = $this->query->getDictionary([TextAttribute::TYPE, TextareaAttribute::TYPE]);
+        asort($codes);
 
         return [
             'type' => TextAttributeValueCondition::TYPE,
@@ -74,8 +75,18 @@ class TextAttributeValueConditionConditionConfigurationStrategy implements Condi
                     'name' => 'operator',
                     'type' => 'SELECT',
                     'options' => [
-                        '=' => $this->translator->trans('Is equal', [], 'condition', $language->getCode()),
-                        '~' => $this->translator->trans('Has', [], 'condition', $language->getCode()),
+                        '=' => $this->translator->trans(
+                            TextAttributeValueCondition::IS_EQUAL,
+                            [],
+                            'condition',
+                            $language->getCode()
+                        ),
+                        '~' => $this->translator->trans(
+                            TextAttributeValueCondition::HAS,
+                            [],
+                            'condition',
+                            $language->getCode()
+                        ),
                     ],
                 ],
                 [

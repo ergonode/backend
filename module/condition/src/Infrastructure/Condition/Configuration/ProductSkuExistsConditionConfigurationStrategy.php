@@ -7,7 +7,6 @@
 
 declare(strict_types=1);
 
-
 namespace Ergonode\Condition\Infrastructure\Condition\Configuration;
 
 use Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition;
@@ -59,15 +58,40 @@ class ProductSkuExistsConditionConfigurationStrategy implements ConditionConfigu
                     'type' => 'SELECT',
                     'options' => [
                         ProductSkuExistsCondition::IS_EQUAL =>
-                            $this->translator->trans('Is equal', [], 'condition', $language->getCode()),
+                            $this->translator->trans(
+                                ProductSkuExistsCondition::IS_EQUAL_PHRASE,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                         ProductSkuExistsCondition::IS_NOT_EQUAL =>
-                            $this->translator->trans('Is not equal', [], 'condition', $language->getCode()),
+                            $this->translator->trans(
+                                ProductSkuExistsCondition::IS_NOT_EQUAL_PHRASE,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                         ProductSkuExistsCondition::HAS =>
-                            $this->translator->trans('Has', [], 'condition', $language->getCode()),
+                            $this->translator->trans(
+                                ProductSkuExistsCondition::HAS_PHRASE,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                         ProductSkuExistsCondition::WILDCARD =>
-                            $this->translator->trans('Wildcard', [], 'condition', $language->getCode()),
+                            $this->translator->trans(
+                                ProductSkuExistsCondition::WILDCARD_PHRASE,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                         ProductSkuExistsCondition::REGEXP =>
-                            $this->translator->trans('Regexp', [], 'condition', $language->getCode()),
+                            $this->translator->trans(
+                                ProductSkuExistsCondition::REGEXP_PHRASE,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                     ],
                 ],
                 [

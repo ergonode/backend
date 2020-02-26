@@ -53,6 +53,7 @@ class AttributeExistsConditionConditionConfigurationStrategy implements Conditio
     public function getConfiguration(Language $language): array
     {
         $codes = $this->query->getDictionary();
+        asort($codes);
 
         return [
             'type' => AttributeExistsCondition::TYPE,

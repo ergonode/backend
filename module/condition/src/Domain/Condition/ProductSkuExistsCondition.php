@@ -26,6 +26,12 @@ class ProductSkuExistsCondition implements ConditionInterface
     public const WILDCARD = 'WILDCARD';
     public const REGEXP = 'REGEXP';
 
+    public const IS_EQUAL_PHRASE = 'IS_EQUAL';
+    public const IS_NOT_EQUAL_PHRASE = 'IS_NOT_EQUAL';
+    public const HAS_PHRASE = 'HAS';
+    public const WILDCARD_PHRASE = 'WILDCARD';
+    public const REGEXP_PHRASE = 'REGEXP';
+
     /**
      * @var string
      *

@@ -10,11 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Testes\Condition\Infrastructure\Condition\Calculator;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition;
 use Ergonode\Condition\Infrastructure\Condition\Calculator\NumericAttributeValueConditionCalculatorStrategy;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -26,12 +26,12 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
     /**
      * @var MockObject|AttributeRepositoryInterface
      */
-    private $repository;
+    private MockObject $repository;
 
     /**
      * @var NumericAttributeValueConditionCalculatorStrategy
      */
-    private $strategy;
+    private NumericAttributeValueConditionCalculatorStrategy $strategy;
 
     /**
      */

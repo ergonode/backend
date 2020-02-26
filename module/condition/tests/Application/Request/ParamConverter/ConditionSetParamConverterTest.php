@@ -25,17 +25,17 @@ class ConditionSetParamConverterTest extends TestCase
     /**
      * @var Request|MockObject
      */
-    private $request;
+    private MockObject $request;
 
     /**
      * @var ParamConverter|MockObject
      */
-    private $configuration;
+    private MockObject $configuration;
 
     /**
      * @var ConditionSetRepositoryInterface|MockObject
      */
-    private $repository;
+    private MockObject $repository;
 
     /**
      */

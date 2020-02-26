@@ -9,12 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Tests\Condition\Domain\Entity;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Condition\NumericAttributeValueCondition;
+use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Domain\Entity\ConditionSet;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -25,12 +24,12 @@ class ConditionSetTest extends TestCase
     /**
      * @var MockObject|ConditionSetId
      */
-    private $id;
+    private MockObject $id;
 
     /**
      * @var MockObject|ConditionInterface[]
      */
-    private $conditions;
+    private MockObject $conditions;
 
     /**
      */

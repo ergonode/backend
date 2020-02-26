@@ -54,6 +54,7 @@ class NumericAttributeValueConditionConditionConfigurationStrategy implements Co
     public function getConfiguration(Language $language): array
     {
         $codes = $this->query->getDictionary([NumericAttribute::TYPE]);
+        asort($codes);
 
         return [
             'type' => NumericAttributeValueCondition::TYPE,
@@ -73,12 +74,12 @@ class NumericAttributeValueConditionConditionConfigurationStrategy implements Co
                     'name' => 'operator',
                     'type' => 'SELECT',
                     'options' => [
-                        '=' => '=',
-                        '<>' => '<>',
-                        '>' => '>',
-                        '<' => '<',
-                        '>=' => '>=',
-                        '<=' => '<=',
+                        '=' => 'equal ( = )',
+                        '<>' => 'not equal ( ≠ )',
+                        '>' => 'greater than ( > )',
+                        '<' => 'less than ( < )',
+                        '>=' => 'greater than or equal to ( >= )',
+                        '<=' => 'less than or equal to ( <= )',
                     ],
                 ],
                 [
