@@ -110,7 +110,6 @@ Feature: channel module
       }
       """
     When I request "/api/v1/EN/channels/@channel@" using HTTP PUT
-    Then print last api response
     Then empty response is received
 
   Scenario: Update channel (not authorized)

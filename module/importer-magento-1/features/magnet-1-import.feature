@@ -18,7 +18,6 @@ Feature: Category module
         "default_language": "EN",
         "languages": []
       }
-
       """
     When I request "/api/v1/EN/sources" using HTTP POST
     Then created response is received
@@ -28,8 +27,8 @@ Feature: Category module
     Given current authentication token
     And I attach "module/importer-magento-1/features/magento-1-test.csv" to the request as upload
     And the following form parameters are set:
-      | name        | value       |
-      | source_id   | @source_id@ |
+      | name      | value       |
+      | source_id | @source_id@ |
     When I request "/api/v1/EN/imports/upload" using HTTP POST
     Then created response is received
     And remember response param "id" as "source_id"
