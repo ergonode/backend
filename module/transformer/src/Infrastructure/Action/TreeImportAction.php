@@ -13,9 +13,9 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
-use Ergonode\CategoryTree\Domain\Command\CreateTreeCommand;
-use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
-use Ergonode\CategoryTree\Domain\Command\UpdateTreeCommand;
+use Ergonode\Category\Domain\Command\Tree\CreateTreeCommand;
+use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
+use Ergonode\Category\Domain\Command\Tree\UpdateTreeCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 

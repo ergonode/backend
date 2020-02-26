@@ -1,6 +1,7 @@
-- feature [#335](https://github.com/ergonode/backend/issues/335) Extend condition set (Daniel-Marynicz,wfajczyk)
+- feature [#335](https://github.com/ergonode/backend/issues/335) [#391](https://github.com/ergonode/backend/issues/391) Extend condition set (Daniel-Marynicz,wfajczyk)
 - experimental [#378](https://github.com/ergonode/backend/issues/378) Creating Shared Kernel (wfajczyk)
 - experimental [#351](https://github.com/ergonode/backend/issues/351) New export space in DB (wfajczyk)
+- fix [#397](https://github.com/ergonode/backend/issues/397) Merge category tree to category (wfajczyk) 
  
 ## CHANGELOG FOR 0.6.1
  - fix - Add missing date filter for grid (wfajczyk)

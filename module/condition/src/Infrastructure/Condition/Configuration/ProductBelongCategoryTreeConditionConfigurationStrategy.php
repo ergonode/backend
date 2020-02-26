@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Configuration;
 
-use Ergonode\CategoryTree\Domain\Query\TreeQueryInterface;
+use Ergonode\Category\Domain\Query\TreeQueryInterface;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryTreeCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionConfigurationStrategyInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
