@@ -18,6 +18,11 @@ class ImportLine
     /**
      * @var int
      */
+    private int $step;
+
+    /**
+     * @var int
+     */
     private int $line;
 
     /**
@@ -26,26 +31,27 @@ class ImportLine
     private ImportId $importId;
 
     /**
-     * @var string
-     */
-    private string $content;
-
-    /**
      * @var string|null
      */
     private ?string $error;
 
     /**
-     * @param ImportId $importId
-     * @param int      $line
-     * @param string   $content
+     * @var \DateTime|null
      */
-    public function __construct(ImportId $importId, int $line, string $content)
+    private ?\DateTime $processedAt;
+
+    /**
+     * @param ImportId $importId
+     * @param int      $step
+     * @param int      $line
+     */
+    public function __construct(ImportId $importId, int $step, int $line)
     {
-        $this->line = $line;
         $this->importId = $importId;
-        $this->content = $content;
+        $this->step = $step;
+        $this->line = $line;
         $this->error = null;
+        $this->processedAt = null;
     }
 
     /**
@@ -65,11 +71,19 @@ class ImportLine
     }
 
     /**
-     * @return string
+     * @throws \Exception
      */
-    public function getContent(): string
+    public function process(): void
     {
-        return $this->content;
+        $this->processedAt = new \DateTime();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProcessed(): bool
+    {
+        return null !== $this->processedAt;
     }
 
     /**
@@ -94,5 +108,21 @@ class ImportLine
     public function hasError(): bool
     {
         return null !== $this->error;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStep(): int
+    {
+        return $this->step;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getProcessedAt(): ?\DateTime
+    {
+        return $this->processedAt;
     }
 }

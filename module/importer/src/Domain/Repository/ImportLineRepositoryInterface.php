@@ -25,11 +25,12 @@ interface ImportLineRepositoryInterface
 
     /**
      * @param ImportId $importId
+     * @param int      $step
      * @param int      $line
      *
      * @return ImportLine|null
      */
-    public function load(ImportId $importId, int $line): ?ImportLine;
+    public function load(ImportId $importId, int $step, int $line): ?ImportLine;
 
     /**
      * @param ImportId $importId

@@ -25,21 +25,31 @@ use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Transformer\Domain\Entity\Transformer;
+use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
+use Ergonode\Importer\Domain\Entity\ImportLine;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
 class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
 {
     /**
+     * @var ImportLineRepositoryInterface
+     */
+    private ImportLineRepositoryInterface $repository;
+
+    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param CommandBusInterface $commandBus
+     * @param ImportLineRepositoryInterface $repository
+     * @param CommandBusInterface           $commandBus
      */
-    public function __construct(CommandBusInterface $commandBus)
+    public function __construct(ImportLineRepositoryInterface $repository, CommandBusInterface $commandBus)
     {
+        $this->repository = $repository;
         $this->commandBus = $commandBus;
     }
 
@@ -49,6 +59,8 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
      * @param Progress          $steps
+     *
+     * @throws DBALException
      */
     public function process(
         Import $import,
@@ -102,6 +114,8 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
                 $attribute,
                 AttributeImportAction::TYPE
             );
+            $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
+            $this->repository->save($line);
             $this->commandBus->dispatch($command);
         }
     }
