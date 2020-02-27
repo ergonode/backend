@@ -31,13 +31,15 @@ class ImportGrid extends AbstractGrid
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $name = new TextColumn('name', 'Name', new TextFilter());
-        $this->addColumn('name', $name);
         $status = new TextColumn('status', 'Status', new TextFilter());
         $this->addColumn('status', $status);
         $index = new IntegerColumn('lines', 'Lines', new TextFilter());
         $this->addColumn('lines', $index);
         $createdAt = new DateColumn('created_at', 'Created at', new DateFilter());
         $this->addColumn('created_at', $createdAt);
+        $startedAt = new DateColumn('started_at', 'Started at', new DateFilter());
+        $this->addColumn('started_at', $startedAt);
+        $endedAt = new DateColumn('ended_at', 'Ended at', new DateFilter());
+        $this->addColumn('ended_at', $endedAt);
     }
 }

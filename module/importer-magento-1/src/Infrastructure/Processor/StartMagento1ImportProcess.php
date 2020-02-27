@@ -10,6 +10,7 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor;
 
 use Ergonode\Importer\Domain\Entity\Import;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
+use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Webmozart\Assert\Assert;
@@ -83,7 +84,6 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
             $transformer = $this->transformerRepository->load($import->getTransformerId());
             Assert::notNull($transformer);
 
-
             $products = $this->reader->read($source, $import, $transformer);
 
             $result = [];
@@ -94,8 +94,12 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
                 }
             }
 
+            $count = count($this->steps);
+            $i = 0;
             foreach ($this->steps as $step) {
-                $step->process($import, $result, $transformer, $source);
+                $i++;
+                $steps = new Progress($i, $count);
+                $step->process($import, $result, $transformer, $source, $steps);
             }
         } catch (\Throwable $exception) {
             throw $exception;

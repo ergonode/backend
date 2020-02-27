@@ -11,6 +11,7 @@ namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
@@ -47,9 +48,15 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
      * @param ProductModel[]    $products
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
+     * @param Progress          $steps
      */
-    public function process(Import $import, array $products, Transformer $transformer, Magento1CsvSource $source): void
-    {
+    public function process(
+        Import $import,
+        array $products,
+        Transformer $transformer,
+        Magento1CsvSource $source,
+        Progress $steps
+    ): void {
         $result = [];
         foreach ($products as $sku => $product) {
             $default = $product->get('default');
@@ -75,9 +82,17 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
         }
 
         $i = 0;
+        $count = count($result);
         foreach ($result as $category) {
             $i++;
-            $command = new ProcessImportCommand($import->getId(), $i, $category, CategoryImportAction::TYPE);
+            $records = new Progress($i, $count);
+            $command = new ProcessImportCommand(
+                $import->getId(),
+                $steps,
+                $records,
+                $category,
+                CategoryImportAction::TYPE
+            );
             $this->commandBus->dispatch($command);
         }
     }

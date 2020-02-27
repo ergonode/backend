@@ -61,11 +61,11 @@ class StartImportCommandHandler
         $source = $this->sourceRepository->load($import->getSourceId());
         Assert::notNull($source);
 
+
         $import->start();
+        $this->importRepository->save($import);
 
         $processor = $this->provider->provide($source->getType());
         $processor->start($import);
-
-        $this->importRepository->save($import);
     }
 }

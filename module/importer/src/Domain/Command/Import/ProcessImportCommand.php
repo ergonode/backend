@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Transformer\Domain\Model\Record;
 use JMS\Serializer\Annotation as JMS;
@@ -26,11 +27,18 @@ class ProcessImportCommand implements DomainCommandInterface
     private ImportId $importId;
 
     /**
-     * @var int
+     * @var Progress
      *
-     * @JMS\Type("int")
+     * @JMS\Type("Ergonode\Importer\Domain\ValueObject\Progress")
      */
-    private int $line;
+    private Progress $steps;
+
+    /**
+     * @var Progress
+     *
+     * @JMS\Type("Ergonode\Importer\Domain\ValueObject\Progress")
+     */
+    private Progress $records;
 
     /**
      * @var Record
@@ -48,14 +56,16 @@ class ProcessImportCommand implements DomainCommandInterface
 
     /**
      * @param ImportId $importId
-     * @param int      $line
+     * @param Progress $steps
+     * @param Progress $records
      * @param Record   $record
      * @param string   $action
      */
-    public function __construct(ImportId $importId, int $line, Record $record, string $action)
+    public function __construct(ImportId $importId, Progress $steps, Progress $records, Record $record, string $action)
     {
         $this->importId = $importId;
-        $this->line = $line;
+        $this->steps = $steps;
+        $this->records = $records;
         $this->record = $record;
         $this->action = $action;
     }
@@ -69,11 +79,19 @@ class ProcessImportCommand implements DomainCommandInterface
     }
 
     /**
-     * @return int
+     * @return Progress
      */
-    public function getLine(): int
+    public function getSteps(): Progress
     {
-        return $this->line;
+        return $this->steps;
+    }
+
+    /**
+     * @return Progress
+     */
+    public function getRecords(): Progress
+    {
+        return $this->records;
     }
 
     /**
