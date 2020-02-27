@@ -1,4 +1,5 @@
 Feature: Condition Product belong category exists
+
   Scenario: Get product belong category exists condition
     When I request "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_CONDITION" using HTTP GET
     Then unauthorized response is received
@@ -8,22 +9,39 @@ Feature: Condition Product belong category exists
     When I request "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_CONDITION" using HTTP GET
     Then the response code is 200
 
-  Scenario: Create category
+  Scenario: Create category1
     Given current authentication token
     Given the request body is:
       """
       {
         "code": "CATEGORY_@@random_uuid@@",
         "name": {
-          "DE": "Test DE",
-          "EN": "Test EN",
-          "PL": "Test PL"
+          "DE": "Test1 DE",
+          "EN": "Test1 EN",
+          "PL": "Test1 PL"
         }
       }
       """
     When I request "/api/v1/EN/categories" using HTTP POST
     Then created response is received
-    And remember response param "id" as "category"
+    And remember response param "id" as "category1"
+
+  Scenario: Create category2
+    Given current authentication token
+    Given the request body is:
+      """
+      {
+        "code": "CATEGORY_@@random_uuid@@",
+        "name": {
+          "DE": "Test2 DE",
+          "EN": "Test2 EN",
+          "PL": "Test2 PL"
+        }
+      }
+      """
+    When I request "/api/v1/EN/categories" using HTTP POST
+    Then created response is received
+    And remember response param "id" as "category2"
 
   Scenario: Post new BELONG_TO product category exists condition set
     Given current authentication token
@@ -34,7 +52,10 @@ Feature: Condition Product belong category exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
               "operator": "BELONG_TO",
-              "category": "@category@"
+              "category": [
+                "@category1@",
+                "@category2@"
+              ]
             }
           ]
         }
@@ -51,7 +72,9 @@ Feature: Condition Product belong category exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
               "operator": "NOT_BELONG_TO",
-              "category": "@category@"
+              "category": [
+                "@category1@"
+              ]
             }
           ]
         }
@@ -68,7 +91,10 @@ Feature: Condition Product belong category exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
               "operator": "x",
-              "category": "@category@"
+              "category": [
+                "@category1@",
+                "@category2@"
+              ]
             }
           ]
         }
@@ -85,7 +111,9 @@ Feature: Condition Product belong category exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
               "operator": "NOT_BELONG_TO",
-              "category": "@@random_uuid@@"
+              "category": [
+                "@@random_uuid@@"
+              ]
             }
           ]
         }

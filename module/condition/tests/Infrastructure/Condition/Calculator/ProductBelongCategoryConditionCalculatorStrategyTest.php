@@ -60,7 +60,9 @@ class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
         $configuration
             ->expects($this->once())
             ->method('getCategory')
-            ->willReturn($this->createMock(CategoryId::class));
+            ->willReturn(
+                [$this->createMock(CategoryId::class),]
+            );
         $this
             ->repository
             ->expects($this->once())
