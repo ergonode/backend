@@ -63,6 +63,7 @@ class AttributeCreatedEventProjector
             self::TABLE_ATTRIBUTE,
             [
                 'id' => $attribute->getId()->toString(),
+                'code' => $attribute->getCode(),
                 'data' => $this->serializer->serialize($attribute, 'json'),
             ]
         );

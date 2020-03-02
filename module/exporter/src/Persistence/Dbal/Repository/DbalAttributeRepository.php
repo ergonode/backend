@@ -72,6 +72,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
             self::TABLE_ATTRIBUTE,
             [
                 'data' => $this->serializer->serialize($attribute, 'json'),
+                'code' => $attribute->getCode(),
             ],
             [
                 'id' => $attribute->getId()->toString(),
