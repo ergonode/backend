@@ -34,7 +34,7 @@ class StatusChangeFormModel
      * @Assert\All({
      *     @Assert\NotBlank(),
      *     @Assert\Length(
-     *      max=100,ergonode_php_1
+     *      max=100,
      *      maxMessage="Status name is to long, It should have {{ limit }} character or less."
      *  )
      * })
