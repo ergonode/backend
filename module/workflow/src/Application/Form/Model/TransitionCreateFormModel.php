@@ -27,16 +27,16 @@ class TransitionCreateFormModel
      *
      * @ErgoAssert\StatusNotExists()
      */
-    public string $source;
+    public ?string $source;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\NotBlank()
      *
      * @ErgoAssert\StatusNotExists()
      */
-    public string $destination;
+    public ?string $destination;
 
     /**
      * @var array
@@ -65,9 +65,9 @@ class TransitionCreateFormModel
     public array $description;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public string $conditionSet;
+    public ?string $conditionSet;
 
     /**
      * @var Workflow
@@ -90,8 +90,14 @@ class TransitionCreateFormModel
     /**
      * @param Workflow $workflow
      */
-    public function __construct(Workflow $workflow)
-    {
+    public function __construct(
+        Workflow $workflow
+    ) {
+        $this->source = null;
+        $this->destination = null;
+        $this->name = [];
+        $this->description = [];
+        $this->conditionSet = null;
         $this->workflow = $workflow;
         $this->roles = [];
     }
