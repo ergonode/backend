@@ -30,12 +30,12 @@ class TranslationReadAction
     /**
      * @var TranslationProviderInterface
      */
-    private $translationProvider;
+    private TranslationProviderInterface $translationProvider;
 
     /**
      * @var FormFactoryInterface
      */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     /**
      * @param TranslationProviderInterface $translationProvider
