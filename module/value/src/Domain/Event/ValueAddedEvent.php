@@ -25,21 +25,21 @@ class ValueAddedEvent implements DomainEventInterface
      *
      * @JMS\Type(" Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
-    private $id;
+    private CategoryId $id;
 
     /**
      * @var AttributeCode
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
-    private $code;
+    private AttributeCode $code;
 
     /**
      * @var ValueInterface
      *
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
-    private $value;
+    private ValueInterface $value;
 
     /**
      * @param CategoryId     $id

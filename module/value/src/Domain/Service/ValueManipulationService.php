@@ -18,7 +18,7 @@ class ValueManipulationService
     /**
      * @var ValueUpdateStrategyInterface[]
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param ValueUpdateStrategyInterface ...$strategies

@@ -22,7 +22,7 @@ class StringCollectionValue implements ValueInterface
      *
      * @JMS\Type("array<string>")
      */
-    private $value;
+    private array $value;
 
     /**
      * @param string[] $value
