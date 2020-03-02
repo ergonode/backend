@@ -34,12 +34,12 @@ class ProductCreatedEventProjector
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @var array
      */
-    private $cache = [];
+    private array $cache = [];
 
     /**
      * @param Connection $connection

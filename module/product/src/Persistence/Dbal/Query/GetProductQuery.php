@@ -24,12 +24,12 @@ class GetProductQuery implements GetProductQueryInterface
     /**
      * @var ProductRepositoryInterface
      */
-    private $repository;
+    private ProductRepositoryInterface $repository;
 
     /**
      * @var UrlGeneratorInterface
      */
-    private $router;
+    private UrlGeneratorInterface $router;
 
     /**
      * @param ProductRepositoryInterface $repository

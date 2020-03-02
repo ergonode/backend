@@ -31,17 +31,17 @@ class ProductGridColumnBuilder
     /**
      * @var AttributeQueryInterface
      */
-    private $attributeQuery;
+    private AttributeQueryInterface $attributeQuery;
 
     /**
      * @var AttributeRepositoryInterface
      */
-    private $repository;
+    private AttributeRepositoryInterface $repository;
 
     /**
      * @var AttributeColumnProvider
      */
-    private $provider;
+    private AttributeColumnProvider $provider;
 
     /**
      * @param AttributeQueryInterface      $attributeQuery

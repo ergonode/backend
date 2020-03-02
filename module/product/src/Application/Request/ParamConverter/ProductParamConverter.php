@@ -25,7 +25,7 @@ class ProductParamConverter implements ParamConverterInterface
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
      * @param ProductRepositoryInterface $productRepository

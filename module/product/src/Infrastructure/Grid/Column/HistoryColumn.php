@@ -21,7 +21,7 @@ class HistoryColumn extends AbstractColumn
     /**
      * @var string
      */
-    private $parameterField;
+    private string $parameterField;
 
     /**
      * @param string   $logField

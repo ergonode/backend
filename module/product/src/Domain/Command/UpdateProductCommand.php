@@ -25,21 +25,21 @@ class UpdateProductCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private $id;
+    private ProductId $id;
 
     /**
      * @var CategoryId[]
      *
      * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
-    private $categories;
+    private array $categories;
 
     /**
      * @var ValueInterface[]
      *
      * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
-    private $attributes;
+    private array $attributes;
 
     /**
      * @param ProductId $productId
