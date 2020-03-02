@@ -23,7 +23,7 @@ class StatusDeletedEvent extends AbstractDeleteEvent
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
-    private $id;
+    private StatusId $id;
 
     /**
      * @param StatusId $id

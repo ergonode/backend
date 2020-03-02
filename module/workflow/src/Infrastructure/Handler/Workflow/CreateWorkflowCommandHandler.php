@@ -20,12 +20,12 @@ class CreateWorkflowCommandHandler
     /**
      * @var WorkflowRepositoryInterface
      */
-    private $repository;
+    private WorkflowRepositoryInterface $repository;
 
     /**
      * @var WorkflowFactory
      */
-    private $factory;
+    private WorkflowFactory $factory;
 
     /**
      * @param WorkflowRepositoryInterface $repository

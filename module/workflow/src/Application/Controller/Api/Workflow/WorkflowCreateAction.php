@@ -35,22 +35,22 @@ class WorkflowCreateAction
     /**
      * @var WorkflowValidatorBuilder
      */
-    private $builder;
+    private WorkflowValidatorBuilder $builder;
 
     /**
      * @var ValidatorInterface
      */
-    private $validator;
+    private ValidatorInterface $validator;
 
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @param WorkflowValidatorBuilder $builder

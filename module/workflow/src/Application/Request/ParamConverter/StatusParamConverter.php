@@ -26,7 +26,7 @@ class StatusParamConverter implements ParamConverterInterface
     /**
      * @var StatusRepositoryInterface
      */
-    private $repository;
+    private StatusRepositoryInterface $repository;
 
     /**
      * @param StatusRepositoryInterface $repository

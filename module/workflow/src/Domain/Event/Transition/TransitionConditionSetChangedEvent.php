@@ -25,21 +25,21 @@ class TransitionConditionSetChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $id;
+    private WorkflowId $id;
 
     /**
      * @var TransitionId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransitionId")
      */
-    private $transitionId;
+    private TransitionId $transitionId;
 
     /**
      * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
-    private $conditionSetId;
+    private ?ConditionSetId $conditionSetId;
 
     /**
      * @param WorkflowId          $id

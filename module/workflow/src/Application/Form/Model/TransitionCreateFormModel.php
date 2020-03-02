@@ -27,7 +27,7 @@ class TransitionCreateFormModel
      *
      * @ErgoAssert\StatusNotExists()
      */
-    public $source;
+    public string $source;
 
     /**
      * @var string
@@ -36,7 +36,7 @@ class TransitionCreateFormModel
      *
      * @ErgoAssert\StatusNotExists()
      */
-    public $destination;
+    public string $destination;
 
     /**
      * @var array
@@ -49,7 +49,7 @@ class TransitionCreateFormModel
      *     )
      * })
      */
-    public $name;
+    public array $name;
 
     /**
      * @var array
@@ -62,17 +62,17 @@ class TransitionCreateFormModel
      *     )
      * })
      */
-    public $description;
+    public array $description;
 
     /**
      * @var string
      */
-    public $conditionSet;
+    public string $conditionSet;
 
     /**
      * @var Workflow
      */
-    private $workflow;
+    private Workflow $workflow;
 
     /**
      * @var array
@@ -85,7 +85,7 @@ class TransitionCreateFormModel
      *
      * })
      */
-    public $roles;
+    public array $roles;
 
     /**
      * @param Workflow $workflow

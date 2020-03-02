@@ -34,17 +34,17 @@ class TransitionGridReadAction
     /**
      * @var TransitionQueryInterface
      */
-    private $query;
+    private TransitionQueryInterface $query;
 
     /**
      * @var TransitionGrid
      */
-    private $grid;
+    private TransitionGrid $grid;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer             $gridRenderer

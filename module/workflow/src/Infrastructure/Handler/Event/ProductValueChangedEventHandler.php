@@ -31,27 +31,27 @@ class ProductValueChangedEventHandler
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
      * @var WorkflowRepositoryInterface
      */
-    private $workflowRepository;
+    private WorkflowRepositoryInterface $workflowRepository;
 
     /**
      * @var UserIdsProvider
      */
-    private $userIdsProvider;
+    private UserIdsProvider $userIdsProvider;
 
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $userProvider;
+    private AuthenticatedUserProviderInterface $userProvider;
 
     /**
      * @var CommandBusInterface
      */
-    private $commandBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @param ProductRepositoryInterface         $productRepository
