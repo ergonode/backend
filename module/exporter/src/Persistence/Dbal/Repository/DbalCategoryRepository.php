@@ -32,8 +32,6 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     private SerializerInterface $serializer;
 
     /**
-     * DbalCategoryRepository constructor.
-     *
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */

@@ -32,7 +32,6 @@ class AttributeCreatedEventProjector
     private SerializerInterface $serializer;
 
     /**
-     * AttributeCreatedEventProjector constructor.
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */

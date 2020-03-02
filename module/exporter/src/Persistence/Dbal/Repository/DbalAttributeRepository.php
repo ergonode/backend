@@ -32,7 +32,6 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
     private SerializerInterface $serializer;
 
     /**
-     * DbalAttributeRepository constructor.
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */

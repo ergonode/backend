@@ -39,8 +39,6 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
     private ExportProfileFactory $factory;
 
     /**
-     * DbalExportProfileRepository constructor.
-     *
      * @param Connection           $connection
      * @param ExportProfileFactory $factory
      */

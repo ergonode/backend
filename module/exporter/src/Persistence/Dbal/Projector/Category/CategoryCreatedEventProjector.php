@@ -32,7 +32,6 @@ class CategoryCreatedEventProjector
     private SerializerInterface $serializer;
 
     /**
-     * CategoryCreatedEventProjector constructor.
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */

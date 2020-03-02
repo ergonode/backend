@@ -24,8 +24,6 @@ class CategoryTreeDeletedEventProjector
     private Connection $connection;
 
     /**
-     * CategoryTreeDeletedEventProjector constructor.
-     *
      * @param Connection $connection
      */
     public function __construct(Connection $connection)
