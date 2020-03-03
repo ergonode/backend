@@ -22,12 +22,12 @@ class MigrationConfigurationProvider
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @var MigrationDirectoryProviderInterface
      */
-    private $migrationDirectoryProvider;
+    private MigrationDirectoryProviderInterface $migrationDirectoryProvider;
 
     /**
      * @param Connection                          $connection
