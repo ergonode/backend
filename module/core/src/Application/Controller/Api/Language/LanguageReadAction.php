@@ -29,7 +29,7 @@ class LanguageReadAction
     /**
      * @var LanguageQueryInterface
      */
-    private $query;
+    private LanguageQueryInterface $query;
 
     /**
      * @param LanguageQueryInterface $query

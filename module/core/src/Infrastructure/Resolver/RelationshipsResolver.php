@@ -20,7 +20,7 @@ class RelationshipsResolver implements RelationshipsResolverInterface
     /**
      * @var RelationshipStrategyInterface[]
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param RelationshipStrategyInterface ...$strategies
