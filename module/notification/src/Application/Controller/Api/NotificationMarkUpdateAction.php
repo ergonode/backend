@@ -27,12 +27,12 @@ class NotificationMarkUpdateAction
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $userProvider;
+    private AuthenticatedUserProviderInterface $userProvider;
 
     /**
      * @var CommandBusInterface
      */
-    private $commandBud;
+    private CommandBusInterface $commandBud;
 
     /**
      * @param AuthenticatedUserProviderInterface $userProvider

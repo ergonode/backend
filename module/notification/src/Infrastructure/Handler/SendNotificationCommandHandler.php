@@ -18,7 +18,7 @@ class SendNotificationCommandHandler
     /**
      * @var NotificationSender
      */
-    private $notificationService;
+    private NotificationSender $notificationService;
 
     /**
      * @param NotificationSender $notificationService

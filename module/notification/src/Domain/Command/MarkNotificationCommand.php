@@ -20,17 +20,17 @@ class MarkNotificationCommand implements DomainCommandInterface
     /**
      * @var Uuid
      */
-    private $notificationId;
+    private Uuid $notificationId;
 
     /**
      * @var UserId
      */
-    private $userId;
+    private UserId $userId;
 
     /**
      * @var \DateTime
      */
-    private $readAt;
+    private \DateTime $readAt;
 
     /**
      * @param Uuid      $notificationId
