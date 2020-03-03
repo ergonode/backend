@@ -39,10 +39,6 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Product\\.*
-  - name: ProductSimple
-    collectors:
-      - type: className
-        regex: .*Ergonode\\ProductSimple\\.*
   - name: Segment
     collectors:
       - type: className
@@ -159,19 +155,13 @@ ruleset:
     - Api
     - Value
     - Account
-  ProductSimple:
-    - Core
-    - EventSourcing
-    - Product
-    - Category
-    - Attribute
-    - Value
   Segment:
     - Core
     - EventSourcing
     - Grid
     - Api
     - Condition
+    - Product
   Workflow:
     - Core
     - EventSourcing
@@ -265,6 +255,8 @@ ruleset:
   ProductCollection:
     - Api
     - Core
+    - Grid
     - EventSourcing
     - Segment
     - Product
+    - Attribute
