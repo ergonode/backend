@@ -22,7 +22,7 @@ class SimpleMultimediaFileProvider implements MultimediaFileProviderInterface
     /**
      * @var Kernel
      */
-    private $kernel;
+    private Kernel $kernel;
 
     /**
      * @param KernelInterface $kernel

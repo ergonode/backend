@@ -22,7 +22,7 @@ class MultimediaCreatedEventProjector
     /**
      * @var Connection
      */
-    protected $connection;
+    protected Connection $connection;
 
     /**
      * @param Connection $connection

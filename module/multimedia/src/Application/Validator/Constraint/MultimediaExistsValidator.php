@@ -22,7 +22,7 @@ class MultimediaExistsValidator extends ConstraintValidator
     /**
      * @var MultimediaRepositoryInterface
      */
-    private $multimediaRepository;
+    private MultimediaRepositoryInterface $multimediaRepository;
 
     /**
      * @param MultimediaRepositoryInterface $multimediaRepository

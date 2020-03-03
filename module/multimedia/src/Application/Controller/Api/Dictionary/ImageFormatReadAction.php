@@ -23,7 +23,7 @@ class ImageFormatReadAction
     /**
      * @var ImageFormatProvider
      */
-    private $imageFormatProvider;
+    private ImageFormatProvider $imageFormatProvider;
 
     /**
      * @param ImageFormatProvider $imageFormatProvider

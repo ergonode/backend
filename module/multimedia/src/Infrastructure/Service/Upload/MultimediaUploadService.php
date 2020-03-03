@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class MultimediaUploadService
 {
-    private $targetDirectory;
+    private  $targetDirectory;
 
     /**
      * @param string $targetDirectory

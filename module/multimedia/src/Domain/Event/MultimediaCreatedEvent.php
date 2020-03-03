@@ -23,28 +23,28 @@ class MultimediaCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
-    private $id;
+    private MultimediaId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $extension;
+    private string $extension;
 
     /**
      * @var string|null
      *
      * @JMS\Type("string")
      */
-    private $mime;
+    private ?string $mime;
 
     /**
      * The file size in bytes.
@@ -53,14 +53,14 @@ class MultimediaCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("int")
      */
-    private $size;
+    private int $size;
 
     /**
      * @var Hash
      *
      * @JMS\Type("Ergonode\Multimedia\Domain\ValueObject\Hash")
      */
-    private $hash;
+    private Hash $hash;
 
     /**
      * @param MultimediaId $id
