@@ -35,42 +35,42 @@ class RequestGridConfiguration implements GridConfigurationInterface
     /**
      * @var int
      */
-    private $offset;
+    private int $offset;
 
     /**
      * @var int
      */
-    private $limit;
+    private int $limit;
+
+    /**
+     * @var string|null
+     */
+    private ?string $field;
 
     /**
      * @var string
      */
-    private $field;
+    private string $order;
 
     /**
-     * @var string
+     * @var FilterValueCollection
      */
-    private $order;
+    private FilterValueCollection $filters;
 
     /**
      * @var array
      */
-    private $filters;
-
-    /**
-     * @var array
-     */
-    private $columns;
+    private array $columns;
 
     /**
      * @var string
      */
-    private $view;
+    private string $view;
 
     /**
      * @var bool
      */
-    private $extended;
+    private bool $extended;
 
     /**
      * @param Request $request

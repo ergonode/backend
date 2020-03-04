@@ -18,7 +18,7 @@ class LinkColumn extends AbstractColumn
     /**
      * @var array
      */
-    private $links;
+    private array $links;
 
     /**
      * @param string $field
