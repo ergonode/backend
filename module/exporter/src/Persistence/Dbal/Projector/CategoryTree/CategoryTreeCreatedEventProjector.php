@@ -7,19 +7,19 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Persistence\Dbal\Projector\Category;
+namespace Ergonode\Exporter\Persistence\Dbal\Projector\CategoryTree;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
-use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategory;
+use Ergonode\Category\Domain\Event\Tree\CategoryTreeCreatedEvent;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportTree;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class CategoryCreatedEventProjector
+class CategoryTreeCreatedEventProjector
 {
-    private const TABLE_CATEGORY = 'exporter.category';
+    private const TABLE_TREE = 'exporter.tree';
 
     /**
      * @var Connection
@@ -42,25 +42,25 @@ class CategoryCreatedEventProjector
     }
 
     /**
-     * @param CategoryCreatedEvent $event
+     * @param CategoryTreeCreatedEvent $event
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function __invoke(CategoryCreatedEvent $event): void
+    public function __invoke(CategoryTreeCreatedEvent $event): void
     {
         $id = Uuid::fromString($event->getAggregateId()->getValue());
-        $category = new ExportCategory(
+
+        $tree = new ExportTree(
             $id,
-            $event->getCode()->getValue(),
-            $event->getName()
+            []
         );
 
+
         $this->connection->insert(
-            self::TABLE_CATEGORY,
+            self::TABLE_TREE,
             [
-                'id' => $category->getId(),
-                'code' => $category->getCode(),
-                'data' => $this->serializer->serialize($category, 'json'),
+                'id' => $tree->getId()->toString(),
+                'data' => $this->serializer->serialize($tree, 'json'),
             ]
         );
     }
