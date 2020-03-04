@@ -18,7 +18,7 @@ class ProductFactoryProvider
     /**
      * @var ProductFactoryInterface[]
      */
-    private $factories;
+    private array $factories;
 
     /**
      * @param ProductFactoryInterface ...$factories

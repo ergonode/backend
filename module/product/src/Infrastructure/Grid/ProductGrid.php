@@ -21,7 +21,7 @@ class ProductGrid extends AbstractGrid
     /**
      * @var ProductGridColumnBuilder
      */
-    private $builder;
+    private ProductGridColumnBuilder $builder;
 
     /**
      * @param ProductGridColumnBuilder $builder

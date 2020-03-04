@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ProductCreateFormModel
 {
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\NotBlank(message="Sku is required")
      *
@@ -27,28 +27,30 @@ class ProductCreateFormModel
      *
      * @SkuExists()
      */
-    public $sku;
+    public ?string $sku;
 
     /**
      * @var array
      */
-    public $categories;
+    public array $categories;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\NotBlank(message="Template is required")
      * @Assert\Uuid()
      *
      * @TemplateExists()
      */
-    public $template;
+    public ?string $template;
 
     /**
      * ProductCreateFormModel constructor.
      */
     public function __construct()
     {
+        $this->sku = null;
         $this->categories = [];
+        $this->template = null;
     }
 }

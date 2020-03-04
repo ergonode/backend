@@ -22,7 +22,7 @@ class CreateAtAttributeProductFactoryDecorator implements ProductFactoryInterfac
     /**
      * @var ProductFactoryInterface
      */
-    private $factory;
+    private ProductFactoryInterface $factory;
 
     /**
      * @param ProductFactoryInterface $factory

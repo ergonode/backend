@@ -19,5 +19,5 @@ class Sku extends Constraint
     /**
      * @var string
      */
-    public $message = 'Sku code "{{ sku }}" is not valid.';
+    public string $message = 'Sku code "{{ sku }}" is not valid.';
 }

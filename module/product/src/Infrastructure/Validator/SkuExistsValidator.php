@@ -22,7 +22,7 @@ class SkuExistsValidator extends ConstraintValidator
     /**
      * @var ProductQueryInterface
      */
-    private $query;
+    private ProductQueryInterface $query;
 
     /**
      * SkuExistsValidator constructor.

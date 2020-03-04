@@ -24,17 +24,17 @@ class CreateProductCommandHandler
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
      * @var CategoryRepositoryInterface
      */
-    private $categoryRepository;
+    private CategoryRepositoryInterface $categoryRepository;
 
     /**
      * @var ProductFactoryProvider
      */
-    private $productFactoryProvider;
+    private ProductFactoryProvider $productFactoryProvider;
 
     /**
      * @param ProductRepositoryInterface  $productRepository
