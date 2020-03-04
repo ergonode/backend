@@ -19,7 +19,7 @@ class UserIdsProvider
     /**
      * @var RoleQueryInterface
      */
-    private $query;
+    private RoleQueryInterface $query;
 
     /**
      * @param RoleQueryInterface $query

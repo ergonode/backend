@@ -23,14 +23,14 @@ class WorkflowStatusAddedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $id;
+    private WorkflowId $id;
 
     /**
      * @var StatusCode
      *
      * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
-    private $code;
+    private StatusCode $code;
 
     /**
      * @param WorkflowId $id

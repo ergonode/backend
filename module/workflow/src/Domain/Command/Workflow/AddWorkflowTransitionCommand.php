@@ -25,35 +25,35 @@ class AddWorkflowTransitionCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $workflowId;
+    private WorkflowId $workflowId;
 
     /**
      * @var StatusCode
      *
      * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
-    private $source;
+    private StatusCode $source;
 
     /**
-     * @var StatusCode;
+     * @var StatusCode
      *
      * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
-    private $destination;
+    private StatusCode $destination;
 
     /**
      * @var RoleId[]
      *
      * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\RoleId>")
      */
-    private $roleIds;
+    private array $roleIds;
 
     /**
      * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
-    private $conditionSetId;
+    private ?ConditionSetId $conditionSetId;
 
     /**
      * @param WorkflowId          $workflowId

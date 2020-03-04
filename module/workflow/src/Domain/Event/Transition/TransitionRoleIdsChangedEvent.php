@@ -26,21 +26,21 @@ class TransitionRoleIdsChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $id;
+    private WorkflowId $id;
 
     /**
      * @var TransitionId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransitionId")
      */
-    private $transitionId;
+    private TransitionId $transitionId;
 
     /**
      * @var RoleId[]
      *
      * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\RoleId>")
      */
-    private $roleIds;
+    private array $roleIds;
 
     /**
      * @param WorkflowId   $id

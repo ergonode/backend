@@ -21,7 +21,7 @@ class UpdateWorkflowCommandHandler
     /**
      * @var WorkflowRepositoryInterface
      */
-    private $repository;
+    private WorkflowRepositoryInterface $repository;
 
     /**
      * @param WorkflowRepositoryInterface $repository
