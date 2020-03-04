@@ -24,12 +24,12 @@ class NotificationCheckAction
     /**
      * @var NotificationQueryInterface
      */
-    private $query;
+    private NotificationQueryInterface $query;
 
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $userProvider;
+    private AuthenticatedUserProviderInterface $userProvider;
 
     /**
      * @param NotificationQueryInterface         $query

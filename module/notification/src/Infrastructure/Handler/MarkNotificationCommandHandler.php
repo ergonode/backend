@@ -19,7 +19,7 @@ class MarkNotificationCommandHandler
     /**
      * @var NotificationQueryInterface
      */
-    private $query;
+    private NotificationQueryInterface $query;
 
     /**
      * @param NotificationQueryInterface $query

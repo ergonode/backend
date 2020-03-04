@@ -19,7 +19,7 @@ class NotificationSender
     /**
      * @var NotificationStrategyInterface[]
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param NotificationStrategyInterface ...$strategies
