@@ -10,3 +10,4 @@ ergonode_segment:
     - Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition
     - Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition
     - Ergonode\Condition\Domain\Condition\ProductBelongCategoryTreeCondition
+    - Ergonode\Condition\Domain\Condition\ProductHasStatusCondition
