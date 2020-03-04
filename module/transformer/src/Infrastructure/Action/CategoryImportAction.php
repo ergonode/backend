@@ -9,15 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Action;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Factory\CategoryFactory;
+use Ergonode\Category\Domain\Command\CreateCategoryCommand;
+use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
-use Ergonode\CategoryTree\Domain\Entity\CategoryTree;
-use Ergonode\CategoryTree\Domain\Repository\TreeRepositoryInterface;
-use Ergonode\CategoryTree\Infrastructure\Provider\CategoryTreeProvider;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 /**
  */
@@ -34,73 +35,43 @@ class CategoryImportAction implements ImportActionInterface
     private CategoryRepositoryInterface $categoryRepository;
 
     /**
-     * @var CategoryTreeProvider
+     * @var CommandBusInterface
      */
-    private CategoryTreeProvider $treeProvider;
-
-    /**
-     * @var TreeRepositoryInterface
-     */
-    private TreeRepositoryInterface $treeRepository;
-
-    /**
-     * @var CategoryFactory
-     */
-    private CategoryFactory $factory;
+    private CommandBusInterface $commandBus;
 
     /**
      * @param CategoryRepositoryInterface $categoryRepository
-     * @param CategoryTreeProvider        $treeProvider
-     * @param TreeRepositoryInterface     $treeRepository
-     * @param CategoryFactory             $factory
+     * @param CommandBusInterface         $commandBus
      */
-    public function __construct(
-        CategoryRepositoryInterface $categoryRepository,
-        CategoryTreeProvider $treeProvider,
-        TreeRepositoryInterface $treeRepository,
-        CategoryFactory $factory
-    ) {
+    public function __construct(CategoryRepositoryInterface $categoryRepository, CommandBusInterface $commandBus)
+    {
         $this->categoryRepository = $categoryRepository;
-        $this->treeProvider = $treeProvider;
-        $this->treeRepository = $treeRepository;
-        $this->factory = $factory;
+        $this->commandBus = $commandBus;
     }
 
     /**
-     * @param Record $record
+     * @param ImportId $importId
+     * @param Record   $record
      *
      * @throws \Exception
      */
-    public function action(Record $record): void
+    public function action(ImportId $importId, Record $record): void
     {
         $code = $record->get(self::CODE_FIELD) ? new CategoryCode($record->get(self::CODE_FIELD)->getValue()) : null;
         $name = $record->get(self::NAME_FIELD) ? $record->get(self::NAME_FIELD)->getValue() : null;
         Assert::notNull($code, 'Category import required "code" field not exists');
         Assert::notNull($name, 'Category import required "name" field not exists');
 
-        $data = [
-            'attributes' => [],
-        ];
-
-        $tree = $this->treeProvider->getTree(CategoryTree::DEFAULT);
-
-        $categoryId = CategoryId::fromCode($code);
-
-        $parentCode = $record->get('parent')? new CategoryCode($record->get('parent')->getValue()): null;
-        $parentId = $parentCode? CategoryId::fromCode($parentCode): null;
+        $categoryId = CategoryId::fromCode($code->getValue());
         $category = $this->categoryRepository->load($categoryId);
 
         if (!$category) {
-            $category = $this->factory->create($categoryId, $code, $name, $data['attributes']);
+            $command = new CreateCategoryCommand($code, $name);
+        } else {
+            $command = new UpdateCategoryCommand($categoryId, $name);
         }
 
-        $this->categoryRepository->save($category);
-
-        if (!$tree->hasCategory($categoryId)) {
-            $tree->addCategory($category->getId(), $parentId);
-        }
-
-        $this->treeRepository->save($tree);
+        $this->commandBus->dispatch($command);
     }
 
     /**

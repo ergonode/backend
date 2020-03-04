@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Tests\Domain\Condition;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Condition\Domain\Condition\AttributeExistsCondition;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

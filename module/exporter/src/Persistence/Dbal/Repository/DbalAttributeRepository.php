@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Exporter\Domain\Entity\ExportAttribute;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportAttribute;
 use Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;

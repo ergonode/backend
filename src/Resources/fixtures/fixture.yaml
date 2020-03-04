@@ -42,6 +42,9 @@ parameters:
   label_esa_categories:
     'PL': 'Kategorie'
     'EN': 'Categories'
+  label_esa_product_collection:
+    'PL': 'Kolekcje produktów'
+    'EN': 'Product collections'
   name_product_collection_type_up-sell:
     'PL': 'Up-sell'
     'EN': 'Up-sell'
@@ -50,7 +53,7 @@ parameters:
     'EN': 'Cross-sell'
   empty: []
 
-Ergonode\CategoryTree\Domain\Command\CreateTreeCommand:
+Ergonode\Category\Domain\Command\Tree\CreateTreeCommand:
   create_category_tree:
     __construct:
       - 'default'
@@ -119,6 +122,14 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("CHANNEL_READ")>'
         - '<privilege("CHANNEL_UPDATE")>'
         - '<privilege("CHANNEL_DELETE")>'
+        - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+        - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+        - '<privilege("PRODUCT_COLLECTION_READ")>'
+        - '<privilege("PRODUCT_COLLECTION_DELETE")>'
+        - '<privilege("EXPORT_PROFILE_CREATE")>'
+        - '<privilege("EXPORT_PROFILE_READ")>'
+        - '<privilege("EXPORT_PROFILE_UPDATE")>'
+        - '<privilege("EXPORT_PROFILE_DELETE")>'
       - true
   admin_role:
     __construct:
@@ -182,6 +193,14 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("CHANNEL_READ")>'
         - '<privilege("CHANNEL_UPDATE")>'
         - '<privilege("CHANNEL_DELETE")>'
+        - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+        - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+        - '<privilege("PRODUCT_COLLECTION_READ")>'
+        - '<privilege("PRODUCT_COLLECTION_DELETE")>'
+        - '<privilege("EXPORT_PROFILE_CREATE")>'
+        - '<privilege("EXPORT_PROFILE_READ")>'
+        - '<privilege("EXPORT_PROFILE_UPDATE")>'
+        - '<privilege("EXPORT_PROFILE_DELETE")>'
   data_inputer_role:
     __construct:
       - '<roleId("Data inputer")>'
@@ -214,6 +233,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("MULTIMEDIA_CREATE")>'
         - '<privilege("MULTIMEDIA_READ")>'
         - '<privilege("MULTIMEDIA_UPDATE")>'
+        - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+        - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+        - '<privilege("PRODUCT_COLLECTION_READ")>'
+        - '<privilege("PRODUCT_COLLECTION_DELETE")>'
   category_manager_role:
     __construct:
       - '<roleId("Category manager")>'
@@ -252,6 +275,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("MULTIMEDIA_READ")>'
         - '<privilege("MULTIMEDIA_UPDATE")>'
         - '<privilege("MULTIMEDIA_DELETE")>'
+        - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+        - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+        - '<privilege("PRODUCT_COLLECTION_READ")>'
+        - '<privilege("PRODUCT_COLLECTION_DELETE")>'
 
 Ergonode\Account\Domain\Entity\User:
   superadmin:
@@ -369,15 +396,23 @@ Ergonode\Category\Domain\Entity\Attribute\CategorySystemAttribute:
       - '<translation(<{label_esa_categories}>)>'
       - '<translation(<{empty}>)>'
       - '<translation(<{empty}>)>'
-  
-Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
-  product_collection_type_up-sell:
+
+Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttribute:
+  attribute_esa_product_collection:
     __construct:
-      - '<productCollectionTypeId("up-sell)>'
+      - '<translation(<{label_esa_product_collection}>)>'
+      - '<translation(<{empty}>)>'
+      - '<translation(<{empty}>)>'
+
+
+Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
+  product_collection_type_up_sell:
+    __construct:
+      - '<productCollectionTypeId("up-sell")>'
       - '<productCollectionTypeCode("up-sell")>'
       - '<translation(<{name_product_collection_type_up-sell}>)>'
-  product_collection_type_cross-sell:
+  product_collection_type_cross_sell:
     __construct:
-      - '<productCollectionTypeId("cross-sell)>'
+      - '<productCollectionTypeId("cross-sell")>'
       - '<productCollectionTypeCode("cross-sell")>'
       - '<translation(<{name_product_collection_type_cross-sell}>)>'

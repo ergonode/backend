@@ -8,7 +8,7 @@
 namespace Ergonode\Account\Persistence\Dbal\Repository;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
@@ -21,12 +21,12 @@ class DbalUserRepository implements UserRepositoryInterface
     /**
      * @var DomainEventStoreInterface
      */
-    private $eventStore;
+    private DomainEventStoreInterface $eventStore;
 
     /**
      * @var EventBusInterface
      */
-    private $eventBus;
+    private EventBusInterface $eventBus;
 
     /**
      * @param DomainEventStoreInterface $eventStore

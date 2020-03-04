@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Persistence\Dbal\Repository\Factory\ImportLineFactory;

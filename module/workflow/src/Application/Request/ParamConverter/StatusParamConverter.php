@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Application\Request\ParamConverter;
 
 use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -58,7 +58,7 @@ class StatusParamConverter implements ParamConverterInterface
             if (!StatusCode::isValid($parameter)) {
                 throw new BadRequestHttpException('Invalid status code format');
             }
-            $parameter = StatusId::fromCode(new StatusCode($parameter))->getValue();
+            $parameter = StatusId::fromCode((new StatusCode($parameter))->getValue())->getValue();
         }
 
         $entity = $this->repository->load(new StatusId($parameter));

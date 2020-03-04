@@ -37,11 +37,11 @@ class ErrorImportCommandHandler
      */
     public function __invoke(ErrorImportCommand $command)
     {
-        $process = $this->repository->getLine($command->getId(), $command->getLine());
+        $line = $this->repository->load($command->getId(), $command->getLine());
 
-        Assert::notNull($process);
+        Assert::notNull($line);
 
-        $process->end();
-        $this->repository->save($process);
+        $line->addError($command->getMessage());
+        $this->repository->save($line);
     }
 }

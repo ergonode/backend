@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Faker\Provider\Base as BaseProvider;
 
 /**

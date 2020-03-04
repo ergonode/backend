@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Domain\Repository;
 
 use Ergonode\Designer\Domain\Entity\Template;
-use Ergonode\Designer\Domain\Entity\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */

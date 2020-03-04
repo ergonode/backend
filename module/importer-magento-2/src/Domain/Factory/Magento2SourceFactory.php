@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ImporterMagento2\Domain\Factory;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\Importer\Domain\Entity\Source\SourceId;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\Importer\Domain\Factory\SourceFactoryInterface;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 
@@ -29,15 +29,13 @@ class Magento2SourceFactory implements SourceFactoryInterface
 
     /**
      * @param SourceId $sourceId
-     * @param string   $filename
+     * @param string   $name
+     * @param array    $configuration
      *
      * @return AbstractSource
      */
-    public function create(SourceId $sourceId, string $filename): AbstractSource
+    public function create(SourceId $sourceId, string $name, array $configuration = []): AbstractSource
     {
-        return new Magento2CsvSource(
-            $sourceId,
-            $filename,
-        );
+        return new Magento2CsvSource($sourceId, $configuration);
     }
 }

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Domain\Command;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -28,13 +28,14 @@ class AddMultimediaCommand implements DomainCommandInterface
     private $file;
 
     /**
-     * @param File $file
+     * @param MultimediaId $id
+     * @param File         $file
      *
      * @throws \Exception
      */
-    public function __construct(File $file)
+    public function __construct(MultimediaId $id, File $file)
     {
-        $this->id = MultimediaId::generate();
+        $this->id = $id;
         $this->file = $file;
     }
 

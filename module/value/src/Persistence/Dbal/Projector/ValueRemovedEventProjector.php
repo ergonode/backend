@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Value\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\Event\ValueRemovedEvent;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
@@ -50,7 +50,7 @@ class ValueRemovedEventProjector
     public function __invoke(ValueRemovedEvent $event): void
     {
         $this->connection->transactional(function () use ($event) {
-            $attributeId = AttributeId::fromKey($event->getAttributeCode());
+            $attributeId = AttributeId::fromKey($event->getAttributeCode()->getValue());
             $oldValue = $this->serializer->serialize($event->getOld(), 'json');
             $oldValueId = Uuid::uuid5(self::NAMESPACE, $oldValue);
 

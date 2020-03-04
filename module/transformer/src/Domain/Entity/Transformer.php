@@ -10,18 +10,17 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Transformer\Domain\Event\TransformerConverterAddedEvent;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Event\TransformerCreatedEvent;
 use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
+use Ergonode\Transformer\Domain\Event\TransformerFieldAddedEvent;
+use Ergonode\Transformer\Domain\Event\TransformerAttributeAddedEvent;
 
 /**
  */
 class Transformer extends AbstractAggregateRoot
 {
-    private const DEFAULT = '__default';
-
     /**
      * @var TransformerId
      */
@@ -40,7 +39,22 @@ class Transformer extends AbstractAggregateRoot
     /**
      * @var ConverterInterface[]
      */
-    private array $converters;
+    private array $fields;
+
+    /**
+     * @var ConverterInterface[]
+     */
+    private array $attributes;
+
+    /**
+     * @var string[]
+     */
+    private array $attributeType;
+
+    /**
+     * @var bool[]
+     */
+    private array $multilingual;
 
     /**
      * @param TransformerId $id
@@ -57,7 +71,7 @@ class Transformer extends AbstractAggregateRoot
     /**
      * @return TransformerId
      */
-    public function getId(): AbstractId
+    public function getId(): TransformerId
     {
         return $this->id;
     }
@@ -81,40 +95,105 @@ class Transformer extends AbstractAggregateRoot
     /**
      * @param string             $field
      * @param ConverterInterface $converter
-     * @param string             $collection
      *
      * @return $this
      *
      * @throws \Exception
      */
-    public function addConverter(string $field, ConverterInterface $converter, string $collection = self::DEFAULT): self
+    public function addField(string $field, ConverterInterface $converter): self
     {
-        if ($this->hasConverter($field, $collection)) {
+        if ($this->hasField($field)) {
             throw new \InvalidArgumentException(sprintf('converter for field %s already exists', $field));
         }
 
-        $this->apply(new TransformerConverterAddedEvent($this->id, $collection, $field, $converter));
+        $this->apply(new TransformerFieldAddedEvent($this->id, $field, $converter));
+
+        return $this;
+    }
+
+    /**
+     * @param string             $field
+     * @param string             $type
+     * @param bool               $multilingual
+     * @param ConverterInterface $converter
+     *
+     * @return $this
+     *
+     * @throws \Exception
+     */
+    public function addAttribute(string $field, string $type, bool $multilingual, ConverterInterface $converter): self
+    {
+        if ($this->hasAttribute($field)) {
+            throw new \InvalidArgumentException(sprintf('converter for field %s already exists', $field));
+        }
+
+        $this->apply(new TransformerAttributeAddedEvent($this->id, $field, $converter, $type, $multilingual));
 
         return $this;
     }
 
     /**
      * @param string $field
-     * @param string $collection
      *
      * @return bool
      */
-    public function hasConverter(string $field, string $collection = self::DEFAULT): bool
+    public function hasField(string $field): bool
     {
-        return isset($this->converters[$collection][$field]);
+        return isset($this->fields[$field]);
+    }
+
+    /**
+     * @param string $field
+     *
+     * @return bool
+     */
+    public function hasAttribute(string $field): bool
+    {
+        return isset($this->attributes[$field]);
+    }
+
+    /**
+     * @param string $field
+     *
+     * @return bool
+     */
+    public function isAttributeMultilingual(string $field): bool
+    {
+        if (!$this->hasAttribute($field)) {
+            throw new \InvalidArgumentException(sprintf('attribute multilingual %s not exists', $field));
+        }
+
+        return $this->multilingual[$field];
+    }
+
+    /**
+     * @param string $field
+     *
+     * @return string
+     */
+    public function getAttributeType(string $field): string
+    {
+        if (!$this->hasAttribute($field)) {
+            throw new \InvalidArgumentException(sprintf('attribute type for field %s not exists', $field));
+        }
+
+        return $this->attributeType[$field];
     }
 
     /**
      * @return ArrayCollection|ConverterInterface[]
      */
-    public function getConverters(): ArrayCollection
+    public function getFields(): ArrayCollection
     {
-        return new ArrayCollection($this->converters);
+        return new ArrayCollection($this->fields);
+    }
+
+    /**
+     * @return ArrayCollection|ConverterInterface[]
+     */
+    public function getAttributes(): ArrayCollection
+    {
+        return new ArrayCollection($this->attributes);
     }
 
     /**
@@ -125,14 +204,27 @@ class Transformer extends AbstractAggregateRoot
         $this->id = $event->getAggregateId();
         $this->key = $event->getKey();
         $this->name = $event->getName();
-        $this->converters = [];
+        $this->fields = [];
+        $this->attributes = [];
+        $this->attributeType = [];
+        $this->multilingual = [];
     }
 
     /**
-     * @param TransformerConverterAddedEvent $event
+     * @param TransformerFieldAddedEvent $event
      */
-    protected function applyTransformerConverterAddedEvent(TransformerConverterAddedEvent $event): void
+    protected function applyTransformerFieldAddedEvent(TransformerFieldAddedEvent $event): void
     {
-        $this->converters[$event->getCollection()][$event->getField()] = $event->getConverter();
+        $this->fields[$event->getField()] = $event->getConverter();
+    }
+
+    /**
+     * @param TransformerAttributeAddedEvent $event
+     */
+    protected function applyTransformerAttributeAddedEvent(TransformerAttributeAddedEvent $event): void
+    {
+        $this->attributes[$event->getField()] = $event->getConverter();
+        $this->attributeType[$event->getField()] = $event->getAttributeType();
+        $this->multilingual[$event->getField()] = $event->isMultilingual();
     }
 }

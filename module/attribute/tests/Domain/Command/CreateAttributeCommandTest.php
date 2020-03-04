@@ -11,11 +11,12 @@ namespace Ergonode\Attribute\Tests\Domain\Command;
 
 use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 
 /**
  */
@@ -31,7 +32,6 @@ class CreateAttributeCommandTest extends TestCase
      * @param bool               $multilingual
      * @param array              $parameters
      * @param array              $options
-     * @param bool               $system
      *
      * @dataProvider dataProvider
      *
@@ -46,8 +46,7 @@ class CreateAttributeCommandTest extends TestCase
         array $groups,
         bool $multilingual,
         array $parameters,
-        array $options,
-        bool $system
+        array $options
     ): void {
         $command = new CreateAttributeCommand(
             $type,
@@ -58,13 +57,12 @@ class CreateAttributeCommandTest extends TestCase
             $multilingual,
             $groups,
             $parameters,
-            $options,
-            $system
+            $options
         );
-        $this->assertInstanceOf(AttributeId::class, $command->getId());
+
         $this->assertSame($type, $command->getType());
         $this->assertSame($attributeCode, $command->getCode());
-        $this->assertEquals(AttributeId::fromKey($attributeCode), $command->getId());
+        $this->assertEquals(AttributeId::fromKey($attributeCode->getValue()), $command->getId());
         $this->assertSame($label, $command->getLabel());
         $this->assertSame($hint, $command->getHint());
         $this->assertSame($placeholder, $command->getPlaceholder());
@@ -74,10 +72,10 @@ class CreateAttributeCommandTest extends TestCase
         $this->assertTrue($command->hasParameter('param_1'));
         $this->assertSame($parameters['param_1'], $command->getParameter('param_1'));
         $commandOptions = $command->getOptions();
-        $this->assertSame($commandOptions['key_1'], $options[0]->value);
-        $this->assertSame($commandOptions['key_2']->getValue()->getTranslations(), $options[1]->value);
-        $this->assertSame($commandOptions['key_3']->getValue(), $options[2]->value);
-        $this->assertSame($system, $command->isSystem());
+
+        $this->assertSame($commandOptions['key_1'], $options['key_1']);
+        $this->assertSame($commandOptions['key_2'], $options['key_2']);
+        $this->assertSame($commandOptions['key_3'], $options['key_3']);
     }
 
     /**
@@ -87,15 +85,9 @@ class CreateAttributeCommandTest extends TestCase
      */
     public function dataProvider(): array
     {
-        $option1 = new AttributeOptionModel();
-        $option1->key = 'key_1';
-        $option1->value = null;
-        $option2 = new AttributeOptionModel();
-        $option2->key = 'key_2';
-        $option2->value = ['EN' => 'english', 'PL' => 'polish'];
-        $option3 = new AttributeOptionModel();
-        $option3->key = 'key_3';
-        $option3->value = 'option';
+        $option1 = $this->createMock(OptionInterface::class);
+        $option2 = $this->createMock(OptionInterface::class);
+        $option3 = $this->createMock(OptionInterface::class);
 
         return [
             [
@@ -107,8 +99,7 @@ class CreateAttributeCommandTest extends TestCase
                 [],
                 true,
                 ['param_1' => 'parameter'],
-                [$option1, $option2, $option3],
-                true,
+                ['key_1' => $option1, 'key_2' => $option2, 'key_3' => $option3],
             ],
         ];
     }

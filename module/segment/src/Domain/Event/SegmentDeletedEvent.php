@@ -9,9 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -21,9 +20,9 @@ class SegmentDeletedEvent extends AbstractDeleteEvent
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
-    private $id;
+    private SegmentId $id;
 
     /**
      * @param SegmentId $id
@@ -36,7 +35,7 @@ class SegmentDeletedEvent extends AbstractDeleteEvent
     /**
      * @return SegmentId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): SegmentId
     {
         return $this->id;
     }

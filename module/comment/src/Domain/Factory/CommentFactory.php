@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Comment\Domain\Factory;
 
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Comment\Domain\Entity\Comment;
-use Ergonode\Comment\Domain\Entity\CommentId;
+use Ergonode\SharedKernel\Domain\Aggregate\CommentId;
 use Ramsey\Uuid\Uuid;
 
 /**

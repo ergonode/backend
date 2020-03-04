@@ -42,7 +42,7 @@ class ImportConfiguration
     /**
      * @return ConfigurationColumnInterface[]
      */
-    public function getColumn(): array
+    public function getColumns(): array
     {
         return $this->columns;
     }

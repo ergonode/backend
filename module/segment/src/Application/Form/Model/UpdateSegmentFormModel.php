@@ -16,26 +16,27 @@ use Symfony\Component\Validator\Constraints as Assert;
 class UpdateSegmentFormModel
 {
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\Uuid()
      */
-    public $conditionSetId;
+    public ?string $conditionSetId;
 
     /**
      * @var array
      */
-    public $name;
+    public array $name;
 
     /**
      * @var array
      */
-    public $description;
+    public array $description;
 
     /**
      */
     public function __construct()
     {
+        $this->conditionSetId = null;
         $this->name = [];
         $this->description = [];
     }

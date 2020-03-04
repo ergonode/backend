@@ -11,7 +11,7 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Persistence\Dbal\Projector\Product;
 
 use Ergonode\Exporter\Domain\Exception\ProductNotFoundException;
-use Ergonode\Exporter\Domain\Factory\AttributeFactory;
+use Ergonode\Exporter\Domain\Factory\Catalog\AttributeFactory;
 use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
 use Ramsey\Uuid\Uuid;

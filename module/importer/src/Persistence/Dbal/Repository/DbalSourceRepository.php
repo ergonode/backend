@@ -14,7 +14,7 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\Importer\Domain\Entity\Source\SourceId;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Ergonode\Importer\Persistence\Dbal\Repository\Factory\SourceFactory;
 use Ergonode\Importer\Persistence\Dbal\Repository\Mapper\SourceMapper;

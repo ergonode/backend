@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Persistence\Dbal\Projector\Workflow;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
 
 /**
@@ -51,7 +51,7 @@ class WorkflowCreatedEventProjector
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'code' => $event->getCode(),
-                'default_status' => $status ? StatusId::fromCode($status)->getValue(): null,
+                'default_status' => $status ? StatusId::fromCode($status->getValue())->getValue(): null,
             ]
         );
     }

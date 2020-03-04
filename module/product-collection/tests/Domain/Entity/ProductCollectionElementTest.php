@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Tests\Domain\Entity;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElementId;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -49,10 +49,11 @@ class ProductCollectionElementTest extends TestCase
      */
     public function testElementCreation(): void
     {
-        $entity = new ProductCollectionElement($this->id, $this->productId, true);
+        $entity = new ProductCollectionElement($this->id, $this->productId, true, new \DateTime());
         $this->assertSame($this->id, $entity->getId());
         $this->assertSame($this->productId, $entity->getProductId());
         $this->assertTrue($entity->isVisible());
+        $this->assertNotNull($entity->getCreatedAt());
     }
 
     /**
@@ -60,7 +61,7 @@ class ProductCollectionElementTest extends TestCase
     public function testElementManipulation(): void
     {
         $this->aggregateRoot->expects($this->once())->method('apply');
-        $entity = new ProductCollectionElement($this->id, $this->productId, true);
+        $entity = new ProductCollectionElement($this->id, $this->productId, true, new \DateTime());
         $entity->setAggregateRoot($this->aggregateRoot);
         $entity->changeVisible(false);
     }

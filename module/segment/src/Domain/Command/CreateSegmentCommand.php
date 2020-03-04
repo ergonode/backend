@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Command;
 
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use JMS\Serializer\Annotation as JMS;
 
@@ -23,37 +23,37 @@ class CreateSegmentCommand implements DomainCommandInterface
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
-    private $id;
+    private SegmentId $id;
 
     /**
      * @var SegmentCode
      *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentCode")
      */
-    private $code;
+    private SegmentCode $code;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $description;
+    private TranslatableString $description;
 
     /**
      * @var ConditionSetId
      *
-     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
-    private $conditionSetId;
+    private ?ConditionSetId $conditionSetId;
 
     /**
      * @param SegmentCode         $code
@@ -67,7 +67,7 @@ class CreateSegmentCommand implements DomainCommandInterface
         TranslatableString $description,
         ?ConditionSetId $conditionSetId = null
     ) {
-        $this->id = SegmentId::fromCode($code);
+        $this->id = SegmentId::fromCode($code->getValue());
         $this->code = $code;
         $this->name = $name;
         $this->description = $description;

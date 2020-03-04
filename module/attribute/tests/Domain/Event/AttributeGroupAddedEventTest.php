@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Event;
 
-use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
 use PHPUnit\Framework\TestCase;
 

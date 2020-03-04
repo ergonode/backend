@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Domain\ValueObject\Unit;

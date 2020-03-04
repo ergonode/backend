@@ -37,13 +37,17 @@ class SlugConverterMapper implements ConverterMapperInterface
     {
         $field = $converter->getField();
 
-        $text = preg_replace('~[^\pL\d]+~u', '_', $line[$field]);
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-        $text = preg_replace('~[^_\w]+~', '', $text);
-        $text = trim($text, '_');
-        $text = preg_replace('~_+~', '_', $text);
-        $text = strtolower($text);
+        if ($field && '' !== $field) {
+            $text = preg_replace('~[^\pL\d]+~u', '_', $line[$field]);
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+            $text = preg_replace('~[^_\w]+~', '', $text);
+            $text = trim($text, '_');
+            $text = preg_replace('~_+~', '_', $text);
+            $text = strtolower($text);
 
-        return $text;
+            return $text;
+        }
+
+        return $default;
     }
 }

@@ -9,10 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Editor\Domain\Entity\ProductDraftId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,14 +21,14 @@ class ProductDraftCreated implements DomainEventInterface
     /**
      * @var ProductDraftId
      *
-     * @JMS\Type("Ergonode\Editor\Domain\Entity\ProductDraftId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
     private $id;
 
     /**
      * @var ProductId
      *
-     * @JMS\Type("Ergonode\Product\Domain\Entity\ProductId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private $productId;
 
@@ -46,7 +45,7 @@ class ProductDraftCreated implements DomainEventInterface
     /**
      * @return ProductDraftId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): ProductDraftId
     {
         return $this->id;
     }

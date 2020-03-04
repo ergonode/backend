@@ -9,6 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Application\DependencyInjection;
 
+use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileCompilerPass;
+use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileConstraintCompilerPass;
+use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileFactoryCompilerPass;
+use Ergonode\Exporter\Domain\Factory\ExportProfileFactoryInterface;
+use Ergonode\Exporter\Infrastructure\ExportProfile\ExportProfileValidatorStrategyInterface;
+use Ergonode\Exporter\Infrastructure\Provider\ExportProfileInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -30,6 +36,19 @@ class ErgonodeExporterExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../../Resources/config')
         );
+
+        $container
+            ->registerForAutoconfiguration(ExportProfileInterface::class)
+            ->addTag(ExportProfileCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(ExportProfileFactoryInterface::class)
+            ->addTag(ExportProfileFactoryCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(ExportProfileValidatorStrategyInterface::class)
+            ->addTag(ExportProfileConstraintCompilerPass::TAG);
+
 
         $loader->load('services.yml');
     }

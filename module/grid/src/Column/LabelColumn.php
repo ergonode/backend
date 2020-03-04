@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Column;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Grid\FilterInterface;
 
@@ -40,7 +40,7 @@ class LabelColumn extends AbstractColumn
             $colors[$code] = $status['color'];
         }
 
-        $this->setExtension('element_id', AttributeId::fromKey(new AttributeCode($field))->getValue());
+        $this->setExtension('element_id', AttributeId::fromKey((new AttributeCode($field))->getValue())->getValue());
         $this->setExtension('colors', $colors);
     }
 

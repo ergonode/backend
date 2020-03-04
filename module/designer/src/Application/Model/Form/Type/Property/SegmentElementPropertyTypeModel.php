@@ -16,10 +16,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 class SegmentElementPropertyTypeModel
 {
     /**
-     * @var string
+     * @var string | null
      *
      * @Assert\NotBlank()
      * @Assert\Length(max="32")
      */
-    public $label;
+    public ?string $label;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->label = null;
+    }
 }

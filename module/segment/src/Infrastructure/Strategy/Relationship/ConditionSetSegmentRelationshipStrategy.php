@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Infrastructure\Strategy\Relationship;
 
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Segment\Domain\Query\SegmentQueryInterface;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
@@ -22,7 +22,7 @@ class ConditionSetSegmentRelationshipStrategy implements RelationshipStrategyInt
     /**
      * @var SegmentQueryInterface
      */
-    private $query;
+    private SegmentQueryInterface $query;
 
     /**
      * @param SegmentQueryInterface $query
@@ -35,7 +35,7 @@ class ConditionSetSegmentRelationshipStrategy implements RelationshipStrategyInt
     /**
      * {@inheritDoc}
      */
-    public function supports(AbstractId $id): bool
+    public function supports(AggregateId $id): bool
     {
         return $id instanceof ConditionSetId;
     }
@@ -43,7 +43,7 @@ class ConditionSetSegmentRelationshipStrategy implements RelationshipStrategyInt
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AbstractId $id): array
+    public function getRelationships(AggregateId $id): array
     {
         if (!$this->supports($id)) {
             new UnexpectedTypeException($id, ConditionSetId::class);

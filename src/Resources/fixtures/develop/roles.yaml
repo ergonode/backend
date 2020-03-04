@@ -61,6 +61,14 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("CHANNEL_READ")>'
                 - '<privilege("CHANNEL_UPDATE")>'
                 - '<privilege("CHANNEL_DELETE")>'
+                - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+                - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+                - '<privilege("PRODUCT_COLLECTION_READ")>'
+                - '<privilege("PRODUCT_COLLECTION_DELETE")>'
+                - '<privilege("EXPORT_PROFILE_CREATE")>'
+                - '<privilege("EXPORT_PROFILE_READ")>'
+                - '<privilege("EXPORT_PROFILE_UPDATE")>'
+                - '<privilege("EXPORT_PROFILE_DELETE")>'
             - true
     admin_role:
         __construct:
@@ -124,6 +132,14 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("CHANNEL_READ")>'
                 - '<privilege("CHANNEL_UPDATE")>'
                 - '<privilege("CHANNEL_DELETE")>'
+                - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+                - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+                - '<privilege("PRODUCT_COLLECTION_READ")>'
+                - '<privilege("PRODUCT_COLLECTION_DELETE")>'
+                - '<privilege("EXPORT_PROFILE_CREATE")>'
+                - '<privilege("EXPORT_PROFILE_READ")>'
+                - '<privilege("EXPORT_PROFILE_UPDATE")>'
+                - '<privilege("EXPORT_PROFILE_DELETE")>'
     data_inputer_role:
         __construct:
             - '<roleId("Data inputer")>'
@@ -156,6 +172,10 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("MULTIMEDIA_CREATE")>'
                 - '<privilege("MULTIMEDIA_READ")>'
                 - '<privilege("MULTIMEDIA_UPDATE")>'
+                - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+                - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+                - '<privilege("PRODUCT_COLLECTION_READ")>'
+                - '<privilege("PRODUCT_COLLECTION_DELETE")>'
     category_manager_role:
         __construct:
             - '<roleId("Category manager")>'
@@ -194,3 +214,7 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("MULTIMEDIA_READ")>'
                 - '<privilege("MULTIMEDIA_UPDATE")>'
                 - '<privilege("MULTIMEDIA_DELETE")>'
+                - '<privilege("PRODUCT_COLLECTION_CREATE")>'
+                - '<privilege("PRODUCT_COLLECTION_UPDATE")>'
+                - '<privilege("PRODUCT_COLLECTION_READ")>'
+                - '<privilege("PRODUCT_COLLECTION_DELETE")>'

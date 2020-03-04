@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\Role;
 
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+
 use Ergonode\EventSourcing\Domain\Event\AbstractStringBasedChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
@@ -21,9 +21,9 @@ class RoleDescriptionChangedEvent extends AbstractStringBasedChangedEvent
     /**
      * @var RoleId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $id;
+    private RoleId $id;
 
     /**
      * @param RoleId $id
@@ -39,7 +39,7 @@ class RoleDescriptionChangedEvent extends AbstractStringBasedChangedEvent
     /**
      * @return RoleId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): RoleId
     {
         return $this->id;
     }

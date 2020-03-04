@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Event;
 
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
+
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use JMS\Serializer\Annotation as JMS;
@@ -25,44 +25,44 @@ class SegmentCreatedEvent implements DomainEventInterface
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
-    private $id;
+    private SegmentId $id;
 
     /**
-     * @var string
+     * @var SegmentCode
      *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentCode")
      */
-    private $code;
+    private SegmentCode $code;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $description;
+    private TranslatableString $description;
 
     /**
      * @var SegmentStatus
      *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentStatus")
      */
-    private $status;
+    private SegmentStatus $status;
 
     /**
      * @var ConditionSetId|null
      *
-     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
-    private $conditionSetId;
+    private ?ConditionSetId $conditionSetId;
 
     /**
      * @param SegmentId           $id
@@ -91,7 +91,7 @@ class SegmentCreatedEvent implements DomainEventInterface
     /**
      * @return SegmentId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): SegmentId
     {
         return $this->id;
     }

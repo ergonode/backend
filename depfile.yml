@@ -27,10 +27,6 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Category\\.*
-  - name: CategoryTree
-    collectors:
-      - type: className
-        regex: .*Ergonode\\CategoryTree\\.*
   - name: Comment
     collectors:
       - type: className
@@ -87,6 +83,14 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Importer\\.*
+  - name: Importer-Magento-1
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ImporterMagento1\\.*
+  - name: Importer-Magento-2
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ImporterMagento2\\.*
   - name: Transformer
     collectors:
       - type: className
@@ -99,6 +103,10 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\Value\\.*
+  - name: ProductCollection
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ProductCollection\\.*
 ruleset:
   Grid:
     - Core
@@ -109,6 +117,7 @@ ruleset:
     - Grid
     - Account
     - Api
+    - EventSourcing
   Attribute:
     - Core
     - Grid
@@ -130,13 +139,6 @@ ruleset:
     - EventSourcing
     - Api
     - Account
-  CategoryTree:
-    - Core
-    - Grid
-    - EventSourcing
-    - Category
-    - Api
-    - Value
   Completeness:
     - Core
     - Attribute
@@ -205,14 +207,30 @@ ruleset:
     - Api
     - Core
     - Grid
+    - EventSourcing
     - Reader
     - Transformer
+  Importer-Magento-1:
+    - Core
+    - Importer
+    - Transformer
+    - Reader
+    - Multimedia
+    - Attribute
+    - Value
+    - EventSourcing
+  Importer-Magento-2:
+    - Core
+    - Importer
+    - Transformer
+    - Reader
+    - Multimedia
+    - Attribute
   Transformer:
     - Core
     - EventSourcing
     - Api
     - Category
-    - CategoryTree
     - Designer
     - Product
     - Value
@@ -243,3 +261,10 @@ ruleset:
     - Designer
     - Product
     - Attribute
+    - Category
+  ProductCollection:
+    - Api
+    - Core
+    - EventSourcing
+    - Segment
+    - Product

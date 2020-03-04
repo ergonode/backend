@@ -19,5 +19,5 @@ class UserUnique extends Constraint
     /**
      * @var string
      */
-    public $message = 'User {{ value }} already exists.';
+    public string $message = 'User {{ value }} already exists.';
 }

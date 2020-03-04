@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Application\Form;
 
+use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
 use Ergonode\Designer\Application\Form\Type\TemplateElementType;
 use Ergonode\Designer\Application\Model\Form\TemplateFormModel;
 use Symfony\Component\Form\AbstractType;
@@ -34,6 +35,12 @@ class TemplateForm extends AbstractType
             )->add(
                 'image',
                 TextType::class
+            )->add(
+                'defaultText',
+                AttributeIdType::class
+            )->add(
+                'defaultImage',
+                AttributeIdType::class
             )
             ->add(
                 'elements',

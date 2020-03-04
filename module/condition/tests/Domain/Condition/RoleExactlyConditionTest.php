@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Tests\Domain\Condition;
 
-use Ergonode\Account\Domain\Entity\RoleId;
 use Ergonode\Condition\Domain\Condition\RoleExactlyCondition;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

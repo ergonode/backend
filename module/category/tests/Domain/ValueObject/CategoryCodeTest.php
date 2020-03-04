@@ -47,8 +47,7 @@ class CategoryCodeTest extends TestCase
         return [
             ['valida_code'],
             ['valida-code'],
-            ['valida code 12'],
-            ['valida code'],
+            ['valida_code_12'],
             ['a'],
             ['a'],
             [str_repeat('a', 255)],
@@ -61,10 +60,10 @@ class CategoryCodeTest extends TestCase
     public function invalidDataProvider(): array
     {
         return [
-            [''],
+            ['aa&aa '],
             [' '],
             [' a'],
-            ['a '],
+            ['a a'],
             [' &'],
             ['!'],
             ['['],

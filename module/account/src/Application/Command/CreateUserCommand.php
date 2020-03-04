@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Command;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
-use Ergonode\Account\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Component\Console\Command\Command;
@@ -29,12 +29,12 @@ class CreateUserCommand extends Command
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var RoleQueryInterface
      */
-    private $query;
+    private RoleQueryInterface $query;
 
     /**
      * @param MessageBusInterface $messageBus

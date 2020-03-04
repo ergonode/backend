@@ -4,6 +4,16 @@ services:
         autoconfigure: true
         public: false
 
+    Ergonode\Exporter\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\Exporter\Application\Controller\Api\:
+        resource: '../../Application/Controller/Api/*'
+        tags: ['controller.service_arguments']
+
+    Ergonode\Exporter\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
     Ergonode\Exporter\Persistence\:
         resource: '../../Persistence/*'
 
@@ -13,6 +23,10 @@ services:
 
     Ergonode\Exporter\Persistence\Dbal\Projector\:
         resource: '../../Persistence/Dbal/Projector/*'
+        tags: ['messenger.message_handler']
+
+    Ergonode\Exporter\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
     Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalProductRepository'

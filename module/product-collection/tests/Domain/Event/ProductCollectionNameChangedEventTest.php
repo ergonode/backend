@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Tests\Domain\Event;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionNameChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -29,13 +29,17 @@ class ProductCollectionNameChangedEventTest extends TestCase
         /** @var TranslatableString | MockObject $from */
         $from = $this->createMock(TranslatableString::class);
 
-        /** @var TranslatableString | MockObject $from */
+        /** @var TranslatableString | MockObject $to */
         $to = $this->createMock(TranslatableString::class);
 
-        $event = new ProductCollectionNameChangedEvent($id, $from, $to);
+        /** @var \DateTime | MockObject $dateTime */
+        $dateTime = $this->createMock(\DateTime::class);
+
+        $event = new ProductCollectionNameChangedEvent($id, $from, $to, $dateTime);
 
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($from, $event->getFrom());
         $this->assertEquals($to, $event->getTo());
+        $this->assertEquals($dateTime, $event->getEditedAt());
     }
 }

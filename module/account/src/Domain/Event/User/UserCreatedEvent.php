@@ -9,14 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Account\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -26,65 +26,65 @@ class UserCreatedEvent implements DomainEventInterface
     /**
      * @var UserId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\UserId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\UserId")
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $firstName;
+    private string $firstName;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $lastName;
+    private string $lastName;
 
     /**
      * @var Email
      *
-     * @JMS\Type("Ergonode\Account\Domain\ValueObject\Email")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\ValueObject\Email")
      */
-    private $email;
+    private Email $email;
 
     /**
      * @var Password
      *
      * @JMS\Type("Ergonode\Account\Domain\ValueObject\Password")
      */
-    private $password;
+    private Password $password;
 
     /**
      * @var Language
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
-    private $language;
+    private Language $language;
 
     /**
      * @var MultimediaId|null
      *
-     * @JMS\Type("Ergonode\Multimedia\Domain\Entity\MultimediaId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
-    private $avatarId;
+    private ?MultimediaId $avatarId;
 
     /**
      * @var RoleId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $roleId;
+    private RoleId $roleId;
 
     /**
      * @var bool
      *
      * @JMS\Type("boolean")
      */
-    private $isActive;
+    private bool $isActive;
 
     /**
      * @param UserId            $id
@@ -122,7 +122,7 @@ class UserCreatedEvent implements DomainEventInterface
     /**
      * @return UserId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): UserId
     {
         return $this->id;
     }

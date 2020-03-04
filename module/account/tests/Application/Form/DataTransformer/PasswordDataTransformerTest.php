@@ -20,7 +20,7 @@ class PasswordDataTransformerTest extends TestCase
     /**
      * @var PasswordDataTransformer
      */
-    protected $transformer;
+    protected PasswordDataTransformer $transformer;
 
     /**
      */

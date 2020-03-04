@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Infrastructure\Handler;
 
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\AttributeGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\Provider\AttributeFactoryProvider;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 

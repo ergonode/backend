@@ -39,10 +39,10 @@ class MappingConverterMapper implements ConverterMapperInterface
         $map = $converter->getMap();
         $value = $line[$field];
 
-        if (isset($map[$value])) {
+        if (array_key_exists($value, $map)) {
             return $map[$value];
         }
 
-        return $value;
+        return $default ?: null;
     }
 }

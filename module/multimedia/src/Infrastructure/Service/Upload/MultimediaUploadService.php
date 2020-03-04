@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Infrastructure\Service\Upload;
 
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**

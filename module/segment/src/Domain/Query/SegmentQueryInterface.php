@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Query;
 
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
 /**
  */

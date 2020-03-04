@@ -9,9 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Domain\Entity;
 
-use Ergonode\Importer\Domain\Entity\Source\SourceId;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\Importer\Domain\ValueObject\ImportStatus;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 
 /**
  */
@@ -48,16 +49,23 @@ class Import
     private ?\DateTime $endedAt;
 
     /**
+     * @var string
+     */
+    private string $file;
+
+    /**
      * @param ImportId      $id
      * @param SourceId      $sourceId
      * @param TransformerId $transformerId
+     * @param string        $file
      */
-    public function __construct(ImportId $id, SourceId $sourceId, TransformerId $transformerId)
+    public function __construct(ImportId $id, SourceId $sourceId, TransformerId $transformerId, string $file)
     {
         $this->id = $id;
         $this->sourceId = $sourceId;
         $this->transformerId = $transformerId;
         $this->status = new ImportStatus(ImportStatus::CREATED);
+        $this->file = $file;
         $this->startedAt = null;
         $this->endedAt = null;
     }
@@ -108,6 +116,14 @@ class Import
     public function getEndedAt(): ?\DateTime
     {
         return $this->endedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFile(): string
+    {
+        return $this->file;
     }
 
     /**

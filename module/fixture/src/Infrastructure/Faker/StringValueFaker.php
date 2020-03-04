@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\AbstractId;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Faker\Provider\Base as BaseProvider;
 

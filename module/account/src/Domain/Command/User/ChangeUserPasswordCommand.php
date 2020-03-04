@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
@@ -20,12 +20,12 @@ class ChangeUserPasswordCommand implements DomainCommandInterface
     /**
      * @var UserId
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var Password
      */
-    private $password;
+    private Password $password;
 
     /**
      * @param UserId   $id

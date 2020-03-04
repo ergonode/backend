@@ -53,6 +53,7 @@ class ProductCollectionNameChangedEventProjector
             self::TABLE,
             [
                 'name' => $this->serializer->serialize($event->getTo()->getTranslations(), 'json'),
+                'edited_at' => $event->getEditedAt()->format('Y-m-d H:i:s'),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

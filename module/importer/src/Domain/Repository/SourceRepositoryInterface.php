@@ -8,7 +8,7 @@
 namespace Ergonode\Importer\Domain\Repository;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
-use Ergonode\Importer\Domain\Entity\Source\SourceId;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 /**
  */

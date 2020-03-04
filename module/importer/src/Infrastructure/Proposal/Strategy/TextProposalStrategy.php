@@ -10,6 +10,7 @@ namespace Ergonode\Importer\Infrastructure\Proposal\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractNumericAttribute;
 use Ergonode\Importer\Infrastructure\Proposal\AttributeProposalStrategyInterface;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
 
 /**
  */
@@ -37,6 +38,6 @@ class TextProposalStrategy implements AttributeProposalStrategyInterface
      */
     public function getTypeProposal(): string
     {
-        return AbstractNumericAttribute::TYPE;
+        return AbstractTextAttribute::TYPE;
     }
 }

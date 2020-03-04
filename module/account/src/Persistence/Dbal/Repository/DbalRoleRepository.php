@@ -8,7 +8,7 @@
 namespace Ergonode\Account\Persistence\Dbal\Repository;
 
 use Ergonode\Account\Domain\Entity\Role;
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Event\Role\RoleDeletedEvent;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
@@ -22,12 +22,12 @@ class DbalRoleRepository implements RoleRepositoryInterface
     /**
      * @var DomainEventStoreInterface
      */
-    private $eventStore;
+    private DomainEventStoreInterface $eventStore;
 
     /**
      * @var EventBusInterface
      */
-    private $eventBus;
+    private EventBusInterface $eventBus;
 
     /**
      * @param DomainEventStoreInterface $eventStore

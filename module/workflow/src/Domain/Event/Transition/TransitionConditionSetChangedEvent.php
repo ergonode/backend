@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Transition;
 
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Workflow\Domain\Entity\TransitionId;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -23,21 +23,21 @@ class TransitionConditionSetChangedEvent implements DomainEventInterface
     /**
      * @var WorkflowId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
     private $id;
 
     /**
      * @var TransitionId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\TransitionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransitionId")
      */
     private $transitionId;
 
     /**
      * @var ConditionSetId|null
      *
-     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
     private $conditionSetId;
 
@@ -54,9 +54,9 @@ class TransitionConditionSetChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AbstractId|WorkflowId
+     * @return WorkflowId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): WorkflowId
     {
         return $this->id;
     }

@@ -11,7 +11,7 @@ namespace Ergonode\Account\Tests\Application\Security\Voter;
 
 use Ergonode\Account\Application\Security\Voter\UserRoleVoter;
 use Ergonode\Account\Domain\Entity\Role;
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Privilege;
@@ -118,10 +118,12 @@ class UserRoleVoterTest extends TestCase
         $role
             ->expects($this->once())
             ->method('getPrivileges')
-            ->willReturn([
-                new Privilege('CORRECT_PRIVILEGE'),
-                new Privilege('CORRECT_PRIVILEGE_2'),
-            ]);
+            ->willReturn(
+                [
+                    new Privilege('CORRECT_PRIVILEGE'),
+                    new Privilege('CORRECT_PRIVILEGE_2'),
+                ]
+            );
 
         $repository = $this->createMock(RoleRepositoryInterface::class);
         $repository

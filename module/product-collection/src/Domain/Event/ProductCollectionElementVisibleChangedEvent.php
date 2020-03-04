@@ -9,10 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElementId;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,52 +21,52 @@ class ProductCollectionElementVisibleChangedEvent implements DomainEventInterfac
     /**
      * @var ProductCollectionId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
     /**
-     * @var ProductCollectionElementId
+     * @var ProductId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionElementId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private ProductCollectionElementId $elementId;
+    private ProductId $productId;
 
     /**
      * @var bool
      *
-     * @JMS\Type("bool")
+     * @JMS\Type("boolean")
      */
     private bool $visible;
 
     /**
      * ProductCollectionElementVisibleChangedEvent constructor.
      *
-     * @param ProductCollectionId        $id
-     * @param ProductCollectionElementId $elementId
-     * @param bool                       $visible
+     * @param ProductCollectionId $id
+     * @param ProductId           $productId
+     * @param bool                $visible
      */
-    public function __construct(ProductCollectionId $id, ProductCollectionElementId $elementId, bool $visible)
+    public function __construct(ProductCollectionId $id, ProductId $productId, bool $visible)
     {
         $this->id = $id;
-        $this->elementId = $elementId;
+        $this->productId = $productId;
         $this->visible = $visible;
     }
 
     /**
-     * @return AbstractId|ProductCollectionId
+     * @return ProductCollectionId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
     }
 
     /**
-     * @return ProductCollectionElementId
+     * @return ProductId
      */
-    public function getElementId(): ProductCollectionElementId
+    public function getProductId(): ProductId
     {
-        return $this->elementId;
+        return $this->productId;
     }
 
     /**

@@ -19,6 +19,7 @@ use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -106,7 +107,7 @@ class MultimediaController extends AbstractController
             if ($this->query->fileExists($hash)) {
                 $response = new CreatedResponse($this->query->findIdByHash($hash));
             } else {
-                $command = new AddMultimediaCommand($uploadModel->upload);
+                $command = new AddMultimediaCommand(MultimediaId::generate(), $uploadModel->upload);
                 $this->commandBus->dispatch($command);
 
                 $response = new CreatedResponse($command->getId());

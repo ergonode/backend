@@ -42,6 +42,7 @@ services:
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\DateConverter']]
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\ConstConverter']]
             - ['set', ['Ergonode\Transformer\Infrastructure\Converter\MappingConverter']]
+            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\MultilingualTextConverter']]
 
     Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface: '@Ergonode\Transformer\Persistence\Dbal\Repository\DbalTransformerRepository'
 

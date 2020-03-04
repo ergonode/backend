@@ -8,8 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Notification\Tests\Domain\Command;
 
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Notification\Domain\Command\SendNotificationCommand;
 use Ergonode\Notification\Domain\NotificationInterface;
 use PHPUnit\Framework\TestCase;

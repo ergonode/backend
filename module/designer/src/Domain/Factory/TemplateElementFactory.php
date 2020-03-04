@@ -23,12 +23,12 @@ class TemplateElementFactory
     /**
      * @var TemplateElementTypeResolver
      */
-    private $resolver;
+    private TemplateElementTypeResolver $resolver;
 
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * @param TemplateElementTypeResolver $resolver

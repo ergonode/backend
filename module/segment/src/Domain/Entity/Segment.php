@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Entity;
 
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
+
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Segment\Domain\Event\SegmentConditionSetChangedEvent;
@@ -20,6 +20,7 @@ use Ergonode\Segment\Domain\Event\SegmentNameChangedEvent;
 use Ergonode\Segment\Domain\Event\SegmentStatusChangedEvent;
 use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -30,10 +31,10 @@ class Segment extends AbstractAggregateRoot
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      * @JMS\Expose()
      */
-    private $id;
+    private SegmentId $id;
 
     /**
      * @var SegmentStatus
@@ -41,7 +42,7 @@ class Segment extends AbstractAggregateRoot
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentStatus")
      * @JMS\Expose()
      */
-    private $status;
+    private SegmentStatus $status;
 
     /**
      * @var SegmentCode
@@ -49,7 +50,7 @@ class Segment extends AbstractAggregateRoot
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentCode")
      * @JMS\Expose()
      */
-    private $code;
+    private SegmentCode $code;
 
     /**
      * @var TranslatableString
@@ -57,7 +58,7 @@ class Segment extends AbstractAggregateRoot
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      * @JMS\Expose()
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @var TranslatableString
@@ -65,15 +66,15 @@ class Segment extends AbstractAggregateRoot
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      * @JMS\Expose()
      */
-    private $description;
+    private TranslatableString $description;
 
     /**
-     * @var ConditionSetId
+     * @var ConditionSetId|null
      *
-     * @JMS\Type("Ergonode\Condition\Domain\Entity\ConditionSetId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      * @JMS\Expose()
      */
-    private $conditionSetId;
+    private ?ConditionSetId $conditionSetId;
 
     /**
      * @param SegmentId           $id
@@ -96,9 +97,9 @@ class Segment extends AbstractAggregateRoot
     }
 
     /**
-     * @return SegmentId|AbstractId
+     * @return SegmentId
      */
-    public function getId(): AbstractId
+    public function getId(): SegmentId
     {
         return $this->id;
     }

@@ -10,7 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Domain\Entity;
 
 use Ergonode\EventSourcing\Domain\AbstractEntity;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Event\ProductCollectionElementVisibleChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
@@ -21,14 +22,14 @@ class ProductCollectionElement extends AbstractEntity
     /**
      * @var ProductCollectionElementId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionElementId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionElementId")
      */
     private ProductCollectionElementId $id;
 
     /**
      * @var ProductId
      *
-     * @JMS\Type("Ergonode\Product\Domain\Entity\ProductId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $productId;
 
@@ -40,17 +41,30 @@ class ProductCollectionElement extends AbstractEntity
     private bool $visible;
 
     /**
+     * @var \DateTime $createdAt
+     *
+     * @JMS\Type("DateTime")
+     */
+    private \DateTime $createdAt;
+
+    /**
      * ProductCollectionElement constructor.
      *
      * @param ProductCollectionElementId $id
      * @param ProductId                  $productId
      * @param bool                       $visible
+     * @param \DateTime                  $createdAt
      */
-    public function __construct(ProductCollectionElementId $id, ProductId $productId, bool $visible)
-    {
+    public function __construct(
+        ProductCollectionElementId $id,
+        ProductId $productId,
+        bool $visible,
+        \DateTime $createdAt
+    ) {
         $this->id = $id;
         $this->productId = $productId;
         $this->visible = $visible;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -78,13 +92,26 @@ class ProductCollectionElement extends AbstractEntity
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
      * @param bool $newVisible
      */
     public function changeVisible(bool $newVisible): void
     {
+
         if ($this->visible !== $newVisible) {
             $this->apply(
-                new ProductCollectionElementVisibleChangedEvent($this->aggregateRoot->getId(), $this->id, $newVisible)
+                new ProductCollectionElementVisibleChangedEvent(
+                    $this->aggregateRoot->getId(),
+                    $this->productId,
+                    $newVisible
+                )
             );
         }
     }

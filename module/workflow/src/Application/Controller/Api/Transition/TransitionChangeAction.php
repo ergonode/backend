@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Workflow\Application\Form\Model\TransitionChangeFormModel;
 use Ergonode\Workflow\Application\Form\TransitionChangeForm;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;

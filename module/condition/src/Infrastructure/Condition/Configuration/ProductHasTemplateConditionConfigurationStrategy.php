@@ -52,6 +52,9 @@ class ProductHasTemplateConditionConfigurationStrategy implements ConditionConfi
      */
     public function getConfiguration(Language $language): array
     {
+        $templates = $this->templateQuery->getDictionary($language);
+        asort($templates);
+
         return [
             'type' => ProductHasTemplateCondition::TYPE,
             'name' => $this
@@ -66,15 +69,25 @@ class ProductHasTemplateConditionConfigurationStrategy implements ConditionConfi
                     'type' => 'SELECT',
                     'options' => [
                         ProductHasTemplateCondition::HAS =>
-                            $this->translator->trans('Has', [], 'condition', $language->getCode()),
+                            $this->translator->trans(
+                                ProductHasTemplateCondition::HAS,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                         ProductHasTemplateCondition::NOT_HAS =>
-                            $this->translator->trans('Not has', [], 'condition', $language->getCode()),
+                            $this->translator->trans(
+                                ProductHasTemplateCondition::NOT_HAS,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                     ],
                 ],
                 [
                     'name' => 'value',
                     'type' => 'SELECT',
-                    'options' => $this->templateQuery->getDictionary($language),
+                    'options' => $templates,
                 ],
             ],
         ];

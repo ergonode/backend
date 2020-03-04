@@ -3,3 +3,8 @@ ergonode_categeory_api:
     type: 'annotation'
     prefix: '/api/v1/{language}'
 
+ergonode_category_tree_api:
+    resource: '../../Application/Controller/Api/Tree/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'
+

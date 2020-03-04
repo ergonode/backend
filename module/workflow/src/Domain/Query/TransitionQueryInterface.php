@@ -11,8 +11,8 @@ namespace Ergonode\Workflow\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
-use Ergonode\Workflow\Domain\Entity\StatusId;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
 /**
  */

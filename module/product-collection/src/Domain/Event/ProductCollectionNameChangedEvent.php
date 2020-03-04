@@ -9,10 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,7 +21,7 @@ class ProductCollectionNameChangedEvent implements DomainEventInterface
     /**
      * @var ProductCollectionId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
@@ -41,21 +40,45 @@ class ProductCollectionNameChangedEvent implements DomainEventInterface
     private TranslatableString $to;
 
     /**
+     * @var \DateTime
+     *
+     * @JMS\Type("DateTime")
+     */
+    private \DateTime $editedAt;
+
+    /**
+     * ProductCollectionNameChangedEvent constructor.
+     *
      * @param ProductCollectionId $id
      * @param TranslatableString  $from
      * @param TranslatableString  $to
+     * @param \DateTime           $editedAt
      */
-    public function __construct(ProductCollectionId $id, TranslatableString $from, TranslatableString $to)
-    {
+    public function __construct(
+        ProductCollectionId $id,
+        TranslatableString $from,
+        TranslatableString $to,
+        \DateTime $editedAt
+    ) {
         $this->id = $id;
         $this->from = $from;
         $this->to = $to;
+        $this->editedAt = $editedAt;
     }
 
     /**
-     * @return AbstractId|ProductCollectionId
+     * @return \DateTime
      */
-    public function getAggregateId(): AbstractId
+    public function getEditedAt(): \DateTime
+    {
+        return $this->editedAt;
+    }
+
+
+    /**
+     * @return ProductCollectionId
+     */
+    public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
     }

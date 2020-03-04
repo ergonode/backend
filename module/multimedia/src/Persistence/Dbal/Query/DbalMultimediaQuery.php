@@ -10,7 +10,7 @@ namespace Ergonode\Multimedia\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 

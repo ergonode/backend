@@ -9,9 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
-use Ergonode\Designer\Domain\Entity\TemplateId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -21,23 +20,23 @@ class TemplateNameChangedEvent implements DomainEventInterface
     /**
      * @var TemplateId
      *
-     * @JMS\Type("Ergonode\Designer\Domain\Entity\TemplateId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
-    private $id;
+    private TemplateId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $from;
+    private string $from;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $to;
+    private string $to;
 
     /**
      * @param TemplateId $id
@@ -52,9 +51,9 @@ class TemplateNameChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AbstractId|TemplateId
+     * @return TemplateId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): TemplateId
     {
         return $this->id;
     }

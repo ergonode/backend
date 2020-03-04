@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Strategy\Relationship;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
@@ -35,7 +35,7 @@ class ProductCategoryRelationshipStrategy implements RelationshipStrategyInterfa
     /**
      * {@inheritDoc}
      */
-    public function supports(AbstractId $id): bool
+    public function supports(AggregateId $id): bool
     {
         return $id instanceof CategoryId;
     }
@@ -43,7 +43,7 @@ class ProductCategoryRelationshipStrategy implements RelationshipStrategyInterfa
     /**
      * {@inheritDoc}
      */
-    public function getRelationships(AbstractId $id): array
+    public function getRelationships(AggregateId $id): array
     {
         if (!$this->supports($id)) {
             throw new UnexpectedTypeException($id, CategoryId::class);

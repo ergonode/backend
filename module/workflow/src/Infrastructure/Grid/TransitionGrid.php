@@ -49,10 +49,10 @@ class TransitionGrid extends AbstractGrid
             $codes[$code] = $status['name'];
         }
 
-        $code = new LabelColumn('source', 'Source', $statuses, new SelectFilter($codes));
+        $code = new LabelColumn('source', 'From', $statuses, new SelectFilter($codes));
         $this->addColumn('source', $code);
 
-        $code = new LabelColumn('destination', 'Destination', $statuses, new SelectFilter($codes));
+        $code = new LabelColumn('destination', 'To', $statuses, new SelectFilter($codes));
         $this->addColumn('destination', $code);
 
         $this->addColumn('_links', new LinkColumn('hal', [

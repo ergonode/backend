@@ -28,12 +28,12 @@ class AccountGrid extends AbstractGrid
     /**
      * @var LanguageProvider
      */
-    private $languageProvider;
+    private LanguageProvider $languageProvider;
 
     /**
      * @var RoleQueryInterface
      */
-    private $roleQuery;
+    private RoleQueryInterface $roleQuery;
 
     /**
      * @param LanguageProvider   $languageProvider

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command\Role;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -21,30 +21,30 @@ class UpdateRoleCommand implements DomainCommandInterface
     /**
      * @var RoleId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $id;
+    private RoleId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $description;
+    private string $description;
 
     /**
      * @var Privilege[]
      *
      * @JMS\Type("array<Ergonode\Account\Domain\ValueObject\Privilege>")
      */
-    private $privileges;
+    private array $privileges;
 
     /**
      * @param RoleId      $id

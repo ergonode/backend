@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Tests\Domain\Event\Status;
 
 use Ergonode\Core\Domain\ValueObject\Color;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Event\Status\StatusColorChangedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

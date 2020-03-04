@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Domain\Command;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,7 +20,7 @@ class GenerateTransformerCommand implements DomainCommandInterface
     /**
      * @var TransformerId
      *
-     * @JMS\Type("Ergonode\Transformer\Domain\Entity\TransformerId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransformerId")
      */
     private TransformerId $id;
 

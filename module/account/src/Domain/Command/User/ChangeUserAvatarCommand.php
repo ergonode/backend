@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -20,12 +20,12 @@ class ChangeUserAvatarCommand implements DomainCommandInterface
     /**
      * @var UserId
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var MultimediaId
      */
-    private $avatarId;
+    private ?MultimediaId $avatarId;
 
     /**
      * @param UserId            $id

@@ -23,7 +23,7 @@ class PrivilegeType extends AbstractType
     /**
      * @var PrivilegeCodeProvider
      */
-    private $provider;
+    private PrivilegeCodeProvider $provider;
 
     /**
      * @param PrivilegeCodeProvider $provider

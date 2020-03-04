@@ -13,7 +13,7 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 

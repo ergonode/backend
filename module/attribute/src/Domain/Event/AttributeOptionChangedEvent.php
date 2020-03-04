@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Event;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -23,7 +23,7 @@ class AttributeOptionChangedEvent implements DomainEventInterface
     /**
      * @var AttributeId
      *
-     * @JMS\Type("Ergonode\Attribute\Domain\Entity\AttributeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private $id;
 
@@ -65,7 +65,7 @@ class AttributeOptionChangedEvent implements DomainEventInterface
     /**
      * @return AttributeId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): AttributeId
     {
         return $this->id;
     }

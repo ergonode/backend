@@ -9,10 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Domain\Event\Status;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,7 +21,7 @@ class StatusColorChangedEvent implements DomainEventInterface
     /**
      * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
     private $id;
 
@@ -53,9 +52,9 @@ class StatusColorChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return AbstractId|StatusId
+     * @return StatusId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): StatusId
     {
         return $this->id;
     }

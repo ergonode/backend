@@ -49,4 +49,12 @@ class LanguageCompletenessConditionValidatorStrategy implements ConditionValidat
             ]
         );
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValidatedClass(): string
+    {
+        return LanguageCompletenessCondition::class;
+    }
 }

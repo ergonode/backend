@@ -21,7 +21,7 @@ class UpdateRoleCommandHandler
     /**
      * @var RoleRepositoryInterface
      */
-    private $repository;
+    private RoleRepositoryInterface $repository;
 
     /**
      * @param RoleRepositoryInterface $repository

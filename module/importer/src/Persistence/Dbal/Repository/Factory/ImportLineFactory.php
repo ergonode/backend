@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Persistence\Dbal\Repository\Factory;
 
-use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 
 /**

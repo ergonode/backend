@@ -7,7 +7,7 @@
 namespace Ergonode\Attribute\Domain\Repository;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**

@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Segment\Domain\Command;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,23 +20,23 @@ class GenerateSegmentCommand implements DomainCommandInterface
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
-    private $id;
+    private SegmentId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $code;
+    private string $code;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $type;
+    private string $type;
 
     /**
      * @param string $code

@@ -16,6 +16,7 @@ use Ergonode\Product\Application\Model\ProductCreateFormModel;
 use Ergonode\Product\Application\Model\ProductUpdateFormModel;
 use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -109,7 +110,11 @@ class ProductChangeAction
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var ProductCreateFormModel $data */
             $data = $form->getData();
-            $command = new UpdateProductCommand($product->getId(), $data->categories);
+            $categories = [];
+            foreach ($data->categories as $category) {
+                $categories[] = new CategoryId($category);
+            }
+            $command = new UpdateProductCommand($product->getId(), $categories);
             $this->messageBus->dispatch($command);
 
             return new EmptyResponse();

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Validator;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -22,7 +22,7 @@ class RoleExistsValidator extends ConstraintValidator
     /**
      * @var RoleRepositoryInterface
      */
-    private $roleRepository;
+    private RoleRepositoryInterface $roleRepository;
 
     /**
      * @param RoleRepositoryInterface $roleRepository

@@ -18,12 +18,14 @@ use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
-use Ergonode\Account\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -33,47 +35,47 @@ class User extends AbstractAggregateRoot implements UserInterface
     /**
      * @var UserId
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var string
      */
-    private $firstName;
+    private string $firstName;
 
     /**
      * @var string
      */
-    private $lastName;
+    private string $lastName;
 
     /**
      * @var Email
      */
-    private $email;
+    private Email $email;
 
     /**
      * @var Password
      */
-    private $password;
+    private Password $password;
 
     /**
      * @var Language
      */
-    private $language;
+    private Language $language;
 
     /**
-     * @var MultimediaId
+     * @var MultimediaId|null
      */
-    private $avatarId;
+    private ?MultimediaId $avatarId;
 
     /**
      * @var RoleId
      */
-    private $roleId;
+    private RoleId $roleId;
 
     /**
      * @var bool
      */
-    private $isActive;
+    private bool $isActive;
 
     /**
      * @param UserId            $id
@@ -115,9 +117,9 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @return AbstractId|UserId
+     * @return UserId
      */
-    public function getId(): AbstractId
+    public function getId(): UserId
     {
         return $this->id;
     }

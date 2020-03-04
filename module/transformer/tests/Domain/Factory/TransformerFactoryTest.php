@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Tests\Domain\Factory;
 
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Factory\TransformerFactory;
 use PHPUnit\Framework\TestCase;
 

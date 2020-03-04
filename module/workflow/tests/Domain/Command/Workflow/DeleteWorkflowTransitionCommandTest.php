@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Tests\Domain\Command\Workflow;
 
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowTransitionCommand;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

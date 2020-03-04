@@ -9,9 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\Role;
 
-use Ergonode\Account\Domain\Entity\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\ValueObject\Privilege;
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -23,37 +22,37 @@ class RoleCreatedEvent implements DomainEventInterface
     /**
      * @var RoleId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $id;
+    private RoleId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $description;
+    private string $description;
 
     /**
      * @var Privilege[]
      *
      * @JMS\Type("array<Ergonode\Account\Domain\ValueObject\Privilege>")
      */
-    private $privileges;
+    private array $privileges;
 
     /**
      * @var bool
      *
      * @JMS\Type("bool")
      */
-    private $hidden;
+    private bool $hidden;
 
     /**
      * @param RoleId      $id
@@ -81,7 +80,7 @@ class RoleCreatedEvent implements DomainEventInterface
     /**
      * @return RoleId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): RoleId
     {
         return $this->id;
     }

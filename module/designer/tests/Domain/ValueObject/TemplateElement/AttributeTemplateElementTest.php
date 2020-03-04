@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Tests\Domain\ValueObject\TemplateElement;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

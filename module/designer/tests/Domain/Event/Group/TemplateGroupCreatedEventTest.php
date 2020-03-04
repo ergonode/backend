@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer\Tests\Domain\Event\Group;
 
-use Ergonode\Designer\Domain\Entity\TemplateGroupId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateGroupId;
 use Ergonode\Designer\Domain\Event\Group\TemplateGroupCreatedEvent;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Domain\Command;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 
 /**
@@ -19,7 +19,7 @@ class DeleteCategoryCommand implements DomainCommandInterface
     /**
      * @var CategoryId
      *
-     * @JMS\Type("Ergonode\Category\Domain\Entity\CategoryId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
     private CategoryId $id;
 

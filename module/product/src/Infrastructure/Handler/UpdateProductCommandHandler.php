@@ -11,7 +11,7 @@ namespace Ergonode\Product\Infrastructure\Handler;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -69,7 +69,7 @@ class UpdateProductCommandHandler
 
         $categories = [];
         foreach ($command->getCategories() as $categoryId) {
-            $category = $this->categoryRepository->load(new CategoryId($categoryId));
+            $category = $this->categoryRepository->load($categoryId);
             Assert::notNull($category);
             $code = $category->getCode();
             $categories[$code->getValue()] = $code;
@@ -84,6 +84,22 @@ class UpdateProductCommandHandler
         foreach ($product->getCategories() as $categoryCode) {
             if (!isset($categories[$categoryCode->getValue()])) {
                 $product->removeFromCategory($categoryCode);
+            }
+        }
+
+        foreach ($command->getAttributes() as $code => $attribute) {
+            $attributeCode = new AttributeCode($code);
+            if ($product->hasAttribute($attributeCode)) {
+                $product->changeAttribute($attributeCode, $attribute);
+            } else {
+                $product->addAttribute($attributeCode, $attribute);
+            }
+        }
+
+        foreach ($product->getAttributes() as $code => $value) {
+            $attributeCode = new AttributeCode($code);
+            if (!array_key_exists($code, $command->getAttributes())) {
+                $product->removeAttribute($attributeCode);
             }
         }
 

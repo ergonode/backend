@@ -13,7 +13,7 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Event\Status\StatusDeletedEvent;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 

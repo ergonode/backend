@@ -9,11 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Persistence\Dbal\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Segment\Domain\Entity\Segment;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\Event\SegmentDeletedEvent;
 use Ergonode\Segment\Domain\Repository\SegmentRepositoryInterface;
 
@@ -24,12 +23,12 @@ class DbalSegmentRepository implements SegmentRepositoryInterface
     /**
      * @var DomainEventStoreInterface
      */
-    private $eventStore;
+    private DomainEventStoreInterface $eventStore;
 
     /**
      * @var EventBusInterface
      */
-    private $eventBus;
+    private EventBusInterface $eventBus;
 
     /**
      * @param DomainEventStoreInterface $eventStore
@@ -46,15 +45,15 @@ class DbalSegmentRepository implements SegmentRepositoryInterface
      *
      * @throws \ReflectionException
      */
-    public function load(SegmentId $id): ?AbstractAggregateRoot
+    public function load(SegmentId $id): ?Segment
     {
         $eventStream = $this->eventStore->load($id);
 
         if (\count($eventStream) > 0) {
             $class = new \ReflectionClass(Segment::class);
-            /** @var AbstractAggregateRoot $aggregate */
+            /** @var Segment $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
+            if (!$aggregate instanceof Segment) {
                 throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));
             }
 
@@ -69,7 +68,7 @@ class DbalSegmentRepository implements SegmentRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(Segment $aggregateRoot): void
     {
         $events = $aggregateRoot->popEvents();
 
@@ -94,11 +93,11 @@ class DbalSegmentRepository implements SegmentRepositoryInterface
      *
      * @throws \Exception
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    public function delete(Segment $segment): void
     {
-        $aggregateRoot->apply(new SegmentDeletedEvent($aggregateRoot->getId()));
-        $this->save($aggregateRoot);
+        $segment->apply(new SegmentDeletedEvent($segment->getId()));
+        $this->save($segment);
 
-        $this->eventStore->delete($aggregateRoot->getId());
+        $this->eventStore->delete($segment->getId());
     }
 }

@@ -63,7 +63,7 @@ class ProductReadAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns import",
+     *     description="Returns product",
      * )
      * @SWG\Response(
      *     response=404,

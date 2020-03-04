@@ -49,4 +49,12 @@ class OptionAttributeValueConditionValidatorStrategy implements ConditionValidat
             ]
         );
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValidatedClass(): string
+    {
+        return OptionAttributeValueCondition::class;
+    }
 }

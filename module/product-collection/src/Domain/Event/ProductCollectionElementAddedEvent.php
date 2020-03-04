@@ -9,10 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionElement;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,7 +21,7 @@ class ProductCollectionElementAddedEvent implements DomainEventInterface
     /**
      * @var ProductCollectionId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
@@ -34,19 +33,36 @@ class ProductCollectionElementAddedEvent implements DomainEventInterface
     private ProductCollectionElement $element;
 
     /**
+     * @var \DateTime $currentDateTime
+     *
+     * @JMS\Type("DateTime")
+     */
+    private \DateTime $currentDateTime;
+
+    /**
      * @param ProductCollectionId      $id
      * @param ProductCollectionElement $element
+     * @param \DateTime                $currentDateTime
      */
-    public function __construct(ProductCollectionId $id, ProductCollectionElement $element)
+    public function __construct(ProductCollectionId $id, ProductCollectionElement $element, \DateTime $currentDateTime)
     {
         $this->id = $id;
         $this->element = $element;
+        $this->currentDateTime = $currentDateTime;
     }
 
     /**
-     * @return AbstractId|ProductCollectionId
+     * @return \DateTime
      */
-    public function getAggregateId(): AbstractId
+    public function getCurrentDateTime(): \DateTime
+    {
+        return $this->currentDateTime;
+    }
+
+    /**
+     * @return ProductCollectionId
+     */
+    public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
     }

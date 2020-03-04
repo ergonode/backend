@@ -24,12 +24,12 @@ class LocaleSubscriber implements EventSubscriberInterface
     /**
      * @var Security
      */
-    private $security;
+    private Security $security;
 
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param Security            $security

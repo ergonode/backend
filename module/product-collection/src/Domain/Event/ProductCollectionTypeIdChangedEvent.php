@@ -9,10 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionId;
-use Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,45 +21,64 @@ class ProductCollectionTypeIdChangedEvent implements DomainEventInterface
     /**
      * @var ProductCollectionId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId")
      */
     private ProductCollectionId $id;
 
     /**
      * @var ProductCollectionTypeId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
      */
     private ProductCollectionTypeId $oldTypeId;
 
     /**
      * @var ProductCollectionTypeId
      *
-     * @JMS\Type("Ergonode\ProductCollection\Domain\Entity\ProductCollectionTypeId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId")
      */
     private ProductCollectionTypeId $newTypeId;
+
+    /**
+     * @var \DateTime
+     *
+     * @JMS\Type("DateTime")
+     */
+    private \DateTime $editedAt;
 
     /**
      * ProductCollectionTypeIdChangedEvent constructor.
      *
      * @param ProductCollectionId     $id
-     * @param ProductCollectionTypeId $typeId
+     * @param ProductCollectionTypeId $oldTypeId
      * @param ProductCollectionTypeId $newTypeId
+     * @param \DateTime               $editedAt
      */
     public function __construct(
         ProductCollectionId $id,
-        ProductCollectionTypeId $typeId,
-        ProductCollectionTypeId $newTypeId
+        ProductCollectionTypeId $oldTypeId,
+        ProductCollectionTypeId $newTypeId,
+        \DateTime $editedAt
     ) {
         $this->id = $id;
-        $this->oldTypeId = $typeId;
+        $this->oldTypeId = $oldTypeId;
         $this->newTypeId = $newTypeId;
+        $this->editedAt = $editedAt;
     }
 
     /**
-     * @return AbstractID|ProductCollectionId
+     * @return \DateTime
      */
-    public function getAggregateId(): AbstractId
+    public function getEditedAt(): \DateTime
+    {
+        return $this->editedAt;
+    }
+
+
+    /**
+     * @return ProductCollectionId
+     */
+    public function getAggregateId(): ProductCollectionId
     {
         return $this->id;
     }

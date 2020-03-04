@@ -21,7 +21,7 @@ class SizeFormDataTransformerTest extends TestCase
     /**
      * @var SizeFormDataTransformer
      */
-    protected $transformer;
+    protected SizeFormDataTransformer $transformer;
 
     /**
      */

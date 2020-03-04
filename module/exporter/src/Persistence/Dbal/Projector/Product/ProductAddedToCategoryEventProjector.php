@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Persistence\Dbal\Projector\Product;
 
 use Ergonode\Exporter\Domain\Exception\ProductNotFoundException;
-use Ergonode\Exporter\Domain\Factory\CategoryCodeFactory;
+use Ergonode\Exporter\Domain\Factory\Catalog\CategoryCodeFactory;
 use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
 use Ramsey\Uuid\Uuid;

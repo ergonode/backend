@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Request\ParamConverter;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
@@ -25,7 +25,7 @@ class UserParamConverter implements ParamConverterInterface
     /**
      * @var UserRepositoryInterface
      */
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
     /**
      * @param UserRepositoryInterface $userRepository

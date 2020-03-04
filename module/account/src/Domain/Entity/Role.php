@@ -16,8 +16,10 @@ use Ergonode\Account\Domain\Event\Role\RoleDescriptionChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RoleNameChangedEvent;
 use Ergonode\Account\Domain\Event\Role\RolePrivilegesChangedEvent;
 use Ergonode\Account\Domain\ValueObject\Privilege;
-use Ergonode\Core\Domain\Entity\AbstractId;
+
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 
@@ -28,35 +30,35 @@ class Role extends AbstractAggregateRoot
     /**
      * @var RoleId
      *
-     * @JMS\Type("Ergonode\Account\Domain\Entity\RoleId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\RoleId")
      */
-    private $id;
+    private RoleId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $description;
+    private string $description;
 
     /**
      * @var Privilege[]
      *
      * @JMS\Type("array<Ergonode\Account\Domain\ValueObject\Privilege>")
      */
-    private $privileges;
+    private array $privileges;
 
     /**
      * @var bool
      */
-    private $hidden;
+    private bool $hidden;
 
     /**
      * @param RoleId $id
@@ -80,9 +82,9 @@ class Role extends AbstractAggregateRoot
     }
 
     /**
-     * @return RoleId|AbstractId
+     * @return RoleId|AggregateId
      */
-    public function getId(): AbstractId
+    public function getId(): RoleId
     {
         return $this->id;
     }

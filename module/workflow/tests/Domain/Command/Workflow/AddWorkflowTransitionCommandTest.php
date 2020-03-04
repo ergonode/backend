@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Tests\Domain\Command\Workflow;
 
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Condition\Domain\Entity\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

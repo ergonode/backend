@@ -17,27 +17,27 @@ class ViewTemplateElement
     /**
      * @var Position
      */
-    private $position;
+    private Position $position;
 
     /**
      * @var Size
      */
-    private $size;
+    private Size $size;
 
     /**
      * @var string
      */
-    private $label;
+    private string $label;
 
     /**
      * @var string
      */
-    private $type;
+    private string $type;
 
     /**
      * @var array
      */
-    private $properties;
+    private array $properties;
 
     /**
      * @param Position $position

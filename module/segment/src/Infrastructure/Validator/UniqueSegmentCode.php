@@ -19,10 +19,10 @@ class UniqueSegmentCode extends Constraint
     /**
      * @var string
      */
-    public $validMessage = 'Given value {{ value }} is not valid segment code';
+    public string $validMessage = 'Given value {{ value }} is not valid segment code';
 
     /**
      * @var string
      */
-    public $uniqueMessage = 'Given value is not unique';
+    public string $uniqueMessage = 'Given value is not unique';
 }

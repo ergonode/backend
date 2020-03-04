@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\Category\Domain\Entity\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Faker\Provider\Base as BaseProvider;
 
@@ -28,7 +28,7 @@ class CategoryIdFaker extends BaseProvider
     {
 
         if ($code) {
-            return CategoryId::fromCode(new CategoryCode($code));
+            return CategoryId::fromCode((new CategoryCode($code))->getValue());
         }
 
         return CategoryId::generate();

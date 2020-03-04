@@ -9,9 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Domain\Event;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\Segment\Domain\Entity\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
 use JMS\Serializer\Annotation as JMS;
 
@@ -22,23 +21,23 @@ class SegmentStatusChangedEvent implements DomainEventInterface
     /**
      * @var SegmentId
      *
-     * @JMS\Type("Ergonode\Segment\Domain\Entity\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
      */
-    private $id;
+    private SegmentId $id;
 
     /**
      * @var SegmentStatus
      *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentStatus")
      */
-    private $from;
+    private SegmentStatus $from;
 
     /**
      * @var SegmentStatus
      *
      * @JMS\Type("Ergonode\Segment\Domain\ValueObject\SegmentStatus")
      */
-    private $to;
+    private SegmentStatus $to;
 
     /**
      * @param SegmentId     $id
@@ -55,7 +54,7 @@ class SegmentStatusChangedEvent implements DomainEventInterface
     /**
      * @return SegmentId
      */
-    public function getAggregateId(): AbstractId
+    public function getAggregateId(): SegmentId
     {
         return $this->id;
     }

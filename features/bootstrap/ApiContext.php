@@ -11,6 +11,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
 use Imbo\BehatApiExtension\Exception\AssertionFailedException;
 use Symfony\Component\HttpFoundation\Response;
+use GuzzleHttp\Psr7;
 
 /**
  */
@@ -189,7 +190,14 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     public function printLastApiResponse(): void
     {
         $this->requireResponse();
-        echo $this->response->getBody();
+    }
+
+    /**
+     * @Then /^sleep$/
+     */
+    public function sleep(): void
+    {
+        sleep(1);
     }
 
     /**
@@ -200,16 +208,8 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
         try {
             $actual = $this->response->getStatusCode();
             $expected = $this->validateResponseCode($code);
-            $body = $this->response->getBody()->getContents();
 
-            $message = sprintf(
-                'Expected response code "%d", got "%d". Revived "%s"',
-                $expected,
-                $actual,
-                $body
-            );
-
-            Assertion::same($actual, $expected, $message);
+            Assertion::same($actual, $expected);
         } catch (\Exception $e) {
             throw new AssertionFailedException($e->getMessage());
         }
@@ -233,6 +233,10 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
     public function setRequestBody($string)
     {
         $string = $this->storageContext->replaceVars($string);
+
+        if ($this->isJson($string)) {
+            $this->setRequestHeader('Content-Type', self::JSON_CONTENT);
+        }
 
         return parent::setRequestBody($string);
     }
@@ -304,5 +308,20 @@ class ApiContext extends \Imbo\BehatApiExtension\Context\ApiContext
         }
 
         return $body;
+    }
+
+    /**
+     * @param $resource
+     * @return bool
+     */
+    private function isJson($resource)
+    {
+        $string = (string) Psr7\stream_for($resource);
+        if (!$string) {
+            return false;
+        }
+        json_decode($string);
+
+        return JSON_ERROR_NONE === json_last_error();
     }
 }

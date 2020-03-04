@@ -13,7 +13,7 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Domain\Entity\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;

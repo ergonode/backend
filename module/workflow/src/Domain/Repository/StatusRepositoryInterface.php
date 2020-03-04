@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Domain\Repository;
 
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */

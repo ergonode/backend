@@ -9,13 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Account\Domain\Entity\UserId;
-use Ergonode\Account\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Multimedia\Domain\Entity\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -24,47 +24,47 @@ class CreateUserCommand implements DomainCommandInterface
     /**
      * @var UserId
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var MultimediaId|null
      */
-    private $avatarId;
+    private ?MultimediaId $avatarId;
 
     /**
      * @var string
      */
-    private $firstName;
+    private string $firstName;
 
     /**
      * @var string
      */
-    private $lastName;
+    private string $lastName;
 
     /**
      * @var Email
      */
-    private $email;
+    private Email $email;
 
     /**
      * @var Password
      */
-    private $password;
+    private Password $password;
 
     /**
      * @var Language
      */
-    private $language;
+    private Language $language;
 
     /**
      * @var RoleId
      */
-    private $roleId;
+    private RoleId $roleId;
 
     /**
      * @var bool
      */
-    private $isActive;
+    private bool $isActive;
 
     /**
      * @param string            $firstName

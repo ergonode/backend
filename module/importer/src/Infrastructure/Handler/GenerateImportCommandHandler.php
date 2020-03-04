@@ -13,11 +13,11 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\GenerateImportCommand;
 use Ergonode\Importer\Domain\Command\Import\StartImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
-use Ergonode\Importer\Domain\Entity\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\Importer\Domain\Repository\ImportRepositoryInterface;
 use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
-use Ergonode\Transformer\Domain\Entity\TransformerId;
+use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Transformer\Infrastructure\Provider\TransformerProvider;
@@ -90,7 +90,7 @@ class GenerateImportCommandHandler
 
         $this->transformerRepository->save($transformer);
 
-        $import = new Import(ImportId::generate(), $command->getId(), $transformerId);
+        $import = new Import(ImportId::generate(), $command->getId(), $transformerId, '');
         $this->importRepository->save($import);
 
         $this->commandBus->dispatch(new StartImportCommand($import->getId()));

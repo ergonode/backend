@@ -25,8 +25,13 @@ class SegmentStatusTest extends TestCase
      *
      * @dataProvider validDataProvider
      */
-    public function testValidStatus(string $string, bool $new, bool $processed, bool $calculated, bool $outdated): void
-    {
+    public function testValidCreation(
+        string $string,
+        bool $new,
+        bool $processed,
+        bool $calculated,
+        bool $outdated
+    ): void {
         $status = new SegmentStatus($string);
         $this->assertEquals(strtoupper($string), (string) $string);
         $this->assertTrue(SegmentStatus::isValid($string));
@@ -65,6 +70,29 @@ class SegmentStatusTest extends TestCase
      */
     public function testInvalidData(string $status): void
     {
+        new SegmentStatus($status);
+    }
+
+    /**
+     * @param string $status
+     *
+     * @dataProvider inValidDataProvider
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testEquality(string $status): void
+    {
+        $status1 = new SegmentStatus(SegmentStatus::CALCULATED);
+        $status2 = new SegmentStatus(SegmentStatus::CALCULATED);
+        $status3 = new SegmentStatus(SegmentStatus::OUTDATED);
+
+        $this->assertTrue($status1->isEqual($status2));
+        $this->assertTrue($status2->isEqual($status1));
+        $this->assertFalse($status1->isEqual($status3));
+        $this->assertFalse($status2->isEqual($status3));
+        $this->assertFalse($status3->isEqual($status1));
+        $this->assertFalse($status3->isEqual($status1));
+
         new SegmentStatus($status);
     }
 

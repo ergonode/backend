@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
-use Ergonode\Account\Domain\Entity\RoleId;
-use Ergonode\Account\Domain\Entity\UserId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
@@ -22,37 +22,37 @@ class UpdateUserCommand implements DomainCommandInterface
     /**
      * @var UserId
      */
-    private $id;
+    private UserId $id;
 
     /**
      * @var string
      */
-    private $firstName;
+    private string $firstName;
 
     /**
      * @var string
      */
-    private $lastName;
+    private string $lastName;
 
     /**
      * @var Password|null
      */
-    private $password;
+    private ?Password $password;
 
     /**
      * @var Language
      */
-    private $language;
+    private Language $language;
 
     /**
      * @var RoleId
      */
-    private $roleId;
+    private RoleId $roleId;
 
     /**
      * @var bool
      */
-    private $isActive;
+    private bool $isActive;
 
     /**
      * @param UserId        $id

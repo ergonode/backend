@@ -8,6 +8,17 @@ monolog:
             excluded_404s:
                 # regex: exclude all 404 errors from the logs
                 - ^/
+        main_stderr:
+            type: fingers_crossed
+            action_level: error
+            handler: stderr
+            excluded_404s:
+                # regex: exclude all 404 errors from the logs
+                - ^/
+        stderr:
+            type: stream
+            path: "php://stderr"
+            level: error
         nested:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

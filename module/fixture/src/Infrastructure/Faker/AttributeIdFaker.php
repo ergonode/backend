@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\Attribute\Domain\Entity\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Faker\Provider\Base as BaseProvider;
 
@@ -28,7 +28,7 @@ class AttributeIdFaker extends BaseProvider
     {
 
         if ($code) {
-            return AttributeId::fromKey(new AttributeCode($code));
+            return AttributeId::fromKey((new AttributeCode($code))->getValue());
         }
 
         return AttributeId::generate();

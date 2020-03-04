@@ -9,23 +9,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\Strategy;
 
-use Ergonode\Core\Domain\Entity\AbstractId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
 interface RelationshipStrategyInterface
 {
     /**
-     * @param AbstractId $id
+     * @param AggregateId $id
      *
      * @return bool
      */
-    public function supports(AbstractId $id): bool;
+    public function supports(AggregateId $id): bool;
 
     /**
-     * @param AbstractId $id
+     * @param AggregateId $id
      *
      * @return array
      */
-    public function getRelationships(AbstractId $id): array;
+    public function getRelationships(AggregateId $id): array;
 }

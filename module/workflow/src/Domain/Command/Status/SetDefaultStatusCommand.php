@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Command\Status;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\Workflow\Domain\Entity\WorkflowId;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 
@@ -21,7 +21,7 @@ class SetDefaultStatusCommand implements DomainCommandInterface
     /**
      * @var StatusCode
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\WorkflowId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
     private $workflowId;
 

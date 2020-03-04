@@ -11,7 +11,7 @@ namespace Ergonode\Workflow\Tests\Domain\Factory;
 
 use Ergonode\Core\Domain\ValueObject\Color;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Workflow\Domain\Entity\StatusId;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Factory\StatusFactory;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -59,7 +59,7 @@ class StatusFactoryTest extends TestCase
         $factory = new StatusFactory();
         $status  = $factory->create($this->code, $this->color, $this->name, $this->description);
         $this->assertNotNull($status);
-        $this->assertEquals(StatusId::fromCode($this->code), $status->getId());
+        $this->assertEquals(StatusId::fromCode($this->code->getValue()), $status->getId());
         $this->assertSame($this->code, $status->getCode());
         $this->assertSame($this->color, $status->getColor());
         $this->assertSame($this->name, $status->getName());

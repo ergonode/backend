@@ -19,7 +19,7 @@ class ConstraintPrivilegeRelations extends Constraint
     /**
      * @var string
      */
-    public $message = 'Read privilege must be set when create, update or delete is activated';
+    public string $message = 'Read privilege must be set when create, update or delete is activated';
 
     /**
      * @return string

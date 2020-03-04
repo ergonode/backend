@@ -23,28 +23,28 @@ class TemplateElement
      *
      * @JMS\Type("Ergonode\Designer\Domain\ValueObject\Position")
      */
-    protected $position;
+    protected Position $position;
 
     /**
      * @var Size
      *
      * @JMS\Type("Ergonode\Designer\Domain\ValueObject\Size")
      */
-    protected $size;
+    protected Size $size;
 
     /**
      * @var TemplateElementPropertyInterface
      *
      * @JMS\Type("Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface")
      */
-    protected $properties;
+    protected TemplateElementPropertyInterface $properties;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    protected $type;
+    protected string $type;
 
     /**
      * @param Position                         $position
