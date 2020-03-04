@@ -8,6 +8,12 @@
     "behat/gherkin": {
         "version": "v4.5.1"
     },
+    "behat/mink": {
+        "version": "v1.7.1"
+    },
+    "behat/mink-browserkit-driver": {
+        "version": "1.3.3"
+    },
     "behat/mink-extension": {
         "version": "2.3.1"
     },
@@ -106,6 +112,18 @@
     },
     "firebase/php-jwt": {
         "version": "v5.0.0"
+    },
+    "friends-of-behat/mink-extension": {
+        "version": "v2.4.0"
+    },
+    "friends-of-behat/symfony-extension": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "3d21344765fd3440a85bdd27d4cada186ec628bd"
+        }
     },
     "fzaninotto/faker": {
         "version": "v1.7.1"
@@ -431,6 +449,9 @@
     "symfony/asset": {
         "version": "v4.1.0"
     },
+    "symfony/browser-kit": {
+        "version": "v4.4.5"
+    },
     "symfony/cache": {
         "version": "v4.1.0"
     },
@@ -455,6 +476,9 @@
     "symfony/contracts": {
         "version": "v1.1.0"
     },
+    "symfony/css-selector": {
+        "version": "v3.4.38"
+    },
     "symfony/debug": {
         "version": "v4.1.0"
     },
@@ -463,6 +487,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.1.0"
+    },
+    "symfony/dom-crawler": {
+        "version": "v4.4.5"
     },
     "symfony/dotenv": {
         "version": "v4.1.0"
@@ -592,6 +619,9 @@
     },
     "symfony/property-info": {
         "version": "v4.1.0"
+    },
+    "symfony/proxy-manager-bridge": {
+        "version": "v4.4.5"
     },
     "symfony/routing": {
         "version": "4.0",
