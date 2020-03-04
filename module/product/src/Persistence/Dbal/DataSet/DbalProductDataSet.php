@@ -29,17 +29,17 @@ class DbalProductDataSet extends AbstractDbalDataSet
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @var DataSetQueryBuilder
      */
-    private $provider;
+    private DataSetQueryBuilder $provider;
 
     /**
      * @var array
      */
-    private $names;
+    private array $names;
 
     /**
      * @param Connection          $connection

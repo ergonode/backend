@@ -32,7 +32,6 @@ class CategoryCreatedEventProjector
     private SerializerInterface $serializer;
 
     /**
-     * CategoryCreatedEventProjector constructor.
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */
@@ -60,6 +59,7 @@ class CategoryCreatedEventProjector
             self::TABLE_CATEGORY,
             [
                 'id' => $category->getId(),
+                'code' => $category->getCode(),
                 'data' => $this->serializer->serialize($category, 'json'),
             ]
         );

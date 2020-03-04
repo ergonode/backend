@@ -24,14 +24,14 @@ class UpdateWorkflowCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $id;
+    private WorkflowId $id;
 
     /**
      * @var StatusCode[]
      *
      * @JMS\Type("array<Ergonode\Workflow\Domain\ValueObject\StatusCode>")
      */
-    private $statuses;
+    private array $statuses;
 
 
     /**

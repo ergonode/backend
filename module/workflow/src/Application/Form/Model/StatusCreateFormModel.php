@@ -18,17 +18,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 class StatusCreateFormModel
 {
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\NotBlank()
      * @Assert\Length(max=100, maxMessage="Status code is to long, It should have {{ limit }} character or less.")
      *
      * @ErgoAssert\StatusExists()
      */
-    public $code;
+    public ?string $code;
 
     /**
-     * @var Color
+     * @var Color|null
      *
      * @Assert\NotBlank()
      * @Assert\Length(
@@ -37,7 +37,7 @@ class StatusCreateFormModel
      *     minMessage="Color must be in hex format", maxMessage="Color must be in hex format"
      * )
      */
-    public $color;
+    public ?Color $color;
 
     /**
      * @var array
@@ -47,7 +47,7 @@ class StatusCreateFormModel
      *     @Assert\Length(max=100, maxMessage="Status name is to long, It should have {{ limit }} character or less.")
      * })
      */
-    public $name;
+    public array $name;
 
     /**
      * @var array
@@ -60,5 +60,15 @@ class StatusCreateFormModel
      *  )
      * })
      */
-    public $description;
+    public array $description;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->code = null;
+        $this->color = null;
+        $this->name = [];
+        $this->description = [];
+    }
 }

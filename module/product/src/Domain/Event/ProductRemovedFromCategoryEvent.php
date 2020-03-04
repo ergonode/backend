@@ -24,14 +24,14 @@ class ProductRemovedFromCategoryEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private $id;
+    private ProductId $id;
 
     /**
      * @var CategoryCode
      *
      * @JMS\Type("Ergonode\Category\Domain\ValueObject\CategoryCode")
      */
-    private $categoryCode;
+    private CategoryCode $categoryCode;
 
     /**
      * @param ProductId    $id

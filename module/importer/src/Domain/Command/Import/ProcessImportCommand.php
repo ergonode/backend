@@ -10,8 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Domain\Command\Import;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
+use Ergonode\Transformer\Domain\Model\Record;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -26,18 +27,25 @@ class ProcessImportCommand implements DomainCommandInterface
     private ImportId $importId;
 
     /**
-     * @var int
+     * @var Progress
      *
-     * @JMS\Type("int")
+     * @JMS\Type("Ergonode\Importer\Domain\ValueObject\Progress")
      */
-    private int $line;
+    private Progress $steps;
 
     /**
-     * @var array
+     * @var Progress
      *
-     * @JMS\Type("array")
+     * @JMS\Type("Ergonode\Importer\Domain\ValueObject\Progress")
      */
-    private array $row;
+    private Progress $records;
+
+    /**
+     * @var Record
+     *
+     * @JMS\Type("Ergonode\Transformer\Domain\Model\Record")
+     */
+    private Record $record;
 
     /**
      * @var string
@@ -48,15 +56,17 @@ class ProcessImportCommand implements DomainCommandInterface
 
     /**
      * @param ImportId $importId
-     * @param int      $line
-     * @param array    $row
+     * @param Progress $steps
+     * @param Progress $records
+     * @param Record   $record
      * @param string   $action
      */
-    public function __construct(ImportId $importId, int $line, array $row, string $action)
+    public function __construct(ImportId $importId, Progress $steps, Progress $records, Record $record, string $action)
     {
         $this->importId = $importId;
-        $this->line = $line;
-        $this->row = $row;
+        $this->steps = $steps;
+        $this->records = $records;
+        $this->record = $record;
         $this->action = $action;
     }
 
@@ -69,19 +79,27 @@ class ProcessImportCommand implements DomainCommandInterface
     }
 
     /**
-     * @return int
+     * @return Progress
      */
-    public function getLine(): int
+    public function getSteps(): Progress
     {
-        return $this->line;
+        return $this->steps;
     }
 
     /**
-     * @return array
+     * @return Progress
      */
-    public function getRow(): array
+    public function getRecords(): Progress
     {
-        return $this->row;
+        return $this->records;
+    }
+
+    /**
+     * @return Record
+     */
+    public function getRecord(): Record
+    {
+        return $this->record;
     }
 
     /**

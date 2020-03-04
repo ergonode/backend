@@ -7,13 +7,11 @@ default:
                 - module/attribute/features
                 - module/authentication/features
                 - module/category/features
-                - module/category-tree/features
                 - module/channel/features
                 - module/comment/features
                 - module/completeness/features
                 - module/condition/features
                 - module/core/features
-                - module/deptrac.png/features
                 - module/designer/features
                 - module/editor/features
                 - module/event-sourcing/features
@@ -36,7 +34,7 @@ default:
                 - module/translation-deepl/features
                 - module/value/features
                 - module/workflow/features
-                - module/product-collection/features
+
             contexts:
                 - App\Tests\Behat\Context\StoreRestResponseParamContext
                 - App\Tests\Behat\Context\UserContext

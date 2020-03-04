@@ -22,7 +22,7 @@ class DeleteProductCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private $id;
+    private ProductId $id;
 
     /**
      * @param ProductId $id

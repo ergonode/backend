@@ -24,6 +24,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
+use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 
 /**
  * @Route("/attributes", methods={"POST"})
@@ -70,7 +72,7 @@ class AttributeCreateAction
      *     required=true,
      *     @SWG\Schema(ref="#/definitions/attribute")
      * )
-     *  @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
@@ -105,6 +107,17 @@ class AttributeCreateAction
                 /** @var CreateAttributeFormModel $data */
                 $data = $form->getData();
 
+                $options = [];
+                foreach ($data->options as $model) {
+                    if (is_array($model->value)) {
+                        $options[$model->key] = new MultilingualOption(new TranslatableString($model->value));
+                    } elseif (is_string($model->value)) {
+                        $options[$model->key] = new StringOption($model->value);
+                    } else {
+                        $options[$model->key] = null;
+                    }
+                }
+
                 $command = new CreateAttributeCommand(
                     $data->type,
                     $data->code,
@@ -114,7 +127,7 @@ class AttributeCreateAction
                     $data->multilingual,
                     $data->groups,
                     (array) $data->parameters,
-                    $data->options->getValues()
+                    $options
                 );
                 $this->messageBus->dispatch($command);
 

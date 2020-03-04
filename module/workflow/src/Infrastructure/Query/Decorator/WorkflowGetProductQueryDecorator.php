@@ -34,27 +34,27 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
     /**
      * @var GetProductQueryInterface
      */
-    private $query;
+    private GetProductQueryInterface $query;
 
     /**
      * @var WorkflowRepositoryInterface
      */
-    private $workflowRepository;
+    private WorkflowRepositoryInterface $workflowRepository;
 
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
      * @var StatusRepositoryInterface
      */
-    private $statusRepository;
+    private StatusRepositoryInterface $statusRepository;
 
     /**
      * @var StatusCalculationService
      */
-    private $service;
+    private StatusCalculationService $service;
 
     /**
      * @param GetProductQueryInterface    $query

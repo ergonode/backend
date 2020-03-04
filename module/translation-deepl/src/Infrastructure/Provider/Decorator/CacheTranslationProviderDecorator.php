@@ -23,12 +23,12 @@ class CacheTranslationProviderDecorator implements TranslationProviderInterface
     /**
      * @var DeeplTranslationProvider
      */
-    private $provider;
+    private DeeplTranslationProvider $provider;
 
     /**
      * @var DatabaseTranslationCache
      */
-    private $cache;
+    private DatabaseTranslationCache $cache;
 
     /**
      * CacheTranslationProviderDecorator constructor.

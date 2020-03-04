@@ -83,6 +83,7 @@ final class Version20180610093112 extends AbstractErgonodeMigration
             'RO' => 'Romanian',
             'HU' => 'Hungarian',
             'SR' => 'Serbian',
+            'HE' => 'Hebrew',
             'HR' => 'Croatian',
             'SQ' => 'Albanian',
             'NO' => 'Norwegian',

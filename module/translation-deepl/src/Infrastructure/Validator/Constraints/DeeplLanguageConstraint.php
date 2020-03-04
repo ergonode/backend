@@ -17,7 +17,10 @@ use Symfony\Component\Validator\Constraint;
  */
 class DeeplLanguageConstraint extends Constraint
 {
-    public $message = '"{{ language }}" language is not supported';
+    /**
+     * @var string
+     */
+    public string $message = '"{{ language }}" language is not supported';
 
     /**
      * @return string

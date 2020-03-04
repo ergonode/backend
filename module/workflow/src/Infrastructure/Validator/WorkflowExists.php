@@ -19,5 +19,5 @@ class WorkflowExists extends Constraint
     /**
      * @var string
      */
-    public $message = 'Workflow {{ value }} already exists.';
+    public string $message = 'Workflow {{ value }} already exists.';
 }

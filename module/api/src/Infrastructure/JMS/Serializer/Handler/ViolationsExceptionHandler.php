@@ -26,7 +26,7 @@ class ViolationsExceptionHandler implements SubscribingHandlerInterface
     /**
      * @var ExceptionNormalizerInterface
      */
-    private $exceptionNormalizer;
+    private ExceptionNormalizerInterface $exceptionNormalizer;
 
     /**
      * @param ExceptionNormalizerInterface $exceptionNormalizer

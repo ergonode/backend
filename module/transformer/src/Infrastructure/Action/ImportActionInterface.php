@@ -10,15 +10,17 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Infrastructure\Action;
 
 use Ergonode\Transformer\Domain\Model\Record;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 /**
  */
 interface ImportActionInterface
 {
     /**
-     * @param Record $record
+     * @param ImportId $importId
+     * @param Record   $record
      */
-    public function action(Record $record): void;
+    public function action(ImportId $importId, Record $record): void;
 
     /**
      * @return string

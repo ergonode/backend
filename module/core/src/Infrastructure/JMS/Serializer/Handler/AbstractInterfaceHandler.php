@@ -22,12 +22,12 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
     /**
      * @var string
      */
-    protected $constant;
+    protected string $constant;
 
     /**
      * @var array
      */
-    private $map;
+    private array $map;
 
     /**
      * @param string $constant

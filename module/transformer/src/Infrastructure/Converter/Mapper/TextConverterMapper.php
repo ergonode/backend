@@ -36,9 +36,10 @@ class TextConverterMapper implements ConverterMapperInterface
     public function map(ConverterInterface $converter, array $line, ?string $default = null): ?string
     {
         $field = $converter->getField();
+        $value = $line[$field];
 
-        if ('' !== $line[$field]) {
-            return $line[$field];
+        if ($value && '' !== $value) {
+            return $value;
         }
 
         return $default;

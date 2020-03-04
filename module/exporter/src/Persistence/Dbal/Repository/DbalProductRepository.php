@@ -33,7 +33,6 @@ class DbalProductRepository implements ProductRepositoryInterface
     private SerializerInterface $serializer;
 
     /**
-     * DbalProductRepository constructor.
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */
@@ -44,7 +43,7 @@ class DbalProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * @param string $id
+     * @param Uuid $id
      *
      * @return AbstractExportProduct|null
      */

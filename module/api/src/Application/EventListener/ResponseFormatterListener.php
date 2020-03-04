@@ -20,7 +20,7 @@ class ResponseFormatterListener
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * @param SerializerInterface $serializer

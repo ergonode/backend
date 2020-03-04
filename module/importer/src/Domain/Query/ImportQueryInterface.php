@@ -11,6 +11,7 @@ namespace Ergonode\Importer\Domain\Query;
 
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
+use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 /**
  */
@@ -24,7 +25,9 @@ interface ImportQueryInterface
     public function getLineContent(ImportLineId $id): array;
 
     /**
+     * @param SourceId $id
+     *
      * @return DataSetInterface
      */
-    public function getDataSet(): DataSetInterface;
+    public function getDataSet(SourceId $id): DataSetInterface;
 }

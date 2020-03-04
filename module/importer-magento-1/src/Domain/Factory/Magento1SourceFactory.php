@@ -12,6 +12,7 @@ use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\Importer\Domain\Factory\SourceFactoryInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
@@ -29,15 +30,21 @@ class Magento1SourceFactory implements SourceFactoryInterface
 
     /**
      * @param SourceId $sourceId
-     * @param string   $filename
+     * @param string   $name
+     * @param array    $configuration
      *
      * @return AbstractSource
      */
-    public function create(SourceId $sourceId, string $filename): AbstractSource
+    public function create(SourceId $sourceId, string $name, array $configuration = []): AbstractSource
     {
-        return new Magento1CsvSource(
-            $sourceId,
-            $filename,
-        );
+        $languages = [];
+        foreach ($configuration['languages'] as $key => $language) {
+            $languages[$key] = new Language($language);
+        }
+        $defaultLanguage = new Language($configuration['defaultLanguage']);
+        $host = $configuration['host'];
+        $import = $configuration['import'];
+        
+        return new Magento1CsvSource($sourceId, $name, $defaultLanguage, $host, $languages, $import);
     }
 }

@@ -9,81 +9,118 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Model;
 
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use JMS\Serializer\Annotation as JMS;
+
 /**
  */
 class Record
 {
     /**
-     * @var array
+     * @var ValueInterface[]
+     *
+     * @JMS\Type(array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>)
      */
-    private array $columns;
+    private array $elements;
 
     /**
+     * @var ValueInterface[]
+     *
+     * @JMS\Type(array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>)
      */
-    public function __construct()
+    private array $values;
+
+    /**
+     * @param array $elements
+     */
+    public function __construct(array $elements = [])
     {
-        $this->columns = [];
+        $this->elements = [];
+        $this->values = [];
+        foreach ($elements as $key => $element) {
+            $this->set($key, $element);
+        }
     }
 
     /**
-     * @param string $collection
+     * @param string              $name
+     * @param ValueInterface|null $value
+     */
+    public function set(string $name, ?ValueInterface $value = null): void
+    {
+        $this->elements[$name] = $value;
+    }
+
+    /**
+     * @param string              $code
+     * @param ValueInterface|null $value
+     */
+    public function setValue(string $code, ?ValueInterface $value): void
+    {
+        $this->values[$code] = $value;
+    }
+
+    /**
      * @param string $name
-     * @param string $value
-     */
-    public function add(string $collection, string $name, ?string $value = null): void
-    {
-        $this->columns[$collection][$name] = $value;
-    }
-
-    /**
-     * @param string $column
      *
      * @return bool
      */
-    public function has(string $column): bool
+    public function has(string $name): bool
     {
-        foreach ($this->columns as $collection) {
-            if (array_key_exists($column, $collection)) {
-                return true;
-            }
+        if (array_key_exists($name, $this->elements)) {
+            return true;
         }
 
         return false;
     }
 
     /**
-     * @param string $column
-     *
-     * @return string|null
-     */
-    public function get(string $column): ?string
-    {
-        foreach ($this->columns as $collection) {
-            if (array_key_exists($column, $collection)) {
-                return $collection[$column];
-            }
-        }
-
-        throw new \InvalidArgumentException(\sprintf('Record haven\'t column %s', $column));
-    }
-
-    /**
-     * @param string $collection
-     *
-     * @return string[]
-     */
-    public function getColumns(string $collection): array
-    {
-        return $this->columns[$collection];
-    }
-
-    /**
-     * @param string $collection
+     * @param string $name
      *
      * @return bool
      */
-    public function hasColumns(string $collection): bool
+    public function hasValue(string $name): bool
     {
-        return isset($this->columns[$collection]);
+        if (array_key_exists($name, $this->values)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return ValueInterface|null
+     */
+    public function get(string $name): ?ValueInterface
+    {
+        if (array_key_exists($name, $this->elements)) {
+            return $this->elements[$name];
+        }
+
+        throw new \InvalidArgumentException(\sprintf('Record haven\'t field %s', $name));
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return ValueInterface|null
+     */
+    public function getValue(string $name): ?ValueInterface
+    {
+        if (array_key_exists($name, $this->values)) {
+            return $this->values[$name];
+        }
+
+        throw new \InvalidArgumentException(\sprintf('Record haven\'t value %s', $name));
+    }
+
+    /**
+     * @return ValueInterface[]
+     */
+    public function getValues(): array
+    {
+        return $this->values;
     }
 }

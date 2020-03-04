@@ -48,7 +48,8 @@ class CreateSourceCommandHandler
 
         $source = $factory->create(
             $command->getId(),
-            $command->getFilename(),
+            $command->getName(),
+            $command->getConfiguration(),
         );
 
         $this->repository->save($source);

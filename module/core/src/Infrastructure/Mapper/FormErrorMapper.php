@@ -18,7 +18,7 @@ class FormErrorMapper
     /**
      * @var FormErrorMapperMessageProvider
      */
-    private $provider;
+    private FormErrorMapperMessageProvider $provider;
 
     /**
      * @param FormErrorMapperMessageProvider $provider

@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Validator\Constraints;
 
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -56,9 +56,10 @@ class UserUniqueValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $id = UserId::fromEmail(new Email($value));
-
-        $user = $this->repository->load($id);
+        $user = false;
+        if (Email::isValid($value)) {
+            $user = $this->repository->load(UserId::fromEmail(new Email($value)));
+        }
 
         if ($user) {
             $this->context->buildViolation($constraint->message)

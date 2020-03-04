@@ -22,7 +22,7 @@ class WorkflowExistsValidator extends ConstraintValidator
     /**
      * @var WorkflowRepositoryInterface
      */
-    private $repository;
+    private WorkflowRepositoryInterface $repository;
 
     /**
      * @param WorkflowRepositoryInterface $repository

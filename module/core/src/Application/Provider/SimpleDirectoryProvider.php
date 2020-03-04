@@ -18,7 +18,7 @@ class SimpleDirectoryProvider implements DirectoryProviderInterface
     /**
      * @var string
      */
-    private $directory;
+    private string $directory;
 
     /**
      * @param string $directory

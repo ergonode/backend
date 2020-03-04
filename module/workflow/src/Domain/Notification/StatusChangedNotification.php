@@ -23,22 +23,22 @@ class StatusChangedNotification implements NotificationInterface
     /**
      * @var string
      */
-    private $message;
+    private string $message;
 
     /**
      * @var UserId
      */
-    private $userId;
+    private UserId $userId;
 
     /**
-     * @var array array
+     * @var array
      */
-    private $parameters;
+    private array $parameters;
 
     /**
      * @var \DateTime
      */
-    private $createdAt;
+    private \DateTime $createdAt;
 
     /**
      * @param Sku        $sku

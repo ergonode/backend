@@ -24,17 +24,17 @@ class CreateProductCommandHandler
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
      * @var CategoryRepositoryInterface
      */
-    private $categoryRepository;
+    private CategoryRepositoryInterface $categoryRepository;
 
     /**
      * @var ProductFactoryProvider
      */
-    private $productFactoryProvider;
+    private ProductFactoryProvider $productFactoryProvider;
 
     /**
      * @param ProductRepositoryInterface  $productRepository
@@ -58,7 +58,7 @@ class CreateProductCommandHandler
     {
         $categories = [];
         foreach ($command->getCategories() as $categoryId) {
-            $category = $this->categoryRepository->load(new CategoryId($categoryId));
+            $category = $this->categoryRepository->load($categoryId);
             Assert::notNull($category);
             $categories[] = $category->getCode();
         }

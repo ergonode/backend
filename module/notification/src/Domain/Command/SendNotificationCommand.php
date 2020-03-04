@@ -20,12 +20,12 @@ class SendNotificationCommand implements DomainCommandInterface
     /**
      * @var NotificationInterface
      */
-    private $notification;
+    private NotificationInterface $notification;
 
     /**
      * @var UserId[]
      */
-    private $recipients;
+    private array $recipients;
 
     /**
      * @param NotificationInterface $notification

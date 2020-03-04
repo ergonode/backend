@@ -13,8 +13,8 @@
 
     <!-- Build -->
     <target name="build" depends="cache:clear, create:directory, database:migrate" description="Standard build plan."/>
-    <target name="rebuild" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, database:fixture" description="Standard build plan with database recreation."/>
-    <target name="rebuild:dev" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, database:fixture:dev" description="Standard build plan with database recreation."/>
+    <target name="rebuild" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, cache:clear, database:fixture" description="Standard build plan with database recreation."/>
+    <target name="rebuild:dev" depends="cache:clear, create:directory, database:drop, database:create, database:migrate, cache:clear, database:fixture:dev" description="Standard build plan with database recreation."/>
 
     <!-- Create directories -->
     <target name="create:directory" description="Create build directories.">
@@ -70,7 +70,7 @@
     <!-- Cache -->
     <target name="cache:clear" description="Clear cache">
         <echo msg="Start clearing cache"/>
-        <exec command="APP_ENV=${APP_ENV} ${dir.console} cache:clear --no-interaction" logoutput="true" checkreturn="true" />
+        <exec command="APP_ENV=${APP_ENV} ${dir.console} cache:clear " logoutput="true" checkreturn="true" />
     </target>
 
     <!-- Database -->
@@ -108,7 +108,7 @@
     </target>
 
     <!-- Code style check -->
-    <target name="check:style" depends="check:cs" description="Check code style"/>
+    <target name="check:style" depends="check:cs, check:phpstan" description="Check code style"/>
 
     <!-- Mess detector -->
     <target name="check:md" description="Check PHP Mess Detector">

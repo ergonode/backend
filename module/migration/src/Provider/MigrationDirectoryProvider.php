@@ -20,7 +20,7 @@ class MigrationDirectoryProvider implements MigrationDirectoryProviderInterface
     /**
      * @var string[]
      */
-    private $directories = [];
+    private array $directories = [];
 
     /**
      * @param string          $path

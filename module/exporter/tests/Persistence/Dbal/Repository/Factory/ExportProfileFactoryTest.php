@@ -58,14 +58,17 @@ class ExportProfileFactoryTest extends TestCase
     public function testCreate() :void
     {
         $object = new ExportProfileFactory();
+        $id = ExportProfileId::generate();
         $exportProfile = $object->create(
             [
-                'id' => ExportProfileId::generate()->getValue(),
+                'id' => $id->getValue(),
                 'type' => get_class($this->testedClass),
                 'name' => $this->name,
                 'configuration' => '{}',
             ]
         );
+
+        $this->assertTrue($id->isEqual($exportProfile->getId()));
         $this->assertSame($exportProfile->getName(), $this->name);
         $this->assertSame($exportProfile->getConfiguration(), []);
     }

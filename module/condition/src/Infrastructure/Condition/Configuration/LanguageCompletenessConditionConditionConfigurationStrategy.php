@@ -69,10 +69,20 @@ class LanguageCompletenessConditionConditionConfigurationStrategy implements Con
                     'options' => [
                         LanguageCompletenessCondition::COMPLETE => $this
                             ->translator
-                            ->trans('Product translation is complete', [], 'condition', $language->getCode()),
+                            ->trans(
+                                LanguageCompletenessCondition::PRODUCT_TRANSLATION_COMPLETE,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                         LanguageCompletenessCondition::NOT_COMPLETE => $this
                             ->translator
-                            ->trans('Product translation is not complete', [], 'condition', $language->getCode()),
+                            ->trans(
+                                LanguageCompletenessCondition::PRODUCT_TRANSLATION_NOT_COMPLETE,
+                                [],
+                                'condition',
+                                $language->getCode()
+                            ),
                     ],
                 ],
                 [

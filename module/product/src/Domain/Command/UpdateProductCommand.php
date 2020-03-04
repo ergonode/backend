@@ -12,7 +12,9 @@ namespace Ergonode\Product\Domain\Command;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -23,23 +25,35 @@ class UpdateProductCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private $id;
+    private ProductId $id;
 
     /**
      * @var CategoryId[]
      *
      * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
-    private $categories;
+    private array $categories;
+
+    /**
+     * @var ValueInterface[]
+     *
+     * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
+     */
+    private array $attributes;
 
     /**
      * @param ProductId $productId
      * @param array     $categories
+     * @param array     $attributes
      */
-    public function __construct(ProductId $productId, array $categories = [])
+    public function __construct(ProductId $productId, array $categories = [], array $attributes = [])
     {
+        Assert::allIsInstanceOf($categories, CategoryId::class);
+        Assert::allIsInstanceOf($attributes, ValueInterface::class);
+
         $this->id = $productId;
         $this->categories = $categories;
+        $this->attributes = $attributes;
     }
 
     /**
@@ -56,5 +70,13 @@ class UpdateProductCommand implements DomainCommandInterface
     public function getCategories(): array
     {
         return $this->categories;
+    }
+
+    /**
+     * @return ValueInterface[]
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
     }
 }

@@ -22,14 +22,7 @@ class CreateSourceCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SourceId")
      */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     */
-    private string $filename;
+    private SourceId $id;
 
     /**
      * @var string
@@ -39,16 +32,27 @@ class CreateSourceCommand implements DomainCommandInterface
     private string $sourceType;
 
     /**
-     * @param string $filename
-     * @param string $sourceType
-     *
-     * @throws \Exception
+     * @var string
      */
-    public function __construct(string $filename, string $sourceType)
+    private string $name;
+
+    /**
+     * @var array
+     */
+    private array $configuration;
+
+    /**
+     * @param SourceId $id
+     * @param string   $sourceType
+     * @param string   $name
+     * @param array    $configuration
+     */
+    public function __construct(SourceId $id, string $sourceType, string $name, array $configuration = [])
     {
-        $this->id = SourceId::generate();
-        $this->filename = $filename;
+        $this->id = $id;
         $this->sourceType = $sourceType;
+        $this->name = $name;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -62,9 +66,17 @@ class CreateSourceCommand implements DomainCommandInterface
     /**
      * @return string
      */
-    public function getFilename(): string
+    public function getName(): string
     {
-        return $this->filename;
+        return $this->name;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfiguration(): array
+    {
+        return $this->configuration;
     }
 
     /**

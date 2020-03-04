@@ -34,17 +34,17 @@ class StatusDeleteAction
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @var ExistingRelationshipMessageBuilderInterface
      */
-    private $existingRelationshipMessageBuilder;
+    private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
     /**
      * @param MessageBusInterface                         $messageBus

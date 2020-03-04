@@ -23,7 +23,7 @@ class WorkflowParamConverter implements ParamConverterInterface
     /**
      * @var WorkflowProvider
      */
-    private $provider;
+    private WorkflowProvider $provider;
 
     /**
      * @param WorkflowProvider $provider

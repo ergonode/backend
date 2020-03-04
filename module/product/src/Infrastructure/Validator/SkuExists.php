@@ -19,5 +19,5 @@ class SkuExists extends Constraint
     /**
      * @var string
      */
-    public $message = 'Sku {{ value }} already exists.';
+    public string $message = 'Sku {{ value }} already exists.';
 }

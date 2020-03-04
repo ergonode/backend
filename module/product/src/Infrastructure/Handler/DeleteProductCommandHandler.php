@@ -23,12 +23,12 @@ class DeleteProductCommandHandler
     /**
      * @var ProductRepositoryInterface
      */
-    private $repository;
+    private ProductRepositoryInterface $repository;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @param ProductRepositoryInterface     $repository
