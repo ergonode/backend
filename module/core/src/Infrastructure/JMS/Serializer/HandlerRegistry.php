@@ -22,12 +22,12 @@ class HandlerRegistry implements HandlerRegistryInterface
     /**
      * @var array
      */
-    private $map = [];
+    private array $map = [];
 
     /**
      * @var HandlerRegistryInterface
      */
-    private $registry;
+    private HandlerRegistryInterface $registry;
 
     /**
      * @param ContainerInterface            $container

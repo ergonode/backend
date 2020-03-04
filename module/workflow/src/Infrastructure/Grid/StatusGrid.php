@@ -28,7 +28,7 @@ class StatusGrid extends AbstractGrid
     /**
      * @var StatusQueryInterface
      */
-    private $statusQuery;
+    private StatusQueryInterface $statusQuery;
 
     /**
      * @param StatusQueryInterface $statusQuery

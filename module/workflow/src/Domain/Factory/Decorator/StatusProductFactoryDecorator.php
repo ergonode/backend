@@ -26,12 +26,12 @@ class StatusProductFactoryDecorator implements ProductFactoryInterface
     /**
      * @var ProductFactoryInterface
      */
-    private $factory;
+    private ProductFactoryInterface $factory;
 
     /**
      * @var WorkflowRepositoryInterface
      */
-    private $repository;
+    private WorkflowRepositoryInterface $repository;
 
     /**
      * @param ProductFactoryInterface     $factory

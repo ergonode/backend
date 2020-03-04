@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class StatusChangeFormModel
 {
     /**
-     * @var Color
+     * @var Color|null
      *
      * @Assert\NotBlank()
      * @Assert\Length(
@@ -26,7 +26,7 @@ class StatusChangeFormModel
      *     minMessage="Color must be in hex format", maxMessage="Color must be in hex format"
      *  )
      */
-    public $color;
+    public ?Color $color;
 
     /**
      * @var array
@@ -39,7 +39,7 @@ class StatusChangeFormModel
      *  )
      * })
      */
-    public $name;
+    public array $name;
 
     /**
      * @var array
@@ -52,5 +52,14 @@ class StatusChangeFormModel
      *  )
      * })
      */
-    public $description;
+    public array $description;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->color = null;
+        $this->name = [];
+        $this->description = [];
+    }
 }

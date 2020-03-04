@@ -19,7 +19,7 @@ class FormErrorMapperMessageProvider
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param TranslatorInterface $translator

@@ -23,7 +23,7 @@ class UsageReadAction
     /**
      * @var UsageDeeplProviderInterface
      */
-    private $usageProvider;
+    private UsageDeeplProviderInterface $usageProvider;
 
     /**
      * @param UsageDeeplProviderInterface $usageProvider

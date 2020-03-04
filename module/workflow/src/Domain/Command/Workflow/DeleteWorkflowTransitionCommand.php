@@ -23,21 +23,21 @@ class DeleteWorkflowTransitionCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $workflowId;
+    private WorkflowId $workflowId;
 
     /**
      * @var StatusCode
      *
      * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
-    private $source;
+    private StatusCode $source;
 
     /**
      * @var StatusCode
      *
      * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
-    private $destination;
+    private StatusCode $destination;
 
     /**
      * @param WorkflowId $workflowId

@@ -22,7 +22,7 @@ class StringValue implements ValueInterface
      *
      * @JMS\Type("string")
      */
-    private $value;
+    private string $value;
 
     /**
      * @param string $value

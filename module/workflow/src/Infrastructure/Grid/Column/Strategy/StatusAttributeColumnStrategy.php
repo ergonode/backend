@@ -24,7 +24,7 @@ class StatusAttributeColumnStrategy implements AttributeColumnStrategyInterface
     /**
      * @var StatusQueryInterface
      */
-    private $statusQuery;
+    private StatusQueryInterface $statusQuery;
 
     /**
      * @param StatusQueryInterface $statusQuery

@@ -11,7 +11,6 @@ namespace Ergonode\Workflow\Domain\Entity;
 
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
-
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Domain\AbstractEntity;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
@@ -37,33 +36,33 @@ class Workflow extends AbstractAggregateRoot
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $id;
+    private WorkflowId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $code;
+    private string $code;
 
     /**
      * @var StatusCode[]
      *
      * @JMS\Type("array<Ergonode\Workflow\Domain\ValueObject\StatusCode>")
      */
-    private $statuses;
+    private array $statuses;
 
     /**
      * @var Transition[]
      *
      * @JMS\Type("array<string, Ergonode\Workflow\Domain\Entity\Transition>")
      */
-    private $transitions;
+    private array $transitions;
 
     /**
-     * @var StatusCode
+     * @var StatusCode|null
      */
-    private $defaultStatus;
+    private ?StatusCode $defaultStatus;
 
     /**
      * @param WorkflowId   $id
@@ -342,6 +341,7 @@ class Workflow extends AbstractAggregateRoot
         $this->code = $event->getCode();
         $this->statuses = [];
         $this->transitions = [];
+        $this->defaultStatus = null;
         foreach ($event->getStatuses() as $status) {
             if (null === $this->defaultStatus) {
                 $this->defaultStatus = $status;

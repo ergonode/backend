@@ -19,5 +19,5 @@ class StatusNotExists extends Constraint
     /**
      * @var string
      */
-    public $message = 'Status {{ value }} not exists';
+    public string $message = 'Status {{ value }} not exists';
 }

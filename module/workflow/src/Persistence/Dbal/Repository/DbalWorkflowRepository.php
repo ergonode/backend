@@ -24,12 +24,12 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
     /**
      * @var DomainEventStoreInterface
      */
-    private $eventStore;
+    private DomainEventStoreInterface $eventStore;
 
     /**
      * @var EventBusInterface
      */
-    private $eventBus;
+    private EventBusInterface $eventBus;
 
     /**
      * DbalWorkflowRepository constructor.

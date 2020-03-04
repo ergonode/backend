@@ -22,7 +22,7 @@ class DefaultStatusRelationshipStrategy implements RelationshipStrategyInterface
     /**
      * @var WorkflowQueryInterface
      */
-    private $query;
+    private WorkflowQueryInterface $query;
 
     /**
      * @param WorkflowQueryInterface $query

@@ -24,7 +24,7 @@ class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterfac
     /**
      * @var TransitionQueryInterface
      */
-    private $query;
+    private TransitionQueryInterface $query;
 
     /**
      * @param TransitionQueryInterface $query

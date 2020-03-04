@@ -24,21 +24,21 @@ class WorkflowCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $id;
+    private WorkflowId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $code;
+    private string $code;
 
     /**
      * @var StatusCode[]
      *
      * @JMS\Type("array<Ergonode\Workflow\Domain\ValueObject\StatusCode>")
      */
-    private $statuses;
+    private array $statuses;
 
     /**
      * @param WorkflowId   $id

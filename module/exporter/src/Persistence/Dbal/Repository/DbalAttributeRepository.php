@@ -32,7 +32,6 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
     private SerializerInterface $serializer;
 
     /**
-     * DbalAttributeRepository constructor.
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */
@@ -72,6 +71,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
             self::TABLE_ATTRIBUTE,
             [
                 'data' => $this->serializer->serialize($attribute, 'json'),
+                'code' => $attribute->getCode(),
             ],
             [
                 'id' => $attribute->getId()->toString(),

@@ -26,12 +26,12 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     /**
      * @var ProductQueryInterface
      */
-    private $query;
+    private ProductQueryInterface $query;
 
     /**
      * @var array
      */
-    private $cache = [];
+    private array $cache = [];
 
     /**
      * @param ProductQueryInterface $query

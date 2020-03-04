@@ -33,31 +33,31 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     /**
      * @var ProductId
      */
-    private $id;
+    private ProductId $id;
 
     /**
      * @var Sku
      */
-    private $sku;
+    private Sku $sku;
 
     /**
      * @var int
      */
-    private $version;
+    private int $version;
 
     /**
      * @var ValueInterface[]
      *
      * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
-    private $attributes;
+    private array $attributes;
 
     /**
      * @var string[]
      *
      * @JMS\Type("array<string>")
      */
-    private $categories;
+    private array $categories;
 
     /**
      * @param ProductId $id

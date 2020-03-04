@@ -20,12 +20,12 @@ class LanguageProvider implements LanguageProviderInterface
     /**
      * @var LanguageQueryInterface
      */
-    private $query;
+    private LanguageQueryInterface $query;
 
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param LanguageQueryInterface $query

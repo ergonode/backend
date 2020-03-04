@@ -23,21 +23,21 @@ class StatusColorChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
-    private $id;
+    private StatusId $id;
 
     /**
      * @var Color
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
      */
-    private $from;
+    private Color $from;
 
     /**
      * @var Color
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
      */
-    private $to;
+    private Color $to;
 
     /**
      * @param StatusId $id

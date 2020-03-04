@@ -28,22 +28,22 @@ class NotificationGridReadAction
     /**
      * @var NotificationGrid
      */
-    private $grid;
+    private NotificationGrid $grid;
 
     /**
      * @var NotificationQueryInterface
      */
-    private $query;
+    private NotificationQueryInterface $query;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $userProvider;
+    private AuthenticatedUserProviderInterface $userProvider;
 
     /**
      * @param NotificationGrid                   $grid

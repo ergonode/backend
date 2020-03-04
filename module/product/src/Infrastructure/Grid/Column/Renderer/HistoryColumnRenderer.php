@@ -25,7 +25,7 @@ class HistoryColumnRenderer implements ColumnRendererInterface
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param TranslatorInterface $translator
