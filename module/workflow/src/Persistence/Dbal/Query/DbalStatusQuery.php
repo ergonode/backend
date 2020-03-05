@@ -20,12 +20,12 @@ use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
  */
 class DbalStatusQuery implements StatusQueryInterface
 {
-    private const TABLE = 'status';
+    private const STATUS_TABLE = 'public.status';
 
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection
@@ -60,12 +60,26 @@ class DbalStatusQuery implements StatusQueryInterface
      *
      * @return array
      */
+    public function getDictionary(Language $language): array
+    {
+        return $this->getQuery($language)
+            ->select('id, code')
+            ->orderBy('name', 'desc')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
     public function getAllStatuses(language $language): array
     {
         $qb = $this->connection->createQueryBuilder();
 
         $records = $qb->select(sprintf('code, color, name->>\'%s\' as name', $language->getCode()))
-            ->from(self::TABLE, 'a')
+            ->from(self::STATUS_TABLE, 'a')
             ->execute()
             ->fetchAll();
 
@@ -86,7 +100,7 @@ class DbalStatusQuery implements StatusQueryInterface
         $qb = $this->connection->createQueryBuilder();
 
         return $qb->select('code')
-            ->from(self::TABLE, 'a')
+            ->from(self::STATUS_TABLE, 'a')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
     }
@@ -104,6 +118,6 @@ class DbalStatusQuery implements StatusQueryInterface
                 $language->getCode(),
                 $language->getCode()
             ))
-            ->from(self::TABLE, 'a');
+            ->from(self::STATUS_TABLE, 'a');
     }
 }

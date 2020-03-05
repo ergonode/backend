@@ -24,12 +24,12 @@ class CreatedByAttributeProductFactoryDecorator implements ProductFactoryInterfa
     /**
      * @var ProductFactoryInterface
      */
-    private $factory;
+    private ProductFactoryInterface $factory;
 
     /**
      * @var TokenStorageInterface
      */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     /**
      * @param ProductFactoryInterface $factory

@@ -18,22 +18,22 @@ class FilterValue
     /**
      * @var string
      */
-    private $operator;
+    private string $operator;
 
     /**
      * @var string|null
      */
-    private $value;
+    private ?string $value;
 
     /**
      * @var string
      */
-    private $column;
+    private string $column;
 
     /**
      * @var Language|null
      */
-    private $language;
+    private ?Language $language;
 
     /**
      * @param string        $column

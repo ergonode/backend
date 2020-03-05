@@ -22,12 +22,12 @@ class TransportMessageSerializer implements MessageSerializerInterface
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * @var string
      */
-    private $format;
+    private string $format;
 
     /**
      * @param SerializerInterface $serializer

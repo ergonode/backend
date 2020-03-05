@@ -23,21 +23,21 @@ class WorkflowTransitionRemovedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $id;
+    private WorkflowId $id;
 
     /**
      * @var StatusCode
      *
      * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
-    private $source;
+    private StatusCode $source;
 
     /**
      * @var StatusCode
      *
      * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
-    private $destination;
+    private StatusCode $destination;
 
     /**
      * @param WorkflowId $id

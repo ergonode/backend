@@ -40,7 +40,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection

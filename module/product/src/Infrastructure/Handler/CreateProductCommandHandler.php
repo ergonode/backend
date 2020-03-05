@@ -9,12 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Handler;
 
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Product\Domain\Command\CreateProductCommand;
 use Ergonode\Product\Domain\Provider\ProductFactoryProvider;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Webmozart\Assert\Assert;
 
 /**
@@ -24,17 +23,17 @@ class CreateProductCommandHandler
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
      * @var CategoryRepositoryInterface
      */
-    private $categoryRepository;
+    private CategoryRepositoryInterface $categoryRepository;
 
     /**
      * @var ProductFactoryProvider
      */
-    private $productFactoryProvider;
+    private ProductFactoryProvider $productFactoryProvider;
 
     /**
      * @param ProductRepositoryInterface  $productRepository

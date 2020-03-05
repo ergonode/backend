@@ -21,29 +21,29 @@ use Ergonode\Multimedia\Infrastructure\Service\Upload\MultimediaUploadService;
 class AddMultimediaCommandHandler
 {
     /**
-     * @var MultimediaUploadService;
+     * @var MultimediaUploadService
      */
-    private $uploadService;
+    private MultimediaUploadService $uploadService;
 
     /**
      * @var MultimediaQueryInterface
      */
-    private $query;
+    private MultimediaQueryInterface $query;
 
     /**
      * @var HashCalculationServiceInterface
      */
-    private $hashService;
+    private HashCalculationServiceInterface $hashService;
 
     /**
      * @var MultimediaRepositoryInterface
      */
-    private $repository;
+    private MultimediaRepositoryInterface $repository;
 
     /**
      * @var MultimediaFactory
      */
-    private $factory;
+    private MultimediaFactory $factory;
 
     /**
      * @param MultimediaUploadService         $uploadService

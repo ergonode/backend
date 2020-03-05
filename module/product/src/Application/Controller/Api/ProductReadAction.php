@@ -32,7 +32,7 @@ class ProductReadAction
     /**
      * @var GetProductQueryInterface
      */
-    private $getProductQuery;
+    private GetProductQueryInterface $getProductQuery;
 
     /**
      * @param GetProductQueryInterface $getProductQuery

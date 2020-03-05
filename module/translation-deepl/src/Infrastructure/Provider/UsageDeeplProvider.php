@@ -19,7 +19,7 @@ class UsageDeeplProvider implements UsageDeeplProviderInterface
     /**
      * @var string
      */
-    private $deeplAuthKey;
+    private string $deeplAuthKey;
 
     /**
      * @param string $deeplAuthKey

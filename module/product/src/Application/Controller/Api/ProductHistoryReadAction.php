@@ -35,15 +35,15 @@ class ProductHistoryReadAction
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
     /**
      * @var HistoryQueryInterface
      */
-    private $query;
+    private HistoryQueryInterface $query;
     /**
      * @var ProductHistoryGrid
      */
-    private $grid;
+    private ProductHistoryGrid $grid;
 
     /**
      * @param GridRenderer          $gridRenderer

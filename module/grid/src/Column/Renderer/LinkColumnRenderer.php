@@ -23,12 +23,12 @@ class LinkColumnRenderer implements ColumnRendererInterface
     /**
      * @var UrlGeneratorInterface
      */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
     /**
      * @var AuthorizationCheckerInterface
      */
-    private $checker;
+    private AuthorizationCheckerInterface $checker;
 
     /**
      * @param UrlGeneratorInterface         $urlGenerator

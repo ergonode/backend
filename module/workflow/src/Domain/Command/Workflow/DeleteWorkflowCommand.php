@@ -19,7 +19,7 @@ class DeleteWorkflowCommand implements DomainCommandInterface
     /**
      * @var WorkflowId
      */
-    private $id;
+    private WorkflowId $id;
 
     /**
      * @param WorkflowId $id

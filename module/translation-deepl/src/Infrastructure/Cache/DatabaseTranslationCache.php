@@ -24,7 +24,7 @@ class DatabaseTranslationCache implements CacheInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * TranslationDeeplProviderDecorator constructor.

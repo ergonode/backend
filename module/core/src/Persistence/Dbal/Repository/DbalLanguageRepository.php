@@ -23,11 +23,11 @@ class DbalLanguageRepository implements LanguageRepositoryInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
     /**
      * @var DbalLanguageQuery
      */
-    private $query;
+    private DbalLanguageQuery $query;
 
     /**
      * @param Connection        $connection

@@ -34,22 +34,22 @@ class MultimediaController extends AbstractController
     /**
      * @var MultimediaFileProviderInterface
      */
-    private $fileProvider;
+    private MultimediaFileProviderInterface $fileProvider;
 
     /**
      * @var MultimediaQueryInterface
      */
-    private $query;
+    private MultimediaQueryInterface $query;
 
     /**
      * @var HashCalculationServiceInterface
      */
-    private $hashService;
+    private HashCalculationServiceInterface $hashService;
 
     /**
      * @var CommandBusInterface
      */
-    private $commandBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @param MultimediaFileProviderInterface $fileProvider

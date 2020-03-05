@@ -18,17 +18,17 @@ class RequestColumn
     /**
      * @var string
      */
-    private $column;
+    private string $column;
 
     /**
      * @var Language|null
      */
-    private $language;
+    private ?Language $language;
 
     /**
      * @var bool
      */
-    private $show;
+    private bool $show;
 
     /**
      * @param string        $column

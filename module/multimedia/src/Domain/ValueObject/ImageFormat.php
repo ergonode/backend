@@ -34,7 +34,7 @@ class ImageFormat
     /**
      * @var string
      */
-    private $format;
+    private string $format;
 
     /**
      * @param string $format

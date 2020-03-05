@@ -27,7 +27,7 @@ class DbalTransitionQuery implements TransitionQueryInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection

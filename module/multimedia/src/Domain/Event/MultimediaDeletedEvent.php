@@ -22,7 +22,7 @@ class MultimediaDeletedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
      */
-    private $id;
+    private MultimediaId $id;
 
     /**
      * @param MultimediaId $id

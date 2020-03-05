@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Infrastructure\Provider;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -20,9 +19,9 @@ class SimpleMultimediaFileProvider implements MultimediaFileProviderInterface
     private const PATH = '%s/public/multimedia/%s.%s';
 
     /**
-     * @var Kernel
+     * @var KernelInterface
      */
-    private $kernel;
+    private KernelInterface $kernel;
 
     /**
      * @param KernelInterface $kernel

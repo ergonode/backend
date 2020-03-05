@@ -7,9 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductSimple\Domain\Entity;
-
-use Ergonode\Product\Domain\Entity\AbstractProduct;
+namespace Ergonode\Product\Domain\Entity;
 
 /**
  */

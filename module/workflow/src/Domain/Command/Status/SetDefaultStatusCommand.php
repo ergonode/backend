@@ -19,18 +19,18 @@ use JMS\Serializer\Annotation as JMS;
 class SetDefaultStatusCommand implements DomainCommandInterface
 {
     /**
-     * @var StatusCode
+     * @var WorkflowId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $workflowId;
+    private WorkflowId $workflowId;
 
     /**
      * @var StatusCode
      *
      * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusCode")
      */
-    private $statusCode;
+    private StatusCode $statusCode;
 
     /**
      * @param WorkflowId $workflowId

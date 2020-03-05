@@ -16,7 +16,7 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
 
 /**
  */
@@ -25,12 +25,12 @@ class DbalProductRepository implements ProductRepositoryInterface
     /**
      * @var DomainEventStoreInterface
      */
-    private $eventStore;
+    private DomainEventStoreInterface $eventStore;
 
     /**
      * @var EventBusInterface
      */
-    private $eventBus;
+    private EventBusInterface $eventBus;
 
     /**
      * @param DomainEventStoreInterface $eventStore

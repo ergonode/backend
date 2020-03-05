@@ -23,7 +23,7 @@ class AttributeColumnProvider
     /**
      * @var AttributeColumnStrategyInterface[]
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param AttributeColumnStrategyInterface ...$strategies

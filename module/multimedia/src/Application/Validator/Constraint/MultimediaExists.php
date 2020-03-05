@@ -20,7 +20,7 @@ class MultimediaExists extends Constraint
     /**
      * @var string
      */
-    public $message = 'Multimedia {{ value }} not exists.';
+    public string $message = 'Multimedia {{ value }} not exists.';
 
     /**
      * @return string

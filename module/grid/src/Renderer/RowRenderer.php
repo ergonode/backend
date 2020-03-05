@@ -20,7 +20,7 @@ class RowRenderer implements RowRendererInterface
     /**
      * @var ColumnRendererInterface[]
      */
-    private $rendererCollection;
+    private array $rendererCollection;
 
     /**
      * @param ColumnRendererInterface ...$collection

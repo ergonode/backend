@@ -29,12 +29,12 @@ class StatusProductRelationshipStrategy implements RelationshipStrategyInterface
     /**
      * @var ProductQueryInterface
      */
-    private $query;
+    private ProductQueryInterface $query;
 
     /**
      * @var StatusRepositoryInterface
      */
-    private $repository;
+    private StatusRepositoryInterface $repository;
 
     /**
      * @param ProductQueryInterface     $query

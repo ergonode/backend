@@ -18,9 +18,9 @@ class LabelFilter implements FilterInterface
     public const TYPE = 'SELECT';
 
     /**
-     * @var array;
+     * @var array
      */
-    private $options;
+    private array $options;
 
     /**
      * @param array $options

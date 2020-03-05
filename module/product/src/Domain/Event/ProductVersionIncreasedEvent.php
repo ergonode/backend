@@ -22,21 +22,21 @@ class ProductVersionIncreasedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private $id;
+    private ProductId $id;
 
     /**
      * @var int
      *
      * @JMS\Type("integer")
      */
-    private $from;
+    private int $from;
 
     /**
      * @var int
      *
      * @JMS\Type("integer")
      */
-    private $to;
+    private int $to;
 
     /**
      * @param ProductId $id

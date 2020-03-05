@@ -23,14 +23,14 @@ class WorkflowTransitionAddedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $id;
+    private WorkflowId $id;
 
     /**
      * @var Transition
      *
      * @JMS\Type("Ergonode\Workflow\Domain\Entity\Transition")
      */
-    private $transition;
+    private Transition $transition;
 
     /**
      * @param WorkflowId $id

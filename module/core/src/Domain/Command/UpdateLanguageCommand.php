@@ -23,7 +23,7 @@ class UpdateLanguageCommand implements DomainCommandInterface
      *
      * @JMS\Type("array<Ergonode\Core\Domain\ValueObject\Language>")
      */
-    private $languages;
+    private array $languages;
 
     /**
      * @param array $languages

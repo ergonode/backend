@@ -16,7 +16,7 @@ class ProductUpdateFormModel
     /**
      * @var array
      */
-    public $categories;
+    public array $categories;
 
     /**
      */

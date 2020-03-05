@@ -25,9 +25,16 @@ class MultimediaUploadModel
      *
      * @Vich\UploadableField(mapping="attachment", fileNameProperty="fileName", size="fileSize")
      *
-     * @var UploadedFile
+     * @var null|UploadedFile
      */
-    public $upload;
+    public ?UploadedFile $upload;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->upload = null;
+    }
 
     /**
      * @Assert\Callback
