@@ -28,6 +28,13 @@ interface StatusQueryInterface
      *
      * @return array
      */
+    public function getDictionary(Language $language): array;
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
     public function getAllStatuses(language $language): array;
 
     /**
