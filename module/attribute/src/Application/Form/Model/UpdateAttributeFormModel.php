@@ -91,7 +91,7 @@ class UpdateAttributeFormModel
         $this->hint = [];
         $this->type = $type;
         $this->groups = [];
-        $this->parameters = new AttributeParametersModel();
+        $this->parameters = null;
         $this->options = new ArrayCollection();
     }
 }

@@ -146,7 +146,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                             }
                         }
                         $record->setValue($field, new TranslatableStringValue(new TranslatableString($translation)));
-                    } else if (null !== $value) {
+                    } elseif (null !== $value) {
                         $record->setValue($field, new StringValue($value));
                     }
                 }

@@ -86,7 +86,7 @@ class CreateAttributeFormModel
     public $groups;
 
     /**
-     * @var AttributeParametersModel
+     * @var mixed
      */
     public $parameters;
 
@@ -101,7 +101,6 @@ class CreateAttributeFormModel
     public $options;
 
     /**
-     * AttributeFormModel constructor.
      */
     public function __construct()
     {
@@ -109,7 +108,7 @@ class CreateAttributeFormModel
         $this->placeholder = [];
         $this->hint = [];
         $this->groups = [];
-        $this->parameters = new AttributeParametersModel();
+        $this->parameters = null;
         $this->options = new ArrayCollection();
     }
 }
