@@ -23,7 +23,7 @@ class StatusIdNotExistsValidator extends ConstraintValidator
     /**
      * @var StatusRepositoryInterface
      */
-    private $repository;
+    private StatusRepositoryInterface $repository;
 
     /**
      * @param StatusRepositoryInterface $repository
