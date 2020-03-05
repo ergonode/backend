@@ -22,12 +22,12 @@ class CreateProductDraftCommandHandler
     /**
      * @var ProductDraftRepositoryInterface
      */
-    private $repository;
+    private ProductDraftRepositoryInterface $repository;
 
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
      * @param ProductDraftRepositoryInterface $repository

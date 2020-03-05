@@ -37,22 +37,22 @@ class ChangeProductAttributeValueCommandHandler
     /**
      * @var ProductDraftRepositoryInterface
      */
-    private $repository;
+    private ProductDraftRepositoryInterface $repository;
 
     /**
      * @var ValueManipulationService
      */
-    private $service;
+    private ValueManipulationService $service;
 
     /**
      * @var AttributeRepositoryInterface
      */
-    private $attributeRepository;
+    private AttributeRepositoryInterface $attributeRepository;
 
     /**
      * @var TokenStorageInterface
      */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     /**
      * @param ProductDraftRepositoryInterface $repository

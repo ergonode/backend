@@ -22,12 +22,12 @@ class DraftProvider
     /**
      * @var ProductDraftRepositoryInterface
      */
-    private $repository;
+    private ProductDraftRepositoryInterface $repository;
 
     /**
      * @var DraftQueryInterface
      */
-    private $query;
+    private DraftQueryInterface $query;
 
     /**
      * @param ProductDraftRepositoryInterface $repository

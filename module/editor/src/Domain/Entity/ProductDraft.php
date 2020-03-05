@@ -28,22 +28,22 @@ class ProductDraft extends AbstractAggregateRoot
     /**
      * @var ProductDraftId
      */
-    private $id;
+    private ProductDraftId $id;
 
     /**
      * @var ProductId
      */
-    private $productId;
+    private ProductId $productId;
 
     /**
      * @var bool
      */
-    private $applied;
+    private bool $applied;
 
     /**
      * @var ValueInterface[]
      */
-    private $attributes;
+    private array $attributes;
 
     /**
      * @param ProductDraftId  $id
