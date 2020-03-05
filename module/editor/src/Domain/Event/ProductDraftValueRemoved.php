@@ -25,21 +25,21 @@ class ProductDraftValueRemoved implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
-    private $id;
+    private ProductDraftId $id;
 
     /**
      * @var AttributeCode
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
-    private $attributeCode;
+    private AttributeCode $attributeCode;
 
     /**
      * @var ValueInterface
      *
      * @JMS\Type("Ergonode\Value\Domain\ValueObject\ValueInterface")
      */
-    private $old;
+    private ValueInterface $old;
 
     /**
      * @param ProductDraftId $id

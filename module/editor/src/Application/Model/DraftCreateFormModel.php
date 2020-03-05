@@ -16,9 +16,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 class DraftCreateFormModel
 {
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\NotBlank()
      */
-    public $productId;
+    public ?string $productId;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->productId = null;
+    }
 }
