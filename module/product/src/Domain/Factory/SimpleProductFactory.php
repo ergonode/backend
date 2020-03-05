@@ -7,14 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductSimple\Domain\Factory;
+namespace Ergonode\Product\Domain\Factory;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\ProductSimple\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Webmozart\Assert\Assert;
 

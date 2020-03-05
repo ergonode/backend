@@ -32,7 +32,6 @@ return [
     Ergonode\Segment\ErgonodeSegmentBundle::class => ['all' => true],
     Ergonode\Category\ErgonodeCategoryBundle::class => ['all' => true],
     Ergonode\Product\ErgonodeProductBundle::class => ['all' => true],
-    Ergonode\ProductSimple\ErgonodeProductSimpleBundle::class => ['all' => true],
     Ergonode\ProductCollection\ErgonodeProductCollectionBundle::class => ['all' => true],
     Ergonode\Attribute\ErgonodeAttributeBundle::class => ['all' => true],
     Ergonode\Completeness\CompletenessBundle::class => ['all' => true],

@@ -42,7 +42,7 @@ services:
     Ergonode\Workflow\Domain\Query\WorkflowQueryInterface: '@Ergonode\Workflow\Persistence\Dbal\Query\DbalWorkflowQuery'
 
     Ergonode\Workflow\Domain\Factory\Decorator\StatusProductFactoryDecorator:
-        decorates: Ergonode\ProductSimple\Domain\Factory\SimpleProductFactory
+        decorates: Ergonode\Product\Domain\Factory\SimpleProductFactory
         arguments:
             - '@Ergonode\Workflow\Domain\Factory\Decorator\StatusProductFactoryDecorator.inner'
 

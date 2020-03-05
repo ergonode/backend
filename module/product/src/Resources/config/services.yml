@@ -41,12 +41,12 @@ services:
     Ergonode\Product\Domain\Query\GetProductQueryInterface: '@Ergonode\Product\Persistence\Dbal\Query\GetProductQuery'
 
     Ergonode\Product\Domain\Factory\Decorator\CreateAtAttributeProductFactoryDecorator:
-        decorates: Ergonode\ProductSimple\Domain\Factory\SimpleProductFactory
+        decorates: Ergonode\Product\Domain\Factory\SimpleProductFactory
         arguments:
             - '@Ergonode\Product\Domain\Factory\Decorator\CreateAtAttributeProductFactoryDecorator.inner'
 
     Ergonode\Product\Domain\Factory\Decorator\CreatedByAttributeProductFactoryDecorator:
-        decorates: Ergonode\ProductSimple\Domain\Factory\SimpleProductFactory
+        decorates: Ergonode\Product\Domain\Factory\SimpleProductFactory
         arguments:
             - '@Ergonode\Product\Domain\Factory\Decorator\CreatedByAttributeProductFactoryDecorator.inner'
 
