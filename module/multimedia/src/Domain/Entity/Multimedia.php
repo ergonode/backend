@@ -21,34 +21,34 @@ class Multimedia extends AbstractAggregateRoot
     /**
      * @var MultimediaId
      */
-    private $id;
+    private MultimediaId $id;
 
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
-     * @var string;
+     * @var string
      */
-    private $extension;
+    private string $extension;
 
     /**
-     * @var string|null;
+     * @var string|null
      */
-    private $mime;
+    private ?string $mime;
 
     /**
      * The file size in bytes.
      *
      * @var int
      */
-    private $size;
+    private int $size;
 
     /**
-     * @var Hash;
+     * @var Hash
      */
-    private $hash;
+    private Hash $hash;
 
     /**
      * @param MultimediaId $id
