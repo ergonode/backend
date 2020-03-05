@@ -21,7 +21,7 @@ class RangeFilter implements FilterInterface
     /**
      * @var Range
      */
-    private $range;
+    private Range $range;
 
     /**
      * @param Range $range

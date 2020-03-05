@@ -35,7 +35,7 @@ class FilterValueCollection implements \IteratorAggregate
     /**
      * @var array
      */
-    private $filters;
+    private array $filters;
 
     /**
      * @param string|null $string

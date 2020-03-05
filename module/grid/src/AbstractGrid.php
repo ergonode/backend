@@ -28,27 +28,27 @@ abstract class AbstractGrid
     /**
      * @var ColumnInterface[]
      */
-    protected $columns = [];
+    protected array $columns = [];
 
     /**
      * @var ActionInterface[]
      */
-    private $actions = [];
+    private array $actions = [];
 
     /**
      * @var array
      */
-    private $configuration = [];
+    private array $configuration = [];
+
+    /**
+     * @var string|null
+     */
+    private ?string $field = null;
 
     /**
      * @var string
      */
-    private $field;
-
-    /**
-     * @var string
-     */
-    private $order = 'ASC';
+    private string $order = 'ASC';
 
     /**
      * @param GridConfigurationInterface $configuration
