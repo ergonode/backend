@@ -1,40 +1,25 @@
 Feature: Text attribute manipulation
 
-  Scenario: Create text attribute
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-          "code": "TEXT_@@random_code@@",
-          "type": "TEXT",
-          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
-          "groups": [],
-          "parameters": []
-      }
-      """
-    When I request "/api/v1/EN/attributes" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "text_attribute"
+  Background:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
 
-  Scenario: Create text attribute without group relation
-    Given current authentication token
-    Given the request body is:
+  Scenario: Create text attribute
+    And I send a "POST" request to "/api/v1/EN/attributes" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
-          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
           "groups": [],
           "parameters": []
       }
       """
-    When I request "/api/v1/EN/attributes" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "text_attribute_without_group"
+    Then the response status code should be 201
+    And store response param "id" as "attribute_id"
 
   Scenario: Update text attribute
-    Given current authentication token
-    Given the request body is:
+    And I send a "PUT" request to "/api/v1/EN/attributes/@attribute_id@" with body:
       """
       {
           "type": "TEXT",
@@ -45,37 +30,12 @@ Feature: Text attribute manipulation
           "parameters": []
       }
       """
-    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP PUT
-    Then empty response is received
+    Then the response status code should be 204
 
-  Scenario: Update text attribute (not authorized)
-    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP PUT
-    Then unauthorized response is received
-
-  Scenario: Update text attribute (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/@@static_uuid@@" using HTTP PUT
-    Then not found response is received
-
-  Scenario: Get attribute
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP GET
-    Then the response code is 200
-
-  Scenario: Get attribute (not authorized)
-    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP GET
-    Then unauthorized response is received
-
-  Scenario: Get attribute (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/@@static_uuid@@" using HTTP GET
-    Then not found response is received
-
-  Scenario: Delete text attribute (not authorized)
-    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP DELETE
-    Then unauthorized response is received
+  Scenario: Get text attribute
+    And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@"
+    Then the response status code should be 200
 
   Scenario: Delete text attribute
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/@text_attribute@" using HTTP DELETE
-    Then empty response is received
+    And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@"
+    Then the response status code should be 204

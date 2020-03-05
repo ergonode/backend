@@ -16,7 +16,7 @@ class Unit
     /**
      * @var string
      */
-    private $code;
+    private string $code;
 
     /**
      * @param string $code

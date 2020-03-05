@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Application\Form\Property;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\Attribute\Application\Form\Model\CreateAttributeFormModel;
 use Ergonode\Attribute\Application\Form\Type\UnitFormType;
 use Ergonode\Attribute\Application\Form\Model\Property\UnitAttributePropertyModel;
 

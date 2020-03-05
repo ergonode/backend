@@ -24,14 +24,14 @@ class AttributeGroupRemovedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private $id;
+    private AttributeId $id;
 
     /**
      * @var AttributeGroupId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
      */
-    private $groupId;
+    private AttributeGroupId $groupId;
 
     /**
      * @param AttributeId      $id

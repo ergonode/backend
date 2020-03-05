@@ -27,19 +27,19 @@ class CreateAttributeFormModel
      *
      * @AppAssert\AttributeCode()
      */
-    public $code;
+    public ?AttributeCode $code;
 
     /**
      * @var AttributeType
      *
      * @Assert\NotBlank(message="Attribute type is required")
      */
-    public $type;
+    public ?AttributeType $type;
 
     /**
      * @var bool
      */
-    public $multilingual;
+    public bool $multilingual;
 
     /**
      * @var array
@@ -52,7 +52,7 @@ class CreateAttributeFormModel
      *     )
      * })
      */
-    public $label;
+    public array $label;
 
     /**
      * @var array
@@ -65,7 +65,7 @@ class CreateAttributeFormModel
      *     )
      * })
      */
-    public $placeholder;
+    public array $placeholder;
 
     /**
      * @var array
@@ -78,15 +78,17 @@ class CreateAttributeFormModel
      *     )
      * })
      */
-    public $hint;
+    public array $hint;
 
     /**
      * @var array
      */
-    public $groups;
+    public array $groups;
 
     /**
      * @var mixed
+     *
+     * @Assert\Valid()
      */
     public $parameters;
 
@@ -104,6 +106,9 @@ class CreateAttributeFormModel
      */
     public function __construct()
     {
+        $this->code = null;
+        $this->type = null;
+        $this->multilingual = false;
         $this->label = [];
         $this->placeholder = [];
         $this->hint = [];

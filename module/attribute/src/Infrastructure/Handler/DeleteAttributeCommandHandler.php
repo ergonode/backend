@@ -23,12 +23,12 @@ class DeleteAttributeCommandHandler
     /**
      * @var AttributeRepositoryInterface
      */
-    private $repository;
+    private AttributeRepositoryInterface $repository;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @param AttributeRepositoryInterface   $repository

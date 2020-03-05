@@ -16,7 +16,6 @@ use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
-use Webmozart\Assert\Assert;
 
 /**
  */
@@ -27,70 +26,70 @@ class CreateAttributeCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private $attributeId;
+    private AttributeId $attributeId;
 
     /**
-     * @var string
+     * @var AttributeType
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeType")
      */
-    private $type;
+    private AttributeType $type;
 
     /**
      * @var AttributeCode
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
-    private $code;
+    private AttributeCode $code;
 
     /**
      * @var bool
      *
      * @JMS\Type("bool")
      */
-    private $multilingual;
+    private bool $multilingual;
 
     /**
      * @var string[]
      *
      * @JMS\Type("array")
      */
-    private $parameters;
+    private array $parameters;
 
     /**
      * @var array
      *
      * @JMS\Type("array")
      */
-    private $groups;
+    private array $groups;
 
     /**
-     * @var TranslatableString|null
+     * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $label;
+    private TranslatableString $label;
 
     /**
-     * @var TranslatableString|null
+     * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $hint;
+    private TranslatableString $hint;
 
     /**
-     * @var TranslatableString|null
+     * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $placeholder;
+    private TranslatableString $placeholder;
 
     /**
      * @var OptionInterface[]
      *
      * @JMS\Type("array<string, Ergonode\Attribute\Domain\ValueObject\OptionInterface>")
      */
-    private $options;
+    private array $options;
 
     /**
      * @param AttributeType      $type

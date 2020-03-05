@@ -26,10 +26,9 @@ class UpdateAttributeGroupFormModel
      *     )
      * })
      */
-    public $name;
+    public array $name;
 
     /**
-     * AttributeFormModel constructor.
      */
     public function __construct()
     {

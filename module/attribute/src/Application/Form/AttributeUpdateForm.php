@@ -69,10 +69,6 @@ class AttributeUpdateForm extends AbstractType implements EventSubscriberInterfa
                 TranslationType::class
             )
             ->add(
-                'parameters',
-                AttributeParametersForm::class
-            )
-            ->add(
                 'options',
                 CollectionType::class,
                 [
@@ -122,6 +118,7 @@ class AttributeUpdateForm extends AbstractType implements EventSubscriberInterfa
         $resolver->setDefaults([
             'data_class' => UpdateAttributeFormModel::class,
             'translation_domain' => 'attribute',
+            'allow_extra_fields' => true,
         ]);
     }
 

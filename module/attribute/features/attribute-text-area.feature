@@ -1,8 +1,12 @@
 Feature: Text-area attribute manipulation
 
+  Background:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+
   Scenario: Create textarea attribute
-    Given current authentication token
-    Given the request body is:
+    And I send a "POST" request to "/api/v1/EN/attributes" with body:
       """
       {
           "code": "TEXT_AREA_@@random_code@@",
@@ -11,24 +15,19 @@ Feature: Text-area attribute manipulation
           "parameters": []
       }
       """
-    When I request "/api/v1/EN/attributes" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "textarea_attribute"
+    Then the response status code should be 201
+    And store response param "id" as "attribute_id"
 
   Scenario: Update textarea attribute
-    Given current authentication token
-    Given the request body is:
+    And I send a "PUT" request to "/api/v1/EN/attributes/@attribute_id@" with body:
       """
       {
-          "type": "TEXT_AREA",
           "groups": [],
           "parameters": []
       }
       """
-    When I request "/api/v1/EN/attributes/@textarea_attribute@" using HTTP PUT
-    Then empty response is received
+    Then the response status code should be 204
 
   Scenario: Delete textarea attribute
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/@textarea_attribute@" using HTTP DELETE
-    Then empty response is received
+    And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@"
+    Then the response status code should be 204

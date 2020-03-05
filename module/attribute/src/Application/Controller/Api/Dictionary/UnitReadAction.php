@@ -23,7 +23,7 @@ class UnitReadAction
     /**
      * @var UnitQueryInterface
      */
-    private $unitQuery;
+    private UnitQueryInterface $unitQuery;
 
     /**
      * @param UnitQueryInterface $unitQuery

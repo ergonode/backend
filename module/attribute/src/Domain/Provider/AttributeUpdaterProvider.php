@@ -19,7 +19,7 @@ class AttributeUpdaterProvider
     /**
      * @var AttributeUpdaterInterface[]
      */
-    private $updaters;
+    private array $updaters;
 
     /**
      * @param AttributeUpdaterInterface ...$updaters

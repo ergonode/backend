@@ -12,7 +12,6 @@ namespace Ergonode\Attribute\Domain\Entity;
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Group\AttributeGroupNameChangedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
-
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
@@ -24,17 +23,17 @@ class AttributeGroup extends AbstractAggregateRoot
     /**
      * @var AttributeGroupId
      */
-    private $id;
+    private AttributeGroupId $id;
 
     /**
      * @var AttributeGroupCode
      */
-    private $code;
+    private AttributeGroupCode $code;
 
     /**
      * @var TranslatableString
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @param AttributeGroupId   $id

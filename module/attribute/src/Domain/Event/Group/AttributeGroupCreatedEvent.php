@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Domain\Event\Group;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode;
-
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -25,21 +24,21 @@ class AttributeGroupCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
      */
-    private $id;
+    private AttributeGroupId $id;
 
     /**
      * @var AttributeGroupCode
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode")
      */
-    private $code;
+    private AttributeGroupCode $code;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @param AttributeGroupId   $id

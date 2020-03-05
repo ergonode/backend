@@ -23,7 +23,7 @@ class CurrencyReadAction
     /**
      * @var CurrencyQueryInterface
      */
-    private $currencyQuery;
+    private CurrencyQueryInterface $currencyQuery;
 
     /**
      * @param CurrencyQueryInterface $currencyQuery

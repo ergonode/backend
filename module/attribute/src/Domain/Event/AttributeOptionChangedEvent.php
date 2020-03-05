@@ -12,7 +12,6 @@ namespace Ergonode\Attribute\Domain\Event;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
 
@@ -25,28 +24,28 @@ class AttributeOptionChangedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private $id;
+    private AttributeId $id;
 
     /**
      * @var OptionKey
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionKey")
      */
-    private $key;
+    private OptionKey $key;
 
     /**
      * @var OptionInterface
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionInterface")
      */
-    private $from;
+    private OptionInterface $from;
 
     /**
      * @var OptionInterface
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionInterface")
      */
-    private $to;
+    private OptionInterface $to;
 
     /**
      * @param AttributeId     $id

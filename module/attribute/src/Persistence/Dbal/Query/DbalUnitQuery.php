@@ -26,7 +26,7 @@ class DbalUnitQuery implements UnitQueryInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection
