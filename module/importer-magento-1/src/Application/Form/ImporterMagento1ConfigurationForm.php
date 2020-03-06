@@ -38,10 +38,7 @@ class ImporterMagento1ConfigurationForm extends AbstractType
         $builder
             ->add(
                 'name',
-                TextType::class,
-                [
-                    'data' => 'wefwefwef',
-                ]
+                TextType::class
             )
             ->add(
                 'host',

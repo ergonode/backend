@@ -23,7 +23,7 @@ class DateFormatReadAction
     /**
      * @var DateFormatProvider
      */
-    private $dateFormatProvider;
+    private DateFormatProvider $dateFormatProvider;
 
     /**
      * @param DateFormatProvider $dateFormatProvider

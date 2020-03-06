@@ -21,7 +21,7 @@ class UnitFormType extends AbstractType
     /**
      * @var UnitQueryInterface
      */
-    private $query;
+    private UnitQueryInterface $query;
 
     /**
      * @param UnitQueryInterface $query

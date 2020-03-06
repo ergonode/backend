@@ -19,5 +19,5 @@ class AttributeOptionDuplicates extends Constraint
     /**
      * @var string
      */
-    public $message = 'Option code have to be unique';
+    public string $message = 'Option code have to be unique';
 }

@@ -23,7 +23,7 @@ class StringOption implements OptionInterface
      *
      * @JMS\Type("string")
      */
-    private $value;
+    private string $value;
 
     /**
      * @param string $value

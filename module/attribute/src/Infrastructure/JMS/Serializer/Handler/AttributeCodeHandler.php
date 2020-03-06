@@ -17,7 +17,6 @@ use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
 /**
- * Class AttributeCodeHandler
  */
 class AttributeCodeHandler implements SubscribingHandlerInterface
 {

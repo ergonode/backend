@@ -38,12 +38,12 @@ class DbalAttributeQuery implements AttributeQueryInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @var AttributeViewModelFactory
      */
-    private $factory;
+    private AttributeViewModelFactory $factory;
 
     /**
      * @param Connection                $connection

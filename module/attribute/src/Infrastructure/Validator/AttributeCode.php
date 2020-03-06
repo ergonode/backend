@@ -19,10 +19,10 @@ class AttributeCode extends Constraint
     /**
      * @var string
      */
-    public $validMessage = 'Given value is not valid attribute code';
+    public string $validMessage = 'Given value is not valid attribute code';
 
     /**
      * @var string
      */
-    public $uniqueMessage = 'The value is not unique.';
+    public string $uniqueMessage = 'The value is not unique.';
 }

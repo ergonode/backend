@@ -22,21 +22,21 @@ class CreateAttributeGroupCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
      */
-    private $id;
+    private AttributeGroupId $id;
 
     /**
      * @var AttributeGroupCode
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeGroupCode")
      */
-    private $code;
+    private AttributeGroupCode $code;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @param AttributeGroupCode $code

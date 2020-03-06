@@ -18,14 +18,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CreateAttributeGroupFormModel
 {
     /**
-     * @var AttributeGroupCode
+     * @var AttributeGroupCode|null
      *
      * @Assert\NotBlank(message="Attribute code is required")
      * @Assert\Length(max=128)
      *
      * @AppAssert\AttributeGroupCode()
      */
-    public $code;
+    public ?AttributeGroupCode $code;
 
     /**
      * @var array
@@ -35,12 +35,13 @@ class CreateAttributeGroupFormModel
      *     @Assert\Length(max=32, maxMessage="Attribute name is to long, It should have {{ limit }} character or less.")
      * })
      */
-    public $name;
+    public array $name;
 
     /**
      */
     public function __construct()
     {
+        $this->code = null;
         $this->name = [];
     }
 }

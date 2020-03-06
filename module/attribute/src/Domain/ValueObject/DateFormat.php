@@ -62,7 +62,7 @@ class DateFormat
     /**
      * @var string
      */
-    private $format;
+    private string $format;
 
     /**
      * @param string $format

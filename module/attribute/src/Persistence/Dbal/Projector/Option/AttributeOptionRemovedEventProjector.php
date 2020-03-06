@@ -22,7 +22,7 @@ class AttributeOptionRemovedEventProjector
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection

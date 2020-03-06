@@ -9,8 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Infrastructure\Handler\Group;
 
 use Ergonode\Attribute\Domain\Command\Group\DeleteAttributeGroupCommand;
-use Ergonode\Attribute\Domain\Command\Group\UpdateAttributeGroupCommand;
-use Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeGroupRepositoryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
@@ -23,17 +21,17 @@ class DeleteAttributeGroupCommandHandler
     /**
      * @var AttributeGroupRepositoryInterface
      */
-    private $groupRepository;
+    private AttributeGroupRepositoryInterface $groupRepository;
 
     /**
      * @var AttributeRepositoryInterface
      */
-    private $attributeRepository;
+    private AttributeRepositoryInterface $attributeRepository;
 
     /**
      * @var AttributeGroupQueryInterface
      */
-    private $query;
+    private AttributeGroupQueryInterface $query;
 
     /**
      * @param AttributeGroupRepositoryInterface $groupRepository

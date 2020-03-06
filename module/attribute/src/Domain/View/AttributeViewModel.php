@@ -19,22 +19,22 @@ class AttributeViewModel
     /**
      * @var AttributeId
      */
-    private $id;
+    private AttributeId $id;
 
     /**
      * @var AttributeCode
      */
-    private $code;
+    private AttributeCode $code;
 
     /**
      * @var string
      */
-    private $type;
+    private string $type;
 
     /**
      * @var array
      */
-    private $groups;
+    private array $groups;
 
     /**
      * @param AttributeId   $id

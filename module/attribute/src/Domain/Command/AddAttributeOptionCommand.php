@@ -24,21 +24,21 @@ class AddAttributeOptionCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private $attributeId;
+    private AttributeId $attributeId;
 
     /**
      * @var OptionKey
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionKey")
      */
-    private $optionKey;
+    private OptionKey $optionKey;
 
     /**
      * @var OptionInterface
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionInterface")
      */
-    private $option;
+    private OptionInterface $option;
 
     /**
      * @param AttributeId     $attributeId

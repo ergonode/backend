@@ -19,5 +19,5 @@ class AttributeExists extends Constraint
     /**
      * @var string
      */
-    public $message = 'Attribute {{ value }} not exists.';
+    public string $message = 'Attribute {{ value }} not exists.';
 }

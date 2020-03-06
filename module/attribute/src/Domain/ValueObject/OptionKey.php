@@ -18,7 +18,7 @@ class OptionKey
     /**
      * @var string
      */
-    private $value;
+    private string $value;
 
     /**
      * @param string $value

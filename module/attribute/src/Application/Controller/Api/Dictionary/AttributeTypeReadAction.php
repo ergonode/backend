@@ -24,7 +24,7 @@ class AttributeTypeReadAction
     /**
      * @var AttributeTypeDictionaryProvider
      */
-    private $attributeTypeDictionaryProvider;
+    private AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider;
 
     /**
      * @param AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider

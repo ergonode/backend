@@ -21,7 +21,7 @@ class AttributeCodeValidator extends ConstraintValidator
     /**
      * @var AttributeQueryInterface
      */
-    private $query;
+    private AttributeQueryInterface $query;
 
     /**
      * @param AttributeQueryInterface $query

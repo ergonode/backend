@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Form;
 
-use Ergonode\Attribute\Application\Form\Event\AttributeFormSubscriber;
 use Ergonode\Attribute\Application\Form\Model\CreateAttributeFormModel;
 use Ergonode\Attribute\Application\Form\Type\AttributeCodeType;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
@@ -21,11 +20,29 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
+use Ergonode\Attribute\Application\Provider\AttributePropertyFormResolver;
+use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 
 /**
  */
-class AttributeCreateForm extends AbstractType
+class AttributeCreateForm extends AbstractType implements EventSubscriberInterface
 {
+    /**
+     * @var AttributePropertyFormResolver
+     */
+    private AttributePropertyFormResolver $resolver;
+
+    /**
+     * @param AttributePropertyFormResolver $resolver
+     */
+    public function __construct(AttributePropertyFormResolver $resolver)
+    {
+        $this->resolver = $resolver;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -71,10 +88,6 @@ class AttributeCreateForm extends AbstractType
                 ]
             )
             ->add(
-                'parameters',
-                AttributeParametersForm::class
-            )
-            ->add(
                 'options',
                 CollectionType::class,
                 [
@@ -83,7 +96,37 @@ class AttributeCreateForm extends AbstractType
                     'entry_type' => AttributeOptionType::class,
                 ]
             )
-            ->addEventSubscriber(new AttributeFormSubscriber());
+            ->addEventSubscriber($this);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            FormEvents::PRE_SUBMIT => 'onEvent',
+        ];
+    }
+
+    /**
+     * @param FormEvent $event
+     */
+    public function onEvent(FormEvent $event): void
+    {
+        /** @var array $attribute */
+        $form = $event->getForm();
+        $type = $this->provide($event, 'type');
+
+        if ($type) {
+            $propertyForm = $this->resolver->resolve($type->getValue());
+            if ($propertyForm) {
+                $form->add(
+                    'parameters',
+                    $propertyForm,
+                );
+            }
+        }
     }
 
     /**
@@ -94,6 +137,7 @@ class AttributeCreateForm extends AbstractType
         $resolver->setDefaults([
             'data_class' => CreateAttributeFormModel::class,
             'translation_domain' => 'attribute',
+            'allow_extra_fields' => true,
         ]);
     }
 
@@ -102,6 +146,29 @@ class AttributeCreateForm extends AbstractType
      */
     public function getBlockPrefix(): ?string
     {
+        return null;
+    }
+
+    /**
+     * @param FormEvent $event
+     * @param string    $field
+     *
+     * @return AttributeType
+     */
+    private function provide(FormEvent $event, string $field): ?AttributeType
+    {
+        if (\is_object($event->getData()) && $event->getData()->{$field}) {
+            return $event->getData()->{$field};
+        }
+
+        if (\is_object($event->getForm()->getData()) && $event->getForm()->getData()->{$field}) {
+            return $event->getForm()->getData()->{$field};
+        }
+
+        if (\is_array($event->getData()) && !empty($event->getData()[$field])) {
+            return new AttributeType($event->getData()[$field]);
+        }
+
         return null;
     }
 }

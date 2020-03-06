@@ -24,7 +24,7 @@ class AttributeGroupReadAction
     /**
      * @var AttributeGroupQueryInterface
      */
-    private $attributeGroupQuery;
+    private AttributeGroupQueryInterface $attributeGroupQuery;
 
     /**
      * @param AttributeGroupQueryInterface $attributeGroupQuery

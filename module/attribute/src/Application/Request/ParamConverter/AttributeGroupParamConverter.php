@@ -25,7 +25,7 @@ class AttributeGroupParamConverter implements ParamConverterInterface
     /**
      * @var AttributeGroupRepositoryInterface
      */
-    private $repository;
+    private AttributeGroupRepositoryInterface $repository;
 
     /**
      * @param AttributeGroupRepositoryInterface $repository

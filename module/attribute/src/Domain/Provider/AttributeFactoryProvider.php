@@ -19,7 +19,7 @@ class AttributeFactoryProvider
     /**
      * @var AttributeFactoryInterface[]
      */
-    private $factories;
+    private array $factories;
 
     /**
      * @param AttributeFactoryInterface ...$factories

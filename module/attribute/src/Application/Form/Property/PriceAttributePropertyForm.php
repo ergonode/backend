@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,16 +6,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Application\Form;
+namespace Ergonode\Attribute\Application\Form\Property;
 
-use Ergonode\Attribute\Application\Form\Model\AttributeParametersModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ergonode\Attribute\Application\Form\Model\Property\PriceAttributePropertyModel;
+use Ergonode\Attribute\Application\Form\Type\CurrencyFormType;
 
 /**
  */
-class AttributeParametersForm extends AbstractType
+class PriceAttributePropertyForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -24,6 +24,11 @@ class AttributeParametersForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $builder
+            ->add(
+                'currency',
+                CurrencyFormType::class,
+            );
     }
 
     /**
@@ -32,9 +37,9 @@ class AttributeParametersForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => AttributeParametersModel::class,
+            'data_class' => PriceAttributePropertyModel::class,
+            'empty_data' => new PriceAttributePropertyModel(),
             'translation_domain' => 'attribute',
-            'allow_extra_fields' => true,
         ]);
     }
 

@@ -19,7 +19,7 @@ class DeleteAttributeCommand implements DomainCommandInterface
     /**
      * @var AttributeId
      */
-    private $id;
+    private AttributeId $id;
 
     /**
      * @param AttributeId $id

@@ -29,17 +29,17 @@ class AttributeGridReadAction
     /**
      * @var AttributeGrid
      */
-    private $attributeGrid;
+    private AttributeGrid $attributeGrid;
 
     /**
      * @var AttributeGridQueryInterface
      */
-    private $attributeGridQuery;
+    private AttributeGridQueryInterface $attributeGridQuery;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer                $gridRenderer

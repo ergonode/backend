@@ -20,7 +20,7 @@ class DeleteAttributeGroupCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
      */
-    private $id;
+    private AttributeGroupId $id;
 
     /**
      * @param AttributeGroupId $id

@@ -14,7 +14,6 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
- * Class AttributeTypeDataTransformer
  */
 class AttributeTypeDataTransformer implements DataTransformerInterface
 {

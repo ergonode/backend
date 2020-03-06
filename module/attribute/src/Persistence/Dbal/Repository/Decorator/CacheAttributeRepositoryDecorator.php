@@ -22,12 +22,12 @@ class CacheAttributeRepositoryDecorator implements AttributeRepositoryInterface
     /**
      * @var AttributeRepositoryInterface
      */
-    private $repository;
+    private AttributeRepositoryInterface $repository;
 
     /**
      * @var array
      */
-    private $cache;
+    private array $cache;
 
     /**
      * @param AttributeRepositoryInterface $repository

@@ -25,84 +25,84 @@ class AttributeCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private $id;
+    private AttributeId $id;
 
     /**
      * @var AttributeCode
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
-    private $code;
+    private AttributeCode $code;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $type;
+    private string $type;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $class;
+    private string $class;
 
     /**
      * @var TranslatableString;
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $label;
+    private TranslatableString $label;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $hint;
+    private TranslatableString $hint;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $placeholder;
+    private TranslatableString $placeholder;
 
     /**
      * @var bool
      *
      * @JMS\Type("boolean")
      */
-    private $multilingual;
+    private bool $multilingual;
 
     /**
      * @var array
      *
      * @JMS\Type("array")
      */
-    private $parameters;
+    private array $parameters;
 
     /**
      * @var bool
      *
      * @JMS\Type("bool")
      */
-    private $system;
+    private bool $system;
 
     /**
      * @var bool
      *
      * @JMS\Type("bool")
      */
-    private $editable;
+    private bool $editable;
 
     /**
      * @var bool
      *
      * @JMS\Type("bool")
      */
-    private $deletable;
+    private bool $deletable;
 
     /**
      * @param AttributeId        $id
