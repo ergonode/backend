@@ -27,7 +27,7 @@ class ImportLineFactory
     {
         $reflector = new \ReflectionClass(ImportLine::class);
         /** @var ImportLine $object */
-        $object =  $reflector->newInstanceWithoutConstructor();
+        $object = $reflector->newInstanceWithoutConstructor();
 
         foreach ($this->getMap($record) as $key => $value) {
             $property = $reflector->getProperty($key);
@@ -42,14 +42,17 @@ class ImportLineFactory
      * @param array $record
      *
      * @return array
+     *
+     * @throws \Exception
      */
     private function getMap(array $record): array
     {
         return [
             'importId' => new ImportId($record['import_id']),
             'line' => $record['line'],
-            'content' => $record['content'],
+            'step' => $record['step'],
             'error' => $record['message'],
+            'processedAt' => $record['processed_at'] ? new \DateTime($record['processed_at']) : null,
         ];
     }
 }

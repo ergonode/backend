@@ -13,7 +13,3 @@ services:
 
     Ergonode\ImporterMagento2\Infrastructure\:
         resource: '../../Infrastructure/*'
-
-    Ergonode\ImporterMagento2\Infrastructure\Source\Magento2ImportSource:
-      arguments:
-        $directory: '%import_directory%'

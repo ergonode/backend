@@ -14,10 +14,6 @@ services:
     Ergonode\ImporterMagento1\Infrastructure\:
       resource: '../../Infrastructure/*'
 
-    Ergonode\ImporterMagento1\Infrastructure\Source\Magento1ImportSource:
-      arguments:
-        $directory: '%import_directory%'
-
     Ergonode\ImporterMagento1\Infrastructure\Reader\Magento1CsvReader:
       arguments:
         $directory: '%import_directory%'
