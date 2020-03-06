@@ -24,24 +24,24 @@ class ChangeProductAttributeValueCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
-    private $id;
+    private ProductDraftId $id;
 
     /**
      * @var AttributeId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private $attributeId;
+    private AttributeId $attributeId;
 
     /**
      * @var Language
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
-    private $language;
+    private Language $language;
 
     /**
-     * @var string|null
+     * @var string|array|null
      *
      * @JMS\Type("string")
      */
@@ -86,7 +86,7 @@ class ChangeProductAttributeValueCommand implements DomainCommandInterface
     }
 
     /**
-     * @return mixed
+     * @return string|array|null
      */
     public function getValue()
     {

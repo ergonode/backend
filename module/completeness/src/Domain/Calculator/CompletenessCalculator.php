@@ -22,7 +22,7 @@ class CompletenessCalculator
     /**
      * @var TemplateElementCompletenessStrategyProvider
      */
-    private $provider;
+    private TemplateElementCompletenessStrategyProvider $provider;
 
     /**
      * @param TemplateElementCompletenessStrategyProvider $provider

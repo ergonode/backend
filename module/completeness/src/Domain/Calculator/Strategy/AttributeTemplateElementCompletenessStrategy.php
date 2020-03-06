@@ -25,12 +25,12 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
     /**
      * @var AttributeRepositoryInterface
      */
-    private $repository;
+    private AttributeRepositoryInterface $repository;
 
     /**
      * @var ValueResolver
      */
-    private $resolver;
+    private ValueResolver $resolver;
 
     /**
      * @param AttributeRepositoryInterface $repository

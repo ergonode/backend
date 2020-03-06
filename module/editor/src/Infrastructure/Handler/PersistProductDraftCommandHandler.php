@@ -21,12 +21,12 @@ class PersistProductDraftCommandHandler
     /**
      * @var ProductDraftRepositoryInterface
      */
-    private $draftRepository;
+    private ProductDraftRepositoryInterface $draftRepository;
 
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
      * @param ProductDraftRepositoryInterface $draftRepository

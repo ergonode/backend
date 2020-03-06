@@ -19,24 +19,24 @@ class CompletenessElementReadModel
     /**
      * @var AttributeId
      */
-    private $id;
+    private AttributeId $id;
     /**
      * @var string
      */
-    private $name;
+    private string $name;
     /**
      * @var bool
      *
      * @JMS\Exclude()
      */
-    private $required;
+    private bool $required;
 
     /**
      * @var string|null
      *
      * @JMS\Exclude()
      */
-    private $value;
+    private ?string $value;
 
     /**
      * @param AttributeId $id

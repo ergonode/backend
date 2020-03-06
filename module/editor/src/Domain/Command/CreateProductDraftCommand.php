@@ -23,14 +23,14 @@ class CreateProductDraftCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
-    private $id;
+    private ProductDraftId $id;
 
     /**
      * @var ProductId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private $productId;
+    private ?ProductId $productId;
 
     /**
      * @param ProductId|null $productId
