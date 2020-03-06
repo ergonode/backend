@@ -13,7 +13,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\Annotation as JMS;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  */
@@ -27,13 +26,11 @@ class AttributeOptionRemovedEvent implements DomainEventInterface
     private AttributeId $id;
 
     /**
-     * @var string
+     * @var OptionKey
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\OptionKey")
-     *
-     * @ORM\Column(type="string")
      */
-    private $key;
+    private OptionKey $key;
 
     /**
      * @param AttributeId $id
