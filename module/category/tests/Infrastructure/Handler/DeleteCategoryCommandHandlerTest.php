@@ -34,7 +34,7 @@ class DeleteCategoryCommandHandlerTest extends TestCase
     /**
      * @var RelationshipsResolverInterface
      */
-    private $resolver;
+    private RelationshipsResolverInterface $resolver;
 
     /**
      */

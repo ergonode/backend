@@ -21,12 +21,12 @@ class FileFaker extends BaseProvider
     /**
      * @var KernelInterface
      */
-    private $kernel;
+    private KernelInterface $kernel;
 
     /**
      * @var string
      */
-    private $root;
+    private string $root;
 
     /**
      * @param Generator       $generator

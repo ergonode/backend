@@ -26,7 +26,7 @@ class WorkflowFactoryTest extends TestCase
     /**
      * @var string
      */
-    private $code;
+    private string $code;
 
     /**
      */

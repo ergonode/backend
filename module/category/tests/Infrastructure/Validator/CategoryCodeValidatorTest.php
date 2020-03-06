@@ -22,7 +22,7 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
     /**
      * @var CategoryRepositoryInterface
      */
-    private $repository;
+    private CategoryRepositoryInterface $repository;
 
     /**
      */

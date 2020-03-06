@@ -26,17 +26,17 @@ class EntityClassBuilder implements BuilderInterface
     /**
      * @var FileBuilder
      */
-    private $builder;
+    private FileBuilder $builder;
 
     /**
      * @var PropertyBuilder
      */
-    private $propertyBuilder;
+    private PropertyBuilder $propertyBuilder;
 
     /**
      * @var MethodBuilder
      */
-    private $methodBuilder;
+    private MethodBuilder $methodBuilder;
 
     /**
      * @param FileBuilder     $builder

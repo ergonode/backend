@@ -21,7 +21,7 @@ class MultimediaExistsValidatorTest extends ConstraintValidatorTestCase
     /**
      * @var MultimediaRepositoryInterface
      */
-    private $repository;
+    private MultimediaRepositoryInterface $repository;
 
     /**
      */

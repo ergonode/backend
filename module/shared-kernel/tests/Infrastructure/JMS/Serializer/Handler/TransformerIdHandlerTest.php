@@ -28,17 +28,17 @@ class TransformerIdHandlerTest extends TestCase
     /**
      * @var DeserializationVisitorInterface
      */
-    private $deserializationVisitor;
+    private DeserializationVisitorInterface $deserializationVisitor;
 
     /**
      * @var SerializationVisitorInterface
      */
-    private $serializationVisitor;
+    private SerializationVisitorInterface $serializationVisitor;
 
     /**
      * @var Context
      */
-    private $context;
+    private Context $context;
 
     /**
      */

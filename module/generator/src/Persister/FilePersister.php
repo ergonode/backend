@@ -21,7 +21,7 @@ class FilePersister
     /**
      * @var string
      */
-    private $directory;
+    private string $directory;
 
     /**
      * @param string $directory

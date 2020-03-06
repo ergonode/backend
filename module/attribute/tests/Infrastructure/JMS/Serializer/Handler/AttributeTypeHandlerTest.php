@@ -22,22 +22,22 @@ class AttributeTypeHandlerTest extends TestCase
     /**
      * @var AttributeTypeHandler
      */
-    private $handler;
+    private AttributeTypeHandler $handler;
 
     /**
      * @var SerializationVisitorInterface
      */
-    private $serializerVisitor;
+    private SerializationVisitorInterface $serializerVisitor;
 
     /**
      * @var DeserializationVisitorInterface
      */
-    private $deserializerVisitor;
+    private DeserializationVisitorInterface $deserializerVisitor;
 
     /**
      * @var Context
      */
-    private $context;
+    private Context $context;
 
     /**
      */

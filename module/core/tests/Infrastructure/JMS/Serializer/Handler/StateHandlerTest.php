@@ -23,22 +23,22 @@ class StateHandlerTest extends TestCase
     /**
      * @var StateHandler
      */
-    private $handler;
+    private StateHandler $handler;
 
     /**
      * @var SerializationVisitorInterface
      */
-    private $serializationVisitor;
+    private SerializationVisitorInterface $serializationVisitor;
 
     /**
      * @var DeserializationVisitorInterface
      */
-    private $deserializationVisitor;
+    private DeserializationVisitorInterface $deserializationVisitor;
 
     /**
      * @var Context
      */
-    private $context;
+    private Context $context;
 
     /**
      */

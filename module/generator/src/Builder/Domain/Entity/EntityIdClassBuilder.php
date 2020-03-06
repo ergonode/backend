@@ -21,7 +21,7 @@ class EntityIdClassBuilder implements BuilderInterface
     /**
      * @var FileBuilder
      */
-    private $builder;
+    private FileBuilder $builder;
 
     /**
      * @param FileBuilder $builder

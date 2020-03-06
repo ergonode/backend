@@ -19,12 +19,12 @@ class EntityGenerator
     /**
      * @var FilePersister
      */
-    private $persister;
+    private FilePersister $persister;
 
     /**
      * @var BuilderInterface[]
      */
-    private $builders;
+    private array $builders;
 
     /**
      * @param FilePersister    $persister

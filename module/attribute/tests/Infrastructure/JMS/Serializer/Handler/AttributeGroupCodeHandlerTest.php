@@ -22,22 +22,22 @@ class AttributeGroupCodeHandlerTest extends TestCase
     /**
      * @var AttributeGroupCodeHandler
      */
-    private $handler;
+    private AttributeGroupCodeHandler $handler;
 
     /**
      * @var SerializationVisitorInterface
      */
-    private $serializerVisitor;
+    private SerializationVisitorInterface $serializerVisitor;
 
     /**
      * @var DeserializationVisitorInterface
      */
-    private $deserializerVisitor;
+    private DeserializationVisitorInterface $deserializerVisitor;
 
     /**
      * @var Context
      */
-    private $context;
+    private Context $context;
 
     /**
      */

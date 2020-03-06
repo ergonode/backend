@@ -22,7 +22,7 @@ class ErgonodeFixtureCommand extends Command
     /**
      * @var FixtureProcess
      */
-    private $process;
+    private FixtureProcess $process;
 
     /**
      * @param FixtureProcess $process

@@ -22,21 +22,21 @@ class CurrencyHandlerTest extends TestCase
     /**
      * @var CurrencyHandler
      */
-    private $handler;
+    private CurrencyHandler $handler;
 
     /**
      * @var SerializationVisitorInterface
      */
-    private $serializerVisitor;
+    private SerializationVisitorInterface $serializerVisitor;
 
     /**
      * @var DeserializationVisitorInterface
      */
-    private $deserializerVisitor;
+    private DeserializationVisitorInterface $deserializerVisitor;
     /**
      * @var Context
      */
-    private $context;
+    private Context $context;
 
     /**
      */

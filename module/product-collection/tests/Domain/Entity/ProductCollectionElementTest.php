@@ -33,7 +33,7 @@ class ProductCollectionElementTest extends TestCase
     /**
      * @var AbstractAggregateRoot
      */
-    private $aggregateRoot;
+    private AbstractAggregateRoot $aggregateRoot;
 
     /**
      */

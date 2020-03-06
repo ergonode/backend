@@ -22,7 +22,7 @@ class AttributeGroupCodeValidatorTest extends ConstraintValidatorTestCase
     /**
      * @var AttributeGroupQueryInterface
      */
-    private $query;
+    private AttributeGroupQueryInterface $query;
 
     /**
      */
