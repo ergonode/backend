@@ -64,6 +64,10 @@ class ErgonodeFixtureCommand extends Command
         $this->endFixtureLoad($event, $output);
     }
 
+    /**
+     * @param StopwatchEvent  $stopwatchEvent
+     * @param OutputInterface $output
+     */
     private function endFixtureLoad(StopwatchEvent $stopwatchEvent, OutputInterface $output)
     {
         $output->write("\n  <comment>------------------------</comment>\n");
