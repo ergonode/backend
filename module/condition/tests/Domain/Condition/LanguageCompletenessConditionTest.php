@@ -34,7 +34,7 @@ class LanguageCompletenessConditionTest extends TestCase
      */
     public function testInvalidConditionCreation(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $completeness = 'Incorrect data';
         $language = $this->createMock(Language::class);
 

@@ -52,7 +52,7 @@ class DeleteCommentCommandHandlerTest extends TestCase
      */
     public function testHandlingCommentxistsObject(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->repository->expects($this->once())->method('load');
         $handler = new DeleteCommentCommandHandler($this->repository);
         $handler->__invoke($this->command);

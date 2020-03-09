@@ -46,8 +46,8 @@ class PrivilegeDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
-        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
-        $this->expectedExceptionMessage("Invalid Privilege object");
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectExceptionMessage("Invalid Privilege object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
@@ -68,10 +68,10 @@ class PrivilegeDataTransformerTest extends TestCase
      */
     public function testReverseTransformException(): void
     {
-        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = '7zmwvoa60el83MuQ2L5o4RgoJf3eGj6dWZDC30pTVAAPHLAqYKPbWyRtb2szH5PLV6X4euonbgyuTERSjzG6gmL2g8SI9q7PICFj'.
             'Mf1k4Slizle3DoTWv4re4OdQRQ6qo8';
-        $this->expectedExceptionMessage(sprintf('Invalid Privilege "%s" value', $value));
+        $this->expectExceptionMessage(sprintf('Invalid Privilege "%s" value', $value));
         $this->transformer->reverseTransform($value);
     }
 

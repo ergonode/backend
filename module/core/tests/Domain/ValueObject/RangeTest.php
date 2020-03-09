@@ -64,7 +64,7 @@ class RangeTest extends TestCase
      */
     public function testInValidRange(float $max, float $min): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new Range($min, $max);
     }
 

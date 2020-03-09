@@ -35,7 +35,7 @@ class RecordTest extends TestCase
      */
     public function testGetException(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $record = new Record();
         $record->get('test');
     }

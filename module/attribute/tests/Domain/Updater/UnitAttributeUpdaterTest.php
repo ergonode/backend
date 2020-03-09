@@ -64,7 +64,7 @@ class UnitAttributeUpdaterTest extends TestCase
      */
     public function testUpdateWithoutParameter(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $attribute = $this->createMock(UnitAttribute::class);
         $strategy = new UnitAttributeUpdater();
         $strategy->update($attribute, $this->updateCommand);

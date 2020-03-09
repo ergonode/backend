@@ -52,12 +52,11 @@ class PasswordDataTransformerTest extends TestCase
     }
 
     /**
-     *
-     * @expectedExceptionMessage Invalid "pass" value
      */
     public function testReverseTransformException(): void
     {
-        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectExceptionMessage('Invalid "pass" value');
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = 'pass';
         $this->transformer->reverseTransform($value);
     }

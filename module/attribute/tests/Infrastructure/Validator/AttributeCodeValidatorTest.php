@@ -35,7 +35,7 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
      */
     public function testWrongValueProvided(): void
     {
-        $this->expectedException(\Symfony\Component\Validator\Exception\ValidatorException::class);
+        $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new AttributeCode());
     }
 
@@ -43,7 +43,7 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
      */
     public function testWrongConstraintProvided(): void
     {
-        $this->expectedException(\Symfony\Component\Validator\Exception\ValidatorException::class);
+        $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         /** @var Constraint $constrain */
         $constrain = $this->createMock(Constraint::class);
         $this->validator->validate('Value', $constrain);

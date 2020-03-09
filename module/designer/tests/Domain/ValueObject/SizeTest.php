@@ -49,7 +49,7 @@ class SizeTest extends TestCase
      */
     public function testLessThenZeroValue(int $width, int $height): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new Size($width, $height);
     }
 

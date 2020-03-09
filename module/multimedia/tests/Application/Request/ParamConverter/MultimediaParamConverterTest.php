@@ -87,7 +87,7 @@ class MultimediaParamConverterTest extends TestCase
      */
     public function testEmptyParameter(): void
     {
-        $this->expectedException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn(null);
 
         $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
@@ -98,7 +98,7 @@ class MultimediaParamConverterTest extends TestCase
      */
     public function testInvalidParameter(): void
     {
-        $this->expectedException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn('incorrect uuid');
 
         $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
@@ -109,7 +109,7 @@ class MultimediaParamConverterTest extends TestCase
      */
     public function testEntityNotExists(): void
     {
-        $this->expectedException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
 
         $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
@@ -120,7 +120,7 @@ class MultimediaParamConverterTest extends TestCase
      */
     public function testFileNotExists(): void
     {
-        $this->expectedException(\Symfony\Component\HttpKernel\Exception\ConflictHttpException::class);
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\ConflictHttpException::class);
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
         $this->repository->method('load')->willReturn($this->createMock(Multimedia::class));
         $this->provider->method('getFile')->willReturn('Some file url');

@@ -52,7 +52,7 @@ class SegmentConditionSetChangedEventTest extends TestCase
      */
     public function testNullException(): void
     {
-        $this->expectedException(\Zend\EventManager\Exception\DomainException::class);
+        $this->expectException(\Zend\EventManager\Exception\DomainException::class);
         $from = null;
         $to = null;
         $event = new SegmentConditionSetChangedEvent($this->id, $from, $to);

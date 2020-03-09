@@ -46,8 +46,8 @@ class PositionFormDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
-        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
-        $this->expectedExceptionMessage("Invalid Position object");
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectExceptionMessage("Invalid Position object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
@@ -65,11 +65,11 @@ class PositionFormDataTransformerTest extends TestCase
 
     /**
      *
-     * @expectedExceptionMessage Invalid Position -1,-2 value
      */
     public function testReverseTransformException(): void
     {
-        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectExceptionMessage('Invalid Position -1,-2 value');
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = [
             'x' => -1,
             'y' => -2,

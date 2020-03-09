@@ -69,7 +69,7 @@ class SegmentStatusTest extends TestCase
      */
     public function testInvalidData(string $status): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new SegmentStatus($status);
     }
 
@@ -81,7 +81,7 @@ class SegmentStatusTest extends TestCase
      */
     public function testEquality(string $status): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $status1 = new SegmentStatus(SegmentStatus::CALCULATED);
         $status2 = new SegmentStatus(SegmentStatus::CALCULATED);
         $status3 = new SegmentStatus(SegmentStatus::OUTDATED);

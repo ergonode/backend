@@ -84,7 +84,7 @@ class TemplateTest extends TestCase
      */
     public function testAddExistsElement(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $template = $this->getTemplate();
 
         $template->addElement($this->element);
@@ -95,7 +95,7 @@ class TemplateTest extends TestCase
      */
     public function testChangeElement(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $template = $this->getTemplate();
 
         $template->changeElement($this->element);
@@ -156,7 +156,7 @@ class TemplateTest extends TestCase
      */
     public function testRemoveNotExistImage(): void
     {
-        $this->expectedException(\RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         $template = $this->getTemplate();
         /** @var MultimediaId|MockObject $image */
         $template->removeImage();
@@ -201,7 +201,7 @@ class TemplateTest extends TestCase
      */
     public function testRemoveNotExistDefaultText(): void
     {
-        $this->expectedException(\RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         $template = $this->getTemplate();
         /** @var AttributeId|MockObject $defaultText */
         $template->removeDefaultText();
@@ -246,7 +246,7 @@ class TemplateTest extends TestCase
      */
     public function testRemoveNotExistDefaultImage(): void
     {
-        $this->expectedException(\RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         $template = $this->getTemplate();
         /** @var AttributeId|MockObject $defaultImage */
         $template->removeDefaultImage();

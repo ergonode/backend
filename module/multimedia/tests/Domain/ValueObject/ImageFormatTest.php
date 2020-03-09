@@ -33,7 +33,7 @@ class ImageFormatTest extends TestCase
      */
     public function testNotValidFormat(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $format = 'format';
 
         $valueObject = new ImageFormat($format);

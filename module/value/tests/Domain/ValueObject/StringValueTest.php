@@ -33,7 +33,7 @@ class StringValueTest extends TestCase
      */
     public function testNullValue(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $value = '';
 
         $valueObject = new StringValue($value);

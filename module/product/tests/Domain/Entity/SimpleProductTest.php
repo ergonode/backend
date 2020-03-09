@@ -79,7 +79,7 @@ class SimpleProductTest extends TestCase
      */
     public function testConstructWitchBadCategoryObject(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $categories = [$this->createMock(\stdClass::class)];
         new SimpleProduct($this->id, $this->sku, $categories, []);
     }

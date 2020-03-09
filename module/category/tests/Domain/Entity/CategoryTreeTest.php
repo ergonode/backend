@@ -73,7 +73,7 @@ class CategoryTreeTest extends TestCase
      */
     public function testAddingExistingCategory(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $category = CategoryId::generate();
 
         $tree = new CategoryTree($this->id, $this->code, $this->name);

@@ -38,7 +38,7 @@ class TranslatedOptionValueResolverTest extends TestCase
      */
     public function testResolvingNotSupportedOption(): void
     {
-        $this->expectedException(\RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         /** @var OptionInterface $option */
         $option = $this->createMock(OptionInterface::class);
         $resolver = new TranslatedOptionValueResolver();

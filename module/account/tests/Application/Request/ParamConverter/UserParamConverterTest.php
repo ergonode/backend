@@ -72,7 +72,7 @@ class UserParamConverterTest extends TestCase
      */
     public function testEmptyParameter(): void
     {
-        $this->expectedException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn(null);
 
         $paramConverter = new UserParamConverter($this->repository);
@@ -83,7 +83,7 @@ class UserParamConverterTest extends TestCase
      */
     public function testInvalidParameter(): void
     {
-        $this->expectedException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn('incorrect uuid');
 
         $paramConverter = new UserParamConverter($this->repository);
@@ -94,7 +94,7 @@ class UserParamConverterTest extends TestCase
      */
     public function testEntityNotExists(): void
     {
-        $this->expectedException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
 
         $paramConverter = new UserParamConverter($this->repository);

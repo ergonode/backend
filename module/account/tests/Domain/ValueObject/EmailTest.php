@@ -51,7 +51,7 @@ class EmailTest extends TestCase
      */
     public function testInvalidValue(string $value): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new Email($value);
     }
 

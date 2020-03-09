@@ -46,8 +46,8 @@ class LanguageDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
-        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
-        $this->expectedExceptionMessage("Invalid Language object");
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectExceptionMessage("Invalid Language object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
@@ -65,11 +65,11 @@ class LanguageDataTransformerTest extends TestCase
 
     /**
      *
-     * @expectedExceptionMessage Invalid Language "ZZ" value
+     * @expectExceptionMessage Invalid Language "ZZ" value
      */
     public function testReverseTransformException(): void
     {
-        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = 'ZZ';
         $this->transformer->reverseTransform($value);
     }

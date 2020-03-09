@@ -63,7 +63,7 @@ class DeleteAttributeCommandHandlerTest extends TestCase
      */
     public function testAttributeNotFound(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->repository->method('load')->willReturn(null);
 
         $handler = new DeleteAttributeCommandHandler($this->repository, $this->relationshipResolver);

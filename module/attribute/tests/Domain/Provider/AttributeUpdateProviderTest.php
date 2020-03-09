@@ -49,7 +49,7 @@ class AttributeUpdateProviderTest extends TestCase
      */
     public function testFalseProvideAttributeFactory(): void
     {
-        $this->expectedException(\RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         /** @var AttributeUpdaterInterface|MockObject $factory */
         $factory = $this->createMock(AttributeUpdaterInterface::class);
         $factory->method('isSupported')->willReturn(false);

@@ -46,8 +46,8 @@ class RoleIdDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
-        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
-        $this->expectedExceptionMessage("Invalid RoleId object");
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectExceptionMessage("Invalid RoleId object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
@@ -66,11 +66,11 @@ class RoleIdDataTransformerTest extends TestCase
 
     /**
      *
-     * @expectedExceptionMessage Invalid "not_uuid" value
+     * @expectExceptionMessage Invalid "not_uuid" value
      */
     public function testReverseTransformException(): void
     {
-        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = 'not_uuid';
         $this->transformer->reverseTransform($value);
     }

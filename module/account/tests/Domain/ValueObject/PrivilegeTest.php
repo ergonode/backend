@@ -31,7 +31,7 @@ class PrivilegeTest extends TestCase
      */
     public function testInvalidValue(): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $value = str_repeat('To long Value', 100);
         new Privilege($value);
     }

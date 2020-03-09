@@ -46,8 +46,8 @@ class AttributeCodeDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
-        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
-        $this->expectedExceptionMessage("Invalid AttributeCode object");
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectExceptionMessage("Invalid AttributeCode object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
@@ -65,11 +65,11 @@ class AttributeCodeDataTransformerTest extends TestCase
 
     /**
      *
-     * @expectedExceptionMessage Invalid attribute code color/col value
      */
     public function testReverseTransformException(): void
     {
-        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectExceptionMessage('Invalid attribute code color/col value');
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = 'color/col';
         $this->transformer->reverseTransform($value);
     }

@@ -93,7 +93,7 @@ class FormAuthenticatorTest extends TestCase
      */
     public function testGetUserException(): void
     {
-        $this->expectedException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
+        $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
         $credentials = [
             'email' => 'username',
             'password' => 'pass',
@@ -124,8 +124,8 @@ class FormAuthenticatorTest extends TestCase
      */
     public function testCheckCredentialsException(): void
     {
-        $this->expectedException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
-        $this->expectedExceptionMessage("Invalid password");
+        $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
+        $this->expectExceptionMessage("Invalid password");
         $credentials = [
             'email' => 'username',
             'password' => 'pass',

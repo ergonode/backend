@@ -58,7 +58,7 @@ class CreateAttributeCommandHandlerTest extends TestCase
      */
     public function testStrategyNotFound(): void
     {
-        $this->expectedException(\RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         $this->provider->method('provide')->willThrowException(new \RuntimeException());
         $this->repository->method('load')->willReturn($this->attribute);
 

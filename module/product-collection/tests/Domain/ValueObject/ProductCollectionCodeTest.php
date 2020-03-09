@@ -36,7 +36,7 @@ class ProductCollectionCodeTest extends TestCase
      */
     public function testCreationInValidCode(string $code): void
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new ProductCollectionCode($code);
     }
 

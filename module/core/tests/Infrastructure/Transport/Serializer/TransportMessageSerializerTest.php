@@ -46,21 +46,21 @@ class TransportMessageSerializerTest extends TestCase
 
     /**
      *
-     * @expectedExceptionMessage Encoded envelope should have at least a `body` and some `headers`.
      */
     public function testNoBodyDecode()
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Encoded envelope should have at least a `body` and some `headers`.');
+        $this->expectException(\InvalidArgumentException::class);
         $this->messageSerializer->decode(['body' => 'example', 'headers' => '']);
     }
 
     /**
      *
-     * @expectedExceptionMessage Encoded envelope does not have a `type` header.
      */
     public function testNoTypeDecode()
     {
-        $this->expectedException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Encoded envelope does not have a `type` header.');
+        $this->expectException(\InvalidArgumentException::class);
         $this->messageSerializer->decode(['body' => 'example1', 'headers' => 'example2']);
     }
 
