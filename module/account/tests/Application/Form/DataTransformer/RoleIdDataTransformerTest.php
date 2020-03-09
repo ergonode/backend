@@ -65,11 +65,10 @@ class RoleIdDataTransformerTest extends TestCase
     }
 
     /**
-     *
-     * @expectExceptionMessage Invalid "not_uuid" value
      */
     public function testReverseTransformException(): void
     {
+        $this->expectExceptionMessage('Invalid "not_uuid" value');
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = 'not_uuid';
         $this->transformer->reverseTransform($value);
