@@ -44,7 +44,6 @@ class SizeFormDataTransformerTest extends TestCase
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
-     * @expectedExceptionMessage Invalid Size object
      */
     public function testTransformException(): void
     {

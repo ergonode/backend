@@ -44,7 +44,6 @@ class PositionFormDataTransformerTest extends TestCase
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
-     * @expectedExceptionMessage Invalid Position object
      */
     public function testTransformException(): void
     {

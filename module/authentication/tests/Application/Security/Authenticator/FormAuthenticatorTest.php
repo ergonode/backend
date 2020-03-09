@@ -123,7 +123,6 @@ class FormAuthenticatorTest extends TestCase
     /**
      * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationException
      *
-     * @expectedExceptionMessage  Invalid password
      */
     public function testCheckCredentialsException(): void
     {

@@ -45,7 +45,6 @@ class LanguageDataTransformerTest extends TestCase
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
-     * @expectedExceptionMessage Invalid Language object
      */
     public function testTransformException(): void
     {

@@ -44,7 +44,6 @@ class RoleIdDataTransformerTest extends TestCase
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
-     * @expectedExceptionMessage Invalid RoleId object
      */
     public function testTransformException(): void
     {

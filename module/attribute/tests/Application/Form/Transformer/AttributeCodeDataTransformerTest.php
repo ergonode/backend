@@ -44,7 +44,6 @@ class AttributeCodeDataTransformerTest extends TestCase
     /**
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
-     * @expectedExceptionMessage Invalid AttributeCode object
      */
     public function testTransformException(): void
     {
