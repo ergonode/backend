@@ -30,7 +30,6 @@ class ImageFormatTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testNotValidFormat(): void
     {

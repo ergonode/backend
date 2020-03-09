@@ -32,7 +32,6 @@ class RecordTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testGetException(): void
     {

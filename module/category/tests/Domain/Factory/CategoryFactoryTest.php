@@ -42,7 +42,6 @@ class CategoryFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testCreationWithInvalidAttributeType(): void
     {

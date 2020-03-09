@@ -35,7 +35,6 @@ class UserUniqueValidatorTest extends ConstraintValidatorTestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongValueProvided(): void
     {
@@ -44,7 +43,6 @@ class UserUniqueValidatorTest extends ConstraintValidatorTestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongConstraintProvided(): void
     {

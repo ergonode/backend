@@ -43,7 +43,6 @@ class PrivilegeTypeResolverTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testIncorrectPrivilege(): void
     {

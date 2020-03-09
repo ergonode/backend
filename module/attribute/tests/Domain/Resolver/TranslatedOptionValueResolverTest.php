@@ -35,7 +35,6 @@ class TranslatedOptionValueResolverTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testResolvingNotSupportedOption(): void
     {

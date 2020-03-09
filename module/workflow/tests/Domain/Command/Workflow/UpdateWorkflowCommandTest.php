@@ -34,7 +34,6 @@ class UpdateWorkflowCommandTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testIncorrectStatusCode(): void
     {

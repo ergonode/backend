@@ -40,7 +40,6 @@ class RoleFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testCreateObjectWitchIncorrectPrivileges(): void
     {

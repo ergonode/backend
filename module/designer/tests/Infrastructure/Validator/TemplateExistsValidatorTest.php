@@ -36,7 +36,6 @@ class TemplateExistsValidatorTest extends ConstraintValidatorTestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongValueProvided(): void
     {
@@ -45,7 +44,6 @@ class TemplateExistsValidatorTest extends ConstraintValidatorTestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongConstraintProvided(): void
     {

@@ -42,7 +42,6 @@ class CategoryCodeDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
      */
     public function testTransformException(): void
@@ -65,7 +64,6 @@ class CategoryCodeDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
      */
     public function testReverseTransformException(): void

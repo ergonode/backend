@@ -41,7 +41,6 @@ class AttributeTypeDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
      */
     public function testTransformException(): void
@@ -64,7 +63,6 @@ class AttributeTypeDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function testReverseTransformException(): void
     {

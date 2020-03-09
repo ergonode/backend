@@ -58,7 +58,6 @@ class UpdateAttributeCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testAttributeNotFound(): void
     {
@@ -71,7 +70,6 @@ class UpdateAttributeCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testStrategyNotFound(): void
     {

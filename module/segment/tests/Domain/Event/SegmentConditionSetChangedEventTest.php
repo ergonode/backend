@@ -49,7 +49,6 @@ class SegmentConditionSetChangedEventTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\EventManager\Exception\DomainException
      */
     public function testNullException(): void
     {

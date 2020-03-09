@@ -39,7 +39,6 @@ class HashTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      *
      * @param string $data
      *

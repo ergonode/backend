@@ -30,7 +30,6 @@ class SkuTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidValue(): void
     {

@@ -51,7 +51,6 @@ class UpdateCategoryCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testHandlingNotExistsCategory(): void
     {

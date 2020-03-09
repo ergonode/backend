@@ -84,7 +84,6 @@ class MultimediaParamConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
     public function testEmptyParameter(): void
     {
@@ -96,7 +95,6 @@ class MultimediaParamConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
     public function testInvalidParameter(): void
     {
@@ -108,7 +106,6 @@ class MultimediaParamConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function testEntityNotExists(): void
     {
@@ -120,7 +117,6 @@ class MultimediaParamConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\ConflictHttpException
      */
     public function testFileNotExists(): void
     {

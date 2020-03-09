@@ -66,7 +66,6 @@ class SegmentStatusTest extends TestCase
      *
      * @dataProvider inValidDataProvider
      *
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidData(string $status): void
     {
@@ -79,7 +78,6 @@ class SegmentStatusTest extends TestCase
      *
      * @dataProvider inValidDataProvider
      *
-     * @expectedException \InvalidArgumentException
      */
     public function testEquality(string $status): void
     {

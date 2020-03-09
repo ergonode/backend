@@ -52,7 +52,6 @@ class PasswordDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
      * @expectedExceptionMessage Invalid "pass" value
      */

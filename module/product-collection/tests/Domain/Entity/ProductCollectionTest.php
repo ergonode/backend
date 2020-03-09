@@ -101,7 +101,6 @@ class ProductCollectionTest extends TestCase
     }
 
     /**
-     * @expectedException  \RuntimeException
      */
     public function testRemovingElement(): void
     {
@@ -113,7 +112,6 @@ class ProductCollectionTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testAddingSameElement(): void
     {
@@ -124,7 +122,6 @@ class ProductCollectionTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testNotExistingElement(): void
     {

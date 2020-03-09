@@ -63,7 +63,6 @@ class PriceAttributeFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testCreateWithoutParameter(): void
     {

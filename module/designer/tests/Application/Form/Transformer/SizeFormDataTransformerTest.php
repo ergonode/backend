@@ -42,7 +42,6 @@ class SizeFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
      */
     public function testTransformException(): void
@@ -65,7 +64,6 @@ class SizeFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
      * @expectedExceptionMessage invalid size -1,-2 value
      */

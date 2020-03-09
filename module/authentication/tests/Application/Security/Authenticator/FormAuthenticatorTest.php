@@ -90,7 +90,6 @@ class FormAuthenticatorTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationException
      */
     public function testGetUserException(): void
     {
@@ -121,7 +120,6 @@ class FormAuthenticatorTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationException
      *
      */
     public function testCheckCredentialsException(): void

@@ -49,7 +49,6 @@ class DeleteCommentCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testHandlingCommentxistsObject(): void
     {

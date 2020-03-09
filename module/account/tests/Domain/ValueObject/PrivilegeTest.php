@@ -28,7 +28,6 @@ class PrivilegeTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidValue(): void
     {

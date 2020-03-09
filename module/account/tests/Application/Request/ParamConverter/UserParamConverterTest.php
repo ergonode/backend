@@ -69,7 +69,6 @@ class UserParamConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
     public function testEmptyParameter(): void
     {
@@ -81,7 +80,6 @@ class UserParamConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
     public function testInvalidParameter(): void
     {
@@ -93,7 +91,6 @@ class UserParamConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function testEntityNotExists(): void
     {

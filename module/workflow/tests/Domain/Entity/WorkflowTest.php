@@ -100,7 +100,6 @@ class WorkflowTest extends TestCase
     /**
      * @throws \Exception
      *
-     * @expectedException \RuntimeException
      */
     public function testSetNotExistDefaultStatus(): void
     {
@@ -116,7 +115,6 @@ class WorkflowTest extends TestCase
     /**
      * @throws \Exception
      *
-     * @expectedException \RuntimeException
      */
     public function testGetNotExistDefaultStatus(): void
     {
@@ -126,7 +124,6 @@ class WorkflowTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      *
      * @expectedExceptionMessage Transition from "A" to "B" not exists
      *
@@ -141,7 +138,6 @@ class WorkflowTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      *
      * @expectedExceptionMessage Status "A" already exists
      *
@@ -156,7 +152,6 @@ class WorkflowTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      *
      * @expectedExceptionMessage Transition from "A" to "B" already exists
      *
@@ -176,7 +171,6 @@ class WorkflowTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      *
      * @expectedExceptionMessage Transition source status "A" not exists
      *
@@ -194,7 +188,6 @@ class WorkflowTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      *
      * @expectedExceptionMessage Transition destination status "B" not exists
      *

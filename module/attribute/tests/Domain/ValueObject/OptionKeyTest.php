@@ -27,7 +27,6 @@ class OptionKeyTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidValueLength(): void
     {

@@ -20,7 +20,6 @@ class ProductCollectionTypeCodeValidValidatorTest extends ConstraintValidatorTes
 {
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
     public function testWrongValueProvided(): void
     {
@@ -29,7 +28,6 @@ class ProductCollectionTypeCodeValidValidatorTest extends ConstraintValidatorTes
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
     public function testWrongConstraintProvided(): void
     {

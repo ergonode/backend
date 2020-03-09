@@ -30,7 +30,6 @@ class AttributeGroupCodeTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidValue(): void
     {

@@ -70,7 +70,6 @@ class CategoryTreeTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testAddingExistingCategory(): void
     {

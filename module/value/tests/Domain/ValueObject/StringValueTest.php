@@ -30,7 +30,6 @@ class StringValueTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testNullValue(): void
     {

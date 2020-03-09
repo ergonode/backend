@@ -16,7 +16,6 @@ use Ergonode\Reader\Infrastructure\ReaderProcessorInterface;
 class ReaderProcessorProviderTest extends TestCase
 {
     /**
-     * @expectedException \LogicException
      */
     public function testProviderNotFoundReader(): void
     {

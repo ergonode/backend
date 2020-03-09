@@ -63,7 +63,6 @@ class UnitAttributeFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testCreateWithoutParameter(): void
     {

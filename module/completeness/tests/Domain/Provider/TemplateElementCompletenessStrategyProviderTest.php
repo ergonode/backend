@@ -32,7 +32,6 @@ class TemplateElementCompletenessStrategyProviderTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testProvidingNotSupportedStrategy(): void
     {

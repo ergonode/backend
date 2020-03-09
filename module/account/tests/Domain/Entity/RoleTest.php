@@ -92,7 +92,6 @@ class RoleTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testRemoveNotExistsPrivilege(): void
     {
@@ -102,7 +101,6 @@ class RoleTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testAddExistsPrivilege(): void
     {
@@ -113,7 +111,6 @@ class RoleTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testRoleCreationWithIncorrectType(): void
     {
@@ -124,7 +121,6 @@ class RoleTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testChangePrivilegesWithIncorrectType(): void
     {

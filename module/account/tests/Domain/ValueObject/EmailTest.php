@@ -46,7 +46,6 @@ class EmailTest extends TestCase
     /**
      * @param string $value
      *
-     * @expectedException \InvalidArgumentException
      *
      * @dataProvider invalidDataProvider
      */

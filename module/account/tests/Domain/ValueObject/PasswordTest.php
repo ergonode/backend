@@ -31,7 +31,6 @@ class PasswordTest extends TestCase
     /**
      * @param string $value
      *
-     * @expectedException \InvalidArgumentException
      *
      * @dataProvider invalidDataProvider
      */

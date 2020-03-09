@@ -61,7 +61,6 @@ class PriceAttributeUpdaterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testUpdateWithoutParameter(): void
     {

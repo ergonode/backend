@@ -76,7 +76,6 @@ class SimpleProductTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testConstructWitchBadCategoryObject(): void
     {

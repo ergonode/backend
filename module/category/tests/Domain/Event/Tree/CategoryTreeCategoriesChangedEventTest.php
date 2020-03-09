@@ -32,7 +32,6 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testCreateWithIncorrectTypeInserted(): void
     {

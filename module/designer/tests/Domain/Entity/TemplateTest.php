@@ -81,7 +81,6 @@ class TemplateTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testAddExistsElement(): void
     {
@@ -93,7 +92,6 @@ class TemplateTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testChangeElement(): void
     {
@@ -155,7 +153,6 @@ class TemplateTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testRemoveNotExistImage(): void
     {
@@ -201,7 +198,6 @@ class TemplateTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testRemoveNotExistDefaultText(): void
     {
@@ -247,7 +243,6 @@ class TemplateTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testRemoveNotExistDefaultImage(): void
     {

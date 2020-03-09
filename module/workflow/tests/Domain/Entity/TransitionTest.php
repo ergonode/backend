@@ -111,7 +111,6 @@ class TransitionTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testChangingRoleIdsException(): void
     {

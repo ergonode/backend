@@ -38,7 +38,6 @@ class CsvReaderProcessorTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testIncorrectFileRead(): void
     {

@@ -30,7 +30,6 @@ class ImportStatusTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testCreateWitchIncorrectStatus(): void
     {

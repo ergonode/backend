@@ -46,7 +46,6 @@ class AttributeUpdateProviderTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testFalseProvideAttributeFactory(): void
     {

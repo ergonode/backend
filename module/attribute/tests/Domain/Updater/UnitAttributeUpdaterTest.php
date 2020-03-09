@@ -61,7 +61,6 @@ class UnitAttributeUpdaterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testUpdateWithoutParameter(): void
     {

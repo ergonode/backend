@@ -32,7 +32,6 @@ class CategoryCodeTest extends TestCase
      *
      * @dataProvider invalidDataProvider
      *
-     * @expectedException \InvalidArgumentException
      */
     public function testCreationInValidCode(string $code): void
     {

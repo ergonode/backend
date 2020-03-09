@@ -42,7 +42,6 @@ class ColorDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
      */
     public function testTransformException(): void
@@ -65,7 +64,6 @@ class ColorDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
      * @expectedExceptionMessage Invalid Color "black" value
      */

@@ -59,7 +59,6 @@ class RangeTest extends TestCase
      * @param float $max
      * @param float $min
      *
-     * @expectedException \InvalidArgumentException
      *
      * @dataProvider dataProvider
      */

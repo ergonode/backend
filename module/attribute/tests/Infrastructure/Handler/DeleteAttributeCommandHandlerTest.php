@@ -60,7 +60,6 @@ class DeleteAttributeCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testAttributeNotFound(): void
     {

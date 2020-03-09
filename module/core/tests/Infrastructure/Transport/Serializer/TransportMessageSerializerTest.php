@@ -45,7 +45,6 @@ class TransportMessageSerializerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      *
      * @expectedExceptionMessage Encoded envelope should have at least a `body` and some `headers`.
      */
@@ -56,7 +55,6 @@ class TransportMessageSerializerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      *
      * @expectedExceptionMessage Encoded envelope does not have a `type` header.
      */

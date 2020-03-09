@@ -61,7 +61,6 @@ class DeleteCategoryCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException
      */
     public function testHandlingExistsCategoryWithRelations(): void
     {
@@ -78,7 +77,6 @@ class DeleteCategoryCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testHandlingNotExistsCategory(): void
     {

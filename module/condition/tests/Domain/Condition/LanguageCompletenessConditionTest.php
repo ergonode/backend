@@ -31,7 +31,6 @@ class LanguageCompletenessConditionTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidConditionCreation(): void
     {

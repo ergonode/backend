@@ -55,7 +55,6 @@ class CreateAttributeCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testStrategyNotFound(): void
     {

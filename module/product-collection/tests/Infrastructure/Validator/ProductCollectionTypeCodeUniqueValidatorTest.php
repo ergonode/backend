@@ -35,7 +35,6 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
 
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
     public function testWrongValueProvided(): void
     {
@@ -44,7 +43,6 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
     public function testWrongConstraintProvided(): void
     {

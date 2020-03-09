@@ -73,7 +73,6 @@ class UserRoleVoterTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testNotExistingRole(): void
     {

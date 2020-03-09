@@ -49,7 +49,6 @@ class UpdateCommentCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testHandlingCommentExistsObject(): void
     {

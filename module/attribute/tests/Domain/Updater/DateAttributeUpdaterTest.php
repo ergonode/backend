@@ -64,7 +64,6 @@ class DateAttributeUpdaterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testUpdateWithoutParameter(): void
     {

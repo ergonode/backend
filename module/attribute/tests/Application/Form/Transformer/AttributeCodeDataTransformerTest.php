@@ -42,7 +42,6 @@ class AttributeCodeDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
      */
     public function testTransformException(): void
@@ -65,7 +64,6 @@ class AttributeCodeDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
      * @expectedExceptionMessage Invalid attribute code color/col value
      */

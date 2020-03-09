@@ -33,7 +33,6 @@ class ProductCollectionCodeTest extends TestCase
      *
      * @dataProvider invalidDataProvider
      *
-     * @expectedException \InvalidArgumentException
      */
     public function testCreationInValidCode(string $code): void
     {

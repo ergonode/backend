@@ -31,7 +31,6 @@ class AttributeCodeTest extends TestCase
      *
      * @dataProvider invalidDataProvider
      *
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidCharactersValue(string $value): void
     {
