@@ -48,6 +48,7 @@ class PrivilegeDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
+        $this->expectedExceptionMessage("Invalid Privilege object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
@@ -73,6 +74,7 @@ class PrivilegeDataTransformerTest extends TestCase
      */
     public function testReverseTransformException(): void
     {
+        $this->expectedExceptionMessage("Invalid Privilege");
         $value = '7zmwvoa60el83MuQ2L5o4RgoJf3eGj6dWZDC30pTVAAPHLAqYKPbWyRtb2szH5PLV6X4euonbgyuTERSjzG6gmL2g8SI9q7PICFj'.
             'Mf1k4Slizle3DoTWv4re4OdQRQ6qo8';
         $this->transformer->reverseTransform($value);

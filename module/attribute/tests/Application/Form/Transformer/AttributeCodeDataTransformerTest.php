@@ -48,6 +48,7 @@ class AttributeCodeDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
+        $this->expectedExceptionMessage("Invalid AttributeCode object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }

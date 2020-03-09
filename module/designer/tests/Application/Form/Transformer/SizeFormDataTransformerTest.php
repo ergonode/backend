@@ -48,6 +48,7 @@ class SizeFormDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
+        $this->expectedExceptionMessage("Invalid Size object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }

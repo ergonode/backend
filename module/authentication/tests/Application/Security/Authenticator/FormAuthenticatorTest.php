@@ -127,6 +127,7 @@ class FormAuthenticatorTest extends TestCase
      */
     public function testCheckCredentialsException(): void
     {
+        $this->expectedExceptionMessage("Invalid password");
         $credentials = [
             'email' => 'username',
             'password' => 'pass',

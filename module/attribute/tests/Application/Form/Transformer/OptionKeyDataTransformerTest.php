@@ -48,6 +48,7 @@ class OptionKeyDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
+        $this->expectedExceptionMessage("Invalid OptionKey object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
@@ -74,6 +75,7 @@ class OptionKeyDataTransformerTest extends TestCase
      */
     public function testReverseTransformException(): void
     {
+        $this->expectedExceptionMessage("Invalid Option Key");
         $value = 'qSYF4E9y2lg10jL5lGAduJw6NqPmeFgZ0e4GeVksl0SpGfvbLmr1OkueTExXYU2Vn3Behf3GaZUPNduEoS0rMJny1uHKWYeGXn9'.
             'Vn2Mv7TJZ3AyHonXnE1Ox5e3ZYSuiXhtTgnTPJk8cR7dLAL2lgWO5OYMNSdmh3w5Tuqs44xXu0DdYDvXj2bhukrfOXVl8PZapcujYo5K'.
             'DIRVeBNIeOHw6zbQv80uUvl73Ul9VH8NQmSqDIcHXarYyZUWDlbmQO6lJ';

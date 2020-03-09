@@ -49,6 +49,7 @@ class ColorDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
+        $this->expectedExceptionMessage("Invalid Color object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }

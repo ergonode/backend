@@ -48,6 +48,7 @@ class RoleIdDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
+        $this->expectedExceptionMessage("Invalid RoleId object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
