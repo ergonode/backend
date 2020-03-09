@@ -37,7 +37,6 @@ class WorkflowTest extends TestCase
     /**
      */
     protected function setUp(): void
-
     {
         $this->id = $this->createMock(WorkflowId::class);
         $this->code = 'Any code';
@@ -105,6 +104,7 @@ class WorkflowTest extends TestCase
      */
     public function testSetNotExistDefaultStatus(): void
     {
+        $this->expectedException(\RuntimeException::class);
         /** @var StatusCode|MockObject $status */
         $status1 = new StatusCode('one');
         $status2 = new StatusCode('two');
@@ -120,6 +120,7 @@ class WorkflowTest extends TestCase
      */
     public function testGetNotExistDefaultStatus(): void
     {
+        $this->expectedException(\RuntimeException::class);
         $workflow = new Workflow($this->id, $this->code, []);
         $workflow->getDefaultStatus();
     }
@@ -133,6 +134,7 @@ class WorkflowTest extends TestCase
      */
     public function testNoTransitionException(): void
     {
+        $this->expectedException(\RuntimeException::class);
 
         $workflow = new Workflow($this->id, $this->code, [$this->status]);
         $workflow->getTransition(new StatusCode('A'), new StatusCode('B'));
@@ -147,6 +149,7 @@ class WorkflowTest extends TestCase
      */
     public function testAddingStatusAlreadyExistException(): void
     {
+        $this->expectedException(\RuntimeException::class);
         $status = new StatusCode('A');
         $workflow = new Workflow($this->id, $this->code, [$status]);
         $workflow->addStatus($status);
@@ -161,6 +164,7 @@ class WorkflowTest extends TestCase
      */
     public function testAddingTransitionAlreadyExistException(): void
     {
+        $this->expectedException(\RuntimeException::class);
         /** @var StatusCode|MockObject $source */
         $source = new StatusCode('A');
         $destination = new StatusCode('B');
@@ -180,6 +184,7 @@ class WorkflowTest extends TestCase
      */
     public function testAddingNoSourceException(): void
     {
+        $this->expectedException(\RuntimeException::class);
         /** @var StatusCode|MockObject $source */
         $source = new StatusCode('A');
         $destination = new StatusCode('B');
@@ -197,6 +202,7 @@ class WorkflowTest extends TestCase
      */
     public function testAddingNoDestinationException(): void
     {
+        $this->expectedException(\RuntimeException::class);
         /** @var StatusCode|MockObject $source */
         $source = new StatusCode('A');
         $destination = new StatusCode('B');

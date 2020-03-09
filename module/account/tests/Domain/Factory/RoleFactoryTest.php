@@ -44,6 +44,7 @@ class RoleFactoryTest extends TestCase
      */
     public function testCreateObjectWitchIncorrectPrivileges(): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         /** @var RoleId|MockObject $id */
         $id = $this->createMock(RoleId::class);
         $name = 'Any name';

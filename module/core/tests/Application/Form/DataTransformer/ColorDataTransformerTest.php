@@ -26,7 +26,6 @@ class ColorDataTransformerTest extends TestCase
     /**
      */
     protected function setUp(): void
-
     {
         $this->transformer = new ColorDataTransformer();
     }
@@ -48,6 +47,7 @@ class ColorDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
+        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $this->expectedExceptionMessage("Invalid Color object");
         $value = new \stdClass();
         $this->transformer->transform($value);
@@ -71,6 +71,7 @@ class ColorDataTransformerTest extends TestCase
      */
     public function testReverseTransformException(): void
     {
+        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = 'black';
         $this->transformer->reverseTransform($value);
     }

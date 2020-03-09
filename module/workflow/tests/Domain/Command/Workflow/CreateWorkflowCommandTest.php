@@ -39,6 +39,7 @@ class CreateWorkflowCommandTest extends TestCase
      */
     public function testIncorrectStatusCode(): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         /** @var WorkflowId $id */
         $id = $this->createMock(WorkflowId::class);
 

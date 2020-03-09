@@ -38,7 +38,6 @@ class TransportMessageSerializerTest extends TestCase
     /**
      */
     protected function setUp(): void
-
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
         $this->format = 'json';
@@ -52,6 +51,7 @@ class TransportMessageSerializerTest extends TestCase
      */
     public function testNoBodyDecode()
     {
+        $this->expectedException(\InvalidArgumentException::class);
         $this->messageSerializer->decode(['body' => 'example', 'headers' => '']);
     }
 
@@ -62,6 +62,7 @@ class TransportMessageSerializerTest extends TestCase
      */
     public function testNoTypeDecode()
     {
+        $this->expectedException(\InvalidArgumentException::class);
         $this->messageSerializer->decode(['body' => 'example1', 'headers' => 'example2']);
     }
 

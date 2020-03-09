@@ -20,6 +20,7 @@ class ReaderProcessorProviderTest extends TestCase
      */
     public function testProviderNotFoundReader(): void
     {
+        $this->expectedException(\LogicException::class);
         $provider = new ReaderProcessorProvider();
         $provider->provide('any reader');
     }

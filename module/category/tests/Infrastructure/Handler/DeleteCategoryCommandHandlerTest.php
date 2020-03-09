@@ -65,6 +65,7 @@ class DeleteCategoryCommandHandlerTest extends TestCase
      */
     public function testHandlingExistsCategoryWithRelations(): void
     {
+        $this->expectedException(\Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException::class);
         $collection = $this->createMock(RelationshipCollection::class);
         $collection->method('isEmpty')->willReturn(false);
         $this->resolver->expects($this->once())->method('resolve')->willReturn($collection);
@@ -81,6 +82,7 @@ class DeleteCategoryCommandHandlerTest extends TestCase
      */
     public function testHandlingNotExistsCategory(): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         $this->repository->expects($this->once())->method('load')->willReturn(null);
         $this->repository->expects($this->never())->method('save');
         $handler = new DeleteCategoryCommandHandler($this->repository, $this->resolver);

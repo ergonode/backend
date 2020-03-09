@@ -48,7 +48,6 @@ class FormErrorMapperTest extends TestCase
     /**
      */
     protected function setUp(): void
-
     {
         $this->provider = $this->createMock(FormErrorMapperMessageProvider::class);
         $this->provider->method('getMessage')->willReturn('Very serious error');

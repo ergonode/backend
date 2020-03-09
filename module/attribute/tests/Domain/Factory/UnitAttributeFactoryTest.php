@@ -67,6 +67,7 @@ class UnitAttributeFactoryTest extends TestCase
      */
     public function testCreateWithoutParameter(): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         $strategy = new UnitAttributeFactory();
         $strategy->create($this->createCommand);
     }

@@ -55,6 +55,7 @@ class UpdateCategoryCommandHandlerTest extends TestCase
      */
     public function testHandlingNotExistsCategory(): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         $this->repository->expects($this->once())->method('load')->willReturn(null);
         $this->repository->expects($this->never())->method('save');
         $handler = new UpdateCategoryCommandHandler($this->repository);

@@ -77,6 +77,7 @@ class UserRoleVoterTest extends TestCase
      */
     public function testNotExistingRole(): void
     {
+        $this->expectedException(\RuntimeException::class);
         $repository = $this->createMock(RoleRepositoryInterface::class);
         $repository
             ->expects($this->once())

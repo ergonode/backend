@@ -44,6 +44,7 @@ class AttributeGroupCodeDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
+        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = new \stdClass();
         $this->transformer->transform($value);
     }

@@ -58,6 +58,7 @@ class PasswordDataTransformerTest extends TestCase
      */
     public function testReverseTransformException(): void
     {
+        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = 'pass';
         $this->transformer->reverseTransform($value);
     }

@@ -40,7 +40,6 @@ class CommentParamConverterTest extends TestCase
     /**
      */
     protected function setUp(): void
-
     {
         $this->request = $this->createMock(Request::class);
         $this->configuration = $this->createMock(ParamConverter::class);
@@ -74,6 +73,7 @@ class CommentParamConverterTest extends TestCase
      */
     public function testEmptyParameter(): void
     {
+        $this->expectedException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn(null);
 
         $paramConverter = new CommentParamConverter($this->repository);
@@ -85,6 +85,7 @@ class CommentParamConverterTest extends TestCase
      */
     public function testInvalidParameter(): void
     {
+        $this->expectedException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn('incorrect uuid');
 
         $paramConverter = new CommentParamConverter($this->repository);
@@ -96,6 +97,7 @@ class CommentParamConverterTest extends TestCase
      */
     public function testEntityCommentxists(): void
     {
+        $this->expectedException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
 
         $paramConverter = new CommentParamConverter($this->repository);

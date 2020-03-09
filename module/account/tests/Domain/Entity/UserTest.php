@@ -66,7 +66,6 @@ class UserTest extends TestCase
     /**
      */
     protected function setUp(): void
-
     {
         $this->userId = $this->createMock(UserId::class);
         $this->firstName = 'Any first name';

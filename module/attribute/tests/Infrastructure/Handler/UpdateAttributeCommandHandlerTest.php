@@ -62,6 +62,7 @@ class UpdateAttributeCommandHandlerTest extends TestCase
      */
     public function testAttributeNotFound(): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         $this->repository->method('load')->willReturn(null);
         $this->provider->method('provide')->willReturn($this->createMock(AttributeFactoryInterface::class));
 
@@ -74,6 +75,7 @@ class UpdateAttributeCommandHandlerTest extends TestCase
      */
     public function testStrategyNotFound(): void
     {
+        $this->expectedException(\RuntimeException::class);
         $this->provider->method('provide')->willThrowException(new \RuntimeException());
         $this->repository->method('load')->willReturn($this->attribute);
 

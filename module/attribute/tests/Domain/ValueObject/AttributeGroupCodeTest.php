@@ -34,6 +34,7 @@ class AttributeGroupCodeTest extends TestCase
      */
     public function testInvalidValue(): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         $value = 'f//.,ef';
 
         $valueObject = new AttributeGroupCode($value);

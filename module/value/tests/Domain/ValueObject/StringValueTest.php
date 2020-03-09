@@ -34,6 +34,7 @@ class StringValueTest extends TestCase
      */
     public function testNullValue(): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         $value = '';
 
         $valueObject = new StringValue($value);

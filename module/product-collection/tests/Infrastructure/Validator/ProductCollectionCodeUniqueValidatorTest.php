@@ -28,7 +28,6 @@ class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCa
     /**
      */
     protected function setUp(): void
-
     {
         $this->query = $this->createMock(ProductCollectionRepositoryInterface::class);
         parent::setUp();
@@ -40,6 +39,7 @@ class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCa
      */
     public function testWrongValueProvided(): void
     {
+        $this->expectedException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new ProductCollectionCodeUnique());
     }
 
@@ -48,6 +48,7 @@ class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCa
      */
     public function testWrongConstraintProvided(): void
     {
+        $this->expectedException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         /** @var Constraint $constrain */
         $constrain = $this->createMock(Constraint::class);
         $this->validator->validate('Value', $constrain);

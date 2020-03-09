@@ -42,7 +42,6 @@ class CommentTest extends TestCase
     /**
      */
     protected function setUp(): void
-
     {
         $this->id = $this->createMock(CommentId::class);
         $this->uuid = $this->createMock(Uuid::class);

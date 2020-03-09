@@ -47,6 +47,7 @@ class HashTest extends TestCase
      */
     public function testNotValidHashCreation(string $data): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         new Hash($data);
     }
 

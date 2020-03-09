@@ -37,6 +37,7 @@ class PasswordTest extends TestCase
      */
     public function testInvalidValue(string $value): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         new Password($value);
     }
 

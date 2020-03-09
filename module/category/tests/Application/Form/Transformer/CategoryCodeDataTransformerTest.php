@@ -47,6 +47,7 @@ class CategoryCodeDataTransformerTest extends TestCase
      */
     public function testTransformException(): void
     {
+        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $this->expectedExceptionMessage("Invalid CategoryCode object");
         $value = new \stdClass();
         $this->transformer->transform($value);
@@ -69,6 +70,7 @@ class CategoryCodeDataTransformerTest extends TestCase
      */
     public function testReverseTransformException(): void
     {
+        $this->expectedException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $this->expectedExceptionMessage("Invalid category code");
         $value = 'CS2ZiKK4TzJNNmZReVBFYwPZg2zUOL3RLv7L2VgG6nDnz8enH8nGy4iz1yQZuppKDAHfHUVEHpZZ7Ca0Tu4wZHwrpqNKdEw6bN'.
             'RSulWLxHpEODnbWH9iosh0e0AxYkzA2EFPmPm0faRUq5ae9EeQ5IpgUxFxFmwzpOGm5DJhR0gczdEdL0KxJmYzWY0fV34H8QzcCAt3nA'.

@@ -49,6 +49,7 @@ class PositionTest extends TestCase
      */
     public function testLessThenZeroValue(int $x, int $y): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         new Position($x, $y);
     }
 

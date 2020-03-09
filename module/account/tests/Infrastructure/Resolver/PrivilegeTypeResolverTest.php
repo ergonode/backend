@@ -47,6 +47,7 @@ class PrivilegeTypeResolverTest extends TestCase
      */
     public function testIncorrectPrivilege(): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         (new PrivilegeTypeResolver())->resolve(new Privilege('A'));
     }
 }

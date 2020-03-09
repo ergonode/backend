@@ -34,6 +34,7 @@ class SkuTest extends TestCase
      */
     public function testInvalidValue(): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         $sku = new Sku(
             'yKL3rWXluEM7NapnMSVpYHpicQJkpJ0Obfx91mma0xwnQxUfsrwy5Nfki1LUZR4qYolBTlUFDO4RkeINIkjPzMfTSit0bQ
             ZJevXA6GMsj0LnSZaiT1bBfr00vtKWqLAPollonRzb6GBVlT5U9I6nC49r3Vnj2jUgpA73CvfnVnFBNnHqCaI2Cu48SKaVSRGgROho

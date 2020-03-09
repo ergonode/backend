@@ -67,6 +67,7 @@ class PriceAttributeFactoryTest extends TestCase
      */
     public function testCreateWithoutParameter(): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         $strategy = new PriceAttributeFactory();
         $strategy->create($this->createCommand);
     }

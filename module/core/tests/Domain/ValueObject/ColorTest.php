@@ -37,6 +37,7 @@ class ColorTest extends TestCase
      */
     public function testInvalidColorCreation(string $hex): void
     {
+        $this->expectedException(\InvalidArgumentException::class);
         new Color($hex);
     }
 

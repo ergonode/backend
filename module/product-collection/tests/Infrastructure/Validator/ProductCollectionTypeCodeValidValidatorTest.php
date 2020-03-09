@@ -24,6 +24,7 @@ class ProductCollectionTypeCodeValidValidatorTest extends ConstraintValidatorTes
      */
     public function testWrongValueProvided(): void
     {
+        $this->expectedException(\Symfony\Component\Form\Exception\UnexpectedTypeException::class);
         $this->validator->validate(new \stdClass(), new ProductCollectionTypeCodeValid());
     }
 
@@ -32,6 +33,7 @@ class ProductCollectionTypeCodeValidValidatorTest extends ConstraintValidatorTes
      */
     public function testWrongConstraintProvided(): void
     {
+        $this->expectedException(\Symfony\Component\Form\Exception\UnexpectedTypeException::class);
         /** @var Constraint $constrain */
         $constrain = $this->createMock(Constraint::class);
         $this->validator->validate('Value', $constrain);
