@@ -54,7 +54,7 @@ class DateAttributeUpdaterTest extends TestCase
      */
     public function testUpdate(): void
     {
-        $this->updateCommand->method('hasParameter')->willReturn('true');
+        $this->updateCommand->method('hasParameter')->willReturn(true);
         $strategy = new DateAttributeUpdater();
         /** @var DateAttribute $attribute */
         $attribute = $this->createMock(DateAttribute::class);

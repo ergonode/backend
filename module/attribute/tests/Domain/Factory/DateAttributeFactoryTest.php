@@ -58,7 +58,7 @@ class DateAttributeFactoryTest extends TestCase
      */
     public function testCreate(): void
     {
-        $this->createCommand->method('hasParameter')->willReturn('true');
+        $this->createCommand->method('hasParameter')->willReturn(true);
         $strategy = new DateAttributeFactory();
         $result = $strategy->create($this->createCommand);
 

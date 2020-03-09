@@ -51,7 +51,7 @@ class PriceAttributeUpdaterTest extends TestCase
      */
     public function testUpdate(): void
     {
-        $this->updateCommand->method('hasParameter')->willReturn('true');
+        $this->updateCommand->method('hasParameter')->willReturn(true);
         $strategy = new PriceAttributeUpdater();
         /** @var PriceAttribute $attribute */
         $attribute = $this->createMock(PriceAttribute::class);

@@ -31,7 +31,7 @@ class ImageAttributeUpdaterTest extends TestCase
     {
         $this->updateCommand = $this->createMock(UpdateAttributeCommand::class);
         $this->updateCommand->method('getParameter')->willReturn([ImageFormat::JPEG]);
-        $this->updateCommand->method('hasParameter')->willReturn('true');
+        $this->updateCommand->method('hasParameter')->willReturn(true);
     }
 
     /**

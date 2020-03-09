@@ -51,7 +51,7 @@ class UnitAttributeUpdaterTest extends TestCase
      */
     public function testUpdate(): void
     {
-        $this->updateCommand->method('hasParameter')->willReturn('true');
+        $this->updateCommand->method('hasParameter')->willReturn(true);
         $strategy = new UnitAttributeUpdater();
         /** @var UnitAttribute $attribute */
         $attribute = $this->createMock(UnitAttribute::class);

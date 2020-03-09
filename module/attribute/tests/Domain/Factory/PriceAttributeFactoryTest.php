@@ -55,7 +55,7 @@ class PriceAttributeFactoryTest extends TestCase
      */
     public function testCreate(): void
     {
-        $this->createCommand->method('hasParameter')->willReturn('true');
+        $this->createCommand->method('hasParameter')->willReturn(true);
         $strategy = new PriceAttributeFactory();
         $result = $strategy->create($this->createCommand);
 
