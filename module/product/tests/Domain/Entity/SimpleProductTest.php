@@ -49,7 +49,7 @@ class SimpleProductTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(ProductId::class);
         $this->sku = $this->createMock(Sku::class);

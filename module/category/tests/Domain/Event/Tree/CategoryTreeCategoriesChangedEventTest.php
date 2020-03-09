@@ -26,7 +26,7 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->node = $this->createMock(Node::class);
     }

@@ -27,7 +27,7 @@ class ImageAttributeFactoryTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->createCommand = $this->createMock(CreateAttributeCommand::class);
         $this->createCommand->method('hasParameter')->willReturn('true');

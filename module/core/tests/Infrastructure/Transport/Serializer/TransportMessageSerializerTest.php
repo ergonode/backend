@@ -37,7 +37,8 @@ class TransportMessageSerializerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
+
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
         $this->format = 'json';

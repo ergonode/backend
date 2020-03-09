@@ -24,7 +24,7 @@ class AttributeCodeValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->query = $this->createMock(AttributeQueryInterface::class);
         parent::setUp();

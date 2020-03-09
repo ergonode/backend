@@ -45,7 +45,7 @@ class TemplateTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(TemplateId::class);
         $this->groupId = $this->createMock(TemplateGroupId::class);

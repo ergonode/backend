@@ -29,7 +29,7 @@ class TemplateExistsValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->templateRepository = $this->createMock(TemplateRepositoryInterface::class);
         parent::setUp();

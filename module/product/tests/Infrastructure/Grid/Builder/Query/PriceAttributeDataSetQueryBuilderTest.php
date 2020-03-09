@@ -39,7 +39,7 @@ class PriceAttributeDataSetQueryBuilderTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->attribute = $this->createMock(PriceAttribute::class);
         $this->queryBuilder = $this->createMock(QueryBuilder::class);

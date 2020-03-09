@@ -41,7 +41,8 @@ class DefaultProductTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
+
     {
         $this->id = Uuid::uuid4();
         $this->sku = random_bytes(10);

@@ -25,7 +25,7 @@ class PositionFormDataTransformerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->transformer = new PositionFormDataTransformer();
     }

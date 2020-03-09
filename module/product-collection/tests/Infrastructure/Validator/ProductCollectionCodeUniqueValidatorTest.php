@@ -27,7 +27,8 @@ class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCa
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
+
     {
         $this->query = $this->createMock(ProductCollectionRepositoryInterface::class);
         parent::setUp();

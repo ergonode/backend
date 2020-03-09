@@ -28,7 +28,7 @@ class ImageAttributeColumnStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->attribute = $this->createMock(ImageAttribute::class);
         $this->attribute->method('getId')->willReturn($this->createMock(AttributeId::class));

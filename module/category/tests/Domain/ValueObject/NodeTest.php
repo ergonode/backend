@@ -25,7 +25,7 @@ class NodeTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->categoryId = $this->createMock(CategoryId::class);
     }

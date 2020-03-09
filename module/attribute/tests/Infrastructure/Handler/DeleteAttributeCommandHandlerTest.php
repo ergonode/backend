@@ -48,7 +48,7 @@ class DeleteAttributeCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = $this->createMock(DeleteAttributeCommand::class);
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);

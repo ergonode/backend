@@ -44,7 +44,7 @@ class ExceptionListenerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->exceptionMapper = $this->createMock(ExceptionMapperInterface::class);
         $this->event = $this->createMock(ExceptionEvent::class);

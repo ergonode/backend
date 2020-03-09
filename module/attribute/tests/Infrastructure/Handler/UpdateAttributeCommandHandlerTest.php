@@ -45,7 +45,7 @@ class UpdateAttributeCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = $this->createMock(UpdateAttributeCommand::class);
         $this->command->method('getLabel')->willReturn(new TranslatableString());

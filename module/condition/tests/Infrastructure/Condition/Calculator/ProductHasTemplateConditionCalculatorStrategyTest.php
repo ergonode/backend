@@ -34,7 +34,7 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->templateQuery = $this->createMock(TemplateQueryInterface::class);
 

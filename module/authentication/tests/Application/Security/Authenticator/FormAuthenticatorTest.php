@@ -42,7 +42,8 @@ class FormAuthenticatorTest extends TestCase
 
     /**
      */
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->passwordEncoder = $this->createMock(UserPasswordEncoderInterface::class);
         $this->successHandler = $this->createMock(AuthenticationSuccessHandler::class);

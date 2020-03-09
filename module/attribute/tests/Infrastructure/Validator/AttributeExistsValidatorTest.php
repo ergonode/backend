@@ -26,7 +26,7 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         parent::setUp();

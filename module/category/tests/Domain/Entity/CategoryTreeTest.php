@@ -38,7 +38,7 @@ class CategoryTreeTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(CategoryTreeId::class);
         $this->code = 'Any correct code';

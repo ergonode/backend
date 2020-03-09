@@ -37,7 +37,8 @@ class CreateCommentCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
+
     {
         $this->factory = $this->createMock(CommentFactory::class);
         $this->factory->expects($this->once())->method('create')->willReturn($this->createMock(Comment::class));

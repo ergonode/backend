@@ -32,7 +32,7 @@ class TemplateSystemAttributeColumnStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->query = $this->createMock(TemplateQueryInterface::class);
         $this->attribute = $this->createMock(TemplateSystemAttribute::class);

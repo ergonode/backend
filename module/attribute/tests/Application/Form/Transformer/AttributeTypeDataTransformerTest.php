@@ -24,7 +24,7 @@ class AttributeTypeDataTransformerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->transformer = new AttributeTypeDataTransformer();
     }

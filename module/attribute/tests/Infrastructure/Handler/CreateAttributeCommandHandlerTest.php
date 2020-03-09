@@ -43,7 +43,7 @@ class CreateAttributeCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = $this->createMock(CreateAttributeCommand::class);
         $this->command->method('getLabel')->willReturn(new TranslatableString());

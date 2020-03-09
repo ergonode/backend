@@ -38,7 +38,7 @@ class DeleteCategoryCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repository = $this->createMock(CategoryRepositoryInterface::class);
         $this->command = $this->createMock(DeleteCategoryCommand::class);

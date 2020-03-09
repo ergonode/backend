@@ -31,7 +31,8 @@ class DeleteCommentCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
+
     {
         $this->repository = $this->createMock(CommentRepositoryInterface::class);
 

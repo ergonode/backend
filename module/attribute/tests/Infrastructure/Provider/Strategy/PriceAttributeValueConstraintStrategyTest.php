@@ -31,7 +31,7 @@ class PriceAttributeValueConstraintStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->strategy = new PriceAttributeValueConstraintStrategy();
         $this->attribute = $this->createMock(PriceAttribute::class);

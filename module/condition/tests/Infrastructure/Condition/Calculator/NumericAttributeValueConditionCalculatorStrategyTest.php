@@ -35,7 +35,7 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->strategy = new NumericAttributeValueConditionCalculatorStrategy($this->repository);

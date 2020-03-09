@@ -34,7 +34,7 @@ class TemplateElementFactoryTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
         $templateElement = $this->createMock(TemplateElementPropertyInterface::class);

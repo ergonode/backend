@@ -41,7 +41,8 @@ class RoleTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
+
     {
         $this->roleId = $this->createMock(RoleId::class);
         $this->name = 'Any Name';

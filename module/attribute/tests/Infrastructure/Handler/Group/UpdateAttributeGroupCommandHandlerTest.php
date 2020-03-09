@@ -31,7 +31,7 @@ class UpdateAttributeGroupCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = $this->createMock(UpdateAttributeGroupCommand::class);
         $this->repository = $this->createMock(AttributeGroupRepositoryInterface::class);

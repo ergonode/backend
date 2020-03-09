@@ -26,7 +26,7 @@ class SegmentConditionSetChangedEventTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(SegmentId::class);
     }

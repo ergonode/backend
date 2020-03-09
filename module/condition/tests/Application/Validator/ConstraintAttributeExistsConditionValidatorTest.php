@@ -28,7 +28,7 @@ class ConstraintAttributeExistsConditionValidatorTest extends ConstraintValidato
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->attributeQuery = $this->createMock(AttributeQueryInterface::class);
         parent::setUp();

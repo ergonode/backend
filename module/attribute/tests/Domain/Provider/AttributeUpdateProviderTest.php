@@ -26,7 +26,7 @@ class AttributeUpdateProviderTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->type = $this->createMock(AttributeType::class);
         $this->type->method('getValue')->willReturn('ANY_TYPE');

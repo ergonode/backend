@@ -25,7 +25,7 @@ class PriceAttributeUpdaterTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->updateCommand = $this->createMock(UpdateAttributeCommand::class);
         $this->updateCommand->method('getParameter')->willReturn('PLN');

@@ -49,7 +49,7 @@ class CategoryTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(CategoryId::class);
         $this->code = $this->createMock(CategoryCode::class);

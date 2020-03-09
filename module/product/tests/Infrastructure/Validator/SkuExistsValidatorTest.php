@@ -27,7 +27,7 @@ class SkuExistsValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->query = $this->createMock(ProductQueryInterface::class);
         parent::setUp();
