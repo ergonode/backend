@@ -20,7 +20,7 @@ class BooleanDataTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      *
-     * @param mixed  $value
+     * @param mixed $value
      * @param mixed $expected
      */
     public function testTransform($value, $expected): void
