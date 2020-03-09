@@ -63,7 +63,6 @@ class UpdateAttributeCommandHandlerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->repository->method('load')->willReturn(null);
-        $this->provider->method('provide')->willReturn($this->createMock(AttributeFactoryInterface::class));
 
         $handler = new UpdateAttributeCommandHandler($this->repository, $this->provider);
         $handler->__invoke($this->command);

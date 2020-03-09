@@ -21,9 +21,9 @@ class BooleanDataTransformerTest extends TestCase
      * @dataProvider transformDataProvider
      *
      * @param mixed  $value
-     * @param string $expected
+     * @param mixed $expected
      */
-    public function testTransform($value, string $expected): void
+    public function testTransform($value, $expected): void
     {
         $transformer = new BooleanDataTransformer();
         $this->assertEquals($expected, $transformer->transform($value));

@@ -117,7 +117,7 @@ class SegmentStatusTest extends TestCase
         return [
             [''],
             ['not exists status'],
-            [123],
+            ['123'],
             ['!@#)(*&(^^*^('],
         ];
     }

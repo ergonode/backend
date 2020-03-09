@@ -74,7 +74,7 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
         $this
             ->templateQuery
             ->method('findProductTemplateId')
-            ->withConsecutive($product)
+            ->withConsecutive([$product->getId()])
             ->willReturn($productTemplateId);
 
         $result = $this->strategy->calculate($product, $condition);
