@@ -138,9 +138,6 @@ class WorkflowTest extends TestCase
     }
 
     /**
-     *
-     * @expectExceptionMessage
-     *
      * @throws \Exception
      */
     public function testAddingStatusAlreadyExistException(): void

@@ -64,11 +64,10 @@ class LanguageDataTransformerTest extends TestCase
     }
 
     /**
-     *
-     * @expectExceptionMessage Invalid Language "ZZ" value
      */
     public function testReverseTransformException(): void
     {
+        $this->expectExceptionMessage('Invalid Language "ZZ" value');
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = 'ZZ';
         $this->transformer->reverseTransform($value);

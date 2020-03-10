@@ -64,11 +64,10 @@ class ColorDataTransformerTest extends TestCase
     }
 
     /**
-     *
-     * @expectExceptionMessage Invalid Color "black" value
      */
     public function testReverseTransformException(): void
     {
+        $this->expectExceptionMessage('Invalid Color "black" value');
         $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = 'black';
         $this->transformer->reverseTransform($value);
