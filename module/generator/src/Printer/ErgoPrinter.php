@@ -21,12 +21,12 @@ class ErgoPrinter extends Printer
     /**
      * @var string
      */
-    protected string $indentation = '    ';
+    protected $indentation = '    ';
 
     /**
      * @var int
      */
-    protected int $linesBetweenMethods = 1;
+    protected $linesBetweenMethods = 1;
 
     /**
      * @param PhpFile $file
