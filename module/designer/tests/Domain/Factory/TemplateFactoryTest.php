@@ -54,7 +54,7 @@ class TemplateFactoryTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(TemplateId::class);
         $this->defaultText = $this->createMock(AttributeId::class);

@@ -30,7 +30,7 @@ class CreateSegmentCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = $this->createMock(CreateSegmentCommand::class);
         $this->repository = $this->createMock(SegmentRepositoryInterface::class);

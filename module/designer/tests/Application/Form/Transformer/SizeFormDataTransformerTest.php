@@ -25,7 +25,7 @@ class SizeFormDataTransformerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->transformer = new SizeFormDataTransformer();
     }
@@ -42,12 +42,12 @@ class SizeFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
-     * @expectedExceptionMessage Invalid Size object
      */
     public function testTransformException(): void
     {
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectExceptionMessage("Invalid Size object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
@@ -64,12 +64,12 @@ class SizeFormDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
-     * @expectedExceptionMessage invalid size -1,-2 value
      */
     public function testReverseTransformException(): void
     {
+        $this->expectExceptionMessage('invalid size -1,-2 value');
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = [
             'width' => -1,
             'height' => -2,

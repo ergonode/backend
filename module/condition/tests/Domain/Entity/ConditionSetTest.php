@@ -33,7 +33,7 @@ class ConditionSetTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(ConditionSetId::class);
         $this->conditions = $this->createMock(ConditionInterface::class);

@@ -38,10 +38,10 @@ class CsvReaderProcessorTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testIncorrectFileRead(): void
     {
+        $this->expectException(\RuntimeException::class);
         $file = 'unknown file';
 
         $reader = new CsvReaderProcessor();

@@ -49,7 +49,7 @@ class SimpleProductTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(ProductId::class);
         $this->sku = $this->createMock(Sku::class);
@@ -76,10 +76,10 @@ class SimpleProductTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testConstructWitchBadCategoryObject(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $categories = [$this->createMock(\stdClass::class)];
         new SimpleProduct($this->id, $this->sku, $categories, []);
     }

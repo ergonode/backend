@@ -30,10 +30,10 @@ class ImportStatusTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testCreateWitchIncorrectStatus(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
          new ImportStatus('any incorrect status');
     }
 

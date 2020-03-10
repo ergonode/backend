@@ -26,16 +26,16 @@ class CategoryTreeCategoriesChangedEventTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->node = $this->createMock(Node::class);
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testCreateWithIncorrectTypeInserted(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         /** @var CategoryTreeId $id */
         $id = $this->createMock(CategoryTreeId::class);
         new CategoryTreeCategoriesChangedEvent($id, [new \stdClass()]);

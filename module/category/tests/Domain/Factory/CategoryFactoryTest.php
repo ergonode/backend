@@ -42,10 +42,10 @@ class CategoryFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testCreationWithInvalidAttributeType(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $id = $this->createMock(CategoryId::class);
         $code = $this->createMock(CategoryCode::class);
         $name = $this->createMock(TranslatableString::class);

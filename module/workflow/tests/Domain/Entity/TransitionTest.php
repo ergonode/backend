@@ -111,10 +111,10 @@ class TransitionTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testChangingRoleIdsException(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
         $transition->setAggregateRoot($this->aggregateRoot);
         $transition->changeRoleIds(['example', 'example2']);

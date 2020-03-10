@@ -39,7 +39,7 @@ class NumericAttributeDataSetQueryBuilderTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->attribute = $this->createMock(NumericAttribute::class);
         $this->queryBuilder = $this->createMock(QueryBuilder::class);

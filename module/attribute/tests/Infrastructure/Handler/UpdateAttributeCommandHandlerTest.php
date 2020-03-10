@@ -45,7 +45,7 @@ class UpdateAttributeCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = $this->createMock(UpdateAttributeCommand::class);
         $this->command->method('getLabel')->willReturn(new TranslatableString());
@@ -58,22 +58,21 @@ class UpdateAttributeCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testAttributeNotFound(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->repository->method('load')->willReturn(null);
-        $this->provider->method('provide')->willReturn($this->createMock(AttributeFactoryInterface::class));
 
         $handler = new UpdateAttributeCommandHandler($this->repository, $this->provider);
         $handler->__invoke($this->command);
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testStrategyNotFound(): void
     {
+        $this->expectException(\RuntimeException::class);
         $this->provider->method('provide')->willThrowException(new \RuntimeException());
         $this->repository->method('load')->willReturn($this->attribute);
 

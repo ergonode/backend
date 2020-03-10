@@ -26,7 +26,7 @@ class SegmentConditionSetChangedEventTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(SegmentId::class);
     }
@@ -49,10 +49,10 @@ class SegmentConditionSetChangedEventTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\EventManager\Exception\DomainException
      */
     public function testNullException(): void
     {
+        $this->expectException(\Zend\EventManager\Exception\DomainException::class);
         $from = null;
         $to = null;
         $event = new SegmentConditionSetChangedEvent($this->id, $from, $to);

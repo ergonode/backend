@@ -43,7 +43,7 @@ class DeleteAttributeGroupCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = $this->createMock(DeleteAttributeGroupCommand::class);
         $this->groupRepository = $this->createMock(AttributeGroupRepositoryInterface::class);

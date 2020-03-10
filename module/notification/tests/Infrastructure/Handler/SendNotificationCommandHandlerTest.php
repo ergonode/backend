@@ -37,7 +37,7 @@ class SendNotificationCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->service = $this->createMock(NotificationSender::class);
         $this->service->expects($this->once())->method('send');

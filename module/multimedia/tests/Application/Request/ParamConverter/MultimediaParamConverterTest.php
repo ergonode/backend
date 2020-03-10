@@ -52,7 +52,7 @@ class MultimediaParamConverterTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = $this->createMock(Request::class);
         $this->configuration = $this->createMock(ParamConverter::class);
@@ -84,10 +84,10 @@ class MultimediaParamConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
     public function testEmptyParameter(): void
     {
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn(null);
 
         $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
@@ -95,10 +95,10 @@ class MultimediaParamConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
     public function testInvalidParameter(): void
     {
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn('incorrect uuid');
 
         $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
@@ -106,10 +106,10 @@ class MultimediaParamConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function testEntityNotExists(): void
     {
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
 
         $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
@@ -117,10 +117,10 @@ class MultimediaParamConverterTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\ConflictHttpException
      */
     public function testFileNotExists(): void
     {
+        $this->expectException(\Symfony\Component\HttpKernel\Exception\ConflictHttpException::class);
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
         $this->repository->method('load')->willReturn($this->createMock(Multimedia::class));
         $this->provider->method('getFile')->willReturn('Some file url');

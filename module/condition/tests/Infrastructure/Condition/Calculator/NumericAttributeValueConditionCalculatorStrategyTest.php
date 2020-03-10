@@ -35,7 +35,7 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->strategy = new NumericAttributeValueConditionCalculatorStrategy($this->repository);
@@ -51,13 +51,13 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
 
     /**
      * @param string $option
-     * @param int    $expected
+     * @param float  $expected
      * @param string $value
      * @param bool   $result
      *
      * @dataProvider dataProvider
      */
-    public function testCalculate(string $option, int $expected, string $value, bool $result): void
+    public function testCalculate(string $option, float $expected, string $value, bool $result): void
     {
         $object = $this->createMock(AbstractProduct::class);
         $configuration = $this->createMock(NumericAttributeValueCondition::class);
@@ -85,43 +85,43 @@ class NumericAttributeValueConditionCalculatorStrategyTest extends TestCase
         return [
             [
                 'option' => '=',
-                'expected' => '1',
+                'expected' => 1.0,
                 'value' => '2',
                 'result' => false,
             ],
             [
                 'option' => '<>',
-                'expected' => '1',
+                'expected' => 1.0,
                 'value' => '1',
                 'result' => false,
             ],
             [
                 'option' => '>',
-                'expected' => '2',
+                'expected' => 2.0,
                 'value' => '1',
                 'result' => false,
             ],
             [
                 'option' => '>=',
-                'expected' => '2',
+                'expected' => 2.0,
                 'value' => '1',
                 'result' => false,
             ],
             [
                 'option' => '<',
-                'expected' => '1',
+                'expected' => 1.0,
                 'value' => '2',
                 'result' => false,
             ],
             [
                 'option' => '<=',
-                'expected' => '1',
+                'expected' => 1.0,
                 'value' => '2',
                 'result' => false,
             ],
             [
                 'option' => '<>',
-                'expected' => '2',
+                'expected' => 2.0,
                 'value' => '1',
                 'result' => true,
             ],

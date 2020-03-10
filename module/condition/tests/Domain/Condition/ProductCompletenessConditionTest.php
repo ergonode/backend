@@ -28,10 +28,10 @@ class ProductCompletenessConditionTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidConditionCreation(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $completeness = 'Incorrect data';
 
         new ProductCompletenessCondition($completeness);

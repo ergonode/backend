@@ -26,7 +26,7 @@ class TextAttributeFactoryTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->createCommand = $this->createMock(CreateAttributeCommand::class);
         $this->createCommand->method('getLabel')->willReturn($this->createMock(TranslatableString::class));

@@ -26,7 +26,7 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         parent::setUp();
@@ -34,18 +34,18 @@ class AttributeExistsValidatorTest extends ConstraintValidatorTestCase
 
 
     /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongValueProvided(): void
     {
+        $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new AttributeExists());
     }
 
     /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongConstraintProvided(): void
     {
+        $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         /** @var Constraint $constrain */
         $constrain = $this->createMock(Constraint::class);
         $this->validator->validate('Value', $constrain);

@@ -48,7 +48,7 @@ class DeleteAttributeCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = $this->createMock(DeleteAttributeCommand::class);
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
@@ -60,10 +60,10 @@ class DeleteAttributeCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testAttributeNotFound(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->repository->method('load')->willReturn(null);
 
         $handler = new DeleteAttributeCommandHandler($this->repository, $this->relationshipResolver);

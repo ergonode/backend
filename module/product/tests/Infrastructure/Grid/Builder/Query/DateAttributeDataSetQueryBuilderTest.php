@@ -37,7 +37,7 @@ class DateAttributeDataSetQueryBuilderTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->attribute = $this->createMock(DateAttribute::class);
         $this->queryBuilder = $this->createMock(QueryBuilder::class);

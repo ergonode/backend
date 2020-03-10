@@ -49,7 +49,7 @@ class SegmentTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(SegmentId::class);
         $this->code = $this->createMock(SegmentCode::class);

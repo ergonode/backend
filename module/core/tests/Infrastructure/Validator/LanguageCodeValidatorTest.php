@@ -19,18 +19,18 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 class LanguageCodeValidatorTest extends ConstraintValidatorTestCase
 {
     /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongValueProvided(): void
     {
+        $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new LanguageCodeConstraint());
     }
 
     /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongConstraintProvided(): void
     {
+        $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         /** @var Constraint $constrain */
         $constrain = $this->createMock(Constraint::class);
         $this->validator->validate('Value', $constrain);

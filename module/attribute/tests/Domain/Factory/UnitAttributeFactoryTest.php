@@ -26,7 +26,7 @@ class UnitAttributeFactoryTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->createCommand = $this->createMock(CreateAttributeCommand::class);
         $this->createCommand->method('getLabel')->willReturn($this->createMock(TranslatableString::class));
@@ -55,7 +55,7 @@ class UnitAttributeFactoryTest extends TestCase
      */
     public function testCreate(): void
     {
-        $this->createCommand->method('hasParameter')->willReturn('true');
+        $this->createCommand->method('hasParameter')->willReturn(true);
         $strategy = new UnitAttributeFactory();
         $result = $strategy->create($this->createCommand);
 
@@ -63,10 +63,10 @@ class UnitAttributeFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testCreateWithoutParameter(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $strategy = new UnitAttributeFactory();
         $strategy->create($this->createCommand);
     }

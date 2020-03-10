@@ -46,12 +46,12 @@ class EmailTest extends TestCase
     /**
      * @param string $value
      *
-     * @expectedException \InvalidArgumentException
      *
      * @dataProvider invalidDataProvider
      */
     public function testInvalidValue(string $value): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new Email($value);
     }
 

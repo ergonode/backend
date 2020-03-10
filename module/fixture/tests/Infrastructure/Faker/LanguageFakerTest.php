@@ -40,6 +40,6 @@ class LanguageFakerTest extends TestCase
         $faker = new LanguageFaker($generator);
         $result = $faker->language(Language::PL);
 
-        $this->assertContains($result->getCode(), Language::PL);
+        $this->assertContains($result->getCode(), [Language::PL]);
     }
 }

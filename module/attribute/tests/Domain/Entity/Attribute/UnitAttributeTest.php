@@ -52,7 +52,7 @@ class UnitAttributeTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(AttributeId::class);
         $this->code = $this->createMock(AttributeCode::class);

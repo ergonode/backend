@@ -33,10 +33,10 @@ class ColorTest extends TestCase
      *
      * @param string $hex
      *
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidColorCreation(string $hex): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new Color($hex);
     }
 

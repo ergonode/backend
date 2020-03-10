@@ -40,7 +40,7 @@ class CalculateProductCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = $this->createMock(CalculateProductCommand::class);
         $this->command->expects($this->once())->method('getProductId')

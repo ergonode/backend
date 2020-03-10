@@ -36,7 +36,7 @@ class NumericAttributeColumnStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->query = $this->createMock(AttributeQueryInterface::class);
         $this->attribute = $this->createMock(NumericAttribute::class);

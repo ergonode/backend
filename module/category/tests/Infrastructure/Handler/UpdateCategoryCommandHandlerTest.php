@@ -31,7 +31,7 @@ class UpdateCategoryCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repository = $this->createMock(CategoryRepositoryInterface::class);
         $this->command = $this->createMock(UpdateCategoryCommand::class);
@@ -51,10 +51,10 @@ class UpdateCategoryCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testHandlingNotExistsCategory(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->repository->expects($this->once())->method('load')->willReturn(null);
         $this->repository->expects($this->never())->method('save');
         $handler = new UpdateCategoryCommandHandler($this->repository);

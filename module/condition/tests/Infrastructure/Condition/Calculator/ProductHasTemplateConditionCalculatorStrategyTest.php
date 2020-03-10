@@ -34,7 +34,7 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->templateQuery = $this->createMock(TemplateQueryInterface::class);
 
@@ -74,7 +74,7 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
         $this
             ->templateQuery
             ->method('findProductTemplateId')
-            ->withConsecutive($product)
+            ->withConsecutive([$product->getId()])
             ->willReturn($productTemplateId);
 
         $result = $this->strategy->calculate($product, $condition);

@@ -25,7 +25,7 @@ class PriceAttributeUpdaterTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->updateCommand = $this->createMock(UpdateAttributeCommand::class);
         $this->updateCommand->method('getParameter')->willReturn('PLN');
@@ -51,7 +51,7 @@ class PriceAttributeUpdaterTest extends TestCase
      */
     public function testUpdate(): void
     {
-        $this->updateCommand->method('hasParameter')->willReturn('true');
+        $this->updateCommand->method('hasParameter')->willReturn(true);
         $strategy = new PriceAttributeUpdater();
         /** @var PriceAttribute $attribute */
         $attribute = $this->createMock(PriceAttribute::class);
@@ -61,10 +61,10 @@ class PriceAttributeUpdaterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testUpdateWithoutParameter(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $attribute = $this->createMock(PriceAttribute::class);
         $strategy = new PriceAttributeUpdater();
         $strategy->update($attribute, $this->updateCommand);

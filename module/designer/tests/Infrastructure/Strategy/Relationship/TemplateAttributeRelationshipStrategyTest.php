@@ -27,7 +27,7 @@ class TemplateAttributeRelationshipStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->query = $this->createMock(TemplateQueryInterface::class);
         parent::setUp();

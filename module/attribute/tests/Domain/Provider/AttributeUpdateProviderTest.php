@@ -26,7 +26,7 @@ class AttributeUpdateProviderTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->type = $this->createMock(AttributeType::class);
         $this->type->method('getValue')->willReturn('ANY_TYPE');
@@ -46,10 +46,10 @@ class AttributeUpdateProviderTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testFalseProvideAttributeFactory(): void
     {
+        $this->expectException(\RuntimeException::class);
         /** @var AttributeUpdaterInterface|MockObject $factory */
         $factory = $this->createMock(AttributeUpdaterInterface::class);
         $factory->method('isSupported')->willReturn(false);

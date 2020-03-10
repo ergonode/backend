@@ -38,7 +38,7 @@ class CategoryTreeTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(CategoryTreeId::class);
         $this->code = 'Any correct code';
@@ -70,10 +70,10 @@ class CategoryTreeTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testAddingExistingCategory(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $category = CategoryId::generate();
 
         $tree = new CategoryTree($this->id, $this->code, $this->name);

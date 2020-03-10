@@ -25,7 +25,7 @@ class MultimediaExistsValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repository = $this->createMock(MultimediaRepositoryInterface::class);
         parent::setUp();
