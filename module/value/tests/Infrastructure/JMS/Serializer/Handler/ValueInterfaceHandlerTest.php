@@ -27,7 +27,7 @@ class ValueInterfaceHandlerTest extends TestCase
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      */

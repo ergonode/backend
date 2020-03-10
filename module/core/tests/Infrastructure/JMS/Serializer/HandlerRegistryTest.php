@@ -21,7 +21,7 @@ class HandlerRegistryTest extends TestCase
     /**
      * @var HandlerRegistryInterface
      */
-    private $registry;
+    private HandlerRegistryInterface $registry;
 
     /**
      */

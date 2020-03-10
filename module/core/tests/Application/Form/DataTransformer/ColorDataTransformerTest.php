@@ -21,7 +21,7 @@ class ColorDataTransformerTest extends TestCase
     /**
      * @var ColorDataTransformer
      */
-    protected $transformer;
+    protected ColorDataTransformer $transformer;
 
     /**
      */

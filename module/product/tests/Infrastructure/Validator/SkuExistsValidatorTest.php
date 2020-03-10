@@ -23,7 +23,7 @@ class SkuExistsValidatorTest extends ConstraintValidatorTestCase
     /**
      * @var ProductQueryInterface
      */
-    private $query;
+    private ProductQueryInterface $query;
 
     /**
      */

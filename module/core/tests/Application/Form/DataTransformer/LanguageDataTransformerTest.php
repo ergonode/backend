@@ -21,7 +21,7 @@ class LanguageDataTransformerTest extends TestCase
     /**
      * @var LanguageDataTransformer
      */
-    protected $transformer;
+    protected LanguageDataTransformer $transformer;
 
     /**
      */

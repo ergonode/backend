@@ -21,7 +21,7 @@ class AttributeCodeDataTransformerTest extends TestCase
     /**
      * @var AttributeCodeDataTransformer
      */
-    protected $transformer;
+    protected AttributeCodeDataTransformer $transformer;
 
     /**
      */

@@ -28,12 +28,12 @@ class TransportMessageSerializerTest extends TestCase
     /**
      * @var string
      */
-    private $format;
+    private string $format;
 
     /**
      * @var TransportMessageSerializer
      */
-    private $messageSerializer;
+    private TransportMessageSerializer $messageSerializer;
 
     /**
      */

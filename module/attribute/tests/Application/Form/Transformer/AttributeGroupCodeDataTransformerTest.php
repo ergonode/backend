@@ -19,7 +19,7 @@ class AttributeGroupCodeDataTransformerTest extends TestCase
     /**
      * @var AttributeGroupCodeDataTransformer
      */
-    protected $transformer;
+    protected AttributeGroupCodeDataTransformer $transformer;
 
     /**
      */

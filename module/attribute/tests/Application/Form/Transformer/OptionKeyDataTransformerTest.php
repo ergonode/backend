@@ -21,7 +21,7 @@ class OptionKeyDataTransformerTest extends TestCase
     /**
      * @var OptionKeyDataTransformer
      */
-    protected $transformer;
+    protected OptionKeyDataTransformer $transformer;
 
     /**
      */

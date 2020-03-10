@@ -21,12 +21,12 @@ class FixtureLoader
     /**
      * @var KernelInterface
      */
-    private $kernel;
+    private KernelInterface $kernel;
 
     /**
      * @var string
      */
-    private $root;
+    private string $root;
 
     /**
      * @param KernelInterface $kernel

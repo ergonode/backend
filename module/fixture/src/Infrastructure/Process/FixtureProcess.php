@@ -27,27 +27,27 @@ class FixtureProcess
     /**
      * @var FixtureLoader
      */
-    private $loader;
+    private FixtureLoader $loader;
 
     /**
      * @var Generator
      */
-    private $generator;
+    private Generator $generator;
 
     /**
      * @var CommandBusInterface
      */
-    private $commandBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FixtureManager
      */
-    private $manager;
+    private FixtureManager $manager;
 
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param FixtureLoader       $loader

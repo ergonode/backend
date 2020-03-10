@@ -45,7 +45,7 @@ class AttributeDeleteAction
     /**
      * @var ExistingRelationshipMessageBuilderInterface
      */
-    private $existingRelationshipMessageBuilder;
+    private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
     /**
      * @param MessageBusInterface                         $messageBus

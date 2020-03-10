@@ -25,7 +25,7 @@ class DomainEntityCreatorCommand extends Command
     /**
      * @var EntityGenerator
      */
-    private $generator;
+    private EntityGenerator $generator;
 
     /**
      * @param EntityGenerator $generator

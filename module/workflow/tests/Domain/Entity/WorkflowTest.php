@@ -27,7 +27,7 @@ class WorkflowTest extends TestCase
     /**
      * @var string
      */
-    private $code;
+    private string $code;
 
     /**
      * @var StatusCode|MockObject

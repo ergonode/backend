@@ -40,12 +40,12 @@ class CategoryTest extends TestCase
     /**
      * @var ValueInterface[]|MockObject
      */
-    private $attributes;
+    private array $attributes;
 
     /**
      * @var AttributeCode
      */
-    private $attributeCode;
+    private AttributeCode $attributeCode;
 
     /**
      */

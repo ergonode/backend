@@ -24,7 +24,7 @@ class StatusFactoryTest extends TestCase
     /**
      * @var StatusCode
      */
-    private $code;
+    private StatusCode $code;
 
     /**
      * @var Color|MockObject

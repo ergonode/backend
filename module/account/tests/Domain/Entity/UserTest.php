@@ -39,7 +39,7 @@ class UserTest extends TestCase
     private string $lastName;
 
     /**
-     * @var Email\MockObject
+     * @var Email|MockObject
      */
     private $email;
 

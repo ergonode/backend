@@ -21,7 +21,7 @@ class ExportProfileFactoryTest extends TestCase
     /**
      * @var AbstractExportProfile
      */
-    private $testedClass;
+    private AbstractExportProfile $testedClass;
 
     /**
      * @var string

@@ -32,17 +32,17 @@ class PasswordHandlerTest extends TestCase
     /**
      * @var SerializationVisitorInterface
      */
-    private $serializerVisitor;
+    private SerializationVisitorInterface $serializerVisitor;
 
     /**
      * @var DeserializationVisitorInterface
      */
-    private $deserializerVisitor;
+    private DeserializationVisitorInterface $deserializerVisitor;
 
     /**
      * @var Context
      */
-    private $context;
+    private Context $context;
 
     /**
      */

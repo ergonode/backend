@@ -30,7 +30,7 @@ class ConverterInterfaceHandlerTest extends TestCase
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * @throws \ReflectionException
