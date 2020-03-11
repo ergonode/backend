@@ -124,7 +124,6 @@ class UploadFileContext extends BaseContext
             basename($testFilePath),
             mimetype_from_filename($testFilePath),
             null,
-            null,
             true
         );
     }
