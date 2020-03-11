@@ -33,7 +33,7 @@ Feature: Designer module
     Then created response is received
     And remember response param "id" as "template_image_attribute"
 
-  Scenario: Upload image
+  Scenario: Multimedia upload image
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "multipart/form-data"
     And I add "Accept" header equal to "application/json"
