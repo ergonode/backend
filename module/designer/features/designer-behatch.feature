@@ -6,8 +6,9 @@ Feature: Designer module upload image
     And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/multimedia/upload" with params:
     | key    | value |
-    | upload | @image/test.jpg |
+    | upload | @image/test.jpg      |
     Then the response status code should be 201
+    And the JSON node "id" should exist
     And store response param "id" as "multimedia_id"
 
 

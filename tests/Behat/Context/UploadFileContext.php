@@ -19,6 +19,21 @@ use UnexpectedValueException;
 use InvalidArgumentException;
 use RuntimeException;
 
+/**
+ * Uploads files in behat, path to files are relative to the feature file.
+ *
+ *  Scenario: Upload image
+ *      Given I am Authenticated as "test@ergonode.com"
+ *      And I add "Content-Type" header equal to "multipart/form-data"
+ *      And I add "Accept" header equal to "application/json"
+ *      When I send a POST request to "/api/v1/multimedia/upload" with params:
+ *        | key    | value |
+ *        | upload | @image/test.jpg      |
+ *        | some   | other form param     |
+ *      Then the response status code should be 201
+ *      And the JSON node "id" should exist
+ *
+ */
 class UploadFileContext extends BaseContext
 {
     /**
@@ -31,6 +46,9 @@ class UploadFileContext extends BaseContext
      */
     private FeatureNode $currentFeature;
 
+    /**
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -40,6 +58,7 @@ class UploadFileContext extends BaseContext
      * @param string    $method
      * @param string    $url
      * @param TableNode $data
+     *
      * @return mixed
      *
      * @Given I send a :method request to :url with params:
@@ -55,7 +74,7 @@ class UploadFileContext extends BaseContext
             }
 
             if ($this->isFileUpload($row['value'])) {
-                $files[$row['key']] = $this->uploadFile(substr($row['value'],1));
+                $files[$row['key']] = $this->uploadFile(substr($row['value'], 1));
             } else {
                 $parameters[$row['key']] = $row['value'];
             }
@@ -81,6 +100,7 @@ class UploadFileContext extends BaseContext
 
     /**
      * @param string $value
+     *
      * @return UploadedFile
      */
     private function uploadFile(string $value): UploadedFile
@@ -105,6 +125,7 @@ class UploadFileContext extends BaseContext
 
     /**
      * @param string $relativePath to feature file
+     *
      * @return string
      */
     private function getAbsolutePathToUploadedFile(string $relativePath): string
@@ -123,6 +144,7 @@ class UploadFileContext extends BaseContext
 
     /**
      * @param mixed $value
+     *
      * @return bool
      */
     private function isFileUpload($value): bool
