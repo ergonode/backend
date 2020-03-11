@@ -20,7 +20,8 @@ use InvalidArgumentException;
 use RuntimeException;
 
 /**
- * Uploads files in behat, path to files are relative to the feature file.
+ * Uploads files and form params in behat, path to files are relative to the feature file.
+ * And the path to the file must have an @ character at the beginning.
  *
  * @example
  *  Scenario: Upload image
@@ -76,8 +77,8 @@ class UploadFileContext extends BaseContext
                 throw new InvalidArgumentException("You must provide a 'key' and 'value' column in your table node.");
             }
 
-            if ($this->isFileUpload($row['value'])) {
-                $files[$row['key']] = $this->uploadFile(substr($row['value'], 1));
+            if ($this->isTestFileUpload($row['value'])) {
+                $files[$row['key']] = $this->uploadTestFile(substr($row['value'], 1));
             } else {
                 $parameters[$row['key']] = $row['value'];
             }
@@ -106,20 +107,20 @@ class UploadFileContext extends BaseContext
      *
      * @return UploadedFile
      */
-    private function uploadFile(string $value): UploadedFile
+    private function uploadTestFile(string $value): UploadedFile
     {
-        $absolutePath = $this->getAbsolutePathToUploadedFile(
+        $testFilePath = $this->getAbsolutePathToTestFile(
             $value
         );
 
         $uploadedFilePath = tempnam(sys_get_temp_dir(), 'upload_');
-        if (!copy($absolutePath, $uploadedFilePath)) {
+        if (!copy($testFilePath, $uploadedFilePath)) {
             throw new RuntimeException('Can\'t copy file');
         }
 
         return new UploadedFile(
             $uploadedFilePath,
-            basename($absolutePath),
+            basename($testFilePath),
             null,
             null,
             true
@@ -131,7 +132,7 @@ class UploadFileContext extends BaseContext
      *
      * @return string
      */
-    private function getAbsolutePathToUploadedFile(string $relativePath): string
+    private function getAbsolutePathToTestFile(string $relativePath): string
     {
         $filePath = realpath($this->currentFeature->getFile());
         $directory = dirname($filePath);
@@ -150,7 +151,7 @@ class UploadFileContext extends BaseContext
      *
      * @return bool
      */
-    private function isFileUpload($value): bool
+    private function isTestFileUpload($value): bool
     {
         return  is_string($value) && substr($value, 0, 1) == '@';
     }
