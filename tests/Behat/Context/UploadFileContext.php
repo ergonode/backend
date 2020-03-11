@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UnexpectedValueException;
 use InvalidArgumentException;
 use RuntimeException;
+use function GuzzleHttp\Psr7\mimetype_from_filename;
 
 /**
  * Uploads files and form params in behat, path to files are relative to the feature file.
@@ -121,6 +122,7 @@ class UploadFileContext extends BaseContext
         return new UploadedFile(
             $uploadedFilePath,
             basename($testFilePath),
+            mimetype_from_filename($testFilePath),
             null,
             null,
             true
