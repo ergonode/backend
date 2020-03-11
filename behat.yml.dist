@@ -42,6 +42,7 @@ default:
                 - App\Tests\Behat\Context\ApiAuthContext:
                     JWTTokenManager: '@lexik_jwt_authentication.jwt_manager'
                     request: '@Behatch\HttpCall\Request'
+                - App\Tests\Behat\Context\UploadFileContext
                 - behatch:context:rest
                 - behatch:context:json
                 - behatch:context:debug
