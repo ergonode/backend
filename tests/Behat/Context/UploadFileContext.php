@@ -22,14 +22,17 @@ use RuntimeException;
 /**
  * Uploads files in behat, path to files are relative to the feature file.
  *
+ * @example
  *  Scenario: Upload image
  *      Given I am Authenticated as "test@ergonode.com"
  *      And I add "Content-Type" header equal to "multipart/form-data"
  *      And I add "Accept" header equal to "application/json"
  *      When I send a POST request to "/api/v1/multimedia/upload" with params:
- *        | key    | value |
- *        | upload | @image/test.jpg      |
- *        | some   | other form param     |
+ *        | key         | value              |
+ *        | upload      | @image/test.jpg    |
+ *        | upload2     | @image/test.jpg    |
+ *        | form_param1 | other form param1  |
+ *        | form_param2 | other form param2  |
  *      Then the response status code should be 201
  *      And the JSON node "id" should exist
  *
