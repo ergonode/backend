@@ -85,7 +85,7 @@ class ProductHasTemplateConditionConfigurationStrategy implements ConditionConfi
                     ],
                 ],
                 [
-                    'name' => 'value',
+                    'name' => 'template_id',
                     'type' => 'SELECT',
                     'options' => $templates,
                 ],

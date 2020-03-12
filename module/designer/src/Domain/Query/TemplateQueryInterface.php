@@ -48,4 +48,11 @@ interface TemplateQueryInterface
      * @return TemplateId
      */
     public function findProductTemplateId(ProductId $productId): TemplateId;
+
+    /**
+     * @param string $code
+     *
+     * @return TemplateId|null
+     */
+    public function findTemplateIdByCode(string $code): ?TemplateId;
 }

@@ -1,80 +1,67 @@
 Feature: Condition Product has template
-  Scenario: Get product has template condition
-    When I request "/api/v1/EN/conditions/PRODUCT_HAS_TEMPLATE_CONDITION" using HTTP GET
-    Then unauthorized response is received
 
-  Scenario: Get Product has template
-    Given current authentication token
-    When I request "/api/v1/EN/conditions/PRODUCT_HAS_TEMPLATE_CONDITION" using HTTP GET
-    Then the response code is 200
+  Background:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+
+  Scenario: Create template
+    When I send a "POST" request to "/api/v1/EN/templates"
+      """
+      {
+        "name": "@@random_md5@@",
+        "image": null,
+        "defaultText": null,
+        "defaultImage": null,
+        "elements": [
+        ]
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "template_id"
+
+  Scenario: Get product has template condition
+    When I send a "GET" request to "/api/v1/EN/conditions/PRODUCT_HAS_TEMPLATE_CONDITION"
+    Then the response status code should be 200
 
   Scenario Outline: Post new valid product has template condition set
-    Given current authentication token
-    Given the request body is:
+    When I send a "POST" request to "/api/v1/EN/conditionsets" with body:
       """
         {
           "conditions": [
             {
               "type": "PRODUCT_HAS_TEMPLATE_CONDITION",
               "operator": <operator>,
-              "value": <value>
+              "template_id": "@template_id@"
             }
           ]
         }
       """
-    When I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
     Examples:
-      | operator | value  |
-      | "HAS"     | 1     |
-      | "NOT_HAS" | 2     |
-      | "NOT_HAS" | "2"   |
-      | "NOT_HAS" | "2"   |
-
+      | operator  |
+      | "HAS"     |
+      | "NOT_HAS" |
 
   Scenario Outline: Post new invalid product has template condition set
-    Given current authentication token
-    Given the request body is:
+    When I send a "POST" request to "/api/v1/EN/conditionsets" with body:
       """
         {
           "conditions": [
             {
               "type": "PRODUCT_HAS_TEMPLATE_CONDITION",
-              "operator":  <operator>,
-              "value": <value>
+              "operator": <operator>,
+              "template_id": <template_id>
             }
           ]
         }
       """
-    When I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
     Examples:
-      | operator   | value |
-      | "HAS"      |  ""   |
-      | "HAS"      | null  |
-      | null       | 1     |
-      | "INVALID"  | 2     |
-      | ""         | 1     |
-
-
-  Scenario Outline: Post new invalid product has template condition set
-    Given current authentication token
-    Given the request body is:
-      """
-        {
-          "conditions": [
-            {
-              "type": "PRODUCT_HAS_TEMPLATE_CONDITION",
-              <operator>
-              <value>
-            }
-          ]
-        }
-      """
-    When I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then validation error response is received
-    Examples:
-      | operator           |  value        |
-      |                    |   "value" : 1 |
-      | "operator" : "HAS" |               |
-
+      | operator  | template_id       |
+      | "HAS"     | "@@static_uuid@@" |
+      | "HAS"     | ""                |
+      | "HAS"     | null              |
+      | null      | 1                 |
+      | "INVALID" | 2                 |
+      | ""        | 1                 |

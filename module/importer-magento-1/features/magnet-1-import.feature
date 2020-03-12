@@ -24,14 +24,16 @@ Feature: Category module
     And remember response param "id" as "source_id"
 
   Scenario: Upload magento 1 test import file
-    Given current authentication token
-    And I attach "module/importer-magento-1/features/magento-1-test.csv" to the request as upload
-    And the following form parameters are set:
-      | name      | value       |
-      | source_id | @source_id@ |
-    When I request "/api/v1/EN/imports/upload" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "source_id"
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "multipart/form-data"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/imports/upload" with params:
+      | key    | value                   |
+      | source_id | @source_id@          |
+      | upload    | @magento-1-test.csv  |
+    Then the response status code should be 201
+    And the JSON node "id" should exist
+    And store response param "id" as "source_id"
 
 #  Scenario: Get magento 1 configuration for given source
 #    Given current authentication token

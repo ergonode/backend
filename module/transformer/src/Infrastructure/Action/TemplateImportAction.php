@@ -18,6 +18,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 
 /**
  */
@@ -27,6 +28,11 @@ class TemplateImportAction implements ImportActionInterface
 
     public const CODE_FIELD = 'code';
     public const NAME_FIELD = 'name';
+
+    /**
+     * @var TemplateQueryInterface
+     */
+    private TemplateQueryInterface $query;
 
     /**
      * @var TemplateRepositoryInterface
@@ -39,11 +45,16 @@ class TemplateImportAction implements ImportActionInterface
     private CommandBusInterface $commandBus;
 
     /**
+     * @param TemplateQueryInterface      $query
      * @param TemplateRepositoryInterface $templateRepository
      * @param CommandBusInterface         $commandBus
      */
-    public function __construct(TemplateRepositoryInterface $templateRepository, CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        TemplateQueryInterface $query,
+        TemplateRepositoryInterface $templateRepository,
+        CommandBusInterface $commandBus
+    ) {
+        $this->query = $query;
         $this->templateRepository = $templateRepository;
         $this->commandBus = $commandBus;
     }
@@ -63,8 +74,12 @@ class TemplateImportAction implements ImportActionInterface
         Assert::notNull($code, 'Template import required "code" field not exists');
         Assert::notNull($name, 'Template import required "name" field not exists');
 
-        $templateId = TemplateId::fromKey($code);
-        $template = $this->templateRepository->load($templateId);
+        $template = null;
+        $templateId = $this->query->findTemplateIdByCode($code);
+
+        if (!$templateId) {
+            $template = $this->templateRepository->load($templateId);
+        }
 
         if (!$template) {
             $command = new CreateTemplateCommand($code, new ArrayCollection());

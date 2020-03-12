@@ -15,15 +15,4 @@ use Ergonode\SharedKernel\Domain\AggregateId;
  */
 class TemplateId extends AggregateId
 {
-    public const NAMESPACE = '155fc493-1938-49e3-bfb7-393e11f6ee34';
-
-    /**
-     * @param string $value
-     *
-     * @return TemplateId
-     */
-    public static function fromKey(string $value): TemplateId
-    {
-        return new static(self::generateIdentifier(self::NAMESPACE, $value)->getValue());
-    }
 }
