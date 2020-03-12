@@ -28,7 +28,7 @@ class CreateWorkflowCommandTest extends TestCase
         /** @var StatusCode $status */
         $status = $this->createMock(StatusCode::class);
 
-        $command = new CreateWorkflowCommand($code, [$status]);
+        $command = new CreateWorkflowCommand(WorkflowId::generate(), $code, [$status]);
         $this->assertSame($code, $command->getCode());
         $this->assertSame([$status], $command->getStatuses());
         $this->assertNotNull($command->getId());

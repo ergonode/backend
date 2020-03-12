@@ -332,6 +332,7 @@ Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand:
 Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand:
   default_workflow:
     __construct:
+      - '<workflowId()>'
       - 'default'
       -
         - '<statusCode("new")>'
@@ -344,7 +345,7 @@ Ergonode\Workflow\Domain\Command\Workflow\CreateWorkflowCommand:
 Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand:
   add_status_new:
     __construct:
-      - '<workflowId(default)>'
+      - '@default_workflow->id'
       - '<statusCode("new")>'
       - '<statusCode("draft")>'
 
