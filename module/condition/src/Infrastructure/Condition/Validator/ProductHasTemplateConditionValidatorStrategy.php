@@ -14,6 +14,7 @@ use Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\Designer\Infrastructure\Validator\TemplateExists;
 
 /**
  */
@@ -43,7 +44,8 @@ class ProductHasTemplateConditionValidatorStrategy implements ConditionValidator
                     new Assert\NotBlank(),
                     new Assert\Choice(ProductHasTemplateCondition::getSupportedOperators()),
                 ],
-                'value' => [
+                'template_id' => [
+                    new TemplateExists(),
                     new Assert\NotBlank(),
                 ],
             ]

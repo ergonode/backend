@@ -50,7 +50,6 @@ Feature: Attribute module
   Scenario: Get attribute group
     And I send a "GET" request to "/api/v1/EN/attributes/groups/@attribute_group_id@"
     Then the response status code should be 200
-    And print last response
     And the JSON nodes should be equal to:
       | name.PL | PL |
       | name.EN | EN |

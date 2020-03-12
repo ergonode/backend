@@ -11,6 +11,7 @@ namespace Ergonode\Condition\Tests\Domain\Condition;
 
 use Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -21,17 +22,17 @@ class ProductHasTemplateConditionTest extends TestCase
     public function testConditionCreation(): void
     {
         $operator = 'some operator';
-        $value = 'some value';
+        $value = $this->createMock(TemplateId::class);
         $condition = new ProductHasTemplateCondition($operator, $value);
 
         $this->assertSame($operator, $condition->getOperator());
-        $this->assertSame($value, $condition->getValue());
+        $this->assertSame($value, $condition->getTemplateId());
         $this->assertSame('PRODUCT_HAS_TEMPLATE_CONDITION', $condition->getType());
     }
 
     /**
      */
-    public function testGetSupportedOperators()
+    public function testGetSupportedOperators(): void
     {
         $operators = ProductHasTemplateCondition::getSupportedOperators();
         $this->assertIsArray($operators);
