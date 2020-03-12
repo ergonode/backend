@@ -52,6 +52,7 @@ class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterfac
      * @param AggregateId $statusId
      *
      * @return array
+     *
      * @throws \Exception
      */
     public function getRelationships(AggregateId $statusId): array

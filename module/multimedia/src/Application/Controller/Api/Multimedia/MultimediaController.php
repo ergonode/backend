@@ -109,7 +109,6 @@ class MultimediaController extends AbstractController
             } else {
                 $command = new AddMultimediaCommand(MultimediaId::generate(), $uploadModel->upload);
                 $this->commandBus->dispatch($command);
-
                 $response = new CreatedResponse($command->getId());
             }
         } else {

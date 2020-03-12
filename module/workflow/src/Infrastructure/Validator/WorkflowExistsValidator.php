@@ -14,22 +14,24 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
+use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
 
 /**
  */
 class WorkflowExistsValidator extends ConstraintValidator
 {
     /**
-     * @var WorkflowProvider
+     * @var WorkflowQueryInterface
      */
-    private WorkflowProvider $provider;
+    private WorkflowQueryInterface $query;
 
     /**
-     * @param WorkflowProvider $provider
+     * @param WorkflowQueryInterface $query
      */
-    public function __construct(WorkflowProvider $provider)
+    public function __construct(WorkflowQueryInterface $query)
     {
-        $this->provider = $provider;
+        $this->query = $query;
     }
 
     /**
@@ -53,9 +55,9 @@ class WorkflowExistsValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $workflow = $this->provider->provide();
+        $workflowId = $this->query->findWorkflowIdByCode($value);
 
-        if ($workflow) {
+        if ($workflowId) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

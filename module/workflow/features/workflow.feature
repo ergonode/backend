@@ -1,8 +1,12 @@
 Feature: Workflow
 
+  Background:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+
   Scenario: Create status (for workflow)
-    Given current authentication token
-    Given the request body is:
+    And I send a "POST" request to "/api/v1/EN/status" with body:
       """
       {
         "color": "#ff0",
@@ -17,19 +21,17 @@ Feature: Workflow
         }
       }
       """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "workflow_status"
+    Then the response status code should be 201
+    And store response param "id" as "workflow_status"
 
   Scenario: Get status (for workflow)
-    Given current authentication token
-    When I request "/api/v1/EN/status/@workflow_status@" using HTTP GET
-    Then the response code is 200
-    And remember response param "code" as "workflow_status_code"
+    And I send a "GET" request to "/api/v1/EN/status/@workflow_status@"
+    Then the response status code should be 200
+    And store response param "code" as "workflow_status_code"
 
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Create status (wrong language parameter)
-#    Given current authentication token
+#    And I send a "POST" request to "/api/v1/EN/attributes" with body:
 #    Given the request body is:
 #      """
 #      {
@@ -46,11 +48,11 @@ Feature: Workflow
 #      }
 #      """
 #    When I request "/api/v1/EN/status" using HTTP POST
-#    Then validation error response is received
+#    Then the response status code should be 400
 
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Create status (wrong language parameter)
-#    Given current authentication token
+#    And I send a "POST" request to "/api/v1/EN/attributes" with body:
 #    Given the request body is:
 #      """
 #      {
@@ -67,11 +69,11 @@ Feature: Workflow
 #      }
 #      """
 #    When I request "/api/v1/EN/status" using HTTP POST
-#    Then created response is received
+#    Then the response status code should be 201
 
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Update status (wrong language parameter)
-#    Given current authentication token
+#    And I send a "POST" request to "/api/v1/EN/attributes" with body:
 #    Given the request body is:
 #      """
 #      {
@@ -88,11 +90,11 @@ Feature: Workflow
 #      }
 #      """
 #    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
-#    Then validation error response is received
+#    Then the response status code should be 400
 
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Update status (wrong language parameter)
-#    Given current authentication token
+#    And I send a "POST" request to "/api/v1/EN/attributes" with body:
 #    Given the request body is:
 #      """
 #      {
@@ -109,24 +111,21 @@ Feature: Workflow
 #      }
 #      """
 #    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
-#    Then created response is received
+#    Then the response status code should be 201
 
   Scenario: Create workflow
-    Given current authentication token
-    Given the request body is:
+    And I send a "POST" request to "/api/v1/EN/workflow" with body:
     """
       {
         "code": "WRK_@@random_code@@",
         "statuses": ["@workflow_status_code@"]
       }
     """
-    When I request "/api/v1/EN/workflow" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "workflow"
+    Then the response status code should be 201
+    And store response param "id" as "workflow_id"
 
   Scenario: Create workflow (wrong statuses)
-    Given current authentication token
-    Given the request body is:
+    And I send a "POST" request to "/api/v1/EN/workflow" with body:
     """
     {
       "code": "WRK_@@random_code@@",
@@ -134,31 +133,12 @@ Feature: Workflow
       "transitions": []
     }
     """
-    When I request "/api/v1/EN/workflow" using HTTP POST
-    Then validation error response is received
-
-  Scenario: Create workflow (not authorized)
-    When I request "/api/v1/EN/workflow" using HTTP POST
-    Then unauthorized response is received
-
-  Scenario: Update default workflow (not authorized)
-    When I request "/api/v1/EN/workflow/default" using HTTP PUT
-    Then unauthorized response is received
+    Then the response status code should be 400
 
   Scenario: Get default workflow
-    Given current authentication token
-    When I request "/api/v1/EN/workflow/default" using HTTP GET
-    Then the response code is 200
-
-  Scenario: Get default workflow (not authorized)
-    When I request "/api/v1/EN/workflow/default" using HTTP GET
-    Then unauthorized response is received
-
-  Scenario: Delete workflow (not authorized)
-    When I request "/api/v1/EN/workflow/default" using HTTP DELETE
-    Then unauthorized response is received
+    And I send a "GET" request to "/api/v1/EN/workflow/default"
+    Then the response status code should be 200
 
   Scenario: Delete workflow
-    Given current authentication token
-    When I request "/api/v1/EN/workflow/default" using HTTP DELETE
-    Then empty response is received
+    And I send a "DELETE" request to "/api/v1/EN/workflow/default"
+    Then the response status code should be 204

@@ -58,13 +58,11 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
     private StatusCalculationService $service;
 
     /**
-     * WorkflowGetProductQueryDecorator constructor.
-     *
-     * @param GetProductQueryInterface $query
-     * @param WorkflowProvider $workflowProvider
+     * @param GetProductQueryInterface   $query
+     * @param WorkflowProvider           $workflowProvider
      * @param ProductRepositoryInterface $productRepository
-     * @param StatusRepositoryInterface $statusRepository
-     * @param StatusCalculationService $service
+     * @param StatusRepositoryInterface  $statusRepository
+     * @param StatusCalculationService   $service
      */
     public function __construct(
         GetProductQueryInterface $query,

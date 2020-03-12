@@ -115,7 +115,7 @@ class WorkflowCreateAction
         );
 
         if (0 === $violations->count()) {
-            $data['id'] = WorkflowId::generate();
+            $data['id'] = WorkflowId::generate()->getValue();
             /** @var CreateWorkflowCommand $command */
             $command = $this->serializer->fromArray($data, CreateWorkflowCommand::class);
 

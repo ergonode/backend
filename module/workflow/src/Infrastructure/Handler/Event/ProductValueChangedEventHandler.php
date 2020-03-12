@@ -52,13 +52,11 @@ class ProductValueChangedEventHandler
     private CommandBusInterface $commandBus;
 
     /**
-     * ProductValueChangedEventHandler constructor.
-     *
-     * @param ProductRepositoryInterface $productRepository
-     * @param WorkflowProvider $workflowProvider
-     * @param UserIdsProvider $userIdsProvider
+     * @param ProductRepositoryInterface         $productRepository
+     * @param WorkflowProvider                   $workflowProvider
+     * @param UserIdsProvider                    $userIdsProvider
      * @param AuthenticatedUserProviderInterface $userProvider
-     * @param CommandBusInterface $commandBus
+     * @param CommandBusInterface                $commandBus
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
