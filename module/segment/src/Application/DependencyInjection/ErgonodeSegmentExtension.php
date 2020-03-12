@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Segment\Application\DependencyInjection;
 
-use Ergonode\Segment\Application\DependencyInjection\CompilerPass\SegmentGeneratorCompilerPass;
-use Ergonode\Segment\Infrastructure\Generator\SegmentGeneratorInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -35,10 +33,6 @@ class ErgonodeSegmentExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../../Resources/config')
         );
-
-        $container
-            ->registerForAutoconfiguration(SegmentGeneratorInterface::class)
-            ->addTag(SegmentGeneratorCompilerPass::TAG);
 
         $loader->load('services.yml');
 

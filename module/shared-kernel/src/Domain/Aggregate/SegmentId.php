@@ -15,15 +15,4 @@ use Ergonode\SharedKernel\Domain\AggregateId;
  */
 class SegmentId extends AggregateId
 {
-    public const NAMESPACE = '9bf0935b-95e6-4808-9e47-f9b760a5ff5b';
-
-    /**
-     * @param string $code
-     *
-     * @return SegmentId
-     */
-    public static function fromCode(string $code): SegmentId
-    {
-        return new static(self::generateIdentifier(self::NAMESPACE, $code)->getValue());
-    }
 }

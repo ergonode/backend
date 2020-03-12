@@ -54,10 +54,9 @@ class ValidSegmentIdValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $id = new SegmentId($value);
-        $collection = $this->repository->exists(SegmentId::fromCode($id->getValue()));
+        $collection = $this->repository->exists(new SegmentId($value));
 
-        if ($collection) {
+        if (!$collection) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();
