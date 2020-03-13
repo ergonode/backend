@@ -11,11 +11,14 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Faker\Provider\Base as BaseProvider;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 class CategoryTreeIdFaker extends BaseProvider
 {
+    private const NAMESPACE = 'f39d019e-92f0-47e8-b5ee-81155e7ddfc2';
+
     /**
      * @param string|null $code
      *
@@ -27,7 +30,7 @@ class CategoryTreeIdFaker extends BaseProvider
     {
 
         if ($code) {
-            return CategoryTreeId::fromKey($code);
+            return new CategoryTreeId(Uuid::uuid5(self::NAMESPACE, $code)->toString());
         }
 
         return CategoryTreeId::generate();

@@ -903,10 +903,10 @@ Feature: Product collection module
     Given the request body is:
       """
       {
-            "segments": [
-              "@segment@"
-            ],
-            "skus": "@product_1_sku@ , @product_2_sku@"
+        "segments": [
+          "@segment@"
+        ],
+        "skus": "@product_1_sku@ , @product_2_sku@"
       }
       """
     When I request "/api/v1/EN/collections/@product_collection_1@/elements/multiple" using HTTP POST

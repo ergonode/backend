@@ -58,7 +58,7 @@ class CreateTreeCommand implements DomainCommandInterface
      */
     public function __construct(string $code, TranslatableString $name, array $categories = [])
     {
-        $this->id = CategoryTreeId::fromKey($code);
+        $this->id = CategoryTreeId::generate();
         $this->name = $name;
         $this->code = $code;
         foreach ($categories as $category) {

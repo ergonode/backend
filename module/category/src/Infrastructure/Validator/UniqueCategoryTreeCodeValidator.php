@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,57 +6,57 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Workflow\Infrastructure\Validator;
+namespace Ergonode\Category\Infrastructure\Validator;
 
-use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
-use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
-use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
+use Ergonode\Category\Domain\Query\TreeQueryInterface;
 
 /**
  */
-class WorkflowExistsValidator extends ConstraintValidator
+class UniqueCategoryTreeCodeValidator extends ConstraintValidator
 {
     /**
-     * @var WorkflowQueryInterface
+     * @var TreeQueryInterface
      */
-    private WorkflowQueryInterface $query;
+    private TreeQueryInterface $query;
 
     /**
-     * @param WorkflowQueryInterface $query
+     * @param TreeQueryInterface $query
      */
-    public function __construct(WorkflowQueryInterface $query)
+    public function __construct(TreeQueryInterface $query)
     {
         $this->query = $query;
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @throws \Exception
+     * @param mixed                         $value
+     * @param CategoryTreeExists|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof WorkflowExists) {
-            throw new UnexpectedTypeException($constraint, WorkflowExists::class);
+        if (!$constraint instanceof UniqueCategoryTreeCode) {
+            throw new UnexpectedTypeException($constraint, UniqueCategoryTreeCode::class);
         }
 
         if (null === $value || '' === $value) {
             return;
         }
 
+
+
         if (!is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
             throw new UnexpectedTypeException($value, 'string');
         }
 
+
+
         $value = (string) $value;
 
-        $workflowId = $this->query->findWorkflowIdByCode($value);
+        $treeId = $this->query->findTreeIdByCode($value);
 
-        if ($workflowId) {
+        if ($treeId) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

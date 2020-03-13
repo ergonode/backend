@@ -41,16 +41,16 @@ class CreateWorkflowCommand implements DomainCommandInterface
     private array $statuses;
 
     /**
-     * @param string $code
-     * @param array  $statuses
+     * @param WorkflowId $id
+     * @param string     $code
+     * @param array      $statuses
      *
-     * @throws \Exception
      */
-    public function __construct(string $code, array $statuses = [])
+    public function __construct(WorkflowId $id, string $code, array $statuses = [])
     {
         Assert::allIsInstanceOf($statuses, StatusCode::class);
 
-        $this->id = WorkflowId::fromCode($code);
+        $this->id = $id;
         $this->code = $code;
         $this->statuses = $statuses;
     }

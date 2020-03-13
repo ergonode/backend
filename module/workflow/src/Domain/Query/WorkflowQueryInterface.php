@@ -22,4 +22,11 @@ interface WorkflowQueryInterface
      * @return WorkflowId[]
      */
     public function getWorkflowIdsWithDefaultStatus(StatusId $id): array;
+
+    /**
+     * @param string $code
+     *
+     * @return WorkflowId|null
+     */
+    public function findWorkflowIdByCode(string $code): ?WorkflowId;
 }

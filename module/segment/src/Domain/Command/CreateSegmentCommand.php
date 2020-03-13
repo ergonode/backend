@@ -60,6 +60,8 @@ class CreateSegmentCommand implements DomainCommandInterface
      * @param TranslatableString  $name
      * @param TranslatableString  $description
      * @param ConditionSetId|null $conditionSetId
+     *
+     * @throws \Exception
      */
     public function __construct(
         SegmentCode $code,
@@ -67,7 +69,7 @@ class CreateSegmentCommand implements DomainCommandInterface
         TranslatableString $description,
         ?ConditionSetId $conditionSetId = null
     ) {
-        $this->id = SegmentId::fromCode($code->getValue());
+        $this->id = SegmentId::generate();
         $this->code = $code;
         $this->name = $name;
         $this->description = $description;
