@@ -32,7 +32,7 @@ Feature: Workflow
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Create status (wrong language parameter)
 #    And I send a "POST" request to "/api/v1/EN/attributes" with body:
-#    Given the request body is:
+#    When I send a POST request to "/api/v1/EN/status" with body:
 #      """
 #      {
 #        "color": "#ff0",
@@ -47,13 +47,12 @@ Feature: Workflow
 #        }
 #      }
 #      """
-#    When I request "/api/v1/EN/status" using HTTP POST
 #    Then the response status code should be 400
 
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Create status (wrong language parameter)
 #    And I send a "POST" request to "/api/v1/EN/attributes" with body:
-#    Given the request body is:
+#    When I send a POST request to "/api/v1/EN/status" with body:
 #      """
 #      {
 #        "color": "#ff0",
@@ -68,13 +67,12 @@ Feature: Workflow
 #        }
 #      }
 #      """
-#    When I request "/api/v1/EN/status" using HTTP POST
 #    Then the response status code should be 201
 
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Update status (wrong language parameter)
 #    And I send a "POST" request to "/api/v1/EN/attributes" with body:
-#    Given the request body is:
+#    When I send a PUT request to "/api/v1/EN/status/@workflow_status@" with body:
 #      """
 #      {
 #        "color": "#ff0",
@@ -89,13 +87,12 @@ Feature: Workflow
 #        }
 #      }
 #      """
-#    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
 #    Then the response status code should be 400
 
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Update status (wrong language parameter)
 #    And I send a "POST" request to "/api/v1/EN/attributes" with body:
-#    Given the request body is:
+#    When I send a PUT request to "/api/v1/EN/status/@workflow_status@" with body:
 #      """
 #      {
 #        "color": "#ff0",
@@ -110,7 +107,6 @@ Feature: Workflow
 #        }
 #      }
 #      """
-#    When I request "/api/v1/EN/status/@workflow_status@" using HTTP PUT
 #    Then the response status code should be 201
 
   Scenario: Create workflow

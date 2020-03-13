@@ -1,16 +1,20 @@
 Feature: Condition Product belong category tree exists
   Scenario: Get product belong category tree exists condition
-    When I request "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_TREE_CONDITION" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_TREE_CONDITION"
+    Then the response status code should be 401
 
   Scenario: Get product belong category tree exists condition
-    Given current authentication token
-    When I request "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_TREE_CONDITION" using HTTP GET
-    Then the response code is 200
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_TREE_CONDITION"
+    Then the response status code should be 200
 
   Scenario: Create category tree
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/trees" with body:
       """
       {
         "code": "TREE_@@random_code@@",
@@ -21,13 +25,14 @@ Feature: Condition Product belong category tree exists
         }
       }
       """
-    When I request "/api/v1/EN/trees" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "category_tree"
+    Then the response status code should be 201
+    And store response param "id" as "category_tree"
 
   Scenario: Post new BELONG_TO product category tree exists condition set
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/conditionsets" with body:
       """
         {
           "conditions": [
@@ -39,12 +44,13 @@ Feature: Condition Product belong category tree exists
           ]
         }
       """
-    When I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Post new NOT_BELONG_TO product category tree exists condition set
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/conditionsets" with body:
       """
         {
           "conditions": [
@@ -56,12 +62,13 @@ Feature: Condition Product belong category tree exists
           ]
         }
       """
-    When I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Post new fail condition operator
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/conditionsets" with body:
       """
         {
           "conditions": [
@@ -73,12 +80,13 @@ Feature: Condition Product belong category tree exists
           ]
         }
       """
-    When I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Post new fail condition category tree doesn't exist
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/conditionsets" with body:
       """
         {
           "conditions": [
@@ -90,5 +98,4 @@ Feature: Condition Product belong category tree exists
           ]
         }
       """
-    When I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
