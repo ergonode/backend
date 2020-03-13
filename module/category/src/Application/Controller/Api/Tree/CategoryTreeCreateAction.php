@@ -95,8 +95,6 @@ class CategoryTreeCreateAction
      * @return Response
      *
      * @throws \Exception
-     *
-     * @todo Validation required
      */
     public function __invoke(Request $request): Response
     {
@@ -106,16 +104,11 @@ class CategoryTreeCreateAction
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $tree = $this->treeRepository->exists(CategoryTreeId::fromKey($data->code));
 
-            if (!$tree) {
-                $command = new CreateTreeCommand($data->code, new TranslatableString($data->name));
-                $this->messageBus->dispatch($command);
+            $command = new CreateTreeCommand($data->code, new TranslatableString($data->name));
+            $this->messageBus->dispatch($command);
 
-                return new CreatedResponse($command->getId());
-            }
-
-            throw new BadRequestHttpException('Tree already exists');
+            return new CreatedResponse($command->getId());
         }
 
         throw new FormValidationHttpException($form);

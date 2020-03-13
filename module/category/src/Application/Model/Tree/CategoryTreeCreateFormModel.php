@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Application\Model\Tree;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\Category\Infrastructure\Validator\UniqueCategoryTreeCode;
 
 /**
  */
@@ -24,6 +25,7 @@ class CategoryTreeCreateFormModel
      *     pattern="/^[a-zA-Z0-9-_]+$/i",
      *      message="Category tree code can have only letters, digits or underscore symbol"
      * )
+     * @UniqueCategoryTreeCode()
      */
     public ?string $code;
 

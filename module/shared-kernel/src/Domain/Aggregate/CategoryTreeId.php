@@ -15,15 +15,4 @@ use Ergonode\SharedKernel\Domain\AggregateId;
  */
 class CategoryTreeId extends AggregateId
 {
-    public const NAMESPACE = 'f39d019e-92f0-47e8-b5ee-81155e7ddfc2';
-
-    /**
-     * @param string $name
-     *
-     * @return CategoryTreeId
-     */
-    public static function fromKey(string $name): CategoryTreeId
-    {
-        return new static(self::generateIdentifier(self::NAMESPACE, $name)->getValue());
-    }
 }
