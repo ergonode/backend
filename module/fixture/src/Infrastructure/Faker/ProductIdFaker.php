@@ -11,11 +11,14 @@ namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Faker\Provider\Base as BaseProvider;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 class ProductIdFaker extends BaseProvider
 {
+    public const NAMESPACE = '7cf84041-304b-41c9-8401-139d9203735e';
+
     /**
      * @param string|null $name
      *
@@ -26,7 +29,7 @@ class ProductIdFaker extends BaseProvider
     public function productId(?string $name = null): ProductId
     {
         if ($name) {
-            return productId::fromString($name);
+            return new ProductId(Uuid::uuid5(self::NAMESPACE, $name)->toString());
         }
 
         return ProductId::generate();

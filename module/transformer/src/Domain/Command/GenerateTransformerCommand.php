@@ -54,7 +54,7 @@ class GenerateTransformerCommand implements DomainCommandInterface
      */
     public function __construct(string $name, string $key, string $type)
     {
-        $this->id = TransformerId::fromKey($type);
+        $this->id = TransformerId::generate();
         $this->name = $name;
         $this->key = $key;
         $this->type = $type;
