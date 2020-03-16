@@ -57,7 +57,7 @@
     </target>
 
     <!-- Behat -->
-    <target name="test:behat" depends="override:property:APP_ENV, database:drop, database:create, database:migrate, cache:clear, database:fixture, server:start" description="Executes behat tests." >
+    <target name="test:behat" depends="override:property:APP_ENV, database:drop, database:create, database:migrate, cache:clear, database:fixture" description="Executes behat tests." >
         <echo msg="Running behat tests..."/>
         <exec command="APP_ENV=${APP_ENV} APP_URL=http://localhost:8001 php -d error_reporting='E_ALL &amp; ~E_DEPRECATED' bin/behat --colors --stop-on-failure"
               checkreturn="true"
@@ -192,24 +192,6 @@
               checkreturn="true"
               logoutput="true">
         </exec>
-    </target>
-
-    <target name="server:start" description="Starts a local test web server in the background">
-        <exec
-                command="APP_ENV=${APP_ENV} ${dir.console} server:start --pidfile=./.web-server-8001.pid 127.0.0.1:8001"
-                logoutput="true"
-                spawn="true"
-        />
-        <waitfor maxwaitunit="second" maxwait="10">
-            <http url="http://127.0.0.1:8001/api/doc" quiet="true" />
-        </waitfor>
-    </target>
-
-    <target name="server:stop" description="Stops the local test web server">
-        <exec
-                command="APP_ENV=${APP_ENV} ${dir.console} server:stop --pidfile=./.web-server-8001.pid"
-                logoutput="true"
-        />
     </target>
 
     <target name="override:property:APP_ENV" description="Overrides APP_ENV property with test value">
