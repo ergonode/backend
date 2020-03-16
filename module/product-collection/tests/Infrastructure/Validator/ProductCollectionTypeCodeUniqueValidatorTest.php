@@ -15,13 +15,15 @@ use Ergonode\ProductCollection\Infrastructure\Validator\ProductCollectionTypeCod
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
+use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 /**
  */
 class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTestCase
 {
     /**
-     * @var ProductCollectionTypeRepositoryInterface|MockObject
+     * @var ProductCollectionTypeQueryInterface|MockObject
      */
     private $query;
 
@@ -29,7 +31,7 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
      */
     protected function setUp(): void
     {
-        $this->query = $this->createMock(ProductCollectionTypeRepositoryInterface::class);
+        $this->query = $this->createMock(ProductCollectionTypeQueryInterface::class);
         parent::setUp();
     }
 
@@ -74,7 +76,8 @@ class ProductCollectionTypeCodeUniqueValidatorTest extends ConstraintValidatorTe
      */
     public function testCodeExistsValidation(): void
     {
-        $this->query->method('exists')->willReturn(true);
+        $collectionTypeId = $this->createMock(ProductCollectionTypeId::class);
+        $this->query->method('findIdByCode')->willReturn($collectionTypeId);
         $constraint = new ProductCollectionTypeCodeUnique();
         $value = 'code';
         $this->validator->validate($value, $constraint);

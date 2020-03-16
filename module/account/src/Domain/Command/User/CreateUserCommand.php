@@ -88,7 +88,7 @@ class CreateUserCommand implements DomainCommandInterface
         bool $isActive = true,
         ?MultimediaId $avatarId = null
     ) {
-        $this->id = UserId::fromEmail($email);
+        $this->id = UserId::generate();
         $this->avatarId = $avatarId;
         $this->firstName = $firstName;
         $this->lastName = $lastName;

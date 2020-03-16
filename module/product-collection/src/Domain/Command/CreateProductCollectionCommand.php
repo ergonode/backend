@@ -61,6 +61,8 @@ class CreateProductCollectionCommand implements DomainCommandInterface
      * @param TranslatableString      $name
      * @param TranslatableString      $description
      * @param ProductCollectionTypeId $typeId
+     *
+     * @throws \Exception
      */
     public function __construct(
         ProductCollectionCode $code,
@@ -68,7 +70,7 @@ class CreateProductCollectionCommand implements DomainCommandInterface
         TranslatableString $description,
         ProductCollectionTypeId $typeId
     ) {
-        $this->id = ProductCollectionId::fromCode($code->getValue());
+        $this->id = ProductCollectionId::generate();
         $this->code = $code;
         $this->name = $name;
         $this->description = $description;

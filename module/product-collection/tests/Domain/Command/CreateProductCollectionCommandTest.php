@@ -16,6 +16,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Faker\Provider\Uuid;
 
 /**
  */
@@ -40,7 +41,6 @@ class CreateProductCollectionCommandTest extends TestCase
 
         $command = new CreateProductCollectionCommand($code, $name, $description, $typeId);
 
-        $this->assertEquals(ProductCollectionId::fromCode($code->getValue()), $command->getId());
         $this->assertEquals($code, $command->getCode());
         $this->assertEquals($name, $command->getName());
         $this->assertEquals($description, $command->getDescription());

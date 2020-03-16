@@ -15,29 +15,29 @@ use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Ergonode\Account\Domain\Query\UserQueryInterface;
 
 /**
  */
 class UserUniqueValidator extends ConstraintValidator
 {
     /**
-     * @var UserRepositoryInterface
+     * @var UserQueryInterface
      */
-    private UserRepositoryInterface $repository;
+    private UserQueryInterface $query;
 
     /**
-     * @param UserRepositoryInterface $repository
+     * @param UserQueryInterface $query
      */
-    public function __construct(UserRepositoryInterface $repository)
+    public function __construct(UserQueryInterface $query)
     {
-        $this->repository = $repository;
+        $this->query = $query;
     }
 
     /**
      * @param mixed                 $value
      * @param UserUnique|Constraint $constraint
      *
-     * @throws \ReflectionException
      * @throws \Exception
      */
     public function validate($value, Constraint $constraint): void
@@ -56,12 +56,12 @@ class UserUniqueValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $user = false;
+        $userId = null;
         if (Email::isValid($value)) {
-            $user = $this->repository->load(UserId::fromEmail(new Email($value)));
+            $userId = $this->query->findIdByEmail(new Email($value));
         }
 
-        if ($user) {
+        if ($userId) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

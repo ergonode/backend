@@ -15,6 +15,9 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
+use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 /**
  */
@@ -64,6 +67,28 @@ class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterf
 
         return new DbalDataSet($result);
     }
+
+    /**
+     * @param ProductCollectionTypeCode $code
+     *
+     * @return ProductCollectionTypeId|null
+     */
+    public function findIdByCode(ProductCollectionTypeCode $code): ?ProductCollectionTypeId
+    {
+        $qb = $this->getQuery();
+        $result = $qb->select('id')
+            ->where($qb->expr()->eq('code', ':code'))
+            ->setParameter(':code', $code->getValue())
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return new ProductCollectionTypeId($result);
+        }
+
+        return null;
+    }
+
 
     /**
      * @return QueryBuilder

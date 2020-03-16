@@ -11,6 +11,8 @@ namespace Ergonode\ProductCollection\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 
 /**
  */
@@ -27,4 +29,11 @@ interface ProductCollectionQueryInterface
      * @return string[]
      */
     public function getDictionary(): array;
+
+    /**
+     * @param ProductCollectionCode $code
+     *
+     * @return ProductCollectionId|null
+     */
+    public function findIdByCode(ProductCollectionCode $code): ?ProductCollectionId;
 }

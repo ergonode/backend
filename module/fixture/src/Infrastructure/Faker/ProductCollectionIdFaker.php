@@ -10,13 +10,15 @@ declare(strict_types = 1);
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
-use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Faker\Provider\Base as BaseProvider;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 class ProductCollectionIdFaker extends BaseProvider
 {
+    private const NAMESPACE = 'a6edc906-2f9f-5fb2-a373-efac406f0ef2';
+
     /**
      * @param string|null $code
      *
@@ -26,9 +28,8 @@ class ProductCollectionIdFaker extends BaseProvider
      */
     public function productCollectionId(?string $code = null): ProductCollectionId
     {
-
         if ($code) {
-            return ProductCollectionId::fromCode((new ProductCollectionCode($code))->getValue());
+            return new ProductCollectionId(Uuid::uuid5(self::NAMESPACE, $code)->toString());
         }
 
         return ProductCollectionId::generate();

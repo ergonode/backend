@@ -61,7 +61,7 @@ class CreateConditionSetCommandTest extends TestCase
             new ProductBelongCategoryCondition($categoryId, 'equal'),
         ];
 
-        $id = ConditionSetId::fromString('c1');
+        $id = ConditionSetId::generate();
 
         $command = new CreateConditionSetCommand($id, $conditions);
 

@@ -12,25 +12,26 @@ namespace Ergonode\Tests\Account\Application\Validator\Constraints;
 use Ergonode\Account\Application\Validator\Constraints\UserUnique;
 use Ergonode\Account\Application\Validator\Constraints\UserUniqueValidator;
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
+use Ergonode\Account\Domain\Query\UserQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 /**
  */
 class UserUniqueValidatorTest extends ConstraintValidatorTestCase
 {
     /**
-     * @var MockObject|UserRepositoryInterface
+     * @var MockObject|UserQueryInterface
      */
-    private $repository;
+    private UserQueryInterface $query;
 
     /**
      */
     protected function setUp(): void
     {
-        $this->repository = $this->createMock(UserRepositoryInterface::class);
+        $this->query = $this->createMock(UserQueryInterface::class);
         parent::setUp();
     }
 
@@ -65,7 +66,7 @@ class UserUniqueValidatorTest extends ConstraintValidatorTestCase
      */
     public function testStatusNotExistsValidation(): void
     {
-        $this->repository->method('load')->willReturn(null);
+        $this->query->method('findIdByEmail')->willReturn(null);
         $this->validator->validate('email@example.com', new UserUnique());
 
         $this->assertNoViolation();
@@ -75,7 +76,8 @@ class UserUniqueValidatorTest extends ConstraintValidatorTestCase
      */
     public function testUserExistsValidation(): void
     {
-        $this->repository->method('load')->willReturn($this->createMock(User::class));
+        $userId = $this->createMock(UserId::class);
+        $this->query->method('findIdByEmail')->willReturn($userId);
         $constraint = new UserUnique();
         $value = 'email@example.com';
         $this->validator->validate($value, $constraint);
@@ -89,6 +91,6 @@ class UserUniqueValidatorTest extends ConstraintValidatorTestCase
      */
     protected function createValidator(): UserUniqueValidator
     {
-        return new UserUniqueValidator($this->repository);
+        return new UserUniqueValidator($this->query);
     }
 }
