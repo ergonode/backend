@@ -60,7 +60,7 @@ class DbalCategoryQuery implements CategoryQueryInterface
     /**
      * @param CategoryCode $code
      *
-     * @return CategoryId
+     * @return CategoryId|null
      */
     public function findIdByCode(CategoryCode $code): ?CategoryId
     {

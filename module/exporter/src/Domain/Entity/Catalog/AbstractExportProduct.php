@@ -135,7 +135,11 @@ abstract class AbstractExportProduct
      */
     public function removeCategory(Uuid $id): void
     {
-        unset($this->categories[$id->toString()]);
+        foreach ($this->categories as $key => $category) {
+            if ($category->equals($id)) {
+                unset($this->categories[$key]);
+            }
+        }
     }
 
     /**
