@@ -12,6 +12,8 @@ namespace Ergonode\Account\Persistence\Dbal\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Account\Domain\Query\UserQueryInterface;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 /**
  */
@@ -43,6 +45,27 @@ class DbalUserQuery implements UserQueryInterface
             ->select("id, first_name || ' ' || last_name as name")
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
+     * @param Email $email
+     *
+     * @return UserId|null
+     */
+    public function findIdByEmail(Email $email): ?UserId
+    {
+        $qb = $this->getQuery();
+        $result = $qb->select('id')
+            ->where($qb->expr()->eq('username', ':email'))
+            ->setParameter(':email', $email->getValue())
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return new UserId($result);
+        }
+
+        return null;
     }
 
     /**

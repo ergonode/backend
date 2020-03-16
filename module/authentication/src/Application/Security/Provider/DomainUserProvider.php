@@ -10,13 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Authentication\Application\Security\Provider;
 
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\Exception\InvalidEmailException;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Ergonode\Account\Domain\Query\UserQueryInterface;
 
 /**
  */
@@ -25,14 +25,21 @@ class DomainUserProvider implements UserProviderInterface
     /**
      * @var UserRepositoryInterface
      */
-    private UserRepositoryInterface $userRepository;
+    private UserRepositoryInterface $repository;
 
     /**
-     * @param UserRepositoryInterface $userRepository
+     * @var UserQueryInterface
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    private UserQueryInterface $query;
+
+    /**
+     * @param UserRepositoryInterface $repository
+     * @param UserQueryInterface      $query
+     */
+    public function __construct(UserRepositoryInterface $repository, UserQueryInterface $query)
     {
-        $this->userRepository = $userRepository;
+        $this->repository = $repository;
+        $this->query = $query;
     }
 
     /**
@@ -54,16 +61,18 @@ class DomainUserProvider implements UserProviderInterface
             throw new UsernameNotFoundException('Invalid email format');
         }
 
-        $userId = UserId::fromEmail($email);
-        $user = $this->userRepository->load($userId);
-        if (!$user instanceof User) {
-            throw new UsernameNotFoundException(sprintf(
-                'Username "%s" not found',
-                $username
-            ));
+        $userId = $this->query->findIdByEmail($email);
+        if ($userId) {
+            $user = $this->repository->load($userId);
+            if ($user instanceof User) {
+                return $user;
+            }
         }
 
-        return $user;
+        throw new UsernameNotFoundException(sprintf(
+            'Username "%s" not found',
+            $username
+        ));
     }
 
     /**

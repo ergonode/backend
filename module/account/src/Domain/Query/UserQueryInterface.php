@@ -9,6 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Query;
 
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+
 /**
  */
 interface UserQueryInterface
@@ -17,4 +20,11 @@ interface UserQueryInterface
      * @return string[]
      */
     public function getDictionary(): array;
+
+    /**
+     * @param Email $email
+     *
+     * @return UserId|null
+     */
+    public function findIdByEmail(Email $email): ?UserId;
 }
