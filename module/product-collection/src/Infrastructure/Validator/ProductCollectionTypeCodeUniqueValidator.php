@@ -9,29 +9,28 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Validator;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
-use Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
 use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionTypeCodeUnique;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
 
 /**
  */
 class ProductCollectionTypeCodeUniqueValidator extends ConstraintValidator
 {
     /**
-     * @var ProductCollectionTypeRepositoryInterface
+     * @var ProductCollectionTypeQueryInterface
      */
-    private ProductCollectionTypeRepositoryInterface $repository;
+    private ProductCollectionTypeQueryInterface $query;
 
     /**
-     * @param ProductCollectionTypeRepositoryInterface $repository
+     * @param ProductCollectionTypeQueryInterface $query
      */
-    public function __construct(ProductCollectionTypeRepositoryInterface $repository)
+    public function __construct(ProductCollectionTypeQueryInterface $query)
     {
-        $this->repository = $repository;
+        $this->query = $query;
     }
 
     /**
@@ -57,9 +56,9 @@ class ProductCollectionTypeCodeUniqueValidator extends ConstraintValidator
         $value = (string) $value;
 
         $code = new ProductCollectionTypeCode($value);
-        $collection = $this->repository->exists(ProductCollectionTypeId::fromCode($code->getValue()));
+        $collectionTypeId = $this->query->findIdByCode($code);
 
-        if ($collection) {
+        if ($collectionTypeId) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

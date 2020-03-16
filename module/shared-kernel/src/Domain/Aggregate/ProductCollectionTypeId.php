@@ -15,15 +15,4 @@ use Ergonode\SharedKernel\Domain\AggregateId;
  */
 class ProductCollectionTypeId extends AggregateId
 {
-    public const NAMESPACE = '5205c16c-5534-4aef-811a-f6bb5ef0dca2';
-
-    /**
-     * @param string $code
-     *
-     * @return ProductCollectionTypeId
-     */
-    public static function fromCode(string $code): ProductCollectionTypeId
-    {
-        return new static(self::generateIdentifier(self::NAMESPACE, $code)->getValue());
-    }
 }

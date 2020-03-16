@@ -9,19 +9,20 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Tests\Infrastructure\Validator;
 
-use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface;
 use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeUnique;
 use Ergonode\ProductCollection\Infrastructure\Validator\ProductCollectionCodeUniqueValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
+use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 
 /**
  */
 class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCase
 {
     /**
-     * @var ProductCollectionRepositoryInterface|MockObject
+     * @var ProductCollectionQueryInterface|MockObject
      */
     private $query;
 
@@ -29,7 +30,7 @@ class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCa
      */
     protected function setUp(): void
     {
-        $this->query = $this->createMock(ProductCollectionRepositoryInterface::class);
+        $this->query = $this->createMock(ProductCollectionQueryInterface::class);
         parent::setUp();
     }
 
@@ -74,7 +75,8 @@ class ProductCollectionCodeUniqueValidatorTest extends ConstraintValidatorTestCa
      */
     public function testCodeExistsValidation(): void
     {
-        $this->query->method('exists')->willReturn(true);
+        $collectionId = $this->createMock(ProductCollectionId::class);
+        $this->query->method('findIdByCode')->willReturn($collectionId);
         $constraint = new ProductCollectionCodeUnique();
         $value = 'code';
         $this->validator->validate($value, $constraint);

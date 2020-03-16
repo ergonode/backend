@@ -44,12 +44,14 @@ class CreateProductCollectionTypeCommand implements DomainCommandInterface
     /**
      * @param ProductCollectionTypeCode $code
      * @param TranslatableString        $name
+     *
+     * @throws \Exception
      */
     public function __construct(
         ProductCollectionTypeCode $code,
         TranslatableString $name
     ) {
-        $this->id = ProductCollectionTypeId::fromCode($code->getValue());
+        $this->id = ProductCollectionTypeId::generate();
         $this->code = $code;
         $this->name = $name;
     }
