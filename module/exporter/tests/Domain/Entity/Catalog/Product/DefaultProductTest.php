@@ -11,7 +11,6 @@ namespace Ergonode\Exporter\Domain\Entity\Catalog\Product;
 
 use Ergonode\Exporter\Domain\Entity\Catalog\AbstractExportAttributeValue;
 use Ergonode\Exporter\Domain\Entity\Catalog\AttributeValue\DefaultExportAttributeValue;
-use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategoryCode;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -30,7 +29,7 @@ class DefaultProductTest extends TestCase
     private string $sku;
 
     /**
-     * @var ExportCategoryCode[]
+     * @var Uuid[]
      */
     private array $category;
 
@@ -47,7 +46,7 @@ class DefaultProductTest extends TestCase
         $this->sku = random_bytes(10);
 
         $this->category = [
-            $this->createMock(ExportCategoryCode::class),
+            $this->createMock(Uuid::class),
         ];
 
         $this->attribute = [

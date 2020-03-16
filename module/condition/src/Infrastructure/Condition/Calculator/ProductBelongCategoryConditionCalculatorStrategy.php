@@ -52,6 +52,6 @@ class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalcu
 
         $belong = $configuration->getOperator() === ProductBelongCategoryCondition::BELONG_TO;
 
-        return $object->belongToCategory($category->getCode()) === $belong;
+        return $object->belongToCategory($category->getId()) === $belong;
     }
 }

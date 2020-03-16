@@ -48,7 +48,7 @@ class CreateCategoryCommand implements DomainCommandInterface
      */
     public function __construct(CategoryCode $code, TranslatableString $name)
     {
-        $this->id = CategoryId::fromCode($code->getValue());
+        $this->id = CategoryId::generate();
         $this->code = $code;
         $this->name = $name;
     }

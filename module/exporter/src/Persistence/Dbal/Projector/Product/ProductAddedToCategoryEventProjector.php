@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Persistence\Dbal\Projector\Product;
 
 use Ergonode\Exporter\Domain\Exception\ProductNotFoundException;
-use Ergonode\Exporter\Domain\Factory\Catalog\CategoryCodeFactory;
 use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
 use Ramsey\Uuid\Uuid;
@@ -25,19 +24,11 @@ class ProductAddedToCategoryEventProjector
     private ProductRepositoryInterface $productRepository;
 
     /**
-     * @var CategoryCodeFactory
-     */
-    private CategoryCodeFactory $categoryCodeFactory;
-
-    /**
-     * ProductAddedToCategoryEventProjector constructor.
      * @param ProductRepositoryInterface $productRepository
-     * @param CategoryCodeFactory        $categoryCodeFactory
      */
-    public function __construct(ProductRepositoryInterface $productRepository, CategoryCodeFactory $categoryCodeFactory)
+    public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepository = $productRepository;
-        $this->categoryCodeFactory = $categoryCodeFactory;
     }
 
     /**
@@ -53,7 +44,8 @@ class ProductAddedToCategoryEventProjector
             throw new ProductNotFoundException($event->getAggregateId()->getValue());
         }
 
-        $product->addCategory($this->categoryCodeFactory->create($event->getCategoryCode()->getValue()));
+        $categoryId = Uuid::fromString($event->getCategoryId()->getValue());
+        $product->addCategory($categoryId);
         $this->productRepository->save($product);
     }
 }

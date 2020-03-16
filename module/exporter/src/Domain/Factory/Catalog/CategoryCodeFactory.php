@@ -9,24 +9,26 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Factory\Catalog;
 
-use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategoryCode;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  */
 class CategoryCodeFactory
 {
     /**
-     * @param string $code
+     * @param CategoryId $code
      *
-     * @return ExportCategoryCode
+     * @return UuidInterface
      */
-    public function create(string $code): ExportCategoryCode
+    public function create(CategoryId $code): UuidInterface
     {
-        return new ExportCategoryCode($code);
+        return Uuid::fromString($code->getValue());
     }
 
     /**
-     * @param \Ergonode\Category\Domain\ValueObject\CategoryCode[] $categories
+     * @param CategoryId[] $categories
      *
      * @return array
      */
@@ -34,8 +36,7 @@ class CategoryCodeFactory
     {
         $result = [];
         foreach ($categories as $category) {
-            $categoryValue = $category->getValue();
-            $result[$categoryValue] = $this->create($categoryValue);
+            $result[] = $this->create($category);
         }
 
         return $result;

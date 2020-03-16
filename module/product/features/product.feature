@@ -226,6 +226,7 @@ Feature: Product module
       }
       """
     When I request "/api/v1/EN/products/@product@" using HTTP PUT
+
     Then empty response is received
 
   Scenario: Update product (not authorized)

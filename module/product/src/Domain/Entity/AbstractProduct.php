@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Product\Domain\Event\ProductAddedToCategoryEvent;
@@ -25,6 +24,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
@@ -73,7 +73,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
         array $categories = [],
         array $attributes = []
     ) {
-        Assert::allIsInstanceOf($categories, CategoryCode::class);
+        Assert::allIsInstanceOf($categories, CategoryId::class);
 
         $attributes = array_filter(
             $attributes,
@@ -127,41 +127,41 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
-     * @param CategoryCode $categoryCode
+     * @param CategoryId $categoryId
      *
      * @return bool
      */
-    public function belongToCategory(CategoryCode $categoryCode): bool
+    public function belongToCategory(CategoryId $categoryId): bool
     {
-        return isset($this->categories[$categoryCode->getValue()]);
+        return isset($this->categories[$categoryId->getValue()]);
     }
 
     /**
-     * @param CategoryCode $categoryCode
+     * @param CategoryId $categoryId
      *
      * @throws \Exception
      */
-    public function addToCategory(CategoryCode $categoryCode): void
+    public function addToCategory(CategoryId $categoryId): void
     {
-        if (!$this->belongToCategory($categoryCode)) {
-            $this->apply(new ProductAddedToCategoryEvent($this->id, $categoryCode));
+        if (!$this->belongToCategory($categoryId)) {
+            $this->apply(new ProductAddedToCategoryEvent($this->id, $categoryId));
         }
     }
 
     /**
-     * @param CategoryCode $categoryCode
+     * @param CategoryId $categoryId
      *
      * @throws \Exception
      */
-    public function removeFromCategory(CategoryCode $categoryCode): void
+    public function removeFromCategory(CategoryId $categoryId): void
     {
-        if ($this->belongToCategory($categoryCode)) {
-            $this->apply(new ProductRemovedFromCategoryEvent($this->id, $categoryCode));
+        if ($this->belongToCategory($categoryId)) {
+            $this->apply(new ProductRemovedFromCategoryEvent($this->id, $categoryId));
         }
     }
 
     /**
-     * @return CategoryCode[]
+     * @return CategoryId[]
      */
     public function getCategories(): array
     {
@@ -278,7 +278,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
      */
     protected function applyProductAddedToCategoryEvent(ProductAddedToCategoryEvent $event): void
     {
-        $this->categories[$event->getCategoryCode()->getValue()] = $event->getCategoryCode();
+        $this->categories[$event->getCategoryId()->getValue()] = $event->getCategoryId();
     }
 
     /**
@@ -286,7 +286,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
      */
     protected function applyProductRemovedFromCategoryEvent(ProductRemovedFromCategoryEvent $event): void
     {
-        unset($this->categories[$event->getCategoryCode()->getValue()]);
+        unset($this->categories[$event->getCategoryId()->getValue()]);
     }
 
     /**

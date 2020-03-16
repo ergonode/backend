@@ -14,21 +14,24 @@ use Ergonode\Category\Infrastructure\Validator\CategoryCode;
 use Ergonode\Category\Infrastructure\Validator\CategoryCodeValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
+use Ergonode\Category\Domain\Query\CategoryQueryInterface;
+use PHPUnit\Framework\MockObject\MockObject;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
 class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
 {
     /**
-     * @var CategoryRepositoryInterface
+     * @var CategoryQueryInterface|MockObject
      */
-    private CategoryRepositoryInterface $repository;
+    private CategoryQueryInterface $query;
 
     /**
      */
     protected function setUp(): void
     {
-        $this->repository = $this->createMock(CategoryRepositoryInterface::class);
+        $this->query = $this->createMock(CategoryQueryInterface::class);
         parent::setUp();
     }
 
@@ -77,7 +80,7 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
      */
     public function testCategoryNotExistsValidation(): void
     {
-        $this->repository->method('exists')->willReturn(true);
+        $this->query->method('findIdByCode')->willReturn($this->createMock(CategoryId::class));
         $constraint = new CategoryCode();
         $value = 'value';
         $this->validator->validate($value, $constraint);
@@ -91,6 +94,6 @@ class CategoryCodeValidatorTest extends ConstraintValidatorTestCase
      */
     protected function createValidator(): CategoryCodeValidator
     {
-        return new CategoryCodeValidator($this->repository);
+        return new CategoryCodeValidator($this->query);
     }
 }

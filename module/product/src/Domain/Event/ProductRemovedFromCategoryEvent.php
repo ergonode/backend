@@ -9,11 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Event;
 
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
-
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
@@ -27,20 +26,20 @@ class ProductRemovedFromCategoryEvent implements DomainEventInterface
     private ProductId $id;
 
     /**
-     * @var CategoryCode
+     * @var CategoryId
      *
-     * @JMS\Type("Ergonode\Category\Domain\ValueObject\CategoryCode")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
      */
-    private CategoryCode $categoryCode;
+    private CategoryId $categoryId;
 
     /**
-     * @param ProductId    $id
-     * @param CategoryCode $categoryCode
+     * @param ProductId  $id
+     * @param CategoryId $categoryId
      */
-    public function __construct(ProductId $id, CategoryCode $categoryCode)
+    public function __construct(ProductId $id, CategoryId $categoryId)
     {
         $this->id = $id;
-        $this->categoryCode = $categoryCode;
+        $this->categoryId = $categoryId;
     }
 
     /**
@@ -52,10 +51,10 @@ class ProductRemovedFromCategoryEvent implements DomainEventInterface
     }
 
     /**
-     * @return CategoryCode
+     * @return CategoryId
      */
-    public function getCategoryCode(): CategoryCode
+    public function getCategoryId(): CategoryId
     {
-        return $this->categoryCode;
+        return $this->categoryId;
     }
 }
