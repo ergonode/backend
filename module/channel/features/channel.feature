@@ -1,21 +1,24 @@
 Feature: channel module
 
   Scenario: Create condition set
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    Given I send a POST request to "/api/v1/EN/conditionsets" with body:
       """
       {
         "conditions": []
       }
       """
-    Given I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "condition_set_id"
+    Then the response status code should be 201
+    And store response param "id" as "condition_set_id"
 
   Scenario: Create segment
     Given remember param "segment_code" with value "SEG_1_@@random_code@@"
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/segments" with body:
       """
       {
         "code": "@segment_code@",
@@ -30,19 +33,22 @@ Feature: channel module
         }
       }
       """
-    When I request "/api/v1/EN/segments" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "segment_id"
+    Then the response status code should be 201
+    And store response param "id" as "segment_id"
 
   Scenario: Get segment
-    Given current authentication token
-    When I request "/api/v1/EN/segments/@segment_id@" using HTTP GET
-    Then the response code is 200
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments/@segment_id@"
+    Then the response status code should be 200
 
 
   Scenario: Create channel
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/channels" with body:
       """
       {
         "segment_id": "@segment_id@",
@@ -52,40 +58,43 @@ Feature: channel module
         }
       }
       """
-    When I request "/api/v1/EN/channels" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "channel"
+    Then the response status code should be 201
+    And store response param "id" as "channel"
 
   Scenario: Create channel (not authorized)
-    When I request "/api/v1/EN/channels" using HTTP POST
-    Then unauthorized response is received
+    When I send a POST request to "/api/v1/EN/channels"
+    Then the response status code should be 401
 
   Scenario: Create channel (no Name)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/channels" with body:
       """
       {
         "segment_id": "@segment_id@"
       }
       """
-    When I request "/api/v1/EN/channels" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Create channel (empty Name)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/channels" with body:
       """
       {
         "segment_id": "@segment_id@",
         "name": {}
       }
       """
-    When I request "/api/v1/EN/channels" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Create channel (name with language with empty string value)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/channels" with body:
       """
       {
         "name": {
@@ -94,12 +103,13 @@ Feature: channel module
         }
       }
       """
-    When I request "/api/v1/EN/channels" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Update channel
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/channels/@channel@" with body:
       """
       {
         "segment_id": "@segment_id@",
@@ -109,45 +119,50 @@ Feature: channel module
         }
       }
       """
-    When I request "/api/v1/EN/channels/@channel@" using HTTP PUT
-    Then empty response is received
+    Then the response status code should be 204
 
   Scenario: Update channel (not authorized)
-    When I request "/api/v1/EN/channels/@channel@" using HTTP PUT
-    Then unauthorized response is received
+    When I send a PUT request to "/api/v1/EN/channels/@channel@"
+    Then the response status code should be 401
 
   Scenario: Update channel (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/channels/@@static_uuid@@" using HTTP PUT
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/channels/@@static_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Update channel (empty name)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/channels/@channel@" with body:
       """
       {
         "name": {
         }
       }
       """
-    When I request "/api/v1/EN/channels/@channel@" using HTTP PUT
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Update channel (wrong parameter)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/channels/@channel@" with body:
       """
       {
         "test": {
         }
       }
       """
-    When I request "/api/v1/EN/channels/@channel@" using HTTP PUT
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Update channel (empty translation)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/channels/@channel@" with body:
       """
       {
         "name": {
@@ -156,62 +171,79 @@ Feature: channel module
         }
       }
       """
-    When I request "/api/v1/EN/channels/@channel@" using HTTP PUT
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Get channel
-    Given current authentication token
-    When I request "/api/v1/EN/channels/@channel@" using HTTP GET
-    Then the response code is 200
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/channels/@channel@"
+    Then the response status code should be 200
 
   Scenario: Get channel (not authorized)
-    When I request "/api/v1/EN/channels/@channel@" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/channels/@channel@"
+    Then the response status code should be 401
 
   Scenario: Get channel (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/channels/@@static_uuid@@" using HTTP GET
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/channels/@@static_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Delete channel (not authorized)
-    When I request "/api/v1/EN/channels/@channel@" using HTTP DELETE
-    Then unauthorized response is received
+    When I send a DELETE request to "/api/v1/EN/channels/@channel@"
+    Then the response status code should be 401
 
   Scenario: Delete channel (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/channels/@@static_uuid@@" using HTTP DELETE
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a DELETE request to "/api/v1/EN/channels/@@static_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Delete channel
-    Given current authentication token
-    When I request "/api/v1/EN/channels/@channel@" using HTTP DELETE
-    Then empty response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a DELETE request to "/api/v1/EN/channels/@channel@"
+    Then the response status code should be 204
 
   Scenario: Get channels (order by name)
-    Given current authentication token
-    When I request "/api/v1/EN/channels?field=name" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/channels?field=name"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get channels (order ASC)
-    Given current authentication token
-    When I request "/api/v1/EN/channels?field=name&order=ASC" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/channels?field=name&order=ASC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get channels (order DESC)
-    Given current authentication token
-    When I request "/api/v1/EN/channels?field=name&order=DESC" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/channels?field=name&order=DESC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get channels (filter by name)
-    Given current authentication token
-    When I request "/api/v1/EN/channels?limit=25&offset=0&filter=name%3Dasd" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/channels?limit=25&offset=0&filter=name%3Dasd"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get channels (filter by code)
-    Given current authentication token
-    When I request "/api/v1/EN/channels?limit=25&offset=0&filter=code%3DCAT" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/channels?limit=25&offset=0&filter=code%3DCAT"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get channels (not authorized)
-    When I request "/api/v1/EN/channels" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/channels"
+    Then the response status code should be 401

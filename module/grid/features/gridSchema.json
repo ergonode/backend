@@ -1,0 +1,1451 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "required": [
+    "configuration",
+    "columns",
+    "collection",
+    "info"
+  ],
+  "properties": {
+    "configuration": {
+      "$id": "#/properties/configuration",
+      "type": "object",
+      "title": "The Configuration Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": {},
+      "examples": [
+        {
+          "allow_column_resize": true,
+          "allow_column_edit": false,
+          "allow_column_move": false
+        }
+      ],
+      "required": [
+        "allow_column_resize",
+        "allow_column_edit",
+        "allow_column_move"
+      ],
+      "properties": {
+        "allow_column_resize": {
+          "$id": "#/properties/configuration/properties/allow_column_resize",
+          "type": "boolean",
+          "title": "The Allow_column_resize Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "allow_column_edit": {
+          "$id": "#/properties/configuration/properties/allow_column_edit",
+          "type": "boolean",
+          "title": "The Allow_column_edit Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "allow_column_move": {
+          "$id": "#/properties/configuration/properties/allow_column_move",
+          "type": "boolean",
+          "title": "The Allow_column_move Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": false,
+          "examples": [
+            false
+          ]
+        }
+      }
+    },
+    "columns": {
+      "$id": "#/properties/columns",
+      "type": "array",
+      "title": "The Columns Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": [],
+      "items": {
+        "$id": "#/properties/columns/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "description": "An explanation about the purpose of this instance.",
+        "default": {},
+        "examples": [
+          {
+            "type": "INTEGER",
+            "deletable": false,
+            "visible": false,
+            "label": "Id",
+            "id": "id",
+            "editable": false
+          },
+          {
+            "type": "DATE",
+            "visible": true,
+            "deletable": false,
+            "label": "Time",
+            "id": "recorded_at",
+            "filter": {
+              "type": "DATE"
+            },
+            "editable": false
+          },
+          {
+            "editable": false,
+            "type": "TEXT",
+            "visible": true,
+            "deletable": false,
+            "label": "Author",
+            "id": "author",
+            "filter": {
+              "type": "TEXT"
+            }
+          },
+          {
+            "type": "TEXT",
+            "visible": true,
+            "deletable": false,
+            "label": "Message",
+            "id": "event:EN",
+            "language": "EN",
+            "editable": false
+          }
+        ],
+        "required": [
+          "id",
+          "type",
+          "label",
+          "visible",
+          "editable",
+          "deletable"
+        ],
+        "properties": {
+          "id": {
+            "$id": "#/properties/columns/items/properties/id",
+            "type": "string",
+            "title": "The Id Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "id"
+            ]
+          },
+          "type": {
+            "$id": "#/properties/columns/items/properties/type",
+            "type": "string",
+            "title": "The Type Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "INTEGER"
+            ]
+          },
+          "label": {
+            "$id": "#/properties/columns/items/properties/label",
+            "type": ["string", "null"],
+            "title": "The Label Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "Id"
+            ]
+          },
+          "visible": {
+            "$id": "#/properties/columns/items/properties/visible",
+            "type": "boolean",
+            "title": "The Visible Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": false,
+            "examples": [
+              false
+            ]
+          },
+          "editable": {
+            "$id": "#/properties/columns/items/properties/editable",
+            "type": "boolean",
+            "title": "The Editable Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": false,
+            "examples": [
+              false
+            ]
+          },
+          "deletable": {
+            "$id": "#/properties/columns/items/properties/deletable",
+            "type": "boolean",
+            "title": "The Deletable Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      }
+    },
+    "collection": {
+      "$id": "#/properties/collection",
+      "type": "array",
+      "title": "The Collection Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": [],
+      "items": {
+        "$id": "#/properties/collection/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "description": "An explanation about the purpose of this instance.",
+        "default": {},
+        "examples": [
+          {
+            "recorded_at": "2020-03-11 13:41:53",
+            "id": 107.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Comment created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:35",
+            "id": 121.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "id": 100.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer \"name\" created",
+            "recorded_at": "2020-03-11 14:38:25"
+          },
+          {
+            "recorded_at": "2020-03-11 13:58:53",
+            "id": 60.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:54:55",
+            "id": 34.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer \"name\" created"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 14:33:24",
+            "id": 93.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:58:53",
+            "id": 58.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:38:25",
+            "id": 42.0,
+            "author": "Johnny Bravo",
+            "event:EN": "User last name changed from \"Test to \"Test (changed)\""
+          },
+          {
+            "recorded_at": "2020-03-11 13:45:52",
+            "id": 1.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer \"name\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:24",
+            "id": 94.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:26",
+            "id": 117.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:08",
+            "id": 112.0,
+            "author": "Johnny Bravo",
+            "event:EN": "User password changed"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer \"name\" created",
+            "recorded_at": "2020-03-11 13:53:56",
+            "id": 23.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:54:55",
+            "id": 37.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "id": 31.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:53:56"
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:24",
+            "id": 96.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:54:55",
+            "id": 43.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:41:22",
+            "id": 100.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:45:52",
+            "id": 7.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "id": 161.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Product \"magento-1-test-1\" created",
+            "recorded_at": "2020-03-11 14:38:29"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 13:55:24",
+            "id": 50.0
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 14:17:44",
+            "id": 76.0
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "User password changed",
+            "recorded_at": "2020-03-11 13:39:06",
+            "id": 45.0
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:53:05",
+            "id": 18.0
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:29",
+            "id": 159.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute \"short_description\" added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:54:55",
+            "id": 41.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:53:05",
+            "id": 20.0
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:24",
+            "id": 95.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:37:22",
+            "id": 30.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Role name changed from \"Test role (6f6006c8-e376-4457-a98c-1c85ac3bb936)\" to \"Test role 2 (22c14209-ed5d-40e0-bdcc-5fbe9e723f90)\""
+          },
+          {
+            "recorded_at": "2020-03-11 13:43:57",
+            "id": 141.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Segment \"SEG_REL_ca01f633_5b71_4bea_8818_b9a33b67d1de\" created"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Role description changed from \"Test role\" to \"Test role 2\"",
+            "recorded_at": "2020-03-11 13:37:22",
+            "id": 31.0
+          },
+          {
+            "id": 27.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Role \"Test role (af2f736c-bfed-442b-9608-b236c8166d10)\" created",
+            "recorded_at": "2020-03-11 13:37:12"
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:11",
+            "id": 85.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:58:53",
+            "id": 62.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer \"name\" created",
+            "recorded_at": "2020-03-11 14:33:11",
+            "id": 78.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:40:49",
+            "id": 96.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Category \"TREE_CAT_af5f0a6d_2897_4ece_9a36_f367ac97942b\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:25",
+            "id": 105.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "id": 104.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Channel created",
+            "recorded_at": "2020-03-11 13:41:30"
+          },
+          {
+            "recorded_at": "2020-03-11 13:37:30",
+            "id": 34.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Role description changed from \"Test role 2\" to \"Test role\""
+          },
+          {
+            "id": 44.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:54:55"
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:25",
+            "id": 108.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 14:33:24",
+            "id": 91.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:43:09",
+            "id": 132.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:55:24",
+            "id": 53.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 14:33:24",
+            "id": 99.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:54:55",
+            "id": 40.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:55:24",
+            "id": 49.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "id": 126.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created",
+            "recorded_at": "2020-03-11 13:42:48"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 14:38:25",
+            "id": 102.0
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 14:33:11",
+            "id": 82.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:46",
+            "id": 124.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:55:24",
+            "id": 55.0
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 13:54:55",
+            "id": 35.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:43:23",
+            "id": 134.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:41:24",
+            "id": 101.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Segment \"SEG_1_61193544_7f65_464a_9642_d66cc711d56e\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:39:05",
+            "id": 44.0,
+            "author": "Johnny Bravo",
+            "event:EN": "User password changed"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 13:53:56",
+            "id": 28.0
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created",
+            "recorded_at": "2020-03-11 13:42:45",
+            "id": 123.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:55:24",
+            "id": 45.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer \"name\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 14:17:44",
+            "id": 72.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:58:53",
+            "id": 66.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute added to group",
+            "recorded_at": "2020-03-11 13:39:39",
+            "id": 51.0
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:24",
+            "id": 97.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:27",
+            "id": 118.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "id": 87.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 14:33:11"
+          },
+          {
+            "recorded_at": "2020-03-11 13:53:56",
+            "id": 26.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:37:30",
+            "id": 35.0,
+            "author": "Johnny Bravo",
+            "event:EN": "List of privileges changed"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Category \"CATEGORY_a08028d8-dc0d-4ca6-bc67-aae1fd99f4e2\" created",
+            "recorded_at": "2020-03-11 13:42:24",
+            "id": 116.0
+          },
+          {
+            "id": 8.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:45:52"
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:30",
+            "id": 162.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Product \"magento-1-test-2\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:43:00",
+            "id": 130.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:24",
+            "id": 92.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:37:37",
+            "id": 37.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Role description changed from \"Test role\" to \"Test role\""
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:18",
+            "id": 114.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute \"image\" added",
+            "recorded_at": "2020-03-11 14:38:29",
+            "id": 156.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:37:05",
+            "id": 26.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Role \"Test role (6dfa9acd-22b5-41e3-af31-5d04e1560cb9)\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:39:39",
+            "id": 50.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute \"text_e53488dc_9802_4b70_b61f_d840b3d4e6d9\" added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 13:55:24",
+            "id": 48.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:47",
+            "id": 125.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:45:52",
+            "id": 6.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "id": 90.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 14:33:24"
+          },
+          {
+            "recorded_at": "2020-03-11 13:44:27",
+            "id": 142.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute \"text_604626ee_53f1_4a9b_927a_aff73abaffb7\" added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "List of privileges changed",
+            "recorded_at": "2020-03-11 13:37:22",
+            "id": 32.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:58:53",
+            "id": 64.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:54:55",
+            "id": 36.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:58:53",
+            "id": 65.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "id": 52.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:55:24"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer \"name\" created",
+            "recorded_at": "2020-03-11 14:17:44",
+            "id": 67.0
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:25",
+            "id": 101.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:55:24",
+            "id": 47.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:58:53",
+            "id": 63.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 14:38:25",
+            "id": 109.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:53:05",
+            "id": 16.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 13:45:52",
+            "id": 2.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:37:30",
+            "id": 33.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Role name changed from \"Test role 2 (22c14209-ed5d-40e0-bdcc-5fbe9e723f90)\" to \"Test role (52b66b55-4763-496f-b642-16c28ece1ab6)\""
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Category \"TREE_CAT_f4e22c52_9363_4e9c_b09c_df384ed7c95c\" created",
+            "recorded_at": "2020-03-11 13:40:50",
+            "id": 97.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:58:53",
+            "id": 61.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:25",
+            "id": 107.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:45:52",
+            "id": 5.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:55:24",
+            "id": 51.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:41:29",
+            "id": 103.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Channel created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:44:29",
+            "id": 144.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Multimedia added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:53:05",
+            "id": 14.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 13:45:52",
+            "id": 3.0
+          },
+          {
+            "id": 110.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 14:38:25"
+          },
+          {
+            "id": 33.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:53:56"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 13:53:56",
+            "id": 25.0
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:45:52",
+            "id": 11.0
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:24",
+            "id": 98.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:53:56",
+            "id": 27.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "id": 104.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 14:38:25"
+          },
+          {
+            "recorded_at": "2020-03-11 13:54:55",
+            "id": 42.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:53:05",
+            "id": 21.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:40:08",
+            "id": 84.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Category tree created"
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:11",
+            "id": 79.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:36",
+            "id": 122.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:55:24",
+            "id": 46.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:11",
+            "id": 80.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:45:52",
+            "id": 4.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "id": 77.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Role \"Default role for user (9a743b2a-056f-46c0-9599-445a5c4dbcd0)\" created",
+            "recorded_at": "2020-03-11 13:39:54"
+          },
+          {
+            "recorded_at": "2020-03-11 13:37:54",
+            "id": 39.0,
+            "author": "Johnny Bravo",
+            "event:EN": "User \"Test Test\" created"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Category \"TREE_CAT_21d9d51a_7e1d_492d_90cd_e8eb082d768d\" created",
+            "recorded_at": "2020-03-11 13:40:05",
+            "id": 82.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:40:06",
+            "id": 83.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Category tree created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:30",
+            "id": 119.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Status \"SOURCE bc1b3c372d1a1a3b6b56a927c6462365\" created"
+          },
+          {
+            "id": 88.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 14:33:11"
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:24",
+            "id": 89.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer \"name\" created"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created",
+            "recorded_at": "2020-03-11 13:42:57",
+            "id": 127.0
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "User password changed",
+            "recorded_at": "2020-03-11 13:37:54",
+            "id": 40.0
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:29",
+            "id": 155.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Category \"6b8e7967_5b0c_5458_a49a_96fcacbda7ae\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:43:21",
+            "id": 133.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute \"condition_71ad964b_5dcb_454f_a5a6_b9eb9be0a0b1\" added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 14:17:44",
+            "id": 74.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:55:24",
+            "id": 54.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:40:03",
+            "id": 81.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Category \"TREE_CAT_fe850f3c_7c88_4ae8_b38d_8ee34835c942\" created"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Role \"Test comment role (fb6120e0-e6ad-485a-ab2c-1dcbd8e798e6)\" created",
+            "recorded_at": "2020-03-11 13:42:06",
+            "id": 110.0
+          },
+          {
+            "id": 140.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created",
+            "recorded_at": "2020-03-11 13:43:55"
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:17",
+            "id": 113.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Category tree created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:37:37",
+            "id": 36.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Role name changed from \"Test role (52b66b55-4763-496f-b642-16c28ece1ab6)\" to \"Test role (194faf0c-3cb6-4c32-8474-8a4166bf4994)\""
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:53:05",
+            "id": 19.0
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 14:17:44",
+            "id": 73.0
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "User password changed",
+            "recorded_at": "2020-03-11 13:39:55",
+            "id": 79.0
+          },
+          {
+            "id": 77.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 14:17:44"
+          },
+          {
+            "id": 29.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:53:56"
+          },
+          {
+            "recorded_at": "2020-03-11 13:39:55",
+            "id": 78.0,
+            "author": "Johnny Bravo",
+            "event:EN": "User \"Not Active\" created"
+          },
+          {
+            "recorded_at": "2020-03-12 10:20:09",
+            "id": 164.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute \"text_5e490c4b_c29b_4b34_890f_f39ce447e79f\" added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:53:05",
+            "id": 12.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer \"name\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:38:25",
+            "id": 43.0,
+            "author": "Johnny Bravo",
+            "event:EN": "User password changed"
+          },
+          {
+            "id": 81.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 14:33:11"
+          },
+          {
+            "recorded_at": "2020-03-11 13:53:05",
+            "id": 15.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 14:17:44",
+            "id": 75.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:58",
+            "id": 128.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:32",
+            "id": 120.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Status \"SOURCE 5c39ba56b592376d9e982681c263596a\" created"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created",
+            "recorded_at": "2020-03-11 13:43:08",
+            "id": 131.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:08",
+            "id": 111.0,
+            "author": "Johnny Bravo",
+            "event:EN": "User \"Author Comment\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:29",
+            "id": 158.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute \"description\" added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Category \"75da2256_3f3c_5617_9a27_068f5a31baf3\" created",
+            "recorded_at": "2020-03-11 14:38:28",
+            "id": 154.0
+          },
+          {
+            "id": 163.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute \"text_6ea1aa28_499a_43ad_9806_c7886c4f349c\" added",
+            "recorded_at": "2020-03-12 10:14:57"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:45:52",
+            "id": 9.0
+          },
+          {
+            "id": 86.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 14:33:11"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created",
+            "recorded_at": "2020-03-11 13:42:19",
+            "id": 115.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:53:56",
+            "id": 32.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:39:40",
+            "id": 52.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute removed from group"
+          },
+          {
+            "recorded_at": "2020-03-11 14:17:44",
+            "id": 70.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:58:53",
+            "id": 57.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 13:58:53",
+            "id": 59.0
+          },
+          {
+            "recorded_at": "2020-03-11 13:53:05",
+            "id": 13.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "id": 39.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 13:54:55"
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:25",
+            "id": 103.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added",
+            "recorded_at": "2020-03-11 13:53:05",
+            "id": 22.0
+          },
+          {
+            "id": 71.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added",
+            "recorded_at": "2020-03-11 14:17:44"
+          },
+          {
+            "recorded_at": "2020-03-11 13:44:29",
+            "id": 143.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute \"image_18e3c746_e8ab_4c58_b877_6293e57fd43e\" added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:54:55",
+            "id": 38.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:38:25",
+            "id": 41.0,
+            "author": "Johnny Bravo",
+            "event:EN": "User first name changed from \"Test to \"Test (changed)\""
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:29",
+            "id": 160.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute \"weight\" added"
+          },
+          {
+            "recorded_at": "2020-03-11 14:17:44",
+            "id": 68.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:45:52",
+            "id": 10.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:53:05",
+            "id": 17.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:11",
+            "id": 84.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:53:56",
+            "id": 24.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 14:17:44",
+            "id": 69.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:58:53",
+            "id": 56.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer \"name\" created"
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:29",
+            "id": 157.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Attribute \"name\" added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:53:56",
+            "id": 30.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:37:00",
+            "id": 25.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Role \"Test role (6f6006c8-e376-4457-a98c-1c85ac3bb936)\" created"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "Template \"Default\" created",
+            "recorded_at": "2020-03-11 14:38:28",
+            "id": 153.0
+          },
+          {
+            "recorded_at": "2020-03-11 14:38:25",
+            "id": 106.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer attribute added"
+          },
+          {
+            "recorded_at": "2020-03-11 14:33:11",
+            "id": 83.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Transformer field added"
+          },
+          {
+            "recorded_at": "2020-03-11 13:42:59",
+            "id": 129.0,
+            "author": "Johnny Bravo",
+            "event:EN": "Condition set \"%code%\" created"
+          },
+          {
+            "author": "Johnny Bravo",
+            "event:EN": "List of privileges changed",
+            "recorded_at": "2020-03-11 13:37:37",
+            "id": 38.0
+          }
+        ],
+        "required": [
+        ],
+        "properties": {
+          "id": {
+            "$id": "#/properties/collection/items/properties/id",
+            "type": ["integer", "string"],
+            "title": "The Id Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+              107
+            ]
+          },
+          "recorded_at": {
+            "$id": "#/properties/collection/items/properties/recorded_at",
+            "type": "string",
+            "title": "The Recorded_at Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "2020-03-11 13:41:53"
+            ]
+          },
+          "author": {
+            "$id": "#/properties/collection/items/properties/author",
+            "type": "string",
+            "title": "The Author Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "Johnny Bravo"
+            ]
+          },
+          "event:EN": {
+            "$id": "#/properties/collection/items/properties/event:EN",
+            "type": "string",
+            "title": "The Event:en Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "Comment created"
+            ]
+          }
+        }
+      }
+    },
+    "info": {
+      "$id": "#/properties/info",
+      "type": "object",
+      "title": "The Info Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": {},
+      "examples": [
+        {
+          "count": 188.0,
+          "offset": 0.0,
+          "limit": 1000.0,
+          "filtered": 188.0,
+          "actions": []
+        }
+      ],
+      "required": [
+        "offset",
+        "limit",
+        "count",
+        "filtered",
+        "actions"
+      ],
+      "properties": {
+        "offset": {
+          "$id": "#/properties/info/properties/offset",
+          "type": "integer",
+          "title": "The Offset Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": 0,
+          "examples": [
+            0
+          ]
+        },
+        "limit": {
+          "$id": "#/properties/info/properties/limit",
+          "type": "integer",
+          "title": "The Limit Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": 0,
+          "examples": [
+            1000
+          ]
+        },
+        "count": {
+          "$id": "#/properties/info/properties/count",
+          "type": "integer",
+          "title": "The Count Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": 0,
+          "examples": [
+            188
+          ]
+        },
+        "filtered": {
+          "$id": "#/properties/info/properties/filtered",
+          "type": "integer",
+          "title": "The Filtered Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": 0,
+          "examples": [
+            188
+          ]
+        },
+        "actions": {
+          "$id": "#/properties/info/properties/actions",
+          "type": "array",
+          "title": "The Actions Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": []
+        }
+      }
+    }
+  }
+}

@@ -1,95 +1,122 @@
 Feature: Core module
 
   Scenario: Get languages
-    Given current authentication token
-    When I request "/api/v1/EN/dictionary/languages" using HTTP GET
-    Then the response code is 200
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/dictionary/languages"
+    Then the response status code should be 200
 
   Scenario: Get languages (not authorized)
-    When I request "/api/v1/EN/dictionary/languages" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/dictionary/languages"
+    Then the response status code should be 401
 
   Scenario: Get translation language (not authorized)
-    When I request "/api/v1/EN/languages/EN" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/languages/EN"
+    Then the response status code should be 401
 
   Scenario: Get translation language
-    Given current authentication token
-    When I request "/api/v1/EN/languages/EN" using HTTP GET
-    Then the response code is 200
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/languages/EN"
+    Then the response status code should be 200
 
   Scenario: Get translation language (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/languages/ZZ" using HTTP GET
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/languages/ZZ"
+    Then the response status code should be 404
 
   Scenario: Get languages (order by code)
-    Given current authentication token
-    When I request "/api/v1/EN/languages?field=code" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/languages?field=code"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get languages (order by name)
-    Given current authentication token
-    When I request "/api/v1/EN/languages?field=name" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/languages?field=name"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get languages (order by active)
-    Given current authentication token
-    When I request "/api/v1/EN/languages?field=active" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/languages?field=active"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get languages (order ASC)
-    Given current authentication token
-    When I request "/api/v1/EN/languages?field=name&order=ASC" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/languages?field=name&order=ASC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get languages (order DESC)
-    Given current authentication token
-    When I request "/api/v1/EN/languages?field=name&order=DESC" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/languages?field=name&order=DESC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get languages (filter by code)
-    Given current authentication token
-    When I request "/api/v1/EN/languages?limit=25&offset=0&filter=code%3Dasd" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/languages?limit=25&offset=0&filter=code%3Dasd"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get languages (filter by name)
-    Given current authentication token
-    When I request "/api/v1/EN/languages?limit=25&offset=0&filter=name%3Dasd" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/languages?limit=25&offset=0&filter=name%3Dasd"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get languages (filter by iso)
-    Given current authentication token
-    When I request "/api/v1/EN/languages?limit=25&offset=0&filter=iso%3DEN" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/languages?limit=25&offset=0&filter=iso%3DEN"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get languages (filter by active)
-    Given current authentication token
-    When I request "/api/v1/EN/languages?limit=25&offset=0&filter=active%3D1" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/languages?limit=25&offset=0&filter=active%3D1"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get languages (not authorized)
-    When I request "/api/v1/EN/languages" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/languages"
+    Then the response status code should be 401
 
   Scenario: Update language (not authorized)
-    When I request "/api/v1/EN/languages" using HTTP PUT
-    Then unauthorized response is received
+    When I send a PUT request to "/api/v1/EN/languages"
+    Then the response status code should be 401
 
   Scenario: Update language
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/languages" with body:
     """
       {
         "collection":["EN","PL","SQ"]
       }
     """
-    When I request "/api/v1/EN/languages" using HTTP PUT
-    Then the response code is 204
+    Then the response status code should be 204
 
   Scenario: Update language (wrong active - bad request)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/languages" with body:
     """
       {
          "collection":[
@@ -99,12 +126,13 @@ Feature: Core module
          ]
       }
     """
-    When I request "/api/v1/EN/languages" using HTTP PUT
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Update language (wrong code - bad request)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/languages" with body:
     """
       {
          "collection":[
@@ -114,85 +142,79 @@ Feature: Core module
          ]
       }
     """
-    When I request "/api/v1/EN/languages" using HTTP PUT
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Update language (wrong structure)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/languages" with body:
     """
     {
       "code": "ZZ"
     }
     """
-    When I request "/api/v1/EN/languages" using HTTP PUT
-    Then validation error response is received
+    Then the response status code should be 400
 
 
   Scenario: Get language autocomplete
-    Given current authentication token
-    When I request "/api/v1/EN/language/autocomplete" using HTTP GET
-    Then the response code is 200
-    And the response body matches:
-    """
-      /"id"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/language/autocomplete"
+    Then the response status code should be 200
+    And the JSON should be valid according to the schema "module/core/features/language.json"
 
   Scenario: Get language autocomplete (not authorized)
-    When I request "/api/v1/EN/language/autocomplete" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/language/autocomplete"
+    Then the response status code should be 401
 
   Scenario: Get language autocomplete (order by code)
-    Given current authentication token
-    When I request "/api/v1/EN/language/autocomplete?field=code" using HTTP GET
-    Then the response code is 200
-    And the response body matches:
-    """
-      /"id"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/language/autocomplete?field=code"
+    Then the response status code should be 200
+    And the JSON should be valid according to the schema "module/core/features/language.json"
 
   Scenario: Get language autocomplete (order by name)
-    Given current authentication token
-    When I request "/api/v1/EN/language/autocomplete?field=name" using HTTP GET
-    Then the response code is 200
-    And the response body matches:
-    """
-      /"id"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/language/autocomplete?field=name"
+    Then the response status code should be 200
+    And the JSON should be valid according to the schema "module/core/features/language.json"
 
   Scenario: Get language autocomplete (order by active)
-    Given current authentication token
-    When I request "/api/v1/EN/language/autocomplete?field=active" using HTTP GET
-    Then the response code is 200
-    And the response body matches:
-    """
-      /"id"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/language/autocomplete?field=active"
+    Then the response status code should be 200
+    And the JSON should be valid according to the schema "module/core/features/language.json"
 
   Scenario: Get language autocomplete (order ASC)
-    Given current authentication token
-    When I request "/api/v1/EN/language/autocomplete?field=name&order=ASC" using HTTP GET
-    Then the response code is 200
-    And the response body matches:
-    """
-      /"id"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/language/autocomplete?field=name&order=ASC"
+    Then the response status code should be 200
+    And the JSON should be valid according to the schema "module/core/features/language.json"
 
   Scenario: Get language autocomplete (order DESC)
-    Given current authentication token
-    When I request "/api/v1/EN/language/autocomplete?field=name&order=DESC" using HTTP GET
-    Then the response code is 200
-    And the response body matches:
-    """
-      /"id"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/language/autocomplete?field=name&order=DESC"
+    Then the response status code should be 200
+    And the JSON should be valid according to the schema "module/core/features/language.json"
 
   Scenario: Get language autocomplete (search f limit 1)
-    Given current authentication token
-    When I request "/api/v1/EN/language/autocomplete?search=f&limit=1" using HTTP GET
-    Then the response code is 200
-    And the response body is a JSON array of length 1
-    And the response body matches:
-    """
-  /"name": [\n[ ]*"F"*/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/language/autocomplete?search=f&limit=1"
+    Then the response status code should be 200
+    Then the JSON node '' should have 1 elements
+    And the JSON should be valid according to the schema "module/core/features/language.json"
+    And the JSON node "[0].name" should match "/^F/"

@@ -1,8 +1,10 @@
 Feature: Segment module
 
   Scenario: Create text attribute
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/attributes" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
@@ -12,13 +14,14 @@ Feature: Segment module
           "parameters": []
       }
       """
-    When I request "/api/v1/EN/attributes" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "product_template_attribute"
+    Then the response status code should be 201
+    And store response param "id" as "product_template_attribute"
 
   Scenario: Create template
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -36,26 +39,28 @@ Feature: Segment module
         ]
       }
       """
-    When I request "/api/v1/EN/templates" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "product_template"
+    Then the response status code should be 201
+    And store response param "id" as "product_template"
 
   Scenario: Create category
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/categories" with body:
       """
       {
         "code": "CATEGORY_@@random_uuid@@",
         "name": {"DE": "Test DE", "EN": "Test EN"}
       }
       """
-    When I request "/api/v1/EN/categories" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "product_category"
+    Then the response status code should be 201
+    And store response param "id" as "product_category"
 
   Scenario: Create product
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
@@ -63,30 +68,32 @@ Feature: Segment module
         "categoryIds": ["@product_category@"]
       }
       """
-    When I request "/api/v1/EN/products" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "product"
+    Then the response status code should be 201
+    And store response param "id" as "product"
 
   Scenario: Create condition set
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    Given I send a POST request to "/api/v1/EN/conditionsets" with body:
       """
       {
         "conditions": []
       }
       """
-    Given I request "/api/v1/EN/conditionsets" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "segment_conditionset"
+    Then the response status code should be 201
+    And store response param "id" as "segment_conditionset"
 
   Scenario: Create segment (not authorized)
-    When I request "/api/v1/EN/segments" using HTTP POST
-    Then unauthorized response is received
+    When I send a POST request to "/api/v1/EN/segments"
+    Then the response status code should be 401
 
   Scenario: Create segment
     Given remember param "segment_code" with value "SEG_1_@@random_code@@"
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/segments" with body:
       """
       {
         "code": "@segment_code@",
@@ -101,13 +108,14 @@ Feature: Segment module
         }
       }
       """
-    When I request "/api/v1/EN/segments" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "segment"
+    Then the response status code should be 201
+    And store response param "id" as "segment"
 
   Scenario: Create segment (not unique code)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/segments" with body:
       """
       {
         "code": "@segment_code@",
@@ -118,12 +126,13 @@ Feature: Segment module
         }
       }
       """
-    When I request "/api/v1/EN/segments" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Create segment (without name)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/segments" with body:
       """
       {
         "code": "SEG_2_@@random_code@@",
@@ -134,12 +143,13 @@ Feature: Segment module
         }
       }
       """
-    When I request "/api/v1/EN/segments" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Create segment
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/segments" with body:
       """
       {
         "code": "SEG_3_@@random_code@@",
@@ -154,25 +164,27 @@ Feature: Segment module
         }
       }
       """
-    When I request "/api/v1/EN/segments" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "segment_3"
+    Then the response status code should be 201
+    And store response param "id" as "segment_3"
 
   Scenario: Create segment (without description and name)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/segments" with body:
       """
       {
         "code": "SEG_2_@@random_code@@",
         "condition_set_id": "@segment_conditionset@"
       }
       """
-    When I request "/api/v1/EN/segments" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Create segment (without code)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/segments" with body:
       """
       {
         "condition_set_id": "@segment_conditionset@",
@@ -186,32 +198,36 @@ Feature: Segment module
         }
       }
       """
-    When I request "/api/v1/EN/segments" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Create segment (without condition set)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/segments" with body:
       """
       {
         "code": "SEG_2_@@random_code@@"
       }
       """
-    When I request "/api/v1/EN/segments" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Update segment (not authorized)
-    When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
-    Then unauthorized response is received
+    When I send a PUT request to "/api/v1/EN/segments/@segment@"
+    Then the response status code should be 401
 
   Scenario: Update segment (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/segments/@@static_uuid@@" using HTTP PUT
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/segments/@@static_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Update segment
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/segments/@segment@" with body:
       """
       {
         "condition_set_id": "@segment_conditionset@",
@@ -225,12 +241,13 @@ Feature: Segment module
         }
       }
       """
-    When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
-    Then empty response is received
+    Then the response status code should be 204
 
   Scenario: Update segment (without name)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/segments/@segment@" with body:
       """
       {
         "condition_set_id": "@segment_conditionset@",
@@ -240,23 +257,25 @@ Feature: Segment module
         }
       }
       """
-    When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
-    Then empty response is received
+    Then the response status code should be 204
 
   Scenario: Update segment (without name and description)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/segments/@segment@" with body:
       """
       {
         "condition_set_id": "@segment_conditionset@"
       }
       """
-    When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
-    Then empty response is received
+    Then the response status code should be 204
 
   Scenario: Update segment (without condition set)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/segments/@segment@" with body:
       """
       {
         "name": {
@@ -269,133 +288,143 @@ Feature: Segment module
         }
       }
       """
-    When I request "/api/v1/EN/segments/@segment@" using HTTP PUT
-    Then empty response is received
+    Then the response status code should be 204
 
   Scenario: Get segment (not authorized)
-    When I request "/api/v1/EN/segments/@segment@" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/segments/@segment@"
+    Then the response status code should be 401
 
   Scenario: Get segment (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/segments/@@static_uuid@@" using HTTP GET
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments/@@static_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Get segment
-    Given current authentication token
-    When I request "/api/v1/EN/segments/@segment@" using HTTP GET
-    Then the response code is 200
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments/@segment@"
+    Then the response status code should be 200
 
   Scenario: Get segments
-    Given current authentication token
-    When I request "/api/v1/EN/segments" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get segments (not authorized)
-    When I request "/api/v1/EN/segments" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/segments"
+    Then the response status code should be 401
 
   Scenario: Get segments (order by code)
-    Given current authentication token
-    When I request "/api/v1/EN/segments?field=code" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments?field=code"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get segments (order by name)
-    Given current authentication token
-    When I request "/api/v1/EN/segments?field=name" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments?field=name"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get segments (order by description)
-    Given current authentication token
-    When I request "/api/v1/EN/segments?field=description" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments?field=description"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get segments (filter by code)
-    Given current authentication token
-    When I request "/api/v1/EN/segments?limit=25&offset=0&filter=code%3Dsuper" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments?limit=25&offset=0&filter=code%3Dsuper"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get segments (filter by name)
-    Given current authentication token
-    When I request "/api/v1/EN/segments?limit=25&offset=0&filter=name%3Dsuper" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments?limit=25&offset=0&filter=name%3Dsuper"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get segments (filter by description)
-    Given current authentication token
-    When I request "/api/v1/EN/segments?limit=25&offset=0&filter=description%3Dsuper" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments?limit=25&offset=0&filter=description%3Dsuper"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get products based on segment (not authorized)
-    When I request "/api/v1/EN/segments/@segment_3@/products" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/segments/@segment_3@/products"
+    Then the response status code should be 401
 
   Scenario: Get products based on segment (order by id)
-    Given current authentication token
-    When I request "/api/v1/EN/segments/@segment_3@/products?field=id" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
-    And the response body matches:
-    """
-      /"id"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments/@segment_3@/products?field=id"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "collection[0].id" should exist
+    And the JSON node "collection[0].sku" should exist
 
   Scenario: Get products based on segment (order by sku)
-    Given current authentication token
-    When I request "/api/v1/EN/segments/@segment_3@/products?field=sku" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
-    And the response body matches:
-    """
-      /"sku"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    When I send a GET request to "/api/v1/EN/segments/@segment_3@/products?field=sku"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "collection[0].id" should exist
+    And the JSON node "collection[0].sku" should exist
 
   Scenario: Get products based on segment (filter by sku)
-    Given current authentication token
-    When I request "/api/v1/EN/segments/@segment_3@/products?limit=25&offset=0&filter=sku=SKU_" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments/@segment_3@/products?limit=25&offset=0&filter=sku=SKU_"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get products based on segment (not authorized)
-    When I request "/api/v1/EN/segments/@segment_3@/products" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/segments/@segment_3@/products"
+    Then the response status code should be 401
 
   Scenario: Get products based on segment (order ASC)
-    Given current authentication token
-    When I request "/api/v1/EN/segments/@segment_3@/products?limit=50&offset=0&order=ASC" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments/@segment_3@/products?limit=50&offset=0&order=ASC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get products based on segment (order DESC)
-    Given current authentication token
-    When I request "/api/v1/EN/segments/@segment_3@/products?limit=50&offset=0&order=DESC" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/segments/@segment_3@/products?limit=50&offset=0&order=DESC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Delete segment (not authorized)
-    When I request "/api/v1/EN/segments/@segment@" using HTTP DELETE
-    Then unauthorized response is received
+    When I send a DELETE request to "/api/v1/EN/segments/@segment@"
+    Then the response status code should be 401
 
   Scenario: Delete segment (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/segments/@@static_uuid@@" using HTTP DELETE
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a DELETE request to "/api/v1/EN/segments/@@static_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Delete segment
-    Given current authentication token
-    When I request "/api/v1/EN/segments/@segment@" using HTTP DELETE
-    Then empty response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a DELETE request to "/api/v1/EN/segments/@segment@"
+    Then the response status code should be 204
