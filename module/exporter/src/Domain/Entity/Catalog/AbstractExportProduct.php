@@ -32,12 +32,11 @@ abstract class AbstractExportProduct
     protected string $sku;
 
     /**
-     * @var ExportCategoryCode[]
+     * @var Uuid[]
      *
-     * @JMS\Type("array<string, Ergonode\Exporter\Domain\Entity\Catalog\ExportCategoryCode>")
+     * @JMS\Type("array<string, uuid>")
      */
     protected array $categories;
-
 
     /**
      * @var AbstractExportAttributeValue[]
@@ -47,17 +46,16 @@ abstract class AbstractExportProduct
     protected array $attributes;
 
     /**
-     * AbstractExportProduct constructor.
-     * @param Uuid                               $id
-     * @param string                             $sku
-     * @param array|ExportCategoryCode[]         $categories
-     * @param array|AbstractExportAttributeValue $attributes
+     * @param Uuid                           $id
+     * @param string                         $sku
+     * @param Uuid[]                         $categories
+     * @param AbstractExportAttributeValue[] $attributes
      */
     public function __construct(Uuid $id, string $sku, array $categories = [], array $attributes = [])
     {
         Assert::Uuid($id);
         Assert::string($sku);
-        Assert::allIsInstanceOf($categories, ExportCategoryCode::class);
+        Assert::allIsInstanceOf($categories, Uuid::class);
         Assert::allIsInstanceOf($attributes, AbstractExportAttributeValue::class);
 
         $this->id = $id;
@@ -83,7 +81,7 @@ abstract class AbstractExportProduct
     }
 
     /**
-     * @return ExportCategoryCode[]
+     * @return Uuid[]
      */
     public function getCategories(): array
     {
@@ -99,11 +97,29 @@ abstract class AbstractExportProduct
     }
 
     /**
-     * @param ExportCategoryCode $category
+     * @param Uuid $id
      */
-    public function addCategory(ExportCategoryCode $category): void
+    public function addCategory(Uuid $id): void
     {
-        $this->categories[$category->getCode()] = $category;
+        if (!$this->hasCategory($id)) {
+            $this->categories[] = $id;
+        }
+    }
+
+    /**
+     * @param Uuid $id
+     *
+     * @return bool
+     */
+    public function hasCategory(Uuid $id): bool
+    {
+        foreach ($this->categories as $category) {
+            if ($category->equals($id)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -115,11 +131,15 @@ abstract class AbstractExportProduct
     }
 
     /**
-     * @param string $categoryCode
+     * @param Uuid $id
      */
-    public function removeCategory(string $categoryCode): void
+    public function removeCategory(Uuid $id): void
     {
-        unset($this->categories[$categoryCode]);
+        foreach ($this->categories as $key => $category) {
+            if ($category->equals($id)) {
+                unset($this->categories[$key]);
+            }
+        }
     }
 
     /**

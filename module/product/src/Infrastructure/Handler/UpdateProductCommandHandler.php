@@ -11,7 +11,6 @@ namespace Ergonode\Product\Infrastructure\Handler;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -33,27 +32,19 @@ class UpdateProductCommandHandler
     private ProductRepositoryInterface $productRepository;
 
     /**
-     * @var CategoryRepositoryInterface
-     */
-    private CategoryRepositoryInterface $categoryRepository;
-
-    /**
      * @var TokenStorageInterface
      */
     private TokenStorageInterface $tokenStorage;
 
     /**
-     * @param ProductRepositoryInterface  $productRepository
-     * @param CategoryRepositoryInterface $categoryRepository
-     * @param TokenStorageInterface       $tokenStorage
+     * @param ProductRepositoryInterface $productRepository
+     * @param TokenStorageInterface      $tokenStorage
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        CategoryRepositoryInterface $categoryRepository,
         TokenStorageInterface $tokenStorage
     ) {
         $this->productRepository = $productRepository;
-        $this->categoryRepository = $categoryRepository;
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -67,23 +58,17 @@ class UpdateProductCommandHandler
         $product = $this->productRepository->load($command->getId());
         Assert::notNull($product);
 
-        $categories = [];
-        foreach ($command->getCategories() as $categoryId) {
-            $category = $this->categoryRepository->load($categoryId);
-            Assert::notNull($category);
-            $code = $category->getCode();
-            $categories[$code->getValue()] = $code;
-        }
+        $categories = $command->getCategories();
 
-        foreach ($categories as $categoryCode) {
-            if (!$product->belongToCategory($categoryCode)) {
-                $product->addToCategory($categoryCode);
+        foreach ($categories as $categoryId) {
+            if (!$product->belongToCategory($categoryId)) {
+                $product->addToCategory($categoryId);
             }
         }
 
-        foreach ($product->getCategories() as $categoryCode) {
-            if (!isset($categories[$categoryCode->getValue()])) {
-                $product->removeFromCategory($categoryCode);
+        foreach ($product->getCategories() as $categoryId) {
+            if (!isset($categories[$categoryId->getValue()])) {
+                $product->removeFromCategory($categoryId);
             }
         }
 

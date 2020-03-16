@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductSimple\Tests\Domain\Factory;
 
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
@@ -17,6 +16,7 @@ use Ergonode\Product\Domain\Factory\SimpleProductFactory;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
@@ -32,7 +32,7 @@ class SimpleProductFactoryTest extends TestCase
         /** @var Sku | MockObject $sku */
         $sku = $this->createMock(Sku::class);
 
-        $categories = [$this->createMock(CategoryCode::class)];
+        $categories = [$this->createMock(CategoryId::class)];
         $attributes = [$this->createMock(ValueInterface::class)];
 
         $factory = new SimpleProductFactory();
@@ -50,6 +50,6 @@ class SimpleProductFactoryTest extends TestCase
     {
         $factory = new SimpleProductFactory();
         $this->assertTrue($factory->isSupportedBy(SimpleProduct::TYPE));
-        $this->assertFalse($factory->isSupportedBy('incorectType'));
+        $this->assertFalse($factory->isSupportedBy('incorrect type'));
     }
 }

@@ -19,6 +19,7 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 
 /**
  */
@@ -35,17 +36,27 @@ class CategoryImportAction implements ImportActionInterface
     private CategoryRepositoryInterface $categoryRepository;
 
     /**
+     * @var CategoryQueryInterface
+     */
+    private CategoryQueryInterface $query;
+
+    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
      * @param CategoryRepositoryInterface $categoryRepository
+     * @param CategoryQueryInterface      $query
      * @param CommandBusInterface         $commandBus
      */
-    public function __construct(CategoryRepositoryInterface $categoryRepository, CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepository,
+        CategoryQueryInterface $query,
+        CommandBusInterface $commandBus
+    ) {
         $this->categoryRepository = $categoryRepository;
+        $this->query = $query;
         $this->commandBus = $commandBus;
     }
 
@@ -62,10 +73,9 @@ class CategoryImportAction implements ImportActionInterface
         Assert::notNull($code, 'Category import required "code" field not exists');
         Assert::notNull($name, 'Category import required "name" field not exists');
 
-        $categoryId = CategoryId::fromCode($code->getValue());
-        $category = $this->categoryRepository->load($categoryId);
+        $categoryId = $this->query->findIdByCode($code);
 
-        if (!$category) {
+        if (!$categoryId) {
             $command = new CreateCategoryCommand($code, $name);
         } else {
             $command = new UpdateCategoryCommand($categoryId, $name);

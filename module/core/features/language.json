@@ -1,0 +1,280 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "array",
+  "title": "The Root Schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "items": {
+    "$id": "#/items",
+    "type": "object",
+    "title": "The Items Schema",
+    "description": "An explanation about the purpose of this instance.",
+    "default": {},
+    "examples": [
+      {
+        "code": "DE",
+        "active": false,
+        "id": "b5474ca4-beba-4198-b314-d205d1c61b9e",
+        "name": "German"
+      },
+      {
+        "name": "Spanish",
+        "code": "ES",
+        "active": false,
+        "id": "4e57b74a-a6f8-4ba8-bd6c-83b8075d618b"
+      },
+      {
+        "id": "2ee47f49-e9b4-4567-b311-1def3e674041",
+        "name": "French",
+        "code": "FR",
+        "active": false
+      },
+      {
+        "code": "RU",
+        "active": false,
+        "id": "6c2e7f72-a94e-4663-aa43-16922220724b",
+        "name": "Russian"
+      },
+      {
+        "name": "Ukrainian",
+        "code": "UK",
+        "active": false,
+        "id": "b453eaba-6a94-4cdc-b625-09f4eaa07ce4"
+      },
+      {
+        "name": "Turkish",
+        "code": "TR",
+        "active": false,
+        "id": "26ee7368-1db8-4a97-8f85-2543d7c44d5c"
+      },
+      {
+        "name": "Swedish",
+        "code": "SV",
+        "active": false,
+        "id": "f9f60683-6f56-4116-aa5a-dd76ebefcd52"
+      },
+      {
+        "name": "Portuguese",
+        "code": "PT",
+        "active": false,
+        "id": "6f18437b-685f-47a6-a801-6d1839ce406a"
+      },
+      {
+        "code": "NL",
+        "active": false,
+        "id": "aa7454df-5cc4-44ef-acfd-ce47487b1c20",
+        "name": "Dutch"
+      },
+      {
+        "code": "IT",
+        "active": false,
+        "id": "533c3cc4-4f3b-4cf4-8ad4-1be15ee43e5e",
+        "name": "Italian"
+      },
+      {
+        "active": false,
+        "id": "f6407623-a544-4422-9f60-1bf286130330",
+        "name": "Greek",
+        "code": "EL"
+      },
+      {
+        "id": "f4c0d997-15b6-4a82-9623-2de85ecdf68e",
+        "name": "Danish",
+        "code": "DA",
+        "active": false
+      },
+      {
+        "name": "Czech",
+        "code": "CS",
+        "active": false,
+        "id": "02c36f0f-6483-4ed2-a26e-26d12b5f3fcc"
+      },
+      {
+        "code": "BG",
+        "active": false,
+        "id": "98084f77-35cb-4d67-ad2d-ab17bb8b1367",
+        "name": "Bulgarian"
+      },
+      {
+        "active": false,
+        "id": "72c039db-2adb-4100-b81d-29640e2df7af",
+        "name": "Finnish",
+        "code": "FI"
+      },
+      {
+        "name": "Chinese",
+        "code": "ZH",
+        "active": false,
+        "id": "f995474b-2caf-476e-9ff4-5e204cb6e1c0"
+      },
+      {
+        "active": false,
+        "id": "f525366f-205c-4eb1-87a5-636e1fd64c58",
+        "name": "Romanian",
+        "code": "RO"
+      },
+      {
+        "name": "Hungarian",
+        "code": "HU",
+        "active": false,
+        "id": "5337222c-aaa9-486a-a4d4-23a3dba77988"
+      },
+      {
+        "id": "0ec56307-578c-48be-bd7b-5831c44ad1da",
+        "name": "Serbian",
+        "code": "SR",
+        "active": false
+      },
+      {
+        "name": "Hebrew",
+        "code": "HE",
+        "active": false,
+        "id": "fd0bd032-f1cf-4301-8fec-acb54fbd4ae5"
+      },
+      {
+        "code": "HR",
+        "active": false,
+        "id": "dbf9b7c3-ab71-401b-820f-e2858e79b426",
+        "name": "Croatian"
+      },
+      {
+        "name": "Albanian",
+        "code": "SQ",
+        "active": true,
+        "id": "6b808bdd-134f-436b-b012-65bbbe6abccd"
+      },
+      {
+        "name": "Norwegian",
+        "code": "NO",
+        "active": false,
+        "id": "d4897964-a8e7-43df-ab08-7824e1bbb4d7"
+      },
+      {
+        "name": "Slovak",
+        "code": "SK",
+        "active": false,
+        "id": "b1b8f19e-45cf-4dfa-83f0-a8fde9a7c2a8"
+      },
+      {
+        "id": "8df61e35-d2ce-4a00-8fa3-76d80c13aa42",
+        "name": "Lithuanian",
+        "code": "LT",
+        "active": false
+      },
+      {
+        "name": "Bosnian",
+        "code": "BS",
+        "active": false,
+        "id": "15539988-8f9c-4281-8092-a730e9c32613"
+      },
+      {
+        "code": "SL",
+        "active": false,
+        "id": "7db5f80a-36b8-48ac-b23a-1b7c5ef21d20",
+        "name": "Slovene"
+      },
+      {
+        "code": "LV",
+        "active": false,
+        "id": "2a390170-2845-497b-98c5-327403d2a3e2",
+        "name": "Latvian"
+      },
+      {
+        "name": "Macedonian",
+        "code": "MK",
+        "active": false,
+        "id": "4e278902-12e6-4528-9804-a2284404e818"
+      },
+      {
+        "name": "Estonian",
+        "code": "ET",
+        "active": false,
+        "id": "58d21580-28ba-4949-a18f-b8ea660c31b2"
+      },
+      {
+        "name": "Kazakh",
+        "code": "KK",
+        "active": false,
+        "id": "4af2d241-33ea-4dbf-970c-a1f2f8db8ea7"
+      },
+      {
+        "name": "Hindi",
+        "code": "HI",
+        "active": false,
+        "id": "c63c3fb0-6f30-4832-8195-edd80f7f0a57"
+      },
+      {
+        "code": "AR",
+        "active": false,
+        "id": "081b3142-2f51-40cb-bd0b-20b4e42a5389",
+        "name": "Arabic"
+      },
+      {
+        "code": "JA",
+        "active": false,
+        "id": "73b226c5-62d9-4712-b67e-ff2b248a9521",
+        "name": "Japanese"
+      },
+      {
+        "id": "7aeaf6c1-d481-41a5-a72a-5d9154b88486",
+        "name": "English",
+        "code": "EN",
+        "active": true
+      },
+      {
+        "code": "PL",
+        "active": true,
+        "id": "7dc028f3-8d11-456e-8d3d-1ba6dce6fbbe",
+        "name": "Polish"
+      }
+    ],
+    "required": [
+      "id",
+      "code",
+      "name",
+      "active"
+    ],
+    "properties": {
+      "id": {
+        "$id": "#/items/properties/id",
+        "type": "string",
+        "title": "The Id Schema",
+        "description": "An explanation about the purpose of this instance.",
+        "default": "",
+        "examples": [
+          "b5474ca4-beba-4198-b314-d205d1c61b9e"
+        ]
+      },
+      "code": {
+        "$id": "#/items/properties/code",
+        "type": "string",
+        "title": "The Code Schema",
+        "description": "An explanation about the purpose of this instance.",
+        "default": "",
+        "examples": [
+          "DE"
+        ]
+      },
+      "name": {
+        "$id": "#/items/properties/name",
+        "type": "string",
+        "title": "The Name Schema",
+        "description": "An explanation about the purpose of this instance.",
+        "default": "",
+        "examples": [
+          "German"
+        ]
+      },
+      "active": {
+        "$id": "#/items/properties/active",
+        "type": "boolean",
+        "title": "The Active Schema",
+        "description": "An explanation about the purpose of this instance.",
+        "default": false,
+        "examples": [
+          false
+        ]
+      }
+    }
+  }
+}

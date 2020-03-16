@@ -10,13 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\ProductSimple\Tests\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
@@ -33,7 +33,7 @@ class SimpleProductTest extends TestCase
     private $sku;
 
     /**
-     * @var CategoryCode|MockObject
+     * @var CategoryId|MockObject
      */
     private $category;
 
@@ -53,7 +53,7 @@ class SimpleProductTest extends TestCase
     {
         $this->id = $this->createMock(ProductId::class);
         $this->sku = $this->createMock(Sku::class);
-        $this->category = $this->createMock(CategoryCode::class);
+        $this->category = $this->createMock(CategoryId::class);
         $this->code = $this->createMock(AttributeCode::class);
         $this->code->method('getValue')->willReturn('code');
         $this->attribute = $this->createMock(ValueInterface::class);

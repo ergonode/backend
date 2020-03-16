@@ -46,7 +46,9 @@ class ProductRemovedFromCategoryEventProjector
             throw new ProductNotFoundException($event->getAggregateId()->getValue());
         }
 
-        $product->removeCategory($event->getCategoryCode()->getValue());
+        $categoryId = Uuid::fromString($event->getCategoryId()->getValue());
+
+        $product->removeCategory($categoryId);
         $this->productRepository->save($product);
     }
 }

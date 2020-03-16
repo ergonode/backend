@@ -1,8 +1,10 @@
 Feature: Product module
 
   Scenario: Create text attribute
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/attributes" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
@@ -12,20 +14,24 @@ Feature: Product module
           "parameters": []
       }
       """
-    When I request "/api/v1/EN/attributes" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "product_template_attribute"
+    Then the response status code should be 201
+    And store response param "id" as "product_template_attribute"
 
   Scenario: Multimedia upload image
-    Given current authentication token
-    Given I attach "module/product/features/image/test.jpg" to the request as "upload"
-    When I request "/api/v1/multimedia/upload" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "multimedia_id"
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "multipart/form-data"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/multimedia/upload" with params:
+      | key         | value              |
+      | upload      | @image/test.jpg    |
+    Then the response status code should be 201
+    And store response param "id" as "multimedia_id"
 
   Scenario: Create template
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -44,26 +50,28 @@ Feature: Product module
         ]
       }
       """
-    When I request "/api/v1/EN/templates" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "product_template"
+    Then the response status code should be 201
+    And store response param "id" as "product_template"
 
   Scenario: Create category
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/categories" with body:
       """
       {
         "code": "CATEGORY_@@random_uuid@@",
         "name": {"DE": "Test DE", "EN": "Test EN"}
       }
       """
-    When I request "/api/v1/EN/categories" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "product_category"
+    Then the response status code should be 201
+    And store response param "id" as "product_category"
 
   Scenario: Create product
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
@@ -71,13 +79,14 @@ Feature: Product module
         "categoryIds": ["@product_category@"]
       }
       """
-    When I request "/api/v1/EN/products" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "product"
+    Then the response status code should be 201
+    And store response param "id" as "product"
 
   Scenario: Create product collection type
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/collections/type" with body:
       """
       {
            "code": "TEXT_@@random_code@@",
@@ -87,14 +96,15 @@ Feature: Product module
                  }
       }
       """
-    When I request "/api/v1/EN/collections/type" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "product_collection_type"
+    Then the response status code should be 201
+    And store response param "id" as "product_collection_type"
 
 
   Scenario: Create first product collection
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/collections" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
@@ -109,29 +119,31 @@ Feature: Product module
           "typeId": "@product_collection_type@"
       }
       """
-    When I request "/api/v1/EN/collections" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "product_collection"
+    Then the response status code should be 201
+    And store response param "id" as "product_collection"
 
   Scenario: Add product collection element
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/collections/@product_collection@/elements" with body:
       """
       {
           "productId": "@product@",
           "visible": true
       }
       """
-    When I request "/api/v1/EN/collections/@product_collection@/elements" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Create product (not authorized)
-    When I request "/api/v1/EN/products" using HTTP POST
-    Then unauthorized response is received
+    When I send a POST request to "/api/v1/EN/products"
+    Then the response status code should be 401
 
   Scenario: Create product (wrong product_template no UUID)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
@@ -139,12 +151,13 @@ Feature: Product module
         "categoryIds": ["@product_category@"]
       }
       """
-    When I request "/api/v1/EN/products" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Create product (wrong product_template wrong UUID)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
@@ -152,24 +165,26 @@ Feature: Product module
         "categoryIds": ["@product_category@"]
       }
       """
-    When I request "/api/v1/EN/products" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Create product (no templateId)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
         "categoryIds": ["@product_category@"]
       }
       """
-    When I request "/api/v1/EN/products" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Create product (empty categoryIds)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
@@ -177,24 +192,26 @@ Feature: Product module
         "categoryIds": []
       }
       """
-    When I request "/api/v1/EN/products" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Create product (no categoryIds)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
         "templateId": "@product_template@"
       }
       """
-    When I request "/api/v1/EN/products" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Create product (categoryIds not UUID)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
@@ -202,249 +219,251 @@ Feature: Product module
         "categoryIds": ["test"]
       }
       """
-    When I request "/api/v1/EN/products" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Create product (no categoryIds)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
         "templateId": "@product_template@"
       }
       """
-    When I request "/api/v1/EN/products" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Update product
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/products/@product@" with body:
       """
       {
         "categoryIds": ["@product_category@"]
       }
       """
-    When I request "/api/v1/EN/products/@product@" using HTTP PUT
-    Then empty response is received
+
+
+    Then the response status code should be 204
 
   Scenario: Update product (not authorized)
-    When I request "/api/v1/EN/products/@product@" using HTTP PUT
-    Then unauthorized response is received
+    When I send a PUT request to "/api/v1/EN/products/@product@"
+    Then the response status code should be 401
 
   Scenario: Update product (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP PUT
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/products/@@static_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Update product (no content)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/products/@product@" with body:
       """
       {
       }
       """
-    When I request "/api/v1/EN/products/@product@" using HTTP PUT
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Update product (categoryID not UUID)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/products/@product@" with body:
       """
       {
         "categoryIds": ["@@random_md5@@"]
       }
       """
-    When I request "/api/v1/EN/products/@product@" using HTTP PUT
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Update product (categoryID wrong UUID)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/products/@product@" with body:
       """
       {
         "categoryIds": ["@@random_uuid@@"]
       }
       """
-    When I request "/api/v1/EN/products/@product@" using HTTP PUT
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Get product
-    Given current authentication token
-    When I request "/api/v1/EN/products/@product@" using HTTP GET
-    Then the response code is 200
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products/@product@"
+    Then the response status code should be 200
 
   Scenario: Get product (not authorized)
-    When I request "/api/v1/EN/products/@product@" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/products/@product@"
+    Then the response status code should be 401
 
   Scenario: Get product (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP GET
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products/@@static_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Get product collections  (not authorized)
-    When I request "/api/v1/EN/products/@product@/collections" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/products/@product@/collections"
+    Then the response status code should be 401
 
   Scenario: Get product collection element (order by code)
-    Given current authentication token
-    When I request "/api/v1/EN/products/@product@/collections?field=code&order=DESC" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
-    And the response body matches:
-    """
-      /"code"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products/@product@/collections?field=code&order=DESC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "collection[0].code" should contain "TEXT_"
 
   Scenario: Get product collection element (order by name)
-    Given current authentication token
-    When I request "/api/v1/EN/products/@product@/collections?field=name&order=DESC" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
-    And the response body matches:
-    """
-      /"name"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products/@product@/collections?field=name&order=DESC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And print last JSON response
+    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "collection[0].name" should exist
 
   Scenario: Get product collection element (order by description)
-    Given current authentication token
-    When I request "/api/v1/EN/products/@product@/collections?field=description&order=DESC" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
-    And the response body matches:
-    """
-      /"description"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products/@product@/collections?field=description&order=DESC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "collection[0].description" should exist
 
   Scenario: Get product collection element (order by type_id)
-    Given current authentication token
-    When I request "/api/v1/EN/products/@product@/collections?field=type_id&order=DESC" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
-    And the response body matches:
-    """
-      /"type_id"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products/@product@/collections?field=type_id&order=DESC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "collection[0].type_id" should exist
 
   Scenario: Get product collection element (order by elements_count)
-    Given current authentication token
-    When I request "/api/v1/EN/products/@product@/collections?field=elements_count&order=DESC" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
-    And the response body matches:
-    """
-      /"elements_count"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products/@product@/collections?field=elements_count&order=DESC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "collection[0].elements_count" should exist
 
   Scenario: Get product collection element (filter by code)
-    Given current authentication token
-    When I request "/api/v1/EN/products/@product@/collections?&filter=code=TEXT" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
-    And the response body matches:
-    """
-      /"code"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products/@product@/collections?&filter=code=TEXT"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "collection[0].code" should contain "TEXT_"
+    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "collection[0].code" should exist
 
   Scenario: Get product collection element (filter by name)
-    Given current authentication token
-    When I request "/api/v1/EN/products/@product@/collections?&filter=name=Name" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
-    And the response body matches:
-    """
-      /"name"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products/@product@/collections?&filter=name=Name"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "collection[0].name" should exist
 
   Scenario: Get product collection element (filter by description)
-    Given current authentication token
-    When I request "/api/v1/EN/products/@product@/collections?&filter=description=Description" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": [^0]/
-    """
-    And the response body matches:
-    """
-      /"description"/
-    """
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products/@product@/collections?&filter=description=Description"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "info.filtered" should match "/[^0]/"
+    And the JSON node "collection[0].description" should exist
 
   Scenario: Delete product (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/products/@@static_uuid@@" using HTTP DELETE
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a DELETE request to "/api/v1/EN/products/@@static_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Delete product (not authorized)
-    When I request "/api/v1/EN/products/@product@" using HTTP DELETE
-    Then unauthorized response is received
+    When I send a DELETE request to "/api/v1/EN/products/@product@"
+    Then the response status code should be 401
 
   Scenario: Delete product
-    Given current authentication token
-    When I request "/api/v1/EN/products/@product@" using HTTP DELETE
-    Then empty response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a DELETE request to "/api/v1/EN/products/@product@"
+    Then the response status code should be 204
 
   Scenario: Get products (order by id)
-    Given current authentication token
-    When I request "/api/v1/EN/products?field=id" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products?field=id"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get products (order by index)
-    Given current authentication token
-    When I request "/api/v1/EN/products?field=index" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products?field=index"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get products (order by sku)
-    Given current authentication token
-    When I request "/api/v1/EN/products?field=sku" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products?field=sku"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get products (order ASC)
-    Given current authentication token
-    When I request "/api/v1/EN/products?field=index&order=ASC" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products?field=index&order=ASC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get products (order DESC)
-    Given current authentication token
-    When I request "/api/v1/EN/products?field=index&order=DESC" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products?field=index&order=DESC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get products (filter by index)
-    Given current authentication token
-    When I request "/api/v1/EN/products?limit=25&offset=0&filter=index%3Dasd" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products?limit=25&offset=0&filter=index%3Dasd"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get products (filter by id)
-    Given current authentication token
-    When I request "/api/v1/EN/products?limit=25&offset=0&filter=id%3DCAT" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products?limit=25&offset=0&filter=id%3DCAT"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get products (filter by sku)
-    Given current authentication token
-    When I request "/api/v1/EN/products?limit=25&offset=0&filter=sku%3D1" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/products?limit=25&offset=0&filter=sku%3D1"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get products (not authorized)
-    When I request "/api/v1/EN/products" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/products"
+    Then the response status code should be 401

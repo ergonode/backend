@@ -44,7 +44,7 @@ class ProductAddedToCategoryEventProjector
             self::TABLE_PRODUCT_CATEGORY,
             [
                 'product_id' => $event->getAggregateId()->getValue(),
-                'category_id' => CategoryId::fromCode($event->getCategoryCode()->getValue()),
+                'category_id' => $event->getCategoryId()->getValue(),
             ]
         );
     }

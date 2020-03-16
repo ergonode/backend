@@ -26,8 +26,7 @@ class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalcu
     private CategoryRepositoryInterface $repository;
 
     /**
-     * ProductBelongCategoryConditionCalculatorStrategy constructor.
-     *
+
      * @param CategoryRepositoryInterface $repository
      */
     public function __construct(CategoryRepositoryInterface $repository)
@@ -54,7 +53,7 @@ class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalcu
 
         if ($belong) {
             foreach ($categoryList as $category) {
-                if ($object->belongToCategory($category->getCode())) {
+                if ($object->belongToCategory($category->getId())) {
                     return true;
                 }
             }
@@ -65,7 +64,7 @@ class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalcu
         //not belong
 
         foreach ($categoryList as $category) {
-            if ($object->belongToCategory($category->getCode())) {
+            if ($object->belongToCategory($category->getId())) {
                 return false;
             }
         }
