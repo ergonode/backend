@@ -10,6 +10,7 @@ namespace Ergonode\Category\Domain\Query;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
 /**
  */
@@ -28,6 +29,13 @@ interface CategoryQueryInterface
      * @return array
      */
     public function getDictionary(Language $language): array;
+
+    /**
+     * @param CategoryCode $code
+     *
+     * @return CategoryId|null
+     */
+    public function findIdByCode(CategoryCode $code):? CategoryId;
 
     /**
      * @param CategoryId $categoryId

@@ -52,8 +52,8 @@ class ProductBelongCategoryTreeConditionCalculatorStrategy implements ConditionC
 
         $belong = $configuration->getOperator() === ProductBelongCategoryTreeCondition::BELONG_TO;
         $isset = false;
-        foreach ($object->getCategories() as $category) {
-            if ($categoryTree->hasCategory(CategoryId::fromCode($category->getValue()))) {
+        foreach ($object->getCategories() as $categoryId) {
+            if ($categoryTree->hasCategory($categoryId)) {
                 $isset = true;
             }
         }

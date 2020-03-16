@@ -10,13 +10,15 @@ declare(strict_types = 1);
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Faker\Provider\Base as BaseProvider;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 class CategoryIdFaker extends BaseProvider
 {
+    private const NAMESPACE = '4438d266-ec62-473b-9f46-1a767e2060d4';
+
     /**
      * @param string|null $code
      *
@@ -26,9 +28,8 @@ class CategoryIdFaker extends BaseProvider
      */
     public function categoryId(?string $code = null): CategoryId
     {
-
         if ($code) {
-            return CategoryId::fromCode((new CategoryCode($code))->getValue());
+            return new CategoryId(Uuid::uuid5(self::NAMESPACE, $code)->toString());
         }
 
         return CategoryId::generate();

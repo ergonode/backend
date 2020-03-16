@@ -244,6 +244,8 @@ Feature: Product module
         "categoryIds": ["@product_category@"]
       }
       """
+
+
     Then the response status code should be 204
 
   Scenario: Update product (not authorized)

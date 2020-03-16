@@ -13,7 +13,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
@@ -65,12 +64,12 @@ class ProductCreatedEventProjector
             ]
         );
 
-        foreach ($event->getCategories() as $categoryCode) {
+        foreach ($event->getCategories() as $categoryId) {
             $this->connection->insert(
                 self::TABLE_PRODUCT_CATEGORY,
                 [
                     'product_id' => $event->getAggregateId()->getValue(),
-                    'category_id' => CategoryId::fromCode($categoryCode->getValue()),
+                    'category_id' => $categoryId->getValue(),
                 ]
             );
         }

@@ -15,22 +15,23 @@ use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 
 /**
  */
 class ImportProductCategoryBuilder implements ProductImportBuilderInterface
 {
     /**
-     * @var CategoryRepositoryInterface
+     * @var CategoryQueryInterface
      */
-    private CategoryRepositoryInterface $repository;
+    private CategoryQueryInterface $query;
 
     /**
-     * @param CategoryRepositoryInterface $repository
+     * @param CategoryQueryInterface $query
      */
-    public function __construct(CategoryRepositoryInterface $repository)
+    public function __construct(CategoryQueryInterface $query)
     {
-        $this->repository = $repository;
+        $this->query = $query;
     }
 
     /**
@@ -47,9 +48,8 @@ class ImportProductCategoryBuilder implements ProductImportBuilderInterface
             $value = $record->get('categories');
 
             if ($value instanceof StringValue) {
-                $categoryCode = new CategoryCode($value->getValue());
-                $categoryId = CategoryId::fromCode($categoryCode->getValue());
-                if ($this->repository->exists($categoryId)) {
+                $categoryId = $this->query->findIdByCode($value->getValue());
+                if ($categoryId) {
                     $product->categories[$value->getValue()] = $categoryId;
                 }
             }

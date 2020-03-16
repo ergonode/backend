@@ -9,27 +9,26 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Infrastructure\Validator;
 
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 
 /**
  */
 class CategoryCodeValidator extends ConstraintValidator
 {
     /**
-     * @var CategoryRepositoryInterface
+     * @var CategoryQueryInterface
      */
-    private CategoryRepositoryInterface $repository;
+    private CategoryQueryInterface $query;
 
     /**
-     * @param CategoryRepositoryInterface $repository
+     * @param CategoryQueryInterface $query
      */
-    public function __construct(CategoryRepositoryInterface $repository)
+    public function __construct(CategoryQueryInterface $query)
     {
-        $this->repository = $repository;
+        $this->query = $query;
     }
 
     /**
@@ -64,9 +63,10 @@ class CategoryCodeValidator extends ConstraintValidator
 
         $code = new \Ergonode\Category\Domain\ValueObject\CategoryCode($value);
         // @todo split into two different validators if possible
-        $attribute = $this->repository->exists(CategoryId::fromCode($code->getValue()));
 
-        if ($attribute) {
+        $categoryId = $this->query->findIdByCode($code);
+
+        if ($categoryId) {
             $this->context->buildViolation($constraint->uniqueMessage)
                 ->addViolation();
         }

@@ -22,7 +22,7 @@ class DefaultProductFactory
     /**
      * @param Uuid                           $id
      * @param string                         $sku
-     * @param ExportCategoryCode[]           $categories
+     * @param Uuid[]                         $categories
      * @param AbstractExportAttributeValue[] $attributes
      *
      * @return DefaultExportProduct
@@ -33,7 +33,7 @@ class DefaultProductFactory
         array $categories = [],
         array $attributes = []
     ): DefaultExportProduct {
-        Assert::allIsInstanceOf($categories, ExportCategoryCode::class);
+        Assert::allIsInstanceOf($categories, Uuid::class);
         Assert::allIsInstanceOf($attributes, AbstractExportAttributeValue::class);
 
         return new DefaultExportProduct(

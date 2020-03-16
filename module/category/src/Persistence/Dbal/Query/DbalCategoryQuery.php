@@ -16,6 +16,7 @@ use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
 /**
  */
@@ -54,6 +55,27 @@ class DbalCategoryQuery implements CategoryQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * @param CategoryCode $code
+     *
+     * @return CategoryId|null
+     */
+    public function findIdByCode(CategoryCode $code): ?CategoryId
+    {
+        $qb = $this->getQuery();
+        $result = $qb->select('id')
+            ->where($qb->expr()->eq('code', ':code'))
+            ->setParameter(':code', $code->getValue())
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return new CategoryId($result);
+        }
+
+        return null;
     }
 
     /**
