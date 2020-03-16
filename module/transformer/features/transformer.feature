@@ -4,18 +4,17 @@ Feature: Transformer module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given the following form parameters are set:
-      | name | value                       |
+    When I send a POST request to "/api/v1/transformers/create" with parameters:
+      | key  | value                       |
       | name | TRANSFORMER_@@random_uuid@@ |
-    When I send a POST request to "/api/v1/transformers/create"
     Then the response status code should be 201
     And store response param "id" as "transformer"
 
   Scenario: Create transformer (not authorized)
-    Given the following form parameters are set:
-      | name | value                  |
-      | name | READER_@@random_uuid@@ |
-    When I send a POST request to "/api/v1/transformers/create"
+    When I send a POST request to "/api/v1/transformers/create" with parameters:
+      | key  | value                       |
+      | name | TRANSFORMER_@@random_uuid@@ |
+
     Then the response status code should be 401
 
   Scenario: Delete transformer (not authorized)
