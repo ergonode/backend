@@ -7,33 +7,15 @@
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
-use Ergonode\Category\Domain\Entity\Category;
-use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Webmozart\Assert\Assert;
 
 /**
  */
 class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalculatorStrategyInterface
 {
-    /**
-     * @var CategoryRepositoryInterface
-     */
-    private CategoryRepositoryInterface $repository;
-
-    /**
-
-     * @param CategoryRepositoryInterface $repository
-     */
-    public function __construct(CategoryRepositoryInterface $repository)
-    {
-        $this->repository = $repository;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -47,13 +29,11 @@ class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalcu
      */
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
-        $categoryList = $this->getCategories($configuration->getCategory());
-
         $belong = $configuration->getOperator() === ProductBelongCategoryCondition::BELONG_TO;
 
         if ($belong) {
-            foreach ($categoryList as $category) {
-                if ($object->belongToCategory($category->getId())) {
+            foreach ($configuration->getCategory() as $categoryId) {
+                if ($object->belongToCategory($categoryId)) {
                     return true;
                 }
             }
@@ -62,30 +42,12 @@ class ProductBelongCategoryConditionCalculatorStrategy implements ConditionCalcu
         }
 
         //not belong
-
-        foreach ($categoryList as $category) {
-            if ($object->belongToCategory($category->getId())) {
+        foreach ($configuration->getCategory() as $categoryId) {
+            if ($object->belongToCategory($categoryId)) {
                 return false;
             }
         }
 
         return true;
-    }
-
-    /**
-     * @param CategoryId[] $categoryIdList
-     *
-     * @return Category[]
-     */
-    private function getCategories(array $categoryIdList): array
-    {
-        $result = [];
-        foreach ($categoryIdList as $categoryId) {
-            $category = $this->repository->load($categoryId);
-            Assert::notNull($category);
-            $result[] = $category;
-        }
-
-        return $result;
     }
 }

@@ -37,9 +37,11 @@ class ProductBelongCategoryConditionValidatorStrategy implements ConditionValida
                     new Assert\NotBlank(),
                     new Assert\Type('array'),
                     new Assert\Count(['min' => 1]),
-                    new Assert\All([
-                        new CategoryExists(),
-                    ])
+                    new Assert\All(
+                        [
+                            new CategoryExists(),
+                        ]
+                    ),
                 ],
                 'operator' => [
                     new Assert\NotBlank(),

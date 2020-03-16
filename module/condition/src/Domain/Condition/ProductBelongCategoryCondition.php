@@ -37,7 +37,7 @@ class ProductBelongCategoryCondition implements ConditionInterface
 
     /**
      * @param CategoryId[] $category
-     * @param string     $operator
+     * @param string       $operator
      */
     public function __construct(array $category, string $operator)
     {
