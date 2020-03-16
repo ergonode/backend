@@ -1,8 +1,10 @@
 Feature: Workflow
 
   Scenario: Create first status
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/status" with body:
       """
       {
         "color": "#ff0000",
@@ -17,13 +19,14 @@ Feature: Workflow
         }
       }
       """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "workflow_first_status"
+    Then the response status code should be 201
+    And store response param "id" as "workflow_first_status"
 
   Scenario: Create second status
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/status" with body:
       """
       {
         "color": "#ff0000",
@@ -38,12 +41,11 @@ Feature: Workflow
         }
       }
       """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "workflow_second_status"
+    Then the response status code should be 201
+    And store response param "id" as "workflow_second_status"
 
   Scenario: Create status (not authorized)
-    Given the request body is:
+    When I send a POST request to "/api/v1/EN/status" with body:
       """
       {
         "color": "#ff0000",
@@ -58,24 +60,26 @@ Feature: Workflow
         }
       }
       """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then unauthorized response is received
+    Then the response status code should be 401
 
   Scenario: Create status (invalid hex color)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/status" with body:
       """
       {
         "color": "#zzZZzz",
         "code": "@@random_code@@"
       }
       """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Create status (without color)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/status" with body:
       """
       {
         "code": "SOURCE @@random_md5@@",
@@ -89,12 +93,13 @@ Feature: Workflow
         }
       }
       """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Create status (without code)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/status" with body:
       """
       {
         "color": "#ff0000",
@@ -108,38 +113,41 @@ Feature: Workflow
         }
       }
       """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Create status (without description and name)
-    Given current authentication token
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
     Given remember param "duplicated_status_code" with value "DESTINATION_1_@@random_code@@"
-    Given the request body is:
+    When I send a POST request to "/api/v1/EN/status" with body:
       """
       {
         "color": "#ff0000",
         "code": "@duplicated_status_code@"
       }
       """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Create status (duplicated)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/status" with body:
       """
       {
         "color": "#ff0000",
         "code": "@duplicated_status_code@"
       }
       """
-    When I request "/api/v1/EN/status" using HTTP POST
-    Then validation error response is received
+    Then the response status code should be 400
 
   Scenario: Update source status
-    Given current authentication token
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
     Given remember param "duplicated_status_code" with value "DESTINATION_1_@@random_code@@"
-    Given the request body is:
+    When I send a PUT request to "/api/v1/EN/status/@workflow_first_status@" with body:
       """
       {
         "color": "#ff00ff",
@@ -153,130 +161,165 @@ Feature: Workflow
         }
       }
       """
-    When I request "/api/v1/EN/status/@workflow_first_status@" using HTTP PUT
-    Then empty response is received
+    Then the response status code should be 204
 
   Scenario: Update source status (not authorized)
-    Given the request body is:
+    When I send a PUT request to "/api/v1/EN/status/@workflow_first_status@" with body:
       """
       {
         "color": "#ff00ff"
       }
       """
-    When I request "/api/v1/EN/status/@workflow_first_status@" using HTTP PUT
-    Then unauthorized response is received
+    Then the response status code should be 401
 
   Scenario: Update source status (not found)
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/status/@@random_code@@" with body:
       """
       {
         "color": "#ff00ff"
       }
       """
-    When I request "/api/v1/EN/status/@@random_code@@" using HTTP PUT
-    Then not found response is received
+    Then the response status code should be 404
 
   Scenario: Get first status
-    Given current authentication token
-    When I request "/api/v1/EN/status/@workflow_first_status@" using HTTP GET
-    Then the response code is 200
-    And remember response param "code" as "workflow_first_status_code"
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status/@workflow_first_status@"
+    Then the response status code should be 200
+    And store response param "code" as "workflow_first_status_code"
 
   Scenario: Get second status
-    Given current authentication token
-    When I request "/api/v1/EN/status/@workflow_second_status@" using HTTP GET
-    Then the response code is 200
-    And remember response param "code" as "workflow_second_status_code"
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status/@workflow_second_status@"
+    Then the response status code should be 200
+    And store response param "code" as "workflow_second_status_code"
 
   Scenario: Get statuses
-    Given current authentication token
-    When I request "/api/v1/EN/status" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (order by id)
-    Given current authentication token
-    When I request "/api/v1/EN/status?field=id" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status?field=id"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (order by code)
-    Given current authentication token
-    When I request "/api/v1/EN/status?field=code" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status?field=code"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (order by name)
-    Given current authentication token
-    When I request "/api/v1/EN/status?field=name" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status?field=name"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (order by description)
-    Given current authentication token
-    When I request "/api/v1/EN/status?field=description" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status?field=description"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (order ASC)
-    Given current authentication token
-    When I request "/api/v1/EN/status?field=name&order=ASC" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status?field=name&order=ASC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (order DESC)
-    Given current authentication token
-    When I request "/api/v1/EN/status?field=name&order=DESC" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status?field=name&order=DESC"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (filter by id)
-    Given current authentication token
-    When I request "/api/v1/EN/status?limit=25&offset=0&filter=id%3Dasd" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status?limit=25&offset=0&filter=id%3Dasd"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (filter by name)
-    Given current authentication token
-    When I request "/api/v1/EN/status?limit=25&offset=0&filter=name%3Dasd" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status?limit=25&offset=0&filter=name%3Dasd"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (filter by code)
-    Given current authentication token
-    When I request "/api/v1/EN/status?limit=25&offset=0&filter=code%3DEN" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status?limit=25&offset=0&filter=code%3DEN"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (filter by description)
-    Given current authentication token
-    When I request "/api/v1/EN/status?limit=25&offset=0&filter=description%3D1" using HTTP GET
-    Then grid response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/status?limit=25&offset=0&filter=description%3D1"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (not authorized)
-    When I request "/api/v1/EN/status" using HTTP GET
-    Then unauthorized response is received
+    When I send a GET request to "/api/v1/EN/status"
+    Then the response status code should be 401
 
   Scenario: Set default status
-    Given current authentication token
-    When I request "/api/v1/EN/workflow/default/status/@workflow_first_status@/default" using HTTP PUT
-    Then empty response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/workflow/default/status/@workflow_first_status@/default"
+    Then the response status code should be 204
 
   Scenario: Set default status (not authorized)
-    When I request "/api/v1/EN/workflow/default/status/@workflow_first_status@/default" using HTTP PUT
-    Then unauthorized response is received
+    When I send a PUT request to "/api/v1/EN/workflow/default/status/@workflow_first_status@/default"
+    Then the response status code should be 401
 
   Scenario: Set default status (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/workflow/@@random_uuid@@" using HTTP DELETE
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a DELETE request to "/api/v1/EN/workflow/@@random_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Delete status (not authorized)
-    When I request "/api/v1/EN/status/@workflow_first_status_code@" using HTTP DELETE
-    Then unauthorized response is received
+    When I send a DELETE request to "/api/v1/EN/status/@workflow_first_status_code@"
+    Then the response status code should be 401
 
   Scenario: Delete status (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/status/@@random_uuid@@" using HTTP DELETE
-    Then not found response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a DELETE request to "/api/v1/EN/status/@@random_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Delete first status
-    Given current authentication token
-    When I request "/api/v1/EN/status/@workflow_first_status_code@" using HTTP DELETE
-    Then conflict response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a DELETE request to "/api/v1/EN/status/@workflow_first_status_code@"
+    Then the response status code should be 409
 
   Scenario: Delete second status
-    Given current authentication token
-    When I request "/api/v1/EN/status/@workflow_second_status_code@" using HTTP DELETE
-    Then empty response is received
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a DELETE request to "/api/v1/EN/status/@workflow_second_status_code@"
+    Then the response status code should be 204

@@ -1,8 +1,10 @@
 Feature: Category module
 
   Scenario: Create Magento 1 CSV Source
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/sources" with body:
       """
       {
         "type": "magento-1-csv",
@@ -19,9 +21,8 @@ Feature: Category module
         "languages": []
       }
       """
-    When I request "/api/v1/EN/sources" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "source_id"
+    Then the response status code should be 201
+    And store response param "id" as "source_id"
 
   Scenario: Upload magento 1 test import file
     Given I am Authenticated as "test@ergonode.com"
@@ -36,13 +37,17 @@ Feature: Category module
     And store response param "id" as "source_id"
 
 #  Scenario: Get magento 1 configuration for given source
-#    Given current authentication token
+#    Given I am Authenticated as "test@ergonode.com"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I request "/api/v1/EN/sources/@source_id@/configuration"
-#    Then the response code is 200
+#    Then the response status code should be 200
 
 #  Scenario: Post magento 1 configuration for given source
-#    Given current authentication token
-#    Given the request body is:
+#    Given I am Authenticated as "test@ergonode.com"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
+#    When I send a POST request to "/api/v1/EN/sources/@source_id@/configuration" with body:
 #      """
 #      {
 #        "languages": [
@@ -53,9 +58,8 @@ Feature: Category module
 #        ]
 #      }
 #      """
-#    When I request "/api/v1/EN/sources/@source_id@/configuration" using HTTP POST
 #    And print last api response
-#    Then the response code is 200
-#    And remember response param "id" as "import_id"
+#    Then the response status code should be 200
+#    And store response param "id" as "import_id"
 
 

@@ -1,8 +1,10 @@
 Feature: Authentication module
 
   Scenario: Create default role
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/roles" with body:
       """
       {
          "name": "Default role for user (@@random_uuid@@)",
@@ -10,15 +12,16 @@ Feature: Authentication module
          "privileges": ["ATTRIBUTE_CREATE","ATTRIBUTE_UPDATE","ATTRIBUTE_READ","ATTRIBUTE_DELETE"]
       }
       """
-    When I request "/api/v1/EN/roles" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "inactive_user_role"
+    Then the response status code should be 201
+    And store response param "id" as "inactive_user_role"
 
   Scenario: Create inactive user
     Given remember param "inactive_username" with value "@@random_uuid@@@ergonode.com"
     Given remember param "inactive_password" with value "12345678"
-    Given current authentication token
-    Given the request body is:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/accounts" with body:
       """
       {
           "email": "@inactive_username@",
@@ -30,42 +33,46 @@ Feature: Authentication module
           "roleId": "@inactive_user_role@"
       }
       """
-    When I request "/api/v1/EN/accounts" using HTTP POST
-    Then created response is received
+    Then the response status code should be 201
 
   Scenario: Authenticate with incorrect credentials (active user)
-    Given the request body is:
+    Given I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/login" with body:
       """
       {
         "username": "not-existing-email@ergonode.com",
         "password": "111"
       }
       """
-    When I request "/api/v1/login" using HTTP POST
-    Then unauthorized response is received
+    Then the response status code should be 401
 
   Scenario: Authenticate with correct credentials (active user)
-    Given the request body is:
+    Given I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/login" with body:
       """
       {
         "username": "@@default_user_username@@",
         "password": "@@default_user_password@@"
       }
       """
-    When I request "/api/v1/login" using HTTP POST
-    Then the response code is 200
+    Then the response status code should be 200
 
   Scenario: Authenticate without credentials (active user)
-    When I request "/api/v1/login" using HTTP POST
-    Then unauthorized response is received
+    Given I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/login"
+    Then the response status code should be 401
 
   Scenario: Authenticate with correct credentials (inactive user)
-    Given the request body is:
+    Given I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/login" with body:
       """
       {
         "username": "@inactive_username@",
         "password": "@inactive_password@"
       }
       """
-    When I request "/api/v1/login" using HTTP POST
-    Then unauthorized response is received
+    Then the response status code should be 401
