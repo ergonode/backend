@@ -48,13 +48,9 @@ default:
                 - behatch:context:debug
                 - Behat\MinkExtension\Context\MinkContext
                 - StorageContext:
-                - ApiContext:
-                - FeatureContext:
-                    kernel: '@kernel'
                 - AuthenticationContext:
                     username: 'test@ergonode.com'
                     password: 'abcd1234'
-                - AttributeContext:
 
 
     extensions:
@@ -70,8 +66,3 @@ default:
             kernel:
                 bootstrap: 'features/bootstrap/bootstrap.php'
                 class: 'App\Kernel'
-        Imbo\BehatApiExtension:
-            apiClient:
-                base_uri: '%env(APP_URL)%'
-                timeout: 5.0
-                verify: false

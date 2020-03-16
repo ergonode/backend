@@ -12,7 +12,6 @@
         "doctrine/migrations": "2.2.x",
         "egulias/email-validator": "^2.1",
         "guzzlehttp/guzzle": "^6.3",
-        "imbo/behat-api-extension": "^2.1",
         "jms/serializer": "^3.1",
         "jms/serializer-bundle": "^3.4",
         "lexik/jwt-authentication-bundle": "^2.6",
