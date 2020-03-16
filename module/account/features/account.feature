@@ -1289,8 +1289,8 @@ Feature: Account module
 #  TODO invalid input syntax for type uuid: "asd1"
 #  Scenario: Get accounts (filter by role_id)
 #    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I send a GET request to "/api/v1/EN/accounts?limit=25&offset=0&filter=role_id%3Dasd1"
 #    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 

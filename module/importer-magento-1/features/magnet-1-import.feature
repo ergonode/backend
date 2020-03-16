@@ -38,15 +38,15 @@ Feature: Category module
 
 #  Scenario: Get magento 1 configuration for given source
 #    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I request "/api/v1/EN/sources/@source_id@/configuration"
 #    Then the response status code should be 200
 
 #  Scenario: Post magento 1 configuration for given source
 #    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I send a POST request to "/api/v1/EN/sources/@source_id@/configuration" with body:
 #      """
 #      {

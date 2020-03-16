@@ -100,8 +100,8 @@ Feature: Category tree module
 #  TODO 500 : Code "test" is not valid language code
 #  Scenario: Create category tree (name with wrong language code)
 #    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I send a POST request to "/api/v1/EN/trees" with body:
 #      """
 #      {
@@ -117,8 +117,8 @@ Feature: Category tree module
 #  TODO 500 : Code "ZZ" is not valid language code
 #  Scenario: Create category tree (name with no existing language code)
 #    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I send a POST request to "/api/v1/EN/trees" with body:
 #      """
 #      {
@@ -202,8 +202,8 @@ Feature: Category tree module
 #  TODO 500 : Code "test" is not valid language code
 #  Scenario: Update category tree (wrong language code)
 #    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
 #    """
 #      {
@@ -224,8 +224,8 @@ Feature: Category tree module
 #  TODO 500 : Code "ZZ" is not valid language code
 #  Scenario: Update category tree (incorrect language code)
 #    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
 #    """
 #      {

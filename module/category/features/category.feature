@@ -66,8 +66,8 @@ Feature: Category module
 #  TODO 500 : Code "test" is not valid language code
 #  Scenario: Create category (name with wrong language code)
 #    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I send a POST request to "/api/v1/EN/categories" with body:
 #      """
 #      {
@@ -83,8 +83,8 @@ Feature: Category module
 #  TODO 500 : Code "ZZ" is not valid language code
 #  Scenario: Create category (name with no existing language code)
 #    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I send a POST request to "/api/v1/EN/categories" with body:
 #      """
 #      {
@@ -152,8 +152,8 @@ Feature: Category module
 #  TODO 500 : Code "test" is not valid language code
 #  Scenario: Update category (wrong language code)
 #    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I send a PUT request to "/api/v1/EN/categories/@category@" with body:
 #      """
 #      {
@@ -168,8 +168,8 @@ Feature: Category module
 #  TODO 500 : Code "ZZ" is not valid language code
 #  Scenario: Update category (incorrect language code)
 #    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
 #    When I send a PUT request to "/api/v1/EN/categories/@category@" with body:
 #      """
 #      {
