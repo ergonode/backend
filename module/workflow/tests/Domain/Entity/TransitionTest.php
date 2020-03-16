@@ -25,32 +25,32 @@ class TransitionTest extends TestCase
     /**
      * @var TransitionId
      */
-    private $id;
+    private TransitionId $id;
 
     /**
      * @var StatusCode
      */
-    private $from;
+    private StatusCode $from;
 
     /**
-     * @var StatusCode;
+     * @var StatusCode
      */
-    private $to;
+    private StatusCode $to;
 
     /**
      * @var ConditionSetId
      */
-    private $conditionSetId;
+    private ConditionSetId $conditionSetId;
 
     /**
      * @var RoleId[]
      */
-    private $roleIds;
+    private array $roleIds;
 
     /**
      * @var AbstractAggregateRoot
      */
-    private $aggregateRoot;
+    private AbstractAggregateRoot $aggregateRoot;
 
     /**
      */
@@ -111,10 +111,10 @@ class TransitionTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testChangingRoleIdsException(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $transition = new Transition($this->id, $this->from, $this->to, $this->roleIds, $this->conditionSetId);
         $transition->setAggregateRoot($this->aggregateRoot);
         $transition->changeRoleIds(['example', 'example2']);

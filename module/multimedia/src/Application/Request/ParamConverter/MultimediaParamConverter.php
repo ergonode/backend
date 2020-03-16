@@ -28,15 +28,15 @@ class MultimediaParamConverter implements ParamConverterInterface
     /**
      * @var MultimediaRepositoryInterface
      */
-    private $repository;
+    private MultimediaRepositoryInterface $repository;
     /**
      * @var MultimediaFileProviderInterface
      */
-    private $fileProvider;
+    private MultimediaFileProviderInterface $fileProvider;
     /**
      * @var FileExistCheckService
      */
-    private $fileExistCheckService;
+    private FileExistCheckService $fileExistCheckService;
 
     /**
      * @param MultimediaRepositoryInterface   $repository

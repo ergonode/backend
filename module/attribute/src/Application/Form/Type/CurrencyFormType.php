@@ -21,7 +21,7 @@ class CurrencyFormType extends AbstractType
     /**
      * @var CurrencyQueryInterface
      */
-    private $query;
+    private CurrencyQueryInterface $query;
 
     /**
      * @param CurrencyQueryInterface $query

@@ -20,7 +20,7 @@ class UpdateWorkflowTransitionCommandHandler
     /**
      * @var WorkflowRepositoryInterface
      */
-    private $repository;
+    private WorkflowRepositoryInterface $repository;
 
     /**
      * @param WorkflowRepositoryInterface $repository

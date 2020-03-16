@@ -22,7 +22,7 @@ class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterf
     /**
      * @var ProductQueryInterface
      */
-    private $query;
+    private ProductQueryInterface $query;
 
     /**
      * @param ProductQueryInterface $query

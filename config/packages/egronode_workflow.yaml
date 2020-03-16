@@ -11,3 +11,4 @@ ergonode_workflow:
     - Ergonode\Condition\Domain\Condition\ProductSkuExistsCondition
     - Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition
     - Ergonode\Condition\Domain\Condition\ProductHasTemplateCondition
+    - Ergonode\Condition\Domain\Condition\ProductHasStatusCondition

@@ -20,7 +20,7 @@ class UpdateStatusCommandHandler
     /**
      * @var StatusRepositoryInterface
      */
-    private $repository;
+    private StatusRepositoryInterface $repository;
 
     /**
      * @param StatusRepositoryInterface $repository

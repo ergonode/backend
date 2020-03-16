@@ -12,10 +12,9 @@ namespace Ergonode\Workflow\Infrastructure\Strategy\Relationship;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
-use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Query\TransitionQueryInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 
 /**
  */
@@ -24,14 +23,21 @@ class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterfac
     /**
      * @var TransitionQueryInterface
      */
-    private $query;
+    private TransitionQueryInterface $query;
+
+    /**
+     * @var WorkflowProvider
+     */
+    private WorkflowProvider $provider;
 
     /**
      * @param TransitionQueryInterface $query
+     * @param WorkflowProvider         $provider
      */
-    public function __construct(TransitionQueryInterface $query)
+    public function __construct(TransitionQueryInterface $query, WorkflowProvider $provider)
     {
         $this->query = $query;
+        $this->provider = $provider;
     }
 
     /**
@@ -43,17 +49,22 @@ class StatusWorkflowRelationshipStrategy implements RelationshipStrategyInterfac
     }
 
     /**
-     * {@inheritDoc}
+     * @param AggregateId $statusId
+     *
+     * @return array
+     *
+     * @throws \Exception
      */
-    public function getRelationships(AggregateId $id): array
+    public function getRelationships(AggregateId $statusId): array
     {
-        if (!$this->supports($id)) {
-            throw new UnexpectedTypeException($id, StatusId::class);
+        if (!$this->supports($statusId)) {
+            throw new UnexpectedTypeException($statusId, StatusId::class);
         }
 
-        $workflowId = WorkflowId::fromCode(Workflow::DEFAULT);
+        $workflow = $this->provider->provide();
+        $workflowId = $workflow->getId();
 
-        if ($this->query->hasStatus($workflowId, $id)) {
+        if ($this->query->hasStatus($workflowId, $statusId)) {
             return [$workflowId];
         }
 

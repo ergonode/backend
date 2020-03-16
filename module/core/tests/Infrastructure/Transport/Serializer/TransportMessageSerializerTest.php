@@ -28,16 +28,16 @@ class TransportMessageSerializerTest extends TestCase
     /**
      * @var string
      */
-    private $format;
+    private string $format;
 
     /**
      * @var TransportMessageSerializer
      */
-    private $messageSerializer;
+    private TransportMessageSerializer $messageSerializer;
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
         $this->format = 'json';
@@ -45,22 +45,22 @@ class TransportMessageSerializerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      *
-     * @expectedExceptionMessage Encoded envelope should have at least a `body` and some `headers`.
      */
     public function testNoBodyDecode()
     {
+        $this->expectExceptionMessage('Encoded envelope should have at least a `body` and some `headers`.');
+        $this->expectException(\InvalidArgumentException::class);
         $this->messageSerializer->decode(['body' => 'example', 'headers' => '']);
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      *
-     * @expectedExceptionMessage Encoded envelope does not have a `type` header.
      */
     public function testNoTypeDecode()
     {
+        $this->expectExceptionMessage('Encoded envelope does not have a `type` header.');
+        $this->expectException(\InvalidArgumentException::class);
         $this->messageSerializer->decode(['body' => 'example1', 'headers' => 'example2']);
     }
 

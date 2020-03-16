@@ -10,26 +10,28 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Infrastructure\Validator;
 
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
+use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
 
 /**
  */
 class WorkflowExistsValidator extends ConstraintValidator
 {
     /**
-     * @var WorkflowRepositoryInterface
+     * @var WorkflowQueryInterface
      */
-    private $repository;
+    private WorkflowQueryInterface $query;
 
     /**
-     * @param WorkflowRepositoryInterface $repository
+     * @param WorkflowQueryInterface $query
      */
-    public function __construct(WorkflowRepositoryInterface $repository)
+    public function __construct(WorkflowQueryInterface $query)
     {
-        $this->repository = $repository;
+        $this->query = $query;
     }
 
     /**
@@ -53,9 +55,9 @@ class WorkflowExistsValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $workflow = $this->repository->load(WorkflowId::fromCode($value));
+        $workflowId = $this->query->findWorkflowIdByCode($value);
 
-        if ($workflow) {
+        if ($workflowId) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

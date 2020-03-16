@@ -22,7 +22,7 @@ class WorkflowDeletedEvent extends AbstractDeleteEvent
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $id;
+    private WorkflowId $id;
 
     /**
      * @param WorkflowId $id

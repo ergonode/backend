@@ -24,28 +24,28 @@ class UpdateStatusCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
-    private $id;
+    private StatusId $id;
 
     /**
      * @var Color
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Color")
      */
-    private $color;
+    private Color $color;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $description;
+    private TranslatableString $description;
 
     /**
      * @param StatusId           $id

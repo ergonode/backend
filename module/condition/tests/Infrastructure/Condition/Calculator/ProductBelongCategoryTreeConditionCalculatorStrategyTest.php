@@ -33,7 +33,7 @@ class ProductBelongCategoryTreeConditionCalculatorStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repository = $this->createMock(TreeRepositoryInterface::class);
         $this->strategy = new ProductBelongCategoryTreeConditionCalculatorStrategy($this->repository);

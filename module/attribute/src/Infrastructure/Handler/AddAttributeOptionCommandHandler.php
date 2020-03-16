@@ -23,12 +23,12 @@ class AddAttributeOptionCommandHandler
     /**
      * @var AttributeRepositoryInterface
      */
-    private $repository;
+    private AttributeRepositoryInterface $repository;
 
     /**
      * @var AttributeQueryInterface
      */
-    private $query;
+    private AttributeQueryInterface $query;
 
     /**
      * @param AttributeRepositoryInterface $repository

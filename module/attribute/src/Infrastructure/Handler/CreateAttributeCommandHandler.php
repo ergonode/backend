@@ -21,12 +21,12 @@ class CreateAttributeCommandHandler
     /**
      * @var AttributeRepositoryInterface
      */
-    private $attributeRepository;
+    private AttributeRepositoryInterface $attributeRepository;
 
     /**
      * @var AttributeFactoryProvider
      */
-    private $provider;
+    private AttributeFactoryProvider $provider;
 
     /**
      * @param AttributeRepositoryInterface $attributeRepository

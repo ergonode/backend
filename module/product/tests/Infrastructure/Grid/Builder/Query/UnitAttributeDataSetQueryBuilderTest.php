@@ -38,7 +38,7 @@ class UnitAttributeDataSetQueryBuilderTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->attribute = $this->createMock(UnitAttribute::class);
         $this->queryBuilder = $this->createMock(QueryBuilder::class);

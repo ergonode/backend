@@ -20,12 +20,12 @@ class AddMultimediaCommand implements DomainCommandInterface
     /**
      * @var MultimediaId
      */
-    private $id;
+    private MultimediaId $id;
 
     /**
      * @var File
      */
-    private $file;
+    private File $file;
 
     /**
      * @param MultimediaId $id

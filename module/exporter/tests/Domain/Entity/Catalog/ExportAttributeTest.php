@@ -33,7 +33,7 @@ class ExportAttributeTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->code = 'CODE';
         $this->id = Uuid::uuid4();

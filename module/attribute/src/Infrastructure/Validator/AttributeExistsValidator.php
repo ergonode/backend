@@ -22,7 +22,7 @@ class AttributeExistsValidator extends ConstraintValidator
     /**
      * @var AttributeRepositoryInterface
      */
-    private $attributeRepository;
+    private AttributeRepositoryInterface $attributeRepository;
 
     /**
      * @param AttributeRepositoryInterface $attributeRepository

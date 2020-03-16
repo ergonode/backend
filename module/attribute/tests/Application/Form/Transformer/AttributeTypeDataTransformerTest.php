@@ -20,11 +20,11 @@ class AttributeTypeDataTransformerTest extends TestCase
     /**
      * @var AttributeTypeDataTransformer
      */
-    protected $transformer;
+    protected AttributeTypeDataTransformer $transformer;
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->transformer = new AttributeTypeDataTransformer();
     }
@@ -41,12 +41,12 @@ class AttributeTypeDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      *
-     * @expectedExceptionMessage Invalid AttributeType object
      */
     public function testTransformException(): void
     {
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
+        $this->expectExceptionMessage("Invalid AttributeType object");
         $value = new \stdClass();
         $this->transformer->transform($value);
     }
@@ -63,10 +63,10 @@ class AttributeTypeDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function testReverseTransformException(): void
     {
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = ['foo', 'bar'];
         $this->transformer->reverseTransform($value);
     }

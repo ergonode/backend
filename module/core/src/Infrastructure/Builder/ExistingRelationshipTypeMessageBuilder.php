@@ -20,7 +20,7 @@ class ExistingRelationshipTypeMessageBuilder implements ExistingRelationshipMess
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param TranslatorInterface $translator

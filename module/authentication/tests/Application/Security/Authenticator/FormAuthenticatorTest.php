@@ -42,7 +42,7 @@ class FormAuthenticatorTest extends TestCase
 
     /**
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->passwordEncoder = $this->createMock(UserPasswordEncoderInterface::class);
         $this->successHandler = $this->createMock(AuthenticationSuccessHandler::class);
@@ -90,10 +90,10 @@ class FormAuthenticatorTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationException
      */
     public function testGetUserException(): void
     {
+        $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
         $credentials = [
             'email' => 'username',
             'password' => 'pass',
@@ -120,12 +120,12 @@ class FormAuthenticatorTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationException
      *
-     * @expectedExceptionMessage  Invalid password
      */
     public function testCheckCredentialsException(): void
     {
+        $this->expectException(\Symfony\Component\Security\Core\Exception\AuthenticationException::class);
+        $this->expectExceptionMessage("Invalid password");
         $credentials = [
             'email' => 'username',
             'password' => 'pass',

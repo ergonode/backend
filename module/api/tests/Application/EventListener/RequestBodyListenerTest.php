@@ -38,7 +38,7 @@ class RequestBodyListenerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
         $this->event = $this->createMock(GetResponseEvent::class);

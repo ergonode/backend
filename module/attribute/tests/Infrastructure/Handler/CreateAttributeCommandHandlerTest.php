@@ -43,7 +43,7 @@ class CreateAttributeCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = $this->createMock(CreateAttributeCommand::class);
         $this->command->method('getLabel')->willReturn(new TranslatableString());
@@ -55,10 +55,10 @@ class CreateAttributeCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testStrategyNotFound(): void
     {
+        $this->expectException(\RuntimeException::class);
         $this->provider->method('provide')->willThrowException(new \RuntimeException());
         $this->repository->method('load')->willReturn($this->attribute);
 

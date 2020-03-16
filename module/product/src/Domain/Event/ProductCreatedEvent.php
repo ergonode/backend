@@ -26,28 +26,28 @@ class ProductCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private $id;
+    private ProductId $id;
 
     /**
      * @var Sku
      *
      * @JMS\Type("Ergonode\Product\Domain\ValueObject\Sku")
      */
-    private $sku;
+    private Sku $sku;
 
     /**
      * @var CategoryCode[]
      *
      * @JMS\Type("array<Ergonode\Category\Domain\ValueObject\CategoryCode>")
      */
-    private $categories;
+    private array $categories;
 
     /**
      * @var ValueInterface[]
      *
      * @JMS\Type("array<string,Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
-    private $attributes;
+    private array $attributes;
 
     /**
      * @param ProductId $id

@@ -19,5 +19,5 @@ class CategoryExists extends Constraint
     /**
      * @var string
      */
-    public $message = 'Category {{ value }} not exists.';
+    public string $message = 'Category {{ value }} not exists.';
 }

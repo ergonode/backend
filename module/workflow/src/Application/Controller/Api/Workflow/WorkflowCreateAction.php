@@ -35,22 +35,22 @@ class WorkflowCreateAction
     /**
      * @var WorkflowValidatorBuilder
      */
-    private $builder;
+    private WorkflowValidatorBuilder $builder;
 
     /**
      * @var ValidatorInterface
      */
-    private $validator;
+    private ValidatorInterface $validator;
 
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @param WorkflowValidatorBuilder $builder
@@ -115,7 +115,8 @@ class WorkflowCreateAction
         );
 
         if (0 === $violations->count()) {
-            $data['id'] = WorkflowId::fromCode($data['code'])->getValue();
+            $data['id'] = WorkflowId::generate()->getValue();
+            /** @var CreateWorkflowCommand $command */
             $command = $this->serializer->fromArray($data, CreateWorkflowCommand::class);
 
             $this->messageBus->dispatch($command);

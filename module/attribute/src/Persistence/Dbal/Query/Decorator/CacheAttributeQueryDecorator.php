@@ -25,12 +25,12 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     /**
      * @var AttributeQueryInterface
      */
-    private $attributeQuery;
+    private AttributeQueryInterface $attributeQuery;
 
     /**
      * @var array
      */
-    private $cache = [];
+    private array $cache = [];
 
     /**
      * @param AttributeQueryInterface $attributeQuery

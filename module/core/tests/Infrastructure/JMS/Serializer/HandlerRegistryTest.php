@@ -21,11 +21,11 @@ class HandlerRegistryTest extends TestCase
     /**
      * @var HandlerRegistryInterface
      */
-    private $registry;
+    private HandlerRegistryInterface $registry;
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->registry = $this->createMock(HandlerRegistryInterface::class);
     }

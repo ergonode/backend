@@ -24,33 +24,33 @@ class CreateWorkflowCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\WorkflowId")
      */
-    private $id;
+    private WorkflowId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $code;
+    private string $code;
 
     /**
      * @var StatusCode[]
      *
      * @JMS\Type("array<Ergonode\Workflow\Domain\ValueObject\StatusCode>")
      */
-    private $statuses;
+    private array $statuses;
 
     /**
-     * @param string $code
-     * @param array  $statuses
+     * @param WorkflowId $id
+     * @param string     $code
+     * @param array      $statuses
      *
-     * @throws \Exception
      */
-    public function __construct(string $code, array $statuses = [])
+    public function __construct(WorkflowId $id, string $code, array $statuses = [])
     {
         Assert::allIsInstanceOf($statuses, StatusCode::class);
 
-        $this->id = WorkflowId::fromCode($code);
+        $this->id = $id;
         $this->code = $code;
         $this->statuses = $statuses;
     }

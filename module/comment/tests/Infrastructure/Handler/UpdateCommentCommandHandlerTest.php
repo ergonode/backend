@@ -31,7 +31,7 @@ class UpdateCommentCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repository = $this->createMock(CommentRepositoryInterface::class);
 
@@ -49,10 +49,10 @@ class UpdateCommentCommandHandlerTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testHandlingCommentExistsObject(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->repository->expects($this->once())->method('load');
         $handler = new UpdateCommentCommandHandler($this->repository);
         $handler->__invoke($this->command);

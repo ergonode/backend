@@ -23,12 +23,12 @@ class UpdateAttributeCommandHandler
     /**
      * @var AttributeRepositoryInterface
      */
-    private $attributeRepository;
+    private AttributeRepositoryInterface $attributeRepository;
 
     /**
      * @var AttributeUpdaterProvider
      */
-    private $provider;
+    private AttributeUpdaterProvider $provider;
 
     /**
      * @param AttributeRepositoryInterface $attributeRepository

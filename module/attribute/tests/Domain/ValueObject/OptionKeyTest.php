@@ -27,10 +27,10 @@ class OptionKeyTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidValueLength(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $value = str_repeat('a', 256);
 
         $key = new OptionKey($value);

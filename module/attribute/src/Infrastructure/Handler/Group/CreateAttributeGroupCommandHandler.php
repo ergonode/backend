@@ -19,12 +19,12 @@ class CreateAttributeGroupCommandHandler
     /**
      * @var AttributeGroupFactory
      */
-    private $factory;
+    private AttributeGroupFactory $factory;
 
     /**
      * @var AttributeGroupRepositoryInterface
      */
-    private $repository;
+    private AttributeGroupRepositoryInterface $repository;
 
     /**
      * @param AttributeGroupFactory             $factory

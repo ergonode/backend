@@ -25,7 +25,7 @@ class UnitAttributeUpdaterTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->updateCommand = $this->createMock(UpdateAttributeCommand::class);
         $this->updateCommand->method('getParameter')->willReturn('UNIT');
@@ -51,7 +51,7 @@ class UnitAttributeUpdaterTest extends TestCase
      */
     public function testUpdate(): void
     {
-        $this->updateCommand->method('hasParameter')->willReturn('true');
+        $this->updateCommand->method('hasParameter')->willReturn(true);
         $strategy = new UnitAttributeUpdater();
         /** @var UnitAttribute $attribute */
         $attribute = $this->createMock(UnitAttribute::class);
@@ -61,10 +61,10 @@ class UnitAttributeUpdaterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testUpdateWithoutParameter(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $attribute = $this->createMock(UnitAttribute::class);
         $strategy = new UnitAttributeUpdater();
         $strategy->update($attribute, $this->updateCommand);

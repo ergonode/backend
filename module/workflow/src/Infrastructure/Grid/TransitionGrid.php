@@ -25,7 +25,7 @@ class TransitionGrid extends AbstractGrid
     /**
      * @var StatusQueryInterface
      */
-    private $statusQuery;
+    private StatusQueryInterface $statusQuery;
 
     /**
      * @param StatusQueryInterface $statusQuery

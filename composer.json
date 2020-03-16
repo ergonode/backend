@@ -53,13 +53,18 @@
         "zircote/swagger-php": "2.0.10"
     },
     "require-dev": {
+        "behat/behat": "^3.6",
+        "behat/mink": "^1.7",
+        "behat/mink-browserkit-driver": "^1.3",
+        "behatch/contexts": "^3.3",
         "escapestudios/symfony2-coding-standard": "^3.10",
-        "nelmio/alice": "^3.5",
+        "friends-of-behat/symfony-extension": "^2.0",
+        "nelmio/alice": "^3.6",
         "phpmd/phpmd": "^2.7",
         "phpstan/phpstan": "^0.11.12",
-        "phpunit/phpunit": "^7.5",
+        "phpunit/phpunit": "^9.0",
         "roave/security-advisories": "dev-master",
-        "sebastian/phpcpd": "^4.1",
+        "sebastian/phpcpd": "^5.0",
         "sensiolabs-de/deptrac-shim": "^0.6.0",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/maker-bundle": "^1.13",
@@ -101,7 +106,6 @@
             "Ergonode\\CategoryTree\\": "module/category-tree/src",
             "Ergonode\\Product\\": "module/product/src",
             "Ergonode\\Completeness\\": "module/completeness/src",
-            "Ergonode\\ProductSimple\\": "module/product-simple/src",
             "Ergonode\\ProductCollection\\": "module/product-collection/src",
             "Ergonode\\Navigation\\": "module/navigation/src",
             "Ergonode\\Attribute\\": "module/attribute/src",
@@ -144,7 +148,6 @@
             "Ergonode\\Category\\Tests\\": "module/category/tests",
             "Ergonode\\CategoryTree\\Tests\\": "module/category-tree/tests",
             "Ergonode\\Product\\Tests\\": "module/product/tests",
-            "Ergonode\\ProductSimple\\Tests\\": "module/product-simple/tests",
             "Ergonode\\ProductCollection\\Tests\\": "module/product-collection/tests",
             "Ergonode\\Completeness\\Tests\\": "module/completeness/tests",
             "Ergonode\\Navigation\\Tests\\": "module/navigation/tests",
@@ -180,6 +183,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "behat": [
+            "php -d error_reporting='E_ALL & ~E_DEPRECATED'  ./bin/behat --colors --stop-on-failure"
         ]
     },
     "conflict": {

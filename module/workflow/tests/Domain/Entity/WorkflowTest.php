@@ -27,7 +27,7 @@ class WorkflowTest extends TestCase
     /**
      * @var string
      */
-    private $code;
+    private string $code;
 
     /**
      * @var StatusCode|MockObject
@@ -36,7 +36,7 @@ class WorkflowTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(WorkflowId::class);
         $this->code = 'Any code';
@@ -100,10 +100,10 @@ class WorkflowTest extends TestCase
     /**
      * @throws \Exception
      *
-     * @expectedException \RuntimeException
      */
     public function testSetNotExistDefaultStatus(): void
     {
+        $this->expectException(\RuntimeException::class);
         /** @var StatusCode|MockObject $status */
         $status1 = new StatusCode('one');
         $status2 = new StatusCode('two');
@@ -115,51 +115,49 @@ class WorkflowTest extends TestCase
     /**
      * @throws \Exception
      *
-     * @expectedException \RuntimeException
      */
     public function testGetNotExistDefaultStatus(): void
     {
+        $this->expectException(\RuntimeException::class);
         $workflow = new Workflow($this->id, $this->code, []);
         $workflow->getDefaultStatus();
     }
 
     /**
-     * @expectedException \RuntimeException
      *
-     * @expectedExceptionMessage Transition from "A" to "B" not exists
      *
      * @throws \Exception
      */
     public function testNoTransitionException(): void
     {
+        $this->expectExceptionMessage('Transition from "A" to "B" not exists');
+        $this->expectException(\RuntimeException::class);
 
         $workflow = new Workflow($this->id, $this->code, [$this->status]);
         $workflow->getTransition(new StatusCode('A'), new StatusCode('B'));
     }
 
     /**
-     * @expectedException \RuntimeException
-     *
-     * @expectedExceptionMessage Status "A" already exists
-     *
      * @throws \Exception
      */
     public function testAddingStatusAlreadyExistException(): void
     {
+        $this->expectExceptionMessage('Status "A" already exists');
+        $this->expectException(\RuntimeException::class);
         $status = new StatusCode('A');
         $workflow = new Workflow($this->id, $this->code, [$status]);
         $workflow->addStatus($status);
     }
 
     /**
-     * @expectedException \RuntimeException
      *
-     * @expectedExceptionMessage Transition from "A" to "B" already exists
      *
      * @throws \Exception
      */
     public function testAddingTransitionAlreadyExistException(): void
     {
+        $this->expectExceptionMessage('Transition from "A" to "B" already exists');
+        $this->expectException(\RuntimeException::class);
         /** @var StatusCode|MockObject $source */
         $source = new StatusCode('A');
         $destination = new StatusCode('B');
@@ -171,14 +169,14 @@ class WorkflowTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      *
-     * @expectedExceptionMessage Transition source status "A" not exists
      *
      * @throws \Exception
      */
     public function testAddingNoSourceException(): void
     {
+        $this->expectExceptionMessage('Transition source status "A" not exists');
+        $this->expectException(\RuntimeException::class);
         /** @var StatusCode|MockObject $source */
         $source = new StatusCode('A');
         $destination = new StatusCode('B');
@@ -188,14 +186,14 @@ class WorkflowTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      *
-     * @expectedExceptionMessage Transition destination status "B" not exists
      *
      * @throws \Exception
      */
     public function testAddingNoDestinationException(): void
     {
+        $this->expectExceptionMessage('Transition destination status "B" not exists');
+        $this->expectException(\RuntimeException::class);
         /** @var StatusCode|MockObject $source */
         $source = new StatusCode('A');
         $destination = new StatusCode('B');

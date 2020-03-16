@@ -27,8 +27,9 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
     private const FIELDS = [
         'import_id',
         'line',
-        'content',
+        'step',
         'message',
+        'processed_at',
     ];
 
     /**
@@ -60,25 +61,26 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
 
     /**
      * @param ImportId $importId
+     * @param int      $step
      * @param int      $line
      *
      * @return ImportLine|null
      *
      * @throws \ReflectionException
      */
-    public function load(ImportId $importId, int $line): ?ImportLine
+    public function load(ImportId $importId, int $step, int $line): ?ImportLine
     {
         $qb = $this->getQuery();
         $record = $qb
             ->andWhere($qb->expr()->eq('import_id', ':id'))
             ->andWhere($qb->expr()->eq('line', ':line'))
+            ->andWhere($qb->expr()->eq('step', ':step'))
             ->setParameter(':id', $importId->getValue())
             ->setParameter(':line', $line)
+            ->setParameter(':step', $step)
             ->orderBy('line', 'ASC')
             ->execute()
             ->fetch();
-
-
 
         if ($record) {
             return $this->factory->create($record);

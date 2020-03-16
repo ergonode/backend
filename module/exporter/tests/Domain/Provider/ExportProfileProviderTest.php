@@ -29,7 +29,7 @@ class ExportProfileProviderTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->exporter1 = $this->createMock(ExportProfileFactoryInterface::class);
         $this->exporter2 = $this->createMock(ExportProfileFactoryInterface::class);

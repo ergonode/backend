@@ -11,6 +11,7 @@ namespace Ergonode\Condition\Domain\Condition;
 
 use Ergonode\Condition\Domain\ConditionInterface;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -30,20 +31,20 @@ class ProductHasTemplateCondition implements ConditionInterface
     private string $operator;
 
     /**
-     * @var string
+     * @var TemplateId
      *
-     * @JMS\Type("string")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
      */
-    private string $value;
+    private TemplateId $templateId;
 
     /**
-     * @param string $operator
-     * @param string $value
+     * @param string     $operator
+     * @param TemplateId $templateId
      */
-    public function __construct(string $operator, string $value)
+    public function __construct(string $operator, TemplateId $templateId)
     {
         $this->operator = $operator;
-        $this->value = $value;
+        $this->templateId = $templateId;
     }
 
     /**
@@ -65,11 +66,11 @@ class ProductHasTemplateCondition implements ConditionInterface
     }
 
     /**
-     * @return string
+     * @return TemplateId
      */
-    public function getValue(): string
+    public function getTemplateId(): TemplateId
     {
-        return $this->value;
+        return $this->templateId;
     }
 
     /**

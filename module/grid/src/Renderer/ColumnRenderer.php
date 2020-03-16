@@ -21,12 +21,12 @@ class ColumnRenderer
     /**
      * @var FilterRenderer
      */
-    private $filterRenderer;
+    private FilterRenderer $filterRenderer;
 
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param FilterRenderer      $filterRenderer

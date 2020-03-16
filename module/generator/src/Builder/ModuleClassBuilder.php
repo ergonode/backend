@@ -20,7 +20,7 @@ class ModuleClassBuilder
     /**
      * @var FileBuilder
      */
-    private $builder;
+    private FileBuilder $builder;
 
     /**
      * @param FileBuilder $builder

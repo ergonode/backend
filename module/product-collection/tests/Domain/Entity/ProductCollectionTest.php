@@ -101,10 +101,10 @@ class ProductCollectionTest extends TestCase
     }
 
     /**
-     * @expectedException  \RuntimeException
      */
     public function testRemovingElement(): void
     {
+        $this->expectException(\RuntimeException::class);
         $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
         $entity->addElement($this->productId, true);
         $entity->removeElement($this->productId);
@@ -112,20 +112,20 @@ class ProductCollectionTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testAddingSameElement(): void
     {
+        $this->expectException(\RuntimeException::class);
         $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
         $entity->addElement($this->productId, true);
         $entity->addElement($this->productId, true);
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testNotExistingElement(): void
     {
+        $this->expectException(\RuntimeException::class);
         $entity = new ProductCollection($this->id, $this->code, $this->name, $this->description, $this->typeId);
         $entity->getElement($this->productId);
     }

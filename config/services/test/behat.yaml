@@ -1,0 +1,16 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  #Behat
+  App\Tests\Behat\Context\:
+    resource: '%kernel.project_dir%/tests/Behat/Context/*'
+    public: true
+    exclude:
+      - '%kernel.project_dir%/tests/Behat/Context/ApiAuthContext.php'
+      - '%kernel.project_dir%/tests/Behat/Context/UploadFileContext.php'
+
+  StorageContext:
+    class: StorageContext

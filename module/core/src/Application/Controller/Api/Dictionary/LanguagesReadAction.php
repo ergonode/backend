@@ -24,7 +24,7 @@ class LanguagesReadAction
     /**
      * @var LanguageProviderInterface
      */
-    private $languageProvider;
+    private LanguageProviderInterface $languageProvider;
 
     /**
      * @param LanguageProviderInterface $languageProvider

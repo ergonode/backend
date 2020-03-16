@@ -19,7 +19,7 @@ class AttributeValueConstraintProvider
     /**
      * @var AttributeValueConstraintStrategyInterface[]
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param AttributeValueConstraintStrategyInterface ...$strategies

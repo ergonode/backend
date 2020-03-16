@@ -29,17 +29,17 @@ class ProductGridReadAction
     /**
      * @var DbalProductDataSet
      */
-    private $dataSet;
+    private DbalProductDataSet $dataSet;
 
     /**
      * @var ProductGrid
      */
-    private $productGrid;
+    private ProductGrid $productGrid;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer       $gridRenderer

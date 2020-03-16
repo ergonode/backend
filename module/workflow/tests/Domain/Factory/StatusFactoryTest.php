@@ -24,7 +24,7 @@ class StatusFactoryTest extends TestCase
     /**
      * @var StatusCode
      */
-    private $code;
+    private StatusCode $code;
 
     /**
      * @var Color|MockObject
@@ -43,7 +43,7 @@ class StatusFactoryTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->color = $this->createMock(Color::class);
         $this->name = $this->createMock(TranslatableString::class);

@@ -32,17 +32,17 @@ class FormAuthenticator extends AbstractGuardAuthenticator implements LoggerAwar
     /**
      * @var UserPasswordEncoderInterface
      */
-    private $passwordEncoder;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
     /**
      * @var AuthenticationSuccessHandler
      */
-    private $successHandler;
+    private AuthenticationSuccessHandler $successHandler;
 
     /**
      * @var AuthenticationFailureHandler
      */
-    private $failureHandler;
+    private AuthenticationFailureHandler $failureHandler;
 
     /**
      * @param UserPasswordEncoderInterface $passwordEncoder

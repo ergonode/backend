@@ -31,12 +31,12 @@ class AttributeGrid extends AbstractGrid
     /**
      * @var AttributeTypeDictionaryProvider
      */
-    private $attributeTypeDictionaryProvider;
+    private AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider;
 
     /**
      * @var AttributeGroupDictionaryProvider
      */
-    private $attributeGroupDictionaryProvider;
+    private AttributeGroupDictionaryProvider $attributeGroupDictionaryProvider;
 
     /**
      * @param AttributeTypeDictionaryProvider  $attributeTypeDictionaryProvider

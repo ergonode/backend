@@ -22,7 +22,7 @@ class PersistProductDraftCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
-    private $id;
+    private ProductDraftId $id;
 
     /**
      * @param ProductDraftId $id

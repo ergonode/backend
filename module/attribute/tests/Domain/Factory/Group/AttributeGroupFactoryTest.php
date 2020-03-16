@@ -21,17 +21,17 @@ class AttributeGroupFactoryTest extends TestCase
     /**
      * @var AttributeGroupId
      */
-    private $id;
+    private AttributeGroupId $id;
 
     /**
      * @var AttributeGroupCode
      */
-    private $code;
+    private AttributeGroupCode $code;
 
     /**
      * @var TranslatableString
      */
-    private $name;
+    private TranslatableString $name;
 
     /**
      */

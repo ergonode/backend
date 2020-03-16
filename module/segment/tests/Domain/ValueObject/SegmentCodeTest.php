@@ -53,10 +53,10 @@ class SegmentCodeTest extends TestCase
      *
      * @dataProvider inValidDataProvider
      *
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidData(string $status): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new SegmentCode($status);
     }
 

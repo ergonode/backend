@@ -41,7 +41,7 @@ class RoleTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->roleId = $this->createMock(RoleId::class);
         $this->name = 'Any Name';
@@ -92,39 +92,39 @@ class RoleTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testRemoveNotExistsPrivilege(): void
     {
+        $this->expectException(\RuntimeException::class);
         $role = new Role($this->roleId, $this->name, $this->description);
         $role->removePrivilege($this->privilege);
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testAddExistsPrivilege(): void
     {
+        $this->expectException(\RuntimeException::class);
         $this->privilege->method('isEqual')->willReturn(true);
         $role = new Role($this->roleId, $this->name, $this->description, [$this->privilege]);
         $role->addPrivilege($this->privilege);
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testRoleCreationWithIncorrectType(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $privileges = $this->createMock(\stdClass::class);
 
         new Role($this->roleId, $this->name, $this->description, [$privileges]);
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testChangePrivilegesWithIncorrectType(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $privileges = $this->createMock(\stdClass::class);
 
         $role = new Role($this->roleId, $this->name, $this->description);

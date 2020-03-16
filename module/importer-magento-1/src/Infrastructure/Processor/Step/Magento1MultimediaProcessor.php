@@ -20,21 +20,30 @@ use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Transformer\Infrastructure\Action\MultimediaImportAction;
+use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
+use Ergonode\Importer\Domain\Entity\ImportLine;
 
 /**
  */
 class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
 {
     /**
+     * @var ImportLineRepositoryInterface
+     */
+    private ImportLineRepositoryInterface $repository;
+
+    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param CommandBusInterface $commandBus
+     * @param ImportLineRepositoryInterface $repository
+     * @param CommandBusInterface           $commandBus
      */
-    public function __construct(CommandBusInterface $commandBus)
+    public function __construct(ImportLineRepositoryInterface $repository, CommandBusInterface $commandBus)
     {
+        $this->repository = $repository;
         $this->commandBus = $commandBus;
     }
 
@@ -43,7 +52,6 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
      * @param ProductModel[]    $products
      * @param Transformer       $transformer
      * @param Magento1CsvSource $source
-     *
      * @param Progress          $steps
      *
      * @throws \Exception
@@ -87,6 +95,8 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
                 $image,
                 MultimediaImportAction::TYPE
             );
+            $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
+            $this->repository->save($line);
             $this->commandBus->dispatch($command);
         }
     }

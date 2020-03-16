@@ -18,6 +18,7 @@ use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Category\Domain\Command\Tree\UpdateTreeCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\Category\Domain\Query\TreeQueryInterface;
 
 /**
  */
@@ -33,17 +34,27 @@ class TreeImportAction implements ImportActionInterface
     private TreeRepositoryInterface $repository;
 
     /**
+     * @var TreeQueryInterface
+     */
+    private TreeQueryInterface $query;
+
+    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
      * @param TreeRepositoryInterface $repository
+     * @param TreeQueryInterface      $query
      * @param CommandBusInterface     $commandBus
      */
-    public function __construct(TreeRepositoryInterface $repository, CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        TreeRepositoryInterface $repository,
+        TreeQueryInterface $query,
+        CommandBusInterface $commandBus
+    ) {
         $this->repository = $repository;
+        $this->query = $query;
         $this->commandBus = $commandBus;
     }
 
@@ -60,8 +71,11 @@ class TreeImportAction implements ImportActionInterface
 
         Assert::notNull($code, 'Tree import required "code" field not exists');
 
-        $treeId = CategoryTreeId::fromKey($code);
-        $tree = $this->repository->load($treeId);
+        $tree = null;
+        $treeId = $this->query->findTreeIdByCode($code);
+        if ($treeId) {
+            $tree = $this->repository->load($treeId);
+        }
 
         $name = new TranslatableString();
 

@@ -24,12 +24,12 @@ class LanguageType extends AbstractType
     /**
      * @var TranslatorInterface
      */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @var LanguageQueryInterface
      */
-    private $provider;
+    private LanguageQueryInterface $provider;
 
     /**
      * @param TranslatorInterface    $translator

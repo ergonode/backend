@@ -15,7 +15,6 @@ use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
-use Webmozart\Assert\Assert;
 
 /**
  */
@@ -26,61 +25,56 @@ class UpdateAttributeCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private $attributeId;
-
-    /**
-     * @var string
-     */
-    private $type;
+    private AttributeId $attributeId;
 
     /**
      * @var AttributeCode
      *
      * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
      */
-    private $code;
+    private AttributeCode $code;
 
     /**
      * @var array
      *
      * @JMS\Type("array")
      */
-    private $parameters;
+    private array $parameters;
 
     /**
      * @var array
      *
      * @JMS\Type("array")
      */
-    private $groups;
+    private array $groups;
 
     /**
      * @var OptionInterface[]
      *
      * @JMS\Type("array<string, Ergonode\Attribute\Domain\ValueObject\OptionInterface>")
      */
-    private $options;
+    private array $options;
 
     /**
-     * @var TranslatableString|null
+     * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $label;
+    private TranslatableString $label;
 
     /**
-     * @var TranslatableString|null
+     * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $hint;
+    private TranslatableString $hint;
 
     /**
-     * @var TranslatableString|null
+     * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
      */
-    private $placeholder;
+    private TranslatableString $placeholder;
 
     /**
      * @param AttributeId        $id
@@ -115,14 +109,6 @@ class UpdateAttributeCommand implements DomainCommandInterface
     public function getId(): AttributeId
     {
         return $this->attributeId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return $this->type;
     }
 
     /**

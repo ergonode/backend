@@ -22,12 +22,12 @@ class StatusCalculationService
     /**
      * @var ConditionCalculator
      */
-    private $service;
+    private ConditionCalculator $service;
 
     /**
      * @var ConditionSetRepositoryInterface
      */
-    private $repository;
+    private ConditionSetRepositoryInterface $repository;
 
     /**
      * @param ConditionCalculator             $service

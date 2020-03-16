@@ -1,25 +1,65 @@
 Feature: Attribute module
 
+  Background:
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+
   Scenario: Create attribute group
-    Given current authentication token
-    Given the request body is:
+    And I send a "POST" request to "/api/v1/EN/attributes/groups" with body:
       """
       {
-          "code": "ATTRIBUTE_GROUP_@@random_code@@",
-          "name": {"PL": "Grupa atrybutów PL", "EN": "Attribute group EN"}
+        "code": "ATTRIBUTE_GROUP_@@random_code@@",
+        "name": {
+          "PL": "Grupa atrybutów PL",
+          "EN": "Attribute group EN"
+        }
       }
       """
-    When I request "/api/v1/EN/attributes/groups" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "attribute_group_id"
+    Then the response status code should be 201
+    And store response param "id" as "attribute_group_id"
 
-  Scenario: Create attribute group (not authorized)
-    When I request "/api/v1/EN/attributes/groups" using HTTP POST
-    Then unauthorized response is received
+  Scenario: Get attribute group
+    And I send a "GET" request to "/api/v1/EN/attributes/groups/@attribute_group_id@"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | name.PL | Grupa atrybutów PL |
+      | name.EN | Attribute group EN |
+
+  Scenario: Get attributes groups
+    And I send a "GET" request to "/api/v1/EN/attributes/groups"
+    Then the response status code should be 200
+    And the JSON node "collection" should not be null
+
+  Scenario: Update attribute group (not found)
+    And I send a "PUT" request to "/api/v1/EN/attributes/groups/@static_uuid@"
+    Then the response status code should be 404
+
+  Scenario: Update attribute group
+    And I send a "PUT" request to "/api/v1/EN/attributes/groups/@attribute_group_id@" with body:
+      """
+      {
+        "name": {
+          "PL": "PL",
+          "EN": "EN"
+        }
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Get attribute group
+    And I send a "GET" request to "/api/v1/EN/attributes/groups/@attribute_group_id@"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | name.PL | PL |
+      | name.EN | EN |
+
+  Scenario: Ger attribute group (not found)
+    And I send a "GET" request to "/api/v1/EN/attributes/groups/@static_uuid@"
+    Then the response status code should be 404
 
   Scenario: Create text attribute
-    Given current authentication token
-    Given the request body is:
+    And I send a "POST" request to "/api/v1/EN/attributes" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
@@ -29,107 +69,13 @@ Feature: Attribute module
           "parameters": []
       }
       """
-    When I request "/api/v1/EN/attributes" using HTTP POST
-    Then created response is received
-    And remember response param "id" as "attribute_id"
-
-  Scenario: Get attribute group
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/groups/@attribute_group_id@" using HTTP GET
-    Then the response code is 200
-    And the response body matches:
-    """
-      /"PL": "Grupa atrybutów PL"/
-    """
-    And the response body matches:
-    """
-      /"EN": "Attribute group EN"/
-    """
-
-  Scenario: Ger attribute group (not authorized)
-    When I request "/api/v1/EN/attributes/groups/@attribute_group_id@" using HTTP GET
-    Then unauthorized response is received
-
-  Scenario: Ger attribute group (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/groups/@static_uuid@" using HTTP GET
-    Then not found response is received
-
-  Scenario: Get attributes groups
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/groups?filter=id=@attribute_group_id@" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": 1/
-    """
-    And the response body matches:
-    """
-      /"name": "Attribute group EN"/
-    """
-
-  Scenario: Get attribute groups (not authorized)
-    When I request "/api/v1/EN/attributes/groups" using HTTP GET
-    Then unauthorized response is received
-
-  Scenario: Update attribute group
-    Given current authentication token
-    Given the request body is:
-      """
-      {
-          "name": {"PL": "PL", "EN": "EN"}
-      }
-      """
-    When I request "/api/v1/EN/attributes/groups/@attribute_group_id@" using HTTP PUT
-    Then empty response is received
-
-  Scenario: Update attribute group (not authorized)
-    When I request "/api/v1/EN/attributes/groups/@attribute_group_id@" using HTTP PUT
-    Then unauthorized response is received
-
-  Scenario: Update attribute group (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/groups/@static_uuid@" using HTTP PUT
-    Then not found response is received
-
-  Scenario: Get attribute group after update
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/groups/@attribute_group_id@" using HTTP GET
-    Then the response code is 200
-    And the response body matches:
-    """
-      /"PL": "PL"/
-    """
-    And the response body matches:
-    """
-      /"EN": "EN"/
-    """
-
-  Scenario: Get attributes after Update
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/groups?filter=id=@attribute_group_id@" using HTTP GET
-    Then grid response is received
-    And the response body matches:
-    """
-      /"filtered": 1/
-    """
-    And the response body matches:
-    """
-      /"name": "EN"/
-    """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_id"
 
   Scenario: Delete attribute group
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/groups/@attribute_group_id@" using HTTP DELETE
-    Then empty response is received
+    And I send a "DELETE" request to "/api/v1/EN/attributes/groups/@attribute_group_id@"
+    Then the response status code should be 204
 
   Scenario: Delete attribute group (not found)
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/groups/@static_uuid@" using HTTP DELETE
-    Then not found response is received
-
-  Scenario: Get attribute group
-    Given current authentication token
-    When I request "/api/v1/EN/attributes/groups/@attribute_group_id@" using HTTP GET
-    Then not found response is received
-
+    And I send a "DELETE" request to "/api/v1/EN/attributes/groups/@static_uuid@"
+    Then the response status code should be 404

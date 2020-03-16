@@ -55,12 +55,13 @@ final class Version20180618134343 extends AbstractErgonodeMigration
         $this->addSql('
             CREATE TABLE importer.import_line (
                 import_id UUID NOT NULL,
-                line BIGINT,
-                content JSON NOT NULL,
+                step INT NOT NULL ,
+                line INT NOT NULL ,
                 created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                 updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+                processed_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL,
                 message TEXT DEFAULT NULL,                    
-                PRIMARY KEY(import_id, line)
+                PRIMARY KEY(import_id, step, line)
             )
         ');
         $this->addSql('CREATE INDEX import_line_import_id_idx ON importer.import_line USING btree (import_id)');

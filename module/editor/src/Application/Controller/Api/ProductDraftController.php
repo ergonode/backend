@@ -53,47 +53,47 @@ class ProductDraftController extends AbstractController
     /**
      * @var ProductDraftGrid
      */
-    private $productDraftGrid;
+    private ProductDraftGrid $productDraftGrid;
 
     /**
      * @var DraftQueryInterface
      */
-    private $draftQuery;
+    private DraftQueryInterface $draftQuery;
 
     /**
      * @var MessageBusInterface
      */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     /**
      * @var AttributeValueConstraintProvider
      */
-    private $provider;
+    private AttributeValueConstraintProvider $provider;
 
     /**
      * @var DraftProvider
      */
-    private $draftProvider;
+    private DraftProvider $draftProvider;
 
     /**
      * @var ViewTemplateBuilder
      */
-    private $builder;
+    private ViewTemplateBuilder $builder;
 
     /**
      * @var ValidatorInterface
      */
-    private $validator;
+    private ValidatorInterface $validator;
 
     /**
      * @var TemplateRepositoryInterface
      */
-    private $templateRepository;
+    private TemplateRepositoryInterface $templateRepository;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer                     $gridRenderer

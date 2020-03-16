@@ -23,7 +23,7 @@ class AttributeTypeType extends AbstractType
     /**
      * @var AttributeTypeDictionaryProvider
      */
-    private $provider;
+    private AttributeTypeDictionaryProvider $provider;
 
     /**
      * @param AttributeTypeDictionaryProvider $provider

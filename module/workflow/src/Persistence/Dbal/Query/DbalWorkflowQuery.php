@@ -24,7 +24,7 @@ class DbalWorkflowQuery implements WorkflowQueryInterface
     /**
      * @var Connection
      */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @param Connection $connection
@@ -56,6 +56,27 @@ class DbalWorkflowQuery implements WorkflowQueryInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return WorkflowId|null
+     */
+    public function findWorkflowIdByCode(string $code): ?WorkflowId
+    {
+        $query = $this->getQuery();
+        $result = $query
+            ->where($query->expr()->eq('a.code', ':code'))
+            ->setParameter(':code', $code)
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return new WorkflowId($result);
+        }
+
+        return null;
     }
 
     /**

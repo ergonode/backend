@@ -23,14 +23,14 @@ class ProductDraftCreated implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId")
      */
-    private $id;
+    private ProductDraftId $id;
 
     /**
      * @var ProductId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private $productId;
+    private ProductId $productId;
 
     /**
      * @param ProductDraftId $id

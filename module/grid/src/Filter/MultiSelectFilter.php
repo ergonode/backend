@@ -18,9 +18,9 @@ class MultiSelectFilter implements FilterInterface
     public const TYPE = 'MULTI_SELECT';
 
     /**
-     * @var array;
+     * @var array
      */
-    private $options;
+    private array $options;
 
     /**
      * @param array $options

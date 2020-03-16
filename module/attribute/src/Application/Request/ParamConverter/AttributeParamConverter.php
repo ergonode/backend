@@ -25,7 +25,7 @@ class AttributeParamConverter implements ParamConverterInterface
     /**
      * @var AttributeRepositoryInterface
      */
-    private $attributeRepository;
+    private AttributeRepositoryInterface $attributeRepository;
 
     /**
      * @param AttributeRepositoryInterface $attributeRepository

@@ -27,35 +27,35 @@ class Transition extends AbstractEntity
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TransitionId")
      */
-    private $id;
+    private TransitionId $id;
 
     /**
      * @var StatusCode
      *
      * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
-    private $from;
+    private StatusCode $from;
 
     /**
-     * @var StatusCode;
+     * @var StatusCode
      *
      * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
      */
-    private $to;
+    private StatusCode $to;
 
     /**
      * @var ConditionSetId|null
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId")
      */
-    private $conditionSetId;
+    private ?ConditionSetId $conditionSetId;
 
     /**
      * @var RoleId[]
      *
      * @JMS\Type("array<string>")
      */
-    private $roleIds;
+    private array $roleIds;
 
     /**
      * @param TransitionId        $id

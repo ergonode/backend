@@ -19,11 +19,11 @@ class AttributeGroupCodeDataTransformerTest extends TestCase
     /**
      * @var AttributeGroupCodeDataTransformer
      */
-    protected $transformer;
+    protected AttributeGroupCodeDataTransformer $transformer;
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->transformer = new AttributeGroupCodeDataTransformer();
     }
@@ -40,10 +40,10 @@ class AttributeGroupCodeDataTransformerTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function testTransformException(): void
     {
+        $this->expectException(\Symfony\Component\Form\Exception\TransformationFailedException::class);
         $value = new \stdClass();
         $this->transformer->transform($value);
     }

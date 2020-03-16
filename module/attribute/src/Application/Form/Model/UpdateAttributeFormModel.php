@@ -19,14 +19,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 class UpdateAttributeFormModel
 {
     /**
-     * @var AttributeType
+     * @var AttributeType|null
      */
-    public $type;
+    public ?AttributeType $type;
 
     /**
      * @var array
      */
-    public $groups;
+    public array $groups;
 
     /**
      * @var array
@@ -39,7 +39,7 @@ class UpdateAttributeFormModel
      *     )
      * })
      */
-    public $label;
+    public array $label;
 
     /**
      * @var array
@@ -52,7 +52,7 @@ class UpdateAttributeFormModel
      *     )
      * })
      */
-    public $placeholder;
+    public array $placeholder;
 
     /**
      * @var array
@@ -65,10 +65,12 @@ class UpdateAttributeFormModel
      *     )
      * })
      */
-    public $hint;
+    public array $hint;
 
     /**
-     * @var AttributeParametersModel
+     * @var mixed
+     *
+     * @Assert\Valid()
      */
     public $parameters;
 
@@ -79,19 +81,20 @@ class UpdateAttributeFormModel
      *
      * @AppAssert\AttributeOptionDuplicates()
      */
-    public $options;
+    public ArrayCollection $options;
 
     /**
      * @param AttributeType $type
      */
     public function __construct(AttributeType $type)
     {
+        $this->type = null;
         $this->label = [];
         $this->placeholder = [];
         $this->hint = [];
         $this->type = $type;
         $this->groups = [];
-        $this->parameters = new AttributeParametersModel();
+        $this->parameters = null;
         $this->options = new ArrayCollection();
     }
 }

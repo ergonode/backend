@@ -22,12 +22,12 @@ class EntityFactoryBuilder implements BuilderInterface
     /**
      * @var FileBuilder
      */
-    private $builder;
+    private FileBuilder $builder;
 
     /**
      * @var MethodBuilder
      */
-    private $methodBuilder;
+    private MethodBuilder $methodBuilder;
 
     /**
      * @param FileBuilder   $builder

@@ -15,9 +15,7 @@ use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
+use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 
 /**
  */
@@ -26,21 +24,21 @@ class StatusProductFactoryDecorator implements ProductFactoryInterface
     /**
      * @var ProductFactoryInterface
      */
-    private $factory;
+    private ProductFactoryInterface $factory;
 
     /**
-     * @var WorkflowRepositoryInterface
+     * @var WorkflowProvider
      */
-    private $repository;
+    private WorkflowProvider $provider;
 
     /**
-     * @param ProductFactoryInterface     $factory
-     * @param WorkflowRepositoryInterface $repository
+     * @param ProductFactoryInterface $factory
+     * @param WorkflowProvider        $provider
      */
-    public function __construct(ProductFactoryInterface $factory, WorkflowRepositoryInterface $repository)
+    public function __construct(ProductFactoryInterface $factory, WorkflowProvider $provider)
     {
         $this->factory = $factory;
-        $this->repository = $repository;
+        $this->provider = $provider;
     }
 
     /**
@@ -69,10 +67,8 @@ class StatusProductFactoryDecorator implements ProductFactoryInterface
         array $categories = [],
         array $attributes = []
     ): AbstractProduct {
-        $workflow = $this->repository->load(WorkflowId::fromCode(Workflow::DEFAULT));
-        if ($workflow && $workflow->hasDefaultStatus()) {
-            $attributes[StatusSystemAttribute::CODE] = new StringValue($workflow->getDefaultStatus()->getValue());
-        }
+        $workflow = $this->provider->provide();
+        $attributes[StatusSystemAttribute::CODE] = new StringValue($workflow->getDefaultStatus()->getValue());
 
         return $this->factory->create($id, $sku, $categories, $attributes);
     }

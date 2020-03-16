@@ -5,7 +5,7 @@
  * See LICENSE.txt for license details.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Ergonode\Condition\Tests\Infrastructure\Condition\Calculator;
 
@@ -34,7 +34,7 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->templateQuery = $this->createMock(TemplateQueryInterface::class);
 
@@ -52,10 +52,10 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $operator
-     * @param string $productTemplateName
-     * @param string $searchedTemplateName
-     * @param bool   $expectedResult
+     * @param string     $operator
+     * @param TemplateId $productTemplateId
+     * @param TemplateId $searchedTemplateId
+     * @param bool       $expectedResult
      *
      * @throws \Exception
      *
@@ -63,18 +63,17 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
      */
     public function testCalculate(
         string $operator,
-        string $productTemplateName,
-        string $searchedTemplateName,
+        TemplateId $productTemplateId,
+        TemplateId $searchedTemplateId,
         bool $expectedResult
     ): void {
         $product = $this->createProductMock('some-id');
-        $productTemplateId = TemplateId::fromKey($productTemplateName);
-        $condition = $this->createProductHasTemplateConditionMock($operator, $searchedTemplateName);
+        $condition = $this->createProductHasTemplateConditionMock($operator, $searchedTemplateId);
 
         $this
             ->templateQuery
             ->method('findProductTemplateId')
-            ->withConsecutive($product)
+            ->withConsecutive([$product->getId()])
             ->willReturn($productTemplateId);
 
         $result = $this->strategy->calculate($product, $condition);
@@ -89,26 +88,26 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
         return [
             'HAS true' => [
                 'HAS',
-                'aaa',
-                'aaa',
+                new TemplateId('0e03f56c-7b1f-4ff6-9603-01a968a4d12f'),
+                new TemplateId('0e03f56c-7b1f-4ff6-9603-01a968a4d12f'),
                 true,
             ],
             'HAS false' => [
                 'HAS',
-                'aaa',
-                'ccc',
+                new TemplateId('0e03f56c-7b1f-4ff6-9603-01a968a4d12f'),
+                new TemplateId('35cb5027-544f-456b-8697-ce4b6932390b'),
                 false,
             ],
             'NOT_HAS false' => [
                 'NOT_HAS',
-                'aaa',
-                'aaa',
+                new TemplateId('0e03f56c-7b1f-4ff6-9603-01a968a4d12f'),
+                new TemplateId('0e03f56c-7b1f-4ff6-9603-01a968a4d12f'),
                 false,
             ],
             'NOT_HAS true' => [
                 'NOT_HAS',
-                'aaa',
-                'ccc',
+                new TemplateId('0e03f56c-7b1f-4ff6-9603-01a968a4d12f'),
+                new TemplateId('35cb5027-544f-456b-8697-ce4b6932390b'),
                 true,
             ],
         ];
@@ -132,16 +131,16 @@ class ProductHasTemplateConditionCalculatorStrategyTest extends TestCase
     }
 
     /**
-     * @param string $operator
-     * @param string $searchedTemplateName
+     * @param string     $operator
+     * @param TemplateId $searchedTemplateId
      *
      * @return ProductHasTemplateCondition|MockObject
      */
-    private function createProductHasTemplateConditionMock(string $operator, string $searchedTemplateName)
+    private function createProductHasTemplateConditionMock(string $operator, TemplateId $searchedTemplateId)
     {
         $mock = $this->createMock(ProductHasTemplateCondition::class);
         $mock->method('getOperator')->willReturn($operator);
-        $mock->method('getValue')->willReturn($searchedTemplateName);
+        $mock->method('getTemplateId')->willReturn($searchedTemplateId);
 
         return $mock;
     }

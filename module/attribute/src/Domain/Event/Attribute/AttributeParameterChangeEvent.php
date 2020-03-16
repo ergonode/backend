@@ -23,28 +23,28 @@ class AttributeParameterChangeEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private $id;
+    private AttributeId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $from;
+    private string $from;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private $to;
+    private string $to;
 
     /**
      * @param AttributeId $id

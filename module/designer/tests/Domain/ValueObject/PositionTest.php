@@ -45,10 +45,10 @@ class PositionTest extends TestCase
      *
      * @dataProvider getIncorrectDataProvider
      *
-     * @expectedException \InvalidArgumentException
      */
     public function testLessThenZeroValue(int $x, int $y): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new Position($x, $y);
     }
 

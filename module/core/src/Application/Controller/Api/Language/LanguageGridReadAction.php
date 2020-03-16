@@ -28,17 +28,17 @@ class LanguageGridReadAction
     /**
      * @var LanguageQueryInterface
      */
-    private $query;
+    private LanguageQueryInterface $query;
 
     /**
      * @var LanguageGrid
      */
-    private $languageGrid;
+    private LanguageGrid $languageGrid;
 
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @param GridRenderer           $gridRenderer

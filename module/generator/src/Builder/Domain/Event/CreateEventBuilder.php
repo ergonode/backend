@@ -24,17 +24,17 @@ class CreateEventBuilder implements BuilderInterface
     /**
      * @var FileBuilder
      */
-    private $builder;
+    private FileBuilder $builder;
 
     /**
      * @var MethodBuilder
      */
-    private $methodBuilder;
+    private MethodBuilder $methodBuilder;
 
     /**
      * @var PropertyBuilder
      */
-    private $propertyBuilder;
+    private PropertyBuilder $propertyBuilder;
 
     /**
      * @param FileBuilder     $builder

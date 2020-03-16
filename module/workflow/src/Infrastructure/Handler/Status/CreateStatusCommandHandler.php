@@ -20,12 +20,12 @@ class CreateStatusCommandHandler
     /**
      * @var StatusRepositoryInterface
      */
-    private $repository;
+    private StatusRepositoryInterface $repository;
 
     /**
      * @var StatusFactory
      */
-    private $factory;
+    private StatusFactory $factory;
 
     /**
      * @param StatusRepositoryInterface $repository

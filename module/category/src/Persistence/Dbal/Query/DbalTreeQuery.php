@@ -15,6 +15,7 @@ use Ergonode\Category\Domain\Query\TreeQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 
 /**
  */
@@ -66,6 +67,27 @@ class DbalTreeQuery implements TreeQueryInterface
             ->from(self::TREE_TABLE, 'c')
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return CategoryTreeId|null
+     */
+    public function findTreeIdByCode(string $code): ?CategoryTreeId
+    {
+        $qb = $this->getQuery();
+        $result = $qb->select('id')
+            ->where($qb->expr()->eq('code', ':code'))
+            ->setParameter(':code', $code)
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return new CategoryTreeId($result);
+        }
+
+        return null;
     }
 
     /**

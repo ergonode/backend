@@ -39,7 +39,7 @@ class UserTest extends TestCase
     private string $lastName;
 
     /**
-     * @var Email\MockObject
+     * @var Email|MockObject
      */
     private $email;
 
@@ -65,7 +65,7 @@ class UserTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->userId = $this->createMock(UserId::class);
         $this->firstName = 'Any first name';

@@ -33,25 +33,23 @@ use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 class AttributeCreateAction
 {
     /**
-     * @var MessageBusInterface
-     */
-    private $messageBus;
-
-    /**
      * @var FormFactoryInterface
      */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
-     * @param FormFactoryInterface $formFactory
+     * @var MessageBusInterface
      */
-    public function __construct(
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
-        $this->messageBus = $messageBus;
+    private MessageBusInterface $messageBus;
+
+    /**
+     * @param FormFactoryInterface $formFactory
+     * @param MessageBusInterface  $messageBus
+     */
+    public function __construct(FormFactoryInterface $formFactory, MessageBusInterface $messageBus)
+    {
         $this->formFactory = $formFactory;
+        $this->messageBus = $messageBus;
     }
 
     /**

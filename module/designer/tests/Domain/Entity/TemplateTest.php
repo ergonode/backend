@@ -45,7 +45,7 @@ class TemplateTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(TemplateId::class);
         $this->groupId = $this->createMock(TemplateGroupId::class);
@@ -81,10 +81,10 @@ class TemplateTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testAddExistsElement(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $template = $this->getTemplate();
 
         $template->addElement($this->element);
@@ -92,10 +92,10 @@ class TemplateTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testChangeElement(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $template = $this->getTemplate();
 
         $template->changeElement($this->element);
@@ -153,10 +153,10 @@ class TemplateTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testRemoveNotExistImage(): void
     {
+        $this->expectException(\RuntimeException::class);
         $template = $this->getTemplate();
         /** @var MultimediaId|MockObject $image */
         $template->removeImage();
@@ -198,10 +198,10 @@ class TemplateTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testRemoveNotExistDefaultText(): void
     {
+        $this->expectException(\RuntimeException::class);
         $template = $this->getTemplate();
         /** @var AttributeId|MockObject $defaultText */
         $template->removeDefaultText();
@@ -243,10 +243,10 @@ class TemplateTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testRemoveNotExistDefaultImage(): void
     {
+        $this->expectException(\RuntimeException::class);
         $template = $this->getTemplate();
         /** @var AttributeId|MockObject $defaultImage */
         $template->removeDefaultImage();

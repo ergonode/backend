@@ -18,29 +18,38 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TranslationDeeplFormModel
 {
     /**
-     * @var string
+     * @var string|null
      *
      * @Assert\NotBlank(message="Content to translation is required")
      * @Assert\Length(min="3", max="30000")
      */
-    public $content;
+    public ?string $content;
 
     /**
-     * @var Language
+     * @var Language|null
      *
      * @Assert\NotBlank(message="Source language is required")
      * @Assert\NotEqualTo(propertyPath="targetLanguage", message="Source language and target language can't be equal.")
      *
      * @DeeplAssert\DeeplLanguageConstraint()
      */
-    public $sourceLanguage;
+    public ?Language $sourceLanguage;
 
     /**
-     * @var Language
+     * @var Language|null
      *
      * @Assert\NotBlank(message="Target language is required")
      *
      * @DeeplAssert\DeeplLanguageConstraint()
      */
-    public $targetLanguage;
+    public ?Language $targetLanguage;
+
+    /**
+     */
+    public function __construct()
+    {
+        $this->content = null;
+        $this->sourceLanguage = null;
+        $this->targetLanguage = null;
+    }
 }

@@ -21,61 +21,61 @@ abstract class AbstractColumn implements ColumnInterface
     /**
      * @var string
      */
-    private $field;
+    private string $field;
 
     /**
      * @var string
      */
-    private $label;
+    private ?string $label;
 
     /**
      * @var FilterInterface|null
      */
-    private $filter;
+    private ?FilterInterface $filter;
 
     /**
      * @var bool
      */
-    private $visible = true;
+    private bool $visible = true;
 
     /**
      * @var bool
      */
-    private $editable = false;
+    private bool $editable = false;
 
     /**
      * @var bool
      */
-    private $deletable = false;
+    private bool $deletable = false;
 
     /**
-     * @var Language|null;
+     * @var Language|null
      */
-    private $language;
+    private ?Language $language = null;
 
     /**
      * @var string[]
      */
-    private $extensions;
+    private array $extensions;
 
     /**
-     * @var AbstractAttribute
+     * @var AbstractAttribute|null
      */
-    private $attribute;
-
-    /**
-     * @var string|null
-     */
-    private $suffix;
+    private ?AbstractAttribute $attribute = null;
 
     /**
      * @var string|null
      */
-    private $prefix;
+    private ?string $suffix = null;
+
+    /**
+     * @var string|null
+     */
+    private ?string $prefix = null;
 
     /**
      * @param string               $field
-     * @param string               $label
+     * @param string|null          $label
      * @param FilterInterface|null $filter
      */
     public function __construct(string $field, ?string $label = null, ?FilterInterface $filter = null)

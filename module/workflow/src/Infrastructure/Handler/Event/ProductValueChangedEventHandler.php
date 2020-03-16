@@ -16,13 +16,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
-use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Notification\StatusChangedNotification;
-use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Ergonode\Workflow\Infrastructure\Provider\UserIdsProvider;
 use Webmozart\Assert\Assert;
+use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 
 /**
  */
@@ -31,44 +29,44 @@ class ProductValueChangedEventHandler
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
-     * @var WorkflowRepositoryInterface
+     * @var WorkflowProvider
      */
-    private $workflowRepository;
+    private WorkflowProvider $workflowProvider;
 
     /**
      * @var UserIdsProvider
      */
-    private $userIdsProvider;
+    private UserIdsProvider $userIdsProvider;
 
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $userProvider;
+    private AuthenticatedUserProviderInterface $userProvider;
 
     /**
      * @var CommandBusInterface
      */
-    private $commandBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @param ProductRepositoryInterface         $productRepository
-     * @param WorkflowRepositoryInterface        $workflowRepository
+     * @param WorkflowProvider                   $workflowProvider
      * @param UserIdsProvider                    $userIdsProvider
      * @param AuthenticatedUserProviderInterface $userProvider
      * @param CommandBusInterface                $commandBus
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        WorkflowRepositoryInterface $workflowRepository,
+        WorkflowProvider $workflowProvider,
         UserIdsProvider $userIdsProvider,
         AuthenticatedUserProviderInterface $userProvider,
         CommandBusInterface $commandBus
     ) {
         $this->productRepository = $productRepository;
-        $this->workflowRepository = $workflowRepository;
+        $this->workflowProvider = $workflowProvider;
         $this->userIdsProvider = $userIdsProvider;
         $this->userProvider = $userProvider;
         $this->commandBus = $commandBus;
@@ -83,9 +81,7 @@ class ProductValueChangedEventHandler
     {
         $attributeCode = $event->getAttributeCode();
         if ($attributeCode->getValue() === StatusSystemAttribute::CODE) {
-            $workflowId = WorkflowId::fromCode(Workflow::DEFAULT);
-            $workflow = $this->workflowRepository->load($workflowId);
-            Assert::notNull($workflow);
+            $workflow = $this->workflowProvider->provide();
             $source = new StatusCode($event->getFrom()->getValue());
             $destination = new StatusCode($event->getTo()->getValue());
             if ($workflow->hasTransition($source, $destination)) {

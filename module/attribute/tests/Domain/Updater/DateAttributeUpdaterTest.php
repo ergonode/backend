@@ -28,7 +28,7 @@ class DateAttributeUpdaterTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->updateCommand = $this->createMock(UpdateAttributeCommand::class);
         $this->updateCommand->method('getParameter')->willReturn(DateFormat::YYYY_MM_DD);
@@ -54,7 +54,7 @@ class DateAttributeUpdaterTest extends TestCase
      */
     public function testUpdate(): void
     {
-        $this->updateCommand->method('hasParameter')->willReturn('true');
+        $this->updateCommand->method('hasParameter')->willReturn(true);
         $strategy = new DateAttributeUpdater();
         /** @var DateAttribute $attribute */
         $attribute = $this->createMock(DateAttribute::class);
@@ -64,10 +64,10 @@ class DateAttributeUpdaterTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      */
     public function testUpdateWithoutParameter(): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $attribute = $this->createMock(DateAttribute::class);
         $strategy = new DateAttributeUpdater();
         $strategy->update($attribute, $this->updateCommand);

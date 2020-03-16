@@ -21,7 +21,7 @@ class DeeplTranslationProvider implements TranslationProviderInterface
     /**
      * @var string
      */
-    private $deeplAuthKey;
+    private string $deeplAuthKey;
 
     /**
      * @param string $deeplAuthKey

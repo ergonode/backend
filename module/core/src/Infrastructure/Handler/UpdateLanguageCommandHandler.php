@@ -21,12 +21,12 @@ class UpdateLanguageCommandHandler
     /**
      * @var LanguageRepositoryInterface;
      */
-    private $repository;
+    private LanguageRepositoryInterface $repository;
 
     /**
      * @var LanguageQueryInterface
      */
-    private $query;
+    private LanguageQueryInterface $query;
 
     /**
      * @param LanguageRepositoryInterface $repository

@@ -20,7 +20,7 @@ class DbalDataSet extends AbstractDbalDataSet
     /**
      * @var QueryBuilder
      */
-    protected $queryBuilder;
+    protected QueryBuilder $queryBuilder;
 
     /**
      * @param QueryBuilder $queryBuilder

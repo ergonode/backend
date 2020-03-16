@@ -32,7 +32,7 @@ class CategorySystemAttributeColumnBuilderStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->query = $this->createMock(CategoryQueryInterface::class);
         $this->attribute = $this->createMock(CategorySystemAttribute::class);

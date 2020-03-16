@@ -88,7 +88,7 @@ class CreateTemplateCommand implements DomainCommandInterface
             'Template elements should by %2$s class. Got: %s'
         );
 
-        $this->templateId = TemplateId::fromKey($name);
+        $this->templateId = TemplateId::generate();
         $this->name = $name;
         $this->defaultText = $defaultText;
         $this->defaultImage = $defaultImage;

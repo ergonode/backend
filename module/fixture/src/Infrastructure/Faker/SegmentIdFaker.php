@@ -10,13 +10,15 @@ declare(strict_types = 1);
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
-use Ergonode\Segment\Domain\ValueObject\SegmentCode;
 use Faker\Provider\Base as BaseProvider;
+use Ramsey\Uuid\Uuid;
 
 /**
  */
 class SegmentIdFaker extends BaseProvider
 {
+    private const NAMESPACE = '9bf0935b-95e6-4808-9e47-f9b760a5ff5b';
+
     /**
      * @param string|null $code
      *
@@ -27,7 +29,7 @@ class SegmentIdFaker extends BaseProvider
     public function segmentId(?string $code = null): SegmentId
     {
         if ($code) {
-            return SegmentId::fromCode((new SegmentCode($code))->getValue());
+            return new SegmentId(Uuid::uuid5(self::NAMESPACE, $code)->toString());
         }
 
         return SegmentId::generate();

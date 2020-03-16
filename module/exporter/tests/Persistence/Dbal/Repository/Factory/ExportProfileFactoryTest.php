@@ -21,7 +21,7 @@ class ExportProfileFactoryTest extends TestCase
     /**
      * @var AbstractExportProfile
      */
-    private $testedClass;
+    private AbstractExportProfile $testedClass;
 
     /**
      * @var string
@@ -31,7 +31,7 @@ class ExportProfileFactoryTest extends TestCase
     /**
      * @return void
      */
-    protected function setUp():void
+    protected function setUp(): void
     {
         $this->name = 'any name';
 

@@ -23,12 +23,12 @@ class DeleteWorkflowCommandHandler
     /**
      * @var WorkflowRepositoryInterface
      */
-    private $repository;
+    private WorkflowRepositoryInterface $repository;
 
     /**
      * @var RelationshipsResolverInterface
      */
-    private $relationshipsResolver;
+    private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
      * @param WorkflowRepositoryInterface    $repository

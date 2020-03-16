@@ -16,10 +16,10 @@ use Ergonode\Reader\Infrastructure\ReaderProcessorInterface;
 class ReaderProcessorProviderTest extends TestCase
 {
     /**
-     * @expectedException \LogicException
      */
     public function testProviderNotFoundReader(): void
     {
+        $this->expectException(\LogicException::class);
         $provider = new ReaderProcessorProvider();
         $provider->provide('any reader');
     }

@@ -32,10 +32,10 @@ class TemplateElementCompletenessStrategyProviderTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
      */
     public function testProvidingNotSupportedStrategy(): void
     {
+        $this->expectException(\RuntimeException::class);
         /** @var TemplateElementCompletenessStrategyInterface|MockObject $strategy */
         $strategy = $this->createMock(TemplateElementCompletenessStrategyInterface::class);
         $strategy->method('supports')->willReturn(false);

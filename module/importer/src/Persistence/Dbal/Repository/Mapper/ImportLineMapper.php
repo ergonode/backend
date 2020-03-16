@@ -22,11 +22,18 @@ class ImportLineMapper
      */
     public function map(ImportLine $importLine): array
     {
+        $importId = $importLine->getImportId()->getValue();
+        $processedAt = $importLine->getProcessedAt();
+        $line = $importLine->getLine();
+        $step = $importLine->getStep();
+        $error = $importLine->getError();
+
         return [
-            'import_id' => $importLine->getImportId()->getValue(),
-            'line' => $importLine->getLine(),
-            'content' => $importLine->getContent(),
-            'message' => $importLine->getError(),
+            'import_id' => $importId,
+            'line' => $line,
+            'step' => $step,
+            'processed_at' => $processedAt ? $processedAt->format('Y-m-d H:i:s') : null,
+            'message' => $error,
         ];
     }
 }

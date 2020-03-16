@@ -34,7 +34,7 @@ class ResponseFormatterListenerTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->serializer = $this->createMock(SerializerInterface::class);
         $this->event = $this->createMock(ResponseEvent::class);

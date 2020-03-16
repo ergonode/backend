@@ -26,6 +26,7 @@ use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\Service\StatusCalculationService;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Webmozart\Assert\Assert;
+use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 
 /**
  */
@@ -34,44 +35,44 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
     /**
      * @var GetProductQueryInterface
      */
-    private $query;
+    private GetProductQueryInterface $query;
 
     /**
-     * @var WorkflowRepositoryInterface
+     * @var WorkflowProvider
      */
-    private $workflowRepository;
+    private WorkflowProvider $workflowProvider;
 
     /**
      * @var ProductRepositoryInterface
      */
-    private $productRepository;
+    private ProductRepositoryInterface $productRepository;
 
     /**
      * @var StatusRepositoryInterface
      */
-    private $statusRepository;
+    private StatusRepositoryInterface $statusRepository;
 
     /**
      * @var StatusCalculationService
      */
-    private $service;
+    private StatusCalculationService $service;
 
     /**
-     * @param GetProductQueryInterface    $query
-     * @param WorkflowRepositoryInterface $workflowRepository
-     * @param ProductRepositoryInterface  $productRepository
-     * @param StatusRepositoryInterface   $statusRepository
-     * @param StatusCalculationService    $service
+     * @param GetProductQueryInterface   $query
+     * @param WorkflowProvider           $workflowProvider
+     * @param ProductRepositoryInterface $productRepository
+     * @param StatusRepositoryInterface  $statusRepository
+     * @param StatusCalculationService   $service
      */
     public function __construct(
         GetProductQueryInterface $query,
-        WorkflowRepositoryInterface $workflowRepository,
+        WorkflowProvider $workflowProvider,
         ProductRepositoryInterface $productRepository,
         StatusRepositoryInterface $statusRepository,
         StatusCalculationService $service
     ) {
         $this->query = $query;
-        $this->workflowRepository = $workflowRepository;
+        $this->workflowProvider = $workflowProvider;
         $this->productRepository = $productRepository;
         $this->statusRepository = $statusRepository;
         $this->service = $service;
@@ -87,8 +88,7 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
      */
     public function query(ProductId $productId, Language $language): array
     {
-        $workflow = $this->workflowRepository->load(WorkflowId::fromCode(Workflow::DEFAULT));
-        Assert::notNull($workflow);
+        $workflow = $this->workflowProvider->provide();
 
         $product = $this->productRepository->load($productId);
         Assert::notNull($product);

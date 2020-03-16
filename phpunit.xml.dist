@@ -1,39 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.1/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="vendor/autoload.php"
+         bootstrap="tests/bootstrap.php"
 >
     <php>
         <ini name="error_reporting" value="-1" />
-        <env name="KERNEL_CLASS" value="App\Kernel" />
-        <env name="APP_ENV" value="test" />
-        <env name="APP_DEBUG" value="1" />
-        <env name="APP_SECRET" value="s$cretf0rt3st" />
-        <env name="SHELL_VERBOSITY" value="-1" />
-        <env name="JWT_PRIVATE_KEY_PATH" value="config/jwt/private.pem"/>
-        <env name="JWT_PUBLIC_KEY_PATH" value="config/jwt/public.pem"/>
-        <env name="JWT_PASSPHRASE" value="b6fd44d9376e585e5309b9c3175acb9a"/>
-        <env name="CORS_ALLOW_ORIGIN" value="^https?://localhost(:[0-9]+)?$"/>
+        <server name="APP_ENV" value="test" force="true" />
+        <server name="SHELL_VERBOSITY" value="-1" />
     </php>
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>./tests/</directory>
-            <directory>./module/*/tests</directory>
+            <directory>tests</directory>
+            <directory>module/*/tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
-        <whitelist>
-            <directory>./module/*/src/Application</directory>
-            <directory>./module/*/src/Domain</directory>
-            <directory>./module/*/src/Infrastructure</directory>
-            <directory>./module/grid/src/*</directory>
-            <directory>./src/</directory>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory>module/*/src/Application</directory>
+            <directory>module/*/src/Domain</directory>
+            <directory>module/*/src/Infrastructure</directory>
+            <directory>module/grid/src/*</directory>
+            <directory suffix=".php">src</directory>
             <exclude>
                 <directory suffix="Kernel.php">./src</directory>
                 <directory>./module/*/src/Application/Controller</directory>
@@ -42,7 +35,6 @@
             </exclude>
         </whitelist>
     </filter>
-
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>

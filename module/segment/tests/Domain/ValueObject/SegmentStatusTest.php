@@ -66,10 +66,10 @@ class SegmentStatusTest extends TestCase
      *
      * @dataProvider inValidDataProvider
      *
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidData(string $status): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new SegmentStatus($status);
     }
 
@@ -78,10 +78,10 @@ class SegmentStatusTest extends TestCase
      *
      * @dataProvider inValidDataProvider
      *
-     * @expectedException \InvalidArgumentException
      */
     public function testEquality(string $status): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         $status1 = new SegmentStatus(SegmentStatus::CALCULATED);
         $status2 = new SegmentStatus(SegmentStatus::CALCULATED);
         $status3 = new SegmentStatus(SegmentStatus::OUTDATED);
@@ -117,7 +117,7 @@ class SegmentStatusTest extends TestCase
         return [
             [''],
             ['not exists status'],
-            [123],
+            ['123'],
             ['!@#)(*&(^^*^('],
         ];
     }

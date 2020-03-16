@@ -24,7 +24,7 @@ class TransitionChangeFormModel
      *     @Assert\Length(max=100, maxMessage="Status name is to long, It should have {{ limit }} character or less.")
      * })
      */
-    public $name;
+    public array $name;
 
     /**
      * @var array
@@ -37,12 +37,12 @@ class TransitionChangeFormModel
      *  )
      * })
      */
-    public $description;
+    public array $description;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public $conditionSet;
+    public ?string $conditionSet;
 
     /**
      * @var array
@@ -55,12 +55,15 @@ class TransitionChangeFormModel
      *
      * })
      */
-    public $roles;
+    public array $roles;
 
     /**
      */
     public function __construct()
     {
+        $this->name = [];
+        $this->description = [];
+        $this->conditionSet = null;
         $this->roles = [];
     }
 }

@@ -16,18 +16,18 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 class SkuValidatorTest extends ConstraintValidatorTestCase
 {
     /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongValueProvided(): void
     {
+        $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate(new \stdClass(), new Sku());
     }
 
     /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongConstraintProvided(): void
     {
+        $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         $this->validator->validate('Value', $this->createMock(Constraint::class));
     }
 

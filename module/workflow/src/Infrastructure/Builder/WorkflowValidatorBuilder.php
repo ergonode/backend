@@ -16,17 +16,12 @@ use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  */
 class WorkflowValidatorBuilder
 {
     public const UNIQUE_WORKFLOW = 'WorkflowExists';
-
-    public const GROUPS = [
-        self::UNIQUE_WORKFLOW,
-    ];
 
     /**
      * @param array $data

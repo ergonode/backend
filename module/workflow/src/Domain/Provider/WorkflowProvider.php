@@ -10,9 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Provider;
 
 use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Factory\WorkflowFactory;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
+use Ergonode\Workflow\Domain\Query\WorkflowQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 
 /**
  */
@@ -21,21 +22,31 @@ class WorkflowProvider
     /**
      * @var WorkflowRepositoryInterface
      */
-    private $repository;
+    private WorkflowRepositoryInterface $repository;
 
     /**
      * @var WorkflowFactory
      */
-    private $factory;
+    private WorkflowFactory $factory;
+
+    /**
+     * @var WorkflowQueryInterface
+     */
+    private WorkflowQueryInterface $query;
 
     /**
      * @param WorkflowRepositoryInterface $repository
      * @param WorkflowFactory             $factory
+     * @param WorkflowQueryInterface      $query
      */
-    public function __construct(WorkflowRepositoryInterface $repository, WorkflowFactory $factory)
-    {
+    public function __construct(
+        WorkflowRepositoryInterface $repository,
+        WorkflowFactory $factory,
+        WorkflowQueryInterface $query
+    ) {
         $this->repository = $repository;
         $this->factory = $factory;
+        $this->query = $query;
     }
 
     /**
@@ -47,11 +58,15 @@ class WorkflowProvider
      */
     public function provide(string $code = Workflow::DEFAULT): Workflow
     {
-        $id = WorkflowId::fromCode($code);
+        $workflow = null;
+        $id = $this->query->findWorkflowIdByCode($code);
 
-        $workflow = $this->repository->load($id);
-        if (null === $workflow) {
-            $workflow = $this->factory->create($id, $code);
+        if ($id) {
+            $workflow = $this->repository->load($id);
+        }
+
+        if (!$workflow) {
+            $workflow = $this->factory->create(WorkflowId::generate(), $code);
             $this->repository->save($workflow);
         }
 

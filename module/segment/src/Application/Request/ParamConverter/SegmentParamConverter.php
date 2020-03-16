@@ -25,7 +25,7 @@ class SegmentParamConverter implements ParamConverterInterface
     /**
      * @var SegmentRepositoryInterface
      */
-    private $repository;
+    private SegmentRepositoryInterface $repository;
 
     /**
      * @param SegmentRepositoryInterface $repository

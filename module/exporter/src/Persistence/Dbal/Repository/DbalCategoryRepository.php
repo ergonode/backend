@@ -32,7 +32,6 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     private SerializerInterface $serializer;
 
     /**
-     * DbalCategoryRepository constructor.
      * @param Connection          $connection
      * @param SerializerInterface $serializer
      */
@@ -72,6 +71,7 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
             self::TABLE_CATEGORY,
             [
                 'data' => $this->serializer->serialize($category, 'json'),
+                'code' => $category->getCode(),
             ],
             [
                 'id' => $category->getId()->toString(),

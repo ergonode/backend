@@ -21,10 +21,10 @@ class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
 {
 
     /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
      */
     public function testWrongConstraintProvided(): void
     {
+        $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         /** @var Constraint $constrain */
         $constrain = $this->createMock(Constraint::class);
         $this->validator->validate(Language::fromString('EN'), $constrain);

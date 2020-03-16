@@ -21,11 +21,11 @@ class MultimediaExistsValidatorTest extends ConstraintValidatorTestCase
     /**
      * @var MultimediaRepositoryInterface
      */
-    private $repository;
+    private MultimediaRepositoryInterface $repository;
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repository = $this->createMock(MultimediaRepositoryInterface::class);
         parent::setUp();

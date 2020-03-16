@@ -22,21 +22,21 @@ class UnitHandlerTest extends TestCase
     /**
      * @var UnitHandler
      */
-    private $handler;
+    private UnitHandler $handler;
 
     /**
      * @var SerializationVisitorInterface
      */
-    private $serializerVisitor;
+    private SerializationVisitorInterface $serializerVisitor;
 
     /**
      * @var DeserializationVisitorInterface
      */
-    private $deserializerVisitor;
+    private DeserializationVisitorInterface $deserializerVisitor;
     /**
      * @var Context
      */
-    private $context;
+    private Context $context;
 
     /**
      */

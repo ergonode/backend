@@ -23,7 +23,7 @@ class AttributeDeletedEvent extends AbstractDeleteEvent
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private $id;
+    private AttributeId $id;
 
     /**
      * @param AttributeId $id

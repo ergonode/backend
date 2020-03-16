@@ -23,7 +23,7 @@ abstract class AbstractCode
      *
      * @JMS\Type("string")
      */
-    private $value;
+    private string $value;
 
     /**
      * @param string $value

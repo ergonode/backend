@@ -34,22 +34,22 @@ class MultimediaController extends AbstractController
     /**
      * @var MultimediaFileProviderInterface
      */
-    private $fileProvider;
+    private MultimediaFileProviderInterface $fileProvider;
 
     /**
      * @var MultimediaQueryInterface
      */
-    private $query;
+    private MultimediaQueryInterface $query;
 
     /**
      * @var HashCalculationServiceInterface
      */
-    private $hashService;
+    private HashCalculationServiceInterface $hashService;
 
     /**
      * @var CommandBusInterface
      */
-    private $commandBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @param MultimediaFileProviderInterface $fileProvider
@@ -109,7 +109,6 @@ class MultimediaController extends AbstractController
             } else {
                 $command = new AddMultimediaCommand(MultimediaId::generate(), $uploadModel->upload);
                 $this->commandBus->dispatch($command);
-
                 $response = new CreatedResponse($command->getId());
             }
         } else {

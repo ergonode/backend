@@ -38,7 +38,7 @@ class DeleteSegmentCommandHandlerTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->command = $this->createMock(DeleteSegmentCommand::class);
         $this->repository = $this->createMock(SegmentRepositoryInterface::class);

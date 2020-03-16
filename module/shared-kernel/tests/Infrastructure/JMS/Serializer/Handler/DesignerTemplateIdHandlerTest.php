@@ -25,17 +25,17 @@ class DesignerTemplateIdHandlerTest extends TestCase
     /**
      * @var SerializationVisitorInterface
      */
-    private $serializeVisitor;
+    private SerializationVisitorInterface $serializeVisitor;
 
     /**
      * @var DeserializationVisitorInterface
      */
-    private $deserializeVisitor;
+    private DeserializationVisitorInterface $deserializeVisitor;
 
     /**
      * @var Context
      */
-    private $context;
+    private Context $context;
 
     /**
      */

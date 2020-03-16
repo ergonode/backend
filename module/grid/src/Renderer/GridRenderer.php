@@ -22,17 +22,17 @@ class GridRenderer
     /**
      * @var ColumnRenderer
      */
-    private $columnRenderer;
+    private ColumnRenderer $columnRenderer;
 
     /**
      * @var RowRendererInterface
      */
-    private $rowRenderer;
+    private RowRendererInterface $rowRenderer;
 
     /**
      * @var InfoRender
      */
-    private $infoRenderer;
+    private InfoRender $infoRenderer;
 
     /**
      * @param ColumnRenderer       $columnRenderer

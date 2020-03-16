@@ -22,12 +22,12 @@ class AttributeGroupType extends AbstractType
     /**
      * @var AttributeGroupDictionaryProvider
      */
-    private $provider;
+    private AttributeGroupDictionaryProvider $provider;
 
     /**
      * @var AuthenticatedUserProviderInterface
      */
-    private $userProvider;
+    private AuthenticatedUserProviderInterface $userProvider;
 
     /**
      * @param AttributeGroupDictionaryProvider   $provider

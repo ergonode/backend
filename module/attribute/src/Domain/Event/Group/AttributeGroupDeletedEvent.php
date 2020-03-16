@@ -9,7 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Event\Group;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
-
 use Ergonode\EventSourcing\Infrastructure\AbstractDeleteEvent;
 use JMS\Serializer\Annotation as JMS;
 
@@ -22,7 +21,7 @@ class AttributeGroupDeletedEvent extends AbstractDeleteEvent
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId")
      */
-    private $id;
+    private AttributeGroupId $id;
 
     /**
      * @param AttributeGroupId $id

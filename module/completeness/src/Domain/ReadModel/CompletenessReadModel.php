@@ -21,28 +21,28 @@ class CompletenessReadModel
      *
      * @JMS\Type("integer")
      */
-    private $required;
+    private int $required;
 
     /**
      * @var int
      *
      * @JMS\Type("integer")
      */
-    private $filled;
+    private int $filled;
 
     /**
      * @var array
      *
      * @JMS\Type("array<Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel>")
      */
-    private $missing;
+    private array $missing;
 
     /**
      * @var Language
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
-    private $language;
+    private Language $language;
 
     /**
      * @param Language $language

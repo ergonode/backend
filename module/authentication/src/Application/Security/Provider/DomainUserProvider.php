@@ -25,7 +25,7 @@ class DomainUserProvider implements UserProviderInterface
     /**
      * @var UserRepositoryInterface
      */
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
     /**
      * @param UserRepositoryInterface $userRepository

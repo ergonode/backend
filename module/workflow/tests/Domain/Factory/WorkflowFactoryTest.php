@@ -26,11 +26,11 @@ class WorkflowFactoryTest extends TestCase
     /**
      * @var string
      */
-    private $code;
+    private string $code;
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->id = $this->createMock(WorkflowId::class);
         $this->code = 'Any code';

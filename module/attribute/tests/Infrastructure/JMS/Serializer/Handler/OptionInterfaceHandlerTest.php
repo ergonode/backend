@@ -27,7 +27,7 @@ class OptionInterfaceHandlerTest extends TestCase
     /**
      * @var SerializerInterface
      */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      */

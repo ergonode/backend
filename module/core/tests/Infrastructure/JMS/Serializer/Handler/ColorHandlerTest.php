@@ -23,22 +23,22 @@ class ColorHandlerTest extends TestCase
     /**
      * @var ColorHandler
      */
-    private $handler;
+    private ColorHandler $handler;
 
     /**
      * @var SerializationVisitorInterface
      */
-    private $serializationVisitor;
+    private SerializationVisitorInterface $serializationVisitor;
 
     /**
      * @var DeserializationVisitorInterface
      */
-    private $deserializationVisitor;
+    private DeserializationVisitorInterface $deserializationVisitor;
 
     /**
      * @var Context
      */
-    private $context;
+    private Context $context;
 
     /**
      */

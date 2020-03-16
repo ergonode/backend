@@ -39,7 +39,6 @@ class HashTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      *
      * @param string $data
      *
@@ -47,6 +46,7 @@ class HashTest extends TestCase
      */
     public function testNotValidHashCreation(string $data): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new Hash($data);
     }
 

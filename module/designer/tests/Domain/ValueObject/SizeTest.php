@@ -46,10 +46,10 @@ class SizeTest extends TestCase
      *
      * @dataProvider getIncorrectDataProvider
      *
-     * @expectedException \InvalidArgumentException
      */
     public function testLessThenZeroValue(int $width, int $height): void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new Size($width, $height);
     }
 

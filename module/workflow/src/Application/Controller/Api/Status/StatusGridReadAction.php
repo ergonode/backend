@@ -33,17 +33,17 @@ class StatusGridReadAction
     /**
      * @var GridRenderer
      */
-    private $gridRenderer;
+    private GridRenderer $gridRenderer;
 
     /**
      * @var StatusQueryInterface
      */
-    private $query;
+    private StatusQueryInterface $query;
 
     /**
      * @var StatusGrid
      */
-    private $grid;
+    private StatusGrid $grid;
 
     /**
      * @param GridRenderer         $gridRenderer

@@ -18,7 +18,6 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
@@ -32,42 +31,42 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     /**
      * @var AttributeId
      */
-    protected $id;
+    protected AttributeId $id;
 
     /**
      * @var AttributeCode
      */
-    protected $code;
+    protected AttributeCode $code;
 
     /**
      * @var TranslatableString
      */
-    protected $label;
+    protected TranslatableString $label;
 
     /**
      * @var TranslatableString
      */
-    protected $hint;
+    protected TranslatableString $hint;
 
     /**
      * @var bool
      */
-    protected $multilingual;
+    protected bool $multilingual;
 
     /**
      * @var TranslatableString
      */
-    protected $placeholder;
+    protected TranslatableString $placeholder;
 
     /**
      * @var array
      */
-    protected $groups;
+    protected array $groups;
 
     /**
      * @var array
      */
-    protected $parameters;
+    protected array $parameters;
 
     /**
      * @param AttributeId        $id

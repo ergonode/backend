@@ -18,7 +18,7 @@ class TemplateElementCompletenessStrategyProvider
     /**
      * @var TemplateElementCompletenessStrategyInterface[]
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param TemplateElementCompletenessStrategyInterface ...$strategies

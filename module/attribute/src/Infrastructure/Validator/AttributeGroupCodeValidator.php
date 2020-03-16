@@ -21,7 +21,7 @@ class AttributeGroupCodeValidator extends ConstraintValidator
     /**
      * @var AttributeGroupQueryInterface
      */
-    private $query;
+    private AttributeGroupQueryInterface $query;
 
     /**
      * @param AttributeGroupQueryInterface $query

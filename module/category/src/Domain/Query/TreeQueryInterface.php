@@ -11,6 +11,7 @@ namespace Ergonode\Category\Domain\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 
 /**
  */
@@ -29,4 +30,11 @@ interface TreeQueryInterface
      * @return array
      */
     public function getDictionary(Language $language): array;
+
+    /**
+     * @param string $code
+     *
+     * @return CategoryTreeId|null
+     */
+    public function findTreeIdByCode(string $code): ?CategoryTreeId;
 }

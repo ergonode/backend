@@ -24,7 +24,7 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
     /**
      * @var AttributeQueryInterface
      */
-    private $query;
+    private AttributeQueryInterface $query;
 
     /**
      * @param AttributeQueryInterface $query

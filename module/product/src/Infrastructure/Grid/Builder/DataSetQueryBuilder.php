@@ -20,7 +20,7 @@ class DataSetQueryBuilder
     /**
      * @var AttributeDataSetQueryBuilderInterface[]
      */
-    private $strategies;
+    private array $strategies;
 
     /**
      * @param AttributeDataSetQueryBuilderInterface ...$strategies

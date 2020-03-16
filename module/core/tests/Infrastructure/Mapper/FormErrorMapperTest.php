@@ -23,7 +23,7 @@ class FormErrorMapperTest extends TestCase
     /**
      * @var FormErrorMapperMessageProvider
      */
-    private $provider;
+    private FormErrorMapperMessageProvider $provider;
 
     /**
      * @var FormInterface|MockObject
@@ -33,7 +33,7 @@ class FormErrorMapperTest extends TestCase
     /**
      * @var FormErrorMapper
      */
-    private $mapper;
+    private FormErrorMapper $mapper;
 
     /**
      * @var FormInterface|MockObject
@@ -47,7 +47,7 @@ class FormErrorMapperTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->provider = $this->createMock(FormErrorMapperMessageProvider::class);
         $this->provider->method('getMessage')->willReturn('Very serious error');

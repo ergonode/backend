@@ -20,12 +20,12 @@ class TranslatableColumn extends AbstractColumn
     /**
      * @var string|null
      */
-    private $parameters;
+    private ?string $parameters;
 
     /**
      * @var string|null
      */
-    private $domain;
+    private ?string $domain;
 
     /**
      * @param string      $field

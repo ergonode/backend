@@ -29,7 +29,7 @@ class TextAreaAttributeColumnStrategyTest extends TestCase
 
     /**
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->attribute = $this->createMock(TextareaAttribute::class);
         $this->attribute->method('getId')->willReturn($this->createMock(AttributeId::class));
