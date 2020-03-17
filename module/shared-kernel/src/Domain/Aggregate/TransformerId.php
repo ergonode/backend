@@ -15,15 +15,4 @@ use Ergonode\SharedKernel\Domain\AggregateId;
  */
 class TransformerId extends AggregateId
 {
-    public const NAMESPACE = '9bbd658e-f383-4af3-8e07-308bf3375827';
-
-    /**
-     * @param string $value
-     *
-     * @return TransformerId
-     */
-    public static function fromKey(string $value): TransformerId
-    {
-        return new static(self::generateIdentifier(self::NAMESPACE, $value)->getValue());
-    }
 }
