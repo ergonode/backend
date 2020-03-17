@@ -59,7 +59,7 @@ class ProductBelongCategoryTreeConditionCalculatorStrategyTest extends TestCase
         $configuration
             ->expects($this->once())
             ->method('getTree')
-            ->willReturn($this->createMock(CategoryTreeId::class));
+            ->willReturn([$this->createMock(CategoryTreeId::class)]);
 
         $this
             ->repository

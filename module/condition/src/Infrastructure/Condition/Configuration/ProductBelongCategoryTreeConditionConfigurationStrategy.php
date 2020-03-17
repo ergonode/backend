@@ -71,7 +71,7 @@ class ProductBelongCategoryTreeConditionConfigurationStrategy implements Conditi
             'parameters' => [
                 [
                     'name' => 'tree',
-                    'type' => 'SELECT',
+                    'type' => 'MULTI_SELECT',
                     'options' => $tree,
                 ],
                 [

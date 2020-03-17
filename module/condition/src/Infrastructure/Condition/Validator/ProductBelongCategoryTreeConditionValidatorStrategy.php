@@ -12,9 +12,7 @@ use Ergonode\Category\Infrastructure\Validator\CategoryTreeExists;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryTreeCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\Choice;
-use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
@@ -33,15 +31,21 @@ class ProductBelongCategoryTreeConditionValidatorStrategy implements ConditionVa
      */
     public function build(array $data): Constraint
     {
-        return new Collection(
+        return new Assert\Collection(
             [
                 'tree' => [
-                    new NotBlank(),
-                    new CategoryTreeExists(),
+                    new Assert\NotBlank(),
+                    new Assert\Type('array'),
+                    new Assert\Count(['min' => 1]),
+                    new Assert\All(
+                        [
+                            new CategoryTreeExists(),
+                        ]
+                    ),
                 ],
                 'operator' => [
-                    new NotBlank(),
-                    new Choice(
+                    new Assert\NotBlank(),
+                    new Assert\Choice(
                         [
                             ProductBelongCategoryTreeCondition::BELONG_TO,
                             ProductBelongCategoryTreeCondition::NOT_BELONG_TO,
