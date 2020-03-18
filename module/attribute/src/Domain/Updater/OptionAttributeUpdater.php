@@ -47,7 +47,6 @@ class OptionAttributeUpdater implements AttributeUpdaterInterface
      */
     public function update(AbstractAttribute $attribute, UpdateAttributeCommand $command): AbstractAttribute
     {
-
         foreach ($command->getOptions() as $key => $option) {
             $key = new OptionKey((string) $key);
 
@@ -66,9 +65,15 @@ class OptionAttributeUpdater implements AttributeUpdaterInterface
             }
         }
 
+        $options = [];
+        foreach ($command->getOptions() as $key => $option) {
+            $new = new OptionKey($key);
+            $options[$new->getValue()] = $option;
+        }
+
         foreach ($attribute->getOptions() as $key => $option) {
             $key = new OptionKey((string) $key);
-            if (!array_key_exists($key->getValue(), $command->getOptions())) {
+            if (!array_key_exists($key->getValue(), $options)) {
                 $attribute->removeOption($key);
             }
         }

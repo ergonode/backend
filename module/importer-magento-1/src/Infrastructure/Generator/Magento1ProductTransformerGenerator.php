@@ -19,6 +19,7 @@ use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyIn
 use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 
 /**
  */
@@ -90,6 +91,20 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
             NumericAttribute::TYPE,
             false,
             new TextConverter('weight')
+        );
+
+        $transformer->addAttribute(
+            'dog_size',
+            SelectAttribute::TYPE,
+            false,
+            new TextConverter('dog_size')
+        );
+
+        $transformer->addAttribute(
+            'dog_age',
+            SelectAttribute::TYPE,
+            false,
+            new TextConverter('dog_age')
         );
 
         return $transformer;

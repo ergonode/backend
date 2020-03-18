@@ -99,5 +99,7 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
             $this->repository->save($line);
             $this->commandBus->dispatch($command);
         }
+
+        echo print_r('SEND TEMPLATES  '.$i, true).PHP_EOL;
     }
 }
