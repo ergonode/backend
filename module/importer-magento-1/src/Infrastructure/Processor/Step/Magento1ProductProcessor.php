@@ -16,7 +16,6 @@ use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Transformer\Infrastructure\Action\ProductImportAction;
@@ -29,11 +28,15 @@ use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 use Doctrine\DBAL\DBALException;
+use Ramsey\Uuid\Uuid;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
 class Magento1ProductProcessor implements Magento1ProcessorStepInterface
 {
+    private const NAMESPACE = 'e1f84ee9-14f2-4e52-981a-b6b82006ada8';
+
     /**
      * @var ImportLineRepositoryInterface
      */
@@ -132,7 +135,8 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                         $record->setValue($field, new Stringvalue($value));
                     } elseif (ImageAttribute::TYPE === $type) {
                         if ($source->import(Magento1CsvSource::MULTIMEDIA)) {
-                            $multimediaId = MultimediaId::fromKey($source->getHost().$value);
+                            $uuid  = Uuid::uuid5(self::NAMESPACE, $source->getHost().$value)->toString();
+                            $multimediaId = new MultimediaId($uuid);
                             $record->setValue($field, new Stringvalue($multimediaId->getValue()));
                         }
                     } elseif ($isMultilingual) {

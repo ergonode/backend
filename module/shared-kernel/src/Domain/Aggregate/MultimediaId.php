@@ -15,15 +15,4 @@ use Ergonode\SharedKernel\Domain\AggregateId;
  */
 class MultimediaId extends AggregateId
 {
-    public const NAMESPACE = '690c9b97-57bc-4c71-9b62-37093c578836';
-
-    /**
-     * @param string $value
-     *
-     * @return MultimediaId
-     */
-    public static function fromKey(string $value):MultimediaId
-    {
-        return new static(self::generateIdentifier(self::NAMESPACE, $value)->getValue());
-    }
 }
