@@ -120,6 +120,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
      */
     private function getRecord(ProductModel $product, Transformer $transformer, Magento1CsvSource $source): Record
     {
+
         $default = $product->get('default');
 
         $record = new Record();
@@ -135,7 +136,8 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                         $record->setValue($field, new Stringvalue($value));
                     } elseif (ImageAttribute::TYPE === $type) {
                         if ($source->import(Magento1CsvSource::MULTIMEDIA)) {
-                            $uuid  = Uuid::uuid5(self::NAMESPACE, $source->getHost().$value)->toString();
+                            $url = $source->getHost().$value;
+                            $uuid  = Uuid::uuid5(self::NAMESPACE, $url)->toString();
                             $multimediaId = new MultimediaId($uuid);
                             $record->setValue($field, new Stringvalue($multimediaId->getValue()));
                         }

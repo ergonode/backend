@@ -74,7 +74,7 @@ class MultimediaParamConverter implements ParamConverterInterface
             throw new NotFoundHttpException(sprintf('Multimedia by ID "%s" not found', $parameter));
         }
 
-        $file = $this->fileProvider->getFile($entity);
+        $file = $this->fileProvider->getFile($entity->getFileName());
 
         if (!$this->fileExistCheckService->check($file)) {
             throw new ConflictHttpException('The file does not exist.');

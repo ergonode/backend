@@ -85,7 +85,7 @@ class Multimedia extends AbstractAggregateRoot
      */
     public function getFileName(): string
     {
-        return sprintf('%s.%s', $this->id, $this->extension);
+        return sprintf('%s.%s', $this->hash, $this->extension);
     }
 
     /**

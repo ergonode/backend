@@ -18,14 +18,11 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ramsey\Uuid\Uuid;
 
 /**
  */
 class MultimediaImportAction implements ImportActionInterface
 {
-    private const NAMESPACE = 'e1f84ee9-14f2-4e52-981a-b6b82006ada8';
-
     public const TYPE = 'MULTIMEDIA';
 
     public const ID_FIELD = 'id';
@@ -91,15 +88,15 @@ class MultimediaImportAction implements ImportActionInterface
 
         if (!$multimedia) {
             try {
-                $content = file_get_contents($url);
+                $content = file_get_contents('http://www.kinosfinks.pl/images/movie/thumb/rcevfiy2trbekhgw.jpg');
                 $filePath = sprintf('%s/%s', $cacheDir, $name);
                 $this->saveFile($filePath, $content);
                 $file = new File($filePath);
-                $uuid  = Uuid::uuid5(self::NAMESPACE, $url);
-                $multimediaId = new MultimediaId($uuid);
+                $multimediaId = new MultimediaId($id->getValue());
                 $command = new AddMultimediaCommand($multimediaId, $file);
                 $this->commandBus->dispatch($command);
             } catch (\Throwable $exception) {
+                echo $exception->getMessage();
             }
         }
     }
