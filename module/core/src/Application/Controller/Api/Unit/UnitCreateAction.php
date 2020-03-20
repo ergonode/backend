@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Core\Application\Controller\Api\Unit;
+
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Core\Application\Form\UnitCreateForm;
+use Ergonode\Core\Application\Model\UnitCreateFormModel;
+use Ergonode\Core\Domain\Command\CreateUnitCommand;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * @Route(
+ *     name="ergonode_unit_create",
+ *     path="/units",
+ *     methods={"POST"}
+ * )
+ */
+class UnitCreateAction
+{
+    /**
+     * @var CommandBusInterface
+     */
+    private CommandBusInterface $commandBus;
+
+    /**
+     * @var FormFactoryInterface
+     */
+    private FormFactoryInterface $formFactory;
+
+    /**
+     * @param CommandBusInterface  $commandBus
+     * @param FormFactoryInterface $formFactory
+     */
+    public function __construct(
+        CommandBusInterface $commandBus,
+        FormFactoryInterface $formFactory
+    )
+    {
+        $this->commandBus = $commandBus;
+        $this->formFactory = $formFactory;
+    }
+
+    /**
+     * @IsGranted("SETTINGS_CREATE")
+     *
+     * @SWG\Tag(name="Unit")
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     description="Language code",
+     *     default="EN"
+     * )
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="body",
+     *     description="Add unit",
+     *     required=true,
+     *     @SWG\Schema(ref="#/definitions/unit")
+     * )
+     * @SWG\Response(
+     *     response=201,
+     *     description="Returns unit ID",
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Validation error",
+     *     @SWG\Schema(ref="#/definitions/validation_error_response")
+     * )
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws \Exception
+     */
+    public function __invoke(Request $request): Response
+    {
+        try {
+            $model = new UnitCreateFormModel();
+            $form = $this->formFactory->create(UnitCreateForm::class, $model);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                /** @var UnitCreateFormModel $data */
+                $data = $form->getData();
+                $command = new CreateUnitCommand(
+                    $data->name,
+                    $data->symbol
+                );
+                $this->commandBus->dispatch($command);
+
+                return new CreatedResponse($command->getId());
+            }
+        } catch (InvalidPropertyPathException $exception) {
+            throw new BadRequestHttpException('Invalid JSON format');
+        }
+
+        throw new FormValidationHttpException($form);
+    }
+}

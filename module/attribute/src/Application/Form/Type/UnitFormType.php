@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Form\Type;
 
-use Ergonode\Attribute\Domain\Query\UnitQueryInterface;
+use Ergonode\Core\Domain\Query\UnitQueryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;

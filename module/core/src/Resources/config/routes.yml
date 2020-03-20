@@ -7,3 +7,8 @@ ergonode_core_languages:
     resource: '../../Application/Controller/Api/Language/*'
     type: 'annotation'
     prefix: '/api/v1/{language}'
+
+ergonode_core_units:
+    resource: '../../Application/Controller/Api/Unit/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'

@@ -69,6 +69,10 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("EXPORT_PROFILE_READ")>'
                 - '<privilege("EXPORT_PROFILE_UPDATE")>'
                 - '<privilege("EXPORT_PROFILE_DELETE")>'
+                - '<privilege("SETTINGS_CREATE")>'
+                - '<privilege("SETTINGS_UPDATE")>'
+                - '<privilege("SETTINGS_READ")>'
+                - '<privilege("SETTINGS_DELETE")>'
             - true
     admin_role:
         __construct:
@@ -140,6 +144,10 @@ Ergonode\Account\Domain\Entity\Role:
                 - '<privilege("EXPORT_PROFILE_READ")>'
                 - '<privilege("EXPORT_PROFILE_UPDATE")>'
                 - '<privilege("EXPORT_PROFILE_DELETE")>'
+                - '<privilege("SETTINGS_CREATE")>'
+                - '<privilege("SETTINGS_UPDATE")>'
+                - '<privilege("SETTINGS_READ")>'
+                - '<privilege("SETTINGS_DELETE")>'
     data_inputer_role:
         __construct:
             - '<roleId("Data inputer")>'

@@ -21,7 +21,6 @@ use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
 class DbalProductCollectionQuery implements ProductCollectionQueryInterface
 {
     private const PRODUCT_COLLECTION_TABLE = 'public.collection';
-    private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'public.collection_element';
 
     /**
      * @var Connection

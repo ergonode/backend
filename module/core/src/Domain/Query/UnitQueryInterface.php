@@ -7,12 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Domain\Query;
+namespace Ergonode\Core\Domain\Query;
+
+use Ergonode\Grid\DataSetInterface;
 
 /**
  */
 interface UnitQueryInterface
 {
+    /**
+     * @return DataSetInterface
+     */
+    public function getDataSet(): DataSetInterface;
     /**
      * @return array
      */

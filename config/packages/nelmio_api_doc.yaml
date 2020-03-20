@@ -255,7 +255,7 @@ nelmio_api_doc:
                         example:
                             DE: Name DE
                             EN: Name EN
-
+            
             tree:
                 type: object
                 properties:
@@ -370,7 +370,7 @@ nelmio_api_doc:
                         required: true
                         description: Show if product is visible for other products from collection
                         example: true
-
+            
             element_create_by_segment_and_sku:
                 type: object
                 properties:
@@ -390,8 +390,8 @@ nelmio_api_doc:
                         description: List of Skus
                         example:
                                 [ SKU_1, SKU_2]
-                        
-                        
+            
+            
             product_collection_type_create:
                 type: object
                 properties:
@@ -415,6 +415,19 @@ nelmio_api_doc:
                         example:
                             DE: Name DE
                             EN: Name EN
+            unit:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                        description: Unit name
+                        example: Metre
+                    symbol:
+                        type: string
+                        required: true
+                        description: Unit symbol
+                        example: m
             product:
                 type: object
                 properties:
