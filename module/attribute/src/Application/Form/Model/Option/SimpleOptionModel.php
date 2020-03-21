@@ -7,13 +7,14 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Application\Form\Model;
+namespace Ergonode\Attribute\Application\Form\Model\Option;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class AttributeOptionModel
+class SimpleOptionModel
 {
     /**
      * @var string
@@ -21,10 +22,18 @@ class AttributeOptionModel
      * @Assert\NotBlank(message="Option code is required")
      * @Assert\Length(max=128, maxMessage="Option code is to long. It should have {{ limit }} character or less.")
      */
-    public ?string $key = null;
+    public ?string $code = null;
 
     /**
-     * @var array|string|null
+     * @var array
+     *
+     * @Assert\All({
+     *     @Assert\NotBlank(),
+     *     @Assert\Length(
+     *      max=32,
+     *      maxMessage="Attribute name is to long, It should have {{ limit }} character or less."
+     *     )
+     * })
      */
-    public $value = null;
+    public array $label = [];
 }

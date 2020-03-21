@@ -12,7 +12,6 @@ namespace Ergonode\Attribute\Domain\Command;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -85,13 +84,6 @@ class CreateAttributeCommand implements DomainCommandInterface
     private TranslatableString $placeholder;
 
     /**
-     * @var OptionInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Attribute\Domain\ValueObject\OptionInterface>")
-     */
-    private array $options;
-
-    /**
      * @param AttributeType      $type
      * @param AttributeCode      $code
      * @param TranslatableString $label
@@ -100,7 +92,6 @@ class CreateAttributeCommand implements DomainCommandInterface
      * @param bool               $multilingual
      * @param array              $groups
      * @param array              $parameters
-     * @param OptionInterface[]  $options
      *
      * @throws \Exception
      */
@@ -112,8 +103,7 @@ class CreateAttributeCommand implements DomainCommandInterface
         TranslatableString $placeholder,
         bool $multilingual,
         array $groups = [],
-        array $parameters = [],
-        array $options = []
+        array $parameters = []
     ) {
         $this->attributeId = AttributeId::fromKey($code->getValue());
         $this->code = $code;
@@ -124,7 +114,6 @@ class CreateAttributeCommand implements DomainCommandInterface
         $this->multilingual = $multilingual;
         $this->groups = $groups;
         $this->parameters = $parameters;
-        $this->options = $options;
     }
 
     /**
@@ -193,14 +182,6 @@ class CreateAttributeCommand implements DomainCommandInterface
     public function getGroups(): array
     {
         return $this->groups;
-    }
-
-    /**
-     * @return OptionInterface[]
-     */
-    public function getOptions(): array
-    {
-        return $this->options;
     }
 
     /**

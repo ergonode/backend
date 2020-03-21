@@ -11,15 +11,13 @@ namespace Ergonode\Attribute\Persistence\Dbal\Projector\Option;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent;
-use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Attribute\Domain\Event\Option\OptionCreatedEvent;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  */
-class AttributeOptionAddedEventProjector
+class OptionCreatedEventProjector
 {
     private const TABLE_ATTRIBUTE_OPTION = 'public.attribute_option';
     private const TABLE_VALUE_TRANSLATION = 'public.value_translation';
@@ -38,44 +36,37 @@ class AttributeOptionAddedEventProjector
     }
 
     /**
-     * @param AttributeOptionAddedEvent $event
+     * @param OptionCreatedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(AttributeOptionAddedEvent $event): void
+    public function __invoke(OptionCreatedEvent $event): void
     {
-
         $valueId = Uuid::uuid4()->toString();
 
-        $this->insertOption($valueId, $event->getOption());
+        $this->insertOption($valueId, $event->getLabel());
 
         $this->connection->insert(
             self::TABLE_ATTRIBUTE_OPTION,
             [
-                'key' => $event->getKey()->getValue(),
-                'attribute_id' => $event->getAggregateId()->getValue(),
+                'id' => $event->getAggregateId()->getValue(),
+                'key' => $event->getCode()->getValue(),
+                'attribute_id' => $event->getAttributeId()->getValue(),
                 'value_id' => $valueId,
             ]
         );
     }
 
     /**
-     * @param string          $valueId
-     * @param OptionInterface $option
+     * @param string             $valueId
+     * @param TranslatableString $label
      *
      * @throws DBALException
      */
-    private function insertOption(string $valueId, OptionInterface $option): void
+    private function insertOption(string $valueId, TranslatableString $label): void
     {
-        if ($option instanceof StringOption) {
-            $this->insert($valueId, $option->getValue());
-        } elseif ($option instanceof MultilingualOption) {
-            $translation = $option->getValue();
-            foreach ($translation->getTranslations() as $language => $phrase) {
-                $this->insert($valueId, $phrase, $language);
-            }
-        } else {
-            throw new \RuntimeException(sprintf('Unknown Value class "%s"', \get_class($option)));
+        foreach ($label->getTranslations() as $language => $phrase) {
+            $this->insert($valueId, $phrase, $language);
         }
     }
 

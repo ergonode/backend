@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Persistence\Dbal\Projector\Attribute;
 
-use Ergonode\Attribute\Domain\Event\AttributeOptionRemovedEvent;
 use Ergonode\Exporter\Domain\Exception\AttributeNotFoundException;
 use Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Attribute\Domain\Event\Option\OptionRemovedEvent;
 
 /**
  */
@@ -33,19 +33,19 @@ class AttributeOptionRemovedEventProjector
     }
 
     /**
-     * @param AttributeOptionRemovedEvent $event
+     * @param OptionRemovedEvent $event
      *
      * @throws AttributeNotFoundException
      */
-    public function __invoke(AttributeOptionRemovedEvent $event): void
+    public function __invoke(OptionRemovedEvent $event): void
     {
-        $id = Uuid::fromString($event->getAggregateId()->getValue());
-        $attribute = $this->repository->load($id);
-        if (null === $attribute) {
-            throw new AttributeNotFoundException($event->getAggregateId()->getValue());
-        }
-
-        $attribute->removeOption($event->getKey()->getValue());
-        $this->repository->save($attribute);
+//        $id = Uuid::fromString($event->getAggregateId()->getValue());
+//        $attribute = $this->repository->load($id);
+//        if (null === $attribute) {
+//            throw new AttributeNotFoundException($event->getAggregateId()->getValue());
+//        }
+//
+//        $attribute->removeOption($event->getKey()->getValue());
+//        $this->repository->save($attribute);
     }
 }

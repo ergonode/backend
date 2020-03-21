@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Persistence\Dbal\Projector\Attribute;
 
-use Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent;
 use Ergonode\Exporter\Domain\Exception\AttributeNotFoundException;
 use Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Attribute\Domain\Event\Option\OptionCreatedEvent;
 
 /**
  */
@@ -30,7 +30,6 @@ class AttributeOptionAddedEventProjector
     private SerializerInterface $serializer;
 
     /**
-     * AttributeOptionAddedEventProjector constructor.
      * @param AttributeRepositoryInterface $repository
      * @param SerializerInterface          $serializer
      */
@@ -41,28 +40,28 @@ class AttributeOptionAddedEventProjector
     }
 
     /**
-     * @param AttributeOptionAddedEvent $event
+     * @param OptionCreatedEvent $event
      *
      * @throws AttributeNotFoundException
      */
-    public function __invoke(AttributeOptionAddedEvent $event): void
+    public function __invoke(OptionCreatedEvent $event): void
     {
-        $id = Uuid::fromString($event->getAggregateId()->getValue());
-        $attribute = $this->repository->load($id);
-        if (null === $attribute) {
-            throw new AttributeNotFoundException($event->getAggregateId()->getValue());
-        }
-
-        $value = $event->getOption()->getValue();
-        if ($event->getOption()->isMultilingual()) {
-            $value = $this->serializer->serialize($event->getOption()->getValue(), 'json');
-        }
-
-        $attribute->changeOrCreateOption(
-            $event->getKey()->getValue(),
-            $value
-        );
-
-        $this->repository->save($attribute);
+//        $id = Uuid::fromString($event->getAttributeId()->getValue());
+//        $attribute = $this->repository->load($id);
+//        if (null === $attribute) {
+//            throw new AttributeNotFoundException($event->getAggregateId()->getValue());
+//        }
+//
+//        $value = $event->getOption()->getValue();
+//        if ($event->getOption()->isMultilingual()) {
+//            $value = $this->serializer->serialize($event->getOption()->getValue(), 'json');
+//        }
+//
+//        $attribute->changeOrCreateOption(
+//            $event->getKey()->getValue(),
+//            $value
+//        );
+//
+//        $this->repository->save($attribute);
     }
 }

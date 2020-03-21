@@ -9,12 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command;
 
-use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 
 /**
  */
@@ -27,7 +25,6 @@ class UpdateAttributeCommandTest extends TestCase
      * @param TranslatableString $placeholder
      * @param array              $groups
      * @param array              $parameters
-     * @param array              $options
      *
      * @dataProvider dataProvider
      */
@@ -37,10 +34,9 @@ class UpdateAttributeCommandTest extends TestCase
         TranslatableString $hint,
         TranslatableString $placeholder,
         array $groups,
-        array $parameters,
-        array $options
+        array $parameters
     ): void {
-        $command = new UpdateAttributeCommand($id, $label, $hint, $placeholder, $groups, $parameters, $options);
+        $command = new UpdateAttributeCommand($id, $label, $hint, $placeholder, $groups, $parameters);
         $this->assertSame($id, $command->getId());
         $this->assertSame($label, $command->getLabel());
         $this->assertSame($hint, $command->getHint());
@@ -49,10 +45,6 @@ class UpdateAttributeCommandTest extends TestCase
         $this->assertSame($parameters, $command->getParameters());
         $this->assertTrue($command->hasParameter('param_1'));
         $this->assertSame($parameters['param_1'], $command->getParameter('param_1'));
-        $commandOptions = $command->getOptions();
-        $this->assertSame($commandOptions['key_1'], $options['key_1']);
-        $this->assertSame($commandOptions['key_2'], $options['key_2']);
-        $this->assertSame($commandOptions['key_3'], $options['key_3']);
     }
 
     /**
@@ -62,10 +54,6 @@ class UpdateAttributeCommandTest extends TestCase
      */
     public function dataProvider(): array
     {
-        $option1 = $this->createMock(OptionInterface::class);
-        $option2 = $this->createMock(OptionInterface::class);
-        $option3 = $this->createMock(OptionInterface::class);
-
         return [
             [
                 $this->createMock(AttributeId::class),
@@ -74,7 +62,6 @@ class UpdateAttributeCommandTest extends TestCase
                 $this->createMock(TranslatableString::class),
                 [],
                 ['param_1' => 'parameter'],
-                ['key_1' => $option1, 'key_2' => $option2, 'key_3' => $option3],
             ],
         ];
     }

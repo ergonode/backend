@@ -15,10 +15,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  */
@@ -47,37 +43,6 @@ class OptionAttributeUpdater implements AttributeUpdaterInterface
      */
     public function update(AbstractAttribute $attribute, UpdateAttributeCommand $command): AbstractAttribute
     {
-        foreach ($command->getOptions() as $key => $option) {
-            $key = new OptionKey((string) $key);
-
-            if (null === $option) {
-                if ($attribute->isMultilingual()) {
-                    $option = new MultilingualOption(new TranslatableString());
-                } else {
-                    $option = new StringOption('');
-                }
-            }
-
-            if ($attribute->hasOption($key)) {
-                $attribute->changeOption($key, $option);
-            } else {
-                $attribute->addOption($key, $option);
-            }
-        }
-
-        $options = [];
-        foreach ($command->getOptions() as $key => $option) {
-            $new = new OptionKey($key);
-            $options[$new->getValue()] = $option;
-        }
-
-        foreach ($attribute->getOptions() as $key => $option) {
-            $key = new OptionKey((string) $key);
-            if (!array_key_exists($key->getValue(), $options)) {
-                $attribute->removeOption($key);
-            }
-        }
-
         return $attribute;
     }
 }

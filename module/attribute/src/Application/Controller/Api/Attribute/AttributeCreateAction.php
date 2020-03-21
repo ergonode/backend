@@ -104,18 +104,6 @@ class AttributeCreateAction
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var CreateAttributeFormModel $data */
                 $data = $form->getData();
-
-                $options = [];
-                foreach ($data->options as $model) {
-                    if (is_array($model->value)) {
-                        $options[$model->key] = new MultilingualOption(new TranslatableString($model->value));
-                    } elseif (is_string($model->value)) {
-                        $options[$model->key] = new StringOption($model->value);
-                    } else {
-                        $options[$model->key] = null;
-                    }
-                }
-
                 $command = new CreateAttributeCommand(
                     $data->type,
                     $data->code,
@@ -124,8 +112,7 @@ class AttributeCreateAction
                     new TranslatableString($data->placeholder),
                     $data->multilingual,
                     $data->groups,
-                    (array) $data->parameters,
-                    $options
+                    (array) $data->parameters
                 );
                 $this->messageBus->dispatch($command);
 

@@ -12,12 +12,10 @@ namespace Ergonode\Attribute\Application\Form;
 use Ergonode\Attribute\Application\Form\Model\CreateAttributeFormModel;
 use Ergonode\Attribute\Application\Form\Type\AttributeCodeType;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
-use Ergonode\Attribute\Application\Form\Type\AttributeOptionType;
 use Ergonode\Attribute\Application\Form\Type\AttributeTypeType;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -85,15 +83,6 @@ class AttributeCreateForm extends AbstractType implements EventSubscriberInterfa
                         false,
                     ],
                     'empty_data' => false,
-                ]
-            )
-            ->add(
-                'options',
-                CollectionType::class,
-                [
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => AttributeOptionType::class,
                 ]
             )
             ->addEventSubscriber($this);

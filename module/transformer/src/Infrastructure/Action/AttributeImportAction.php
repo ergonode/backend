@@ -22,7 +22,6 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 
 /**
@@ -93,11 +92,6 @@ class AttributeImportAction implements ImportActionInterface
             $property['format'] = $format->getValue();
         }
 
-        $options = [];
-        foreach ($record->getValues() as $key => $value) {
-            $options[$key] = new StringOption($value->getValue());
-        }
-
         if (null === $attributeModel) {
             $command = new CreateAttributeCommand(
                 $attributeType,
@@ -107,8 +101,7 @@ class AttributeImportAction implements ImportActionInterface
                 new TranslatableString(),
                 $multilingual,
                 [],
-                $property,
-                $options
+                $property
             );
         } else {
             $command = new UpdateAttributeCommand(
@@ -117,8 +110,7 @@ class AttributeImportAction implements ImportActionInterface
                 new TranslatableString(),
                 new TranslatableString(),
                 [],
-                $property,
-                $options
+                $property
             );
         }
 

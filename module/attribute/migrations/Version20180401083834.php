@@ -98,11 +98,12 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                     FOREIGN KEY (attribute_id) REFERENCES attribute ON UPDATE CASCADE ON DELETE CASCADE');
 
         $this->addSql('
-            CREATE TABLE attribute_option (                 
+            CREATE TABLE attribute_option (   
+                id uuid NOT NULL,
                 attribute_id UUID NOT NULL, 
                 value_id UUID NOT NULL,        
                 key VARCHAR(255) NOT NULL,                                         
-                PRIMARY KEY(attribute_id, value_id)
+                PRIMARY KEY(id, attribute_id)
             )
         ');
         $this->addSql('
@@ -157,17 +158,15 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent' => 'Attribute label changed',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent' =>
                 'Attribute placeholder changed',
-            'Ergonode\Attribute\Domain\Event\Attribute\AttributeArrayParameterChangeEvent' =>
-                'Attribute parameters changed',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent' => 'Attribute parameter changed',
             'Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent' => 'Attribute group created',
             'Ergonode\Attribute\Domain\Event\Group\AttributeGroupDeletedEvent' => 'Attribute group removed',
             'Ergonode\Attribute\Domain\Event\Group\AttributeGroupNameChangedEvent' => 'Attribute group name changed',
             'Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent' => 'Attribute added to group',
             'Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent' => 'Attribute removed from group',
-            'Ergonode\Attribute\Domain\Event\AttributeOptionAddedEvent' => 'Attribute option added',
-            'Ergonode\Attribute\Domain\Event\AttributeOptionRemovedEvent' => 'Attribute option removed',
-            'Ergonode\Attribute\Domain\Event\AttributeOptionChangedEvent' => 'Attribute option changed',
+            'Ergonode\Attribute\Domain\Event\Option\OptionCreatedEvent' => 'Attribute option added',
+            'Ergonode\Attribute\Domain\Event\Option\OptionRemovedEvent' => 'Attribute option removed',
+            'Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent' => 'Attribute option changed',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent' => 'Attribute deleted',
         ]);
     }

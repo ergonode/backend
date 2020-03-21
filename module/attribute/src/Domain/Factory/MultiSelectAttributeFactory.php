@@ -14,10 +14,6 @@ use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  */
@@ -38,7 +34,7 @@ class MultiSelectAttributeFactory implements AttributeFactoryInterface
      */
     public function create(CreateAttributeCommand $command): AbstractAttribute
     {
-        $attribute = new MultiSelectAttribute(
+        return new MultiSelectAttribute(
             $command->getId(),
             $command->getCode(),
             $command->getLabel(),
@@ -46,19 +42,5 @@ class MultiSelectAttributeFactory implements AttributeFactoryInterface
             $command->getPlaceholder(),
             $command->isMultilingual()
         );
-
-        foreach ($command->getOptions() as $key => $option) {
-            if (null === $option) {
-                if ($command->isMultilingual()) {
-                    $option = new MultilingualOption(new TranslatableString());
-                } else {
-                    $option = new StringOption('');
-                }
-            }
-
-            $attribute->addOption(new OptionKey((string) $key), $option);
-        }
-
-        return $attribute;
     }
 }

@@ -11,13 +11,14 @@ namespace Ergonode\Attribute\Persistence\Dbal\Projector\Option;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Attribute\Domain\Event\AttributeOptionRemovedEvent;
+use Ergonode\Attribute\Domain\Event\Option\OptionRemovedEvent;
 
 /**
  */
-class AttributeOptionRemovedEventProjector
+class OptionRemovedEventProjector
 {
     private const TABLE_ATTRIBUTE_OPTION = 'attribute_option';
+    private const TABLE_VALUE_TRANSLATION = 'value_translation';
 
     /**
      * @var Connection
@@ -33,28 +34,16 @@ class AttributeOptionRemovedEventProjector
     }
 
     /**
-     * @param AttributeOptionRemovedEvent $event
+     * @param OptionRemovedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(AttributeOptionRemovedEvent $event): void
-    {
-        $this->delete($event->getKey()->getValue(), $event->getAggregateId()->getValue());
-    }
-
-    /**
-     * @param string $key
-     * @param string $attributeId
-     *
-     * @throws DBALException
-     */
-    private function delete(string $key, string $attributeId): void
+    public function __invoke(OptionRemovedEvent $event): void
     {
         $this->connection->delete(
             self::TABLE_ATTRIBUTE_OPTION,
             [
-                'attribute_id' => $attributeId,
-                'key' => $key,
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

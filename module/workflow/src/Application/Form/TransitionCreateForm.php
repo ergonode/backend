@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Form;
 
-use Ergonode\Attribute\Application\Form\Type\AttributeOptionType;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Ergonode\Workflow\Application\Form\Model\TransitionCreateFormModel;
 use Symfony\Component\Form\AbstractType;

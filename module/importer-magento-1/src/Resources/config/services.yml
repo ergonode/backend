@@ -25,4 +25,5 @@ services:
           - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1MultimediaProcessor'
           - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1CategoryProcessor'
           - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1AttributeProcessor'
+          - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1OptionProcessor'
           - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1ProductProcessor'
