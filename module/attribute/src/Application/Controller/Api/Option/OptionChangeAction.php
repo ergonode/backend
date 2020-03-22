@@ -79,7 +79,7 @@ class OptionChangeAction
      *     in="body",
      *     description="Add attribute",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/attribute")
+     *     @SWG\Schema(ref="#/definitions/option")
      * )
      * @SWG\Parameter(
      *     name="language",

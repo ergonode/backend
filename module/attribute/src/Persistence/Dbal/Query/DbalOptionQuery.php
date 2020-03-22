@@ -16,6 +16,8 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Grid\DataSetInterface;
+use Ergonode\Grid\DbalDataSet;
 
 /**
  */
@@ -85,6 +87,25 @@ class DbalOptionQuery implements OptionQueryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param AttributeId $attributeId
+     * @param Language    $language
+     *
+     * @return DataSetInterface
+     */
+    public function getDataSet(AttributeId $attributeId, Language $language): DataSetInterface
+    {
+        $qb = $this->getQuery();
+        $qb->select('o.id, o.key AS code, o.attribute_id');
+        $qb->where($qb->expr()->eq('attribute_id', '\''.$attributeId->getValue()).'\'');
+
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
+
+        return new DbalDataSet($result);
     }
 
     /**

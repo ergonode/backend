@@ -9,36 +9,27 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
-use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
-use Ergonode\Attribute\Application\Form\SimpleOptionForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
 
 /**
  * @Route(
- *     name="ergonode_option_create",
+ *     name="ergonode_option_delete",
  *     path="/attributes/{attribute}/options",
- *     methods={"POST"},
+ *     methods={"DELETE"},
  *     requirements={
  *        "attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
  *     }
  * )
  */
-class OptionCreateAction
+class OptionDeleteAction
 {
     /**
      * @var FormFactoryInterface
@@ -61,7 +52,7 @@ class OptionCreateAction
     }
 
     /**
-     * @IsGranted("ATTRIBUTE_CREATE")
+     * @IsGranted("ATTRIBUTE_DELETE")
      *
      * @SWG\Tag(name="Attribute")
      * @SWG\Parameter(
@@ -107,29 +98,6 @@ class OptionCreateAction
      */
     public function __invoke(AbstractAttribute $attribute, Request $request): Response
     {
-        try {
-            $model = new SimpleOptionModel();
-            $form = $this->formFactory->create(SimpleOptionForm::class, $model);
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                /** @var SimpleOptionModel $data */
-                $data = $form->getData();
-
-                $command = new CreateOptionCommand(
-                    $attribute->getId(),
-                    new OptionKey($data->code),
-                    new TranslatableString($data->label)
-                );
-
-                $this->messageBus->dispatch($command);
-
-                return new CreatedResponse($command->getId());
-            }
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
-        }
-
-        throw new FormValidationHttpException($form);
+        //todo
     }
 }

@@ -11,6 +11,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\Grid\DataSetInterface;
 
 /**
  */
@@ -23,6 +24,14 @@ interface OptionQueryInterface
      * @return array
      */
     public function getList(AttributeId $attributeId, Language $language): array;
+
+    /**
+     * @param AttributeId $attributeId
+     * @param Language    $language
+     *
+     * @return DataSetInterface
+     */
+    public function getDataSet(AttributeId $attributeId, Language $language): DataSetInterface;
 
     /**
      * @param AttributeId $id
