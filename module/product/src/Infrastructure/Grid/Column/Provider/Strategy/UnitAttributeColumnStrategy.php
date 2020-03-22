@@ -53,7 +53,7 @@ class UnitAttributeColumnStrategy implements AttributeColumnStrategyInterface
         $columnFilter = new RangeFilter($range);
 
         $column =  new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
-        $column->setSuffix($attribute->getUnit()->getCode());
+        $column->setSuffix($attribute->getUnitId()->getValue());
 
         return $column;
     }

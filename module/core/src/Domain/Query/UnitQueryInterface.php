@@ -22,5 +22,5 @@ interface UnitQueryInterface
     /**
      * @return array
      */
-    public function getDictionary(): array;
+    public function getAllUnitIds(): array;
 }

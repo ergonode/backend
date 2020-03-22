@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Attribute\Domain\ValueObject\Unit;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
@@ -31,14 +31,14 @@ class UnitHandler implements SubscribingHandlerInterface
         foreach ($formats as $format) {
             $methods[] = [
                 'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
-                'type' => Unit::class,
+                'type' => UnitId::class,
                 'format' => $format,
                 'method' => 'serialize',
             ];
 
             $methods[] = [
                 'direction' => GraphNavigatorInterface::DIRECTION_DESERIALIZATION,
-                'type' => Unit::class,
+                'type' => UnitId::class,
                 'format' => $format,
                 'method' => 'deserialize',
             ];
@@ -49,15 +49,15 @@ class UnitHandler implements SubscribingHandlerInterface
 
     /**
      * @param SerializationVisitorInterface $visitor
-     * @param Unit                          $unit
+     * @param UnitId                        $unitId
      * @param array                         $type
      * @param Context                       $context
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, Unit $unit, array $type, Context $context): string
+    public function serialize(SerializationVisitorInterface $visitor, UnitId $unitId, array $type, Context $context): string
     {
-        return $unit->getCode();
+        return $unitId->getValue();
     }
 
     /**
@@ -66,10 +66,10 @@ class UnitHandler implements SubscribingHandlerInterface
      * @param array                           $type
      * @param Context                         $context
      *
-     * @return Unit
+     * @return UnitId
      */
-    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): Unit
+    public function deserialize(DeserializationVisitorInterface $visitor, $data, array $type, Context $context): UnitId
     {
-        return new Unit($data);
+        return new UnitId($data);
     }
 }

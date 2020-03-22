@@ -10,11 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Domain\ValueObject\Unit;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,7 +22,7 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractUnitAttribute extends AbstractAttribute
 {
     public const TYPE = 'UNIT';
-    public const CODE = 'code';
+    public const UNIT_ID = 'UnitId';
 
     /**
      * @param AttributeId        $id
@@ -30,7 +30,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param Unit               $unit
+     * @param UnitId             $unitId
      *
      * @throws \Exception
      */
@@ -40,7 +40,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        Unit $unit
+        UnitId $unitId
     ) {
         parent::__construct(
             $id,
@@ -49,7 +49,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
             $hint,
             $placeholder,
             false,
-            [self::CODE => $unit->getCode()]
+            [self::UNIT_ID => $unitId->getValue()]
         );
     }
 
@@ -65,26 +65,26 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
     }
 
     /**
-     * @return Unit
+     * @return UnitId
      */
-    public function getUnit(): Unit
+    public function getUnitId(): UnitId
     {
-        return new Unit($this->getParameter(self::CODE));
+        return new UnitId($this->getParameter(self::UNIT_ID));
     }
 
     /**
-     * @param Unit $new
+     * @param UnitId $new
      *
      * @throws \Exception
      */
-    public function changeUnit(Unit $new): void
+    public function changeUnit(UnitId $new): void
     {
-        if ($this->getUnit()->getCode() !== $new->getCode()) {
+        if ($this->getUnitId()->getValue() !== $new->getValue()) {
             $event = new AttributeParameterChangeEvent(
                 $this->id,
-                self::CODE,
-                $this->getUnit()->getCode(),
-                $new->getCode()
+                self::UNIT_ID,
+                $this->getUnitId()->getValue(),
+                $new->getValue()
             );
             $this->apply($event);
         }

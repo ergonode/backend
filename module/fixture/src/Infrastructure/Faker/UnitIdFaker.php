@@ -9,20 +9,20 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\Attribute\Domain\ValueObject\Unit;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Faker\Provider\Base as BaseProvider;
 
 /**
  * Class UnitFaker
  */
-class UnitFaker extends BaseProvider
+class UnitIdFaker extends BaseProvider
 {
     /**
      * @param string|null $unit
      *
-     * @return Unit
+     * @return UnitId
      */
-    public function unit(string $unit = null): Unit
+    public function unitId(string $unit = null): UnitId
     {
         if (null === $unit) {
             $units = ['s', 'Ω', 'A', 'K', 'C', 'J', 'Gy', 'sr', 'cd', 'rad'];
@@ -30,6 +30,6 @@ class UnitFaker extends BaseProvider
             $unit = $units[$random];
         }
 
-        return new Unit($unit);
+        return new UnitId($unit);
     }
 }

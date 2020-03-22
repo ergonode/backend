@@ -56,11 +56,18 @@ class DbalUnitQuery implements UnitQueryInterface
     /**
      * @return array
      */
-    public function getDictionary(): array
+    public function getAllUnitIds(): array
     {
-        return $this->getQuery()
+        $query = $this->getQuery();
+        $result = $query->select('id')
             ->execute()
-            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return $result;
+        }
+
+        return [];
     }
 
     /**

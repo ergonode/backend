@@ -71,7 +71,7 @@ Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute:
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
-            - '<Unit()>'
+            - '<UnitId()>'
 
 Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute:
     attribute_{41..45}:

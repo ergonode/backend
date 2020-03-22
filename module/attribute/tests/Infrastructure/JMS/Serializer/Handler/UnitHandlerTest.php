@@ -8,8 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Attribute\Domain\ValueObject\Unit;
 use Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\UnitHandler;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
@@ -65,18 +65,18 @@ class UnitHandlerTest extends TestCase
      */
     public function testSerialize(): void
     {
-        $id = new Unit('unit');
+        $id = new UnitId('unit');
         $result = $this->handler->serialize($this->serializerVisitor, $id, [], $this->context);
 
-        $this->assertEquals($id->getCode(), $result);
+        $this->assertEquals($id->getValue(), $result);
     }
 
     /**
      */
     public function testDeserialize(): void
     {
-        $id = new Unit('unit');
-        $result = $this->handler->deserialize($this->deserializerVisitor, $id->getCode(), [], $this->context);
+        $id = new UnitId('unit');
+        $result = $this->handler->deserialize($this->deserializerVisitor, $id->getValue(), [], $this->context);
 
         $this->assertEquals($id, $result);
     }

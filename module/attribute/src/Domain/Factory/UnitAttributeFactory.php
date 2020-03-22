@@ -12,9 +12,9 @@ namespace Ergonode\Attribute\Domain\Factory;
 use Ergonode\Attribute\Domain\AttributeFactoryInterface;
 use Ergonode\Attribute\Domain\Command\CreateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
-use Ergonode\Attribute\Domain\ValueObject\Unit;
+use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 /**
  */
@@ -39,7 +39,7 @@ class UnitAttributeFactory implements AttributeFactoryInterface
             throw new \InvalidArgumentException('No required unit parameter');
         }
 
-        $unit = new Unit($command->getParameter('unit'));
+        $unitId = new UnitId($command->getParameter('unit'));
 
         return new UnitAttribute(
             $command->getId(),
@@ -47,7 +47,7 @@ class UnitAttributeFactory implements AttributeFactoryInterface
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $unit
+            $unitId
         );
     }
 }
