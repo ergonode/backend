@@ -13,10 +13,13 @@ use Ergonode\ImporterMagento1\Application\Model\Type\ImportStepModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Ergonode\Core\Application\Form\Type\LanguageType;
+use Ergonode\ImporterMagento1\Application\Model\Type\StoreViewModel;
 
 /**
  */
-class ImportStepType extends AbstractType
+class StoreViewType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -26,38 +29,24 @@ class ImportStepType extends AbstractType
     {
         $builder
             ->add(
-                'attributes',
-                BooleanType::class,
+                'default_language',
+                LanguageType::class,
                 [
-                    'label' => 'Attributes',
+                    'property_path' => 'defaultLanguage',
                 ]
             )
             ->add(
-                'products',
-                BooleanType::class,
+                'languages',
+                CollectionType::class,
                 [
-                    'label' => 'Products',
-                ]
-            )
-            ->add(
-                'multimedia',
-                BooleanType::class,
-                [
-                    'label' => 'Products images',
-                ]
-            )
-            ->add(
-                'categories',
-                BooleanType::class,
-                [
-                    'label' => 'Categories',
-                ]
-            )
-            ->add(
-                'templates',
-                BooleanType::class,
-                [
-                    'label' => 'Templates (Attribute set)',
+                    'label' => 'Mapped Languages',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => LanguageMapType::class,
+                    'liform' => [
+                        'format' => 'table',
+                        'widget' => 'table',
+                    ],
                 ]
             );
     }
@@ -69,7 +58,7 @@ class ImportStepType extends AbstractType
     {
         $resolver->setDefaults([
             'translation_domain' => 'import',
-            'data_class' => ImportStepModel::class,
+            'data_class' => StoreViewModel::class,
         ]);
     }
 }

@@ -17,8 +17,10 @@ Feature: Category module
            "multimedia": false,
            "products": true
         },
-        "default_language": "EN",
-        "languages": []
+        "mapping": {
+          "default_language": "EN",
+          "languages": []
+        }
       }
       """
     Then the response status code should be 201

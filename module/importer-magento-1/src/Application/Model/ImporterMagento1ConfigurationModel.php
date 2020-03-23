@@ -12,7 +12,7 @@ use Ergonode\ImporterMagento1\Application\Model\Type\ImportStepModel;
 use Ergonode\ImporterMagento1\Application\Model\Type\LanguageMapModel;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\ImporterMagento1\Application\Model\Type\StoreViewModel;
 
 /**
  */
@@ -34,16 +34,9 @@ class ImporterMagento1ConfigurationModel
     public ?string $host = null;
 
     /**
-     * @var Language|null
+     * @var StoreViewModel
      */
-    public ?Language $defaultLanguage = null;
-
-    /**
-     * @var LanguageMapModel[]
-     *
-     * @Assert\Valid()
-     */
-    public array $languages = [];
+    public StoreViewModel $mapping;
 
     /**
      * @var ImportStepModel
@@ -56,13 +49,14 @@ class ImporterMagento1ConfigurationModel
     public function __construct(Magento1CsvSource $source = null)
     {
         $this->import = new ImportStepModel();
+        $this->mapping = new StoreViewModel();
 
         if ($source) {
-            $this->defaultLanguage = $source->getDefaultLanguage();
+            $this->mapping->defaultLanguage = $source->getDefaultLanguage();
             $this->host = $source->getHost();
             $this->name = $source->getName();
             foreach ($source->getLanguages() as $key => $language) {
-                $this->languages[] = new LanguageMapModel($key, $language);
+                $this->mapping->languages[] = new LanguageMapModel($key, $language);
             }
             $this->import->templates = $source->import(Magento1CsvSource::TEMPLATES);
             $this->import->attributes = $source->import(Magento1CsvSource::ATTRIBUTES);
