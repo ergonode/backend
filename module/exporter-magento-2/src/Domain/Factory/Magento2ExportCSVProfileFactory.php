@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterMagento2\Domain\Factory;
 
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Ergonode\Exporter\Domain\Factory\ExportProfileFactoryInterface;
@@ -37,10 +38,15 @@ class Magento2ExportCSVProfileFactory implements ExportProfileFactoryInterface
      */
     public function create(ExportProfileId $exportProfileId, string $name, array $params = []): AbstractExportProfile
     {
+        $filename = $params['filename'];
+
+        $defaultLanguage = new Language($params['defaultLanguage']);
+
         return new Magento2ExportCsvProfile(
             $exportProfileId,
             $name,
-            $params['filename']
+            $filename,
+            $defaultLanguage
         );
     }
 }

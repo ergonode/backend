@@ -12,6 +12,8 @@ namespace Ergonode\Exporter\Application\DependencyInjection;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileCompilerPass;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileConstraintCompilerPass;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileFactoryCompilerPass;
+use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileFormFactoryCompilerPass;
+use Ergonode\Exporter\Application\Provider\ExportProfileFormFactoryInterface;
 use Ergonode\Exporter\Domain\Factory\ExportProfileFactoryInterface;
 use Ergonode\Exporter\Infrastructure\ExportProfile\ExportProfileValidatorStrategyInterface;
 use Ergonode\Exporter\Infrastructure\Provider\ExportProfileInterface;
@@ -48,6 +50,10 @@ class ErgonodeExporterExtension extends Extension
         $container
             ->registerForAutoconfiguration(ExportProfileValidatorStrategyInterface::class)
             ->addTag(ExportProfileConstraintCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(ExportProfileFormFactoryInterface::class)
+            ->addTag(ExportProfileFormFactoryCompilerPass::TAG);
 
 
         $loader->load('services.yml');

@@ -10,46 +10,35 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Persistence\Dbal\Repository\Factory;
 
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
 class ExportProfileFactory
 {
     /**
-     * @param array $record
-     *
-     * @return AbstractExportProfile
-     *
-     * @throws \ReflectionException
+     * @var SerializerInterface
      */
-    public function create(array $record): AbstractExportProfile
+    private SerializerInterface $serializer;
+
+    /**
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(SerializerInterface $serializer)
     {
-        $reflector = new \ReflectionClass($record['type']);
-
-        /** @var AbstractExportProfile $object */
-        $object = $reflector->newInstanceWithoutConstructor();
-
-        foreach ($this->getMap($record) as $key => $value) {
-            $property = $reflector->getProperty($key);
-            $property->setAccessible(true);
-            $property->setValue($object, $value);
-        }
-
-        return $object;
+        $this->serializer = $serializer;
     }
 
     /**
      * @param array $record
      *
-     * @return array
+     * @return AbstractExportProfile
      */
-    private function getMap(array $record): array
+    public function create(array $record): AbstractExportProfile
     {
-        return [
-            'id' => new ExportProfileId($record['id']),
-            'name' => $record['name'],
-            'configuration' => \json_decode($record['configuration'], true, 512, JSON_THROW_ON_ERROR),
-        ];
+        $class = $record['type'];
+        $data = $record['configuration'];
+
+        return $this->serializer->deserialize($data, $class, 'json');
     }
 }

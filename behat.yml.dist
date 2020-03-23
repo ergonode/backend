@@ -16,6 +16,7 @@ default:
                 - module/editor/features
                 - module/event-sourcing/features
                 - module/exporter/features
+                - module/exporter-magento-2/features
                 - module/fixture/features
                 - module/generator/features
                 - module/grid/features
