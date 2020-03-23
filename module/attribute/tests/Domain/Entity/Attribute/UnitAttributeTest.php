@@ -59,7 +59,7 @@ class UnitAttributeTest extends TestCase
         $this->label = $this->createMock(TranslatableString::class);
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
-        $this->unit = new UnitId('UNIT');
+        $this->unit = UnitId::generate();
     }
 
     /**
@@ -89,7 +89,7 @@ class UnitAttributeTest extends TestCase
     public function testAttributeCurrencyChange(): void
     {
         /** @var UnitId|MockObject $unit */
-        $unit = new UnitId('NEW');
+        $unit = UnitId::generate();
         $attribute = new UnitAttribute(
             $this->id,
             $this->code,

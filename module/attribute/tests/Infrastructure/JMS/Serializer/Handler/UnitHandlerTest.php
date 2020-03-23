@@ -65,7 +65,7 @@ class UnitHandlerTest extends TestCase
      */
     public function testSerialize(): void
     {
-        $id = new UnitId('unit');
+        $id = UnitId::generate();
         $result = $this->handler->serialize($this->serializerVisitor, $id, [], $this->context);
 
         $this->assertEquals($id->getValue(), $result);
@@ -75,7 +75,7 @@ class UnitHandlerTest extends TestCase
      */
     public function testDeserialize(): void
     {
-        $id = new UnitId('unit');
+        $id = UnitId::generate();
         $result = $this->handler->deserialize($this->deserializerVisitor, $id->getValue(), [], $this->context);
 
         $this->assertEquals($id, $result);

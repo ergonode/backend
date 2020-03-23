@@ -72,6 +72,20 @@ Feature: Product edit feature
     Then the response status code should be 201
     And store response param "id" as "product_edit_multi_select_attribute"
 
+  Scenario: Create unit object 1
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/units" with body:
+      """
+      {
+        "name": "New Unit 1",
+        "symbol": "nu1"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "unit_id"
+
   Scenario: Create unit attribute
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
@@ -83,7 +97,7 @@ Feature: Product edit feature
         "type": "UNIT",
         "groups": [],
         "parameters": {
-          "unit":"KG"
+          "unit":"@unit_id@"
         }
       }
       """
