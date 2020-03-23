@@ -39,16 +39,16 @@ class ImporterMagento1ConfigurationModel
     public StoreViewModel $mapping;
 
     /**
-     * @var ImportStepModel
+     * @var array
      */
-    public ImportStepModel $import;
+    public array $import = [];
 
     /**
      * @param Magento1CsvSource|null $source
      */
     public function __construct(Magento1CsvSource $source = null)
     {
-        $this->import = new ImportStepModel();
+
         $this->mapping = new StoreViewModel();
 
         if ($source) {
@@ -58,11 +58,11 @@ class ImporterMagento1ConfigurationModel
             foreach ($source->getLanguages() as $key => $language) {
                 $this->mapping->languages[] = new LanguageMapModel($key, $language);
             }
-            $this->import->templates = $source->import(Magento1CsvSource::TEMPLATES);
-            $this->import->attributes = $source->import(Magento1CsvSource::ATTRIBUTES);
-            $this->import->products = $source->import(Magento1CsvSource::PRODUCTS);
-            $this->import->multimedia = $source->import(Magento1CsvSource::MULTIMEDIA);
-            $this->import->categories = $source->import(Magento1CsvSource::CATEGORIES);
+//            $this->import->templates = $source->import(Magento1CsvSource::TEMPLATES);
+//            $this->import->attributes = $source->import(Magento1CsvSource::ATTRIBUTES);
+//            $this->import->products = $source->import(Magento1CsvSource::PRODUCTS);
+//            $this->import->multimedia = $source->import(Magento1CsvSource::MULTIMEDIA);
+//            $this->import->categories = $source->import(Magento1CsvSource::CATEGORIES);
         }
     }
 }

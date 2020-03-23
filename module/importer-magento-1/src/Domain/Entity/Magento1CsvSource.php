@@ -82,26 +82,17 @@ class Magento1CsvSource extends AbstractSource
     ) {
         parent::__construct($id, $name);
         Assert::allIsInstanceOf($languages, Language::class);
-        Assert::allBoolean($imports);
+        Assert::allString($imports);
         Assert::allString(array_keys($languages));
-        Assert::allString(array_keys($imports));
         Assert::notEmpty($host);
 
         $this->languages = $languages;
         $this->host = $host;
         $this->defaultLanguage = $defaultLanguage;
-        $this->import = [
-            self::ATTRIBUTES => false,
-            self::TEMPLATES => false,
-            self::CATEGORIES => false,
-            self::MULTIMEDIA => false,
-            self::PRODUCTS => false,
-        ];
+        $this->import = [];
 
-        foreach ($imports as $key => $import) {
-            if (array_key_exists($key, $this->import)) {
-                $this->import[$key] = $import;
-            }
+        foreach ($imports as $import) {
+            $this->import[$import] = true;
         }
     }
 

@@ -10,13 +10,12 @@ Feature: Category module
         "type": "magento-1-csv",
         "name": "name",
         "host": "http://test.host",
-        "import" : {
-           "templates": true,
-           "attributes": true,
-           "categories": true,
-           "multimedia": false,
-           "products": true
-        },
+        "import" : [
+           "templates",
+           "attributes",
+           "categories",
+           "products"
+        ],
         "mapping": {
           "default_language": "EN",
           "languages": []

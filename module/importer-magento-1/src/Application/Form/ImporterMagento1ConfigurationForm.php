@@ -22,6 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Url;
 use Ergonode\ImporterMagento1\Application\Form\Type\StoreViewType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  */
@@ -39,6 +40,21 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                 TextType::class
             )
             ->add(
+                'import',
+                ChoiceType::class,
+                [
+                    'label' => 'Include in the imports',
+                    'choices' => [
+                        'Attributes' => 'attributes',
+                        'Products' => 'products',
+                        'Products images' => 'multimedia',
+                        'Categories' => 'categories',
+                        'Templates (Attribute set)' => 'templates',
+                    ],
+                    'multiple' => true,
+                ]
+            )
+            ->add(
                 'host',
                 TextType::class,
                 [
@@ -46,6 +62,8 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                         new NotBlank(),
                         new Url(),
                     ],
+                    'extra_fields_message' => 'Enter the address of the server where the product images are located',
+                    'label' => 'Images host',
                 ]
             )
             ->add(
@@ -54,15 +72,7 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                 [
                     'label' => 'Store views',
                 ]
-            )
-            ->add(
-                'import',
-                ImportStepType::class,
-                [
-                    'label' => 'Include in the imports',
-                ]
             );
-
 
         $builder->addEventListener(FormEvents::SUBMIT, static function (FormEvent $event) {
 

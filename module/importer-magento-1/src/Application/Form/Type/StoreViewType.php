@@ -39,7 +39,7 @@ class StoreViewType extends AbstractType
                 'languages',
                 CollectionType::class,
                 [
-                    'label' => 'Mapped Languages',
+                    'label' => null,
                     'allow_add' => true,
                     'allow_delete' => true,
                     'entry_type' => LanguageMapType::class,
