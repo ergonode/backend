@@ -12,28 +12,23 @@ namespace Ergonode\Importer\Application\Controller\Api\Source;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
-use Ergonode\Importer\Domain\Command\GenerateImportCommand;
-use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Ergonode\Core\Application\Exception\NotImplementedException;
 
 /**
  * @Route(
- *     name="ergonode_source_update",
+ *     name="ergonode_source_delete",
  *     path="/sources/{source}",
- *     methods={"POST"},
+ *     methods={"DELETE"},
  *     requirements={"source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class SourceUpdatedAction
+class SourceDeleteAction
 {
     /**
      * @var SourceFormFactoryProvider
@@ -83,37 +78,14 @@ class SourceUpdatedAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
-     *
-     * @param AbstractSource $source
-     * @param Request        $request
+     * @param Request $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(AbstractSource $source, Request $request): Response
+    public function __invoke(Request $request): Response
     {
-        try {
-            $form = $this->provider->provide($source->getType())->create($source);
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ConfigurationModel $data */
-                $data = $form->getData();
-
-                $command = new GenerateImportCommand(
-                    $source->getId(),
-                    $data
-                );
-                $this->commandBus->dispatch($command);
-
-                return new CreatedResponse($command->getId());
-            }
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
-        }
-
-        throw new FormValidationHttpException($form);
+        throw new NotImplementedException();
     }
 }

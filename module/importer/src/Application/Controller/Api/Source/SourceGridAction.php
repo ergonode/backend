@@ -28,7 +28,7 @@ use Ergonode\Importer\Domain\Query\SourceQueryInterface;
  *     methods={"GET"}
  * )
  */
-class SourceGridReadAction
+class SourceGridAction
 {
     /**
      * @var SourceGrid
