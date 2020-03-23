@@ -59,7 +59,6 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                 TextType::class,
                 [
                     'constraints' => [
-                        new NotBlank(),
                         new Url(),
                     ],
                     'extra_fields_message' => 'Enter the address of the server where the product images are located',

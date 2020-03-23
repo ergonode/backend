@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Application\Model;
 
-use Ergonode\ImporterMagento1\Application\Model\Type\ImportStepModel;
 use Ergonode\ImporterMagento1\Application\Model\Type\LanguageMapModel;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -48,7 +47,6 @@ class ImporterMagento1ConfigurationModel
      */
     public function __construct(Magento1CsvSource $source = null)
     {
-
         $this->mapping = new StoreViewModel();
 
         if ($source) {
@@ -58,11 +56,13 @@ class ImporterMagento1ConfigurationModel
             foreach ($source->getLanguages() as $key => $language) {
                 $this->mapping->languages[] = new LanguageMapModel($key, $language);
             }
-//            $this->import->templates = $source->import(Magento1CsvSource::TEMPLATES);
-//            $this->import->attributes = $source->import(Magento1CsvSource::ATTRIBUTES);
-//            $this->import->products = $source->import(Magento1CsvSource::PRODUCTS);
-//            $this->import->multimedia = $source->import(Magento1CsvSource::MULTIMEDIA);
-//            $this->import->categories = $source->import(Magento1CsvSource::CATEGORIES);
+
+            foreach (Magento1CsvSource::STEPS as $step) {
+
+                if($source->import($step)) {
+                    $this->import[] = $step;
+                }
+            }
         }
     }
 }

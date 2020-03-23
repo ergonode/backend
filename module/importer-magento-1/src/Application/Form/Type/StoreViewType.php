@@ -8,14 +8,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Application\Form\Type;
 
-use Ergonode\Core\Application\Form\Type\BooleanType;
-use Ergonode\ImporterMagento1\Application\Model\Type\ImportStepModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Ergonode\ImporterMagento1\Application\Model\Type\StoreViewModel;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
@@ -33,6 +32,7 @@ class StoreViewType extends AbstractType
                 LanguageType::class,
                 [
                     'property_path' => 'defaultLanguage',
+                    'empty_data' => Language::EN,
                 ]
             )
             ->add(

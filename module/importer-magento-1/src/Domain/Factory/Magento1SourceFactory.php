@@ -45,6 +45,6 @@ class Magento1SourceFactory implements SourceFactoryInterface
         $host = $configuration['host'];
         $import = $configuration['import'];
         
-        return new Magento1CsvSource($sourceId, $name, $defaultLanguage, $host, $languages, $import);
+        return new Magento1CsvSource($sourceId, $name, $defaultLanguage, $languages, $import, $host);
     }
 }

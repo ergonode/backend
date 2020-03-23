@@ -30,6 +30,14 @@ class Magento1CsvSource extends AbstractSource
     public const TEMPLATES = 'templates';
     public const ATTRIBUTES = 'attributes';
 
+    public const STEPS = [
+        self::MULTIMEDIA,
+        self::PRODUCTS,
+        self::CATEGORIES,
+        self::TEMPLATES,
+        self::ATTRIBUTES,
+    ];
+
     public const DEFAULT = [
         self::DELIMITER => ',',
         self::ENCLOSURE => '"',
@@ -44,11 +52,11 @@ class Magento1CsvSource extends AbstractSource
     private array $languages;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @JMS\Type("string")
      */
-    private string $host;
+    private ?string $host;
 
     /**
      * @var Language
@@ -76,20 +84,23 @@ class Magento1CsvSource extends AbstractSource
         SourceId $id,
         string $name,
         Language $defaultLanguage,
-        string $host,
         array $languages = [],
-        array $imports = []
+        array $imports = [],
+        ?string $host = null
     ) {
         parent::__construct($id, $name);
         Assert::allIsInstanceOf($languages, Language::class);
         Assert::allString($imports);
         Assert::allString(array_keys($languages));
-        Assert::notEmpty($host);
 
         $this->languages = $languages;
         $this->host = $host;
         $this->defaultLanguage = $defaultLanguage;
         $this->import = [];
+
+        foreach (self::STEPS as $step) {
+            $this->import[$step] = false;
+        }
 
         foreach ($imports as $import) {
             $this->import[$import] = true;
@@ -145,9 +156,9 @@ class Magento1CsvSource extends AbstractSource
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHost(): string
+    public function getHost(): ?string
     {
         return $this->host;
     }
