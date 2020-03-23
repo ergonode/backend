@@ -22,7 +22,7 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractUnitAttribute extends AbstractAttribute
 {
     public const TYPE = 'UNIT';
-    public const UNIT_ID = 'UnitId';
+    public const UNIT_ID = 'unit';
 
     /**
      * @param AttributeId        $id

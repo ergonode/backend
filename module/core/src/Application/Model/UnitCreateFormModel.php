@@ -18,7 +18,7 @@ class UnitCreateFormModel
     /**
      * @var null | string
      *
-     * @Assert\NotBlank(),
+     * @Assert\NotBlank(message="Unit nane is required"),
      * @Assert\Length(
      *     max=255,
      *     maxMessage="Unit name is to long, It should have {{ limit }} character or less."
@@ -30,7 +30,7 @@ class UnitCreateFormModel
     /**
      * @var null | string
      *
-     * @Assert\NotBlank(),
+     * @Assert\NotBlank(message="Unit symbol is required"),
      * @Assert\Length(
      *     max=255,
      *     maxMessage="Unit symbol is to long, It should have {{ limit }} character or less."
