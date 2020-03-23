@@ -27,4 +27,3 @@ class UnitId extends AggregateId
         return new static(self::generateIdentifier(self::NAMESPACE, $code)->getValue());
     }
 }
-

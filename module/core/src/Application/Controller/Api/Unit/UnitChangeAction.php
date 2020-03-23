@@ -53,8 +53,7 @@ class UnitChangeAction
     public function __construct(
         CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory
-    )
-    {
+    ) {
         $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
     }

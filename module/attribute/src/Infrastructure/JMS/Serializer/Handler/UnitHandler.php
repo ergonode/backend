@@ -55,8 +55,12 @@ class UnitHandler implements SubscribingHandlerInterface
      *
      * @return string
      */
-    public function serialize(SerializationVisitorInterface $visitor, UnitId $unitId, array $type, Context $context): string
-    {
+    public function serialize(
+        SerializationVisitorInterface $visitor,
+        UnitId $unitId,
+        array $type,
+        Context $context
+    ): string {
         return $unitId->getValue();
     }
 

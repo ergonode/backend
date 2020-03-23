@@ -27,7 +27,9 @@ final class Version20200319100000 extends AbstractErgonodeMigration
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "ltree"');
 
         $this->addSql(
-            'CREATE TABLE unit (id UUID NOT NULL, name VARCHAR(255) NOT NULL, symbol VARCHAR(255) NOT NULL, PRIMARY KEY(id))'
+            'CREATE TABLE unit (id UUID NOT NULL, name VARCHAR(255) NOT NULL,
+                  symbol VARCHAR(255) NOT NULL,
+                  PRIMARY KEY(id))'
         );
 
         $this->createEventStoreEvents([

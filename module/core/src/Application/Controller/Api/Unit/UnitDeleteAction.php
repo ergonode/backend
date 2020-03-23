@@ -56,8 +56,7 @@ class UnitDeleteAction
         CommandBusInterface $commandBus,
         RelationshipsResolverInterface $relationshipsResolver,
         ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
-    )
-    {
+    ) {
         $this->commandBus = $commandBus;
         $this->relationshipsResolver = $relationshipsResolver;
         $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;

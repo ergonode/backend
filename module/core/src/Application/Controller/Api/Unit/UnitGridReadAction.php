@@ -52,8 +52,7 @@ class UnitGridReadAction
         UnitGrid $unitGrid,
         UnitQueryInterface $unitQuery,
         GridRenderer $gridRenderer
-    )
-    {
+    ) {
         $this->unitGrid = $unitGrid;
         $this->unitQuery = $unitQuery;
         $this->gridRenderer = $gridRenderer;
