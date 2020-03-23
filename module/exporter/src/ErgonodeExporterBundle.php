@@ -28,7 +28,6 @@ class ErgonodeExporterBundle extends AbstractModule
         parent::build($container);
         $container->addCompilerPass(new ExportProfileCompilerPass());
         $container->addCompilerPass(new ExportProfileFactoryCompilerPass());
-        $container->addCompilerPass(new ExportProfileConstraintCompilerPass());
         $container->addCompilerPass(new ExportProfileFormFactoryCompilerPass());
     }
 }
