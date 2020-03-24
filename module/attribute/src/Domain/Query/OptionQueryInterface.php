@@ -27,6 +27,13 @@ interface OptionQueryInterface
 
     /**
      * @param AttributeId $attributeId
+     *
+     * @return array
+     */
+    public function getAll(AttributeId $attributeId): array;
+
+    /**
+     * @param AttributeId $attributeId
      * @param Language    $language
      *
      * @return DataSetInterface

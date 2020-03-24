@@ -40,6 +40,11 @@ class ImporterMagento1ConfigurationModel
     /**
      * @var array
      */
+    public array $attributes = [];
+
+    /**
+     * @var array
+     */
     public array $import = [];
 
     /**
@@ -58,8 +63,7 @@ class ImporterMagento1ConfigurationModel
             }
 
             foreach (Magento1CsvSource::STEPS as $step) {
-
-                if($source->import($step)) {
+                if ($source->import($step)) {
                     $this->import[] = $step;
                 }
             }

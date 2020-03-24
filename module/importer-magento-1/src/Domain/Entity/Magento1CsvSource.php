@@ -13,6 +13,7 @@ use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
@@ -52,6 +53,14 @@ class Magento1CsvSource extends AbstractSource
     private array $languages;
 
     /**
+     * @var AttributeId[]
+     *
+     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
+     */
+    private array $attributes;
+
+
+    /**
      * @var string|null
      *
      * @JMS\Type("string")
@@ -76,24 +85,28 @@ class Magento1CsvSource extends AbstractSource
      * @param SourceId $id
      * @param string   $name
      * @param Language $defaultLanguage
-     * @param string   $host
      * @param array    $languages
+     * @param array    $attributes
      * @param array    $imports
+     * @param string   $host
      */
     public function __construct(
         SourceId $id,
         string $name,
         Language $defaultLanguage,
         array $languages = [],
+        array $attributes = [],
         array $imports = [],
         ?string $host = null
     ) {
         parent::__construct($id, $name);
+        Assert::allIsInstanceOf($attributes, AttributeId::class);
         Assert::allIsInstanceOf($languages, Language::class);
         Assert::allString($imports);
         Assert::allString(array_keys($languages));
 
         $this->languages = $languages;
+        $this->attributes = $attributes;
         $this->host = $host;
         $this->defaultLanguage = $defaultLanguage;
         $this->import = [];
@@ -153,6 +166,14 @@ class Magento1CsvSource extends AbstractSource
     public function getLanguages(): array
     {
         return $this->languages;
+    }
+
+    /**
+     * @return AttributeId[]
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
     }
 
     /**

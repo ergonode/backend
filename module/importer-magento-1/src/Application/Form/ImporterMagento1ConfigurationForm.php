@@ -23,6 +23,10 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Url;
 use Ergonode\ImporterMagento1\Application\Form\Type\StoreViewType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Ergonode\ImporterMagento1\Application\Form\Type\LanguageMapType;
+use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\ImporterMagento1\Application\Form\Type\AttributeMapType;
 
 /**
  */
@@ -71,6 +75,20 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                 [
                     'label' => 'Store views',
                 ]
+            )
+            ->add(
+                'attributes',
+                CollectionType::class,
+                [
+                    'label' => 'Attribute mapping',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => AttributeMapType::class,
+                    'liform' => [
+                        'format' => 'table',
+                        'widget' => 'table',
+                    ],
+                ]
             );
 
         $builder->addEventListener(FormEvents::SUBMIT, static function (FormEvent $event) {
@@ -89,6 +107,7 @@ class ImporterMagento1ConfigurationForm extends AbstractType
             $language = $data->mapping->defaultLanguage->getCode();
             $name = $data->name;
             $host = $data->host;
+            $attributes = $data->attributes;
 
             $import = (array) $data->import;
 
@@ -96,7 +115,13 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                 SourceId::generate(),
                 Magento1CsvSource::TYPE,
                 $name,
-                ['import' => $import, 'languages' => $languages, 'defaultLanguage' => $language, 'host' => $host]
+                [
+                    'import' => $import,
+                    'languages' => $languages,
+                    'defaultLanguage' => $language,
+                    'host' => $host,
+                    'attributes' => $attributes,
+                ]
             );
 
             $event->setData($data);

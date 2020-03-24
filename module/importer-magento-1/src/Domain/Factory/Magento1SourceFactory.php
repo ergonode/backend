@@ -13,6 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\Importer\Domain\Factory\SourceFactoryInterface;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
@@ -41,10 +42,14 @@ class Magento1SourceFactory implements SourceFactoryInterface
         foreach ($configuration['languages'] as $key => $language) {
             $languages[$key] = new Language($language);
         }
+        $attributes = [];
+        foreach ($configuration['attributes'] as $code => $attribute) {
+            $attributes[$code] = new AttributeId($attribute);
+        }
         $defaultLanguage = new Language($configuration['defaultLanguage']);
         $host = $configuration['host'];
         $import = $configuration['import'];
         
-        return new Magento1CsvSource($sourceId, $name, $defaultLanguage, $languages, $import, $host);
+        return new Magento1CsvSource($sourceId, $name, $defaultLanguage, $languages, $attributes, $import, $host);
     }
 }

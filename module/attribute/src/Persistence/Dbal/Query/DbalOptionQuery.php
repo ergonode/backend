@@ -64,6 +64,36 @@ class DbalOptionQuery implements OptionQueryInterface
     }
 
     /**
+     * @param AttributeId $attributeId
+     *
+     * @return array
+     */
+    public function getAll(AttributeId $attributeId): array
+    {
+        $qb = $this->getQuery();
+
+        $records = $qb
+            ->select('o. id, o.key as code, value_id')
+            ->andWhere($qb->expr()->eq('o.attribute_id', ':id'))
+            ->setParameter(':id', $attributeId->getValue())
+            ->orderBy('o.key')
+            ->execute()
+            ->fetchAll();
+
+        $result = [];
+        foreach ($records as $record) {
+            $value = $this->getValue($record['value_id']);
+            $result[] = [
+                'id' => $record['id'],
+                'code' => $record['code'],
+                'label' => !empty($value) ? $value : new \stdClass(),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
      * @param AttributeId $id
      * @param OptionKey   $code
      *
@@ -106,6 +136,24 @@ class DbalOptionQuery implements OptionQueryInterface
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * @param string $valueId
+     *
+     * @return array
+     */
+    private function getValue(string $valueId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select('language, value')
+            ->from(self::TABLE_VALUES)
+            ->where($qb->expr()->eq('value_id', ':id'))
+            ->setParameter(':id', $valueId)
+            ->orderBy('language')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
     /**

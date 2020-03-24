@@ -17,7 +17,6 @@ Feature: Select attribute manipulation
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
-
   Scenario: Create option for attribute
     And I send a "POST" request to "/api/v1/EN/attributes/@attribute_id@/options" with body:
       """
@@ -46,7 +45,12 @@ Feature: Select attribute manipulation
       """
     Then the response status code should be 201
 
-  Scenario: Get created select
+  Scenario: Get attribute options
+    And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options"
+    Then the response status code should be 200
+    And the JSON node "[0].label.PL" should exist
+
+  Scenario: Get created option
     And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options/@option_id@"
     Then the response status code should be 200
     And the JSON node "label.PL" should contain "Option PL 1"

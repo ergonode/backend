@@ -23,7 +23,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 /**
- * @Route("/attributes/{attribute}/options", methods={"GET"})
+ * @Route("/attributes/{attribute}/options/grid", methods={"GET"})
  */
 class OptionGridAction
 {
