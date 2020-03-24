@@ -58,7 +58,7 @@ class CreateConditionSetCommandTest extends TestCase
         $categoryId = $this->createMock(CategoryId::class);
         $conditions = [
             new ProductCompletenessCondition('complete'),
-            new ProductBelongCategoryCondition($categoryId, 'equal'),
+            new ProductBelongCategoryCondition([$categoryId], 'BELONG_TO'),
         ];
 
         $id = ConditionSetId::generate();

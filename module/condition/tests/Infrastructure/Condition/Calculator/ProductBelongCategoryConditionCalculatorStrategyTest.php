@@ -20,12 +20,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
 {
-
-    /**
-     * @var MockObject|CategoryRepositoryInterface
-     */
-    private MockObject $repository;
-
     /**
      * @var ProductBelongCategoryConditionCalculatorStrategy
      */
@@ -35,8 +29,7 @@ class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->repository = $this->createMock(CategoryRepositoryInterface::class);
-        $this->strategy = new ProductBelongCategoryConditionCalculatorStrategy($this->repository);
+        $this->strategy = new ProductBelongCategoryConditionCalculatorStrategy();
     }
 
     /**
@@ -60,12 +53,11 @@ class ProductBelongCategoryConditionCalculatorStrategyTest extends TestCase
         $configuration
             ->expects($this->once())
             ->method('getCategory')
-            ->willReturn($this->createMock(CategoryId::class));
-        $this
-            ->repository
-            ->expects($this->once())
-            ->method('load')
-            ->willReturn($this->createMock(Category::class));
+            ->willReturn(
+                [
+                    $this->createMock(CategoryId::class),
+                ]
+            );
 
         $configuration->expects($this->once())->method('getOperator')->willReturn($operator);
         $this->assertSame($result, $this->strategy->calculate($object, $configuration));

@@ -70,7 +70,7 @@ class ProductBelongCategoryConditionConfigurationStrategy implements ConditionCo
             'parameters' => [
                 [
                     'name' => 'category',
-                    'type' => 'SELECT',
+                    'type' => 'MULTI_SELECT',
                     'options' => $categories,
                 ],
                 [

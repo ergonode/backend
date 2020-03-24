@@ -11,9 +11,7 @@ use Ergonode\Category\Infrastructure\Validator\CategoryExists;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition;
 use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterface;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\Choice;
-use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
@@ -33,15 +31,21 @@ class ProductBelongCategoryConditionValidatorStrategy implements ConditionValida
     public function build(array $data): Constraint
     {
 
-        return new Collection(
+        return new Assert\Collection(
             [
                 'category' => [
-                    new NotBlank(),
-                    new CategoryExists(),
+                    new Assert\NotBlank(),
+                    new Assert\Type('array'),
+                    new Assert\Count(['min' => 1]),
+                    new Assert\All(
+                        [
+                            new CategoryExists(),
+                        ]
+                    ),
                 ],
                 'operator' => [
-                    new NotBlank(),
-                    new Choice(
+                    new Assert\NotBlank(),
+                    new Assert\Choice(
                         [
                             ProductBelongCategoryCondition::BELONG_TO,
                             ProductBelongCategoryCondition::NOT_BELONG_TO,

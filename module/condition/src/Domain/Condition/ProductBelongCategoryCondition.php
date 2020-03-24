@@ -22,11 +22,11 @@ class ProductBelongCategoryCondition implements ConditionInterface
     public const NOT_BELONG_TO = 'NOT_BELONG_TO';
 
     /**
-     * @var CategoryId
+     * @var CategoryId[]
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryId")
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
      */
-    private CategoryId $category;
+    private array $category;
 
     /**
      * @var string
@@ -36,11 +36,10 @@ class ProductBelongCategoryCondition implements ConditionInterface
     private string $operator;
 
     /**
-     * ProductBelongCategoryCondition constructor.
-     * @param CategoryId $category
-     * @param string     $operator
+     * @param CategoryId[] $category
+     * @param string       $operator
      */
-    public function __construct(CategoryId $category, string $operator)
+    public function __construct(array $category, string $operator)
     {
         $this->category = $category;
         $this->operator = $operator;
@@ -57,9 +56,9 @@ class ProductBelongCategoryCondition implements ConditionInterface
     }
 
     /**
-     * @return CategoryId
+     * @return CategoryId[]
      */
-    public function getCategory(): CategoryId
+    public function getCategory(): array
     {
         return $this->category;
     }
