@@ -425,7 +425,7 @@ Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
       - '<productCollectionTypeId("cross-sell")>'
       - '<productCollectionTypeCode("cross-sell")>'
       - '<translation(<{name_product_collection_type_cross-sell}>)>'
-  
+    
 Ergonode\Core\Domain\Command\CreateUnitCommand:
   unit_metre:
     __construct:

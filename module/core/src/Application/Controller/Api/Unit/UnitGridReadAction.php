@@ -119,7 +119,7 @@ class UnitGridReadAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns import",
+     *     description="Returns grid",
      * )
      *
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")

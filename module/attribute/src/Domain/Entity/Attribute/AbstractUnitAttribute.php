@@ -22,7 +22,7 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractUnitAttribute extends AbstractAttribute
 {
     public const TYPE = 'UNIT';
-    public const UNIT_ID = 'unit';
+    public const UNIT = 'unit';
 
     /**
      * @param AttributeId        $id
@@ -49,7 +49,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
             $hint,
             $placeholder,
             false,
-            [self::UNIT_ID => $unitId->getValue()]
+            [self::UNIT => $unitId->getValue()]
         );
     }
 
@@ -69,7 +69,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
      */
     public function getUnitId(): UnitId
     {
-        return new UnitId($this->getParameter(self::UNIT_ID));
+        return new UnitId($this->getParameter(self::UNIT));
     }
 
     /**
@@ -82,7 +82,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
         if ($this->getUnitId()->getValue() !== $new->getValue()) {
             $event = new AttributeParameterChangeEvent(
                 $this->id,
-                self::UNIT_ID,
+                self::UNIT,
                 $this->getUnitId()->getValue(),
                 $new->getValue()
             );

@@ -25,7 +25,7 @@ class UnitIdFaker extends BaseProvider
     public function unitId(string $unit = null): UnitId
     {
         if ($unit) {
-            return UnitId::fromCode($unit);
+            return new UnitId($unit);
         }
 
         return UnitId::generate();

@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
@@ -24,6 +23,8 @@ use Ergonode\Attribute\Domain\View\Factory\AttributeViewModelFactory;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 /**
  */
@@ -262,6 +263,33 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->fetch();
 
         return new Range((float) $result['min'], (float) $result['max']);
+    }
+
+    /**
+     * @param UnitId $unitId
+     *
+     * @return array
+     */
+    public function findAttributeIdsByUnitId(UnitId $unitId): array
+    {
+        $qb = $this->getParametersQuery();
+
+        $result = $qb
+            ->select('p.attribute_id')
+            ->where(sprintf('p.value@> \'"%s"\'', $unitId->getValue()))
+            ->andWhere('p.type = \'unit\'')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new UnitId($item);
+        }
+
+        return $result;
     }
 
     /**
