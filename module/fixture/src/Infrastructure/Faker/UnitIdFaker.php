@@ -24,12 +24,10 @@ class UnitIdFaker extends BaseProvider
      */
     public function unitId(string $unit = null): UnitId
     {
-        if (null === $unit) {
-            $units = ['s', 'Ω', 'A', 'K', 'C', 'J', 'Gy', 'sr', 'cd', 'rad'];
-            $random = array_rand($units);
-            $unit = $units[$random];
+        if ($unit) {
+            return UnitId::fromCode($unit);
         }
 
-        return new UnitId($unit);
+        return UnitId::generate();
     }
 }

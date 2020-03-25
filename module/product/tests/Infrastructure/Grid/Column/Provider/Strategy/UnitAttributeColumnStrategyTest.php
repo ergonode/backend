@@ -10,13 +10,15 @@ namespace Ergonode\Product\Tests\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Core\Domain\Entity\Unit;
+use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\Filter\RangeFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\UnitAttributeColumnStrategy;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -27,7 +29,12 @@ class UnitAttributeColumnStrategyTest extends TestCase
     /**
      * @var AttributeQueryInterface|MockObject
      */
-    private $query;
+    private $attributeQuery;
+
+    /**
+     * @var UnitRepositoryInterface | MockObject
+     */
+    private $unitRepository;
 
     /**
      * @var UnitAttribute|MockObject
@@ -38,9 +45,11 @@ class UnitAttributeColumnStrategyTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->query = $this->createMock(AttributeQueryInterface::class);
+        $this->attributeQuery = $this->createMock(AttributeQueryInterface::class);
+        $this->unitRepository = $this->createMock(UnitRepositoryInterface::class);
         $this->attribute = $this->createMock(UnitAttribute::class);
-        $this->query->method('getAttributeValueRange')->willReturn(new Range(0, 100));
+        $this->unitRepository->method('load')->willReturn($this->createMock(Unit::class));
+        $this->attributeQuery->method('getAttributeValueRange')->willReturn(new Range(0, 100));
         $this->attribute->method('getId')->willReturn($this->createMock(AttributeId::class));
     }
 
@@ -48,7 +57,7 @@ class UnitAttributeColumnStrategyTest extends TestCase
      */
     public function testIsSupported(): void
     {
-        $strategy = new UnitAttributeColumnStrategy($this->query);
+        $strategy = new UnitAttributeColumnStrategy($this->attributeQuery, $this->unitRepository);
         $this->assertTrue($strategy->supports($this->attribute));
     }
 
@@ -56,7 +65,7 @@ class UnitAttributeColumnStrategyTest extends TestCase
      */
     public function testIsNotSupported(): void
     {
-        $strategy = new UnitAttributeColumnStrategy($this->query);
+        $strategy = new UnitAttributeColumnStrategy($this->attributeQuery, $this->unitRepository);
         $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
@@ -65,7 +74,7 @@ class UnitAttributeColumnStrategyTest extends TestCase
     public function testCreateColumn(): void
     {
         $language = $this->createMock(Language::class);
-        $strategy = new UnitAttributeColumnStrategy($this->query);
+        $strategy = new UnitAttributeColumnStrategy($this->attributeQuery, $this->unitRepository);
         $column = $strategy->create($this->attribute, $language);
         $this->assertInstanceOf(NumericColumn::class, $column);
         $this->assertInstanceOf(RangeFilter::class, $column->getFilter());

@@ -11,6 +11,7 @@ namespace Ergonode\Core\Application\Controller\Api\Language;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +37,8 @@ class LanguageAutocompleteAction
     }
 
     /**
+     * @IsGranted("SETTINGS_UPDATE")
+     *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(
      *     name="language",
