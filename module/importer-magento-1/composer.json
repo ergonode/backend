@@ -1,0 +1,31 @@
+{
+  "name": "ergonode/importer-magento-1",
+  "type": "ergonode-module",
+  "description": "Ergonode - Importer Magento 1",
+  "homepage": "https://ergonode.com",
+  "license": "OSL-3.0",
+  "config": {
+    "bin-dir": "bin",
+    "preferred-install": {
+      "*": "dist"
+    },
+    "sort-packages": true
+  },
+  "require": {
+    "php": "^7.4",
+    "ergonode/importer": "^0.6.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ergonode\\ImporterMagento1\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Ergonode\\ImporterMagento1\\Tests\\": "tests/"
+    }
+  }
+}
