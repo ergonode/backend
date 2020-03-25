@@ -30,12 +30,26 @@ use Ergonode\Importer\Domain\Entity\ImportLine;
 use Doctrine\DBAL\DBALException;
 use Ramsey\Uuid\Uuid;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
+use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 
 /**
  */
 class Magento1ProductProcessor implements Magento1ProcessorStepInterface
 {
     private const NAMESPACE = 'e1f84ee9-14f2-4e52-981a-b6b82006ada8';
+
+    /**
+     * @var OptionQueryInterface
+     */
+    private OptionQueryInterface $optionQuery;
+
+    /**
+     * @var AttributeQueryInterface
+     */
+    private AttributeQueryInterface $attributeQuery;
 
     /**
      * @var ImportLineRepositoryInterface
@@ -48,11 +62,21 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
     private CommandBusInterface $commandBus;
 
     /**
+     * Magento1ProductProcessor constructor.
+     *
+     * @param OptionQueryInterface          $optionQuery
+     * @param AttributeQueryInterface       $attributeQuery
      * @param ImportLineRepositoryInterface $repository
      * @param CommandBusInterface           $commandBus
      */
-    public function __construct(ImportLineRepositoryInterface $repository, CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        OptionQueryInterface $optionQuery,
+        AttributeQueryInterface $attributeQuery,
+        ImportLineRepositoryInterface $repository,
+        CommandBusInterface $commandBus
+    ) {
+        $this->optionQuery = $optionQuery;
+        $this->attributeQuery = $attributeQuery;
         $this->repository = $repository;
         $this->commandBus = $commandBus;
     }
@@ -92,6 +116,8 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
             $this->repository->save($line);
             $this->commandBus->dispatch($command);
         }
+
+        echo print_r('SEND PRODUCTS  '.$i, true).PHP_EOL;
     }
 
     /**
@@ -120,7 +146,6 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
      */
     private function getRecord(ProductModel $product, Transformer $transformer, Magento1CsvSource $source): Record
     {
-
         $default = $product->get('default');
 
         $record = new Record();
@@ -129,11 +154,14 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
             if ($transformer->hasAttribute($field)) {
                 $type = $transformer->getAttributeType($field);
                 $isMultilingual = $transformer->isAttributeMultilingual($field);
+                $attributeId = $this->attributeQuery->findAttributeByCode(new AttributeCode($field));
                 if (null === $value) {
                     $record->setValue($field, null);
                 } else {
                     if (SelectAttribute::TYPE === $type || MultiSelectAttribute::TYPE === $type) {
-                        $record->setValue($field, new Stringvalue($value));
+                        $optionKey = new OptionKey($value);
+                        $optionId = $this->optionQuery->findIdByAttributeIdAndCode($attributeId->getId(), $optionKey);
+                        $record->setValue($field, new Stringvalue($optionId->getValue()));
                     } elseif (ImageAttribute::TYPE === $type) {
                         if ($source->import(Magento1CsvSource::MULTIMEDIA)) {
                             $url = $source->getHost().$value;

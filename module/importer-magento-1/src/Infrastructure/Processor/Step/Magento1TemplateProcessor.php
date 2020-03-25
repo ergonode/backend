@@ -68,30 +68,37 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
         $templates = [];
         foreach ($products as $sku => $product) {
             $default = $product->get('default');
-            if (array_key_exists('esa_cross_sell', $default)) {
-                $skus = $default['esa_template'];
-                var_dump($skus);
-
-                die;
+            if (array_key_exists('esa_template', $default)) {
+                $type = $default['esa_template'];
+                if (!array_key_exists($type, $templates)) {
+                    $templates[$type] = new Record();
+                    $templates[$type]->set('code', new StringValue($type));
+                    $templates[$type]->set(
+                        'name',
+                        new TranslatableStringValue(
+                            new TranslatableString([$source->getDefaultLanguage()->getCode() => $type])
+                        )
+                    );
+                }
             }
         }
 
         $i = 0;
         $count = count($templates);
-//        foreach ($templates as $template) {
-//            $i++;
-//            $records = new Progress($i, $count);
-//            $command = new ProcessImportCommand(
-//                $import->getId(),
-//                $steps,
-//                $records,
-//                $template,
-//                TemplateImportAction::TYPE
-//            );
-//            $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
-//            $this->repository->save($line);
-//            $this->commandBus->dispatch($command);
-//        }
+        foreach ($templates as $template) {
+            $i++;
+            $records = new Progress($i, $count);
+            $command = new ProcessImportCommand(
+                $import->getId(),
+                $steps,
+                $records,
+                $template,
+                TemplateImportAction::TYPE
+            );
+            $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
+            $this->repository->save($line);
+            $this->commandBus->dispatch($command);
+        }
 
         echo print_r('SEND COLLECTIONS  '.$i, true).PHP_EOL;
     }

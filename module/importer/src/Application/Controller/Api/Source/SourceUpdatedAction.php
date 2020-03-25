@@ -29,7 +29,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  * @Route(
  *     name="ergonode_source_update",
  *     path="/sources/{source}",
- *     methods={"POST"},
+ *     methods={"PUT"},
  *     requirements={"source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
@@ -102,7 +102,7 @@ class SourceUpdatedAction
                 /** @var ConfigurationModel $data */
                 $data = $form->getData();
 
-                $command = new GenerateImportCommand(
+                $command = new UpdateI(
                     $source->getId(),
                     $data
                 );

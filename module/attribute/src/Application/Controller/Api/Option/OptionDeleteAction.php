@@ -18,14 +18,18 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Ergonode\Attribute\Domain\Entity\AbstractOption;
+use Ergonode\Attribute\Domain\Command\Option\DeleteOptionCommand;
+use Ergonode\Api\Application\Response\EmptyResponse;
 
 /**
  * @Route(
  *     name="ergonode_option_delete",
- *     path="/attributes/{attribute}/options",
+ *     path="/attributes/{attribute}/options/{option}",
  *     methods={"DELETE"},
  *     requirements={
- *        "attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+ *        "attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+ *        "option" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
  *     }
  * )
  */
@@ -88,16 +92,20 @@ class OptionDeleteAction
      * )
      *
      * @param AbstractAttribute $attribute
-     * @param Request           $request
-     *
-     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     * @param AbstractOption    $option
      *
      * @return Response
      *
-     * @throws \Exception
+     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractOption")
+     *
      */
-    public function __invoke(AbstractAttribute $attribute, Request $request): Response
+    public function __invoke(AbstractAttribute $attribute, AbstractOption $option): Response
     {
-        //todo
+        $command = new DeleteOptionCommand($option->getId(), $attribute->getId());
+
+        $this->messageBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 }

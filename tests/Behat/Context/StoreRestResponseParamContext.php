@@ -4,7 +4,8 @@ namespace App\Tests\Behat\Context;
 
 use Behat\MinkExtension\Context\RawMinkContext;
 use StorageContext;
-use Symfony\Component\Serializer\Encoder\DecoderInterface;
+use Behatch\Json\JsonInspector;
+use Behatch\Json\Json;
 
 /**
  */
@@ -13,21 +14,21 @@ class StoreRestResponseParamContext extends RawMinkContext
     /**
      * @var StorageContext
      */
-    private $storageContext;
+    private StorageContext $storageContext;
 
     /**
-     * @var DecoderInterface
+     * @var JsonInspector
      */
-    private $decoder;
+    private JsonInspector $inspector;
 
     /**
      * @param StorageContext   $storageContext
-     * @param DecoderInterface $decoder
+     * @param string           $evaluationMode
      */
-    public function __construct(StorageContext $storageContext, DecoderInterface $decoder)
+    public function __construct(StorageContext $storageContext, string $evaluationMode = 'javascript')
     {
         $this->storageContext = $storageContext;
-        $this->decoder = $decoder;
+        $this->inspector = new JsonInspector($evaluationMode);
     }
 
     /**
@@ -35,11 +36,14 @@ class StoreRestResponseParamContext extends RawMinkContext
      * @param string $var
      *
      * @Then store response param :key as :var
+     *
+     * @throws \Exception
      */
     public function storeResponseParam(string $key, string $var): void
     {
         $content = $this->getMink()->getSession()->getPage()->getContent();
-        $json = $this->decoder->decode($content, 'json');
-        $this->storageContext->add($var, $json[$key]);
+        $json = new Json($content);
+
+        $this->storageContext->add($var, $this->inspector->evaluate($json, $key));
     }
 }

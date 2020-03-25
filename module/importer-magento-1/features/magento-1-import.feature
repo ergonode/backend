@@ -25,11 +25,35 @@ Feature: Category module
     Then the response status code should be 201
     And store response param "id" as "source_id"
 
+  Scenario: Update Magento 1 CSV Source
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/EN/sources/@source_id@" with body:
+      """
+      {
+        "name": "name",
+        "host": "http://test.host",
+        "import" : [
+           "templates",
+           "attributes",
+           "categories",
+           "products"
+        ],
+        "mapping": {
+          "default_language": "EN",
+          "languages": []
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "source_id"
+
   Scenario: Upload magento 1 test import file
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "multipart/form-data"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/imports/upload" with params:
+    When I send a PUT request to "/api/v1/EN/imports/upload" with params:
       | key    | value                   |
       | source_id | @source_id@          |
       | upload    | @magento-1-test.csv  |

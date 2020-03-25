@@ -15,6 +15,7 @@ use Ergonode\ImporterMagento1\Application\Form\ImporterMagento1ConfigurationForm
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationModel;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
@@ -51,7 +52,14 @@ class ImporterMagento1SourceFormFactory implements SourceFormFactoryInterface
     public function create(AbstractSource $source = null): FormInterface
     {
         $model = new ImporterMagento1ConfigurationModel($source);
+        if (null === $source) {
+            return $this->formFactory->create(ImporterMagento1ConfigurationForm::class, $model);
+        }
 
-        return $this->formFactory->create(ImporterMagento1ConfigurationForm::class, $model);
+        return $this->formFactory->create(
+            ImporterMagento1ConfigurationForm::class,
+            $model,
+            ['method' => Request::METHOD_PUT]
+        );
     }
 }

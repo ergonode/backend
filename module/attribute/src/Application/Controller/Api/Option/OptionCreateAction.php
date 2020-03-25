@@ -27,6 +27,7 @@ use Ergonode\Attribute\Application\Form\SimpleOptionForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  * @Route(
@@ -117,6 +118,7 @@ class OptionCreateAction
                 $data = $form->getData();
 
                 $command = new CreateOptionCommand(
+                    AggregateId::generate(),
                     $attribute->getId(),
                     new OptionKey($data->code),
                     new TranslatableString($data->label)

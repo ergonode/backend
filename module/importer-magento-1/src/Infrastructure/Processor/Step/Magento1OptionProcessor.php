@@ -81,12 +81,12 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
 
             if (SelectAttribute::TYPE === $type || MultiSelectAttribute::TYPE === $type) {
                 $attributeCode = new AttributeCode($field);
-                $record = new Record();
                 $options = $this->getOptions($columns[$field]);
                 foreach ($options as $key => $option) {
+                    $record = new Record();
                     $record->set('attribute_code', new StringValue($attributeCode->getValue()));
                     $record->set('option_code', new StringValue($key));
-                    $record->setValue($key, $option);
+                    $record->setValue($source->getDefaultLanguage()->getCode(), $option);
                     $result[] = $record;
                 }
             }

@@ -43,8 +43,8 @@ class Magento1SourceFactory implements SourceFactoryInterface
             $languages[$key] = new Language($language);
         }
         $attributes = [];
-        foreach ($configuration['attributes'] as $code => $attribute) {
-            $attributes[$code] = new AttributeId($attribute);
+        foreach ($configuration['attributes'] as $attribute) {
+            $attributes[$attribute->code] = new AttributeId($attribute->attribute);
         }
         $defaultLanguage = new Language($configuration['defaultLanguage']);
         $host = $configuration['host'];

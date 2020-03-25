@@ -15,12 +15,12 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Transformer\Domain\Model\Record;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\Command\Option\UpdateOptionCommand;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
@@ -69,10 +69,10 @@ class OptionImportAction implements ImportActionInterface
         $attributeCode = $record->get('attribute_code') ?
             new AttributeCode($record->get('attribute_code')->getValue()) :
             null;
-        $optionCode = $record->get('option_code') ? new OptionKey($record->get('code')->getValue()) : null;
+        $optionCode = $record->has('option_code') ? new OptionKey($record->get('option_code')->getValue()) : null;
 
-        Assert::notNull($attributeCode, 'Attribute import required code field not exists');
-        Assert::notNull($optionCode, 'Attribute import required option field not exists');
+        Assert::notNull($attributeCode, 'Option import required code field not exists');
+        Assert::notNull($optionCode, 'Option import required option field not exists');
 
 
         $attributeModel = $this->attributeQuery->findAttributeByCode($attributeCode);
@@ -82,13 +82,16 @@ class OptionImportAction implements ImportActionInterface
 
         $options = [];
         foreach ($record->getValues() as $key => $value) {
-            $options[$key] = new StringOption($value->getValue());
+            $options[$key] = $value->getValue();
         }
+
+
 
         $label = new TranslatableString($options);
 
         if (!$optionId) {
             $command = new CreateOptionCommand(
+                AggregateId::generate(),
                 $attributeId,
                 $optionCode,
                 $label

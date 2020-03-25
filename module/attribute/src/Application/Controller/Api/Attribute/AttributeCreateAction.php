@@ -24,8 +24,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
 
 /**
  * @Route("/attributes", methods={"POST"})
