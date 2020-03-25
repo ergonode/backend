@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\DateColumn;
+use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\DateFilter;
@@ -38,6 +39,8 @@ class ProductCollectionElementGrid extends AbstractGrid
             new TextFilter()
         ));
         $this->addColumn('product_id', new TextColumn('product_id', 'Product Id', new TextFilter()));
+        $this->addColumn('default_image', new ImageColumn('default_image'));
+        $this->addColumn('system_name', new TextColumn('system_name', 'System name', new TextFilter()));
         $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
         $this->addColumn('visible', new BoolColumn('visible', 'Product visible in collection'));
         $this->addColumn('created_at', new DateColumn('created_at', 'Addition date', new DateFilter()));

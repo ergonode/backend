@@ -12,7 +12,6 @@ namespace Ergonode\ProductCollection\Tests\Domain\Command;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ProductCollection\Domain\Command\CreateProductCollectionTypeCommand;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -33,7 +32,6 @@ class CreateProductCollectionTypeCommandTest extends TestCase
 
         $command = new CreateProductCollectionTypeCommand($code, $name);
 
-        $this->assertEquals(ProductCollectionTypeId::fromCode($code->getValue()), $command->getId());
         $this->assertEquals($code, $command->getCode());
         $this->assertEquals($name, $command->getName());
     }

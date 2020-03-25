@@ -15,5 +15,4 @@ use Ergonode\SharedKernel\Domain\AggregateId;
  */
 class SourceId extends AggregateId
 {
-
 }

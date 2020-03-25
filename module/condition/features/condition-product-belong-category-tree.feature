@@ -19,14 +19,32 @@ Feature: Condition Product belong category tree exists
       {
         "code": "TREE_@@random_code@@",
         "name": {
-          "DE": "Test DE",
-          "EN": "Test EN",
-          "PL": "Test PL"
+          "DE": "Test tree1 DE",
+          "EN": "Test tree1 EN",
+          "PL": "Test tree1 PL"
         }
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "category_tree"
+    And store response param "id" as "category_tree1"
+
+  Scenario: Create category tree
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/trees" with body:
+      """
+      {
+        "code": "TREE_@@random_code@@",
+        "name": {
+          "DE": "Test tree2 DE",
+          "EN": "Test tree2 EN",
+          "PL": "Test tree2 PL"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "category_tree2"
 
   Scenario: Post new BELONG_TO product category tree exists condition set
     Given I am Authenticated as "test@ergonode.com"
@@ -39,7 +57,10 @@ Feature: Condition Product belong category tree exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_TREE_CONDITION",
               "operator": "BELONG_TO",
-              "tree": "@category_tree@"
+              "tree": [
+                "@category_tree1@",
+                "@category_tree2@"
+              ]
             }
           ]
         }
@@ -57,7 +78,9 @@ Feature: Condition Product belong category tree exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_TREE_CONDITION",
               "operator": "NOT_BELONG_TO",
-              "tree": "@category_tree@"
+              "tree": [
+                "@category_tree1@"
+              ]
             }
           ]
         }
@@ -75,7 +98,9 @@ Feature: Condition Product belong category tree exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_TREE_CONDITION",
               "operator": "x",
-              "tree": "@category_tree@"
+              "tree": [
+                "@category_tree1@"
+              ]
             }
           ]
         }
@@ -93,7 +118,9 @@ Feature: Condition Product belong category tree exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_TREE_CONDITION",
               "operator": "NOT_BELONG_TO",
-              "tree": "@@random_uuid@@"
+              "tree": [
+                "@@random_uuid@@"
+              ]
             }
           ]
         }

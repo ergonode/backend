@@ -255,7 +255,7 @@ nelmio_api_doc:
                         example:
                             DE: Name DE
                             EN: Name EN
-            
+
             tree:
                 type: object
                 properties:
@@ -370,7 +370,7 @@ nelmio_api_doc:
                         required: true
                         description: Show if product is visible for other products from collection
                         example: true
-            
+
             element_create_by_segment_and_sku:
                 type: object
                 properties:
@@ -767,9 +767,9 @@ nelmio_api_doc:
                         required: true
                         description: export profile name
                         example: Magento 2 csv
-                    params:
-                        type: 'array'
-                        example: {"filename":"m2.csv"}
+                    specyfic_params:
+                        type: string
+                        description: get param from /api/v1/{language}/export-profile/{type}/configuration
     areas:
         path_patterns:
             - ^/api(?!/doc$)

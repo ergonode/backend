@@ -4,11 +4,12 @@
 namespace App\Tests\Behat\Context;
 
 use Behat\Behat\Context\Context;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Domain\Query\UserQueryInterface;
+use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Exception;
 use InvalidArgumentException;
 
@@ -19,14 +20,21 @@ class UserContext implements Context
     /**
      * @var UserRepositoryInterface
      */
-    private $userRepository;
+    private UserRepositoryInterface $repository;
 
     /**
-     * @param UserRepositoryInterface $userRepository
+     * @var UserQueryInterface
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    private UserQueryInterface $query;
+
+    /**
+     * @param UserRepositoryInterface $repository
+     * @param UserQueryInterface      $query
+     */
+    public function __construct(UserRepositoryInterface $repository, UserQueryInterface $query)
     {
-        $this->userRepository = $userRepository;
+        $this->repository = $repository;
+        $this->query = $query;
     }
 
     /**
@@ -40,8 +48,11 @@ class UserContext implements Context
      */
     public function castUserEmailToUser(string $userEmail): User
     {
-        $userId = UserId::fromEmail(new Email($userEmail));
-        $user = $this->userRepository->load($userId);
+        $userId = $this->query->findIdByEmail(new Email($userEmail));
+        if (!$userId instanceof UserId) {
+            throw new InvalidArgumentException(sprintf('There is no user with email %s', $userEmail));
+        }
+        $user = $this->repository->load($userId);
         if (!$user instanceof User) {
             throw new InvalidArgumentException(sprintf('There is no user with email %s', $userEmail));
         }

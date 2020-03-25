@@ -1,0 +1,44 @@
+{
+  "name": "ergonode/channel",
+  "type": "ergonode-module",
+  "description": "Ergonode - Channel",
+  "homepage": "https://ergonode.com",
+  "license": "OSL-3.0",
+  "config": {
+    "bin-dir": "bin",
+    "preferred-install": {
+      "*": "dist"
+    },
+    "sort-packages": true
+  },
+  "require": {
+    "php": "^7.4",
+    "doctrine/dbal": "^2.9",
+    "ergonode/api": "^0.6.1",
+    "ergonode/attribute": "^0.6.1",
+    "ergonode/core": "^0.6.0",
+    "ergonode/grid": "^0.6.0",
+    "jms/serializer": "^3.1",
+    "nelmio/api-doc-bundle": "^3.4",
+    "ramsey/uuid": "^3.8",
+    "sensio/framework-extra-bundle": "^5.4",
+    "symfony/form": "^4.4",
+    "symfony/messenger": "^4.4",
+    "symfony/translation": "^4.4",
+    "symfony/validator": "^4.4",
+    "vich/uploader-bundle": "^1.10"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ergonode\\Channel\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Ergonode\\Channel\\Tests\\": "tests/"
+    }
+  }
+}

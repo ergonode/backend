@@ -1,4 +1,5 @@
 Feature: Condition Product belong category exists
+
   Scenario: Get product belong category exists condition
     When I send a GET request to "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_CONDITION"
     Then the response status code should be 401
@@ -10,7 +11,7 @@ Feature: Condition Product belong category exists
     When I send a GET request to "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_CONDITION"
     Then the response status code should be 200
 
-  Scenario: Create category
+  Scenario: Create category1
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
@@ -19,14 +20,32 @@ Feature: Condition Product belong category exists
       {
         "code": "CATEGORY_@@random_uuid@@",
         "name": {
-          "DE": "Test DE",
-          "EN": "Test EN",
-          "PL": "Test PL"
+          "DE": "Test1 DE",
+          "EN": "Test1 EN",
+          "PL": "Test1 PL"
         }
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "category"
+    And store response param "id" as "category1"
+
+  Scenario: Create category2
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/categories" with body:
+      """
+      {
+        "code": "CATEGORY_@@random_uuid@@",
+        "name": {
+          "DE": "Test2 DE",
+          "EN": "Test2 EN",
+          "PL": "Test2 PL"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "category2"
 
   Scenario: Post new BELONG_TO product category exists condition set
     Given I am Authenticated as "test@ergonode.com"
@@ -39,7 +58,10 @@ Feature: Condition Product belong category exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
               "operator": "BELONG_TO",
-              "category": "@category@"
+              "category": [
+                "@category1@",
+                "@category2@"
+              ]
             }
           ]
         }
@@ -57,7 +79,9 @@ Feature: Condition Product belong category exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
               "operator": "NOT_BELONG_TO",
-              "category": "@category@"
+              "category": [
+                "@category1@"
+              ]
             }
           ]
         }
@@ -75,7 +99,10 @@ Feature: Condition Product belong category exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
               "operator": "x",
-              "category": "@category@"
+              "category": [
+                "@category1@",
+                "@category2@"
+              ]
             }
           ]
         }
@@ -93,7 +120,9 @@ Feature: Condition Product belong category exists
             {
               "type": "PRODUCT_BELONG_CATEGORY_CONDITION",
               "operator": "NOT_BELONG_TO",
-              "category": "@@random_uuid@@"
+              "category": [
+                "@@random_uuid@@"
+              ]
             }
           ]
         }

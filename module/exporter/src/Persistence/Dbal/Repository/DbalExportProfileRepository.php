@@ -12,9 +12,10 @@ namespace Ergonode\Exporter\Persistence\Dbal\Repository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
 use Ergonode\Exporter\Persistence\Dbal\Repository\Factory\ExportProfileFactory;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use JMS\Serializer\SerializerInterface;
 
 /**
  */
@@ -39,13 +40,20 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
     private ExportProfileFactory $factory;
 
     /**
+     * @var SerializerInterface
+     */
+    private SerializerInterface $serializer;
+
+    /**
      * @param Connection           $connection
      * @param ExportProfileFactory $factory
+     * @param SerializerInterface  $serializer
      */
-    public function __construct(Connection $connection, ExportProfileFactory $factory)
+    public function __construct(Connection $connection, ExportProfileFactory $factory, SerializerInterface $serializer)
     {
         $this->connection = $connection;
         $this->factory = $factory;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -132,7 +140,7 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
             self::TABLE,
             [
                 'name' => $exportProfile->getName(),
-                'configuration' => \json_encode($exportProfile->getConfiguration(), JSON_THROW_ON_ERROR, 512),
+                'configuration' => $this->serializer->serialize($exportProfile, 'json'),
                 'type' => \get_class($exportProfile),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
@@ -155,7 +163,7 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
             [
                 'id' => $exportProfile->getId()->getValue(),
                 'name' => $exportProfile->getName(),
-                'configuration' => \json_encode($exportProfile->getConfiguration(), JSON_THROW_ON_ERROR, 512),
+                'configuration' => $this->serializer->serialize($exportProfile, 'json'),
                 'type' => \get_class($exportProfile),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),

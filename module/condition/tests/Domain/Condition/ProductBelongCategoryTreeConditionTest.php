@@ -25,9 +25,9 @@ class ProductBelongCategoryTreeConditionTest extends TestCase
         $categoryTreeId = $this->createMock(CategoryTreeId::class);
         $operator = 'belong';
 
-        $condition = new ProductBelongCategoryTreeCondition($categoryTreeId, $operator);
+        $condition = new ProductBelongCategoryTreeCondition([$categoryTreeId], $operator);
 
-        $this->assertSame($categoryTreeId, $condition->getTree());
+        $this->assertSame([$categoryTreeId], $condition->getTree());
         $this->assertSame($operator, $condition->getOperator());
         $this->assertSame(ProductBelongCategoryTreeCondition::TYPE, $condition->getType());
     }

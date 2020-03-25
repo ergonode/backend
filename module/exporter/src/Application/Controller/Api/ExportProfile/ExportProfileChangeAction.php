@@ -8,39 +8,35 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Application\Controller\Api\ExportProfile;
 
-use Ergonode\Api\Application\Exception\ViolationsHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Exporter\Application\Provider\ExportProfileFormFactoryProvider;
+use Ergonode\Exporter\Domain\Command\ExportProfile\CreateExportProfileCommand;
 use Ergonode\Exporter\Domain\Command\ExportProfile\UpdateExportProfileCommand;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
-use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
-use Ergonode\Exporter\Infrastructure\Builder\ExportProfileValidatorBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route(
  *     path="/export-profile/{exportProfile}",
- *     methods={"PUT"},
+ *     methods={"POST"},
  *     requirements={"exportProfile"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class ExportProfileChangeAction
 {
     /**
-     * @var ValidatorInterface
+     * @var ExportProfileFormFactoryProvider
      */
-    private ValidatorInterface $validator;
-
-    /**
-     * @var ExportProfileValidatorBuilder
-     */
-    private ExportProfileValidatorBuilder $builder;
+    private ExportProfileFormFactoryProvider $provider;
 
     /**
      * @var CommandBusInterface
@@ -48,28 +44,14 @@ class ExportProfileChangeAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @var ExportProfileRepositoryInterface
-     */
-    private ExportProfileRepositoryInterface $repository;
-
-    /**
-     * @param ValidatorInterface               $validator
-     * @param ExportProfileValidatorBuilder    $builder
+     * @param ExportProfileFormFactoryProvider $provider
      * @param CommandBusInterface              $commandBus
-     * @param ExportProfileRepositoryInterface $repository
      */
-    public function __construct(
-        ValidatorInterface $validator,
-        ExportProfileValidatorBuilder $builder,
-        CommandBusInterface $commandBus,
-        ExportProfileRepositoryInterface $repository
-    ) {
-        $this->validator = $validator;
-        $this->builder = $builder;
+    public function __construct(ExportProfileFormFactoryProvider $provider, CommandBusInterface $commandBus)
+    {
+        $this->provider = $provider;
         $this->commandBus = $commandBus;
-        $this->repository = $repository;
     }
-
 
     /**
      * @IsGranted("EXPORT_PROFILE_UPDATE")
@@ -121,20 +103,28 @@ class ExportProfileChangeAction
      */
     public function __invoke(AbstractExportProfile $exportProfile, Request $request): Response
     {
-        $data = $request->request->all();
-        $violations = $this->validator->validate($data, $this->builder->build($data));
-        if (0 === $violations->count()) {
-            $command = new UpdateExportProfileCommand(
-                $exportProfile->getId(),
-                $data['name'],
-                $data['type'],
-                $data['params']
-            );
+        try {
+            $form = $this->provider->provide($exportProfile->getType())->create($exportProfile);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->commandBus->dispatch($command);
+                /** @var CreateExportProfileCommand $data */
+                $data = $form->getData();
 
-            return new EmptyResponse();
+                $command = new UpdateExportProfileCommand(
+                    $exportProfile->getId(),
+                    $data->getName(),
+                    $data->getType(),
+                    $data->getParameters()
+                );
+                $this->commandBus->dispatch($command);
+
+                return new EmptyResponse();
+            }
+        } catch (InvalidPropertyPathException $exception) {
+            throw new BadRequestHttpException('Invalid JSON format');
         }
-        throw new ViolationsHttpException($violations);
+
+        throw new FormValidationHttpException($form);
     }
 }

@@ -139,8 +139,7 @@ class ProductCollectionElementGridReadAction
         RequestGridConfiguration $configuration,
         ProductCollection $productCollection
     ): Response {
-        $dataSet = $this->elementQuery->getDataSet($productCollection->getId());
-
+        $dataSet = $this->elementQuery->getDataSet($productCollection->getId(), $language);
         $data = $this->gridRenderer->render(
             $this->elementGrid,
             $configuration,

@@ -10,19 +10,22 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Infrastructure\Action;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Transformer\Domain\Model\Record;
-use Webmozart\Assert\Assert;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\Transformer\Domain\Model\Record;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class MultimediaImportAction implements ImportActionInterface
 {
+    private const NAMESPACE = 'e1f84ee9-14f2-4e52-981a-b6b82006ada8';
+
     public const TYPE = 'MULTIMEDIA';
 
     public const ID_FIELD = 'id';
@@ -92,7 +95,8 @@ class MultimediaImportAction implements ImportActionInterface
                 $filePath = sprintf('%s/%s', $cacheDir, $name);
                 $this->saveFile($filePath, $content);
                 $file = new File($filePath);
-                $multimediaId = MultimediaId::fromKey($url);
+                $uuid  = Uuid::uuid5(self::NAMESPACE, $url);
+                $multimediaId = new MultimediaId($uuid);
                 $command = new AddMultimediaCommand($multimediaId, $file);
                 $this->commandBus->dispatch($command);
             } catch (\Throwable $exception) {

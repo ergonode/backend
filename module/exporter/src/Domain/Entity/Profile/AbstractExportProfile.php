@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Domain\Entity\Profile;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -17,21 +18,19 @@ abstract class AbstractExportProfile
 {
     /**
      * @var  ExportProfileId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId")
      */
     protected ExportProfileId $id;
 
     /**
      * @var string
+     *
+     * @JMS\Type("string")
      */
     protected string $name;
 
     /**
-     * @var array $configuration
-     */
-    protected array $configuration;
-
-    /**
-     * AbstractExportProfile constructor.
      * @param ExportProfileId $id
      * @param string          $name
      */
@@ -39,7 +38,6 @@ abstract class AbstractExportProfile
     {
         $this->id = $id;
         $this->name = $name;
-        $this->configuration = [];
     }
 
     /**
@@ -61,13 +59,5 @@ abstract class AbstractExportProfile
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @return array
-     */
-    public function getConfiguration(): array
-    {
-        return $this->configuration;
     }
 }

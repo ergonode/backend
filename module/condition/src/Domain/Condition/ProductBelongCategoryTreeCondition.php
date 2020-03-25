@@ -23,11 +23,11 @@ class ProductBelongCategoryTreeCondition implements ConditionInterface
     public const NOT_BELONG_TO = 'NOT_BELONG_TO';
 
     /**
-     * @var CategoryTreeId
+     * @var CategoryTreeId[]
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId>")
      */
-    private CategoryTreeId $tree;
+    private array $tree;
 
     /**
      * @var string
@@ -37,10 +37,10 @@ class ProductBelongCategoryTreeCondition implements ConditionInterface
     private string $operator;
 
     /**
-     * @param CategoryTreeId $tree
-     * @param string         $operator
+     * @param CategoryTreeId[] $tree
+     * @param string           $operator
      */
-    public function __construct(CategoryTreeId $tree, string $operator)
+    public function __construct(array $tree, string $operator)
     {
         $this->tree = $tree;
         $this->operator = $operator;
@@ -57,9 +57,9 @@ class ProductBelongCategoryTreeCondition implements ConditionInterface
     }
 
     /**
-     * @return CategoryTreeId
+     * @return CategoryTreeId[]
      */
-    public function getTree(): CategoryTreeId
+    public function getTree(): array
     {
         return $this->tree;
     }

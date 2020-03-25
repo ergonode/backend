@@ -9,13 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
 /**
  */
@@ -88,7 +88,7 @@ class CreateUserCommand implements DomainCommandInterface
         bool $isActive = true,
         ?MultimediaId $avatarId = null
     ) {
-        $this->id = UserId::fromEmail($email);
+        $this->id = UserId::generate();
         $this->avatarId = $avatarId;
         $this->firstName = $firstName;
         $this->lastName = $lastName;

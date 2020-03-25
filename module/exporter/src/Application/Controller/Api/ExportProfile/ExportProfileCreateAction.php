@@ -8,17 +8,17 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Application\Controller\Api\ExportProfile;
 
-use Ergonode\Api\Application\Exception\ViolationsHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Exporter\Domain\Command\ExportProfile\CreateExportProfileCommand;
-use Ergonode\Exporter\Infrastructure\Builder\ExportProfileValidatorBuilder;
+use Ergonode\Exporter\Application\Provider\ExportProfileFormFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Swagger\Annotations as SWG;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route(
@@ -29,32 +29,21 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ExportProfileCreateAction
 {
     /**
-     * @var ValidatorInterface
+     * @var ExportProfileFormFactoryProvider
      */
-    private ValidatorInterface $validator;
-
-    /**
-     * @var ExportProfileValidatorBuilder
-     */
-    private ExportProfileValidatorBuilder $builder;
-
+    private ExportProfileFormFactoryProvider $provider;
     /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ValidatorInterface            $validator
-     * @param ExportProfileValidatorBuilder $builder
-     * @param CommandBusInterface           $commandBus
+     * @param ExportProfileFormFactoryProvider $provider
+     * @param CommandBusInterface              $commandBus
      */
-    public function __construct(
-        ValidatorInterface $validator,
-        ExportProfileValidatorBuilder $builder,
-        CommandBusInterface $commandBus
-    ) {
-        $this->validator = $validator;
-        $this->builder = $builder;
+    public function __construct(ExportProfileFormFactoryProvider $provider, CommandBusInterface $commandBus)
+    {
+        $this->provider = $provider;
         $this->commandBus = $commandBus;
     }
 
@@ -96,23 +85,21 @@ class ExportProfileCreateAction
      */
     public function __invoke(Request $request): Response
     {
-        $data = $request->request->all();
+        $type = $request->get('type');
 
-        $constraint = $this->builder->build($data);
-        $violations = $this->validator->validate($data, $constraint);
+        try {
+            $form = $this->provider->provide($type)->create();
+            $form->handleRequest($request);
 
-        if (0 === $violations->count()) {
-            $command = new CreateExportProfileCommand(
-                $data['name'],
-                $data['type'],
-                $data['params']
-            );
+            if ($form->isSubmitted() && $form->isValid()) {
+                $command = $form->getData();
+                $this->commandBus->dispatch($command);
 
-            $this->commandBus->dispatch($command);
-
-            return new CreatedResponse($command->getId());
+                return new CreatedResponse($command->getId());
+            }
+        } catch (InvalidPropertyPathException $exception) {
+            throw new BadRequestHttpException('Invalid JSON format');
         }
-
-        throw new ViolationsHttpException($violations);
+        throw new FormValidationHttpException($form);
     }
 }
