@@ -286,7 +286,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
         }
 
         foreach ($result as &$item) {
-            $item = new UnitId($item);
+            $item = new AttributeId($item);
         }
 
         return $result;
