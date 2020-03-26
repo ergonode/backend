@@ -13,6 +13,7 @@ use Ergonode\Core\Application\AbstractModule;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileCompilerPass;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileConstraintCompilerPass;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileFactoryCompilerPass;
+use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileFormFactoryCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -27,6 +28,6 @@ class ErgonodeExporterBundle extends AbstractModule
         parent::build($container);
         $container->addCompilerPass(new ExportProfileCompilerPass());
         $container->addCompilerPass(new ExportProfileFactoryCompilerPass());
-        $container->addCompilerPass(new ExportProfileConstraintCompilerPass());
+        $container->addCompilerPass(new ExportProfileFormFactoryCompilerPass());
     }
 }
