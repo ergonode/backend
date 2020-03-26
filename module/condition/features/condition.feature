@@ -71,7 +71,7 @@ Feature: Condition module
       {
           "code": "CONDITION_@@random_code@@",
           "type": "TEXT",
-          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
+          "label": {"pl_PL": "Atrybut tekstowy", "EN": "Text attribute"},
           "groups": [],
           "parameters": []
       }

@@ -9,7 +9,7 @@ Feature: Product collection module
       {
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
-          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
+          "label": {"pl_PL": "Atrybut tekstowy", "EN": "Text attribute"},
           "groups": [],
           "parameters": []
       }
@@ -140,11 +140,11 @@ Feature: Product collection module
         "code": "SEG_1_@@random_code@@",
         "condition_set_id": "@segment_conditionset@",
         "name": {
-          "PL": "Segment",
+          "pl_PL": "Segment",
           "EN": "Segment"
         },
         "description": {
-          "PL": "Opis segmentu",
+          "pl_PL": "Opis segmentu",
           "EN": "Segment description"
         }
       }

@@ -12,11 +12,11 @@ Feature: Workflow
         "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
-          "PL": "PL",
+          "pl_PL": "pl_PL",
           "EN": "EN"
         },
         "description": {
-          "PL": "PL",
+          "pl_PL": "pl_PL",
           "EN": "EN"
         }
       }
@@ -38,11 +38,11 @@ Feature: Workflow
 #        "color": "#ff0",
 #        "code": "ST @@random_md5@@",
 #        "name": {
-#          "ZZ": "PL",
+#          "ZZ": "pl_PL",
 #          "EN": "EN"
 #        },
 #        "description": {
-#          "PL": "PL",
+#          "pl_PL": "pl_PL",
 #          "EN": "EN"
 #        }
 #      }
@@ -58,11 +58,11 @@ Feature: Workflow
 #        "color": "#ff0",
 #        "code": "ST @@random_md5@@",
 #        "name": {
-#          "ZZ": "PL",
+#          "ZZ": "pl_PL",
 #          "EN": "EN"
 #        },
 #        "description": {
-#          "ZZ": "PL",
+#          "ZZ": "pl_PL",
 #          "EN": "EN"
 #        }
 #      }
@@ -78,11 +78,11 @@ Feature: Workflow
 #        "color": "#ff0",
 #        "code": "ST @@random_md5@@",
 #        "name": {
-#          "ZZ": "PL",
+#          "ZZ": "pl_PL",
 #          "EN": "EN"
 #        },
 #        "description": {
-#          "PL": "PL",
+#          "pl_PL": "pl_PL",
 #          "EN": "EN"
 #        }
 #      }
@@ -98,11 +98,11 @@ Feature: Workflow
 #        "color": "#ff0",
 #        "code": "ST @@random_md5@@",
 #        "name": {
-#          "ZZ": "PL",
+#          "ZZ": "pl_PL",
 #          "EN": "EN"
 #        },
 #        "description": {
-#          "ZZ": "PL",
+#          "ZZ": "pl_PL",
 #          "EN": "EN"
 #        }
 #      }

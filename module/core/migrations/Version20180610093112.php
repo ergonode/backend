@@ -28,7 +28,7 @@ final class Version20180610093112 extends AbstractErgonodeMigration
         $this->addSql(
             'CREATE TABLE language (
                       id UUID NOT NULL, 
-                      iso VARCHAR(2) NOT NULL, 
+                      iso VARCHAR(5) NOT NULL, 
                       name VARCHAR(64),
                       system BOOLEAN NOT NULL DEFAULT false, 
                       PRIMARY KEY(id)
@@ -51,7 +51,7 @@ final class Version20180610093112 extends AbstractErgonodeMigration
             );
         }
 
-        $this->addSql('UPDATE language SET system = true WHERE iso in (\'EN\', \'PL\')');
+        $this->addSql('UPDATE language SET system = true WHERE iso in (\'EN\', \'pl_PL\')');
 
         $this->addSql('ALTER TABLE language rename column system to active');
     }
@@ -64,7 +64,7 @@ final class Version20180610093112 extends AbstractErgonodeMigration
         return [
             'EN' => 'English',
             'DE' => 'German',
-            'PL' => 'Polish',
+            'pl_PL' => 'Polish',
             'ES' => 'Spanish',
             'FR' => 'French',
             'RU' => 'Russian',

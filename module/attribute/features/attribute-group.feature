@@ -11,7 +11,7 @@ Feature: Attribute module
       {
         "code": "ATTRIBUTE_GROUP_@@random_code@@",
         "name": {
-          "PL": "Grupa atrybutów PL",
+          "pl_PL": "Grupa atrybutów PL",
           "EN": "Attribute group EN"
         }
       }
@@ -23,7 +23,7 @@ Feature: Attribute module
     And I send a "GET" request to "/api/v1/EN/attributes/groups/@attribute_group_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | name.PL | Grupa atrybutów PL |
+      | name.pl_PL | Grupa atrybutów PL |
       | name.EN | Attribute group EN |
 
   Scenario: Get attributes groups
@@ -40,7 +40,7 @@ Feature: Attribute module
       """
       {
         "name": {
-          "PL": "PL",
+          "pl_PL": "pl_PL",
           "EN": "EN"
         }
       }
@@ -51,7 +51,7 @@ Feature: Attribute module
     And I send a "GET" request to "/api/v1/EN/attributes/groups/@attribute_group_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | name.PL | PL |
+      | name.pl_PL | pl_PL |
       | name.EN | EN |
 
   Scenario: Ger attribute group (not found)
@@ -64,7 +64,7 @@ Feature: Attribute module
       {
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
-          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
+          "label": {"pl_PL": "Atrybut tekstowy", "EN": "Text attribute"},
           "groups": ["@attribute_group_id@"],
           "parameters": []
       }

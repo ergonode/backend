@@ -25,11 +25,11 @@ Feature: Workflow
         "color": "#ff0000",
         "code": "SOURCE @@random_md5@@",
         "name": {
-          "PL": "PL",
+          "pl_PL": "pl_PL",
           "EN": "EN"
         },
         "description": {
-          "PL": "PL",
+          "pl_PL": "pl_PL",
           "EN": "EN"
         }
       }
@@ -47,11 +47,11 @@ Feature: Workflow
         "color": "#ff0000",
         "code": "DESTINATION @@random_md5@@",
         "name": {
-          "PL": "PL",
+          "pl_PL": "pl_PL",
           "EN": "EN"
         },
         "description": {
-          "PL": "PL",
+          "pl_PL": "pl_PL",
           "EN": "EN"
         }
       }
@@ -85,11 +85,11 @@ Feature: Workflow
         "source": "@workflow_source_status_code@",
         "destination": "@workflow_destination_status_code@",
         "name": {
-          "PL": "Translated name PL",
+          "pl_PL": "Translated name PL",
           "EN": "Translated name EN"
         },
         "description": {
-          "PL": "Translated description PL",
+          "pl_PL": "Translated description PL",
           "EN": "Translated description EN"
         },
         "roles": [
@@ -115,11 +115,11 @@ Feature: Workflow
         "source": "@workflow_source_status_code@",
         "destination": "@workflow_destination_status_code@",
         "name": {
-          "PL": "Translated name PL",
+          "pl_PL": "Translated name PL",
           "EN": "Translated name EN"
         },
         "description": {
-          "PL": "Translated description PL",
+          "pl_PL": "Translated description PL",
           "EN": "Translated description EN"
         }
       }
@@ -135,11 +135,11 @@ Feature: Workflow
       {
         "destination": "@workflow_destination_status_code@",
         "name": {
-          "PL": "Translated name PL",
+          "pl_PL": "Translated name PL",
           "EN": "Translated name EN"
         },
         "description": {
-          "PL": "Translated description PL",
+          "pl_PL": "Translated description PL",
           "EN": "Translated description EN"
         }
       }
@@ -155,11 +155,11 @@ Feature: Workflow
       {
         "source": "@workflow_source_status_code@",
         "name": {
-          "PL": "Translated name PL",
+          "pl_PL": "Translated name PL",
           "EN": "Translated name EN"
         },
         "description": {
-          "PL": "Translated description PL",
+          "pl_PL": "Translated description PL",
           "EN": "Translated description EN"
         }
       }
@@ -176,11 +176,11 @@ Feature: Workflow
         "source": "@@random_uuid@@",
         "destination": "@workflow_destination_status_code@",
         "name": {
-          "PL": "Translated name PL",
+          "pl_PL": "Translated name PL",
           "EN": "Translated name EN"
         },
         "description": {
-          "PL": "Translated description PL",
+          "pl_PL": "Translated description PL",
           "EN": "Translated description EN"
         }
       }
@@ -197,11 +197,11 @@ Feature: Workflow
         "source": "@workflow_source_status_code@",
         "destination": "@@random_uuid@@",
         "name": {
-          "PL": "Translated name PL",
+          "pl_PL": "Translated name PL",
           "EN": "Translated name EN"
         },
         "description": {
-          "PL": "Translated description PL",
+          "pl_PL": "Translated description PL",
           "EN": "Translated description EN"
         }
       }
@@ -215,11 +215,11 @@ Feature: Workflow
         "source": "@workflow_source_status_code@",
         "destination": "@workflow_destination_status_code@",
         "name": {
-          "PL": "Translated name PL",
+          "pl_PL": "Translated name PL",
           "EN": "Translated name EN"
         },
         "description": {
-          "PL": "Translated description PL",
+          "pl_PL": "Translated description PL",
           "EN": "Translated description EN"
         }
       }
@@ -234,11 +234,11 @@ Feature: Workflow
       """
       {
         "name": {
-          "PL": "Translated name PL",
+          "pl_PL": "Translated name PL",
           "EN": "Translated name EN"
         },
         "description": {
-          "PL": "Translated description PL",
+          "pl_PL": "Translated description PL",
           "EN": "Translated description EN"
         },
         "roles": []
@@ -260,11 +260,11 @@ Feature: Workflow
       """
       {
         "name": {
-          "PL": "Translated name PL",
+          "pl_PL": "Translated name PL",
           "EN": "Translated name EN"
         },
         "description": {
-          "PL": "Translated description PL",
+          "pl_PL": "Translated description PL",
           "EN": "Translated description EN"
         }
       }
@@ -279,11 +279,11 @@ Feature: Workflow
       """
       {
         "name": {
-          "PL": "Translated name PL",
+          "pl_PL": "Translated name PL",
           "EN": "Translated name EN"
         },
         "description": {
-          "PL": "Translated description PL",
+          "pl_PL": "Translated description PL",
           "EN": "Translated description EN"
         }
       }
@@ -295,11 +295,11 @@ Feature: Workflow
       """
       {
         "name": {
-          "PL": "Translated name PL",
+          "pl_PL": "Translated name PL",
           "EN": "Translated name EN"
         },
         "description": {
-          "PL": "Translated description PL",
+          "pl_PL": "Translated description PL",
           "EN": "Translated description EN"
         }
       }

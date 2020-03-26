@@ -24,11 +24,11 @@ Feature: channel module
         "code": "@segment_code@",
         "condition_set_id": "@condition_set_id@",
         "name": {
-          "PL": "Segment",
+          "pl_PL": "Segment",
           "EN": "Segment"
         },
         "description": {
-          "PL": "Opis segmentu",
+          "pl_PL": "Opis segmentu",
           "EN": "Segment description"
         }
       }

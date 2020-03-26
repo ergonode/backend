@@ -37,7 +37,7 @@ class Language
     public const MK = 'MK';
     public const NL = 'NL';
     public const NO = 'NO';
-    public const PL = 'PL';
+    public const PL = 'pl_PL';
     public const PT = 'PT';
     public const RO = 'RO';
     public const RU = 'RU';
@@ -103,7 +103,7 @@ class Language
      */
     public function __construct(string $code)
     {
-        $this->code = strtoupper(trim($code));
+        $this->code = trim($code);
         if (!self::isValid($this->code)) {
             throw new \InvalidArgumentException(\sprintf('Code "%s" is not valid language code', $code));
         }

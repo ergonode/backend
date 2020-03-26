@@ -22,7 +22,7 @@ Feature: Condition Product belong category exists
         "name": {
           "DE": "Test1 DE",
           "EN": "Test1 EN",
-          "PL": "Test1 PL"
+          "pl_PL": "Test1 PL"
         }
       }
       """
@@ -40,7 +40,7 @@ Feature: Condition Product belong category exists
         "name": {
           "DE": "Test2 DE",
           "EN": "Test2 EN",
-          "PL": "Test2 PL"
+          "pl_PL": "Test2 PL"
         }
       }
       """

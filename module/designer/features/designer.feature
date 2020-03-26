@@ -9,7 +9,7 @@ Feature: Designer module
       {
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
-          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
+          "label": {"pl_PL": "Atrybut tekstowy", "EN": "Text attribute"},
           "groups": [],
           "parameters": []
       }
@@ -27,7 +27,7 @@ Feature: Designer module
       {
           "code": "IMAGE_@@random_code@@",
           "type": "IMAGE",
-          "label": {"PL": "Atrybut zdjeciowy", "EN": "Image attribute"},
+          "label": {"pl_PL": "Atrybut zdjeciowy", "EN": "Image attribute"},
           "groups": [],
           "parameters": []
       }

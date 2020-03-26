@@ -24,9 +24,9 @@ Feature: Text attribute manipulation
       {
           "type": "TEXT",
           "groups": [],
-          "label": {"PL": "PL", "EN": "EN"},
-          "placeholder": {"PL": "PL", "EN": "EN"},
-          "hint": {"PL": "PL", "EN": "EN"},
+          "label": {"pl_PL": "pl_PL", "EN": "EN"},
+          "placeholder": {"pl_PL": "pl_PL", "EN": "EN"},
+          "hint": {"pl_PL": "pl_PL", "EN": "EN"},
           "parameters": []
       }
       """

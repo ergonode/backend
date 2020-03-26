@@ -21,7 +21,7 @@ class MultilingualOptionTest extends TestCase
      */
     public function testValueCreation(): void
     {
-        $value = new TranslatableString(['en' => 'english', 'pl' => 'polish']);
+        $value = new TranslatableString(['EN' => 'english', 'pl_PL' => 'polish']);
 
         $valueObject = new MultilingualOption($value);
 
@@ -35,8 +35,8 @@ class MultilingualOptionTest extends TestCase
      */
     public function testEqualValue(): void
     {
-        $value1 = new TranslatableString(['en' => 'english', 'pl' => 'polish']);
-        $value2 = new TranslatableString(['en' => 'english', 'pl' => 'polish']);
+        $value1 = new TranslatableString(['EN' => 'english', 'pl_PL' => 'polish']);
+        $value2 = new TranslatableString(['EN' => 'english', 'pl_PL' => 'polish']);
 
         $valueObject1 = new MultilingualOption($value1);
         $valueObject2 = new MultilingualOption($value2);
@@ -48,8 +48,8 @@ class MultilingualOptionTest extends TestCase
      */
     public function testNotEqualValue(): void
     {
-        $value1 = new TranslatableString(['en' => 'english', 'fr' => 'franch']);
-        $value2 = new TranslatableString(['en' => 'english', 'pl' => 'polish']);
+        $value1 = new TranslatableString(['EN' => 'english', 'FR' => 'franch']);
+        $value2 = new TranslatableString(['EN' => 'english', 'pl_PL' => 'polish']);
 
         $valueObject1 = new MultilingualOption($value1);
         $valueObject2 = new MultilingualOption($value2);
