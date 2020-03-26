@@ -1,4 +1,4 @@
-Feature: Category module
+Feature: Magento 1 CSV module
 
   Scenario: Create Magento 1 CSV Source
     Given I am Authenticated as "test@ergonode.com"
@@ -49,14 +49,26 @@ Feature: Category module
     Then the response status code should be 201
     And store response param "id" as "source_id"
 
+  Scenario: Get Magento 1 CSV Source
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/sources/@source_id@"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | type                     | magento-1-csv    |
+      | name                     | name             |
+      | host                     | http://test.host |
+      | mapping.default_language | EN               |
+
   Scenario: Upload magento 1 test import file
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "multipart/form-data"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/imports/upload" with params:
-      | key    | value                   |
-      | source_id | @source_id@          |
-      | upload    | @magento-1-test.csv  |
+    When I send a POST request to "/api/v1/EN/imports/upload" with params:
+      | key       | value               |
+      | source_id | @source_id@         |
+      | upload    | @magento-1-test.csv |
     Then the response status code should be 201
     And the JSON node "id" should exist
     And store response param "id" as "source_id"

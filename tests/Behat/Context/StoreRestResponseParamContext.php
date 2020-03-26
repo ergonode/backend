@@ -22,8 +22,8 @@ class StoreRestResponseParamContext extends RawMinkContext
     private JsonInspector $inspector;
 
     /**
-     * @param StorageContext   $storageContext
-     * @param string           $evaluationMode
+     * @param StorageContext $storageContext
+     * @param string         $evaluationMode
      */
     public function __construct(StorageContext $storageContext, string $evaluationMode = 'javascript')
     {

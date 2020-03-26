@@ -161,6 +161,46 @@ class Magento1CsvSource extends AbstractSource
     }
 
     /**
+     * @param Language[] $languages
+     */
+    public function setLanguages(array $languages): void
+    {
+        $this->languages = $languages;
+    }
+
+    /**
+     * @param AttributeId[] $attributes
+     */
+    public function setAttributes(array $attributes): void
+    {
+        $this->attributes = $attributes;
+    }
+
+    /**
+     * @param string|null $host
+     */
+    public function setHost(?string $host): void
+    {
+        $this->host = $host;
+    }
+
+    /**
+     * @param Language $defaultLanguage
+     */
+    public function setDefaultLanguage(Language $defaultLanguage): void
+    {
+        $this->defaultLanguage = $defaultLanguage;
+    }
+
+    /**
+     * @param array $import
+     */
+    public function setImport(array $import): void
+    {
+        $this->import = $import;
+    }
+
+    /**
      * @return Language[]
      */
     public function getLanguages(): array

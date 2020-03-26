@@ -22,6 +22,10 @@ use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceCompil
 use Ergonode\Importer\Application\Provider\SourceFormFactoryInterface;
 use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceImportCompilerPass;
+use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderInterface;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\CreateSourceCommandBuilderCompilerPass;
+use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderInterface;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceCommandBuilderCompilerPass;
 
 /**
  */
@@ -52,6 +56,14 @@ class ErgonodeImporterExtension extends Extension
         $container
             ->registerForAutoconfiguration(SourceFormFactoryInterface::class)
             ->addTag(SourceFormFactoryCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(CreateSourceCommandBuilderInterface::class)
+            ->addTag(CreateSourceCommandBuilderCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(UpdateSourceCommandBuilderInterface::class)
+            ->addTag(UpdateSourceCommandBuilderCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(SourceImportProcessorInterface::class)

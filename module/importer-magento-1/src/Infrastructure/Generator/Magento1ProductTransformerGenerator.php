@@ -67,7 +67,7 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
 
         foreach ($source->getAttributes() as $code => $attributeId) {
             $attribute = $this->repository->load($attributeId);
-            if($attribute) {
+            if ($attribute) {
                 $transformer->addAttribute(
                     $attribute->getCode()->getValue(),
                     $attribute->getType(),

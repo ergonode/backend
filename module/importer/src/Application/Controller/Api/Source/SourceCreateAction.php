@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderProvider;
 
 /**
  * @Route(
@@ -36,17 +37,27 @@ class SourceCreateAction
     private SourceFormFactoryProvider $provider;
 
     /**
+     * @var CreateSourceCommandBuilderProvider
+     */
+    private CreateSourceCommandBuilderProvider $commandProvider;
+
+    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param SourceFormFactoryProvider $provider
-     * @param CommandBusInterface       $commandBus
+     * @param SourceFormFactoryProvider          $provider
+     * @param CreateSourceCommandBuilderProvider $commandProvider
+     * @param CommandBusInterface                $commandBus
      */
-    public function __construct(SourceFormFactoryProvider $provider, CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        SourceFormFactoryProvider $provider,
+        CreateSourceCommandBuilderProvider $commandProvider,
+        CommandBusInterface $commandBus
+    ) {
         $this->provider = $provider;
+        $this->commandProvider = $commandProvider;
         $this->commandBus = $commandBus;
     }
 
@@ -93,8 +104,7 @@ class SourceCreateAction
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var array $data */
-                $command = $form->getData();
+                $command = $this->commandProvider->provide($type)->build($form);
 
                 $this->commandBus->dispatch($command);
 
