@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Query;
 
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 
 /**
  */

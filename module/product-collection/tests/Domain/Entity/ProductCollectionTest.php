@@ -10,11 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Tests\Domain\Entity;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
+use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
-use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 
 /**

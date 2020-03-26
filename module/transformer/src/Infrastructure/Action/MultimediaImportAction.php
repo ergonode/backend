@@ -10,15 +10,15 @@ declare(strict_types = 1);
 namespace Ergonode\Transformer\Infrastructure\Action;
 
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Transformer\Domain\Model\Record;
-use Webmozart\Assert\Assert;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\Transformer\Domain\Model\Record;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ramsey\Uuid\Uuid;
+use Webmozart\Assert\Assert;
 
 /**
  */

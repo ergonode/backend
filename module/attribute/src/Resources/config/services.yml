@@ -54,7 +54,6 @@ services:
     Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeGroupQuery'
     Ergonode\Attribute\Domain\Query\AttributeGridQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalAttributeGridQuery'
     Ergonode\Attribute\Domain\Query\CurrencyQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalCurrencyQuery'
-    Ergonode\Attribute\Domain\Query\UnitQueryInterface: '@Ergonode\Attribute\Persistence\Dbal\Query\DbalUnitQuery'
 
     Ergonode\Attribute\Application\Provider\AttributePropertyFormResolver:
         calls:

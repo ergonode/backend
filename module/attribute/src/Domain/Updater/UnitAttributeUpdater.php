@@ -12,9 +12,9 @@ namespace Ergonode\Attribute\Domain\Updater;
 use Ergonode\Attribute\Domain\AttributeUpdaterInterface;
 use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
-use Ergonode\Attribute\Domain\ValueObject\Unit;
+use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 /**
  */
@@ -42,7 +42,7 @@ class UnitAttributeUpdater implements AttributeUpdaterInterface
             throw new \InvalidArgumentException('No required unit parameter');
         }
 
-        $unit = new Unit($command->getParameter('unit'));
+        $unit = new UnitId($command->getParameter('unit'));
 
         $attribute->changeUnit($unit);
 

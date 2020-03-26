@@ -9,14 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Tests\Infrastructure\Validator;
 
-use Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface;
+use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
 use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionTypeCodeUnique;
 use Ergonode\ProductCollection\Infrastructure\Validator\ProductCollectionTypeCodeUniqueValidator;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
-use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 /**
  */

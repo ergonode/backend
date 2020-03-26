@@ -8,11 +8,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Entity\Attribute;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
-use Ergonode\Attribute\Domain\ValueObject\Unit;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -46,7 +46,7 @@ class UnitAttributeTest extends TestCase
     private $placeholder;
 
     /**
-     * @var Unit|MockObject
+     * @var UnitId|MockObject
      */
     private $unit;
 
@@ -59,7 +59,7 @@ class UnitAttributeTest extends TestCase
         $this->label = $this->createMock(TranslatableString::class);
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
-        $this->unit = new Unit('UNIT');
+        $this->unit = UnitId::generate();
     }
 
     /**
@@ -75,7 +75,7 @@ class UnitAttributeTest extends TestCase
             $this->hint,
             $this->unit
         );
-        $this->assertEquals($this->unit, $attribute->getUnit());
+        $this->assertEquals($this->unit, $attribute->getUnitId());
         $this->assertEquals($this->id, $attribute->getId());
         $this->assertEquals($this->code, $attribute->getCode());
         $this->assertEquals($this->label, $attribute->getLabel());
@@ -88,8 +88,8 @@ class UnitAttributeTest extends TestCase
      */
     public function testAttributeCurrencyChange(): void
     {
-        /** @var Unit|MockObject $unit */
-        $unit = new Unit('NEW');
+        /** @var UnitId|MockObject $unit */
+        $unit = UnitId::generate();
         $attribute = new UnitAttribute(
             $this->id,
             $this->code,
@@ -99,7 +99,7 @@ class UnitAttributeTest extends TestCase
             $this->unit
         );
         $attribute->changeUnit($unit);
-        $this->assertNotEquals($this->unit, $attribute->getUnit());
-        $this->assertEquals($unit, $attribute->getUnit());
+        $this->assertNotEquals($this->unit, $attribute->getUnitId());
+        $this->assertEquals($unit, $attribute->getUnitId());
     }
 }

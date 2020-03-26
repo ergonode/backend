@@ -11,12 +11,12 @@ namespace Ergonode\Authentication\Application\Security\Provider;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Exception\InvalidEmailException;
+use Ergonode\Account\Domain\Query\UserQueryInterface;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Ergonode\Account\Domain\Query\UserQueryInterface;
 
 /**
  */

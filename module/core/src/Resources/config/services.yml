@@ -24,6 +24,10 @@ services:
     Ergonode\Core\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
+        
+    Ergonode\Core\Persistence\Dbal\Projector\:
+        resource: '../../Persistence/Dbal/Projector/*'
+        tags: ['messenger.message_handler']
 
     Ergonode\Core\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
@@ -34,7 +38,9 @@ services:
             $directory: '%kernel.project_dir%'
 
     Ergonode\Core\Domain\Query\LanguageQueryInterface: '@Ergonode\Core\Persistence\Dbal\Query\DbalLanguageQuery'
+    Ergonode\Core\Domain\Query\UnitQueryInterface: '@Ergonode\Core\Persistence\Dbal\Query\DbalUnitQuery'
     Ergonode\Core\Domain\Repository\LanguageRepositoryInterface: '@Ergonode\Core\Persistence\Dbal\Repository\DbalLanguageRepository'
+    Ergonode\Core\Domain\Repository\UnitRepositoryInterface: '@Ergonode\Core\Persistence\Dbal\Repository\DbalUnitRepository'
     Ergonode\Core\Application\Provider\DirectoryProviderInterface: '@Ergonode\Core\Application\Provider\SimpleDirectoryProvider'
     Ergonode\Core\Application\Provider\AuthenticatedUserProviderInterface: '@Ergonode\Core\Application\Provider\SimpleAuthenticatedUserProvider'
     Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface: '@Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver'
