@@ -27,4 +27,16 @@ interface AttributeRepositoryInterface
      * @param ExportAttribute $attribute
      */
     public function save(ExportAttribute $attribute): void;
+
+    /**
+     * @param Uuid $id
+     *
+     * @return bool
+     */
+    public function exists(Uuid $id): bool;
+
+    /**
+     * @param ExportAttribute $attribute
+     */
+    public function delete(ExportAttribute $attribute): void;
 }
