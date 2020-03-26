@@ -9,36 +9,26 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Persistence\Dbal\Projector\CategoryTree;
 
-use Doctrine\DBAL\Connection;
 use Ergonode\Category\Domain\Event\Tree\CategoryTreeCategoriesChangedEvent;
 use Ergonode\Exporter\Domain\Entity\Catalog\ExportTree;
-use JMS\Serializer\SerializerInterface;
+use Ergonode\Exporter\Domain\Repository\TreeRepositoryInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
 class CategoryTreeCategoriesChangedEventProjector
 {
-    private const TABLE_TREE = 'exporter.tree';
+    /**
+     * @var TreeRepositoryInterface
+     */
+    private TreeRepositoryInterface $repository;
 
     /**
-     * @var Connection
+     * @param TreeRepositoryInterface $repository
      */
-    private Connection $connection;
-
-    /**
-     * @var SerializerInterface
-     */
-    private SerializerInterface $serializer;
-
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
-    public function __construct(Connection $connection, SerializerInterface $serializer)
+    public function __construct(TreeRepositoryInterface $repository)
     {
-        $this->connection = $connection;
-        $this->serializer = $serializer;
+        $this->repository = $repository;
     }
 
     /**
@@ -54,15 +44,6 @@ class CategoryTreeCategoriesChangedEventProjector
             $event->getCategories()
         );
 
-
-        $this->connection->update(
-            self::TABLE_TREE,
-            [
-                'data' => $this->serializer->serialize($tree, 'json'),
-            ],
-            [
-                'id' => $tree->getId()->toString(),
-            ]
-        );
+        $this->repository->save($tree);
     }
 }
