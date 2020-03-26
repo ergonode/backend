@@ -125,7 +125,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function update(ExportAttribute $attribute): void
+    private function update(ExportAttribute $attribute): void
     {
         $this->connection->update(
             self::TABLE,
@@ -144,7 +144,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function insert(ExportAttribute $attribute): void
+    private function insert(ExportAttribute $attribute): void
     {
         $this->connection->insert(
             self::TABLE,

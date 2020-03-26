@@ -27,4 +27,16 @@ interface ProductRepositoryInterface
      * @param AbstractExportProduct $product
      */
     public function save(AbstractExportProduct $product): void;
+
+    /**
+     * @param Uuid $id
+     *
+     * @return bool
+     */
+    public function exists(Uuid $id): bool;
+
+    /**
+     * @param AbstractExportProduct $product
+     */
+    public function delete(AbstractExportProduct $product): void;
 }
