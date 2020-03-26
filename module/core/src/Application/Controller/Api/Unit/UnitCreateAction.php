@@ -11,8 +11,8 @@ namespace Ergonode\Core\Application\Controller\Api\Unit;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Core\Application\Form\UnitCreateForm;
-use Ergonode\Core\Application\Model\UnitCreateFormModel;
+use Ergonode\Core\Application\Form\UnitForm;
+use Ergonode\Core\Application\Model\UnitFormModel;
 use Ergonode\Core\Domain\Command\CreateUnitCommand;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -92,12 +92,12 @@ class UnitCreateAction
     public function __invoke(Request $request): Response
     {
         try {
-            $model = new UnitCreateFormModel();
-            $form = $this->formFactory->create(UnitCreateForm::class, $model);
+            $model = new UnitFormModel();
+            $form = $this->formFactory->create(UnitForm::class, $model);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var UnitCreateFormModel $data */
+                /** @var UnitFormModel $data */
                 $data = $form->getData();
                 $command = new CreateUnitCommand(
                     $data->name,

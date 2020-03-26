@@ -11,8 +11,8 @@ namespace Ergonode\Core\Application\Controller\Api\Unit;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Core\Application\Form\UnitUpdateForm;
-use Ergonode\Core\Application\Model\UnitUpdateFormModel;
+use Ergonode\Core\Application\Form\UnitForm;
+use Ergonode\Core\Application\Model\UnitFormModel;
 use Ergonode\Core\Domain\Command\UpdateUnitCommand;
 use Ergonode\Core\Domain\Entity\Unit;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -107,16 +107,16 @@ class UnitChangeAction
     public function __invoke(Unit $unit, Request $request): Response
     {
         try {
-            $model = new UnitUpdateFormModel();
+            $model = new UnitFormModel();
             $form = $this->formFactory->create(
-                UnitUpdateForm::class,
+                UnitForm::class,
                 $model,
                 ['method' => Request::METHOD_PUT]
             );
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var UnitUpdateFormModel $data */
+                /** @var UnitFormModel $data */
                 $data = $form->getData();
                 $command = new UpdateUnitCommand(
                     $unit->getId(),

@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
-class UnitUpdateFormModel
+class UnitFormModel
 {
     /**
      * @var null | string

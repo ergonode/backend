@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Application\Form;
 
-use Ergonode\Core\Application\Model\UnitCreateFormModel;
+use Ergonode\Core\Application\Model\UnitFormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class UnitCreateForm extends AbstractType
+class UnitForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -42,7 +42,7 @@ class UnitCreateForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => UnitCreateFormModel::class,
+            'data_class' => UnitFormModel::class,
             'translation_domain' => 'unit',
         ]);
     }

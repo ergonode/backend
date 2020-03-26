@@ -18,7 +18,7 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
 /**
  */
-class UnitHandler implements SubscribingHandlerInterface
+class UnitIdHandler implements SubscribingHandlerInterface
 {
     /**
      * @return array

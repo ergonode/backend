@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\UnitHandler;
+use Ergonode\Attribute\Infrastructure\JMS\Serializer\Handler\UnitIdHandler;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Context;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
@@ -17,12 +17,12 @@ use PHPUnit\Framework\TestCase;
 
 /**
  */
-class UnitHandlerTest extends TestCase
+class UnitIdHandlerTest extends TestCase
 {
     /**
-     * @var UnitHandler
+     * @var UnitIdHandler
      */
-    private UnitHandler $handler;
+    private UnitIdHandler $handler;
 
     /**
      * @var SerializationVisitorInterface
@@ -42,7 +42,7 @@ class UnitHandlerTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->handler = new UnitHandler();
+        $this->handler = new UnitIdHandler();
         $this->serializerVisitor = $this->createMock(SerializationVisitorInterface::class);
         $this->deserializerVisitor = $this->createMock(DeserializationVisitorInterface::class);
         $this->context = $this->createMock(Context::class);
@@ -52,7 +52,7 @@ class UnitHandlerTest extends TestCase
      */
     public function testConfiguration(): void
     {
-        $configurations = UnitHandler::getSubscribingMethods();
+        $configurations = UnitIdHandler::getSubscribingMethods();
         foreach ($configurations as $configuration) {
             $this->assertArrayHasKey('direction', $configuration);
             $this->assertArrayHasKey('type', $configuration);

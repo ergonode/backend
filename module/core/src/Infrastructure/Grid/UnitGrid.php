@@ -52,6 +52,5 @@ class UnitGrid extends AbstractGrid
             ],
         ]));
         $this->orderBy('name', 'DESC');
-        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }
