@@ -33,17 +33,11 @@ class ProductCollectionElementGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $this->addColumn('product_collection_id', new TextColumn(
-            'product_collection_id',
-            'Product Collection Id',
-            new TextFilter()
-        ));
-        $this->addColumn('product_id', new TextColumn('product_id', 'Product Id', new TextFilter()));
-        $this->addColumn('default_image', new ImageColumn('default_image'));
+        $this->addColumn('default_image', new ImageColumn('default_image', 'Image'));
         $this->addColumn('system_name', new TextColumn('system_name', 'System name', new TextFilter()));
         $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
+        $this->addColumn('created_at', new DateColumn('created_at', 'Date added', new DateFilter()));
         $this->addColumn('visible', new BoolColumn('visible', 'Product visible in collection'));
-        $this->addColumn('created_at', new DateColumn('created_at', 'Addition date', new DateFilter()));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_product_collection_element_read',
