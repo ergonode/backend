@@ -82,6 +82,21 @@ Feature: Product module
     Then the response status code should be 201
     And store response param "id" as "product"
 
+  Scenario: Create product 2
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/EN/products" with body:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@product_template@",
+        "categoryIds": ["@product_category@"]
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "product_2"
+
   Scenario: Create product collection type
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
@@ -401,11 +416,18 @@ Feature: Product module
     When I send a DELETE request to "/api/v1/EN/products/@product@"
     Then the response status code should be 401
 
-  Scenario: Delete product
+  Scenario: Delete product (product in collection)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a DELETE request to "/api/v1/EN/products/@product@"
+    Then the response status code should be 409
+
+  Scenario: Delete product
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a DELETE request to "/api/v1/EN/products/@product_2@"
     Then the response status code should be 204
 
   Scenario: Get products (order by id)

@@ -129,4 +129,12 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     {
         return $this->query->findProductIdsBySegments($segmentIds);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductCollectionIdByProductId(ProductId $id)
+    {
+        return $this->query->findProductCollectionIdByProductId($id);
+    }
 }

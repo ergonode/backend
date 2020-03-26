@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 /**
  */
@@ -36,4 +37,11 @@ interface ProductCollectionQueryInterface
      * @return ProductCollectionId|null
      */
     public function findIdByCode(ProductCollectionCode $code): ?ProductCollectionId;
+
+    /**
+     * @param ProductCollectionTypeId $id
+     *
+     * @return mixed
+     */
+    public function findCollectionIdsByCollectionTypeId(ProductCollectionTypeId $id);
 }

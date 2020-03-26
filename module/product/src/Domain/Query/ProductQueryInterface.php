@@ -72,4 +72,11 @@ interface ProductQueryInterface
      * @return array
      */
     public function findProductIdsBySegments(array $segmentIds): array;
+
+    /**
+     * @param ProductId $id
+     *
+     * @return mixed
+     */
+    public function findProductCollectionIdByProductId(ProductId $id);
 }
