@@ -18,6 +18,7 @@ use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ramsey\Uuid\Uuid;
 
@@ -29,6 +30,7 @@ class DbalProductQuery implements ProductQueryInterface
     private const VALUE_TABLE = 'public.product_value';
     private const SEGMENT_PRODUCT_TABLE = 'public.segment_product';
     private const PRODUCT_COLLECTION_TABLE = 'public.collection';
+    private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'public.collection_element';
 
     /**
      * @var Connection
@@ -248,6 +250,34 @@ class DbalProductQuery implements ProductQueryInterface
             ->select('id', 'sku')
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
+     * @param ProductId $id
+     *
+     * @return mixed|void
+     */
+    public function findProductCollectionIdByProductId(ProductId $id)
+    {
+        $qb = $this->connection->createQueryBuilder()
+            ->select('pc.product_collection_id')
+            ->from(self::PRODUCT_COLLECTION_ELEMENT_TABLE, 'pc');
+
+        $result = $qb
+            ->where($qb->expr()->eq('product_id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductCollectionId($item);
+        }
+
+        return $result;
     }
 
     /**
