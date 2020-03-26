@@ -9,9 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Application\DependencyInjection;
 
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFactoryCompilerPass;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFormFactoryCompilerPass;
-use Ergonode\Importer\Domain\Factory\SourceFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -48,10 +46,6 @@ class ErgonodeImporterExtension extends Extension
             ->registerForAutoconfiguration(ImportSourceInterface::class)
             ->addTag(SourceCompilerPass::TAG)
             ->addTag(ServiceCompilerPass::TAG);
-
-        $container
-            ->registerForAutoconfiguration(SourceFactoryInterface::class)
-            ->addTag(SourceFactoryCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(SourceFormFactoryInterface::class)

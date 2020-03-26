@@ -83,14 +83,14 @@ class ImportUploadAction
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="source_type",
+     *     name="source_id",
      *     in="formData",
      *     type="string",
-     *     description="Source Type",
+     *     description="Source id",
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Returns import ID",
+     *     description="Returns import Id",
      * )
      * @SWG\Response(
      *     response=400,
