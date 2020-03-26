@@ -15,8 +15,9 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 /**
  */
@@ -93,6 +94,34 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param ProductCollectionTypeId $id
+     *
+     * @return mixed|void
+     */
+    public function findCollectionIdsByCollectionTypeId(ProductCollectionTypeId $id)
+    {
+        $qb = $this->connection->createQueryBuilder()
+            ->select('id')
+            ->from(self::PRODUCT_COLLECTION_TABLE, 'c');
+
+        $result = $qb
+            ->where($qb->expr()->eq('type_id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductCollectionId($item);
+        }
+
+        return $result;
     }
 
     /**
