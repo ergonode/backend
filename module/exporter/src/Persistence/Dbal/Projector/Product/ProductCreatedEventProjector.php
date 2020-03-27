@@ -11,6 +11,7 @@ namespace Ergonode\Exporter\Persistence\Dbal\Projector\Product;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Exporter\Domain\Provider\ProductProvider;
+use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
@@ -19,37 +20,24 @@ use Ramsey\Uuid\Uuid;
  */
 class ProductCreatedEventProjector
 {
-    private const TABLE_PRODUCT = 'exporter.product';
-
     /**
-     * @var Connection
+     * @var ProductRepositoryInterface
      */
-    private Connection $connection;
-
-    /**
-     * @var SerializerInterface
-     */
-    private SerializerInterface $serializer;
+    private ProductRepositoryInterface $repository;
 
     /**
      * @var ProductProvider
      */
-    private ProductProvider $productProvider;
+    private ProductProvider $provider;
 
     /**
-     * ProductCreatedEventProjector constructor.
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     * @param ProductProvider     $productProvider
+     * @param ProductRepositoryInterface $repository
+     * @param ProductProvider            $provider
      */
-    public function __construct(
-        Connection $connection,
-        SerializerInterface $serializer,
-        ProductProvider $productProvider
-    ) {
-        $this->connection = $connection;
-        $this->serializer = $serializer;
-        $this->productProvider = $productProvider;
+    public function __construct(ProductRepositoryInterface $repository, ProductProvider $provider)
+    {
+        $this->repository = $repository;
+        $this->provider = $provider;
     }
 
     /**
@@ -60,19 +48,13 @@ class ProductCreatedEventProjector
     public function __invoke(ProductCreatedEvent $event): void
     {
         $id = Uuid::fromString($event->getAggregateId()->getValue());
-        $product = $this->productProvider->createFromEvent(
+        $product = $this->provider->createFromEvent(
             $id,
             $event->getSku()->getValue(),
             $event->getCategories(),
             $event->getAttributes()
         );
 
-        $this->connection->insert(
-            self::TABLE_PRODUCT,
-            [
-                'id' => $product->getId()->toString(),
-                'data' => $this->serializer->serialize($product, 'json'),
-            ]
-        );
+        $this->repository->save($product);
     }
 }

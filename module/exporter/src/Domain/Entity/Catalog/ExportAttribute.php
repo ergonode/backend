@@ -69,7 +69,6 @@ class ExportAttribute
     private bool $system;
 
     /**
-     * ExportAttribute constructor.
      * @param Uuid               $id
      * @param string             $code
      * @param TranslatableString $name

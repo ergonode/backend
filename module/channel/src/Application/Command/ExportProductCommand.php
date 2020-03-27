@@ -10,11 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Application\Command;
 
 use Ergonode\Channel\Domain\Command\ExportProductChannelCommand as ExportProductChannelDomainCommand;
+use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -85,15 +86,15 @@ class ExportProductCommand extends Command
         if (!$channel = $this->channelRepository->load($channelId)) {
             $output->writeln('Channel not exists');
         }
-
-        if (!$product = $this->productRepository->load($productId)) {
+        $id = Uuid::fromString($productId->getValue());
+        if (!$product = $this->productRepository->load($id)) {
             $output->writeln('Product not exists');
         }
 
         $output->writeln(
             sprintf(
                 'Processing <comment>%s</comment> witch channel <comment>%s</comment>',
-                $product->getSku()->getValue(),
+                $product->getSku(),
                 $channel->getName()
             )
         );

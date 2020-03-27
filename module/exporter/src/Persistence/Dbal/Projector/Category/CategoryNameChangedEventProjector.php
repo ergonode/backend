@@ -24,7 +24,6 @@ class CategoryNameChangedEventProjector
     private CategoryRepositoryInterface $repository;
 
     /**
-     * CategoryNameChangedEventProjector constructor.
      * @param CategoryRepositoryInterface $repository
      */
     public function __construct(CategoryRepositoryInterface $repository)

@@ -25,7 +25,6 @@ class ProductDeletedEventProjector
     private Connection $connection;
 
     /**
-     * ProductDeletedEventProjector constructor.
      * @param Connection $connection
      */
     public function __construct(Connection $connection)

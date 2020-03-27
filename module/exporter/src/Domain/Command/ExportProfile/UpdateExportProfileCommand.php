@@ -44,8 +44,6 @@ class UpdateExportProfileCommand implements DomainCommandInterface
     private array $parameters;
 
     /**
-     * UpdateExportProfileCommand constructor.
-     *
      * @param ExportProfileId $id
      * @param string          $name
      * @param string          $type
