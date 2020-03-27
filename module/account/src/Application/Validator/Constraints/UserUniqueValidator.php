@@ -9,13 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Validator\Constraints;
 
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\Account\Domain\Query\UserQueryInterface;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Ergonode\Account\Domain\Query\UserQueryInterface;
 
 /**
  */

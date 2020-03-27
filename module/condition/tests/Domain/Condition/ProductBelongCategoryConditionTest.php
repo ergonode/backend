@@ -7,8 +7,8 @@
 
 namespace Ergonode\Condition\Tests\Domain\Condition;
 
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Condition\Domain\Condition\ProductBelongCategoryCondition;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

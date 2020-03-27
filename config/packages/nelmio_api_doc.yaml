@@ -390,8 +390,8 @@ nelmio_api_doc:
                         description: List of Skus
                         example:
                                 [ SKU_1, SKU_2]
-
-
+            
+            
             product_collection_type_create:
                 type: object
                 properties:
@@ -415,6 +415,19 @@ nelmio_api_doc:
                         example:
                             DE: Name DE
                             EN: Name EN
+            unit:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                        description: Unit name
+                        example: Metre
+                    symbol:
+                        type: string
+                        required: true
+                        description: Unit symbol
+                        example: m
             product:
                 type: object
                 properties:

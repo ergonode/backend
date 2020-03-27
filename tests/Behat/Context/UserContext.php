@@ -4,14 +4,14 @@
 namespace App\Tests\Behat\Context;
 
 use Behat\Behat\Context\Context;
-use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Domain\Query\UserQueryInterface;
+use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Exception;
 use InvalidArgumentException;
-use Ergonode\Account\Domain\Query\UserQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 /**
  */
