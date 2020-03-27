@@ -24,8 +24,6 @@ class ProductValueRemovedEventProjector
     private ProductRepositoryInterface $productRepository;
 
     /**
-     * ProductValueRemovedEventProjector constructor.
-     *
      * @param ProductRepositoryInterface $productRepository
      */
     public function __construct(ProductRepositoryInterface $productRepository)

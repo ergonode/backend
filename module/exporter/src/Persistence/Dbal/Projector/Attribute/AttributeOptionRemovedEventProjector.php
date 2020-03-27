@@ -24,7 +24,6 @@ class AttributeOptionRemovedEventProjector
     private AttributeRepositoryInterface $repository;
 
     /**
-     * AttributeOptionRemovedEventProjector constructor.
      * @param AttributeRepositoryInterface $repository
      */
     public function __construct(AttributeRepositoryInterface $repository)

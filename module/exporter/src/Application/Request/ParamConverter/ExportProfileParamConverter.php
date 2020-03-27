@@ -26,8 +26,6 @@ class ExportProfileParamConverter implements ParamConverterInterface
     private ExportProfileRepositoryInterface $repository;
 
     /**
-     * ExportProfileParamConverter constructor.
-     *
      * @param ExportProfileRepositoryInterface $repository
      */
     public function __construct(ExportProfileRepositoryInterface $repository)

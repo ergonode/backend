@@ -24,7 +24,6 @@ class AttributeLabelChangedEventProjector
     private AttributeRepositoryInterface $repository;
 
     /**
-     * AttributeLabelChangedEventProjector constructor.
      * @param AttributeRepositoryInterface $repository
      */
     public function __construct(AttributeRepositoryInterface $repository)

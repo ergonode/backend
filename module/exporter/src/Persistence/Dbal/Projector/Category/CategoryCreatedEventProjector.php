@@ -24,8 +24,6 @@ class CategoryCreatedEventProjector
     private CategoryRepositoryInterface $repository;
 
     /**
-     * CategoryCreatedEventProjector constructor.
-     *
      * @param CategoryRepositoryInterface $repository
      */
     public function __construct(CategoryRepositoryInterface $repository)

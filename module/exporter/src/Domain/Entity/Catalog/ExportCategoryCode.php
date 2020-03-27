@@ -23,7 +23,6 @@ class ExportCategoryCode
     private string $code;
 
     /**
-     * ExportCategoryCode constructor.
      * @param string $code
      */
     public function __construct(string $code)

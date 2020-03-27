@@ -24,7 +24,6 @@ class AttributeParameterChangeEventProjector
     private AttributeRepositoryInterface $repository;
 
     /**
-     * AttributeParameterChangeEventProjector constructor.
      * @param AttributeRepositoryInterface $repository
      */
     public function __construct(AttributeRepositoryInterface $repository)

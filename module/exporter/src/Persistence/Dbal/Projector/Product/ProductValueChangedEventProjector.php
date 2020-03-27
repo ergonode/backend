@@ -30,8 +30,6 @@ class ProductValueChangedEventProjector
     private AttributeFactory $attributeFactory;
 
     /**
-     * ProductValueChangedEventProjector constructor.
-     *
      * @param ProductRepositoryInterface $productRepository
      * @param AttributeFactory           $attributeFactory
      */
