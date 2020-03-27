@@ -32,6 +32,7 @@ class ProductValueAddedEventProjector
 
     /**
      * ProductValueAddedEventProjector constructor.
+     *
      * @param ProductRepositoryInterface $productRepository
      * @param AttributeFactory           $attributeFactory
      */

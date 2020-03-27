@@ -40,5 +40,4 @@ class ExportProductFactory
 
         return $this->serializer->deserialize($data, $class, 'json');
     }
-
 }
