@@ -7,13 +7,14 @@
 
 namespace Ergonode\Attribute\Domain\Query;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
 use Ergonode\Core\Domain\ValueObject\Range;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 /**
  */
@@ -80,4 +81,11 @@ interface AttributeQueryInterface
      * @return OptionInterface
      */
     public function findAttributeOption(AttributeId $id, OptionKey $key): ?OptionInterface;
+
+    /**
+     * @param UnitId $id
+     *
+     * @return array
+     */
+    public function findAttributeIdsByUnitId(UnitId $id): array;
 }

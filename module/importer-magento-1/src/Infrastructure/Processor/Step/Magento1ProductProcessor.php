@@ -8,28 +8,28 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Processor\Step;
 
+use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Entity\Import;
+use Ergonode\Importer\Domain\Entity\ImportLine;
+use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Transformer\Infrastructure\Action\ProductImportAction;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
+use Ergonode\Transformer\Domain\Model\Record;
+use Ergonode\Transformer\Infrastructure\Action\ProductImportAction;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
-use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
-use Ergonode\Importer\Domain\Entity\ImportLine;
-use Doctrine\DBAL\DBALException;
 use Ramsey\Uuid\Uuid;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */

@@ -1,0 +1,145 @@
+<?php
+
+/**
+ * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+declare(strict_types = 1);
+
+namespace Ergonode\Core\Application\Controller\Api\Unit;
+
+use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Core\Domain\Query\UnitQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Infrastructure\Grid\UnitGrid;
+use Ergonode\Grid\Renderer\GridRenderer;
+use Ergonode\Grid\RequestGridConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * @Route("/units", methods={"GET"})
+ */
+class UnitGridReadAction
+{
+    /**
+     * @var UnitGrid
+     */
+    private UnitGrid $unitGrid;
+
+    /**
+     * @var UnitQueryInterface
+     */
+    private UnitQueryInterface $unitQuery;
+
+    /**
+     * @var GridRenderer
+     */
+    private GridRenderer $gridRenderer;
+
+    /**
+     * UnitGridReadAction constructor.
+     *
+     * @param UnitGrid           $unitGrid
+     * @param UnitQueryInterface $unitQuery
+     * @param GridRenderer       $gridRenderer
+     */
+    public function __construct(
+        UnitGrid $unitGrid,
+        UnitQueryInterface $unitQuery,
+        GridRenderer $gridRenderer
+    ) {
+        $this->unitGrid = $unitGrid;
+        $this->unitQuery = $unitQuery;
+        $this->gridRenderer = $gridRenderer;
+    }
+
+    /**
+     *
+     * @IsGranted("SETTINGS_READ")
+     *
+     * @SWG\Tag(name="Unit")
+     * @SWG\Parameter(
+     *     name="limit",
+     *     in="query",
+     *     type="integer",
+     *     required=true,
+     *     default="50",
+     *     description="Number of returned lines",
+     * )
+     * @SWG\Parameter(
+     *     name="offset",
+     *     in="query",
+     *     type="integer",
+     *     required=true,
+     *     default="0",
+     *     description="Number of start line",
+     * )
+     * @SWG\Parameter(
+     *     name="field",
+     *     in="query",
+     *     required=false,
+     *     type="string",
+     *     description="Order field",
+     * )
+     * @SWG\Parameter(
+     *     name="filter",
+     *     in="query",
+     *     required=false,
+     *     type="string",
+     *     description="Filter"
+     * )
+     * @SWG\Parameter(
+     *     name="order",
+     *     in="query",
+     *     required=false,
+     *     type="string",
+     *     enum={"ASC","DESC"},
+     *     description="Order",
+     * )
+     * @SWG\Parameter(
+     *     name="view",
+     *     in="query",
+     *     required=false,
+     *     type="string",
+     *     enum={"grid","list"},
+     *     description="Specify respons format"
+     * )
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="EN",
+     *     description="Language Code",
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns grid",
+     * )
+     *
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
+     *
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
+     *
+     * @return Response
+     */
+    public function __invoke(Language $language, RequestGridConfiguration $configuration): Response
+    {
+        $dataSet = $this->unitQuery->getDataSet();
+
+        $data = $this->gridRenderer->render(
+            $this->unitGrid,
+            $configuration,
+            $dataSet,
+            $language
+        );
+
+        return new SuccessResponse($data);
+    }
+}

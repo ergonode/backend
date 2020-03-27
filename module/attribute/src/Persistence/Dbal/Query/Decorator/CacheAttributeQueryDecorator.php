@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Persistence\Dbal\Query\Decorator;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
@@ -17,6 +16,8 @@ use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
 use Ergonode\Core\Domain\ValueObject\Range;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 /**
  */
@@ -143,5 +144,15 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     public function getDictionary(array $types = []): array
     {
         return $this->attributeQuery->getDictionary($types);
+    }
+
+    /**
+     * @param UnitId $id
+     *
+     * @return array
+     */
+    public function findAttributeIdsByUnitId(UnitId $id): array
+    {
+        return $this->attributeQuery->findAttributeIdsByUnitId($id);
     }
 }

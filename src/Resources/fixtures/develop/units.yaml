@@ -1,0 +1,117 @@
+Ergonode\Core\Domain\Command\CreateUnitCommand:
+    unit_metre:
+        __construct:
+            - 'Metre'
+            - 'm'
+    unit_kilogram:
+        __construct:
+            - 'Kilogram'
+            - 'Kg'
+    unit_second:
+        __construct:
+            - 'Second'
+            - 's'
+    unit_ampere:
+        __construct:
+            - 'Ampere'
+            - 'A'
+    unit_kelvin:
+        __construct:
+            - 'Kelvin'
+            - 'K'
+    unit_mole:
+        __construct:
+            - 'Mole'
+            - 'mol'
+    unit_candela:
+        __construct:
+            - 'Candela'
+            - 'cd'
+    unit_radian:
+        __construct:
+            - 'Radian'
+            - 'rad'
+    unit_steradian:
+        __construct:
+            - 'Steradian'
+            - 'sr'
+    unit_hertz:
+        __construct:
+            - 'Hertz'
+            - 'Hz'
+    unit_newton:
+        __construct:
+            - 'Newton'
+            - 'N'
+    unit_pascal:
+        __construct:
+            - 'Pascal'
+            - 'Pa'
+    unit_joule:
+        __construct:
+            - 'Joule'
+            - 'J'
+    unit_watt:
+        __construct:
+            - 'Watt'
+            - 'W'
+    unit_coulomb:
+        __construct:
+            - 'Coulomb'
+            - 'C'
+    unit_volt:
+        __construct:
+            - 'Volt'
+            - 'V'
+    unit_farad:
+        __construct:
+            - 'Farad'
+            - 'F'
+    unit_ohm:
+        __construct:
+            - 'Ohm'
+            - 'Ω'
+    unit_siemens:
+        __construct:
+            - 'Siemens'
+            - 'S'
+    unit_weber:
+        __construct:
+            - 'Weber'
+            - 'Wb'
+    unit_tesla:
+        __construct:
+            - 'Tesla'
+            - 'T'
+    unit_henry:
+        __construct:
+            - 'Henry'
+            - 'H'
+    unit_degree_celsius:
+        __construct:
+            - 'Degreee Celsius'
+            - '°C'
+    unit_lumen:
+        __construct:
+            - 'Lumen'
+            - 'lm'
+    unit_lux:
+        __construct:
+            - 'Lux'
+            - 'm'
+    unit_becquerel:
+        __construct:
+            - 'Becquerel'
+            - 'Bq'
+    unit_gray:
+        __construct:
+            - 'Gray'
+            - 'Gy'
+    unit_sievert:
+        __construct:
+            - 'Sievert'
+            - 'Sv'
+    unit_katal:
+        __construct:
+            - 'Katal'
+            - 'kat'

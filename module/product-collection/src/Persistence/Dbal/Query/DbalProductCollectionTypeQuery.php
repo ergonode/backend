@@ -16,7 +16,6 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionTypeQueryInterface;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionTypeCode;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 /**

@@ -5,6 +5,28 @@ Feature: Unit attribute manipulation
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
+  Scenario: Create unit object 1
+    And I send a "POST" request to "/api/v1/EN/units" with body:
+      """
+      {
+        "name": "New Unit 1",
+        "symbol": "nu1"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "unit_id_1"
+
+  Scenario: Create unit object 2
+    And I send a "POST" request to "/api/v1/EN/units" with body:
+      """
+      {
+        "name": "New Unit 2",
+        "symbol": "nu2"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "unit_id_2"
+
   Scenario: Create unit attribute
     And I send a "POST" request to "/api/v1/EN/attributes" with body:
       """
@@ -12,7 +34,7 @@ Feature: Unit attribute manipulation
           "code": "UNIT_@@random_code@@",
           "type": "UNIT",
           "groups": [],
-          "parameters": {"unit": "M"}
+          "parameters": {"unit": "@unit_id_1@"}
       }
       """
     Then the response status code should be 201
@@ -44,7 +66,7 @@ Feature: Unit attribute manipulation
       """
       {
           "groups": [],
-          "parameters": {"unit": "M"}
+          "parameters": {"unit": "@unit_id_2@"}
       }
       """
     Then the response status code should be 204

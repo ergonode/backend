@@ -17,10 +17,6 @@ Feature: Attribute dictionaries
     And I send a "GET" request to "/api/v1/EN/dictionary/image_format"
     Then the response status code should be 200
 
-  Scenario: Get attribute units dictionary
-    And I send a "GET" request to "/api/v1/EN/dictionary/units"
-    Then the response status code should be 200
-
   Scenario: Get attribute currencies dictionary
     And I send a "GET" request to "/api/v1/EN/dictionary/currencies"
     Then the response status code should be 200

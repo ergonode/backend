@@ -11,6 +11,7 @@ namespace Ergonode\Core\Application\Controller\Api\Language;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -40,6 +41,8 @@ class LanguageReadAction
     }
 
     /**
+     * @IsGranted("SETTINGS_UPDATE")
+     *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(
      *     name="language",

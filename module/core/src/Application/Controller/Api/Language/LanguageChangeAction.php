@@ -14,6 +14,7 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Form\LanguageCollectionForm;
 use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
 use Ergonode\Core\Domain\Command\UpdateLanguageCommand;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,6 +56,8 @@ class LanguageChangeAction
     }
 
     /**
+     * @IsGranted("SETTINGS_UPDATE")
+     *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(
      *     name="language",

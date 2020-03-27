@@ -11,12 +11,11 @@ namespace Ergonode\Tests\Account\Application\Validator\Constraints;
 
 use Ergonode\Account\Application\Validator\Constraints\UserUnique;
 use Ergonode\Account\Application\Validator\Constraints\UserUniqueValidator;
-use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Domain\Query\UserQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
-use Ergonode\Account\Domain\Query\UserQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 /**
  */

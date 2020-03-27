@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Application\Form;
 
-use Ergonode\Product\Application\Form\Type\SkusTextAreaType;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionElementMultipleCreateFormModel;
 use Ergonode\Segment\Application\Form\Type\SegmentType;
 use Symfony\Component\Form\AbstractType;

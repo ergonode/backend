@@ -7,14 +7,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Domain\Query;
+namespace Ergonode\SharedKernel\Domain\Aggregate;
+
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
-interface UnitQueryInterface
+class UnitId extends AggregateId
 {
-    /**
-     * @return array
-     */
-    public function getDictionary(): array;
 }

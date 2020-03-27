@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
 use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeUnique;
 use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductCollectionCodeValid;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -22,7 +22,7 @@ class ProductCollectionCreateFormModel
     /**
      * @var ProductCollectionCode | null
      *
-     * @Assert\NotBlank(message="Category code is required")
+     * @Assert\NotBlank(message="Product collection code is required")
      * @Assert\Length(max=64)
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9-_]+$\b/i",
