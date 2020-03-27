@@ -14,6 +14,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -86,6 +87,8 @@ class UpdateMagento1CsvSourceCommand implements DomainCommandInterface
         $attributes,
         array $import
     ) {
+        Assert::allIsInstanceOf($languages, Language::class);
+        Assert::allIsInstanceOf($attributes, AttributeId::class);
         $this->id = $id;
         $this->name = $name;
         $this->defaultLanguage = $defaultLanguage;

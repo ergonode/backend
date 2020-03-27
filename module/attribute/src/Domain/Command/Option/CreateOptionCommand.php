@@ -49,16 +49,15 @@ class CreateOptionCommand implements DomainCommandInterface
     private TranslatableString $label;
 
     /**
-     * @param AggregateId        $id
      * @param AttributeId        $attributeId
      * @param OptionKey          $code
      * @param TranslatableString $label
      *
      * @throws \Exception
      */
-    public function __construct(AggregateId $id, AttributeId $attributeId, OptionKey $code, TranslatableString $label)
+    public function __construct(AttributeId $attributeId, OptionKey $code, TranslatableString $label)
     {
-        $this->id = $id;
+        $this->id = AggregateId::generate();
         $this->attributeId = $attributeId;
         $this->code = $code;
         $this->label = $label;

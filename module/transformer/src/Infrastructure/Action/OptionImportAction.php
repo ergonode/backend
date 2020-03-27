@@ -91,7 +91,6 @@ class OptionImportAction implements ImportActionInterface
 
         if (!$optionId) {
             $command = new CreateOptionCommand(
-                AggregateId::generate(),
                 $attributeId,
                 $optionCode,
                 $label

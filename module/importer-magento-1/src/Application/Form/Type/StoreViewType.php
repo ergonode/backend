@@ -45,9 +45,10 @@ class StoreViewType extends AbstractType
                     'entry_type' => LanguageMapType::class,
                     'liform' => [
                         'format' => 'table',
-                        'widget' => 'table',
+                        'widget' => 'dictionary',
                     ],
-                ]
+                    'required' => false,
+                ],
             );
     }
 

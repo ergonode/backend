@@ -14,6 +14,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -86,6 +87,9 @@ class CreateMagento1CsvSourceCommand implements DomainCommandInterface
         array $attributes = [],
         array $import = []
     ) {
+        Assert::allIsInstanceOf($languages, Language::class);
+        Assert::allIsInstanceOf($attributes, AttributeId::class);
+
         $this->id = $id;
         $this->name = $name;
         $this->defaultLanguage = $defaultLanguage;

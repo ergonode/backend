@@ -161,6 +161,14 @@ class Magento1CsvSource extends AbstractSource
     }
 
     /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @param Language[] $languages
      */
     public function setLanguages(array $languages): void

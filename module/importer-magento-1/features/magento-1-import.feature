@@ -18,12 +18,30 @@ Feature: Magento 1 CSV module
         ],
         "mapping": {
           "default_language": "EN",
-          "languages": []
+          "languages": [
+              {
+                 "store":"test",
+                 "language":"EN"
+              }
+          ]
         }
       }
       """
     Then the response status code should be 201
     And store response param "id" as "source_id"
+
+  Scenario: Get Magento 1 CSV Source
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/EN/sources/@source_id@"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | type                     | magento-1-csv    |
+      | name                     | name            |
+      | host                     | http://test.host |
+      | mapping.default_language | EN               |
+
 
   Scenario: Update Magento 1 CSV Source
     Given I am Authenticated as "test@ergonode.com"
@@ -32,7 +50,7 @@ Feature: Magento 1 CSV module
     When I send a PUT request to "/api/v1/EN/sources/@source_id@" with body:
       """
       {
-        "name": "name",
+        "name": "name2",
         "host": "http://test.host",
         "import" : [
            "templates",
@@ -49,7 +67,7 @@ Feature: Magento 1 CSV module
     Then the response status code should be 201
     And store response param "id" as "source_id"
 
-  Scenario: Get Magento 1 CSV Source
+  Scenario: Get Magento 1 CSV Source after update
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
@@ -57,7 +75,7 @@ Feature: Magento 1 CSV module
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type                     | magento-1-csv    |
-      | name                     | name             |
+      | name                     | name2            |
       | host                     | http://test.host |
       | mapping.default_language | EN               |
 

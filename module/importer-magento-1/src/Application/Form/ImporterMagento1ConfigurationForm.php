@@ -13,7 +13,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Url;
 use Ergonode\ImporterMagento1\Application\Form\Type\StoreViewType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -53,11 +52,9 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                 'host',
                 TextType::class,
                 [
-                    'constraints' => [
-                        new Url(),
-                    ],
-                    'extra_fields_message' => 'Enter the address of the server where the product images are located',
+                    'help' => 'Enter the address of the server where the product images are located',
                     'label' => 'Images host',
+                    'required' => false,
                 ]
             )
             ->add(
@@ -77,8 +74,9 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                     'entry_type' => AttributeMapType::class,
                     'liform' => [
                         'format' => 'table',
-                        'widget' => 'table',
+                        'widget' => 'dictionary',
                     ],
+                    'required' => false,
                 ]
             );
     }

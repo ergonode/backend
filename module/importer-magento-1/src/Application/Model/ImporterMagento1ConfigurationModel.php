@@ -12,6 +12,7 @@ use Ergonode\ImporterMagento1\Application\Model\Type\LanguageMapModel;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\ImporterMagento1\Application\Model\Type\StoreViewModel;
+use Ergonode\ImporterMagento1\Application\Model\Type\AttributeMapModel;
 
 /**
  */
@@ -27,7 +28,6 @@ class ImporterMagento1ConfigurationModel
     /**
      * @var string|null
      *
-     * @Assert\NotBlank()
      * @Assert\Url()
      */
     public ?string $host = null;
@@ -38,7 +38,7 @@ class ImporterMagento1ConfigurationModel
     public StoreViewModel $mapping;
 
     /**
-     * @var array
+     * @var AttributeMapModel[]
      */
     public array $attributes = [];
 

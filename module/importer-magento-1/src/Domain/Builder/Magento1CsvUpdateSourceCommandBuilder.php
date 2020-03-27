@@ -17,6 +17,7 @@ use Ergonode\ImporterMagento1\Application\Form\ImporterMagento1ConfigurationForm
 use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderInterface;
 use Ergonode\ImporterMagento1\Domain\Command\UpdateMagento1CsvSourceCommand;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
@@ -43,14 +44,18 @@ class Magento1CsvUpdateSourceCommandBuilder implements UpdateSourceCommandBuilde
     {
         /** @var ImporterMagento1ConfigurationModel $data */
         $data = $form->getData();
+
         $languages = [];
         foreach ($data->mapping->languages as $language) {
-            $languages[$language->store] = $language->language->getCode();
+            $languages[$language->store] = $language->language;
         }
-        $language = new Language($data->mapping->defaultLanguage->getCode());
+        $language = $data->mapping->defaultLanguage;
         $name = $data->name;
         $host = $data->host;
-        $attributes = $data->attributes;
+        $attributes = [];
+        foreach ($data->attributes as $attribute) {
+            $attributes[$attribute->code] = new AttributeId($attribute->attribute);
+        }
 
         $import = (array) $data->import;
 

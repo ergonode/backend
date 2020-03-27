@@ -24,7 +24,7 @@ services:
     Ergonode\Core\Infrastructure\Handler\:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
-        
+
     Ergonode\Core\Persistence\Dbal\Projector\:
         resource: '../../Persistence/Dbal/Projector/*'
         tags: ['messenger.message_handler']
@@ -37,9 +37,9 @@ services:
         arguments:
             $directory: '%kernel.project_dir%'
 
-    Ergonode\Core\Application\Form\Extension\TitleFormExtension:
-        tags:
-            - { name: liform.extension }
+    Ergonode\Core\Application\Form\Extension\:
+        resource: '../../Application/Form/Extension/*'
+        tags: ['liform.extension']
 
     Ergonode\Core\Domain\Query\LanguageQueryInterface: '@Ergonode\Core\Persistence\Dbal\Query\DbalLanguageQuery'
     Ergonode\Core\Domain\Query\UnitQueryInterface: '@Ergonode\Core\Persistence\Dbal\Query\DbalUnitQuery'

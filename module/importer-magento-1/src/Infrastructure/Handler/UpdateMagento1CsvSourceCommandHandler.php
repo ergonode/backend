@@ -39,6 +39,7 @@ class UpdateMagento1CsvSourceCommandHandler
     {
         /** @var Magento1CsvSource $source */
         $source = $this->repository->load($command->getId());
+        $source->setName($command->getName());
         $source->setAttributes($command->getAttributes());
         $source->setHost($command->getHost());
         $source->setDefaultLanguage($command->getDefaultLanguage());

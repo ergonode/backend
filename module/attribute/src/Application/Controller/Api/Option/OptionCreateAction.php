@@ -118,7 +118,6 @@ class OptionCreateAction
                 $data = $form->getData();
 
                 $command = new CreateOptionCommand(
-                    AggregateId::generate(),
                     $attribute->getId(),
                     new OptionKey($data->code),
                     new TranslatableString($data->label)
