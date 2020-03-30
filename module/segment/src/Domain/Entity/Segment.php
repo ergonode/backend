@@ -113,9 +113,9 @@ class Segment extends AbstractAggregateRoot
     }
 
     /**
-     * @return ConditionSetId
+     * @return ConditionSetId|null
      */
-    public function getConditionSetId(): ConditionSetId
+    public function getConditionSetId(): ?ConditionSetId
     {
         return $this->conditionSetId;
     }

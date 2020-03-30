@@ -21,9 +21,9 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route("/attributes", methods={"POST"})
@@ -36,18 +36,18 @@ class AttributeCreateAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @param FormFactoryInterface $formFactory
-     * @param MessageBusInterface  $messageBus
+     * @param CommandBusInterface  $commandBus
      */
-    public function __construct(FormFactoryInterface $formFactory, MessageBusInterface $messageBus)
+    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
     {
         $this->formFactory = $formFactory;
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -112,7 +112,7 @@ class AttributeCreateAction
                     $data->groups,
                     (array) $data->parameters
                 );
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());
             }

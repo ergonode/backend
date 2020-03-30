@@ -2,7 +2,6 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
@@ -11,20 +10,18 @@ namespace Ergonode\Exporter\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Exporter\Domain\Entity\Catalog\AbstractExportProduct;
-use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Exporter\Persistence\Dbal\Repository\Factory\ExportProductFactory;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportTree;
+use Ergonode\Exporter\Domain\Repository\TreeRepositoryInterface;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class DbalProductRepository implements ProductRepositoryInterface
+class DbalTreeRepository implements TreeRepositoryInterface
 {
-    private const TABLE = 'exporter.product';
+    private const TABLE = 'exporter.tree';
     private const FIELDS = [
         'id',
-        'type',
         'data',
     ];
 
@@ -34,33 +31,26 @@ class DbalProductRepository implements ProductRepositoryInterface
     private Connection $connection;
 
     /**
-     * @var ExportProductFactory
-     */
-    private ExportProductFactory $factory;
-
-    /**
      * @var SerializerInterface
      */
     private SerializerInterface $serializer;
 
     /**
-     * @param Connection           $connection
-     * @param ExportProductFactory $factory
-     * @param SerializerInterface  $serializer
+     * @param Connection          $connection
+     * @param SerializerInterface $serializer
      */
-    public function __construct(Connection $connection, ExportProductFactory $factory, SerializerInterface $serializer)
+    public function __construct(Connection $connection, SerializerInterface $serializer)
     {
         $this->connection = $connection;
-        $this->factory = $factory;
         $this->serializer = $serializer;
     }
 
     /**
      * @param Uuid $id
      *
-     * @return AbstractExportProduct|null
+     * @return ExportTree|null
      */
-    public function load(Uuid $id): ?AbstractExportProduct
+    public function load(Uuid $id): ?ExportTree
     {
         $qb = $this->getQuery();
         $record = $qb->where($qb->expr()->eq('id', ':id'))
@@ -69,18 +59,18 @@ class DbalProductRepository implements ProductRepositoryInterface
             ->fetch();
 
         if ($record) {
-            return $this->factory->create($record);
+            return $this->serializer->deserialize($record['data'], ExportTree::class, 'json');
         }
 
         return null;
     }
 
     /**
-     * @param AbstractExportProduct $exportTree
+     * @param ExportTree $exportTree
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function save(AbstractExportProduct $exportTree): void
+    public function save(ExportTree $exportTree): void
     {
         if ($this->exists($exportTree->getId())) {
             $this->update($exportTree);
@@ -112,53 +102,51 @@ class DbalProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * @param AbstractExportProduct $product
+     * @param ExportTree $exportTree
      *
      * @throws \Doctrine\DBAL\DBALException
      * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */
-    public function delete(AbstractExportProduct $product): void
+    public function delete(ExportTree $exportTree): void
     {
         $this->connection->delete(
             self::TABLE,
             [
-                'id' => $product->getId()->toString(),
+                'id' => $exportTree->getId()->toString(),
             ]
         );
     }
 
     /**
-     * @param AbstractExportProduct $product
+     * @param ExportTree $exportTree
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    private function update(AbstractExportProduct $product): void
+    private function update(ExportTree $exportTree): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'data' => $this->serializer->serialize($product, 'json'),
-                'type' => \get_class($product),
+                'data' => $this->serializer->serialize($exportTree, 'json'),
             ],
             [
-                'id' => $product->getId()->toString(),
+                'id' => $exportTree->getId()->toString(),
             ]
         );
     }
 
     /**
-     * @param AbstractExportProduct $product
+     * @param ExportTree $exportTree
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    private function insert(AbstractExportProduct $product): void
+    private function insert(ExportTree $exportTree): void
     {
         $this->connection->insert(
             self::TABLE,
             [
-                'id' => $product->getId()->toString(),
-                'data' => $this->serializer->serialize($product, 'json'),
-                'type' => \get_class($product),
+                'id' => $exportTree->getId()->toString(),
+                'data' => $this->serializer->serialize($exportTree, 'json'),
             ]
         );
     }

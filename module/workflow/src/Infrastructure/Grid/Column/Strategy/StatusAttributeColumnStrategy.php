@@ -12,7 +12,7 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\ColumnInterface;
-use Ergonode\Grid\Filter\SelectFilter;
+use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
@@ -63,7 +63,7 @@ class StatusAttributeColumnStrategy implements AttributeColumnStrategyInterface
             StatusSystemAttribute::CODE,
             $attribute->getLabel()->get($language),
             $statuses,
-            new SelectFilter($statusCodes)
+            new MultiSelectFilter($statusCodes)
         );
     }
 }

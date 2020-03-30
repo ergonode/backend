@@ -80,16 +80,19 @@ class CalculateProductInSegmentCommandHandler
         Assert::notNull($product);
         $segment = $this->segmentRepository->load($segmentId);
         Assert::notNull($segment);
-        $conditionSet = $this->conditionRepository->load($segment->getConditionSetId());
 
-        Assert::notNull($conditionSet);
+        if ($segment->hasConditionSet()) {
+            $conditionSet = $this->conditionRepository->load($segment->getConditionSetId());
 
-        $exists = $this->calculator->calculate($conditionSet, $product);
+            Assert::notNull($conditionSet);
 
-        if ($exists) {
-            $this->service->mark($segmentId, $productId);
-        } else {
-            $this->service->unmark($segmentId, $productId);
+            $exists = $this->calculator->calculate($conditionSet, $product);
+
+            if ($exists) {
+                $this->service->mark($segmentId, $productId);
+            } else {
+                $this->service->unmark($segmentId, $productId);
+            }
         }
     }
 }

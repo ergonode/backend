@@ -11,7 +11,6 @@ namespace Ergonode\Grid;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\Filter\MultiSelectFilter;
-use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\Request\FilterValue;
 use Ergonode\Grid\Request\FilterValueCollection;
@@ -43,12 +42,6 @@ abstract class AbstractDbalDataSet implements DataSetInterface
                             $this->buildTextQuery($query, $name, $filter->getOperator(), $filter->getValue());
                         } elseif ($columnFilter instanceof MultiSelectFilter) {
                             $this->buildMultiSelectQuery(
-                                $query,
-                                $name,
-                                $filter->getValue()
-                            );
-                        } elseif ($columnFilter instanceof SelectFilter) {
-                            $this->buildSelectQuery(
                                 $query,
                                 $name,
                                 $filter->getValue()
@@ -90,7 +83,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
             foreach ($values as $value) {
                 $fields[] =
                     sprintf(
-                        'jsonb_exists_any("%s"::jsonb, %s::text[])',
+                        'jsonb_exists_any(to_json("%s")::jsonb, %s::text[])',
                         $field,
                         $query->createNamedParameter(sprintf('{%s}', $value))
                     );
@@ -100,26 +93,6 @@ abstract class AbstractDbalDataSet implements DataSetInterface
             $query->andWhere(sprintf('"%s"::TEXT = \'[]\'::TEXT', $field));
         }
     }
-
-    /**
-     * @param QueryBuilder $query
-     * @param string       $field
-     * @param string|null  $givenValue
-     */
-    private function buildSelectQuery(
-        QueryBuilder $query,
-        string $field,
-        string $givenValue = null
-    ): void {
-        $query->andWhere(
-            \sprintf(
-                '"%s"::TEXT = %s',
-                $field,
-                $query->createNamedParameter(sprintf('%s', $givenValue))
-            )
-        );
-    }
-
 
     /**
      * @param QueryBuilder $query

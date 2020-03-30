@@ -24,6 +24,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 class DbalProductCollectionQuery implements ProductCollectionQueryInterface
 {
     private const PRODUCT_COLLECTION_TABLE = 'public.collection';
+    private const PRODUCT_COLLECTION_TYPE_TABLE = 'public.collection_type';
 
     /**
      * @var Connection
@@ -59,13 +60,14 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
     public function getDataSet(Language $language): DataSetInterface
     {
         $qb = $this->getQuery();
-        $qb->addSelect('id');
-        $qb->addSelect('code');
-        $qb->addSelect('type_id');
-        $qb->addSelect('created_at');
-        $qb->addSelect('edited_at');
-        $qb->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
-        $qb->addSelect(sprintf('(description->>\'%s\') AS description', $language->getCode()));
+        $qb->addSelect('c.id');
+        $qb->addSelect('c.code');
+        $qb->addSelect('c.created_at');
+        $qb->addSelect('c.edited_at');
+        $qb->addSelect('ct.code AS type');
+        $qb->addSelect(sprintf('(c.name->>\'%s\') AS name', $language->getCode()));
+        $qb->addSelect(sprintf('(c.description->>\'%s\') AS description', $language->getCode()));
+        $qb->join('c', self::PRODUCT_COLLECTION_TYPE_TABLE, 'ct', 'c.type_id = ct.id');
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');

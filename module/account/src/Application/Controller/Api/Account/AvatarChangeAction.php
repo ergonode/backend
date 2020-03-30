@@ -18,8 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route("/accounts/{user}/avatar", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
@@ -27,16 +27,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class AvatarChangeAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
-     * @param MessageBusInterface $messageBus
+     * @param CommandBusInterface $commandBus
      */
-    public function __construct(MessageBusInterface $messageBus)
+    public function __construct(CommandBusInterface $commandBus)
     {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -81,7 +81,7 @@ class AvatarChangeAction
         $multimediaId = $request->request->get('multimedia');
         $multimediaId = $multimediaId ? new MultimediaId($multimediaId) : null;
         $command = new ChangeUserAvatarCommand($user->getId(), $multimediaId);
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         return new EmptyResponse();
     }

@@ -640,11 +640,11 @@ Feature: Product collection module
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
 
-  Scenario: Get product collection (order by typeid)
+  Scenario: Get product collection (order by type)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections?field=type_id"
+    When I send a GET request to "/api/v1/EN/collections?field=type"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
@@ -850,7 +850,7 @@ Feature: Product collection module
     When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements?field=product_id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
-    And the JSON node "columns[1].id" should be equal to "product_id"
+    And the JSON node "columns[1].id" should be equal to "system_name"
 
   Scenario: Get product collection element (order by product_collection_id)
     Given I am Authenticated as "test@ergonode.com"
@@ -859,7 +859,7 @@ Feature: Product collection module
     When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements?field=product_collection_id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
-    And the JSON node "columns[1].id" should be equal to "product_id"
+    And the JSON node "columns[1].id" should be equal to "system_name"
 
   Scenario: Get product collection element (filter by code)
     Given I am Authenticated as "test@ergonode.com"

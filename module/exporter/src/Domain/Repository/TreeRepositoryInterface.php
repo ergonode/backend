@@ -2,31 +2,30 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Domain\Repository;
 
-use Ergonode\Exporter\Domain\Entity\Catalog\AbstractExportProduct;
+use Ergonode\Exporter\Domain\Entity\Catalog\ExportTree;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-interface ProductRepositoryInterface
+interface TreeRepositoryInterface
 {
     /**
      * @param Uuid $id
      *
-     * @return AbstractExportProduct
+     * @return ExportTree|null
      */
-    public function load(Uuid $id): ?AbstractExportProduct;
+    public function load(Uuid $id): ?ExportTree;
 
     /**
-     * @param AbstractExportProduct $product
+     * @param ExportTree $exportTree
      */
-    public function save(AbstractExportProduct $product): void;
+    public function save(ExportTree $exportTree): void;
 
     /**
      * @param Uuid $id
@@ -36,7 +35,7 @@ interface ProductRepositoryInterface
     public function exists(Uuid $id): bool;
 
     /**
-     * @param AbstractExportProduct $product
+     * @param ExportTree $exportTree
      */
-    public function delete(AbstractExportProduct $product): void;
+    public function delete(ExportTree $exportTree): void;
 }

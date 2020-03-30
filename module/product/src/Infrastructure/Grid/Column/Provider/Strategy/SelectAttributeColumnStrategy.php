@@ -11,12 +11,10 @@ namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
-use Ergonode\Grid\Filter\SelectFilter;
+use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 
 /**
@@ -56,7 +54,7 @@ class SelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
         return new SelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new SelectFilter($options)
+            new MultiSelectFilter($options)
         );
     }
 }

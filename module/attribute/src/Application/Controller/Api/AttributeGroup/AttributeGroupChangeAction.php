@@ -23,9 +23,9 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -38,25 +38,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class AttributeGroupChangeAction
 {
     /**
-     * @var MessageBusInterface
-     */
-    private MessageBusInterface $messageBus;
-
-    /**
      * @var FormFactoryInterface
      */
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
-     * @param FormFactoryInterface $formFactory
+     * @var CommandBusInterface
      */
-    public function __construct(
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
-        $this->messageBus = $messageBus;
+    private CommandBusInterface $commandBus;
+
+    /**
+     * @param FormFactoryInterface $formFactory
+     * @param CommandBusInterface  $commandBus
+     */
+    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
+    {
         $this->formFactory = $formFactory;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -124,7 +122,7 @@ class AttributeGroupChangeAction
                     $attributeGroup->getId(),
                     new TranslatableString($data->name)
                 );
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new EmptyResponse();
             }

@@ -39,7 +39,6 @@ class ExportCategory
     private TranslatableString $name;
 
     /**
-     * Category constructor.
      * @param Uuid               $id
      * @param string             $code
      * @param TranslatableString $name

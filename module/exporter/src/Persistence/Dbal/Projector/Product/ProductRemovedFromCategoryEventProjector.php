@@ -25,7 +25,6 @@ class ProductRemovedFromCategoryEventProjector
     private ProductRepositoryInterface $productRepository;
 
     /**
-     * ProductRemovedFromCategoryEventProjector constructor.
      * @param ProductRepositoryInterface $productRepository
      */
     public function __construct(ProductRepositoryInterface $productRepository)

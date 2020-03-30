@@ -15,7 +15,7 @@ use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
-use Ergonode\Grid\Filter\SelectFilter;
+use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 
 /**
@@ -55,7 +55,7 @@ class TemplateSystemAttributeColumnStrategy implements AttributeColumnStrategyIn
         return new SelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new SelectFilter($options)
+            new MultiSelectFilter($options)
         );
     }
 }

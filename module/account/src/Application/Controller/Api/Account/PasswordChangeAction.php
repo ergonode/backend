@@ -21,9 +21,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -41,9 +41,9 @@ class PasswordChangeAction
     private PasswordValidationBuilder $builder;
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var ValidatorInterface
@@ -57,18 +57,18 @@ class PasswordChangeAction
 
     /**
      * @param PasswordValidationBuilder          $builder
-     * @param MessageBusInterface                $messageBus
+     * @param CommandBusInterface                $commandBus
      * @param ValidatorInterface                 $validator
      * @param AuthenticatedUserProviderInterface $userProvider
      */
     public function __construct(
         PasswordValidationBuilder $builder,
-        MessageBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         ValidatorInterface $validator,
         AuthenticatedUserProviderInterface $userProvider
     ) {
         $this->builder = $builder;
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->validator = $validator;
         $this->userProvider = $userProvider;
     }
@@ -129,7 +129,7 @@ class PasswordChangeAction
 
         if ($violations->count() === 0) {
             $command = new ChangeUserPasswordCommand($userId, new Password((string) $data['password']));
-            $this->messageBus->dispatch($command);
+            $this->commandBus->dispatch($command);
 
             return new EmptyResponse();
         }

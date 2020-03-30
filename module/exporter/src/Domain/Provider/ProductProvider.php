@@ -35,7 +35,6 @@ class ProductProvider
     private AttributeFactory $attributeFactory;
 
     /**
-     * ProductProvider constructor.
      * @param DefaultProductFactory $productFactory
      * @param CategoryCodeFactory   $categoryCodeFactory
      * @param AttributeFactory      $attributeFactory
