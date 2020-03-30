@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 
 /**
  * @Vich\Uploadable()
@@ -32,13 +31,6 @@ class UploadModel
      * @var UploadedFile
      */
     public ?UploadedFile $upload = null;
-
-    /**
-     * @var string|null
-     *
-     * @Assert\NotBlank()
-     */
-    public ?string $sourceId = null;
 
     /**
      * @Assert\Callback

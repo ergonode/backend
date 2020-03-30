@@ -64,6 +64,12 @@ class ImportGridAction
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(
+     *     name="source",
+     *     in="path",
+     *     type="string",
+     *     description="Source Id",
+     * )
+     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",

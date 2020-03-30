@@ -43,10 +43,16 @@ class ImportShowAction
      *     description="Language Code",
      * )
      * @SWG\Parameter(
+     *     name="source",
+     *     in="path",
+     *     type="string",
+     *     description="Source Id",
+     * )
+     * @SWG\Parameter(
      *     name="import",
      *     in="path",
      *     type="string",
-     *     description="Import id",
+     *     description="Import Id",
      * )
      * @SWG\Response(
      *     response=200,
