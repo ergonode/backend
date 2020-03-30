@@ -13,7 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\Column\LinkColumn;
-use Ergonode\Grid\Filter\SelectFilter;
+use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,10 +49,10 @@ class TransitionGrid extends AbstractGrid
             $codes[$code] = $status['name'];
         }
 
-        $code = new LabelColumn('source', 'From', $statuses, new SelectFilter($codes));
+        $code = new LabelColumn('source', 'From', $statuses, new MultiSelectFilter($codes));
         $this->addColumn('source', $code);
 
-        $code = new LabelColumn('destination', 'To', $statuses, new SelectFilter($codes));
+        $code = new LabelColumn('destination', 'To', $statuses, new MultiSelectFilter($codes));
         $this->addColumn('destination', $code);
 
         $this->addColumn('_links', new LinkColumn('hal', [

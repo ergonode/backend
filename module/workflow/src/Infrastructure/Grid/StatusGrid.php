@@ -15,7 +15,7 @@ use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\SelectFilter;
+use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
@@ -57,7 +57,7 @@ class StatusGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
-        $this->addColumn('status', new LabelColumn('status', 'Status', $statuses, new SelectFilter($codes)));
+        $this->addColumn('status', new LabelColumn('status', 'Status', $statuses, new MultiSelectFilter($codes)));
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
         $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter()));
         $this->addColumn('is_default', new BoolColumn('is_default', 'Initial status'));
