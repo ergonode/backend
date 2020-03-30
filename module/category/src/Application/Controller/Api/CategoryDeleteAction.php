@@ -19,8 +19,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -33,9 +33,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryDeleteAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var RelationshipsResolverInterface
@@ -48,16 +48,16 @@ class CategoryDeleteAction
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
     /**
-     * @param MessageBusInterface                         $messageBus
+     * @param CommandBusInterface                         $commandBus
      * @param RelationshipsResolverInterface              $relationshipsResolver
      * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
-        MessageBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         RelationshipsResolverInterface $relationshipsResolver,
         ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->relationshipsResolver = $relationshipsResolver;
         $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
@@ -100,7 +100,7 @@ class CategoryDeleteAction
         }
 
         $command = new DeleteCategoryCommand($category->getId());
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         return new EmptyResponse();
     }

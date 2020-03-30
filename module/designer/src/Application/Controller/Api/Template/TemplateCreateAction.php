@@ -19,8 +19,8 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route("/templates", methods={"POST"})
@@ -28,9 +28,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class TemplateCreateAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
@@ -43,16 +43,16 @@ class TemplateCreateAction
     private TemplateCommandFactory $commandFactory;
 
     /**
-     * @param MessageBusInterface    $messageBus
+     * @param CommandBusInterface    $commandBus
      * @param FormFactoryInterface   $formFactory
      * @param TemplateCommandFactory $commandFactory
      */
     public function __construct(
-        MessageBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory,
         TemplateCommandFactory $commandFactory
     ) {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
         $this->commandFactory = $commandFactory;
     }
@@ -101,7 +101,7 @@ class TemplateCreateAction
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var TemplateFormModel $data */
             $command = $this->commandFactory->getCreateTemplateCommand($form->getData());
-            $this->messageBus->dispatch($command);
+            $this->commandBus->dispatch($command);
 
             return new CreatedResponse($command->getId());
         }

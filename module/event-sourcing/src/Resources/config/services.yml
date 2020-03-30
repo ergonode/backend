@@ -9,3 +9,8 @@ services:
 
     Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface: '@Ergonode\EventSourcing\Infrastructure\Store\DbalDomainEventStore'
     Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProviderInterface: '@Ergonode\EventSourcing\Infrastructure\Provider\DomainEventProvider'
+    Ergonode\EventSourcing\Infrastructure\Bus\SymfonyCommandBus:
+        arguments:
+           $syncBus: '@messenger.bus.sync'
+           $asyncBus: '@messenger.bus.async'
+           $async: '%env(bool:USE_ASYNC_BUS)%'

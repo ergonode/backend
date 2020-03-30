@@ -23,17 +23,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  */
 class TransformerController extends AbstractController
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var RelationshipsResolverInterface
@@ -46,16 +46,16 @@ class TransformerController extends AbstractController
     private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
 
     /**
-     * @param MessageBusInterface                         $messageBus
+     * @param CommandBusInterface                         $commandBus
      * @param RelationshipsResolverInterface              $relationshipsResolver
      * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
      */
     public function __construct(
-        MessageBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         RelationshipsResolverInterface $relationshipsResolver,
         ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
     ) {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->relationshipsResolver = $relationshipsResolver;
         $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
@@ -117,7 +117,7 @@ class TransformerController extends AbstractController
         $name = $request->request->get('name');
         // @todo Why key is const?
         $command = new CreateTransformerCommand($name, 'key');
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         return new CreatedResponse($command->getId());
     }
@@ -165,7 +165,7 @@ class TransformerController extends AbstractController
         }
 
         $command = new DeleteTransformerCommand($transformer->getId());
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         return new EmptyResponse();
     }
