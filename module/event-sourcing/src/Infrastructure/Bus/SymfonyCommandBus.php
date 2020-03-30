@@ -41,7 +41,6 @@ class SymfonyCommandBus implements CommandBusInterface
         $this->syncBus = $syncBus;
         $this->asyncBus = $asyncBus;
         $this->async = $async;
-        var_dump($async);
     }
 
     /**
