@@ -23,7 +23,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Importer\Domain\Command\Import\UploadFileCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -120,7 +119,6 @@ class ImportUploadAction
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadModel $data */
-            $data = $form->getData();
             $file = $this->uploadService->upload($uploadModel->upload);
             $command = new UploadFileCommand(
                 ImportId::generate(),
