@@ -24,6 +24,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route("/attributes/groups", methods={"POST"}, name="ergonode_attribute_group_create")
@@ -31,25 +32,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class AttributeGroupCreateAction
 {
     /**
-     * @var MessageBusInterface
-     */
-    private MessageBusInterface $messageBus;
-
-    /**
      * @var FormFactoryInterface
      */
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
-     * @param FormFactoryInterface $formFactory
+     * @var CommandBusInterface
      */
-    public function __construct(
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
-        $this->messageBus = $messageBus;
+    private CommandBusInterface $commandBus;
+
+    /**
+     * @param FormFactoryInterface $formFactory
+     * @param CommandBusInterface  $commandBus
+     */
+    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
+    {
         $this->formFactory = $formFactory;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -109,7 +108,7 @@ class AttributeGroupCreateAction
                     $data->code,
                     new TranslatableString($data->name)
                 );
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());
             }

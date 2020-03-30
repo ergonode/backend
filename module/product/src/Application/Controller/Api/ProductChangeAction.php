@@ -23,8 +23,8 @@ use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -37,9 +37,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductChangeAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
@@ -47,14 +47,12 @@ class ProductChangeAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
+     * @param CommandBusInterface  $commandBus
      * @param FormFactoryInterface $formFactory
      */
-    public function __construct(
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
-        $this->messageBus = $messageBus;
+    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
+    {
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
     }
 
@@ -115,7 +113,7 @@ class ProductChangeAction
                 $categories[] = new CategoryId($category);
             }
             $command = new UpdateProductCommand($product->getId(), $categories);
-            $this->messageBus->dispatch($command);
+            $this->commandBus->dispatch($command);
 
             return new EmptyResponse();
         }

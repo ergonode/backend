@@ -11,7 +11,6 @@ namespace Ergonode\Notification\Application\Controller\Api;
 
 use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Ergonode\Api\Application\Response\AcceptedResponse;
-use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Notification\Domain\Command\MarkNotificationCommand;
 use Ramsey\Uuid\Uuid;

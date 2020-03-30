@@ -25,9 +25,9 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -39,9 +39,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class TransitionCreateAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
@@ -49,14 +49,12 @@ class TransitionCreateAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
+     * @param CommandBusInterface  $commandBus
      * @param FormFactoryInterface $formFactory
      */
-    public function __construct(
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
-        $this->messageBus = $messageBus;
+    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
+    {
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
     }
 
@@ -121,7 +119,7 @@ class TransitionCreateAction
                     $data->conditionSet ? new ConditionSetId($data->conditionSet) : null
                 );
 
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($workflow->getId());
             }
