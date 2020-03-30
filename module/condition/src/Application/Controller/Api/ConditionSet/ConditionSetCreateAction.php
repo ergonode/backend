@@ -18,7 +18,6 @@ use JMS\Serializer\SerializerInterface;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;

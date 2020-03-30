@@ -56,9 +56,9 @@ class PasswordChangeAction
     private AuthenticatedUserProviderInterface $userProvider;
 
     /**
-     * @param PasswordValidationBuilder $builder
-     * @param CommandBusInterface $commandBus
-     * @param ValidatorInterface $validator
+     * @param PasswordValidationBuilder          $builder
+     * @param CommandBusInterface                $commandBus
+     * @param ValidatorInterface                 $validator
      * @param AuthenticatedUserProviderInterface $userProvider
      */
     public function __construct(

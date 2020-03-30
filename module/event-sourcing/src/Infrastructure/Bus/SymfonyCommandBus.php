@@ -36,11 +36,12 @@ class SymfonyCommandBus implements CommandBusInterface
      * @param MessageBusInterface $asyncBus
      * @param bool                $async
      */
-    public function __construct(MessageBusInterface $syncBus, MessageBusInterface $asyncBus, bool $async = true)
+    public function __construct(MessageBusInterface $syncBus, MessageBusInterface $asyncBus, bool $async = false)
     {
         $this->syncBus = $syncBus;
         $this->asyncBus = $asyncBus;
         $this->async = $async;
+        var_dump($async);
     }
 
     /**
