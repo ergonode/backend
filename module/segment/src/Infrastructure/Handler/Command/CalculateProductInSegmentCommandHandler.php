@@ -81,7 +81,7 @@ class CalculateProductInSegmentCommandHandler
         $segment = $this->segmentRepository->load($segmentId);
         Assert::notNull($segment);
 
-        if($segment->hasConditionSet()) {
+        if ($segment->hasConditionSet()) {
             $conditionSet = $this->conditionRepository->load($segment->getConditionSetId());
 
             Assert::notNull($conditionSet);
