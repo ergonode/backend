@@ -23,7 +23,7 @@ return [
     Ergonode\Authentication\ErgonodeAuthenticationBundle::class => ['all' => true],
     Ergonode\Importer\ErgonodeImporterBundle::class => ['all' => true],
     Ergonode\ImporterMagento1\ErgonodeImporterMagento1Bundle::class => ['all' => true],
-    Ergonode\ImporterMagento2\ErgonodeImporterMagento2Bundle::class => ['all' => true],
+//    Ergonode\ImporterMagento2\ErgonodeImporterMagento2Bundle::class => ['all' => true],
     Ergonode\Reader\ErgonodeReaderBundle::class => ['all' => true],
     Ergonode\Channel\ErgonodeChannelBundle::class => ['all' => true],
     Ergonode\Transformer\ErgonodeTransformerBundle::class => ['all' => true],

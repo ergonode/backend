@@ -21,6 +21,7 @@ class ImporterMagento1ConfigurationModel
     /**
      * @var string|null
      *
+     * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
     public ?string $name = null;

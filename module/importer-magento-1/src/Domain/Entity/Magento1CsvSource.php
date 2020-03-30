@@ -76,7 +76,7 @@ class Magento1CsvSource extends AbstractSource
     /**
      * @var array
      *
-     * @JMS\Type("array<string, bool>")
+     * @JMS\Type("array<string>")
      */
     private array $import;
 
@@ -110,12 +110,8 @@ class Magento1CsvSource extends AbstractSource
         $this->defaultLanguage = $defaultLanguage;
         $this->import = [];
 
-        foreach (self::STEPS as $step) {
-            $this->import[$step] = false;
-        }
-
         foreach ($imports as $import) {
-            $this->import[$import] = true;
+            $this->import[] = $import;
         }
     }
 
@@ -238,8 +234,8 @@ class Magento1CsvSource extends AbstractSource
      */
     public function import(string $step): bool
     {
-        if (array_key_exists($step, $this->import)) {
-            return $this->import[$step];
+        if (array_key_exists($step, array_flip($this->import))) {
+            return true;
         }
 
         return false;
