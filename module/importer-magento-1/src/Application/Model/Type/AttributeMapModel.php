@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Application\Model\Type;
 
-use Ergonode\Core\Domain\ValueObject\Language;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
@@ -16,13 +16,18 @@ class AttributeMapModel
 {
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(max="255", maxMessage="Code is to long, It should have {{ limit }} character or less.")
      */
     public ?string $code;
 
     /**
      * @var string|null
+     *
+     * @Assert\NotBlank()
      */
-    public ?String $attribute;
+    public ?string $attribute;
 
     /**
      * @param string|null $code

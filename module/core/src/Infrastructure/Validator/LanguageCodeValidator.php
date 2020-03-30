@@ -37,6 +37,8 @@ class LanguageCodeValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
+        $value = (string) $value;
+
         if (!Language::isValid($value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ language }}', $value)

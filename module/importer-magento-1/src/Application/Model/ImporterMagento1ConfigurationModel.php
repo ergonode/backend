@@ -34,11 +34,15 @@ class ImporterMagento1ConfigurationModel
 
     /**
      * @var StoreViewModel
+     *
+     * @Assert\Valid()
      */
     public StoreViewModel $mapping;
 
     /**
      * @var AttributeMapModel[]
+     *
+     * @Assert\Valid()
      */
     public array $attributes = [];
 
