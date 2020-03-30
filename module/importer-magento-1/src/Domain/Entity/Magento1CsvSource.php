@@ -59,7 +59,6 @@ class Magento1CsvSource extends AbstractSource
      */
     private array $attributes;
 
-
     /**
      * @var string|null
      *

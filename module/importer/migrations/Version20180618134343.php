@@ -29,7 +29,8 @@ final class Version20180618134343 extends AbstractErgonodeMigration
             CREATE TABLE importer.source (
                 id UUID NOT NULL,
                 name VARCHAR(255) NOT NULL,                  
-                type VARCHAR(255) NOT NULL,                
+                type VARCHAR(255) NOT NULL,
+                class VARCHAR(255) NOT NULL,                       
                 configuration JSON NOT NULL,                
                 created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
                 updated_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,               

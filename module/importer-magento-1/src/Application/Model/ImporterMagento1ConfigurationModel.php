@@ -62,6 +62,10 @@ class ImporterMagento1ConfigurationModel
                 $this->mapping->languages[] = new LanguageMapModel($key, $language);
             }
 
+            foreach ($source->getAttributes() as $code => $attributeId) {
+                $this->attributes[] = new AttributeMapModel($code, $attributeId->getValue());
+            }
+
             foreach (Magento1CsvSource::STEPS as $step) {
                 if ($source->import($step)) {
                     $this->import[] = $step;

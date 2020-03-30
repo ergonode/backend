@@ -16,22 +16,40 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Column\LinkColumn;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Column\SelectColumn;
+use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Importer\Infrastructure\Provider\SourceTypeDictionaryProvider;
 
 /**
  */
 class SourceGrid extends AbstractGrid
 {
     /**
+     * @var SourceTypeDictionaryProvider
+     */
+    private SourceTypeDictionaryProvider $provider;
+
+    /**
+     * @param SourceTypeDictionaryProvider $provider
+     */
+    public function __construct(SourceTypeDictionaryProvider $provider)
+    {
+        $this->provider = $provider;
+    }
+
+    /**
      * @param GridConfigurationInterface $configuration
      * @param Language                   $language
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
+        $types = $this->provider->provide($language);
+
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);
         $this->addColumn('id', $id);
-        $name = new TextColumn('name', 'Name', new TextFilter());
-        $this->addColumn('name', $name);
+        $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
+        $this->addColumn('type', new SelectColumn('type', 'Type', new MultiSelectFilter($types)));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'privilege' => 'IMPORT_READ',
