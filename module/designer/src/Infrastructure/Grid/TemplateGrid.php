@@ -14,7 +14,7 @@ use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\SelectFilter;
+use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,7 +49,7 @@ class TemplateGrid extends AbstractGrid
         $this->addColumn('default_text', new TextColumn('default_text', 'Default text', new TextFilter()));
         $this->addColumn('default_image', new TextColumn('default_image', 'Default Image', new TextFilter()));
         $this->addColumn('image_id', new TextColumn('image_id', 'Icon', new TextFilter()));
-        $this->addColumn('group_id', new TextColumn('group_id', 'Group', new SelectFilter($collection)));
+        $this->addColumn('group_id', new TextColumn('group_id', 'Group', new MultiSelectFilter($collection)));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_condition_conditionset_read',

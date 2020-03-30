@@ -11,11 +11,9 @@ namespace Ergonode\Segment\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\Column\TextColumn;
-use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Segment\Domain\ValueObject\SegmentStatus;
