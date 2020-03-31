@@ -7,11 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Persistence\Dbal\Query;
+namespace Ergonode\Core\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Attribute\Domain\Query\UnitQueryInterface;
+use Ergonode\Core\Domain\Query\UnitQueryInterface;
+use Ergonode\Grid\DataSetInterface;
+use Ergonode\Grid\DbalDataSet;
 
 /**
  */
@@ -19,8 +21,9 @@ class DbalUnitQuery implements UnitQueryInterface
 {
     private const TABLE = 'unit';
     private const FIELDS = [
-        'upper(unit) AS id',
-        'concat(initcap(name), \' (\', unit, \')\') AS label',
+        'id',
+        'name',
+        'symbol',
     ];
 
     /**
@@ -37,13 +40,34 @@ class DbalUnitQuery implements UnitQueryInterface
     }
 
     /**
+     * @return DataSetInterface
+     */
+    public function getDataSet(): DataSetInterface
+    {
+        $qb = $this->getQuery();
+
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
+
+        return new DbalDataSet($result);
+    }
+
+    /**
      * @return array
      */
-    public function getDictionary(): array
+    public function getAllUnitIds(): array
     {
-        return $this->getQuery()
+        $query = $this->getQuery();
+        $result = $query->select('id')
             ->execute()
-            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return $result;
+        }
+
+        return [];
     }
 
     /**

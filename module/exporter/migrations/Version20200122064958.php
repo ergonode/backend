@@ -29,6 +29,7 @@ final class Version20200122064958 extends AbstractErgonodeMigration
             'CREATE TABLE exporter.product(
                     id uuid NOT NULL,
                     data jsonb NOT NULL,
+                    type VARCHAR(255) NOT NULL,
                     PRIMARY KEY (id)
                  )'
         );

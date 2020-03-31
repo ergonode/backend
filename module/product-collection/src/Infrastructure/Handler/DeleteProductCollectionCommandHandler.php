@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Handler;
 
-use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
@@ -52,6 +51,7 @@ class DeleteProductCollectionCommandHandler
      */
     public function __invoke(DeleteProductCollectionCommand $command): void
     {
+        /** @var ProductCollection $productCollection */
         $productCollection = $this->repository->load($command->getId());
         Assert::isInstanceOf(
             $productCollection,
@@ -59,9 +59,9 @@ class DeleteProductCollectionCommandHandler
             sprintf('Can\'t find product collection with id "%s"', $command->getId())
         );
 
-        $relationships = $this->relationshipsResolver->resolve($command->getId());
-        if (!$relationships->isEmpty()) {
-            throw new ExistingRelationshipsException($command->getId());
+        $productCollectionElements = $productCollection->getElements();
+        foreach ($productCollectionElements as $element) {
+            $productCollection->removeElement($element->getProductId());
         }
 
         $this->repository->delete($productCollection);

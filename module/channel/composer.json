@@ -18,6 +18,7 @@
     "ergonode/attribute": "^0.6.1",
     "ergonode/core": "^0.6.0",
     "ergonode/grid": "^0.6.0",
+    "ergonode/exporter": "^0.6.0",
     "jms/serializer": "^3.1",
     "nelmio/api-doc-bundle": "^3.4",
     "ramsey/uuid": "^3.8",

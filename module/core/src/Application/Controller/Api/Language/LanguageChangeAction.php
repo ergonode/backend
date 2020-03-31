@@ -14,14 +14,15 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Application\Form\LanguageCollectionForm;
 use Ergonode\Core\Application\Model\LanguageCollectionFormModel;
 use Ergonode\Core\Domain\Command\UpdateLanguageCommand;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -33,9 +34,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class LanguageChangeAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
@@ -43,18 +44,18 @@ class LanguageChangeAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
+     * @param CommandBusInterface  $commandBus
      * @param FormFactoryInterface $formFactory
      */
-    public function __construct(
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
-        $this->messageBus = $messageBus;
+    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
+    {
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
     }
 
     /**
+     * @IsGranted("SETTINGS_UPDATE")
+     *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(
      *     name="language",
@@ -102,7 +103,7 @@ class LanguageChangeAction
                 $languages = $data->collection->getValues();
 
                 $command = new UpdateLanguageCommand($languages);
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new EmptyResponse();
             }

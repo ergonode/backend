@@ -14,17 +14,14 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Category\Application\Form\Tree\CategoryTreeCreateForm;
 use Ergonode\Category\Application\Model\Tree\CategoryTreeCreateFormModel;
 use Ergonode\Category\Domain\Command\Tree\CreateTreeCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
-use Ergonode\Category\Domain\Repository\TreeRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route("/trees", methods={"POST"})
@@ -32,14 +29,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryTreeCreateAction
 {
     /**
-     * @var TreeRepositoryInterface
+     * @var CommandBusInterface
      */
-    private TreeRepositoryInterface $treeRepository;
-
-    /**
-     * @var MessageBusInterface
-     */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
@@ -47,17 +39,12 @@ class CategoryTreeCreateAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param TreeRepositoryInterface $treeRepository
-     * @param MessageBusInterface     $messageBus
-     * @param FormFactoryInterface    $formFactory
+     * @param CommandBusInterface  $commandBus
+     * @param FormFactoryInterface $formFactory
      */
-    public function __construct(
-        TreeRepositoryInterface $treeRepository,
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
-        $this->treeRepository = $treeRepository;
-        $this->messageBus = $messageBus;
+    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
+    {
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
     }
 
@@ -106,7 +93,7 @@ class CategoryTreeCreateAction
             $data = $form->getData();
 
             $command = new CreateTreeCommand($data->code, new TranslatableString($data->name));
-            $this->messageBus->dispatch($command);
+            $this->commandBus->dispatch($command);
 
             return new CreatedResponse($command->getId());
         }

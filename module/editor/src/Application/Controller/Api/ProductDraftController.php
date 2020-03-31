@@ -41,10 +41,10 @@ use Swagger\Annotations as SWG;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  */
@@ -61,9 +61,9 @@ class ProductDraftController extends AbstractController
     private DraftQueryInterface $draftQuery;
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var AttributeValueConstraintProvider
@@ -96,35 +96,35 @@ class ProductDraftController extends AbstractController
     private GridRenderer $gridRenderer;
 
     /**
-     * @param GridRenderer                     $gridRenderer
      * @param ProductDraftGrid                 $productDraftGrid
      * @param DraftQueryInterface              $draftQuery
-     * @param MessageBusInterface              $messageBus
+     * @param CommandBusInterface              $commandBus
      * @param AttributeValueConstraintProvider $provider
      * @param DraftProvider                    $draftProvider
      * @param ViewTemplateBuilder              $builder
-     * @param TemplateRepositoryInterface      $templateRepository
      * @param ValidatorInterface               $validator
+     * @param TemplateRepositoryInterface      $templateRepository
+     * @param GridRenderer                     $gridRenderer
      */
     public function __construct(
-        GridRenderer $gridRenderer,
         ProductDraftGrid $productDraftGrid,
         DraftQueryInterface $draftQuery,
-        MessageBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         AttributeValueConstraintProvider $provider,
         DraftProvider $draftProvider,
         ViewTemplateBuilder $builder,
+        ValidatorInterface $validator,
         TemplateRepositoryInterface $templateRepository,
-        ValidatorInterface $validator
+        GridRenderer $gridRenderer
     ) {
         $this->productDraftGrid = $productDraftGrid;
         $this->draftQuery = $draftQuery;
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->provider = $provider;
         $this->draftProvider = $draftProvider;
         $this->builder = $builder;
-        $this->templateRepository = $templateRepository;
         $this->validator = $validator;
+        $this->templateRepository = $templateRepository;
         $this->gridRenderer = $gridRenderer;
     }
 
@@ -306,7 +306,7 @@ class ProductDraftController extends AbstractController
             $data = $form->getData();
 
             $command = new CreateProductDraftCommand(new productId($data->productId));
-            $this->messageBus->dispatch($command);
+            $this->commandBus->dispatch($command);
 
             return new CreatedResponse($command->getId());
         }
@@ -357,7 +357,7 @@ class ProductDraftController extends AbstractController
         $draft = $this->draftProvider->provide($product);
 
         $command = new PersistProductDraftCommand($draft->getId());
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         return new EmptyResponse();
     }
@@ -437,7 +437,7 @@ class ProductDraftController extends AbstractController
         $violations = $this->validator->validate(['value' => $value], $constraint);
         if (0 === $violations->count()) {
             $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language, $value);
-            $this->messageBus->dispatch($command);
+            $this->commandBus->dispatch($command);
 
             return new SuccessResponse(['value' => $value]);
         }

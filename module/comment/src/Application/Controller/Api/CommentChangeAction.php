@@ -23,10 +23,10 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -39,9 +39,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class CommentChangeAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
@@ -54,16 +54,16 @@ class CommentChangeAction
     private AuthenticatedUserProviderInterface $userProvider;
 
     /**
-     * @param MessageBusInterface                $messageBus
+     * @param CommandBusInterface                $commandBus
      * @param FormFactoryInterface               $formFactory
      * @param AuthenticatedUserProviderInterface $userProvider
      */
     public function __construct(
-        MessageBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory,
         AuthenticatedUserProviderInterface $userProvider
     ) {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
         $this->userProvider = $userProvider;
     }
@@ -130,7 +130,7 @@ class CommentChangeAction
                     $comment->getId(),
                     $data->content
                 );
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new EmptyResponse();
             }

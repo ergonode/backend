@@ -46,7 +46,6 @@ class CreateExportProfileCommand implements DomainCommandInterface
     private array $parameters;
 
     /**
-     * CreateExportProfileCommand constructor.
      * @param string $name
      * @param string $type
      * @param array  $parameters

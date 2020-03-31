@@ -19,6 +19,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  */
@@ -27,9 +28,9 @@ class CreateUserCommand extends Command
     private const NAME = 'ergonode:user:create';
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var RoleQueryInterface
@@ -37,15 +38,15 @@ class CreateUserCommand extends Command
     private RoleQueryInterface $query;
 
     /**
-     * @param MessageBusInterface $messageBus
+     * @param CommandBusInterface $commandBus
      * @param RoleQueryInterface  $query
      */
-    public function __construct(MessageBusInterface $messageBus, RoleQueryInterface $query)
+    public function __construct(CommandBusInterface $commandBus, RoleQueryInterface $query)
     {
         parent::__construct(static::NAME);
 
         $this->query = $query;
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -90,7 +91,7 @@ class CreateUserCommand extends Command
                 $password,
                 new RoleId($roleId)
             );
-            $this->messageBus->dispatch($command);
+            $this->commandBus->dispatch($command);
 
             $output->writeln('<info>User created.</info>');
         } else {

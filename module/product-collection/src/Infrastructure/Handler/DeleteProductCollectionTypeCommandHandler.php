@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Handler;
 
+use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionTypeCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionTypeRepositoryInterface;
@@ -24,12 +26,20 @@ class DeleteProductCollectionTypeCommandHandler
     private ProductCollectionTypeRepositoryInterface $repository;
 
     /**
+     * @var RelationshipsResolverInterface
+     */
+    private RelationshipsResolverInterface $relationshipsResolver;
+
+    /**
      * @param ProductCollectionTypeRepositoryInterface $repository
+     * @param RelationshipsResolverInterface           $relationshipsResolver
      */
     public function __construct(
-        ProductCollectionTypeRepositoryInterface $repository
+        ProductCollectionTypeRepositoryInterface $repository,
+        RelationshipsResolverInterface $relationshipsResolver
     ) {
         $this->repository = $repository;
+        $this->relationshipsResolver = $relationshipsResolver;
     }
 
 
@@ -46,6 +56,11 @@ class DeleteProductCollectionTypeCommandHandler
             ProductCollectionType::class,
             sprintf('Can\'t find product collection type with id "%s"', $command->getId())
         );
+
+        $relationships = $this->relationshipsResolver->resolve($command->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsException($command->getId());
+        }
 
         $this->repository->delete($productCollectionType);
     }

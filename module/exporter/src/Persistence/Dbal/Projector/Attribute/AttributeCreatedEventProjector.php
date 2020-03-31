@@ -12,6 +12,7 @@ namespace Ergonode\Exporter\Persistence\Dbal\Projector\Attribute;
 use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
 use Ergonode\Exporter\Domain\Entity\Catalog\ExportAttribute;
+use Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface;
 use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
@@ -19,26 +20,17 @@ use Ramsey\Uuid\Uuid;
  */
 class AttributeCreatedEventProjector
 {
-    private const TABLE_ATTRIBUTE = 'exporter.attribute';
+    /**
+     * @var AttributeRepositoryInterface
+     */
+    private AttributeRepositoryInterface $repository;
 
     /**
-     * @var Connection
+     * @param AttributeRepositoryInterface $repository
      */
-    private Connection $connection;
-
-    /**
-     * @var SerializerInterface
-     */
-    private SerializerInterface $serializer;
-
-    /**
-     * @param Connection          $connection
-     * @param SerializerInterface $serializer
-     */
-    public function __construct(Connection $connection, SerializerInterface $serializer)
+    public function __construct(AttributeRepositoryInterface $repository)
     {
-        $this->connection = $connection;
-        $this->serializer = $serializer;
+        $this->repository = $repository;
     }
 
     /**
@@ -58,13 +50,6 @@ class AttributeCreatedEventProjector
             $event->getParameters()
         );
 
-        $this->connection->insert(
-            self::TABLE_ATTRIBUTE,
-            [
-                'id' => $attribute->getId()->toString(),
-                'code' => $attribute->getCode(),
-                'data' => $this->serializer->serialize($attribute, 'json'),
-            ]
-        );
+        $this->repository->save($attribute);
     }
 }

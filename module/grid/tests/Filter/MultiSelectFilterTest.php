@@ -8,7 +8,6 @@
 namespace Ergonode\Grid\Tests\Filter;
 
 use Ergonode\Grid\Filter\MultiSelectFilter;
-use Ergonode\Grid\Filter\SelectFilter;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -27,7 +26,7 @@ class MultiSelectFilterTest extends TestCase
                 ],
             ];
 
-        $filter = new SelectFilter($configuration['options']);
+        $filter = new MultiSelectFilter($configuration['options']);
 
         $result = $filter->render();
 

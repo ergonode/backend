@@ -11,12 +11,10 @@ namespace Ergonode\ProductCollection\Tests\Domain\Command;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\ProductCollection\Domain\Command\CreateProductCollectionCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Faker\Provider\Uuid;
 
 /**
  */

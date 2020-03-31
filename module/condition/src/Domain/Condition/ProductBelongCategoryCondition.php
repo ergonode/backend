@@ -7,8 +7,8 @@
 
 namespace Ergonode\Condition\Domain\Condition;
 
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Condition\Domain\ConditionInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use JMS\Serializer\Annotation as JMS;
 
 /**

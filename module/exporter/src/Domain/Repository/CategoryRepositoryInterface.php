@@ -27,4 +27,16 @@ interface CategoryRepositoryInterface
      * @param ExportCategory $category
      */
     public function save(ExportCategory $category): void;
+
+    /**
+     * @param Uuid $id
+     *
+     * @return bool
+     */
+    public function exists(Uuid $id): bool;
+
+    /**
+     * @param ExportCategory $category
+     */
+    public function delete(ExportCategory $category): void;
 }

@@ -11,9 +11,9 @@ namespace Ergonode\ExporterMagento2\Domain\Factory;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Ergonode\Exporter\Domain\Factory\ExportProfileFactoryInterface;
 use Ergonode\ExporterMagento2\Domain\Entity\Magento2ExportCsvProfile;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 
 /**
  */

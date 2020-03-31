@@ -15,14 +15,16 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\ProductCollection\Domain\ValueObject\ProductCollectionCode;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionTypeId;
 
 /**
  */
 class DbalProductCollectionQuery implements ProductCollectionQueryInterface
 {
     private const PRODUCT_COLLECTION_TABLE = 'public.collection';
+    private const PRODUCT_COLLECTION_TYPE_TABLE = 'public.collection_type';
 
     /**
      * @var Connection
@@ -58,13 +60,14 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
     public function getDataSet(Language $language): DataSetInterface
     {
         $qb = $this->getQuery();
-        $qb->addSelect('id');
-        $qb->addSelect('code');
-        $qb->addSelect('type_id');
-        $qb->addSelect('created_at');
-        $qb->addSelect('edited_at');
-        $qb->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()));
-        $qb->addSelect(sprintf('(description->>\'%s\') AS description', $language->getCode()));
+        $qb->addSelect('c.id');
+        $qb->addSelect('c.code');
+        $qb->addSelect('c.created_at');
+        $qb->addSelect('c.edited_at');
+        $qb->addSelect('ct.code AS type');
+        $qb->addSelect(sprintf('(c.name->>\'%s\') AS name', $language->getCode()));
+        $qb->addSelect(sprintf('(c.description->>\'%s\') AS description', $language->getCode()));
+        $qb->join('c', self::PRODUCT_COLLECTION_TYPE_TABLE, 'ct', 'c.type_id = ct.id');
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
@@ -93,6 +96,34 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param ProductCollectionTypeId $id
+     *
+     * @return mixed|void
+     */
+    public function findCollectionIdsByCollectionTypeId(ProductCollectionTypeId $id)
+    {
+        $qb = $this->connection->createQueryBuilder()
+            ->select('id')
+            ->from(self::PRODUCT_COLLECTION_TABLE, 'c');
+
+        $result = $qb
+            ->where($qb->expr()->eq('type_id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductCollectionId($item);
+        }
+
+        return $result;
     }
 
     /**

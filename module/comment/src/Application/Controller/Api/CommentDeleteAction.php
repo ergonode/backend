@@ -16,9 +16,9 @@ use Ergonode\Comment\Domain\Entity\Comment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -31,9 +31,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class CommentDeleteAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var AuthenticatedUserProviderInterface
@@ -41,12 +41,12 @@ class CommentDeleteAction
     private AuthenticatedUserProviderInterface $userProvider;
 
     /**
-     * @param MessageBusInterface                $messageBus
+     * @param CommandBusInterface                $commandBus
      * @param AuthenticatedUserProviderInterface $userProvider
      */
-    public function __construct(MessageBusInterface $messageBus, AuthenticatedUserProviderInterface $userProvider)
+    public function __construct(CommandBusInterface $commandBus, AuthenticatedUserProviderInterface $userProvider)
     {
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->userProvider = $userProvider;
     }
 
@@ -93,7 +93,7 @@ class CommentDeleteAction
         }
 
         $command = new DeleteCommentCommand($comment->getId());
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         return new EmptyResponse();
     }

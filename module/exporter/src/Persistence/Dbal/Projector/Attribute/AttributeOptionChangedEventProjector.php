@@ -30,7 +30,6 @@ class AttributeOptionChangedEventProjector
     private SerializerInterface $serializer;
 
     /**
-     * AttributeOptionChangedEventProjector constructor.
      * @param AttributeRepositoryInterface $repository
      * @param SerializerInterface          $serializer
      */

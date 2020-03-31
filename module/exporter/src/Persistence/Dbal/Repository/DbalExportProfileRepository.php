@@ -12,9 +12,9 @@ namespace Ergonode\Exporter\Persistence\Dbal\Repository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
 use Ergonode\Exporter\Persistence\Dbal\Repository\Factory\ExportProfileFactory;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use JMS\Serializer\SerializerInterface;
 
 /**

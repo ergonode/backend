@@ -10,11 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Application\Command;
 
 use Ergonode\Channel\Domain\Command\ExportProductChannelCommand as ExportProductChannelDomainCommand;
+use Ergonode\Exporter\Domain\Query\ExportProductQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
@@ -29,9 +29,9 @@ class ExportChannelCommand extends Command
     private const NAME = 'channel:export:all';
 
     /**
-     * @var ProductQueryInterface
+     * @var ExportProductQueryInterface
      */
-    private ProductQueryInterface $query;
+    private ExportProductQueryInterface $query;
 
     /**
      * @var ChannelRepositoryInterface
@@ -44,12 +44,12 @@ class ExportChannelCommand extends Command
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ProductQueryInterface      $query
-     * @param ChannelRepositoryInterface $channelRepository
-     * @param CommandBusInterface        $commandBus
+     * @param ExportProductQueryInterface $query
+     * @param ChannelRepositoryInterface  $channelRepository
+     * @param CommandBusInterface         $commandBus
      */
     public function __construct(
-        ProductQueryInterface $query,
+        ExportProductQueryInterface $query,
         ChannelRepositoryInterface $channelRepository,
         CommandBusInterface $commandBus
     ) {

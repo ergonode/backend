@@ -31,7 +31,6 @@ abstract class AbstractExportAttributeValue
     protected ValueInterface  $value;
 
     /**
-     * AbstractAttribute constructor.
      * @param string         $key
      * @param ValueInterface $value
      */

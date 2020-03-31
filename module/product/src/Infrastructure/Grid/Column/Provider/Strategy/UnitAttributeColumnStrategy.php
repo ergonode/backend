@@ -12,6 +12,8 @@ namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
+use Ergonode\Core\Domain\Entity\Unit;
+use Ergonode\Core\Domain\Repository\UnitRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;
@@ -24,14 +26,21 @@ class UnitAttributeColumnStrategy implements AttributeColumnStrategyInterface
     /**
      * @var AttributeQueryInterface
      */
-    private AttributeQueryInterface $query;
+    private AttributeQueryInterface $attributeQuery;
 
     /**
-     * @param AttributeQueryInterface $query
+     * @var UnitRepositoryInterface
      */
-    public function __construct(AttributeQueryInterface $query)
+    private UnitRepositoryInterface $unitRepository;
+
+    /**
+     * @param AttributeQueryInterface $attributeQuery
+     * @param UnitRepositoryInterface $unitRepository
+     */
+    public function __construct(AttributeQueryInterface $attributeQuery, UnitRepositoryInterface $unitRepository)
     {
-        $this->query = $query;
+        $this->attributeQuery = $attributeQuery;
+        $this->unitRepository = $unitRepository;
     }
 
     /**
@@ -48,12 +57,14 @@ class UnitAttributeColumnStrategy implements AttributeColumnStrategyInterface
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
         /** @var UnitAttribute $attribute */
-        $range = $this->query->getAttributeValueRange($attribute->getId());
+        $range = $this->attributeQuery->getAttributeValueRange($attribute->getId());
         $columnKey = $attribute->getCode()->getValue();
         $columnFilter = new RangeFilter($range);
+        /** @var Unit $unit */
+        $unit = $this->unitRepository->load($attribute->getUnitId());
 
-        $column =  new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
-        $column->setSuffix($attribute->getUnit()->getCode());
+        $column = new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
+        $column->setSuffix($unit->getSymbol());
 
         return $column;
     }

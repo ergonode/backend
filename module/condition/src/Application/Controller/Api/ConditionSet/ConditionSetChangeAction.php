@@ -19,9 +19,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -39,9 +39,9 @@ class ConditionSetChangeAction
     private ValidatorInterface $validator;
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var SerializerInterface
@@ -55,18 +55,18 @@ class ConditionSetChangeAction
 
     /**
      * @param ValidatorInterface           $validator
-     * @param MessageBusInterface          $messageBus
+     * @param CommandBusInterface          $commandBus
      * @param SerializerInterface          $serializer
      * @param ConditionSetValidatorBuilder $conditionSetValidatorBuilder
      */
     public function __construct(
         ValidatorInterface $validator,
-        MessageBusInterface $messageBus,
+        CommandBusInterface $commandBus,
         SerializerInterface $serializer,
         ConditionSetValidatorBuilder $conditionSetValidatorBuilder
     ) {
         $this->validator = $validator;
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
         $this->serializer = $serializer;
         $this->conditionSetValidatorBuilder = $conditionSetValidatorBuilder;
     }
@@ -124,7 +124,7 @@ class ConditionSetChangeAction
 
             /** @var UpdateConditionSetCommand $command */
             $command = $this->serializer->fromArray($data, UpdateConditionSetCommand::class);
-            $this->messageBus->dispatch($command);
+            $this->commandBus->dispatch($command);
 
             return new EmptyResponse();
         }

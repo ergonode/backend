@@ -19,9 +19,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -48,26 +48,26 @@ class WorkflowCreateAction
     private SerializerInterface $serializer;
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @param WorkflowValidatorBuilder $builder
      * @param ValidatorInterface       $validator
      * @param SerializerInterface      $serializer
-     * @param MessageBusInterface      $messageBus
+     * @param CommandBusInterface      $commandBus
      */
     public function __construct(
         WorkflowValidatorBuilder $builder,
         ValidatorInterface $validator,
         SerializerInterface $serializer,
-        MessageBusInterface $messageBus
+        CommandBusInterface $commandBus
     ) {
         $this->builder = $builder;
         $this->validator = $validator;
         $this->serializer = $serializer;
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -119,7 +119,7 @@ class WorkflowCreateAction
             /** @var CreateWorkflowCommand $command */
             $command = $this->serializer->fromArray($data, CreateWorkflowCommand::class);
 
-            $this->messageBus->dispatch($command);
+            $this->commandBus->dispatch($command);
 
             return new CreatedResponse($command->getId());
         }

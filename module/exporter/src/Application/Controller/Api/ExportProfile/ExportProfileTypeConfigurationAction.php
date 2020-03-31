@@ -11,10 +11,10 @@ namespace Ergonode\Exporter\Application\Controller\Api\ExportProfile;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Exporter\Application\Provider\ExportProfileFormFactoryProvider;
 use Limenius\Liform\Liform;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(

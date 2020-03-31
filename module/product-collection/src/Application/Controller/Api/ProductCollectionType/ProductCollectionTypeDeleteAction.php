@@ -10,6 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Application\Controller\Api\ProductCollectionType;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionTypeCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollectionType;
@@ -18,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -36,11 +39,30 @@ class ProductCollectionTypeDeleteAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param CommandBusInterface $commandBus
+     * @var RelationshipsResolverInterface
      */
-    public function __construct(CommandBusInterface $commandBus)
-    {
+    private RelationshipsResolverInterface $relationshipsResolver;
+
+    /**
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
+
+    /**
+     * ProductCollectionTypeDeleteAction constructor.
+     *
+     * @param CommandBusInterface                         $commandBus
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+     */
+    public function __construct(
+        CommandBusInterface $commandBus,
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+    ) {
         $this->commandBus = $commandBus;
+        $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -83,6 +105,10 @@ class ProductCollectionTypeDeleteAction
      */
     public function __invoke(ProductCollectionType $productCollection, Request $request): Response
     {
+        $relations = $this->relationshipsResolver->resolve($productCollection->getId());
+        if (!$relations->isEmpty()) {
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relations));
+        }
         $command = new DeleteProductCollectionTypeCommand($productCollection->getId());
         $this->commandBus->dispatch($command);
 
