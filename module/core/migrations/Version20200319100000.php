@@ -25,12 +25,20 @@ final class Version20200319100000 extends AbstractErgonodeMigration
     {
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
         $this->addSql('CREATE EXTENSION IF NOT EXISTS "ltree"');
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Settings']);
 
         $this->addSql(
             'CREATE TABLE unit (id UUID NOT NULL, name VARCHAR(255) NOT NULL,
                   symbol VARCHAR(255) NOT NULL,
                   PRIMARY KEY(id))'
         );
+
+        $this->createPrivileges([
+            'SETTINGS_CREATE' => 'Settings',
+            'SETTINGS_READ' => 'Settings',
+            'SETTINGS_UPDATE' => 'Settings',
+            'SETTINGS_DELETE' => 'Settings',
+        ]);
 
         $this->createEventStoreEvents([
             'Ergonode\Core\Domain\Event\UnitSymbolChangedEvent'
@@ -56,6 +64,23 @@ final class Version20200319100000 extends AbstractErgonodeMigration
                 'id' => Uuid::uuid4()->toString(),
                 'event_class' => $class,
                 'translation_key' => $translation,
+            ]);
+        }
+    }
+
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Exception
+     */
+    private function createPrivileges(array $collection): void
+    {
+        foreach ($collection as $code => $area) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => $area,
             ]);
         }
     }
