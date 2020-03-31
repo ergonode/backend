@@ -4,7 +4,7 @@ Feature: Category module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/sources" with body:
+    When I send a POST request to "/api/v1/en/sources" with body:
       """
       {
         "type": "magento-1-csv",
@@ -17,7 +17,7 @@ Feature: Category module
            "multimedia": false,
            "products": true
         },
-        "default_language": "EN",
+        "default_language": "en",
         "languages": []
       }
       """
@@ -28,7 +28,7 @@ Feature: Category module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "multipart/form-data"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/imports/upload" with params:
+    When I send a POST request to "/api/v1/en/imports/upload" with params:
       | key    | value                   |
       | source_id | @source_id@          |
       | upload    | @magento-1-test.csv  |
@@ -40,14 +40,14 @@ Feature: Category module
 #    Given I am Authenticated as "test@ergonode.com"
 #    And I add "Content-Type" header equal to "application/json"
 #    And I add "Accept" header equal to "application/json"
-#    When I request "/api/v1/EN/sources/@source_id@/configuration"
+#    When I request "/api/v1/en/sources/@source_id@/configuration"
 #    Then the response status code should be 200
 
 #  Scenario: Post magento 1 configuration for given source
 #    Given I am Authenticated as "test@ergonode.com"
 #    And I add "Content-Type" header equal to "application/json"
 #    And I add "Accept" header equal to "application/json"
-#    When I send a POST request to "/api/v1/EN/sources/@source_id@/configuration" with body:
+#    When I send a POST request to "/api/v1/en/sources/@source_id@/configuration" with body:
 #      """
 #      {
 #        "languages": [

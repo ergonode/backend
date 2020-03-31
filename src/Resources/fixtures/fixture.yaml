@@ -1,56 +1,55 @@
 parameters:
   status_new_translation:
-    'pl_PL': 'Nowy'
-    'EN': 'New'
+    'pl-PL': 'Nowy'
+    'en': 'New'
   status_draft_translation:
-    'pl_PL': 'Szkic'
-    'EN': 'Draft'
+    'pl-PL': 'Szkic'
+    'en': 'Draft'
   status_to_approve_translation:
-    'pl_PL': 'Do akceptacji'
-    'EN': 'To approve'
+    'pl-PL': 'Do akceptacji'
+    'en': 'To approve'
   status_ready_to_publish_translation:
-    'pl_PL': 'Gotowy do publikacji'
-    'EN': 'Ready to publish'
+    'pl-PL': 'Gotowy do publikacji'
+    'en': 'Ready to publish'
   status_to_correct_translation:
-    'pl_PL': 'Do poprawy'
-    'EN': 'To correct'
+    'pl-PL': 'Do poprawy'
+    'en': 'To correct'
   status_published_translation:
-    'pl_PL': 'Opublikowany'
-    'EN': 'Published'
+    'pl-PL': 'Opublikowany'
+    'en': 'Published'
   category_tree_name:
-    'pl_PL': 'Polish_name'
-    'EN': 'English_name'
-    'ZH': 'Chinese_name'
+    'pl-PL': 'Polish_name'
+    'en': 'English_name'
   label_esa_status:
-    'pl_PL': 'Status'
-    'EN': 'Status'
+    'pl-PL': 'Status'
+    'en': 'Status'
   label_esa_created_at:
-    'pl_PL': 'Czas utworzenia'
-    'EN': 'Created at'
+    'pl-PL': 'Czas utworzenia'
+    'en': 'Created at'
   label_esa_edited_at:
-    'pl_PL': 'Czas edycji'
-    'EN': 'Edited at'
+    'pl-PL': 'Czas edycji'
+    'en': 'Edited at'
   label_esa_created_by:
-    'pl_PL': 'Utworzone przez'
-    'EN': 'Created by'
+    'pl-PL': 'Utworzone przez'
+    'en': 'Created by'
   label_esa_edited_by:
-    'pl_PL': 'Edytowane przez'
-    'EN': 'Edited by'
+    'pl-PL': 'Edytowane przez'
+    'en': 'Edited by'
   label_esa_template:
-    'pl_PL': 'Szablon'
-    'EN': 'Template'
+    'pl-PL': 'Szablon'
+    'en': 'Template'
   label_esa_categories:
-    'pl_PL': 'Kategorie'
-    'EN': 'Categories'
+    'pl-PL': 'Kategorie'
+    'en': 'Categories'
   label_esa_product_collection:
-    'pl_PL': 'Kolekcje produktów'
-    'EN': 'Product collections'
+    'pl-PL': 'Kolekcje produktów'
+    'en': 'Product collections'
   name_product_collection_type_up-sell:
-    'pl_PL': 'Up-sell'
-    'EN': 'Up-sell'
+    'pl-PL': 'Up-sell'
+    'en': 'Up-sell'
   name_product_collection_type_cross-sell:
-    'pl_PL': 'Cross-sell'
-    'EN': 'Cross-sell'
+    'pl-PL': 'Cross-sell'
+    'en': 'Cross-sell'
   empty: []
 
 Ergonode\Category\Domain\Command\Tree\CreateTreeCommand:
@@ -114,10 +113,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("WORKFLOW_READ")>'
         - '<privilege("WORKFLOW_UPDATE")>'
         - '<privilege("WORKFLOW_DELETE")>'
-        - '<privilege("SEGMENT_CREATE")>'
-        - '<privilege("SEGMENT_READ")>'
-        - '<privilege("SEGMENT_UPDATE")>'
-        - '<privilege("SEGMENT_DELETE")>'
+        - '<privilege("SEGMenT_CREATE")>'
+        - '<privilege("SEGMenT_READ")>'
+        - '<privilege("SEGMenT_UPDATE")>'
+        - '<privilege("SEGMenT_DELETE")>'
         - '<privilege("CHANNEL_CREATE")>'
         - '<privilege("CHANNEL_READ")>'
         - '<privilege("CHANNEL_UPDATE")>'
@@ -189,10 +188,10 @@ Ergonode\Account\Domain\Entity\Role:
         - '<privilege("WORKFLOW_READ")>'
         - '<privilege("WORKFLOW_UPDATE")>'
         - '<privilege("WORKFLOW_DELETE")>'
-        - '<privilege("SEGMENT_CREATE")>'
-        - '<privilege("SEGMENT_READ")>'
-        - '<privilege("SEGMENT_UPDATE")>'
-        - '<privilege("SEGMENT_DELETE")>'
+        - '<privilege("SEGMenT_CREATE")>'
+        - '<privilege("SEGMenT_READ")>'
+        - '<privilege("SEGMenT_UPDATE")>'
+        - '<privilege("SEGMenT_DELETE")>'
         - '<privilege("CHANNEL_CREATE")>'
         - '<privilege("CHANNEL_READ")>'
         - '<privilege("CHANNEL_UPDATE")>'
@@ -295,7 +294,7 @@ Ergonode\Account\Domain\Entity\User:
       - 'Johnny'
       - 'Bravo'
       - '<userEmail(test@ergonode.com)>'
-      - '<language(EN)>'
+      - '<language(en)>'
       - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
       - '<roleId("Superadmin")>'
 

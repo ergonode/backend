@@ -6,7 +6,7 @@ Feature: Select attribute manipulation
     And I add "Accept" header equal to "application/json"
 
   Scenario: Create select attribute
-    And I send a "POST" request to "/api/v1/EN/attributes" with body:
+    And I send a "POST" request to "/api/v1/en/attributes" with body:
       """
       {
           "code": "SELECT@@random_code@@",
@@ -18,7 +18,7 @@ Feature: Select attribute manipulation
     And store response param "id" as "attribute_id"
 
   Scenario: Create select attribute with option
-    And I send a "POST" request to "/api/v1/EN/attributes" with body:
+    And I send a "POST" request to "/api/v1/en/attributes" with body:
       """
       {
         "code": "SELECT_@@random_code@@",
@@ -29,8 +29,8 @@ Feature: Select attribute manipulation
           {
             "key": "key_1",
             "value": {
-              "pl_PL": "Option PL 1",
-              "EN": "Option EN 1"
+              "pl-PL": "Option PL 1",
+              "en": "Option en 1"
             }
           }
         ]
@@ -40,7 +40,7 @@ Feature: Select attribute manipulation
     And store response param "id" as "attribute_id_2"
 
   Scenario: Create select attribute with duplicated options
-    And I send a "POST" request to "/api/v1/EN/attributes" with body:
+    And I send a "POST" request to "/api/v1/en/attributes" with body:
       """
       {
         "code": "SELECT_@@random_code@@",
@@ -51,15 +51,15 @@ Feature: Select attribute manipulation
           {
             "key": "key_1",
             "value": {
-              "pl_PL": "Option PL 1",
-              "EN": "Option EN 1"
+              "pl-PL": "Option PL 1",
+              "en": "Option en 1"
             }
           },
           {
             "key": "key_1",
             "value": {
-              "pl_PL": "Option PL 1",
-              "EN": "Option EN 1"
+              "pl-PL": "Option PL 1",
+              "en": "Option en 1"
             }
           }
         ]
@@ -68,7 +68,7 @@ Feature: Select attribute manipulation
     Then the response status code should be 400
 
   Scenario: Update select attribute with duplicated options
-    And I send a "PUT" request to "/api/v1/EN/attributes/@attribute_id_2@" with body:
+    And I send a "PUT" request to "/api/v1/en/attributes/@attribute_id_2@" with body:
       """
       {
         "options":
@@ -76,15 +76,15 @@ Feature: Select attribute manipulation
           {
             "key": "key_1",
             "value": {
-              "pl_PL": "Option PL 1",
-              "EN": "Option EN 1"
+              "pl-PL": "Option PL 1",
+              "en": "Option en 1"
             }
           },
           {
             "key": "key_1",
             "value": {
-              "pl_PL": "Option PL 1",
-              "EN": "Option EN 1"
+              "pl-PL": "Option PL 1",
+              "en": "Option en 1"
             }
           }
         ]
@@ -93,7 +93,7 @@ Feature: Select attribute manipulation
     Then the response status code should be 400
 
   Scenario: Update select attribute
-    And I send a "PUT" request to "/api/v1/EN/attributes/@attribute_id@" with body:
+    And I send a "PUT" request to "/api/v1/en/attributes/@attribute_id@" with body:
       """
       {
           "groups": []
@@ -102,9 +102,9 @@ Feature: Select attribute manipulation
     Then the response status code should be 204
 
   Scenario: Delete select attribute
-    And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@"
+    And I send a "DELETE" request to "/api/v1/en/attributes/@attribute_id@"
     Then the response status code should be 204
 
   Scenario: Delete select attribute
-    And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id_2@"
+    And I send a "DELETE" request to "/api/v1/en/attributes/@attribute_id_2@"
     Then the response status code should be 204

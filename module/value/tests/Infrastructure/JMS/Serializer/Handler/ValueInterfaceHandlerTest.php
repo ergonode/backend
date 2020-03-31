@@ -76,7 +76,7 @@ class ValueInterfaceHandlerTest extends TestCase
      */
     public function testDeserializeTranslatableStringValue(): void
     {
-        $testValue = '{"type":"translation","value":{"translations":{"pl_PL":"test","EN":"test"}}}';
+        $testValue = '{"type":"translation","value":{"translations":{"pl-PL":"test","en":"test"}}}';
 
         /** @var ValueInterface $result */
         $result = $this->serializer->deserialize($testValue, ValueInterface::class, 'json');
@@ -84,7 +84,7 @@ class ValueInterfaceHandlerTest extends TestCase
         $this->assertInstanceOf(TranslatableStringValue::class, $result);
         $this->assertEquals(TranslatableStringValue::TYPE, $result->getType());
         $this->assertInstanceOf(TranslatableString::class, $result->getValue());
-        $this->assertEquals(['pl_PL' => 'test', 'EN' => 'test'], $result->getValue()->getTranslations());
+        $this->assertEquals(['pl-PL' => 'test', 'en' => 'test'], $result->getValue()->getTranslations());
     }
 
     /**

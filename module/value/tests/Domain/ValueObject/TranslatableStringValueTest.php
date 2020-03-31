@@ -21,7 +21,7 @@ class TranslatableStringValueTest extends TestCase
      */
     public function testValueCreation(): void
     {
-        $value = new TranslatableString(['EN' => 'english', 'pl_PL' => 'polish']);
+        $value = new TranslatableString(['en' => 'english', 'pl-PL' => 'polish']);
 
         $valueObject = new TranslatableStringValue($value);
 

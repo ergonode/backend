@@ -4,12 +4,12 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/attributes" with body:
+    When I send a POST request to "/api/v1/en/attributes" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
-          "label": {"pl_PL": "Atrybut tekstowy", "EN": "Text attribute"},
+          "label": {"pl-PL": "Atrybut tekstowy", "en": "Text attribute"},
           "groups": [],
           "parameters": []
       }
@@ -21,7 +21,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/templates" with body:
+    When I send a POST request to "/api/v1/en/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -46,11 +46,11 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/categories" with body:
+    When I send a POST request to "/api/v1/en/categories" with body:
       """
       {
         "code": "CATEGORY_@@random_uuid@@",
-        "name": {"DE": "Test DE", "EN": "Test EN"}
+        "name": {"de": "Test de", "en": "Test en"}
       }
       """
     Then the response status code should be 201
@@ -61,7 +61,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/products" with body:
+    When I send a POST request to "/api/v1/en/products" with body:
       """
       {
         "sku": "@product_1_sku@",
@@ -77,7 +77,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/products" with body:
+    When I send a POST request to "/api/v1/en/products" with body:
       """
       {
         "sku": "@product_2_sku@",
@@ -89,11 +89,11 @@ Feature: Product collection module
     And store response param "id" as "product_2"
 
   Scenario: Create product
-    Given remember param "segment_product_2_sku" with value "SEGMENT_SKU_@@random_code@@"
+    Given remember param "segment_product_2_sku" with value "SEGMenT_SKU_@@random_code@@"
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/products" with body:
+    When I send a POST request to "/api/v1/en/products" with body:
       """
       {
         "sku": "@segment_product_2_sku@",
@@ -108,10 +108,10 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/products" with body:
+    When I send a POST request to "/api/v1/en/products" with body:
       """
       {
-        "sku": "SEGMENT_SKU_@@random_code@@",
+        "sku": "SEGMenT_SKU_@@random_code@@",
         "templateId": "@product_template@",
         "categoryIds": ["@product_category@"]
       }
@@ -123,9 +123,9 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a POST request to "/api/v1/EN/conditionsets" with body:
+    Given I send a POST request to "/api/v1/en/conditionsets" with body:
       """
-     {"conditions":[{"type":"PRODUCT_SKU_EXISTS_CONDITION","operator":"WILDCARD","value":"SEGMENT__SKU"}]}
+     {"conditions":[{"type":"PRODUCT_SKU_EXISTS_CONDITION","operator":"WILDCARD","value":"SEGMenT__SKU"}]}
       """
     Then the response status code should be 201
     And store response param "id" as "segment_conditionset"
@@ -134,18 +134,18 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/segments" with body:
+    When I send a POST request to "/api/v1/en/segments" with body:
       """
       {
         "code": "SEG_1_@@random_code@@",
         "condition_set_id": "@segment_conditionset@",
         "name": {
-          "pl_PL": "Segment",
-          "EN": "Segment"
+          "pl-PL": "Segment",
+          "en": "Segment"
         },
         "description": {
-          "pl_PL": "Opis segmentu",
-          "EN": "Segment description"
+          "pl-PL": "Opis segmentu",
+          "en": "Segment description"
         }
       }
       """
@@ -154,20 +154,20 @@ Feature: Product collection module
 
 
   Scenario: Create product collection type (not authorized)
-    When I send a POST request to "/api/v1/EN/collections/type"
+    When I send a POST request to "/api/v1/en/collections/type"
     Then the response status code should be 401
 
   Scenario: Create first product collection type
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/type" with body:
+    When I send a POST request to "/api/v1/en/collections/type" with body:
       """
       {
            "code": "TEXT_@@random_code@@",
               "name": {
-                 "DE": "Name DE",
-                 "EN": "Name EN"
+                 "de": "Name de",
+                 "en": "Name en"
                  }
       }
       """
@@ -178,13 +178,13 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/type" with body:
+    When I send a POST request to "/api/v1/en/collections/type" with body:
       """
       {
            "code": "TEXT_@@random_code@@",
               "name": {
-                 "DE": "Name DE",
-                 "EN": "Name EN"
+                 "de": "Name de",
+                 "en": "Name en"
                  }
       }
       """
@@ -195,13 +195,13 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/type" with body:
+    When I send a POST request to "/api/v1/en/collections/type" with body:
       """
       {
            "code": "TEXT_@@random_code@@",
               "name": {
-                 "DE": "Name DE",
-                 "EN": "Name EN"
+                 "de": "Name de",
+                 "en": "Name en"
                  }
       }
       """
@@ -212,7 +212,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/type" with body:
+    When I send a POST request to "/api/v1/en/collections/type" with body:
       """
       {
            "code": "TEXT_@@random_code@@"
@@ -224,7 +224,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/type" with body:
+    When I send a POST request to "/api/v1/en/collections/type" with body:
       """
       {
            "code": "TEXT/. .,.]_@@random_code@@"
@@ -236,34 +236,34 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/type" with body:
+    When I send a POST request to "/api/v1/en/collections/type" with body:
       """
       {
            "code": "TEXT_@@random_code@@",
               "name": {
-                 "DE": "Bwuqy8IsaW6yeKGxTfuhpFvd56SYuXr3CvEgXMCTZ94NhTKzuOZKCLL93K1SQfoVdro3uIrZzwaOPbsro3DLHkSu64nknsdZbIWCA5tX47uP5a4LNNQQquATqdKp8rcxgMpMv9Xp3qvqfd5oUHuwcIzpBuQAyYvCNMPOxdmsXISqt42fZ9U0xvuC31qhXqRJiqUKLqBZWZiOhMQRZTBjApGyXd7V8pXctjI2IANx2fNnprX6RGiyV0Qb8ABAGlya",
-                 "EN": "Name EN"
+                 "de": "Bwuqy8IsaW6yeKGxTfuhpFvd56SYuXr3CvEgXMCTZ94NhTKzuOZKCLL93K1SQfoVdro3uIrZzwaOPbsro3DLHkSu64nknsdZbIWCA5tX47uP5a4LNNQQquATqdKp8rcxgMpMv9Xp3qvqfd5oUHuwcIzpBuQAyYvCNMPOxdmsXISqt42fZ9U0xvuC31qhXqRJiqUKLqBZWZiOhMQRZTBjApGyXd7V8pXctjI2IANx2fNnprX6RGiyV0Qb8ABAGlya",
+                 "en": "Name en"
                  }
       }
       """
     Then the response status code should be 400
 
   Scenario: Update product collection type (not authorized)
-    When I send a PUT request to "/api/v1/EN/collections/type/@product_collection_type_1@"
+    When I send a PUT request to "/api/v1/en/collections/type/@product_collection_type_1@"
     Then the response status code should be 401
 
   Scenario: Update product collection type (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/collections/type/@@static_uuid@@"
+    When I send a PUT request to "/api/v1/en/collections/type/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Update product collection type (no content)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/collections/type/@product_collection_type_1@" with body:
+    When I send a PUT request to "/api/v1/en/collections/type/@product_collection_type_1@" with body:
       """
       {
       }
@@ -274,45 +274,45 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/collections/type/@product_collection_type_1@" with body:
+    When I send a PUT request to "/api/v1/en/collections/type/@product_collection_type_1@" with body:
       """
       {
           "name": {
-                 "DE": "Name DE",
-                 "EN": "New Name EN"
+                 "de": "Name de",
+                 "en": "New Name en"
                  }
       }
       """
     Then the response status code should be 204
 
   Scenario: Request product collection type (not authorized)
-    When I send a PUT request to "/api/v1/EN/collections/type/@product_collection_type_1@"
+    When I send a PUT request to "/api/v1/en/collections/type/@product_collection_type_1@"
     Then the response status code should be 401
 
   Scenario: Request product collection type (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/type/@@static_uuid@@"
+    When I send a GET request to "/api/v1/en/collections/type/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Request product collection type
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/type/@product_collection_type_1@"
+    When I send a GET request to "/api/v1/en/collections/type/@product_collection_type_1@"
     Then the response status code should be 200
-    And the JSON node "name.EN" should be equal to the string "New Name EN"
+    And the JSON node "name.en" should be equal to the string "New Name en"
 
   Scenario: Get product collection type (not authorized)
-    When I send a GET request to "/api/v1/EN/collections/type"
+    When I send a GET request to "/api/v1/en/collections/type"
     Then the response status code should be 401
 
   Scenario: Get product collection type (order by code)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/type?field=code"
+    When I send a GET request to "/api/v1/en/collections/type?field=code"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
@@ -321,7 +321,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/type?field=name"
+    When I send a GET request to "/api/v1/en/collections/type?field=name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
@@ -330,7 +330,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/type?limit=25&offset=0&filter=code=text_"
+    When I send a GET request to "/api/v1/en/collections/type?limit=25&offset=0&filter=code=text_"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -338,20 +338,20 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/type?limit=25&offset=0&filter=code="
+    When I send a GET request to "/api/v1/en/collections/type?limit=25&offset=0&filter=code="
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
 
   Scenario: Get product collection type (not authorized)
-    When I send a GET request to "/api/v1/EN/collections/type"
+    When I send a GET request to "/api/v1/en/collections/type"
     Then the response status code should be 401
 
   Scenario: Get product collection type (filter by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/type?limit=25&offset=0&filter=name=Name"
+    When I send a GET request to "/api/v1/en/collections/type?limit=25&offset=0&filter=name=Name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -359,15 +359,15 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/type?limit=50&offset=0&order=ASC"
+    When I send a GET request to "/api/v1/en/collections/type?limit=50&offset=0&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
-  Scenario: Get products collection type  (order DESC)
+  Scenario: Get products collection type  (order deSC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/type?limit=50&offset=0&order=DESC"
+    When I send a GET request to "/api/v1/en/collections/type?limit=50&offset=0&order=deSC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -375,18 +375,18 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/EN/collections/type/@@static_uuid@@"
+    When I send a DELETE request to "/api/v1/en/collections/type/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Delete product collection type (not authorized)
-    When I send a DELETE request to "/api/v1/EN/collections/type/@product_collection_type_2@"
+    When I send a DELETE request to "/api/v1/en/collections/type/@product_collection_type_2@"
     Then the response status code should be 401
 
   Scenario: Delete product collection type
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/EN/collections/type/@product_collection_type_2@"
+    When I send a DELETE request to "/api/v1/en/collections/type/@product_collection_type_2@"
     Then the response status code should be 204
 
 
@@ -394,28 +394,28 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/type/@product_collection_type_2@"
+    When I send a GET request to "/api/v1/en/collections/type/@product_collection_type_2@"
     Then the response status code should be 404
 
   Scenario: Create product collection (not authorized)
-    When I send a POST request to "/api/v1/EN/collections"
+    When I send a POST request to "/api/v1/en/collections"
     Then the response status code should be 401
 
   Scenario: Create first product collection
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections" with body:
+    When I send a POST request to "/api/v1/en/collections" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
           "name": {
-             "DE": "Name DE",
-             "EN": "Name EN"
+             "de": "Name de",
+             "en": "Name en"
           },
           "description": {
-            "DE": "Description DE",
-            "EN": "Description EN"
+            "de": "Description de",
+            "en": "Description en"
           },
           "typeId": "@product_collection_type_1@"
       }
@@ -427,17 +427,17 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections" with body:
+    When I send a POST request to "/api/v1/en/collections" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
           "name": {
-             "DE": "Name DE",
-             "EN": "Name EN"
+             "de": "Name de",
+             "en": "Name en"
           },
           "description": {
-            "DE": "Description DE",
-            "EN": "Description EN"
+            "de": "Description de",
+            "en": "Description en"
           },
           "typeId": "@product_collection_type_1@"
       }
@@ -449,7 +449,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections" with body:
+    When I send a POST request to "/api/v1/en/collections" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
@@ -462,7 +462,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections" with body:
+    When I send a POST request to "/api/v1/en/collections" with body:
       """
       {
           "code": "TEXT_//?$@@random_code@@",
@@ -475,13 +475,13 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections" with body:
+    When I send a POST request to "/api/v1/en/collections" with body:
       """
       {
            "code": "TEXT_@@random_code@@",
               "name": {
-                 "DE": "Bwuqy8IsaW6yeKGxTfuhpFvd56SYuXr3CvEgXMCTZ94NhTKzuOZKCLL93K1SQfoVdro3uIrZzwaOPbsro3DLHkSu64nknsdZbIWCA5tX47uP5a4LNNQQquATqdKp8rcxgMpMv9Xp3qvqfd5oUHuwcIzpBuQAyYvCNMPOxdmsXISqt42fZ9U0xvuC31qhXqRJiqUKLqBZWZiOhMQRZTBjApGyXd7V8pXctjI2IANx2fNnprX6RGiyV0Qb8ABAGlya",
-                 "EN": "Name EN"
+                 "de": "Bwuqy8IsaW6yeKGxTfuhpFvd56SYuXr3CvEgXMCTZ94NhTKzuOZKCLL93K1SQfoVdro3uIrZzwaOPbsro3DLHkSu64nknsdZbIWCA5tX47uP5a4LNNQQquATqdKp8rcxgMpMv9Xp3qvqfd5oUHuwcIzpBuQAyYvCNMPOxdmsXISqt42fZ9U0xvuC31qhXqRJiqUKLqBZWZiOhMQRZTBjApGyXd7V8pXctjI2IANx2fNnprX6RGiyV0Qb8ABAGlya",
+                 "en": "Name en"
                  },
               "typeId": "@product_collection_type_1@"
       }
@@ -492,13 +492,13 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections" with body:
+    When I send a POST request to "/api/v1/en/collections" with body:
       """
       {
            "code": "TEXT_@@random_code@@",
               "description": {
-                 "DE": "Bwuqy8IsaW6yeKGxTfuhpFvd56SYuXr3CvEgXMCTZ94NhTKzuOZKCLL93K1SQfoVdro3uIrZzwaOPbsro3DLHkSu64nknsdZbIWCA5tX47uP5a4LNNQQquATqdKp8rcxgMpMv9Xp3qvqfd5oUHuwcIzpBuQAyYvCNMPOxdmsXISqt42fZ9U0xvuC31qhXqRJiqUKLqBZWZiOhMQRZTBjApGyXd7V8pXctjI2IANx2fNnprX6RGiyV0Qb8ABAGlya",
-                 "EN": "Description EN"
+                 "de": "Bwuqy8IsaW6yeKGxTfuhpFvd56SYuXr3CvEgXMCTZ94NhTKzuOZKCLL93K1SQfoVdro3uIrZzwaOPbsro3DLHkSu64nknsdZbIWCA5tX47uP5a4LNNQQquATqdKp8rcxgMpMv9Xp3qvqfd5oUHuwcIzpBuQAyYvCNMPOxdmsXISqt42fZ9U0xvuC31qhXqRJiqUKLqBZWZiOhMQRZTBjApGyXd7V8pXctjI2IANx2fNnprX6RGiyV0Qb8ABAGlya",
+                 "en": "Description en"
                  },
               "typeId": "@product_collection_type_1@"
       }
@@ -509,17 +509,17 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections" with body:
+    When I send a POST request to "/api/v1/en/collections" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
           "name": {
-             "DE": "Name DE",
-             "EN": "Name EN"
+             "de": "Name de",
+             "en": "Name en"
           },
           "description": {
-            "DE": "Description DE",
-            "EN": "Description EN"
+            "de": "Description de",
+            "en": "Description en"
           },
           "typeId": "@@static_uuid@@"
       }
@@ -530,17 +530,17 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections" with body:
+    When I send a POST request to "/api/v1/en/collections" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
           "name": {
-             "DE": "Name DE",
-             "EN": "Name EN"
+             "de": "Name de",
+             "en": "Name en"
           },
           "description": {
-            "DE": "Description DE",
-            "EN": "Description EN"
+            "de": "Description de",
+            "en": "Description en"
           },
           "typeId": "@@random_code@@"
       }
@@ -548,21 +548,21 @@ Feature: Product collection module
     Then the response status code should be 400
 
   Scenario: Update product collection (not authorized)
-    When I send a PUT request to "/api/v1/EN/collections/@product_collection_1@"
+    When I send a PUT request to "/api/v1/en/collections/@product_collection_1@"
     Then the response status code should be 401
 
   Scenario: Update product collection (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/collections/@@static_uuid@@"
+    When I send a PUT request to "/api/v1/en/collections/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Update product collection (no content)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/collections/@product_collection_1@" with body:
+    When I send a PUT request to "/api/v1/en/collections/@product_collection_1@" with body:
       """
       {
       }
@@ -573,16 +573,16 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/collections/@product_collection_1@" with body:
+    When I send a PUT request to "/api/v1/en/collections/@product_collection_1@" with body:
       """
       {
           "name": {
-                 "DE": "Name DE",
-                 "EN": "New Name EN"
+                 "de": "Name de",
+                 "en": "New Name en"
                  },
           "description": {
-                 "DE": "Description DE",
-                 "EN": "New Description EN"
+                 "de": "Description de",
+                 "en": "New Description en"
                  },
           "typeId": "@product_collection_type_3@"
       }
@@ -590,34 +590,34 @@ Feature: Product collection module
     Then the response status code should be 204
 
   Scenario: Request product collection (not authorized)
-    When I send a PUT request to "/api/v1/EN/collections/@product_collection_1@"
+    When I send a PUT request to "/api/v1/en/collections/@product_collection_1@"
     Then the response status code should be 401
 
   Scenario: Request product collection (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@@static_uuid@@"
+    When I send a GET request to "/api/v1/en/collections/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Request product collection
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@"
     Then the response status code should be 200
-    And the JSON node "name.EN" should be equal to the string "New Name EN"
-    And the JSON node "description.EN" should be equal to the string "New Description EN"
+    And the JSON node "name.en" should be equal to the string "New Name en"
+    And the JSON node "description.en" should be equal to the string "New Description en"
 
   Scenario: Get product collection (not authorized)
-    When I send a GET request to "/api/v1/EN/collections"
+    When I send a GET request to "/api/v1/en/collections"
     Then the response status code should be 401
 
   Scenario: Get product collection (order by code)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections?field=code"
+    When I send a GET request to "/api/v1/en/collections?field=code"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
@@ -626,7 +626,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections?field=name"
+    When I send a GET request to "/api/v1/en/collections?field=name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
@@ -635,7 +635,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections?field=description"
+    When I send a GET request to "/api/v1/en/collections?field=description"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
@@ -644,7 +644,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections?field=type"
+    When I send a GET request to "/api/v1/en/collections?field=type"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
@@ -653,7 +653,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections?limit=25&offset=0&filter=code=text_"
+    When I send a GET request to "/api/v1/en/collections?limit=25&offset=0&filter=code=text_"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -661,7 +661,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections?limit=25&offset=0&filter=code="
+    When I send a GET request to "/api/v1/en/collections?limit=25&offset=0&filter=code="
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
@@ -669,7 +669,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections?limit=25&offset=0&filter=name=Name"
+    When I send a GET request to "/api/v1/en/collections?limit=25&offset=0&filter=name=Name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -678,7 +678,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections?limit=25&offset=0&filter=description=Description"
+    When I send a GET request to "/api/v1/en/collections?limit=25&offset=0&filter=description=Description"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -686,56 +686,56 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections?order=ASC"
+    When I send a GET request to "/api/v1/en/collections?order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
-  Scenario: Get products collection  (order DESC)
+  Scenario: Get products collection  (order deSC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections?order=DESC"
+    When I send a GET request to "/api/v1/en/collections?order=deSC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get product collection (not authorized)
-    When I send a GET request to "/api/v1/EN/collections"
+    When I send a GET request to "/api/v1/en/collections"
     Then the response status code should be 401
 
   Scenario: Delete product collection (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/EN/collections/@@static_uuid@@"
+    When I send a DELETE request to "/api/v1/en/collections/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Delete product collection (not authorized)
-    When I send a DELETE request to "/api/v1/EN/collections/@product_collection_2@"
+    When I send a DELETE request to "/api/v1/en/collections/@product_collection_2@"
     Then the response status code should be 401
 
   Scenario: Delete product collection
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/EN/collections/@product_collection_2@"
+    When I send a DELETE request to "/api/v1/en/collections/@product_collection_2@"
     Then the response status code should be 204
 
   Scenario: Request product collection after deletion
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_2@"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_2@"
     Then the response status code should be 404
 
   Scenario: Create product collection element (not authorized)
-    When I send a POST request to "/api/v1/EN/collections/@product_collection_1@/elements"
+    When I send a POST request to "/api/v1/en/collections/@product_collection_1@/elements"
     Then the response status code should be 401
 
   Scenario: Add product collection element
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/@product_collection_1@/elements" with body:
+    When I send a POST request to "/api/v1/en/collections/@product_collection_1@/elements" with body:
       """
       {
           "productId": "@product_1@",
@@ -748,7 +748,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/@product_collection_1@/elements" with body:
+    When I send a POST request to "/api/v1/en/collections/@product_collection_1@/elements" with body:
       """
       {
           "productId": "@@random_code@@",
@@ -761,7 +761,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/@product_collection_1@/elements" with body:
+    When I send a POST request to "/api/v1/en/collections/@product_collection_1@/elements" with body:
       """
       {
           "productId": "@@static_uuid@@",
@@ -771,28 +771,28 @@ Feature: Product collection module
     Then the response status code should be 400
 
   Scenario: Update product collection element (not authorized)
-    When I send a PUT request to "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@"
+    When I send a PUT request to "/api/v1/en/collections/@product_collection_1@/elements/@product_1@"
     Then the response status code should be 401
 
   Scenario: Update product collection element (not found product)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/collections/@product_collection_1@/elements/@@static_uuid@@"
+    When I send a PUT request to "/api/v1/en/collections/@product_collection_1@/elements/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Update product collection element (not found collection)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/collections/@@static_uuid@@/elements/@product_1@"
+    When I send a PUT request to "/api/v1/en/collections/@@static_uuid@@/elements/@product_1@"
     Then the response status code should be 404
 
   Scenario: Update product collection element (no content)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@" with body:
+    When I send a PUT request to "/api/v1/en/collections/@product_collection_1@/elements/@product_1@" with body:
       """
       {
       }
@@ -803,7 +803,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@" with body:
+    When I send a PUT request to "/api/v1/en/collections/@product_collection_1@/elements/@product_1@" with body:
       """
       {
         "visible": false
@@ -812,33 +812,33 @@ Feature: Product collection module
     Then the response status code should be 204
 
   Scenario: Request product collection element (not authorized)
-    When I send a PUT request to "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@"
+    When I send a PUT request to "/api/v1/en/collections/@product_collection_1@/elements/@product_1@"
     Then the response status code should be 401
 
   Scenario: Request product collection element (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements/@@static_uuid@@"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Request product collection element
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@product_1@"
     Then the response status code should be 200
     And the JSON node "visible" should be false
 
   Scenario: Get product collection element (not authorized)
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements"
     Then the response status code should be 401
 
   Scenario: Get product collection element (order by visible)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements?field=visible"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?field=visible"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "columns[0].visible" should exist
@@ -847,7 +847,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements?field=product_id"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?field=product_id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "columns[1].id" should be equal to "system_name"
@@ -856,7 +856,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements?field=product_collection_id"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?field=product_collection_id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "columns[1].id" should be equal to "system_name"
@@ -865,7 +865,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements?limit=25&offset=0&filter=visible=true"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?limit=25&offset=0&filter=visible=true"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -873,15 +873,15 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements?limit=50&offset=0&order=ASC"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?limit=50&offset=0&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
-  Scenario: Get products collection element  (order DESC)
+  Scenario: Get products collection element  (order deSC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements?limit=50&offset=0&order=DESC"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?limit=50&offset=0&order=deSC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -889,18 +889,18 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/EN/collections/@product_collection_1@/elements/@@static_uuid@@"
+    When I send a DELETE request to "/api/v1/en/collections/@product_collection_1@/elements/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Delete product collection element (not authorized)
-    When I send a DELETE request to "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@"
+    When I send a DELETE request to "/api/v1/en/collections/@product_collection_1@/elements/@product_1@"
     Then the response status code should be 401
 
   Scenario: Delete product collection element
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@"
+    When I send a DELETE request to "/api/v1/en/collections/@product_collection_1@/elements/@product_1@"
     Then the response status code should be 204
 
 
@@ -908,7 +908,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/@product_collection_1@/elements/multiple" with body:
+    When I send a POST request to "/api/v1/en/collections/@product_collection_1@/elements/multiple" with body:
       """
       {
         "segments": [
@@ -920,39 +920,39 @@ Feature: Product collection module
     Then the response status code should be 201
 
 
-  Scenario: Get products collection element  (order DESC)
+  Scenario: Get products collection element  (order deSC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements/@segment_product_1@"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@segment_product_1@"
     Then the response status code should be 200
 
-  Scenario: Get products collection element  (order DESC)
+  Scenario: Get products collection element  (order deSC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements/@segment_product_2@"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@segment_product_2@"
     Then the response status code should be 200
 
-  Scenario: Get products collection element  (order DESC)
+  Scenario: Get products collection element  (order deSC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements/@product_1@"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@product_1@"
     Then the response status code should be 200
 
-  Scenario: Get products collection element  (order DESC)
+  Scenario: Get products collection element  (order deSC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/collections/@product_collection_1@/elements/@product_2@"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@product_2@"
     Then the response status code should be 200
 
   Scenario: Add multiple product collection element (wrong segment)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/@product_collection_1@/elements/multiple" with body:
+    When I send a POST request to "/api/v1/en/collections/@product_collection_1@/elements/multiple" with body:
       """
       {
             "segments": [
@@ -966,7 +966,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/@product_collection_1@/elements/multiple" with body:
+    When I send a POST request to "/api/v1/en/collections/@product_collection_1@/elements/multiple" with body:
       """
       {
             "segments": [
@@ -980,7 +980,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/@product_collection_1@/elements/multiple" with body:
+    When I send a POST request to "/api/v1/en/collections/@product_collection_1@/elements/multiple" with body:
       """
       {
             "skus": "@@random_code@@ , @@random_code@@"
@@ -993,7 +993,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/collections/@product_collection_1@/elements/multiple" with body:
+    When I send a POST request to "/api/v1/en/collections/@product_collection_1@/elements/multiple" with body:
       """
       {
             "sfesfeskus": "@product_1_sku@"

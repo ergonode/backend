@@ -88,7 +88,7 @@ class CategoryTreeTest extends TestCase
     {
         $tree = new CategoryTree($this->id, $this->code, $this->name);
 
-        $name2 = new TranslatableString(['EN' => 'english']);
+        $name2 = new TranslatableString(['en' => 'english']);
         $tree->changeName($name2);
         $this->assertEquals($name2, $tree->getName());
     }

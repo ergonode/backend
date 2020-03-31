@@ -59,7 +59,7 @@ class ProductCollectionTypeTest extends TestCase
     public function testTypeManipulation(): void
     {
         $entity = new ProductCollectionType($this->id, $this->code, $this->name);
-        $newName = new TranslatableString(['EN' => 'english']);
+        $newName = new TranslatableString(['en' => 'english']);
         $entity->changeName($newName);
         $this->assertEquals($newName, $entity->getName());
     }

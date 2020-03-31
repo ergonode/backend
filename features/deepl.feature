@@ -2,7 +2,7 @@ Feature: Deepl module
 
 #  Scenario: Get translation deepl
 #    When current authentication token
-#    When I request "/api/v1/translation/deepl?content=kat&source_language=PL&target_language=EN" using HTTP GET
+#    When I request "/api/v1/translation/deepl?content=kat&source_language=PL&target_language=en" using HTTP GET
 #    Then the response code is 200
 #
 #  Scenario: Get translation deepl (not authorized)
@@ -16,27 +16,27 @@ Feature: Deepl module
 #
 #  Scenario: Get translation deepl (too short content)
 #    When current authentication token
-#    When I request "/api/v1/translation/deepl?content=ul&source_language=PL&target_language=EN" using HTTP GET
+#    When I request "/api/v1/translation/deepl?content=ul&source_language=PL&target_language=en" using HTTP GET
 #    Then validation error response is received
 #
 #  Scenario: Get translation deepl (without content)
 #    When current authentication token
-#    When I request "/api/v1/translation/deepl?source_language=PL&target_language=EN" using HTTP GET
+#    When I request "/api/v1/translation/deepl?source_language=PL&target_language=en" using HTTP GET
 #    Then validation error response is received
 #
 #  Scenario: Get translation deepl (wrong source language)
 #    When current authentication token
-#    When I request "/api/v1/translation/deepl?content=kat&source_language=ZZ&target_language=EN" using HTTP GET
+#    When I request "/api/v1/translation/deepl?content=kat&source_language=ZZ&target_language=en" using HTTP GET
 #    Then validation error response is received
 #
 #  Scenario: Get translation deepl (empty source language)
 #    When current authentication token
-#    When I request "/api/v1/translation/deepl?content=kat&source_language=&target_language=EN" using HTTP GET
+#    When I request "/api/v1/translation/deepl?content=kat&source_language=&target_language=en" using HTTP GET
 #    Then validation error response is received
 #
 #  Scenario: Get translation deepl (without source language)
 #    When current authentication token
-#    When I request "/api/v1/translation/deepl?content=kat&target_language=EN" using HTTP GET
+#    When I request "/api/v1/translation/deepl?content=kat&target_language=en" using HTTP GET
 #    Then validation error response is received
 #
 #  Scenario: Get translation deepl (wrong target language)

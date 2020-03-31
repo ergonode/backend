@@ -42,7 +42,7 @@ class TranslatedOptionValueResolverTest extends TestCase
         /** @var OptionInterface $option */
         $option = $this->createMock(OptionInterface::class);
         $resolver = new TranslatedOptionValueResolver();
-        $resolver->resolve($option, new Language(Language::EN));
+        $resolver->resolve($option, new Language('en'));
     }
 
     /**
@@ -54,12 +54,12 @@ class TranslatedOptionValueResolverTest extends TestCase
             [
                 'option' => new StringOption('Any value'),
                 'result' => 'Any value',
-                'language' => new Language(Language::EN),
+                'language' => new Language('en'),
             ],
             [
-                'option' => new MultilingualOption(new TranslatableString(['EN' => 'Any value'])),
+                'option' => new MultilingualOption(new TranslatableString(['en' => 'Any value'])),
                 'result' => 'Any value',
-                'language' => new Language(Language::EN),
+                'language' => new Language('en'),
             ],
         ];
     }

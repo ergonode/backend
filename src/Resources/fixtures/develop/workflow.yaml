@@ -1,16 +1,16 @@
 parameters:
   status_new_translation:
-    'PL': 'Nowy'
-    'EN': 'New'
+    'pl': 'Nowy'
+    'en': 'New'
   status_draft_translation:
-    'PL': 'Szkic'
-    'EN': 'Draft'
+    'pl': 'Szkic'
+    'en': 'Draft'
   transition_name_translation:
-    'PL': 'Rozpocznij'
-    'EN': 'Start'
+    'pl': 'Rozpocznij'
+    'en': 'Start'
   transition_description_translation:
-    'PL': 'Rozpocznij opis'
-    'EN': 'Start Description'
+    'pl': 'Rozpocznij opis'
+    'en': 'Start Description'
 
 Ergonode\Workflow\Domain\Entity\Status:
   status_new:

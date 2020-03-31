@@ -6,7 +6,7 @@ Feature: Price attribute manipulation
     And I add "Accept" header equal to "application/json"
 
   Scenario: Create price attribute
-    And I send a "POST" request to "/api/v1/EN/attributes" with body:
+    And I send a "POST" request to "/api/v1/en/attributes" with body:
       """
       {
         "code": "PRICE_@@random_code@@",
@@ -22,7 +22,7 @@ Feature: Price attribute manipulation
     And store response param "id" as "attribute_id"
 
   Scenario: Create price attribute without required currency parameter
-    And I send a "POST" request to "/api/v1/EN/attributes" with body:
+    And I send a "POST" request to "/api/v1/en/attributes" with body:
       """
       {
         "code": "PRICE_@@random_code@@",
@@ -33,7 +33,7 @@ Feature: Price attribute manipulation
     Then the response status code should be 400
 
   Scenario: Create price attribute with invalid currency parameter
-    And I send a "POST" request to "/api/v1/EN/attributes" with body:
+    And I send a "POST" request to "/api/v1/en/attributes" with body:
       """
       {
         "code": "PRICE_@@random_code@@",
@@ -48,7 +48,7 @@ Feature: Price attribute manipulation
     Then the response status code should be 400
 
   Scenario: Update price attribute
-    And I send a "PUT" request to "/api/v1/EN/attributes/@attribute_id@" with body:
+    And I send a "PUT" request to "/api/v1/en/attributes/@attribute_id@" with body:
       """
       {
         "groups": [],
@@ -58,5 +58,5 @@ Feature: Price attribute manipulation
     Then the response status code should be 204
 
   Scenario: Delete price attribute
-    And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@"
+    And I send a "DELETE" request to "/api/v1/en/attributes/@attribute_id@"
     Then the response status code should be 204

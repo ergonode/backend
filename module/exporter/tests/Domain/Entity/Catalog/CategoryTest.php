@@ -37,7 +37,7 @@ class CategoryTest extends TestCase
     {
         $this->code = 'CODE';
         $this->id = Uuid::uuid4();
-        $this->name = new TranslatableString(['EN' => 'english', 'pl_PL' => 'polish']);
+        $this->name = new TranslatableString(['en' => 'english', 'pl-PL' => 'polish']);
     }
 
     /**

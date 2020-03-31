@@ -80,8 +80,8 @@ class LanguageDataTransformerTest extends TestCase
     {
         return [
             [
-                'languageValueObject' => new Language('EN'),
-                'string' => 'EN',
+                'languageValueObject' => new Language('en'),
+                'string' => 'en',
             ],
             [
                 'languageValueObject' => null,

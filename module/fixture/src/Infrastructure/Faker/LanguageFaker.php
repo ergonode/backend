@@ -13,10 +13,16 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Faker\Provider\Base as BaseProvider;
 
 /**
- * Class LanguageFaker
  */
 class LanguageFaker extends BaseProvider
 {
+    private const ISO = [
+        'en',
+        'pl',
+        'de',
+        'es',
+    ];
+
     /**
      * @param string|null $code
      *
@@ -26,7 +32,7 @@ class LanguageFaker extends BaseProvider
     public function language(string $code = null): Language
     {
         if (null === $code) {
-            $languages = array_combine(Language::AVAILABLE, Language::AVAILABLE);
+            $languages = array_combine(self::ISO, self::ISO);
             $code = array_rand($languages);
         }
 
