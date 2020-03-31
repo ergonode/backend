@@ -9,10 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Command;
 
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\Product\Domain\ValueObject\ProductType;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
@@ -36,6 +37,13 @@ class CreateProductCommand implements DomainCommandInterface
     private Sku $sku;
 
     /**
+     * @var ProductType
+     *
+     * @JMS\Type("Ergonode\Product\Domain\ValueObject\ProductType")
+     */
+    private ProductType $type;
+
+    /**
      * @var CategoryId[]
      *
      * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
@@ -50,18 +58,20 @@ class CreateProductCommand implements DomainCommandInterface
     private array $attributes;
 
     /**
-     * @param ProductId $id
-     * @param Sku       $sku
-     * @param array     $categories
-     * @param array     $attributes
+     * @param ProductId   $id
+     * @param Sku         $sku
+     * @param ProductType $type
+     * @param array       $categories
+     * @param array       $attributes
      */
-    public function __construct(ProductId $id, Sku $sku, array $categories = [], array $attributes = [])
+    public function __construct(ProductId $id, Sku $sku, ProductType $type, array $categories = [], array $attributes = [])
     {
         Assert::allIsInstanceOf($categories, CategoryId::class);
         Assert::allIsInstanceOf($attributes, ValueInterface::class);
 
         $this->id = $id;
         $this->sku = $sku;
+        $this->type = $type;
         $this->categories = $categories;
         $this->attributes = $attributes;
     }
@@ -80,6 +90,14 @@ class CreateProductCommand implements DomainCommandInterface
     public function getSku(): Sku
     {
         return $this->sku;
+    }
+
+    /**
+     * @return ProductType
+     */
+    public function getType(): ProductType
+    {
+        return $this->type;
     }
 
     /**

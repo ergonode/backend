@@ -10,9 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Infrastructure\Handler;
 
 use Ergonode\Product\Domain\Command\CreateProductCommand;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
 use Ergonode\Product\Domain\Provider\ProductFactoryProvider;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Product\Domain\Entity\SimpleProduct;
 
 /**
  */
@@ -48,7 +48,7 @@ class CreateProductCommandHandler
         $categories = $command->getCategories();
 
         $factory = $this->productFactoryProvider->provide(SimpleProduct::TYPE);
-        $product = $factory->create($command->getId(), $command->getSku(), $categories, $command->getAttributes());
+        $product = $factory->create($command->getId(), $command->getSku(), $command->getType(), $categories, $command->getAttributes());
 
         $this->productRepository->save($product);
     }

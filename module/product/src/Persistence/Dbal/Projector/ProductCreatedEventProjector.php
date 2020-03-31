@@ -11,9 +11,9 @@ namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -60,6 +60,7 @@ class ProductCreatedEventProjector
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'sku' => $event->getSku()->getValue(),
+                'type' => $event->getType()->getValue(),
                 'status' => 'new',
             ]
         );
@@ -91,11 +92,11 @@ class ProductCreatedEventProjector
     {
         if ($value instanceof StringValue) {
             $this->insert($productId, $attributeId, $value->getValue());
-        } elseif ($value instanceof StringCollectionValue) {
+        } else if ($value instanceof StringCollectionValue) {
             foreach ($value->getValue() as $phrase) {
                 $this->insert($productId, $attributeId, $phrase);
             }
-        } elseif ($value instanceof TranslatableStringValue) {
+        } else if ($value instanceof TranslatableStringValue) {
             $translation = $value->getValue();
             foreach ($translation as $language => $phrase) {
                 $this->insert($productId, $attributeId, $phrase, $language);
@@ -157,7 +158,7 @@ class ProductCreatedEventProjector
 
         if (!$result) {
             $this->connection->executeQuery(
-                'INSERT INTO value_translation (id, value_id, value, language) '.
+                'INSERT INTO value_translation (id, value_id, value, language) ' .
                 ' VALUES (?, ?, ?, ?) ON CONFLICT DO NOTHING',
                 [$valueId, $valueId, $value, $language ?: null]
             );

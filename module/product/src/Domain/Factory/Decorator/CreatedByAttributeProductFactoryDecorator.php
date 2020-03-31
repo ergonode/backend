@@ -11,9 +11,10 @@ namespace Ergonode\Product\Domain\Factory\Decorator;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
+use Ergonode\Product\Domain\ValueObject\ProductType;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -52,18 +53,18 @@ class CreatedByAttributeProductFactoryDecorator implements ProductFactoryInterfa
     }
 
     /**
-     * @param ProductId $id
-     * @param Sku       $sku
-     * @param array     $categories
-     * @param array     $attributes
+     * @param ProductId   $id
+     * @param Sku         $sku
+     * @param ProductType $type
+     * @param array       $categories
+     * @param array       $attributes
      *
      * @return AbstractProduct
-     *
-     * @throws \Exception
      */
     public function create(
         ProductId $id,
         Sku $sku,
+        ProductType $type,
         array $categories = [],
         array $attributes = []
     ): AbstractProduct {
@@ -75,6 +76,6 @@ class CreatedByAttributeProductFactoryDecorator implements ProductFactoryInterfa
             $attributes[CreatedBySystemAttribute::CODE] = $value;
         }
 
-        return $this->factory->create($id, $sku, $categories, $attributes);
+        return $this->factory->create($id, $sku, $type, $categories, $attributes);
     }
 }

@@ -10,9 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Workflow\Domain\Factory\Decorator;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
+use Ergonode\Product\Domain\ValueObject\ProductType;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
@@ -52,10 +53,11 @@ class StatusProductFactoryDecorator implements ProductFactoryInterface
     }
 
     /**
-     * @param ProductId $id
-     * @param Sku       $sku
-     * @param array     $categories
-     * @param array     $attributes
+     * @param ProductId   $id
+     * @param Sku         $sku
+     * @param ProductType $type
+     * @param array       $categories
+     * @param array       $attributes
      *
      * @return AbstractProduct
      *
@@ -64,12 +66,13 @@ class StatusProductFactoryDecorator implements ProductFactoryInterface
     public function create(
         ProductId $id,
         Sku $sku,
+        ProductType $type,
         array $categories = [],
         array $attributes = []
     ): AbstractProduct {
         $workflow = $this->provider->provide();
         $attributes[StatusSystemAttribute::CODE] = new StringValue($workflow->getDefaultStatus()->getValue());
 
-        return $this->factory->create($id, $sku, $categories, $attributes);
+        return $this->factory->create($id, $sku, $type, $categories, $attributes);
     }
 }

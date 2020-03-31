@@ -15,11 +15,13 @@ use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Product\Application\Form\ProductCreateForm;
 use Ergonode\Product\Application\Model\ProductCreateFormModel;
 use Ergonode\Product\Domain\Command\CreateProductCommand;
+use Ergonode\Product\Domain\ValueObject\ProductType;
+use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +30,11 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("products", methods={"POST"})
+ * @Route(
+ *     name="ergonode_product_create",
+ *     path="products/{type}",
+ *     methods={"POST"}
+ *     )
  */
 class ProductCreateAction
 {
@@ -49,7 +55,8 @@ class ProductCreateAction
     public function __construct(
         MessageBusInterface $messageBus,
         FormFactoryInterface $formFactory
-    ) {
+    )
+    {
         $this->messageBus = $messageBus;
         $this->formFactory = $formFactory;
     }
@@ -82,13 +89,16 @@ class ProductCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
+     * @ParamConverter(class="Ergonode\Product\Domain\ValueObject\ProductType")
+     *
+     * @param ProductType $type
+     * @param Request     $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(ProductType $type, Request $request): Response
     {
         $model = new ProductCreateFormModel();
         $form = $this->formFactory->create(ProductCreateForm::class, $model);
@@ -103,6 +113,7 @@ class ProductCreateAction
             $command = new CreateProductCommand(
                 ProductId::generate(),
                 new Sku($data->sku),
+                $type,
                 $categories,
                 [TemplateSystemAttribute::CODE => new StringValue($data->template)]
             );

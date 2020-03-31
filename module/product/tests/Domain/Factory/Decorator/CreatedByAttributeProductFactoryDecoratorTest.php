@@ -12,10 +12,11 @@ namespace Ergonode\Product\Tests\Domain\Factory\Decorator;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Factory\Decorator\CreatedByAttributeProductFactoryDecorator;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
+use Ergonode\Product\Domain\ValueObject\ProductType;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -35,6 +36,7 @@ class CreatedByAttributeProductFactoryDecoratorTest extends TestCase
         $factory->expects($this->once())
             ->method('create')
             ->with(
+                $this->anything(),
                 $this->anything(),
                 $this->anything(),
                 $this->anything(),
@@ -60,11 +62,14 @@ class CreatedByAttributeProductFactoryDecoratorTest extends TestCase
         /** @var Sku | MockObject $sku */
         $sku = $this->createMock(Sku::class);
 
+        /** @var ProductType | MockObject $type */
+        $type = $this->createMock(ProductType::class);
+
         $categories = [$this->createMock(CategoryCode::class)];
         $attributes = [$this->createMock(ValueInterface::class)];
 
         $decorator = new CreatedByAttributeProductFactoryDecorator($factory, $tokenStorage);
 
-        $decorator->create($productId, $sku, $categories, $attributes);
+        $decorator->create($productId, $sku, $type, $categories, $attributes);
     }
 }

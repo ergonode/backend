@@ -10,12 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Factory;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\ValueObject\ProductType;
+use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
@@ -32,18 +33,19 @@ class SimpleProductFactory implements ProductFactoryInterface
     }
 
     /**
-     * @param ProductId    $id
-     * @param Sku          $sku
-     * @param CategoryId[] $categories
-     * @param array        $attributes
+     * @param ProductId   $id
+     * @param Sku         $sku
+     * @param ProductType $type
+     * @param array       $categories
+     * @param array       $attributes
      *
      * @return AbstractProduct
-     *
      * @throws \Exception
      */
     public function create(
         ProductId $id,
         Sku $sku,
+        ProductType $type,
         array $categories = [],
         array $attributes = []
     ): AbstractProduct {
@@ -53,6 +55,7 @@ class SimpleProductFactory implements ProductFactoryInterface
         return new SimpleProduct(
             $id,
             $sku,
+            $type,
             $categories,
             $attributes
         );

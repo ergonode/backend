@@ -11,10 +11,11 @@ namespace Ergonode\Product\Tests\Domain\Factory\Decorator;
 
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Factory\Decorator\CreateAtAttributeProductFactoryDecorator;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
+use Ergonode\Product\Domain\ValueObject\ProductType;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -35,6 +36,7 @@ class CreatedAtAttributeProductFactoryDecoratorTest extends TestCase
                 $this->anything(),
                 $this->anything(),
                 $this->anything(),
+                $this->anything(),
                 $this->arrayHasKey(CreatedAtSystemAttribute::CODE)
             );
 
@@ -44,10 +46,13 @@ class CreatedAtAttributeProductFactoryDecoratorTest extends TestCase
         /** @var Sku | MockObject $sku */
         $sku = $this->createMock(Sku::class);
 
+        /** @var ProductType | MockObject $type */
+        $type = $this->createMock(ProductType::class);
+
         $categories = [$this->createMock(CategoryCode::class)];
 
         $decorator = new CreateAtAttributeProductFactoryDecorator($factory);
 
-        $decorator->create($productId, $sku, $categories);
+        $decorator->create($productId, $sku, $type, $categories);
     }
 }

@@ -19,12 +19,13 @@ use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
 use Ergonode\Product\Domain\Event\ProductVersionIncreasedEvent;
+use Ergonode\Product\Domain\ValueObject\ProductType;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
@@ -39,6 +40,11 @@ abstract class AbstractProduct extends AbstractAggregateRoot
      * @var Sku
      */
     private Sku $sku;
+
+    /**
+     * @var ProductType
+     */
+    private ProductType $type;
 
     /**
      * @var int
@@ -60,16 +66,18 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     private array $categories;
 
     /**
-     * @param ProductId $id
-     * @param Sku       $sku
-     * @param array     $categories
-     * @param array     $attributes
+     * @param ProductId   $id
+     * @param Sku         $sku
+     * @param ProductType $type
+     * @param array       $categories
+     * @param array       $attributes
      *
      * @throws \Exception
      */
     public function __construct(
         ProductId $id,
         Sku $sku,
+        ProductType $type,
         array $categories = [],
         array $attributes = []
     ) {
@@ -82,7 +90,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             }
         );
 
-        $this->apply(new ProductCreatedEvent($id, $sku, $categories, $attributes));
+        $this->apply(new ProductCreatedEvent($id, $sku, $type, $categories, $attributes));
     }
 
     /**
@@ -102,6 +110,14 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
+     * @return ProductType
+     */
+    public function getType(): ProductType
+    {
+        return $this->type;
+    }
+
+    /**
      * @param ProductDraft $draft
      *
      * @throws \Exception
@@ -110,7 +126,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     {
         $attributes = $draft->getAttributes();
         foreach ($attributes as $code => $value) {
-            $attributeCode = new AttributeCode((string) $code);
+            $attributeCode = new AttributeCode((string)$code);
             if ($this->hasAttribute($attributeCode)) {
                 $this->changeAttribute($attributeCode, $value);
             } else {
@@ -119,7 +135,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
         }
 
         foreach ($this->getAttributes() as $code => $attributes) {
-            $attributeCode = new AttributeCode((string) $code);
+            $attributeCode = new AttributeCode((string)$code);
             if (!$draft->hasAttribute($attributeCode)) {
                 $this->removeAttribute($attributeCode);
             }
@@ -227,7 +243,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             throw new \RuntimeException('Value note exists');
         }
 
-        if ((string) $this->attributes[$attributeCode->getValue()] !== (string) $value) {
+        if ((string)$this->attributes[$attributeCode->getValue()] !== (string)$value) {
             $this->apply(
                 new ProductValueChangedEvent(
                     $this->id,
@@ -262,6 +278,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     {
         $this->id = $event->getAggregateId();
         $this->sku = $event->getSku();
+        $this->type = $event->getType();
         $this->attributes = [];
         $this->categories = [];
         $this->version = 1;

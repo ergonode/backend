@@ -10,9 +10,9 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Persistence\Dbal\Query;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Query\GetProductQueryInterface;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Webmozart\Assert\Assert;
@@ -55,6 +55,7 @@ class GetProductQuery implements GetProductQueryInterface
         return [
             'id' => $product->getId(),
             'sku' => $product->getSku(),
+            'type' => $product->getType(),
             'attributes' => $product->getAttributes(),
             'categories' => $product->getCategories(),
             '_links' => [

@@ -28,6 +28,7 @@ final class Version20180619083830 extends AbstractErgonodeMigration
                 id UUID NOT NULL,
                 index SERIAL,
                 sku VARCHAR(128) NOT NULL,
+                type VARCHAR(128) NOT NULL,
                 status VARCHAR(32) NOT NULL,
                 version INT NOT NULL DEFAULT 0,
                 attributes JSONB NOT NULL DEFAULT \'{}\'::JSONB,

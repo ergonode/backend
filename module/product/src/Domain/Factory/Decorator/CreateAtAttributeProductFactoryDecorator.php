@@ -10,9 +10,10 @@ namespace Ergonode\Product\Domain\Factory\Decorator;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Factory\ProductFactoryInterface;
+use Ergonode\Product\Domain\ValueObject\ProductType;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 
 /**
@@ -43,10 +44,11 @@ class CreateAtAttributeProductFactoryDecorator implements ProductFactoryInterfac
     }
 
     /**
-     * @param ProductId $id
-     * @param Sku       $sku
-     * @param array     $categories
-     * @param array     $attributes
+     * @param ProductId   $id
+     * @param Sku         $sku
+     * @param ProductType $type
+     * @param array       $categories
+     * @param array       $attributes
      *
      * @return AbstractProduct
      *
@@ -55,12 +57,13 @@ class CreateAtAttributeProductFactoryDecorator implements ProductFactoryInterfac
     public function create(
         ProductId $id,
         Sku $sku,
+        ProductType $type,
         array $categories = [],
         array $attributes = []
     ): AbstractProduct {
         $createdAt = new \DateTime();
         $attributes[CreatedAtSystemAttribute::CODE] = new StringValue($createdAt->format('Y-m-d H:i:s'));
 
-        return $this->factory->create($id, $sku, $categories, $attributes);
+        return $this->factory->create($id, $sku, $type, $categories, $attributes);
     }
 }

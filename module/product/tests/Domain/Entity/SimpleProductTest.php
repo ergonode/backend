@@ -10,13 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\ProductSimple\Tests\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\ValueObject\ProductType;
+use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
@@ -31,6 +32,11 @@ class SimpleProductTest extends TestCase
      * @var Sku|MockObject
      */
     private $sku;
+
+    /**
+     * @var ProductType|MockObject
+     */
+    private $type;
 
     /**
      * @var CategoryId|MockObject
@@ -53,6 +59,7 @@ class SimpleProductTest extends TestCase
     {
         $this->id = $this->createMock(ProductId::class);
         $this->sku = $this->createMock(Sku::class);
+        $this->type = $this->createMock(ProductType::class);
         $this->category = $this->createMock(CategoryId::class);
         $this->code = $this->createMock(AttributeCode::class);
         $this->code->method('getValue')->willReturn('code');
@@ -66,11 +73,13 @@ class SimpleProductTest extends TestCase
         $product = new SimpleProduct(
             $this->id,
             $this->sku,
+            $this->type,
             [$this->category],
             [$this->code->getValue() => $this->attribute]
         );
         $this->assertEquals($this->id, $product->getId());
         $this->assertEquals($this->sku, $product->getSku());
+        $this->assertEquals($this->type, $product->getType());
         $this->assertEquals([$this->category], $product->getCategories());
         $this->assertEquals([$this->code->getValue() => $this->attribute], $product->getAttributes());
     }
@@ -81,14 +90,14 @@ class SimpleProductTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $categories = [$this->createMock(\stdClass::class)];
-        new SimpleProduct($this->id, $this->sku, $categories, []);
+        new SimpleProduct($this->id, $this->sku, $this->type, $categories, []);
     }
 
     /**
      */
     public function testCategoryManipulation(): void
     {
-        $product = new SimpleProduct($this->id, $this->sku, [$this->category], []);
+        $product = new SimpleProduct($this->id, $this->sku, $this->type, [$this->category], []);
         $this->assertTrue($product->belongToCategory($this->category));
         $product->removeFromCategory($this->category);
         $this->assertFalse($product->belongToCategory($this->category));
@@ -103,6 +112,7 @@ class SimpleProductTest extends TestCase
         $product = new SimpleProduct(
             $this->id,
             $this->sku,
+            $this->type,
             [$this->category],
             [$this->code->getValue() => $this->attribute]
         );
