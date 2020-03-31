@@ -76,7 +76,7 @@ class OptionInterfaceHandlerTest extends TestCase
      */
     public function testDeserializeTranslatableMultilingualOption(): void
     {
-        $testValue = '{"type":"translation","value":{"translations":{"pl-PL":"test","EN":"test"}}}';
+        $testValue = '{"type":"translation","value":{"translations":{"pl_PL":"test","EN":"test"}}}';
 
         /** @var ValueInterface $result */
         $result = $this->serializer->deserialize($testValue, OptionInterface::class, 'json');

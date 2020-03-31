@@ -10,11 +10,11 @@ Feature: Workflow
         "color": "#ff0000",
         "code": "SOURCE @@random_md5@@",
         "name": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         },
         "description": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         }
       }
@@ -32,11 +32,11 @@ Feature: Workflow
         "color": "#ff0000",
         "code": "deSTINATION @@random_md5@@",
         "name": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         },
         "description": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         }
       }
@@ -51,11 +51,11 @@ Feature: Workflow
         "color": "#ff0000",
         "code": "SOURCE @@random_md5@@",
         "name": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         },
         "description": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         }
       }
@@ -84,11 +84,11 @@ Feature: Workflow
       {
         "code": "SOURCE @@random_md5@@",
         "name": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         },
         "description": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         }
       }
@@ -104,11 +104,11 @@ Feature: Workflow
       {
         "color": "#ff0000",
         "name": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         },
         "description": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         }
       }
@@ -152,11 +152,11 @@ Feature: Workflow
       {
         "color": "#ff00ff",
         "name": {
-          "pl-PL": "Polish",
+          "pl_PL": "Polish",
           "en": "English"
         },
         "description": {
-          "pl-PL": "Polish",
+          "pl_PL": "Polish",
           "en": "English"
         }
       }

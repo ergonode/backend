@@ -68,7 +68,7 @@ class LanguageProvider implements LanguageProviderInterface
         $result = [];
         foreach ($allLanguages as $availableLanguage) {
             $code = $availableLanguage->getCode();
-            $result[$code] = $this->translator->trans($code, [], 'language', strtolower($language->getCode()));
+            $result[$code] = $this->translator->trans($code);
         }
 
         asort($result);

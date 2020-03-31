@@ -24,12 +24,12 @@ Feature: channel module
         "code": "@segment_code@",
         "condition_set_id": "@condition_set_id@",
         "name": {
-          "pl-PL": "Segment",
-          "pl-PL": "Segment"
+          "pl_PL": "Segment",
+          "pl_PL": "Segment"
         },
         "description": {
-          "pl-PL": "Opis segmentu",
-          "pl-PL": "Segment description"
+          "pl_PL": "Opis segmentu",
+          "pl_PL": "Segment description"
         }
       }
       """
@@ -54,7 +54,7 @@ Feature: channel module
         "segment_id": "@segment_id@",
         "name": {
           "de": "Test de",
-          "pl-PL": "Test pl-PL"
+          "pl_PL": "Test pl_PL"
         }
       }
       """
@@ -99,7 +99,7 @@ Feature: channel module
       {
         "name": {
           "de": "",
-          "pl-PL": "Test pl-PL"
+          "pl_PL": "Test pl_PL"
         }
       }
       """
@@ -115,7 +115,7 @@ Feature: channel module
         "segment_id": "@segment_id@",
         "name": {
           "de": "Test de",
-          "pl-PL": "Test pl-PL"
+          "pl_PL": "Test pl_PL"
         }
       }
       """
@@ -167,7 +167,7 @@ Feature: channel module
       {
         "name": {
           "de": "",
-          "pl-PL": "Test pl-PL (changed)"
+          "pl_PL": "Test pl_PL (changed)"
         }
       }
       """
@@ -177,7 +177,7 @@ Feature: channel module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/pl-PL/channels/@channel@"
+    When I send a GET request to "/api/v1/pl_PL/channels/@channel@"
     Then the response status code should be 200
 
   Scenario: Get channel (not authorized)

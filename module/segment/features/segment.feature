@@ -9,7 +9,7 @@ Feature: Segment module
       {
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
-          "label": {"pl-PL": "Atrybut tekstowy", "en": "Text attribute"},
+          "label": {"pl_PL": "Atrybut tekstowy", "en": "Text attribute"},
           "groups": [],
           "parameters": []
       }
@@ -99,11 +99,11 @@ Feature: Segment module
         "code": "@segment_code@",
         "condition_set_id": "@segment_conditionset@",
         "name": {
-          "pl-PL": "Segment",
+          "pl_PL": "Segment",
           "en": "Segment"
         },
         "description": {
-          "pl-PL": "Opis segmentu",
+          "pl_PL": "Opis segmentu",
           "en": "Segment description"
         }
       }
@@ -121,7 +121,7 @@ Feature: Segment module
         "code": "@segment_code@",
         "condition_set_id": "@segment_conditionset@",
         "description": {
-          "pl-PL": "Opis segmentu",
+          "pl_PL": "Opis segmentu",
           "en": "Segment description"
         }
       }
@@ -138,7 +138,7 @@ Feature: Segment module
         "code": "SEG_2_@@random_code@@",
         "condition_set_id": "@segment_conditionset@",
         "description": {
-          "pl-PL": "Opis segmentu",
+          "pl_PL": "Opis segmentu",
           "en": "Segment description"
         }
       }
@@ -155,11 +155,11 @@ Feature: Segment module
         "code": "SEG_3_@@random_code@@",
         "condition_set_id": "@segment_conditionset@",
         "name": {
-          "pl-PL": "Segment",
+          "pl_PL": "Segment",
           "en": "Segment"
         },
         "description": {
-          "pl-PL": "Opis segmentu",
+          "pl_PL": "Opis segmentu",
           "en": "Segment description"
         }
       }
@@ -189,11 +189,11 @@ Feature: Segment module
       {
         "condition_set_id": "@segment_conditionset@",
         "name": {
-          "pl-PL": "Segment",
+          "pl_PL": "Segment",
           "en": "Segment"
         },
         "description": {
-          "pl-PL": "Opis segmentu",
+          "pl_PL": "Opis segmentu",
           "en": "Segment description"
         }
       }
@@ -232,11 +232,11 @@ Feature: Segment module
       {
         "condition_set_id": "@segment_conditionset@",
         "name": {
-          "pl-PL": "Segment (changed)",
+          "pl_PL": "Segment (changed)",
           "en": "Segment (changed)"
         },
         "description": {
-          "pl-PL": "Opis segmentu (changed)",
+          "pl_PL": "Opis segmentu (changed)",
           "en": "Segment description (changed)"
         }
       }
@@ -252,7 +252,7 @@ Feature: Segment module
       {
         "condition_set_id": "@segment_conditionset@",
         "description": {
-          "pl-PL": "Opis segmentu (changed)",
+          "pl_PL": "Opis segmentu (changed)",
           "en": "Segment description (changed)"
         }
       }
@@ -279,11 +279,11 @@ Feature: Segment module
       """
       {
         "name": {
-          "pl-PL": "Segment (changed)",
+          "pl_PL": "Segment (changed)",
           "en": "Segment (changed)"
         },
         "description": {
-          "pl-PL": "Opis segmentu (changed)",
+          "pl_PL": "Opis segmentu (changed)",
           "en": "Segment description (changed)"
         }
       }

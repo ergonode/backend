@@ -29,7 +29,7 @@ Feature: Select attribute manipulation
           {
             "key": "key_1",
             "value": {
-              "pl-PL": "Option PL 1",
+              "pl_PL": "Option PL 1",
               "en": "Option en 1"
             }
           }
@@ -51,14 +51,14 @@ Feature: Select attribute manipulation
           {
             "key": "key_1",
             "value": {
-              "pl-PL": "Option PL 1",
+              "pl_PL": "Option PL 1",
               "en": "Option en 1"
             }
           },
           {
             "key": "key_1",
             "value": {
-              "pl-PL": "Option PL 1",
+              "pl_PL": "Option PL 1",
               "en": "Option en 1"
             }
           }
@@ -76,14 +76,14 @@ Feature: Select attribute manipulation
           {
             "key": "key_1",
             "value": {
-              "pl-PL": "Option PL 1",
+              "pl_PL": "Option PL 1",
               "en": "Option en 1"
             }
           },
           {
             "key": "key_1",
             "value": {
-              "pl-PL": "Option PL 1",
+              "pl_PL": "Option PL 1",
               "en": "Option en 1"
             }
           }

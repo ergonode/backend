@@ -21,7 +21,7 @@ Feature: Condition Product belong category tree exists
         "name": {
           "de": "Test tree1 de",
           "en": "Test tree1 en",
-          "pl-PL": "Test tree1 PL"
+          "pl_PL": "Test tree1 PL"
         }
       }
       """
@@ -39,7 +39,7 @@ Feature: Condition Product belong category tree exists
         "name": {
           "de": "Test tree2 de",
           "en": "Test tree2 en",
-          "pl-PL": "Test tree2 PL"
+          "pl_PL": "Test tree2 PL"
         }
       }
       """

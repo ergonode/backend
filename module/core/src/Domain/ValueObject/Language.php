@@ -13,9 +13,7 @@ namespace Ergonode\Core\Domain\ValueObject;
  */
 class Language
 {
-    public const EN = 'en';
-
-    private const PATTERN = '/^[a-z]{2}(?:-[A-Z]{2}){0,2}$/';
+    private const PATTERN = '/^[a-z]{2}(?:_[A-Z]{2}){0,2}$/';
 
     /**
      * @var string

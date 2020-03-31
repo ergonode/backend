@@ -10,11 +10,11 @@ Feature: Condition Product has status
         "color": "#ff0000",
         "code": "SOURCE @@random_md5@@",
         "name": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         },
         "description": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         }
       }
@@ -32,11 +32,11 @@ Feature: Condition Product has status
         "color": "#ff0000",
         "code": "SOURCE @@random_md5@@",
         "name": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         },
         "description": {
-          "pl-PL": "pl-PL",
+          "pl_PL": "pl_PL",
           "en": "en"
         }
       }
