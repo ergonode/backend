@@ -34,7 +34,7 @@ Feature: Product edit feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en/attributes/@product_edit_select_attribute@/options" with body:
       """
       {
         "code": "key_1",
@@ -48,7 +48,7 @@ Feature: Product edit feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en/attributes/@product_edit_select_attribute@/options" with body:
       """
       {
         "code": "key_12",
@@ -77,7 +77,7 @@ Feature: Product edit feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en/attributes/@product_edit_multi_select_attribute@/options" with body:
       """
       {
         "code": "key_1",
@@ -91,7 +91,7 @@ Feature: Product edit feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+    And I send a "POST" request to "/api/v1/en/attributes/@product_edit_multi_select_attribute@/options" with body:
       """
       {
         "code": "key_12",
@@ -274,7 +274,7 @@ Feature: Product edit feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/EN/products/@product@/draft/@product_edit_multi_select_attribute@/value" with body:
+    When I send a PUT request to "api/v1/en/products/@product@/draft/@product_edit_multi_select_attribute@/value" with body:
       """
       {
        "value":["@multi_select_option_2@"]

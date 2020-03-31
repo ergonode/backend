@@ -38,8 +38,8 @@ Feature: Select attribute manipulation
       {
         "code": "OPTION_@@random_code@@",
         "label":  {
-          "PL": "Option PL 1",
-          "EN": "Option EN 1"
+          "pl": "Option pl 1",
+          "en": "Option en 1"
         }
       }
       """
@@ -48,13 +48,13 @@ Feature: Select attribute manipulation
   Scenario: Get attribute options
     And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options"
     Then the response status code should be 200
-    And the JSON node "[0].label.PL" should exist
+    And the JSON node "[0].label.pl" should exist
 
   Scenario: Get created option
     And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options/@option_id@"
     Then the response status code should be 200
-    And the JSON node "label.PL" should contain "Option PL 1"
-    And the JSON node "label.EN" should contain "Option EN 1"
+    And the JSON node "label.pl" should contain "Option pl 1"
+    And the JSON node "label.en" should contain "Option en 1"
 
   Scenario: Delete select attribute
     And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@"

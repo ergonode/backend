@@ -55,7 +55,7 @@ class OptionAttributeValueConstraintStrategy implements AttributeValueConstraint
     {
         $multiple = $attribute instanceof MultiSelectAttribute;
 
-        $choices = array_keys($this->query->getList($attribute->getId(), new Language(Language::EN)));
+        $choices = array_keys($this->query->getList($attribute->getId(), new Language('en')));
 
         return new Collection([
             'value' => [
