@@ -15,7 +15,6 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Webmozart\Assert\Assert;
@@ -88,17 +87,13 @@ class MultimediaImportAction implements ImportActionInterface
         $multimedia = $this->repository->load($id);
 
         if (!$multimedia) {
-            try {
-                $content = file_get_contents('http://www.kinosfinks.pl/images/movie/thumb/rcevfiy2trbekhgw.jpg');
-                $filePath = sprintf('%s/%s', $cacheDir, $name);
-                $this->saveFile($filePath, $content);
-                $file = new File($filePath);
-                $multimediaId = new MultimediaId($id->getValue());
-                $command = new AddMultimediaCommand($multimediaId, $file);
-                $this->commandBus->dispatch($command);
-            } catch (\Throwable $exception) {
-                echo $exception->getMessage();
-            }
+            $content = file_get_contents($url);
+            $filePath = sprintf('%s/%s', $cacheDir, $name);
+            $this->saveFile($filePath, $content);
+            $file = new File($filePath);
+            $multimediaId = new MultimediaId($id->getValue());
+            $command = new AddMultimediaCommand($multimediaId, $file);
+            $this->commandBus->dispatch($command);
         }
     }
 

@@ -108,8 +108,6 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
             $this->repository->save($line);
             $this->commandBus->dispatch($command);
         }
-
-        echo print_r('SEND OPTIONS  '.$i, true).PHP_EOL;
     }
 
     /**

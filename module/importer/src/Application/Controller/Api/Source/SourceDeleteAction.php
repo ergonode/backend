@@ -9,10 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Application\Controller\Api\Source;
 
-use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,27 +28,20 @@ use Ergonode\Core\Application\Exception\NotImplementedException;
 class SourceDeleteAction
 {
     /**
-     * @var SourceFormFactoryProvider
-     */
-    private SourceFormFactoryProvider $provider;
-
-    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param SourceFormFactoryProvider $provider
-     * @param CommandBusInterface       $commandBus
+     * @param CommandBusInterface $commandBus
      */
-    public function __construct(SourceFormFactoryProvider $provider, CommandBusInterface $commandBus)
+    public function __construct(CommandBusInterface $commandBus)
     {
-        $this->provider = $provider;
         $this->commandBus = $commandBus;
     }
 
     /**
-     * @IsGranted("IMPORT_CREATE")
+     * @IsGranted("IMPORT_DELETE")
      *
      * @SWG\Tag(name="Import")
      * @SWG\Parameter(

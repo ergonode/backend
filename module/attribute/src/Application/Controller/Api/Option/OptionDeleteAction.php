@@ -11,16 +11,14 @@ namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Attribute\Domain\Command\Option\DeleteOptionCommand;
 use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -36,23 +34,16 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 class OptionDeleteAction
 {
     /**
-     * @var FormFactoryInterface
+     * @var CommandBusInterface
      */
-    private FormFactoryInterface $formFactory;
+    private CommandBusInterface $commandBus;
 
     /**
-     * @var MessageBusInterface
+     * @param CommandBusInterface $commandBus
      */
-    private MessageBusInterface $messageBus;
-
-    /**
-     * @param FormFactoryInterface $formFactory
-     * @param MessageBusInterface  $messageBus
-     */
-    public function __construct(FormFactoryInterface $formFactory, MessageBusInterface $messageBus)
+    public function __construct(CommandBusInterface $commandBus)
     {
-        $this->formFactory = $formFactory;
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -104,7 +95,7 @@ class OptionDeleteAction
     {
         $command = new DeleteOptionCommand($option->getId(), $attribute->getId());
 
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command);
 
         return new EmptyResponse();
     }

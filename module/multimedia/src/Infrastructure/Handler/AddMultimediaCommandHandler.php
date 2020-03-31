@@ -82,7 +82,7 @@ class AddMultimediaCommandHandler
         if (!$this->provider->hasFile($filename)) {
             $file = $this->uploadService->upload($id, $file, $hash);
         } else {
-            $file = new file($this->provider->getFile($filename));
+            $file = new File($this->provider->getFile($filename));
         }
 
         $multimedia = $this->factory->create($id, $originalName, $file, $hash);

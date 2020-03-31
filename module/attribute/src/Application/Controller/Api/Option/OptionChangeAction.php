@@ -28,6 +28,7 @@ use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\Attribute\Domain\Command\Option\UpdateOptionCommand;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -43,9 +44,9 @@ use Ergonode\Attribute\Domain\Command\Option\UpdateOptionCommand;
 class OptionChangeAction
 {
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @var FormFactoryInterface
@@ -53,14 +54,12 @@ class OptionChangeAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param MessageBusInterface  $messageBus
+     * @param CommandBusInterface  $commandBus
      * @param FormFactoryInterface $formFactory
      */
-    public function __construct(
-        MessageBusInterface $messageBus,
-        FormFactoryInterface $formFactory
-    ) {
-        $this->messageBus = $messageBus;
+    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
+    {
+        $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
     }
 
@@ -132,7 +131,7 @@ class OptionChangeAction
                     new TranslatableString($data->label)
                 );
 
-                $this->messageBus->dispatch($command);
+                $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());
             }
