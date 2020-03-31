@@ -1,54 +1,54 @@
 parameters:
   status_new_translation:
-    'pl_PL': 'Nowy'
+    'pl': 'Nowy'
     'en': 'New'
   status_draft_translation:
-    'pl_PL': 'Szkic'
+    'pl': 'Szkic'
     'en': 'Draft'
   status_to_approve_translation:
-    'pl_PL': 'Do akceptacji'
+    'pl': 'Do akceptacji'
     'en': 'To approve'
   status_ready_to_publish_translation:
-    'pl_PL': 'Gotowy do publikacji'
+    'pl': 'Gotowy do publikacji'
     'en': 'Ready to publish'
   status_to_correct_translation:
-    'pl_PL': 'Do poprawy'
+    'pl': 'Do poprawy'
     'en': 'To correct'
   status_published_translation:
-    'pl_PL': 'Opublikowany'
+    'pl': 'Opublikowany'
     'en': 'Published'
   category_tree_name:
-    'pl_PL': 'Polish_name'
+    'pl': 'Polish_name'
     'en': 'English_name'
   label_esa_status:
-    'pl_PL': 'Status'
+    'pl': 'Status'
     'en': 'Status'
   label_esa_created_at:
-    'pl_PL': 'Czas utworzenia'
+    'pl': 'Czas utworzenia'
     'en': 'Created at'
   label_esa_edited_at:
-    'pl_PL': 'Czas edycji'
+    'pl': 'Czas edycji'
     'en': 'Edited at'
   label_esa_created_by:
-    'pl_PL': 'Utworzone przez'
+    'pl': 'Utworzone przez'
     'en': 'Created by'
   label_esa_edited_by:
-    'pl_PL': 'Edytowane przez'
+    'pl': 'Edytowane przez'
     'en': 'Edited by'
   label_esa_template:
-    'pl_PL': 'Szablon'
+    'pl': 'Szablon'
     'en': 'Template'
   label_esa_categories:
-    'pl_PL': 'Kategorie'
+    'pl': 'Kategorie'
     'en': 'Categories'
   label_esa_product_collection:
-    'pl_PL': 'Kolekcje produktów'
+    'pl': 'Kolekcje produktów'
     'en': 'Product collections'
   name_product_collection_type_up-sell:
-    'pl_PL': 'Up-sell'
+    'pl': 'Up-sell'
     'en': 'Up-sell'
   name_product_collection_type_cross-sell:
-    'pl_PL': 'Cross-sell'
+    'pl': 'Cross-sell'
     'en': 'Cross-sell'
   empty: []
 
