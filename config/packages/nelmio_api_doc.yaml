@@ -601,6 +601,16 @@ nelmio_api_doc:
                     name:
                         PL: 'Nazwa grupy PL'
                         EN: 'Name of group EN'
+            options:
+                type: object
+                properties:
+                    code:
+                        type: string
+                        required: true
+                        description: option code
+                        example: option_code_1
+                    label:
+                        $ref: "#/definitions/translation"
             attribute:
                 type: object
                 properties:
@@ -633,10 +643,6 @@ nelmio_api_doc:
                         example: true
                     parameters:
                         $ref: "#/definitions/attribute_parameters"
-                    options:
-                        type: array
-                        items:
-                            $ref: "#/definitions/option"
             configuration_field:
                 type: object
                 properties:

@@ -61,7 +61,6 @@ class StartImportCommandHandler
         $source = $this->sourceRepository->load($import->getSourceId());
         Assert::notNull($source);
 
-
         $import->start();
         $this->importRepository->save($import);
 

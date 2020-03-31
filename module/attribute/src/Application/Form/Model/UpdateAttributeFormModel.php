@@ -75,15 +75,6 @@ class UpdateAttributeFormModel
     public $parameters;
 
     /**
-     * @var ArrayCollection|AttributeOptionModel[]
-     *
-     * @Assert\Valid()
-     *
-     * @AppAssert\AttributeOptionDuplicates()
-     */
-    public ArrayCollection $options;
-
-    /**
      * @param AttributeType $type
      */
     public function __construct(AttributeType $type)
@@ -95,6 +86,5 @@ class UpdateAttributeFormModel
         $this->type = $type;
         $this->groups = [];
         $this->parameters = null;
-        $this->options = new ArrayCollection();
     }
 }

@@ -10,23 +10,12 @@ namespace Ergonode\ImporterMagento2\Domain\Factory;
 
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
-use Ergonode\Importer\Domain\Factory\SourceFactoryInterface;
 use Ergonode\ImporterMagento2\Domain\Entity\Magento2CsvSource;
 
 /**
  */
-class Magento2SourceFactory implements SourceFactoryInterface
+class Magento2SourceFactory
 {
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
-    public function supported(string $type): bool
-    {
-        return $type === Magento2CsvSource::TYPE;
-    }
-
     /**
      * @param SourceId $sourceId
      * @param string   $name

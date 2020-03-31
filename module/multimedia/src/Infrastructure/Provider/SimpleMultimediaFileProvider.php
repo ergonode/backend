@@ -9,14 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Infrastructure\Provider;
 
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  */
 class SimpleMultimediaFileProvider implements MultimediaFileProviderInterface
 {
-    private const PATH = '%s/public/multimedia/%s.%s';
+    private const PATH = '%s/public/multimedia/%s';
 
     /**
      * @var KernelInterface
@@ -32,17 +31,22 @@ class SimpleMultimediaFileProvider implements MultimediaFileProviderInterface
     }
 
     /**
-     * @param Multimedia $multimedia
+     * @param string $filename
      *
      * @return string
      */
-    public function getFile(Multimedia $multimedia): string
+    public function getFile(string $filename): string
     {
-        return \sprintf(
-            self::PATH,
-            $this->kernel->getProjectDir(),
-            $multimedia->getId()->getValue(),
-            $multimedia->getExtension()
-        );
+        return \sprintf(self::PATH, $this->kernel->getProjectDir(), $filename);
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return bool
+     */
+    public function hasFile(string $filename): bool
+    {
+        return file_exists($this->getFile($filename));
     }
 }

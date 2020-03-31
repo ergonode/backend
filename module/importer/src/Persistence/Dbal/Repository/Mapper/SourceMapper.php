@@ -40,7 +40,8 @@ class SourceMapper
             'id' => $source->getId()->getValue(),
             'configuration' => $this->serializer->serialize($source, 'json'),
             'name' => $source->getName(),
-            'type' => \get_class($source),
+            'class' => \get_class($source),
+            'type' => $source->getType(),
         ];
     }
 }

@@ -14,6 +14,10 @@ services:
     Ergonode\ImporterMagento1\Infrastructure\:
       resource: '../../Infrastructure/*'
 
+    Ergonode\ImporterMagento1\Infrastructure\Handler\:
+      resource: '../../Infrastructure/Handler/*'
+      tags: ['messenger.message_handler']
+
     Ergonode\ImporterMagento1\Infrastructure\Reader\Magento1CsvReader:
       arguments:
         $directory: '%import_directory%'
@@ -22,7 +26,8 @@ services:
       arguments:
         $steps:
           - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1TemplateProcessor'
-#          - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1MultimediaProcessor'
+          - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1MultimediaProcessor'
           - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1CategoryProcessor'
           - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1AttributeProcessor'
+          - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1OptionProcessor'
           - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1ProductProcessor'

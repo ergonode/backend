@@ -26,8 +26,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
@@ -117,25 +115,13 @@ class AttributeChangeAction
                 /** @var UpdateAttributeFormModel $data */
                 $data = $form->getData();
 
-                $options = [];
-                foreach ($data->options as $model) {
-                    if (is_array($model->value)) {
-                        $options[$model->key] = new MultilingualOption(new TranslatableString($model->value));
-                    } elseif (is_string($model->value)) {
-                        $options[$model->key] = new StringOption($model->value);
-                    } else {
-                        $options[$model->key] = null;
-                    }
-                }
-
                 $command = new UpdateAttributeCommand(
                     $attribute->getId(),
                     new TranslatableString($data->label),
                     new TranslatableString($data->hint),
                     new TranslatableString($data->placeholder),
                     $data->groups,
-                    (array) $data->parameters,
-                    $options
+                    (array) $data->parameters
                 );
                 $this->commandBus->dispatch($command);
 

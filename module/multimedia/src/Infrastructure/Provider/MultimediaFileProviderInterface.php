@@ -9,17 +9,21 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Infrastructure\Provider;
 
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
-
 /**
- * Class MultimediaFileProviderInterface
  */
 interface MultimediaFileProviderInterface
 {
     /**
-     * @param Multimedia $multimedia
+     * @param string $filename
      *
      * @return string
      */
-    public function getFile(Multimedia $multimedia): string;
+    public function getFile(string $filename): string;
+
+    /**
+     * @param string $filename
+     *
+     * @return bool
+     */
+    public function hasFile(string $filename): bool;
 }

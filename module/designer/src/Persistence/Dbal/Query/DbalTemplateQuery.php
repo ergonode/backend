@@ -148,11 +148,10 @@ class DbalTemplateQuery implements TemplateQueryInterface
      */
     public function findTemplateIdByCode(string $code): ?TemplateId
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder = $this->getQuery();
         $result = $queryBuilder
-            ->select('p.template_id')
-            ->from(self::TABLE, 'p')
-            ->where($queryBuilder->expr()->eq('p.name', ':name'))
+            ->select('t.id')
+            ->where($queryBuilder->expr()->eq('name', ':name'))
             ->setParameter(':name', $code)
             ->execute()
             ->fetch(\PDO::FETCH_COLUMN);

@@ -16,11 +16,26 @@ use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyI
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Collection;
+use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
 class OptionAttributeValueConstraintStrategy implements AttributeValueConstraintStrategyInterface
 {
+    /**
+     * @var OptionQueryInterface
+     */
+    private OptionQueryInterface $query;
+
+    /**
+     * @param OptionQueryInterface $query
+     */
+    public function __construct(OptionQueryInterface $query)
+    {
+        $this->query = $query;
+    }
+
     /**
      * @param AbstractAttribute $attribute
      *
@@ -40,10 +55,7 @@ class OptionAttributeValueConstraintStrategy implements AttributeValueConstraint
     {
         $multiple = $attribute instanceof MultiSelectAttribute;
 
-        $choices = [];
-        foreach ($attribute->getOptions() as $key => $value) {
-            $choices[] = (string) $key;
-        }
+        $choices = array_keys($this->query->getList($attribute->getId(), new Language(Language::EN)));
 
         return new Collection([
             'value' => [

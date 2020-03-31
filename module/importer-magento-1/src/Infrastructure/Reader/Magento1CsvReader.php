@@ -59,6 +59,7 @@ class Magento1CsvReader
      */
     public function read(Magento1CsvSource $source, Import $import, Transformer $transformer): array
     {
+        $errors = [];
         $filename = \sprintf('%s%s', $this->directory, $import->getFile());
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         $fileReader = $this->provider->provide($extension);
@@ -75,21 +76,28 @@ class Magento1CsvReader
 
         $fileReader->open($filename, $configuration);
 
-        foreach ($fileReader->read() as $row) {
-            if ($row['sku']) {
+        foreach ($fileReader->read() as $line => $row) {
+            $add = false;
+            if ($row['sku'] && $row['_type']) {
+                $add = true;
                 $sku = $row['sku'];
                 $products[$sku] = [];
+            } elseif (empty($row['sku']) && !empty($row['_type'])) {
+                $add = false;
+                $errors[] = sprintf('Line %s haven\'t SKU, (ignored) previous SKU "%s"', $line, $sku);
             }
 
             $code = $row['_store'] ?: 'default';
-            $row = $this->process($transformer, $row);
-            if (!array_key_exists($code, $products[$sku])) {
-                $products[$sku][$code] = $row;
-            } else {
-                foreach ($row as $field => $value) {
-                    if ('' !== $value && null !== $value) {
-                        if ($products[$sku][$code][$field] !== '') {
-                            $products[$sku][$code][$field] .= ','.$value;
+            if ($add) {
+                $row = $this->process($transformer, $row);
+                if (!array_key_exists($code, $products[$sku])) {
+                    $products[$sku][$code] = $row;
+                } else {
+                    foreach ($row as $field => $value) {
+                        if ('' !== $value && null !== $value) {
+                            if ($products[$sku][$code][$field] !== '') {
+                                $products[$sku][$code][$field] .= ','.$value;
+                            }
                         }
                     }
                 }

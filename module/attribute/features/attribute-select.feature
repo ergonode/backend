@@ -17,94 +17,45 @@ Feature: Select attribute manipulation
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
-  Scenario: Create select attribute with option
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+  Scenario: Create option for attribute
+    And I send a "POST" request to "/api/v1/en/attributes/@attribute_id@/options" with body:
       """
       {
-        "code": "SELECT_@@random_code@@",
-        "type": "SELECT",
-        "groups": [],
-        "multilingual": true,
-        "options": [
-          {
-            "key": "key_1",
-            "value": {
-              "pl_PL": "Option PL 1",
-              "en": "Option en 1"
-            }
-          }
-        ]
+        "code": "OPTION_@@random_code@@",
+        "label":  {}
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "attribute_id_2"
+    And store response param "id" as "option_id"
 
-  Scenario: Create select attribute with duplicated options
-    And I send a "POST" request to "/api/v1/en/attributes" with body:
+  Scenario: Get created select
+    And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options/@option_id@"
+    Then the response status code should be 200
+
+  Scenario: Update option for attribute
+    And I send a "PUT" request to "/api/v1/EN/attributes/@attribute_id@/options/@option_id@" with body:
       """
       {
-        "code": "SELECT_@@random_code@@",
-        "type": "SELECT",
-        "groups": [],
-        "multilingual": true,
-        "options": [
-          {
-            "key": "key_1",
-            "value": {
-              "pl_PL": "Option PL 1",
-              "en": "Option en 1"
-            }
-          },
-          {
-            "key": "key_1",
-            "value": {
-              "pl_PL": "Option PL 1",
-              "en": "Option en 1"
-            }
-          }
-        ]
+        "code": "OPTION_@@random_code@@",
+        "label":  {
+          "PL": "Option PL 1",
+          "EN": "Option EN 1"
+        }
       }
       """
-    Then the response status code should be 400
+    Then the response status code should be 201
 
-  Scenario: Update select attribute with duplicated options
-    And I send a "PUT" request to "/api/v1/en/attributes/@attribute_id_2@" with body:
-      """
-      {
-        "options":
-        [
-          {
-            "key": "key_1",
-            "value": {
-              "pl_PL": "Option PL 1",
-              "en": "Option en 1"
-            }
-          },
-          {
-            "key": "key_1",
-            "value": {
-              "pl_PL": "Option PL 1",
-              "en": "Option en 1"
-            }
-          }
-        ]
-      }
-    """
-    Then the response status code should be 400
+  Scenario: Get attribute options
+    And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options"
+    Then the response status code should be 200
+    And the JSON node "[0].label.PL" should exist
 
-  Scenario: Update select attribute
-    And I send a "PUT" request to "/api/v1/en/attributes/@attribute_id@" with body:
-      """
-      {
-          "groups": []
-      }
-      """
-    Then the response status code should be 204
+  Scenario: Get created option
+    And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options/@option_id@"
+    Then the response status code should be 200
+    And the JSON node "label.PL" should contain "Option PL 1"
+    And the JSON node "label.EN" should contain "Option EN 1"
 
   Scenario: Delete select attribute
-    And I send a "DELETE" request to "/api/v1/en/attributes/@attribute_id@"
-    Then the response status code should be 204
-
-  Scenario: Delete select attribute
-    And I send a "DELETE" request to "/api/v1/en/attributes/@attribute_id_2@"
+    And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@"
     Then the response status code should be 204

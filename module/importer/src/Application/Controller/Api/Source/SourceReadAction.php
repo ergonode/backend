@@ -81,7 +81,9 @@ class SourceReadAction
     public function __invoke(AbstractSource $source): Response
     {
         $form = $this->provider->provide($source->getType())->create($source);
+        $result = $this->serializer->normalize($form);
+        $result['type'] = $source->getType();
 
-        return new SuccessResponse($this->serializer->normalize($form));
+        return new SuccessResponse($result);
     }
 }

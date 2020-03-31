@@ -11,10 +11,11 @@ namespace Ergonode\Multimedia\Infrastructure\Handler;
 
 use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ergonode\Multimedia\Domain\Factory\MultimediaFactory;
-use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use Ergonode\Multimedia\Infrastructure\Service\Upload\MultimediaUploadService;
+use Symfony\Component\HttpFoundation\File\File;
+use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
 
 /**
  */
@@ -24,11 +25,6 @@ class AddMultimediaCommandHandler
      * @var MultimediaUploadService
      */
     private MultimediaUploadService $uploadService;
-
-    /**
-     * @var MultimediaQueryInterface
-     */
-    private MultimediaQueryInterface $query;
 
     /**
      * @var HashCalculationServiceInterface
@@ -46,24 +42,29 @@ class AddMultimediaCommandHandler
     private MultimediaFactory $factory;
 
     /**
+     * @var MultimediaFileProviderInterface
+     */
+    private MultimediaFileProviderInterface $provider;
+
+    /**
      * @param MultimediaUploadService         $uploadService
-     * @param MultimediaQueryInterface        $query
      * @param HashCalculationServiceInterface $hashService
      * @param MultimediaRepositoryInterface   $repository
      * @param MultimediaFactory               $factory
+     * @param MultimediaFileProviderInterface $provider
      */
     public function __construct(
         MultimediaUploadService $uploadService,
-        MultimediaQueryInterface $query,
         HashCalculationServiceInterface $hashService,
         MultimediaRepositoryInterface $repository,
-        MultimediaFactory $factory
+        MultimediaFactory $factory,
+        MultimediaFileProviderInterface $provider
     ) {
         $this->uploadService = $uploadService;
-        $this->query = $query;
         $this->hashService = $hashService;
         $this->repository = $repository;
         $this->factory = $factory;
+        $this->provider = $provider;
     }
 
     /**
@@ -76,13 +77,16 @@ class AddMultimediaCommandHandler
         $id = $command->getId();
         $file = $command->getFile();
         $hash = $this->hashService->calculateHash($file);
-        if (!$this->query->fileExists($hash)) {
-            $originalName = $file->getFilename();
-            $file = $this->uploadService->upload($id, $file);
-
-            $multimedia = $this->factory->create($id, $originalName, $file, $hash);
-
-            $this->repository->save($multimedia);
+        $originalName = $file->getFilename();
+        $filename = sprintf('%s.%s', $hash->getValue(), $file->getExtension());
+        if (!$this->provider->hasFile($filename)) {
+            $file = $this->uploadService->upload($id, $file, $hash);
+        } else {
+            $file = new File($this->provider->getFile($filename));
         }
+
+        $multimedia = $this->factory->create($id, $originalName, $file, $hash);
+
+        $this->repository->save($multimedia);
     }
 }

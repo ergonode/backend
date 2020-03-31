@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Importer\Application\Model\Form;
 
 use Ergonode\Importer\Application\Model\Form\Type\ColumnModel;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */

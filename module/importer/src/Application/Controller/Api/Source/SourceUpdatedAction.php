@@ -12,9 +12,7 @@ namespace Ergonode\Importer\Application\Controller\Api\Source;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Importer\Application\Model\Form\ConfigurationModel;
 use Ergonode\Importer\Application\Provider\SourceFormFactoryProvider;
-use Ergonode\Importer\Domain\Command\GenerateImportCommand;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
@@ -24,12 +22,13 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderProvider;
 
 /**
  * @Route(
  *     name="ergonode_source_update",
- *     path="/sources/{source}/configuration",
- *     methods={"POST"},
+ *     path="/sources/{source}",
+ *     methods={"PUT"},
  *     requirements={"source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
@@ -41,17 +40,27 @@ class SourceUpdatedAction
     private SourceFormFactoryProvider $provider;
 
     /**
+     * @var UpdateSourceCommandBuilderProvider
+     */
+    private UpdateSourceCommandBuilderProvider $commandProvider;
+
+    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param SourceFormFactoryProvider $provider
-     * @param CommandBusInterface       $commandBus
+     * @param SourceFormFactoryProvider          $provider
+     * @param UpdateSourceCommandBuilderProvider $commandProvider
+     * @param CommandBusInterface                $commandBus
      */
-    public function __construct(SourceFormFactoryProvider $provider, CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        SourceFormFactoryProvider $provider,
+        UpdateSourceCommandBuilderProvider $commandProvider,
+        CommandBusInterface $commandBus
+    ) {
         $this->provider = $provider;
+        $this->commandProvider = $commandProvider;
         $this->commandBus = $commandBus;
     }
 
@@ -99,13 +108,7 @@ class SourceUpdatedAction
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ConfigurationModel $data */
-                $data = $form->getData();
-
-                $command = new GenerateImportCommand(
-                    $source->getId(),
-                    $data
-                );
+                $command = $this->commandProvider->provide($source->getType())->build($source->getId(), $form);
                 $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());

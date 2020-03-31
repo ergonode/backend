@@ -147,7 +147,7 @@ class MultimediaController extends AbstractController
      */
     public function getMultimedia(Multimedia $multimedia): Response
     {
-        $file = $this->fileProvider->getFile($multimedia);
+        $file = $this->fileProvider->getFile($multimedia->getFileName());
 
         return $this->file($file);
     }

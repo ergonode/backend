@@ -11,6 +11,7 @@ namespace Ergonode\Multimedia\Infrastructure\Service\Upload;
 
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Symfony\Component\HttpFoundation\File\File;
+use Ergonode\Multimedia\Domain\ValueObject\Hash;
 
 /**
  */
@@ -32,12 +33,13 @@ class MultimediaUploadService
     /**
      * @param MultimediaId $id
      * @param File         $file
+     * @param Hash         $hash
      *
      * @return File
      */
-    public function upload(MultimediaId $id, File $file): File
+    public function upload(MultimediaId $id, File $file, Hash $hash): File
     {
-        $fileName = sprintf('%s.%s', $id->getValue(), $file->getExtension());
+        $fileName = sprintf('%s.%s', $hash->getValue(), $file->getExtension());
 
         return $file->move($this->targetDirectory, $fileName);
     }
