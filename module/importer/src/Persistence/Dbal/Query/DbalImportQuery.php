@@ -77,7 +77,7 @@ class DbalImportQuery implements ImportQueryInterface
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('id, status, created_at, updated_at, started_at, ended_at')
+            ->select('id, status, source_id, created_at, updated_at, started_at, ended_at')
             ->addSelect('(SELECT count(*) FROM importer.import_line il WHERE il.import_id = i.id) AS lines')
             ->from('importer.import', 'i');
     }

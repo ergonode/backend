@@ -27,6 +27,7 @@ class DbalSourceRepository implements SourceRepositoryInterface
     private const FIELDS = [
         'id',
         'type',
+        'class',
         'configuration',
     ];
 

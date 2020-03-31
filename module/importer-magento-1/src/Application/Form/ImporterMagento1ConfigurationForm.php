@@ -8,22 +8,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Application\Form;
 
-use Ergonode\Importer\Domain\Command\Source\CreateSourceCommand;
-use Ergonode\ImporterMagento1\Application\Form\Type\ImportStepType;
 use Ergonode\ImporterMagento1\Application\Model\ImporterMagento1ConfigurationModel;
-use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
-use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ergonode\ImporterMagento1\Application\Form\Type\StoreViewType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Ergonode\ImporterMagento1\Application\Form\Type\LanguageMapType;
-use Ergonode\Core\Application\Form\Type\LanguageType;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Url;
+use Ergonode\ImporterMagento1\Application\Form\Type\AttributeMapType;
 
 /**
  */
@@ -41,69 +34,51 @@ class ImporterMagento1ConfigurationForm extends AbstractType
                 TextType::class
             )
             ->add(
+                'import',
+                ChoiceType::class,
+                [
+                    'label' => 'Include in the imports',
+                    'choices' => [
+                        'Attributes' => 'attributes',
+                        'Products' => 'products',
+                        'Products images' => 'multimedia',
+                        'Categories' => 'categories',
+                        'Templates (Attribute set)' => 'templates',
+                    ],
+                    'multiple' => true,
+                ]
+            )
+            ->add(
                 'host',
                 TextType::class,
                 [
-                    'constraints' => [
-                        new NotBlank(),
-                        new Url(),
-                    ],
+                    'help' => 'Enter the address of the server where the product images are located',
+                    'label' => 'Images host',
+                    'required' => false,
                 ]
             )
             ->add(
-                'default_language',
-                LanguageType::class,
+                'mapping',
+                StoreViewType::class,
                 [
-                    'property_path' => 'defaultLanguage',
+                    'label' => 'Store views',
                 ]
             )
             ->add(
-                'languages',
+                'attributes',
                 CollectionType::class,
                 [
-                    'label' => 'Mapped Languages',
+                    'label' => 'Attribute mapping',
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => LanguageMapType::class,
+                    'entry_type' => AttributeMapType::class,
                     'liform' => [
                         'format' => 'table',
-                        'widget' => 'table',
+                        'widget' => 'dictionary',
                     ],
+                    'required' => false,
                 ]
-            )
-            ->add(
-                'import',
-                ImportStepType::class
             );
-
-        $builder->addEventListener(FormEvents::SUBMIT, static function (FormEvent $event) {
-
-            /** @var ImporterMagento1ConfigurationModel $data */
-            $data = $event->getData();
-
-            if (!$data) {
-                return;
-            }
-
-            $languages = [];
-            foreach ($data->languages as $language) {
-                $languages[$language->store] = $language->language->getCode();
-            }
-            $language = $data->defaultLanguage->getCode();
-            $name = $data->name;
-            $host = $data->host;
-
-            $import = (array) $data->import;
-
-            $data = new CreateSourceCommand(
-                SourceId::generate(),
-                Magento1CsvSource::TYPE,
-                $name,
-                ['import' => $import, 'languages' => $languages, 'defaultLanguage' => $language, 'host' => $host]
-            );
-
-            $event->setData($data);
-        });
     }
 
     /**
@@ -115,6 +90,7 @@ class ImporterMagento1ConfigurationForm extends AbstractType
             'translation_domain' => 'importer',
             'data_class' => ImporterMagento1ConfigurationModel::class,
             'allow_extra_fields' => true,
+            'label' => 'Import settings',
         ]);
     }
 

@@ -17,11 +17,8 @@ use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Application\Form\Model\AttributeOptionModel;
 use Ergonode\Transformer\Infrastructure\Action\AttributeImportAction;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Transformer\Domain\Entity\Transformer;
@@ -70,14 +67,6 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
         Progress $steps
     ): void {
         $result = [];
-        $columns = [];
-        foreach ($products as $product) {
-            foreach ($product->get('default') as $key => $item) {
-                if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
-                    $columns[$key][] = $item;
-                }
-            }
-        }
 
         foreach ($transformer->getAttributes() as $field => $converter) {
             $attributeCode = new AttributeCode($field);
@@ -93,12 +82,7 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
                     new TranslatableString([$source->getDefaultLanguage()->getCode() => $field])
                 )
             );
-            if (SelectAttribute::TYPE === $type || MultiSelectAttribute::TYPE === $type) {
-                $options = $this->getOptions($columns[$field]);
-                foreach ($options as $key => $option) {
-                    $record->setValue($key, $option);
-                }
-            }
+
             $result[] = $record;
         }
 
@@ -118,23 +102,5 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
             $this->repository->save($line);
             $this->commandBus->dispatch($command);
         }
-    }
-
-    /**
-     * @param array $column
-     *
-     * @return AttributeOptionModel[]
-     */
-    private function getOptions(array $column): array
-    {
-        $result = [];
-        $unique = array_unique($column);
-        foreach ($unique as $element) {
-            if ('' !== $element && null !== $element) {
-                $result[$element] = new StringValue($element);
-            }
-        }
-
-        return $result;
     }
 }

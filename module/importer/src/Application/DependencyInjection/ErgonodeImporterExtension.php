@@ -9,9 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Application\DependencyInjection;
 
-use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFactoryCompilerPass;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFormFactoryCompilerPass;
-use Ergonode\Importer\Domain\Factory\SourceFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -22,6 +20,10 @@ use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceCompil
 use Ergonode\Importer\Application\Provider\SourceFormFactoryInterface;
 use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ServiceImportCompilerPass;
+use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderInterface;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\CreateSourceCommandBuilderCompilerPass;
+use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderInterface;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceCommandBuilderCompilerPass;
 
 /**
  */
@@ -46,12 +48,16 @@ class ErgonodeImporterExtension extends Extension
             ->addTag(ServiceCompilerPass::TAG);
 
         $container
-            ->registerForAutoconfiguration(SourceFactoryInterface::class)
-            ->addTag(SourceFactoryCompilerPass::TAG);
-
-        $container
             ->registerForAutoconfiguration(SourceFormFactoryInterface::class)
             ->addTag(SourceFormFactoryCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(CreateSourceCommandBuilderInterface::class)
+            ->addTag(CreateSourceCommandBuilderCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(UpdateSourceCommandBuilderInterface::class)
+            ->addTag(UpdateSourceCommandBuilderCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(SourceImportProcessorInterface::class)

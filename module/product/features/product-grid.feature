@@ -24,21 +24,39 @@ Feature: Product edit feature
       {
         "code": "SELECT_@@random_code@@",
         "type": "SELECT",
-        "groups": [],
-         "options": [
-        {
-            "key": "key_1",
-            "value": ""
-        },
-        {
-            "key": "key_12",
-            "value": ""
-        }
-    ]
+        "groups": []
       }
       """
     Then the response status code should be 201
     And store response param "id" as "product_edit_select_attribute"
+
+  Scenario: Create option 1 for select attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_1",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "select_option_1"
+
+  Scenario: Create option 2 for select attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_12",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "select_option_2"
 
   Scenario: Create multi select attribute
     Given I am Authenticated as "test@ergonode.com"
@@ -49,21 +67,39 @@ Feature: Product edit feature
       {
         "code": "MULTI_SELECT_@@random_code@@",
         "type": "MULTI_SELECT",
-        "groups": [],
-         "options": [
-        {
-            "key": "key_1",
-            "value": ""
-        },
-        {
-            "key": "key_12",
-            "value": ""
-        }
-    ]
+        "groups": []
       }
       """
     Then the response status code should be 201
     And store response param "id" as "product_edit_multi_select_attribute"
+
+  Scenario: Create option 1 for multiselect attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_1",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "multi_select_option_1"
+
+  Scenario: Create option 2 for multiselect attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_12",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "multi_select_option_2"
 
   Scenario: Create text attribute with long code
     Given I am Authenticated as "test@ergonode.com"
@@ -229,7 +265,7 @@ Feature: Product edit feature
     When I send a PUT request to "api/v1/EN/products/@product@/draft/@product_edit_select_attribute@/value" with body:
       """
       {
-       "value":"key_12"
+       "value":"@select_option_2@"
       }
       """
     Then the response status code should be 200
@@ -241,7 +277,7 @@ Feature: Product edit feature
     When I send a PUT request to "api/v1/EN/products/@product@/draft/@product_edit_multi_select_attribute@/value" with body:
       """
       {
-       "value":["key_12"]
+       "value":["@multi_select_option_2@"]
       }
       """
     Then the response status code should be 200
@@ -277,7 +313,7 @@ Feature: Product edit feature
     When I send a PUT request to "api/v1/EN/products/@edit_product@/draft/@product_edit_select_attribute@/value" with body:
       """
       {
-       "value":"key_1"
+       "value":"@select_option_1@"
       }
       """
     Then the response status code should be 200
@@ -289,7 +325,7 @@ Feature: Product edit feature
     When I send a PUT request to "api/v1/EN/products/@edit_product@/draft/@product_edit_multi_select_attribute@/value" with body:
       """
       {
-       "value":["key_1"]
+       "value":["@multi_select_option_1@"]
       }
       """
     Then the response status code should be 200
@@ -336,7 +372,7 @@ Feature: Product edit feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/EN/products?columns=@product_edit_select_attribute_code@&filter=@product_edit_select_attribute_code@=key_1"
+    When I send a GET request to "api/v1/EN/products?columns=@product_edit_select_attribute_code@&filter=@product_edit_select_attribute_code@=@select_option_1@"
     Then the response status code should be 200
     And the JSON node "info.filtered" should match "/1/"
     And the JSON node "columns[0].visible" should be true
@@ -347,7 +383,7 @@ Feature: Product edit feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/EN/products?columns=@product_edit_multi_select_attribute_code@&filter=@product_edit_multi_select_attribute_code@=key_1"
+    When I send a GET request to "api/v1/EN/products?columns=@product_edit_multi_select_attribute_code@&filter=@product_edit_multi_select_attribute_code@=@multi_select_option_1@"
     Then the response status code should be 200
     And the JSON node "info.filtered" should match "/1/"
     And the JSON node "columns[0].visible" should be true

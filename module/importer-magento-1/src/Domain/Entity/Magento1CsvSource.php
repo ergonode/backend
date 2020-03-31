@@ -13,6 +13,7 @@ use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
@@ -30,6 +31,14 @@ class Magento1CsvSource extends AbstractSource
     public const TEMPLATES = 'templates';
     public const ATTRIBUTES = 'attributes';
 
+    public const STEPS = [
+        self::MULTIMEDIA,
+        self::PRODUCTS,
+        self::CATEGORIES,
+        self::TEMPLATES,
+        self::ATTRIBUTES,
+    ];
+
     public const DEFAULT = [
         self::DELIMITER => ',',
         self::ENCLOSURE => '"',
@@ -44,11 +53,18 @@ class Magento1CsvSource extends AbstractSource
     private array $languages;
 
     /**
-     * @var string
+     * @var AttributeId[]
+     *
+     * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
+     */
+    private array $attributes;
+
+    /**
+     * @var string|null
      *
      * @JMS\Type("string")
      */
-    private string $host;
+    private ?string $host;
 
     /**
      * @var Language
@@ -60,7 +76,7 @@ class Magento1CsvSource extends AbstractSource
     /**
      * @var array
      *
-     * @JMS\Type("array<string, bool>")
+     * @JMS\Type("array<string>")
      */
     private array $import;
 
@@ -68,40 +84,34 @@ class Magento1CsvSource extends AbstractSource
      * @param SourceId $id
      * @param string   $name
      * @param Language $defaultLanguage
-     * @param string   $host
      * @param array    $languages
+     * @param array    $attributes
      * @param array    $imports
+     * @param string   $host
      */
     public function __construct(
         SourceId $id,
         string $name,
         Language $defaultLanguage,
-        string $host,
         array $languages = [],
-        array $imports = []
+        array $attributes = [],
+        array $imports = [],
+        ?string $host = null
     ) {
         parent::__construct($id, $name);
+        Assert::allIsInstanceOf($attributes, AttributeId::class);
         Assert::allIsInstanceOf($languages, Language::class);
-        Assert::allBoolean($imports);
+        Assert::allString($imports);
         Assert::allString(array_keys($languages));
-        Assert::allString(array_keys($imports));
-        Assert::notEmpty($host);
 
         $this->languages = $languages;
+        $this->attributes = $attributes;
         $this->host = $host;
         $this->defaultLanguage = $defaultLanguage;
-        $this->import = [
-            self::ATTRIBUTES => false,
-            self::TEMPLATES => false,
-            self::CATEGORIES => false,
-            self::MULTIMEDIA => false,
-            self::PRODUCTS => false,
-        ];
+        $this->import = [];
 
-        foreach ($imports as $key => $import) {
-            if (array_key_exists($key, $this->import)) {
-                $this->import[$key] = $import;
-            }
+        foreach ($imports as $import) {
+            $this->import[] = $import;
         }
     }
 
@@ -146,6 +156,54 @@ class Magento1CsvSource extends AbstractSource
     }
 
     /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param Language[] $languages
+     */
+    public function setLanguages(array $languages): void
+    {
+        $this->languages = $languages;
+    }
+
+    /**
+     * @param AttributeId[] $attributes
+     */
+    public function setAttributes(array $attributes): void
+    {
+        $this->attributes = $attributes;
+    }
+
+    /**
+     * @param string|null $host
+     */
+    public function setHost(?string $host): void
+    {
+        $this->host = $host;
+    }
+
+    /**
+     * @param Language $defaultLanguage
+     */
+    public function setDefaultLanguage(Language $defaultLanguage): void
+    {
+        $this->defaultLanguage = $defaultLanguage;
+    }
+
+    /**
+     * @param array $import
+     */
+    public function setImport(array $import): void
+    {
+        $this->import = $import;
+    }
+
+    /**
      * @return Language[]
      */
     public function getLanguages(): array
@@ -154,9 +212,17 @@ class Magento1CsvSource extends AbstractSource
     }
 
     /**
-     * @return string
+     * @return AttributeId[]
      */
-    public function getHost(): string
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getHost(): ?string
     {
         return $this->host;
     }
@@ -168,8 +234,8 @@ class Magento1CsvSource extends AbstractSource
      */
     public function import(string $step): bool
     {
-        if (array_key_exists($step, $this->import)) {
-            return $this->import[$step];
+        if (array_key_exists($step, array_flip($this->import))) {
+            return true;
         }
 
         return false;

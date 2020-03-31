@@ -19,6 +19,7 @@ use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
 use Ergonode\Designer\Domain\View\ViewTemplateElement;
 use Webmozart\Assert\Assert;
+use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 
 /**
  */
@@ -30,28 +31,28 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
     private AttributeRepositoryInterface $attributeRepository;
 
     /**
-     * @var TranslatedOptionValueResolver
-     */
-    private TranslatedOptionValueResolver $resolver;
-
-    /**
      * @var AttributeParametersProvider
      */
     private AttributeParametersProvider $provider;
 
     /**
-     * @param AttributeRepositoryInterface  $attributeRepository
-     * @param TranslatedOptionValueResolver $resolver
-     * @param AttributeParametersProvider   $provider
+     * @var OptionQueryInterface
+     */
+    private OptionQueryInterface $query;
+
+    /**
+     * @param AttributeRepositoryInterface $attributeRepository
+     * @param AttributeParametersProvider  $provider
+     * @param OptionQueryInterface         $query
      */
     public function __construct(
         AttributeRepositoryInterface $attributeRepository,
-        TranslatedOptionValueResolver $resolver,
-        AttributeParametersProvider $provider
+        AttributeParametersProvider $provider,
+        OptionQueryInterface $query
     ) {
         $this->attributeRepository = $attributeRepository;
-        $this->resolver = $resolver;
         $this->provider = $provider;
+        $this->query = $query;
     }
 
     /**
@@ -98,10 +99,7 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
         }
 
         if ($attribute instanceof AbstractOptionAttribute) {
-            $options = [];
-            foreach ($attribute->getOptions() as $key => $option) {
-                $options[$key] = $this->resolver->resolve($option, $language);
-            }
+            $options = $this->query->getList($attribute->getId(), $language);
             if (!empty($options)) {
                 $properties['options'] = $options;
             } else {

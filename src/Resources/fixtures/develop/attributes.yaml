@@ -82,13 +82,6 @@ Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute:
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - true
-        __calls:
-            - addOption:
-                - '<OptionKey(key_1_<current()>)>'
-                - '@value_1_<current()>'
-            - addOption:
-                - '<OptionKey(key_2_<current()>)>'
-                - '@value_2_<current()>'
 
 Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute:
     attribute_{46..50}:
@@ -99,13 +92,18 @@ Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute:
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - true
-        __calls:
-            - addOption:
-                - '<OptionKey(key_1_<current()>)>'
-                - '@value_1_<current()>'
-            - addOption:
-                - '<OptionKey(key_2_<current()>)>'
-                - '@value_2_<current()>'
+
+Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand:
+    option_{1..10}:
+        __construct:
+            - '@attribute_<numberBetween(41, 45)>->id'
+            - '<OptionKey(key_1_<current()>)>'
+            - '@option_value_1_<current()>'
+    option_{11..20}:
+        __construct:
+            - '@attribute_<numberBetween(46, 50)>->id'
+            - '<OptionKey(key_2_<current()>)>'
+            - '@option_value_2_<current()>'
 
 Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute:
     attribute_esa_status:

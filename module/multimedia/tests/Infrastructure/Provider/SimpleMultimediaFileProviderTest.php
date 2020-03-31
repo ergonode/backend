@@ -22,19 +22,18 @@ class SimpleMultimediaFileProviderTest extends TestCase
     public function testFileGenerate(): void
     {
         /** @var MultimediaId|MockObject $id */
-        $id = $this->createMock(MultimediaId::class);
-        $id->method('getValue')->willReturn('ID');
+        $filename = 'FILENAME';
         /** @var Kernel|MockObject $kernel */
         $kernel = $this->createMock(Kernel::class);
         $kernel->method('getProjectDir')->willReturn('DIRECTORY');
         /** @var Multimedia|MockObject $multimedia */
         $multimedia = $this->createMock(Multimedia::class);
-        $multimedia->method('getId')->willReturn($id);
-        $multimedia->method('getExtension')->willReturn('EXTENSION');
+        $multimedia->method('getFileName')->willReturn($filename);
+
 
         $provider = new SimpleMultimediaFileProvider($kernel);
-        $result = $provider->getFile($multimedia);
+        $result = $provider->getFile($multimedia->getFileName());
 
-        $this->assertSame('DIRECTORY/public/multimedia/ID.EXTENSION', $result);
+        $this->assertSame('DIRECTORY/public/multimedia/FILENAME', $result);
     }
 }

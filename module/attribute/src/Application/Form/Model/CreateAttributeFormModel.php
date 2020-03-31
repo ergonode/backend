@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Form\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
@@ -93,16 +92,6 @@ class CreateAttributeFormModel
     public $parameters;
 
     /**
-     * @var ArrayCollection|AttributeOptionModel[]
-     *
-     * @Assert\Valid()
-     *
-     * @AppAssert\AttributeOptionDuplicates()
-     *
-     */
-    public $options;
-
-    /**
      */
     public function __construct()
     {
@@ -114,6 +103,5 @@ class CreateAttributeFormModel
         $this->hint = [];
         $this->groups = [];
         $this->parameters = null;
-        $this->options = new ArrayCollection();
     }
 }

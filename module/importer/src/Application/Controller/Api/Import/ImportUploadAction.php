@@ -23,13 +23,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Importer\Domain\Command\Import\UploadFileCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\SourceId;
+use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route(
  *     name="ergonode_import_upload",
- *     path="/imports/upload",
- *     methods={"POST"}
+ *     path="sources/{source}/upload",
+ *     methods={"POST"},
+ *     requirements={
+ *          "source" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+ *     }
  * )
  */
 class ImportUploadAction
@@ -83,14 +87,14 @@ class ImportUploadAction
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="source_type",
-     *     in="formData",
+     *     name="source_id",
+     *     in="path",
      *     type="string",
-     *     description="Source Type",
+     *     description="Source Id",
      * )
      * @SWG\Response(
      *     response=201,
-     *     description="Returns import ID",
+     *     description="Returns import Id",
      * )
      * @SWG\Response(
      *     response=400,
@@ -98,13 +102,16 @@ class ImportUploadAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @param Request $request
+     * @param AbstractSource $source
+     * @param Request        $request
+     *
+     * @ParamConverter(class="Ergonode\Importer\Domain\Entity\Source\AbstractSource")
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(AbstractSource $source, Request $request): Response
     {
         $uploadModel = new UploadModel();
 
@@ -112,11 +119,10 @@ class ImportUploadAction
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadModel $data */
-            $data = $form->getData();
             $file = $this->uploadService->upload($uploadModel->upload);
             $command = new UploadFileCommand(
                 ImportId::generate(),
-                new SourceId($data->sourceId),
+                $source->getId(),
                 $file->getFilename(),
             );
             $this->commandBus->dispatch($command);

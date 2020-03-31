@@ -17,6 +17,8 @@ use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\Column\LinkColumn;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
@@ -41,5 +43,17 @@ class ImportGrid extends AbstractGrid
         $this->addColumn('started_at', $startedAt);
         $endedAt = new DateColumn('ended_at', 'Ended at', new DateFilter());
         $this->addColumn('ended_at', $endedAt);
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'get' => [
+                'privilege' => 'IMPORT_READ',
+                'show' => ['system' => false],
+                'route' => 'ergonode_import_read',
+                'parameters' => [
+                    'language' => $language->getCode(),
+                    'source' => '{source_id}',
+                    'import' => '{id}',
+                ],
+            ],
+        ]));
     }
 }

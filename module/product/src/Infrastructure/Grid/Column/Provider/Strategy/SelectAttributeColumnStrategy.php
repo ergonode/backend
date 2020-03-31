@@ -11,17 +11,29 @@ namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\MultilingualOption;
-use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 
 /**
  */
 class SelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
+    /**
+     * @var OptionQueryInterface
+     */
+    private OptionQueryInterface $query;
+
+    /**
+     * @param OptionQueryInterface $query
+     */
+    public function __construct(OptionQueryInterface $query)
+    {
+        $this->query = $query;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -35,14 +47,7 @@ class SelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
-        $options = [];
-        foreach ($attribute->getOptions() as $id => $option) {
-            if ($option instanceof StringOption) {
-                $options[$id] = $option->getValue();
-            } elseif ($option instanceof MultilingualOption) {
-                $options[$id] = $option->getValue()->get($language);
-            }
-        }
+        $options = $this->query->getList($attribute->getId(), $language);
 
         $columnKey = $attribute->getCode()->getValue();
 

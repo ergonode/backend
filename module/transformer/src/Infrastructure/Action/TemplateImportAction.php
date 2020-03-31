@@ -14,7 +14,6 @@ use Ergonode\Designer\Domain\Command\CreateTemplateCommand;
 use Ergonode\Designer\Domain\Command\UpdateTemplateCommand;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
@@ -77,7 +76,7 @@ class TemplateImportAction implements ImportActionInterface
         $template = null;
         $templateId = $this->query->findTemplateIdByCode($code);
 
-        if (!$templateId) {
+        if ($templateId) {
             $template = $this->templateRepository->load($templateId);
         }
 

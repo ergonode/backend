@@ -39,17 +39,67 @@ Feature: Product edit feature
       {
         "code": "SELECT_@@random_code@@",
         "type": "SELECT",
-        "groups": [],
-        "options": [
-          {"key": "key_a", "value": null},
-          {"key": "key_b", "value": null},
-          {"key": "key_c", "value": null},
-          {"key": "key_d", "value": null}
-        ]
+        "groups": []
       }
       """
     Then the response status code should be 201
     And store response param "id" as "product_edit_select_attribute"
+
+  Scenario: Create option 1 for select attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_a",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "select_option_1"
+
+  Scenario: Create option 2 for select attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_b",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "select_option_2"
+
+  Scenario: Create option 3 for select attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_c",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "select_option_c"
+
+  Scenario: Create option 4 for select attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_d",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "select_option_4"
 
   Scenario: Create multi select attribute
     Given I am Authenticated as "test@ergonode.com"
@@ -60,13 +110,7 @@ Feature: Product edit feature
       {
         "code": "MULTI_SELECT_@@random_code@@",
         "type": "MULTI_SELECT",
-        "groups": [],
-        "options": [
-          {"key": "key_aa", "value": null},
-          {"key": "key_bb", "value": null},
-          {"key": "key_cc", "value": null},
-          {"key": "key_dd", "value": null}
-        ]
+        "groups": []
       }
       """
     Then the response status code should be 201
@@ -85,6 +129,62 @@ Feature: Product edit feature
       """
     Then the response status code should be 201
     And store response param "id" as "unit_id"
+
+  Scenario: Create option 1 for multiselect attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_aa",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "multi_select_option_1"
+
+  Scenario: Create option 2 for multiselect attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_bb",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "multi_select_option_2"
+
+  Scenario: Create option 3 for multiselect attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_cc",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "multi_select_option_3"
+
+  Scenario: Create option 4 for multiselect attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "POST" request to "/api/v1/EN/attributes/@product_edit_multi_select_attribute@/options" with body:
+      """
+      {
+        "code": "key_dd",
+        "label":  {}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "multi_select_option_4"
 
   Scenario: Create unit attribute
     Given I am Authenticated as "test@ergonode.com"
@@ -200,7 +300,7 @@ Feature: Product edit feature
     When I send a PUT request to "api/v1/EN/products/@edit_product@/draft/@product_edit_select_attribute@/value" with body:
       """
       {
-        "value": "key_a"
+        "value": "@select_option_1@"
       }
       """
     Then the response status code should be 200
@@ -212,7 +312,7 @@ Feature: Product edit feature
     When I send a PUT request to "api/v1/EN/products/@edit_product@/draft/@product_edit_multi_select_attribute@/value" with body:
       """
       {
-        "value": ["key_aa", "key_dd"]
+        "value": ["@multi_select_option_1@", "@multi_select_option_4@"]
       }
       """
     Then the response status code should be 200

@@ -8,8 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ImporterMagento1\Infrastructure\Generator;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Importer\Domain\Entity\Source\AbstractSource;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
@@ -17,13 +15,25 @@ use Ergonode\Transformer\Infrastructure\Converter\TextConverter;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 /**
  */
 class Magento1ProductTransformerGenerator implements TransformerGeneratorStrategyInterface
 {
+    /**
+     * @var AttributeRepositoryInterface
+     */
+    private AttributeRepositoryInterface $repository;
+
+    /**
+     * @param AttributeRepositoryInterface $repository
+     */
+    public function __construct(AttributeRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * @return string
      */
@@ -33,9 +43,9 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
     }
 
     /**
-     * @param TransformerId  $transformerId
-     * @param string         $name
-     * @param AbstractSource $source
+     * @param TransformerId                    $transformerId
+     * @param string                           $name
+     * @param AbstractSource|Magento1CsvSource $source
      *
      * @return Transformer
      *
@@ -55,42 +65,18 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
         $transformer->addField('esa_categories', new JoinConverter('<_root_category>/<_category>'));
         $transformer->addField('esa_type', new TextConverter('_type'));
 
-        // attributes
-        $transformer->addAttribute(
-            'image',
-            ImageAttribute::TYPE,
-            false,
-            new TextConverter('image')
-        );
-
-        $transformer->addAttribute(
-            'name',
-            TextAttribute::TYPE,
-            true,
-            new TextConverter('name')
-        );
-
-        $transformer->addAttribute(
-            'description',
-            TextareaAttribute::TYPE,
-            true,
-            new
-            TextConverter('description')
-        );
-
-        $transformer->addAttribute(
-            'short_description',
-            TextareaAttribute::TYPE,
-            true,
-            new TextConverter('short_description')
-        );
-
-        $transformer->addAttribute(
-            'weight',
-            NumericAttribute::TYPE,
-            false,
-            new TextConverter('weight')
-        );
+        foreach ($source->getAttributes() as $code => $attributeId) {
+            $attribute = $this->repository->load($attributeId);
+            if ($attribute) {
+                $transformer->addAttribute(
+                    $attribute->getCode()->getValue(),
+                    $attribute->getType(),
+                    true,
+                    new
+                    TextConverter($code)
+                );
+            }
+        }
 
         return $transformer;
     }

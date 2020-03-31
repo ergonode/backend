@@ -30,7 +30,7 @@ class LanguageMapType extends AbstractType
                 'store',
                 TextType::class,
                 [
-                    'label' => 'Magento store view code',
+                    'label' => 'Store view',
                 ]
             )
             ->add(

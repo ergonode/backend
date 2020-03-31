@@ -20,7 +20,6 @@ use Ergonode\Importer\Domain\Repository\SourceRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\TransformerId;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Transformer\Infrastructure\Provider\TransformerProvider;
 use Ergonode\Transformer\Infrastructure\Provider\TransformerGeneratorProvider;
 
 /**

@@ -96,7 +96,7 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
      */
     public function save(ImportLine $importLine): void
     {
-        if ($this->exists($importLine->getImportId(), $importLine->getLine())) {
+        if ($this->exists($importLine->getImportId(), $importLine->getStep(), $importLine->getLine())) {
             $this->update($importLine);
         } else {
             $this->insert($importLine);
@@ -105,19 +105,22 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
 
     /**
      * @param ImportId $id
+     * @param int      $step
      * @param int      $line
      *
      * @return bool
      */
-    public function exists(ImportId $id, int $line): bool
+    public function exists(ImportId $id, int $step, int $line): bool
     {
         $query = $this->connection->createQueryBuilder();
         $result = $query->select(1)
             ->from(self::TABLE)
             ->andWhere($query->expr()->eq('import_id', ':id'))
             ->andWhere($query->expr()->eq('line', ':line'))
+            ->andWhere($query->expr()->eq('step', ':step'))
             ->setParameter(':id', $id->getValue())
             ->setParameter(':line', $line)
+            ->setParameter(':step', $step)
             ->execute()
             ->rowCount();
 
@@ -160,6 +163,7 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
             $importLineArray,
             [
                 'import_id' => $importLine->getImportId()->getValue(),
+                'step' => $importLine->getStep(),
                 'line' => $importLine->getLine(),
             ]
         );

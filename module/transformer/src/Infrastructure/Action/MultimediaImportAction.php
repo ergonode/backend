@@ -15,7 +15,6 @@ use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Webmozart\Assert\Assert;
@@ -24,8 +23,6 @@ use Webmozart\Assert\Assert;
  */
 class MultimediaImportAction implements ImportActionInterface
 {
-    private const NAMESPACE = 'e1f84ee9-14f2-4e52-981a-b6b82006ada8';
-
     public const TYPE = 'MULTIMEDIA';
 
     public const ID_FIELD = 'id';
@@ -90,17 +87,13 @@ class MultimediaImportAction implements ImportActionInterface
         $multimedia = $this->repository->load($id);
 
         if (!$multimedia) {
-            try {
-                $content = file_get_contents($url);
-                $filePath = sprintf('%s/%s', $cacheDir, $name);
-                $this->saveFile($filePath, $content);
-                $file = new File($filePath);
-                $uuid  = Uuid::uuid5(self::NAMESPACE, $url);
-                $multimediaId = new MultimediaId($uuid);
-                $command = new AddMultimediaCommand($multimediaId, $file);
-                $this->commandBus->dispatch($command);
-            } catch (\Throwable $exception) {
-            }
+            $content = file_get_contents($url);
+            $filePath = sprintf('%s/%s', $cacheDir, $name);
+            $this->saveFile($filePath, $content);
+            $file = new File($filePath);
+            $multimediaId = new MultimediaId($id->getValue());
+            $command = new AddMultimediaCommand($multimediaId, $file);
+            $this->commandBus->dispatch($command);
         }
     }
 

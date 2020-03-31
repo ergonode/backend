@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -49,13 +48,6 @@ class UpdateAttributeCommand implements DomainCommandInterface
     private array $groups;
 
     /**
-     * @var OptionInterface[]
-     *
-     * @JMS\Type("array<string, Ergonode\Attribute\Domain\ValueObject\OptionInterface>")
-     */
-    private array $options;
-
-    /**
      * @var TranslatableString
      *
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
@@ -83,7 +75,6 @@ class UpdateAttributeCommand implements DomainCommandInterface
      * @param TranslatableString $placeholder
      * @param array              $groups
      * @param array              $parameters
-     * @param OptionInterface[]  $options
      */
     public function __construct(
         AttributeId $id,
@@ -91,8 +82,7 @@ class UpdateAttributeCommand implements DomainCommandInterface
         TranslatableString $hint,
         TranslatableString $placeholder,
         array $groups = [],
-        array $parameters = [],
-        array $options = []
+        array $parameters = []
     ) {
         $this->attributeId = $id;
         $this->parameters = $parameters;
@@ -100,7 +90,6 @@ class UpdateAttributeCommand implements DomainCommandInterface
         $this->label = $label;
         $this->hint = $hint;
         $this->placeholder = $placeholder;
-        $this->options = $options;
     }
 
     /**
@@ -117,14 +106,6 @@ class UpdateAttributeCommand implements DomainCommandInterface
     public function getCode(): AttributeCode
     {
         return $this->code;
-    }
-
-    /**
-     * @return OptionInterface[]
-     */
-    public function getOptions(): array
-    {
-        return $this->options;
     }
 
     /**
