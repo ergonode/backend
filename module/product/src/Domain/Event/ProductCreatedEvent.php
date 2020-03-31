@@ -10,11 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Event;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
@@ -35,6 +35,13 @@ class ProductCreatedEvent implements DomainEventInterface
     private Sku $sku;
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
+    private string $type;
+
+    /**
      * @var Categoryid[]
      *
      * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
@@ -49,19 +56,22 @@ class ProductCreatedEvent implements DomainEventInterface
     private array $attributes;
 
     /**
-     * @param ProductId    $id
-     * @param Sku          $sku
-     * @param CategoryId[] $categories
-     * @param array        $attributes
+     * @param ProductId $id
+     * @param Sku       $sku
+     * @param string    $type
+     * @param array     $categories
+     * @param array     $attributes
      */
     public function __construct(
         ProductId $id,
         Sku $sku,
+        string $type,
         array $categories = [],
         array $attributes = []
     ) {
         $this->id = $id;
         $this->sku = $sku;
+        $this->type = $type;
         $this->categories = $categories;
         $this->attributes = $attributes;
     }
@@ -81,6 +91,15 @@ class ProductCreatedEvent implements DomainEventInterface
     {
         return $this->sku;
     }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
 
     /**
      * @return CategoryId[]
