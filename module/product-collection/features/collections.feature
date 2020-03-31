@@ -89,7 +89,7 @@ Feature: Product collection module
     And store response param "id" as "product_2"
 
   Scenario: Create product
-    Given remember param "segment_product_2_sku" with value "SEGMenT_SKU_@@random_code@@"
+    Given remember param "segment_product_2_sku" with value "SEGMENT_SKU_@@random_code@@"
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
@@ -111,7 +111,7 @@ Feature: Product collection module
     When I send a POST request to "/api/v1/en/products" with body:
       """
       {
-        "sku": "SEGMenT_SKU_@@random_code@@",
+        "sku": "SEGMENT_SKU_@@random_code@@",
         "templateId": "@product_template@",
         "categoryIds": ["@product_category@"]
       }
@@ -125,7 +125,7 @@ Feature: Product collection module
     And I add "Accept" header equal to "application/json"
     Given I send a POST request to "/api/v1/en/conditionsets" with body:
       """
-     {"conditions":[{"type":"PRODUCT_SKU_EXISTS_CONDITION","operator":"WILDCARD","value":"SEGMenT__SKU"}]}
+     {"conditions":[{"type":"PRODUCT_SKU_EXISTS_CONDITION","operator":"WILDCARD","value":"SEGMENT__SKU"}]}
       """
     Then the response status code should be 201
     And store response param "id" as "segment_conditionset"
