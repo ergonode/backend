@@ -13,4 +13,4 @@ services:
         arguments:
            $syncBus: '@messenger.bus.sync'
            $asyncBus: '@messenger.bus.async'
-           $asyncEnable: '%env(bool:ENABLE_ASYNC_BUS)%'
+           $asyncEnable: '%env(bool:USE_ASYNC_BUS)%'

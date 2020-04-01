@@ -60,7 +60,7 @@ class ChannelCreateAction
      *     in="path",
      *     type="string",
      *     description="Language code",
-     *     default="EN"
+     *     default="en"
      * )
      * @SWG\Parameter(
      *     name="body",
@@ -74,7 +74,7 @@ class ChannelCreateAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="EN",
+     *     default="en",
      *     description="Language Code",
      * )
      * @SWG\Response(

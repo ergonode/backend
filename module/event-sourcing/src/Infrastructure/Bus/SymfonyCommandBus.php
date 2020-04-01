@@ -51,8 +51,8 @@ class SymfonyCommandBus implements CommandBusInterface
     {
         if ($this->asyncEnable && $asyncMode) {
             $this->asyncBus->dispatch($command);
+        } else {
+            $this->syncBus->dispatch($command);
         }
-
-        $this->syncBus->dispatch($command);
     }
 }

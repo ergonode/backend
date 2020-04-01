@@ -38,13 +38,11 @@ class UnitAttributeUpdater implements AttributeUpdaterInterface
      */
     public function update(AbstractAttribute $attribute, UpdateAttributeCommand $command): AbstractAttribute
     {
-        if (!$command->hasParameter('unit')) {
-            throw new \InvalidArgumentException('No required unit parameter');
+        if ($command->hasParameter('unit')) {
+            $unit = new UnitId($command->getParameter('unit'));
+
+            $attribute->changeUnit($unit);
         }
-
-        $unit = new UnitId($command->getParameter('unit'));
-
-        $attribute->changeUnit($unit);
 
         return $attribute;
     }
