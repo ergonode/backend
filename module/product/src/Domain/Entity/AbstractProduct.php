@@ -82,7 +82,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             }
         );
 
-        $this->apply(new ProductCreatedEvent($id, $sku, $this->getType(), $categories, $attributes));
+        $this->apply(new ProductCreatedEvent($id, $sku, $this->getType(), \get_class($this), $categories, $attributes));
     }
 
     /**
