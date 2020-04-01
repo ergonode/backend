@@ -1,28 +1,28 @@
 Feature: Condition Product belong category exists
 
   Scenario: Get product belong category exists condition
-    When I send a GET request to "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/PRODUCT_BELONG_CATEGORY_CONDITION"
     Then the response status code should be 401
 
   Scenario: Get product belong category exists condition
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/PRODUCT_BELONG_CATEGORY_CONDITION"
     Then the response status code should be 200
 
   Scenario: Create category1
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/categories" with body:
+    When I send a POST request to "/api/v1/en/categories" with body:
       """
       {
         "code": "CATEGORY_@@random_uuid@@",
         "name": {
-          "DE": "Test1 DE",
-          "EN": "Test1 EN",
-          "PL": "Test1 PL"
+          "de": "Test1 de",
+          "en": "Test1 en",
+          "pl_PL": "Test1 PL"
         }
       }
       """
@@ -33,14 +33,14 @@ Feature: Condition Product belong category exists
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/categories" with body:
+    When I send a POST request to "/api/v1/en/categories" with body:
       """
       {
         "code": "CATEGORY_@@random_uuid@@",
         "name": {
-          "DE": "Test2 DE",
-          "EN": "Test2 EN",
-          "PL": "Test2 PL"
+          "de": "Test2 de",
+          "en": "Test2 en",
+          "pl_PL": "Test2 PL"
         }
       }
       """
@@ -51,7 +51,7 @@ Feature: Condition Product belong category exists
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/conditionsets" with body:
+    When I send a POST request to "/api/v1/en/conditionsets" with body:
       """
         {
           "conditions": [
@@ -72,7 +72,7 @@ Feature: Condition Product belong category exists
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/conditionsets" with body:
+    When I send a POST request to "/api/v1/en/conditionsets" with body:
       """
         {
           "conditions": [
@@ -92,7 +92,7 @@ Feature: Condition Product belong category exists
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/conditionsets" with body:
+    When I send a POST request to "/api/v1/en/conditionsets" with body:
       """
         {
           "conditions": [
@@ -113,7 +113,7 @@ Feature: Condition Product belong category exists
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/conditionsets" with body:
+    When I send a POST request to "/api/v1/en/conditionsets" with body:
       """
         {
           "conditions": [

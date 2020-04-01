@@ -1,27 +1,27 @@
 Feature: Condition Product belong category tree exists
   Scenario: Get product belong category tree exists condition
-    When I send a GET request to "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_TREE_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/PRODUCT_BELONG_CATEGORY_TREE_CONDITION"
     Then the response status code should be 401
 
   Scenario: Get product belong category tree exists condition
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/conditions/PRODUCT_BELONG_CATEGORY_TREE_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/PRODUCT_BELONG_CATEGORY_TREE_CONDITION"
     Then the response status code should be 200
 
   Scenario: Create category tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/trees" with body:
+    When I send a POST request to "/api/v1/en/trees" with body:
       """
       {
         "code": "TREE_@@random_code@@",
         "name": {
-          "DE": "Test tree1 DE",
-          "EN": "Test tree1 EN",
-          "PL": "Test tree1 PL"
+          "de": "Test tree1 de",
+          "en": "Test tree1 en",
+          "pl_PL": "Test tree1 PL"
         }
       }
       """
@@ -32,14 +32,14 @@ Feature: Condition Product belong category tree exists
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/trees" with body:
+    When I send a POST request to "/api/v1/en/trees" with body:
       """
       {
         "code": "TREE_@@random_code@@",
         "name": {
-          "DE": "Test tree2 DE",
-          "EN": "Test tree2 EN",
-          "PL": "Test tree2 PL"
+          "de": "Test tree2 de",
+          "en": "Test tree2 en",
+          "pl_PL": "Test tree2 PL"
         }
       }
       """
@@ -50,7 +50,7 @@ Feature: Condition Product belong category tree exists
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/conditionsets" with body:
+    When I send a POST request to "/api/v1/en/conditionsets" with body:
       """
         {
           "conditions": [
@@ -71,7 +71,7 @@ Feature: Condition Product belong category tree exists
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/conditionsets" with body:
+    When I send a POST request to "/api/v1/en/conditionsets" with body:
       """
         {
           "conditions": [
@@ -91,7 +91,7 @@ Feature: Condition Product belong category tree exists
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/conditionsets" with body:
+    When I send a POST request to "/api/v1/en/conditionsets" with body:
       """
         {
           "conditions": [
@@ -111,7 +111,7 @@ Feature: Condition Product belong category tree exists
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/conditionsets" with body:
+    When I send a POST request to "/api/v1/en/conditionsets" with body:
       """
         {
           "conditions": [

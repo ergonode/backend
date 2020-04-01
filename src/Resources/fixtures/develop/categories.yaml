@@ -1,12 +1,12 @@
 parameters:
   category_tree_name:
-    'PL': 'Drzewo kategorii'
-    'EN': 'Category tree'
+    'pl': 'Drzewo kategorii'
+    'en': 'Category tree'
 
 Ergonode\Core\Domain\ValueObject\TranslatableString:
   category_name_{1..10}:
     __construct:
-      - {PL: <category()>}
+      - {pl: <category()>}
 
 Ergonode\Category\Domain\Entity\Category:
   category_{1..10}:

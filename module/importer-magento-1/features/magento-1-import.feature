@@ -4,7 +4,7 @@ Feature: Magento 1 CSV module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/sources" with body:
+    When I send a POST request to "/api/v1/en/sources" with body:
       """
       {
         "type": "magento-1-csv",
@@ -17,11 +17,11 @@ Feature: Magento 1 CSV module
            "products"
         ],
         "mapping": {
-          "default_language": "EN",
+          "default_language": "en",
           "languages": [
               {
                  "store":"test",
-                 "language":"EN"
+                 "language":"en"
               }
           ]
         }
@@ -34,20 +34,20 @@ Feature: Magento 1 CSV module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/sources/@source_id@"
+    When I send a GET request to "/api/v1/en/sources/@source_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type                     | magento-1-csv    |
       | name                     | name             |
       | host                     | http://test.host |
-      | mapping.default_language | EN               |
+      | mapping.default_language | en               |
 
 
   Scenario: Update Magento 1 CSV Source
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/sources/@source_id@" with body:
+    When I send a PUT request to "/api/v1/en/sources/@source_id@" with body:
       """
       {
         "name": "name2",
@@ -59,7 +59,7 @@ Feature: Magento 1 CSV module
            "products"
         ],
         "mapping": {
-          "default_language": "EN",
+          "default_language": "en",
           "languages": []
         }
       }
@@ -71,19 +71,19 @@ Feature: Magento 1 CSV module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/sources/@source_id@"
+    When I send a GET request to "/api/v1/en/sources/@source_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | type                     | magento-1-csv    |
       | name                     | name2            |
       | host                     | http://test.host |
-      | mapping.default_language | EN               |
+      | mapping.default_language | en               |
 
   Scenario: Upload magento 1 test import file
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "multipart/form-data"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/sources/@source_id@/upload" with params:
+    When I send a POST request to "/api/v1/en/sources/@source_id@/upload" with params:
       | key    | value               |
       | upload | @magento-1-test.csv |
     Then the response status code should be 201
@@ -94,14 +94,14 @@ Feature: Magento 1 CSV module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "multipart/form-data"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/sources/@source_id@/imports"
+    When I send a GET request to "/api/v1/en/sources/@source_id@/imports"
     Then the response status code should be 200
 
   Scenario: Get source import grid
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "multipart/form-data"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/sources/@source_id@/imports/@import_id@"
+    When I send a GET request to "/api/v1/en/sources/@source_id@/imports/@import_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | id        | @import_id@ |

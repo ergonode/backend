@@ -1,56 +1,55 @@
 parameters:
   status_new_translation:
-    'PL': 'Nowy'
-    'EN': 'New'
+    'pl': 'Nowy'
+    'en': 'New'
   status_draft_translation:
-    'PL': 'Szkic'
-    'EN': 'Draft'
+    'pl': 'Szkic'
+    'en': 'Draft'
   status_to_approve_translation:
-    'PL': 'Do akceptacji'
-    'EN': 'To approve'
+    'pl': 'Do akceptacji'
+    'en': 'To approve'
   status_ready_to_publish_translation:
-    'PL': 'Gotowy do publikacji'
-    'EN': 'Ready to publish'
+    'pl': 'Gotowy do publikacji'
+    'en': 'Ready to publish'
   status_to_correct_translation:
-    'PL': 'Do poprawy'
-    'EN': 'To correct'
+    'pl': 'Do poprawy'
+    'en': 'To correct'
   status_published_translation:
-    'PL': 'Opublikowany'
-    'EN': 'Published'
+    'pl': 'Opublikowany'
+    'en': 'Published'
   category_tree_name:
-    'PL': 'Polish_name'
-    'EN': 'English_name'
-    'ZH': 'Chinese_name'
+    'pl': 'Polish_name'
+    'en': 'English_name'
   label_esa_status:
-    'PL': 'Status'
-    'EN': 'Status'
+    'pl': 'Status'
+    'en': 'Status'
   label_esa_created_at:
-    'PL': 'Czas utworzenia'
-    'EN': 'Created at'
+    'pl': 'Czas utworzenia'
+    'en': 'Created at'
   label_esa_edited_at:
-    'PL': 'Czas edycji'
-    'EN': 'Edited at'
+    'pl': 'Czas edycji'
+    'en': 'Edited at'
   label_esa_created_by:
-    'PL': 'Utworzone przez'
-    'EN': 'Created by'
+    'pl': 'Utworzone przez'
+    'en': 'Created by'
   label_esa_edited_by:
-    'PL': 'Edytowane przez'
-    'EN': 'Edited by'
+    'pl': 'Edytowane przez'
+    'en': 'Edited by'
   label_esa_template:
-    'PL': 'Szablon'
-    'EN': 'Template'
+    'pl': 'Szablon'
+    'en': 'Template'
   label_esa_categories:
-    'PL': 'Kategorie'
-    'EN': 'Categories'
+    'pl': 'Kategorie'
+    'en': 'Categories'
   label_esa_product_collection:
-    'PL': 'Kolekcje produktów'
-    'EN': 'Product collections'
+    'pl': 'Kolekcje produktów'
+    'en': 'Product collections'
   name_product_collection_type_up-sell:
-    'PL': 'Up-sell'
-    'EN': 'Up-sell'
+    'pl': 'Up-sell'
+    'en': 'Up-sell'
   name_product_collection_type_cross-sell:
-    'PL': 'Cross-sell'
-    'EN': 'Cross-sell'
+    'pl': 'Cross-sell'
+    'en': 'Cross-sell'
   empty: []
 
 Ergonode\Category\Domain\Command\Tree\CreateTreeCommand:
@@ -295,7 +294,7 @@ Ergonode\Account\Domain\Entity\User:
       - 'Johnny'
       - 'Bravo'
       - '<userEmail(test@ergonode.com)>'
-      - '<language(EN)>'
+      - '<language(en)>'
       - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
       - '<roleId("Superadmin")>'
 

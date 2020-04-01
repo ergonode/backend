@@ -38,7 +38,7 @@ class DeeplLanguageValidator extends ConstraintValidator
         $languageEnumReflection = new \ReflectionClass(LanguageEnum::class);
         $availableLanguages = $languageEnumReflection->getConstants();
 
-        if (!in_array($value->getCode(), $availableLanguages, true)) {
+        if (!in_array($value, $availableLanguages, true)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ language }}', $value)
                 ->addViolation();

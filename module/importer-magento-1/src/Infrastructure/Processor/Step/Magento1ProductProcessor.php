@@ -168,7 +168,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                             $record->setValue($field, new Stringvalue($multimediaId->getValue()));
                         }
                     } elseif ($isMultilingual) {
-                        $translation[Language::EN] = $value;
+                        $translation[$source->getDefaultLanguage()->getCode()] = $value;
                         foreach ($source->getLanguages() as $key => $language) {
                             if ($product->has($key)) {
                                 $translatedVer = $product->get($key);

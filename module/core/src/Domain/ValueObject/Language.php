@@ -13,85 +13,7 @@ namespace Ergonode\Core\Domain\ValueObject;
  */
 class Language
 {
-    public const AR = 'AR';
-    public const BG = 'BG';
-    public const BS = 'BS';
-    public const CS = 'CS';
-    public const DA = 'DA';
-    public const DE = 'DE';
-    public const EL = 'EL';
-    public const EN = 'EN';
-    public const ES = 'ES';
-    public const ET = 'ET';
-    public const FI = 'FI';
-    public const FR = 'FR';
-    public const HE = 'HE';
-    public const HI = 'HI';
-    public const HR = 'HR';
-    public const HU = 'HU';
-    public const IT = 'IT';
-    public const JA = 'JA';
-    public const KK = 'KK';
-    public const LT = 'LT';
-    public const LV = 'LV';
-    public const MK = 'MK';
-    public const NL = 'NL';
-    public const NO = 'NO';
-    public const PL = 'PL';
-    public const PT = 'PT';
-    public const RO = 'RO';
-    public const RU = 'RU';
-    public const SI = 'SI';
-    public const SK = 'SK';
-    public const SL = 'SL';
-    public const SQ = 'SQ';
-    public const SR = 'SR';
-    public const SV = 'SV';
-    public const TR = 'TR';
-    public const UA = 'UA';
-    public const UK = 'UK';
-    public const ZH = 'ZH';
-
-    public const AVAILABLE = [
-        self::AR,
-        self::BG,
-        self::BS,
-        self::CS,
-        self::DA,
-        self::DE,
-        self::EL,
-        self::EN,
-        self::ES,
-        self::ET,
-        self::FI,
-        self::FR,
-        self::HE,
-        self::HI,
-        self::HR,
-        self::HU,
-        self::IT,
-        self::JA,
-        self::KK,
-        self::LT,
-        self::LV,
-        self::MK,
-        self::NL,
-        self::NO,
-        self::PL,
-        self::PT,
-        self::RO,
-        self::RU,
-        self::SI,
-        self::SK,
-        self::SL,
-        self::SQ,
-        self::SR,
-        self::SV,
-        self::TR,
-        self::UA,
-        self::UK,
-        self::ZH,
-    ];
+    private const PATTERN = '/^[a-z]{2}(?:_[A-Z]{2}){0,2}$/';
 
     /**
      * @var string
@@ -103,7 +25,7 @@ class Language
      */
     public function __construct(string $code)
     {
-        $this->code = strtoupper(trim($code));
+        $this->code = trim($code);
         if (!self::isValid($this->code)) {
             throw new \InvalidArgumentException(\sprintf('Code "%s" is not valid language code', $code));
         }
@@ -153,6 +75,6 @@ class Language
      */
     public static function isValid(?string $code): bool
     {
-        return \in_array($code, self::AVAILABLE, true);
+        return preg_match(self::PATTERN, $code) === 1;
     }
 }

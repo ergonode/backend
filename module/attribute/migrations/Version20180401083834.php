@@ -65,7 +65,7 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             CREATE TABLE value_translation (      
                 id UUID NOT NULL,
                 value_id UUID NOT NULL, 
-                language VARCHAR(2) DEFAULT NULL,
+                language VARCHAR(5) DEFAULT NULL,
                 value TEXT NOT NULL,                                                   
                 PRIMARY KEY(id)
             )

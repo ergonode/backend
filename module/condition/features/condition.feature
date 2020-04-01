@@ -1,77 +1,77 @@
 Feature: Condition module
 
   Scenario: Get conditions dictionary (not authorized)
-    When I send a GET request to "/api/v1/EN/dictionary/conditions"
+    When I send a GET request to "/api/v1/en/dictionary/conditions"
     Then the response status code should be 401
 
   Scenario: Get conditions dictionary
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/dictionary/conditions"
+    When I send a GET request to "/api/v1/en/dictionary/conditions"
     Then the response status code should be 200
 
   Scenario: Get condition (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/conditions/asd"
+    When I send a GET request to "/api/v1/en/conditions/asd"
     Then the response status code should be 404
 
   Scenario: Get numeric condition (not authorized)
-    When I send a GET request to "/api/v1/EN/conditions/NUMERIC_ATTRIBUTE_VALUE_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/NUMERIC_ATTRIBUTE_VALUE_CONDITION"
     Then the response status code should be 401
 
   Scenario: Get numeric condition
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/conditions/NUMERIC_ATTRIBUTE_VALUE_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/NUMERIC_ATTRIBUTE_VALUE_CONDITION"
     Then the response status code should be 200
 
   Scenario: Get option condition (not authorized)
-    When I send a GET request to "/api/v1/EN/conditions/OPTION_ATTRIBUTE_VALUE_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/OPTION_ATTRIBUTE_VALUE_CONDITION"
     Then the response status code should be 401
 
   Scenario: Get option condition
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/conditions/OPTION_ATTRIBUTE_VALUE_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/OPTION_ATTRIBUTE_VALUE_CONDITION"
     Then the response status code should be 200
 
   Scenario: Get attribute exists condition (not authorized)
-    When I send a GET request to "/api/v1/EN/conditions/ATTRIBUTE_EXISTS_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/ATTRIBUTE_EXISTS_CONDITION"
     Then the response status code should be 401
 
   Scenario: Get attribute exists condition
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/conditions/ATTRIBUTE_EXISTS_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/ATTRIBUTE_EXISTS_CONDITION"
     Then the response status code should be 200
 
   Scenario: Get text condition (not authorized)
-    When I send a GET request to "/api/v1/EN/conditions/TEXT_ATTRIBUTE_VALUE_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/TEXT_ATTRIBUTE_VALUE_CONDITION"
     Then the response status code should be 401
 
   Scenario: Get text condition
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/conditions/TEXT_ATTRIBUTE_VALUE_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/TEXT_ATTRIBUTE_VALUE_CONDITION"
     Then the response status code should be 200
 
   Scenario: Create text attribute
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/attributes" with body:
+    When I send a POST request to "/api/v1/en/attributes" with body:
       """
       {
           "code": "CONDITION_@@random_code@@",
           "type": "TEXT",
-          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
+          "label": {"pl_PL": "Atrybut tekstowy", "en": "Text attribute"},
           "groups": [],
           "parameters": []
       }
@@ -80,14 +80,14 @@ Feature: Condition module
     And store response param "id" as "condition_text_attribute"
 
   Scenario: Create condition set (not authorized)
-    Given I send a POST request to "/api/v1/EN/conditionsets"
+    Given I send a POST request to "/api/v1/en/conditionsets"
     Then the response status code should be 401
 
   Scenario: Create condition set without conditions
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a POST request to "/api/v1/EN/conditionsets" with body:
+    Given I send a POST request to "/api/v1/en/conditionsets" with body:
       """
       {
         "conditions": []
@@ -100,7 +100,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a POST request to "/api/v1/EN/conditionsets" with body:
+    Given I send a POST request to "/api/v1/en/conditionsets" with body:
       """
       {
         "conditions": [
@@ -118,7 +118,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -135,7 +135,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -152,7 +152,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -169,7 +169,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -188,7 +188,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -207,7 +207,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -225,7 +225,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -243,7 +243,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -262,7 +262,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -280,7 +280,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -299,7 +299,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -317,7 +317,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -335,7 +335,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -352,7 +352,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -369,7 +369,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -387,7 +387,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -406,7 +406,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -425,7 +425,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -443,7 +443,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -461,7 +461,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -480,7 +480,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -498,7 +498,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a PUT request to "/api/v1/EN/conditionsets/@conditionset@" with body:
+    Given I send a PUT request to "/api/v1/en/conditionsets/@conditionset@" with body:
       """
       {
          "conditions": [
@@ -514,46 +514,46 @@ Feature: Condition module
     Then the response status code should be 400
 
   Scenario: Get condition set (not authorized)
-    Given I send a GET request to "/api/v1/EN/conditionsets/@conditionset@"
+    Given I send a GET request to "/api/v1/en/conditionsets/@conditionset@"
     Then the response status code should be 401
 
   Scenario: Get condition set (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a GET request to "/api/v1/EN/conditionsets/@@static_uuid@@"
+    Given I send a GET request to "/api/v1/en/conditionsets/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Get condition set
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a GET request to "/api/v1/EN/conditionsets/@conditionset@"
+    Given I send a GET request to "/api/v1/en/conditionsets/@conditionset@"
     Then the response status code should be 200
 
   Scenario: Delete condition set (not authorized)
-    Given I send a DELETE request to "/api/v1/EN/conditionsets/@conditionset@"
+    Given I send a DELETE request to "/api/v1/en/conditionsets/@conditionset@"
     Then the response status code should be 401
 
   Scenario: Delete condition set (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a DELETE request to "/api/v1/EN/conditionsets/@@static_uuid@@"
+    Given I send a DELETE request to "/api/v1/en/conditionsets/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Delete condition set
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a DELETE request to "/api/v1/EN/conditionsets/@conditionset@"
+    Given I send a DELETE request to "/api/v1/en/conditionsets/@conditionset@"
     Then the response status code should be 204
 
   Scenario: Create condition set (for conflict delete)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a POST request to "/api/v1/EN/conditionsets" with body:
+    Given I send a POST request to "/api/v1/en/conditionsets" with body:
       """
       {
         "conditions": []
@@ -566,7 +566,7 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/segments" with body:
+    When I send a POST request to "/api/v1/en/segments" with body:
       """
       {
         "code": "SEG_REL_@@random_code@@",
@@ -579,5 +579,5 @@ Feature: Condition module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given I send a DELETE request to "/api/v1/EN/conditionsets/@conditionset_delete@"
+    Given I send a DELETE request to "/api/v1/en/conditionsets/@conditionset_delete@"
     Then the response status code should be 409
