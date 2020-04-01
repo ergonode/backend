@@ -29,26 +29,27 @@ class SymfonyCommandBus implements CommandBusInterface
     /**
      * @var bool
      */
-    private bool $async;
+    private bool $asyncEnable;
 
     /**
      * @param MessageBusInterface $syncBus
      * @param MessageBusInterface $asyncBus
-     * @param bool                $async
+     * @param bool                $asyncEnable
      */
-    public function __construct(MessageBusInterface $syncBus, MessageBusInterface $asyncBus, bool $async = false)
+    public function __construct(MessageBusInterface $syncBus, MessageBusInterface $asyncBus, bool $asyncEnable = false)
     {
         $this->syncBus = $syncBus;
         $this->asyncBus = $asyncBus;
-        $this->async = $async;
+        $this->asyncEnable = $asyncEnable;
     }
 
     /**
      * @param DomainCommandInterface $command
+     * @param bool                   $asyncMode
      */
-    public function dispatch(DomainCommandInterface $command): void
+    public function dispatch(DomainCommandInterface $command, bool $asyncMode = false): void
     {
-        if ($this->async) {
+        if ($this->asyncEnable && $asyncMode) {
             $this->asyncBus->dispatch($command);
         }
 

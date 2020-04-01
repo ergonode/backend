@@ -93,7 +93,7 @@ class MultimediaImportAction implements ImportActionInterface
             $file = new File($filePath);
             $multimediaId = new MultimediaId($id->getValue());
             $command = new AddMultimediaCommand($multimediaId, $file);
-            $this->commandBus->dispatch($command);
+            $this->commandBus->dispatch($command, true);
         }
     }
 

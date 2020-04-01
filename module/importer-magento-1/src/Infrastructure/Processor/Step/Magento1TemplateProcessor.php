@@ -97,7 +97,7 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
             );
             $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
             $this->repository->save($line);
-            $this->commandBus->dispatch($command);
+            $this->commandBus->dispatch($command, true);
         }
     }
 }

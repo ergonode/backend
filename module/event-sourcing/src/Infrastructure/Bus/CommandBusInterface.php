@@ -17,6 +17,7 @@ interface CommandBusInterface
 {
     /**
      * @param DomainCommandInterface $command
+     * @param bool                   $asyncMode
      */
-    public function dispatch(DomainCommandInterface $command): void;
+    public function dispatch(DomainCommandInterface $command, bool $asyncMode = false): void;
 }

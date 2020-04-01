@@ -79,7 +79,7 @@ class ProcessImportCommandHandler
                 $line->process();
 
                 if ($step === $steps && $number === $numbers) {
-                    $this->commandBus->dispatch(new EndImportCommand($importId));
+                    $this->commandBus->dispatch(new EndImportCommand($importId), true);
                 }
             } catch (\Throwable $exception) {
                 $line->addError($exception->getMessage());

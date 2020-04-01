@@ -12,6 +12,7 @@ namespace Ergonode\Importer\Infrastructure\Handler\Import;
 use Ergonode\Importer\Domain\Command\Import\ErrorImportCommand;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Webmozart\Assert\Assert;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
@@ -33,11 +34,11 @@ class ErrorImportCommandHandler
     /**
      * @param ErrorImportCommand $command
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
     public function __invoke(ErrorImportCommand $command)
     {
-        $line = $this->repository->load($command->getId(), $command->getLine());
+        $line = $this->repository->load($command->getId(), $command->getSteps()->getPosition(), $command->getLine());
 
         Assert::notNull($line);
 

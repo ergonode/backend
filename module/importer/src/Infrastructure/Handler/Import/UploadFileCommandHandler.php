@@ -22,7 +22,7 @@ use Webmozart\Assert\Assert;
 
 /**
  */
-class UpdateFileCommandHandler
+class UploadFileCommandHandler
 {
     /**
      * @var SourceRepositoryInterface
@@ -92,6 +92,6 @@ class UpdateFileCommandHandler
         $this->transformerRepository->save($transformer);
         $this->importRepository->save($import);
 
-        $this->commandBus->dispatch(new StartImportCommand($import->getId()));
+        $this->commandBus->dispatch(new StartImportCommand($import->getId()), true);
     }
 }
