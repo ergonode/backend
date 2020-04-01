@@ -21,11 +21,11 @@ class CategoryUpdateFormTest extends TypeTestCase
     public function testSubmitValidData(): void
     {
         $formData = [
-            'name' => ['PL' =>  'Any Name'],
+            'name' => ['pl_PL' =>  'Any Name'],
         ];
 
         $object = new CategoryUpdateFormModel();
-        $object->name = ['PL' =>  'Any Name'];
+        $object->name = ['pl_PL' =>  'Any Name'];
 
         $objectToCompare = new CategoryUpdateFormModel();
         $form = $this->factory->create(CategoryUpdateForm::class, $objectToCompare);

@@ -24,7 +24,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
     private const ALL_FIELDS = [
         'id',
         'iso AS code',
-        'name',
+        'iso AS name',
         'active',
     ];
 
@@ -34,7 +34,7 @@ class DbalLanguageQuery implements LanguageQueryInterface
 
     private const DICTIONARY_FIELD = [
         'iso',
-        'name',
+        'iso as name',
     ];
 
     /**
@@ -56,14 +56,18 @@ class DbalLanguageQuery implements LanguageQueryInterface
     public function getDataSet(): DataSetInterface
     {
         $query = $this->connection->createQueryBuilder()
-            ->select('id, code, name, active')
+            ->select('id, code, code AS name, active')
             ->from(sprintf(
                 '(SELECT %s FROM %s)',
                 implode(', ', self::ALL_FIELDS),
                 self::TABLE
             ), 'l');
 
-        return new DbalDataSet($query);
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $query->getSQL()), 't');
+
+        return new DbalDataSet($result);
     }
 
     /**
@@ -149,7 +153,6 @@ class DbalLanguageQuery implements LanguageQueryInterface
             ->from(self::TABLE);
 
         if ($search) {
-            $query->orWhere(\sprintf('name ILIKE %s', $query->createNamedParameter(\sprintf('%%%s%%', $search))));
             $query->orWhere(\sprintf('iso ILIKE %s', $query->createNamedParameter(\sprintf('%%%s%%', $search))));
         }
         if ($field) {

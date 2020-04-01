@@ -66,7 +66,7 @@ class AttributeGroupCodeDataTransformerTest extends TestCase
     {
         return [
             [
-                'attributeTypeValueObject' => new AttributeGroupCode('EN'),
+                'attributeTypeValueObject' => new AttributeGroupCode('en'),
                 'string' => 'en',
             ],
             [

@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\TranslationDeepl\Tests\Infrastructure\Validator;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\TranslationDeepl\Infrastructure\Validator\Constraints\DeeplLanguageConstraint;
 use Ergonode\TranslationDeepl\Infrastructure\Validator\DeeplLanguageValidator;
 use Symfony\Component\Validator\Constraint;
@@ -19,7 +18,6 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
  */
 class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
 {
-
     /**
      */
     public function testWrongConstraintProvided(): void
@@ -27,7 +25,7 @@ class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
         /** @var Constraint $constrain */
         $constrain = $this->createMock(Constraint::class);
-        $this->validator->validate(Language::fromString('EN'), $constrain);
+        $this->validator->validate('EN', $constrain);
     }
 
     /**
@@ -43,7 +41,7 @@ class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
      */
     public function testCorrectValueValidation(): void
     {
-        $this->validator->validate(Language::fromString('EN'), new DeeplLanguageConstraint());
+        $this->validator->validate('EN', new DeeplLanguageConstraint());
 
         $this->assertNoViolation();
     }
@@ -53,7 +51,7 @@ class DeeplLanguageValidatorTest extends ConstraintValidatorTestCase
     public function testIncorrectValueValidation(): void
     {
         $constraint = new DeeplLanguageConstraint();
-        $value = Language::fromString('HR');
+        $value = 'HR';
         $this->validator->validate($value, $constraint);
 
         $assertion = $this->buildViolation($constraint->message)->setParameter('{{ language }}', $value);

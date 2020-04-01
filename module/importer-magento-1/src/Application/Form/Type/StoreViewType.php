@@ -14,7 +14,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Ergonode\ImporterMagento1\Application\Model\Type\StoreViewModel;
-use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
@@ -32,7 +31,7 @@ class StoreViewType extends AbstractType
                 LanguageType::class,
                 [
                     'property_path' => 'defaultLanguage',
-                    'empty_data' => Language::EN,
+                    'empty_data' => 'en',
                 ]
             )
             ->add(

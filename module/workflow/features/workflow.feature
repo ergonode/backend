@@ -6,18 +6,18 @@ Feature: Workflow
     And I add "Accept" header equal to "application/json"
 
   Scenario: Create status (for workflow)
-    And I send a "POST" request to "/api/v1/EN/status" with body:
+    And I send a "POST" request to "/api/v1/en/status" with body:
       """
       {
         "color": "#ff0",
         "code": "ST @@random_md5@@",
         "name": {
-          "PL": "PL",
-          "EN": "EN"
+          "pl_PL": "pl_PL",
+          "en": "en"
         },
         "description": {
-          "PL": "PL",
-          "EN": "EN"
+          "pl_PL": "pl_PL",
+          "en": "en"
         }
       }
       """
@@ -25,25 +25,25 @@ Feature: Workflow
     And store response param "id" as "workflow_status"
 
   Scenario: Get status (for workflow)
-    And I send a "GET" request to "/api/v1/EN/status/@workflow_status@"
+    And I send a "GET" request to "/api/v1/en/status/@workflow_status@"
     Then the response status code should be 200
     And store response param "code" as "workflow_status_code"
 
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Create status (wrong language parameter)
-#    And I send a "POST" request to "/api/v1/EN/attributes" with body:
-#    When I send a POST request to "/api/v1/EN/status" with body:
+#    And I send a "POST" request to "/api/v1/en/attributes" with body:
+#    When I send a POST request to "/api/v1/en/status" with body:
 #      """
 #      {
 #        "color": "#ff0",
 #        "code": "ST @@random_md5@@",
 #        "name": {
-#          "ZZ": "PL",
-#          "EN": "EN"
+#          "ZZ": "pl_PL",
+#          "en": "en"
 #        },
 #        "description": {
-#          "PL": "PL",
-#          "EN": "EN"
+#          "pl_PL": "pl_PL",
+#          "en": "en"
 #        }
 #      }
 #      """
@@ -51,19 +51,19 @@ Feature: Workflow
 
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Create status (wrong language parameter)
-#    And I send a "POST" request to "/api/v1/EN/attributes" with body:
-#    When I send a POST request to "/api/v1/EN/status" with body:
+#    And I send a "POST" request to "/api/v1/en/attributes" with body:
+#    When I send a POST request to "/api/v1/en/status" with body:
 #      """
 #      {
 #        "color": "#ff0",
 #        "code": "ST @@random_md5@@",
 #        "name": {
-#          "ZZ": "PL",
-#          "EN": "EN"
+#          "ZZ": "pl_PL",
+#          "en": "en"
 #        },
 #        "description": {
-#          "ZZ": "PL",
-#          "EN": "EN"
+#          "ZZ": "pl_PL",
+#          "en": "en"
 #        }
 #      }
 #      """
@@ -71,19 +71,19 @@ Feature: Workflow
 
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Update status (wrong language parameter)
-#    And I send a "POST" request to "/api/v1/EN/attributes" with body:
-#    When I send a PUT request to "/api/v1/EN/status/@workflow_status@" with body:
+#    And I send a "POST" request to "/api/v1/en/attributes" with body:
+#    When I send a PUT request to "/api/v1/en/status/@workflow_status@" with body:
 #      """
 #      {
 #        "color": "#ff0",
 #        "code": "ST @@random_md5@@",
 #        "name": {
-#          "ZZ": "PL",
-#          "EN": "EN"
+#          "ZZ": "pl_PL",
+#          "en": "en"
 #        },
 #        "description": {
-#          "PL": "PL",
-#          "EN": "EN"
+#          "pl_PL": "pl_PL",
+#          "en": "en"
 #        }
 #      }
 #      """
@@ -91,26 +91,26 @@ Feature: Workflow
 
 #  TODO  problem with language code validation, problem waiting to be fixed
 #  Scenario: Update status (wrong language parameter)
-#    And I send a "POST" request to "/api/v1/EN/attributes" with body:
-#    When I send a PUT request to "/api/v1/EN/status/@workflow_status@" with body:
+#    And I send a "POST" request to "/api/v1/en/attributes" with body:
+#    When I send a PUT request to "/api/v1/en/status/@workflow_status@" with body:
 #      """
 #      {
 #        "color": "#ff0",
 #        "code": "ST @@random_md5@@",
 #        "name": {
-#          "ZZ": "PL",
-#          "EN": "EN"
+#          "ZZ": "pl_PL",
+#          "en": "en"
 #        },
 #        "description": {
-#          "ZZ": "PL",
-#          "EN": "EN"
+#          "ZZ": "pl_PL",
+#          "en": "en"
 #        }
 #      }
 #      """
 #    Then the response status code should be 201
 
   Scenario: Create workflow
-    And I send a "POST" request to "/api/v1/EN/workflow" with body:
+    And I send a "POST" request to "/api/v1/en/workflow" with body:
     """
       {
         "code": "WRK_@@random_code@@",
@@ -121,7 +121,7 @@ Feature: Workflow
     And store response param "id" as "workflow_id"
 
   Scenario: Create workflow (wrong statuses)
-    And I send a "POST" request to "/api/v1/EN/workflow" with body:
+    And I send a "POST" request to "/api/v1/en/workflow" with body:
     """
     {
       "code": "WRK_@@random_code@@",
@@ -132,9 +132,9 @@ Feature: Workflow
     Then the response status code should be 400
 
   Scenario: Get default workflow
-    And I send a "GET" request to "/api/v1/EN/workflow/default"
+    And I send a "GET" request to "/api/v1/en/workflow/default"
     Then the response status code should be 200
 
   Scenario: Delete workflow
-    And I send a "DELETE" request to "/api/v1/EN/workflow/default"
+    And I send a "DELETE" request to "/api/v1/en/workflow/default"
     Then the response status code should be 204

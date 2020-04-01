@@ -78,8 +78,8 @@ class AttributeTypeDataTransformerTest extends TestCase
     {
         return [
             [
-                'attributeTypeValueObject' => new AttributeType('EN'),
-                'string' => 'EN',
+                'attributeTypeValueObject' => new AttributeType('en'),
+                'string' => 'en',
             ],
             [
                 'attributeTypeValueObject' => null,
