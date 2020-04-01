@@ -19,10 +19,10 @@ use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  */
@@ -36,20 +36,18 @@ class AttributeImportAction implements ImportActionInterface
     private AttributeQueryInterface $attributeQuery;
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @param AttributeQueryInterface $attributeQuery
-     * @param MessageBusInterface     $messageBus
+     * @param CommandBusInterface     $commandBus
      */
-    public function __construct(
-        AttributeQueryInterface $attributeQuery,
-        MessageBusInterface $messageBus
-    ) {
+    public function __construct(AttributeQueryInterface $attributeQuery, CommandBusInterface $commandBus)
+    {
         $this->attributeQuery = $attributeQuery;
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -114,7 +112,7 @@ class AttributeImportAction implements ImportActionInterface
             );
         }
 
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command, true);
     }
 
     /**

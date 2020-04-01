@@ -64,8 +64,8 @@ class PriceAttributeUpdaterTest extends TestCase
      */
     public function testUpdateWithoutParameter(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
         $attribute = $this->createMock(PriceAttribute::class);
+        $attribute->expects($this->never())->method('changeCurrency');
         $strategy = new PriceAttributeUpdater();
         $strategy->update($attribute, $this->updateCommand);
     }

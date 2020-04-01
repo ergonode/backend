@@ -67,8 +67,8 @@ class DateAttributeUpdaterTest extends TestCase
      */
     public function testUpdateWithoutParameter(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
         $attribute = $this->createMock(DateAttribute::class);
+        $attribute->expects($this->never())->method('changeFormat');
         $strategy = new DateAttributeUpdater();
         $strategy->update($attribute, $this->updateCommand);
     }

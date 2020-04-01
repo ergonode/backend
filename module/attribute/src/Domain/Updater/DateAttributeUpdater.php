@@ -38,13 +38,11 @@ class DateAttributeUpdater implements AttributeUpdaterInterface
      */
     public function update(AbstractAttribute $attribute, UpdateAttributeCommand $command): AbstractAttribute
     {
-        if (!$command->hasParameter('format')) {
-            throw new \InvalidArgumentException('No required format parameter');
+        if ($command->hasParameter('format')) {
+            $format = new DateFormat($command->getParameter('format'));
+
+            $attribute->changeFormat($format);
         }
-
-        $format = new DateFormat($command->getParameter('format'));
-
-        $attribute->changeFormat($format);
 
         return $attribute;
     }

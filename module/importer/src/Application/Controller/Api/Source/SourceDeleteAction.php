@@ -49,7 +49,7 @@ class SourceDeleteAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="EN",
+     *     default="en",
      *     description="Language Code",
      * )
      * @SWG\Parameter(

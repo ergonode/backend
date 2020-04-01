@@ -38,13 +38,11 @@ class PriceAttributeUpdater implements AttributeUpdaterInterface
      */
     public function update(AbstractAttribute $attribute, UpdateAttributeCommand $command): AbstractAttribute
     {
-        if (!$command->hasParameter('currency')) {
-            throw new \InvalidArgumentException('No required format parameter');
+        if ($command->hasParameter('currency')) {
+            $currency = new Currency($command->getParameter('currency'));
+
+            $attribute->changeCurrency($currency);
         }
-
-        $currency = new Currency($command->getParameter('currency'));
-
-        $attribute->changeCurrency($currency);
 
         return $attribute;
     }

@@ -12,6 +12,7 @@ namespace Ergonode\Importer\Domain\Command\Import;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\Importer\Domain\ValueObject\Progress;
 
 /**
  */
@@ -23,6 +24,13 @@ class ErrorImportCommand implements DomainCommandInterface
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ImportId")
      */
     private ImportId $id;
+
+    /**
+     * @var Progress
+     *
+     * @JMS\Type("Ergonode\Importer\Domain\ValueObject\Progress")
+     */
+    private Progress $steps;
 
     /**
      * @var int
@@ -40,12 +48,14 @@ class ErrorImportCommand implements DomainCommandInterface
 
     /**
      * @param ImportId $id
+     * @param Progress $steps
      * @param int      $line
      * @param string   $message
      */
-    public function __construct(ImportId $id, int $line, string $message)
+    public function __construct(ImportId $id, Progress $steps, int $line, string $message)
     {
         $this->id = $id;
+        $this->steps = $steps;
         $this->line = $line;
         $this->message = $message;
     }
@@ -56,6 +66,14 @@ class ErrorImportCommand implements DomainCommandInterface
     public function getId(): ImportId
     {
         return $this->id;
+    }
+
+    /**
+     * @return Progress
+     */
+    public function getSteps(): Progress
+    {
+        return $this->steps;
     }
 
     /**

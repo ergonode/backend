@@ -85,7 +85,7 @@ class TreeImportAction implements ImportActionInterface
             $command = new UpdateTreeCommand($treeId, $name);
         }
 
-        $this->commandBus->dispatch($command);
+        $this->commandBus->dispatch($command, true);
     }
 
     /**
