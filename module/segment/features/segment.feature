@@ -403,11 +403,11 @@ Feature: Segment module
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
-  Scenario: Get products based on segment (order deSC)
+  Scenario: Get products based on segment (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/segments/@segment_3@/products?limit=50&offset=0&order=deSC"
+    When I send a GET request to "/api/v1/en/segments/@segment_3@/products?limit=50&offset=0&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 

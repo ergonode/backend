@@ -175,11 +175,11 @@ Feature: Core module - unit
     When I send a GET request to "/api/v1/en/units?field=name&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
-  Scenario: Get units (order deSC)
+  Scenario: Get units (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/units?field=name&order=deSC"
+    When I send a GET request to "/api/v1/en/units?field=name&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get units (filter by name)

@@ -267,11 +267,11 @@ Feature: Category module
     When I send a GET request to "/api/v1/en/categories?field=name&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
-  Scenario: Get categories (order deSC)
+  Scenario: Get categories (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/categories?field=name&order=deSC"
+    When I send a GET request to "/api/v1/en/categories?field=name&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get categories (filter by sequence)

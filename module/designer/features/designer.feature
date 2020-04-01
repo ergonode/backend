@@ -492,11 +492,11 @@ Feature: Designer module
     When I send a GET request to "/api/v1/en/templates?field=name&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
-  Scenario: Get templates (order deSC)
+  Scenario: Get templates (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates?field=name&order=deSC"
+    When I send a GET request to "/api/v1/en/templates?field=name&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates (filter by id)
@@ -566,11 +566,11 @@ Feature: Designer module
     When I send a GET request to "/api/v1/en/templates/groups?field=name&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
-  Scenario: Get templates groups (order deSC)
+  Scenario: Get templates groups (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/groups?field=name&order=deSC"
+    When I send a GET request to "/api/v1/en/templates/groups?field=name&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates groups (filter by id)
@@ -661,11 +661,11 @@ Feature: Designer module
     When I send a GET request to "/api/v1/en/templates/types?field=type&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
-  Scenario: Get templates types (order deSC)
+  Scenario: Get templates types (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/templates/types?field=type&order=deSC"
+    When I send a GET request to "/api/v1/en/templates/types?field=type&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get templates types (filter by id)

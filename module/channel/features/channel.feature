@@ -223,11 +223,11 @@ Feature: channel module
     When I send a GET request to "/api/v1/en/channels?field=name&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
-  Scenario: Get channels (order deSC)
+  Scenario: Get channels (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/channels?field=name&order=deSC"
+    When I send a GET request to "/api/v1/en/channels?field=name&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get channels (filter by name)

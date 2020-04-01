@@ -363,11 +363,11 @@ Feature: Product collection module
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
-  Scenario: Get products collection type  (order deSC)
+  Scenario: Get products collection type  (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/collections/type?limit=50&offset=0&order=deSC"
+    When I send a GET request to "/api/v1/en/collections/type?limit=50&offset=0&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -690,11 +690,11 @@ Feature: Product collection module
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
-  Scenario: Get products collection  (order deSC)
+  Scenario: Get products collection  (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/collections?order=deSC"
+    When I send a GET request to "/api/v1/en/collections?order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -877,11 +877,11 @@ Feature: Product collection module
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
-  Scenario: Get products collection element  (order deSC)
+  Scenario: Get products collection element  (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?limit=50&offset=0&order=deSC"
+    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?limit=50&offset=0&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -920,28 +920,28 @@ Feature: Product collection module
     Then the response status code should be 201
 
 
-  Scenario: Get products collection element  (order deSC)
+  Scenario: Get products collection element  (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@segment_product_1@"
     Then the response status code should be 200
 
-  Scenario: Get products collection element  (order deSC)
+  Scenario: Get products collection element  (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@segment_product_2@"
     Then the response status code should be 200
 
-  Scenario: Get products collection element  (order deSC)
+  Scenario: Get products collection element  (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@product_1@"
     Then the response status code should be 200
 
-  Scenario: Get products collection element  (order deSC)
+  Scenario: Get products collection element  (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"

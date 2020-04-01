@@ -1244,11 +1244,11 @@ Feature: Account module
     When I send a GET request to "/api/v1/en/accounts?field=email&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
-  Scenario: Get accounts (order deSC)
+  Scenario: Get accounts (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/accounts?field=email&order=deSC"
+    When I send a GET request to "/api/v1/en/accounts?field=email&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get accounts (filter by id)

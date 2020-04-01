@@ -45,7 +45,7 @@ Feature: Workflow
       """
       {
         "color": "#ff0000",
-        "code": "deSTINATION @@random_md5@@",
+        "code": "DESTINATION @@random_md5@@",
         "name": {
           "pl_PL": "pl_PL",
           "en": "en"

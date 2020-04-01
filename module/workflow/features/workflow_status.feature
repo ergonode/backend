@@ -30,7 +30,7 @@ Feature: Workflow
       """
       {
         "color": "#ff0000",
-        "code": "deSTINATION @@random_md5@@",
+        "code": "DESTINATION @@random_md5@@",
         "name": {
           "pl_PL": "pl_PL",
           "en": "en"
@@ -119,7 +119,7 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given remember param "duplicated_status_code" with value "deSTINATION_1_@@random_code@@"
+    Given remember param "duplicated_status_code" with value "DESTINATION_1_@@random_code@@"
     When I send a POST request to "/api/v1/en/status" with body:
       """
       {
@@ -146,7 +146,7 @@ Feature: Workflow
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    Given remember param "duplicated_status_code" with value "deSTINATION_1_@@random_code@@"
+    Given remember param "duplicated_status_code" with value "DESTINATION_1_@@random_code@@"
     When I send a PUT request to "/api/v1/en/status/@workflow_first_status@" with body:
       """
       {
@@ -242,11 +242,11 @@ Feature: Workflow
     When I send a GET request to "/api/v1/en/status?field=name&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
-  Scenario: Get statuses (order deSC)
+  Scenario: Get statuses (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/status?field=name&order=deSC"
+    When I send a GET request to "/api/v1/en/status?field=name&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get statuses (filter by id)

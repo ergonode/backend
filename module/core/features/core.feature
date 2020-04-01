@@ -57,11 +57,11 @@ Feature: Core module
     When I send a GET request to "/api/v1/en/languages?field=name&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
-  Scenario: Get languages (order deSC)
+  Scenario: Get languages (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/languages?field=name&order=deSC"
+    When I send a GET request to "/api/v1/en/languages?field=name&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get languages (filter by code)
@@ -201,11 +201,11 @@ Feature: Core module
     Then the response status code should be 200
     And the JSON should be valid according to the schema "module/core/features/language.json"
 
-  Scenario: Get language autocomplete (order deSC)
+  Scenario: Get language autocomplete (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/language/autocomplete?field=name&order=deSC"
+    When I send a GET request to "/api/v1/en/language/autocomplete?field=name&order=DESC"
     Then the response status code should be 200
     And the JSON should be valid according to the schema "module/core/features/language.json"
 

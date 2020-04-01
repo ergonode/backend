@@ -17,8 +17,8 @@ Feature: Attribute grid
     And I send a "GET" request to "/api/v1/en/attributes?field=label&order=ASC"
     Then the response status code should be 200
 
-  Scenario: Get attributes (order deSC)
-    And I send a "GET" request to "/api/v1/en/attributes?field=label&order=deSC"
+  Scenario: Get attributes (order DESC)
+    And I send a "GET" request to "/api/v1/en/attributes?field=label&order=DESC"
     Then the response status code should be 200
 
   Scenario: Get attributes (filter by label)
