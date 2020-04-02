@@ -88,15 +88,15 @@ Feature: Product collection module
     Then the response status code should be 201
     And store response param "id" as "product_2"
 
-  Scenario: Create product
-    Given remember param "segment_product_2_sku" with value "SEGMENT_SKU_@@random_code@@"
+  Scenario: Create product for segment 1
+    Given remember param "segment_product_1_sku" with value "SEGMENT_SKU_@@random_code@@"
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en/products" with body:
       """
       {
-        "sku": "@segment_product_2_sku@",
+        "sku": "@segment_product_1_sku@",
         "templateId": "@product_template@",
         "categoryIds": ["@product_category@"]
       }
@@ -104,28 +104,13 @@ Feature: Product collection module
     Then the response status code should be 201
     And store response param "id" as "segment_product_1"
 
-  Scenario: Create product
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/products" with body:
-      """
-      {
-        "sku": "SEGMENT_SKU_@@random_code@@",
-        "templateId": "@product_template@",
-        "categoryIds": ["@product_category@"]
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "segment_product_2"
-
   Scenario: Create condition set
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     Given I send a POST request to "/api/v1/en/conditionsets" with body:
       """
-     {"conditions":[{"type":"PRODUCT_SKU_EXISTS_CONDITION","operator":"WILDCARD","value":"SEGMENT__SKU"}]}
+     {"conditions":[{"type":"PRODUCT_SKU_EXISTS_CONDITION","operator":"=","value":"@segment_product_1_sku@"}]}
       """
     Then the response status code should be 201
     And store response param "id" as "segment_conditionset"
@@ -444,6 +429,28 @@ Feature: Product collection module
       """
     Then the response status code should be 201
     And store response param "id" as "product_collection_2"
+
+  Scenario: Create third product collection
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en/collections" with body:
+      """
+      {
+          "code": "TEXT_@@random_code@@",
+          "name": {
+             "de": "Name de",
+             "en": "Name en"
+          },
+          "description": {
+            "de": "Description de",
+            "en": "Description en"
+          },
+          "typeId": "@product_collection_type_1@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "product_collection_3"
 
   Scenario: Create product collection (no name and desc)
     Given I am Authenticated as "test@ergonode.com"
@@ -908,7 +915,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/collections/@product_collection_1@/elements/multiple" with body:
+    When I send a POST request to "/api/v1/en/collections/@product_collection_3@/elements/multiple" with body:
       """
       {
         "segments": [
@@ -919,19 +926,19 @@ Feature: Product collection module
       """
     Then the response status code should be 201
 
+  Scenario: Get product collection element (checking multiple add)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/en/collections?filter=id=@product_collection_3@"
+    Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
+    And the JSON node "collection[0].elements_count" should match "/3/"
 
   Scenario: Get products collection element  (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@segment_product_1@"
-    Then the response status code should be 200
-
-  Scenario: Get products collection element  (order DESC)
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@segment_product_2@"
     Then the response status code should be 200
 
   Scenario: Get products collection element  (order DESC)
