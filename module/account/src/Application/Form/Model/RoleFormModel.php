@@ -21,7 +21,10 @@ class RoleFormModel
      * @var string
      *
      * @Assert\NotBlank(message="Role name is required")
-     * @Assert\Length(max="100")
+     * @Assert\Length(
+     *     max="100",
+     *     maxMessage="Role name is too long, should have at least {{ limit }} characters"
+     * )
      */
     public ?string $name;
 
@@ -29,7 +32,12 @@ class RoleFormModel
      * @var string
      *
      * @Assert\NotBlank(message="Role description is required")
-     * @Assert\Length(min="3", max="500")
+     * @Assert\Length(
+     *     min="3",
+     *     max="500",
+     *     minMessage="Role description is too short, should have at least {{ limit }} characters",
+     *     maxMessage="Role description is too long, should have at most {{ limit }} characters"
+     * )
      */
     public ?string $description;
 
