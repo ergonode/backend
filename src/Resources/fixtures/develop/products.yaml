@@ -13,5 +13,5 @@ Ergonode\Product\Domain\Command\CreateProductCommand:
                 'code_26':  '<stringValue(<date(Y-m-d)>)>'
                 'code_31':  '<stringValue(<randomFloat(2)>)>'
                 'code_37':  '<stringValue(<randomFloat(2)>)>'
-                'code_41':  '<stringValue(key_41)>'
-                'code_46':  '<stringValue(key_46)>'
+                'code_41':  '<stringValue(@select_option_*->id)>'
+                'code_46':  '<stringCollectionValue(@multiselect_option_*->id)>'
