@@ -34,16 +34,6 @@ services:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
 
-    Ergonode\Transformer\Infrastructure\JMS\Serializer\Handler\ConverterInterfaceHandler:
-        calls:
-            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\TextConverter']]
-            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\SlugConverter']]
-            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\JoinConverter']]
-            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\DateConverter']]
-            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\ConstConverter']]
-            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\MappingConverter']]
-            - ['set', ['Ergonode\Transformer\Infrastructure\Converter\MultilingualTextConverter']]
-
     Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface: '@Ergonode\Transformer\Persistence\Dbal\Repository\DbalTransformerRepository'
 
     Ergonode\Transformer\Infrastructure\Action\ProductImportAction:

@@ -19,6 +19,8 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\ConverterMapperCompilerPass;
 use Ergonode\Transformer\Infrastructure\Converter\Mapper\ConverterMapperInterface;
 use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\TransformerGeneratorProviderStrategyCompilerPass;
+use Ergonode\Transformer\Infrastructure\Converter\ConverterInterface;
+use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\ConverterCompilerPass;
 
 /**
  */
@@ -48,6 +50,10 @@ class ErgonodeTransformerExtension extends Extension
         $container
             ->registerForAutoconfiguration(TransformerGeneratorStrategyInterface::class)
             ->addTag(TransformerGeneratorProviderStrategyCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(ConverterInterface::class)
+            ->addTag(ConverterCompilerPass::TAG);
 
         $loader->load('services.yml');
     }
