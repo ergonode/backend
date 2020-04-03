@@ -88,6 +88,19 @@ class DbalProductCollectionTypeQuery implements ProductCollectionTypeQueryInterf
         return null;
     }
 
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getCollectionTypes(Language $language): array
+    {
+        $qb = $this->getQuery();
+
+        return $qb->addSelect(sprintf('(name->>\'%s\') AS label', $language->getCode()))
+            ->execute()
+            ->fetchAll();
+    }
 
     /**
      * @return QueryBuilder
