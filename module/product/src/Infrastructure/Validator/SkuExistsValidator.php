@@ -15,7 +15,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
- * Class SkuExistsValidator
  */
 class SkuExistsValidator extends ConstraintValidator
 {
@@ -54,11 +53,14 @@ class SkuExistsValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        $sku = new \Ergonode\Product\Domain\ValueObject\Sku($value);
+        if (!\Ergonode\Product\Domain\ValueObject\Sku::isValid($value)) {
+            return;
+        }
 
+        $sku = new \Ergonode\Product\Domain\ValueObject\Sku($value);
         $result = $this->query->findBySku($sku);
 
-        if (!empty($result)) {
+        if ($result) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();
