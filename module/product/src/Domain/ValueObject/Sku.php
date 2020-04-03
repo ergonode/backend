@@ -47,7 +47,7 @@ class Sku
      *
      * @return bool
      */
-    public static function isValid(?string $value): bool
+    public static function isValid(string $value): bool
     {
         return strlen(trim($value)) <= self::LENGTH;
     }
