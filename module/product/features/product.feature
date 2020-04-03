@@ -22,8 +22,8 @@ Feature: Product module
     And I add "Content-Type" header equal to "multipart/form-data"
     And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/multimedia/upload" with params:
-      | key         | value              |
-      | upload      | @image/test.jpg    |
+      | key    | value           |
+      | upload | @image/test.jpg |
     Then the response status code should be 201
     And store response param "id" as "multimedia_id"
 
@@ -67,6 +67,20 @@ Feature: Product module
     Then the response status code should be 201
     And store response param "id" as "product_category"
 
+  Scenario: Create category
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en/categories" with body:
+      """
+      {
+        "code": "CATEGORY_@@random_uuid@@",
+        "name": {"de": "Test de", "en": "Test en"}
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "product_category_2"
+
   Scenario: Create product
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
@@ -90,8 +104,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
-        "templateId": "@product_template@",
-        "categoryIds": ["@product_category@"]
+        "templateId": "@product_template@"
       }
       """
     Then the response status code should be 201
@@ -249,19 +262,47 @@ Feature: Product module
       """
     Then the response status code should be 201
 
-  Scenario: Update product
+  Scenario: Update product two categories
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/en/products/@product@" with body:
+    When I send a PUT request to "/api/v1/en/products/@product_2@" with body:
       """
       {
-        "categoryIds": ["@product_category@"]
+        "categoryIds": ["@product_category@", "@product_category_2@"]
       }
       """
-
-
     Then the response status code should be 204
+
+  Scenario: Get updated product with 2 categories
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/en/products/@product_2@"
+    Then the response status code should be 200
+    And the JSON node "categories[0]" should be equal to "@product_category@"
+    And the JSON node "categories[1]" should be equal to "@product_category_2@"
+
+  Scenario: Update product 1 once category
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en/products/@product_2@" with body:
+      """
+      {
+        "categoryIds": ["@product_category_2@"]
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Get updated product with 2 categories
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/en/products/@product_2@"
+    Then the response status code should be 200
+    And the JSON node "categories[0]" should be equal to "@product_category_2@"
+    And the JSON node "categories[1]" should not exist
 
   Scenario: Update product (not authorized)
     When I send a PUT request to "/api/v1/en/products/@product@"
