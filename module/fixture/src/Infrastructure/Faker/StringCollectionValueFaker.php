@@ -22,7 +22,7 @@ class StringCollectionValueFaker extends BaseProvider
      *
      * @return StringCollectionValue
      */
-    public function stringCollectionValue( $value): StringCollectionValue
+    public function stringCollectionValue($value): StringCollectionValue
     {
         if ($value instanceof AbstractId) {
             return new StringCollectionValue([$value->getValue()]);
