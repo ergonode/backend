@@ -184,7 +184,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                 }
             }
 
-            if ($transformer->hasField($field) && (null !== $value)) {
+            if (null !== $value && '' !== $value && $transformer->hasField($field)) {
                 $record->set($field, new StringValue($value));
             }
         }

@@ -16,6 +16,7 @@ use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
 use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\ImporterMagento1\Infrastructure\Converter\Magento1CategoryConverter;
 
 /**
  */
@@ -61,8 +62,7 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
         // system
         $transformer->addField('sku', new TextConverter('sku'));
         $transformer->addField('esa_template', new TextConverter('_attribute_set'));
-        $transformer->addField('esa_tree', new TextConverter('_root_category'));
-        $transformer->addField('esa_categories', new JoinConverter('<_root_category>/<_category>'));
+        $transformer->addField('esa_categories', new Magento1CategoryConverter());
         $transformer->addField('esa_type', new TextConverter('_type'));
 
         foreach ($source->getAttributes() as $code => $attributeId) {
