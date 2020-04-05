@@ -75,12 +75,12 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
             if (array_key_exists('image', $default) && $default['image'] !== null) {
                 $images = explode(',', $default['image']);
                 foreach ($images as $image) {
-                    $url = sprintf('%s%s', $source->getHost(), $image);
+                    $url = sprintf('%s/media/catalog/product%s', $source->getHost(), $image);
                     $uuid  = Uuid::uuid5(self::NAMESPACE, $url);
                     $record = new Record();
                     $record->set('name', new StringValue($image));
                     $record->set('id', new StringValue($uuid->toString()));
-                    $record->set('url', new StringValue(str_replace('//', '/', $url)));
+                    $record->set('url', new StringValue($url));
                     $result[] = $record;
                 }
             }

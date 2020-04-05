@@ -85,7 +85,7 @@ Feature: Magento 1 CSV module
     And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en/sources/@source_id@/upload" with params:
       | key    | value               |
-      | upload | @magento-1-test.csv |
+      | upload | @magento-1-import.csv |
     Then the response status code should be 201
     And the JSON node "id" should exist
     And store response param "id" as "import_id"

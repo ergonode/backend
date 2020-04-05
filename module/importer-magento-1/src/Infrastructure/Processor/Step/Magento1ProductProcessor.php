@@ -12,7 +12,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
@@ -62,8 +61,6 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
     private CommandBusInterface $commandBus;
 
     /**
-     * Magento1ProductProcessor constructor.
-     *
      * @param OptionQueryInterface          $optionQuery
      * @param AttributeQueryInterface       $attributeQuery
      * @param ImportLineRepositoryInterface $repository
