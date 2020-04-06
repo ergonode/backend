@@ -81,7 +81,7 @@ class CategoryImportAction implements ImportActionInterface
             $command = new UpdateCategoryCommand($categoryId, $name);
         }
 
-        $this->commandBus->dispatch($command);
+        $this->commandBus->dispatch($command, true);
     }
 
     /**

@@ -65,7 +65,7 @@ class TransitionDeleteAction
      *     in="path",
      *     type="string",
      *     description="Language code",
-     *     default="EN"
+     *     default="en"
      * )
      * @SWG\Response(
      *     response=204,

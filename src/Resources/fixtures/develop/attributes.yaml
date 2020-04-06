@@ -94,14 +94,14 @@ Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute:
             - true
 
 Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand:
-    option_{1..10}:
+    select_option_{1..5}:
         __construct:
-            - '@attribute_<numberBetween(41, 45)>->id'
+            - '@attribute_41->id'
             - '<OptionKey(key_1_<current()>)>'
             - '@option_value_1_<current()>'
-    option_{11..20}:
+    multiselect_option_{1..5}:
         __construct:
-            - '@attribute_<numberBetween(46, 50)>->id'
+            - '@attribute_46->id'
             - '<OptionKey(key_2_<current()>)>'
             - '@option_value_2_<current()>'
 

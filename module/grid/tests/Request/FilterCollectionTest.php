@@ -21,7 +21,7 @@ class FilterCollectionTest extends TestCase
      */
     public function testCreateCollection(): void
     {
-        $string = 'key1=value1;key2=value2,value3;key3:PL=value4';
+        $string = 'key1=value1;key2=value2,value3;key3:pl_PL=value4';
         $collection = new FilterValueCollection($string);
         $this->assertCount(3, $collection);
         foreach ($collection as $elements) {

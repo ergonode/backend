@@ -36,4 +36,11 @@ interface ProductCollectionTypeQueryInterface
      * @return ProductCollectionTypeId|null
      */
     public function findIdByCode(ProductCollectionTypeCode $code): ?ProductCollectionTypeId;
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getCollectionTypes(Language $language): array;
 }

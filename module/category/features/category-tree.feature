@@ -4,13 +4,13 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/trees" with body:
+    When I send a POST request to "/api/v1/en/trees" with body:
       """
       {
         "code": "TREE_@@random_code@@",
         "name": {
-          "DE": "Test DE",
-          "EN": "Test EN"
+          "de": "Test de",
+          "en": "Test en"
         }
       }
       """
@@ -18,20 +18,20 @@ Feature: Category tree module
     And store response param "id" as "category_tree"
 
   Scenario: Create category tree (not authorized)
-    When I send a POST request to "/api/v1/EN/trees"
+    When I send a POST request to "/api/v1/en/trees"
     Then the response status code should be 401
 
   Scenario: Create category for update 1
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/categories" with body:
+    When I send a POST request to "/api/v1/en/categories" with body:
       """
       {
         "code": "TREE_CAT_@@random_code@@",
         "name": {
-          "DE": "Test DE",
-          "EN": "Test EN"
+          "de": "Test de",
+          "en": "Test en"
         }
       }
       """
@@ -42,13 +42,13 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/categories" with body:
+    When I send a POST request to "/api/v1/en/categories" with body:
       """
       {
         "code": "TREE_CAT_@@random_code@@",
         "name": {
-          "DE": "Test DE",
-          "EN": "Test EN"
+          "de": "Test de",
+          "en": "Test en"
         }
       }
       """
@@ -59,7 +59,7 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/trees" with body:
+    When I send a POST request to "/api/v1/en/trees" with body:
       """
       {
         "code": "TREE_CAT_@@random_code@@"
@@ -71,7 +71,7 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/trees" with body:
+    When I send a POST request to "/api/v1/en/trees" with body:
       """
       {
         "code": "TREE_CAT_@@random_code@@",
@@ -85,13 +85,13 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/trees" with body:
+    When I send a POST request to "/api/v1/en/trees" with body:
       """
       {
         "code": "TREE_CAT_@@random_code@@",
         "name": {
-          "DE": "",
-          "EN": "Test EN"
+          "de": "",
+          "en": "Test en"
         }
       }
       """
@@ -102,13 +102,13 @@ Feature: Category tree module
 #    Given I am Authenticated as "test@ergonode.com"
 #    And I add "Content-Type" header equal to "application/json"
 #    And I add "Accept" header equal to "application/json"
-#    When I send a POST request to "/api/v1/EN/trees" with body:
+#    When I send a POST request to "/api/v1/en/trees" with body:
 #      """
 #      {
 #        "code": "TREE_CAT_@@random_code@@",
 #        "name": {
-#          "test": "Test DE",
-#          "EN": "Test EN"
+#          "test": "Test de",
+#          "en": "Test en"
 #        }
 #      }
 #      """
@@ -119,13 +119,13 @@ Feature: Category tree module
 #    Given I am Authenticated as "test@ergonode.com"
 #    And I add "Content-Type" header equal to "application/json"
 #    And I add "Accept" header equal to "application/json"
-#    When I send a POST request to "/api/v1/EN/trees" with body:
+#    When I send a POST request to "/api/v1/en/trees" with body:
 #      """
 #      {
 #        "code": "TREE_CAT_@@random_code@@",
 #        "name": {
-#          "ZZ": "Test DE",
-#          "EN": "Test EN"
+#          "ZZ": "Test de",
+#          "en": "Test en"
 #        }
 #      }
 #      """
@@ -135,12 +135,12 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "name": {
-          "DE": "Test DE (changed)",
-          "EN": "Test EN (changed)"
+          "de": "Test de (changed)",
+          "en": "Test en (changed)"
         },
         "categories": [
           {
@@ -153,21 +153,21 @@ Feature: Category tree module
     Then the response status code should be 204
 
   Scenario: Update category tree (not authorized)
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@"
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@"
     Then the response status code should be 401
 
   Scenario: Update category tree (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@@static_uuid@@"
+    When I send a PUT request to "/api/v1/en/trees/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Update category tree (no name field)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "categories": [
@@ -184,7 +184,7 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "name": {
@@ -204,12 +204,12 @@ Feature: Category tree module
 #    Given I am Authenticated as "test@ergonode.com"
 #    And I add "Content-Type" header equal to "application/json"
 #    And I add "Accept" header equal to "application/json"
-#    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+#    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
 #    """
 #      {
 #        "name": {
-#          "test": "Test DE (changed)",
-#          "EN": "Test EN (changed)"
+#          "test": "Test de (changed)",
+#          "en": "Test en (changed)"
 #        },
 #        "categories": [
 #          {
@@ -226,12 +226,12 @@ Feature: Category tree module
 #    Given I am Authenticated as "test@ergonode.com"
 #    And I add "Content-Type" header equal to "application/json"
 #    And I add "Accept" header equal to "application/json"
-#    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+#    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
 #    """
 #      {
 #        "name": {
-#          "ZZ": "Test DE (changed)",
-#          "EN": "Test EN (changed)"
+#          "ZZ": "Test de (changed)",
+#          "en": "Test en (changed)"
 #        },
 #        "categories": [
 #          {
@@ -247,12 +247,12 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "name": {
-          "DE": "Test DE (changed)",
-          "EN": "Test EN (changed)"
+          "de": "Test de (changed)",
+          "en": "Test en (changed)"
         }
       }
     """
@@ -262,12 +262,12 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "name": {
-          "DE": "Test DE (changed)",
-          "EN": "Test EN (changed)"
+          "de": "Test de (changed)",
+          "en": "Test en (changed)"
         },
         "categories": [
           {
@@ -283,12 +283,12 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "name": {
-          "DE": "Test DE (changed)",
-          "EN": "Test EN (changed)"
+          "de": "Test de (changed)",
+          "en": "Test en (changed)"
         },
         "categories": [
           {
@@ -304,12 +304,12 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "name": {
-          "DE": "Test DE (changed)",
-          "EN": "Test EN (changed)"
+          "de": "Test de (changed)",
+          "en": "Test en (changed)"
         },
         "categories": [
           {
@@ -325,12 +325,12 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "name": {
-          "DE": "Test DE (changed)",
-          "EN": "Test EN (changed)"
+          "de": "Test de (changed)",
+          "en": "Test en (changed)"
         },
         "categories": [
           {
@@ -346,12 +346,12 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "name": {
-          "DE": "Test DE (changed)",
-          "EN": "Test EN (changed)"
+          "de": "Test de (changed)",
+          "en": "Test en (changed)"
         },
         "categories": [
           {
@@ -366,12 +366,12 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "name": {
-          "DE": "Test DE (changed)",
-          "EN": "Test EN (changed)"
+          "de": "Test de (changed)",
+          "en": "Test en (changed)"
         },
         "categories": [
           {
@@ -387,12 +387,12 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "name": {
-          "DE": "Test DE (changed)",
-          "EN": "Test EN (changed)"
+          "de": "Test de (changed)",
+          "en": "Test en (changed)"
         },
         "categories": [
           {
@@ -408,12 +408,12 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/trees/@category_tree@" with body:
+    When I send a PUT request to "/api/v1/en/trees/@category_tree@" with body:
     """
       {
         "name": {
-          "DE": "",
-          "EN": "Test EN (changed)"
+          "de": "",
+          "en": "Test en (changed)"
         },
         "categories": [
           {
@@ -429,108 +429,108 @@ Feature: Category tree module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees/@category_tree@"
+    When I send a GET request to "/api/v1/en/trees/@category_tree@"
     Then the response status code should be 200
 
   Scenario: Get category tree (not authorized)
-    When I send a GET request to "/api/v1/EN/trees/@category_tree@"
+    When I send a GET request to "/api/v1/en/trees/@category_tree@"
     Then the response status code should be 401
 
   Scenario: Get category tree (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees/@@static_uuid@@"
+    When I send a GET request to "/api/v1/en/trees/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Delete category tree (not found)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/EN/trees/@@static_uuid@@"
+    When I send a DELETE request to "/api/v1/en/trees/@@static_uuid@@"
     Then the response status code should be 404
 
   Scenario: Delete category tree (not authorized)
-    When I send a DELETE request to "/api/v1/EN/trees/@category_tree@"
+    When I send a DELETE request to "/api/v1/en/trees/@category_tree@"
     Then the response status code should be 401
 
   Scenario: Delete category tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "/api/v1/EN/trees/@category_tree@"
+    When I send a DELETE request to "/api/v1/en/trees/@category_tree@"
     Then the response status code should be 204
 
   Scenario: Get category trees (order by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees?field=name"
+    When I send a GET request to "/api/v1/en/trees?field=name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get category trees (not authorized)
-    When I send a GET request to "/api/v1/EN/trees"
+    When I send a GET request to "/api/v1/en/trees"
     Then the response status code should be 401
 
   Scenario: Get category trees
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees"
+    When I send a GET request to "/api/v1/en/trees"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get category trees (order by id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees?field=id"
+    When I send a GET request to "/api/v1/en/trees?field=id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get category trees (order by code)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees?field=code"
+    When I send a GET request to "/api/v1/en/trees?field=code"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get category trees (order by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees?field=name"
+    When I send a GET request to "/api/v1/en/trees?field=name"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get category trees (order ASC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees?field=name&order=ASC"
+    When I send a GET request to "/api/v1/en/trees?field=name&order=ASC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get category trees (order DESC)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees?field=name&order=DESC"
+    When I send a GET request to "/api/v1/en/trees?field=name&order=DESC"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get category trees (filter by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees?limit=25&offset=0&filter=name%3Dasd"
+    When I send a GET request to "/api/v1/en/trees?limit=25&offset=0&filter=name%3Dasd"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get category trees (filter by code)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees?limit=25&offset=0&filter=code%3DCAT"
+    When I send a GET request to "/api/v1/en/trees?limit=25&offset=0&filter=code%3DCAT"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
 
   Scenario: Get category trees (filter by name)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/trees?limit=25&offset=0&filter=name%3D1"
+    When I send a GET request to "/api/v1/en/trees?limit=25&offset=0&filter=name%3D1"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"

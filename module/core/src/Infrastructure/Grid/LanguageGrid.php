@@ -15,6 +15,7 @@ use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Grid\Column\TranslatableColumn;
 
 /**
  */
@@ -30,7 +31,7 @@ class LanguageGrid extends AbstractGrid
         $this->addColumn('id', $id);
         $code = new TextColumn('code', 'Name', new TextFilter());
         $this->addColumn('code', $code);
-        $name = new TextColumn('name', 'Name', new TextFilter());
+        $name = new TranslatableColumn('name', 'Name', null, 'language');
         $this->addColumn('name', $name);
         $active = new BoolColumn('active', 'active', new TextFilter());
         $this->addColumn('active', $active);

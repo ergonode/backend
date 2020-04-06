@@ -67,7 +67,7 @@ class TransitionCreateAction
      *     in="path",
      *     type="string",
      *     description="Language code",
-     *     default="EN"
+     *     default="en"
      * )
      * @SWG\Parameter(
      *     name="body",

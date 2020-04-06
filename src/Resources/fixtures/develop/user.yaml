@@ -5,7 +5,7 @@ Ergonode\Account\Domain\Entity\User:
             - 'Johnny'
             - 'Bravo'
             - '<userEmail(test@ergonode.com)>'
-            - '<language(EN)>'
+            - '<language(en)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Superadmin")>'
     admin:
@@ -14,7 +14,7 @@ Ergonode\Account\Domain\Entity\User:
             - 'Dave'
             - 'Admin'
             - '<userEmail(admin@ergonode.com)>'
-            - '<language(EN)>'
+            - '<language(en)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Admin")>'
     data_inputer:
@@ -23,7 +23,7 @@ Ergonode\Account\Domain\Entity\User:
             - 'Paul'
             - 'Data Inputer'
             - '<userEmail(data_inputer@ergonode.com)>'
-            - '<language(EN)>'
+            - '<language(en)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Data inputer")>'
     category_manager:
@@ -32,6 +32,6 @@ Ergonode\Account\Domain\Entity\User:
             - 'Karen'
             - 'Category Manager'
             - '<userEmail(category_manager@ergonode.com)>'
-            - '<language(EN)>'
+            - '<language(en)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Category manager")>'

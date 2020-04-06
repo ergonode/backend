@@ -67,7 +67,7 @@ class LanguageHandlerTest extends TestCase
      */
     public function testSerialize(): void
     {
-        $testValue = 'PL';
+        $testValue = 'pl_PL';
         $code = new Language($testValue);
         $result = $this->handler->serialize($this->serializationVisitor, $code, [], $this->context);
 
@@ -78,7 +78,7 @@ class LanguageHandlerTest extends TestCase
      */
     public function testDeserialize(): void
     {
-        $testValue = 'EN';
+        $testValue = 'en';
         $result = $this->handler->deserialize($this->deserializationVisitor, $testValue, [], $this->context);
 
         $this->assertEquals($testValue, $result->getCode());

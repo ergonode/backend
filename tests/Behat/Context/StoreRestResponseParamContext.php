@@ -32,18 +32,31 @@ class StoreRestResponseParamContext extends RawMinkContext
     }
 
     /**
-     * @param string $key
      * @param string $var
+     * @param string $key
      *
-     * @Then store response param :key as :var
+     * @Then store response param :var as :key
      *
      * @throws \Exception
      */
-    public function storeResponseParam(string $key, string $var): void
+    public function storeResponseParam(string $var, string $key): void
     {
         $content = $this->getMink()->getSession()->getPage()->getContent();
         $json = new Json($content);
 
-        $this->storageContext->add($var, $this->inspector->evaluate($json, $key));
+        $this->storageContext->add($key, $this->inspector->evaluate($json, $var));
+    }
+
+    /**
+     * @param string $key
+     *
+     * @Then print store param :key
+     *
+     * @throws \Exception
+     */
+    public function printStoreParam(string $key): void
+    {
+        echo $this->storageContext->get($key);
+        die;
     }
 }

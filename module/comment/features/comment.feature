@@ -5,7 +5,7 @@ Feature: Comment module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     Given remember param "object_id" with value "@@random_uuid@@"
-    When I send a POST request to "/api/v1/EN/comments" with body:
+    When I send a POST request to "/api/v1/en/comments" with body:
       """
       {
           "object_id": "@object_id@",
@@ -20,7 +20,7 @@ Feature: Comment module
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     Given remember param "second_object_id" with value "@@random_uuid@@"
-    When I send a POST request to "/api/v1/EN/comments" with body:
+    When I send a POST request to "/api/v1/en/comments" with body:
       """
       {
           "object_id": "@second_object_id@",
@@ -34,7 +34,7 @@ Feature: Comment module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/comments" with body:
+    When I send a POST request to "/api/v1/en/comments" with body:
       """
       {
           "object_id": "invalid uuid",
@@ -49,14 +49,14 @@ Feature: Comment module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/comments/@comment_id@"
+    When I send a GET request to "/api/v1/en/comments/@comment_id@"
     Then the response status code should be 200
 
   Scenario: Request comment grid
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/EN/comments"
+    When I send a GET request to "api/v1/en/comments"
     Then the response status code should be 200
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -64,7 +64,7 @@ Feature: Comment module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/EN/comments?filter=object_id=@object_id@"
+    When I send a GET request to "api/v1/en/comments?filter=object_id=@object_id@"
     Then the response status code should be 200
     And the JSON node "info.filtered" should be equal to "1"
     And the JSON nodes should contain:
@@ -76,7 +76,7 @@ Feature: Comment module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/comments/@comment_id@" with body:
+    When I send a PUT request to "/api/v1/en/comments/@comment_id@" with body:
       """
       {
           "content": "New comment for comment to object @object_id@ by user @comment_random@"
@@ -88,7 +88,7 @@ Feature: Comment module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/comments/@comment_id@" with body:
+    When I send a PUT request to "/api/v1/en/comments/@comment_id@" with body:
       """
       {
           "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex.         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex.          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex.          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex.          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex.          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex.         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex.          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex.          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex.          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex.          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut libero eget ex scelerisque malesuada. Aenean in dolor in sapien sagittis dictum. Vestibulum viverra efficitur tristique. Aliquam eget urna nulla. Duis accumsan leo ac justo accumsan pellentesque. Fusce efficitur vehicula leo eget eleifend. Nam facilisis, ante at vulputate malesuada, nibh diam laoreet magna, at sagittis ipsum leo faucibus eros. Donec vel urna vel dolor luctus tincidunt. Morbi vitae justo velit. Proin vitae purus mauris. Donec nec lorem sagittis lacus tempor rhoncus egestas non ex."
@@ -101,7 +101,7 @@ Feature: Comment module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/comments/@comment_id@"
+    When I send a GET request to "/api/v1/en/comments/@comment_id@"
     Then the response status code should be 200
     And the JSON nodes should contain:
       | content | New comment for comment to object |
@@ -110,21 +110,21 @@ Feature: Comment module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "api/v1/EN/comments/@comment_id@"
+    When I send a DELETE request to "api/v1/en/comments/@comment_id@"
     Then the response status code should be 204
 
   Scenario: Get removed comment
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/comments/@comment_id@"
+    When I send a GET request to "/api/v1/en/comments/@comment_id@"
     Then the response status code should be 404
 
   Scenario: Request empty comment grid for given object_id
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/EN/comments?filter=object_id=@object_id@"
+    When I send a GET request to "api/v1/en/comments?filter=object_id=@object_id@"
     Then the response status code should be 200
     And the JSON node "info.filtered" should match "/0/"
 
@@ -133,7 +133,7 @@ Feature: Comment module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/roles" with body:
+    When I send a POST request to "/api/v1/en/roles" with body:
       """
       {
          "name": "Test comment role (@@random_uuid@@)",
@@ -151,13 +151,13 @@ Feature: Comment module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/accounts" with body:
+    When I send a POST request to "/api/v1/en/accounts" with body:
       """
       {
           "email": "@test_username@",
           "firstName": "Author",
           "lastName": "Comment",
-          "language": "EN",
+          "language": "en",
           "password": "@test_password@",
           "passwordRepeat": 12345678,
           "roleId": "@comment_role@",
@@ -174,7 +174,7 @@ Feature: Comment module
     Given I am Authenticated as "@test_username@"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "/api/v1/EN/comments/@second_comment_id@" with body:
+    When I send a PUT request to "/api/v1/en/comments/@second_comment_id@" with body:
       """
       {
           "content": "New comment for comment to object @object_id@ by user @comment_random@"
@@ -186,14 +186,14 @@ Feature: Comment module
     Given I am Authenticated as "@test_username@"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a DELETE request to "api/v1/EN/comments/@second_comment_id@"
+    When I send a DELETE request to "api/v1/en/comments/@second_comment_id@"
     Then the response status code should be 403
 
   Scenario: Request comment grid for given second_object_id (no edit and delete)
     Given I am Authenticated as "@test_username@"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/EN/comments?filter=object_id=@second_object_id@"
+    When I send a GET request to "api/v1/en/comments?filter=object_id=@second_object_id@"
     Then the response status code should be 200
     And the JSON node "info.filtered" should be equal to "1"
     And the JSON nodes should contain:

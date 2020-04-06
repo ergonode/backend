@@ -4,7 +4,7 @@ Feature: Product history feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/templates" with body:
+    When I send a POST request to "/api/v1/en/templates" with body:
       """
       {
         "name": "@@random_md5@@",
@@ -18,7 +18,7 @@ Feature: Product history feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/products" with body:
+    When I send a POST request to "/api/v1/en/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
@@ -33,7 +33,7 @@ Feature: Product history feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/products/@product@/history?field=recorded_at"
+    When I send a GET request to "/api/v1/en/products/@product@/history?field=recorded_at"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].recorded_at" should exist
@@ -42,17 +42,17 @@ Feature: Product history feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/products/@product@/history?field=event"
+    When I send a GET request to "/api/v1/en/products/@product@/history?field=event"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
-    And the JSON node "collection[0].event:EN" should exist
+    And the JSON node "collection[0].event:en" should exist
 
 
   Scenario: Get products history (filter by time)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at=2000-01-01"
+    When I send a GET request to "/api/v1/en/products/@product@/history?limit=25&offset=0&filter=recorded_at=2000-01-01"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
@@ -60,7 +60,7 @@ Feature: Product history feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at="
+    When I send a GET request to "/api/v1/en/products/@product@/history?limit=25&offset=0&filter=recorded_at="
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
@@ -68,7 +68,7 @@ Feature: Product history feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2000-01-01"
+    When I send a GET request to "/api/v1/en/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2000-01-01"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
@@ -76,7 +76,7 @@ Feature: Product history feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at>=2000-01-01"
+    When I send a GET request to "/api/v1/en/products/@product@/history?limit=25&offset=0&filter=recorded_at>=2000-01-01"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -84,7 +84,7 @@ Feature: Product history feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at>=2050-01-01"
+    When I send a GET request to "/api/v1/en/products/@product@/history?limit=25&offset=0&filter=recorded_at>=2050-01-01"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
 
@@ -92,7 +92,7 @@ Feature: Product history feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2050-01-01"
+    When I send a GET request to "/api/v1/en/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2050-01-01"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
@@ -100,11 +100,11 @@ Feature: Product history feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2050-01-01;recorded_at>=2000-01-01"
+    When I send a GET request to "/api/v1/en/products/@product@/history?limit=25&offset=0&filter=recorded_at<=2050-01-01;recorded_at>=2000-01-01"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
 
   Scenario: Get products history (not authorized)
-    When I send a GET request to "/api/v1/EN/products/@product@/history"
+    When I send a GET request to "/api/v1/en/products/@product@/history"
     Then the response status code should be 401
 

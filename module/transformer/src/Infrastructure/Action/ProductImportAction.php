@@ -91,7 +91,7 @@ class ProductImportAction implements ImportActionInterface
             );
         }
 
-        $this->commandBus->dispatch($command);
+        $this->commandBus->dispatch($command, true);
     }
 
     /**

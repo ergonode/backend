@@ -48,7 +48,7 @@ class LanguageCodeValidatorTest extends ConstraintValidatorTestCase
      */
     public function testCorrectValueValidation(): void
     {
-        $this->validator->validate('EN', new LanguageCodeConstraint());
+        $this->validator->validate('en', new LanguageCodeConstraint());
 
         $this->assertNoViolation();
     }

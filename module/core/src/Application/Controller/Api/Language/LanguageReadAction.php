@@ -21,8 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route(
  *     name="ergonode_core_language_read",
  *     path="/languages/{translationLanguage}",
- *     methods={"GET"},
- *     requirements={"translationLanguage"="[A-Z]{2}"}
+ *     methods={"GET"}
  * )
  */
 class LanguageReadAction
@@ -49,7 +48,7 @@ class LanguageReadAction
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="EN",
+     *     default="en",
      *     description="Language Code",
      * )
      * @SWG\Parameter(

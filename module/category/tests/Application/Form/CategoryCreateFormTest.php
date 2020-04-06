@@ -22,12 +22,12 @@ class CategoryCreateFormTest extends TypeTestCase
     public function testSubmitValidData(): void
     {
         $formData = [
-            'name' => ['PL' =>  'Any Name'],
+            'name' => ['pl_PL' =>  'Any Name'],
             'code' => 'any_code',
         ];
 
         $object = new CategoryCreateFormModel();
-        $object->name = ['PL' =>  'Any Name'];
+        $object->name = ['pl_PL' =>  'Any Name'];
         $object->code = new CategoryCode('any_code');
 
         $objectToCompare = new CategoryCreateFormModel();

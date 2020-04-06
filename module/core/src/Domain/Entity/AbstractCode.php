@@ -17,6 +17,7 @@ abstract class AbstractCode
 {
     public const MIN_LENGTH = 1;
     public const MAX_LENGTH = 255;
+    public const PATTERN = '/^[a-zA-Z0-9-_ ]+$\b/i';
 
     /**
      * @var string
@@ -49,7 +50,8 @@ abstract class AbstractCode
      */
     public static function isValid(string $value): bool
     {
-        return mb_strlen($value) <= self::MAX_LENGTH
+        return preg_match(self::PATTERN, $value, $matches) !== 0
+            && mb_strlen($value) <= self::MAX_LENGTH
             && mb_strlen($value) >= self::MIN_LENGTH;
     }
 

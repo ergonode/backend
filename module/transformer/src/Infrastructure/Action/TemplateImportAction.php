@@ -86,7 +86,7 @@ class TemplateImportAction implements ImportActionInterface
             $command = new UpdateTemplateCommand($templateId, $code, new ArrayCollection());
         }
 
-        $this->commandBus->dispatch($command);
+        $this->commandBus->dispatch($command, true);
     }
 
     /**

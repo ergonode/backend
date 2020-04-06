@@ -57,4 +57,17 @@ class StringCollectionValue implements ValueInterface
     {
         return implode(',', $this->value);
     }
+
+    /**
+     * @param ValueInterface $value
+     *
+     * @return bool
+     */
+    public function isEqual(ValueInterface $value): bool
+    {
+        return
+            $value instanceof self
+            && count(array_diff_assoc($value->value, $this->value)) === 0
+            && count(array_diff_assoc($this->value, $value->value)) === 0;
+    }
 }

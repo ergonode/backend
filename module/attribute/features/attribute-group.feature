@@ -6,13 +6,13 @@ Feature: Attribute module
     And I add "Accept" header equal to "application/json"
 
   Scenario: Create attribute group
-    And I send a "POST" request to "/api/v1/EN/attributes/groups" with body:
+    And I send a "POST" request to "/api/v1/en/attributes/groups" with body:
       """
       {
         "code": "ATTRIBUTE_GROUP_@@random_code@@",
         "name": {
-          "PL": "Grupa atrybutów PL",
-          "EN": "Attribute group EN"
+          "pl_PL": "Grupa atrybutów pl",
+          "en": "Attribute group en"
         }
       }
       """
@@ -20,51 +20,51 @@ Feature: Attribute module
     And store response param "id" as "attribute_group_id"
 
   Scenario: Get attribute group
-    And I send a "GET" request to "/api/v1/EN/attributes/groups/@attribute_group_id@"
+    And I send a "GET" request to "/api/v1/en/attributes/groups/@attribute_group_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | name.PL | Grupa atrybutów PL |
-      | name.EN | Attribute group EN |
+      | name.pl_PL | Grupa atrybutów pl |
+      | name.en | Attribute group en |
 
   Scenario: Get attributes groups
-    And I send a "GET" request to "/api/v1/EN/attributes/groups"
+    And I send a "GET" request to "/api/v1/en/attributes/groups"
     Then the response status code should be 200
     And the JSON node "collection" should not be null
 
   Scenario: Update attribute group (not found)
-    And I send a "PUT" request to "/api/v1/EN/attributes/groups/@static_uuid@"
+    And I send a "PUT" request to "/api/v1/en/attributes/groups/@static_uuid@"
     Then the response status code should be 404
 
   Scenario: Update attribute group
-    And I send a "PUT" request to "/api/v1/EN/attributes/groups/@attribute_group_id@" with body:
+    And I send a "PUT" request to "/api/v1/en/attributes/groups/@attribute_group_id@" with body:
       """
       {
         "name": {
-          "PL": "PL",
-          "EN": "EN"
+          "pl_PL": "pl_PL",
+          "en": "en"
         }
       }
       """
     Then the response status code should be 204
 
   Scenario: Get attribute group
-    And I send a "GET" request to "/api/v1/EN/attributes/groups/@attribute_group_id@"
+    And I send a "GET" request to "/api/v1/en/attributes/groups/@attribute_group_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | name.PL | PL |
-      | name.EN | EN |
+      | name.pl_PL | pl_PL |
+      | name.en | en |
 
   Scenario: Ger attribute group (not found)
-    And I send a "GET" request to "/api/v1/EN/attributes/groups/@static_uuid@"
+    And I send a "GET" request to "/api/v1/en/attributes/groups/@static_uuid@"
     Then the response status code should be 404
 
   Scenario: Create text attribute
-    And I send a "POST" request to "/api/v1/EN/attributes" with body:
+    And I send a "POST" request to "/api/v1/en/attributes" with body:
       """
       {
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
-          "label": {"PL": "Atrybut tekstowy", "EN": "Text attribute"},
+          "label": {"pl_PL": "Atrybut tekstowy", "en": "Text attribute"},
           "groups": ["@attribute_group_id@"],
           "parameters": []
       }
@@ -73,9 +73,9 @@ Feature: Attribute module
     And store response param "id" as "attribute_id"
 
   Scenario: Delete attribute group
-    And I send a "DELETE" request to "/api/v1/EN/attributes/groups/@attribute_group_id@"
+    And I send a "DELETE" request to "/api/v1/en/attributes/groups/@attribute_group_id@"
     Then the response status code should be 204
 
   Scenario: Delete attribute group (not found)
-    And I send a "DELETE" request to "/api/v1/EN/attributes/groups/@static_uuid@"
+    And I send a "DELETE" request to "/api/v1/en/attributes/groups/@static_uuid@"
     Then the response status code should be 404

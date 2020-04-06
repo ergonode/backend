@@ -4,18 +4,18 @@ Feature: Condition Product has status
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/status" with body:
+    When I send a POST request to "/api/v1/en/status" with body:
       """
       {
         "color": "#ff0000",
         "code": "SOURCE @@random_md5@@",
         "name": {
-          "PL": "PL",
-          "EN": "EN"
+          "pl_PL": "pl_PL",
+          "en": "en"
         },
         "description": {
-          "PL": "PL",
-          "EN": "EN"
+          "pl_PL": "pl_PL",
+          "en": "en"
         }
       }
       """
@@ -26,18 +26,18 @@ Feature: Condition Product has status
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/status" with body:
+    When I send a POST request to "/api/v1/en/status" with body:
       """
       {
         "color": "#ff0000",
         "code": "SOURCE @@random_md5@@",
         "name": {
-          "PL": "PL",
-          "EN": "EN"
+          "pl_PL": "pl_PL",
+          "en": "en"
         },
         "description": {
-          "PL": "PL",
-          "EN": "EN"
+          "pl_PL": "pl_PL",
+          "en": "en"
         }
       }
       """
@@ -45,21 +45,21 @@ Feature: Condition Product has status
     And store response param "id" as "status_2"
 
   Scenario: Get product has status condition
-    When I send a GET request to "/api/v1/EN/conditions/PRODUCT_HAS_STATUS_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/PRODUCT_HAS_STATUS_CONDITION"
     Then the response status code should be 401
 
   Scenario: Get Product has status
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/EN/conditions/PRODUCT_HAS_STATUS_CONDITION"
+    When I send a GET request to "/api/v1/en/conditions/PRODUCT_HAS_STATUS_CONDITION"
     Then the response status code should be 200
 
   Scenario Outline: Post new valid product has status condition set
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/conditionsets" with body:
+    When I send a POST request to "/api/v1/en/conditionsets" with body:
       """
        {
           "conditions": [
@@ -82,7 +82,7 @@ Feature: Condition Product has status
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/conditionsets" with body:
+    When I send a POST request to "/api/v1/en/conditionsets" with body:
       """
         {
           "conditions": [
@@ -108,7 +108,7 @@ Feature: Condition Product has status
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/EN/conditionsets" with body:
+    When I send a POST request to "/api/v1/en/conditionsets" with body:
       """
         {
           "conditions": [
