@@ -71,7 +71,7 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
                 $transformer->addAttribute(
                     $attribute->getCode()->getValue(),
                     $attribute->getType(),
-                    true,
+                    $attribute->isMultilingual(),
                     new
                     TextConverter($code)
                 );
