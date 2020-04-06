@@ -12,7 +12,6 @@ use Doctrine\DBAL\DBALException;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
@@ -62,8 +61,6 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
     private CommandBusInterface $commandBus;
 
     /**
-     * Magento1ProductProcessor constructor.
-     *
      * @param OptionQueryInterface          $optionQuery
      * @param AttributeQueryInterface       $attributeQuery
      * @param ImportLineRepositoryInterface $repository
@@ -162,10 +159,12 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                         $record->setValue($field, new Stringvalue($optionId->getValue()));
                     } elseif (ImageAttribute::TYPE === $type) {
                         if ($source->import(Magento1CsvSource::MULTIMEDIA)) {
-                            $url = $source->getHost().$value;
-                            $uuid  = Uuid::uuid5(self::NAMESPACE, $url)->toString();
-                            $multimediaId = new MultimediaId($uuid);
-                            $record->setValue($field, new Stringvalue($multimediaId->getValue()));
+                            $url = sprintf('%s/media/catalog/product%s', $source->getHost(), $value);
+                            if (strpos($url, 'no_selection') === false) {
+                                $uuid = Uuid::uuid5(self::NAMESPACE, $url)->toString();
+                                $multimediaId = new MultimediaId($uuid);
+                                $record->setValue($field, new Stringvalue($multimediaId->getValue()));
+                            }
                         }
                     } elseif ($isMultilingual) {
                         $translation[$source->getDefaultLanguage()->getCode()] = $value;

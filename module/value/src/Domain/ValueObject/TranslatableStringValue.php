@@ -58,4 +58,16 @@ class TranslatableStringValue implements ValueInterface
     {
         return implode(',', $this->value->getTranslations());
     }
+
+    /**
+     * @param ValueInterface $value
+     *
+     * @return bool
+     */
+    public function isEqual(ValueInterface $value): bool
+    {
+        return
+            $value instanceof self
+            && $value->value->isEqual($this->value);
+    }
 }

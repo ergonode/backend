@@ -32,7 +32,7 @@ final class Version20180401062601 extends AbstractErgonodeMigration
                 username VARCHAR(128) NOT NULL, 
                 password VARCHAR(41) NOT NULL, 
                 role_id UUID NOT NULL,
-                language VARCHAR(2) NOT NULL,
+                language VARCHAR(5) NOT NULL,
                 PRIMARY KEY(id)
             )
         ');

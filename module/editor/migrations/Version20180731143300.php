@@ -39,7 +39,7 @@ final class Version20180731143300 extends AbstractErgonodeMigration
                 id UUID NOT NULL,
                 draft_id UUID DEFAULT NULL,
                 element_id UUID NOT NULL,
-                language VARCHAR(2) DEFAULT NULL, 
+                language VARCHAR(5) DEFAULT NULL, 
                 value text NOT NULL,                                           
                 PRIMARY KEY(id)
             )

@@ -18,6 +18,7 @@ use Ergonode\Transformer\Domain\Model\Record;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Core\Infrastructure\Service\DownloaderInterface;
 
 /**
  */
@@ -36,6 +37,11 @@ class MultimediaImportAction implements ImportActionInterface
     private MultimediaRepositoryInterface $repository;
 
     /**
+     * @var DownloaderInterface
+     */
+    private DownloaderInterface $downloader;
+
+    /**
      * @var KernelInterface
      */
     private KernelInterface $kernel;
@@ -47,15 +53,18 @@ class MultimediaImportAction implements ImportActionInterface
 
     /**
      * @param MultimediaRepositoryInterface $repository
+     * @param DownloaderInterface           $downloader
      * @param KernelInterface               $kernel
      * @param CommandBusInterface           $commandBus
      */
     public function __construct(
         MultimediaRepositoryInterface $repository,
+        DownloaderInterface $downloader,
         KernelInterface $kernel,
         CommandBusInterface $commandBus
     ) {
         $this->repository = $repository;
+        $this->downloader = $downloader;
         $this->kernel = $kernel;
         $this->commandBus = $commandBus;
     }
@@ -78,6 +87,7 @@ class MultimediaImportAction implements ImportActionInterface
     {
         $id = $record->has(self::ID_FIELD) ? new MultimediaId($record->get(self::ID_FIELD)->getValue()) : null;
         $name = $record->has(self::NAME_FIELD) ? $record->get(self::NAME_FIELD)->getValue() : null;
+        /** @var string $url */
         $url = $record->has(self::URL_FIELD) ? $record->get(self::URL_FIELD)->getValue() : null;
         Assert::notNull($id, 'Multimedia import required "id" field not exists');
         Assert::notNull($name, 'Multimedia import required "name" field not exists');
@@ -87,13 +97,17 @@ class MultimediaImportAction implements ImportActionInterface
         $multimedia = $this->repository->load($id);
 
         if (!$multimedia) {
-            $content = file_get_contents($url);
-            $filePath = sprintf('%s/%s', $cacheDir, $name);
-            $this->saveFile($filePath, $content);
-            $file = new File($filePath);
-            $multimediaId = new MultimediaId($id->getValue());
-            $command = new AddMultimediaCommand($multimediaId, $file);
-            $this->commandBus->dispatch($command, true);
+            try {
+                $content = $this->downloader->download($url);
+                $filePath = sprintf('%s/%s', $cacheDir, $name);
+                $this->saveFile($filePath, $content);
+                $file = new File($filePath);
+                $multimediaId = new MultimediaId($id->getValue());
+                $command = new AddMultimediaCommand($multimediaId, $file);
+                $this->commandBus->dispatch($command, true);
+            } catch (\Exception $exception) {
+                throw $exception;
+            }
         }
     }
 

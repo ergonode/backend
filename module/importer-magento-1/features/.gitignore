@@ -1,4 +1,4 @@
 *
 !.gitignore
 !magento-1-import.feature
-!magento-1-test
+!magento-1-import.csv

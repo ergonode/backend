@@ -71,4 +71,16 @@ class StringValue implements ValueInterface
     {
         return '' !== $value;
     }
+
+    /**
+     * @param ValueInterface $value
+     *
+     * @return bool
+     */
+    public function isEqual(ValueInterface $value): bool
+    {
+        return
+            $value instanceof self
+            && $value->value === $this->value;
+    }
 }

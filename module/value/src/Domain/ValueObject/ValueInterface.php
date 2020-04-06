@@ -29,4 +29,11 @@ interface ValueInterface
      * @return string
      */
     public function __toString(): string;
+
+    /**
+     * @param ValueInterface $value
+     *
+     * @return bool
+     */
+    public function isEqual(ValueInterface $value): bool;
 }

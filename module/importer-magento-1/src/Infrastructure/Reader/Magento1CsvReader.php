@@ -75,20 +75,23 @@ class Magento1CsvReader
         ];
 
         $fileReader->open($filename, $configuration);
+        $add = false;
+        $code = 'default';
 
         foreach ($fileReader->read() as $line => $row) {
-            $add = false;
             if ($row['sku'] && $row['_type']) {
                 $add = true;
                 $sku = $row['sku'];
                 $products[$sku] = [];
+                $code = 'default';
             } elseif (empty($row['sku']) && !empty($row['_type'])) {
                 $add = false;
                 $errors[] = sprintf('Line %s haven\'t SKU, (ignored) previous SKU "%s"', $line, $sku);
             }
-
-            $code = $row['_store'] ?: 'default';
             if ($add) {
+                if (!empty($row['_store']) && $code !== $row['_store']) {
+                    $code = $row['_store'];
+                }
                 $row = $this->process($transformer, $row);
                 if (!array_key_exists($code, $products[$sku])) {
                     $products[$sku][$code] = $row;
@@ -99,6 +102,16 @@ class Magento1CsvReader
                                 $products[$sku][$code][$field] .= ','.$value;
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        foreach ($products as $sku => $product) {
+            foreach ($product as $code => $version) {
+                foreach ($version as $field => $value) {
+                    if (null === $value) {
+                        unset($products[$sku][$code][$field]);
                     }
                 }
             }
