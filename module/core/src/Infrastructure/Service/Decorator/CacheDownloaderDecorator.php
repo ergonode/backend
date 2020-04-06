@@ -52,6 +52,7 @@ class CacheDownloaderDecorator implements DownloaderInterface
 
             return $content;
         }
+
         return file_get_contents($filename);
     }
 

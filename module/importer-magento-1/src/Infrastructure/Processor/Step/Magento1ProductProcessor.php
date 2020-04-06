@@ -160,7 +160,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                     } elseif (ImageAttribute::TYPE === $type) {
                         if ($source->import(Magento1CsvSource::MULTIMEDIA)) {
                             $url = sprintf('%s/media/catalog/product%s', $source->getHost(), $value);
-                            if(strpos($url,'no_selection') === false) {
+                            if (strpos($url, 'no_selection') === false) {
                                 $uuid = Uuid::uuid5(self::NAMESPACE, $url)->toString();
                                 $multimediaId = new MultimediaId($uuid);
                                 $record->setValue($field, new Stringvalue($multimediaId->getValue()));
