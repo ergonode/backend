@@ -11,7 +11,6 @@ namespace Ergonode\Product\Infrastructure\Handler;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
@@ -59,7 +58,6 @@ class UpdateProductCommandHandler
         Assert::notNull($product);
 
         $categories = $command->getCategories();
-
         foreach ($categories as $categoryId) {
             if (!$product->belongToCategory($categoryId)) {
                 $product->addToCategory($categoryId);
@@ -67,7 +65,7 @@ class UpdateProductCommandHandler
         }
 
         foreach ($product->getCategories() as $categoryId) {
-            if (!isset($categories[$categoryId->getValue()])) {
+            if (!in_array($categoryId->getValue(), $categories, false)) {
                 $product->removeFromCategory($categoryId);
             }
         }

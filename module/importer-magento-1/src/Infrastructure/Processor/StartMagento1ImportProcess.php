@@ -17,6 +17,10 @@ use Webmozart\Assert\Assert;
 use Ergonode\ImporterMagento1\Infrastructure\Reader\Magento1CsvReader;
 use Ergonode\Transformer\Domain\Repository\TransformerRepositoryInterface;
 use Ergonode\Importer\Infrastructure\Processor\SourceImportProcessorInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Notification\Domain\Command\SendNotificationCommand;
+use Ergonode\Notification\Application\Controller\Api\NotificationCheckAction;
+use Ergonode\Workflow\Domain\Notification\StatusChangedNotification;
 
 /**
  */
@@ -38,25 +42,33 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
     private Magento1CsvReader $reader;
 
     /**
+     * @var CommandBusInterface
+     */
+    private CommandBusInterface $commandBus;
+
+    /**
      * @var Magento1ProcessorStepInterface[]
      */
     private array $steps;
 
     /**
-     * @param SourceRepositoryInterface            $sourceRepository
-     * @param TransformerRepositoryInterface       $transformerRepository
-     * @param Magento1CsvReader                    $reader
-     * @param array|Magento1ProcessorStepInterface ...$steps
+     * @param SourceRepositoryInterface              $sourceRepository
+     * @param TransformerRepositoryInterface         $transformerRepository
+     * @param Magento1CsvReader                      $reader
+     * @param CommandBusInterface                    $commandBus
+     * @param array|Magento1ProcessorStepInterface[] $steps
      */
     public function __construct(
         SourceRepositoryInterface $sourceRepository,
         TransformerRepositoryInterface $transformerRepository,
         Magento1CsvReader $reader,
-        Magento1ProcessorStepInterface ...$steps
+        CommandBusInterface $commandBus,
+        $steps
     ) {
         $this->sourceRepository = $sourceRepository;
         $this->transformerRepository = $transformerRepository;
         $this->reader = $reader;
+        $this->commandBus = $commandBus;
         $this->steps = $steps;
     }
 

@@ -186,7 +186,7 @@ class ProductDraftController extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="EN",
+     *     default="en",
      *     description="Language code"
      * )
      * @SWG\Response(
@@ -234,7 +234,7 @@ class ProductDraftController extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="EN",
+     *     default="en",
      *     description="Language Code",
      * )
      * )
@@ -276,7 +276,7 @@ class ProductDraftController extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="EN",
+     *     default="en",
      *     description="Language Code",
      * )
      * @SWG\Response(
@@ -331,7 +331,7 @@ class ProductDraftController extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="EN",
+     *     default="en",
      *     description="Language Code",
      * )
      * @SWG\Response(
@@ -392,7 +392,7 @@ class ProductDraftController extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="EN",
+     *     default="en",
      *     description="Language Code",
      * )
      * @SWG\Parameter(
@@ -467,7 +467,7 @@ class ProductDraftController extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="EN",
+     *     default="en",
      *     description="Language Code",
      * )
      * @SWG\Response(
@@ -511,7 +511,7 @@ class ProductDraftController extends AbstractController
      *     in="path",
      *     type="string",
      *     required=true,
-     *     default="EN",
+     *     default="en",
      *     description="Language Code",
      * )
      * @SWG\Response(

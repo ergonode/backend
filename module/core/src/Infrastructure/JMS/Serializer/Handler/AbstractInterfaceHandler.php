@@ -34,6 +34,7 @@ abstract class AbstractInterfaceHandler implements SubscribingHandlerInterface
      */
     public function __construct(string $constant = 'TYPE')
     {
+        $this->map = [];
         $this->constant = $constant;
     }
 

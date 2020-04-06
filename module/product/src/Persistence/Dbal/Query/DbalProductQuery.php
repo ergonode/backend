@@ -223,6 +223,7 @@ class DbalProductQuery implements ProductQueryInterface
             ->from(self::SEGMENT_PRODUCT_TABLE);
         if ($segmentIds) {
             $result = $qb->andWhere($qb->expr()->in('segment_id', ':segmentIds'))
+                ->andWhere('available = true')
                 ->setParameter(':segmentIds', $segmentIds, Connection::PARAM_STR_ARRAY)
                 ->execute()->fetchAll(\PDO::FETCH_COLUMN);
         }

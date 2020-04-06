@@ -227,7 +227,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             throw new \RuntimeException('Value note exists');
         }
 
-        if ((string) $this->attributes[$attributeCode->getValue()] !== (string) $value) {
+        if (!$value->isEqual($this->attributes[$attributeCode->getValue()])) {
             $this->apply(
                 new ProductValueChangedEvent(
                     $this->id,

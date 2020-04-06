@@ -13,14 +13,13 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Transformer\Domain\Model\Record;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\Command\Option\UpdateOptionCommand;
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  */
@@ -39,23 +38,23 @@ class OptionImportAction implements ImportActionInterface
     private OptionQueryInterface $optionQuery;
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBusInterface
      */
-    private MessageBusInterface $messageBus;
+    private CommandBusInterface $commandBus;
 
     /**
      * @param AttributeQueryInterface $attributeQuery
      * @param OptionQueryInterface    $optionQuery
-     * @param MessageBusInterface     $messageBus
+     * @param CommandBusInterface     $commandBus
      */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         OptionQueryInterface $optionQuery,
-        MessageBusInterface $messageBus
+        CommandBusInterface $commandBus
     ) {
         $this->attributeQuery = $attributeQuery;
         $this->optionQuery = $optionQuery;
-        $this->messageBus = $messageBus;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -104,7 +103,7 @@ class OptionImportAction implements ImportActionInterface
             );
         }
 
-        $this->messageBus->dispatch($command);
+        $this->commandBus->dispatch($command, true);
     }
 
     /**
