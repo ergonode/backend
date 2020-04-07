@@ -29,6 +29,11 @@ class DefaultProductTest extends TestCase
     private string $sku;
 
     /**
+     * @var string
+     */
+    private string $type;
+
+    /**
      * @var Uuid[]
      */
     private array $category;
@@ -44,6 +49,7 @@ class DefaultProductTest extends TestCase
     {
         $this->id = Uuid::uuid4();
         $this->sku = random_bytes(10);
+        $this->type = random_bytes(10);
 
         $this->category = [
             $this->createMock(Uuid::class),
@@ -62,12 +68,14 @@ class DefaultProductTest extends TestCase
         $product = new DefaultExportProduct(
             $this->id,
             $this->sku,
+            $this->type,
             $this->category,
             $this->attribute
         );
 
         $this->assertEquals($this->id, $product->getId());
         $this->assertEquals($this->sku, $product->getSku());
+        $this->assertEquals($this->type, $product->getType());
         $this->assertEquals($this->category, $product->getCategories());
         $this->assertEquals($this->attribute, $product->getAttributes());
     }
