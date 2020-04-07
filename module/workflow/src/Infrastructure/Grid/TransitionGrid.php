@@ -17,6 +17,7 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -46,7 +47,7 @@ class TransitionGrid extends AbstractGrid
         $statuses = $this->statusQuery->getAllStatuses($language);
         $codes = [];
         foreach ($statuses as $code => $status) {
-            $codes[$code] = $status['name'];
+            $codes[] = new FilterOption($code, $code, $status['name']);
         }
 
         $code = new LabelColumn('source', 'From', $statuses, new MultiSelectFilter($codes));

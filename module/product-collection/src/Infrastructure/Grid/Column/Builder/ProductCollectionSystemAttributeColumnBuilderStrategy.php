@@ -17,6 +17,7 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 use Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttribute;
 use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
+use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -48,11 +49,11 @@ class ProductCollectionSystemAttributeColumnBuilderStrategy implements Attribute
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
-        $categories = $this->query->getDictionary();
+        $categories = $this->query->getOptions($language);
 
         $options = [];
-        foreach ($categories as $id => $option) {
-            $options[$id] = $option;
+        foreach ($categories as $category) {
+            $options[] = new FilterOption($category['id'], $category['code'], $category['name']);
         }
 
         $columnKey = $attribute->getCode()->getValue();

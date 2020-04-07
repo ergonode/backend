@@ -55,6 +55,22 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
     /**
      * @param Language $language
      *
+     * @return string[]
+     */
+    public function getOptions(Language $language): array
+    {
+        $qb = $this->getQuery();
+
+        return $qb
+            ->select('id', 'code')
+            ->addSelect(sprintf('(name->>\'%s\') AS name', $language->getCode()))
+            ->execute()
+            ->fetchAll();
+    }
+
+    /**
+     * @param Language $language
+     *
      * @return DataSetInterface
      */
     public function getDataSet(Language $language): DataSetInterface

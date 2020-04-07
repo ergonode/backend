@@ -31,6 +31,13 @@ interface CategoryQueryInterface
     public function getDictionary(Language $language): array;
 
     /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getAll(Language $language): array;
+
+    /**
      * @param CategoryCode $code
      *
      * @return CategoryId|null

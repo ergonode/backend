@@ -20,6 +20,7 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -49,8 +50,8 @@ class StatusGrid extends AbstractGrid
         $statuses = $this->statusQuery->getAllStatuses($language);
 
         $codes = [];
-        foreach ($statuses as $id => $status) {
-            $codes[$id] = $status['name'];
+        foreach ($statuses as $code => $status) {
+            $codes[] = new FilterOption($code, $code, $status['name']);
         }
 
         $id = new TextColumn('id', 'Id', new TextFilter());
