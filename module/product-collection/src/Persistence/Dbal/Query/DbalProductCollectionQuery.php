@@ -62,12 +62,11 @@ class DbalProductCollectionQuery implements ProductCollectionQueryInterface
         $qb = $this->getQuery();
         $qb->addSelect('c.id');
         $qb->addSelect('c.code');
+        $qb->addSelect('c.type_id');
         $qb->addSelect('c.created_at');
         $qb->addSelect('c.edited_at');
-        $qb->addSelect('ct.code AS type');
         $qb->addSelect(sprintf('(c.name->>\'%s\') AS name', $language->getCode()));
         $qb->addSelect(sprintf('(c.description->>\'%s\') AS description', $language->getCode()));
-        $qb->join('c', self::PRODUCT_COLLECTION_TYPE_TABLE, 'ct', 'c.type_id = ct.id');
 
         $result = $this->connection->createQueryBuilder();
         $result->select('*');

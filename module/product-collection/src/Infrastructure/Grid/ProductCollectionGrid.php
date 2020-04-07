@@ -55,7 +55,7 @@ class ProductCollectionGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
-        $this->addColumn('type', new TextColumn('type', 'Type', new MultiSelectFilter($types)));
+        $this->addColumn('type_id', new TextColumn('type_id', 'Type', new MultiSelectFilter($types)));
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
         $this->addColumn('description', new TextColumn('description', 'Description', new TextFilter()));
         $this->addColumn('elements_count', new IntegerColumn('elements_count', 'Number of products', new TextFilter()));
