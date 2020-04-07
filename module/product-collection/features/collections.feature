@@ -647,11 +647,11 @@ Feature: Product collection module
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
 
-  Scenario: Get product collection (order by type)
+  Scenario: Get product collection (order by type_id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/collections?field=type"
+    When I send a GET request to "/api/v1/en/collections?field=type_id"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].code" should exist
