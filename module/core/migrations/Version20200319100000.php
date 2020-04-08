@@ -50,6 +50,17 @@ final class Version20200319100000 extends AbstractErgonodeMigration
             'Ergonode\Core\Domain\Event\UnitCreatedEvent'
             => 'Unit created',
         ]);
+
+        $this->addSql('
+            CREATE TABLE language_privileges (
+                id UUID NOT NULL, 
+                language VARCHAR(128) NOT NULL,              
+                code VARCHAR(128) NOT NULL,
+                PRIMARY KEY(id)
+            )
+        ');
+
+        $this->addSql('CREATE UNIQUE INDEX language_privileges_name_key ON privileges (code)');
     }
 
     /**
@@ -67,7 +78,6 @@ final class Version20200319100000 extends AbstractErgonodeMigration
             ]);
         }
     }
-
 
     /**
      * @param array $collection
