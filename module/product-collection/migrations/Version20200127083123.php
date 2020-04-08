@@ -17,6 +17,11 @@ final class Version20200127083123 extends AbstractErgonodeMigration
      */
     public function up(Schema $schema): void
     {
+
+        $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
+        $this->addSql('CREATE EXTENSION IF NOT EXISTS "ltree"');
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Product Collections']);
+
         $this->addSql(
             'CREATE TABLE collection(
                     id uuid NOT NULL,
@@ -50,10 +55,10 @@ final class Version20200127083123 extends AbstractErgonodeMigration
         );
 
         $this->createPrivileges([
-            'PRODUCT_COLLECTION_CREATE' => 'Settings',
-            'PRODUCT_COLLECTION_READ' => 'Settings',
-            'PRODUCT_COLLECTION_UPDATE' => 'Settings',
-            'PRODUCT_COLLECTION_DELETE' => 'Settings',
+            'PRODUCT_COLLECTION_CREATE' => 'Product Collections',
+            'PRODUCT_COLLECTION_READ' => 'Product Collections',
+            'PRODUCT_COLLECTION_UPDATE' => 'Product Collections',
+            'PRODUCT_COLLECTION_DELETE' => 'Product Collections',
         ]);
 
         $this->createEventStoreEvents([
