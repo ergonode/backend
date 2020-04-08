@@ -37,7 +37,9 @@ class ProductCollectionElementGrid extends AbstractGrid
         $this->addColumn('system_name', new TextColumn('system_name', 'System name', new TextFilter()));
         $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
         $this->addColumn('created_at', new DateColumn('created_at', 'Date added', new DateFilter()));
-        $this->addColumn('visible', new BoolColumn('visible', 'Product visible in collection'));
+        $visible = new BoolColumn('visible', 'Product visible in collection');
+        $visible->setEditable(true);
+        $this->addColumn('visible', $visible);
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_product_collection_element_read',
@@ -68,5 +70,6 @@ class ProductCollectionElementGrid extends AbstractGrid
         ]));
         $this->orderBy('created_at', 'DESC');
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
+        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT, true);
     }
 }

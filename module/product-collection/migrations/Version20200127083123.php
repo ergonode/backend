@@ -49,6 +49,13 @@ final class Version20200127083123 extends AbstractErgonodeMigration
                  )'
         );
 
+        $this->createPrivileges([
+            'PRODUCT_COLLECTION_CREATE' => 'Settings',
+            'PRODUCT_COLLECTION_READ' => 'Settings',
+            'PRODUCT_COLLECTION_UPDATE' => 'Settings',
+            'PRODUCT_COLLECTION_DELETE' => 'Settings',
+        ]);
+
         $this->createEventStoreEvents([
             'Ergonode\ProductCollection\Domain\Event\ProductCollectionCreatedEvent'
             => 'Product collection created',
@@ -87,6 +94,22 @@ final class Version20200127083123 extends AbstractErgonodeMigration
                 'id' => Uuid::uuid4()->toString(),
                 'event_class' => $class,
                 'translation_key' => $translation,
+            ]);
+        }
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Exception
+     */
+    private function createPrivileges(array $collection): void
+    {
+        foreach ($collection as $code => $area) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => $area,
             ]);
         }
     }
