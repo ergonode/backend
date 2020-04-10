@@ -50,5 +50,7 @@ services:
     Ergonode\Account\Domain\Query\RoleQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalRoleQuery'
     Ergonode\Account\Domain\Query\UserQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalUserQuery'
     Ergonode\Account\Domain\Query\LogQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalLogQuery'
+    Ergonode\Account\Domain\Query\LanguagePrivilegeQueryInterface: '@Ergonode\Account\Persistence\Dbal\Query\DbalLanguagePrivilegeQuery'
     Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface: '@Ergonode\Account\Infrastructure\Encoder\DomainUserPasswordEncoder'
     Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolverInterface: '@Ergonode\Account\Infrastructure\Resolver\PrivilegeTypeResolver'
+    Ergonode\Account\Infrastructure\Resolver\LanguagePrivilegeTypeResolverInterface: '@Ergonode\Account\Infrastructure\Resolver\LanguagePrivilegeTypeResolver'

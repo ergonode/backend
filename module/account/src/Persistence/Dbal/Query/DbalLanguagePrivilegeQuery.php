@@ -7,11 +7,11 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Query;
+namespace Ergonode\Account\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Core\Domain\Query\LanguagePrivilegeQueryInterface;
+use Ergonode\Account\Domain\Query\LanguagePrivilegeQueryInterface;
 
 /**
  */

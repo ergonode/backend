@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application\Controller\Api\Dictionary;
+namespace Ergonode\Account\Application\Controller\Api\Dictionary;
 
+use Ergonode\Account\Domain\Provider\LanguagePrivilegeDictionaryProvider;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Core\Domain\Provider\LanguagePrivilegeDictionaryProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;

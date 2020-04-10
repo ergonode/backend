@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Infrastructure\Resolver;
+namespace Ergonode\Account\Infrastructure\Resolver;
 
-use Ergonode\Core\Domain\ValueObject\LanguagePrivilege;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivilege;
 
 /**
  */

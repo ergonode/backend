@@ -8,6 +8,7 @@ Ergonode\Account\Domain\Entity\User:
             - '<language(en)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Superadmin")>'
+            - []
     admin:
         __construct:
             - '<userId(admin@ergonode.com)>'
@@ -17,6 +18,7 @@ Ergonode\Account\Domain\Entity\User:
             - '<language(en)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Admin")>'
+            - []
     data_inputer:
         __construct:
             - '<userId(data_inputer@ergonode.com)>'
@@ -26,6 +28,7 @@ Ergonode\Account\Domain\Entity\User:
             - '<language(en)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Data inputer")>'
+            - []
     category_manager:
         __construct:
             - '<userId(category_manager@ergonode.com)>'
@@ -35,3 +38,4 @@ Ergonode\Account\Domain\Entity\User:
             - '<language(en)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Category manager")>'
+            - []

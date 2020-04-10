@@ -310,7 +310,7 @@ Feature: Account module
       """
     Then the response status code should be 400
 
-  Scenario: Update role (empty privilages)
+  Scenario: Update role (empty privileges)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
@@ -324,7 +324,7 @@ Feature: Account module
       """
     Then the response status code should be 204
 
-  Scenario: Update role (no existing privilages)
+  Scenario: Update role (no existing privileges)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"

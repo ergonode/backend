@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 /**
  */
@@ -50,6 +50,11 @@ class UpdateUserCommand implements DomainCommandInterface
     private RoleId $roleId;
 
     /**
+     * @var array
+     */
+    private array $languagePrivileges;
+
+    /**
      * @var bool
      */
     private bool $isActive;
@@ -60,6 +65,7 @@ class UpdateUserCommand implements DomainCommandInterface
      * @param string        $lastName
      * @param Language      $language
      * @param RoleId        $roleId
+     * @param array         $languagePrivileges
      * @param bool          $isActive
      * @param Password|null $password
      */
@@ -69,6 +75,7 @@ class UpdateUserCommand implements DomainCommandInterface
         string $lastName,
         Language $language,
         RoleId $roleId,
+        array $languagePrivileges,
         bool $isActive,
         ?Password $password = null
     ) {
@@ -78,6 +85,7 @@ class UpdateUserCommand implements DomainCommandInterface
         $this->lastName = $lastName;
         $this->language = $language;
         $this->isActive = $isActive;
+        $this->languagePrivileges = $languagePrivileges;
         $this->password = $password;
     }
 
@@ -95,6 +103,14 @@ class UpdateUserCommand implements DomainCommandInterface
     public function getRoleId(): RoleId
     {
         return $this->roleId;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLanguagePrivileges(): array
+    {
+        return $this->languagePrivileges;
     }
 
     /**

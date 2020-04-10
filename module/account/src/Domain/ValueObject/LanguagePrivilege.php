@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Domain\ValueObject;
+namespace Ergonode\Account\Domain\ValueObject;
 
 /**
  */
@@ -58,5 +58,13 @@ class LanguagePrivilege
     public function getValue(): string
     {
         return $this->value;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getValue();
     }
 }

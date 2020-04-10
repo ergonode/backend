@@ -9,9 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\Account\Application\Validator\Constraints as AccountAssert;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivilege;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -76,6 +78,13 @@ class UpdateUserFormModel
     public ?RoleId $roleId;
 
     /**
+     * @var LanguagePrivilege[]
+     *
+     * @AccountAssert\ConstraintLanguagePrivilegeRelations()
+     */
+    public array $languagePrivileges;
+
+    /**
      */
     public function __construct()
     {
@@ -85,6 +94,7 @@ class UpdateUserFormModel
         $this->passwordRepeat = null;
         $this->password = null;
         $this->isActive = null;
+        $this->languagePrivileges = [];
         $this->roleId = null;
     }
 

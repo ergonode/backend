@@ -7,12 +7,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Domain\Provider;
+namespace Ergonode\Account\Domain\Provider;
 
-use Ergonode\Core\Domain\Query\LanguagePrivilegeQueryInterface;
+use Ergonode\Account\Domain\Query\LanguagePrivilegeQueryInterface;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivilege;
+use Ergonode\Account\Infrastructure\Resolver\LanguagePrivilegeTypeResolverInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\ValueObject\LanguagePrivilege;
-use Ergonode\Core\Infrastructure\Resolver\LanguagePrivilegeTypeResolverInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**

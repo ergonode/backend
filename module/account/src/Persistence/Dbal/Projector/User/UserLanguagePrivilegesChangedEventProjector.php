@@ -11,12 +11,12 @@ namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
+use Ergonode\Account\Domain\Event\User\UserLanguagePrivilegesChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class UserCreatedEventProjector
+class UserLanguagePrivilegesChangedEventProjector
 {
     private const TABLE = 'users';
 
@@ -41,28 +41,19 @@ class UserCreatedEventProjector
     }
 
     /**
-     * @param UserCreatedEvent $event
+     * @param UserLanguagePrivilegesChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(UserCreatedEvent $event): void
+    public function __invoke(UserLanguagePrivilegesChangedEvent $event): void
     {
-        $this->connection->insert(
+        $this->connection->update(
             self::TABLE,
             [
-                'id' => $event->getAggregateId()->getValue(),
-                'first_name' => $event->getFirstName(),
-                'last_name' => $event->getLastName(),
-                'username' => $event->getEmail(),
-                'role_id' => $event->getRoleId()->getValue(),
-                'language_privileges' => $this->serializer->serialize($event->getLanguagePrivileges(), 'json'),
-                'language' => $event->getLanguage()->getCode(),
-                'password' => $event->getPassword()->getValue(),
-                'is_active' => $event->isActive(),
-                'avatar_id' => $event->getAvatarId() ? $event->getAvatarId()->getValue() : null,
+                'language_privileges' => $this->serializer->serialize($event->getTo(), 'json'),
             ],
             [
-                'is_active' => \PDO::PARAM_BOOL,
+                'id' => $event->getAggregateId()->getValue(),
             ]
         );
     }

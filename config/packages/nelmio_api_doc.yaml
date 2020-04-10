@@ -94,6 +94,14 @@ nelmio_api_doc:
                         type: string
                         required: true
                         example: 86800536-0f2a-4920-9291-f35fdcea3839
+                    languagePrivileges:
+                        type: array
+                        items:
+                            type: string
+                        required: false
+                        description: List of language privileges
+                        example:
+                                [ EN_PRIVILEGE_EDIT, EN_PRIVILEGE_READ, PL_PRIVILEGE_EDIT, PL_PRIVILEGE_READ]
                     isActive:
                         type: boolean
                         required: true
@@ -128,6 +136,14 @@ nelmio_api_doc:
                         type: string
                         required: true
                         example: 86800536-0f2a-4920-9291-f35fdcea3839
+                    languagePrivileges:
+                        type: array
+                        items:
+                            type: string
+                        required: false
+                        description: List of language privileges
+                        example:
+                                [ EN_PRIVILEGE_EDIT, EN_PRIVILEGE_READ, PL_PRIVILEGE_EDIT, PL_PRIVILEGE_READ]
                     isActive:
                         type: boolean
                         required: true

@@ -62,6 +62,11 @@ class CreateUserCommand implements DomainCommandInterface
     private RoleId $roleId;
 
     /**
+     * @var array
+     */
+    private array $languagePrivileges;
+
+    /**
      * @var bool
      */
     private bool $isActive;
@@ -73,10 +78,9 @@ class CreateUserCommand implements DomainCommandInterface
      * @param Language          $language
      * @param Password          $password
      * @param RoleId            $roleId
+     * @param array             $languagePrivileges
      * @param bool              $isActive
      * @param MultimediaId|null $avatarId
-     *
-     * @throws \Exception
      */
     public function __construct(
         string $firstName,
@@ -85,6 +89,7 @@ class CreateUserCommand implements DomainCommandInterface
         Language $language,
         Password $password,
         RoleId $roleId,
+        array $languagePrivileges,
         bool $isActive = true,
         ?MultimediaId $avatarId = null
     ) {
@@ -96,6 +101,7 @@ class CreateUserCommand implements DomainCommandInterface
         $this->password = $password;
         $this->language = $language;
         $this->roleId = $roleId;
+        $this->languagePrivileges = $languagePrivileges;
         $this->isActive = $isActive;
     }
 
@@ -161,6 +167,14 @@ class CreateUserCommand implements DomainCommandInterface
     public function getRoleId(): RoleId
     {
         return $this->roleId;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLanguagePrivileges(): array
+    {
+        return $this->languagePrivileges;
     }
 
     /**

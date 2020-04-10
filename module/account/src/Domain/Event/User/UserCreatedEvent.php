@@ -9,14 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivilege;
 use Ergonode\Account\Domain\ValueObject\Password;
-
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -80,6 +80,13 @@ class UserCreatedEvent implements DomainEventInterface
     private RoleId $roleId;
 
     /**
+     * @var LanguagePrivilege[]
+     *
+     * @JMS\Type("array<Ergonode\Account\Domain\ValueObject\LanguagePrivilege>")
+     */
+    private array $languagePrivileges;
+
+    /**
      * @var bool
      *
      * @JMS\Type("boolean")
@@ -94,6 +101,7 @@ class UserCreatedEvent implements DomainEventInterface
      * @param Language          $language
      * @param Password          $password
      * @param RoleId            $roleId
+     * @param array             $languagePrivileges
      * @param bool              $isActive
      * @param MultimediaId|null $avatarId
      */
@@ -105,6 +113,7 @@ class UserCreatedEvent implements DomainEventInterface
         Language $language,
         Password $password,
         RoleId $roleId,
+        array $languagePrivileges,
         bool $isActive = true,
         ?MultimediaId $avatarId = null
     ) {
@@ -115,6 +124,7 @@ class UserCreatedEvent implements DomainEventInterface
         $this->password = $password;
         $this->language = $language;
         $this->roleId = $roleId;
+        $this->languagePrivileges = $languagePrivileges;
         $this->avatarId = $avatarId;
         $this->isActive = $isActive;
     }
@@ -181,6 +191,14 @@ class UserCreatedEvent implements DomainEventInterface
     public function getRoleId(): RoleId
     {
         return $this->roleId;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLanguagePrivileges(): array
+    {
+        return $this->languagePrivileges;
     }
 
     /**
