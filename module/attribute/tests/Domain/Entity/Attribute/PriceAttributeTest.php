@@ -51,6 +51,11 @@ class PriceAttributeTest extends TestCase
     private $currency;
 
     /**
+     * @var bool
+     */
+    private bool $multilingual;
+
+    /**
      */
     protected function setUp(): void
     {
@@ -60,6 +65,7 @@ class PriceAttributeTest extends TestCase
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
         $this->currency = new Currency('CURRENCY');
+        $this->multilingual = true;
     }
 
     /**
@@ -73,6 +79,7 @@ class PriceAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
+            $this->multilingual,
             $this->currency
         );
         $this->assertEquals($this->currency, $attribute->getCurrency());
@@ -81,6 +88,7 @@ class PriceAttributeTest extends TestCase
         $this->assertEquals($this->label, $attribute->getLabel());
         $this->assertEquals($this->hint, $attribute->getHint());
         $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
+        $this->assertEquals($this->multilingual, $attribute->isMultilingual());
     }
 
     /**
@@ -95,6 +103,7 @@ class PriceAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
+            $this->multilingual,
             $this->currency
         );
         $attribute->changeCurrency($currency);

@@ -82,7 +82,7 @@ class AttributeCreateForm extends AbstractType implements EventSubscriberInterfa
                         '',
                         false,
                     ],
-                    'empty_data' => false,
+                    'empty_data' => 'true',
                 ]
             )
             ->addEventSubscriber($this);

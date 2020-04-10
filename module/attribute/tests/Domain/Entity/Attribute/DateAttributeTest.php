@@ -51,6 +51,11 @@ class DateAttributeTest extends TestCase
     private $format;
 
     /**
+     * @var bool
+     */
+    private bool $multilingual;
+
+    /**
      */
     protected function setUp(): void
     {
@@ -60,6 +65,7 @@ class DateAttributeTest extends TestCase
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
         $this->format = new DateFormat(DateFormat::MMMM_DD_YYYY);
+        $this->multilingual = true;
     }
 
     /**
@@ -73,6 +79,7 @@ class DateAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
+            $this->multilingual,
             $this->format
         );
         $this->assertEquals($this->format, $attribute->getFormat());
@@ -81,6 +88,7 @@ class DateAttributeTest extends TestCase
         $this->assertEquals($this->label, $attribute->getLabel());
         $this->assertEquals($this->hint, $attribute->getHint());
         $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
+        $this->assertEquals($this->multilingual, $attribute->isMultilingual());
     }
 
     /**
@@ -95,6 +103,7 @@ class DateAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
+            $this->multilingual,
             $this->format
         );
         $attribute->changeFormat($format);

@@ -30,6 +30,7 @@ abstract class AbstractDateAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
+     * @param bool               $multilingual
      * @param DateFormat         $format
      *
      * @throws \Exception
@@ -40,6 +41,7 @@ abstract class AbstractDateAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
+        bool $multilingual,
         DateFormat $format
     ) {
         parent::__construct(
@@ -48,7 +50,7 @@ abstract class AbstractDateAttribute extends AbstractAttribute
             $label,
             $hint,
             $placeholder,
-            false,
+            $multilingual,
             [self::FORMAT => $format->getFormat()]
         );
     }

@@ -37,7 +37,7 @@ class EditedAtSystemAttribute extends DateAttribute
         $id = AttributeId::fromKey($code->getValue());
         $format = new DateFormat(DateFormat::YYYY_MM_DD);
 
-        parent::__construct($id, $code, $label, $hint, $placeholder, $format);
+        parent::__construct($id, $code, $label, $hint, $placeholder, false, $format);
     }
 
     /**

@@ -47,6 +47,7 @@ class UnitAttributeFactory implements AttributeFactoryInterface
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
+            $command->isMultilingual(),
             $unitId
         );
     }

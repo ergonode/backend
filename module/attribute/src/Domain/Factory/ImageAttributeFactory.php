@@ -39,7 +39,8 @@ class ImageAttributeFactory implements AttributeFactoryInterface
             $command->getCode(),
             $command->getLabel(),
             $command->getHint(),
-            $command->getPlaceholder()
+            $command->getPlaceholder(),
+            $command->isMultilingual()
         );
     }
 }

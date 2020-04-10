@@ -51,6 +51,11 @@ class UnitAttributeTest extends TestCase
     private $unit;
 
     /**
+     * @var bool
+     */
+    private bool $multilingual;
+
+    /**
      */
     protected function setUp(): void
     {
@@ -60,6 +65,7 @@ class UnitAttributeTest extends TestCase
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
         $this->unit = UnitId::generate();
+        $this->multilingual = true;
     }
 
     /**
@@ -73,6 +79,7 @@ class UnitAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
+            $this->multilingual,
             $this->unit
         );
         $this->assertEquals($this->unit, $attribute->getUnitId());
@@ -81,6 +88,7 @@ class UnitAttributeTest extends TestCase
         $this->assertEquals($this->label, $attribute->getLabel());
         $this->assertEquals($this->hint, $attribute->getHint());
         $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
+        $this->assertEquals($this->multilingual, $attribute->isMultilingual());
     }
 
     /**
@@ -96,6 +104,7 @@ class UnitAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
+            $this->multilingual,
             $this->unit
         );
         $attribute->changeUnit($unit);

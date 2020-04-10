@@ -9,9 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Form\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

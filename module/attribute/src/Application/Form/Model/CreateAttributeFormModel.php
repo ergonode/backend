@@ -97,7 +97,7 @@ class CreateAttributeFormModel
     {
         $this->code = null;
         $this->type = null;
-        $this->multilingual = false;
+        $this->multilingual = true;
         $this->label = [];
         $this->placeholder = [];
         $this->hint = [];

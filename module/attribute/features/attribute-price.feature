@@ -21,6 +21,15 @@ Feature: Price attribute manipulation
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario: Get created price attribute
+    And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | id                  | @attribute_id@ |
+      | type                | PRICE          |
+      | multilingual        | true           |
+      | parameters.currency | PLN            |
+
   Scenario: Create price attribute without required currency parameter
     And I send a "POST" request to "/api/v1/en/attributes" with body:
       """
