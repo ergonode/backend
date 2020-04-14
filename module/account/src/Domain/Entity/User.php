@@ -15,17 +15,18 @@ use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
 use Ergonode\Account\Domain\Event\User\UserDeactivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserLanguagePrivilegesChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
-
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -73,22 +74,27 @@ class User extends AbstractAggregateRoot implements UserInterface
     private RoleId $roleId;
 
     /**
+     * @var LanguagePrivileges
+     */
+    private LanguagePrivileges $languagePrivileges;
+
+    /**
      * @var bool
      */
     private bool $isActive;
 
     /**
-     * @param UserId            $id
-     * @param string            $firstName
-     * @param string            $lastName
-     * @param Email             $email
-     * @param Language          $language
-     * @param Password          $password
-     * @param RoleId            $roleId
-     * @param MultimediaId|null $avatarId
-     * @param bool              $isActive
+     * @param UserId             $id
+     * @param string             $firstName
+     * @param string             $lastName
+     * @param Email              $email
+     * @param Language           $language
+     * @param Password           $password
+     * @param RoleId             $roleId
+     * @param LanguagePrivileges $languagePrivileges
+     * @param MultimediaId|null  $avatarId
+     * @param bool               $isActive
      *
-     * @throws \Exception
      */
     public function __construct(
         UserId $id,
@@ -98,9 +104,11 @@ class User extends AbstractAggregateRoot implements UserInterface
         Language $language,
         Password $password,
         RoleId $roleId,
+        LanguagePrivileges $languagePrivileges,
         ?MultimediaId $avatarId = null,
         bool $isActive = true
-    ) {
+    )
+    {
         $this->apply(
             new UserCreatedEvent(
                 $id,
@@ -110,6 +118,7 @@ class User extends AbstractAggregateRoot implements UserInterface
                 $language,
                 $password,
                 $roleId,
+                $languagePrivileges,
                 $isActive,
                 $avatarId
             )
@@ -181,6 +190,14 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
+     * @return LanguagePrivileges
+     */
+    public function getLanguagePrivileges(): LanguagePrivileges
+    {
+        return $this->languagePrivileges;
+    }
+
+    /**
      * @return MultimediaId|null
      */
     public function getAvatarId(): ?MultimediaId
@@ -217,6 +234,16 @@ class User extends AbstractAggregateRoot implements UserInterface
     {
         if (!$roleId->isEqual($this->roleId)) {
             $this->apply(new UserRoleChangedEvent($this->id, $this->roleId, $roleId));
+        }
+    }
+
+    /**
+     * @param LanguagePrivileges $languagePrivileges
+     */
+    public function changeLanguagePrivileges(LanguagePrivileges $languagePrivileges): void
+    {
+        if (!$languagePrivileges->isEqual($this->languagePrivileges)) {
+            $this->apply(new UserLanguagePrivilegesChangedEvent($this->id, $this->languagePrivileges, $languagePrivileges));
         }
     }
 
@@ -325,6 +352,7 @@ class User extends AbstractAggregateRoot implements UserInterface
         $this->password = $event->getPassword();
         $this->avatarId = $event->getAvatarId();
         $this->roleId = $event->getRoleId();
+        $this->languagePrivileges = $event->getLanguagePrivileges();
         $this->isActive = $event->isActive();
     }
 
@@ -334,6 +362,15 @@ class User extends AbstractAggregateRoot implements UserInterface
     protected function applyUserAvatarChangedEvent(UserAvatarChangedEvent $event): void
     {
         $this->avatarId = $event->getAvatarId();
+    }
+
+    /**
+     *
+     * @param UserLanguagePrivilegesChangedEvent $event
+     */
+    protected function applyUserPrivilegesChangedEvent(UserLanguagePrivilegesChangedEvent $event): void
+    {
+        $this->languagePrivileges = $event->getTo();
     }
 
     /**

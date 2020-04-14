@@ -15,6 +15,7 @@ use Ergonode\Account\Application\Form\Type\RoleIdType;
 use Ergonode\Core\Application\Form\Type\BooleanType;
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -57,6 +58,10 @@ class UserCreateForm extends AbstractType
             ->add(
                 'roleId',
                 RoleIdType::class
+            )
+            ->add(
+                'languagePrivileges',
+                CollectionType::class,
             )
             ->add(
                 'isActive',

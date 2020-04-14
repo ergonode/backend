@@ -55,6 +55,7 @@ class UpdateUserCommandHandler
         $user->changeLastName($command->getLastName());
         $user->changeLanguage($command->getLanguage());
         $user->changeRole($command->getRoleId());
+        $user->changeLanguagePrivileges($command->getLanguagePrivileges());
 
         if ($user->isActive() !== $command->isActive()) {
             $command->isActive() ? $user->activate() : $user->deactivate();

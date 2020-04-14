@@ -9,10 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
+use Ergonode\Account\Application\Validator\Constraints as AccountAssert;
 use Ergonode\Account\Application\Validator\Constraints\UserUnique;
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -82,6 +83,13 @@ class CreateUserFormModel
     public ?RoleId $roleId;
 
     /**
+     * @var array | null
+     *
+     * @AccountAssert\ConstraintLanguagePrivilegesValid()
+     */
+    public ?array $languagePrivileges;
+
+    /**
      * @var bool
      *
      * @Assert\NotNull(message="Activity is required")
@@ -100,6 +108,7 @@ class CreateUserFormModel
         $this->password = null;
         $this->passwordRepeat = null;
         $this->roleId = null;
+        $this->languagePrivileges = [];
         $this->isActive = false;
     }
 }

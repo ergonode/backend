@@ -11,11 +11,11 @@ namespace Ergonode\Account\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\Query\AccountQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 /**
  */
@@ -31,6 +31,7 @@ class DbalAccountQuery implements AccountQueryInterface
         'a.avatar_id',
         'a.role_id',
         'a.is_active',
+        'a.language_privileges',
     ];
 
     /**
