@@ -62,7 +62,7 @@ class CategorySystemAttributeColumnBuilderStrategyTest extends TestCase
     {
         $this->attribute->expects($this->once())->method('getCode');
         $this->attribute->expects($this->once())->method('getLabel');
-        $this->query->expects($this->once())->method('getDictionary');
+        $this->query->expects($this->once())->method('getAll');
         $language = $this->createMock(Language::class);
         $strategy = new CategorySystemAttributeColumnBuilderStrategy($this->query);
         $strategy->create($this->attribute, $language);

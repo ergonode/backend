@@ -86,7 +86,7 @@ class DbalOptionQuery implements OptionQueryInterface
             $result[] = [
                 'id' => $record['id'],
                 'code' => $record['code'],
-                'label' => !empty($value) ? $value : new \stdClass(),
+                'label' => !empty($value) ? $value : [],
             ];
         }
 

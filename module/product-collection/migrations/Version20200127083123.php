@@ -17,6 +17,11 @@ final class Version20200127083123 extends AbstractErgonodeMigration
      */
     public function up(Schema $schema): void
     {
+
+        $this->addSql('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
+        $this->addSql('CREATE EXTENSION IF NOT EXISTS "ltree"');
+        $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Product Collections']);
+
         $this->addSql(
             'CREATE TABLE collection(
                     id uuid NOT NULL,
@@ -48,6 +53,13 @@ final class Version20200127083123 extends AbstractErgonodeMigration
                     PRIMARY KEY (id)
                  )'
         );
+
+        $this->createPrivileges([
+            'PRODUCT_COLLECTION_CREATE' => 'Product Collections',
+            'PRODUCT_COLLECTION_READ' => 'Product Collections',
+            'PRODUCT_COLLECTION_UPDATE' => 'Product Collections',
+            'PRODUCT_COLLECTION_DELETE' => 'Product Collections',
+        ]);
 
         $this->createEventStoreEvents([
             'Ergonode\ProductCollection\Domain\Event\ProductCollectionCreatedEvent'
@@ -87,6 +99,22 @@ final class Version20200127083123 extends AbstractErgonodeMigration
                 'id' => Uuid::uuid4()->toString(),
                 'event_class' => $class,
                 'translation_key' => $translation,
+            ]);
+        }
+    }
+
+    /**
+     * @param array $collection
+     *
+     * @throws \Exception
+     */
+    private function createPrivileges(array $collection): void
+    {
+        foreach ($collection as $code => $area) {
+            $this->connection->insert('privileges', [
+                'id' => Uuid::uuid4()->toString(),
+                'code' => $code,
+                'area' => $area,
             ]);
         }
     }

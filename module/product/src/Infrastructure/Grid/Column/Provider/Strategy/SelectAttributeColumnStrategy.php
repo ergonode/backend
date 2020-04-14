@@ -16,6 +16,7 @@ use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
+use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -47,14 +48,24 @@ class SelectAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
-        $options = $this->query->getList($attribute->getId(), $language);
+        $options = $this->query->getAll($attribute->getId());
+
+        $result = [];
+        foreach ($options as $option) {
+            $label = $option['label'][$language->getCode()] ?? null;
+            $result[] = new FilterOption(
+                $option['id'],
+                $option['code'],
+                $label
+            );
+        }
 
         $columnKey = $attribute->getCode()->getValue();
 
         return new SelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new MultiSelectFilter($options)
+            new MultiSelectFilter($result)
         );
     }
 }

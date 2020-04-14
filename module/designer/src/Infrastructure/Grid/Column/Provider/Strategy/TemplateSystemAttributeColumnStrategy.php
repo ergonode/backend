@@ -17,6 +17,8 @@ use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
+use Ergonode\Grid\Filter\Option\FilterOption;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
 
 /**
  */
@@ -48,7 +50,10 @@ class TemplateSystemAttributeColumnStrategy implements AttributeColumnStrategyIn
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
-        $options = $this->query->getDictionary($language);
+        $options = [];
+        foreach ($this->query->getDictionary($language) as $key => $value) {
+            $options = new LabelFilterOption($key, $value);
+        }
 
         $columnKey = $attribute->getCode()->getValue();
 

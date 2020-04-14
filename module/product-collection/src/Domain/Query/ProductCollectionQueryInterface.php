@@ -32,6 +32,13 @@ interface ProductCollectionQueryInterface
     public function getDictionary(): array;
 
     /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getOptions(Language $language): array;
+
+    /**
      * @param ProductCollectionCode $code
      *
      * @return ProductCollectionId|null

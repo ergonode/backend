@@ -83,6 +83,21 @@ class DbalCategoryQuery implements CategoryQueryInterface
      *
      * @return array
      */
+    public function getAll(Language $language): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select(sprintf('id, name->>\'%s\' as name, code', $language->getCode()))
+            ->from(self::CATEGORY_TABLE, 'c')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
     public function getDictionary(Language $language): array
     {
         $qb = $this->connection->createQueryBuilder();
