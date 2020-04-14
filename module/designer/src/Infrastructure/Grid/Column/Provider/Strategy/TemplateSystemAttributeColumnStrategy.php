@@ -52,7 +52,7 @@ class TemplateSystemAttributeColumnStrategy implements AttributeColumnStrategyIn
     {
         $options = [];
         foreach ($this->query->getDictionary($language) as $key => $value) {
-            $options = new LabelFilterOption($key, $value);
+            $options[] = new LabelFilterOption($key, $value);
         }
 
         $columnKey = $attribute->getCode()->getValue();
