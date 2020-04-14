@@ -31,11 +31,11 @@ class ValueResolver
         }
 
         if ($value instanceof StringValue) {
-            return $value->getValue();
+            return (string) $value;
         }
 
         if ($value instanceof TranslatableStringValue) {
-            return $value->getValue()->get($language);
+            return $value->getVersion($language);
         }
 
         if ($value instanceof StringCollectionValue) {

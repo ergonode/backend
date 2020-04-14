@@ -69,7 +69,7 @@ class ValueInterfaceHandlerTest extends TestCase
 
         $this->assertInstanceOf(StringValue::class, $result);
         $this->assertEquals(StringValue::TYPE, $result->getType());
-        $this->assertEquals('test_value', $result->getValue());
+        $this->assertEquals([null => 'test_value'], $result->getValue());
     }
 
     /**
@@ -83,8 +83,7 @@ class ValueInterfaceHandlerTest extends TestCase
 
         $this->assertInstanceOf(TranslatableStringValue::class, $result);
         $this->assertEquals(TranslatableStringValue::TYPE, $result->getType());
-        $this->assertInstanceOf(TranslatableString::class, $result->getValue());
-        $this->assertEquals(['pl_PL' => 'test', 'en' => 'test'], $result->getValue()->getTranslations());
+        $this->assertEquals(['pl_PL' => 'test', 'en' => 'test'], $result->getValue());
     }
 
     /**

@@ -89,7 +89,7 @@ class ChangeProductAttributeValueCommandHandler
         Assert::notNull($draft);
         Assert::notNull($attribute);
 
-        $newValue = $this->createValue($language, $attribute,  $command->getValue());
+        $newValue = $this->createValue($language, $attribute, $command->getValue());
         if ($newValue) {
             if ($draft->hasAttribute($attribute->getCode())) {
                 $oldValue = $draft->getAttribute($attribute->getCode());

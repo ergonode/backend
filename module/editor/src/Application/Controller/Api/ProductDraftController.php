@@ -535,7 +535,7 @@ class ProductDraftController extends AbstractController
     public function getProductTemplate(AbstractProduct $product, Language $language): Response
     {
         $attributeCode = new AttributeCode(TemplateSystemAttribute::CODE);
-        $templateId = new TemplateId($product->getAttribute($attributeCode)->getValue());
+        $templateId = new TemplateId((string) $product->getAttribute($attributeCode));
 
         $template = $this->templateRepository->load($templateId);
 

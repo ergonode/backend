@@ -64,7 +64,8 @@ class ProductDraftValueChangedEventProjector
     private function insertValue(string $draftId, string $elementId, ValueInterface $value): void
     {
         if ($value instanceof StringValue) {
-            $this->insert($draftId, $elementId, $value->getValue());
+            $array = $value->getValue();
+            $this->insert($draftId, $elementId, reset($array));
         } elseif ($value instanceof StringCollectionValue) {
             foreach ($value->getValue() as $phrase) {
                 $this->insert($draftId, $elementId, $phrase);

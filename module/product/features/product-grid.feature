@@ -431,9 +431,8 @@ Feature: Product edit feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_numeric_attribute_code@&filter=@product_edit_numeric_attribute_code@:en=10.99"
+    When I send a GET request to "api/v1/en/products?columns=@product_edit_numeric_attribute_code@:en&filter=@product_edit_numeric_attribute_code@:en=10.99"
     Then the response status code should be 200
-    And print last response
     And the JSON node "info.filtered" should match "/1/"
     And the JSON node "columns[0].visible" should be true
     And the JSON node "columns[0].editable" should be true

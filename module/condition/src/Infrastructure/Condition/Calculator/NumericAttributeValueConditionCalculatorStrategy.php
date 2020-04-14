@@ -54,7 +54,8 @@ class NumericAttributeValueConditionCalculatorStrategy implements ConditionCalcu
         $expected = $configuration->getValue();
 
         if ($object->hasAttribute($attribute->getCode())) {
-            $value = (float) $object->getAttribute($attribute->getCode())->getValue();
+            $value = (string) $object->getAttribute($attribute->getCode());
+            $value = (float) $value;
             if (('=' === $option) && $value !== $expected) {
                 return false;
             }
