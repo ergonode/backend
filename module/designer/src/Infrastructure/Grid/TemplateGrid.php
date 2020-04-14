@@ -18,6 +18,8 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Filter\Option\FilterOption;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
 
 /**
  */
@@ -42,7 +44,10 @@ class TemplateGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $collection = $this->query->getDictionary();
+        $collection = [];
+        foreach ($this->query->getDictionary() as $value) {
+            $collection[] = new LabelFilterOption($value['id'], $value['name']);
+        }
 
         $this->addColumn('id', new TextColumn('id', 'Id'));
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));

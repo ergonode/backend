@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Grid;
 
-use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeGroupDictionaryProvider;
 use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeTypeDictionaryProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
@@ -19,10 +18,12 @@ use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
-use Ergonode\Grid\Filter\SelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Filter\Option\FilterOption;
+use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
 
 /**
  */
@@ -34,20 +35,20 @@ class AttributeGrid extends AbstractGrid
     private AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider;
 
     /**
-     * @var AttributeGroupDictionaryProvider
+     * @var AttributeGroupQueryInterface
      */
-    private AttributeGroupDictionaryProvider $attributeGroupDictionaryProvider;
+    private AttributeGroupQueryInterface $attributeGroupQuery;
 
     /**
-     * @param AttributeTypeDictionaryProvider  $attributeTypeDictionaryProvider
-     * @param AttributeGroupDictionaryProvider $attributeGroupDictionaryProvider
+     * @param AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider
+     * @param AttributeGroupQueryInterface    $attributeGroupQuery
      */
     public function __construct(
         AttributeTypeDictionaryProvider $attributeTypeDictionaryProvider,
-        AttributeGroupDictionaryProvider $attributeGroupDictionaryProvider
+        AttributeGroupQueryInterface $attributeGroupQuery
     ) {
         $this->attributeTypeDictionaryProvider = $attributeTypeDictionaryProvider;
-        $this->attributeGroupDictionaryProvider = $attributeGroupDictionaryProvider;
+        $this->attributeGroupQuery = $attributeGroupQuery;
     }
 
     /**
@@ -56,8 +57,14 @@ class AttributeGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $types = $this->attributeTypeDictionaryProvider->getDictionary($language);
-        $groups = $this->attributeGroupDictionaryProvider->getDictionary($language);
+        $types = [];
+        foreach ($this->attributeTypeDictionaryProvider->getDictionary($language) as $key => $value) {
+            $types[] = new LabelFilterOption($key, $value);
+        }
+        $groups = [];
+        foreach ($this->attributeGroupQuery->getAttributeGroups($language) as $value) {
+            $groups[] = new FilterOption($value['id'], $value['code'], $value['label']);
+        }
 
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);

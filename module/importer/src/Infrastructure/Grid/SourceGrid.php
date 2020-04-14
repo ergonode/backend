@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Importer\Infrastructure\Provider\SourceTypeDictionaryProvider;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
 
 /**
  */
@@ -43,7 +44,10 @@ class SourceGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $types = $this->provider->provide($language);
+        $types = [];
+        foreach ($this->provider->provide($language) as $key => $label) {
+            $types[] = new LabelFilterOption($key, $label);
+        }
 
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);

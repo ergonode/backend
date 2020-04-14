@@ -25,7 +25,7 @@ class TemplateGroup extends AbstractAggregateRoot
     /**
      * @var string
      */
-    private TemplateGroupId $name;
+    private string $name;
 
     /**
      * @param TemplateGroupId $id

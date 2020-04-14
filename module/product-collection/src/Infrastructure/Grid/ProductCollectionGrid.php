@@ -21,24 +21,25 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\ProductCollection\Domain\Provider\Dictionary\ProductCollectionTypeDictionaryProvider;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
+use Ergonode\ProductCollection\Domain\Query\ProductCollectionQueryInterface;
+use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
 class ProductCollectionGrid extends AbstractGrid
 {
     /**
-     * @var ProductCollectionTypeDictionaryProvider
+     * @var ProductCollectionQueryInterface
      */
-    private ProductCollectionTypeDictionaryProvider $collectionTypeDictionaryProvider;
+    private ProductCollectionQueryInterface $query;
 
     /**
-     * ProductCollectionGrid constructor.
-     *
-     * @param ProductCollectionTypeDictionaryProvider $collectionTypeDictionaryProvider
+     * @param ProductCollectionQueryInterface $query
      */
-    public function __construct(ProductCollectionTypeDictionaryProvider $collectionTypeDictionaryProvider)
+    public function __construct(ProductCollectionQueryInterface $query)
     {
-        $this->collectionTypeDictionaryProvider = $collectionTypeDictionaryProvider;
+        $this->query = $query;
     }
 
     /**
@@ -49,7 +50,10 @@ class ProductCollectionGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $types = $this->collectionTypeDictionaryProvider->getDictionary($language);
+        $types = [];
+        foreach ($this->query->getOptions($language) as $option) {
+            $types[] = new FilterOption($option['id'], $option['code'], $option['name']);
+        }
 
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);

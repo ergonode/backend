@@ -17,6 +17,7 @@ use Ergonode\Grid\Column\MultiSelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
+use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -48,11 +49,9 @@ class CategorySystemAttributeColumnBuilderStrategy implements AttributeColumnStr
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
-        $categories = $this->query->getDictionary($language);
-
-        $options = [];
-        foreach ($categories as $id => $option) {
-            $options[$id] = $option;
+        $categories = [];
+        foreach ($this->query->getAll($language) as $value) {
+            $categories = new FilterOption($value['id'], $value['code'], $value['name']);
         }
 
         $columnKey = $attribute->getCode()->getValue();
@@ -60,7 +59,7 @@ class CategorySystemAttributeColumnBuilderStrategy implements AttributeColumnStr
         return new MultiSelectColumn(
             $columnKey,
             $attribute->getLabel()->get($language),
-            new MultiSelectFilter($options)
+            new MultiSelectFilter($categories)
         );
     }
 }
