@@ -13,6 +13,7 @@ use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
 use Ergonode\Account\Application\Form\UserUpdateForm;
 use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -116,7 +117,7 @@ class UserChangeAction
                     $data->lastName,
                     $data->language,
                     $data->roleId,
-                    $data->languagePrivileges,
+                    new LanguagePrivileges($data->languagePrivileges),
                     $data->isActive,
                     $data->password
                 );

@@ -31,9 +31,8 @@ class ConstraintLanguagePrivilegesRelationsValidator extends ConstraintValidator
         if (!is_array($value)) {
             throw new UnexpectedValueException($value, 'array');
         }
-
         foreach ($value['edit'] as $item) {
-            if (in_array($item, $value['read'], true)) {
+            if (!in_array($item, $value['read'], true)) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ value }}', $item)
                     ->addViolation();

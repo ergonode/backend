@@ -101,7 +101,10 @@ nelmio_api_doc:
                         required: false
                         description: Language privileges
                         example:
-                                []
+                                {
+                                    "edit": ["en_US"],
+                                    "read": ["en_US"]
+                                }
                     isActive:
                         type: boolean
                         required: true
@@ -143,7 +146,10 @@ nelmio_api_doc:
                         required: false
                         description: List of language privileges
                         example:
-                                []
+                                {
+                                    "edit": ["en_US"],
+                                    "read": ["en_US"]
+                                }
                     isActive:
                         type: boolean
                         required: true

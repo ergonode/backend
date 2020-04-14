@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Form\Model;
 
 use Ergonode\Account\Application\Validator\Constraints as AccountAssert;
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
@@ -78,12 +77,12 @@ class UpdateUserFormModel
     public ?RoleId $roleId;
 
     /**
-     * @var LanguagePrivileges | null
+     * @var array | null
      *
      * @AccountAssert\ConstraintLanguagePrivilegesValid()
      * @AccountAssert\ConstraintLanguagePrivilegesRelations()
      */
-    public ?LanguagePrivileges $languagePrivileges;
+    public ?array $languagePrivileges;
 
     /**
      */

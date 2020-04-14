@@ -86,6 +86,7 @@ class CreateUserFormModel
      * @var array | null
      *
      * @AccountAssert\ConstraintLanguagePrivilegesValid()
+     * @AccountAssert\ConstraintLanguagePrivilegesRelations()
      */
     public ?array $languagePrivileges;
 
