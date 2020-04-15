@@ -19,10 +19,7 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 use Ergonode\Workflow\Domain\Entity\Transition;
-use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
-use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Workflow\Domain\Service\StatusCalculationService;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Webmozart\Assert\Assert;
@@ -97,7 +94,7 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
         if (isset($result['attributes'][StatusSystemAttribute::CODE])) {
             /** @var ValueInterface $value */
             $value = $result['attributes'][StatusSystemAttribute::CODE];
-            $statusCode = new StatusCode($value->getValue());
+            $statusCode = new StatusCode($value);
             $status = $this->statusRepository->load(StatusId::fromCode($statusCode->getValue()));
             Assert::notNull($status);
             $result['status'] = [

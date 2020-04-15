@@ -12,7 +12,6 @@ namespace Ergonode\Designer\Domain\Builder\Strategy;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Provider\AttributeParametersProvider;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Attribute\Domain\Resolver\TranslatedOptionValueResolver;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\BuilderTemplateElementStrategyInterface;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
@@ -99,11 +98,17 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
         }
 
         if ($attribute instanceof AbstractOptionAttribute) {
-            $options = $this->query->getList($attribute->getId(), $language);
+            $options = [];
+            foreach ($this->query->getAll($attribute->getId()) as $option) {
+                $label = $option['label'][$language->getCode()] ?? null;
+                $options[$option['id']] = [
+                    'code' => $option['code'],
+                    'label' => $label,
+                ];
+            }
+
             if (!empty($options)) {
                 $properties['options'] = $options;
-            } else {
-                $properties['options'] = new \stdClass();
             }
         }
 
