@@ -55,7 +55,7 @@ class CreateUserCommandHandler
             $command->getLanguage(),
             $command->getPassword(),
             $command->getRoleId(),
-            $command->getLanguagePrivileges(),
+            $command->getLanguagePrivilegesCollection(),
             $command->getAvatarId(),
             $command->isActive()
         );

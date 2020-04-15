@@ -99,11 +99,10 @@ nelmio_api_doc:
                         items:
                             type: array
                         required: false
-                        description: Language privileges
+                        description: Language privileges collection
                         example:
                                 {
-                                    "edit": ["en_US"],
-                                    "read": ["en_US"]
+                                    "en_US": {"read": true, "edit":true}
                                 }
                     isActive:
                         type: boolean
@@ -144,11 +143,10 @@ nelmio_api_doc:
                         items:
                             type: array
                         required: false
-                        description: List of language privileges
+                        description: Language privileges collection
                         example:
                                 {
-                                    "edit": ["en_US"],
-                                    "read": ["en_US"]
+                                    "en_US": {"read": true, "edit":true}
                                 }
                     isActive:
                         type: boolean

@@ -12,7 +12,6 @@ namespace Ergonode\Account\Application\Controller\Api\Account;
 use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
 use Ergonode\Account\Application\Form\UserCreateForm;
 use Ergonode\Account\Domain\Command\User\CreateUserCommand;
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
@@ -103,7 +102,7 @@ class UserCreateAction
                     $data->language,
                     $data->password,
                     $data->roleId,
-                    new LanguagePrivileges($data->languagePrivileges),
+                    $data->languagePrivilegesCollection,
                     $data->isActive
                 );
                 $this->commandBus->dispatch($command);

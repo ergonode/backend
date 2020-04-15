@@ -18,7 +18,7 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
 /**
  */
-class LanguagePrivilegeHandler implements SubscribingHandlerInterface
+class LanguagePrivilegesHandler implements SubscribingHandlerInterface
 {
     /**
      * @return array
@@ -61,7 +61,7 @@ class LanguagePrivilegeHandler implements SubscribingHandlerInterface
         array $type,
         Context $context
     ): array {
-        return $languagePrivilege->getValue();
+        return ['read' => $languagePrivilege->isReadable(), 'edit' => $languagePrivilege->isEditable()];
     }
 
     /**
@@ -78,6 +78,6 @@ class LanguagePrivilegeHandler implements SubscribingHandlerInterface
         array $type,
         Context $context
     ): LanguagePrivileges {
-        return new LanguagePrivileges($data);
+        return new LanguagePrivileges($data['read'], $data['edit']);
     }
 }

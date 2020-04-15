@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class UserLanguagePrivilegesChangedEvent implements DomainEventInterface
+class UserLanguagePrivilegesCollectionChangedEvent implements DomainEventInterface
 {
     /**
      * @var UserId
@@ -26,25 +26,25 @@ class UserLanguagePrivilegesChangedEvent implements DomainEventInterface
     private UserId $id;
 
     /**
-     * @var LanguagePrivileges
+     * @var LanguagePrivileges[]
      *
-     * @JMS\Type("Ergonode\Account\Domain\ValueObject\LanguagePrivileges")
+     * @JMS\Type("array<string, Ergonode\Account\Domain\ValueObject\LanguagePrivileges>")
      */
-    private LanguagePrivileges $from;
+    private array $from;
 
     /**
-     * @var LanguagePrivileges
+     * @var LanguagePrivileges[]
      *
-     * @JMS\Type("Ergonode\Account\Domain\ValueObject\LanguagePrivileges")
+     * @JMS\Type("array<string, Ergonode\Account\Domain\ValueObject\LanguagePrivileges>")
      */
-    private LanguagePrivileges $to;
+    private array $to;
 
     /**
-     * @param UserId             $id
-     * @param LanguagePrivileges $from
-     * @param LanguagePrivileges $to
+     * @param UserId               $id
+     * @param LanguagePrivileges[] $from
+     * @param LanguagePrivileges[] $to
      */
-    public function __construct(UserId $id, LanguagePrivileges $from, LanguagePrivileges $to)
+    public function __construct(UserId $id, array $from, array $to)
     {
 
         $this->id = $id;
@@ -61,17 +61,17 @@ class UserLanguagePrivilegesChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return LanguagePrivileges
+     * @return LanguagePrivileges[]
      */
-    public function getFrom(): LanguagePrivileges
+    public function getFrom(): array
     {
         return $this->from;
     }
 
     /**
-     * @return LanguagePrivileges
+     * @return LanguagePrivileges[]
      */
-    public function getTo(): LanguagePrivileges
+    public function getTo(): array
     {
         return $this->to;
     }

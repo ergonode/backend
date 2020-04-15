@@ -80,11 +80,11 @@ class UserCreatedEvent implements DomainEventInterface
     private RoleId $roleId;
 
     /**
-     * @var LanguagePrivileges
+     * @var LanguagePrivileges[]
      *
-     * @JMS\Type("Ergonode\Account\Domain\ValueObject\LanguagePrivileges")
+     * @JMS\Type("array<string, Ergonode\Account\Domain\ValueObject\LanguagePrivileges>")
      */
-    private LanguagePrivileges $languagePrivileges;
+    private array $languagePrivilegesCollection;
 
     /**
      * @var bool
@@ -94,16 +94,16 @@ class UserCreatedEvent implements DomainEventInterface
     private bool $isActive;
 
     /**
-     * @param UserId             $id
-     * @param string             $firstName
-     * @param string             $lastName
-     * @param Email              $email
-     * @param Language           $language
-     * @param Password           $password
-     * @param RoleId             $roleId
-     * @param LanguagePrivileges $languagePrivileges
-     * @param bool               $isActive
-     * @param MultimediaId|null  $avatarId
+     * @param UserId               $id
+     * @param string               $firstName
+     * @param string               $lastName
+     * @param Email                $email
+     * @param Language             $language
+     * @param Password             $password
+     * @param RoleId               $roleId
+     * @param LanguagePrivileges[] $languagePrivilegesCollection
+     * @param bool                 $isActive
+     * @param MultimediaId|null    $avatarId
      */
     public function __construct(
         UserId $id,
@@ -113,7 +113,7 @@ class UserCreatedEvent implements DomainEventInterface
         Language $language,
         Password $password,
         RoleId $roleId,
-        LanguagePrivileges $languagePrivileges,
+        array $languagePrivilegesCollection,
         bool $isActive = true,
         ?MultimediaId $avatarId = null
     ) {
@@ -124,7 +124,7 @@ class UserCreatedEvent implements DomainEventInterface
         $this->password = $password;
         $this->language = $language;
         $this->roleId = $roleId;
-        $this->languagePrivileges = $languagePrivileges;
+        $this->languagePrivilegesCollection = $languagePrivilegesCollection;
         $this->avatarId = $avatarId;
         $this->isActive = $isActive;
     }
@@ -194,11 +194,11 @@ class UserCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return LanguagePrivileges
+     * @return LanguagePrivileges[]
      */
-    public function getLanguagePrivileges(): LanguagePrivileges
+    public function getLanguagePrivilegesCollection(): array
     {
-        return $this->languagePrivileges;
+        return $this->languagePrivilegesCollection;
     }
 
     /**

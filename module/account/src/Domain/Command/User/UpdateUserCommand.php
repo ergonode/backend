@@ -51,9 +51,9 @@ class UpdateUserCommand implements DomainCommandInterface
     private RoleId $roleId;
 
     /**
-     * @var LanguagePrivileges
+     * @var LanguagePrivileges[]
      */
-    private LanguagePrivileges $languagePrivileges;
+    private array $languagePrivilegesCollection;
 
     /**
      * @var bool
@@ -61,14 +61,14 @@ class UpdateUserCommand implements DomainCommandInterface
     private bool $isActive;
 
     /**
-     * @param UserId             $id
-     * @param string             $firstName
-     * @param string             $lastName
-     * @param Language           $language
-     * @param RoleId             $roleId
-     * @param LanguagePrivileges $languagePrivileges
-     * @param bool               $isActive
-     * @param Password|null      $password
+     * @param UserId               $id
+     * @param string               $firstName
+     * @param string               $lastName
+     * @param Language             $language
+     * @param RoleId               $roleId
+     * @param LanguagePrivileges[] $languagePrivilegesCollection
+     * @param bool                 $isActive
+     * @param Password|null        $password
      */
     public function __construct(
         UserId $id,
@@ -76,7 +76,7 @@ class UpdateUserCommand implements DomainCommandInterface
         string $lastName,
         Language $language,
         RoleId $roleId,
-        LanguagePrivileges $languagePrivileges,
+        array $languagePrivilegesCollection,
         bool $isActive,
         ?Password $password = null
     ) {
@@ -86,7 +86,7 @@ class UpdateUserCommand implements DomainCommandInterface
         $this->lastName = $lastName;
         $this->language = $language;
         $this->isActive = $isActive;
-        $this->languagePrivileges = $languagePrivileges;
+        $this->languagePrivilegesCollection = $languagePrivilegesCollection;
         $this->password = $password;
     }
 
@@ -107,11 +107,11 @@ class UpdateUserCommand implements DomainCommandInterface
     }
 
     /**
-     * @return LanguagePrivileges
+     * @return LanguagePrivileges[]
      */
-    public function getLanguagePrivileges(): LanguagePrivileges
+    public function getLanguagePrivilegesCollection(): array
     {
-        return $this->languagePrivileges;
+        return $this->languagePrivilegesCollection;
     }
 
     /**

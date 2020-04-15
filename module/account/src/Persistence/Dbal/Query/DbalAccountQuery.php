@@ -31,7 +31,7 @@ class DbalAccountQuery implements AccountQueryInterface
         'a.avatar_id',
         'a.role_id',
         'a.is_active',
-        'a.language_privileges',
+        'a.language_privileges_collection',
     ];
 
     /**

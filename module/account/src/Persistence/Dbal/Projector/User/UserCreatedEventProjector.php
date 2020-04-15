@@ -55,7 +55,7 @@ class UserCreatedEventProjector
                 'last_name' => $event->getLastName(),
                 'username' => $event->getEmail(),
                 'role_id' => $event->getRoleId()->getValue(),
-                'language_privileges' => $this->serializer->serialize($event->getLanguagePrivileges(), 'json'),
+                'language_privileges_collection' => $this->serializer->serialize($event->getLanguagePrivilegesCollection(), 'json'),
                 'language' => $event->getLanguage()->getCode(),
                 'password' => $event->getPassword()->getValue(),
                 'is_active' => $event->isActive(),

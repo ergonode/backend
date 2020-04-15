@@ -17,16 +17,15 @@ use Faker\Provider\Base as BaseProvider;
 class LanguagePrivilegesFaker extends BaseProvider
 {
     /**
-     * @param array|null $array
+     * @param string|null $languageCode
+     * @param bool|null   $read
+     * @param bool|null   $edit
      *
-     * @return LanguagePrivileges
+     * @return array|LanguagePrivileges[]
      */
-    public function languagePrivileges(?array $array = []): LanguagePrivileges
+    public function languagePrivilegesCollection(?string $languageCode = 'en_US', ?bool $read = true, ?bool $edit = true): array
     {
-        if (empty($array)) {
-            return new LanguagePrivileges(['read' => [], 'edit' => []]);
-        }
 
-        return new LanguagePrivileges($array);
+        return [$languageCode => new LanguagePrivileges($read, $edit)];
     }
 }

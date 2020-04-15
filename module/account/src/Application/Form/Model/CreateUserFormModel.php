@@ -11,6 +11,7 @@ namespace Ergonode\Account\Application\Form\Model;
 
 use Ergonode\Account\Application\Validator\Constraints as AccountAssert;
 use Ergonode\Account\Application\Validator\Constraints\UserUnique;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
@@ -83,12 +84,12 @@ class CreateUserFormModel
     public ?RoleId $roleId;
 
     /**
-     * @var array | null
+     * @var LanguagePrivileges[] | null
      *
-     * @AccountAssert\ConstraintLanguagePrivilegesValid()
      * @AccountAssert\ConstraintLanguagePrivilegesRelations()
+     * @AccountAssert\ConstraintLanguageCodeExists()
      */
-    public ?array $languagePrivileges;
+    public ?array $languagePrivilegesCollection;
 
     /**
      * @var bool
@@ -109,7 +110,7 @@ class CreateUserFormModel
         $this->password = null;
         $this->passwordRepeat = null;
         $this->roleId = null;
-        $this->languagePrivileges = [];
+        $this->languagePrivilegesCollection = [];
         $this->isActive = false;
     }
 }

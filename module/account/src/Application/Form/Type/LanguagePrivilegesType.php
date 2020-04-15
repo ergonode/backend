@@ -9,41 +9,34 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Form\Type;
 
+use Ergonode\Account\Application\Form\DataTransformer\LanguagePrivilegesDataTransformer;
+use Ergonode\Core\Application\Form\Type\BooleanType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class LanguagePrivilegeType extends AbstractType
+class LanguagePrivilegesType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
             ->add(
-                'edit',
-                CollectionType::class,
-                [
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => TextType::class,
-                ]
+                'read',
+                BooleanType::class,
             )
             ->add(
-                'read',
-                CollectionType::class,
-                [
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'entry_type' => TextType::class,
-                ]
+                'edit',
+                BooleanType::class,
             );
+        $builder->addModelTransformer(new LanguagePrivilegesDataTransformer());
     }
 
     /**
@@ -53,9 +46,8 @@ class LanguagePrivilegeType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'translation_domain' => 'account',
+                'invalid_message' => 'Language Prvileges is not valid',
             ]
         );
     }
-
 }

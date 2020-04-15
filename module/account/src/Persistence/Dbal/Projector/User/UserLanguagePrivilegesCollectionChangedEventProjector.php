@@ -11,12 +11,12 @@ namespace Ergonode\Account\Persistence\Dbal\Projector\User;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Account\Domain\Event\User\UserLanguagePrivilegesChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserLanguagePrivilegesCollectionChangedEvent;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class UserLanguagePrivilegesChangedEventProjector
+class UserLanguagePrivilegesCollectionChangedEventProjector
 {
     private const TABLE = 'users';
 
@@ -41,16 +41,16 @@ class UserLanguagePrivilegesChangedEventProjector
     }
 
     /**
-     * @param UserLanguagePrivilegesChangedEvent $event
+     * @param UserLanguagePrivilegesCollectionChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(UserLanguagePrivilegesChangedEvent $event): void
+    public function __invoke(UserLanguagePrivilegesCollectionChangedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'language_privileges' => $this->serializer->serialize($event->getTo(), 'json'),
+                'language_privileges_collection' => $this->serializer->serialize($event->getTo(), 'json'),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

@@ -63,9 +63,9 @@ class CreateUserCommand implements DomainCommandInterface
     private RoleId $roleId;
 
     /**
-     * @var LanguagePrivileges
+     * @var LanguagePrivileges[]
      */
-    private LanguagePrivileges $languagePrivileges;
+    private array $languagePrivilegesCollection;
 
     /**
      * @var bool
@@ -73,15 +73,15 @@ class CreateUserCommand implements DomainCommandInterface
     private bool $isActive;
 
     /**
-     * @param string             $firstName
-     * @param string             $lastName
-     * @param Email              $email
-     * @param Language           $language
-     * @param Password           $password
-     * @param RoleId             $roleId
-     * @param LanguagePrivileges $languagePrivileges
-     * @param bool               $isActive
-     * @param MultimediaId|null  $avatarId
+     * @param string               $firstName
+     * @param string               $lastName
+     * @param Email                $email
+     * @param Language             $language
+     * @param Password             $password
+     * @param RoleId               $roleId
+     * @param LanguagePrivileges[] $languagePrivilegesCollection
+     * @param bool                 $isActive
+     * @param MultimediaId|null    $avatarId
      */
     public function __construct(
         string $firstName,
@@ -90,7 +90,7 @@ class CreateUserCommand implements DomainCommandInterface
         Language $language,
         Password $password,
         RoleId $roleId,
-        LanguagePrivileges $languagePrivileges,
+        array $languagePrivilegesCollection,
         bool $isActive = true,
         ?MultimediaId $avatarId = null
     ) {
@@ -102,7 +102,7 @@ class CreateUserCommand implements DomainCommandInterface
         $this->password = $password;
         $this->language = $language;
         $this->roleId = $roleId;
-        $this->languagePrivileges = $languagePrivileges;
+        $this->languagePrivilegesCollection = $languagePrivilegesCollection;
         $this->isActive = $isActive;
     }
 
@@ -171,11 +171,11 @@ class CreateUserCommand implements DomainCommandInterface
     }
 
     /**
-     * @return LanguagePrivileges
+     * @return LanguagePrivileges[]
      */
-    public function getLanguagePrivileges(): LanguagePrivileges
+    public function getLanguagePrivilegesCollection(): array
     {
-        return $this->languagePrivileges;
+        return $this->languagePrivilegesCollection;
     }
 
     /**
