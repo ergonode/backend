@@ -20,6 +20,7 @@ use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElemen
 use Ergonode\Designer\Domain\View\ViewTemplateElement;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
+use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -99,11 +100,18 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
         }
 
         if ($attribute instanceof AbstractOptionAttribute) {
-            $options = $this->query->getList($attribute->getId(), $language);
-            if (!empty($options)) {
+            $options = [];
+            foreach ($this->query->getAll($attribute->getId()) as $option) {
+                $label = $option['label'][$language->getCode()] ?? null;
+                $options[] = [
+                    'id' => $option['id'],
+                    'code' => $option['code'],
+                    'label' => $label,
+                ];
+            }
+
+            if(!empty($options)) {
                 $properties['options'] = $options;
-            } else {
-                $properties['options'] = new \stdClass();
             }
         }
 
