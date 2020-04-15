@@ -50,11 +50,10 @@ class DbalDraftQuery implements DraftQueryInterface
 
     /**
      * @param ProductDraftId $draftId
-     * @param Language       $language
      *
      * @return array
      */
-    public function getDraftView(ProductDraftId $draftId, Language $language): array
+    public function getDraftView(ProductDraftId $draftId): array
     {
         $qb = $this->connection->createQueryBuilder();
         $result = $qb->select('d.id AS draft_id, p.id AS product_id, pd.template_id, p.sku')
@@ -66,8 +65,7 @@ class DbalDraftQuery implements DraftQueryInterface
             ->execute()
             ->fetch();
 
-        $result['language'] = $language->getCode();
-        $result['values'] = $this->getDraftValues($draftId, $language);
+        $result['values'] = $this->getDraftValues($draftId);
         $result['category_ids'] = $this->getCategories($draftId);
 
         return $result;
@@ -100,11 +98,10 @@ class DbalDraftQuery implements DraftQueryInterface
 
     /**
      * @param ProductDraftId $draftId
-     * @param Language       $language
      *
      * @return array
      */
-    private function getDraftValues(ProductDraftId $draftId, Language $language): array
+    private function getDraftValues(ProductDraftId $draftId): array
     {
         $qb = $this->connection->createQueryBuilder();
 
@@ -112,14 +109,7 @@ class DbalDraftQuery implements DraftQueryInterface
             ->select('dv.element_id AS id, dv.value')
             ->from('designer.draft_value', 'dv')
             ->where($qb->expr()->eq('dv.draft_id', ':draftId'))
-            ->andWhere(
-                $qb->expr()->orX(
-                    $qb->expr()->eq('dv.language', ':language'),
-                    $qb->expr()->isNull('dv.language')
-                )
-            )
             ->setParameter(':draftId', $draftId->getValue())
-            ->setParameter(':language', $language->getCode())
             ->execute()
             ->fetchAll();
     }

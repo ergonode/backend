@@ -12,7 +12,6 @@ namespace Ergonode\Designer\Domain\Builder\Strategy;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\Attribute\Domain\Provider\AttributeParametersProvider;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Attribute\Domain\Resolver\TranslatedOptionValueResolver;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Builder\BuilderTemplateElementStrategyInterface;
 use Ergonode\Designer\Domain\Entity\TemplateElement;
@@ -20,7 +19,6 @@ use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElemen
 use Ergonode\Designer\Domain\View\ViewTemplateElement;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
-use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -110,7 +108,7 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
                 ];
             }
 
-            if(!empty($options)) {
+            if (!empty($options)) {
                 $properties['options'] = $options;
             }
         }

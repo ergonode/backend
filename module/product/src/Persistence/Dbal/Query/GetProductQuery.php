@@ -16,6 +16,7 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  */
@@ -51,11 +52,19 @@ class GetProductQuery implements GetProductQueryInterface
     {
         $product = $this->repository->load($productId);
         Assert::notNull($product);
+        $attributes = [];
+        foreach ($product->getAttributes() as $key => $attribute) {
+            $value = $attribute->getValue();
+            if ($value instanceof TranslatableString) {
+                $value = $value->getTranslations();
+            }
+            $attributes[$key] = $value;
+        }
 
         return [
             'id' => $product->getId(),
             'sku' => $product->getSku(),
-            'attributes' => $product->getAttributes(),
+            'attributes' => $attributes,
             'categories' => $product->getCategories(),
             '_links' => [
                 'edit' => [
