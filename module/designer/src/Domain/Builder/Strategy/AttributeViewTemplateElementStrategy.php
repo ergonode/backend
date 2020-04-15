@@ -101,8 +101,7 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
             $options = [];
             foreach ($this->query->getAll($attribute->getId()) as $option) {
                 $label = $option['label'][$language->getCode()] ?? null;
-                $options[] = [
-                    'id' => $option['id'],
+                $options[$option['id']] = [
                     'code' => $option['code'],
                     'label' => $label,
                 ];
