@@ -51,7 +51,7 @@ class CategorySystemAttributeColumnBuilderStrategy implements AttributeColumnStr
     {
         $categories = [];
         foreach ($this->query->getAll($language) as $value) {
-            $categories = new FilterOption($value['id'], $value['code'], $value['name']);
+            $categories[] = new FilterOption($value['id'], $value['code'], $value['name']);
         }
 
         $columnKey = $attribute->getCode()->getValue();

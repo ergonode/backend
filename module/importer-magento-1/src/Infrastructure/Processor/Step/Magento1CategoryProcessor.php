@@ -75,19 +75,25 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
 
             if (array_key_exists('esa_categories', $default) && $default['esa_categories'] !== '') {
                 $categories = explode(',', $default['esa_categories']);
+                $codes = [];
                 foreach ($categories as $category) {
                     $category = explode('/', $category);
                     $code = end($category);
                     if ('' !== $code) {
                         $name = [$source->getDefaultLanguage()->getCode() => end($category)];
+                        $uuid = Uuid::uuid5(self::UUID, $code)->toString();
+                        $slug = SlugFormatter::format(sprintf('%s_%s', $code, $uuid));
+                        $codes[] = $slug;
                         if (!array_key_exists($code, $result)) {
                             $record = new Record();
-                            $slug = SlugFormatter::format(Uuid::uuid5(self::UUID, $code)->toString());
                             $record->set('id', new StringValue($code));
                             $record->set('code', new StringValue($slug));
                             $record->set('name', new TranslatableStringValue(new TranslatableString($name)));
                             $result[$code] = $record;
                         }
+
+                        $default['esa_categories'] = implode(',', $codes);
+                        $product->set('default', $default);
                     }
                 }
             }

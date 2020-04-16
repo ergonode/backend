@@ -28,7 +28,7 @@ class ProductModel
      * @param string $code
      * @param array  $version
      */
-    public function add(string $code, array $version): void
+    public function set(string $code, array $version): void
     {
         $this->versions[$code] = $version;
     }

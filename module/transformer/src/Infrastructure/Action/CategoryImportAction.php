@@ -9,17 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Action;
 
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\Category\Domain\Factory\CategoryFactory;
 use Ergonode\Category\Domain\Command\CreateCategoryCommand;
 use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
-use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
@@ -29,11 +27,6 @@ class CategoryImportAction implements ImportActionInterface
 
     public const CODE_FIELD = 'code';
     public const NAME_FIELD = 'name';
-
-    /**
-     * @var CategoryRepositoryInterface
-     */
-    private CategoryRepositoryInterface $categoryRepository;
 
     /**
      * @var CategoryQueryInterface
@@ -46,16 +39,13 @@ class CategoryImportAction implements ImportActionInterface
     private CommandBusInterface $commandBus;
 
     /**
-     * @param CategoryRepositoryInterface $categoryRepository
-     * @param CategoryQueryInterface      $query
-     * @param CommandBusInterface         $commandBus
+     * @param CategoryQueryInterface $query
+     * @param CommandBusInterface    $commandBus
      */
     public function __construct(
-        CategoryRepositoryInterface $categoryRepository,
         CategoryQueryInterface $query,
         CommandBusInterface $commandBus
     ) {
-        $this->categoryRepository = $categoryRepository;
         $this->query = $query;
         $this->commandBus = $commandBus;
     }
@@ -76,7 +66,7 @@ class CategoryImportAction implements ImportActionInterface
         $categoryId = $this->query->findIdByCode($code);
 
         if (!$categoryId) {
-            $command = new CreateCategoryCommand($code, $name);
+            $command = new CreateCategoryCommand(CategoryId::generate(), $code, $name);
         } else {
             $command = new UpdateCategoryCommand($categoryId, $name);
         }
