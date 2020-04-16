@@ -14,7 +14,6 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Infrastructure\Converter\TextConverter;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\Transformer\Infrastructure\Generator\TransformerGeneratorStrategyInterface;
-use Ergonode\Transformer\Infrastructure\Converter\JoinConverter;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ImporterMagento1\Infrastructure\Converter\Magento1CategoryConverter;
 
