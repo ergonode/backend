@@ -79,7 +79,7 @@ class Magento1CsvReader
         $code = 'default';
 
         foreach ($fileReader->read() as $line => $row) {
-            if ($row['sku'] && $row['_type']) {
+            if (!empty($row['sku']) && !empty($row['_type'])) {
                 $add = true;
                 $sku = $row['sku'];
                 $products[$sku] = [];
@@ -99,7 +99,13 @@ class Magento1CsvReader
                     foreach ($row as $field => $value) {
                         if ('' !== $value && null !== $value) {
                             if ($products[$sku][$code][$field] !== '') {
-                                $products[$sku][$code][$field] .= ','.$value;
+                                if ('default' === $code) {
+                                    $products[$sku][$code][$field] = $value;
+                                } else {
+                                    $products[$sku][$code][$field] .= ','.$value;
+                                }
+                            } else {
+                                $products[$sku][$code][$field] = $value;
                             }
                         }
                     }
