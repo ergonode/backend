@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Tests\Domain\Command;
 
 use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -36,6 +36,7 @@ class UpdateUserCommandTest extends TestCase
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
         $roleId = $this->createMock(RoleId::class);
+        $languagePrivilegesCollection = [];
         $isActive = true;
 
         $command = new UpdateUserCommand(
@@ -44,6 +45,7 @@ class UpdateUserCommandTest extends TestCase
             $lastName,
             $language,
             $roleId,
+            $languagePrivilegesCollection,
             $isActive,
             $password
         );
@@ -53,6 +55,7 @@ class UpdateUserCommandTest extends TestCase
         $this->assertEquals($lastName, $command->getLastName());
         $this->assertEquals($language, $command->getLanguage());
         $this->assertEquals($roleId, $command->getRoleId());
+        $this->assertEquals($languagePrivilegesCollection, $command->getLanguagePrivilegesCollection());
         $this->assertEquals($password, $command->getPassword());
         $this->assertTrue($command->isActive());
     }

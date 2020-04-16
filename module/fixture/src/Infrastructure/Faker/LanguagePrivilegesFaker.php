@@ -23,8 +23,11 @@ class LanguagePrivilegesFaker extends BaseProvider
      *
      * @return array|LanguagePrivileges[]
      */
-    public function languagePrivilegesCollection(?string $languageCode = 'en_US', ?bool $read = true, ?bool $edit = true): array
-    {
+    public function languagePrivilegesCollection(
+        ?string $languageCode = 'en_US',
+        ?bool $read = true,
+        ?bool $edit = true
+    ): array {
 
         return [$languageCode => new LanguagePrivileges($read, $edit)];
     }

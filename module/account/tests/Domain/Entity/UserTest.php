@@ -9,13 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Domain\Entity;
 
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -64,6 +64,11 @@ class UserTest extends TestCase
     private $roleId;
 
     /**
+     * @var array
+     */
+    private $languagePrivilegesCollection;
+
+    /**
      */
     protected function setUp(): void
     {
@@ -75,6 +80,7 @@ class UserTest extends TestCase
         $this->language = $this->createMock(Language::class);
         $this->multimediaId = $this->createMock(MultimediaId::class);
         $this->roleId = $this->createMock(RoleId::class);
+        $this->languagePrivilegesCollection = [];
     }
 
     /**
@@ -89,6 +95,7 @@ class UserTest extends TestCase
             $this->language,
             $this->password,
             $this->roleId,
+            $this->languagePrivilegesCollection,
             $this->multimediaId
         );
         $this->assertEquals($this->userId, $user->getId());
@@ -98,6 +105,7 @@ class UserTest extends TestCase
         $this->assertEquals($this->language, $user->getLanguage());
         $this->assertEquals($this->multimediaId, $user->getAvatarId());
         $this->assertEquals($this->roleId, $user->getRoleId());
+        $this->assertEquals($this->languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
     }
 
     /**
@@ -115,6 +123,8 @@ class UserTest extends TestCase
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
         $roleId = $this->createMock(RoleId::class);
+        $languagePrivilegesCollection = ['test'];
+
         $user = new User(
             $this->userId,
             $this->firstName,
@@ -123,6 +133,7 @@ class UserTest extends TestCase
             $this->language,
             $this->password,
             $this->roleId,
+            $this->languagePrivilegesCollection,
             $this->multimediaId
         );
         $user->changeFirstName($firstName);
@@ -131,10 +142,12 @@ class UserTest extends TestCase
         $user->changeAvatar($multimediaId);
         $user->changePassword($password);
         $user->changeRole($roleId);
+        $user->changeLanguagePrivilegesCollection($languagePrivilegesCollection);
         $this->assertEquals($firstName, $user->getFirstName());
         $this->assertEquals($lastName, $user->getLastName());
         $this->assertEquals($language, $user->getLanguage());
         $this->assertEquals($multimediaId, $user->getAvatarId());
         $this->assertEquals($roleId, $user->getRoleId());
+        $this->assertEquals($languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
     }
 }

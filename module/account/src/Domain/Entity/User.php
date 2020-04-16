@@ -252,7 +252,13 @@ class User extends AbstractAggregateRoot implements UserInterface
                 exit();
             }
         }
-        $this->apply(new UserLanguagePrivilegesCollectionChangedEvent($this->id, $this->languagePrivilegesCollection, $languagePrivilegesCollection));
+        $this->apply(
+            new UserLanguagePrivilegesCollectionChangedEvent(
+                $this->id,
+                $this->languagePrivilegesCollection,
+                $languagePrivilegesCollection
+            )
+        );
     }
 
     /**
@@ -376,8 +382,9 @@ class User extends AbstractAggregateRoot implements UserInterface
      *
      * @param UserLanguagePrivilegesCollectionChangedEvent $event
      */
-    protected function applyUserLanguagePrivilegesCollectionChangedEvent(UserLanguagePrivilegesCollectionChangedEvent $event): void
-    {
+    protected function applyUserLanguagePrivilegesCollectionChangedEvent(
+        UserLanguagePrivilegesCollectionChangedEvent $event
+    ): void {
         $this->languagePrivilegesCollection = $event->getTo();
     }
 

@@ -48,7 +48,12 @@ class LanguagePrivilegesDataTransformer implements DataTransformerInterface
             try {
                 return new LanguagePrivileges($value['read'], $value['edit']);
             } catch (\InvalidArgumentException $e) {
-                throw new TransformationFailedException(sprintf('invalid language privileges %s value', implode(',', $value)));
+                throw new TransformationFailedException(
+                    sprintf(
+                        'invalid language privileges %s value',
+                        implode(',', $value)
+                    )
+                );
             }
         }
 
