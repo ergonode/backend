@@ -9,13 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Action\Builder;
 
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
-use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
+use Ergonode\Category\Domain\ValueObject\CategoryCode;
 
 /**
  */
@@ -44,16 +42,22 @@ class ImportProductCategoryBuilder implements ProductImportBuilderInterface
      */
     public function build(ImportedProduct $product, Record $record): ImportedProduct
     {
-        if ($record->has('categories')) {
-            $value = $record->get('categories');
+        $categories = [];
+        if ($record->has('esa_categories')) {
+            $value = $record->get('esa_categories');
 
             if ($value instanceof StringValue) {
-                $categoryId = $this->query->findIdByCode($value->getValue());
-                if ($categoryId) {
-                    $product->categories[$value->getValue()] = $categoryId;
+                $codes = explode(',', $value->getValue());
+                foreach ($codes as $code) {
+                    $categoryId = $this->query->findIdByCode(new CategoryCode($code));
+                    if ($categoryId) {
+                        $categories[$code] = $categoryId;
+                    }
                 }
             }
         }
+
+        $product->categories = array_values($categories);
 
         return $product;
     }

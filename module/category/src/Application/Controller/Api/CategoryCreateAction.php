@@ -24,6 +24,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  * @Route("/categories", methods={"POST"})
@@ -96,7 +97,11 @@ class CategoryCreateAction
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var CategoryCreateFormModel $data */
                 $data = $form->getData();
-                $command = new CreateCategoryCommand($data->code, new TranslatableString($data->name));
+                $command = new CreateCategoryCommand(
+                    CategoryId::generate(),
+                    $data->code,
+                    new TranslatableString($data->name)
+                );
                 $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());
