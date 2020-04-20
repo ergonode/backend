@@ -18,9 +18,9 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
 use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Application\Form\DraftCreateForm;
 use Ergonode\Editor\Application\Model\DraftCreateFormModel;
@@ -30,10 +30,12 @@ use Ergonode\Editor\Domain\Command\PersistProductDraftCommand;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\Editor\Infrastructure\Grid\ProductDraftGrid;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -43,10 +45,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Value\Domain\Resolver\ValueResolver;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  */
@@ -431,15 +429,16 @@ class ProductDraftController extends AbstractController
      *     description="Not found",
      * )
      *
+     * @param Language        $language
      * @param AbstractProduct $product
+     *
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      *
      * @return Response
      *
      * @throws \Exception
-     *
-     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
      */
-    public function getProductDraft(AbstractProduct $product): Response
+    public function getProductDraft(Language $language, AbstractProduct $product): Response
     {
         $draft = $this->draftProvider->provide($product);
 
@@ -451,7 +450,7 @@ class ProductDraftController extends AbstractController
         foreach ($draft->getAttributes() as $key => $attribute) {
             $value = $attribute->getValue();
             if ($value instanceof TranslatableString) {
-                $value = $value->getTranslations();
+                $value = $value->get($language);
             }
             $result['attributes'][$key] = $value;
         }
