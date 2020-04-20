@@ -30,6 +30,6 @@ class CategorySystemAttributeTest extends TestCase
         $this->assertSame($placeholder, $attribute->getPlaceholder());
         $this->assertTrue($attribute->isSystem());
         $this->assertFalse($attribute->isEditable());
-        $this->assertFalse($attribute->isDeletable());
+        $this->assertTrue($attribute->isDeletable());
     }
 }
