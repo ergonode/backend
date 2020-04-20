@@ -50,7 +50,7 @@ Feature: Price attribute manipulation
         "groups": [],
         "parameters":
         {
-          "currency": "incorrect value"
+          "currency": null
         }
       }
       """

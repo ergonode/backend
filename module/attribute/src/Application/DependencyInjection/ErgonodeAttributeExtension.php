@@ -9,17 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\DependencyInjection;
 
-use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeFactoryInterfaceCompilerPass;
-use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeUpdaterInterfaceCompilerPass;
-// phpcs:ignore
-use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeValueConstraintStrategyInterfaceCompilerPass;
-use Ergonode\Attribute\Domain\AttributeFactoryInterface;
 use Ergonode\Attribute\Domain\AttributeUpdaterInterface;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
+use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 
 /**
  */
@@ -39,16 +36,20 @@ class ErgonodeAttributeExtension extends Extension
         );
 
         $container
-            ->registerForAutoconfiguration(AttributeFactoryInterface::class)
-            ->addTag(AttributeFactoryInterfaceCompilerPass::TAG);
+            ->registerForAutoconfiguration(CreateAttributeCommandFactoryInterface::class)
+            ->addTag(CompilerPass\CreateAttributeCommandFactoryProviderInterfaceCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(UpdateAttributeCommandFactoryInterface::class)
+            ->addTag(CompilerPass\UpdateAttributeCommandFactoryProviderInterfaceCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(AttributeUpdaterInterface::class)
-            ->addTag(AttributeUpdaterInterfaceCompilerPass::TAG);
+            ->addTag(CompilerPass\AttributeUpdaterInterfaceCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(AttributeValueConstraintStrategyInterface::class)
-            ->addTag(AttributeValueConstraintStrategyInterfaceCompilerPass::TAG);
+            ->addTag(CompilerPass\AttributeValueConstraintStrategyInterfaceCompilerPass::TAG);
 
         $loader->load('services.yml');
     }
