@@ -21,8 +21,11 @@ Feature: Select attribute manipulation
     And I send a "POST" request to "/api/v1/en/attributes/@attribute_id@/options" with body:
       """
       {
-        "code": "OPTION_@@random_code@@",
-        "label":  {}
+        "code": "option_1",
+        "label":  {
+          "pl": "Option pl 1",
+          "en": "Option en 1"
+        }
       }
       """
     Then the response status code should be 201
@@ -31,30 +34,35 @@ Feature: Select attribute manipulation
   Scenario: Get created select
     And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options/@option_id@"
     Then the response status code should be 200
+    And the JSON node "label.pl" should contain "Option pl 1"
+    And the JSON node "label.en" should contain "Option en 1"
+    And the JSON node "code" should contain "option_1"
 
   Scenario: Update option for attribute
     And I send a "PUT" request to "/api/v1/EN/attributes/@attribute_id@/options/@option_id@" with body:
       """
       {
-        "code": "OPTION_@@random_code@@",
+        "code": "option_2",
         "label":  {
-          "pl": "Option pl 1",
-          "en": "Option en 1"
+          "pl": "Option pl 2",
+          "en": "Option en 2"
         }
       }
       """
     Then the response status code should be 201
 
-  Scenario: Get attribute options
-    And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options"
-    Then the response status code should be 200
-    And the JSON node "[0].label.pl" should exist
-
   Scenario: Get created option
     And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options/@option_id@"
     Then the response status code should be 200
-    And the JSON node "label.pl" should contain "Option pl 1"
-    And the JSON node "label.en" should contain "Option en 1"
+    And the JSON node "label.pl" should contain "Option pl 2"
+    And the JSON node "label.en" should contain "Option en 2"
+    And the JSON node "code" should contain "option_2"
+
+  Scenario: Get attribute options
+    And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options"
+    Then the response status code should be 200
+    And the JSON node "[0].label.pl" should contain "Option pl 2"
+    And the JSON node "[0].label.en" should contain "Option en 2"
 
   Scenario: Delete select attribute
     And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@"

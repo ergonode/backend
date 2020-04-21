@@ -106,6 +106,10 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 PRIMARY KEY(id, attribute_id)
             )
         ');
+
+        $this->addSql('CREATE UNIQUE INDEX attribute_option_code_attribute_key 
+            ON attribute_option USING btree (attribute_id, key)');
+
         $this->addSql('
             ALTER TABLE attribute_option 
                 ADD CONSTRAINT attribute_option_attribute_id_fk 
@@ -166,7 +170,8 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             'Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent' => 'Attribute removed from group',
             'Ergonode\Attribute\Domain\Event\Option\OptionCreatedEvent' => 'Attribute option added',
             'Ergonode\Attribute\Domain\Event\Option\OptionRemovedEvent' => 'Attribute option removed',
-            'Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent' => 'Attribute option changed',
+            'Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent' => 'Attribute option label changed',
+            'Ergonode\Attribute\Domain\Event\Option\OptionCodeChangedEvent' => 'Attribute option code changed',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent' => 'Attribute deleted',
         ]);
     }
