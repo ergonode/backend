@@ -17,7 +17,6 @@ use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
-use Ergonode\Grid\Filter\Option\FilterOption;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
 
 /**
