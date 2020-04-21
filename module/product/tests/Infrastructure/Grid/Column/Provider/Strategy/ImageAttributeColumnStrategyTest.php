@@ -10,6 +10,7 @@ namespace Ergonode\Product\Tests\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
+use Ergonode\Grid\Filter\HasFilter;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\ImageColumn;
@@ -58,6 +59,6 @@ class ImageAttributeColumnStrategyTest extends TestCase
         $strategy = new ImageAttributeColumnStrategy();
         $column = $strategy->create($this->attribute, $language);
         $this->assertInstanceOf(ImageColumn::class, $column);
-        $this->assertNull($column->getFilter());
+        $this->assertInstanceOf(HasFilter::class, $column->getFilter());
     }
 }
