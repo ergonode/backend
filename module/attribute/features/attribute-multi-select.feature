@@ -20,9 +20,12 @@ Feature: Multi multi select attribute manipulation
   Scenario: Create option for attribute
     And I send a "POST" request to "/api/v1/en/attributes/@attribute_id@/options" with body:
       """
-      {
-        "code": "OPTION_@@random_code@@",
-        "label":  {}
+     {
+        "code": "option_1",
+        "label":  {
+          "pl": "Option pl 1",
+          "en": "Option en 1"
+        }
       }
       """
     Then the response status code should be 201
@@ -35,11 +38,11 @@ Feature: Multi multi select attribute manipulation
   Scenario: Update option for attribute
     And I send a "PUT" request to "/api/v1/en/attributes/@attribute_id@/options/@option_id@" with body:
       """
-      {
-        "code": "OPTION_@@random_code@@",
+     {
+        "code": "option_2",
         "label":  {
-          "pl": "Option pl 1",
-          "en": "Option en 1"
+          "pl": "Option pl 2",
+          "en": "Option en 2"
         }
       }
       """
@@ -48,8 +51,9 @@ Feature: Multi multi select attribute manipulation
   Scenario: Get created multi select
     And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@/options/@option_id@"
     Then the response status code should be 200
-    And the JSON node "label.pl" should contain "Option pl 1"
-    And the JSON node "label.en" should contain "Option en 1"
+    And the JSON node "label.pl" should contain "Option pl 2"
+    And the JSON node "label.en" should contain "Option en 2"
+    And the JSON node "code" should contain "option_2"
 
   Scenario: Delete multi select attribute
     And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@"
