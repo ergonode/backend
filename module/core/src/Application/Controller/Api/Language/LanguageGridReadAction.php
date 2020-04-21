@@ -57,7 +57,7 @@ class LanguageGridReadAction
     }
 
     /**
-     * @IsGranted("SETTINGS_UPDATE")
+     * @IsGranted("SETTINGS_READ")
      *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(
