@@ -107,7 +107,8 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             )
         ');
 
-        $this->addSql('CREATE UNIQUE INDEX attribute_option_code_attribute_key ON attribute_option USING btree (attribute_id, key)');
+        $this->addSql('CREATE UNIQUE INDEX attribute_option_code_attribute_key 
+            ON attribute_option USING btree (attribute_id, key)');
 
         $this->addSql('
             ALTER TABLE attribute_option 
