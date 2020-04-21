@@ -24,6 +24,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 /**
  * @Route("/attributes", methods={"POST"})
@@ -104,7 +105,7 @@ class AttributeCreateAction
                 $data = $form->getData();
                 $command = new CreateAttributeCommand(
                     $data->type,
-                    $data->code,
+                    new AttributeCode($data->code),
                     new TranslatableString($data->label),
                     new TranslatableString($data->hint),
                     new TranslatableString($data->placeholder),
