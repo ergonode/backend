@@ -505,10 +505,10 @@ nelmio_api_doc:
                     value:
                         $ref: "#/definitions/translation"
                 example:
-                    key: key_1
-                    value:
-                        PL: Option PL 1
-                        EN: Option EN 1
+                    code: key_1
+                    label:
+                        pl: Option PL 1
+                        en: Option EN 1
             attribute_parameters:
                 type: object
                 properties:
