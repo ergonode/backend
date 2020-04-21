@@ -47,8 +47,6 @@ abstract class AbstractDbalDataSet implements DataSetInterface
                                 $name,
                                 $filter->getValue()
                             );
-                        } elseif ($columnFilter instanceof HasFilter) {
-                            $this->buildHasQuery($query, $name, $filter->getValue());
                         } else {
                             $this->buildDefaultQuery($query, $name, $filter->getOperator(), $filter->getValue());
                         }
@@ -94,21 +92,6 @@ abstract class AbstractDbalDataSet implements DataSetInterface
             $query->andWhere(implode(' OR ', $fields));
         } else {
             $query->andWhere(sprintf('"%s"::TEXT = \'[]\'::TEXT', $field));
-        }
-    }
-
-    /**
-     * @param QueryBuilder $query
-     * @param string       $field
-     * @param string|null  $value
-     */
-    private function buildHasQuery(QueryBuilder $query, string $field, string $value = null): void
-    {
-        $field = sprintf('"%s"', $field);
-        if ($value) {
-            $query->andWhere($query->expr()->isNotNull($field));
-        } else {
-            $query->andWhere($query->expr()->isNull($field));
         }
     }
 

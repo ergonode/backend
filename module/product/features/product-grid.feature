@@ -547,17 +547,3 @@ Feature: Product edit feature
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "api/v1/en/products?columns=@product_edit_text_attribute_code@&,index&field=xxxxxxx@&order=DESC"
     Then the response status code should be 200
-
-  Scenario: Request product grid filtered by image attribute has
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_image_attribute_code@&filter=@product_edit_image_attribute_code@%3D"
-    Then the response status code should be 200
-
-  Scenario: Request product grid filtered by image attribute not has
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_image_attribute_code@&filter=@product_edit_image_attribute_code@%3Dxyz"
-    Then the response status code should be 200
