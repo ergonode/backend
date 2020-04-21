@@ -100,10 +100,9 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
         if ($attribute instanceof AbstractOptionAttribute) {
             $options = [];
             foreach ($this->query->getAll($attribute->getId()) as $option) {
-                $label = $option['label'][$language->getCode()] ?? null;
                 $options[$option['id']] = [
                     'code' => $option['code'],
-                    'label' => $label,
+                    'label' => $option['label'][$language->getCode()] ?? null,
                 ];
             }
 
