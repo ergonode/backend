@@ -59,6 +59,6 @@ class ImageAttributeColumnStrategyTest extends TestCase
         $strategy = new ImageAttributeColumnStrategy();
         $column = $strategy->create($this->attribute, $language);
         $this->assertInstanceOf(ImageColumn::class, $column);
-        $this->assertInstanceOf(HasFilter::class, $column->getFilter());
+        $this->assertNull($column->getFilter());
     }
 }
