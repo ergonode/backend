@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\ColumnInterface;
+use Ergonode\Grid\Filter\HasFilter;
 
 /**
  */
@@ -32,6 +33,10 @@ class ImageAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
-        return new ImageColumn($attribute->getCode()->getValue(), $attribute->getLabel()->get($language));
+        return new ImageColumn(
+            $attribute->getCode()->getValue(),
+            $attribute->getLabel()->get($language),
+            new HasFilter()
+        );
     }
 }
