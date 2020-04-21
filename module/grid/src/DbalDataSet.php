@@ -52,7 +52,7 @@ class DbalDataSet extends AbstractDbalDataSet
         $this->buildFilters($queryBuilder, $values, $columns);
         $queryBuilder->setMaxResults($limit);
         $queryBuilder->setFirstResult($offset);
-        if ($field) {
+        if ($field && isset($columns[$field])) {
             $queryBuilder->orderBy($field, $order);
         }
         $result = $queryBuilder->execute()->fetchAll();
