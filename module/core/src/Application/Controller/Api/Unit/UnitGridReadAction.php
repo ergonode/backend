@@ -59,9 +59,6 @@ class UnitGridReadAction
     }
 
     /**
-     *
-     * @IsGranted("SETTINGS_READ")
-     *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(
      *     name="limit",
