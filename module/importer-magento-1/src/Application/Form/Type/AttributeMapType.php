@@ -26,8 +26,6 @@ class AttributeMapType extends AbstractType
     private AttributeQueryInterface $query;
 
     /**
-     * AttributeMapType constructor.
-     *
      * @param AttributeQueryInterface $query
      */
     public function __construct(AttributeQueryInterface $query)
@@ -69,6 +67,7 @@ class AttributeMapType extends AbstractType
     {
         $resolver->setDefaults([
             'translation_domain' => 'import',
+            'empty_data' => new AttributeMapModel(),
             'data_class' => AttributeMapModel::class,
         ]);
     }
