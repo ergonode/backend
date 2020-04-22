@@ -955,6 +955,17 @@ Feature: Product collection module
     When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements/@product_2@"
     Then the response status code should be 200
 
+  Scenario: Add multiple product collection element (both empty fields)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en/collections/@product_collection_1@/elements/multiple" with body:
+      """
+      {
+      }
+      """
+    Then the response status code should be 400
+
   Scenario: Add multiple product collection element (wrong segment)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"

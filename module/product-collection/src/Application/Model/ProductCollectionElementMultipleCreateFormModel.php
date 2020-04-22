@@ -10,10 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Application\Model;
 
 use Ergonode\Product\Infrastructure\Validator\SkusValid;
+use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\SegmentOrSkuAtLeastOne;
 use Ergonode\Segment\Infrastructure\Validator\ValidSegmentId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @SegmentOrSkuAtLeastOne()
  */
 class ProductCollectionElementMultipleCreateFormModel
 {
