@@ -25,7 +25,7 @@ class AttributeMapModel
     /**
      * @var string|null
      *
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      */
     public ?string $attribute;
 
