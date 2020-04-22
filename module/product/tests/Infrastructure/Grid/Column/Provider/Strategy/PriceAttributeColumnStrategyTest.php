@@ -11,25 +11,18 @@ namespace Ergonode\Product\Tests\Infrastructure\Grid\Column\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Grid\Column\NumericColumn;
-use Ergonode\Grid\Filter\RangeFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\PriceAttributeColumnStrategy;
 use Money\Currency;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Grid\Filter\NumericFilter;
 
 /**
  */
 class PriceAttributeColumnStrategyTest extends TestCase
 {
-    /**
-     * @var AttributeQueryInterface|MockObject
-     */
-    private $query;
-
     /**
      * @var PriceAttribute|MockObject
      */
@@ -39,9 +32,7 @@ class PriceAttributeColumnStrategyTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->query = $this->createMock(AttributeQueryInterface::class);
         $this->attribute = $this->createMock(PriceAttribute::class);
-        $this->query->method('getAttributeValueRange')->willReturn(new Range(0, 100));
         $this->attribute->method('getId')->willReturn($this->createMock(AttributeId::class));
         $this->attribute->method('getCurrency')->willReturn(new Currency('PLN'));
     }
@@ -50,7 +41,7 @@ class PriceAttributeColumnStrategyTest extends TestCase
      */
     public function testIsSupported(): void
     {
-        $strategy = new PriceAttributeColumnStrategy($this->query);
+        $strategy = new PriceAttributeColumnStrategy();
         $this->assertTrue($strategy->supports($this->attribute));
     }
 
@@ -58,7 +49,7 @@ class PriceAttributeColumnStrategyTest extends TestCase
      */
     public function testIsNotSupported(): void
     {
-        $strategy = new PriceAttributeColumnStrategy($this->query);
+        $strategy = new PriceAttributeColumnStrategy();
         $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
@@ -67,9 +58,9 @@ class PriceAttributeColumnStrategyTest extends TestCase
     public function testCreateColumn(): void
     {
         $language = $this->createMock(Language::class);
-        $strategy = new PriceAttributeColumnStrategy($this->query);
+        $strategy = new PriceAttributeColumnStrategy();
         $column = $strategy->create($this->attribute, $language);
         $this->assertInstanceOf(NumericColumn::class, $column);
-        $this->assertInstanceOf(RangeFilter::class, $column->getFilter());
+        $this->assertInstanceOf(NumericFilter::class, $column->getFilter());
     }
 }

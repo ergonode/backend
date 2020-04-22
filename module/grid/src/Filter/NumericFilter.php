@@ -9,37 +9,20 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid\Filter;
 
-use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Grid\FilterInterface;
 
 /**
  */
-class RangeFilter implements FilterInterface
+class NumericFilter implements FilterInterface
 {
-    public const TYPE = 'RANGE';
-
-    /**
-     * @var Range
-     */
-    private Range $range;
-
-    /**
-     * @param Range $range
-     */
-    public function __construct(Range $range)
-    {
-        $this->range = $range;
-    }
+    public const TYPE = 'NUMERIC';
 
     /**
      * @return array
      */
     public function render(): array
     {
-        return [
-            'min' => $this->range->getMin(),
-            'max' => $this->range->getMax(),
-        ];
+        return [];
     }
 
     /**
