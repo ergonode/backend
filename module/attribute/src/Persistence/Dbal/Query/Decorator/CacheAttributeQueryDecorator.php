@@ -81,17 +81,6 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
         return $this->cache[$key];
     }
 
-
-    /**
-     * @param AttributeId $attributeId
-     *
-     * @return Range
-     */
-    public function getAttributeValueRange(AttributeId $attributeId): Range
-    {
-        return $this->attributeQuery->getAttributeValueRange($attributeId);
-    }
-
     /**
      * @param AttributeId $attributeId
      *

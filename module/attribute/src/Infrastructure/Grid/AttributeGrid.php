@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\Filter\Option\FilterOption;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
+use Ergonode\Grid\Column\SelectColumn;
 
 /**
  */
@@ -74,7 +75,7 @@ class AttributeGrid extends AbstractGrid
         $this->addColumn('code', new TextColumn('code', 'Code', new TextFilter()));
         $column = new TextColumn('label', 'Name', new TextFilter());
         $this->addColumn('label', $column);
-        $column = new TextColumn('type', 'Type', new MultiSelectFilter($types));
+        $column = new SelectColumn('type', 'Type', new MultiSelectFilter($types));
         $this->addColumn('type', $column);
         $column = new BoolColumn('multilingual', 'Multilingual');
         $this->addColumn('multilingual', $column);

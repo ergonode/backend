@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  */
@@ -43,11 +44,18 @@ class DbalLanguageQuery implements LanguageQueryInterface
     private Connection $connection;
 
     /**
-     * @param Connection $connection
+     * @var TranslatorInterface
      */
-    public function __construct(Connection $connection)
+    private TranslatorInterface $translator;
+
+    /**
+     * @param Connection          $connection
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(Connection $connection, TranslatorInterface $translator)
     {
         $this->connection = $connection;
+        $this->translator = $translator;
     }
 
     /**
@@ -163,9 +171,15 @@ class DbalLanguageQuery implements LanguageQueryInterface
             $query->setMaxResults($limit);
         }
 
-        return $query
+        $records = $query
             ->execute()
             ->fetchAll();
+
+        foreach ($records as $key => $record) {
+            $records[$key]['name'] = $this->translator->trans($records[$key]['name']);
+        }
+
+        return $records;
     }
 
     /**
