@@ -57,8 +57,6 @@ class LanguageGridReadAction
     }
 
     /**
-     * @IsGranted("SETTINGS_UPDATE")
-     *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(
      *     name="limit",
