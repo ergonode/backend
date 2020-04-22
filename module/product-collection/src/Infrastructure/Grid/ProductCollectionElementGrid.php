@@ -52,15 +52,6 @@ class ProductCollectionElementGrid extends AbstractGrid
                     'product' => '{id}',
                 ],
             ],
-            'edit' => [
-                'route' => 'ergonode_product_collection_element_change',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'collection' => '{product_collection_id}',
-                    'product' => '{id}',
-                ],
-                'method' => Request::METHOD_PUT,
-            ],
             'delete' => [
                 'route' => 'ergonode_product_collection_element_delete',
                 'parameters' => [

@@ -12,7 +12,6 @@ namespace Ergonode\Attribute\Infrastructure\Validator;
 use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -43,7 +42,7 @@ class OptionCodeExistsValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof OptionCodeExists) {
-            throw new UnexpectedTypeException($constraint, UniqueEntity::class);
+            throw new UnexpectedTypeException($constraint, OptionCodeExists::class);
         }
 
         if (!$value instanceof SimpleOptionModel) {
