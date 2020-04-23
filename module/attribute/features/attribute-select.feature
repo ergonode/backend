@@ -64,6 +64,13 @@ Feature: Select attribute manipulation
     And the JSON node "[0].label.pl" should contain "Option pl 2"
     And the JSON node "[0].label.en" should contain "Option en 2"
 
+  Scenario: Delete option
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@/options/@option_id@"
+    Then the response status code should be 204
+
   Scenario: Delete select attribute
     And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@"
     Then the response status code should be 204

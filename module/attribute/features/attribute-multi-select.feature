@@ -55,6 +55,13 @@ Feature: Multi multi select attribute manipulation
     And the JSON node "label.en" should contain "Option en 2"
     And the JSON node "code" should contain "option_2"
 
+  Scenario: Delete option
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@/options/@option_id@"
+    Then the response status code should be 204
+
   Scenario: Delete multi select attribute
     And I send a "DELETE" request to "/api/v1/EN/attributes/@attribute_id@"
     Then the response status code should be 204
