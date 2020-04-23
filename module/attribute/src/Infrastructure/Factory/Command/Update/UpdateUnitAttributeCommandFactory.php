@@ -9,8 +9,8 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Update;
 
 use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextareaAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateUnitAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormInterface;
 
 /**
  */
-class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
+class UpdateUnitAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
 {
     /**
      * @param string $type
@@ -28,7 +28,7 @@ class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFac
      */
     public function support(string $type): bool
     {
-        return $type === TextareaAttribute::TYPE;
+        return $type === UnitAttribute::TYPE;
     }
 
     /**
@@ -43,12 +43,13 @@ class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFac
         /** @var UnitAttributeFormModel $data */
         $data = $form->getData();
 
-        return new UpdateTextareaAttributeCommand(
+        return new UpdateUnitAttributeCommand(
             $id,
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
             $data->multilingual,
+            $data->parameters->unit,
             $data->groups,
         );
     }

@@ -9,17 +9,17 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Update;
 
 use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextareaAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextAttributeCommand;
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 
 /**
  */
-class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
+class UpdateNumericAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
 {
     /**
      * @param string $type
@@ -28,7 +28,7 @@ class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFac
      */
     public function support(string $type): bool
     {
-        return $type === TextareaAttribute::TYPE;
+        return $type === NumericAttribute::TYPE;
     }
 
     /**
@@ -43,7 +43,7 @@ class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFac
         /** @var UnitAttributeFormModel $data */
         $data = $form->getData();
 
-        return new UpdateTextareaAttributeCommand(
+        return new UpdateTextAttributeCommand(
             $id,
             new TranslatableString($data->label),
             new TranslatableString($data->hint),

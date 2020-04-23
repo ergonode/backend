@@ -18,6 +18,7 @@ class DateAttributePropertyModel
      * @var string|null
      *
      * @Assert\NotBlank()
+     * @
      */
     public ?string $format = null;
 }

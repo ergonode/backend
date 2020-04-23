@@ -21,11 +21,22 @@ Feature: Text attribute manipulation
     And I send a "PUT" request to "/api/v1/en/attributes/@attribute_id@" with body:
       """
       {
-          "type": "TEXT",
-          "groups": [],
-          "label": {"pl_PL": "pl_PL", "en": "en"},
-          "placeholder": {"pl_PL": "pl_PL", "en": "en"},
-          "hint": {"pl_PL": "pl_PL", "en": "en"}
+        "type": "TEXT",
+        "groups": [],
+        "label":
+        {
+          "pl_PL": "pl_PL",
+          "en": "en"
+        },
+        "placeholder":
+        {
+          "pl_PL": "pl_PL",
+          "en": "en"
+        },
+        "hint": {
+          "pl_PL": "pl_PL",
+          "en": "en"
+        }
       }
       """
     Then the response status code should be 204

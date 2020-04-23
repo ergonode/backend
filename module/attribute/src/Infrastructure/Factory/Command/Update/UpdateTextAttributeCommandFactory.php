@@ -8,14 +8,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Update;
 
-use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Symfony\Component\Form\FormInterface;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextAttributeCommand;
 use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Symfony\Component\Form\FormInterface;
 
 /**
  */

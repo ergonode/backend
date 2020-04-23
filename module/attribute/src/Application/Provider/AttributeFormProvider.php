@@ -16,6 +16,16 @@ use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Application\Form\Attribute\TextAttributeForm;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Application\Form\Attribute\TextareaAttributeForm;
+use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
+use Ergonode\Attribute\Application\Form\Attribute\UnitAttributeForm;
+use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
+use Ergonode\Attribute\Application\Form\Attribute\NumericAttributeForm;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+use Ergonode\Attribute\Application\Form\Attribute\SelectAttributeForm;
+use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use Ergonode\Attribute\Application\Form\Attribute\MultiSelectAttributeForm;
+use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
+use Ergonode\Attribute\Application\Form\Attribute\ImageAttributeForm;
 
 /**
  */
@@ -46,6 +56,22 @@ class AttributeFormProvider
 
         if (TextareaAttribute::TYPE === $type) {
             return TextareaAttributeForm::class;
+        }
+
+        if (NumericAttribute::TYPE === $type) {
+            return NumericAttributeForm::class;
+        }
+
+        if (SelectAttribute::TYPE === $type) {
+            return SelectAttributeForm::class;
+        }
+
+        if (MultiSelectAttribute::TYPE === $type) {
+            return MultiSelectAttributeForm::class;
+        }
+
+        if (ImageAttribute::TYPE === $type) {
+            return ImageAttributeForm::class;
         }
 
         throw new \RuntimeException(sprintf('Can\' find factory for %s type', $type));

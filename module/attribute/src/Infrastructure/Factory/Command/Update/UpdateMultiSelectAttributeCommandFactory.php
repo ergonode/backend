@@ -8,9 +8,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Update;
 
-use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextareaAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
+use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateMultiSelectAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormInterface;
 
 /**
  */
-class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
+class UpdateMultiSelectAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
 {
     /**
      * @param string $type
@@ -28,7 +28,7 @@ class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFac
      */
     public function support(string $type): bool
     {
-        return $type === TextareaAttribute::TYPE;
+        return $type === MultiSelectAttribute::TYPE;
     }
 
     /**
@@ -40,10 +40,10 @@ class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFac
      */
     public function create(AttributeId $id, FormInterface $form): DomainCommandInterface
     {
-        /** @var UnitAttributeFormModel $data */
+        /** @var AttributeFormModel $data */
         $data = $form->getData();
 
-        return new UpdateTextareaAttributeCommand(
+        return new UpdateMultiSelectAttributeCommand(
             $id,
             new TranslatableString($data->label),
             new TranslatableString($data->hint),

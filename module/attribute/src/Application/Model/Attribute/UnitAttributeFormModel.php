@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Application\Model\Attribute;
 
 use Ergonode\Attribute\Application\Model\Attribute\Property\UnitAttributePropertyModel;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
@@ -16,6 +17,8 @@ class UnitAttributeFormModel extends AttributeFormModel
 {
     /**
      * @var UnitAttributePropertyModel
+     *
+     * @Assert\Valid()
      */
     public UnitAttributePropertyModel $parameters;
 
