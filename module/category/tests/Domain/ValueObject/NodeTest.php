@@ -65,4 +65,27 @@ class NodeTest extends TestCase
         $this->assertFalse($node->hasSuccessor($this->categoryId));
         $this->assertTrue($node->hasChildren($categoryId2));
     }
+
+    /**
+     */
+    public function testHasSuccessor(): void
+    {
+        $categoryId1 = CategoryId::generate();
+        $categoryId2 = CategoryId::generate();
+        $categoryId3 = CategoryId::generate();
+
+        $child1 = new Node($categoryId1);
+        $child2 = new Node($categoryId2);
+        $child3 = new Node($categoryId3);
+
+        $child1->addChildren($child2);
+        $child1->addChildren($child3);
+
+        $node = new Node($this->categoryId);
+        $node ->addChildren($child1);
+
+        $this->assertTrue($node->hasSuccessor($categoryId1));
+        $this->assertTrue($node->hasSuccessor($categoryId2));
+        $this->assertTrue($node->hasSuccessor($categoryId3));
+    }
 }
