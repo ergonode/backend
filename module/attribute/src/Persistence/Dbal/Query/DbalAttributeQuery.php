@@ -245,27 +245,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
-     * @return Range
-     */
-    public function getAttributeValueRange(AttributeId $attributeId): Range
-    {
-        $qb = $this->connection->createQueryBuilder();
-
-        $result = $qb
-            ->select('coalesce(min(vt.value::NUMERIC), 0) AS min, coalesce(max(vt.value::NUMERIC), 0) AS max')
-            ->from('product_value', 'pv')
-            ->join('pv', 'value_translation', 'vt', 'vt.value_id = pv.value_id')
-            ->where($qb->expr()->eq('pv.attribute_id', ':attributeId'))
-            ->setParameter('attributeId', $attributeId->getValue())
-            ->execute()
-            ->fetch();
-
-        return new Range((float) $result['min'], (float) $result['max']);
-    }
-
-    /**
      * @param UnitId $unitId
      *
      * @return array

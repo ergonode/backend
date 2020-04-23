@@ -35,7 +35,7 @@ class ProductCollectionUpdateFormModel
      * @Assert\All({
      *     @Assert\NotBlank(),
      *     @Assert\Length(
-     *     max=100,
+     *     max=1000,
      *      maxMessage="Product collection name is to long, It should have {{ limit }} character or less."
      * )
      * })

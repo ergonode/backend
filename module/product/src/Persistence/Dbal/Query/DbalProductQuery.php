@@ -20,6 +20,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -27,6 +28,7 @@ use Ramsey\Uuid\Uuid;
 class DbalProductQuery implements ProductQueryInterface
 {
     private const PRODUCT_TABLE = 'public.product';
+    private const VALUE_TRANSLATION_TABLE = 'public.value_translation';
     private const VALUE_TABLE = 'public.product_value';
     private const SEGMENT_PRODUCT_TABLE = 'public.segment_product';
     private const PRODUCT_COLLECTION_TABLE = 'public.collection';
@@ -276,6 +278,35 @@ class DbalProductQuery implements ProductQueryInterface
 
         foreach ($result as &$item) {
             $item = new ProductCollectionId($item);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param AggregateId $id
+     *
+     * @return array|mixed|mixed[]
+     */
+    public function findProductIdByOptionId(AggregateId $id)
+    {
+        $qb = $this->connection->createQueryBuilder()
+            ->select('pv.product_id')
+            ->from(self::VALUE_TABLE, 'pv');
+
+        $result = $qb
+            ->join('pv', self::VALUE_TRANSLATION_TABLE, 'vt', 'vt.id = pv.value_id')
+            ->andWhere($qb->expr()->eq('vt.value', ':optionId'))
+            ->setParameter('optionId', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
         }
 
         return $result;

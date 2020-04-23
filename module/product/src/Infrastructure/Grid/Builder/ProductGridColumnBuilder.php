@@ -120,15 +120,18 @@ class ProductGridColumnBuilder
         $result['_links'] = new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_product_read',
+                'privilege' => 'PRODUCT_READ',
                 'parameters' => ['language' => $defaultLanguage->getCode(), 'product' => '{id}'],
             ],
             'edit' => [
                 'route' => 'ergonode_product_change',
+                'privilege' => 'PRODUCT_UPDATE',
                 'parameters' => ['language' => $defaultLanguage->getCode(), 'product' => '{id}'],
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'route' => 'ergonode_product_delete',
+                'privilege' => 'PRODUCT_DELETE',
                 'parameters' => ['language' => $defaultLanguage->getCode(), 'product' => '{id}'],
                 'method' => Request::METHOD_DELETE,
             ],

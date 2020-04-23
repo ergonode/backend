@@ -68,13 +68,6 @@ interface AttributeQueryInterface
     public function getAttributeCodes(array $types = []): array;
 
     /**
-     * @param AttributeId $attributeId
-     *
-     * @return Range
-     */
-    public function getAttributeValueRange(AttributeId $attributeId): Range;
-
-    /**
      * @param AttributeId $id
      * @param OptionKey   $key
      *
