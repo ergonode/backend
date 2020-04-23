@@ -15,6 +15,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Attribute\Domain\Event\Option\OptionCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent;
+use Ergonode\Attribute\Domain\Event\Option\OptionCodeChangedEvent;
 
 /**
  *
@@ -67,6 +68,18 @@ abstract class AbstractOption extends AbstractAggregateRoot
     }
 
     /**
+     * @param OptionKey $code
+     *
+     * @throws \Exception
+     */
+    public function changeCode(OptionKey $code): void
+    {
+        if (!$code->isEqual($this->code)) {
+            $this->apply(new OptionCodeChangedEvent($this->id, $code));
+        }
+    }
+
+    /**
      * @return AggregateId
      */
     public function getId(): AggregateId
@@ -115,5 +128,13 @@ abstract class AbstractOption extends AbstractAggregateRoot
     protected function applyOptionLabelChangedEvent(OptionLabelChangedEvent $event): void
     {
         $this->label = $event->getTo();
+    }
+
+    /**
+     * @param OptionCodeChangedEvent $event
+     */
+    protected function applyOptionCodeChangedEvent(OptionCodeChangedEvent $event): void
+    {
+        $this->code = $event->getCode();
     }
 }

@@ -11,8 +11,15 @@ namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
+use Ergonode\Attribute\Application\Form\SimpleOptionForm;
+use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,13 +27,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Application\Form\Model\Option\SimpleOptionModel;
-use Ergonode\Attribute\Application\Form\SimpleOptionForm;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -108,7 +108,7 @@ class OptionCreateAction
     public function __invoke(AbstractAttribute $attribute, Request $request): Response
     {
         try {
-            $model = new SimpleOptionModel();
+            $model = new SimpleOptionModel($attribute->getId());
             $form = $this->formFactory->create(SimpleOptionForm::class, $model);
             $form->handleRequest($request);
 

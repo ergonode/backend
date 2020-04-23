@@ -9,6 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\ValueObject;
 
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+
 /**
  */
 class OptionKey
@@ -46,6 +48,16 @@ class OptionKey
     public function __toString(): string
     {
         return $this->value;
+    }
+
+    /**
+     * @param OptionKey $code
+     *
+     * @return bool
+     */
+    public function isEqual(OptionKey $code): bool
+    {
+        return $code->value === $this->value;
     }
 
     /**

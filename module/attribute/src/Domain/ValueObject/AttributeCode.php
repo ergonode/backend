@@ -13,7 +13,7 @@ namespace Ergonode\Attribute\Domain\ValueObject;
  */
 class AttributeCode
 {
-    private const PATTERN = '/^([a-z0-9_]+)$/';
+    private const PATTERN = '/^([a-zA-Z0-9_]+)$/';
     private const LENGTH = 128;
 
     /**
