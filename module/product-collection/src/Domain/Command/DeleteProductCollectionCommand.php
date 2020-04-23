@@ -25,8 +25,6 @@ class DeleteProductCollectionCommand implements DomainCommandInterface
     private ProductCollectionId $id;
 
     /**
-     * DeleteProductCollectionCommand constructor.
-     *
      * @param ProductCollectionId $id
      */
     public function __construct(ProductCollectionId $id)
