@@ -13,6 +13,7 @@ use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
 use Ergonode\Core\Domain\ValueObject\Range;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
@@ -81,4 +82,11 @@ interface AttributeQueryInterface
      * @return array
      */
     public function findAttributeIdsByUnitId(UnitId $id): array;
+
+    /**
+     * @param AttributeGroupId $id
+     *
+     * @return array
+     */
+    public function findAttributeIdsByAttributeGroupId(AttributeGroupId $id): array;
 }

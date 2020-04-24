@@ -23,6 +23,7 @@ use Ergonode\Attribute\Domain\View\Factory\AttributeViewModelFactory;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
@@ -257,6 +258,33 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->select('p.attribute_id')
             ->where(sprintf('p.value@> \'"%s"\'', $unitId->getValue()))
             ->andWhere('p.type = \'unit\'')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new AttributeId($item);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param AttributeGroupId $id
+     *
+     * @return array
+     */
+    public function findAttributeIdsByAttributeGroupId(AttributeGroupId $id): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('attribute_id')
+            ->from(self::TABLE_ATTRIBUTE_GROUPS, 'g')
+            ->where($qb->expr()->eq('attribute_group_id', ':id'))
+            ->setParameter(':id', $id->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 
