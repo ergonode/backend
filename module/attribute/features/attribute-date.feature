@@ -64,7 +64,6 @@ Feature: Date attribute manipulation
         "parameters": {"format": "yyyy-MM-dd"}
       }
       """
-    And print last response
     Then the response status code should be 204
 
   Scenario: Delete date attribute

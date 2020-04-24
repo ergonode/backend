@@ -10,10 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Application\Form\Type;
 
 use Ergonode\Attribute\Domain\Query\CurrencyQueryInterface;
-use Ergonode\Core\Application\Form\DataTransformer\CurrencyDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -31,15 +29,6 @@ class CurrencyFormType extends AbstractType
     public function __construct(CurrencyQueryInterface $query)
     {
         $this->query = $query;
-    }
-
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder->addModelTransformer(new CurrencyDataTransformer());
     }
 
     /**

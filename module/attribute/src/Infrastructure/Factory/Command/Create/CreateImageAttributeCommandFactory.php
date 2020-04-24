@@ -10,17 +10,16 @@ namespace Ergonode\Attribute\Infrastructure\Factory\Command\Create;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateDateAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
+use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Application\Model\Attribute\DateAttributeFormModel;
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateImageAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 
 /**
  */
-class CreateDateAttributeCommandFactory implements CreateAttributeCommandFactoryInterface
+class CreateImageAttributeCommandFactory implements CreateAttributeCommandFactoryInterface
 {
     /**
      * @param string $type
@@ -29,26 +28,27 @@ class CreateDateAttributeCommandFactory implements CreateAttributeCommandFactory
      */
     public function support(string $type): bool
     {
-        return $type === DateAttribute::TYPE;
+        return $type === ImageAttribute::TYPE;
     }
+
     /**
      * @param FormInterface $form
      *
      * @return DomainCommandInterface
+     *
      * @throws \Exception
      */
     public function create(FormInterface $form): DomainCommandInterface
     {
-        /** @var DateAttributeFormModel $data */
+        /** @var AttributeFormModel $data */
         $data = $form->getData();
 
-        return new CreateDateAttributeCommand(
+        return new CreateImageAttributeCommand(
             new AttributeCode($data->code),
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
             $data->multilingual,
-            new DateFormat(DateFormat::YYYY_MM_DD),
             $data->groups,
         );
     }

@@ -8,11 +8,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Form\Attribute\Configuration;
 
-use Ergonode\Core\Application\Form\Type\UnitFormType;
+use Ergonode\Attribute\Application\Model\Attribute\Property\UnitAttributePropertyModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\Attribute\Application\Model\Attribute\Property\UnitAttributePropertyModel;
+use Ergonode\Core\Application\Form\Type\UnitIdFormType;
 
 /**
  */
@@ -27,7 +27,7 @@ class UnitAttributeConfigurationForm extends AbstractType
         $builder
             ->add(
                 'unit',
-                UnitFormType::class,
+                UnitIdFormType::class,
             );
     }
 

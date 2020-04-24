@@ -32,6 +32,7 @@ Feature: Image attribute manipulation
           "groups": []
       }
       """
+    And print last response
     Then the response status code should be 204
 
   Scenario: Delete image attribute

@@ -9,16 +9,15 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Application\Model\Attribute\Property;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Money\Currency;
 
 /**
  */
 class PriceAttributePropertyModel
 {
     /**
-     * @var Currency|null
+     * @var string|null
      *
      * @Assert\NotBlank()
      */
-    public ?Currency $currency = null;
+    public ?string $currency = null;
 }

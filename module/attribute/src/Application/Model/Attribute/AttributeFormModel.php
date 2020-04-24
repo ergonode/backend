@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Model\Attribute;
 
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Infrastructure\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,13 +17,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 class AttributeFormModel
 {
     /**
-     * @var AttributeCode
+     * @var string
      *
-     * @Assert\NotBlank(message="Attribute code is required", groups={"Create"})
-     * @Assert\Length(max=128, groups={"Create"})
-     * @AppAssert\AttributeCode(groups={"Create"})
+     * @Assert\NotBlank(
+     *     message="Attribute code is required",
+     *     groups={"Create"}
+     *     )
+     * @Assert\Length(
+     *     max=128,
+     *     maxMessage="Maximum number of characters is 128",
+     *     groups={"Create"}
+     *     )
+     * @AppAssert\AttributeCode(
+     *     groups={"Create"}
+     *     )
      */
-    public ?AttributeCode $code = null;
+    public ?string $code = null;
 
     /**
      * @var bool

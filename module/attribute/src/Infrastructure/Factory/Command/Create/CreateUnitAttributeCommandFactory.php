@@ -14,6 +14,8 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand;
 use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 /**
  */
@@ -42,14 +44,13 @@ class CreateUnitAttributeCommandFactory
         $data = $form->getData();
 
         return new CreateUnitAttributeCommand(
-            $data->code,
+            new AttributeCode($data->code),
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
             $data->multilingual,
-            $data->parameters->unit,
+            new UnitId($data->parameters->unit),
             $data->groups,
         );
     }
-
 }

@@ -8,11 +8,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Form\Attribute\Configuration;
 
+use Ergonode\Attribute\Application\Model\Attribute\Property\PriceAttributePropertyModel;
+use Ergonode\Core\Application\Form\Type\CurrencyFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\Core\Application\Form\Type\CurrencyFormType;
-use Ergonode\Attribute\Application\Model\Attribute\Property\PriceAttributePropertyModel;
 
 /**
  */
