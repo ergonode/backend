@@ -26,8 +26,6 @@ class OptionCodeExistsValidator extends ConstraintValidator
     private OptionQueryInterface $optionQuery;
 
     /**
-     * OptionCodeExistsValidator constructor.
-     *
      * @param OptionQueryInterface $optionQuery
      */
     public function __construct(OptionQueryInterface $optionQuery)
@@ -47,6 +45,10 @@ class OptionCodeExistsValidator extends ConstraintValidator
 
         if (!$value instanceof SimpleOptionModel) {
             throw new UnexpectedTypeException($value, SimpleOptionModel::class);
+        }
+
+        if (null === $value->code) {
+            return;
         }
 
         if (null === $value->optionId) {
