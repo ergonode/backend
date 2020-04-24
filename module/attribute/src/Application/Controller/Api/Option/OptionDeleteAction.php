@@ -9,16 +9,19 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Controller\Api\Option;
 
+use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Attribute\Domain\Command\Option\DeleteOptionCommand;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\AbstractOption;
+use Ergonode\Core\Infrastructure\Builder\ExistingRelationshipMessageBuilderInterface;
+use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\Attribute\Domain\Entity\AbstractOption;
-use Ergonode\Attribute\Domain\Command\Option\DeleteOptionCommand;
-use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -39,11 +42,28 @@ class OptionDeleteAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param CommandBusInterface $commandBus
+     * @var RelationshipsResolverInterface
      */
-    public function __construct(CommandBusInterface $commandBus)
-    {
+    private RelationshipsResolverInterface $relationshipsResolver;
+
+    /**
+     * @var ExistingRelationshipMessageBuilderInterface
+     */
+    private ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder;
+
+    /**
+     * @param CommandBusInterface                         $commandBus
+     * @param RelationshipsResolverInterface              $relationshipsResolver
+     * @param ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+     */
+    public function __construct(
+        CommandBusInterface $commandBus,
+        RelationshipsResolverInterface $relationshipsResolver,
+        ExistingRelationshipMessageBuilderInterface $existingRelationshipMessageBuilder
+    ) {
         $this->commandBus = $commandBus;
+        $this->relationshipsResolver = $relationshipsResolver;
+        $this->existingRelationshipMessageBuilder = $existingRelationshipMessageBuilder;
     }
 
     /**
@@ -93,6 +113,10 @@ class OptionDeleteAction
      */
     public function __invoke(AbstractAttribute $attribute, AbstractOption $option): Response
     {
+        $relations = $this->relationshipsResolver->resolve($option->getId());
+        if (!$relations->isEmpty()) {
+            throw new ConflictHttpException($this->existingRelationshipMessageBuilder->build($relations));
+        }
         $command = new DeleteOptionCommand($option->getId(), $attribute->getId());
 
         $this->commandBus->dispatch($command);

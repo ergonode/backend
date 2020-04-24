@@ -15,25 +15,12 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;
-use Ergonode\Grid\Filter\RangeFilter;
+use Ergonode\Grid\Filter\NumericFilter;
 
 /**
  */
 class PriceAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var AttributeQueryInterface
-     */
-    private AttributeQueryInterface $query;
-
-    /**
-     * @param AttributeQueryInterface $query
-     */
-    public function __construct(AttributeQueryInterface $query)
-    {
-        $this->query = $query;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -47,10 +34,8 @@ class PriceAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
-        /** @var PriceAttribute $attribute */
-        $range = $this->query->getAttributeValueRange($attribute->getId());
         $columnKey = $attribute->getCode()->getValue();
-        $columnFilter = new RangeFilter($range);
+        $columnFilter = new NumericFilter();
 
         $column =  new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
         $column->setSuffix($attribute->getCurrency()->getCode());

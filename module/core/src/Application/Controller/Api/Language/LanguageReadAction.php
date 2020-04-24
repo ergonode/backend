@@ -40,8 +40,6 @@ class LanguageReadAction
     }
 
     /**
-     * @IsGranted("SETTINGS_UPDATE")
-     *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(
      *     name="language",

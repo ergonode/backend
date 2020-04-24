@@ -8,6 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Domain\Model;
 
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+
 /**
  */
 class ImportedProduct
@@ -23,7 +25,7 @@ class ImportedProduct
     public array $attributes;
 
     /**
-     * @var array
+     * @var CategoryId[]
      */
     public array $categories;
 

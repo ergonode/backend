@@ -13,6 +13,7 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Condition\Domain\Condition\TextAttributeValueCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Webmozart\Assert\Assert;
 
@@ -59,11 +60,32 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
                 return false;
             }
 
-            if ('~' === $option && false === strpos($value, $expected)) {
-                return false;
+            if ('~' === $option) {
+                if ($value instanceof TranslatableString) {
+                    return $this->calculateTranslatableStringValue($value, $expected);
+                }
+
+                return (false !== strpos($value, $expected));
             }
         }
 
         return true;
+    }
+
+    /**
+     * @param TranslatableString $value
+     * @param string             $expected
+     *
+     * @return bool
+     */
+    private function calculateTranslatableStringValue(TranslatableString $value, string $expected): bool
+    {
+        foreach ($value->getTranslations() as $translation) {
+            if (strpos($translation, $expected)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

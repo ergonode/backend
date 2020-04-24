@@ -41,14 +41,15 @@ class CreateCategoryCommand implements DomainCommandInterface
     private CategoryCode $code;
 
     /**
+     * @param CategoryId         $id
      * @param CategoryCode       $code
      * @param TranslatableString $name
      *
      * @throws \Exception
      */
-    public function __construct(CategoryCode $code, TranslatableString $name)
+    public function __construct(CategoryId $id, CategoryCode $code, TranslatableString $name)
     {
-        $this->id = CategoryId::generate();
+        $this->id = $id;
         $this->code = $code;
         $this->name = $name;
     }

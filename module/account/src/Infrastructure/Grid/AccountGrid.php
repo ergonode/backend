@@ -20,6 +20,8 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Filter\Option\FilterOption;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
 
 /**
  */
@@ -50,9 +52,14 @@ class AccountGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $languages = $this->languageProvider->getLanguages($language);
-        $roles = $this->roleQuery->getDictionary();
-        $activities = [1 => 'Active', 0 => 'In active'];
+        $languages = [];
+        $roles = [];
+        foreach ($this->languageProvider->getLanguages($language) as $code => $value) {
+            $languages[] = new LabelFilterOption($code, $value);
+        }
+        foreach ($this->roleQuery->getDictionary() as $key => $value) {
+            $roles[] = new LabelFilterOption($key, $value);
+        }
 
         $id = new TextColumn('id', 'Id');
         $id->setVisible(false);

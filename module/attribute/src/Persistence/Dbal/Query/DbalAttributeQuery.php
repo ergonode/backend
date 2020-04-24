@@ -23,6 +23,7 @@ use Ergonode\Attribute\Domain\View\Factory\AttributeViewModelFactory;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
@@ -245,27 +246,6 @@ class DbalAttributeQuery implements AttributeQueryInterface
     }
 
     /**
-     * @param AttributeId $attributeId
-     *
-     * @return Range
-     */
-    public function getAttributeValueRange(AttributeId $attributeId): Range
-    {
-        $qb = $this->connection->createQueryBuilder();
-
-        $result = $qb
-            ->select('coalesce(min(vt.value::NUMERIC), 0) AS min, coalesce(max(vt.value::NUMERIC), 0) AS max')
-            ->from('product_value', 'pv')
-            ->join('pv', 'value_translation', 'vt', 'vt.value_id = pv.value_id')
-            ->where($qb->expr()->eq('pv.attribute_id', ':attributeId'))
-            ->setParameter('attributeId', $attributeId->getValue())
-            ->execute()
-            ->fetch();
-
-        return new Range((float) $result['min'], (float) $result['max']);
-    }
-
-    /**
      * @param UnitId $unitId
      *
      * @return array
@@ -278,6 +258,33 @@ class DbalAttributeQuery implements AttributeQueryInterface
             ->select('p.attribute_id')
             ->where(sprintf('p.value@> \'"%s"\'', $unitId->getValue()))
             ->andWhere('p.type = \'unit\'')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new AttributeId($item);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param AttributeGroupId $id
+     *
+     * @return array
+     */
+    public function findAttributeIdsByAttributeGroupId(AttributeGroupId $id): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('attribute_id')
+            ->from(self::TABLE_ATTRIBUTE_GROUPS, 'g')
+            ->where($qb->expr()->eq('attribute_group_id', ':id'))
+            ->setParameter(':id', $id->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
 

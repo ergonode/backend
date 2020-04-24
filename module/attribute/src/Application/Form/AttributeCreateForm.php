@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Application\Form;
 
 use Ergonode\Attribute\Application\Form\Model\CreateAttributeFormModel;
-use Ergonode\Attribute\Application\Form\Type\AttributeCodeType;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Form\Type\AttributeTypeType;
 use Ergonode\Core\Application\Form\Type\TranslationType;
@@ -23,6 +22,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Ergonode\Attribute\Application\Provider\AttributePropertyFormResolver;
 use Ergonode\Attribute\Domain\ValueObject\AttributeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  */
@@ -50,7 +50,7 @@ class AttributeCreateForm extends AbstractType implements EventSubscriberInterfa
         $builder
             ->add(
                 'code',
-                AttributeCodeType::class
+                TextType::class
             )
             ->add(
                 'type',

@@ -14,7 +14,6 @@ use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Product\Application\Form\ProductUpdateForm;
 use Ergonode\Product\Application\Model\ProductCreateFormModel;
 use Ergonode\Product\Application\Model\ProductUpdateFormModel;
-use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -25,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Product\Domain\Command\UpdateProductCategoriesCommand;
 
 /**
  * @Route(
@@ -112,7 +112,7 @@ class ProductChangeAction
             foreach ($data->categories as $category) {
                 $categories[] = new CategoryId($category);
             }
-            $command = new UpdateProductCommand($product->getId(), $categories);
+            $command = new UpdateProductCategoriesCommand($product->getId(), $categories);
             $this->commandBus->dispatch($command);
 
             return new EmptyResponse();

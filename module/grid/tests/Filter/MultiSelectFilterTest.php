@@ -9,6 +9,7 @@ namespace Ergonode\Grid\Tests\Filter;
 
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Grid\Filter\Option\FilterOptionInterface;
 
 /**
  */
@@ -18,19 +19,13 @@ class MultiSelectFilterTest extends TestCase
      */
     public function testRender(): void
     {
-        $configuration =
-            ['options' =>
-                [
-                    'OPTION 1',
-                    'OPTION 2',
-                ],
-            ];
+        $option = $this->createMock(FilterOptionInterface::class);
+        $option->expects($this->once())->method('render');
+        $option->expects($this->once())->method('getKey');
 
-        $filter = new MultiSelectFilter($configuration['options']);
+        $filter = new MultiSelectFilter([$option]);
 
-        $result = $filter->render();
-
-        $this->assertEquals($configuration, $result);
+        $filter->render();
     }
 
     /**

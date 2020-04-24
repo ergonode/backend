@@ -17,11 +17,10 @@ interface DraftQueryInterface
 {
     /**
      * @param ProductDraftId $templateId
-     * @param Language       $language
      *
      * @return array
      */
-    public function getDraftView(ProductDraftId $templateId, Language $language): array;
+    public function getDraftView(ProductDraftId $templateId): array;
 
     /**
      * @param ProductId $productId

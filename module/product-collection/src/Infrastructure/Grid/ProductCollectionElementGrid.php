@@ -36,6 +36,9 @@ class ProductCollectionElementGrid extends AbstractGrid
         $this->addColumn('default_image', new ImageColumn('default_image', 'Image'));
         $this->addColumn('system_name', new TextColumn('system_name', 'System name', new TextFilter()));
         $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
+        $productId = new TextColumn('id', 'Id', new TextFilter());
+        $productId->setVisible(false);
+        $this->addColumn('id', $productId);
         $this->addColumn('created_at', new DateColumn('created_at', 'Date added', new DateFilter()));
         $visible = new BoolColumn('visible', 'Product visible in collection');
         $visible->setEditable(true);
@@ -46,24 +49,15 @@ class ProductCollectionElementGrid extends AbstractGrid
                 'parameters' => [
                     'language' => $language->getCode(),
                     'collection' => '{product_collection_id}',
-                    'product' => '{product_id}',
+                    'product' => '{id}',
                 ],
-            ],
-            'edit' => [
-                'route' => 'ergonode_product_collection_element_change',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'collection' => '{product_collection_id}',
-                    'product' => '{product_id}',
-                ],
-                'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'route' => 'ergonode_product_collection_element_delete',
                 'parameters' => [
                     'language' => $language->getCode(),
                     'collection' => '{product_collection_id}',
-                    'product' => '{product_id}',
+                    'product' => '{id}',
                 ],
                 'method' => Request::METHOD_DELETE,
             ],

@@ -17,6 +17,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -136,5 +137,13 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     public function findProductCollectionIdByProductId(ProductId $id)
     {
         return $this->query->findProductCollectionIdByProductId($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProductIdByOptionId(AggregateId $id)
+    {
+        return $this->query->findProductIdByOptionId($id);
     }
 }

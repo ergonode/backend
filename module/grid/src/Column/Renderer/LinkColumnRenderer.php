@@ -142,7 +142,7 @@ class LinkColumnRenderer implements ColumnRendererInterface
             'href' => $this->urlGenerator->generate(
                 $link['route'],
                 $link['parameters'],
-                UrlGeneratorInterface::ABSOLUTE_URL
+                UrlGeneratorInterface::NETWORK_PATH
             ),
             'method' => $link['method'],
         ];

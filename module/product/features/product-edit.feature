@@ -360,6 +360,13 @@ Feature: Product edit feature
     When I send a PUT request to "api/v1/en/products/@edit_product@/draft/persist"
     Then the response status code should be 204
 
+  Scenario: Delete option (used in product)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    And I send a "DELETE" request to "/api/v1/EN/attributes/@product_edit_select_attribute@/options/@select_option_1@"
+    Then the response status code should be 409
+
   Scenario: Request product
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"

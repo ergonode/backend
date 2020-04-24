@@ -15,20 +15,15 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Grid\Column\NumericColumn;
-use Ergonode\Grid\Filter\RangeFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\NumericAttributeColumnStrategy;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Grid\Filter\NumericFilter;
 
 /**
  */
 class NumericAttributeColumnStrategyTest extends TestCase
 {
-    /**
-     * @var AttributeQueryInterface|MockObject
-     */
-    private $query;
-
     /**
      * @var NumericAttribute|MockObject
      */
@@ -38,9 +33,7 @@ class NumericAttributeColumnStrategyTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->query = $this->createMock(AttributeQueryInterface::class);
         $this->attribute = $this->createMock(NumericAttribute::class);
-        $this->query->method('getAttributeValueRange')->willReturn(new Range(0, 100));
         $this->attribute->method('getId')->willReturn($this->createMock(AttributeId::class));
     }
 
@@ -48,7 +41,7 @@ class NumericAttributeColumnStrategyTest extends TestCase
      */
     public function testIsSupported(): void
     {
-        $strategy = new NumericAttributeColumnStrategy($this->query);
+        $strategy = new NumericAttributeColumnStrategy();
         $this->assertTrue($strategy->supports($this->attribute));
     }
 
@@ -56,7 +49,7 @@ class NumericAttributeColumnStrategyTest extends TestCase
      */
     public function testIsNotSupported(): void
     {
-        $strategy = new NumericAttributeColumnStrategy($this->query);
+        $strategy = new NumericAttributeColumnStrategy();
         $this->assertFalse($strategy->supports($this->createMock(AbstractAttribute::class)));
     }
 
@@ -65,9 +58,9 @@ class NumericAttributeColumnStrategyTest extends TestCase
     public function testCreateColumn(): void
     {
         $language = $this->createMock(Language::class);
-        $strategy = new NumericAttributeColumnStrategy($this->query);
+        $strategy = new NumericAttributeColumnStrategy();
         $column = $strategy->create($this->attribute, $language);
         $this->assertInstanceOf(NumericColumn::class, $column);
-        $this->assertInstanceOf(RangeFilter::class, $column->getFilter());
+        $this->assertInstanceOf(NumericFilter::class, $column->getFilter());
     }
 }

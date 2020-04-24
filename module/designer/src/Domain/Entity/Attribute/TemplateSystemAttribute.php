@@ -61,12 +61,4 @@ class TemplateSystemAttribute extends AbstractOptionAttribute
     {
         return false;
     }
-
-    /**
-     * @return bool
-     */
-    public function isDeletable(): bool
-    {
-        return false;
-    }
 }
