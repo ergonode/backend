@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://ergonode.com" target="_blank">
-    <img src="https://img.shields.io/badge/version-0.6.1-4c9aff.svg" alt="Version">
+    <img src="https://img.shields.io/badge/version-0.7.0-4c9aff.svg" alt="Version">
   </a>
   <a href="https://ergonode.com" target="_blank">
     <img src="https://img.shields.io/badge/version%20code-Vegas-00bc87.svg" alt="Code Version">
@@ -67,7 +67,7 @@ bin/phing database:fixture:dev
 
 Run build in server
 ```
-bin/console s:r
+bin/console server:run
 ```
 
 Run [frontend application][frontend] and login with credentials `test@ergonode.com` password `abcd1234`.
@@ -85,7 +85,7 @@ The project is in early stage and we have got a lot of milestones to develop.  W
 #### Backend Technologies
 
 - PHP 7.4
-- Symfony 4.3
+- Symfony 4.4
 - Postgres 10 (uuid-ossp, ltree)
 - RabbitMQ (optional)
 - Redis (optional)
