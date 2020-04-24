@@ -279,11 +279,14 @@ class DbalAttributeQuery implements AttributeQueryInterface
      */
     public function findAttributeIdsByAttributeGroupId(AttributeGroupId $id): array
     {
-        $result = $this->connection->createQueryBuilder()
-            ->select('attribute_id')
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('attribute_id')
             ->from(self::TABLE_ATTRIBUTE_GROUPS, 'g')
-             ->execute()
-             ->fetchAll(\PDO::FETCH_COLUMN);
+            ->where($qb->expr()->eq('attribute_group_id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
 
         if (false === $result) {
             $result = [];
