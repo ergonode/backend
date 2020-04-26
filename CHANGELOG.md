@@ -1,5 +1,4 @@
 ## CHANGELOG FOR 0.7.0
- 
 - feature [#343](https://github.com/ergonode/backend/issues/343) Add product collection module (wiewiurdp)
 - feature [#335](https://github.com/ergonode/backend/issues/335) [#391](https://github.com/ergonode/backend/issues/391) Extend condition set (Daniel-Marynicz,wfajczyk)
 - experimental [#367](https://github.com/ergonode/backend/issues/367) Basic Import CSV File from Magento 1 (rprzedzik)
