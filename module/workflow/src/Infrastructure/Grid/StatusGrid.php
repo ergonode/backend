@@ -66,15 +66,18 @@ class StatusGrid extends AbstractGrid
             'get' => [
                 'route' => 'ergonode_workflow_status_read',
                 'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+                'privilege' => 'WORKFLOW_READ',
             ],
             'edit' => [
                 'route' => 'ergonode_workflow_status_change',
                 'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+                'privilege' => 'WORKFLOW_UPDATE',
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'route' => 'ergonode_workflow_status_delete',
                 'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+                'privilege' => 'WORKFLOW_DELETE',
                 'method' => Request::METHOD_DELETE,
             ],
         ]));

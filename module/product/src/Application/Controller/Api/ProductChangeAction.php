@@ -78,7 +78,7 @@ class ProductChangeAction
      *     in="body",
      *     description="Add product",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/product_upd")
+     *     @SWG\Schema(ref="#/definitions/product_update")
      * )
      * @SWG\Response(
      *     response=204,

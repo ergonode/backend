@@ -20,7 +20,6 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Ergonode\Grid\Filter\Option\FilterOption;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
 
 /**
@@ -74,10 +73,12 @@ class AccountGrid extends AbstractGrid
             'get' => [
                 'route' => 'ergonode_account_user_read',
                 'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
+                'privilege' => 'USER_READ',
             ],
             'edit' => [
                 'route' => 'ergonode_account_user_change',
                 'parameters' => ['language' => $language->getCode(), 'user' => '{id}'],
+                'privilege' => 'USER_UPDATE',
                 'method' => Request::METHOD_PUT,
             ],
         ]));

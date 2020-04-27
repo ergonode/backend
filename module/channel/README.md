@@ -11,7 +11,7 @@
 
 ## Contributing
 
-Ergonode is a Open Source. Join us as a [**contributor**](https://ergonode.com/contribution). 
+Ergonode is a Open Source. Join us as a contributor.
 
 ## About Us
 

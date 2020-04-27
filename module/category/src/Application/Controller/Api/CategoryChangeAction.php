@@ -82,7 +82,7 @@ class CategoryChangeAction
      *     in="body",
      *     description="Category body",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/category_upd")
+     *     @SWG\Schema(ref="#/definitions/category_update")
      * )
      * @SWG\Response(
      *     response=204,
