@@ -35,6 +35,7 @@ class CreateDateAttributeCommandFactory implements CreateAttributeCommandFactory
      * @param FormInterface $form
      *
      * @return DomainCommandInterface
+     *
      * @throws \Exception
      */
     public function create(FormInterface $form): DomainCommandInterface

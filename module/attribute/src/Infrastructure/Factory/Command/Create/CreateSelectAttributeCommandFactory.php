@@ -6,20 +6,20 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Infrastructure\Factory\Command\Update;
+namespace Ergonode\Attribute\Infrastructure\Factory\Command\Create;
 
-use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
-use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
+use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateSelectAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
 
 /**
  */
-class UpdateTextAttributeCommandFactory implements UpdateAttributeCommandFactoryInterface
+class CreateSelectAttributeCommandFactory implements CreateAttributeCommandFactoryInterface
 {
     /**
      * @param string $type
@@ -28,23 +28,23 @@ class UpdateTextAttributeCommandFactory implements UpdateAttributeCommandFactory
      */
     public function support(string $type): bool
     {
-        return $type === TextAttribute::TYPE;
+        return $type === SelectAttribute::TYPE;
     }
 
     /**
-     * @param AttributeId   $id
      * @param FormInterface $form
      *
      * @return DomainCommandInterface
      *
+     * @throws \Exception
      */
-    public function create(AttributeId $id, FormInterface $form): DomainCommandInterface
+    public function create(FormInterface $form): DomainCommandInterface
     {
-        /** @var UnitAttributeFormModel $data */
+        /** @var AttributeFormModel $data */
         $data = $form->getData();
 
-        return new UpdateTextAttributeCommand(
-            $id,
+        return new CreateSelectAttributeCommand(
+            new AttributeCode($data->code),
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),

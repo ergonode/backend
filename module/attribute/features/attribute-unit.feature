@@ -54,6 +54,7 @@ Feature: Unit attribute manipulation
       """
       {
           "code": "UNIT_@@random_code@@",
+          "type": "UNIT",
           "groups": []
       }
       """
@@ -64,6 +65,7 @@ Feature: Unit attribute manipulation
       """
       {
           "code": "UNIT_@@random_code@@",
+          "type": "UNIT",
           "groups": [],
           "parameters": {"unit": "bac parameter"}
       }

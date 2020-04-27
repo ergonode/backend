@@ -36,6 +36,7 @@ class CreatePriceAttributeCommandFactory implements CreateAttributeCommandFactor
      * @param FormInterface $form
      *
      * @return DomainCommandInterface
+     *
      * @throws \Exception
      */
     public function create(FormInterface $form): DomainCommandInterface
@@ -53,5 +54,4 @@ class CreatePriceAttributeCommandFactory implements CreateAttributeCommandFactor
             $data->groups,
         );
     }
-
 }

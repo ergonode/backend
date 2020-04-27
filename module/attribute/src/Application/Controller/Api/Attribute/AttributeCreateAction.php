@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Attribute\Application\Form\Model\CreateAttributeFormModel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -119,7 +118,6 @@ class AttributeCreateAction
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var CreateAttributeFormModel $data */
                 $command = $this->factoryProvider->provide($type)->create($form);
                 $this->commandBus->dispatch($command);
 

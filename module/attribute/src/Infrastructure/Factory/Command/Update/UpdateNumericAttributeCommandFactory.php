@@ -9,13 +9,13 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Update;
 
 use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextAttributeCommand;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateNumericAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 
 /**
  */
@@ -43,7 +43,7 @@ class UpdateNumericAttributeCommandFactory implements UpdateAttributeCommandFact
         /** @var UnitAttributeFormModel $data */
         $data = $form->getData();
 
-        return new UpdateTextAttributeCommand(
+        return new UpdateNumericAttributeCommand(
             $id,
             new TranslatableString($data->label),
             new TranslatableString($data->hint),

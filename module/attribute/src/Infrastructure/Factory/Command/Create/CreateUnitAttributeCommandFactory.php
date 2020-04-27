@@ -16,10 +16,11 @@ use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeComman
 use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
+use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
 
 /**
  */
-class CreateUnitAttributeCommandFactory
+class CreateUnitAttributeCommandFactory implements CreateAttributeCommandFactoryInterface
 {
     /**
      * @param string $type

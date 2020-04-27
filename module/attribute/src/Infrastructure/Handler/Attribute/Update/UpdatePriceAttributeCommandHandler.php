@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Update;
 
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextAttributeCommand;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
@@ -43,7 +42,7 @@ class UpdatePriceAttributeCommandHandler extends AbstractUpdateAttributeCommandH
         /** @var PriceAttribute $attribute */
         $attribute = $this->attributeRepository->load($command->getId());
 
-        Assert::notNull($attribute);
+        Assert::isInstanceOf($attribute, PriceAttribute::class);
         $attribute = $this->update($command, $attribute);
         $attribute->changeCurrency($command->getCurrency());
 

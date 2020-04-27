@@ -9,15 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Update;
 
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateImageAttributeCommand;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateUnitAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
 use Webmozart\Assert\Assert;
-use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 
 /**
  */
-class UpdateImageAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
+class UpdateUnitAttributeCommandHandler extends AbstractUpdateAttributeCommandHandler
 {
     /**
      * @var AttributeRepositoryInterface
@@ -33,16 +33,18 @@ class UpdateImageAttributeCommandHandler extends AbstractUpdateAttributeCommandH
     }
 
     /**
-     * @param UpdateImageAttributeCommand $command
+     * @param UpdateUnitAttributeCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(UpdateImageAttributeCommand $command): void
+    public function __invoke(UpdateUnitAttributeCommand $command): void
     {
+        /** @var UnitAttribute $attribute */
         $attribute = $this->attributeRepository->load($command->getId());
 
-        Assert::isInstanceOf($attribute, ImageAttribute::class);
+        Assert::isInstanceOf($attribute, UnitAttribute::class);
         $attribute = $this->update($command, $attribute);
+        $attribute->changeUnit($command->getUnitId());
 
         $this->attributeRepository->save($attribute);
     }

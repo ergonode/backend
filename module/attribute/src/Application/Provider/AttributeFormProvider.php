@@ -46,8 +46,8 @@ class AttributeFormProvider
             return DateAttributeForm::class;
         }
 
-        if (PriceAttribute::TYPE === $type) {
-            return PriceAttributeForm::class;
+        if (UnitAttribute::TYPE === $type) {
+            return UnitAttributeForm::class;
         }
 
         if (TextAttribute::TYPE === $type) {

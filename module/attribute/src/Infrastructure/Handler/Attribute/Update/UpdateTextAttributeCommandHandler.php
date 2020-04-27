@@ -13,6 +13,7 @@ use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextAttributeComman
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
 /**
  */
@@ -40,7 +41,7 @@ class UpdateTextAttributeCommandHandler extends AbstractUpdateAttributeCommandHa
     {
         $attribute = $this->attributeRepository->load($command->getId());
 
-        Assert::notNull($attribute);
+        Assert::isInstanceOf($attribute, TextAttribute::class);
         $attribute = $this->update($command, $attribute);
 
         $this->attributeRepository->save($attribute);

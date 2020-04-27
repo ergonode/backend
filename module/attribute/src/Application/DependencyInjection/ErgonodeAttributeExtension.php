@@ -44,10 +44,6 @@ class ErgonodeAttributeExtension extends Extension
             ->addTag(CompilerPass\UpdateAttributeCommandFactoryProviderInterfaceCompilerPass::TAG);
 
         $container
-            ->registerForAutoconfiguration(AttributeUpdaterInterface::class)
-            ->addTag(CompilerPass\AttributeUpdaterInterfaceCompilerPass::TAG);
-
-        $container
             ->registerForAutoconfiguration(AttributeValueConstraintStrategyInterface::class)
             ->addTag(CompilerPass\AttributeValueConstraintStrategyInterfaceCompilerPass::TAG);
 

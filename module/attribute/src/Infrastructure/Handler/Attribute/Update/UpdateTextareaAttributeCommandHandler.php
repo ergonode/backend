@@ -13,6 +13,7 @@ use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextareaAttributeCo
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Infrastructure\Handler\Attribute\AbstractUpdateAttributeCommandHandler;
 use Webmozart\Assert\Assert;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 
 /**
  */
@@ -40,7 +41,7 @@ class UpdateTextareaAttributeCommandHandler extends AbstractUpdateAttributeComma
     {
         $attribute = $this->attributeRepository->load($command->getId());
 
-        Assert::notNull($attribute);
+        Assert::isInstanceOf($attribute, TextareaAttribute::class);
         $attribute = $this->update($command, $attribute);
 
         $this->attributeRepository->save($attribute);

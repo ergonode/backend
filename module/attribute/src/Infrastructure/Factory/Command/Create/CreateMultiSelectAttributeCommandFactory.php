@@ -8,18 +8,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Create;
 
+use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateMultiSelectAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeCommand;
-use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 /**
  */
-class CreateTextareaAttributeCommandFactory implements CreateAttributeCommandFactoryInterface
+class CreateMultiSelectAttributeCommandFactory implements CreateAttributeCommandFactoryInterface
 {
     /**
      * @param string $type
@@ -28,7 +28,7 @@ class CreateTextareaAttributeCommandFactory implements CreateAttributeCommandFac
      */
     public function support(string $type): bool
     {
-        return $type === TextareaAttribute::TYPE;
+        return $type === MultiSelectAttribute::TYPE;
     }
 
     /**
@@ -43,7 +43,7 @@ class CreateTextareaAttributeCommandFactory implements CreateAttributeCommandFac
         /** @var AttributeFormModel $data */
         $data = $form->getData();
 
-        return new CreateTextareaAttributeCommand(
+        return new CreateMultiSelectAttributeCommand(
             new AttributeCode($data->code),
             new TranslatableString($data->label),
             new TranslatableString($data->hint),

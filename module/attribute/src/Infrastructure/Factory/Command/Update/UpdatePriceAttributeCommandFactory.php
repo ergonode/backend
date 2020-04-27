@@ -16,6 +16,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
+use Money\Currency;
 
 /**
  */
@@ -49,7 +50,7 @@ class UpdatePriceAttributeCommandFactory implements UpdateAttributeCommandFactor
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
             $data->multilingual,
-            $data->parameters->currency,
+            new Currency($data->parameters->currency),
             $data->groups,
         );
     }

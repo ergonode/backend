@@ -16,6 +16,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 /**
  */
@@ -49,7 +50,7 @@ class UpdateUnitAttributeCommandFactory implements UpdateAttributeCommandFactory
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
             $data->multilingual,
-            $data->parameters->unit,
+            new UnitId($data->parameters->unit),
             $data->groups,
         );
     }
