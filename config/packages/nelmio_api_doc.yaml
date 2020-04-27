@@ -390,8 +390,8 @@ nelmio_api_doc:
                         description: List of Skus
                         example:
                                 [ SKU_1, SKU_2]
-            
-            
+
+
             product_collection_type_create:
                 type: object
                 properties:
@@ -776,6 +776,14 @@ nelmio_api_doc:
                     specyfic_params:
                         type: string
                         description: get param from /api/v1/{language}/export-profile/{type}/configuration
+            channel:
+                type: 'object'
+                properties:
+                    type:
+                        type: string
+                        required: true
+                        description: name
+                        example: channel1
     areas:
         path_patterns:
             - ^/api(?!/doc$)

@@ -70,7 +70,7 @@ class LanguageChangeAction
      *     in="body",
      *     description="Category body",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/languages_req")
+     *     @SWG\Schema(ref="#/definitions/languages_request")
      * )
      * @SWG\Response(
      *     response=200,
