@@ -64,6 +64,7 @@ class TransitionGrid extends AbstractGrid
                     'source' => '{source}',
                     'destination' => '{destination}',
                 ],
+                'privilege' => 'WORKFLOW_READ',
             ],
             'edit' => [
                 'route' => 'ergonode_workflow_transition_change',
@@ -72,6 +73,7 @@ class TransitionGrid extends AbstractGrid
                     'source' => '{source}',
                     'destination' => '{destination}',
                 ],
+                'privilege' => 'WORKFLOW_UPDATE',
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
@@ -81,6 +83,7 @@ class TransitionGrid extends AbstractGrid
                     'source' => '{source}',
                     'destination' => '{destination}',
                 ],
+                'privilege' => 'WORKFLOW_DELETE',
                 'method' => Request::METHOD_DELETE,
             ],
         ]));
