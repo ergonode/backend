@@ -56,20 +56,25 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
 
         if ($object->hasAttribute($attribute->getCode())) {
             $value = $object->getAttribute($attribute->getCode())->getValue();
-            if ('=' === $option && $value !== $expected) {
-                return false;
+
+            if ('=' === $option) {
+                if ($value instanceof TranslatableString) {
+                    return $this->calculateEqualTranslatableStringValue($value, $expected);
+                }
+
+                return $expected === $value;
             }
 
             if ('~' === $option) {
                 if ($value instanceof TranslatableString) {
-                    return $this->calculateTranslatableStringValue($value, $expected);
+                    return $this->calculateHasTranslatableStringValue($value, $expected);
                 }
 
-                return (false !== strpos($value, $expected));
+                return (false !== mb_strpos($value, $expected));
             }
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -78,10 +83,27 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
      *
      * @return bool
      */
-    private function calculateTranslatableStringValue(TranslatableString $value, string $expected): bool
+    private function calculateHasTranslatableStringValue(TranslatableString $value, string $expected): bool
     {
         foreach ($value->getTranslations() as $translation) {
-            if (strpos($translation, $expected)) {
+            if (false !== mb_strpos($translation, $expected)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param TranslatableString $value
+     * @param string             $expected
+     *
+     * @return bool
+     */
+    private function calculateEqualTranslatableStringValue(TranslatableString $value, string $expected): bool
+    {
+        foreach ($value->getTranslations() as $translation) {
+            if ($translation === $expected) {
                 return true;
             }
         }
