@@ -249,7 +249,8 @@ class User extends AbstractAggregateRoot implements UserInterface
                 if (!$this->languagePrivilegesCollection[$languageCode]->isEqual($languagePrivileges)) {
                     continue;
                 }
-                exit();
+
+                return;
             }
         }
         $this->apply(
