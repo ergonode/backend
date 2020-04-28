@@ -788,7 +788,7 @@ Feature: Account module
            }
       }
       """
-    Then the response status code should be 400
+    Then the response status code should be 201
 
   Scenario: Create user (empty privilege)
     Given I am Authenticated as "test@ergonode.com"
@@ -833,7 +833,13 @@ Feature: Account module
           "language": "en",
           "password": 123456789,
           "passwordRepeat": 123456789,
-          "roleId": "@role@"
+          "roleId": "@role@",
+          "languagePrivilegesCollection": {
+             "en_US": {
+               "read": true,
+               "edit": true
+             }
+           }
       }
       """
     Then the response status code should be 204
