@@ -67,15 +67,23 @@ class DbalAccountQuery implements AccountQueryInterface
     /**
      * {@inheritDoc}
      */
-    public function getUser(UserId $userId): array
+    public function getUser(UserId $userId): ?array
     {
         $qb = $this->getQuery();
 
-        return $qb
+        $result = $qb
             ->andWhere($qb->expr()->eq('a.id', ':id'))
             ->setParameter(':id', $userId->getValue())
             ->execute()
             ->fetch();
+
+        if ($result) {
+            $result['language_privileges_collection'] = json_decode($result['language_privileges_collection'], true);
+
+            return $result;
+        }
+
+        return null;
     }
 
     /**

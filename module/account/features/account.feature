@@ -428,7 +428,13 @@ Feature: Account module
           "language": "en",
           "password": 12345678,
           "passwordRepeat": 12345678,
-          "roleId": "@role@"
+          "roleId": "@role@",
+          "languagePrivilegesCollection": {
+             "en_US": {
+               "read": true,
+               "edit": true
+             }
+           }
       }
       """
     Then the response status code should be 201
@@ -736,6 +742,75 @@ Feature: Account module
       }
       """
     Then the response status code should be 400
+
+  Scenario: Create user (no existing language)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en/accounts" with body:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "en",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@",
+          "languagePrivilegesCollection": {
+             "test": {
+               "read": true,
+               "edit": true
+             }
+           }
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Create user (field missing in privilege object)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en/accounts" with body:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "en",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@",
+          "languagePrivilegesCollection": {
+             "en_US": {
+               "read": true
+             }
+           }
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Create user (empty privilege)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en/accounts" with body:
+      """
+      {
+          "email": "@@random_uuid@@@ergonode.com",
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "en",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@",
+          "languagePrivilegesCollection": {
+             "en_US": {
+             }
+           }
+      }
+      """
+    Then the response status code should be 201
 
   Scenario: Delete role (with conflict)
     Given I am Authenticated as "test@ergonode.com"
