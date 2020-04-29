@@ -15,17 +15,18 @@ use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
 use Ergonode\Account\Domain\Event\User\UserDeactivatedEvent;
 use Ergonode\Account\Domain\Event\User\UserFirstNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLanguageChangedEvent;
+use Ergonode\Account\Domain\Event\User\UserLanguagePrivilegesCollectionChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent;
 use Ergonode\Account\Domain\Event\User\UserRoleChangedEvent;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
-
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -73,22 +74,27 @@ class User extends AbstractAggregateRoot implements UserInterface
     private RoleId $roleId;
 
     /**
+     * @var LanguagePrivileges[]
+     */
+    private array $languagePrivilegesCollection;
+
+    /**
      * @var bool
      */
     private bool $isActive;
 
     /**
-     * @param UserId            $id
-     * @param string            $firstName
-     * @param string            $lastName
-     * @param Email             $email
-     * @param Language          $language
-     * @param Password          $password
-     * @param RoleId            $roleId
-     * @param MultimediaId|null $avatarId
-     * @param bool              $isActive
+     * @param UserId               $id
+     * @param string               $firstName
+     * @param string               $lastName
+     * @param Email                $email
+     * @param Language             $language
+     * @param Password             $password
+     * @param RoleId               $roleId
+     * @param LanguagePrivileges[] $languagePrivilegesCollection
+     * @param MultimediaId|null    $avatarId
+     * @param bool                 $isActive
      *
-     * @throws \Exception
      */
     public function __construct(
         UserId $id,
@@ -98,6 +104,7 @@ class User extends AbstractAggregateRoot implements UserInterface
         Language $language,
         Password $password,
         RoleId $roleId,
+        array $languagePrivilegesCollection,
         ?MultimediaId $avatarId = null,
         bool $isActive = true
     ) {
@@ -110,6 +117,7 @@ class User extends AbstractAggregateRoot implements UserInterface
                 $language,
                 $password,
                 $roleId,
+                $languagePrivilegesCollection,
                 $isActive,
                 $avatarId
             )
@@ -181,6 +189,14 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
+     * @return LanguagePrivileges[]
+     */
+    public function getLanguagePrivilegesCollection(): array
+    {
+        return $this->languagePrivilegesCollection;
+    }
+
+    /**
      * @return MultimediaId|null
      */
     public function getAvatarId(): ?MultimediaId
@@ -218,6 +234,35 @@ class User extends AbstractAggregateRoot implements UserInterface
         if (!$roleId->isEqual($this->roleId)) {
             $this->apply(new UserRoleChangedEvent($this->id, $this->roleId, $roleId));
         }
+    }
+
+    /**
+     * @param array $languagePrivilegesCollection
+     *
+     * @throws \Exception
+     */
+    public function changeLanguagePrivilegesCollection(array $languagePrivilegesCollection): void
+    {
+        if (count(array_diff_key($languagePrivilegesCollection, $this->languagePrivilegesCollection)) === 0
+            && count(array_diff_key($this->languagePrivilegesCollection, $languagePrivilegesCollection)) === 0) {
+            $elementNotEqual = false;
+            foreach ($languagePrivilegesCollection as $languageCode => $languagePrivileges) {
+                if (!$this->languagePrivilegesCollection[$languageCode]->isEqual($languagePrivileges)) {
+                    $elementNotEqual = true;
+                    break;
+                }
+            }
+            if (!$elementNotEqual) {
+                return;
+            }
+        }
+        $this->apply(
+            new UserLanguagePrivilegesCollectionChangedEvent(
+                $this->id,
+                $this->languagePrivilegesCollection,
+                $languagePrivilegesCollection
+            )
+        );
     }
 
     /**
@@ -325,6 +370,7 @@ class User extends AbstractAggregateRoot implements UserInterface
         $this->password = $event->getPassword();
         $this->avatarId = $event->getAvatarId();
         $this->roleId = $event->getRoleId();
+        $this->languagePrivilegesCollection = $event->getLanguagePrivilegesCollection();
         $this->isActive = $event->isActive();
     }
 
@@ -334,6 +380,16 @@ class User extends AbstractAggregateRoot implements UserInterface
     protected function applyUserAvatarChangedEvent(UserAvatarChangedEvent $event): void
     {
         $this->avatarId = $event->getAvatarId();
+    }
+
+    /**
+     *
+     * @param UserLanguagePrivilegesCollectionChangedEvent $event
+     */
+    protected function applyUserLanguagePrivilegesCollectionChangedEvent(
+        UserLanguagePrivilegesCollectionChangedEvent $event
+    ): void {
+        $this->languagePrivilegesCollection = $event->getTo();
     }
 
     /**

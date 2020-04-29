@@ -9,14 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Event\User;
 
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
-
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -80,6 +80,13 @@ class UserCreatedEvent implements DomainEventInterface
     private RoleId $roleId;
 
     /**
+     * @var LanguagePrivileges[]
+     *
+     * @JMS\Type("array<string, Ergonode\Account\Domain\ValueObject\LanguagePrivileges>")
+     */
+    private array $languagePrivilegesCollection;
+
+    /**
      * @var bool
      *
      * @JMS\Type("boolean")
@@ -87,15 +94,16 @@ class UserCreatedEvent implements DomainEventInterface
     private bool $isActive;
 
     /**
-     * @param UserId            $id
-     * @param string            $firstName
-     * @param string            $lastName
-     * @param Email             $email
-     * @param Language          $language
-     * @param Password          $password
-     * @param RoleId            $roleId
-     * @param bool              $isActive
-     * @param MultimediaId|null $avatarId
+     * @param UserId               $id
+     * @param string               $firstName
+     * @param string               $lastName
+     * @param Email                $email
+     * @param Language             $language
+     * @param Password             $password
+     * @param RoleId               $roleId
+     * @param LanguagePrivileges[] $languagePrivilegesCollection
+     * @param bool                 $isActive
+     * @param MultimediaId|null    $avatarId
      */
     public function __construct(
         UserId $id,
@@ -105,6 +113,7 @@ class UserCreatedEvent implements DomainEventInterface
         Language $language,
         Password $password,
         RoleId $roleId,
+        array $languagePrivilegesCollection,
         bool $isActive = true,
         ?MultimediaId $avatarId = null
     ) {
@@ -115,6 +124,7 @@ class UserCreatedEvent implements DomainEventInterface
         $this->password = $password;
         $this->language = $language;
         $this->roleId = $roleId;
+        $this->languagePrivilegesCollection = $languagePrivilegesCollection;
         $this->avatarId = $avatarId;
         $this->isActive = $isActive;
     }
@@ -181,6 +191,14 @@ class UserCreatedEvent implements DomainEventInterface
     public function getRoleId(): RoleId
     {
         return $this->roleId;
+    }
+
+    /**
+     * @return LanguagePrivileges[]
+     */
+    public function getLanguagePrivilegesCollection(): array
+    {
+        return $this->languagePrivilegesCollection;
     }
 
     /**

@@ -12,9 +12,10 @@ namespace Ergonode\Account\Application\Controller\Api\Account;
 use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
 use Ergonode\Account\Application\Form\UserCreateForm;
 use Ergonode\Account\Domain\Command\User\CreateUserCommand;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -23,7 +24,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route("/accounts", methods={"POST"})
@@ -95,7 +95,6 @@ class UserCreateAction
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var CreateUserFormModel $data */
                 $data = $form->getData();
-
                 $command = new CreateUserCommand(
                     $data->firstName,
                     $data->lastName,
@@ -103,6 +102,7 @@ class UserCreateAction
                     $data->language,
                     $data->password,
                     $data->roleId,
+                    $data->languagePrivilegesCollection,
                     $data->isActive
                 );
                 $this->commandBus->dispatch($command);

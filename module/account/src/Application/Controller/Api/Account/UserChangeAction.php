@@ -15,6 +15,7 @@ use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -24,7 +25,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -72,7 +72,7 @@ class UserChangeAction
      *     in="body",
      *     description="Add attribute",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/account_upd")
+     *     @SWG\Schema(ref="#/definitions/account_update")
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -116,6 +116,7 @@ class UserChangeAction
                     $data->lastName,
                     $data->language,
                     $data->roleId,
+                    $data->languagePrivilegesCollection,
                     $data->isActive,
                     $data->password
                 );

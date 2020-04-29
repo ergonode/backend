@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 /**
  */
@@ -50,18 +51,24 @@ class UpdateUserCommand implements DomainCommandInterface
     private RoleId $roleId;
 
     /**
+     * @var LanguagePrivileges[]
+     */
+    private array $languagePrivilegesCollection;
+
+    /**
      * @var bool
      */
     private bool $isActive;
 
     /**
-     * @param UserId        $id
-     * @param string        $firstName
-     * @param string        $lastName
-     * @param Language      $language
-     * @param RoleId        $roleId
-     * @param bool          $isActive
-     * @param Password|null $password
+     * @param UserId               $id
+     * @param string               $firstName
+     * @param string               $lastName
+     * @param Language             $language
+     * @param RoleId               $roleId
+     * @param LanguagePrivileges[] $languagePrivilegesCollection
+     * @param bool                 $isActive
+     * @param Password|null        $password
      */
     public function __construct(
         UserId $id,
@@ -69,6 +76,7 @@ class UpdateUserCommand implements DomainCommandInterface
         string $lastName,
         Language $language,
         RoleId $roleId,
+        array $languagePrivilegesCollection,
         bool $isActive,
         ?Password $password = null
     ) {
@@ -78,6 +86,7 @@ class UpdateUserCommand implements DomainCommandInterface
         $this->lastName = $lastName;
         $this->language = $language;
         $this->isActive = $isActive;
+        $this->languagePrivilegesCollection = $languagePrivilegesCollection;
         $this->password = $password;
     }
 
@@ -95,6 +104,14 @@ class UpdateUserCommand implements DomainCommandInterface
     public function getRoleId(): RoleId
     {
         return $this->roleId;
+    }
+
+    /**
+     * @return LanguagePrivileges[]
+     */
+    public function getLanguagePrivilegesCollection(): array
+    {
+        return $this->languagePrivilegesCollection;
     }
 
     /**
