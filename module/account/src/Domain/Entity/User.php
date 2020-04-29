@@ -245,11 +245,14 @@ class User extends AbstractAggregateRoot implements UserInterface
     {
         if (count(array_diff_key($languagePrivilegesCollection, $this->languagePrivilegesCollection)) === 0
             && count(array_diff_key($this->languagePrivilegesCollection, $languagePrivilegesCollection)) === 0) {
+            $elementNotEqual = false;
             foreach ($languagePrivilegesCollection as $languageCode => $languagePrivileges) {
                 if (!$this->languagePrivilegesCollection[$languageCode]->isEqual($languagePrivileges)) {
-                    continue;
+                    $elementNotEqual = true;
+                    break;
                 }
-
+            }
+            if (!$elementNotEqual) {
                 return;
             }
         }
