@@ -41,12 +41,15 @@ class ProductCreatedEventProjector
     public function __invoke(ProductCreatedEvent $event): void
     {
         $attributes = $event->getAttributes();
+        $value = $attributes[TemplateSystemAttribute::CODE]->getValue();
+
+        $templateId = reset($value);
 
         $this->connection->insert(
             self::TABLE,
             [
                 'product_id' => $event->getAggregateId()->getValue(),
-                'template_id' => $attributes[TemplateSystemAttribute::CODE]->getValue(),
+                'template_id' => $templateId,
             ]
         );
     }

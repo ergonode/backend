@@ -13,6 +13,7 @@ Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute:
             - '@label_1'
             - '@hint_1'
             - '@placeholder_1'
+            - true
 
 Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
     attribute_{1..10}:
@@ -42,6 +43,7 @@ Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute:
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
+            - true
 
 Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute:
     attribute_{26..30}:
@@ -51,6 +53,7 @@ Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute:
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
+            - true
             - '<DateFormat()>'
 
 Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute:
@@ -61,6 +64,7 @@ Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute:
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
+            - true
             - '<Currency()>'
 
 Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute:
@@ -71,6 +75,7 @@ Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute:
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
+            - true
             - '<UnitId(@unit_metre->id)>'
 
 Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute:

@@ -24,7 +24,7 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Transformer\Infrastructure\Action\OptionImportAction;
+use Ergonode\Importer\Infrastructure\Action\OptionImportAction;
 
 /**
  */
@@ -84,8 +84,8 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                 $options = $this->getOptions($columns[$field]);
                 foreach ($options as $key => $option) {
                     $record = new Record();
-                    $record->set('attribute_code', new StringValue($attributeCode->getValue()));
-                    $record->set('option_code', new StringValue($key));
+                    $record->set('attribute_code', $attributeCode->getValue());
+                    $record->set('option_code', $key);
                     $record->setValue($source->getDefaultLanguage()->getCode(), $option);
                     $result[] = $record;
                 }

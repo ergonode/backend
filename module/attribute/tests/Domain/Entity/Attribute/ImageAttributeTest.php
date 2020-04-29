@@ -45,6 +45,11 @@ class ImageAttributeTest extends TestCase
     private $placeholder;
 
     /**
+     * @var bool
+     */
+    private bool $multilingual;
+
+    /**
      */
     protected function setUp(): void
     {
@@ -53,6 +58,7 @@ class ImageAttributeTest extends TestCase
         $this->label = $this->createMock(TranslatableString::class);
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
+        $this->multilingual = true;
     }
 
     /**
@@ -60,11 +66,19 @@ class ImageAttributeTest extends TestCase
      */
     public function testAttributeCreation(): void
     {
-        $attribute = new ImageAttribute($this->id, $this->code, $this->label, $this->placeholder, $this->hint);
+        $attribute = new ImageAttribute(
+            $this->id,
+            $this->code,
+            $this->label,
+            $this->placeholder,
+            $this->hint,
+            $this->multilingual
+        );
         $this->assertEquals($this->id, $attribute->getId());
         $this->assertEquals($this->code, $attribute->getCode());
         $this->assertEquals($this->label, $attribute->getLabel());
         $this->assertEquals($this->hint, $attribute->getHint());
         $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
+        $this->assertEquals($this->multilingual, $attribute->isMultilingual());
     }
 }

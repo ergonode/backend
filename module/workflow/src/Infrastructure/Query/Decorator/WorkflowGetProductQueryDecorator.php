@@ -24,6 +24,7 @@ use Ergonode\Workflow\Domain\Service\StatusCalculationService;
 use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Webmozart\Assert\Assert;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 
 /**
  */
@@ -91,9 +92,11 @@ class WorkflowGetProductQueryDecorator implements GetProductQueryInterface
         Assert::notNull($product);
 
         $result = $this->query->query($productId, $language);
+
         if (isset($result['attributes'][StatusSystemAttribute::CODE])) {
-            /** @var ValueInterface $value */
-            $value = $result['attributes'][StatusSystemAttribute::CODE];
+            /** @var StringValue $value */
+            $value = $product->getAttribute(new AttributeCode(StatusSystemAttribute::CODE))->getValue();
+            $value = reset($value);
             $statusCode = new StatusCode($value);
             $status = $this->statusRepository->load(StatusId::fromCode($statusCode->getValue()));
             Assert::notNull($status);

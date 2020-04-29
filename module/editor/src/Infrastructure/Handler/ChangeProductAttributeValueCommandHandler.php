@@ -90,7 +90,6 @@ class ChangeProductAttributeValueCommandHandler
         Assert::notNull($attribute);
 
         $newValue = $this->createValue($language, $attribute, $command->getValue());
-
         if ($newValue) {
             if ($draft->hasAttribute($attribute->getCode())) {
                 $oldValue = $draft->getAttribute($attribute->getCode());
@@ -143,7 +142,7 @@ class ChangeProductAttributeValueCommandHandler
         }
 
         if ($attribute->isMultilingual()) {
-            return new TranslatableStringValue(new TranslatableString([$language->getCode() => $value]));
+            return new TranslatableStringValue(new TranslatableString([$language->getCode() => (string) $value]));
         }
 
         return new StringValue((string) $value);

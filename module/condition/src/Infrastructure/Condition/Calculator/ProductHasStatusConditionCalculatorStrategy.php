@@ -38,7 +38,7 @@ class ProductHasStatusConditionCalculatorStrategy implements ConditionCalculator
         $statusAttributeCode = new AttributeCode(StatusSystemAttribute::CODE);
 
         Assert::true($product->hasAttribute($statusAttributeCode));
-        $productStatusId = StatusId::fromCode($product->getAttribute($statusAttributeCode)->getValue());
+        $productStatusId = StatusId::fromCode((string) $product->getAttribute($statusAttributeCode));
         $result = [];
         foreach ($configuration->getValue() as $searchedStatusId) {
             $result[] = $productStatusId->isEqual($searchedStatusId);

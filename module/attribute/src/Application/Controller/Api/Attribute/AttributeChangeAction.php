@@ -11,12 +11,8 @@ namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Attribute\Application\Form\AttributeUpdateForm;
 use Ergonode\Attribute\Application\Form\Model\UpdateAttributeFormModel;
-use Ergonode\Attribute\Domain\Command\UpdateAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\ValueObject\AttributeType;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -27,6 +23,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Attribute\Application\Provider\AttributeFormProvider;
+use Ergonode\Attribute\Infrastructure\Provider\UpdateAttributeCommandFactoryProvider;
 
 /**
  * @Route(
@@ -44,17 +42,35 @@ class AttributeChangeAction
     private CommandBusInterface $commandBus;
 
     /**
+     * @var AttributeFormProvider
+     */
+    private AttributeFormProvider $formProvider;
+
+    /**
+     * @var UpdateAttributeCommandFactoryProvider
+     */
+    private UpdateAttributeCommandFactoryProvider $factoryProvider;
+
+    /**
      * @var FormFactoryInterface
      */
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
+     * @param CommandBusInterface                   $commandBus
+     * @param AttributeFormProvider                 $formProvider
+     * @param UpdateAttributeCommandFactoryProvider $factoryProvider
+     * @param FormFactoryInterface                  $formFactory
      */
-    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
-    {
+    public function __construct(
+        CommandBusInterface $commandBus,
+        AttributeFormProvider $formProvider,
+        UpdateAttributeCommandFactoryProvider $factoryProvider,
+        FormFactoryInterface $formFactory
+    ) {
         $this->commandBus = $commandBus;
+        $this->formProvider = $formProvider;
+        $this->factoryProvider = $factoryProvider;
         $this->formFactory = $formFactory;
     }
 
@@ -75,7 +91,7 @@ class AttributeChangeAction
      *     required=true,
      *     @SWG\Schema(ref="#/definitions/attribute")
      * )
-     *  @SWG\Parameter(
+     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
@@ -103,26 +119,21 @@ class AttributeChangeAction
      * @param Request           $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function __invoke(AbstractAttribute $attribute, Request $request): Response
     {
+        $formClass = $this->formProvider->provide($attribute->getType());
+
         try {
-            $model = new UpdateAttributeFormModel(new AttributeType($attribute->getType()));
-            $form = $this->formFactory->create(AttributeUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $form = $this->formFactory->create($formClass, null, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 /** @var UpdateAttributeFormModel $data */
-                $data = $form->getData();
 
-                $command = new UpdateAttributeCommand(
-                    $attribute->getId(),
-                    new TranslatableString($data->label),
-                    new TranslatableString($data->hint),
-                    new TranslatableString($data->placeholder),
-                    $data->groups,
-                    (array) $data->parameters
-                );
+                $command = $this->factoryProvider->provide($attribute->getType())->create($attribute->getId(), $form);
                 $this->commandBus->dispatch($command);
 
                 return new EmptyResponse();

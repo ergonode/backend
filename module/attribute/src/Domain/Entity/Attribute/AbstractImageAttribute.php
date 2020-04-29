@@ -26,6 +26,7 @@ abstract class AbstractImageAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
+     * @param bool               $multilingual
      *
      * @throws \Exception
      */
@@ -34,9 +35,10 @@ abstract class AbstractImageAttribute extends AbstractAttribute
         AttributeCode $code,
         TranslatableString $label,
         TranslatableString $hint,
-        TranslatableString $placeholder
+        TranslatableString $placeholder,
+        bool $multilingual
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, []);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual, []);
     }
 
     /**

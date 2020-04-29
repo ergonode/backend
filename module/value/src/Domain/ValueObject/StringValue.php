@@ -47,11 +47,11 @@ class StringValue implements ValueInterface
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getValue(): string
+    public function getValue(): array
     {
-        return $this->value;
+        return [null => $this->value];
     }
 
     /**

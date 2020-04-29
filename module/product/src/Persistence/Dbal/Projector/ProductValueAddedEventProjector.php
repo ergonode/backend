@@ -62,7 +62,7 @@ class ProductValueAddedEventProjector
     private function insertValue(string $productId, string $attributeId, ValueInterface $value): void
     {
         if ($value instanceof StringValue) {
-            $this->insert($productId, $attributeId, $value->getValue());
+            $this->insert($productId, $attributeId, (string) $value);
         } elseif ($value instanceof StringCollectionValue) {
             foreach ($value->getValue() as $phrase) {
                 $this->insert($productId, $attributeId, $phrase);

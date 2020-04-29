@@ -24,7 +24,7 @@ class StringValueTest extends TestCase
 
         $valueObject = new StringValue($value);
 
-        $this->assertSame($value, $valueObject->getValue());
+        $this->assertSame($value, $valueObject->getValue()[null]);
         $this->assertSame(StringValue::TYPE, $valueObject->getType());
         $this->assertSame($value, (string) $valueObject);
     }
@@ -36,6 +36,6 @@ class StringValueTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $value = '';
 
-        $valueObject = new StringValue($value);
+        new StringValue($value);
     }
 }

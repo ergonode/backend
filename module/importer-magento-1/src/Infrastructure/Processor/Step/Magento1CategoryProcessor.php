@@ -16,7 +16,6 @@ use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Transformer\Infrastructure\Action\CategoryImportAction;
 use Ergonode\Transformer\Infrastructure\Formatter\SlugFormatter;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -26,6 +25,7 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 use Doctrine\DBAL\DBALException;
+use Ergonode\Importer\Infrastructure\Action\CategoryImportAction;
 
 /**
  */
@@ -80,15 +80,14 @@ class Magento1CategoryProcessor implements Magento1ProcessorStepInterface
                     $category = explode('/', $category);
                     $code = end($category);
                     if ('' !== $code) {
-                        $name = [$source->getDefaultLanguage()->getCode() => end($category)];
                         $uuid = Uuid::uuid5(self::UUID, $code)->toString();
                         $slug = SlugFormatter::format(sprintf('%s_%s', $code, $uuid));
                         $codes[] = $slug;
                         if (!array_key_exists($code, $result)) {
                             $record = new Record();
-                            $record->set('id', new StringValue($code));
-                            $record->set('code', new StringValue($slug));
-                            $record->set('name', new TranslatableStringValue(new TranslatableString($name)));
+                            $record->set('id', $code);
+                            $record->set('code', $slug);
+                            $record->set('name', end($category), $source->getDefaultLanguage());
                             $result[$code] = $record;
                         }
 

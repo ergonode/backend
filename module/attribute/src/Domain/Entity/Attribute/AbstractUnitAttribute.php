@@ -30,6 +30,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
+     * @param bool               $multilingual
      * @param UnitId             $unitId
      *
      * @throws \Exception
@@ -40,6 +41,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
+        bool $multilingual,
         UnitId $unitId
     ) {
         parent::__construct(
@@ -48,7 +50,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
             $label,
             $hint,
             $placeholder,
-            false,
+            $multilingual,
             [self::UNIT => $unitId->getValue()]
         );
     }
