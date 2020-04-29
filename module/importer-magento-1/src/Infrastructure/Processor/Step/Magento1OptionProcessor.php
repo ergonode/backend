@@ -24,7 +24,7 @@ use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Transformer\Infrastructure\Action\OptionImportAction;
+use Ergonode\Importer\Infrastructure\Action\OptionImportAction;
 
 /**
  */
@@ -66,47 +66,55 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
         Magento1CsvSource $source,
         Progress $steps
     ): void {
-        $result = [];
-        $columns = [];
-        foreach ($products as $product) {
-            foreach ($product->get('default') as $key => $item) {
-                if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
-                    $columns[$key][] = $item;
+        try {
+            $result = [];
+            $columns = [];
+            foreach ($products as $product) {
+                foreach ($product->get('default') as $key => $item) {
+                    if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
+                        $columns[$key][] = $item;
+                    }
                 }
             }
-        }
 
-        foreach ($transformer->getAttributes() as $field => $converter) {
-            $type = $transformer->getAttributeType($field);
+            foreach ($transformer->getAttributes() as $field => $converter) {
+                $type = $transformer->getAttributeType($field);
 
-            if (SelectAttribute::TYPE === $type || MultiSelectAttribute::TYPE === $type) {
-                $attributeCode = new AttributeCode($field);
-                $options = $this->getOptions($columns[$field]);
-                foreach ($options as $key => $option) {
-                    $record = new Record();
-                    $record->set('attribute_code', new StringValue($attributeCode->getValue()));
-                    $record->set('option_code', new StringValue($key));
-                    $record->setValue($source->getDefaultLanguage()->getCode(), $option);
-                    $result[] = $record;
+                if (SelectAttribute::TYPE === $type || MultiSelectAttribute::TYPE === $type) {
+                    $attributeCode = new AttributeCode($field);
+                    $options = $this->getOptions($columns[$field]);
+                    foreach ($options as $key => $option) {
+                        $record = new Record();
+                        $record->set('attribute_code', $attributeCode->getValue());
+                        $record->set('option_code', $key);
+                        $record->setValue($source->getDefaultLanguage()->getCode(), $option);
+                        $result[] = $record;
+                    }
                 }
             }
-        }
 
-        $i = 0;
-        $count = count($result);
-        foreach ($result as $attribute) {
-            $i++;
-            $records = new Progress($i, $count);
-            $command = new ProcessImportCommand(
-                $import->getId(),
-                $steps,
-                $records,
-                $attribute,
-                OptionImportAction::TYPE
-            );
-            $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
-            $this->repository->save($line);
-            $this->commandBus->dispatch($command, true);
+            $i = 0;
+            $count = count($result);
+            foreach ($result as $attribute) {
+                $i++;
+                $records = new Progress($i, $count);
+                $command = new ProcessImportCommand(
+                    $import->getId(),
+                    $steps,
+                    $records,
+                    $attribute,
+                    OptionImportAction::TYPE
+                );
+                $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
+                $this->repository->save($line);
+                $this->commandBus->dispatch($command, true);
+            }
+
+            dump($count);
+            dump($steps);
+        } catch (\Throwable $exception) {
+            dump($exception->getMessage());
+            throw $exception;
         }
     }
 

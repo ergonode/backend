@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\Query\UnitQueryInterface;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
 /**
  */
@@ -68,6 +69,26 @@ class DbalUnitQuery implements UnitQueryInterface
         }
 
         return [];
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return UnitId|null
+     */
+    public function findIdByCode(string $code): ?UnitId
+    {
+        $qb = $this->getQuery();
+        $result = $qb->select('id')
+            ->where($qb->expr()->eq('symbol', ':symbol'))
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        if ($result) {
+            return new UnitId($result);
+        }
+
+        return null;
     }
 
     /**

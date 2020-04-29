@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Command\Attribute;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
@@ -25,13 +24,6 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
     private AttributeId $id;
-
-    /**
-     * @var AttributeCode
-     *
-     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeCode")
-     */
-    private AttributeCode $code;
 
     /**
      * @var bool
@@ -98,14 +90,6 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
     public function getId(): AttributeId
     {
         return $this->id;
-    }
-
-    /**
-     * @return AttributeCode
-     */
-    public function getCode(): AttributeCode
-    {
-        return $this->code;
     }
 
     /**

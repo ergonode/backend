@@ -40,10 +40,6 @@ class ErgonodeTransformerExtension extends Extension
         );
 
         $container
-            ->registerForAutoconfiguration(ImportActionInterface::class)
-            ->addTag(TransformerActionCompilerPass::TAG);
-
-        $container
             ->registerForAutoconfiguration(ConverterMapperInterface::class)
             ->addTag(ConverterMapperCompilerPass::TAG);
 

@@ -25,7 +25,6 @@ use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInte
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Transformer\Infrastructure\Action\ProductImportAction;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ramsey\Uuid\Uuid;
@@ -33,6 +32,7 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
+use Ergonode\Importer\Infrastructure\Action\ProductImportAction;
 
 /**
  */
@@ -184,7 +184,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
             }
 
             if (null !== $value && '' !== $value && $transformer->hasField($field)) {
-                $record->set($field, new StringValue($value));
+                $record->set($field, $value);
             }
         }
 

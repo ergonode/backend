@@ -37,11 +37,6 @@ class DeleteAttributeCommandHandlerTest extends TestCase
     private $attribute;
 
     /**
-     * @var AttributeFactoryInterface|MockObject
-     */
-    private $strategy;
-
-    /**
      * @var RelationshipsResolver|MockObject
      */
     private $relationshipResolver;
@@ -53,8 +48,6 @@ class DeleteAttributeCommandHandlerTest extends TestCase
         $this->command = $this->createMock(DeleteAttributeCommand::class);
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->attribute = $this->createMock(AbstractAttribute::class);
-        $this->strategy = $this->createMock(AttributeFactoryInterface::class);
-        $this->strategy->method('supports')->willReturn(true);
         $this->relationshipResolver = $this->createMock(RelationshipsResolver::class);
         $this->relationshipResolver->method('resolve')->willReturn(new RelationshipCollection());
     }
