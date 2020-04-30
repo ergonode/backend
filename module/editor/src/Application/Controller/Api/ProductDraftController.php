@@ -18,7 +18,6 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
 use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
@@ -45,6 +44,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 
 /**
  */
@@ -96,6 +98,11 @@ class ProductDraftController extends AbstractController
     private GridRenderer $gridRenderer;
 
     /**
+     * @var LanguageQueryInterface
+     */
+    private LanguageQueryInterface $languageQuery;
+
+    /**
      * @param ProductDraftGrid                 $productDraftGrid
      * @param DraftQueryInterface              $draftQuery
      * @param CommandBusInterface              $commandBus
@@ -105,6 +112,7 @@ class ProductDraftController extends AbstractController
      * @param ValidatorInterface               $validator
      * @param TemplateRepositoryInterface      $templateRepository
      * @param GridRenderer                     $gridRenderer
+     * @param LanguageQueryInterface           $languageQuery
      */
     public function __construct(
         ProductDraftGrid $productDraftGrid,
@@ -115,7 +123,8 @@ class ProductDraftController extends AbstractController
         ViewTemplateBuilder $builder,
         ValidatorInterface $validator,
         TemplateRepositoryInterface $templateRepository,
-        GridRenderer $gridRenderer
+        GridRenderer $gridRenderer,
+        LanguageQueryInterface $languageQuery
     ) {
         $this->productDraftGrid = $productDraftGrid;
         $this->draftQuery = $draftQuery;
@@ -126,6 +135,7 @@ class ProductDraftController extends AbstractController
         $this->validator = $validator;
         $this->templateRepository = $templateRepository;
         $this->gridRenderer = $gridRenderer;
+        $this->languageQuery = $languageQuery;
     }
 
     /**
@@ -440,17 +450,31 @@ class ProductDraftController extends AbstractController
      */
     public function getProductDraft(Language $language, AbstractProduct $product): Response
     {
+        $languagesPath = $this->languageQuery->getInheritancePath($language);
+
         $draft = $this->draftProvider->provide($product);
 
         $result = [
             'id' => $draft->getId()->getValue(),
             'product_id' => $draft->getProductId()->getValue(),
         ];
-
+        $value = null;
         foreach ($draft->getAttributes() as $key => $attribute) {
-            $value = $attribute->getValue();
-            if ($value instanceof TranslatableString) {
-                $value = $value->get($language);
+            if ($attribute instanceof TranslatableStringValue) {
+                $translations = $attribute->getValue();
+                $find = false;
+                $value = null;
+                foreach ($languagesPath as $inheritance) {
+                    if ($inheritance->isEqual($language)) {
+                        $find = true;
+                    }
+                    if ($find && null === $value && array_key_exists($inheritance->getCode(), $translations)) {
+                        $value = $translations[$inheritance->getCode()];
+                    }
+                }
+            } elseif ($attribute instanceof StringValue) {
+                $values = $attribute->getValue();
+                $value = reset($values);
             }
             $result['attributes'][$key] = $value;
         }
@@ -499,7 +523,7 @@ class ProductDraftController extends AbstractController
     public function getProductTemplate(AbstractProduct $product, Language $language): Response
     {
         $attributeCode = new AttributeCode(TemplateSystemAttribute::CODE);
-        $templateId = new TemplateId((string) $product->getAttribute($attributeCode));
+        $templateId = new TemplateId((string)$product->getAttribute($attributeCode));
 
         $template = $this->templateRepository->load($templateId);
 

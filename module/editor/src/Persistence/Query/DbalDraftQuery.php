@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\Grid\DataSetInterface;

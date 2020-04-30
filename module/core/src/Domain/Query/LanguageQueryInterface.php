@@ -39,6 +39,13 @@ interface LanguageQueryInterface
     public function getLanguage(string $code): array;
 
     /**
+     * @param Language $language
+     *
+     * @return Language[]
+     */
+    public function getInheritancePath(Language $language): array;
+
+    /**
      * @return DataSetInterface
      */
     public function getDataSet(): DataSetInterface;
