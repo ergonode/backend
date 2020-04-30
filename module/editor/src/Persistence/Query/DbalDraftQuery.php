@@ -12,8 +12,6 @@ namespace Ergonode\Editor\Persistence\Query;
 use Doctrine\DBAL\Connection;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
-use Ergonode\Grid\DataSetInterface;
-use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
@@ -31,20 +29,6 @@ class DbalDraftQuery implements DraftQueryInterface
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-    }
-
-    /**
-     * @return DataSetInterface
-     */
-    public function getDataSet(): DataSetInterface
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->select('d.*, p.template_id')
-            ->from('designer.draft', 'd')
-            ->join('d', 'designer.product', 'p', 'd.product_id = p.product_id');
-
-        return new DbalDataSet($query);
     }
 
     /**

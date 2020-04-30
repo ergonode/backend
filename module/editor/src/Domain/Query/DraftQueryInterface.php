@@ -7,7 +7,6 @@
 namespace Ergonode\Editor\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
-use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
@@ -27,9 +26,4 @@ interface DraftQueryInterface
      * @return null|ProductDraftId
      */
     public function getActualDraftId(ProductId $productId): ?ProductDraftId;
-
-    /**
-     * @return DataSetInterface
-     */
-    public function getDataSet(): DataSetInterface;
 }
