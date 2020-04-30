@@ -90,12 +90,12 @@ class DbalLanguageQuery implements LanguageQueryInterface
         $qb = $this->connection->createQueryBuilder();
         $lft = $qb->select('lft')
             ->from(self::TABLE_TREE)
-            ->where($qb->expr()->eq('code',':code'))
+            ->where($qb->expr()->eq('code', ':code'))
             ->setParameter(':code', $language->getCode())
             ->execute()
             ->fetch(\PDO::FETCH_COLUMN);
 
-        if(false !== $lft) {
+        if (false !== $lft) {
             $qb = $this->connection->createQueryBuilder();
             $records = $qb->select('code')
                 ->from(self::TABLE_TREE)

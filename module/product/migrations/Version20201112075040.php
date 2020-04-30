@@ -39,7 +39,6 @@ final class Version20201112075040 extends AbstractErgonodeMigration
         $parent = $this->add(1, 6, new Language('en'));
         $parent = $this->add(2, 5, new Language('pl'), $parent);
         $this->add(3, 4, new Language('fr'), $parent);
-
     }
 
     /**

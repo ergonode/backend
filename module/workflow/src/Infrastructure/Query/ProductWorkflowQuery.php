@@ -41,9 +41,9 @@ class ProductWorkflowQuery
     private StatusCalculationService $service;
 
     /**
-     * @param WorkflowProvider $workflowProvider
+     * @param WorkflowProvider          $workflowProvider
      * @param StatusRepositoryInterface $statusRepository
-     * @param StatusCalculationService $service
+     * @param StatusCalculationService  $service
      */
     public function __construct(
         WorkflowProvider $workflowProvider,
