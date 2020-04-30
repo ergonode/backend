@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Tests\Domain\Entity;
 
 use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
@@ -123,7 +124,10 @@ class UserTest extends TestCase
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
         $roleId = $this->createMock(RoleId::class);
-        $languagePrivilegesCollection = ['test'];
+        $languagePrivileges = $this->createMock(LanguagePrivileges::class);
+        $languagePrivileges->method('isReadable')->willReturn(true);
+        $languagePrivileges->method('isEditable')->willReturn(false);
+        $languagePrivilegesCollection = ['en' => $languagePrivileges];
 
         $user = new User(
             $this->userId,
@@ -149,5 +153,7 @@ class UserTest extends TestCase
         $this->assertEquals($multimediaId, $user->getAvatarId());
         $this->assertEquals($roleId, $user->getRoleId());
         $this->assertEquals($languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
+        $this->assertTrue($user->hasReadLanguagePrivilege(new Language('en')));
+        $this->assertFalse($user->hasEditLanguagePrivilege(new Language('en')));
     }
 }

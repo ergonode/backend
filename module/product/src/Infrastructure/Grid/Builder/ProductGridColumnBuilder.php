@@ -21,9 +21,9 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Request\RequestColumn;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider;
-use Ergonode\Product\Infrastructure\Grid\Service\LanguagePrivilegesService;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Webmozart\Assert\Assert;
 
@@ -51,8 +51,6 @@ class ProductGridColumnBuilder
      */
     private Security $security;
 
-    private LanguagePrivilegesService $languagePrivilegesService;
-
     /**
      * @param AttributeQueryInterface      $attributeQuery
      * @param AttributeRepositoryInterface $repository
@@ -63,15 +61,12 @@ class ProductGridColumnBuilder
         AttributeQueryInterface $attributeQuery,
         AttributeRepositoryInterface $repository,
         AttributeColumnProvider $provider,
-        Security $security,
-        LanguagePrivilegesService $languagePrivilegesService
-    )
-    {
+        Security $security
+    ) {
         $this->attributeQuery = $attributeQuery;
         $this->repository = $repository;
         $this->provider = $provider;
         $this->security = $security;
-        $this->languagePrivilegesService = $languagePrivilegesService;
     }
 
     /**
@@ -88,7 +83,9 @@ class ProductGridColumnBuilder
 
         /** @var User $user */
         $user = $this->security->getUser();
-        $languagePrivilegesCollection = $user->getLanguagePrivilegesCollection();
+        if (!$user) {
+            throw new AuthenticationException();
+        }
         $result = [];
 
         /** @var RequestColumn[] $columns */
@@ -113,7 +110,7 @@ class ProductGridColumnBuilder
                 $language = $column->getLanguage() ?: $defaultLanguage;
 
                 if (in_array($code, $codes, true)
-                    && $this->languagePrivilegesService->isReadableAccessGranted($languagePrivilegesCollection, $language)) {
+                    && $user->hasReadLanguagePrivilege($language)) {
                     $id = AttributeId::fromKey((new AttributeCode($code))->getValue());
                     $attribute = $this->repository->load($id);
                     Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
@@ -131,7 +128,7 @@ class ProductGridColumnBuilder
                     if ($column->getLanguage()) {
                         $new->setLanguage($column->getLanguage());
                     }
-                    if (!$this->languagePrivilegesService->isEditableAccessGranted($languagePrivilegesCollection, $language)) {
+                    if (!$user->hasEditLanguagePrivilege($language)) {
                         $new->setEditable(false);
                     }
                     $result[$key] = $new;
