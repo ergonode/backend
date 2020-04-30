@@ -52,71 +52,71 @@ Feature: Magento 1 CSV module
     Then the response status code should be 201
     And store response param "id" as "source_id"
 
-  Scenario: Create Magento 1 CSV Source with null attribute id value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/sources" with body:
-     """
-      {
-        "type": "magento-1-csv",
-        "name": "name",
-        "host": "http://test.host",
-        "import" : [
-           "templates",
-           "attributes",
-           "categories",
-           "products"
-        ],
-        "mapping": {
-          "default_language": "en",
-          "languages": [
-            {
-               "store":"test",
-               "language":"en"
-            }
-          ]
-        },
-        "attributes": [
-           {
+#  Scenario: Create Magento 1 CSV Source with null attribute id value
+#    Given I am Authenticated as "test@ergonode.com"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
+#    When I send a POST request to "/api/v1/en/sources" with body:
+#     """
+#      {
+#        "type": "magento-1-csv",
+#        "name": "name",
+#        "host": "http://test.host",
+#        "import" : [
+#           "templates",
+#           "attributes",
+#           "categories",
+#           "products"
+#        ],
+#        "mapping": {
+#          "default_language": "en",
+#          "languages": [
+#            {
+#               "store":"test",
+#               "language":"en"
+#            }
+#          ]
+#        },
+#        "attributes": [
+#           {
+#
+#           }
+#        ]
+#      }
+#      """
+#    Then the response status code should be 400
 
-           }
-        ]
-      }
-      """
-    Then the response status code should be 400
-
-  Scenario: Create Magento 1 CSV Source with empty attribute collection object
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/sources" with body:
-     """
-      {
-        "type": "magento-1-csv",
-        "name": "name",
-        "host": "http://test.host",
-        "import" : [
-           "templates",
-           "attributes",
-           "categories",
-           "products"
-        ],
-        "mapping": {
-          "default_language": "en",
-          "languages": [
-            {
-               "store":"test",
-               "language":"en"
-            }
-          ]
-        },
-        "attributes": [
-          {}
-        ]
-      }
-      """
-    Then the response status code should be 400
+#  Scenario: Create Magento 1 CSV Source with empty attribute collection object
+#    Given I am Authenticated as "test@ergonode.com"
+#    And I add "Content-Type" header equal to "application/json"
+#    And I add "Accept" header equal to "application/json"
+#    When I send a POST request to "/api/v1/en/sources" with body:
+#     """
+#      {
+#        "type": "magento-1-csv",
+#        "name": "name",
+#        "host": "http://test.host",
+#        "import" : [
+#           "templates",
+#           "attributes",
+#           "categories",
+#           "products"
+#        ],
+#        "mapping": {
+#          "default_language": "en",
+#          "languages": [
+#            {
+#               "store":"test",
+#               "language":"en"
+#            }
+#          ]
+#        },
+#        "attributes": [
+#          {}
+#        ]
+#      }
+#      """
+#    Then the response status code should be 400
 
   Scenario: Create Magento 1 CSV Source with not exists attribute id value
     Given I am Authenticated as "test@ergonode.com"

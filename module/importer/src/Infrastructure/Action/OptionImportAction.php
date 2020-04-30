@@ -81,7 +81,8 @@ class OptionImportAction implements ImportActionInterface
 
         $options = [];
         foreach ($record->getValues() as $key => $value) {
-            $options[$key] = $value->getValue();
+            $value = $value->getValue();
+            $options[$key] = reset($value);
         }
 
         $label = new TranslatableString($options);

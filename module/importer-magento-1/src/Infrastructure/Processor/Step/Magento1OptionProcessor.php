@@ -17,7 +17,6 @@ use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Transformer\Domain\Entity\Transformer;
@@ -25,6 +24,8 @@ use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Importer\Infrastructure\Action\OptionImportAction;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 
 /**
  */
@@ -78,9 +79,11 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
 
         foreach ($transformer->getAttributes() as $field => $converter) {
             $type = $transformer->getAttributeType($field);
-
             if (SelectAttribute::TYPE === $type || MultiSelectAttribute::TYPE === $type) {
                 $attributeCode = new AttributeCode($field);
+                if (!array_key_exists($field, $columns)) {
+                    $columns[$field] = [];
+                }
                 $options = $this->getOptions($columns[$field]);
                 foreach ($options as $key => $option) {
                     $record = new Record();

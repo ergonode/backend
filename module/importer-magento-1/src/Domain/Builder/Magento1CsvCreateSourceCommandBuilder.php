@@ -16,7 +16,6 @@ use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Application\Form\ImporterMagento1ConfigurationForm;
 use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderInterface;
 use Ergonode\ImporterMagento1\Domain\Command\CreateMagento1CsvSourceCommand;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**

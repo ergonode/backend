@@ -86,7 +86,7 @@ class MultimediaImportAction implements ImportActionInterface
     public function action(ImportId $importId, Record $record): void
     {
         $id = $record->has(self::ID_FIELD) ? new MultimediaId($record->get(self::ID_FIELD)) : null;
-        $name = $record->hasTranslation(self::NAME_FIELD) ? $record->getTranslation(self::NAME_FIELD) : null;
+        $name = $record->has(self::NAME_FIELD) ? $record->get(self::NAME_FIELD) : null;
         $url = $record->has(self::URL_FIELD) ? $record->get(self::URL_FIELD) : null;
         Assert::notNull($id, 'Multimedia import required "id" field not exists');
         Assert::notNull($name, 'Multimedia import required "name" field not exists');

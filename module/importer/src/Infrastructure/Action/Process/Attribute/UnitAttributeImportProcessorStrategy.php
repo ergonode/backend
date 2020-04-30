@@ -16,7 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Webmozart\Assert\Assert;
 use Ergonode\Importer\Infrastructure\Action\Process\AttributeImportProcessorStrategyInterface;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Core\Domain\Query\UnitQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
@@ -71,7 +70,7 @@ class UnitAttributeImportProcessorStrategy implements AttributeImportProcessorSt
         Record $record,
         ?AbstractAttribute $attribute = null
     ): AbstractAttribute {
-        Assert::nullOrIsInstanceOf($attribute, PriceAttribute::TYPE);
+        Assert::nullOrIsInstanceOf($attribute, UnitAttribute::class);
 
         $unitsIds = $this->query->getAllUnitIds();
         $unitId = new UnitId(reset($unitsIds));
