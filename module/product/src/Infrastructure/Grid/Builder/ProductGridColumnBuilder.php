@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Builder;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -21,7 +21,10 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Request\RequestColumn;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider;
+use Ergonode\Product\Infrastructure\Grid\Service\LanguagePrivilegesService;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Webmozart\Assert\Assert;
 
 /**
@@ -44,18 +47,31 @@ class ProductGridColumnBuilder
     private AttributeColumnProvider $provider;
 
     /**
+     * @var Security
+     */
+    private Security $security;
+
+    private LanguagePrivilegesService $languagePrivilegesService;
+
+    /**
      * @param AttributeQueryInterface      $attributeQuery
      * @param AttributeRepositoryInterface $repository
      * @param AttributeColumnProvider      $provider
+     * @param Security                     $security
      */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         AttributeRepositoryInterface $repository,
-        AttributeColumnProvider $provider
-    ) {
+        AttributeColumnProvider $provider,
+        Security $security,
+        LanguagePrivilegesService $languagePrivilegesService
+    )
+    {
         $this->attributeQuery = $attributeQuery;
         $this->repository = $repository;
         $this->provider = $provider;
+        $this->security = $security;
+        $this->languagePrivilegesService = $languagePrivilegesService;
     }
 
     /**
@@ -70,6 +86,9 @@ class ProductGridColumnBuilder
     {
         $codes = $this->attributeQuery->getAllAttributeCodes();
 
+        /** @var User $user */
+        $user = $this->security->getUser();
+        $languagePrivilegesCollection = $user->getLanguagePrivilegesCollection();
         $result = [];
 
         /** @var RequestColumn[] $columns */
@@ -81,7 +100,6 @@ class ProductGridColumnBuilder
             ],
             $configuration->getColumns()
         );
-
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $result['id'] = $id;
@@ -93,7 +111,9 @@ class ProductGridColumnBuilder
                 $code = $column->getColumn();
                 $key = $column->getKey();
                 $language = $column->getLanguage() ?: $defaultLanguage;
-                if (in_array($code, $codes, true)) {
+
+                if (in_array($code, $codes, true)
+                    && $this->languagePrivilegesService->isReadableAccessGranted($languagePrivilegesCollection, $language)) {
                     $id = AttributeId::fromKey((new AttributeCode($code))->getValue());
                     $attribute = $this->repository->load($id);
                     Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
@@ -111,7 +131,9 @@ class ProductGridColumnBuilder
                     if ($column->getLanguage()) {
                         $new->setLanguage($column->getLanguage());
                     }
-
+                    if (!$this->languagePrivilegesService->isEditableAccessGranted($languagePrivilegesCollection, $language)) {
+                        $new->setEditable(false);
+                    }
                     $result[$key] = $new;
                 }
             }
