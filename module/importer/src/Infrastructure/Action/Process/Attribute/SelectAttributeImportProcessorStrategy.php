@@ -56,7 +56,7 @@ class SelectAttributeImportProcessorStrategy implements AttributeImportProcessor
         ?AbstractAttribute $attribute = null
     ): AbstractAttribute {
 
-        Assert::nullOrIsInstanceOf($attribute, SelectAttribute::TYPE);
+        Assert::nullOrIsInstanceOf($attribute, SelectAttribute::class);
 
         if (null === $attribute) {
             $attribute = new SelectAttribute(

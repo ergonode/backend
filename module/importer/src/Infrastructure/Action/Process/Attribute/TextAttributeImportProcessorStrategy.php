@@ -56,7 +56,7 @@ class TextAttributeImportProcessorStrategy implements AttributeImportProcessorSt
         ?AbstractAttribute $attribute = null
     ): AbstractAttribute {
 
-        Assert::nullOrIsInstanceOf($attribute, TextAttribute::TYPE);
+        Assert::nullOrIsInstanceOf($attribute, TextAttribute::class);
 
         if (null === $attribute) {
             $attribute = new TextAttribute(

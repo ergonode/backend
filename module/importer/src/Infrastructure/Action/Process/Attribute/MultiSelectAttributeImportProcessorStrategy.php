@@ -56,7 +56,7 @@ class MultiSelectAttributeImportProcessorStrategy implements AttributeImportProc
         ?AbstractAttribute $attribute = null
     ): AbstractAttribute {
 
-        Assert::nullOrIsInstanceOf($attribute, MultiSelectAttribute::TYPE);
+        Assert::nullOrIsInstanceOf($attribute, MultiSelectAttribute::class);
 
         if (null === $attribute) {
             $attribute = new MultiSelectAttribute(

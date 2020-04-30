@@ -56,7 +56,7 @@ class DateAttributeImportProcessorStrategy implements AttributeImportProcessorSt
         Record $record,
         ?AbstractAttribute $attribute = null
     ): AbstractAttribute {
-        Assert::nullOrIsInstanceOf($attribute, DateAttribute::TYPE);
+        Assert::nullOrIsInstanceOf($attribute, DateAttribute::class);
 
         $format = new DateFormat(DateFormat::YYYY_MM_DD);
         if ($record->has('format')) {
