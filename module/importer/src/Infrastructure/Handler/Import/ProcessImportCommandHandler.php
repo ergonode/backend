@@ -82,8 +82,6 @@ class ProcessImportCommandHandler
                     $this->commandBus->dispatch(new EndImportCommand($importId), true);
                 }
             } catch (\Throwable $exception) {
-                echo print_r($exception->getMessage(), true).PHP_EOL;
-                echo print_r($exception->getTraceAsString(), true).PHP_EOL;
                 $line->addError($exception->getMessage());
             }
 
