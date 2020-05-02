@@ -94,6 +94,11 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     }
 
     /**
+     * @return string
+     */
+    abstract public function getType(): string;
+
+    /**
      * @return Sku
      */
     public function getSku(): Sku

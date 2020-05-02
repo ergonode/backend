@@ -89,6 +89,7 @@ Feature: Product module
       """
       {
         "sku": <sku>,
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": []
       }
@@ -108,6 +109,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": ["@product_category@"]
       }
@@ -123,6 +125,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@"
       }
       """
@@ -136,16 +139,15 @@ Feature: Product module
     When I send a POST request to "/api/v1/en/collections/type" with body:
       """
       {
-           "code": "TEXT_@@random_code@@",
-              "name": {
-                 "de": "Name de",
-                 "en": "Name en"
-                 }
+        "code": "TEXT_@@random_code@@",
+        "name": {
+          "de": "Name de",
+          "en": "Name en"
+        }
       }
       """
     Then the response status code should be 201
     And store response param "id" as "product_collection_type"
-
 
   Scenario: Create first product collection
     Given I am Authenticated as "test@ergonode.com"
@@ -194,6 +196,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "test",
         "categoryIds": ["@product_category@"]
       }
@@ -208,6 +211,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@@random_uuid@@",
         "categoryIds": ["@product_category@"]
       }
@@ -222,6 +226,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "categoryIds": ["@product_category@"]
       }
       """
@@ -235,6 +240,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": []
       }
@@ -249,6 +255,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@"
       }
       """
@@ -262,6 +269,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": ["test"]
       }
@@ -276,6 +284,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@"
       }
       """

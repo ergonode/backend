@@ -12,8 +12,6 @@ namespace Ergonode\Product\Application\Controller\Api;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
-use Ergonode\Product\Application\Form\ProductCreateForm;
-use Ergonode\Product\Application\Model\ProductCreateFormModel;
 use Ergonode\Product\Domain\Command\CreateProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -26,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Product\Application\Provider\ProductFormProvider;
 
 /**
  * @Route("products", methods={"POST"})
@@ -33,24 +32,35 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 class ProductCreateAction
 {
     /**
-     * @var CommandBusInterface
-     */
-    private CommandBusInterface $commandBus;
-
-    /**
      * @var FormFactoryInterface
      */
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
+     * @var ProductFormProvider
      */
-    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
-    {
-        $this->commandBus = $commandBus;
+    private ProductFormProvider $provider;
+
+    /**
+     * @var CommandBusInterface
+     */
+    private CommandBusInterface $commandBus;
+
+    /**
+     * @param FormFactoryInterface $formFactory
+     * @param ProductFormProvider  $provider
+     * @param CommandBusInterface  $commandBus
+     */
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        ProductFormProvider $provider,
+        CommandBusInterface $commandBus
+    ) {
         $this->formFactory = $formFactory;
+        $this->provider = $provider;
+        $this->commandBus = $commandBus;
     }
+
 
     /**
      * @IsGranted("PRODUCT_CREATE")
@@ -88,11 +98,13 @@ class ProductCreateAction
      */
     public function __invoke(Request $request): Response
     {
-        $model = new ProductCreateFormModel();
-        $form = $this->formFactory->create(ProductCreateForm::class, $model);
+        $type = $request->request->get('type');
+        $request->request->remove('type');
+        $class = $this->provider->provide($type);
+
+        $form = $this->formFactory->create($class, null, ['validation_groups' => ['Default', 'Create']]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var ProductCreateFormModel $data */
             $data = $form->getData();
             $categories = [];
             foreach ($data->categories as $category) {

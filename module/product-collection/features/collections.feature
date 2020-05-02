@@ -65,6 +65,7 @@ Feature: Product collection module
       """
       {
         "sku": "@product_1_sku@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": ["@product_category@"]
       }
@@ -81,6 +82,7 @@ Feature: Product collection module
       """
       {
         "sku": "@product_2_sku@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": ["@product_category@"]
       }
@@ -97,6 +99,7 @@ Feature: Product collection module
       """
       {
         "sku": "@segment_product_1_sku@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": ["@product_category@"]
       }
@@ -136,7 +139,6 @@ Feature: Product collection module
       """
     Then the response status code should be 201
     And store response param "id" as "segment"
-
 
   Scenario: Create product collection type (not authorized)
     When I send a POST request to "/api/v1/en/collections/type"
@@ -326,7 +328,6 @@ Feature: Product collection module
     When I send a GET request to "/api/v1/en/collections/type?limit=25&offset=0&filter=code="
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
-
 
   Scenario: Get product collection type (not authorized)
     When I send a GET request to "/api/v1/en/collections/type"
