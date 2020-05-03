@@ -5,50 +5,45 @@ Ergonode\Attribute\Domain\Entity\AttributeGroup:
             - '<AttributeGroupCode(group_code_<current()>)>'
             - '@label_<current()>'
 
-Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute:
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateImageAttributeCommand:
     attribute_image:
         __construct:
-            - '<AttributeId(image_attribute)>'
             - '<AttributeCode(image_attribute)>'
             - '@label_1'
             - '@hint_1'
             - '@placeholder_1'
             - true
 
-Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute:
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand:
     attribute_{1..10}:
         __construct:
-            - '<AttributeId(code_<current()>)>'
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
-            - false
-
-Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute:
-    attribute_{11..20}:
-        __construct:
-            - '<AttributeId(code_<current()>)>'
-            - '<AttributeCode(code_<current()>)>'
-            - '@label_<current()>'
-            - '@hint_<current()>'
-            - '@placeholder_<current()>'
-            - false
-
-Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute:
-    attribute_{21..25}:
-        __construct:
-            - '<AttributeId(code_<current()>)>'
             - '<AttributeCode(code_<current()>)>'
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - true
 
-Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute:
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeCommand:
+    attribute_{11..20}:
+        __construct:
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateNumericAttributeCommand:
+    attribute_{21..25}:
+        __construct:
+            - '<AttributeCode(code_<current()>)>'
+            - '@label_<current()>'
+            - '@hint_<current()>'
+            - '@placeholder_<current()>'
+            - true
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateDateAttributeCommand:
     attribute_{26..30}:
         __construct:
-            - '<AttributeId(code_<current()>)>'
             - '<AttributeCode(code_<current()>)>'
             - '@label_<current()>'
             - '@hint_<current()>'
@@ -56,10 +51,9 @@ Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute:
             - true
             - '<DateFormat()>'
 
-Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute:
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreatePriceAttributeCommand:
     attribute_{31..35}:
         __construct:
-            - '<AttributeId(code_<current()>)>'
             - '<AttributeCode(code_<current()>)>'
             - '@label_<current()>'
             - '@hint_<current()>'
@@ -67,31 +61,28 @@ Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute:
             - true
             - '<Currency()>'
 
-Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute:
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand:
     attribute_{36..40}:
         __construct:
-            - '<AttributeId(code_<current()>)>'
             - '<AttributeCode(code_<current()>)>'
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - true
-            - '<UnitId(@unit_metre->id)>'
+            - '@unit_metre->id'
 
-Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute:
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateSelectAttributeCommand:
     attribute_{41..45}:
         __construct:
-            - '<AttributeId(code_<current()>)>'
             - '<AttributeCode(code_<current()>)>'
             - '@label_<current()>'
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - true
 
-Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute:
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateMultiSelectAttributeCommand:
     attribute_{46..50}:
         __construct:
-            - '<AttributeId(code_<current()>)>'
             - '<AttributeCode(code_<current()>)>'
             - '@label_<current()>'
             - '@hint_<current()>'

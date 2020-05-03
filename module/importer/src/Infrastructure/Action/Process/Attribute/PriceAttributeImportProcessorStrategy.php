@@ -56,7 +56,7 @@ class PriceAttributeImportProcessorStrategy implements AttributeImportProcessorS
         Record $record,
         ?AbstractAttribute $attribute = null
     ): AbstractAttribute {
-        Assert::nullOrIsInstanceOf($attribute, PriceAttribute::TYPE);
+        Assert::nullOrIsInstanceOf($attribute, PriceAttribute::class);
 
         $currency = new Currency('EUR');
         if ($record->has('currency')) {

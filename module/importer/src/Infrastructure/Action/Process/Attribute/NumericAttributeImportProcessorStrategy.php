@@ -56,7 +56,7 @@ class NumericAttributeImportProcessorStrategy implements AttributeImportProcesso
         ?AbstractAttribute $attribute = null
     ): AbstractAttribute {
 
-        Assert::nullOrIsInstanceOf($attribute, NumericAttribute::TYPE);
+        Assert::nullOrIsInstanceOf($attribute, NumericAttribute::class);
 
         if (null === $attribute) {
             $attribute = new NumericAttribute(

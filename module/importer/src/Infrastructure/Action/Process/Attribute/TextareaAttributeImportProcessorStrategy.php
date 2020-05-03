@@ -56,7 +56,7 @@ class TextareaAttributeImportProcessorStrategy implements AttributeImportProcess
         ?AbstractAttribute $attribute = null
     ): AbstractAttribute {
 
-        Assert::nullOrIsInstanceOf($attribute, TextareaAttribute::TYPE);
+        Assert::nullOrIsInstanceOf($attribute, TextareaAttribute::class);
 
         if (null === $attribute) {
             $attribute = new TextareaAttribute(

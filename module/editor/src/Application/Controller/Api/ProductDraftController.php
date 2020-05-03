@@ -9,32 +9,21 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Application\Controller\Api;
 
-use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Exception\ViolationsHttpException;
-use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintProvider;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Designer\Domain\Builder\ViewTemplateBuilder;
 use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
-use Ergonode\Editor\Application\Form\DraftCreateForm;
-use Ergonode\Editor\Application\Model\DraftCreateFormModel;
 use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
-use Ergonode\Editor\Domain\Command\CreateProductDraftCommand;
 use Ergonode\Editor\Domain\Command\PersistProductDraftCommand;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
-use Ergonode\Editor\Domain\Query\DraftQueryInterface;
-use Ergonode\Editor\Infrastructure\Grid\ProductDraftGrid;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Grid\Renderer\GridRenderer;
-use Ergonode\Grid\RequestGridConfiguration;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -45,21 +34,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 
 /**
  */
 class ProductDraftController extends AbstractController
 {
-    /**
-     * @var ProductDraftGrid
-     */
-    private ProductDraftGrid $productDraftGrid;
-
-    /**
-     * @var DraftQueryInterface
-     */
-    private DraftQueryInterface $draftQuery;
-
     /**
      * @var CommandBusInterface
      */
@@ -91,181 +71,35 @@ class ProductDraftController extends AbstractController
     private TemplateRepositoryInterface $templateRepository;
 
     /**
-     * @var GridRenderer
+     * @var TranslationInheritanceCalculator
      */
-    private GridRenderer $gridRenderer;
+    private TranslationInheritanceCalculator $calculator;
 
     /**
-     * @param ProductDraftGrid                 $productDraftGrid
-     * @param DraftQueryInterface              $draftQuery
      * @param CommandBusInterface              $commandBus
      * @param AttributeValueConstraintProvider $provider
      * @param DraftProvider                    $draftProvider
      * @param ViewTemplateBuilder              $builder
      * @param ValidatorInterface               $validator
      * @param TemplateRepositoryInterface      $templateRepository
-     * @param GridRenderer                     $gridRenderer
+     * @param TranslationInheritanceCalculator $calculator
      */
     public function __construct(
-        ProductDraftGrid $productDraftGrid,
-        DraftQueryInterface $draftQuery,
         CommandBusInterface $commandBus,
         AttributeValueConstraintProvider $provider,
         DraftProvider $draftProvider,
         ViewTemplateBuilder $builder,
         ValidatorInterface $validator,
         TemplateRepositoryInterface $templateRepository,
-        GridRenderer $gridRenderer
+        TranslationInheritanceCalculator $calculator
     ) {
-        $this->productDraftGrid = $productDraftGrid;
-        $this->draftQuery = $draftQuery;
         $this->commandBus = $commandBus;
         $this->provider = $provider;
         $this->draftProvider = $draftProvider;
         $this->builder = $builder;
         $this->validator = $validator;
         $this->templateRepository = $templateRepository;
-        $this->gridRenderer = $gridRenderer;
-    }
-
-    /**
-     * @Route("/products/drafts", methods={"GET"})
-     *
-     * @IsGranted("PRODUCT_READ")
-     *
-     * @SWG\Tag(name="Editor")
-     * @SWG\Parameter(
-     *     name="limit",
-     *     in="query",
-     *     type="integer",
-     *     required=true,
-     *     default="50",
-     *     description="Number of returned lines",
-     * )
-     * @SWG\Parameter(
-     *     name="offset",
-     *     in="query",
-     *     type="integer",
-     *     required=true,
-     *     default="0",
-     *     description="Number of start line",
-     * )
-     * @SWG\Parameter(
-     *     name="field",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"id", "product_id", "template_id", "sku", "type", "applied"},
-     *     description="Order field",
-     * )
-     * @SWG\Parameter(
-     *     name="order",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"ASC", "DESC"},
-     *     description="Order",
-     * )
-     * @SWG\Parameter(
-     *     name="filter",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Filter"
-     * )
-     * @SWG\Parameter(
-     *     name="show",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"COLUMN", "DATA"},
-     *     description="Specify what response should containts"
-     * )
-     * @SWG\Parameter(
-     *     name="language",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     default="en",
-     *     description="Language code"
-     * )
-     * @SWG\Response(
-     *     response=200,
-     *     description="Get draft grid"
-     * )
-     *
-     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
-     *
-     * @param Language                 $language
-     * @param RequestGridConfiguration $configuration
-     *
-     * @return Response
-     */
-    public function getDrafts(Language $language, RequestGridConfiguration $configuration): Response
-    {
-        $data = $this->gridRenderer->render(
-            $this->productDraftGrid,
-            $configuration,
-            $this->draftQuery->getDataSet(),
-            $language
-        );
-
-        return new SuccessResponse($data);
-    }
-
-    /**
-     * @Route("/products/drafts", methods={"POST"})
-     *
-     * @IsGranted("PRODUCT_CREATE")
-     *
-     * @SWG\Tag(name="Editor")
-     * @SWG\Parameter(
-     *     name="productId",
-     *     in="formData",
-     *     type="string",
-     *     description="Product id",
-     * )
-     * @SWG\Parameter(
-     *     name="language",
-     *     in="path",
-     *     type="string",
-     *     required=true,
-     *     default="en",
-     *     description="Language Code",
-     * )
-     * @SWG\Response(
-     *     response=201,
-     *     description="Create product draft based on product id",
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Validation error",
-     *     @SWG\Schema(ref="#/definitions/validation_error_response")
-     * )
-     *
-     * @param Request $request
-     *
-     * @return Response
-     *
-     * @throws \Exception
-     */
-    public function createDraft(Request $request): Response
-    {
-        $model = new DraftCreateFormModel();
-
-        $form = $this->createForm(DraftCreateForm::class, $model);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var DraftCreateFormModel $data */
-            $data = $form->getData();
-
-            $command = new CreateProductDraftCommand(new productId($data->productId));
-            $this->commandBus->dispatch($command);
-
-            return new CreatedResponse($command->getId());
-        }
-
-        throw new FormValidationHttpException($form);
+        $this->calculator = $calculator;
     }
 
     /**
@@ -446,13 +280,9 @@ class ProductDraftController extends AbstractController
             'id' => $draft->getId()->getValue(),
             'product_id' => $draft->getProductId()->getValue(),
         ];
-
-        foreach ($draft->getAttributes() as $key => $attribute) {
-            $value = $attribute->getValue();
-            if ($value instanceof TranslatableString) {
-                $value = $value->get($language);
-            }
-            $result['attributes'][$key] = $value;
+        $value = null;
+        foreach ($draft->getAttributes() as $key => $value) {
+            $result['attributes'][$key] = $this->calculator->calculate($value, $language);
         }
 
         return new SuccessResponse($result);

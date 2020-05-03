@@ -56,7 +56,7 @@ class ImageAttributeImportProcessorStrategy implements AttributeImportProcessorS
         ?AbstractAttribute $attribute = null
     ): AbstractAttribute {
 
-        Assert::nullOrIsInstanceOf($attribute, ImageAttribute::TYPE);
+        Assert::nullOrIsInstanceOf($attribute, ImageAttribute::class);
 
         if (null === $attribute) {
             $attribute = new ImageAttribute(

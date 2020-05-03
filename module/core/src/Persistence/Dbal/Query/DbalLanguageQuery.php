@@ -22,6 +22,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DbalLanguageQuery implements LanguageQueryInterface
 {
     private const TABLE = 'language';
+    private const TABLE_TREE = 'language_tree';
     private const ALL_FIELDS = [
         'id',
         'iso AS code',
@@ -76,6 +77,42 @@ class DbalLanguageQuery implements LanguageQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return Language[]
+     */
+    public function getInheritancePath(Language $language): array
+    {
+        $result = [];
+        $qb = $this->connection->createQueryBuilder();
+        $lft = $qb->select('lft')
+            ->from(self::TABLE_TREE)
+            ->where($qb->expr()->eq('code', ':code'))
+            ->setParameter(':code', $language->getCode())
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        if (false !== $lft) {
+            $qb = $this->connection->createQueryBuilder();
+            $records = $qb->select('code')
+                ->from(self::TABLE_TREE)
+                ->orderBy('lft', 'ASC')
+                ->where($qb->expr()->lt('lft', ':lft'))
+                ->setParameter(':lft', $lft)
+                ->execute()
+                ->fetchAll(\PDO::FETCH_COLUMN);
+
+            foreach ($records as $record) {
+                $result[] = new Language($record);
+            }
+        }
+
+        $result[] = $language;
+
+        return array_reverse($result);
     }
 
     /**
