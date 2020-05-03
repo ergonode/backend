@@ -22,7 +22,9 @@ class SimpleProductFormModel
      * @var string|null
      *
      * @Assert\NotBlank(message="Sku is required", groups={"Create"})
+     *
      * @Sku(groups={"Create"})
+     *
      * @SkuExists(groups={"Create"})
      */
     public ?string $sku = null;

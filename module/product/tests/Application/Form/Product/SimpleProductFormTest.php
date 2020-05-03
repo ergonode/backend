@@ -32,23 +32,10 @@ class SimpleProductFormTest extends TypeTestCase
     {
         $this->query = $this->createMock(CategoryQueryInterface::class);
         $this->query->method('getDictionary')->willReturn([
-                '2ae47e1b-10c3-4dd6-ac70-41000125c29f' => 'category',
-            ]);
+            '2ae47e1b-10c3-4dd6-ac70-41000125c29f' => 'category',
+        ]);
 
         parent::setUp();
-    }
-
-    /**
-     */
-    public function getExtensions()
-    {
-        // create a type instance with the mocked dependencies
-        $type = new CategoryType($this->query);
-
-        return [
-            // register the type instances with the PreloadedExtension
-            new PreloadedExtension([$type], []),
-        ];
     }
 
     /**
@@ -80,5 +67,19 @@ class SimpleProductFormTest extends TypeTestCase
         foreach (array_keys($formData) as $key) {
             $this->assertArrayHasKey($key, $children);
         }
+    }
+
+    /**
+     * @return array|PreloadedExtension[]
+     */
+    protected function getExtensions(): array
+    {
+        // create a type instance with the mocked dependencies
+        $type = new CategoryType($this->query);
+
+        return [
+            // register the type instances with the PreloadedExtension
+            new PreloadedExtension([$type], []),
+        ];
     }
 }
