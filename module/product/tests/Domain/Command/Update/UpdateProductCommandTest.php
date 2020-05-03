@@ -6,27 +6,28 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Tests\Domain\Command;
+namespace Ergonode\Product\Tests\Domain\Command\Update;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\Product\Domain\Command\Update\UpdateSimpleProductCommand;
 
 /**
  */
 class UpdateProductCommandTest extends TestCase
 {
     /**
-     * @param ProductId $id
-     * @param array     $categories
+     * @param ProductId  $id
+     * @param TemplateId $templateId
+     * @param array      $categories
      *
      * @dataProvider dataProvider
-     *
      */
-    public function testCreateCommand(ProductId $id, array $categories): void
+    public function testCreateCommand(ProductId $id, TemplateId $templateId, array $categories): void
     {
-        $command = new UpdateProductCommand($id, $categories);
+        $command = new UpdateSimpleProductCommand($id, $templateId, $categories);
 
         $this->assertSame($id, $command->getId());
         $this->assertSame($categories, $command->getCategories());
@@ -42,6 +43,7 @@ class UpdateProductCommandTest extends TestCase
         return [
             [
                 $this->createMock(ProductId::class),
+                $this->createMock(TemplateId::class),
                 [
                     $this->createMock(CategoryId::class),
                     $this->createMock(CategoryId::class),

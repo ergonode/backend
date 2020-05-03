@@ -6,31 +6,37 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Tests\Domain\Command;
+namespace Ergonode\Product\Tests\Domain\Command\Create;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\Product\Domain\Command\CreateProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
 class CreateProductCommandTest extends TestCase
 {
     /**
-     * @param ProductId $id
-     * @param Sku       $sku
-     * @param array     $categories
-     * @param array     $attributes
+     * @param ProductId  $id
+     * @param Sku        $sku
+     * @param TemplateId $templateId
+     * @param array      $categories
+     * @param array      $attributes
      *
      * @dataProvider dataProvider
-     *
      */
-    public function testCreateCommand(ProductId $id, Sku $sku, array $categories, array $attributes): void
-    {
-        $command = new CreateProductCommand($id, $sku, $categories, $attributes);
+    public function testCreateCommand(
+        ProductId $id,
+        Sku $sku,
+        TemplateId $templateId,
+        array $categories,
+        array $attributes
+    ): void {
+        $command = new CreateSimpleProductCommand($id, $sku, $templateId, $categories, $attributes);
 
         $this->assertSame($id, $command->getId());
         $this->assertSame($sku, $command->getSku());
@@ -50,6 +56,7 @@ class CreateProductCommandTest extends TestCase
             [
                 $this->createMock(ProductId::class),
                 $this->createMock(Sku::class),
+                $this->createMock(TemplateId::class),
                 [
                     $this->createMock(CategoryId::class),
                     $this->createMock(CategoryId::class),

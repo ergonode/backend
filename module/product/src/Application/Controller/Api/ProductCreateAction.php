@@ -11,20 +11,15 @@ namespace Ergonode\Product\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
-use Ergonode\Product\Domain\Command\CreateProductCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Product\Application\Provider\ProductFormProvider;
+use Ergonode\Product\Infrastructure\Provider\CreateProductCommandFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Product\Application\Provider\ProductFormProvider;
 
 /**
  * @Route("products", methods={"POST"})
@@ -42,25 +37,32 @@ class ProductCreateAction
     private ProductFormProvider $provider;
 
     /**
+     * @var CreateProductCommandFactoryProvider
+     */
+    private CreateProductCommandFactoryProvider $commandProvider;
+
+    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param FormFactoryInterface $formFactory
-     * @param ProductFormProvider  $provider
-     * @param CommandBusInterface  $commandBus
+     * @param FormFactoryInterface                $formFactory
+     * @param ProductFormProvider                 $provider
+     * @param CreateProductCommandFactoryProvider $commandProvider
+     * @param CommandBusInterface                 $commandBus
      */
     public function __construct(
         FormFactoryInterface $formFactory,
         ProductFormProvider $provider,
+        CreateProductCommandFactoryProvider $commandProvider,
         CommandBusInterface $commandBus
     ) {
         $this->formFactory = $formFactory;
         $this->provider = $provider;
+        $this->commandProvider = $commandProvider;
         $this->commandBus = $commandBus;
     }
-
 
     /**
      * @IsGranted("PRODUCT_CREATE")
@@ -105,17 +107,8 @@ class ProductCreateAction
         $form = $this->formFactory->create($class, null, ['validation_groups' => ['Default', 'Create']]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $categories = [];
-            foreach ($data->categories as $category) {
-                $categories[] = new CategoryId($category);
-            }
-            $command = new CreateProductCommand(
-                ProductId::generate(),
-                new Sku($data->sku),
-                $categories,
-                [TemplateSystemAttribute::CODE => new StringValue($data->template)]
-            );
+            $factory = $this->commandProvider->provide($type);
+            $command = $factory->create($form);
             $this->commandBus->dispatch($command);
 
             return new CreatedResponse($command->getId());

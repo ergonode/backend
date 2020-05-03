@@ -7,22 +7,23 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Infrastructure\Handler;
+namespace Ergonode\Product\Infrastructure\Handler\Update;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Product\Domain\Command\UpdateProductCommand;
 use Webmozart\Assert\Assert;
+use Ergonode\Product\Domain\Command\Update\UpdateSimpleProductCommand;
+use Ergonode\Product\Infrastructure\Handler\AbstractUpdateProductHandler;
 
 /**
  */
-class UpdateProductCommandHandler extends AbstractUpdateProductHandler
+class UpdateSimpleProductCommandHandler extends AbstractUpdateProductHandler
 {
     /**
-     * @param UpdateProductCommand $command
+     * @param UpdateSimpleProductCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(UpdateProductCommand $command)
+    public function __invoke(UpdateSimpleProductCommand $command)
     {
         $product = $this->productRepository->load($command->getId());
         Assert::notNull($product);

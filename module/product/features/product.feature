@@ -297,6 +297,7 @@ Feature: Product module
     When I send a PUT request to "/api/v1/en/products/@product_2@" with body:
       """
       {
+        "templateId": "@product_template@",
         "categoryIds": ["@product_category@", "@product_category_2@"]
       }
       """
@@ -318,6 +319,7 @@ Feature: Product module
     When I send a PUT request to "/api/v1/en/products/@product_2@" with body:
       """
       {
+        "templateId": "@product_template@",
         "categoryIds": ["@product_category_2@"]
       }
       """

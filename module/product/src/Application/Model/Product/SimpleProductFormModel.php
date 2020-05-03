@@ -13,6 +13,7 @@ use Ergonode\Designer\Infrastructure\Validator\TemplateExists;
 use Ergonode\Product\Infrastructure\Validator\Sku;
 use Ergonode\Product\Infrastructure\Validator\SkuExists;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
@@ -30,7 +31,7 @@ class SimpleProductFormModel
     public ?string $sku = null;
 
     /**
-     * @var array
+     * @var CategoryId[]
      */
     public array $categories = [];
 
