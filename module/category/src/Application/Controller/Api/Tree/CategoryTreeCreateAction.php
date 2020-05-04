@@ -65,7 +65,7 @@ class CategoryTreeCreateAction
      *     in="body",
      *     description="Category tree body",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/tree_req")
+     *     @SWG\Schema(ref="#/definitions/tree_request")
      * )
      * @SWG\Response(
      *     response=201,

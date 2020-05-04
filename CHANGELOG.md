@@ -1,7 +1,16 @@
+## CHANGELOG FOR 0.7.0
+- feature [#343](https://github.com/ergonode/backend/issues/343) Add product collection module (wiewiurdp)
 - feature [#335](https://github.com/ergonode/backend/issues/335) [#391](https://github.com/ergonode/backend/issues/391) Extend condition set (Daniel-Marynicz,wfajczyk)
+- feature [#496](https://github.com/ergonode/backend/issues/496) Extensions of unit (wiewiurdp) 
+- experimental [#367](https://github.com/ergonode/backend/issues/367) Basic Import CSV File from Magento 1 (rprzedzik)
 - experimental [#378](https://github.com/ergonode/backend/issues/378) Creating Shared Kernel (wfajczyk)
 - experimental [#351](https://github.com/ergonode/backend/issues/351) New export space in DB (wfajczyk)
-- fix [#397](https://github.com/ergonode/backend/issues/397) Merge category tree to category (wfajczyk) 
+- experimental [#328](https://github.com/ergonode/backend/issues/328) Add channel module (rprzedzik)
+- experimental [#374](https://github.com/ergonode/backend/issues/374) Create Export Skeleton (wfajczyk)
+- fix [#397](https://github.com/ergonode/backend/issues/397) Merge category tree to category (wfajczyk)
+- improvement [#331](https://github.com/ergonode/backend/issues/331) Update PHP to 7.4 (nimah79,Daniel-Marynicz,rprzedzik,wfajczyk,wiewiurdp) 
+- improvement [#322](https://github.com/ergonode/backend/issues/332) Upgrade to Symfony 4.4 (Daniel-Marynicz)
+- improvement [#421](https://github.com/ergonode/backend/issues/421) Upgrade PHPUnit to 9.0 (Daniel-Marynicz)
  
 ## CHANGELOG FOR 0.6.1
  - fix - Add missing date filter for grid (wfajczyk)

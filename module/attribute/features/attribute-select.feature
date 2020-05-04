@@ -17,6 +17,19 @@ Feature: Select attribute manipulation
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
+  Scenario: Create option without code
+    And I send a "POST" request to "/api/v1/en/attributes/@attribute_id@/options" with body:
+      """
+      {
+        "code": null,
+        "label":  {
+          "pl": "Option pl 1",
+          "en": "Option en 1"
+        }
+      }
+      """
+    Then the response status code should be 400
+
   Scenario: Create option for attribute
     And I send a "POST" request to "/api/v1/en/attributes/@attribute_id@/options" with body:
       """

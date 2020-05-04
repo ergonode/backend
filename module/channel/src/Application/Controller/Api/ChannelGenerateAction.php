@@ -60,13 +60,13 @@ class ChannelGenerateAction
      * @SWG\Response(
      *     response=400,
      *     description="Bad Request",
-     *     @SWG\Schema (ref="#/definitions/error")
+     *     @SWG\Schema (ref="#/definitions/error_response")
      * )
      *
      * @SWG\Response(
      *     response=401,
      *     description="Bad credentials",
-     *     @SWG\Schema (ref="#/definitions/error")
+     *     @SWG\Schema (ref="#/definitions/error_response")
      * )
      *
      * @param Request $request

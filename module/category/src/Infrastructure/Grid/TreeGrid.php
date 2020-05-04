@@ -39,15 +39,18 @@ class TreeGrid extends AbstractGrid
             'get' => [
                 'route' => 'ergonode_category_tree_read',
                 'parameters' => ['language' => $language->getCode(), 'tree' => '{id}'],
+                'privilege' => 'CATEGORY_TREE_READ',
             ],
             'edit' => [
                 'route' => 'ergonode_category_tree_change',
                 'parameters' => ['language' => $language->getCode(), 'tree' => '{id}'],
+                'privilege' => 'CATEGORY_TREE_UPDATE',
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'route' => 'ergonode_category_tree_delete',
                 'parameters' => ['language' => $language->getCode(), 'tree' => '{id}'],
+                'privilege' => 'CATEGORY_TREE_DELETE',
                 'method' => Request::METHOD_DELETE,
             ],
         ]));
