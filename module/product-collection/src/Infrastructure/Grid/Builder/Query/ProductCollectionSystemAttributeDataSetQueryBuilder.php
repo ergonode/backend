@@ -38,8 +38,11 @@ class ProductCollectionSystemAttributeDataSetQueryBuilder implements AttributeDa
     ): void {
         $query->addSelect(
             sprintf(
-                '(SELECT jsonb_agg(product_collection_id) FROM collection_element ce '.
-                ' WHERE ce.product_id = p.id LIMIT 1) AS "%s"',
+                '(
+                    SELECT jsonb_agg(product_collection_id) 
+                    FROM collection_element ce 
+                    WHERE ce.product_id = p.id LIMIT 1
+                ) AS "%s"',
                 $key
             )
         );

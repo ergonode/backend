@@ -82,6 +82,23 @@ class DbalLanguageQuery implements LanguageQueryInterface
     /**
      * @param Language $language
      *
+     * @return array
+     */
+    public function getLanguageNodeInfo(Language $language): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select('code, lft, rgt')
+            ->from(self::TABLE_TREE)
+            ->where($qb->expr()->eq('code', ':code'))
+            ->setParameter(':code', $language->getCode())
+            ->execute()
+            ->fetch();
+    }
+
+    /**
+     * @param Language $language
+     *
      * @return Language[]
      */
     public function getInheritancePath(Language $language): array
