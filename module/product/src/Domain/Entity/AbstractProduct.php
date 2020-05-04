@@ -20,11 +20,11 @@ use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
 use Ergonode\Product\Domain\Event\ProductVersionIncreasedEvent;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
@@ -82,8 +82,16 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             }
         );
 
-        $this->apply(new ProductCreatedEvent($id, $sku, $categories, $attributes));
+        $this->apply(new ProductCreatedEvent($id, $sku, $this->getType(), \get_class($this), $categories, $attributes));
     }
+
+    /**
+     * @JMS\VirtualProperty();
+     * @JMS\SerializedName("type")
+     *
+     * @return string
+     */
+    abstract public function getType(): string;
 
     /**
      * @return ProductId
@@ -92,11 +100,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     {
         return $this->id;
     }
-
-    /**
-     * @return string
-     */
-    abstract public function getType(): string;
 
     /**
      * @return Sku
