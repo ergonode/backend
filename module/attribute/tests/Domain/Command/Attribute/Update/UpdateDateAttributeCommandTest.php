@@ -12,11 +12,12 @@ namespace Ergonode\Attribute\Tests\Domain\Command\Attribute\Update;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextAttributeCommand;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateDateAttributeCommand;
+use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 
 /**
  */
-class UpdateTextAttributeCommandTest extends TestCase
+class UpdateDateAttributeCommandTest extends TestCase
 {
     /**
      * @param AttributeId        $id
@@ -24,6 +25,7 @@ class UpdateTextAttributeCommandTest extends TestCase
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param bool               $multilingual
+     * @param DateFormat         $format
      * @param array              $groups
      *
      * @dataProvider dataProvider
@@ -34,14 +36,17 @@ class UpdateTextAttributeCommandTest extends TestCase
         TranslatableString $hint,
         TranslatableString $placeholder,
         bool $multilingual,
+        DateFormat $format,
         array $groups
     ): void {
-        $command = new UpdateTextAttributeCommand($id, $label, $hint, $placeholder, $multilingual, $groups);
+        $command = new UpdateDateAttributeCommand($id, $label, $hint, $placeholder, $multilingual, $format, $groups);
         $this->assertSame($id, $command->getId());
         $this->assertSame($label, $command->getLabel());
         $this->assertSame($hint, $command->getHint());
         $this->assertSame($placeholder, $command->getPlaceholder());
         $this->assertSame($groups, $command->getGroups());
+        $this->assertSame($multilingual, $command->isMultilingual());
+        $this->assertSame($format, $command->getFormat());
     }
 
     /**
@@ -58,6 +63,7 @@ class UpdateTextAttributeCommandTest extends TestCase
                 $this->createMock(TranslatableString::class),
                 $this->createMock(TranslatableString::class),
                 true,
+                $this->createMock(DateFormat::class),
                 [],
             ],
         ];

@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Grid;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\Grid\Filter\HasFilter;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\Request\FilterValue;

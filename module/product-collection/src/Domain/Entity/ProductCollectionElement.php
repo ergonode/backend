@@ -122,7 +122,7 @@ class ProductCollectionElement extends AbstractEntity
     protected function applyProductCollectionElementVisibleChangedEvent(
         ProductCollectionElementVisibleChangedEvent $event
     ): void {
-        if($this->productId->isEqual($event->getProductId())) {
+        if ($this->productId->isEqual($event->getProductId())) {
             $this->visible = $event->isVisible();
         }
     }

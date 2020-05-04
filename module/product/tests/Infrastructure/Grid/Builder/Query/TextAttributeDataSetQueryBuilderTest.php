@@ -10,17 +10,17 @@ namespace Ergonode\Product\Tests\Infrastructure\Grid\Builder\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Product\Infrastructure\Grid\Builder\Query\MultiSelectAttributeDataSetQueryBuilder;
+use Ergonode\Product\Infrastructure\Grid\Builder\Query\TextAttributeDataSetQueryBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 /**
  */
-class MultiSelectAttributeDataSetQueryBuilderTest extends TestCase
+class TextAttributeDataSetQueryBuilderTest extends TestCase
 {
     /**
      * @var DateAttribute|MockObject
@@ -46,7 +46,7 @@ class MultiSelectAttributeDataSetQueryBuilderTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->attribute = $this->createMock(MultiSelectAttribute::class);
+        $this->attribute = $this->createMock(TextAttribute::class);
         $this->queryBuilder = $this->createMock(QueryBuilder::class);
         $this->language = $this->createMock(Language::class);
         $this->query = $this->createMock(LanguageQueryInterface::class);
@@ -57,7 +57,7 @@ class MultiSelectAttributeDataSetQueryBuilderTest extends TestCase
      */
     public function testIsSupported(): void
     {
-        $builder = new MultiSelectAttributeDataSetQueryBuilder($this->query);
+        $builder = new TextAttributeDataSetQueryBuilder($this->query);
         $this->assertTrue($builder->supports($this->attribute));
     }
 
@@ -65,7 +65,7 @@ class MultiSelectAttributeDataSetQueryBuilderTest extends TestCase
      */
     public function testIsNotSupported(): void
     {
-        $builder = new MultiSelectAttributeDataSetQueryBuilder($this->query);
+        $builder = new TextAttributeDataSetQueryBuilder($this->query);
         $this->assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
     }
 
@@ -74,7 +74,7 @@ class MultiSelectAttributeDataSetQueryBuilderTest extends TestCase
     public function testAddQuerySelect(): void
     {
         $this->queryBuilder->expects($this->once())->method('addSelect');
-        $builder = new MultiSelectAttributeDataSetQueryBuilder($this->query);
+        $builder = new TextAttributeDataSetQueryBuilder($this->query);
         $builder->addSelect($this->queryBuilder, 'any key', $this->attribute, $this->language);
     }
 }

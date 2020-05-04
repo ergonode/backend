@@ -169,7 +169,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      */
     public function changeLabel(TranslatableString $label): void
     {
-        if ($this->label->getTranslations() !== $label->getTranslations()) {
+        if (!$label->isEqual($this->label)) {
             $this->apply(new AttributeLabelChangedEvent($this->id, $this->label, $label));
         }
     }
@@ -181,7 +181,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      */
     public function changeHint(TranslatableString $hint): void
     {
-        if ($this->hint->getTranslations() !== $hint->getTranslations()) {
+        if (!$hint->isEqual($this->hint)) {
             $this->apply(new AttributeHintChangedEvent($this->id, $this->hint, $hint));
         }
     }
@@ -193,7 +193,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      */
     public function changePlaceholder(TranslatableString $placeholder): void
     {
-        if ($this->placeholder->getTranslations() !== $placeholder->getTranslations()) {
+        if (!$placeholder->isEqual($this->placeholder)) {
             $this->apply(new AttributePlaceholderChangedEvent($this->id, $this->placeholder, $placeholder));
         }
     }
