@@ -69,6 +69,7 @@ class DbalProductQuery implements ProductQueryInterface
         $qb->addSelect('(SELECT count(*) FROM collection_element'.
         ' WHERE product_collection_id = c.id) as elements_count');
         $qb->where($qb->expr()->eq('product_id', ':product_id'));
+        $qb->andWhere('visible=true');
 
         $result = $this->connection->createQueryBuilder();
 
