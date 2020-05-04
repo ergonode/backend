@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Query;
 
+use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
-use Ergonode\Grid\DataSetInterface;
 
 /**
  */
@@ -25,9 +25,9 @@ interface AccountQueryInterface
     /**
      * @param UserId $userId
      *
-     * @return array
+     * @return array | null
      */
-    public function getUser(UserId $userId): array;
+    public function getUser(UserId $userId): ?array;
 
     /**
      * @param RoleId $roleId

@@ -105,6 +105,8 @@ final class Version20180401062601 extends AbstractErgonodeMigration
             'Ergonode\Account\Domain\Event\User\UserLastNameChangedEvent' => 'User last name changed',
             'Ergonode\Account\Domain\Event\User\UserPasswordChangedEvent' => 'User password changed',
             'Ergonode\Account\Domain\Event\User\UserRoleChangedEvent' => 'User role changed',
+            'Ergonode\Account\Domain\Event\User\UserLanguagePrivilegesCollectionChangedEvent' =>
+                'User language privileges changed',
             'Ergonode\Account\Domain\Event\User\UserActivatedEvent' => 'User activated',
             'Ergonode\Account\Domain\Event\User\UserDeactivatedEvent' => 'User disabled',
             'Ergonode\Account\Domain\Event\Role\AddPrivilegeToRoleEvent' => 'Privilege added',
