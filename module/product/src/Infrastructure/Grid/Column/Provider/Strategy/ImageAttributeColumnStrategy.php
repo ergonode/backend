@@ -32,6 +32,9 @@ class ImageAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
-        return new ImageColumn($attribute->getCode()->getValue(), $attribute->getLabel()->get($language));
+        return new ImageColumn(
+            $attribute->getCode()->getValue(),
+            $attribute->getLabel()->get($language)
+        );
     }
 }

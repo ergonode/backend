@@ -10,6 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Grid\Filter;
 
 use Ergonode\Grid\FilterInterface;
+use Webmozart\Assert\Assert;
+use Ergonode\Grid\Filter\Option\FilterOptionInterface;
 
 /**
  */
@@ -18,7 +20,7 @@ class MultiSelectFilter implements FilterInterface
     public const TYPE = 'MULTI_SELECT';
 
     /**
-     * @var array
+     * @var FilterOptionInterface[]
      */
     private array $options;
 
@@ -27,6 +29,7 @@ class MultiSelectFilter implements FilterInterface
      */
     public function __construct(array $options)
     {
+        Assert::allIsInstanceOf($options, FilterOptionInterface::class);
         $this->options = $options;
     }
 
@@ -35,7 +38,12 @@ class MultiSelectFilter implements FilterInterface
      */
     public function render(): array
     {
-        return ['options' => $this->options];
+        $result['options'] = [];
+        foreach ($this->options as $option) {
+            $result['options'][$option->getKey()] = $option->render();
+        }
+
+        return $result;
     }
 
     /**

@@ -82,7 +82,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
 
         $qb->setMaxResults($limit);
         $qb->setFirstResult($offset);
-        if ($field) {
+        if ($field && isset($columns[$field])) {
             if ($columns[$field]->getAttribute()) {
                 $field = Uuid::uuid5(self::NAMESPACE, $field)->toString();
             }

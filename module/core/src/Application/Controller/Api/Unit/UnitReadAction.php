@@ -28,8 +28,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class UnitReadAction
 {
     /**
-     * @IsGranted("SETTINGS_READ")
-     *
      * @SWG\Tag(name="Unit")
      * @SWG\Parameter(
      *     name="language",

@@ -64,8 +64,9 @@ class DbalCategoryQuery implements CategoryQueryInterface
      */
     public function findIdByCode(CategoryCode $code): ?CategoryId
     {
-        $qb = $this->getQuery();
+        $qb = $this->connection->createQueryBuilder();
         $result = $qb->select('id')
+            ->from(self::CATEGORY_TABLE)
             ->where($qb->expr()->eq('code', ':code'))
             ->setParameter(':code', $code->getValue())
             ->execute()
@@ -76,6 +77,21 @@ class DbalCategoryQuery implements CategoryQueryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getAll(Language $language): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select(sprintf('id, name->>\'%s\' as name, code', $language->getCode()))
+            ->from(self::CATEGORY_TABLE, 'c')
+            ->execute()
+            ->fetchAll();
     }
 
     /**

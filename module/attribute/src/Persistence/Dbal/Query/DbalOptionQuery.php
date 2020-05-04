@@ -48,8 +48,9 @@ class DbalOptionQuery implements OptionQueryInterface
     public function getList(AttributeId $attributeId, Language $language): array
     {
         $qb = $this->getQuery();
-
-        return $qb->select('o.id, vt.value')
+        //TODO it's not the solution we've been waiting for, but the one we've had time for.
+        return $qb->select('o.id')
+            ->addSelect('COALESCE(vt.value, CONCAT(\'#\', o.key)) AS value')
             ->leftJoin('o', self::TABLE_VALUES, 'vt', 'vt.value_id = o.value_id')
             ->andWhere($qb->expr()->eq('o.attribute_id', ':id'))
             ->andWhere($qb->expr()->orX(
@@ -86,7 +87,7 @@ class DbalOptionQuery implements OptionQueryInterface
             $result[] = [
                 'id' => $record['id'],
                 'code' => $record['code'],
-                'label' => !empty($value) ? $value : new \stdClass(),
+                'label' => !empty($value) ? $value : [],
             ];
         }
 

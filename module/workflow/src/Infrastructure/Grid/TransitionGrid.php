@@ -17,6 +17,7 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -46,7 +47,7 @@ class TransitionGrid extends AbstractGrid
         $statuses = $this->statusQuery->getAllStatuses($language);
         $codes = [];
         foreach ($statuses as $code => $status) {
-            $codes[$code] = $status['name'];
+            $codes[] = new FilterOption($code, $code, $status['name']);
         }
 
         $code = new LabelColumn('source', 'From', $statuses, new MultiSelectFilter($codes));
@@ -63,6 +64,7 @@ class TransitionGrid extends AbstractGrid
                     'source' => '{source}',
                     'destination' => '{destination}',
                 ],
+                'privilege' => 'WORKFLOW_READ',
             ],
             'edit' => [
                 'route' => 'ergonode_workflow_transition_change',
@@ -71,6 +73,7 @@ class TransitionGrid extends AbstractGrid
                     'source' => '{source}',
                     'destination' => '{destination}',
                 ],
+                'privilege' => 'WORKFLOW_UPDATE',
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
@@ -80,6 +83,7 @@ class TransitionGrid extends AbstractGrid
                     'source' => '{source}',
                     'destination' => '{destination}',
                 ],
+                'privilege' => 'WORKFLOW_DELETE',
                 'method' => Request::METHOD_DELETE,
             ],
         ]));

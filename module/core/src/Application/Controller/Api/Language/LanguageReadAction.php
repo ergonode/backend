@@ -40,8 +40,6 @@ class LanguageReadAction
     }
 
     /**
-     * @IsGranted("SETTINGS_UPDATE")
-     *
      * @SWG\Tag(name="Language")
      * @SWG\Parameter(
      *     name="language",
@@ -61,7 +59,7 @@ class LanguageReadAction
      * @SWG\Response(
      *     response=200,
      *     description="Returns language",
-     *     @SWG\Schema(ref="#/definitions/language_res")
+     *     @SWG\Schema(ref="#/definitions/language_response")
      * )
      * @SWG\Response(
      *     response=404,

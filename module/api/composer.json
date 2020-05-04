@@ -13,13 +13,14 @@
     },
     "require": {
         "php": "^7.4",
-        "doctrine/dbal": "^2.9",
-        "ergonode/core": "^0.6.1",
-        "jms/serializer": "^3.1",
+        "doctrine/dbal": "^2.10",
+        "ergonode/core": "^0.7.0",
+        "ergonode/shared-kernel": "^0.7.0",
+        "jms/serializer": "^3.4",
         "nelmio/api-doc-bundle": "^3.4",
         "nelmio/cors-bundle": "^1.5 || ^2.0",
         "ramsey/uuid": "^3.8",
-        "sensio/framework-extra-bundle": "^5.4",
+        "sensio/framework-extra-bundle": "^5.5",
         "symfony/http-foundation": "^4.4",
         "symfony/validator": "^4.4"
     },

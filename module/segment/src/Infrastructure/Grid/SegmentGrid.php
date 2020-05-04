@@ -43,15 +43,18 @@ class SegmentGrid extends AbstractGrid
             'get' => [
                 'route' => 'ergonode_segment_read',
                 'parameters' => ['language' => $language->getCode(), 'segment' => '{id}'],
+                'privilege' => 'SEGMENT_READ',
             ],
             'edit' => [
                 'route' => 'ergonode_segment_change',
                 'parameters' => ['language' => $language->getCode(), 'segment' => '{id}'],
+                'privilege' => 'SEGMENT_UPDATE',
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'route' => 'ergonode_segment_delete',
                 'parameters' => ['language' => $language->getCode(), 'segment' => '{id}'],
+                'privilege' => 'SEGMENT_DELETE',
                 'method' => Request::METHOD_DELETE,
             ],
         ]));

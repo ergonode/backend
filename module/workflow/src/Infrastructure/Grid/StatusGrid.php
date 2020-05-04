@@ -20,6 +20,7 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -49,8 +50,8 @@ class StatusGrid extends AbstractGrid
         $statuses = $this->statusQuery->getAllStatuses($language);
 
         $codes = [];
-        foreach ($statuses as $id => $status) {
-            $codes[$id] = $status['name'];
+        foreach ($statuses as $code => $status) {
+            $codes[] = new FilterOption($code, $code, $status['name']);
         }
 
         $id = new TextColumn('id', 'Id', new TextFilter());
@@ -65,15 +66,18 @@ class StatusGrid extends AbstractGrid
             'get' => [
                 'route' => 'ergonode_workflow_status_read',
                 'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+                'privilege' => 'WORKFLOW_READ',
             ],
             'edit' => [
                 'route' => 'ergonode_workflow_status_change',
                 'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+                'privilege' => 'WORKFLOW_UPDATE',
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'route' => 'ergonode_workflow_status_delete',
                 'parameters' => ['language' => $language->getCode(), 'status' => '{id}'],
+                'privilege' => 'WORKFLOW_DELETE',
                 'method' => Request::METHOD_DELETE,
             ],
         ]));

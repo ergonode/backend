@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Handler;
 
+use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 use Ergonode\ProductCollection\Domain\Command\DeleteProductCollectionCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
@@ -30,8 +31,6 @@ class DeleteProductCollectionCommandHandler
     private RelationshipsResolverInterface $relationshipsResolver;
 
     /**
-     * DeleteProductCollectionCommandHandler constructor.
-     *
      * @param ProductCollectionRepositoryInterface $repository
      * @param RelationshipsResolverInterface       $relationshipsResolver
      */
@@ -62,6 +61,11 @@ class DeleteProductCollectionCommandHandler
         $productCollectionElements = $productCollection->getElements();
         foreach ($productCollectionElements as $element) {
             $productCollection->removeElement($element->getProductId());
+        }
+
+        $relationships = $this->relationshipsResolver->resolve($command->getId());
+        if (!$relationships->isEmpty()) {
+            throw new ExistingRelationshipsException($command->getId());
         }
 
         $this->repository->delete($productCollection);

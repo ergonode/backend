@@ -107,7 +107,9 @@ class Node
                 return true;
             }
 
-            return $children->hasSuccessor($categoryId);
+            if ($children->hasSuccessor($categoryId)) {
+                return true;
+            }
         }
 
         return false;

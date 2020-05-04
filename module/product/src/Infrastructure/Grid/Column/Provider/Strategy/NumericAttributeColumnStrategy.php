@@ -11,29 +11,15 @@ namespace Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
-use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\ColumnInterface;
-use Ergonode\Grid\Filter\RangeFilter;
+use Ergonode\Grid\Filter\NumericFilter;
 
 /**
  */
 class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
 {
-    /**
-     * @var AttributeQueryInterface
-     */
-    private AttributeQueryInterface $query;
-
-    /**
-     * @param AttributeQueryInterface $query
-     */
-    public function __construct(AttributeQueryInterface $query)
-    {
-        $this->query = $query;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -47,9 +33,8 @@ class NumericAttributeColumnStrategy implements AttributeColumnStrategyInterface
      */
     public function create(AbstractAttribute $attribute, Language $language): ColumnInterface
     {
-        $range = $this->query->getAttributeValueRange($attribute->getId());
         $columnKey = $attribute->getCode()->getValue();
-        $columnFilter = new RangeFilter($range);
+        $columnFilter = new NumericFilter();
 
         return new NumericColumn($columnKey, $attribute->getLabel()->get($language), $columnFilter);
     }

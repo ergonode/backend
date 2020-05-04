@@ -97,7 +97,7 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('ce.product_collection_id, ce.product_id, ce.visible')
+            ->select('ce.product_collection_id, ce.product_id as id, ce.visible')
             ->from(self::PRODUCT_COLLECTION_ELEMENT_TABLE, 'ce');
     }
 }

@@ -36,37 +36,34 @@ class ProductCollectionElementGrid extends AbstractGrid
         $this->addColumn('default_image', new ImageColumn('default_image', 'Image'));
         $this->addColumn('system_name', new TextColumn('system_name', 'System name', new TextFilter()));
         $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
+        $productId = new TextColumn('id', 'Id', new TextFilter());
+        $productId->setVisible(false);
+        $this->addColumn('id', $productId);
         $this->addColumn('created_at', new DateColumn('created_at', 'Date added', new DateFilter()));
-        $this->addColumn('visible', new BoolColumn('visible', 'Product visible in collection'));
+        $visible = new BoolColumn('visible', 'Product visible in collection');
+        $visible->setEditable(true);
+        $this->addColumn('visible', $visible);
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
                 'route' => 'ergonode_product_collection_element_read',
                 'parameters' => [
                     'language' => $language->getCode(),
                     'collection' => '{product_collection_id}',
-                    'product' => '{product_id}',
+                    'product' => '{id}',
                 ],
-            ],
-            'edit' => [
-                'route' => 'ergonode_product_collection_element_change',
-                'parameters' => [
-                    'language' => $language->getCode(),
-                    'collection' => '{product_collection_id}',
-                    'product' => '{product_id}',
-                ],
-                'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'route' => 'ergonode_product_collection_element_delete',
                 'parameters' => [
                     'language' => $language->getCode(),
                     'collection' => '{product_collection_id}',
-                    'product' => '{product_id}',
+                    'product' => '{id}',
                 ],
                 'method' => Request::METHOD_DELETE,
             ],
         ]));
         $this->orderBy('created_at', 'DESC');
         $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
+        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT, true);
     }
 }

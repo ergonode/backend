@@ -72,7 +72,7 @@ class AttributeGroupChangeAction
      *     in="body",
      *     description="Add attribute",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/attribute_group_upd")
+     *     @SWG\Schema(ref="#/definitions/attribute_group_update")
      * )
      * @SWG\Parameter(
      *     name="language",

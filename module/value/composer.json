@@ -13,12 +13,13 @@
     },
     "require": {
         "php": "^7.4",
-        "doctrine/dbal": "^2.9",
-        "ergonode/attribute": "^0.6.0",
-        "ergonode/category": "^0.6.0",
-        "ergonode/core": "^0.6.0",
-        "ergonode/es": "^0.6.0",
-        "jms/serializer": "^3.1",
+        "doctrine/dbal": "^2.10",
+        "ergonode/attribute": "^0.7.0",
+        "ergonode/category": "^0.7.0",
+        "ergonode/core": "^0.7.0",
+        "ergonode/es": "^0.7.0",
+        "ergonode/shared-kernel": "^0.7.0",
+        "jms/serializer": "^3.4",
         "ramsey/uuid": "^3.8"
     },
     "require-dev": {

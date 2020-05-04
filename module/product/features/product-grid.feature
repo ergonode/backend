@@ -165,6 +165,21 @@ Feature: Product edit feature
     Then the response status code should be 201
     And store response param "id" as "product_edit_price_attribute"
 
+  Scenario: Create Image attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en/attributes" with body:
+      """
+      {
+        "code": "IMAGE_@@random_code@@",
+        "type": "IMAGE",
+        "groups": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "product_edit_image_attribute"
+
   Scenario: Get text attribute code
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
@@ -213,6 +228,14 @@ Feature: Product edit feature
     Then the response status code should be 200
     And store response param "code" as "product_edit_multi_select_attribute_code"
 
+  Scenario: Get image attribute code
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/en/attributes/@product_edit_image_attribute@"
+    Then the response status code should be 200
+    And store response param "code" as "product_edit_image_attribute_code"
+
 
   Scenario: Create template
     Given I am Authenticated as "test@ergonode.com"
@@ -236,6 +259,7 @@ Feature: Product edit feature
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_edit_template@",
         "categoryIds": []
       }
@@ -251,6 +275,7 @@ Feature: Product edit feature
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_edit_template@",
         "categoryIds": []
       }
@@ -516,4 +541,11 @@ Feature: Product edit feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "api/v1/en/products?columns=@product_edit_text_attribute_code@&,index&field=@product_edit_text_attribute_code@&order=DESC"
+    Then the response status code should be 200
+
+  Scenario: Request product order by not exists attribute
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "api/v1/en/products?columns=@product_edit_text_attribute_code@&,index&field=xxxxxxx@&order=DESC"
     Then the response status code should be 200

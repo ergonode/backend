@@ -72,7 +72,7 @@ class UserChangeAction
      *     in="body",
      *     description="Add attribute",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/account_upd")
+     *     @SWG\Schema(ref="#/definitions/account_update")
      * )
      * @SWG\Parameter(
      *     name="language",

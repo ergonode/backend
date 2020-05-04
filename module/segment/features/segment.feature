@@ -64,6 +64,7 @@ Feature: Segment module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": ["@product_category@"]
       }

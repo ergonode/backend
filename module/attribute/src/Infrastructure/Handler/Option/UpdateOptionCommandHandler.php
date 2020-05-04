@@ -41,6 +41,7 @@ class UpdateOptionCommandHandler
         $option = $this->repository->load($command->getId());
         Assert::notNull($option);
         $option->changeLabel($command->getLabel());
+        $option->changeCode($command->getCode());
 
         $this->repository->save($option);
     }

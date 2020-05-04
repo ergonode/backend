@@ -39,15 +39,18 @@ class RoleGrid extends AbstractGrid
             'get' => [
                 'route' => 'ergonode_account_role_read',
                 'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
+                'privilege' => 'USER_ROLE_READ',
             ],
             'edit' => [
                 'route' => 'ergonode_account_role_change',
                 'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
+                'privilege' => 'USER_ROLE_UPDATE',
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
                 'route' => 'ergonode_account_role_delete',
                 'parameters' => ['language' => $language->getCode(), 'role' => '{id}'],
+                'privilege' => 'USER_ROLE_DELETE',
                 'method' => Request::METHOD_DELETE,
             ],
         ]));

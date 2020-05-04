@@ -16,6 +16,7 @@ use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
 use Ergonode\Core\Domain\ValueObject\Range;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 
@@ -81,17 +82,6 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
         return $this->cache[$key];
     }
 
-
-    /**
-     * @param AttributeId $attributeId
-     *
-     * @return Range
-     */
-    public function getAttributeValueRange(AttributeId $attributeId): Range
-    {
-        return $this->attributeQuery->getAttributeValueRange($attributeId);
-    }
-
     /**
      * @param AttributeId $attributeId
      *
@@ -154,5 +144,15 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     public function findAttributeIdsByUnitId(UnitId $id): array
     {
         return $this->attributeQuery->findAttributeIdsByUnitId($id);
+    }
+
+    /**
+     * @param AttributeGroupId $id
+     *
+     * @return array
+     */
+    public function findAttributeIdsByAttributeGroupId(AttributeGroupId $id): array
+    {
+        return $this->attributeQuery->findAttributeIdsByAttributeGroupId($id);
     }
 }
