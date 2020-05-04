@@ -7,11 +7,11 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Projector\GroupingProduct;
+namespace Ergonode\Product\Persistence\Dbal\Projector\Child;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Product\Domain\Event\GroupingProduct\ChildAddedToProductEvent;
+use Ergonode\Product\Domain\Event\Child\ChildAddedToProductEvent;
 
 /**
  */

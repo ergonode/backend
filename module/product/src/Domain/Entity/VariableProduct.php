@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Entity;
 
-use Ergonode\Product\Domain\Event\GroupingProduct\ChildAddedToProductEvent;
+use Ergonode\Product\Domain\Event\Child\ChildAddedToProductEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Event\GroupingProduct\ChildRemovedFromProductEvent;
+use Ergonode\Product\Domain\Event\Child\ChildRemovedFromProductEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Product\Domain\Event\Bind\BindAddedToProductEvent;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;

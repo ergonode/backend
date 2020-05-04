@@ -12,11 +12,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\Product\Domain\Command\Update\UpdateSimpleProductCommand;
+use Ergonode\Product\Domain\Command\Update\UpdateVariableProductCommand;
 
 /**
  */
-class UpdateProductCommandTest extends TestCase
+class UpdateVariableProductCommandTest extends TestCase
 {
     /**
      * @param ProductId  $id
@@ -27,10 +27,11 @@ class UpdateProductCommandTest extends TestCase
      */
     public function testCreateCommand(ProductId $id, TemplateId $templateId, array $categories): void
     {
-        $command = new UpdateSimpleProductCommand($id, $templateId, $categories);
+        $command = new UpdateVariableProductCommand($id, $templateId, $categories);
 
         $this->assertSame($id, $command->getId());
         $this->assertSame($categories, $command->getCategories());
+        $this->assertSame($templateId, $command->getTemplateId());
     }
 
     /**

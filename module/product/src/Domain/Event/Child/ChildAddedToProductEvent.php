@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Domain\Event\GroupingProduct;
+namespace Ergonode\Product\Domain\Event\Child;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ChildRemovedFromProductEvent implements DomainEventInterface
+class ChildAddedToProductEvent implements DomainEventInterface
 {
     /**
      * @var ProductId
