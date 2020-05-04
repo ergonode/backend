@@ -14,10 +14,10 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class ConstraintLanguageCodeExists extends Constraint
+class ConstraintLanguageActive extends Constraint
 {
     /**
      * @var string
      */
-    public string $message = 'Language code {{ value }} does not exists.';
+    public string $message = 'Language code {{ value }} is not active';
 }

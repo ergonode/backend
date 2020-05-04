@@ -248,7 +248,7 @@ Ergonode\Account\Domain\Entity\Role:
     __construct:
       - '<roleId("Category manager")>'
       - 'Category manager'
-      - 'Assures product data are correct and ready to publish. Manages product categories, verifies products statuses. Is responsible for product data completness.'
+      - 'Assures product data are correct and ready to publish. Manages product categories, verifies products statuses. Is responsible for product data completeness.'
       -
         - '<privilege("IMPORT_CREATE")>'
         - '<privilege("IMPORT_READ")>'

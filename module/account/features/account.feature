@@ -430,7 +430,7 @@ Feature: Account module
           "passwordRepeat": 12345678,
           "roleId": "@role@",
           "languagePrivilegesCollection": {
-             "en_US": {
+             "en": {
                "read": true,
                "edit": true
              }
@@ -782,7 +782,7 @@ Feature: Account module
           "passwordRepeat": 12345678,
           "roleId": "@role@",
           "languagePrivilegesCollection": {
-             "en_US": {
+             "en": {
                "read": true
              }
            }
@@ -805,7 +805,7 @@ Feature: Account module
           "passwordRepeat": 12345678,
           "roleId": "@role@",
           "languagePrivilegesCollection": {
-             "en_US": {
+             "en": {
              }
            }
       }
@@ -835,7 +835,7 @@ Feature: Account module
           "passwordRepeat": 123456789,
           "roleId": "@role@",
           "languagePrivilegesCollection": {
-             "en_US": {
+             "en": {
                "read": true,
                "edit": true
              }

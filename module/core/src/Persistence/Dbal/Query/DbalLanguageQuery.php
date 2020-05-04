@@ -122,6 +122,20 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
+     * @return array
+     */
+    public function getDictionaryActive(): array
+    {
+        $qb = $this->getQuery(self::DICTIONARY_FIELD);
+
+        return $qb
+            ->where($qb->expr()->eq('active', ':active'))
+            ->setParameter(':active', true, \PDO::PARAM_BOOL)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
      * @return Language[]
      */
     public function getActive(): array
