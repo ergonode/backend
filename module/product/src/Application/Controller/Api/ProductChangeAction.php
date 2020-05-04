@@ -11,11 +11,10 @@ namespace Ergonode\Product\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Product\Application\Form\ProductUpdateForm;
-use Ergonode\Product\Application\Model\ProductCreateFormModel;
-use Ergonode\Product\Application\Model\ProductUpdateFormModel;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Product\Application\Provider\ProductFormProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\Product\Infrastructure\Provider\UpdateProductCommandFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -23,8 +22,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Product\Domain\Command\UpdateProductCategoriesCommand;
 
 /**
  * @Route(
@@ -37,23 +34,41 @@ use Ergonode\Product\Domain\Command\UpdateProductCategoriesCommand;
 class ProductChangeAction
 {
     /**
-     * @var CommandBusInterface
-     */
-    private CommandBusInterface $commandBus;
-
-    /**
      * @var FormFactoryInterface
      */
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
+     * @var ProductFormProvider
      */
-    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
-    {
-        $this->commandBus = $commandBus;
+    private ProductFormProvider $provider;
+
+    /**
+     * @var UpdateProductCommandFactoryProvider
+     */
+    private UpdateProductCommandFactoryProvider $commandProvider;
+
+    /**
+     * @var CommandBusInterface
+     */
+    private CommandBusInterface $commandBus;
+
+    /**
+     * @param FormFactoryInterface                $formFactory
+     * @param ProductFormProvider                 $provider
+     * @param UpdateProductCommandFactoryProvider $commandProvider
+     * @param CommandBusInterface                 $commandBus
+     */
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        ProductFormProvider $provider,
+        UpdateProductCommandFactoryProvider $commandProvider,
+        CommandBusInterface $commandBus
+    ) {
         $this->formFactory = $formFactory;
+        $this->provider = $provider;
+        $this->commandProvider = $commandProvider;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -101,18 +116,14 @@ class ProductChangeAction
      */
     public function __invoke(AbstractProduct $product, Request $request): Response
     {
-        $model = new ProductUpdateFormModel();
-        $form = $this->formFactory->create(ProductUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
+        $class = $this->provider->provide($product->getType());
+
+        $form = $this->formFactory->create($class, null, ['method' => Request::METHOD_PUT]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var ProductCreateFormModel $data */
-            $data = $form->getData();
-            $categories = [];
-            foreach ($data->categories as $category) {
-                $categories[] = new CategoryId($category);
-            }
-            $command = new UpdateProductCategoriesCommand($product->getId(), $categories);
+            $factory = $this->commandProvider->provide($product->getType());
+            $command = $factory->create($product->getId(), $form);
             $this->commandBus->dispatch($command);
 
             return new EmptyResponse();

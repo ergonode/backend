@@ -9,23 +9,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\DependencyInjection\CompilerPass;
 
-use Ergonode\Product\Domain\Provider\ProductFactoryProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use Ergonode\Product\Infrastructure\Provider\CreateProductCommandFactoryProvider;
 
 /**
  */
-class ProductFactoryProviderCompilerPass implements CompilerPassInterface
+class ProductCreateCommandFactoryProviderCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'component.product.product_factory';
+    public const TAG = 'component.product.product_create_command_factory';
 
     /**
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container): void
     {
-        if ($container->has(ProductFactoryProvider::class)) {
+        if ($container->has(CreateProductCommandFactoryProvider::class)) {
             $this->processStrategies($container);
         }
     }
@@ -36,7 +36,7 @@ class ProductFactoryProviderCompilerPass implements CompilerPassInterface
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];
-        $definition = $container->findDefinition(ProductFactoryProvider::class);
+        $definition = $container->findDefinition(CreateProductCommandFactoryProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
         foreach ($strategies as $id => $strategy) {

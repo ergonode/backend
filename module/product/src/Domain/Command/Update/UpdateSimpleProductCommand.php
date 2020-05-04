@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Domain\Command;
+namespace Ergonode\Product\Domain\Command\Update;
 
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
@@ -15,10 +15,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
-class UpdateProductCommand implements DomainCommandInterface
+class UpdateSimpleProductCommand implements DomainCommandInterface
 {
     /**
      * @var ProductId
@@ -26,6 +27,13 @@ class UpdateProductCommand implements DomainCommandInterface
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $id;
+
+    /**
+     * @var TemplateId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
+     */
+    private TemplateId $templateId;
 
     /**
      * @var CategoryId[]
@@ -42,16 +50,22 @@ class UpdateProductCommand implements DomainCommandInterface
     private array $attributes;
 
     /**
-     * @param ProductId $productId
-     * @param array     $categories
-     * @param array     $attributes
+     * @param ProductId  $productId
+     * @param TemplateId $templateId
+     * @param array      $categories
+     * @param array      $attributes
      */
-    public function __construct(ProductId $productId, array $categories = [], array $attributes = [])
-    {
+    public function __construct(
+        ProductId $productId,
+        TemplateId $templateId,
+        array $categories = [],
+        array $attributes = []
+    ) {
         Assert::allIsInstanceOf($categories, CategoryId::class);
         Assert::allIsInstanceOf($attributes, ValueInterface::class);
 
         $this->id = $productId;
+        $this->templateId = $templateId;
         $this->categories = $categories;
         $this->attributes = $attributes;
     }
@@ -62,6 +76,14 @@ class UpdateProductCommand implements DomainCommandInterface
     public function getId(): ProductId
     {
         return $this->id;
+    }
+
+    /**
+     * @return TemplateId
+     */
+    public function getTemplateId(): TemplateId
+    {
+        return $this->templateId;
     }
 
     /**

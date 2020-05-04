@@ -14,4 +14,12 @@ namespace Ergonode\Product\Domain\Entity;
 class SimpleProduct extends AbstractProduct
 {
     public const TYPE = 'SIMPLE-PRODUCT';
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return self::TYPE;
+    }
 }

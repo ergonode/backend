@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductSimple\Tests\Domain\Entity;
+namespace Ergonode\Product\Tests\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -73,6 +73,7 @@ class SimpleProductTest extends TestCase
         $this->assertEquals($this->sku, $product->getSku());
         $this->assertEquals([$this->category], $product->getCategories());
         $this->assertEquals([$this->code->getValue() => $this->attribute], $product->getAttributes());
+        $this->assertEquals(SimpleProduct::TYPE, $product->getType());
     }
 
     /**
@@ -100,6 +101,7 @@ class SimpleProductTest extends TestCase
      */
     public function testAttributeManipulation(): void
     {
+        $newValue =  $this->createMock(ValueInterface::class);
         $product = new SimpleProduct(
             $this->id,
             $this->sku,
@@ -107,10 +109,65 @@ class SimpleProductTest extends TestCase
             [$this->code->getValue() => $this->attribute]
         );
         $this->assertTrue($product->hasAttribute($this->code));
+        $this->assertEquals($this->attribute, $product->getAttribute($this->code));
+        $product->changeAttribute($this->code, $newValue);
+        $this->assertEquals($newValue, $product->getAttribute($this->code));
         $product->removeAttribute($this->code);
         $this->assertFalse($product->hasAttribute($this->code));
         $product->addAttribute($this->code, $this->attribute);
         $this->assertEquals([$this->code->getValue() => $this->attribute], $product->getAttributes());
         $this->assertEquals($this->attribute, $product->getAttribute($this->code));
+    }
+
+    /**
+     */
+    public function testRemoveNoteExistsAttribute(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $product = new SimpleProduct(
+            $this->id,
+            $this->sku,
+        );
+        $product->removeAttribute($this->code);
+    }
+
+    /**
+     */
+    public function testAddExistsAttribute(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $product = new SimpleProduct(
+            $this->id,
+            $this->sku,
+            [],
+            [$this->code->getValue() => $this->attribute]
+        );
+        $product->addAttribute($this->code, $this->attribute);
+    }
+
+    /**
+     */
+    public function testChangeNotExistsAttribute(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $product = new SimpleProduct(
+            $this->id,
+            $this->sku,
+            [],
+            []
+        );
+        $product->changeAttribute($this->code, $this->attribute);
+    }
+
+    /**
+     */
+    public function testGetNotExistsAttribute(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $product = new SimpleProduct(
+            $this->id,
+            $this->sku,
+        );
+        $product->getAttribute($this->code);
     }
 }
