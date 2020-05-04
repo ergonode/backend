@@ -57,7 +57,7 @@ class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
     {
         $query = $this->connection->createQueryBuilder();
         $result = $query->select('*')
-            ->from(self::TABLE,'t')
+            ->from(self::TABLE, 't')
             ->orderBy('t.lft')
             ->execute()
             ->fetchAll();
@@ -104,7 +104,6 @@ class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
                         'code' => $branch->getCode(),
                     ]
                 );
-
             }
             $this->connection->commit();
         } catch (\Exception $ex) {
@@ -122,6 +121,5 @@ class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
             ->where('lft > :int')
             ->setParameter(':int', 0)
             ->execute();
-
     }
 }

@@ -36,8 +36,6 @@ class LanguageNode
     private array $children;
 
     /**
-     * LanguageNode constructor.
-     *
      * @param Language $language
      */
     public function __construct(Language $language)
@@ -103,6 +101,9 @@ class LanguageNode
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function hasChildren(): bool
     {
         return !empty($this->children);

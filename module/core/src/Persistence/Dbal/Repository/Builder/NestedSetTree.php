@@ -77,7 +77,7 @@ class NestedSetTree
         $this->data[] = new Branch(
             $id,
             $code,
-            $right+ 1,
+            $right + 1,
             $right + 2,
             $child->getParentId(),
             $child->getParentCode()
@@ -148,9 +148,8 @@ class NestedSetTree
         $child = null;
         foreach ($this->data as $row) {
             if ($row->getParentCode() === $code) {
-                if ($child === null) {
+                if (null === $child) {
                     $child = $row;
-
                 } else {
                     if ($child->getLeft() < $row->getLeft()) {
                         $child = $row;

@@ -53,8 +53,8 @@ class UpdateLanguageTreeCommand implements DomainCommandInterface
         foreach ($languages->children as $child) {
             $child = $this->createNode($child);
             $node->addChild($child);
-
         }
+
         return $node;
     }
 }

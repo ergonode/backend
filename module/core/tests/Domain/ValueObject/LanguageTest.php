@@ -57,6 +57,16 @@ class LanguageTest extends TestCase
     }
 
     /**
+     */
+    public function testString(): void
+    {
+        $code = 'en';
+        $language = Language::fromString($code);
+
+        $this->assertEquals($language->__toString(), $code);
+    }
+
+    /**
      * @return array
      */
     public function validLanguage(): array

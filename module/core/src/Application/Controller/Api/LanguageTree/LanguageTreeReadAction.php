@@ -66,6 +66,7 @@ class LanguageTreeReadAction
     public function __invoke(Language $language): Response
     {
         $tree = $this->repository->load();
+
         return new SuccessResponse($tree);
     }
 }

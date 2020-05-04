@@ -37,8 +37,9 @@ class LanguageTreeFactory
             }
         }
 
-        $languageTree =  new LanguageTree($node[$root]);
+        $languageTree = new LanguageTree($node[$root]);
         unset($node);
+
         return $languageTree;
     }
 }

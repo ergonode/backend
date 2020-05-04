@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Infrastructure\Handler\LanguageTree;
 
-
 use Ergonode\Core\Domain\Command\LanguageTree\UpdateLanguageTreeCommand;
 use Ergonode\Core\Domain\Repository\LanguageTreeRepositoryInterface;
 use Webmozart\Assert\Assert;
