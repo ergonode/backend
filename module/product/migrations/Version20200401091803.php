@@ -22,24 +22,6 @@ class Version20200401091803 extends AbstractErgonodeMigration
      */
     public function up(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE IF EXISTS product ADD type VARCHAR(128)');
-
-        $this->addSql(
-            'UPDATE public.event_store SET payload = jsonb_set(payload, \'{type}\', \'"SIMPLE-PRODUCT"\', TRUE)
-             WHERE event_id = (
-             SELECT id FROM public.event_store_event WHERE 
-             event_class = \'Ergonode\Product\Domain\Event\ProductCreatedEvent\')'
-        );
-
-        $this->addSql(
-            'UPDATE public.event_store_history SET payload = jsonb_set(payload, \'{type}\', \'"SIMPLE-PRODUCT"\', TRUE) 
-        WHERE event_id = (
-        SELECT id FROM public.event_store_event 
-        WHERE event_class = \'Ergonode\Product\Domain\Event\ProductCreatedEvent\')'
-        );
-
-        $this->addSql('UPDATE public.product SET type = \'SIMPLE-PRODUCT\'');
-
-        $this->addSql('ALTER TABLE product ALTER COLUMN type SET NOT NULL');
+        $this->addSql('ALTER TABLE IF EXISTS product ADD type VARCHAR(128) NOT NULL');
     }
 }
