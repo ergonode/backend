@@ -85,14 +85,14 @@ class UpdateTreeCommand implements DomainCommandInterface
     /**
      * @param TreeNodeFormModel $category
      *
-     * @return \Ergonode\Category\Domain\ValueObject\Node
+     * @return Node
      */
     private function createNode(TreeNodeFormModel $category): Node
     {
         $node = new Node(new CategoryId($category->categoryId));
-        foreach ($category->childrens as $children) {
-            $children = $this->createNode($children);
-            $node->addChildren($children);
+        foreach ($category->children as $child) {
+            $child = $this->createNode($child);
+            $node->addChild($child);
         }
 
         return $node;

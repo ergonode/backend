@@ -35,7 +35,7 @@ class Node
      *
      * @JMS\Type("array<Ergonode\Category\Domain\ValueObject\Node>")
      */
-    private array $childrens;
+    private array $children;
 
     /**
      * @param CategoryId $categoryId
@@ -43,16 +43,16 @@ class Node
     public function __construct(CategoryId $categoryId)
     {
         $this->categoryId = $categoryId;
-        $this->childrens = [];
+        $this->children = [];
     }
 
     /**
-     * @param Node $children
+     * @param Node $child
      */
-    public function addChildren(Node $children): void
+    public function addChild(Node $child): void
     {
-        $this->childrens[] = $children;
-        $children->setParent($this);
+        $this->children[] = $child;
+        $child->setParent($this);
     }
 
     /**
@@ -84,10 +84,10 @@ class Node
      *
      * @return bool
      */
-    public function hasChildren(CategoryId $categoryId): bool
+    public function hasChild(CategoryId $categoryId): bool
     {
-        foreach ($this->childrens as $children) {
-            if ($children->categoryId->isEqual($categoryId)) {
+        foreach ($this->children as $child) {
+            if ($child->categoryId->isEqual($categoryId)) {
                 return true;
             }
         }
@@ -102,12 +102,12 @@ class Node
      */
     public function hasSuccessor(CategoryId $categoryId): bool
     {
-        foreach ($this->childrens as $children) {
-            if ($children->categoryId->isEqual($categoryId)) {
+        foreach ($this->children as $child) {
+            if ($child->categoryId->isEqual($categoryId)) {
                 return true;
             }
 
-            if ($children->hasSuccessor($categoryId)) {
+            if ($child->hasSuccessor($categoryId)) {
                 return true;
             }
         }
@@ -118,8 +118,8 @@ class Node
     /**
      * @return Node[]
      */
-    public function getChildrens(): array
+    public function getChildren(): array
     {
-        return $this->childrens;
+        return $this->children;
     }
 }

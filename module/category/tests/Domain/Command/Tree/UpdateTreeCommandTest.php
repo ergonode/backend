@@ -46,8 +46,8 @@ class UpdateTreeCommandTest extends TestCase
         $node2 = $this->createMock(TreeNodeFormModel::class);
         $node1->categoryId = '350ba9cc-773b-4ae0-9aa5-ea7efe822e60';
         $node2->categoryId = '350ba9cc-773b-4ae0-9aa5-ea7efe822e61';
-        $node2->childrens = [];
-        $node1->childrens = [$node2];
+        $node2->children = [];
+        $node1->children = [$node2];
 
         return
             [

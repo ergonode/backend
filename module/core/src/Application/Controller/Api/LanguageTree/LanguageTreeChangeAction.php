@@ -68,7 +68,7 @@ class LanguageTreeChangeAction
      *     in="body",
      *     description="Update language tree",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/tree")
+     *     @SWG\Schema(ref="#/definitions/language_tree")
      * )
      * @SWG\Response(
      *     response=204,

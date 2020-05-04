@@ -59,11 +59,11 @@ class NodeTest extends TestCase
         /** @var Node|MockObject $children */
         $children = new Node($categoryId2);
         $node = new Node($this->categoryId);
-        $this->assertFalse($node->hasChildren($categoryId2));
-        $node->addChildren($children);
-        $this->assertEquals($children, $node->getChildrens()[0]);
+        $this->assertFalse($node->hasChild($categoryId2));
+        $node->addChild($children);
+        $this->assertEquals($children, $node->getChildren()[0]);
         $this->assertFalse($node->hasSuccessor($this->categoryId));
-        $this->assertTrue($node->hasChildren($categoryId2));
+        $this->assertTrue($node->hasChild($categoryId2));
     }
 
     /**
@@ -78,11 +78,11 @@ class NodeTest extends TestCase
         $child2 = new Node($categoryId2);
         $child3 = new Node($categoryId3);
 
-        $child1->addChildren($child2);
-        $child1->addChildren($child3);
+        $child1->addChild($child2);
+        $child1->addChild($child3);
 
         $node = new Node($this->categoryId);
-        $node ->addChildren($child1);
+        $node ->addChild($child1);
 
         $this->assertTrue($node->hasSuccessor($categoryId1));
         $this->assertTrue($node->hasSuccessor($categoryId2));

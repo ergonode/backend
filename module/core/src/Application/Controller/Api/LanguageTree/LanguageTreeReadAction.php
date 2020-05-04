@@ -52,7 +52,7 @@ class LanguageTreeReadAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns category tree"
+     *     description="Returns Language tree"
      * )
      * @SWG\Response(
      *     response=404,
