@@ -12,19 +12,30 @@ namespace Ergonode\Product\Domain\Entity;
 use Ergonode\Product\Domain\Event\GroupingProduct\ChildAddedToProductEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Event\GroupingProduct\ChildRemovedFromProductEvent;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Product\Domain\Event\Bind\BindAddedToProductEvent;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+use Ergonode\Product\Domain\Event\Bind\BindRemovedFromProductEvent;
 
 /**
  */
 class VariableProduct extends AbstractProduct
 {
-    public const TYPE = 'variable-product';
+    public const TYPE = 'VARIABLE-PRODUCT';
 
     /**
      * @var ProductId[]
      *
      * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\ProductId>");
      */
-    private array $children;
+    private array $children = [];
+
+    /**
+     * @var AttributeId[]
+     *
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\AttributeId>");
+     */
+    private array $bindings = [];
 
     /**
      * @JMS\virtualProperty();
@@ -44,7 +55,7 @@ class VariableProduct extends AbstractProduct
      */
     public function addChild(AbstractProduct $child): void
     {
-        if (false === $this->hasChild($child->getId())) {
+        if (!$this->hasChild($child->getId())) {
             $this->apply(new ChildAddedToProductEvent($this->id, $child->getId()));
         }
     }
@@ -78,11 +89,59 @@ class VariableProduct extends AbstractProduct
     }
 
     /**
-     * @return array|ProductId[]
+     * @param SelectAttribute $attribute
+     *
+     * @throws \Exception
+     */
+    public function addBind(SelectAttribute $attribute): void
+    {
+        if (!$this->hasBinding($attribute->getId())) {
+            $this->apply(new BindAddedToProductEvent($this->id, $attribute->getId()));
+        }
+    }
+
+    /**
+     * @param AttributeId $attributeId
+     *
+     * @throws \Exception
+     */
+    public function removeBind(AttributeId $attributeId): void
+    {
+        if ($this->hasBinding($attributeId)) {
+            $this->apply(new BindRemovedFromProductEvent($this->id, $attributeId));
+        }
+    }
+
+    /**
+     * @param AttributeId $bindId
+     *
+     * @return bool
+     */
+    public function hasBinding(AttributeId $bindId): bool
+    {
+        foreach ($this->bindings as $bind) {
+            if ($bindId->isEqual($bind)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return ProductId[]
      */
     public function getChildren(): array
     {
         return $this->children;
+    }
+
+    /**
+     * @return AttributeId[]
+     */
+    public function getBindings(): array
+    {
+        return $this->bindings;
     }
 
     /**
@@ -94,10 +153,34 @@ class VariableProduct extends AbstractProduct
     }
 
     /**
-     * @param ChildAddedToProductEvent $event
+     * @param ChildRemovedFromProductEvent $event
      */
-    protected function applyChildRemovedFromProductEvent(ChildAddedToProductEvent $event): void
+    protected function applyChildRemovedFromProductEvent(ChildRemovedFromProductEvent $event): void
     {
-        $this->children[] = $event->getChildId();
+        foreach ($this->children as $key => $child) {
+            if ($child->isEqual($event->getChildId())) {
+                unset($this->children[$key]);
+            }
+        }
+    }
+
+    /**
+     * @param BindAddedToProductEvent $event
+     */
+    protected function applyBindAddedToProductEvent(BindAddedToProductEvent $event): void
+    {
+        $this->bindings[] = $event->getAttributeId();
+    }
+
+    /**
+     * @param BindRemovedFromProductEvent $event
+     */
+    protected function applyBindRemovedFromProductEvent(BindRemovedFromProductEvent $event): void
+    {
+        foreach ($this->bindings as $key => $binding) {
+            if ($binding->isEqual($event->getAttributeId())) {
+                unset($this->children[$key]);
+            }
+        }
     }
 }

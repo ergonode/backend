@@ -55,6 +55,26 @@ final class Version20180619083830 extends AbstractErgonodeMigration
         );
 
         $this->addSql('
+            CREATE TABLE IF NOT EXISTS product_binding (
+                product_id UUID NOT NULL,
+                attribute_id UUID NOT NULL,                
+                PRIMARY KEY(product_id, attribute_id)
+            )
+        ');
+
+        $this->addSql(
+            'ALTER TABLE product_binding 
+                    ADD CONSTRAINT product_binding_product_id_fk
+                        FOREIGN KEY (product_id) REFERENCES public.product on update cascade on delete cascade'
+        );
+
+        $this->addSql(
+            'ALTER TABLE product_binding
+                    ADD CONSTRAINT product_binding_attribute_id_fk
+                        FOREIGN KEY (attribute_id) REFERENCES public.attribute on update cascade on delete restrict'
+        );
+
+        $this->addSql('
             CREATE TABLE product_value
                 (
                     product_id UUID NOT NULL,
@@ -119,6 +139,10 @@ final class Version20180619083830 extends AbstractErgonodeMigration
             'Ergonode\Product\Domain\Event\ProductValueChangedEvent' => 'Product attribute value changed',
             'Ergonode\Product\Domain\Event\ProductValueRemovedEvent' => 'Product attribute value removed',
             'Ergonode\Product\Domain\Event\ProductDeletedEvent' => 'Product deleted',
+            'Ergonode\Product\Domain\Event\Bind\BindAddedToProductEvent' => 'Attribute binded',
+            'Ergonode\Product\Domain\Event\Bind\BindRemovedFromProductEvent' => 'Attribute unbinded',
+            'Ergonode\Product\Domain\Event\GroupingProduct\ChildAddedToProductEvent' => 'Product relation added',
+            'Ergonode\Product\Domain\Event\GroupingProduct\ChildRemovedFromProductEvent' => 'Product relation removed',
         ]);
     }
 

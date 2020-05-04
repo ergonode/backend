@@ -17,7 +17,7 @@ use Ergonode\Product\Domain\Event\GroupingProduct\ChildAddedToProductEvent;
  */
 class ChildAddedToProductEventProjector
 {
-    private const TABLE_PRODUCT_CATEGORY = 'product_children';
+    private const TABLE = 'product_children';
 
     /**
      * @var Connection
@@ -40,7 +40,7 @@ class ChildAddedToProductEventProjector
     public function __invoke(ChildAddedToProductEvent $event): void
     {
         $this->connection->insert(
-            self::TABLE_PRODUCT_CATEGORY,
+            self::TABLE,
             [
                 'product_id' => $event->getAggregateId()->getValue(),
                 'child_id' => $event->getChildId()->getValue(),
