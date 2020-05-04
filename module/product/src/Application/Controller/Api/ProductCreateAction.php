@@ -20,6 +20,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
 
 /**
  * @Route("products", methods={"POST"})
@@ -100,7 +101,7 @@ class ProductCreateAction
      */
     public function __invoke(Request $request): Response
     {
-        $type = $request->request->get('type');
+        $type = $request->request->get('type', SimpleProduct::TYPE);
         $request->request->remove('type');
         $class = $this->provider->provide($type);
 

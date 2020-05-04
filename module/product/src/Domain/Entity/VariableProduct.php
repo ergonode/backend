@@ -9,15 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Entity;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Event\GroupingProduct\ChildAddedToProductEvent;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Event\GroupingProduct\ChildRemovedFromProductEvent;
 
 /**
  */
-class GroupingProduct extends AbstractProduct
+class VariableProduct extends AbstractProduct
 {
-    public const TYPE = 'GROUPING-PRODUCT';
+    public const TYPE = 'variable-product';
 
     /**
      * @var ProductId[]
@@ -38,11 +38,11 @@ class GroupingProduct extends AbstractProduct
     }
 
     /**
-     * @param SimpleProduct $child
+     * @param AbstractProduct $child
      *
      * @throws \Exception
      */
-    public function addChild(SimpleProduct $child): void
+    public function addChild(AbstractProduct $child): void
     {
         if (false === $this->hasChild($child->getId())) {
             $this->apply(new ChildAddedToProductEvent($this->id, $child->getId()));

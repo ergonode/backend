@@ -28,13 +28,31 @@ final class Version20180619083830 extends AbstractErgonodeMigration
                 id UUID NOT NULL,
                 index SERIAL,
                 sku VARCHAR(128) NOT NULL,
-                status VARCHAR(32) NOT NULL,
-                version INT NOT NULL DEFAULT 0,
-                attributes JSONB NOT NULL DEFAULT \'{}\'::JSONB,
+                type VARCHAR(128) NOT NULL,
                 PRIMARY KEY(id)
             )
         ');
         $this->addSql('CREATE UNIQUE INDEX product_sku_key ON product USING btree(sku)');
+
+        $this->addSql('
+            CREATE TABLE IF NOT EXISTS product_children (
+                product_id UUID NOT NULL,
+                child_id UUID NOT NULL,                
+                PRIMARY KEY(product_id, child_id)
+            )
+        ');
+
+        $this->addSql(
+            'ALTER TABLE product_children 
+                    ADD CONSTRAINT product_children_product_id_fk
+                        FOREIGN KEY (product_id) REFERENCES public.product on update cascade on delete cascade'
+        );
+
+        $this->addSql(
+            'ALTER TABLE product_children
+                    ADD CONSTRAINT product_children_child_id_fk
+                        FOREIGN KEY (child_id) REFERENCES public.product on update cascade on delete restrict'
+        );
 
         $this->addSql('
             CREATE TABLE product_value

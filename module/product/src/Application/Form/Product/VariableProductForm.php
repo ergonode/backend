@@ -18,7 +18,7 @@ use Ergonode\Category\Application\Form\Type\CategoryType;
 
 /**
  */
-class SimpleProductForm extends AbstractType
+class VariableProductForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
