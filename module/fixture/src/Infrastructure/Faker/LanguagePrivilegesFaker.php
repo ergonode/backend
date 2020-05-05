@@ -16,19 +16,23 @@ use Faker\Provider\Base as BaseProvider;
  */
 class LanguagePrivilegesFaker extends BaseProvider
 {
+    private const ACTIVE_LANGUAGE_CODES = [
+        'en',
+        'pl',
+    ];
+
     /**
-     * @param string|null $languageCode
-     * @param bool|null   $read
-     * @param bool|null   $edit
+     * @param array $languageCodes
      *
      * @return array|LanguagePrivileges[]
      */
-    public function languagePrivilegesCollection(
-        ?string $languageCode = 'en_US',
-        ?bool $read = true,
-        ?bool $edit = true
-    ): array {
+    public function languagePrivilegesCollection(array $languageCodes = self::ACTIVE_LANGUAGE_CODES): array
+    {
+        $result = [];
+        foreach ($languageCodes as $languageCode) {
+            $result[$languageCode] = new LanguagePrivileges(true, true);
+        }
 
-        return [$languageCode => new LanguagePrivileges($read, $edit)];
+        return $result;
     }
 }

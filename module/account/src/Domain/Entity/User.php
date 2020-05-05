@@ -358,6 +358,32 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
+     * @param Language $language
+     *
+     * @return bool
+     */
+    public function hasReadLanguagePrivilege(Language $language): bool
+    {
+        return (
+            isset($this->languagePrivilegesCollection[$language->getCode()])
+            && $this->languagePrivilegesCollection[$language->getCode()]->isReadable()
+        );
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return bool
+     */
+    public function hasEditLanguagePrivilege(Language $language): bool
+    {
+        return (
+            isset($this->languagePrivilegesCollection[$language->getCode()])
+            && $this->languagePrivilegesCollection[$language->getCode()]->isEditable()
+        );
+    }
+
+    /**
      * @param UserCreatedEvent $event
      */
     protected function applyUserCreatedEvent(UserCreatedEvent $event): void
