@@ -98,6 +98,10 @@ class GroupingProduct extends AbstractProduct
      */
     protected function applyChildRemovedFromProductEvent(ChildRemovedFromProductEvent $event): void
     {
-        $this->children[] = $event->getChildId();
+        foreach ($this->children as $key => $child) {
+            if ($child->isEqual($event->getChildId())) {
+                unset($this->children[$key]);
+            }
+        }
     }
 }
