@@ -9,6 +9,7 @@ Feature: Product edit feature
       {
         "code": "TEXT_@@random_code@@",
         "type": "TEXT",
+        "multilingual": true,
         "groups": []
       }
       """
@@ -24,6 +25,7 @@ Feature: Product edit feature
       {
         "code": "SELECT_@@random_code@@",
         "type": "SELECT",
+        "multilingual": true,
         "groups": []
       }
       """
@@ -67,6 +69,7 @@ Feature: Product edit feature
       {
         "code": "MULTI_SELECT_@@random_code@@",
         "type": "MULTI_SELECT",
+        "multilingual": true,
         "groups": []
       }
       """
@@ -126,6 +129,7 @@ Feature: Product edit feature
         "code": "DATE_@@random_code@@",
         "type": "DATE",
         "groups": [],
+        "multilingual": true,
         "parameters": {"format":"yyyy-MM-dd"}
       }
       """
@@ -141,6 +145,7 @@ Feature: Product edit feature
       {
         "code": "NUMERIC_@@random_code@@",
         "type": "NUMERIC",
+        "multilingual": true,
         "groups": []
       }
       """
@@ -157,6 +162,7 @@ Feature: Product edit feature
         "code": "PRICE_@@random_code@@",
         "type": "PRICE",
         "groups": [],
+        "multilingual": true,
         "parameters": {
           "currency": "PLN"
         }
@@ -174,6 +180,7 @@ Feature: Product edit feature
       {
         "code": "IMAGE_@@random_code@@",
         "type": "IMAGE",
+        "multilingual": true,
         "groups": []
       }
       """
@@ -407,7 +414,6 @@ Feature: Product edit feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "api/v1/en/products?columns=@product_edit_multi_select_attribute_code@&filter=@product_edit_multi_select_attribute_code@=@multi_select_option_1@"
-    Then the response status code should be 200
     And the JSON node "info.filtered" should match "/1/"
     And the JSON node "columns[0].visible" should be true
     And the JSON node "columns[0].editable" should be true

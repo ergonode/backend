@@ -12,10 +12,11 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 /**
  */
-class PriceAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
+class PriceAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**
      * {@inheritDoc}
@@ -30,13 +31,21 @@ class PriceAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderI
      */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
+        $info = $this->query->getLanguageNodeInfo($language);
+
         $query->addSelect(sprintf(
-            '(SELECT value::NUMERIC FROM value_translation vt JOIN product_value pv ON  pv.value_id = vt.value_id
-            WHERE 
-            pv.attribute_id = \'%s\' AND (vt.language = \'%s\' OR vt.language IS NULL) AND pv.product_id = p.id LIMIT 1)
-            AS "%s"',
+            '(
+                SELECT value::NUMERIC FROM product_value pv
+                JOIN value_translation vt ON vt.value_id = pv.value_id
+                LEFT JOIN language_tree lt ON lt.code = vt.language
+                WHERE pv.attribute_id = \'%s\'
+                AND pv.product_id = p.id
+                AND lt.lft <= %s
+                ORDER BY lft DESC NULLS LAST
+                LIMIT 1           
+            ) AS "%s"',
             $attribute->getId()->getValue(),
-            $language->getCode(),
+            $info['lft'],
             $key
         ));
     }

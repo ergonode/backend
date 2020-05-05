@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -9,15 +8,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command\Attribute\Create;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateDateAttributeCommand;
+use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use PHPUnit\Framework\TestCase;
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 
 /**
  */
-class CreateTextAttributeCommandTest extends TestCase
+class CreateDateAttributeCommandTest extends TestCase
 {
     /**
      * @param AttributeCode      $attributeCode
@@ -25,11 +25,13 @@ class CreateTextAttributeCommandTest extends TestCase
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param array              $groups
+     * @param DateFormat         $format
      * @param bool               $multilingual
+     *
+     * @throws \Exception
      *
      * @dataProvider dataProvider
      *
-     * @throws \Exception
      */
     public function testCreateCommand(
         AttributeCode $attributeCode,
@@ -37,14 +39,16 @@ class CreateTextAttributeCommandTest extends TestCase
         TranslatableString $hint,
         TranslatableString $placeholder,
         array $groups,
+        DateFormat $format,
         bool $multilingual
     ): void {
-        $command = new CreateTextAttributeCommand(
+        $command = new CreateDateAttributeCommand(
             $attributeCode,
             $label,
             $hint,
             $placeholder,
             $multilingual,
+            $format,
             $groups
         );
 
@@ -55,6 +59,7 @@ class CreateTextAttributeCommandTest extends TestCase
         $this->assertSame($placeholder, $command->getPlaceholder());
         $this->assertSame($multilingual, $command->isMultilingual());
         $this->assertSame($groups, $command->getGroups());
+        $this->assertSame($format, $command->getFormat());
     }
 
     /**
@@ -71,6 +76,7 @@ class CreateTextAttributeCommandTest extends TestCase
                 $this->createMock(TranslatableString::class),
                 $this->createMock(TranslatableString::class),
                 [],
+                $this->createMock(DateFormat::class),
                 true,
             ],
         ];

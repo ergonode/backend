@@ -41,6 +41,13 @@ interface LanguageQueryInterface
     /**
      * @param Language $language
      *
+     * @return array
+     */
+    public function getLanguageNodeInfo(Language $language): array;
+
+    /**
+     * @param Language $language
+     *
      * @return Language[]
      */
     public function getInheritancePath(Language $language): array;

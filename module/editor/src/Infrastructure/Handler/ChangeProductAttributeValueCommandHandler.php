@@ -138,7 +138,7 @@ class ChangeProductAttributeValueCommandHandler
         }
 
         if ($attribute instanceof SelectAttribute) {
-            return new StringValue((string) $value);
+            return new TranslatableStringValue(new TranslatableString([$language->getCode() => (string) $value]));
         }
 
         if ($attribute->isMultilingual()) {

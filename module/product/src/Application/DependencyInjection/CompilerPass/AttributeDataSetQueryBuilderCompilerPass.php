@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\DependencyInjection\CompilerPass;
 
-use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilder;
+use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilderProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -25,7 +25,7 @@ class AttributeDataSetQueryBuilderCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container): void
     {
-        if ($container->has(DataSetQueryBuilder::class)) {
+        if ($container->has(DataSetQueryBuilderProvider::class)) {
             $this->processStrategies($container);
         }
     }
@@ -36,7 +36,7 @@ class AttributeDataSetQueryBuilderCompilerPass implements CompilerPassInterface
     private function processStrategies(ContainerBuilder $container): void
     {
         $arguments = [];
-        $definition = $container->findDefinition(DataSetQueryBuilder::class);
+        $definition = $container->findDefinition(DataSetQueryBuilderProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
         foreach ($strategies as $id => $strategy) {
