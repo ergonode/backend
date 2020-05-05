@@ -10,15 +10,15 @@ namespace Ergonode\Product\Tests\Application\Form\Product;
 
 use Ergonode\Category\Application\Form\Type\CategoryType;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
-use Ergonode\Product\Application\Form\Product\SimpleProductForm;
-use Ergonode\Product\Application\Model\Product\SimpleProductFormModel;
+use Ergonode\Product\Application\Form\Product\GroupingProductForm;
+use Ergonode\Product\Application\Model\Product\GroupingProductFormModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
  */
-class SimpleProductFormTest extends TypeTestCase
+class GroupingProductFormTest extends TypeTestCase
 {
     /**
      * @var CategoryQueryInterface|MockObject
@@ -48,13 +48,13 @@ class SimpleProductFormTest extends TypeTestCase
             'categoryIds' => ['2ae47e1b-10c3-4dd6-ac70-41000125c29f'],
         ];
 
-        $object = new SimpleProductFormModel();
+        $object = new GroupingProductFormModel();
         $object->sku = 'sku';
         $object->template = '78750d71-b5d4-4e5b-a9df-25ff619e2148';
         $object->categories = ['2ae47e1b-10c3-4dd6-ac70-41000125c29f'];
 
-        $objectToCompare = new SimpleProductFormModel();
-        $form = $this->factory->create(SimpleProductForm::class, $objectToCompare);
+        $objectToCompare = new GroupingProductFormModel();
+        $form = $this->factory->create(GroupingProductForm::class, $objectToCompare);
         $form->submit($formData);
 
         $this->assertTrue($form->isSynchronized());

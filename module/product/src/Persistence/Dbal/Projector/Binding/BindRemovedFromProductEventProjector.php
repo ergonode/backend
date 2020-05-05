@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Persistence\Dbal\Projector;
+namespace Ergonode\Product\Persistence\Dbal\Projector\Binding;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Product\Domain\Event\ProductVersionIncreasedEvent;
+use Ergonode\Product\Domain\Event\Bind\BindRemovedFromProductEvent;
 
 /**
  */
-class ProductVersionIncreasedEventProjector
+class BindRemovedFromProductEventProjector
 {
-    private const TABLE_PRODUCT = 'product';
+    private const TABLE = 'product_binding';
 
     /**
      * @var Connection
@@ -33,19 +33,17 @@ class ProductVersionIncreasedEventProjector
     }
 
     /**
-     * @param ProductVersionIncreasedEvent $event
+     * @param BindRemovedFromProductEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductVersionIncreasedEvent $event): void
+    public function __invoke(BindRemovedFromProductEvent $event): void
     {
-        $this->connection->update(
-            self::TABLE_PRODUCT,
+        $this->connection->delete(
+            self::TABLE,
             [
-                'version' => $event->getTo(),
-            ],
-            [
-                'id' => $event->getAggregateId()->getValue(),
+                'product_id' => $event->getAggregateId()->getValue(),
+                'attribute_id' => $event->getAttributeId()->getValue(),
             ]
         );
     }

@@ -13,12 +13,12 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand;
+use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
-class CreateProductCommandTest extends TestCase
+class CreateVariableProductCommandTest extends TestCase
 {
     /**
      * @param ProductId  $id
@@ -36,12 +36,13 @@ class CreateProductCommandTest extends TestCase
         array $categories,
         array $attributes
     ): void {
-        $command = new CreateSimpleProductCommand($id, $sku, $templateId, $categories, $attributes);
+        $command = new CreateVariableProductCommand($id, $sku, $templateId, $categories, $attributes);
 
         $this->assertSame($id, $command->getId());
         $this->assertSame($sku, $command->getSku());
         $this->assertSame($categories, $command->getCategories());
         $this->assertSame($attributes, $command->getAttributes());
+        $this->assertSame($templateId, $command->getTemplateId());
         $this->assertNotNull($command->getId());
     }
 

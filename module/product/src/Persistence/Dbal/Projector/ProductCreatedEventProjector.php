@@ -61,7 +61,6 @@ class ProductCreatedEventProjector
                 'id' => $event->getAggregateId()->getValue(),
                 'sku' => $event->getSku()->getValue(),
                 'type' => $event->getType(),
-                'status' => 'new',
             ]
         );
 

@@ -44,6 +44,9 @@ parameters:
   label_esa_product_collection:
     'pl': 'Kolekcje produktów'
     'en': 'Product collections'
+  label_esa_product_type:
+    'pl': 'Typ produktu'
+    'en': 'Product type'
   name_product_collection_type_up-sell:
     'pl': 'Up-sell'
     'en': 'Up-sell'
@@ -412,6 +415,12 @@ Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttrib
       - '<translation(<{empty}>)>'
       - '<translation(<{empty}>)>'
 
+Ergonode\Product\Domain\Entity\Attribute\ProductTypeSystemAttribute:
+  attribute_esa_product_type:
+    __construct:
+      - '<translation(<{label_esa_product_type}>)>'
+      - '<translation(<{empty}>)>'
+      - '<translation(<{empty}>)>'
 
 Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
   product_collection_type_up_sell:

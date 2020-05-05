@@ -1,11 +1,47 @@
-Ergonode\Product\Domain\Command\CreateProductCommand:
+Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
     product_{1..1000}:
         __construct:
             - '<productId(SKU_<current()>)>'
             - '<sku(SKU_<current()>)>'
+            - '@template->id'
             - []
             -
-                'esa_template': '<stringValue(@template->id)>'
+                'image_attribute': '<stringValue(@product_image_*->id)>'
+                'code_1':  '<stringValue(<sentence(5)>)>'
+                'code_11':  '<stringValue(<paragraph(20)>)>'
+                'code_21':  '<stringValue(<randomFloat()>)>'
+                'code_26':  '<stringValue(<date(Y-m-d)>)>'
+                'code_31':  '<stringValue(<randomFloat(2)>)>'
+                'code_37':  '<stringValue(<randomFloat(2)>)>'
+                'code_41':  '<stringValue(@select_option_*->id)>'
+                'code_46':  '<stringCollectionValue(@multiselect_option_*->id)>'
+
+Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand:
+    product_{1001..1010}:
+        __construct:
+            - '<productId(SKU_<current()>)>'
+            - '<sku(SKU_<current()>)>'
+            - '@template->id'
+            - []
+            -
+                'image_attribute': '<stringValue(@product_image_*->id)>'
+                'code_1':  '<stringValue(<sentence(5)>)>'
+                'code_11':  '<stringValue(<paragraph(20)>)>'
+                'code_21':  '<stringValue(<randomFloat()>)>'
+                'code_26':  '<stringValue(<date(Y-m-d)>)>'
+                'code_31':  '<stringValue(<randomFloat(2)>)>'
+                'code_37':  '<stringValue(<randomFloat(2)>)>'
+                'code_41':  '<stringValue(@select_option_*->id)>'
+                'code_46':  '<stringCollectionValue(@multiselect_option_*->id)>'
+
+Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand:
+    product_{1011..1020}:
+        __construct:
+            - '<productId(SKU_<current()>)>'
+            - '<sku(SKU_<current()>)>'
+            - '@template->id'
+            - []
+            -
                 'image_attribute': '<stringValue(@product_image_*->id)>'
                 'code_1':  '<stringValue(<sentence(5)>)>'
                 'code_11':  '<stringValue(<paragraph(20)>)>'

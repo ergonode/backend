@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,16 +6,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Tests\Domain\Event;
+namespace Ergonode\Product\Tests\Domain\Event\Child;
 
-use Ergonode\Product\Domain\Event\ProductVersionIncreasedEvent;
-use PHPUnit\Framework\TestCase;
+use Ergonode\Product\Domain\Event\Child\ChildAddedToProductEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 /**
  */
-class ProductVersionIncreasedEventTest extends TestCase
+class ChildAddedToProductEventTest extends TestCase
 {
     /**
      */
@@ -24,11 +23,10 @@ class ProductVersionIncreasedEventTest extends TestCase
     {
         /** @var ProductId|MockObject $id */
         $id = $this->createMock(ProductId::class);
-        $from = 1;
-        $to = 2;
-        $event = new ProductVersionIncreasedEvent($id, $from, $to);
+        /** @var ProductId|MockObject $productId */
+        $productId = $this->createMock(ProductId::class);
+        $event = new ChildAddedToProductEvent($id, $productId);
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($from, $event->getFrom());
-        $this->assertEquals($to, $event->getTo());
+        $this->assertEquals($productId, $event->getChildId());
     }
 }

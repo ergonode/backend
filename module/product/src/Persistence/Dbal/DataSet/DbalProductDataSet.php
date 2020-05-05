@@ -159,7 +159,7 @@ class DbalProductDataSet extends AbstractDbalDataSet
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('p.id, p.index, p.sku, p.version')
+            ->select('p.id, p.index, p.sku')
             ->from(self::PRODUCT_TABLE, 'p');
     }
 }

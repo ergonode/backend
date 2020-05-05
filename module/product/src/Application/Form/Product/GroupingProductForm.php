@@ -13,12 +13,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\Product\Application\Model\Product\SimpleProductFormModel;
 use Ergonode\Category\Application\Form\Type\CategoryType;
+use Ergonode\Product\Application\Model\Product\GroupingProductFormModel;
 
 /**
  */
-class SimpleProductForm extends AbstractType
+class GroupingProductForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -53,7 +53,7 @@ class SimpleProductForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => SimpleProductFormModel::class,
+            'data_class' => GroupingProductFormModel::class,
             'translation_domain' => 'product',
         ]);
     }
