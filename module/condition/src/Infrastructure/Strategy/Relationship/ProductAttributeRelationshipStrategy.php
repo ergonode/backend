@@ -7,27 +7,27 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Infrastructure\Strategy\Relationship;
+namespace Ergonode\Condition\Infrastructure\Strategy\Relationship;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Infrastructure\Strategy\RelationshipStrategyInterface;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Ergonode\Condition\Domain\Query\ConditionSetQueryInterface;
 
 /**
  */
 class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterface
 {
     /**
-     * @var ProductQueryInterface
+     * @var ConditionSetQueryInterface
      */
-    private ProductQueryInterface $query;
+    private ConditionSetQueryInterface $query;
 
     /**
-     * @param ProductQueryInterface $query
+     * @param ConditionSetQueryInterface $query
      */
-    public function __construct(ProductQueryInterface $query)
+    public function __construct(ConditionSetQueryInterface $query)
     {
         $this->query = $query;
     }
@@ -49,6 +49,6 @@ class ProductAttributeRelationshipStrategy implements RelationshipStrategyInterf
             throw new UnexpectedTypeException($id, AttributeId::class);
         }
 
-        return $this->query->findProductIdByAttributeId($id);
+        return $this->query->findNumericConditionRelations($id);
     }
 }

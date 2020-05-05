@@ -44,7 +44,7 @@ class NumericAttributeValueConditionCalculatorStrategy implements ConditionCalcu
     /**
      * {@inheritDoc}
      */
-    public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
+    public function calculate(AbstractProduct $product, ConditionInterface $configuration): bool
     {
         $attributeId = $configuration->getAttribute();
         $attribute = $this->repository->load($attributeId);
@@ -53,32 +53,49 @@ class NumericAttributeValueConditionCalculatorStrategy implements ConditionCalcu
         $option = $configuration->getOption();
         $expected = $configuration->getValue();
 
-        if ($object->hasAttribute($attribute->getCode())) {
-            $value = (string) $object->getAttribute($attribute->getCode());
-            $value = (float) $value;
-            if (('=' === $option) && $value !== $expected) {
-                return false;
+        if ($product->hasAttribute($attribute->getCode())) {
+            $values = $product->getAttribute($attribute->getCode());
+            foreach ($values->getValue() as $value) {
+                if ($this->calculateValue($option, (float) $expected, (float) $value)) {
+                    return true;
+                }
             }
+        }
 
-            if (('<>' === $option) && $value === $expected) {
-                return false;
-            }
+        return false;
+    }
 
-            if (('>' === $option) && $value <= $expected) {
-                return false;
-            }
+    /**
+     * @param string $option
+     * @param float  $expected
+     * @param float  $value
+     *
+     * @return bool
+     */
+    private function calculateValue(string $option, float $expected, float $value): bool
+    {
+        if (('=' === $option) && $value !== $expected) {
+            return false;
+        }
 
-            if (('>=' === $option) && $value < $expected) {
-                return false;
-            }
+        if (('<>' === $option) && $value === $expected) {
+            return false;
+        }
 
-            if (('<' === $option) && $value >= $expected) {
-                return false;
-            }
+        if (('>' === $option) && $value <= $expected) {
+            return false;
+        }
 
-            if (('<=' === $option) && $value > $expected) {
-                return false;
-            }
+        if (('>=' === $option) && $value < $expected) {
+            return false;
+        }
+
+        if (('<' === $option) && $value >= $expected) {
+            return false;
+        }
+
+        if (('<=' === $option) && $value > $expected) {
+            return false;
         }
 
         return true;

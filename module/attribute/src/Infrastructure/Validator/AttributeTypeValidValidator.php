@@ -51,18 +51,15 @@ class AttributeTypeValidValidator extends ConstraintValidator
         if (!is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
             throw new UnexpectedTypeException($value, 'string');
         }
+
         $value = (string) $value;
 
-        $attribute = false;
+        $attribute = null;
         if (AttributeId::isValid($value)) {
             $attribute = $this->attributeRepository->load(new AttributeId($value));
         }
-        $attributeTypeMatch = false;
-        if (null === $constraint->type || $constraint->type === $attribute->getType()) {
-            $attributeTypeMatch = true;
-        }
 
-        if (!$attribute || !$attributeTypeMatch) {
+        if ($attribute && $attribute->getType() !== $constraint->type) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();
