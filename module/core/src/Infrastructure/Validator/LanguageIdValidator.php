@@ -50,7 +50,7 @@ class LanguageIdValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        $value = (string)$value;
+        $value = (string) $value;
 
         $result = $this->query->getLanguageById($value);
 

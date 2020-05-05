@@ -72,6 +72,4 @@ class BranchTest extends TestCase
         $this->assertEquals($this->left + 10, $branch->getLeft());
         $this->assertEquals($this->right + 100, $branch->getRight());
     }
-
-
 }

@@ -48,7 +48,7 @@ class LanguageIdHandler implements SubscribingHandlerInterface
 
     /**
      * @param SerializationVisitorInterface $visitor
-     * @param LanguageId                $id
+     * @param LanguageId                    $id
      * @param array                         $type
      * @param Context                       $context
      *

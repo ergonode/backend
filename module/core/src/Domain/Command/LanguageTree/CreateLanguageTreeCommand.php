@@ -10,6 +10,7 @@ namespace Ergonode\Core\Domain\Command\LanguageTree;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -17,24 +18,24 @@ use JMS\Serializer\Annotation as JMS;
 class CreateLanguageTreeCommand implements DomainCommandInterface
 {
     /**
-     * @var Language
+     * @var LanguageId
      *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\LanguageId")
      */
-    private Language $rootLanguage;
+    private LanguageId $rootLanguage;
 
     /**
-     * @param Language $rootLanguage
+     * @param LanguageId $rootLanguage
      */
-    public function __construct(Language $rootLanguage)
+    public function __construct(LanguageId $rootLanguage)
     {
         $this->rootLanguage = $rootLanguage;
     }
 
     /**
-     * @return Language
+     * @return LanguageId
      */
-    public function getRootLanguage(): Language
+    public function getRootLanguage(): LanguageId
     {
         return $this->rootLanguage;
     }

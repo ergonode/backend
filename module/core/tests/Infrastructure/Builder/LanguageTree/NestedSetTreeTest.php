@@ -24,7 +24,7 @@ class NestedSetTreeTest extends TestCase
         $tree = new NestedSetTree();
 
         $id = AggregateId::generate();
-        $tree->addRoot($id,'en');
+        $tree->addRoot($id, 'en');
 
         $this->assertEquals('en', $tree->getData()[0]->getCode());
         $this->assertEquals('1', $tree->getData()[0]->getLeft());
@@ -43,9 +43,9 @@ class NestedSetTreeTest extends TestCase
         $idDe = AggregateId::generate();
 
 
-        $tree->addRoot($idEn,'en');
-        $tree->addNode($idPl,'pl', $idEn);
-        $tree->addNode($idDe,'de', $idEn);
+        $tree->addRoot($idEn, 'en');
+        $tree->addNode($idPl, 'pl', $idEn);
+        $tree->addNode($idDe, 'de', $idEn);
 
         $this->assertEquals('en', $tree->getData()[0]->getCode());
         $this->assertEquals('1', $tree->getData()[0]->getLeft());
