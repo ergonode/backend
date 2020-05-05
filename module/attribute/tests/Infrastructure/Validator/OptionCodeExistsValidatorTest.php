@@ -92,7 +92,9 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $value->optionId = null;
         $value->code = 'code';
         $value->attributeId = new AttributeId('bd50b704-f225-49a1-8d1b-ae43adc3f0e1');
-        $this->query->method('findIdByAttributeIdAndCode')->willReturn(new AggregateId('0c6e599f-f821-4337-bc05-c3a0b9ac076b'));
+        $this->query
+            ->method('findIdByAttributeIdAndCode')
+            ->willReturn(new AggregateId('0c6e599f-f821-4337-bc05-c3a0b9ac076b'));
         $constraint = new OptionCodeExists();
         $this->validator->validate($value, $constraint);
         $assertion = $this->buildViolation($constraint->message)
@@ -110,7 +112,9 @@ class OptionCodeExistsValidatorTest extends ConstraintValidatorTestCase
         $value->optionId = new AggregateId('0ae3491f-8052-402d-b84b-b2b36f673669');
         $value->code = 'code';
         $value->attributeId = new AttributeId('bd50b704-f225-49a1-8d1b-ae43adc3f0e1');
-        $this->query->method('findIdByAttributeIdAndCode')->willReturn(new AggregateId('0c6e599f-f821-4337-bc05-c3a0b9ac076b'));
+        $this->query
+            ->method('findIdByAttributeIdAndCode')
+            ->willReturn(new AggregateId('0c6e599f-f821-4337-bc05-c3a0b9ac076b'));
         $constraint = new OptionCodeExists();
         $this->validator->validate($value, $constraint);
         $assertion = $this->buildViolation($constraint->message)
