@@ -8,8 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Tests\Domain\ValueObject;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
+use Ergonode\SharedKernel\Domain\AggregateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -17,24 +17,25 @@ use PHPUnit\Framework\TestCase;
  */
 class LanguageNodeTest extends TestCase
 {
+    public const NAMESPACE = '53db6054-f4c2-4753-a786-297009377be2';
     /**
-     * @var Language|MockObject
+     * @var AggregateId|MockObject
      */
-    private $language;
+    private $languageId;
 
     /**
      */
     protected function setUp(): void
     {
-        $this->language = $this->createMock(Language::class);
+        $this->languageId = $this->createMock(AggregateId::class);
     }
 
     /**
      */
     public function testCreateNode(): void
     {
-        $node = new LanguageNode($this->language);
-        $this->assertEquals($this->language, $node->getLanguage());
+        $node = new LanguageNode($this->languageId);
+        $this->assertEquals($this->languageId, $node->getLanguageId());
     }
 
     /**
@@ -43,7 +44,7 @@ class LanguageNodeTest extends TestCase
     {
         /** @var LanguageNode|MockObject $parent */
         $parent = $this->createMock(LanguageNode::class);
-        $node = new LanguageNode($this->language);
+        $node = new LanguageNode($this->languageId);
         $node->setParent($parent);
         $this->assertEquals($parent, $node->getParent());
     }
@@ -52,11 +53,11 @@ class LanguageNodeTest extends TestCase
      */
     public function testAddChildren(): void
     {
-        $language = new Language('en');
+        $language = AggregateId::generateIdentifier(self::NAMESPACE, 'en');
 
         /** @var LanguageNode|MockObject $children */
         $children = new LanguageNode($language);
-        $node = new LanguageNode($this->language);
+        $node = new LanguageNode($this->languageId);
         $this->assertFalse($node->hasChild($language));
         $node->addChild($children);
         $this->assertEquals($children, $node->getChildren()[0]);
@@ -68,10 +69,10 @@ class LanguageNodeTest extends TestCase
      */
     public function testHasSuccessor(): void
     {
-        $languagePl = new Language('pl');
-        $languageEn = new Language('en');
-        $languageEnGb = new Language('en_GB');
-        $languageEnUs = new Language('en_US');
+        $languagePl = AggregateId::generateIdentifier(self::NAMESPACE, 'pl');
+        $languageEn = AggregateId::generateIdentifier(self::NAMESPACE, 'en');
+        $languageEnGb = AggregateId::generateIdentifier(self::NAMESPACE, 'en_GB');
+        $languageEnUs = AggregateId::generateIdentifier(self::NAMESPACE, 'en_US');
 
         $child1 = new LanguageNode($languageEn);
         $child2 = new LanguageNode($languageEnGb);
@@ -81,7 +82,7 @@ class LanguageNodeTest extends TestCase
         $child1->addChild($child3);
 
         $node = new LanguageNode($languagePl);
-        $node ->addChild($child1);
+        $node->addChild($child1);
 
         $this->assertTrue($node->hasSuccessor($languageEn));
         $this->assertTrue($node->hasSuccessor($languageEnGb));

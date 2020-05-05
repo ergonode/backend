@@ -6,14 +6,29 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Repository\Builder;
+namespace Ergonode\Core\Infrastructure\Builder\LanguageTree;
 
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Core\Domain\Repository\LanguageRepositoryInterface;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
 
 /**
  */
 class LanguageTreeBuilder
 {
+    /**
+     * @var LanguageQueryInterface
+     */
+    private LanguageQueryInterface $query;
+
+    /**
+     * @param LanguageQueryInterface $query
+     */
+    public function __construct(LanguageQueryInterface $query)
+    {
+        $this->query = $query;
+    }
+
     /**
      * @param LanguageNode $node
      *
@@ -24,7 +39,11 @@ class LanguageTreeBuilder
     public function build(LanguageNode $node): NestedSetTree
     {
         $nestedSetTree = new NestedSetTree();
-        $nestedSetTree->addRoot($node->getLanguage()->getCode());
+        $nestedSetTree->addRoot(
+            $node->getLanguageId(),
+            $this->query->getLanguageById($node->getLanguageId()->getValue())['code']
+        );
+
 
         foreach ($node->getChildren() as $child) {
             $this->buildBranch($nestedSetTree, $child);
@@ -42,7 +61,12 @@ class LanguageTreeBuilder
      */
     private function buildBranch(NestedSetTree $nestedSetTree, LanguageNode $node): void
     {
-        $nestedSetTree->addNode($node->getLanguage()->getCode(), $node->getParent()->getLanguage()->getCode());
+        $nestedSetTree->addNode(
+            $node->getLanguageId(),
+            $this->query->getLanguageById($node->getLanguageId()->getValue())['code'],
+            $node->getParent()->getLanguageId()
+        );
+
         foreach ($node->getChildren() as $child) {
             $this->buildBranch($nestedSetTree, $child);
         }

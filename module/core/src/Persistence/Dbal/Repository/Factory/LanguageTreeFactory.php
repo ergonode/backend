@@ -9,8 +9,8 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Persistence\Dbal\Repository\Factory;
 
 use Ergonode\Core\Domain\Entity\LanguageTree;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
@@ -26,7 +26,7 @@ class LanguageTreeFactory
         $node = [];
         $root = null;
         foreach ($data as $row) {
-            $node[$row['id']] = new LanguageNode(new Language($row['code']));
+            $node[$row['id']] = new LanguageNode(new AggregateId($row['id']));
             if ($row['parent_id'] === null) {
                 $root = $row['id'];
             }

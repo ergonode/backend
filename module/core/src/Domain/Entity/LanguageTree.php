@@ -38,7 +38,7 @@ class LanguageTree
     /**
      * @param LanguageNode $languages
      */
-    public function updateLanguages($languages): void
+    public function updateLanguages(LanguageNode $languages): void
     {
         $this->languages = $languages;
     }

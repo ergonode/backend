@@ -6,18 +6,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Repository\Builder;
+namespace Ergonode\Core\Infrastructure\Builder\LanguageTree;
 
-use Ramsey\Uuid\Uuid;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
 class Branch
 {
     /**
-     * @var Uuid
+     * @var AggregateId
      */
-    private Uuid $id;
+    private AggregateId $id;
 
     /**
      * @var string
@@ -35,43 +35,35 @@ class Branch
     private int $right;
 
     /**
-     * @var Uuid|null
+     * @var AggregateId|null
      */
-    private ?Uuid $parentId;
+    private ?AggregateId $parentId;
 
     /**
-     * @var string|null
-     */
-    private ?string $parentCode;
-
-    /**
-     * @param Uuid        $id
-     * @param string      $code
-     * @param int         $left
-     * @param int         $right
-     * @param Uuid|null   $parentId
-     * @param string|null $parentCode
+     * @param AggregateId      $id
+     * @param string           $code
+     * @param int              $left
+     * @param int              $right
+     * @param AggregateId|null $parentId
      */
     public function __construct(
-        Uuid $id,
+        AggregateId $id,
         string $code,
         int $left,
         int $right,
-        ?Uuid $parentId = null,
-        ?string $parentCode = null
+        ?AggregateId $parentId = null
     ) {
         $this->id = $id;
         $this->code = $code;
         $this->left = $left;
         $this->right = $right;
         $this->parentId = $parentId;
-        $this->parentCode = $parentCode;
     }
 
     /**
-     * @return Uuid
+     * @return AggregateId
      */
-    public function getId(): Uuid
+    public function getId(): AggregateId
     {
         return $this->id;
     }
@@ -101,29 +93,21 @@ class Branch
     }
 
     /**
-     * @return Uuid|null
+     * @return AggregateId|null
      */
-    public function getParentId(): ?Uuid
+    public function getParentId(): ?AggregateId
     {
         return $this->parentId;
     }
 
     /**
-     * @return string|null
-     */
-    public function getParentCode(): ?string
-    {
-        return $this->parentCode;
-    }
-
-    /**
-     * @param string $code
+     * @param AggregateId $languageId
      *
      * @return bool
      */
-    public function isEqualCode(string $code): bool
+    public function isEqual(AggregateId $languageId): bool
     {
-        return $code === $this->code;
+        return $languageId === $this->id;
     }
 
     /**

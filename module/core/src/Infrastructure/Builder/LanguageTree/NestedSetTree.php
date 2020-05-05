@@ -6,8 +6,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Persistence\Dbal\Repository\Builder;
+namespace Ergonode\Core\Infrastructure\Builder\LanguageTree;
 
+use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -28,13 +29,11 @@ class NestedSetTree
     }
 
     /**
-     * @param string $code
-     *
-     * @throws \Exception
+     * @param AggregateId $id
+     * @param string      $code
      */
-    public function addRoot(string $code)
+    public function addRoot(AggregateId $id, string $code)
     {
-        $id = Uuid::uuid4();
         $this->data[] = new Branch(
             $id,
             $code,
@@ -44,33 +43,31 @@ class NestedSetTree
     }
 
     /**
-     * @param string $code
-     * @param string $parent
+     * @param AggregateId $id
+     * @param string      $code
+     * @param AggregateId $parentId
      *
      * @throws \Exception
      */
-    public function addNode(string $code, string $parent)
+    public function addNode(AggregateId $id, string $code, AggregateId $parentId)
     {
-        $parentData = $this->findParent($parent);
-        $child = $this->findChildrenMaxLevel($parent);
-
+        $parentData = $this->findParent($parentId);
+        $child = $this->findChildrenMaxLevel($parentId);
 
         if ($child) {
-            $this->addChild($code, $child);
+            $this->addChild($id, $code, $child);
         } else {
-            $this->add($code, $parentData);
+            $this->add($id, $code, $parentData);
         }
     }
 
     /**
-     * @param string $code
-     * @param Branch $child
-     *
-     * @throws \Exception
+     * @param AggregateId $id
+     * @param string      $code
+     * @param Branch      $child
      */
-    private function addChild(string $code, Branch $child)
+    private function addChild(AggregateId $id, string $code, Branch $child)
     {
-        $id = Uuid::uuid4();
         $right = $child->getRight();
         $this->updateLeftRight($child->getRight(), $child->getRight() + 1);
 
@@ -79,20 +76,17 @@ class NestedSetTree
             $code,
             $right + 1,
             $right + 2,
-            $child->getParentId(),
-            $child->getParentCode()
+            $child->getParentId()
         );
     }
 
     /**
-     * @param string $code
-     * @param Branch $parent
-     *
-     * @throws \Exception
+     * @param AggregateId $id
+     * @param string      $code
+     * @param Branch      $parent
      */
-    private function add(string $code, Branch $parent)
+    private function add(AggregateId $id, string $code, Branch $parent)
     {
-        $id = Uuid::uuid4();
         $right = $parent->getRight();
         $this->updateLeftRight($parent->getLeft(), $parent->getRight());
 
@@ -101,8 +95,7 @@ class NestedSetTree
             $code,
             $right,
             $right + 1,
-            $parent->getId(),
-            $parent->getCode()
+            $parent->getId()
         );
     }
 
@@ -123,14 +116,14 @@ class NestedSetTree
     }
 
     /**
-     * @param string $id
+     * @param AggregateId $id
      *
      * @return Branch|null
      */
-    private function findParent(string $id): ?Branch
+    private function findParent(AggregateId $id): ?Branch
     {
         foreach ($this->data as $row) {
-            if ($row->isEqualCode($id)) {
+            if ($row->isEqual($id)) {
                 return $row;
             }
         }
@@ -139,15 +132,15 @@ class NestedSetTree
     }
 
     /**
-     * @param string $code
+     * @param AggregateId $id
      *
      * @return Branch|null
      */
-    private function findChildrenMaxLevel(string $code): ?Branch
+    private function findChildrenMaxLevel(AggregateId $id): ?Branch
     {
         $child = null;
         foreach ($this->data as $row) {
-            if ($row->getParentCode() === $code) {
+            if ($row->getParentId() === $id) {
                 if (null === $child) {
                     $child = $row;
                 } else {

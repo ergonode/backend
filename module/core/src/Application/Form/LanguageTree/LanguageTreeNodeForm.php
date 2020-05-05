@@ -27,10 +27,10 @@ class LanguageTreeNodeForm extends AbstractType
     {
         $builder
             ->add(
-                'language',
+                'language_id',
                 TextType::class,
                 [
-                    'property_path' => 'language',
+                    'property_path' => 'languageId',
                 ]
             )
             ->add(

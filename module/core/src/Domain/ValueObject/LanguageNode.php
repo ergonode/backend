@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Domain\ValueObject;
 
+use Ergonode\SharedKernel\Domain\AggregateId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -22,11 +23,11 @@ class LanguageNode
     private ?LanguageNode $parent;
 
     /**
-     * @var Language
+     * @var AggregateId
      *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
      */
-    private Language $language;
+    private AggregateId $languageId;
 
     /**
      * @var LanguageNode[]
@@ -36,11 +37,11 @@ class LanguageNode
     private array $children;
 
     /**
-     * @param Language $language
+     * @param AggregateId $languageId
      */
-    public function __construct(Language $language)
+    public function __construct(AggregateId $languageId)
     {
-        $this->language = $language;
+        $this->languageId = $languageId;
         $this->children = [];
     }
 
@@ -53,11 +54,11 @@ class LanguageNode
     }
 
     /**
-     * @return Language
+     * @return AggregateId
      */
-    public function getLanguage(): Language
+    public function getLanguageId(): AggregateId
     {
-        return $this->language;
+        return $this->languageId;
     }
 
     /**
@@ -86,14 +87,14 @@ class LanguageNode
     }
 
     /**
-     * @param Language $language
+     * @param AggregateId $languageId
      *
      * @return bool
      */
-    public function hasChild(Language $language): bool
+    public function hasChild(AggregateId $languageId): bool
     {
         foreach ($this->children as $child) {
-            if ($child->language->isEqual($language)) {
+            if ($child->languageId->isEqual($languageId)) {
                 return true;
             }
         }
@@ -110,18 +111,18 @@ class LanguageNode
     }
 
     /**
-     * @param Language $language
+     * @param AggregateId $languageId
      *
      * @return bool
      */
-    public function hasSuccessor(Language $language): bool
+    public function hasSuccessor(AggregateId $languageId): bool
     {
         foreach ($this->children as $child) {
-            if ($child->language->isEqual($language)) {
+            if ($child->languageId->isEqual($languageId)) {
                 return true;
             }
 
-            if ($child->hasSuccessor($language)) {
+            if ($child->hasSuccessor($languageId)) {
                 return true;
             }
         }

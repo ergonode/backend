@@ -20,10 +20,6 @@ interface LanguageTreeRepositoryInterface
      */
     public function load(): ?LanguageTree;
 
-    /**
-     * @return bool
-     */
-    public function exists(): bool;
 
     /**
      * @param LanguageTree $tree

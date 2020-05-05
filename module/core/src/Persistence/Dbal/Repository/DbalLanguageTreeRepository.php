@@ -12,7 +12,7 @@ namespace Ergonode\Core\Persistence\Dbal\Repository;
 use Doctrine\DBAL\Connection;
 use Ergonode\Core\Domain\Entity\LanguageTree;
 use Ergonode\Core\Domain\Repository\LanguageTreeRepositoryInterface;
-use Ergonode\Core\Persistence\Dbal\Repository\Builder\LanguageTreeBuilder;
+use Ergonode\Core\Infrastructure\Builder\LanguageTree\LanguageTreeBuilder;
 use Ergonode\Core\Persistence\Dbal\Repository\Factory\LanguageTreeFactory;
 
 /**
@@ -71,17 +71,6 @@ class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
 
     /**
      * {@inheritDoc}
-     */
-    public function exists(): bool
-    {
-//        $eventStream = $this->eventStore->load(new AggregateId(self::ID));
-//
-//        return $eventStream->count() > 0;
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
      *
      * @throws \Exception
      */
@@ -97,8 +86,8 @@ class DbalLanguageTreeRepository implements LanguageTreeRepositoryInterface
                 $this->connection->insert(
                     self::TABLE,
                     [
-                        'id' => $branch->getId()->toString(),
-                        'parent_id' => $branch->getParentId() ? $branch->getParentId()->toString() : null,
+                        'id' => $branch->getId()->getValue(),
+                        'parent_id' => $branch->getParentId() ? $branch->getParentId()->getValue() : null,
                         'lft' => $branch->getLeft(),
                         'rgt' => $branch->getRight(),
                         'code' => $branch->getCode(),
