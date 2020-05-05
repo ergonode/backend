@@ -94,9 +94,9 @@ class GroupingProduct extends AbstractProduct
     }
 
     /**
-     * @param ChildAddedToProductEvent $event
+     * @param ChildRemovedFromProductEvent $event
      */
-    protected function applyChildRemovedFromProductEvent(ChildAddedToProductEvent $event): void
+    protected function applyChildRemovedFromProductEvent(ChildRemovedFromProductEvent $event): void
     {
         $this->children[] = $event->getChildId();
     }
