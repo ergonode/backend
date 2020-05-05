@@ -31,15 +31,10 @@ final class Version20200429064721 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
-        $id = Uuid::uuid4();
+        
         $this->addSql(
-            'INSERT INTO language_tree (id, parent_id, lft, rgt, code) VALUES(?,?,?,?,?)',
-            [
-                $id->toString(), null,
-                1,
-                2,
-                'en',
-            ]
+            'INSERT INTO language_tree (id, lft, rgt, code)
+                    SELECT id, 1, 2, iso FROM "language" WHERE iso=\'en\''
         );
     }
 }

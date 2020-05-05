@@ -9,10 +9,9 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Domain\Command\LanguageTree;
 
 use Ergonode\Core\Application\Model\LanguageTree\LanguageTreeNodeFormModel;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -49,7 +48,7 @@ class UpdateLanguageTreeCommand implements DomainCommandInterface
      */
     private function createNode(LanguageTreeNodeFormModel $languages): LanguageNode
     {
-        $node = new LanguageNode(new AggregateId($languages->languageId));
+        $node = new LanguageNode(new LanguageId($languages->languageId));
 
         foreach ($languages->children as $child) {
             $child = $this->createNode($child);

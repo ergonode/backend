@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Core\Domain\ValueObject;
 
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -23,11 +23,11 @@ class LanguageNode
     private ?LanguageNode $parent;
 
     /**
-     * @var AggregateId
+     * @var LanguageId
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\AggregateId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\LanguageId")
      */
-    private AggregateId $languageId;
+    private LanguageId $languageId;
 
     /**
      * @var LanguageNode[]
@@ -37,9 +37,9 @@ class LanguageNode
     private array $children;
 
     /**
-     * @param AggregateId $languageId
+     * @param LanguageId $languageId
      */
-    public function __construct(AggregateId $languageId)
+    public function __construct(LanguageId $languageId)
     {
         $this->languageId = $languageId;
         $this->children = [];
@@ -54,9 +54,9 @@ class LanguageNode
     }
 
     /**
-     * @return AggregateId
+     * @return LanguageId
      */
-    public function getLanguageId(): AggregateId
+    public function getLanguageId(): LanguageId
     {
         return $this->languageId;
     }
@@ -87,11 +87,11 @@ class LanguageNode
     }
 
     /**
-     * @param AggregateId $languageId
+     * @param LanguageId $languageId
      *
      * @return bool
      */
-    public function hasChild(AggregateId $languageId): bool
+    public function hasChild(LanguageId $languageId): bool
     {
         foreach ($this->children as $child) {
             if ($child->languageId->isEqual($languageId)) {
@@ -111,11 +111,11 @@ class LanguageNode
     }
 
     /**
-     * @param AggregateId $languageId
+     * @param LanguageId $languageId
      *
      * @return bool
      */
-    public function hasSuccessor(AggregateId $languageId): bool
+    public function hasSuccessor(LanguageId $languageId): bool
     {
         foreach ($this->children as $child) {
             if ($child->languageId->isEqual($languageId)) {

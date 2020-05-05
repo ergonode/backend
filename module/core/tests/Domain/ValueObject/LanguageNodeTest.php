@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Core\Tests\Domain\ValueObject;
 
 use Ergonode\Core\Domain\ValueObject\LanguageNode;
-use Ergonode\SharedKernel\Domain\AggregateId;
+use Ergonode\SharedKernel\Domain\Aggregate\LanguageId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +19,7 @@ class LanguageNodeTest extends TestCase
 {
     public const NAMESPACE = '53db6054-f4c2-4753-a786-297009377be2';
     /**
-     * @var AggregateId|MockObject
+     * @var LanguageId|MockObject
      */
     private $languageId;
 
@@ -27,7 +27,7 @@ class LanguageNodeTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->languageId = $this->createMock(AggregateId::class);
+        $this->languageId = $this->createMock(LanguageId::class);
     }
 
     /**
@@ -53,7 +53,7 @@ class LanguageNodeTest extends TestCase
      */
     public function testAddChildren(): void
     {
-        $language = AggregateId::generateIdentifier(self::NAMESPACE, 'en');
+        $language = LanguageId::generateIdentifier(self::NAMESPACE, 'en');
 
         /** @var LanguageNode|MockObject $children */
         $children = new LanguageNode($language);
@@ -69,10 +69,10 @@ class LanguageNodeTest extends TestCase
      */
     public function testHasSuccessor(): void
     {
-        $languagePl = AggregateId::generateIdentifier(self::NAMESPACE, 'pl');
-        $languageEn = AggregateId::generateIdentifier(self::NAMESPACE, 'en');
-        $languageEnGb = AggregateId::generateIdentifier(self::NAMESPACE, 'en_GB');
-        $languageEnUs = AggregateId::generateIdentifier(self::NAMESPACE, 'en_US');
+        $languagePl = LanguageId::generateIdentifier(self::NAMESPACE, 'pl');
+        $languageEn = LanguageId::generateIdentifier(self::NAMESPACE, 'en');
+        $languageEnGb = LanguageId::generateIdentifier(self::NAMESPACE, 'en_GB');
+        $languageEnUs = LanguageId::generateIdentifier(self::NAMESPACE, 'en_US');
 
         $child1 = new LanguageNode($languageEn);
         $child2 = new LanguageNode($languageEnGb);
