@@ -6,18 +6,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Category\Tests\Infrastructure\Grid;
+namespace Ergonode\Product\Tests\Infrastructure\Grid;
 
-use Ergonode\Category\Infrastructure\Grid\CategoryGrid;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Grid\GridConfigurationInterface;
-use PHPUnit\Framework\MockObject\MockObject;
+use Ergonode\Product\Infrastructure\Grid\ProductChildrenGrid;
 use PHPUnit\Framework\TestCase;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Ergonode\Grid\GridConfigurationInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
-class CategoryGridTest extends TestCase
+class ProductChildrenGridTest extends TestCase
 {
     /**
      */
@@ -28,7 +26,7 @@ class CategoryGridTest extends TestCase
         /** @var Language $language */
         $language = $this->createMock(Language::class);
 
-        $grid = new CategoryGrid();
+        $grid = new ProductChildrenGrid();
         $grid->init($configuration, $language);
 
         $this->assertNotEmpty($grid->getColumns());

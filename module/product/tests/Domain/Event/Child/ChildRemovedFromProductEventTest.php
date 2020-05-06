@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Tests\Domain\Event\Child;
 
-use Ergonode\Product\Domain\Event\Child\ChildRemovedFromProductEvent;
+use Ergonode\Product\Domain\Event\Relation\ChildRemovedFromProductEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

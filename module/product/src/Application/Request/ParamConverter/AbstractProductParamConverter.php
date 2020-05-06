@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  */
-class ProductParamConverter implements ParamConverterInterface
+class AbstractProductParamConverter implements ParamConverterInterface
 {
     /**
      * @var ProductRepositoryInterface
@@ -40,7 +40,11 @@ class ProductParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $parameter = $request->get('product');
+        if ($configuration->getName()) {
+            $parameter = $request->get($configuration->getName());
+        } else {
+            $parameter = $request->get('product');
+        }
 
         if (null === $parameter) {
             throw new BadRequestHttpException('Request parameter "product" is missing');
