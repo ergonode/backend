@@ -58,19 +58,11 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
             $value = $object->getAttribute($attribute->getCode())->getValue();
 
             if ('=' === $option) {
-                if ($value instanceof TranslatableString) {
-                    return $this->calculateEqualTranslatableStringValue($value, $expected);
-                }
-
-                return $expected === $value;
+                return $this->calculateEqualTranslatableStringValue($value, $expected);
             }
 
             if ('~' === $option) {
-                if ($value instanceof TranslatableString) {
-                    return $this->calculateHasTranslatableStringValue($value, $expected);
-                }
-
-                return (false !== mb_strpos($value, $expected));
+                return $this->calculateHasTranslatableStringValue($value, $expected);
             }
         }
 
@@ -83,9 +75,9 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
      *
      * @return bool
      */
-    private function calculateHasTranslatableStringValue(TranslatableString $value, string $expected): bool
+    private function calculateHasTranslatableStringValue(array $value, string $expected): bool
     {
-        foreach ($value->getTranslations() as $translation) {
+        foreach ($value as $key => $translation) {
             if (false !== mb_strpos($translation, $expected)) {
                 return true;
             }
@@ -95,14 +87,14 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
     }
 
     /**
-     * @param TranslatableString $value
-     * @param string             $expected
+     * @param array  $value
+     * @param string $expected
      *
      * @return bool
      */
-    private function calculateEqualTranslatableStringValue(TranslatableString $value, string $expected): bool
+    private function calculateEqualTranslatableStringValue(array $value, string $expected): bool
     {
-        foreach ($value->getTranslations() as $translation) {
+        foreach ($value as $key => $translation) {
             if ($translation === $expected) {
                 return true;
             }
