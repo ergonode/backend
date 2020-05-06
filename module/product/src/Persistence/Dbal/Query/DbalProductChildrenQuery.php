@@ -64,6 +64,6 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         return $this->connection->createQueryBuilder()
             ->select('p.id, p.sku')
             ->from(self::PRODUCT_CHILDREN_TABLE, 'pc')
-            ->join('pc', self::PRODUCT_TABLE, 'p', 'p.id = pc.product_id');
+            ->join('pc', self::PRODUCT_TABLE, 'p', 'p.id = pc.child_id');
     }
 }

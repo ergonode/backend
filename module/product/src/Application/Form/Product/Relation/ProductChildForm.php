@@ -27,8 +27,11 @@ class ProductChildForm extends AbstractType
     {
         $builder
             ->add(
-                'childId',
-                TextType::class
+                'child_id',
+                TextType::class,
+                [
+                    'property_path' => 'childId',
+                ]
             );
     }
 

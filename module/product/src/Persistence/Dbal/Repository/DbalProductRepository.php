@@ -89,6 +89,16 @@ class DbalProductRepository implements ProductRepositoryInterface
     }
 
     /**
+     * @param ProductId $id
+     *
+     * @return bool
+     */
+    public function exists(ProductId $id): bool
+    {
+        return $this->eventStore->load($id)->count() > 0;
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @throws \Exception

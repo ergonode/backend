@@ -11,55 +11,58 @@ namespace Ergonode\Product\Application\Controller\Api\Relations;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\RequestGridConfiguration;
+use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Product\Domain\Query\ProductChildrenQueryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Ergonode\Product\Infrastructure\Grid\ProductChildrenGrid;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Ergonode\Product\Application\Model\Product\Relation\ProductChildFormModel;
-use Ergonode\Product\Application\Form\Product\Relation\ProductChildForm;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Ergonode\Product\Domain\Command\Relation\AddProductChildCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Api\Application\Response\EmptyResponse;
 
 /**
  * @Route(
- *     name="ergonode_product_child_add",
+ *     name="ergonode_product_child",
  *     path="products/{product}/children",
- *     methods={"POST"},
+ *     methods={"GET"},
  *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class ProductAddChildAction extends AbstractController
+class ProductChildGridAction
 {
     /**
-     * @var CommandBusInterface
+     * @var ProductChildrenQueryInterface
      */
-    private CommandBusInterface $commandBus;
+    private ProductChildrenQueryInterface $query;
 
     /**
-     * @var FormFactoryInterface
+     * @var GridRenderer
      */
-    private FormFactoryInterface $formFactory;
+    private GridRenderer $gridRenderer;
 
     /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
+     * @var ProductChildrenGrid
      */
-    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
-    {
-        $this->commandBus = $commandBus;
-        $this->formFactory = $formFactory;
+    private ProductChildrenGrid $grid;
+
+    /**
+     * @param ProductChildrenQueryInterface $query
+     * @param GridRenderer                  $gridRenderer
+     * @param ProductChildrenGrid           $grid
+     */
+    public function __construct(
+        ProductChildrenQueryInterface $query,
+        GridRenderer $gridRenderer,
+        ProductChildrenGrid $grid
+    ) {
+        $this->query = $query;
+        $this->gridRenderer = $gridRenderer;
+        $this->grid = $grid;
     }
 
     /**
-     * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("PRODUCT_READ")
      *
      * @SWG\Tag(name="Product")
      * @SWG\Parameter(
@@ -136,36 +139,26 @@ class ProductAddChildAction extends AbstractController
      * )
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
-     *
-     * @param Language        $language
-     * @param AbstractProduct $product
-     * @param Request         $request
+     * @param AbstractProduct          $product
+     * @param Language                 $language
+     * @param RequestGridConfiguration $configuration
      *
      * @return Response
      */
-    public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
-    {
-        try {
-            $model = new ProductChildFormModel();
-            $form = $this->formFactory->create(ProductChildForm::class, $model);
-            $form->handleRequest($request);
+    public function __invoke(
+        AbstractProduct $product,
+        Language $language,
+        RequestGridConfiguration $configuration
+    ): Response {
+        $data = $this->gridRenderer->render(
+            $this->grid,
+            $configuration,
+            $this->query->getDataSet($product->getId(), $language),
+            $language
+        );
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ProductChildFormModel $data */
-                $data = $form->getData();
-                $command = new AddProductChildCommand(
-                    $product,
-                    new ProductId($data->childId),
-                );
-                $this->commandBus->dispatch($command);
-
-                return new EmptyResponse();
-            }
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
-        }
-
-        throw new FormValidationHttpException($form);
+        return new SuccessResponse($data);
     }
 }

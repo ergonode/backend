@@ -141,8 +141,8 @@ final class Version20180619083830 extends AbstractErgonodeMigration
             'Ergonode\Product\Domain\Event\ProductDeletedEvent' => 'Product deleted',
             'Ergonode\Product\Domain\Event\Bind\BindAddedToProductEvent' => 'Attribute binded',
             'Ergonode\Product\Domain\Event\Bind\BindRemovedFromProductEvent' => 'Attribute unbinded',
-            'Ergonode\Product\Domain\Event\GroupingProduct\ChildAddedToProductEvent' => 'Product relation added',
-            'Ergonode\Product\Domain\Event\GroupingProduct\ChildRemovedFromProductEvent' => 'Product relation removed',
+            'Ergonode\Product\Domain\Event\Relation\ChildAddedToProductEvent' => 'Product relation added',
+            'Ergonode\Product\Domain\Event\Relation\ChildRemovedFromProductEvent' => 'Product relation removed',
         ]);
     }
 

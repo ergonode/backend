@@ -11,7 +11,7 @@ namespace Ergonode\Product\Persistence\Dbal\Projector\Child;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Product\Domain\Event\Child\ChildRemovedFromProductEvent;
+use Ergonode\Product\Domain\Event\Relation\ChildRemovedFromProductEvent;
 
 /**
  */

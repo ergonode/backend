@@ -6,12 +6,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Domain\Command\Child;
+namespace Ergonode\Product\Domain\Command\Relation;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Entity\SimpleProduct;
-use Ergonode\Product\Domain\Entity\VariableProduct;
+use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 /**
  */
@@ -19,30 +19,34 @@ class RemoveProductChildCommand implements DomainCommandInterface
 {
     /**
      * @var ProductId $productId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
-    private ProductId $productId;
+    private ProductId $id;
 
     /**
      * @var ProductId $childId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
     private ProductId $childId;
 
     /**
-     * @param VariableProduct $product
-     * @param SimpleProduct   $child
+     * @param AbstractAssociatedProduct $product
+     * @param AbstractProduct           $child
      */
-    public function __construct(VariableProduct $product, SimpleProduct $child)
+    public function __construct(AbstractAssociatedProduct $product, AbstractProduct $child)
     {
-        $this->productId = $product->getId();
+        $this->id = $product->getId();
         $this->childId = $child->getId();
     }
 
     /**
      * @return ProductId
      */
-    public function getProductId(): ProductId
+    public function getId(): ProductId
     {
-        return $this->productId;
+        return $this->id;
     }
 
     /**

@@ -14,13 +14,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Product\Application\Request\ParamConverter\ProductParamConverter;
+use Ergonode\Product\Application\Request\ParamConverter\AbstractProductParamConverter;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  */
-class ProductParamConverterTest extends TestCase
+class AbstractProductParamConverterTest extends TestCase
 {
     /**
      * @var Request|MockObject
@@ -53,7 +53,7 @@ class ProductParamConverterTest extends TestCase
         $this->request->method('get')->willReturn(null);
         $this->configuration->method('getClass')->willReturn(AbstractProduct::class);
 
-        $paramConverter = new ProductParamConverter($this->repository);
+        $paramConverter = new AbstractProductParamConverter($this->repository);
         $this->assertTrue($paramConverter->supports($this->configuration));
     }
 
@@ -64,7 +64,7 @@ class ProductParamConverterTest extends TestCase
         $this->request->method('get')->willReturn(null);
         $this->configuration->method('getClass')->willReturn('Any other class namespace');
 
-        $paramConverter = new ProductParamConverter($this->repository);
+        $paramConverter = new AbstractProductParamConverter($this->repository);
         $this->assertFalse($paramConverter->supports($this->configuration));
     }
 
@@ -75,7 +75,7 @@ class ProductParamConverterTest extends TestCase
         $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn(null);
 
-        $paramConverter = new ProductParamConverter($this->repository);
+        $paramConverter = new AbstractProductParamConverter($this->repository);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -86,7 +86,7 @@ class ProductParamConverterTest extends TestCase
         $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn('incorrect uuid');
 
-        $paramConverter = new ProductParamConverter($this->repository);
+        $paramConverter = new AbstractProductParamConverter($this->repository);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -97,7 +97,7 @@ class ProductParamConverterTest extends TestCase
         $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
 
-        $paramConverter = new ProductParamConverter($this->repository);
+        $paramConverter = new AbstractProductParamConverter($this->repository);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -110,7 +110,7 @@ class ProductParamConverterTest extends TestCase
         $this->request->attributes = $this->createMock(ParameterBag::class);
         $this->request->attributes->expects($this->once())->method('set');
 
-        $paramConverter = new ProductParamConverter($this->repository);
+        $paramConverter = new AbstractProductParamConverter($this->repository);
         $paramConverter->apply($this->request, $this->configuration);
     }
 }

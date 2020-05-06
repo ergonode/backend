@@ -8,15 +8,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Tests\Domain\Entity;
 
-use Ergonode\Product\Domain\Entity\SimpleProduct;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Product\Domain\Entity\GroupingProduct;
 
 /**
  */
-class SimpleProductTest extends TestCase
+class GroupingProductTest extends TestCase
 {
     /**
      * @var ProductId|MockObject
@@ -41,7 +41,7 @@ class SimpleProductTest extends TestCase
      */
     public function testType(): void
     {
-        $product = new SimpleProduct($this->id, $this->sku);
-        $this->assertSame(SimpleProduct::TYPE, $product->getType());
+        $product = new GroupingProduct($this->id, $this->sku);
+        $this->assertSame(GroupingProduct::TYPE, $product->getType());
     }
 }
