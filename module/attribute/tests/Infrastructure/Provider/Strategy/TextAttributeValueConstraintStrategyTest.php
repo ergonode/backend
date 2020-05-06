@@ -8,33 +8,33 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Provider\Strategy;
 
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
-use PHPUnit\Framework\MockObject\MockObject;
+use Ergonode\Attribute\Infrastructure\Provider\Strategy\TextAttributeValueConstraintStrategy;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Symfony\Component\Validator\Constraints\Collection;
-use Ergonode\Attribute\Infrastructure\Provider\Strategy\PriceAttributeValueConstraintStrategy;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
 /**
  */
-class PriceAttributeValueConstraintStrategyTest extends TestCase
+class TextAttributeValueConstraintStrategyTest extends TestCase
 {
     /**
-     * @var PriceAttributeValueConstraintStrategy|MockObject
+     * @var TextAttributeValueConstraintStrategy|MockObject
      */
-    private PriceAttributeValueConstraintStrategy $strategy;
+    private TextAttributeValueConstraintStrategy $strategy;
 
     /**
-     * @var PriceAttribute|MockObject
+     * @var TextAttribute|MockObject
      */
-    private PriceAttribute $attribute;
+    private TextAttribute $attribute;
 
     /**
      */
     protected function setUp(): void
     {
-        $this->strategy = new PriceAttributeValueConstraintStrategy();
-        $this->attribute = $this->createMock(PriceAttribute::class);
+        $this->strategy = new TextAttributeValueConstraintStrategy();
+        $this->attribute = $this->createMock(TextAttribute::class);
     }
 
     /**
