@@ -32,13 +32,13 @@ class TreeNodeFormModel
      *
      * @Assert\Valid()
      */
-    public array $childrens;
+    public array $children;
 
     /**
      */
     public function __construct()
     {
         $this->categoryId = null;
-        $this->childrens = [];
+        $this->children = [];
     }
 }

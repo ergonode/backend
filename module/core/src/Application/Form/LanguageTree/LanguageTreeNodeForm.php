@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -7,9 +6,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Category\Application\Form\Tree;
+namespace Ergonode\Core\Application\Form\LanguageTree;
 
-use Ergonode\Category\Application\Model\Tree\TreeNodeFormModel;
+use Ergonode\Core\Application\Model\LanguageTree\LanguageTreeNodeFormModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class TreeNodeForm extends AbstractType
+class LanguageTreeNodeForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -28,10 +27,10 @@ class TreeNodeForm extends AbstractType
     {
         $builder
             ->add(
-                'category_id',
+                'language_id',
                 TextType::class,
                 [
-                    'property_path' => 'categoryId',
+                    'property_path' => 'languageId',
                 ]
             )
             ->add(
@@ -51,9 +50,11 @@ class TreeNodeForm extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => TreeNodeFormModel::class,
-            'translation_domain' => 'tree',
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => LanguageTreeNodeFormModel::class,
+                'translation_domain' => 'language_tree',
+            ]
+        );
     }
 }

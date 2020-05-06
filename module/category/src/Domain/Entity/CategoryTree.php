@@ -175,7 +175,7 @@ class CategoryTree extends AbstractAggregateRoot
         $parent = $event->getParentId() ? $this->findNode($event->getParentId()) : null;
         $node = new Node($event->getCategoryId());
         if ($parent) {
-            $parent->addChildren($node);
+            $parent->addChild($node);
         } else {
             $this->categories[] = $node;
         }
@@ -210,8 +210,8 @@ class CategoryTree extends AbstractAggregateRoot
             return $node;
         }
 
-        foreach ($node->getChildrens() as $children) {
-            $node = $this->findSingleNode($categoryId, $children);
+        foreach ($node->getChildren() as $child) {
+            $node = $this->findSingleNode($categoryId, $child);
             if ($node) {
                 return $node;
             }

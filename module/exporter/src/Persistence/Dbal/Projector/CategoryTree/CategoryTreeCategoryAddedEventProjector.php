@@ -49,7 +49,7 @@ class CategoryTreeCategoryAddedEventProjector
         $node = new Node($event->getCategoryId());
 
         if ($parent) {
-            $parent->addChildren($node);
+            $parent->addChild($node);
         } else {
             $categories[] = $node;
         }
@@ -91,8 +91,8 @@ class CategoryTreeCategoryAddedEventProjector
             return $node;
         }
 
-        foreach ($node->getChildrens() as $children) {
-            $node = $this->findSingleNode($categoryId, $children);
+        foreach ($node->getChildren() as $child) {
+            $node = $this->findSingleNode($categoryId, $child);
             if ($node) {
                 return $node;
             }

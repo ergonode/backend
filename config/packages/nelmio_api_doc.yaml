@@ -297,7 +297,7 @@ nelmio_api_doc:
                         description: Category id
                         required: true
                         example: category id
-                    childrens:
+                    children:
                         type: array
                         items:
                             $ref: "#/definitions/tree_node"
@@ -594,6 +594,25 @@ nelmio_api_doc:
                         required: true
                         description: Show if language is enabled in the system
                         example: true
+            language_tree:
+                type: object
+                properties:
+                    languages:
+                        type: array
+                        items:
+                            $ref: "#/definitions/language_tree_node"
+            language_tree_node:
+                type: object
+                properties:
+                    language:
+                        type: string
+                        description: Language Code
+                        required: true
+                        example: en
+                    children:
+                        type: array
+                        items:
+                            $ref: "#/definitions/language_tree_node"
             attribute_group:
                 type: object
                 properties:

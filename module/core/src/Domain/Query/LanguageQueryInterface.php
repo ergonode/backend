@@ -62,4 +62,11 @@ interface LanguageQueryInterface
         string $field = null,
         ?string $order = 'ASC'
     ): array;
+
+    /**
+     * @param string $id
+     *
+     * @return array|null
+     */
+    public function getLanguageById(string $id): ?array;
 }

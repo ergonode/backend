@@ -75,7 +75,7 @@ class LanguageReadAction
         $language = $this->query->getLanguage($translationLanguage);
 
         if ($language) {
-            return new SuccessResponse([$language]);
+            return new SuccessResponse($language);
         }
 
         throw new NotFoundHttpException();
