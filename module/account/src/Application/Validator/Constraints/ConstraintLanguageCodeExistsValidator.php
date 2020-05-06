@@ -22,8 +22,6 @@ class ConstraintLanguageCodeExistsValidator extends ConstraintValidator
     private LanguageQueryInterface $query;
 
     /**
-     * ConstraintLanguageCodeExistsValidator constructor.
-     *
      * @param LanguageQueryInterface $query
      */
     public function __construct(LanguageQueryInterface $query)
