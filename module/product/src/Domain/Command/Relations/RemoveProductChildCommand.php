@@ -6,19 +6,19 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Domain\Command\Relation;
+namespace Ergonode\Product\Domain\Command\Relations;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 /**
  */
-class AddProductChildCommand implements DomainCommandInterface
+class RemoveProductChildCommand implements DomainCommandInterface
 {
     /**
-     * @var ProductId $id
+     * @var ProductId $productId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
      */
@@ -33,12 +33,12 @@ class AddProductChildCommand implements DomainCommandInterface
 
     /**
      * @param AbstractAssociatedProduct $product
-     * @param ProductId                 $childId
+     * @param AbstractProduct           $child
      */
-    public function __construct(AbstractAssociatedProduct $product, ProductId $childId)
+    public function __construct(AbstractAssociatedProduct $product, AbstractProduct $child)
     {
         $this->id = $product->getId();
-        $this->childId = $childId;
+        $this->childId = $child->getId();
     }
 
     /**

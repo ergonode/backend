@@ -7,22 +7,22 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Application\Model\Product\Relation;
+namespace Ergonode\Product\Application\Model\Product\Binding;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\Product\Infrastructure\Validator\ProductExists;
+use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
 
 /**
  */
-class ProductChildFormModel
+class ProductBindFormModel
 {
     /**
      * @var string|null
      *
-     * @Assert\NotBlank(message="Child product is required")
+     * @Assert\NotBlank(message="Bind attribute is required")
      * @Assert\Uuid(strict=true)
      *
-     * @ProductExists()
+     * @AttributeExists()
      */
-    public ?string $childId = null;
+    public ?string $bindId = null;
 }

@@ -1,4 +1,4 @@
-Feature: Product module
+Feature: Variable product
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
@@ -14,6 +14,18 @@ Feature: Product module
       """
     Then the response status code should be 201
     And store response param "id" as "product_template_id"
+
+  Scenario: Create select attribute
+    And I send a "POST" request to "/api/v1/en/attributes" with body:
+      """
+      {
+          "code": "SELECT_BIND_@@random_code@@",
+          "type": "SELECT",
+          "groups": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_id"
 
   Scenario: Create simple product
     When I send a POST request to "/api/v1/en/products" with body:
@@ -65,6 +77,41 @@ Feature: Product module
       }
       """
     Then the response status code should be 204
+
+  Scenario: Add bind attribute with invalid uuid
+    When I send a POST request to "/api/v1/en/products/@product_id@/binding" with body:
+      """
+      {
+        "bind_id": "abcd"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Add bind attribute with not exists uuid
+    When I send a POST request to "/api/v1/en/products/@product_id@/binding" with body:
+      """
+      {
+        "bind_id": "@@random_uuid@@"
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Add bind attribute
+    When I send a POST request to "/api/v1/en/products/@product_id@/binding" with body:
+      """
+      {
+        "bind_id": "@attribute_id@"
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Remove bind attribute
+    When I send a DELETE request to "/api/v1/en/products/@product_id@/binding/@attribute_id@"
+    Then the response status code should be 204
+
+  Scenario: Remove bind attribute with not exist uuid
+    When I send a DELETE request to "/api/v1/en/products/@product_id@/binding/@@random_uuid@@"
+    Then the response status code should be 404
 
   Scenario: Request child grid filtered for given product
     When I send a GET request to "api/v1/en/products/@product_id@/children"

@@ -6,18 +6,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Tests\Domain\Command\Relation;
+namespace Ergonode\Product\Tests\Domain\Command\Relations;
 
+use Ergonode\Product\Domain\Command\Relations\AddProductChildCommand;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Product\Domain\Command\Relation\RemoveProductChildCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use PHPUnit\Framework\MockObject\MockObject;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Entity\AbstractProduct;
 
 /**
  */
-class RemoveProductChildCommandTest extends TestCase
+class AddProductChildCommandTest extends TestCase
 {
     /**
      * @throws \Exception
@@ -27,12 +26,11 @@ class RemoveProductChildCommandTest extends TestCase
         /** @var AbstractAssociatedProduct|MockObject $product */
         $product = $this->createMock(AbstractAssociatedProduct::class);
         $product->method('getId')->willReturn($this->createMock(ProductId::class));
-        /** @var AbstractProduct|MockObject $child */
-        $child = $this->createMock(AbstractAssociatedProduct::class);
-        $child->method('getId')->willReturn($this->createMock(ProductId::class));
+        /** @var ProductId|MockObject $childId */
+        $childId = $this->createMock(ProductId::class);
 
-        $command = new RemoveProductChildCommand($product, $child);
+        $command = new AddProductChildCommand($product, $childId);
         $this->assertSame($product->getId(), $command->getId());
-        $this->assertSame($child->getId(), $command->getChildId());
+        $this->assertSame($childId, $command->getChildId());
     }
 }

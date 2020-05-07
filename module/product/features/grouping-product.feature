@@ -1,4 +1,4 @@
-Feature: Product module
+Feature: Grouping product
 
   Background:
     Given I am Authenticated as "test@ergonode.com"

@@ -13,7 +13,7 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
-use Ergonode\Product\Domain\Command\Relation\RemoveProductChildCommand;
+use Ergonode\Product\Domain\Command\Relations\RemoveProductChildCommand;
 
 /**
  */
