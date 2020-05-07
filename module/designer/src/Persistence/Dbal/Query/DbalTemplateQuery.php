@@ -56,8 +56,8 @@ class DbalTemplateQuery implements TemplateQueryInterface
         $qb = $this->getQuery();
         $qb->addSelect('tet.code as default_text_attribute');
         $qb->addSelect('tei.code as default_image_attribute');
-        $qb->join('t', self::ATTRIBUTE_TABLE, 'tet', 't.default_text = tet.id');
-        $qb->join('t', self::ATTRIBUTE_TABLE, 'tei', 't.default_image = tei.id');
+        $qb->leftJoin('t', self::ATTRIBUTE_TABLE, 'tet', 't.default_text = tet.id');
+        $qb->leftJoin('t', self::ATTRIBUTE_TABLE, 'tei', 't.default_image = tei.id');
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $qb->getSQL()), 't');
