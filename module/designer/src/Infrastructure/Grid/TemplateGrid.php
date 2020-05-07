@@ -14,6 +14,7 @@ use Ergonode\Designer\Domain\Query\TemplateGroupQueryInterface;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\Column\LinkColumn;
+use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
@@ -53,7 +54,7 @@ class TemplateGrid extends AbstractGrid
         $this->addColumn('id', $id);
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
         $this->addColumn('image_id', new ImageColumn('image_id', 'Template image'));
-        $this->addColumn('group_id', new TextColumn('group_id', 'Group', new MultiSelectFilter($collection)));
+        $this->addColumn('group_id', new SelectColumn('group_id', 'Group', new MultiSelectFilter($collection)));
         $this->addColumn('default_text_attribute', new TextColumn(
             'default_text_attribute',
             'Default text attribute',
