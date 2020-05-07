@@ -16,11 +16,11 @@ use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Grid\Filter\Option\FilterOption;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -83,6 +83,5 @@ class StatusGrid extends AbstractGrid
         ]));
 
         $this->orderBy('code', 'DESC');
-        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }

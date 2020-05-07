@@ -51,6 +51,5 @@ class ProductCollectionTypeGrid extends AbstractGrid
             ],
         ]));
         $this->orderBy('code', 'DESC');
-        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }
