@@ -43,7 +43,7 @@ class SimpleOptionModel
      * @Assert\All({
      *     @Assert\NotBlank(),
      *     @Assert\Length(
-     *      max=32,
+     *      max=255,
      *      maxMessage="Attribute name is to long, It should have {{ limit }} character or less."
      *     )
      * })
