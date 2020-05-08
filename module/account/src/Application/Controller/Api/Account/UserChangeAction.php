@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
 use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
-use Ergonode\Account\Application\Form\UserUpdateForm;
+use Ergonode\Account\Application\Form\UpdateUserForm;
 use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
@@ -103,7 +103,7 @@ class UserChangeAction
     {
         try {
             $model = new UpdateUserFormModel();
-            $form = $this->formFactory->create(UserUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $form = $this->formFactory->create(UpdateUserForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {

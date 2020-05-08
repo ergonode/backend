@@ -23,7 +23,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class UserUpdateForm extends AbstractType
+class UpdateUserForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder

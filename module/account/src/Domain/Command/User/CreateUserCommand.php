@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
-use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
@@ -63,25 +62,19 @@ class CreateUserCommand implements DomainCommandInterface
     private RoleId $roleId;
 
     /**
-     * @var LanguagePrivileges[]
-     */
-    private array $languagePrivilegesCollection;
-
-    /**
      * @var bool
      */
     private bool $isActive;
 
     /**
-     * @param string               $firstName
-     * @param string               $lastName
-     * @param Email                $email
-     * @param Language             $language
-     * @param Password             $password
-     * @param RoleId               $roleId
-     * @param LanguagePrivileges[] $languagePrivilegesCollection
-     * @param bool                 $isActive
-     * @param MultimediaId|null    $avatarId
+     * @param string            $firstName
+     * @param string            $lastName
+     * @param Email             $email
+     * @param Language          $language
+     * @param Password          $password
+     * @param RoleId            $roleId
+     * @param bool              $isActive
+     * @param MultimediaId|null $avatarId
      */
     public function __construct(
         string $firstName,
@@ -90,7 +83,6 @@ class CreateUserCommand implements DomainCommandInterface
         Language $language,
         Password $password,
         RoleId $roleId,
-        array $languagePrivilegesCollection,
         bool $isActive = true,
         ?MultimediaId $avatarId = null
     ) {
@@ -102,7 +94,6 @@ class CreateUserCommand implements DomainCommandInterface
         $this->password = $password;
         $this->language = $language;
         $this->roleId = $roleId;
-        $this->languagePrivilegesCollection = $languagePrivilegesCollection;
         $this->isActive = $isActive;
     }
 
@@ -168,14 +159,6 @@ class CreateUserCommand implements DomainCommandInterface
     public function getRoleId(): RoleId
     {
         return $this->roleId;
-    }
-
-    /**
-     * @return LanguagePrivileges[]
-     */
-    public function getLanguagePrivilegesCollection(): array
-    {
-        return $this->languagePrivilegesCollection;
     }
 
     /**
