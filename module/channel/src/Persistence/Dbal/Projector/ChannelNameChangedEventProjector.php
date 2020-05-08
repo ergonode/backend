@@ -48,7 +48,5 @@ class ChannelNameChangedEventProjector
                 'id' => $event->getAggregateId()->getValue(),
             ]
         );
-
-        $this->connection->commit();
     }
 }

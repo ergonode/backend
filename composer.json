@@ -118,6 +118,7 @@
             "Ergonode\\Comment\\": "module/comment/src",
             "Ergonode\\Exporter\\": "module/exporter/src",
             "Ergonode\\ExporterMagento2\\": "module/exporter-magento-2/src",
+            "Ergonode\\ExporterShopware6\\": "module/exporter-shopware-6/src",
             "Ergonode\\Test\\": "module/test/src",
             "Ergonode\\ConnectorMagento\\": "module/connector-magento/src",
             "Ergonode\\TranslationDeepl\\": "module/translation-deepl/src"

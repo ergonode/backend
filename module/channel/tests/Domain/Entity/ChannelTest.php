@@ -10,8 +10,7 @@ namespace Ergonode\Channel\Tests\Domain\Entity;
 
 use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -25,14 +24,13 @@ class ChannelTest extends TestCase
     {
         /** @var ChannelId $id */
         $id = $this->createMock(ChannelId::class);
-        /** @var TranslatableString $name */
-        $name = $this->createMock(TranslatableString::class);
-        /** @var SegmentId $segmentId */
-        $segmentId = $this->createMock(SegmentId::class);
+        $name = 'TEST CHANNEL NAME';
+        /** @var ExportProfileId $exportProfileId */
+        $exportProfileId = $this->createMock(ExportProfileId::class);
 
-        $entity = new Channel($id, $name, $segmentId);
+        $entity = new Channel($id, $name, $exportProfileId);
         $this->assertSame($id, $entity->getId());
         $this->assertSame($name, $entity->getName());
-        $this->assertSame($segmentId, $entity->getSegmentId());
+        $this->assertSame($exportProfileId, $entity->getExportProfileId());
     }
 }

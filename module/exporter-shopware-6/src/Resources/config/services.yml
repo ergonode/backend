@@ -1,0 +1,33 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\ExporterShopware6\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\ExporterShopware6\Domain\:
+        resource: '../../Domain/*'
+
+    Ergonode\ExporterShopware6\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
+    Ergonode\ExporterShopware6\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\ExporterShopware6\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+#    Ergonode\ExporterShopware6\Infrastructure\Connector\ConnectorConfiguration:
+#        arguments:
+#            $host: '127.0.0.1:8000'
+#            $clientId: 'SWIARHFPVVJADXPYBML5N0HSNG'
+#            $clientSecret: 'TlU2WXM0OFQ0dFRnTXk5UUxJbjZXVk1hNFp4QTBOOThNdndRU04'
+
+    Ergonode\ExporterShopware6\Infrastructure\Connector\ConnectorConfiguration:
+        arguments:
+            $host: '192.168.1.100:8000'
+            $clientId: 'SWIAMURTYTK0R2RQEFBVUNPDTQ'
+            $clientSecret: 'Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08'

@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter;
 
 use Ergonode\Core\Application\AbstractModule;
+use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\CreateExportProfileCommandBuilderCompilerPass;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileCompilerPass;
-use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileConstraintCompilerPass;
-use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileFactoryCompilerPass;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileFormFactoryCompilerPass;
+use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ServiceExportCompilerPass;
+use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\UpdateExportProfileCommandBuilderCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -27,7 +28,9 @@ class ErgonodeExporterBundle extends AbstractModule
     {
         parent::build($container);
         $container->addCompilerPass(new ExportProfileCompilerPass());
-        $container->addCompilerPass(new ExportProfileFactoryCompilerPass());
         $container->addCompilerPass(new ExportProfileFormFactoryCompilerPass());
+        $container->addCompilerPass(new CreateExportProfileCommandBuilderCompilerPass());
+        $container->addCompilerPass(new UpdateExportProfileCommandBuilderCompilerPass());
+        $container->addCompilerPass(new ServiceExportCompilerPass());
     }
 }

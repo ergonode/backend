@@ -37,13 +37,13 @@ class UpdateChannelCommandHandler
      */
     public function __invoke(UpdateChannelCommand $command)
     {
-        $channel = $this->repository->load($command->getId());
-
-        Assert::notNull($channel, sprintf('Can\'t fid channel "%s"', $command->getId()->getValue()));
-
-        $channel->changeName($command->getName());
-        $channel->changeSegment($command->getSegmentId());
-
-        $this->repository->save($channel);
+//        $channel = $this->repository->load($command->getId());
+//
+//        Assert::notNull($channel, sprintf('Can\'t fid channel "%s"', $command->getId()->getValue()));
+//
+//        $channel->changeName($command->getName());
+////        $channel->changeSegment($command->getSegmentId());
+//
+//        $this->repository->save($channel);
     }
 }

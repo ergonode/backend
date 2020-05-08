@@ -39,16 +39,16 @@ class ChannelSegmentChangedEventProjector
      */
     public function __invoke(ChannelSegmentChangedEvent $event): void
     {
-        $this->connection->update(
-            self::TABLE,
-            [
-                'segment_id' => $event->getTo()->getValue(),
-            ],
-            [
-                'id' => $event->getAggregateId()->getValue(),
-            ]
-        );
-
-        $this->connection->commit();
+//        $this->connection->update(
+//            self::TABLE,
+//            [
+//                'segment_id' => $event->getTo()->getValue(),
+//            ],
+//            [
+//                'id' => $event->getAggregateId()->getValue(),
+//            ]
+//        );
+//
+//        $this->connection->commit();
     }
 }
