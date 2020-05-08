@@ -20,14 +20,3 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
-#    Ergonode\ExporterShopware6\Infrastructure\Connector\ConnectorConfiguration:
-#        arguments:
-#            $host: '127.0.0.1:8000'
-#            $clientId: 'SWIARHFPVVJADXPYBML5N0HSNG'
-#            $clientSecret: 'TlU2WXM0OFQ0dFRnTXk5UUxJbjZXVk1hNFp4QTBOOThNdndRU04'
-
-    Ergonode\ExporterShopware6\Infrastructure\Connector\ConnectorConfiguration:
-        arguments:
-            $host: '192.168.1.100:8000'
-            $clientId: 'SWIAMURTYTK0R2RQEFBVUNPDTQ'
-            $clientSecret: 'Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08'
