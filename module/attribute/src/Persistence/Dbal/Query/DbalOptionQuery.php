@@ -69,12 +69,29 @@ class DbalOptionQuery implements OptionQueryInterface
      *
      * @return array
      */
+    public function getOptions(AttributeId $attributeId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select('id')
+            ->from(self::TABLE_OPTIONS, 'o')
+            ->where($qb->expr()->eq('attribute_id', ':attribute'))
+            ->setParameter(':attribute', $attributeId->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    /**
+     * @param AttributeId $attributeId
+     *
+     * @return array
+     */
     public function getAll(AttributeId $attributeId): array
     {
         $qb = $this->getQuery();
 
         $records = $qb
-            ->select('o. id, o.key as code, value_id')
+            ->select('o.id, o.key as code, value_id')
             ->andWhere($qb->expr()->eq('o.attribute_id', ':id'))
             ->setParameter(':id', $attributeId->getValue())
             ->orderBy('o.key')

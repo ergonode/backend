@@ -8,33 +8,37 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Provider\Strategy;
 
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
-use PHPUnit\Framework\MockObject\MockObject;
+use Ergonode\Attribute\Infrastructure\Provider\Strategy\OptionAttributeValueConstraintStrategy;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Symfony\Component\Validator\Constraints\Collection;
-use Ergonode\Attribute\Infrastructure\Provider\Strategy\PriceAttributeValueConstraintStrategy;
+use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 
 /**
  */
-class PriceAttributeValueConstraintStrategyTest extends TestCase
+class OptionAttributeValueConstraintStrategyTest extends TestCase
 {
     /**
-     * @var PriceAttributeValueConstraintStrategy|MockObject
+     * @var OptionAttributeValueConstraintStrategy|MockObject
      */
-    private PriceAttributeValueConstraintStrategy $strategy;
+    private $strategy;
 
     /**
      * @var PriceAttribute|MockObject
      */
-    private PriceAttribute $attribute;
+    private $attribute;
 
     /**
      */
     protected function setUp(): void
     {
-        $this->strategy = new PriceAttributeValueConstraintStrategy();
-        $this->attribute = $this->createMock(PriceAttribute::class);
+        $query = $this->createMock(OptionQueryInterface::class);
+        $query->method('getOptions')->willReturn([]);
+        $this->strategy = new OptionAttributeValueConstraintStrategy($query);
+        $this->attribute = $this->createMock(AbstractOptionAttribute::class);
     }
 
     /**
