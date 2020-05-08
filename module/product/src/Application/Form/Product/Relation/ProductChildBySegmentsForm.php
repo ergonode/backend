@@ -7,17 +7,18 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Application\Form\Product\Binding;
+namespace Ergonode\Product\Application\Form\Product\Relation;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Ergonode\Product\Application\Model\Product\Relation\ProductChildBySegmentsFormModel;
 
 /**
  */
-class ProductBindBySegmentsForm extends AbstractType
+class ProductChildBySegmentsForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,10 +28,12 @@ class ProductBindBySegmentsForm extends AbstractType
     {
         $builder
             ->add(
-                'bind_id',
-                TextType::class,
+                'segments',
+                CollectionType::class,
                 [
-                    'property_path' => 'bindId',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => TextType::class,
                 ]
             );
     }
@@ -41,7 +44,7 @@ class ProductBindBySegmentsForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ProductBindFormModel::class,
+            'data_class' => ProductChildBySegmentsFormModel::class,
             'translation_domain' => 'product',
         ]);
     }

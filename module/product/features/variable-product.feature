@@ -15,6 +15,27 @@ Feature: Variable product
     Then the response status code should be 201
     And store response param "id" as "product_template_id"
 
+  Scenario: Create condition set
+    Given I send a POST request to "/api/v1/en/conditionsets" with body:
+      """
+      {
+        "conditions": []
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "condition_set_id"
+
+  Scenario: Create segment
+    When I send a POST request to "/api/v1/en/segments" with body:
+      """
+      {
+        "code": "SEGMENT_@@random_md5@@",
+        "condition_set_id": "@condition_set_id@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "segment_id"
+
   Scenario: Create select attribute
     And I send a "POST" request to "/api/v1/en/attributes" with body:
       """
@@ -78,6 +99,38 @@ Feature: Variable product
       """
     Then the response status code should be 204
 
+  Scenario: Request child grid filtered for given product
+    When I send a GET request to "api/v1/en/products/@product_id@/children"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | collection[0].id | @simple_product_id@ |
+      | info.count       | 1                   |
+
+  Scenario: Remove children product
+    When I send a DELETE request to "/api/v1/en/products/@product_id@/children/@simple_product_id@"
+    Then the response status code should be 204
+
+  Scenario: Request child grid filtered for given product
+    When I send a GET request to "api/v1/en/products/@product_id@/children"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | info.count | 0 |
+
+  Scenario: Get created grouping product
+    When I send a GET request to "/api/v1/en/products/@product_id@"
+    Then the response status code should be 200
+    And the JSON node "type" should be equal to "VARIABLE-PRODUCT"
+    And the JSON node "id" should be equal to "@product_id@"
+
+  Scenario: Add children product from segments
+    When I send a POST request to "/api/v1/en/products/@product_id@/children/add-from-segment" with body:
+      """
+      {
+        "segments": ["@segment_id@"]
+      }
+      """
+    Then the response status code should be 204
+
   Scenario: Add bind attribute with invalid uuid
     When I send a POST request to "/api/v1/en/products/@product_id@/binding" with body:
       """
@@ -112,26 +165,3 @@ Feature: Variable product
   Scenario: Remove bind attribute with not exist uuid
     When I send a DELETE request to "/api/v1/en/products/@product_id@/binding/@@random_uuid@@"
     Then the response status code should be 404
-
-  Scenario: Request child grid filtered for given product
-    When I send a GET request to "api/v1/en/products/@product_id@/children"
-    Then the response status code should be 200
-    And the JSON nodes should contain:
-      | collection[0].id | @simple_product_id@ |
-      | info.count       | 1                   |
-
-  Scenario: Remove children product
-    When I send a DELETE request to "/api/v1/en/products/@product_id@/children/@simple_product_id@"
-    Then the response status code should be 204
-
-  Scenario: Request child grid filtered for given product
-    When I send a GET request to "api/v1/en/products/@product_id@/children"
-    Then the response status code should be 200
-    And the JSON nodes should contain:
-      | info.count | 0 |
-
-  Scenario: Get created grouping product
-    When I send a GET request to "/api/v1/en/products/@product_id@"
-    Then the response status code should be 200
-    And the JSON node "type" should be equal to "VARIABLE-PRODUCT"
-    And the JSON node "id" should be equal to "@product_id@"

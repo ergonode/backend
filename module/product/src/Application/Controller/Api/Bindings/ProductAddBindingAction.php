@@ -69,60 +69,6 @@ class ProductAddBindingAction extends AbstractController
      *     description="Product ID",
      * )
      * @SWG\Parameter(
-     *     name="limit",
-     *     in="query",
-     *     type="integer",
-     *     required=true,
-     *     default="50",
-     *     description="Number of returned lines",
-     * )
-     * @SWG\Parameter(
-     *     name="offset",
-     *     in="query",
-     *     type="integer",
-     *     required=true,
-     *     default="0",
-     *     description="Number of start line",
-     * )
-     * @SWG\Parameter(
-     *     name="field",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"sku","index","template"},
-     *     description="Order field",
-     * )
-     * @SWG\Parameter(
-     *     name="order",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"ASC","DESC"},
-     *     description="Order",
-     * )
-     * @SWG\Parameter(
-     *     name="columns",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Columns"
-     * )
-     * @SWG\Parameter(
-     *     name="filter",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Filter"
-     * )
-     * @SWG\Parameter(
-     *     name="view",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"grid","list"},
-     *     description="Specify respons format"
-     * )
-     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
