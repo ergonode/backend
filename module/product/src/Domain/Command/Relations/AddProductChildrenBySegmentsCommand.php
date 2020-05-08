@@ -6,16 +6,19 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Domain\Command\Relation;
+namespace Ergonode\Product\Domain\Command\Relations;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use JMS\Serializer\Annotation as JMS;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
+use Webmozart\Assert\Assert;
 
 /**
  */
-class AddProductChildCommand implements DomainCommandInterface
+class AddProductChildrenBySegmentsCommand implements DomainCommandInterface
 {
     /**
      * @var ProductId $id
@@ -25,20 +28,22 @@ class AddProductChildCommand implements DomainCommandInterface
     private ProductId $id;
 
     /**
-     * @var ProductId $childId
+     * @var SegmentId[] $segmentId
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\SegmentId>")
      */
-    private ProductId $childId;
+    private array $segments;
 
     /**
      * @param AbstractAssociatedProduct $product
-     * @param ProductId                 $childId
+     * @param array                     $segments
      */
-    public function __construct(AbstractAssociatedProduct $product, ProductId $childId)
+    public function __construct(AbstractAssociatedProduct $product, array $segments)
     {
+        Assert::allIsInstanceOf($segments, SegmentId::class);
+
         $this->id = $product->getId();
-        $this->childId = $childId;
+        $this->segments = $segments;
     }
 
     /**
@@ -50,10 +55,10 @@ class AddProductChildCommand implements DomainCommandInterface
     }
 
     /**
-     * @return ProductId
+     * @return AttributeId[]
      */
-    public function getChildId(): ProductId
+    public function getSegments(): array
     {
-        return $this->childId;
+        return $this->segments;
     }
 }

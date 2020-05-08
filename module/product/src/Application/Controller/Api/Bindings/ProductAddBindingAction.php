@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Application\Controller\Api\Relations;
+namespace Ergonode\Product\Application\Controller\Api\Bindings;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,23 +20,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Ergonode\Product\Application\Model\Product\Relation\ProductChildFormModel;
-use Ergonode\Product\Application\Form\Product\Relation\ProductChildForm;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Ergonode\Product\Domain\Command\Relations\AddProductChildCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\Product\Domain\Command\Bindings\AddProductBindingCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
+use Ergonode\Product\Application\Form\Product\Binding\ProductBindForm;
 
 /**
  * @Route(
- *     name="ergonode_product_child_add",
- *     path="products/{product}/children",
+ *     name="ergonode_product_bind_add",
+ *     path="products/{product}/binding",
  *     methods={"POST"},
  *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class ProductAddChildAction extends AbstractController
+class ProductAddBindingAction extends AbstractController
 {
     /**
      * @var CommandBusInterface
@@ -69,60 +69,6 @@ class ProductAddChildAction extends AbstractController
      *     description="Product ID",
      * )
      * @SWG\Parameter(
-     *     name="limit",
-     *     in="query",
-     *     type="integer",
-     *     required=true,
-     *     default="50",
-     *     description="Number of returned lines",
-     * )
-     * @SWG\Parameter(
-     *     name="offset",
-     *     in="query",
-     *     type="integer",
-     *     required=true,
-     *     default="0",
-     *     description="Number of start line",
-     * )
-     * @SWG\Parameter(
-     *     name="field",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"sku","index","template"},
-     *     description="Order field",
-     * )
-     * @SWG\Parameter(
-     *     name="order",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"ASC","DESC"},
-     *     description="Order",
-     * )
-     * @SWG\Parameter(
-     *     name="columns",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Columns"
-     * )
-     * @SWG\Parameter(
-     *     name="filter",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     description="Filter"
-     * )
-     * @SWG\Parameter(
-     *     name="view",
-     *     in="query",
-     *     required=false,
-     *     type="string",
-     *     enum={"grid","list"},
-     *     description="Specify respons format"
-     * )
-     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
@@ -147,16 +93,16 @@ class ProductAddChildAction extends AbstractController
     public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
     {
         try {
-            $model = new ProductChildFormModel();
-            $form = $this->formFactory->create(ProductChildForm::class, $model);
+            $model = new ProductBindFormModel();
+            $form = $this->formFactory->create(ProductBindForm::class, $model);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ProductChildFormModel $data */
+                /** @var ProductBindFormModel $data */
                 $data = $form->getData();
-                $command = new AddProductChildCommand(
+                $command = new AddProductBindingCommand(
                     $product,
-                    new ProductId($data->childId),
+                    new AttributeId($data->bindId),
                 );
                 $this->commandBus->dispatch($command);
 

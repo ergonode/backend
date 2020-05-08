@@ -6,16 +6,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Domain\Command\Relation;
+namespace Ergonode\Product\Domain\Command\Bindings;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
-use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 /**
  */
-class RemoveProductChildCommand implements DomainCommandInterface
+class RemoveProductBindingCommand implements DomainCommandInterface
 {
     /**
      * @var ProductId $productId
@@ -25,20 +26,20 @@ class RemoveProductChildCommand implements DomainCommandInterface
     private ProductId $id;
 
     /**
-     * @var ProductId $childId
+     * @var AttributeId $childId
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ProductId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private ProductId $childId;
+    private AttributeId $bindingId;
 
     /**
      * @param AbstractAssociatedProduct $product
-     * @param AbstractProduct           $child
+     * @param AbstractAttribute         $binding
      */
-    public function __construct(AbstractAssociatedProduct $product, AbstractProduct $child)
+    public function __construct(AbstractAssociatedProduct $product, AbstractAttribute $binding)
     {
         $this->id = $product->getId();
-        $this->childId = $child->getId();
+        $this->bindingId = $binding->getId();
     }
 
     /**
@@ -50,10 +51,10 @@ class RemoveProductChildCommand implements DomainCommandInterface
     }
 
     /**
-     * @return ProductId
+     * @return AttributeId
      */
-    public function getChildId(): ProductId
+    public function getBindingId(): AttributeId
     {
-        return $this->childId;
+        return $this->bindingId;
     }
 }
