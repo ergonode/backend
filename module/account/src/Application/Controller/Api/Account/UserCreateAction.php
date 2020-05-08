@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
+use Ergonode\Account\Application\Form\CreateUserForm;
 use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
-use Ergonode\Account\Application\Form\UserCreateForm;
 use Ergonode\Account\Domain\Command\User\CreateUserCommand;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
@@ -89,7 +89,7 @@ class UserCreateAction
     {
         try {
             $model = new CreateUserFormModel();
-            $form = $this->formFactory->create(UserCreateForm::class, $model);
+            $form = $this->formFactory->create(CreateUserForm::class, $model);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -102,7 +102,6 @@ class UserCreateAction
                     $data->language,
                     $data->password,
                     $data->roleId,
-                    $data->languagePrivilegesCollection,
                     $data->isActive
                 );
                 $this->commandBus->dispatch($command);

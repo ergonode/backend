@@ -38,7 +38,6 @@ class CreateUserCommandTest extends TestCase
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
         $roleId = $this->createMock(RoleId::class);
-        $languagePrivilegesCollection = [];
         $command = new CreateUserCommand(
             $firstName,
             $lastName,
@@ -46,7 +45,6 @@ class CreateUserCommandTest extends TestCase
             $language,
             $password,
             $roleId,
-            $languagePrivilegesCollection,
             true,
             $multimediaId
         );
@@ -57,7 +55,6 @@ class CreateUserCommandTest extends TestCase
         $this->assertEquals($language, $command->getLanguage());
         $this->assertEquals($multimediaId, $command->getAvatarId());
         $this->assertEquals($roleId, $command->getRoleId());
-        $this->assertEquals($languagePrivilegesCollection, $command->getLanguagePrivilegesCollection());
         $this->assertEquals($email, $command->getEmail());
         $this->assertEquals($password, $command->getPassword());
         $this->assertTrue($command->isActive());
