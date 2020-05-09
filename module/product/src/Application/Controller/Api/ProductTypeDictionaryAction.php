@@ -54,33 +54,15 @@ class ProductTypeDictionaryAction
      *
      * @SWG\Tag(name="Dictionary")
      * @SWG\Parameter(
-     *     name="product",
-     *     in="path",
-     *     type="string",
-     *     description="Product ID",
-     * )
-     * @SWG\Parameter(
      *     name="language",
      *     in="path",
      *     type="string",
      *     description="Language code",
      *     default="en"
      * )
-     * @SWG\Parameter(
-     *     name="body",
-     *     in="body",
-     *     description="Add product",
-     *     required=true,
-     *     @SWG\Schema(ref="#/definitions/product_update")
-     * )
      * @SWG\Response(
-     *     response=204,
-     *     description="Product updated",
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Validation error",
-     *     @SWG\Schema(ref="#/definitions/validation_error_response")
+     *     response=200,
+     *     description="Returns collection supported product types"
      * )
      *
      * @return Response
