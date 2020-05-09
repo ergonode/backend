@@ -13,7 +13,7 @@ services:
 
     Ergonode\Product\Domain\:
         resource: '../../Domain/*'
-        exclude: '../../Domain/{Entity,ValueObject}'
+        exclude: '../../Domain/{ValueObject}'
 
     Ergonode\Product\Infrastructure\:
         resource: '../../Infrastructure/*'

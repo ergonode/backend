@@ -27,7 +27,7 @@ use Webmozart\Assert\Assert;
 
 /**
  */
-abstract class AbstractProduct extends AbstractAggregateRoot
+abstract class AbstractProduct extends AbstractAggregateRoot implements ProductInterface
 {
     /**
      * @var ProductId

@@ -21,6 +21,8 @@ use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductCreateC
 use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductUpdateCommandFactoryProviderCompilerPass;
 use Ergonode\Product\Infrastructure\Factory\Command\CreateProductCommandFactoryInterface;
 use Ergonode\Product\Infrastructure\Factory\Command\UpdateProductCommandFactoryInterface;
+use Ergonode\Product\Domain\Entity\ProductInterface;
+use Ergonode\Product\Application\DependencyInjection\CompilerPass\ProductTypeCompilerPass;
 
 /**
  * Class ErgonodeProductExtension
@@ -39,6 +41,10 @@ class ErgonodeProductExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../../Resources/config')
         );
+
+        $container
+            ->registerForAutoconfiguration(ProductInterface::class)
+            ->addTag(ProductTypeCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(AttributeColumnStrategyInterface::class)

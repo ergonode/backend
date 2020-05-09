@@ -5,6 +5,11 @@ Feature: Variable product
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
 
+  Scenario: Get product type dictionary
+    When I send a GET request to "/api/v1/en/dictionary/product-type"
+    Then the response status code should be 200
+    And the JSON node "VARIABLE-PRODUCT" should exist
+
   Scenario: Create template
     When I send a POST request to "/api/v1/en/templates" with body:
       """
