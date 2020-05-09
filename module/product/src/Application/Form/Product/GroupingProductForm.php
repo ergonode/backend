@@ -15,11 +15,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Category\Application\Form\Type\CategoryType;
 use Ergonode\Product\Application\Model\Product\GroupingProductFormModel;
+use Ergonode\Product\Domain\Entity\GroupingProduct;
 
 /**
  */
-class GroupingProductForm extends AbstractType
+class GroupingProductForm extends AbstractType implements ProductFormInterface
 {
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function supported(string $type): bool
+    {
+        return GroupingProduct::TYPE === $type;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
