@@ -36,7 +36,6 @@ class ProductHistoryGrid extends AbstractGrid
         $this->addColumn('recorded_at', new DateColumn('recorded_at', 'Time', new DateFilter()));
         $column = new HistoryColumn('event', 'payload', 'Message', $language);
         $this->addColumn('event', $column);
-        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
         $this->orderBy('recorded_at', 'DESC');
     }
 }

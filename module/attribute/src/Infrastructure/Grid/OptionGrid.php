@@ -65,6 +65,5 @@ class OptionGrid extends AbstractGrid
                 'method' => Request::METHOD_DELETE,
             ],
         ]));
-        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }
