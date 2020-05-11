@@ -23,8 +23,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
  */
 class DbalTemplateQuery implements TemplateQueryInterface
 {
-    private const TABLE = 'designer.template';
+    private const TEMPLATE_TABLE = 'designer.template';
     private const PRODUCT_TABLE = 'designer.product';
+    private const ATTRIBUTE_TABLE = 'public.attribute';
     private const FIELDS = [
         't.id',
         't.name',
@@ -52,9 +53,14 @@ class DbalTemplateQuery implements TemplateQueryInterface
      */
     public function getDataSet(): DataSetInterface
     {
+        $qb = $this->getQuery();
+        $qb->addSelect('tet.code as default_text_attribute');
+        $qb->addSelect('tei.code as default_image_attribute');
+        $qb->leftJoin('t', self::ATTRIBUTE_TABLE, 'tet', 't.default_text = tet.id');
+        $qb->leftJoin('t', self::ATTRIBUTE_TABLE, 'tei', 't.default_image = tei.id');
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
-        $result->from(sprintf('(%s)', $this->getQuery()->getSQL()), 't');
+        $result->from(sprintf('(%s)', $qb->getSQL()), 't');
 
         return new DbalDataSet($result);
     }
@@ -170,6 +176,6 @@ class DbalTemplateQuery implements TemplateQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select(self::FIELDS)
-            ->from(self::TABLE, 't');
+            ->from(self::TEMPLATE_TABLE, 't');
     }
 }
