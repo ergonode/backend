@@ -8,17 +8,25 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Provider;
 
-use Ergonode\Product\Domain\Entity\SimpleProduct;
-use Ergonode\Product\Application\Form\Product\SimpleProductForm;
-use Ergonode\Product\Domain\Entity\VariableProduct;
-use Ergonode\Product\Application\Form\Product\VariableProductForm;
-use Ergonode\Product\Domain\Entity\GroupingProduct;
-use Ergonode\Product\Application\Form\Product\GroupingProductForm;
+use Ergonode\Product\Application\Form\Product\ProductFormInterface;
 
 /**
  */
 class ProductFormProvider
 {
+    /**
+     * @var ProductFormInterface[]
+     */
+    private array $forms;
+
+    /**
+     * @param array|ProductFormInterface ...$forms
+     */
+    public function __construct(ProductFormInterface ...$forms)
+    {
+        $this->forms = $forms;
+    }
+
     /**
      * @param string $type
      *
@@ -26,16 +34,10 @@ class ProductFormProvider
      */
     public function provide(string $type): string
     {
-        if (SimpleProduct::TYPE === $type) {
-            return SimpleProductForm::class;
-        }
-
-        if (VariableProduct::TYPE === $type) {
-            return VariableProductForm::class;
-        }
-
-        if (GroupingProduct::TYPE === $type) {
-            return GroupingProductForm::class;
+        foreach ($this->forms as $form) {
+            if ($form->supported($type)) {
+                return get_class($form);
+            }
         }
 
         throw new \RuntimeException(sprintf('Can\' find factory for %s type', $type));

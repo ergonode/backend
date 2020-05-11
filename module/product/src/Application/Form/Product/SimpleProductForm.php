@@ -15,11 +15,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\Product\Application\Model\Product\SimpleProductFormModel;
 use Ergonode\Category\Application\Form\Type\CategoryType;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
 
 /**
  */
-class SimpleProductForm extends AbstractType
+class SimpleProductForm extends AbstractType implements ProductFormInterface
 {
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function supported(string $type): bool
+    {
+        return SimpleProduct::TYPE === $type;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
