@@ -10,25 +10,25 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Application\Form\Type;
 
 use Ergonode\Attribute\Application\Form\Transformer\AttributeTypeDataTransformer;
-use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeTypeDictionaryProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ergonode\Attribute\Application\Provider\AttributeTypeProvider;
 
 /**
  */
 class AttributeTypeType extends AbstractType
 {
     /**
-     * @var AttributeTypeDictionaryProvider
+     * @var AttributeTypeProvider
      */
-    private AttributeTypeDictionaryProvider $provider;
+    private AttributeTypeProvider $provider;
 
     /**
-     * @param AttributeTypeDictionaryProvider $provider
+     * @param AttributeTypeProvider $provider
      */
-    public function __construct(AttributeTypeDictionaryProvider $provider)
+    public function __construct(AttributeTypeProvider $provider)
     {
         $this->provider = $provider;
     }
@@ -47,7 +47,7 @@ class AttributeTypeType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $codes = $this->provider->getTypes();
+        $codes = $this->provider->provide();
         $choices = array_combine($codes, $codes);
 
         $resolver->setDefaults(

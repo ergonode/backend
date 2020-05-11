@@ -80,9 +80,8 @@ class AttributeTypeValidValidatorTest extends ConstraintValidatorTestCase
         $value = 'fes//efs..';
         $this->validator->validate($value, new AttributeTypeValid());
         $constraint = new AttributeTypeValid();
-        $assertion = $this->buildViolation($constraint->message)
-            ->setParameter('{{ value }}', $value);
-        $assertion->assertRaised();
+        $this->buildViolation($constraint->message)->setParameter('{{ value }}', $value);
+        $this->assertNoViolation();
     }
 
     /**

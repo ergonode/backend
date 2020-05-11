@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\DependencyInjection;
 
-use Ergonode\Attribute\Domain\AttributeUpdaterInterface;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -17,6 +16,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
+use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 
 /**
  */
@@ -34,6 +34,10 @@ class ErgonodeAttributeExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../../Resources/config')
         );
+
+        $container
+            ->registerForAutoconfiguration(AttributeInterface::class)
+            ->addTag(CompilerPass\AttributeTypeCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(CreateAttributeCommandFactoryInterface::class)
