@@ -16,7 +16,7 @@ services:
 
     Ergonode\Attribute\Domain\:
         resource: '../../Domain/*'
-        exclude: '../../Domain/{Entity,ValueObject,Type}'
+        exclude: '../../Domain/{ValueObject,Type}'
 
     Ergonode\Attribute\Infrastructure\:
         resource: '../../Infrastructure/*'
