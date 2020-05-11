@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Form;
 
-use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
+use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
 use Ergonode\Account\Application\Form\Type\PasswordType;
 use Ergonode\Account\Application\Form\Type\RoleIdType;
 use Ergonode\Core\Application\Form\Type\BooleanType;
@@ -21,7 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class UserUpdateForm extends AbstractType
+class CreateUserForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -36,6 +36,10 @@ class UserUpdateForm extends AbstractType
             )
             ->add(
                 'lastName',
+                TextType::class
+            )
+            ->add(
+                'email',
                 TextType::class
             )
             ->add(
@@ -66,7 +70,7 @@ class UserUpdateForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => UpdateUserFormModel::class,
+            'data_class' => CreateUserFormModel::class,
             'translation_domain' => 'account',
         ]);
     }

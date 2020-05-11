@@ -12,7 +12,9 @@ namespace Ergonode\Account\Infrastructure\Handler;
 use Ergonode\Account\Domain\Command\User\CreateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Infrastructure\Encoder\UserPasswordEncoderInterface;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 /**
  */
@@ -29,15 +31,23 @@ class CreateUserCommandHandler
     private UserPasswordEncoderInterface $userPasswordEncoder;
 
     /**
+     * @var LanguageQueryInterface
+     */
+    private LanguageQueryInterface $languageQuery;
+
+    /**
      * @param UserRepositoryInterface      $repository
      * @param UserPasswordEncoderInterface $userPasswordEncoder
+     * @param LanguageQueryInterface       $languageQuery
      */
     public function __construct(
         UserRepositoryInterface $repository,
-        UserPasswordEncoderInterface $userPasswordEncoder
+        UserPasswordEncoderInterface $userPasswordEncoder,
+        LanguageQueryInterface $languageQuery
     ) {
         $this->repository = $repository;
         $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->languageQuery = $languageQuery;
     }
 
     /**
@@ -47,6 +57,11 @@ class CreateUserCommandHandler
      */
     public function __invoke(CreateUserCommand $command)
     {
+        $languagePrivilegesCollection = [];
+        $activeLanguages = $this->languageQuery->getActive();
+        foreach ($activeLanguages as $activeLanguage) {
+            $languagePrivilegesCollection[$activeLanguage->getCode()] = new LanguagePrivileges(true, true);
+        }
         $user = new User(
             $command->getId(),
             $command->getFirstName(),
@@ -55,6 +70,7 @@ class CreateUserCommandHandler
             $command->getLanguage(),
             $command->getPassword(),
             $command->getRoleId(),
+            $languagePrivilegesCollection,
             $command->getAvatarId(),
             $command->isActive()
         );

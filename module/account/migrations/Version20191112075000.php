@@ -31,6 +31,7 @@ final class Version20191112075000 extends AbstractErgonodeMigration
             )
         ');
 
+        $this->addSql('ALTER TABLE users ADD language_privileges_collection json DEFAULT NULL');
 
         $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['User']);
         $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Role']);

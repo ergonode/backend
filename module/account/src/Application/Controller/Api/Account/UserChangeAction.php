@@ -10,11 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Account\Application\Controller\Api\Account;
 
 use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
-use Ergonode\Account\Application\Form\UserUpdateForm;
+use Ergonode\Account\Application\Form\UpdateUserForm;
 use Ergonode\Account\Domain\Command\User\UpdateUserCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -24,7 +25,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route(
@@ -103,7 +103,7 @@ class UserChangeAction
     {
         try {
             $model = new UpdateUserFormModel();
-            $form = $this->formFactory->create(UserUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $form = $this->formFactory->create(UpdateUserForm::class, $model, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -116,6 +116,7 @@ class UserChangeAction
                     $data->lastName,
                     $data->language,
                     $data->roleId,
+                    $data->languagePrivilegesCollection,
                     $data->isActive,
                     $data->password
                 );

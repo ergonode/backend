@@ -145,7 +145,7 @@ Feature: Category tree module
         "categories": [
           {
             "category_id": "@category_1@",
-            "childrens": []
+            "children": []
           }
         ]
       }
@@ -173,7 +173,7 @@ Feature: Category tree module
         "categories": [
           {
             "category_id": "@category_1@",
-            "childrens": []
+            "children": []
           }
         ]
       }
@@ -192,7 +192,7 @@ Feature: Category tree module
         "categories": [
           {
             "category_id": "@category_1@",
-            "childrens": []
+            "children": []
           }
         ]
       }
@@ -214,7 +214,7 @@ Feature: Category tree module
 #        "categories": [
 #          {
 #            "category_id": "@category_1@",
-#            "childrens": []
+#            "children": []
 #          }
 #        ]
 #      }
@@ -236,7 +236,7 @@ Feature: Category tree module
 #        "categories": [
 #          {
 #            "category_id": "@category_1@",
-#            "childrens": []
+#            "children": []
 #          }
 #        ]
 #      }
@@ -272,7 +272,7 @@ Feature: Category tree module
         "categories": [
           {
             "category_id": "test",
-            "childrens": []
+            "children": []
           }
         ]
       }
@@ -293,7 +293,7 @@ Feature: Category tree module
         "categories": [
           {
             "category_id": "",
-            "childrens": []
+            "children": []
           }
         ]
       }
@@ -314,14 +314,14 @@ Feature: Category tree module
         "categories": [
           {
             "test": "@category_1@",
-            "childrens": []
+            "children": []
           }
         ]
       }
     """
     Then the response status code should be 400
 
-  Scenario: Update category tree (with childrens)
+  Scenario: Update category tree (with children)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
@@ -335,14 +335,14 @@ Feature: Category tree module
         "categories": [
           {
             "category_id": "@category_1@",
-            "childrens": [{"category_id":"@category_2@"}]
+            "children": [{"category_id":"@category_2@"}]
           }
         ]
       }
     """
     Then the response status code should be 204
 
-  Scenario: Update category tree (no childrens)
+  Scenario: Update category tree (no children)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
@@ -362,7 +362,7 @@ Feature: Category tree module
     """
     Then the response status code should be 204
 
-  Scenario: Update category tree (with empty childrens category Id)
+  Scenario: Update category tree (with empty children category Id)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
@@ -376,14 +376,14 @@ Feature: Category tree module
         "categories": [
           {
             "category_id": "@category_1@",
-            "childrens": [{"category_id":""}]
+            "children": [{"category_id":""}]
           }
         ]
       }
     """
     Then the response status code should be 400
 
-  Scenario: Update category tree (with empty childrens wrong key)
+  Scenario: Update category tree (with empty children wrong key)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
@@ -397,7 +397,7 @@ Feature: Category tree module
         "categories": [
           {
             "category_id": "@category_1@",
-            "childrens": [{"test":"@category_2@"}]
+            "children": [{"test":"@category_2@"}]
           }
         ]
       }
@@ -418,7 +418,7 @@ Feature: Category tree module
         "categories": [
           {
             "category_id": "@category_1@",
-            "childrens": []
+            "children": []
           }
         ]
       }
