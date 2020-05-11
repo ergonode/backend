@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a588dbfc70f4713d3c8692a236e29108",
+    "content-hash": "056a45deeb1ff88c7daef82692615279",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -3485,47 +3485,52 @@
         },
         {
             "name": "nelmio/api-doc-bundle",
-            "version": "v3.4.0",
+            "version": "v3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "279d20be784b9879ad0a12859efa3a301404f06c"
+                "reference": "ab014fe032beb1a7875939ff4162e8d05ad778ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/279d20be784b9879ad0a12859efa3a301404f06c",
-                "reference": "279d20be784b9879ad0a12859efa3a301404f06c",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/ab014fe032beb1a7875939ff4162e8d05ad778ab",
+                "reference": "ab014fe032beb1a7875939ff4162e8d05ad778ab",
                 "shasum": ""
             },
             "require": {
                 "exsyst/swagger": "^0.4.1",
-                "php": "^7.0",
-                "phpdocumentor/reflection-docblock": "^3.1|^4.0",
-                "symfony/framework-bundle": "^3.4|^4.0",
-                "symfony/options-resolver": "^3.4.4|^4.0",
-                "symfony/property-info": "^3.4|^4.0",
+                "php": "^7.1",
+                "phpdocumentor/reflection-docblock": "^3.1|^4.0|^5.0",
+                "symfony/framework-bundle": "^3.4|^4.0|^5.0",
+                "symfony/options-resolver": "^3.4.4|^4.0|^5.0",
+                "symfony/property-info": "^3.4|^4.0|^5.0",
                 "zircote/swagger-php": "^2.0.9"
             },
+            "conflict": {
+                "symfony/framework-bundle": "4.2.7"
+            },
             "require-dev": {
-                "api-platform/core": "^2.1.0",
+                "api-platform/core": "^2.1.2",
                 "doctrine/annotations": "^1.2",
                 "doctrine/common": "^2.4",
                 "friendsofsymfony/rest-bundle": "^2.0",
-                "jms/serializer-bundle": "^2.0|^3.0",
-                "sensio/framework-extra-bundle": "^3.0",
-                "symfony/asset": "^3.4|^4.0",
-                "symfony/browser-kit": "^3.4|^4.0",
-                "symfony/cache": "^3.4|^4.0",
-                "symfony/config": "^3.4|^4.0",
-                "symfony/console": "^3.4|^4.0",
-                "symfony/dom-crawler": "^3.4|^4.0",
-                "symfony/form": "^3.4|^4.0",
-                "symfony/phpunit-bridge": "^3.4|^4.0",
-                "symfony/property-access": "^3.4|^4.0",
-                "symfony/stopwatch": "^3.4|^4.0",
-                "symfony/templating": "^3.4|^4.0",
-                "symfony/twig-bundle": "^3.4|^4.0",
-                "symfony/validator": "^3.4|^4.0",
+                "jms/serializer": "^1.14|^3.0",
+                "jms/serializer-bundle": "^2.3|^3.0",
+                "sensio/framework-extra-bundle": "^3.0.13|^4.0|^5.0",
+                "symfony/asset": "^3.4|^4.0|^5.0",
+                "symfony/browser-kit": "^3.4|^4.0|^5.0",
+                "symfony/cache": "^3.4|^4.0|^5.0",
+                "symfony/config": "^3.4|^4.0|^5.0",
+                "symfony/console": "^3.4|^4.0|^5.0",
+                "symfony/dom-crawler": "^3.4|^4.0|^5.0",
+                "symfony/form": "^3.4|^4.0|^5.0",
+                "symfony/phpunit-bridge": "^3.4.24|^4.0|^5.0",
+                "symfony/property-access": "^3.4|^4.0|^5.0",
+                "symfony/routing": "^3.4|^4.0|^5.0",
+                "symfony/stopwatch": "^3.4|^4.0|^5.0",
+                "symfony/templating": "^3.4|^4.0|^5.0",
+                "symfony/twig-bundle": "^3.4|^4.0|^5.0",
+                "symfony/validator": "^3.4|^4.0|^5.0",
                 "willdurand/hateoas-bundle": "^1.0|^2.0"
             },
             "suggest": {
@@ -3535,7 +3540,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2.x-dev"
+                    "dev-master": "3.6.x-dev"
                 }
             },
             "autoload": {
@@ -3564,7 +3569,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2019-02-18T16:27:10+00:00"
+            "time": "2020-03-31T10:05:08+00:00"
         },
         {
             "name": "nelmio/cors-bundle",
@@ -12099,8 +12104,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
@@ -12121,5 +12126,6 @@
         "ext-json": "*",
         "ext-pdo": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
