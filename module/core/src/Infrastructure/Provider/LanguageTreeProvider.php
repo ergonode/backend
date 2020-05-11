@@ -79,17 +79,16 @@ class LanguageTreeProvider implements LanguageTreeProviderInterface
     private function map(Language $language, array $treeLanguages, array $privileges): array
     {
         $result = [];
-        $defaultPrivilege = new LanguagePrivileges(false,false);
+        $defaultPrivilege = new LanguagePrivileges(false, false);
         foreach ($treeLanguages as $treeLanguage) {
             $code = $treeLanguage['code'];
             $result[$code] = array_merge(
                 $treeLanguage,
                 [
                     'name' => $this->translator->trans($code, [], 'language', $language->getCode()),
-                    'privileges' => isset($privileges[$code]) ? $privileges[$code]: $defaultPrivilege,
+                    'privileges' => isset($privileges[$code]) ? $privileges[$code] : $defaultPrivilege,
                 ]
             );
-
         }
 
         return $result;
