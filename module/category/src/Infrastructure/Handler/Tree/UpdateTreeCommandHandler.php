@@ -34,6 +34,8 @@ class UpdateTreeCommandHandler
 
     /**
      * @param UpdateTreeCommand $command
+     *
+     * @throws \Exception
      */
     public function __invoke(UpdateTreeCommand $command): void
     {

@@ -32,6 +32,11 @@ interface LanguageQueryInterface
     public function getDictionary(): array;
 
     /**
+     * @return array
+     */
+    public function getDictionaryActive(): array;
+
+    /**
      * @param string $code
      *
      * @return array
@@ -71,4 +76,11 @@ interface LanguageQueryInterface
         string $field = null,
         ?string $order = 'ASC'
     ): array;
+
+    /**
+     * @param string $id
+     *
+     * @return array|null
+     */
+    public function getLanguageById(string $id): ?array;
 }

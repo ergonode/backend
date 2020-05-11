@@ -310,7 +310,7 @@ Feature: Account module
       """
     Then the response status code should be 400
 
-  Scenario: Update role (empty privilages)
+  Scenario: Update role (empty privileges)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
@@ -324,7 +324,7 @@ Feature: Account module
       """
     Then the response status code should be 204
 
-  Scenario: Update role (no existing privilages)
+  Scenario: Update role (no existing privileges)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
@@ -737,6 +737,7 @@ Feature: Account module
       """
     Then the response status code should be 400
 
+
   Scenario: Delete role (with conflict)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
@@ -758,7 +759,13 @@ Feature: Account module
           "language": "en",
           "password": 123456789,
           "passwordRepeat": 123456789,
-          "roleId": "@role@"
+          "roleId": "@role@",
+          "languagePrivilegesCollection": {
+             "en": {
+               "read": true,
+               "edit": true
+             }
+           }
       }
       """
     Then the response status code should be 204
@@ -1005,6 +1012,72 @@ Feature: Account module
       }
       """
     Then the response status code should be 400
+
+  Scenario: Update user (no existing language)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "en",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@",
+          "languagePrivilegesCollection": {
+             "test": {
+               "read": true,
+               "edit": true
+             }
+           }
+      }
+      """
+    Then the response status code should be 400
+
+  Scenario: Update user (field missing in privilege object)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "en",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@",
+          "languagePrivilegesCollection": {
+             "en": {
+               "read": true
+             }
+           }
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Update user (empty privilege)
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en/accounts/@user@" with body:
+      """
+      {
+          "firstName": "Test",
+          "lastName": "Test",
+          "language": "en",
+          "password": 12345678,
+          "passwordRepeat": 12345678,
+          "roleId": "@role@",
+          "languagePrivilegesCollection": {
+             "en": {
+             }
+           }
+      }
+      """
+    Then the response status code should be 204
 
   Scenario: Get user
     Given I am Authenticated as "test@ergonode.com"

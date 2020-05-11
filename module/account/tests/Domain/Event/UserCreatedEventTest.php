@@ -9,13 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Domain\Event;
 
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\Event\User\UserCreatedEvent;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -41,6 +41,8 @@ class UserCreatedEventTest extends TestCase
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
         $roleId = $this->createMock(RoleId::class);
+        $languagePrivilegesCollection = [];
+
         $event = new UserCreatedEvent(
             $id,
             $firstName,
@@ -49,6 +51,7 @@ class UserCreatedEventTest extends TestCase
             $language,
             $password,
             $roleId,
+            $languagePrivilegesCollection,
             true,
             $multimediaId
         );
@@ -59,6 +62,7 @@ class UserCreatedEventTest extends TestCase
         $this->assertEquals($language, $event->getLanguage());
         $this->assertEquals($multimediaId, $event->getAvatarId());
         $this->assertEquals($roleId, $event->getRoleId());
+        $this->assertEquals($languagePrivilegesCollection, $event->getLanguagePrivilegesCollection());
         $this->assertEquals($email, $event->getEmail());
         $this->assertEquals($password, $event->getPassword());
         $this->assertTrue($event->isActive());

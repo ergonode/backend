@@ -141,11 +141,16 @@ class DbalLanguageQuery implements LanguageQueryInterface
     {
         $qb = $this->getQuery(self::ALL_FIELDS);
 
-        return $qb
+        $result = $qb
             ->where($qb->expr()->eq('iso', ':iso'))
             ->setParameter(':iso', $code)
             ->execute()
-            ->fetchAll();
+            ->fetch();
+        if (is_array($result)) {
+            return $result;
+        }
+
+        return [];
     }
 
     /**
@@ -171,6 +176,20 @@ class DbalLanguageQuery implements LanguageQueryInterface
     public function getDictionary(): array
     {
         return $this->getQuery(self::DICTIONARY_FIELD)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
+    }
+
+    /**
+     * @return array
+     */
+    public function getDictionaryActive(): array
+    {
+        $qb = $this->getQuery(self::DICTIONARY_FIELD);
+
+        return $qb
+            ->where($qb->expr()->eq('active', ':active'))
+            ->setParameter(':active', true, \PDO::PARAM_BOOL)
             ->execute()
             ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
@@ -234,6 +253,27 @@ class DbalLanguageQuery implements LanguageQueryInterface
         }
 
         return $records;
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return array|null
+     */
+    public function getLanguageById(string $id): ?array
+    {
+        $qb = $this->getQuery(self::CODE_FIELD);
+
+        $result = $qb
+            ->where($qb->expr()->eq('id', ':id'))
+            ->setParameter(':id', $id)
+            ->execute()
+            ->fetch();
+        if ($result) {
+            return $result;
+        }
+
+        return null;
     }
 
     /**

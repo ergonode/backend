@@ -75,8 +75,6 @@ class CreateUserCommand implements DomainCommandInterface
      * @param RoleId            $roleId
      * @param bool              $isActive
      * @param MultimediaId|null $avatarId
-     *
-     * @throws \Exception
      */
     public function __construct(
         string $firstName,

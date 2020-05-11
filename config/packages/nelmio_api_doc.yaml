@@ -94,6 +94,16 @@ nelmio_api_doc:
                         type: string
                         required: true
                         example: 86800536-0f2a-4920-9291-f35fdcea3839
+                    languagePrivilegesCollection:
+                        type: array
+                        items:
+                            type: array
+                        required: false
+                        description: Language privileges collection
+                        example:
+                                {
+                                    "en_US": {"read": true, "edit":true}
+                                }
                     isActive:
                         type: boolean
                         required: true
@@ -128,6 +138,16 @@ nelmio_api_doc:
                         type: string
                         required: true
                         example: 86800536-0f2a-4920-9291-f35fdcea3839
+                    languagePrivilegesCollection:
+                        type: array
+                        items:
+                            type: array
+                        required: false
+                        description: Language privileges collection
+                        example:
+                                {
+                                    "en_US": {"read": true, "edit":true}
+                                }
                     isActive:
                         type: boolean
                         required: true
@@ -277,7 +297,7 @@ nelmio_api_doc:
                         description: Category id
                         required: true
                         example: category id
-                    childrens:
+                    children:
                         type: array
                         items:
                             $ref: "#/definitions/tree_node"
@@ -574,6 +594,25 @@ nelmio_api_doc:
                         required: true
                         description: Show if language is enabled in the system
                         example: true
+            language_tree:
+                type: object
+                properties:
+                    languages:
+                        type: array
+                        items:
+                            $ref: "#/definitions/language_tree_node"
+            language_tree_node:
+                type: object
+                properties:
+                    language:
+                        type: string
+                        description: Language Code
+                        required: true
+                        example: en
+                    children:
+                        type: array
+                        items:
+                            $ref: "#/definitions/language_tree_node"
             attribute_group:
                 type: object
                 properties:

@@ -9,19 +9,21 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Form;
 
-use Ergonode\Account\Application\Form\Model\CreateUserFormModel;
+use Ergonode\Account\Application\Form\Model\UpdateUserFormModel;
+use Ergonode\Account\Application\Form\Type\LanguagePrivilegesType;
 use Ergonode\Account\Application\Form\Type\PasswordType;
 use Ergonode\Account\Application\Form\Type\RoleIdType;
 use Ergonode\Core\Application\Form\Type\BooleanType;
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class UserCreateForm extends AbstractType
+class UpdateUserForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -36,10 +38,6 @@ class UserCreateForm extends AbstractType
             )
             ->add(
                 'lastName',
-                TextType::class
-            )
-            ->add(
-                'email',
                 TextType::class
             )
             ->add(
@@ -59,6 +57,15 @@ class UserCreateForm extends AbstractType
                 RoleIdType::class
             )
             ->add(
+                'languagePrivilegesCollection',
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => LanguagePrivilegesType::class,
+                ]
+            )
+            ->add(
                 'isActive',
                 BooleanType::class
             );
@@ -70,7 +77,7 @@ class UserCreateForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => CreateUserFormModel::class,
+            'data_class' => UpdateUserFormModel::class,
             'translation_domain' => 'account',
         ]);
     }
