@@ -10,7 +10,6 @@ namespace Ergonode\Product\Tests\Infrastructure\Grid\Builder\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
@@ -51,7 +50,7 @@ class PriceAttributeDataSetQueryBuilderTest extends TestCase
         $this->queryBuilder = $this->createMock(QueryBuilder::class);
         $this->language = $this->createMock(Language::class);
         $this->query = $this->createMock(LanguageQueryInterface::class);
-        $this->query->method('getLanguageNodeInfo')->willReturn(['lft' => 1]);
+        $this->query->method('getLanguageNodeInfo')->willReturn(['lft' => 1, 'rgt' => 10]);
     }
 
     /**

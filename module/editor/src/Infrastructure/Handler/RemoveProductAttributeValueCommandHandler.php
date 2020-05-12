@@ -11,26 +11,24 @@ namespace Ergonode\Editor\Infrastructure\Handler;
 
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
-use Ergonode\Value\Domain\Service\ValueManipulationService;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
+use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
 
 /**
  */
-class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHandler
+class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHandler
 {
     /**
      * @var ProductDraftRepositoryInterface
      */
     private ProductDraftRepositoryInterface $repository;
-
-    /**
-     * @var ValueManipulationService
-     */
-    private ValueManipulationService $service;
 
     /**
      * @var AttributeRepositoryInterface
@@ -44,29 +42,26 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
 
     /**
      * @param ProductDraftRepositoryInterface $repository
-     * @param ValueManipulationService        $service
      * @param AttributeRepositoryInterface    $attributeRepository
      * @param TokenStorageInterface           $tokenStorage
      */
     public function __construct(
         ProductDraftRepositoryInterface $repository,
-        ValueManipulationService $service,
         AttributeRepositoryInterface $attributeRepository,
         TokenStorageInterface $tokenStorage
     ) {
         $this->repository = $repository;
-        $this->service = $service;
         $this->attributeRepository = $attributeRepository;
         $this->tokenStorage = $tokenStorage;
     }
 
 
     /**
-     * @param ChangeProductAttributeValueCommand $command
+     * @param RemoveProductAttributeValueCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(ChangeProductAttributeValueCommand $command)
+    public function __invoke(RemoveProductAttributeValueCommand $command)
     {
         /** @var ProductDraft $draft */
         $language = $command->getLanguage();
@@ -77,16 +72,16 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
         Assert::notNull($draft);
         Assert::notNull($attribute);
 
-        $newValue = $this->createValue($language, $attribute, $command->getValue());
-        if ($newValue) {
-            if ($draft->hasAttribute($attribute->getCode())) {
-                $oldValue = $draft->getAttribute($attribute->getCode());
-                $calculatedValue = $this->service->calculate($oldValue, $newValue);
-                $draft->changeAttribute($attribute->getCode(), $calculatedValue);
-            } else {
-                $draft->addAttribute($attribute->getCode(), $newValue);
-            }
-        } elseif ($draft->hasAttribute($attribute->getCode())) {
+        if (!$draft->hasAttribute($attribute->getCode())) {
+            return;
+        }
+
+        $oldValue = $draft->getAttribute($attribute->getCode());
+        $newValue = $this->calculate($oldValue, $command->getLanguage());
+
+        if ($newValue && !empty($newValue->getValue())) {
+            $draft->changeAttribute($attribute->getCode(), $newValue);
+        } else {
             $draft->removeAttribute($attribute->getCode());
         }
 
@@ -98,5 +93,25 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
         }
 
         $this->repository->save($draft);
+    }
+
+    /**
+     * @param ValueInterface $value
+     * @param Language       $language
+     *
+     * @return ValueInterface|null
+     */
+    public function calculate(ValueInterface $value, Language $language): ?ValueInterface
+    {
+        if ($value instanceof TranslatableStringValue) {
+            $translation = $value->getValue();
+            if (array_key_exists($language->getCode(), $translation)) {
+                unset($translation[$language->getCode()]);
+            }
+
+            return new TranslatableStringValue(new TranslatableString($translation));
+        }
+
+        return null;
     }
 }

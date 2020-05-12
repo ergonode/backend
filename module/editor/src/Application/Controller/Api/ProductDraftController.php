@@ -35,6 +35,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
+use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
 
 /**
  */
@@ -167,7 +168,7 @@ class ProductDraftController extends AbstractController
      *     name="product",
      *     in="path",
      *     type="string",
-     *     description="Product draft id",
+     *     description="Product id",
      * )
      * @SWG\Parameter(
      *     name="attribute",
@@ -232,6 +233,68 @@ class ProductDraftController extends AbstractController
         }
 
         throw new ViolationsHttpException($violations);
+    }
+
+    /**
+     * @Route(
+     *     "/products/{product}/draft/{attribute}/value",
+     *     methods={"DELETE"},
+     *     requirements = {
+     *        "product" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+     *        "attribute" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+     *     }
+     * )
+     *
+     * @IsGranted("PRODUCT_UPDATE")
+     *
+     * @SWG\Tag(name="Editor")
+     * @SWG\Parameter(
+     *     name="product",
+     *     in="path",
+     *     type="string",
+     *     description="Product id",
+     * )
+     * @SWG\Parameter(
+     *     name="attribute",
+     *     in="path",
+     *     type="string",
+     *     description="Attribute id",
+     * )
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="en",
+     *     description="Language Code",
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Change product attribute Value",
+     * )
+     *
+     * @param AbstractProduct   $product
+     * @param Language          $language
+     * @param AbstractAttribute $attribute
+     *
+     * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     * @ParamConverter(class="Ergonode\Attribute\Domain\Entity\AbstractAttribute")
+     *
+     * @return Response
+     *
+     * @throws \Exception
+     */
+    public function removeDraftAttribute(
+        AbstractProduct $product,
+        Language $language,
+        AbstractAttribute $attribute
+    ): Response {
+        $draft = $this->draftProvider->provide($product);
+
+        $command = new RemoveProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language);
+        $this->commandBus->dispatch($command);
+
+        return new EmptyResponse();
     }
 
     /**

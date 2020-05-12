@@ -13,6 +13,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 
 /**
  */
@@ -35,9 +36,9 @@ class TranslationInheritanceCalculator
      * @param ValueInterface $value
      * @param Language       $language
      *
-     * @return string|null
+     * @return string|array|null
      */
-    public function calculate(ValueInterface $value, Language $language): ?string
+    public function calculate(ValueInterface $value, Language $language)
     {
         $languagesPath = $this->languageQuery->getInheritancePath($language);
         $calculatedValue = null;
@@ -55,6 +56,8 @@ class TranslationInheritanceCalculator
         } elseif ($value instanceof StringValue) {
             $values = $value->getValue();
             $calculatedValue = reset($values);
+        } elseif ($value instanceof StringCollectionValue) {
+            $calculatedValue = $value->getValue();
         }
 
         return $calculatedValue;
