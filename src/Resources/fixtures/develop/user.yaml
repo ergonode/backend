@@ -8,7 +8,7 @@ Ergonode\Account\Domain\Entity\User:
             - '<language(en)>'
             - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
             - '<roleId("Superadmin")>'
-            - '<LanguagePrivilegesCollection()>'
+            - '<LanguagePrivilegesCollection(true)>'
     admin:
         __construct:
             - '<userId(admin@ergonode.com)>'
