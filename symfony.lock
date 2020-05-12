@@ -38,6 +38,9 @@
     "container-interop/container-interop": {
         "version": "1.2.0"
     },
+    "dmarynicz/behat-parallel-extension": {
+        "version": "v0.1.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

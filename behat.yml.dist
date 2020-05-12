@@ -55,6 +55,7 @@ default:
 
 
     extensions:
+        DMarynicz\BehatParallelExtension\Extension: ~
         FriendsOfBehat\SymfonyExtension: ~
         Behatch\Extension: ~
         Behat\MinkExtension:
