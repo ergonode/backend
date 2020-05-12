@@ -40,12 +40,13 @@ class PriceAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
                 LEFT JOIN language_tree lt ON lt.code = vt.language
                 WHERE pv.attribute_id = \'%s\'
                 AND pv.product_id = p.id
-                AND lt.lft <= %s
+                AND lt.lft <= %s AND lt.rgt >= %s
                 ORDER BY lft DESC NULLS LAST
                 LIMIT 1           
             ) AS "%s"',
             $attribute->getId()->getValue(),
             $info['lft'],
+            $info['rgt'],
             $key
         ));
     }
