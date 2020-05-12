@@ -21,9 +21,11 @@ use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Domain\Command\ChangeProductAttributeValueCommand;
 use Ergonode\Editor\Domain\Command\PersistProductDraftCommand;
+use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -34,8 +36,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
-use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
-use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
 
 /**
  */
@@ -185,11 +185,11 @@ class ProductDraftController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="value",
-     *     in="formData",
-     *     type="string",
-     *     description="Attribute value",
+     *     name="body",
+     *     in="body",
+     *     description="Comment body",
      *     required=true,
+     *     @SWG\Schema(ref="#/definitions/value")
      * )
      * @SWG\Response(
      *     response=200,

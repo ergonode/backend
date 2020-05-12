@@ -8,20 +8,21 @@ declare(strict_types = 1);
 
 namespace Ergonode\Editor\Infrastructure\Handler;
 
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
-use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
-use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
-use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
 use Ergonode\Account\Domain\Entity\User;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Editor\Domain\Entity\ProductDraft;
+use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
+use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
  */
@@ -40,7 +41,7 @@ abstract class AbstractValueCommandHandler
             return null;
         }
 
-        if ($attribute instanceof MultiSelectAttribute) {
+        if ($attribute instanceof MultiSelectAttribute || $attribute instanceof GalleryAttribute) {
             return new StringCollectionValue($value);
         }
 
