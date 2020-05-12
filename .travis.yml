@@ -4,7 +4,7 @@ matrix:
   include:
     - php: 7.4
       env:
-        - RUN_TEST_COMMAND=php bin/phing test:behat
+        - RUN_TEST_COMMAND="php bin/phing test:behat"
         - SETUP_DB=1
       services:
         - postgresql
@@ -16,10 +16,10 @@ matrix:
             - postgresql-client-10
     - php: 7.4
       env:
-        - RUN_TEST_COMMAND=php bin/phing test:unit
+        - RUN_TEST_COMMAND="php bin/phing test:unit"
     - php: 7.4
       env:
-        - RUN_TEST_COMMAND=php bin/phing check:style
+        - RUN_TEST_COMMAND="php bin/phing check:style"
 install:
   - composer install
 
@@ -45,4 +45,5 @@ env:
     - DATABASE_URL="pgsql://ergonode:123@localhost:5432/ergonode_test?serverVersion=10&charset=utf8"
 script:
   - export DATABASE_URL="pgsql://ergonode:123@localhost:5432/ergonode_test?serverVersion=10&charset=utf8"
+  - echo $RUN_TEST_COMMAND
   - $RUN_TEST_COMMAND
