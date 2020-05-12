@@ -135,6 +135,7 @@ Feature: Workflow
     And I send a "GET" request to "/api/v1/en/workflow/default"
     Then the response status code should be 200
 
+  @skip-in-parallel
   Scenario: Delete workflow
     And I send a "DELETE" request to "/api/v1/en/workflow/default"
     Then the response status code should be 204
