@@ -67,8 +67,8 @@ class ProductDraftValueChangedEventProjector
             $array = $value->getValue();
             $this->insert($draftId, $elementId, reset($array));
         } elseif ($value instanceof StringCollectionValue) {
-            foreach ($value->getValue() as $phrase) {
-                $this->insert($draftId, $elementId, $phrase);
+            foreach ($value->getValue() as $language => $phrase) {
+                $this->insert($draftId, $elementId, $phrase, $language);
             }
         } elseif ($value instanceof TranslatableStringValue) {
             $translation = $value->getValue();

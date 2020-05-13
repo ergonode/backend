@@ -41,7 +41,7 @@ abstract class AbstractValueCommandHandler
         }
 
         if ($attribute instanceof MultiSelectAttribute) {
-            return new StringCollectionValue($value);
+            return new StringCollectionValue([$language->getCode() => implode(',', $value)]);
         }
 
         if ($attribute instanceof SelectAttribute) {

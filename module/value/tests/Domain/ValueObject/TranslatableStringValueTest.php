@@ -28,6 +28,5 @@ class TranslatableStringValueTest extends TestCase
 
         $this->assertSame($array, $valueObject->getValue());
         $this->assertSame(TranslatableStringValue::TYPE, $valueObject->getType());
-        $this->assertSame('english,polish', (string) $valueObject);
     }
 }

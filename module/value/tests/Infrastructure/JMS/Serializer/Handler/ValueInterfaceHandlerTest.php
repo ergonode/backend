@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Value\Tests\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -90,7 +89,7 @@ class ValueInterfaceHandlerTest extends TestCase
      */
     public function testDeserializeCollectionValue(): void
     {
-        $testValue = '{"type":"string_collection","value":["test","test"]}';
+        $testValue = '{"type":"collection","value":{"pl":"test","en":"test"}}';
 
         /** @var ValueInterface $result */
         $result = $this->serializer->deserialize($testValue, ValueInterface::class, 'json');
@@ -98,6 +97,6 @@ class ValueInterfaceHandlerTest extends TestCase
         $this->assertInstanceOf(StringCollectionValue::class, $result);
         $this->assertEquals(StringCollectionValue::TYPE, $result->getType());
         $this->assertIsArray($result->getValue());
-        $this->assertEquals(['test', 'test'], $result->getValue());
+        $this->assertEquals(['pl' => 'test', 'en' => 'test'], $result->getValue());
     }
 }
