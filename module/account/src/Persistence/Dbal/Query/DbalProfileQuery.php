@@ -47,6 +47,9 @@ class DbalProfileQuery implements ProfileQueryInterface
         if (null !== $result['privileges']) {
             $result['privileges'] = json_decode($result['privileges'], true);
         }
+        if (null !== $result['language_privileges']) {
+            $result['language_privileges'] = json_decode($result['language_privileges'], true);
+        }
 
         return $result;
     }
@@ -58,8 +61,15 @@ class DbalProfileQuery implements ProfileQueryInterface
     {
         return $this->connection->createQueryBuilder()
             ->select(
-                'u.id, u.first_name, u.last_name, '.
-                ' u.username AS email, u.language, u.avatar_id, r.name AS role, r.privileges'
+                'u.id,
+                 u.first_name,
+                 u.last_name, 
+                 u.username AS email,
+                 u.language,
+                 u.avatar_id,
+                 u.language_privileges_collection AS language_privileges,
+                 r.name AS role, 
+                 r.privileges'
             )
             ->from(self::TABLE, 'u')
             ->join('u', 'roles', 'r', 'r.id = u.role_id');
