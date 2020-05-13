@@ -17,6 +17,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
 
 /**
  */
@@ -27,25 +28,32 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
     /**
      * @var RoleRepositoryInterface
      */
-    private RoleRepositoryInterface $roleRepository;
+    private RoleRepositoryInterface $repository;
 
     /**
-     * @param RoleRepositoryInterface $roleRepository
+     * @var PrivilegeQueryInterface
      */
-    public function __construct(RoleRepositoryInterface $roleRepository)
+    private PrivilegeQueryInterface $query;
+
+    /**
+     * @param RoleRepositoryInterface $repository
+     * @param PrivilegeQueryInterface $query
+     */
+    public function __construct(RoleRepositoryInterface $repository, PrivilegeQueryInterface $query)
     {
-        $this->roleRepository = $roleRepository;
+        $this->repository = $repository;
+        $this->query = $query;
     }
+
 
     /**
      * {@inheritDoc}
      */
     public function supports($attribute, $subject): bool
     {
-        return (
-            0 !== strncmp('IS_AUTHENTICATED_', $attribute, 17) &&
-            0 !== strncmp('ROLE_', $attribute, 5)
-        );
+        $privileges = $this->query->getPrivileges();
+
+        return in_array($attribute, $privileges, true);
     }
 
     /**
@@ -59,7 +67,7 @@ class UserRoleVoter extends Voter implements LoggerAwareInterface
             return true;
         }
 
-        $role = $this->roleRepository->load($user->getRoleId());
+        $role = $this->repository->load($user->getRoleId());
         if (!$role instanceof Role) {
             throw new \RuntimeException(sprintf('Role by id "%s" not found', $user->getRoleId()->getValue()));
         }
