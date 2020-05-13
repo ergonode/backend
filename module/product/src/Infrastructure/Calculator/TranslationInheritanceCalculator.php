@@ -42,7 +42,7 @@ class TranslationInheritanceCalculator
     {
         $languagesPath = $this->languageQuery->getInheritancePath($language);
         $calculatedValue = null;
-        if ($value instanceof TranslatableStringValue) {
+        if ($value instanceof TranslatableStringValue || $value instanceof StringCollectionValue) {
             $translations = $value->getValue();
             $find = false;
             foreach ($languagesPath as $inheritance) {
@@ -56,8 +56,10 @@ class TranslationInheritanceCalculator
         } elseif ($value instanceof StringValue) {
             $values = $value->getValue();
             $calculatedValue = reset($values);
-        } elseif ($value instanceof StringCollectionValue) {
-            $calculatedValue = $value->getValue();
+        }
+
+        if ($value instanceof StringCollectionValue) {
+            $calculatedValue = explode(',', $calculatedValue);
         }
 
         return $calculatedValue;

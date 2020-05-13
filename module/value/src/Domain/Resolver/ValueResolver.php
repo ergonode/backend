@@ -35,7 +35,7 @@ class ValueResolver
         }
 
         if ($value instanceof TranslatableStringValue) {
-            return $value->getVersion($language);
+            return $value->getTranslation($language);
         }
 
         if ($value instanceof StringCollectionValue) {

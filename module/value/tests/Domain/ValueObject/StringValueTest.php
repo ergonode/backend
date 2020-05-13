@@ -26,7 +26,6 @@ class StringValueTest extends TestCase
 
         $this->assertSame($value, $valueObject->getValue()[null]);
         $this->assertSame(StringValue::TYPE, $valueObject->getType());
-        $this->assertSame($value, (string) $valueObject);
     }
 
     /**

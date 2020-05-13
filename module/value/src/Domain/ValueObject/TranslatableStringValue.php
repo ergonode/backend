@@ -57,7 +57,7 @@ class TranslatableStringValue implements ValueInterface
      *
      * @return string|null
      */
-    public function getVersion(?Language $language = null): ?string
+    public function getTranslation(Language $language): ?string
     {
         return $this->value->get($language);
     }

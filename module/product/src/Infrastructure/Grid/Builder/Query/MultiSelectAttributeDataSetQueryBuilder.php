@@ -35,12 +35,18 @@ class MultiSelectAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBu
         $query->addSelect(sprintf(
             '
             (
-                SELECT jsonb_agg(value) FROM product_value pv
+                SELECT to_jsonb(regexp_split_to_array(value,\',\')) FROM product_value pv
                 JOIN value_translation vt ON vt.value_id = pv.value_id
+                LEFT JOIN language_tree lt ON lt.code = vt.language
                 WHERE pv.attribute_id = \'%s\'
                 AND pv.product_id = p.id
+                AND lt.lft <= %s AND lt.rgt >= %s
+                ORDER BY lft DESC NULLS LAST
+                LIMIT 1      
             ) AS "%s"',
             $attribute->getId()->getValue(),
+            $info['lft'],
+            $info['rgt'],
             $key
         ));
     }

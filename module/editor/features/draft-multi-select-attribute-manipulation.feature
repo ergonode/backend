@@ -135,23 +135,20 @@ Feature: Draft edit and inheritance value for product draft with multi-select at
     When I send a GET request to "api/v1/en/products/@product_id@/draft"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@[0] | @option_2_id@ |
+      | attributes.@attribute_code@[0] | @option_1_id@ |
 
   Scenario: Get draft values in "fr" language
     When I send a GET request to "api/v1/fr/products/@product_id@/draft"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@[0] | @option_2_id@ |
+      | attributes.@attribute_code@[0] | @option_1_id@ |
 
   Scenario: Remove value for "pl" language
     When I send a DELETE request to "api/v1/pl/products/@product_id@/draft/@attribute_id@/value"
     Then the response status code should be 204
 
-  Scenario: Get draft values in "pl" language after remove pl value (get inheritance value)
+  Scenario: Get draft values in "pl" language
     When I send a GET request to "api/v1/pl/products/@product_id@/draft"
     Then the response status code should be 200
-    And the JSON node "attributes.@attribute_code@" should not exist
-
-  Scenario: Apply product draft
-    When I send a PUT request to "api/v1/en/products/@product_id@/draft/persist"
-    Then the response status code should be 204
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@[0] | @option_1_id@ |
