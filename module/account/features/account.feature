@@ -6,6 +6,16 @@ Feature: Account module
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "/api/v1/profile"
     Then the response status code should be 200
+    And the JSON node id should exist
+    And the JSON node first_name should exist
+    And the JSON node last_name should exist
+    And the JSON node email should exist
+    And the JSON node language should exist
+    And the JSON node avatar_id should exist
+    And the JSON node role should exist
+    And the JSON node privileges should exist
+    And the JSON node language_privileges should exist
+    And the JSON node language_privileges.en should exist
 
   Scenario: Get profile (not authorized)
     When I send a GET request to "/api/v1/profile"
