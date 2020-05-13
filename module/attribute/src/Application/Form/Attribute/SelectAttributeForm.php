@@ -9,19 +9,30 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Form\Attribute;
 
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\AbstractType;
-use Ergonode\Core\Application\Form\Type\TranslationType;
-use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Form\Type\AttributeCodeType;
+use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
+use Ergonode\Core\Application\Form\Type\TranslationType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class SelectAttributeForm extends AbstractType
+class SelectAttributeForm extends AbstractType implements AttributeFormInterface
 {
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function supported(string $type): bool
+    {
+        return SelectAttribute::TYPE === $type;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options

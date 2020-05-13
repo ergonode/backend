@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Attribute\Domain\Entity\AttributeInterface;
+use Ergonode\Attribute\Application\Form\Attribute\AttributeFormInterface;
 
 /**
  */
@@ -38,6 +39,10 @@ class ErgonodeAttributeExtension extends Extension
         $container
             ->registerForAutoconfiguration(AttributeInterface::class)
             ->addTag(CompilerPass\AttributeTypeCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(AttributeFormInterface::class)
+            ->addTag(CompilerPass\AttributeFormCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(CreateAttributeCommandFactoryInterface::class)

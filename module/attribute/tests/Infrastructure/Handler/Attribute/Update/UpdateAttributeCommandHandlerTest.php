@@ -46,7 +46,7 @@ class UpdateAttributeCommandHandlerTest extends TestCase
         $this->command->method('getHint')->willReturn(new TranslatableString());
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
         $this->attribute = $this->createMock(TextAttribute::class);
-        $this->attribute->method('getGroups')->willReturn(new ArrayCollection());
+        $this->attribute->method('getGroups')->willReturn([]);
     }
 
     /**

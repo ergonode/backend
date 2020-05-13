@@ -223,11 +223,11 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     }
 
     /**
-     * @return ArrayCollection|AttributeGroupId[]
+     * @return AttributeGroupId[]
      */
-    public function getGroups(): ArrayCollection
+    public function getGroups(): array
     {
-        return new ArrayCollection($this->groups);
+        return array_values($this->groups);
     }
 
     /**
@@ -289,16 +289,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot implements Attrib
     protected function getParameter(string $name)
     {
         return $this->parameters[$name];
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    protected function hasParameter(string $name): bool
-    {
-        return isset($this->parameters[$name]);
     }
 
     /**

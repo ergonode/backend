@@ -25,6 +25,11 @@ interface AttributeGroupQueryInterface
     public function getAttributeGroups(Language $language): array;
 
     /**
+     * @return array
+     */
+    public function getAttributeGroupIds(): array;
+
+    /**
      * @param Language $language
      *
      * @return DataSetInterface
