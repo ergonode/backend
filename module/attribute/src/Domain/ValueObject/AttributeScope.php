@@ -64,6 +64,22 @@ class AttributeScope
     }
 
     /**
+     * @return bool
+     */
+    public function isLocal(): bool
+    {
+        return self::LOCAL === $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGlobal(): bool
+    {
+        return self::GLOBAL === $this->value;
+    }
+
+    /**
      * @param AttributeScope $value
      *
      * @return bool
