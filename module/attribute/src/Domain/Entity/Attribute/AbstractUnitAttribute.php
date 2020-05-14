@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -19,7 +20,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-abstract class AbstractUnitAttribute extends AbstractAttribute
+abstract class AbstractUnitAttribute extends AbstractAttribute implements AttributeInterface
 {
     public const TYPE = 'UNIT';
     public const UNIT = 'unit';

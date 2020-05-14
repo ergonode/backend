@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -17,7 +18,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-abstract class AbstractNumericAttribute extends AbstractAttribute
+abstract class AbstractNumericAttribute extends AbstractAttribute implements AttributeInterface
 {
     public const TYPE = 'NUMERIC';
 

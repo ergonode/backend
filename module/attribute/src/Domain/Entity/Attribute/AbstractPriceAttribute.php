@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -19,7 +20,7 @@ use Money\Currency;
 
 /**
  */
-abstract class AbstractPriceAttribute extends AbstractAttribute
+abstract class AbstractPriceAttribute extends AbstractAttribute implements AttributeInterface
 {
     public const TYPE = 'PRICE';
     public const CURRENCY = 'currency';

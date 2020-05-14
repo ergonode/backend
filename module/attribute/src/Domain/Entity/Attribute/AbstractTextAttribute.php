@@ -10,11 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-abstract class AbstractTextAttribute extends AbstractAttribute
+abstract class AbstractTextAttribute extends AbstractAttribute implements AttributeInterface
 {
     public const TYPE = 'TEXT';
 

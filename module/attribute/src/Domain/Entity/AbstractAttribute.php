@@ -26,7 +26,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-abstract class AbstractAttribute extends AbstractAggregateRoot implements AttributeInterface
+abstract class AbstractAttribute extends AbstractAggregateRoot
 {
     /**
      * @var AttributeId
