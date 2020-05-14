@@ -10,14 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\AttributeInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-abstract class AbstractImageAttribute extends AbstractAttribute implements AttributeInterface
+abstract class AbstractImageAttribute extends AbstractAttribute
 {
     public const TYPE = 'IMAGE';
 
