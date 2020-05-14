@@ -65,8 +65,8 @@ class ProductDraftValueAddedEventProjector
             $array = $value->getValue();
             $this->insert($draftId, $elementId, reset($array));
         } elseif ($value instanceof StringCollectionValue) {
-            foreach ($value->getValue() as $phrase) {
-                $this->insert($draftId, $elementId, $phrase);
+            foreach ($value->getValue() as $language => $phrase) {
+                $this->insert($draftId, $elementId, $phrase, $language);
             }
         } elseif ($value instanceof TranslatableStringValue) {
             $translation = $value->getValue();
@@ -74,7 +74,7 @@ class ProductDraftValueAddedEventProjector
                 $this->insert($draftId, $elementId, $phrase, $language);
             }
         } else {
-            throw new \RuntimeException(sprintf(sprintf('Unknown Value class "%s"', \get_class($value->getValue()))));
+            throw new \RuntimeException(sprintf(sprintf('Unknown Value class "%s"', \get_class($value))));
         }
     }
 

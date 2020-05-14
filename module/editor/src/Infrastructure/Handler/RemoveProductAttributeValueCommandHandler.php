@@ -20,6 +20,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 
 /**
  */
@@ -77,7 +78,7 @@ class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHand
         }
 
         $oldValue = $draft->getAttribute($attribute->getCode());
-        $newValue = $this->calculate($oldValue, $command->getLanguage());
+        $newValue = $this->calculate($oldValue, $language);
 
         if ($newValue && !empty($newValue->getValue())) {
             $draft->changeAttribute($attribute->getCode(), $newValue);
@@ -110,6 +111,15 @@ class RemoveProductAttributeValueCommandHandler extends AbstractValueCommandHand
             }
 
             return new TranslatableStringValue(new TranslatableString($translation));
+        }
+
+        if ($value instanceof StringCollectionValue) {
+            $translation = $value->getValue();
+            if (array_key_exists($language->getCode(), $translation)) {
+                unset($translation[$language->getCode()]);
+            }
+
+            return new StringCollectionValue($translation);
         }
 
         return null;

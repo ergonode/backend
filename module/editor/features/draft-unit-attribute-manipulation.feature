@@ -139,7 +139,3 @@ Feature: Draft edit and inheritance value for product draft with unit attribute
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | attributes.@attribute_code@ | 100.99 |
-
-  Scenario: Apply product draft
-    When I send a PUT request to "api/v1/en/products/@product_id@/draft/persist"
-    Then the response status code should be 204

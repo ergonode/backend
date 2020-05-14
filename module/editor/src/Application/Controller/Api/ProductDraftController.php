@@ -162,6 +162,7 @@ class ProductDraftController extends AbstractController
      * )
      *
      * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("edit", subject="language")
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(
@@ -246,6 +247,7 @@ class ProductDraftController extends AbstractController
      * )
      *
      * @IsGranted("PRODUCT_UPDATE")
+     * @IsGranted("edit", subject="language")
      *
      * @SWG\Tag(name="Editor")
      * @SWG\Parameter(

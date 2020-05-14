@@ -64,8 +64,8 @@ class ProductValueAddedEventProjector
         if ($value instanceof StringValue) {
             $this->insert($productId, $attributeId, (string) $value);
         } elseif ($value instanceof StringCollectionValue) {
-            foreach ($value->getValue() as $phrase) {
-                $this->insert($productId, $attributeId, $phrase);
+            foreach ($value->getValue() as $language => $phrase) {
+                $this->insert($productId, $attributeId, $phrase, $language);
             }
         } elseif ($value instanceof TranslatableStringValue) {
             $translation = $value->getValue();

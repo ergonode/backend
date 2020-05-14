@@ -8,31 +8,25 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Provider;
 
-use Ergonode\Attribute\Application\Form\Attribute\DateAttributeForm;
-use Ergonode\Attribute\Application\Form\Attribute\GalleryAttributeForm;
-use Ergonode\Attribute\Application\Form\Attribute\ImageAttributeForm;
-use Ergonode\Attribute\Application\Form\Attribute\MultiSelectAttributeForm;
-use Ergonode\Attribute\Application\Form\Attribute\NumericAttributeForm;
-use Ergonode\Attribute\Application\Form\Attribute\PriceAttributeForm;
-use Ergonode\Attribute\Application\Form\Attribute\SelectAttributeForm;
-use Ergonode\Attribute\Application\Form\Attribute\TextareaAttributeForm;
-use Ergonode\Attribute\Application\Form\Attribute\TextAttributeForm;
-use Ergonode\Attribute\Application\Form\Attribute\UnitAttributeForm;
-use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
+use Ergonode\Attribute\Application\Form\Attribute\AttributeFormInterface;
 
 /**
  */
 class AttributeFormProvider
 {
+    /**
+     * @var AttributeFormInterface[]
+     */
+    private array $forms;
+
+    /**
+     * @param array|AttributeFormInterface ...$forms
+     */
+    public function __construct(AttributeFormInterface ...$forms)
+    {
+        $this->forms = $forms;
+    }
+
     /**
      * @param string $type
      *
@@ -40,44 +34,10 @@ class AttributeFormProvider
      */
     public function provide(string $type): string
     {
-        if (PriceAttribute::TYPE === $type) {
-            return PriceAttributeForm::class;
-        }
-
-        if (DateAttribute::TYPE === $type) {
-            return DateAttributeForm::class;
-        }
-
-        if (UnitAttribute::TYPE === $type) {
-            return UnitAttributeForm::class;
-        }
-
-        if (TextAttribute::TYPE === $type) {
-            return TextAttributeForm::class;
-        }
-
-        if (TextareaAttribute::TYPE === $type) {
-            return TextareaAttributeForm::class;
-        }
-
-        if (NumericAttribute::TYPE === $type) {
-            return NumericAttributeForm::class;
-        }
-
-        if (SelectAttribute::TYPE === $type) {
-            return SelectAttributeForm::class;
-        }
-
-        if (MultiSelectAttribute::TYPE === $type) {
-            return MultiSelectAttributeForm::class;
-        }
-
-        if (ImageAttribute::TYPE === $type) {
-            return ImageAttributeForm::class;
-        }
-
-        if (GalleryAttribute::TYPE === $type) {
-            return GalleryAttributeForm::class;
+        foreach ($this->forms as $form) {
+            if ($form->supported($type)) {
+                return get_class($form);
+            }
         }
 
         throw new \RuntimeException(sprintf('Can\' find factory for %s type', $type));

@@ -17,11 +17,39 @@ use Ergonode\Account\Domain\Repository\RoleRepositoryInterface;
 use Ergonode\Account\Domain\ValueObject\Privilege;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Ergonode\Account\Domain\Query\PrivilegeQueryInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  */
 class UserRoleVoterTest extends TestCase
 {
+    /**
+     * @var RoleRepositoryInterface|MockObject
+     */
+    private RoleRepositoryInterface $repository;
+
+    /**
+     * @var PrivilegeQueryInterface|MockObject
+     */
+    private PrivilegeQueryInterface $query;
+
+    /**
+     * @var TokenInterface| MockObject
+     */
+    private TokenInterface $token;
+
+    /**
+     *
+     */
+    protected function setUp(): void
+    {
+        $this->repository = $this->createMock(RoleRepositoryInterface::class);
+        $this->query = $this->createMock(PrivilegeQueryInterface::class);
+        $this->token = $this->createMock(TokenInterface::class);
+    }
+
+
     /**
      * @param string $privilege
      * @param bool   $expectedResult
@@ -30,9 +58,10 @@ class UserRoleVoterTest extends TestCase
      */
     public function testSupports(string $privilege, bool $expectedResult): void
     {
-        $repository = $this->createMock(RoleRepositoryInterface::class);
-
-        $voter = new UserRoleVoter($repository);
+        if ($expectedResult) {
+            $this->query->method('getPrivileges')->willReturn([$privilege]);
+        }
+        $voter = new UserRoleVoter($this->repository, $this->query);
 
         $result = $voter->supports($privilege, null);
 
@@ -40,34 +69,14 @@ class UserRoleVoterTest extends TestCase
     }
 
     /**
-     * @return array
-     */
-    public function supportsDataProvider(): array
-    {
-        return [
-            ['IS_AUTHENTICATED_FULLY', false],
-            ['IS_AUTHENTICATED_ANNONYMOUSLY', false],
-            ['ROLE_ADMIN', false],
-            ['ROLE_USER', false],
-            ['ABC', true],
-            ['CORRECT_PRIVILEGE', true],
-        ];
-    }
-
-    /**
      */
     public function testNoUser(): void
     {
-        $repository = $this->createMock(RoleRepositoryInterface::class);
-        $token = $this->createMock(TokenInterface::class);
-        $token
-            ->expects($this->once())
-            ->method('getUser')
-            ->willReturn(null);
+        $this->token->expects($this->once())->method('getUser')->willReturn(null);
 
-        $voter = new UserRoleVoter($repository);
+        $voter = new UserRoleVoter($this->repository, $this->query);
 
-        $result = $voter->voteOnAttribute(null, null, $token);
+        $result = $voter->voteOnAttribute(null, null, $this->token);
 
         $this->assertTrue($result);
     }
@@ -77,12 +86,8 @@ class UserRoleVoterTest extends TestCase
     public function testNotExistingRole(): void
     {
         $this->expectException(\RuntimeException::class);
-        $repository = $this->createMock(RoleRepositoryInterface::class);
-        $repository
-            ->expects($this->once())
-            ->method('load')
-            ->willReturn(null);
 
+        $this->repository->expects($this->once())->method('load')->willReturn(null);
         $roleId = $this->createMock(RoleId::class);
         $roleId
             ->expects($this->once())
@@ -95,15 +100,10 @@ class UserRoleVoterTest extends TestCase
             ->method('getRoleId')
             ->willReturn($roleId);
 
-        $token = $this->createMock(TokenInterface::class);
-        $token
-            ->expects($this->once())
-            ->method('getUser')
-            ->willReturn($user);
+        $this->token->expects($this->once())->method('getUser')->willReturn($user);
+        $voter = new UserRoleVoter($this->repository, $this->query);
 
-        $voter = new UserRoleVoter($repository);
-
-        $voter->voteOnAttribute(null, null, $token);
+        $voter->voteOnAttribute(null, null, $this->token);
     }
 
     /**
@@ -125,8 +125,7 @@ class UserRoleVoterTest extends TestCase
                 ]
             );
 
-        $repository = $this->createMock(RoleRepositoryInterface::class);
-        $repository
+        $this->repository
             ->expects($this->once())
             ->method('load')
             ->willReturn($role);
@@ -145,11 +144,26 @@ class UserRoleVoterTest extends TestCase
             ->method('getUser')
             ->willReturn($user);
 
-        $voter = new UserRoleVoter($repository);
+        $voter = new UserRoleVoter($this->repository, $this->query);
 
         $result = $voter->voteOnAttribute($privilege, null, $token);
 
         $this->assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @return array
+     */
+    public function supportsDataProvider(): array
+    {
+        return [
+            ['IS_AUTHENTICATED_FULLY', false],
+            ['IS_AUTHENTICATED_ANNONYMOUSLY', false],
+            ['ROLE_ADMIN', false],
+            ['ROLE_USER', false],
+            ['ABC', true],
+            ['CORRECT_PRIVILEGE', true],
+        ];
     }
 
     /**

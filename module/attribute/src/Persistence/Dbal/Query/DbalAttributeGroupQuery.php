@@ -58,6 +58,18 @@ class DbalAttributeGroupQuery implements AttributeGroupQueryInterface
     }
 
     /**
+     * @return array
+     */
+    public function getAttributeGroupIds(): array
+    {
+        return $this->connection->createQueryBuilder()
+            ->select('ag.id')
+            ->from(self::TABLE, 'ag')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    /**
      * @param AttributeGroupId $id
      *
      * @return AttributeId[]

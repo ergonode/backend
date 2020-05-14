@@ -42,7 +42,7 @@ abstract class AbstractValueCommandHandler
         }
 
         if ($attribute instanceof MultiSelectAttribute || $attribute instanceof GalleryAttribute) {
-            return new StringCollectionValue($value);
+            return new StringCollectionValue([$language->getCode() => implode(',', $value)]);
         }
 
         if ($attribute instanceof SelectAttribute) {

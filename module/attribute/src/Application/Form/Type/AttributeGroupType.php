@@ -9,36 +9,26 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Form\Type;
 
-use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeGroupDictionaryProvider;
-use Ergonode\Account\Infrastructure\Provider\AuthenticatedUserProviderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 
 /**
  */
 class AttributeGroupType extends AbstractType
 {
     /**
-     * @var AttributeGroupDictionaryProvider
+     * @var AttributeGroupQueryInterface
      */
-    private AttributeGroupDictionaryProvider $provider;
+    private AttributeGroupQueryInterface $query;
 
     /**
-     * @var AuthenticatedUserProviderInterface
+     * @param AttributeGroupQueryInterface $query
      */
-    private AuthenticatedUserProviderInterface $userProvider;
-
-    /**
-     * @param AttributeGroupDictionaryProvider   $provider
-     * @param AuthenticatedUserProviderInterface $userProvider
-     */
-    public function __construct(
-        AttributeGroupDictionaryProvider $provider,
-        AuthenticatedUserProviderInterface $userProvider
-    ) {
-        $this->provider = $provider;
-        $this->userProvider = $userProvider;
+    public function __construct(AttributeGroupQueryInterface $query)
+    {
+        $this->query = $query;
     }
 
     /**
@@ -46,9 +36,7 @@ class AttributeGroupType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $language = $this->userProvider->provide()->getLanguage();
-
-        $choices = array_keys($this->provider->getDictionary($language));
+        $choices = $this->query->getAttributeGroupIds();
 
         $resolver->setDefaults(
             [

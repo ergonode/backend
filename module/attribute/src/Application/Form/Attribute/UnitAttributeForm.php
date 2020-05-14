@@ -12,17 +12,28 @@ namespace Ergonode\Attribute\Application\Form\Attribute;
 use Ergonode\Attribute\Application\Form\Attribute\Configuration\UnitAttributeConfigurationForm;
 use Ergonode\Attribute\Application\Form\Type\AttributeCodeType;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
+use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
+use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
 
 /**
  */
-class UnitAttributeForm extends AbstractType
+class UnitAttributeForm extends AbstractType implements AttributeFormInterface
 {
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function supported(string $type): bool
+    {
+        return UnitAttribute::TYPE === $type;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
