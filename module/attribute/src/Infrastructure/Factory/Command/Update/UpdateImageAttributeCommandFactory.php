@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateImageAttributeCommand;
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -49,7 +50,7 @@ class UpdateImageAttributeCommandFactory implements UpdateAttributeCommandFactor
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
-            $data->multilingual,
+            new AttributeScope($data->scope),
             $data->groups,
         );
     }

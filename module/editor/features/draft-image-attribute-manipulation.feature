@@ -53,6 +53,7 @@ Feature: Draft edit and inheritance value for product draft with image attribute
       {
         "code": "@attribute_code@",
         "type": "IMAGE",
+        "scope": "local",
         "groups": []
       }
       """

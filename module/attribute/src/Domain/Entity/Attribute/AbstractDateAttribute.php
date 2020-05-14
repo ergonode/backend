@@ -16,6 +16,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -30,7 +31,7 @@ abstract class AbstractDateAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param DateFormat         $format
      *
      * @throws \Exception
@@ -41,7 +42,7 @@ abstract class AbstractDateAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         DateFormat $format
     ) {
         parent::__construct(
@@ -50,7 +51,7 @@ abstract class AbstractDateAttribute extends AbstractAttribute
             $label,
             $hint,
             $placeholder,
-            $multilingual,
+            $scope,
             [self::FORMAT => $format->getFormat()]
         );
     }

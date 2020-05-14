@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -45,9 +46,9 @@ class ImageAttributeTest extends TestCase
     private $placeholder;
 
     /**
-     * @var bool
+     * @var AttributeScope|MockObject
      */
-    private bool $multilingual;
+    private AttributeScope $scope;
 
     /**
      */
@@ -58,7 +59,7 @@ class ImageAttributeTest extends TestCase
         $this->label = $this->createMock(TranslatableString::class);
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
-        $this->multilingual = true;
+        $this->scope = $this->createMock(AttributeScope::class);
     }
 
     /**
@@ -72,13 +73,13 @@ class ImageAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
-            $this->multilingual
+            $this->scope
         );
         $this->assertEquals($this->id, $attribute->getId());
         $this->assertEquals($this->code, $attribute->getCode());
         $this->assertEquals($this->label, $attribute->getLabel());
         $this->assertEquals($this->hint, $attribute->getHint());
         $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
-        $this->assertEquals($this->multilingual, $attribute->isMultilingual());
+        $this->assertEquals($this->scope, $attribute->getScope());
     }
 }

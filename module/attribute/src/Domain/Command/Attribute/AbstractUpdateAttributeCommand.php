@@ -13,6 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -26,11 +27,11 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
     private AttributeId $id;
 
     /**
-     * @var bool
+     * @var AttributeScope
      *
-     * @JMS\Type("bool")
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
      */
-    private bool $multilingual;
+    private AttributeScope $scope;
 
     /**
      * @var array
@@ -65,7 +66,7 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param array              $groups
      */
     public function __construct(
@@ -73,11 +74,11 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         array $groups = []
     ) {
         $this->id = $id;
-        $this->multilingual = $multilingual;
+        $this->scope = $scope;
         $this->label = $label;
         $this->hint = $hint;
         $this->placeholder = $placeholder;
@@ -125,10 +126,10 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
     }
 
     /**
-     * @return bool
+     * @return AttributeScope
      */
-    public function isMultilingual(): bool
+    public function getScope(): AttributeScope
     {
-        return $this->multilingual;
+        return $this->scope;
     }
 }

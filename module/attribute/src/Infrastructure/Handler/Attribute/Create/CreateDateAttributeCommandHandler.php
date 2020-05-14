@@ -44,7 +44,7 @@ class CreateDateAttributeCommandHandler
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual(),
+            $command->getScope(),
             $command->getFormat(),
         );
 

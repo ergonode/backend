@@ -50,6 +50,7 @@ Feature: Draft edit and inheritance value for product draft with multi-select at
       {
         "code": "@attribute_code@",
         "type": "MULTI_SELECT",
+        "scope": "local",
         "groups": []
       }
       """

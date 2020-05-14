@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Money\Currency;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -51,9 +52,9 @@ class PriceAttributeTest extends TestCase
     private $currency;
 
     /**
-     * @var bool
+     * @var AttributeScope|MockObject
      */
-    private bool $multilingual;
+    private AttributeScope $scope;
 
     /**
      */
@@ -65,7 +66,7 @@ class PriceAttributeTest extends TestCase
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
         $this->currency = new Currency('CURRENCY');
-        $this->multilingual = true;
+        $this->scope = $this->createMock(AttributeScope::class);
     }
 
     /**
@@ -79,7 +80,7 @@ class PriceAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
-            $this->multilingual,
+            $this->scope,
             $this->currency
         );
         $this->assertEquals($this->currency, $attribute->getCurrency());
@@ -88,7 +89,7 @@ class PriceAttributeTest extends TestCase
         $this->assertEquals($this->label, $attribute->getLabel());
         $this->assertEquals($this->hint, $attribute->getHint());
         $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
-        $this->assertEquals($this->multilingual, $attribute->isMultilingual());
+        $this->assertEquals($this->scope, $attribute->getScope());
     }
 
     /**
@@ -103,7 +104,7 @@ class PriceAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
-            $this->multilingual,
+            $this->scope,
             $this->currency
         );
         $attribute->changeCurrency($currency);

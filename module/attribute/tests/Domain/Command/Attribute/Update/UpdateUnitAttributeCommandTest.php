@@ -14,6 +14,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateUnitAttributeCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -24,7 +25,7 @@ class UpdateUnitAttributeCommandTest extends TestCase
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param UnitId             $unitId
      * @param array              $groups
      *
@@ -35,17 +36,17 @@ class UpdateUnitAttributeCommandTest extends TestCase
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         UnitId $unitId,
         array $groups
     ): void {
-        $command = new UpdateUnitAttributeCommand($id, $label, $hint, $placeholder, $multilingual, $unitId, $groups);
+        $command = new UpdateUnitAttributeCommand($id, $label, $hint, $placeholder, $scope, $unitId, $groups);
         $this->assertSame($id, $command->getId());
         $this->assertSame($label, $command->getLabel());
         $this->assertSame($hint, $command->getHint());
         $this->assertSame($placeholder, $command->getPlaceholder());
         $this->assertSame($groups, $command->getGroups());
-        $this->assertSame($multilingual, $command->isMultilingual());
+        $this->assertSame($scope, $command->getScope());
         $this->assertSame($unitId, $command->getUnitId());
     }
 
@@ -62,7 +63,7 @@ class UpdateUnitAttributeCommandTest extends TestCase
                 $this->createMock(TranslatableString::class),
                 $this->createMock(TranslatableString::class),
                 $this->createMock(TranslatableString::class),
-                true,
+                $this->createMock(AttributeScope::class),
                 $this->createMock(UnitId::class),
                 [],
             ],

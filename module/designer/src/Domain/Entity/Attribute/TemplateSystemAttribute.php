@@ -12,6 +12,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -34,8 +35,9 @@ class TemplateSystemAttribute extends AbstractOptionAttribute
     ) {
         $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code->getValue());
+        $scope = new AttributeScope(AttributeScope::GLOBAL);
 
-        parent::__construct($id, $code, $label, $hint, $placeholder, false);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
     /**
@@ -58,6 +60,14 @@ class TemplateSystemAttribute extends AbstractOptionAttribute
      * @return bool
      */
     public function isEditable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultilingual(): bool
     {
         return false;
     }

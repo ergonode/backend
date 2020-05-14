@@ -16,6 +16,7 @@ use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateImageAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -48,7 +49,7 @@ class CreateImageAttributeCommandFactory implements CreateAttributeCommandFactor
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
-            $data->multilingual,
+            new AttributeScope($data->scope),
             $data->groups,
         );
     }

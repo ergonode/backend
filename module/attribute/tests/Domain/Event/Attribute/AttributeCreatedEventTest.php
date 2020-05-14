@@ -15,20 +15,18 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
 class AttributeCreatedEventTest extends TestCase
 {
     /**
-     * @param $multilingual
-     * @param $editable
-     * @param $deletable
-     * @param $system
+     * @param bool $system
      *
      * @dataProvider dataProvider
      */
-    public function testEventCreation($multilingual, $editable, $deletable, $system): void
+    public function testEventCreation(bool $system): void
     {
         /** @var AttributeId|MockObject $attributeId */
         $attributeId = $this->createMock(AttributeId::class);
@@ -38,6 +36,8 @@ class AttributeCreatedEventTest extends TestCase
         $label = $this->createMock(TranslatableString::class);
         /** @var TranslatableString | MockObject $hint */
         $hint = $this->createMock(TranslatableString::class);
+        /** @var AttributeScope | MockObject $scope */
+        $scope = $this->createMock(AttributeScope::class);
         /** @var TranslatableString | MockObject $placeholder */
         $placeholder = $this->createMock(TranslatableString::class);
         $type = 'string';
@@ -50,12 +50,10 @@ class AttributeCreatedEventTest extends TestCase
             $label,
             $hint,
             $placeholder,
-            $multilingual,
+            $scope,
             $type,
             $class,
             $parameters,
-            $editable,
-            $deletable,
             $system
         );
 
@@ -65,10 +63,8 @@ class AttributeCreatedEventTest extends TestCase
         $this->assertSame($label, $event->getLabel());
         $this->assertSame($hint, $event->getHint());
         $this->assertSame($placeholder, $event->getPlaceholder());
-        $this->assertSame($multilingual, $event->isMultilingual());
+        $this->assertSame($scope, $event->getScope());
         $this->assertSame($parameters, $event->getParameters());
-        $this->assertSame($editable, $event->isEditable());
-        $this->assertSame($deletable, $event->isDeletable());
         $this->assertSame($system, $event->isSystem());
     }
 
@@ -79,15 +75,9 @@ class AttributeCreatedEventTest extends TestCase
     {
         return [
             [
-                'multilingual' => true,
-                'editable' => true,
-                'deletable' => true,
                 'system' => true,
             ],
             [
-                'multilingual' => false,
-                'editable' => false,
-                'deletable' => false,
                 'system' => false,
             ],
         ];

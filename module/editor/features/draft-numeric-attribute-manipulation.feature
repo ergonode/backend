@@ -50,6 +50,7 @@ Feature: Draft edit and inheritance value for product draft with numeric attribu
       {
         "code": "@attribute_code@",
         "type": "NUMERIC",
+        "scope": "local",
         "groups": []
       }
       """

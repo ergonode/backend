@@ -48,7 +48,7 @@ class CreateTextAttributeCommandHandlerTest extends TestCase
 
     /**
      */
-    public function testUpdate(): void
+    public function testHandleCommand(): void
     {
         $this->repository->method('load')->willReturn($this->attribute);
         $this->repository->expects($this->once())->method('save');

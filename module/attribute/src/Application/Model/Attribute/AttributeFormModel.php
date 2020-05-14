@@ -35,9 +35,14 @@ class AttributeFormModel
     public ?string $code = null;
 
     /**
-     * @var bool
+     * @var string
+     *
+     * @Assert\NotBlank(
+     *     message="Attribute scope is required",
+     *     )
+     * @Assert\Choice({"local", "global"})
      */
-    public bool $multilingual = true;
+    public ?string $scope = null;
 
     /**
      * @var array

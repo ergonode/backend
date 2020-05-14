@@ -49,6 +49,7 @@ Feature: Draft edit and inheritance value for product draft with text attribute
       {
         "code": "@attribute_code@",
         "type": "TEXT",
+        "scope": "local",
         "groups": []
       }
       """
