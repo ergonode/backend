@@ -12,17 +12,28 @@ namespace Ergonode\Attribute\Application\Form\Attribute;
 use Ergonode\Attribute\Application\Form\Attribute\Configuration\PriceAttributeConfigurationForm;
 use Ergonode\Attribute\Application\Form\Type\AttributeCodeType;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
+use Ergonode\Attribute\Application\Model\Attribute\PriceAttributeFormModel;
+use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\Attribute\Application\Model\Attribute\PriceAttributeFormModel;
 
 /**
  */
-class PriceAttributeForm extends AbstractType
+class PriceAttributeForm extends AbstractType implements AttributeFormInterface
 {
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function supported(string $type): bool
+    {
+        return PriceAttribute::TYPE === $type;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options

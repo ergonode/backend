@@ -25,6 +25,7 @@ class ErgonodeAttributeBundle extends AbstractModule
         parent::build($container);
 
         $container
+            ->addCompilerPass(new CompilerPass\AttributeFormCompilerPass())
             ->addCompilerPass(new CompilerPass\AttributeTypeCompilerPass())
             ->addCompilerPass(new CompilerPass\CreateAttributeCommandFactoryProviderInterfaceCompilerPass())
             ->addCompilerPass(new CompilerPass\UpdateAttributeCommandFactoryProviderInterfaceCompilerPass())

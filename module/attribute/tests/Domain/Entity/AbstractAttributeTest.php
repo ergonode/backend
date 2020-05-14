@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -35,53 +36,32 @@ class AbstractAttributeTest extends TestCase
     private TranslatableString $translation;
 
     /**
-     * @var AbstractAttribute|MockObject
-     */
-    private AbstractAttribute $class;
-
-    /**
      * @var bool
      */
     private bool $multilingual;
 
-    // @codingStandardsIgnoreStart
+    /**
+     * @var string[]
+     */
+    private array $parameters;
+
     /**
      */
     public function setUp(): void
     {
-
         $this->id = $this->createMock(AttributeId::class);
         $this->code = $this->createMock(AttributeCode::class);
         $this->translation = $this->createMock(TranslatableString::class);
         $this->multilingual = true;
-
-        /**
-         */
-        $this->class = new class(
-            $this->id,
-            $this->code,
-            $this->translation,
-            $this->translation,
-            $this->translation,
-            $this->multilingual,
-        ) extends AbstractAttribute {
-            /**
-             * @return string
-             */
-            public function getType(): string
-            {
-                return 'TYPE';
-            }
-        };
+        $this->parameters = ['paramater1' => 'value1'];
     }
-    // @codingStandardsIgnoreEnd
 
     /**
      * @throws \Exception
      */
     public function testAttributeCreation(): void
     {
-        $attribute = $this->class;
+        $attribute = $this->getClass();
 
         $this->assertEquals($this->id, $attribute->getId());
         $this->assertEquals($this->code, $attribute->getCode());
@@ -89,6 +69,7 @@ class AbstractAttributeTest extends TestCase
         $this->assertEquals($this->translation, $attribute->getHint());
         $this->assertEquals($this->translation, $attribute->getPlaceholder());
         $this->assertEquals($this->multilingual, $attribute->isMultilingual());
+        $this->assertEquals($this->parameters, $attribute->getParameters());
     }
 
     /**
@@ -98,7 +79,7 @@ class AbstractAttributeTest extends TestCase
     {
         $translation = $this->createMock(TranslatableString::class);
         $translation->method('isEqual')->willReturn(false);
-        $attribute = $this->class;
+        $attribute = $this->getClass();
         $attribute->changeLabel($translation);
         $this->assertNotSame($this->translation, $attribute->getLabel());
         $this->assertSame($translation, $attribute->getLabel());
@@ -111,7 +92,7 @@ class AbstractAttributeTest extends TestCase
     {
         $translation = $this->createMock(TranslatableString::class);
         $translation->method('isEqual')->willReturn(false);
-        $attribute = $this->class;
+        $attribute = $this->getClass();
         $attribute->changePlaceholder($translation);
         $this->assertNotSame($this->translation, $attribute->getPlaceholder());
         $this->assertSame($translation, $attribute->getPlaceholder());
@@ -124,9 +105,49 @@ class AbstractAttributeTest extends TestCase
     {
         $translation = $this->createMock(TranslatableString::class);
         $translation->method('isEqual')->willReturn(false);
-        $attribute = $this->class;
+        $attribute = $this->getClass();
         $attribute->changeHint($translation);
         $this->assertNotSame($this->translation, $attribute->getHint());
         $this->assertSame($translation, $attribute->getHint());
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testGroupManipulation(): void
+    {
+        $groupId = AttributeGroupId::generate();
+
+        $attribute = $this->getClass();
+        $attribute->addGroup($groupId);
+        $this->assertTrue($attribute->inGroup($groupId));
+        $this->assertEquals([$groupId], $attribute->getGroups());
+        $attribute->removeGroup($groupId);
+        $this->assertFalse($attribute->inGroup($groupId));
+        $this->assertEquals([], $attribute->getGroups());
+    }
+
+    /**
+     * @return AbstractAttribute
+     */
+    private function getClass(): AbstractAttribute
+    {
+        return  new class(
+            $this->id,
+            $this->code,
+            $this->translation,
+            $this->translation,
+            $this->translation,
+            $this->multilingual,
+            $this->parameters,
+        ) extends AbstractAttribute {
+            /**
+             * @return string
+             */
+            public function getType(): string
+            {
+                return 'TYPE';
+            }
+        };
     }
 }
