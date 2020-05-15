@@ -20,9 +20,6 @@ use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Designer\Domain\Entity\TemplateElement;
-use Ergonode\Completeness\Domain\Calculator\Strategy\TemplateElementCompletenessStrategyInterface;
-use Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel;
 
 /**
  */
