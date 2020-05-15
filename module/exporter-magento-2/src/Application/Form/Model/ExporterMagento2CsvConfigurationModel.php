@@ -19,6 +19,7 @@ class ExporterMagento2CsvConfigurationModel
     /**
      * @var string|null
      *
+     * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
     public ?string $name = null;
@@ -26,6 +27,7 @@ class ExporterMagento2CsvConfigurationModel
     /**
      * @var string|null
      *
+     * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
     public ?string $filename = null;

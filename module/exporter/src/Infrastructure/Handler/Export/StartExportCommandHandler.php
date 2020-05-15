@@ -9,13 +9,12 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Infrastructure\Handler\Export;
 
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
+use Ergonode\Core\Application\Exception\NotImplementedException;
 use Ergonode\Exporter\Domain\Command\Export\StartExportCommand;
 use Ergonode\Exporter\Domain\Repository\ChannelConfigurationRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorProvider;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ChannelApiProfile;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Webmozart\Assert\Assert;
 
 /**
@@ -76,6 +75,8 @@ class StartExportCommandHandler
      */
     public function __invoke(StartExportCommand $command)
     {
+        throw new NotImplementedException();
+        //todo change after udate channel
         $export = $this->exportRepository->load($command->getExportId());
         Assert::notNull($export);
         $channel = $this->channelRepository->load($export->getChannelId());

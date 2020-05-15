@@ -39,5 +39,4 @@ class UpdateChannelCommandBuilderProvider
         }
         throw new \RuntimeException(sprintf('Can\' find command builder for "%s" channel type', $type));
     }
-
 }

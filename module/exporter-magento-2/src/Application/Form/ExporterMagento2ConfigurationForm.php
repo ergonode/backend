@@ -44,29 +44,6 @@ class ExporterMagento2ConfigurationForm extends AbstractType
                     'property_path' => 'defaultLanguage',
                 ]
             );
-
-        $builder->addEventListener(FormEvents::SUBMIT, static function (FormEvent $event) {
-            /** @var ExporterMagento2CsvConfigurationModel $data */
-            $data = $event->getData();
-
-            if (!$data) {
-                return;
-            }
-
-            $name = $data->name;
-            $filename = $data->filename;
-            $language = $data->defaultLanguage->getCode();
-
-//            $data = new CreateExportProfileCommand(
-//                $name,
-//                Magento2ExportCsvProfile::TYPE,
-//                [
-//                    'filename' => $filename,
-//                    'defaultLanguage' => $language,
-//                ]
-//            );
-//            $event->setData($data);
-        });
     }
 
     /**

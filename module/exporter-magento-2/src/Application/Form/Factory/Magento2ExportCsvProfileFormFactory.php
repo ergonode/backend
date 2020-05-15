@@ -15,6 +15,7 @@ use Ergonode\ExporterMagento2\Application\Form\Model\ExporterMagento2CsvConfigur
 use Ergonode\ExporterMagento2\Domain\Entity\Magento2ExportCsvProfile;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
@@ -51,6 +52,13 @@ class Magento2ExportCsvProfileFormFactory implements ExportProfileFormFactoryInt
     public function create(AbstractExportProfile $exportProfile = null): FormInterface
     {
         $model = new ExporterMagento2CsvConfigurationModel($exportProfile);
+        if ($exportProfile) {
+            return $this->formFactory->create(
+                ExporterMagento2ConfigurationForm::class,
+                $model,
+                ['method' => Request::METHOD_PUT]
+            );
+        }
 
         return $this->formFactory->create(ExporterMagento2ConfigurationForm::class, $model);
     }

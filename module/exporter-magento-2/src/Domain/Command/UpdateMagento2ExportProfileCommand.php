@@ -2,23 +2,33 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\ExporterMagento2\Domain\Entity;
+namespace Ergonode\ExporterMagento2\Domain\Command;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class Magento2ExportCsvProfile extends AbstractExportProfile
+class UpdateMagento2ExportProfileCommand implements DomainCommandInterface
 {
-    public const TYPE = 'magento-2-csv';
+    /**
+     * @var  ExportProfileId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId")
+     */
+    protected ExportProfileId $id;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
+    protected string $name;
 
     /**
      * @var string
@@ -42,17 +52,26 @@ class Magento2ExportCsvProfile extends AbstractExportProfile
      */
     public function __construct(ExportProfileId $id, string $name, string $filename, Language $defaultLanguage)
     {
-        parent::__construct($id, $name);
+        $this->id = $id;
+        $this->name = $name;
         $this->filename = $filename;
         $this->defaultLanguage = $defaultLanguage;
     }
 
     /**
+     * @return ExportProfileId
+     */
+    public function getId(): ExportProfileId
+    {
+        return $this->id;
+    }
+
+    /**
      * @return string
      */
-    public function getType(): string
+    public function getName(): string
     {
-        return self::TYPE;
+        return $this->name;
     }
 
     /**
@@ -69,21 +88,5 @@ class Magento2ExportCsvProfile extends AbstractExportProfile
     public function getDefaultLanguage(): Language
     {
         return $this->defaultLanguage;
-    }
-
-    /**
-     * @param string $filename
-     */
-    public function setFilename(string $filename): void
-    {
-        $this->filename = $filename;
-    }
-
-    /**
-     * @param Language $defaultLanguage
-     */
-    public function setDefaultLanguage(Language $defaultLanguage): void
-    {
-        $this->defaultLanguage = $defaultLanguage;
     }
 }
