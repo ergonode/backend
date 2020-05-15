@@ -8,23 +8,23 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Application\DependencyInjection\CompilerPass;
 
-use Ergonode\Exporter\Domain\Provider\ExportProfileProvider;
+use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
  */
-class ExportProfileFactoryCompilerPass implements CompilerPassInterface
+class ServiceExportCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'export.export_profile.export_profile_factory_interface';
+    public const TAG = 'export.export_processor_interface';
 
     /**
      * @param ContainerBuilder $container
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
-        if ($container->has(ExportProfileProvider::class)) {
+        if ($container->has(ExportProcessorProvider::class)) {
             $this->processServices($container);
         }
     }
@@ -32,16 +32,16 @@ class ExportProfileFactoryCompilerPass implements CompilerPassInterface
     /**
      * @param ContainerBuilder $container
      */
-    private function processServices(ContainerBuilder $container)
+    private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];
-        $definition = $container->findDefinition(ExportProfileProvider::class);
+        $definition = $container->findDefinition(ExportProcessorProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
-
 
         foreach ($strategies as $id => $strategy) {
             $arguments[] = new Reference($id);
         }
+
         $definition->setArguments($arguments);
     }
 }
