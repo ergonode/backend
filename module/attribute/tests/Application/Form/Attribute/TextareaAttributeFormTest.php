@@ -9,14 +9,14 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Tests\Application\Form\Attribute;
 
 use Ergonode\Attribute\Application\Form\Attribute\TextareaAttributeForm;
-use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
-use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Component\Form\PreloadedExtension;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
-use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
-use PHPUnit\Framework\MockObject\MockObject;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
+use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
+use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
+use PHPUnit\Framework\MockObject\MockObject;
+use Symfony\Component\Form\PreloadedExtension;
+use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
  */

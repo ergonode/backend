@@ -7,14 +7,14 @@
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler\Attribute\Update;
 
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextareaAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Attribute\Infrastructure\Handler\Attribute\Update\UpdateTextareaAttributeCommandHandler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextareaAttributeCommand;
-use Ergonode\Attribute\Infrastructure\Handler\Attribute\Update\UpdateTextareaAttributeCommandHandler;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 
 /**
  */

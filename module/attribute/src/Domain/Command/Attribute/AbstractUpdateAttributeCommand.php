@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Command\Attribute;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */

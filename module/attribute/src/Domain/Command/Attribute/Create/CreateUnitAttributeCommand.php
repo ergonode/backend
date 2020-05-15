@@ -11,10 +11,10 @@ namespace Ergonode\Attribute\Domain\Command\Attribute\Create;
 
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractCreateAttributeCommand;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */

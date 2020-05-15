@@ -10,22 +10,21 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Infrastructure\Grid;
 
 use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeTypeDictionaryProvider;
+use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\MultiSelectColumn;
+use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Grid\Filter\Option\FilterOption;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Ergonode\Grid\Filter\Option\FilterOption;
-use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
-use Ergonode\Grid\Filter\Option\LabelFilterOption;
-use Ergonode\Grid\Column\SelectColumn;
-use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */

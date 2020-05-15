@@ -7,13 +7,13 @@
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler\Attribute\Create;
 
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateSelectAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Attribute\Infrastructure\Handler\Attribute\Create\CreateSelectAttributeCommandHandler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateSelectAttributeCommand;
-use Ergonode\Attribute\Infrastructure\Handler\Attribute\Create\CreateSelectAttributeCommandHandler;
 
 /**
  */

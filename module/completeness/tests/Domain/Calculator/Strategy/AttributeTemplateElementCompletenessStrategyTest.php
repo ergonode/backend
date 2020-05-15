@@ -8,17 +8,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Completeness\Tests\Domain\Calculator\Strategy;
 
-use PHPUnit\Framework\TestCase;
-use Ergonode\Completeness\Domain\Calculator\Strategy\AttributeTemplateElementCompletenessStrategy;
-use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Completeness\Domain\Calculator\Strategy\AttributeTemplateElementCompletenessStrategy;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
+use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use PHPUnit\Framework\MockObject\MockObject;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
-use http\Exception\InvalidArgumentException;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use PHPUnit\Framework\TestCase;
 
 /**
  */

@@ -11,9 +11,12 @@ namespace Ergonode\Completeness\Tests\Domain\Calculator;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
+use Ergonode\Completeness\Domain\Calculator\Strategy\TemplateElementCompletenessStrategyInterface;
 use Ergonode\Completeness\Domain\Provider\TemplateElementCompletenessStrategyProvider;
+use Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\Entity\Template;
+use Ergonode\Designer\Domain\Entity\TemplateElement;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

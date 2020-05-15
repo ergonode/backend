@@ -9,12 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Command\Attribute\Update;
 
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractUpdateAttributeCommand;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */

@@ -8,8 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\ValueObject;
 
-use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use PHPUnit\Framework\TestCase;
 
 /**
  */

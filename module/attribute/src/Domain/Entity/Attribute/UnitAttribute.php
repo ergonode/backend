@@ -9,8 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
+use Ergonode\Attribute\Domain\Entity\AttributeInterface;
+
 /**
  */
-class UnitAttribute extends AbstractUnitAttribute
+class UnitAttribute extends AbstractUnitAttribute implements AttributeInterface
 {
 }

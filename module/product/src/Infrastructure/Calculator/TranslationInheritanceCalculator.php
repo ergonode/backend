@@ -8,13 +8,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Calculator;
 
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\Query\LanguageQueryInterface;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
  */

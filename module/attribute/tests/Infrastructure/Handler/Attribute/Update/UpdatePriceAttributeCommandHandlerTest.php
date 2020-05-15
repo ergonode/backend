@@ -7,15 +7,15 @@
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler\Attribute\Update;
 
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdatePriceAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Attribute\Infrastructure\Handler\Attribute\Update\UpdatePriceAttributeCommandHandler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Money\Currency;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdatePriceAttributeCommand;
-use Ergonode\Attribute\Infrastructure\Handler\Attribute\Update\UpdatePriceAttributeCommandHandler;
-use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
-use Money\Currency;
 
 /**
  */
