@@ -35,7 +35,7 @@ Feature: Export Profile Magento 2 CSV
           "default_language": "en"
         }
       """
-    Then the response status code should be 500
+    Then the response status code should be 400
 
   Scenario: Get export profile
     Given I am Authenticated as "test@ergonode.com"
@@ -48,11 +48,11 @@ Feature: Export Profile Magento 2 CSV
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/export-profile/@export-profile@" with body:
+    When I send a PUT request to "/api/v1/en/export-profile/@export-profile@" with body:
       """
         {
           "type": "magento-2-csv",
-          "name": "Magento 2 csv",
+          "name": "Magento 2 csv Zmiana",
           "default_language": "en",
           "filename": "maaa2.csv"
         }

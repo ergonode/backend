@@ -2,19 +2,19 @@
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
- *
  */
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Factory;
+namespace Ergonode\Exporter\Application\Provider;
 
-use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
+use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Symfony\Component\Form\FormInterface;
 
 /**
  */
-interface ExportProfileFactoryInterface
+interface UpdateExportProfileCommandBuilderInterface
 {
     /**
      * @param string $type
@@ -25,10 +25,9 @@ interface ExportProfileFactoryInterface
 
     /**
      * @param ExportProfileId $exportProfileId
-     * @param string          $name
-     * @param array           $params
+     * @param FormInterface   $form
      *
-     * @return AbstractExportProfile
+     * @return DomainCommandInterface
      */
-    public function create(ExportProfileId $exportProfileId, string $name, array $params = []): AbstractExportProfile;
+    public function build(ExportProfileId $exportProfileId, FormInterface $form): DomainCommandInterface;
 }

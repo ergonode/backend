@@ -79,6 +79,30 @@ final class Version20200122064958 extends AbstractErgonodeMigration
             'EXPORT_PROFILE_DELETE' => 'Export Profile',
         ]);
         $this->addSql('INSERT INTO privileges_group (area) VALUES (?)', ['Export Profile']);
+
+        $this->addSql('
+            CREATE TABLE exporter.export(
+                id uuid NOT NULL,
+                status VARCHAR(16) NOT NULL,
+                channel_id uuid NOT NULL,
+                created_at timestamp NOT NULL,
+                updated_at timestamp NOT NULL,
+                started_at timestamp NULL,
+                ended_at timestamp NULL,
+                PRIMARY KEY (id)
+            )
+        ');
+
+        $this->addSql('
+            CREATE TABLE exporter.channel_configuration (
+                id uuid NOT NULL,
+                "type" VARCHAR(255) NOT NULL,
+                "configuration" json NOT NULL,
+                created_at timestamp NOT NULL,
+                updated_at timestamp NOT NULL,
+                PRIMARY KEY (id)
+                )
+        ');
     }
 
     /**
