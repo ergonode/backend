@@ -79,6 +79,7 @@ Feature: Attribute module
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
           "label": {"pl_PL": "Atrybut tekstowy", "en": "Text attribute"},
+          "scope": "local",
           "groups": ["@attribute_group_id1@"],
           "parameters": []
       }

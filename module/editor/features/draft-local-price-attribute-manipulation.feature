@@ -50,6 +50,7 @@ Feature: Draft edit and inheritance value for product draft with price attribute
       {
         "code": "@attribute_code@",
         "type": "PRICE",
+        "scope": "local",
         "groups": [],
         "parameters":
         {

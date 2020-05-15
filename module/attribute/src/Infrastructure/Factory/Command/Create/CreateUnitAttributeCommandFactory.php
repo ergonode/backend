@@ -17,6 +17,7 @@ use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -49,7 +50,7 @@ class CreateUnitAttributeCommandFactory implements CreateAttributeCommandFactory
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
-            $data->multilingual,
+            new AttributeScope($data->scope),
             new UnitId($data->parameters->unit),
             $data->groups,
         );

@@ -1,4 +1,4 @@
-Feature: Draft edit and inheritance value for product draft with text attribute
+Feature: Draft edit and inheritance value for product draft with image attribute
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
@@ -46,18 +46,35 @@ Feature: Draft edit and inheritance value for product draft with text attribute
       """
     Then the response status code should be 204
     
-  Scenario: Create text attribute
-    Given remember param "attribute_code" with value "text_@@random_code@@"
+  Scenario: Create image attribute
+    Given remember param "attribute_code" with value "image_@@random_code@@"
     When I send a POST request to "/api/v1/en/attributes" with body:
       """
       {
         "code": "@attribute_code@",
-        "type": "TEXT",
+        "type": "IMAGE",
+        "scope": "local",
         "groups": []
       }
       """
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
+
+  Scenario: Upload new first multimedia file
+    When I send a POST request to "/api/v1/multimedia/upload" with params:
+      | key    | value                      |
+      | upload | @multimedia.png |
+    Then the response status code should be 201
+    And the JSON node "id" should exist
+    And store response param "id" as "multimedia_1_id"
+
+  Scenario: Upload new first multimedia file
+    When I send a POST request to "/api/v1/multimedia/upload" with params:
+      | key    | value                      |
+      | upload | @multimedia.jpg |
+    Then the response status code should be 201
+    And the JSON node "id" should exist
+    And store response param "id" as "multimedia_2_id"    
 
   Scenario: Create template
     When I send a POST request to "/api/v1/en/templates" with body:
@@ -82,20 +99,20 @@ Feature: Draft edit and inheritance value for product draft with text attribute
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product text value in "en" language
+  Scenario: Edit product image value in "en" language
     When I send a PUT request to "api/v1/en/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
-        "value": "text attribute value in english"
+        "value": "@multimedia_1_id@"
       }
       """
     Then the response status code should be 200
 
-  Scenario: Edit product text value in "pl" language
+  Scenario: Edit product image value in "pl" language
     When I send a PUT request to "api/v1/pl/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
-        "value": "text attribute value in polish"
+        "value": "@multimedia_2_id@"
       }
       """
     Then the response status code should be 200
@@ -104,19 +121,19 @@ Feature: Draft edit and inheritance value for product draft with text attribute
     When I send a GET request to "api/v1/pl/products/@product_id@/draft"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in polish |
+      | attributes.@attribute_code@ | @multimedia_2_id@ |
 
   Scenario: Get draft values in "en" language
     When I send a GET request to "api/v1/en/products/@product_id@/draft"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english |
+      | attributes.@attribute_code@ | @multimedia_1_id@ |
 
   Scenario: Get draft values in "fr" language
     When I send a GET request to "api/v1/fr/products/@product_id@/draft"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english |
+      | attributes.@attribute_code@ | @multimedia_1_id@ |
 
   Scenario: Remove value for "pl" language
     When I send a DELETE request to "api/v1/pl/products/@product_id@/draft/@attribute_id@/value"
@@ -126,4 +143,4 @@ Feature: Draft edit and inheritance value for product draft with text attribute
     When I send a GET request to "api/v1/pl/products/@product_id@/draft"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english |
+      | attributes.@attribute_code@ | @multimedia_1_id@ |

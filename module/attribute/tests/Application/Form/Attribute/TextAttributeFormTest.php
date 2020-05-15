@@ -16,7 +16,6 @@ use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
 /**
@@ -59,7 +58,7 @@ class TextAttributeFormTest extends TypeTestCase
             'label' => [],
             'placeholder' => [],
             'hint' => [],
-            'multilingual' => true,
+            'scope' => 'local',
             'groups' => ['2ae47e1b-10c3-4dd6-ac70-41000125c29f'],
         ];
 
@@ -67,7 +66,7 @@ class TextAttributeFormTest extends TypeTestCase
         $object->label = [];
         $object->placeholder = [];
         $object->hint = [];
-        $object->multilingual = true;
+        $object->scope = 'local';
         $object->code = 'code';
         $object->groups = [new AttributeGroupId('2ae47e1b-10c3-4dd6-ac70-41000125c29f')];
 

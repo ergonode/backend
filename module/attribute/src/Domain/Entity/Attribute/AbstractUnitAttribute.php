@@ -16,6 +16,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -30,7 +31,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param UnitId             $unitId
      *
      * @throws \Exception
@@ -41,7 +42,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         UnitId $unitId
     ) {
         parent::__construct(
@@ -50,7 +51,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
             $label,
             $hint,
             $placeholder,
-            $multilingual,
+            $scope,
             [self::UNIT => $unitId->getValue()]
         );
     }

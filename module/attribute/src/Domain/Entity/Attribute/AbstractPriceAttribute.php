@@ -16,6 +16,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 use Money\Currency;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -30,7 +31,7 @@ abstract class AbstractPriceAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param Currency           $format
      *
      * @throws \Exception
@@ -41,7 +42,7 @@ abstract class AbstractPriceAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         Currency $format
     ) {
         parent::__construct(
@@ -50,7 +51,7 @@ abstract class AbstractPriceAttribute extends AbstractAttribute
             $label,
             $hint,
             $placeholder,
-            $multilingual,
+            $scope,
             [self::CURRENCY => $format->getCode()]
         );
     }

@@ -17,6 +17,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Application\Model\Attribute\DateAttributeFormModel;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -48,7 +49,7 @@ class CreateDateAttributeCommandFactory implements CreateAttributeCommandFactory
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
-            $data->multilingual,
+            new AttributeScope($data->scope),
             new DateFormat(DateFormat::YYYY_MM_DD),
             $data->groups,
         );

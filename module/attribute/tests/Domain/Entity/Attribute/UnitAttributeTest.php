@@ -15,6 +15,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -23,37 +24,37 @@ class UnitAttributeTest extends TestCase
     /**
      * @var AttributeId|MockObject
      */
-    private $id;
+    private AttributeId $id;
 
     /**
      * @var AttributeCode|MockObject
      */
-    private $code;
+    private AttributeCode $code;
 
     /**
      * @var TranslatableString|MockObject
      */
-    private $label;
+    private TranslatableString $label;
 
     /**
      * @var TranslatableString|MockObject
      */
-    private $hint;
+    private TranslatableString $hint;
 
     /**
      * @var TranslatableString|MockObject
      */
-    private $placeholder;
+    private TranslatableString $placeholder;
 
     /**
      * @var UnitId|MockObject
      */
-    private $unit;
+    private UnitId $unit;
 
     /**
-     * @var bool
+     * @var AttributeScope|MockObject
      */
-    private bool $multilingual;
+    private AttributeScope $scope;
 
     /**
      */
@@ -65,7 +66,7 @@ class UnitAttributeTest extends TestCase
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
         $this->unit = UnitId::generate();
-        $this->multilingual = true;
+        $this->scope = $this->createMock(AttributeScope::class);
     }
 
     /**
@@ -79,7 +80,7 @@ class UnitAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
-            $this->multilingual,
+            $this->scope,
             $this->unit
         );
         $this->assertEquals($this->unit, $attribute->getUnitId());
@@ -88,7 +89,7 @@ class UnitAttributeTest extends TestCase
         $this->assertEquals($this->label, $attribute->getLabel());
         $this->assertEquals($this->hint, $attribute->getHint());
         $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
-        $this->assertEquals($this->multilingual, $attribute->isMultilingual());
+        $this->assertEquals($this->scope, $attribute->getScope());
     }
 
     /**
@@ -104,7 +105,7 @@ class UnitAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
-            $this->multilingual,
+            $this->scope,
             $this->unit
         );
         $attribute->changeUnit($unit);

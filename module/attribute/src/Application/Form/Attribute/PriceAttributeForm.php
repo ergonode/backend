@@ -16,9 +16,9 @@ use Ergonode\Attribute\Application\Model\Attribute\PriceAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  */
@@ -62,17 +62,8 @@ class PriceAttributeForm extends AbstractType implements AttributeFormInterface
                 AttributeGroupType::class
             )
             ->add(
-                'multilingual',
-                CheckboxType::class,
-                [
-                    'false_values' => [
-                        '0',
-                        'false',
-                        '',
-                        false,
-                    ],
-                    'empty_data' => 'true',
-                ]
+                'scope',
+                TextType::class,
             )
             ->add(
                 'parameters',

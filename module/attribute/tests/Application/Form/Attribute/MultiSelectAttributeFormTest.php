@@ -59,7 +59,7 @@ class MultiSelectAttributeFormTest extends TypeTestCase
             'label' => [],
             'placeholder' => [],
             'hint' => [],
-            'multilingual' => true,
+            'scope' => 'local',
             'groups' => ['2ae47e1b-10c3-4dd6-ac70-41000125c29f'],
         ];
 
@@ -67,7 +67,7 @@ class MultiSelectAttributeFormTest extends TypeTestCase
         $object->label = [];
         $object->placeholder = [];
         $object->hint = [];
-        $object->multilingual = true;
+        $object->scope = 'local';
         $object->code = 'code';
         $object->groups = [new AttributeGroupId('2ae47e1b-10c3-4dd6-ac70-41000125c29f')];
 

@@ -11,6 +11,7 @@ Feature: Image attribute manipulation
       {
           "code": "IMAGE_@@random_code@@",
           "type": "IMAGE",
+          "scope": "local",
           "groups": []
       }
       """
@@ -21,14 +22,15 @@ Feature: Image attribute manipulation
     And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | id                | @attribute_id@ |
-      | type              | IMAGE          |
-      | multilingual      | true           |
+      | id    | @attribute_id@ |
+      | type  | IMAGE          |
+      | scope | local          |
 
   Scenario: Update image attribute
     And I send a "PUT" request to "/api/v1/en/attributes/@attribute_id@" with body:
       """
       {
+          "scope": "local",
           "groups": []
       }
       """

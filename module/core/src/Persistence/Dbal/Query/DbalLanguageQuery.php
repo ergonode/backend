@@ -279,6 +279,21 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
+     * @return Language
+     */
+    public function getRootLanguage(): Language
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('lt.code')
+            ->from(self::TABLE_TREE, 'lt')
+            ->where($qb->expr()->eq('lft', 1))
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        return new Language($result);
+    }
+
+    /**
      * @param $fields
      *
      * @return QueryBuilder

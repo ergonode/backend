@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -36,9 +37,9 @@ class AbstractAttributeTest extends TestCase
     private TranslatableString $translation;
 
     /**
-     * @var bool
+     * @var AttributeScope|MockObject
      */
-    private bool $multilingual;
+    private AttributeScope $scope;
 
     /**
      * @var string[]
@@ -52,7 +53,7 @@ class AbstractAttributeTest extends TestCase
         $this->id = $this->createMock(AttributeId::class);
         $this->code = $this->createMock(AttributeCode::class);
         $this->translation = $this->createMock(TranslatableString::class);
-        $this->multilingual = true;
+        $this->scope = $this->createMock(AttributeScope::class);
         $this->parameters = ['paramater1' => 'value1'];
     }
 
@@ -68,7 +69,7 @@ class AbstractAttributeTest extends TestCase
         $this->assertEquals($this->translation, $attribute->getLabel());
         $this->assertEquals($this->translation, $attribute->getHint());
         $this->assertEquals($this->translation, $attribute->getPlaceholder());
-        $this->assertEquals($this->multilingual, $attribute->isMultilingual());
+        $this->assertEquals($this->scope, $attribute->getScope());
         $this->assertEquals($this->parameters, $attribute->getParameters());
     }
 
@@ -138,7 +139,7 @@ class AbstractAttributeTest extends TestCase
             $this->translation,
             $this->translation,
             $this->translation,
-            $this->multilingual,
+            $this->scope,
             $this->parameters,
         ) extends AbstractAttribute {
             /**

@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -31,7 +32,7 @@ class CreateDateAttributeCommand extends AbstractCreateAttributeCommand
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param DateFormat         $format
      * @param array              $groups
      *
@@ -42,7 +43,7 @@ class CreateDateAttributeCommand extends AbstractCreateAttributeCommand
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         DateFormat $format,
         array $groups = []
     ) {
@@ -51,7 +52,7 @@ class CreateDateAttributeCommand extends AbstractCreateAttributeCommand
             $label,
             $hint,
             $placeholder,
-            $multilingual,
+            $scope,
             $groups
         );
 

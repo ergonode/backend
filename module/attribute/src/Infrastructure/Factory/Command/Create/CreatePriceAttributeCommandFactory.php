@@ -17,6 +17,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Money\Currency;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -49,7 +50,7 @@ class CreatePriceAttributeCommandFactory implements CreateAttributeCommandFactor
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
-            $data->multilingual,
+            new AttributeScope($data->scope),
             new Currency($data->parameters->currency),
             $data->groups,
         );

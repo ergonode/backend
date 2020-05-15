@@ -36,6 +36,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
 use Ergonode\Editor\Domain\Command\RemoveProductAttributeValueCommand;
+use Ergonode\Core\Domain\Query\LanguageTreeQueryInterface;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 /**
  */
@@ -77,6 +82,16 @@ class ProductDraftController extends AbstractController
     private TranslationInheritanceCalculator $calculator;
 
     /**
+     * @var LanguageQueryInterface
+     */
+    private LanguageQueryInterface $query;
+
+    /**
+     * @var AttributeRepositoryInterface
+     */
+    private AttributeRepositoryInterface $attributeRepository;
+
+    /**
      * @param CommandBusInterface              $commandBus
      * @param AttributeValueConstraintProvider $provider
      * @param DraftProvider                    $draftProvider
@@ -84,6 +99,8 @@ class ProductDraftController extends AbstractController
      * @param ValidatorInterface               $validator
      * @param TemplateRepositoryInterface      $templateRepository
      * @param TranslationInheritanceCalculator $calculator
+     * @param LanguageQueryInterface           $query
+     * @param AttributeRepositoryInterface     $attributeRepository
      */
     public function __construct(
         CommandBusInterface $commandBus,
@@ -92,7 +109,9 @@ class ProductDraftController extends AbstractController
         ViewTemplateBuilder $builder,
         ValidatorInterface $validator,
         TemplateRepositoryInterface $templateRepository,
-        TranslationInheritanceCalculator $calculator
+        TranslationInheritanceCalculator $calculator,
+        LanguageQueryInterface $query,
+        AttributeRepositoryInterface $attributeRepository
     ) {
         $this->commandBus = $commandBus;
         $this->provider = $provider;
@@ -101,6 +120,8 @@ class ProductDraftController extends AbstractController
         $this->validator = $validator;
         $this->templateRepository = $templateRepository;
         $this->calculator = $calculator;
+        $this->query = $query;
+        $this->attributeRepository = $attributeRepository;
     }
 
     /**
@@ -225,6 +246,13 @@ class ProductDraftController extends AbstractController
         $value = ($value !== '') ? $value : null;
 
         $constraint = $this->provider->provide($attribute);
+        if ($attribute->getScope()->isGlobal()) {
+            $root = $this->query->getRootLanguage();
+            if (!$root->isEqual($language)) {
+                throw new AccessDeniedHttpException();
+            }
+        }
+
         $violations = $this->validator->validate(['value' => $value], $constraint);
         if (0 === $violations->count()) {
             $command = new ChangeProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language, $value);
@@ -292,7 +320,12 @@ class ProductDraftController extends AbstractController
         AbstractAttribute $attribute
     ): Response {
         $draft = $this->draftProvider->provide($product);
-
+        if ($attribute->getScope()->isGlobal()) {
+            $root = $this->query->getRootLanguage();
+            if (!$root->isEqual($language)) {
+                throw new AccessDeniedHttpException();
+            }
+        }
         $command = new RemoveProductAttributeValueCommand($draft->getId(), $attribute->getId(), $language);
         $this->commandBus->dispatch($command);
 
@@ -347,7 +380,9 @@ class ProductDraftController extends AbstractController
         ];
         $value = null;
         foreach ($draft->getAttributes() as $key => $value) {
-            $result['attributes'][$key] = $this->calculator->calculate($value, $language);
+            $attributeId = AttributeId::fromKey($key);
+            $attribute = $this->attributeRepository->load($attributeId);
+            $result['attributes'][$key] = $this->calculator->calculate($attribute, $value, $language);
         }
 
         return new SuccessResponse($result);

@@ -34,6 +34,7 @@ Feature: Unit attribute manipulation
           "code": "UNIT_@@random_code@@",
           "type": "UNIT",
           "groups": [],
+          "scope": "local",
           "parameters": {"unit": "@unit_id_1@"}
       }
       """
@@ -46,7 +47,7 @@ Feature: Unit attribute manipulation
     And the JSON nodes should be equal to:
       | id              | @attribute_id@ |
       | type            | UNIT           |
-      | multilingual    | true           |
+      | scope           | local          |
       | parameters.unit | @unit_id_1@    |
 
   Scenario: Create unit attribute without required unit parameter
@@ -55,6 +56,7 @@ Feature: Unit attribute manipulation
       {
           "code": "UNIT_@@random_code@@",
           "type": "UNIT",
+          "scope": "local",
           "groups": []
       }
       """
@@ -66,6 +68,7 @@ Feature: Unit attribute manipulation
       {
           "code": "UNIT_@@random_code@@",
           "type": "UNIT",
+          "scope": "local",
           "groups": [],
           "parameters": {"unit": "bac parameter"}
       }
@@ -77,6 +80,7 @@ Feature: Unit attribute manipulation
       """
       {
           "groups": [],
+          "scope": "local",
           "parameters": {"unit": "@unit_id_2@"}
       }
       """
