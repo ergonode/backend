@@ -45,7 +45,5 @@ class ChannelDeletedEventProjector
                 'id' => $event->getAggregateId()->getValue(),
             ]
         );
-
-        $this->connection->commit();
     }
 }

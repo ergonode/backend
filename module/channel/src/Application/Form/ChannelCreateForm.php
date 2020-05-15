@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Application\Form;
 
-use Ergonode\Segment\Application\Form\Type\SegmentType;
 use Ergonode\Channel\Application\Model\ChannelCreateFormModel;
-use Ergonode\Core\Application\Form\Type\TranslationType;
+use Ergonode\Exporter\Application\Form\ExportProfileType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,13 +29,13 @@ class ChannelCreateForm extends AbstractType
         $builder
             ->add(
                 'name',
-                TranslationType::class
+                TextType::class
             )
             ->add(
-                'segment_id',
-                SegmentType::class,
+                'export_profile_id',
+                ExportProfileType::class,
                 [
-                    'property_path' => 'segmentId',
+                    'property_path' => 'exportProfileId',
                 ]
             );
     }

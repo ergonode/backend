@@ -8,15 +8,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Domain\Event;
 
+use Ergonode\EventSourcing\Domain\Event\AbstractStringBasedChangedEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\EventSourcing\Domain\Event\AbstractTranslatableStringBasedChangedEvent;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class ChannelNameChangedEvent extends AbstractTranslatableStringBasedChangedEvent
+class ChannelNameChangedEvent extends AbstractStringBasedChangedEvent
 {
     /**
      * @var ChannelId
@@ -26,11 +24,11 @@ class ChannelNameChangedEvent extends AbstractTranslatableStringBasedChangedEven
     private ChannelId $id;
 
     /**
-     * @param ChannelId          $id
-     * @param TranslatableString $from
-     * @param TranslatableString $to
+     * @param ChannelId $id
+     * @param string    $from
+     * @param string    $to
      */
-    public function __construct(ChannelId $id, TranslatableString $from, TranslatableString $to)
+    public function __construct(ChannelId $id, string $from, string $to)
     {
         parent::__construct($from, $to);
 
