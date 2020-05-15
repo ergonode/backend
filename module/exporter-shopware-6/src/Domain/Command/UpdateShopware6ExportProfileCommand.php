@@ -58,8 +58,6 @@ class UpdateShopware6ExportProfileCommand implements DomainCommandInterface
     private Language $defaultLanguage;
 
     /**
-     * CreateShopware6ExportProfileCommand constructor.
-     *
      * @param ExportProfileId $id
      * @param string          $name
      * @param string          $host

@@ -16,7 +16,7 @@ Feature: Export Profile Shopware 6 API
         {
           "type": "shopware-6-api",
           "name": "Shopware 6 api",
-          "host": "https://192.168.1.100:8000",
+          "host": "http://192.168.1.100:8000",
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
           "default_language": "en"
@@ -34,7 +34,7 @@ Feature: Export Profile Shopware 6 API
         {
           "type": "shopware-6-api",
           "name": "Shopware 6 api - TEST",
-          "host": "https://192.168.1.100:8000",
+          "host": "http://192.168.1.100:8000",
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
           "default_language": "en"

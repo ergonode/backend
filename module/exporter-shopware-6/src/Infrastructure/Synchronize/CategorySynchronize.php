@@ -96,6 +96,7 @@ class CategorySynchronize
         } else {
             $category = $this->categoryRepository->load($categoryId);
             $newParent = $this->create($exportProfile, $category, $parentId);
+            $this->categoryShopware->save($exportProfileId, $category->getId(), $newParent);
         }
 
         foreach ($node->getChildrens() as $child) {
@@ -118,7 +119,6 @@ class CategorySynchronize
         $action = new PostCategoryCreate($name, $parentId);
         $this->connector->execute($exportProfile, $action);
 
-//todo save to db new ID
         return $this->getCategory($exportProfile, $name);
     }
 
@@ -153,7 +153,7 @@ class CategorySynchronize
 
         foreach ($list as $item) {
             if ($item['name'] === $name) {
-                return (string) $item['id'];
+                return (string)$item['id'];
             }
         }
 

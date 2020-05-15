@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Application\Model;
 
+use Ergonode\Exporter\Infrastructure\Validator\ExportProfileNotExists;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -26,7 +27,8 @@ class ChannelCreateFormModel
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="Sgement is required")
+     * @Assert\NotBlank(message="Export profile is required")
+     * @ExportProfileNotExists()
      */
     public ?string $exportProfileId;
 

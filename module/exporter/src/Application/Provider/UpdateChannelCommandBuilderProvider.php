@@ -10,17 +10,17 @@ namespace Ergonode\Exporter\Application\Provider;
 
 /**
  */
-class UpdateExportProfileCommandBuilderProvider
+class UpdateChannelCommandBuilderProvider
 {
     /**
-     * @var UpdateExportProfileCommandBuilderInterface[]
+     * @var UpdateChannelCommandBuilderInterface[]
      */
     private array $builders;
 
     /**
-     * @param array|UpdateExportProfileCommandBuilderInterface ...$builders
+     * @param array|UpdateChannelCommandBuilderInterface ...$builders
      */
-    public function __construct(UpdateExportProfileCommandBuilderInterface ...$builders)
+    public function __construct(UpdateChannelCommandBuilderInterface ...$builders)
     {
         $this->builders = $builders;
     }
@@ -28,15 +28,16 @@ class UpdateExportProfileCommandBuilderProvider
     /**
      * @param string $type
      *
-     * @return UpdateExportProfileCommandBuilderInterface
+     * @return UpdateChannelCommandBuilderInterface
      */
-    public function provide(string $type): UpdateExportProfileCommandBuilderInterface
+    public function provide(string $type): UpdateChannelCommandBuilderInterface
     {
         foreach ($this->builders as $builder) {
             if ($builder->supported($type)) {
                 return $builder;
             }
         }
-        throw new \RuntimeException(sprintf('Can\' find command builder for "%s" export profile type', $type));
+        throw new \RuntimeException(sprintf('Can\' find command builder for "%s" channel type', $type));
     }
+
 }

@@ -57,16 +57,17 @@ class ExporterMagento2ConfigurationForm extends AbstractType
             $name = $data->name;
             $filename = $data->filename;
             $language = $data->defaultLanguage->getCode();
-
-            $data = new CreateExportProfileCommand(
-                $name,
-                Magento2ExportCsvProfile::TYPE,
-                [
-                    'filename' => $filename,
-                    'defaultLanguage' => $language,
-                ]
-            );
-            $event->setData($data);
+            /*
+             * $data = new CreateExportProfileCommand(
+             *     $name,
+             *     Magento2ExportCsvProfile::TYPE,
+             *     [
+             *         'filename' => $filename,
+             *         'defaultLanguage' => $language,
+             *     ]
+             * );
+             * $event->setData($data);
+            */
         });
     }
 
