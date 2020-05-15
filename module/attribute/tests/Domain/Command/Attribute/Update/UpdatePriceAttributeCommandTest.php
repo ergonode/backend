@@ -9,11 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command\Attribute\Update;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdatePriceAttributeCommand;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Money\Currency;
+use PHPUnit\Framework\TestCase;
 
 /**
  */
@@ -24,7 +25,7 @@ class UpdatePriceAttributeCommandTest extends TestCase
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param Currency           $currency
      * @param array              $groups
      *
@@ -35,17 +36,17 @@ class UpdatePriceAttributeCommandTest extends TestCase
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         Currency $currency,
         array $groups
     ): void {
-        $command = new UpdatePriceAttributeCommand($id, $label, $hint, $placeholder, $multilingual, $currency, $groups);
+        $command = new UpdatePriceAttributeCommand($id, $label, $hint, $placeholder, $scope, $currency, $groups);
         $this->assertSame($id, $command->getId());
         $this->assertSame($label, $command->getLabel());
         $this->assertSame($hint, $command->getHint());
         $this->assertSame($placeholder, $command->getPlaceholder());
         $this->assertSame($groups, $command->getGroups());
-        $this->assertSame($multilingual, $command->isMultilingual());
+        $this->assertSame($scope, $command->getScope());
         $this->assertSame($currency, $command->getCurrency());
     }
 
@@ -62,7 +63,7 @@ class UpdatePriceAttributeCommandTest extends TestCase
                 $this->createMock(TranslatableString::class),
                 $this->createMock(TranslatableString::class),
                 $this->createMock(TranslatableString::class),
-                true,
+                $this->createMock(AttributeScope::class),
                 new Currency('Currency'),
                 [],
             ],

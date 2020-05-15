@@ -1,4 +1,4 @@
-Feature: Draft edit and inheritance value for product draft with multi-select attribute
+Feature: Draft edit and inheritance value for product draft with text attribute
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
@@ -21,6 +21,9 @@ Feature: Draft edit and inheritance value for product draft with multi-select at
     And store response param "id" as "language_id_fr"
 
   Scenario: Update Tree
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "/api/v1/en/language/tree" with body:
       """
         {
@@ -43,46 +46,19 @@ Feature: Draft edit and inheritance value for product draft with multi-select at
       """
     Then the response status code should be 204
     
-  Scenario: Create multi-select attribute
-    Given remember param "attribute_code" with value "multi_select_@@random_code@@"
+  Scenario: Create text attribute
+    Given remember param "attribute_code" with value "text_@@random_code@@"
     When I send a POST request to "/api/v1/en/attributes" with body:
       """
       {
         "code": "@attribute_code@",
-        "type": "MULTI_SELECT",
+        "type": "TEXT",
+        "scope": "global",
         "groups": []
       }
       """
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
-
-  Scenario: Create first option for attribute
-    And I send a "POST" request to "/api/v1/en/attributes/@attribute_id@/options" with body:
-      """
-      {
-        "code": "option_1",
-        "label":  {
-          "pl": "Option pl 1",
-          "en": "Option en 1"
-        }
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "option_1_id"
-
-  Scenario: Create second option for attribute
-    And I send a "POST" request to "/api/v1/en/attributes/@attribute_id@/options" with body:
-      """
-      {
-        "code": "option_2",
-        "label":  {
-          "pl": "Option pl 2",
-          "en": "Option en 2"
-        }
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "option_2_id"
 
   Scenario: Create template
     When I send a POST request to "/api/v1/en/templates" with body:
@@ -107,48 +83,63 @@ Feature: Draft edit and inheritance value for product draft with multi-select at
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product multi-select value in "en" language
+  Scenario: Edit product text value in "en" language
     When I send a PUT request to "api/v1/en/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
-        "value": ["@option_1_id@"]
+        "value": "text attribute value in english"
       }
       """
     Then the response status code should be 200
 
-  Scenario: Edit product multi-select value in "pl" language
+  Scenario: Edit product text value in "pl" language
     When I send a PUT request to "api/v1/pl/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
-        "value": ["@option_2_id@"]
+        "value": "text attribute value in polish"
       }
       """
-    Then the response status code should be 200
+    Then the response status code should be 403
 
   Scenario: Get draft values in "pl" language
     When I send a GET request to "api/v1/pl/products/@product_id@/draft"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@[0] | @option_2_id@ |
+      | attributes.@attribute_code@ | text attribute value in english |
 
   Scenario: Get draft values in "en" language
     When I send a GET request to "api/v1/en/products/@product_id@/draft"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@[0] | @option_1_id@ |
+      | attributes.@attribute_code@ | text attribute value in english |
 
   Scenario: Get draft values in "fr" language
     When I send a GET request to "api/v1/fr/products/@product_id@/draft"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@[0] | @option_1_id@ |
+      | attributes.@attribute_code@ | text attribute value in english |
 
   Scenario: Remove value for "pl" language
     When I send a DELETE request to "api/v1/pl/products/@product_id@/draft/@attribute_id@/value"
-    Then the response status code should be 204
+    Then the response status code should be 403
 
-  Scenario: Get draft values in "pl" language
-    When I send a GET request to "api/v1/pl/products/@product_id@/draft"
+  Scenario: Edit product text value in "en" language
+    When I send a PUT request to "api/v1/en/products/@product_id@/draft/@attribute_id@/value" with body:
+      """
+      {
+        "value": "text attribute value in polish"
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Get draft values in "en" language
+    When I send a GET request to "api/v1/en/products/@product_id@/draft"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@[0] | @option_1_id@ |
+      | attributes.@attribute_code@ | text attribute value in polish |
+
+  Scenario: Get draft values in "fr" language
+    When I send a GET request to "api/v1/fr/products/@product_id@/draft"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@ | text attribute value in polish |

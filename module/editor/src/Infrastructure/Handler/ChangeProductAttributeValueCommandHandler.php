@@ -78,16 +78,13 @@ class ChangeProductAttributeValueCommandHandler extends AbstractValueCommandHand
         Assert::notNull($attribute);
 
         $newValue = $this->createValue($language, $attribute, $command->getValue());
-        if ($newValue) {
-            if ($draft->hasAttribute($attribute->getCode())) {
-                $oldValue = $draft->getAttribute($attribute->getCode());
-                $calculatedValue = $this->service->calculate($oldValue, $newValue);
-                $draft->changeAttribute($attribute->getCode(), $calculatedValue);
-            } else {
-                $draft->addAttribute($attribute->getCode(), $newValue);
-            }
-        } elseif ($draft->hasAttribute($attribute->getCode())) {
-            $draft->removeAttribute($attribute->getCode());
+
+        if ($draft->hasAttribute($attribute->getCode())) {
+            $oldValue = $draft->getAttribute($attribute->getCode());
+            $calculatedValue = $this->service->calculate($oldValue, $newValue);
+            $draft->changeAttribute($attribute->getCode(), $calculatedValue);
+        } else {
+            $draft->addAttribute($attribute->getCode(), $newValue);
         }
 
         $token = $this->tokenStorage->getToken();

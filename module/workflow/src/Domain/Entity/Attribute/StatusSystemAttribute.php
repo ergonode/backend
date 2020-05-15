@@ -10,9 +10,10 @@ namespace Ergonode\Workflow\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
@@ -43,8 +44,9 @@ class StatusSystemAttribute extends AbstractAttribute implements AttributeInterf
     ) {
         $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code->getValue());
+        $scope = new AttributeScope(AttributeScope::GLOBAL);
 
-        parent::__construct($id, $code, $label, $hint, $placeholder, false);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
     /**
@@ -53,5 +55,13 @@ class StatusSystemAttribute extends AbstractAttribute implements AttributeInterf
     public function isSystem(): bool
     {
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultilingual(): bool
+    {
+        return false;
     }
 }

@@ -44,7 +44,7 @@ class CreatePriceAttributeCommandHandler
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual(),
+            $command->getScope(),
             $command->getCurrency(),
         );
 

@@ -7,22 +7,21 @@
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler\Attribute\Update;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateImageAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Attribute\Infrastructure\Handler\Attribute\Update\UpdateImageAttributeCommandHandler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextAttributeCommand;
-use Ergonode\Attribute\Infrastructure\Handler\Attribute\Update\UpdateTextAttributeCommandHandler;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
 /**
  */
-class UpdateAttributeCommandHandlerTest extends TestCase
+class UpdateImageAttributeCommandHandlerTest extends TestCase
 {
     /**
-     * @var UpdateTextAttributeCommand|MockObject
+     * @var UpdateImageAttributeCommand|MockObject
      */
     private $command;
 
@@ -40,12 +39,12 @@ class UpdateAttributeCommandHandlerTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->command = $this->createMock(UpdateTextAttributeCommand::class);
+        $this->command = $this->createMock(UpdateImageAttributeCommand::class);
         $this->command->method('getLabel')->willReturn(new TranslatableString());
         $this->command->method('getPlaceholder')->willReturn(new TranslatableString());
         $this->command->method('getHint')->willReturn(new TranslatableString());
         $this->repository = $this->createMock(AttributeRepositoryInterface::class);
-        $this->attribute = $this->createMock(TextAttribute::class);
+        $this->attribute = $this->createMock(ImageAttribute::class);
         $this->attribute->method('getGroups')->willReturn([]);
     }
 
@@ -56,7 +55,7 @@ class UpdateAttributeCommandHandlerTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->repository->method('load')->willReturn(null);
 
-        $handler = new UpdateTextAttributeCommandHandler($this->repository);
+        $handler = new UpdateImageAttributeCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
 
@@ -67,7 +66,7 @@ class UpdateAttributeCommandHandlerTest extends TestCase
         $this->repository->method('load')->willReturn($this->attribute);
         $this->repository->expects($this->once())->method('save');
 
-        $handler = new UpdateTextAttributeCommandHandler($this->repository);
+        $handler = new UpdateImageAttributeCommandHandler($this->repository);
         $handler->__invoke($this->command);
     }
 }

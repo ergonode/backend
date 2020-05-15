@@ -12,6 +12,7 @@ Feature: Date attribute manipulation
         "code": "DATE_@@random_code@@",
         "type": "DATE",
         "groups": [],
+        "scope": "local",
         "parameters":
         {
           "format": "yyyy-MM-dd"
@@ -38,7 +39,7 @@ Feature: Date attribute manipulation
     And the JSON nodes should be equal to:
       | id                | @attribute_id@ |
       | type              | DATE           |
-      | multilingual      | true           |
+      | scope             | local          |
       | parameters.format | yyyy-MM-dd     |
 
   Scenario: Create date attribute with invalid format parameter
@@ -61,6 +62,7 @@ Feature: Date attribute manipulation
       """
       {
         "groups": [],
+        "scope": "local",
         "parameters": {"format": "yyyy-MM-dd"}
       }
       """

@@ -1,4 +1,4 @@
-Feature: Draft edit and inheritance value for product draft with text area attribute
+Feature: Draft edit and inheritance value for product draft with text attribute
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
@@ -38,18 +38,18 @@ Feature: Draft edit and inheritance value for product draft with text area attri
                 }
               ]
             }
-
         }
       """
     Then the response status code should be 204
-    
-  Scenario: Create textarea attribute
-    Given remember param "attribute_code" with value "textarea_@@random_code@@"
+
+  Scenario: Create text attribute
+    Given remember param "attribute_code" with value "text_@@random_code@@"
     When I send a POST request to "/api/v1/en/attributes" with body:
       """
       {
         "code": "@attribute_code@",
-        "type": "TEXT_AREA",
+        "type": "TEXT",
+        "scope": "local",
         "groups": []
       }
       """
@@ -83,44 +83,24 @@ Feature: Draft edit and inheritance value for product draft with text area attri
     When I send a PUT request to "api/v1/en/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
-        "value": "text attribute value in english"
+        "value": "text attribute value in English"
       }
       """
     Then the response status code should be 200
 
-  Scenario: Edit product text value in "pl" language
-    When I send a PUT request to "api/v1/pl/products/@product_id@/draft/@attribute_id@/value" with body:
-      """
-      {
-        "value": "text attribute value in polish"
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Get draft values in "pl" language
-    When I send a GET request to "api/v1/pl/products/@product_id@/draft"
-    Then the response status code should be 200
-    And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in polish |
-
-  Scenario: Get draft values in "en" language
-    When I send a GET request to "api/v1/en/products/@product_id@/draft"
-    Then the response status code should be 200
-    And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english |
-
-  Scenario: Get draft values in "fr" language
-    When I send a GET request to "api/v1/fr/products/@product_id@/draft"
-    Then the response status code should be 200
-    And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english |
-
-  Scenario: Remove value for "pl" language
-    When I send a DELETE request to "api/v1/pl/products/@product_id@/draft/@attribute_id@/value"
+  Scenario: DELETE product text value in not accessible language
+    When I send a DELETE request to "api/v1/en/products/@product_id@/draft/@attribute_id@/value"
     Then the response status code should be 204
 
-  Scenario: Get draft values in "pl" language after remove pl value (get inheritance value)
-    When I send a GET request to "api/v1/pl/products/@product_id@/draft"
-    Then the response status code should be 200
-    And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english |
+  Scenario: Edit product text value in not accessible language
+    When I send a PUT request to "api/v1/xx/products/@product_id@/draft/@attribute_id@/value" with body:
+      """
+      {
+        "value": "text attribute value in xx"
+      }
+      """
+    Then the response status code should be 403
+
+  Scenario: DELETE product text value in not accessible language
+    When I send a DELETE request to "api/v1/xx/products/@product_id@/draft/@attribute_id@/value"
+    Then the response status code should be 403

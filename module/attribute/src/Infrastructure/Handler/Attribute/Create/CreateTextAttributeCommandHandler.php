@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Create;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
-use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -44,7 +44,7 @@ class CreateTextAttributeCommandHandler
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual()
+            $command->getScope()
         );
 
         foreach ($command->getGroups() as $group) {

@@ -44,7 +44,7 @@ class CreateNumericAttributeCommandHandler
             $command->getLabel(),
             $command->getHint(),
             $command->getPlaceholder(),
-            $command->isMultilingual()
+            $command->getScope()
         );
 
         foreach ($command->getGroups() as $group) {

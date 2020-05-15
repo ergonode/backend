@@ -50,6 +50,7 @@ Feature: Draft edit and inheritance value for product draft with select attribut
       {
         "code": "@attribute_code@",
         "type": "SELECT",
+        "scope": "local",
         "groups": []
       }
       """

@@ -9,10 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Command\Attribute;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -34,11 +35,11 @@ abstract class AbstractCreateAttributeCommand implements DomainCommandInterface
     private AttributeCode $code;
 
     /**
-     * @var bool
+     * @var AttributeScope
      *
-     * @JMS\Type("bool")
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
      */
-    private bool $multilingual;
+    private AttributeScope $scope;
 
     /**
      * @var array
@@ -73,17 +74,16 @@ abstract class AbstractCreateAttributeCommand implements DomainCommandInterface
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param array              $groups
      *
-     * @throws \Exception
      */
     public function __construct(
         AttributeCode $code,
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         array $groups = []
     ) {
         $this->attributeId = AttributeId::fromKey($code->getValue());
@@ -91,7 +91,7 @@ abstract class AbstractCreateAttributeCommand implements DomainCommandInterface
         $this->label = $label;
         $this->hint = $hint;
         $this->placeholder = $placeholder;
-        $this->multilingual = $multilingual;
+        $this->scope = $scope;
         $this->groups = $groups;
     }
 
@@ -112,11 +112,11 @@ abstract class AbstractCreateAttributeCommand implements DomainCommandInterface
     }
 
     /**
-     * @return bool
+     * @return AttributeScope
      */
-    public function isMultilingual(): bool
+    public function getScope(): AttributeScope
     {
-        return $this->multilingual;
+        return $this->scope;
     }
 
     /**

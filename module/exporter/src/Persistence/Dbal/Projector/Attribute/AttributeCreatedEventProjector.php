@@ -9,11 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Persistence\Dbal\Projector\Attribute;
 
-use Doctrine\DBAL\Connection;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
 use Ergonode\Exporter\Domain\Entity\Catalog\ExportAttribute;
 use Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface;
-use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -46,7 +44,7 @@ class AttributeCreatedEventProjector
             $event->getCode()->getValue(),
             $event->getLabel(),
             $event->getType(),
-            $event->isMultilingual(),
+            true,
             $event->getParameters()
         );
 
