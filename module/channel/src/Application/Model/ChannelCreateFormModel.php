@@ -28,6 +28,7 @@ class ChannelCreateFormModel
      * @var string
      *
      * @Assert\NotBlank(message="Export profile is required")
+     *
      * @ExportProfileNotExists()
      */
     public ?string $exportProfileId;
