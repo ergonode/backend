@@ -22,8 +22,8 @@ final class Version20181120151840 extends AbstractErgonodeMigration
         $this->addSql(
             'CREATE TABLE exporter.channel(
                     id uuid NOT NULL,
-                    name VARCHAR(120) NOT NULL,
-                    segment_id UUID NOT NULL,
+                    name VARCHAR(255) NOT NULL,
+                    export_profile_id UUID NOT NULL,
                     PRIMARY KEY (id)
                  )'
         );

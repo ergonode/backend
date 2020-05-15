@@ -16,7 +16,7 @@ use Ergonode\Channel\Application\Model\ChannelCreateFormModel;
 use Ergonode\Channel\Domain\Command\CreateChannelCommand;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -104,9 +104,10 @@ class ChannelCreateAction
                 /** @var ChannelCreateFormModel $data */
                 $data = $form->getData();
                 $command = new CreateChannelCommand(
-                    new TranslatableString($data->name),
-                    new SegmentId($data->segmentId)
+                    $data->name,
+                    new ExportProfileId($data->exportProfileId)
                 );
+
                 $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());

@@ -10,28 +10,27 @@ namespace Ergonode\Channel\Domain\Factory;
 
 use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 
 /**
  */
 class ChannelFactory
 {
     /**
-     * @param ChannelId          $id
-     * @param TranslatableString $name
-     * @param SegmentId          $segmentId
+     * @param ChannelId       $id
+     * @param string          $name
+     * @param ExportProfileId $exportProfileId
      *
      * @return Channel
      *
      * @throws \Exception
      */
-    public function create(ChannelId $id, TranslatableString $name, SegmentId $segmentId): Channel
+    public function create(ChannelId $id, string $name, ExportProfileId $exportProfileId): Channel
     {
         return new Channel(
             $id,
             $name,
-            $segmentId
+            $exportProfileId
         );
     }
 }

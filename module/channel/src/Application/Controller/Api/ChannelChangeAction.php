@@ -118,8 +118,7 @@ class ChannelChangeAction
                 $data = $form->getData();
                 $command = new UpdateChannelCommand(
                     $channel->getId(),
-                    new TranslatableString($data->name),
-                    new SegmentId($data->segmentId)
+                    $data->name
                 );
                 $this->commandBus->dispatch($command);
 

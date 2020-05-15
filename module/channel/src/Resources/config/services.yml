@@ -30,5 +30,9 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
+    Ergonode\Channel\Persistence\Dbal\Projector\:
+        resource: '../../Persistence/Dbal/Projector/*'
+        tags: ['messenger.message_handler']
+
     Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface: '@Ergonode\Channel\Persistence\Dbal\Repository\DbalChannelRepository'
     Ergonode\Channel\Domain\Query\ChannelQueryInterface: '@Ergonode\Channel\Persistence\Dbal\Query\DbalChannelQuery'

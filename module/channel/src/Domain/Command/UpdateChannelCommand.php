@@ -25,29 +25,20 @@ class UpdateChannelCommand implements DomainCommandInterface
     private ChannelId $id;
 
     /**
-     * @var TranslatableString
+     * @var string
      *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
+     * @JMS\Type("string")
      */
-    private TranslatableString $name;
+    private string $name;
 
     /**
-     * @var SegmentId
-     *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
+     * @param ChannelId $id
+     * @param string    $name
      */
-    private SegmentId $segmentId;
-
-    /**
-     * @param ChannelId          $id
-     * @param TranslatableString $name
-     * @param SegmentId          $segmentId
-     */
-    public function __construct(ChannelId $id, TranslatableString $name, SegmentId $segmentId)
+    public function __construct(ChannelId $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->segmentId = $segmentId;
     }
 
     /**
@@ -59,18 +50,10 @@ class UpdateChannelCommand implements DomainCommandInterface
     }
 
     /**
-     * @return TranslatableString
+     * @return string
      */
-    public function getName(): TranslatableString
+    public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @return SegmentId
-     */
-    public function getSegmentId(): SegmentId
-    {
-        return $this->segmentId;
     }
 }
