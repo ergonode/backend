@@ -32,12 +32,12 @@ abstract class AbstractValueCommandHandler
      * @param AbstractAttribute $attribute
      * @param mixed             $value
      *
-     * @return ValueInterface|null
+     * @return ValueInterface
      */
-    protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ?ValueInterface
+    protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ValueInterface
     {
         if (null === $value) {
-            return null;
+            $value = '';
         }
 
         if ($attribute instanceof MultiSelectAttribute) {
