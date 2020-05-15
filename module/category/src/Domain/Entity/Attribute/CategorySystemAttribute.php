@@ -9,14 +9,15 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class CategorySystemAttribute extends AbstractOptionAttribute
+class CategorySystemAttribute extends AbstractOptionAttribute implements AttributeInterface
 {
     public const TYPE = 'MULTI_SELECT';
     public const CODE = 'esa_category';

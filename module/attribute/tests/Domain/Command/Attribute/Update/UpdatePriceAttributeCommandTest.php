@@ -9,12 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command\Attribute\Update;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdatePriceAttributeCommand;
-use Money\Currency;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Money\Currency;
+use PHPUnit\Framework\TestCase;
 
 /**
  */

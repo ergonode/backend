@@ -9,12 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Event\Attribute;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
-use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */

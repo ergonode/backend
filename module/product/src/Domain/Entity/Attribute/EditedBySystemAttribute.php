@@ -9,14 +9,15 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class EditedBySystemAttribute extends TextAttribute
+class EditedBySystemAttribute extends TextAttribute implements AttributeInterface
 {
     public const TYPE = 'TEXT';
     public const CODE = 'esa_edited_by';

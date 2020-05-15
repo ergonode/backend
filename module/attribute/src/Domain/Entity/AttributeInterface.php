@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
@@ -26,7 +26,7 @@ interface AttributeInterface
     public function getCode(): AttributeCode;
 
     /**
-     * @return AttributeId
+     * @return AggregateId;
      */
-    public function getId(): AttributeId;
+    public function getId(): AggregateId;
 }

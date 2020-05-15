@@ -8,16 +8,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Update;
 
-use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
+use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateImageAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateImageAttributeCommand;
-use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
-use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */

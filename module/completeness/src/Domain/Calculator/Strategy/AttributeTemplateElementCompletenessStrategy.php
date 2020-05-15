@@ -15,8 +15,8 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Designer\Domain\ValueObject\TemplateElement\AttributeTemplateElementProperty;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
-use Webmozart\Assert\Assert;
 use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
+use Webmozart\Assert\Assert;
 
 /**
  */

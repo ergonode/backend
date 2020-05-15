@@ -10,10 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Command\Attribute\Update;
 
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractUpdateAttributeCommand;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Money\Currency;
-use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */

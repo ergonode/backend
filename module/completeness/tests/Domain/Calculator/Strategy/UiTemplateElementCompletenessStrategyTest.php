@@ -9,11 +9,11 @@ declare(strict_types = 1);
 namespace Ergonode\Completeness\Tests\Domain\Calculator\Strategy;
 
 use Ergonode\Completeness\Domain\Calculator\Strategy\UiTemplateElementCompletenessStrategy;
-use PHPUnit\Framework\TestCase;
-use Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Designer\Domain\ValueObject\TemplateElement\UiTemplateElementProperty;
 use Ergonode\Designer\Domain\ValueObject\TemplateElementPropertyInterface;
+use Ergonode\Editor\Domain\Entity\ProductDraft;
+use PHPUnit\Framework\TestCase;
 
 /**
  */

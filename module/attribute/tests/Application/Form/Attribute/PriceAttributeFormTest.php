@@ -9,16 +9,16 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Tests\Application\Form\Attribute;
 
 use Ergonode\Attribute\Application\Form\Attribute\PriceAttributeForm;
-use Ergonode\Attribute\Application\Model\Attribute\PriceAttributeFormModel;
-use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Component\Form\PreloadedExtension;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
-use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
-use PHPUnit\Framework\MockObject\MockObject;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
+use Ergonode\Attribute\Application\Model\Attribute\PriceAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
-use Ergonode\Core\Application\Form\Type\CurrencyFormType;
+use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\Attribute\Domain\Query\CurrencyQueryInterface;
+use Ergonode\Core\Application\Form\Type\CurrencyFormType;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
+use PHPUnit\Framework\MockObject\MockObject;
+use Symfony\Component\Form\PreloadedExtension;
+use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
  */

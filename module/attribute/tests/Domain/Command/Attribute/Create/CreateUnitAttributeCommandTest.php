@@ -8,13 +8,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command\Attribute\Create;
 
-use PHPUnit\Framework\TestCase;
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use PHPUnit\Framework\TestCase;
 
 /**
  */

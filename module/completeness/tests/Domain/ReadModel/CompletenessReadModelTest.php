@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Completeness\Tests\Domain\ReadModel;
 
+use Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel;
+use Ergonode\Completeness\Domain\ReadModel\CompletenessReadModel;
+use Ergonode\Core\Domain\ValueObject\Language;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Completeness\Domain\ReadModel\CompletenessReadModel;
-use Ergonode\Completeness\Domain\ReadModel\CompletenessElementReadModel;
 
 /**
  */

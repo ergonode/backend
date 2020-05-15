@@ -11,13 +11,13 @@ namespace Ergonode\Attribute\Infrastructure\Factory\Command\Update;
 use Ergonode\Attribute\Application\Model\Attribute\PriceAttributeFormModel;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdatePriceAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Symfony\Component\Form\FormInterface;
 use Money\Currency;
-use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use Symfony\Component\Form\FormInterface;
 
 /**
  */
