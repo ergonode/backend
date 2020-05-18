@@ -39,7 +39,6 @@ final class Version20181120151840 extends AbstractErgonodeMigration
             'Ergonode\Channel\Domain\Event\ChannelCreatedEvent' => 'Channel created',
             'Ergonode\Channel\Domain\Event\ChannelDeletedEvent' => 'Channel deleted',
             'Ergonode\Channel\Domain\Event\ChannelNameChangedEvent' => 'Channel name changed',
-            'Ergonode\Channel\Domain\Event\ChannelSegmentChangedEvent' => 'Channel segment deleted',
         ]);
     }
 

@@ -12,6 +12,7 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 
 /**
  */
@@ -52,6 +53,7 @@ class ExportFactory
             'id' => new ExportId($record['id']),
             'status' => new ExportStatus($record['status']),
             'channelId' => new ChannelId($record['channel_id']),
+            'exportProfileId' => new ExportProfileId($record['export_profile_id']),
             'startedAt' => $record['started_at'] ? new \DateTime($record['started_at']) : null,
             'endedAt' => $record['ended_at'] ? new \DateTime($record['ended_at']) : null,
         ];

@@ -52,7 +52,7 @@ class ExportProfileType extends AbstractType
         $resolver->setDefaults(
             [
                 'choices' => array_flip($choices),
-                'invalid_message' => 'Segment {{ value }} not exists',
+                'invalid_message' => 'Export Profile {{ value }} not exists',
                 'multiple' => false,
             ]
         );

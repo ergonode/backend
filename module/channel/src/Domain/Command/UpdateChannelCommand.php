@@ -9,9 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 
 /**
  */
