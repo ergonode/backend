@@ -71,7 +71,11 @@ class TranslationInheritanceCalculator
         }
 
         if ($value instanceof StringCollectionValue) {
-            $calculatedValue = explode(',', $calculatedValue);
+            if ('' !== $calculatedValue) {
+                $calculatedValue = explode(',', $calculatedValue);
+            } else {
+                $calculatedValue = [];
+            }
         }
 
         return $calculatedValue;
