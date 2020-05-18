@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Infrastructure\Provider;
+namespace Ergonode\Exporter\Domain\Entity\Profile;
 
 /**
  */
@@ -16,11 +16,4 @@ interface ExportProfileInterface
      * @return string
      */
     public function getType():string;
-
-    /**
-     * @param string $type
-     *
-     * @return bool
-     */
-    public function supported(string $type): bool;
 }
