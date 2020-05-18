@@ -68,10 +68,14 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
         $name = $label->has($language) ? $label->get($language) : $attribute->getCode()->getValue();
         $value = $draft->hasAttribute($attribute->getCode()) ? $draft->getAttribute($attribute->getCode()) : null;
 
+        $filled = false;
         if ($value) {
             $value = $this->calculator->calculate($attribute, $value, $language);
+            if ('' !== $value && [] !== $value) {
+                $filled = true;
+            }
         }
 
-        return new CompletenessElementReadModel($attribute->getId(), $name, $properties->isRequired(), $value);
+        return new CompletenessElementReadModel($attribute->getId(), $name, $properties->isRequired(), $filled);
     }
 }

@@ -90,6 +90,7 @@ class AttributeViewTemplateElementStrategy implements BuilderTemplateElementStra
             'required' => $property->isRequired(),
             'hint' => $attribute->getHint()->get($language),
             'placeholder' => $attribute->getPlaceholder()->get($language),
+            'scope' => $attribute->getScope()->getValue(),
         ];
 
 

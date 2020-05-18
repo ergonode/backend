@@ -32,24 +32,24 @@ class CompletenessElementReadModel
     private bool $required;
 
     /**
-     * @var string|null
+     * @var bool
      *
      * @JMS\Exclude()
      */
-    private ?string $value;
+    private bool $filled;
 
     /**
      * @param AttributeId $id
      * @param string      $name
      * @param bool        $required
-     * @param string|null $value
+     * @param bool        $filled
      */
-    public function __construct(AttributeId $id, string $name, bool $required, ?string $value = null)
+    public function __construct(AttributeId $id, string $name, bool $required, bool $filled)
     {
         $this->id = $id;
         $this->name = $name;
         $this->required = $required;
-        $this->value = $value;
+        $this->filled = $filled;
     }
 
     /**
@@ -81,6 +81,6 @@ class CompletenessElementReadModel
      */
     public function isFilled(): bool
     {
-        return null !== $this->value;
+        return $this->filled;
     }
 }
