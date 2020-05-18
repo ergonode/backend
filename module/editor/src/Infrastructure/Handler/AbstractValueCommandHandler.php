@@ -16,11 +16,11 @@ use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Editor\Domain\Entity\ProductDraft;
-use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
-use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
-use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Editor\Domain\Entity\ProductDraft;
+use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
+use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
@@ -33,12 +33,12 @@ abstract class AbstractValueCommandHandler
      * @param AbstractAttribute $attribute
      * @param mixed             $value
      *
-     * @return ValueInterface|null
+     * @return ValueInterface
      */
-    protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ?ValueInterface
+    protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ValueInterface
     {
         if (null === $value) {
-            return null;
+            $value = '';
         }
 
         if ($attribute instanceof MultiSelectAttribute || $attribute instanceof GalleryAttribute) {

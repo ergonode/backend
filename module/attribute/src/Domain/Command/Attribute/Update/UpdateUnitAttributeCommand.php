@@ -9,12 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Command\Attribute\Update;
 
-use Ergonode\Attribute\Domain\ValueObject\DateFormat;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractUpdateAttributeCommand;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
@@ -32,17 +32,16 @@ class UpdateUnitAttributeCommand extends AbstractUpdateAttributeCommand
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param UnitId             $unitId
      * @param array              $groups
-     *
      */
     public function __construct(
         AttributeId $id,
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         UnitId $unitId,
         array $groups = []
     ) {
@@ -51,7 +50,7 @@ class UpdateUnitAttributeCommand extends AbstractUpdateAttributeCommand
             $label,
             $hint,
             $placeholder,
-            $multilingual,
+            $scope,
             $groups
         );
 

@@ -8,15 +8,17 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Entity\Attribute;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
+use Ergonode\Attribute\Domain\Entity\AttributeInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class EditedAtSystemAttribute extends DateAttribute
+class EditedAtSystemAttribute extends DateAttribute implements AttributeInterface
 {
     public const TYPE = 'DATE';
     public const CODE = 'esa_edited_at';
@@ -36,8 +38,9 @@ class EditedAtSystemAttribute extends DateAttribute
         $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code->getValue());
         $format = new DateFormat(DateFormat::YYYY_MM_DD);
+        $scope = new AttributeScope(AttributeScope::GLOBAL);
 
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, $format);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $scope, $format);
     }
 
     /**
@@ -60,6 +63,14 @@ class EditedAtSystemAttribute extends DateAttribute
      * @return bool
      */
     public function isEditable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultilingual(): bool
     {
         return false;
     }

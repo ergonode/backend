@@ -10,21 +10,21 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Infrastructure\Grid;
 
 use Ergonode\Attribute\Domain\Provider\Dictionary\AttributeTypeDictionaryProvider;
+use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
-use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\IntegerColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\MultiSelectColumn;
+use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Grid\Filter\Option\FilterOption;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Ergonode\Grid\Filter\Option\FilterOption;
-use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
-use Ergonode\Grid\Filter\Option\LabelFilterOption;
-use Ergonode\Grid\Column\SelectColumn;
 
 /**
  */
@@ -66,6 +66,10 @@ class AttributeGrid extends AbstractGrid
         foreach ($this->attributeGroupQuery->getAttributeGroups($language) as $value) {
             $groups[] = new FilterOption($value['id'], $value['code'], $value['label']);
         }
+        $scope = [];
+        foreach (AttributeScope::AVAILABLE as $item) {
+            $scope[] = new LabelFilterOption($item, $item);
+        }
 
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
@@ -77,8 +81,8 @@ class AttributeGrid extends AbstractGrid
         $this->addColumn('label', $column);
         $column = new SelectColumn('type', 'Type', new MultiSelectFilter($types));
         $this->addColumn('type', $column);
-        $column = new BoolColumn('multilingual', 'Multilingual');
-        $this->addColumn('multilingual', $column);
+        $column = new SelectColumn('scope', 'Scope', new MultiSelectFilter($scope));
+        $this->addColumn('scope', $column);
         $this->addColumn('groups', new MultiSelectColumn('groups', 'Groups', new MultiSelectFilter($groups)));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [

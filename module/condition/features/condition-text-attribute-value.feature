@@ -11,6 +11,7 @@ Feature: Condition Product sku exists
       {
           "code": "CONDITION_TEXT_@@random_code@@",
           "type": "TEXT",
+          "scope": "local",
           "groups": []
       }
       """
@@ -23,6 +24,7 @@ Feature: Condition Product sku exists
       {
           "code": "CONDITION_TEXT_@@random_code@@",
           "type": "TEXT",
+          "scope": "local",
           "groups": []
       }
       """
@@ -35,6 +37,7 @@ Feature: Condition Product sku exists
       {
           "code": "CONDITION_NUMERIC_@@random_code@@",
           "type": "NUMERIC",
+          "scope": "local",
           "groups": []
       }
       """

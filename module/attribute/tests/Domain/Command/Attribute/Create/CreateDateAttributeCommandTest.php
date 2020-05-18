@@ -9,11 +9,12 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Tests\Domain\Command\Attribute\Create;
 
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateDateAttributeCommand;
-use PHPUnit\Framework\TestCase;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\ValueObject\DateFormat;
+use PHPUnit\Framework\TestCase;
 
 /**
  */
@@ -26,7 +27,7 @@ class CreateDateAttributeCommandTest extends TestCase
      * @param TranslatableString $placeholder
      * @param array              $groups
      * @param DateFormat         $format
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      *
      * @throws \Exception
      *
@@ -40,14 +41,14 @@ class CreateDateAttributeCommandTest extends TestCase
         TranslatableString $placeholder,
         array $groups,
         DateFormat $format,
-        bool $multilingual
+        AttributeScope $scope
     ): void {
         $command = new CreateDateAttributeCommand(
             $attributeCode,
             $label,
             $hint,
             $placeholder,
-            $multilingual,
+            $scope,
             $format,
             $groups
         );
@@ -57,7 +58,7 @@ class CreateDateAttributeCommandTest extends TestCase
         $this->assertSame($label, $command->getLabel());
         $this->assertSame($hint, $command->getHint());
         $this->assertSame($placeholder, $command->getPlaceholder());
-        $this->assertSame($multilingual, $command->isMultilingual());
+        $this->assertSame($scope, $command->getScope());
         $this->assertSame($groups, $command->getGroups());
         $this->assertSame($format, $command->getFormat());
     }
@@ -77,7 +78,7 @@ class CreateDateAttributeCommandTest extends TestCase
                 $this->createMock(TranslatableString::class),
                 [],
                 $this->createMock(DateFormat::class),
-                true,
+                $this->createMock(AttributeScope::class),
             ],
         ];
     }

@@ -61,6 +61,7 @@ Feature: Draft edit and inheritance value for product draft with unit attribute
       {
         "code": "@attribute_code@",
         "type": "UNIT",
+        "scope": "local",
         "groups": [],
         "parameters":
         {

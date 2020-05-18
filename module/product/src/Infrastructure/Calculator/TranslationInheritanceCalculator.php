@@ -8,12 +8,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Calculator;
 
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
  */
@@ -33,23 +34,34 @@ class TranslationInheritanceCalculator
     }
 
     /**
-     * @param ValueInterface $value
-     * @param Language       $language
+     * @param AbstractAttribute $attribute
+     * @param ValueInterface    $value
+     * @param Language          $language
      *
      * @return string|array|null
      */
-    public function calculate(ValueInterface $value, Language $language)
+    public function calculate(AbstractAttribute $attribute, ValueInterface $value, Language $language)
     {
         $languagesPath = $this->languageQuery->getInheritancePath($language);
         $calculatedValue = null;
         if ($value instanceof TranslatableStringValue || $value instanceof StringCollectionValue) {
             $translations = $value->getValue();
             $find = false;
-            foreach ($languagesPath as $inheritance) {
-                if ($inheritance->isEqual($language)) {
-                    $find = true;
+            if ($attribute->getScope()->isLocal()) {
+                foreach ($languagesPath as $inheritance) {
+                    if ($inheritance->isEqual($language)) {
+                        $find = true;
+                    }
+                    if ($find
+                        && null === $calculatedValue
+                        && array_key_exists($inheritance->getCode(), $translations)) {
+                        $calculatedValue = $translations[$inheritance->getCode()];
+                    }
                 }
-                if ($find && null === $calculatedValue && array_key_exists($inheritance->getCode(), $translations)) {
+            }
+            if ($attribute->getScope()->isGlobal()) {
+                $inheritance = $this->languageQuery->getRootLanguage();
+                if (array_key_exists($inheritance->getCode(), $translations)) {
                     $calculatedValue = $translations[$inheritance->getCode()];
                 }
             }
@@ -59,7 +71,11 @@ class TranslationInheritanceCalculator
         }
 
         if ($value instanceof StringCollectionValue) {
-            $calculatedValue = explode(',', $calculatedValue);
+            if ('' !== $calculatedValue) {
+                $calculatedValue = explode(',', $calculatedValue);
+            } else {
+                $calculatedValue = [];
+            }
         }
 
         return $calculatedValue;

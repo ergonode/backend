@@ -116,15 +116,13 @@ class AttributeCreatedEventProjector
             self::TABLE,
             [
                 'id' => $event->getAggregateId()->getValue(),
-                'multilingual' => $event->isMultilingual(),
+                'scope' => $event->getScope()->getValue(),
                 'code' => $event->getCode()->getValue(),
                 'type' => $event->getType(),
                 'label' => $labelUuid->toString(),
                 'placeholder' => $placeholderUuid->toString(),
                 'hint' => $hintUuid->toString(),
                 'system' => $event->isSystem(),
-                'editable' => $event->isEditable(),
-                'deletable' => $event->isDeletable(),
             ],
             [
                 'multilingual' => \PDO::PARAM_BOOL,

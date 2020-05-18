@@ -12,6 +12,7 @@ Feature: Text-area attribute manipulation
           "code": "TEXT_AREA_@@random_code@@",
           "type": "TEXT_AREA",
           "groups": [],
+          "scope": "local",
           "parameters": []
       }
       """
@@ -23,6 +24,7 @@ Feature: Text-area attribute manipulation
       """
       {
           "groups": [],
+          "scope": "local",
           "parameters": []
       }
       """

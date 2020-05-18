@@ -9,6 +9,7 @@ Feature: Magento 1 CSV module
       {
           "code": "IMPORT_M1_TEST_@@random_code@@",
           "type": "TEXT",
+          "scope": "local",
           "groups": [],
           "parameters": []
       }

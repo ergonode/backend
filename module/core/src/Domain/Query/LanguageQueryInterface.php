@@ -58,6 +58,11 @@ interface LanguageQueryInterface
     public function getInheritancePath(Language $language): array;
 
     /**
+     * @return Language
+     */
+    public function getRootLanguage(): Language;
+
+    /**
      * @return DataSetInterface
      */
     public function getDataSet(): DataSetInterface;

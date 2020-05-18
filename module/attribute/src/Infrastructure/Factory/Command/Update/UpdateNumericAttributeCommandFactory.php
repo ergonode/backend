@@ -11,6 +11,7 @@ namespace Ergonode\Attribute\Infrastructure\Factory\Command\Update;
 use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateNumericAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Infrastructure\Factory\Command\UpdateAttributeCommandFactoryInterface;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
@@ -48,7 +49,7 @@ class UpdateNumericAttributeCommandFactory implements UpdateAttributeCommandFact
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
-            $data->multilingual,
+            new AttributeScope($data->scope),
             $data->groups,
         );
     }

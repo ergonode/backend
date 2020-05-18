@@ -11,6 +11,7 @@ Feature: Text attribute manipulation
       {
           "code": "NUMERIC_@@random_code@@",
           "type": "NUMERIC",
+          "scope": "local",
           "groups": []
       }
       """
@@ -22,6 +23,7 @@ Feature: Text attribute manipulation
       """
       {
         "type": "NUMERIC",
+        "scope": "local",
         "groups": [],
         "label":
         {

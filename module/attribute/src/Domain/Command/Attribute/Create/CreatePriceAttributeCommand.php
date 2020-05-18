@@ -11,6 +11,7 @@ namespace Ergonode\Attribute\Domain\Command\Attribute\Create;
 
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractCreateAttributeCommand;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
 use Money\Currency;
@@ -31,7 +32,7 @@ class CreatePriceAttributeCommand extends AbstractCreateAttributeCommand
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param Currency           $currency
      * @param array              $groups
      *
@@ -42,7 +43,7 @@ class CreatePriceAttributeCommand extends AbstractCreateAttributeCommand
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         Currency $currency,
         array $groups = []
     ) {
@@ -51,7 +52,7 @@ class CreatePriceAttributeCommand extends AbstractCreateAttributeCommand
             $label,
             $hint,
             $placeholder,
-            $multilingual,
+            $scope,
             $groups
         );
 

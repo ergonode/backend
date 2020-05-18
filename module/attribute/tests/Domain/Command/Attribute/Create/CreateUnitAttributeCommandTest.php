@@ -8,12 +8,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Command\Attribute\Create;
 
-use PHPUnit\Framework\TestCase;
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateUnitAttributeCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
+use PHPUnit\Framework\TestCase;
 
 /**
  */
@@ -26,7 +27,7 @@ class CreateUnitAttributeCommandTest extends TestCase
      * @param TranslatableString $placeholder
      * @param array              $groups
      * @param UnitId             $unitId
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      *
      * @throws \Exception
      *
@@ -39,14 +40,14 @@ class CreateUnitAttributeCommandTest extends TestCase
         TranslatableString $placeholder,
         array $groups,
         UnitId $unitId,
-        bool $multilingual
+        AttributeScope $scope
     ): void {
         $command = new CreateUnitAttributeCommand(
             $attributeCode,
             $label,
             $hint,
             $placeholder,
-            $multilingual,
+            $scope,
             $unitId,
             $groups
         );
@@ -56,7 +57,7 @@ class CreateUnitAttributeCommandTest extends TestCase
         $this->assertSame($label, $command->getLabel());
         $this->assertSame($hint, $command->getHint());
         $this->assertSame($placeholder, $command->getPlaceholder());
-        $this->assertSame($multilingual, $command->isMultilingual());
+        $this->assertSame($scope, $command->getScope());
         $this->assertSame($groups, $command->getGroups());
         $this->assertSame($unitId, $command->getUnitId());
     }
@@ -76,7 +77,7 @@ class CreateUnitAttributeCommandTest extends TestCase
                 $this->createMock(TranslatableString::class),
                 [],
                 $this->createMock(UnitId::class),
-                true,
+                $this->createMock(AttributeScope::class),
             ],
         ];
     }

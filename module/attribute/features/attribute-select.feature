@@ -11,6 +11,7 @@ Feature: Select attribute manipulation
       {
           "code": "SELECT@@random_code@@",
           "type": "SELECT",
+          "scope": "local",
           "groups": []
       }
       """

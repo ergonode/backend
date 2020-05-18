@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Webmozart\Assert\Assert;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 /**
  */
@@ -47,6 +48,11 @@ class ProductGridColumnBuilder
     private AttributeColumnProvider $provider;
 
     /**
+     * @var LanguageQueryInterface
+     */
+    private LanguageQueryInterface $languageQuery;
+
+    /**
      * @var Security
      */
     private Security $security;
@@ -55,17 +61,20 @@ class ProductGridColumnBuilder
      * @param AttributeQueryInterface      $attributeQuery
      * @param AttributeRepositoryInterface $repository
      * @param AttributeColumnProvider      $provider
+     * @param LanguageQueryInterface       $languageQuery
      * @param Security                     $security
      */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         AttributeRepositoryInterface $repository,
         AttributeColumnProvider $provider,
+        LanguageQueryInterface $languageQuery,
         Security $security
     ) {
         $this->attributeQuery = $attributeQuery;
         $this->repository = $repository;
         $this->provider = $provider;
+        $this->languageQuery = $languageQuery;
         $this->security = $security;
     }
 
@@ -130,6 +139,12 @@ class ProductGridColumnBuilder
                     }
                     if (!$user->hasEditLanguagePrivilege($language)) {
                         $new->setEditable(false);
+                    }
+                    if ($attribute->getScope()->isGlobal()) {
+                        $rootLanguage = $this->languageQuery->getRootLanguage();
+                        if (!$rootLanguage->isEqual($language)) {
+                            $new->setEditable(false);
+                        }
                     }
                     $result[$key] = $new;
                 }

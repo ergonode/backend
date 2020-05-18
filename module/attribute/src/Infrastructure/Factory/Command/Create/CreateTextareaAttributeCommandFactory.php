@@ -8,14 +8,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Create;
 
+use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
+use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFactoryInterface;
-use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeCommand;
-use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 
 /**
  */
@@ -48,7 +49,7 @@ class CreateTextareaAttributeCommandFactory implements CreateAttributeCommandFac
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
-            $data->multilingual,
+            new AttributeScope($data->scope),
             $data->groups,
         );
     }

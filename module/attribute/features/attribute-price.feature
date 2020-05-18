@@ -12,6 +12,7 @@ Feature: Price attribute manipulation
         "code": "PRICE_@@random_code@@",
         "type": "PRICE",
         "groups": [],
+        "scope": "local",
         "parameters":
         {
           "currency": "PLN"
@@ -27,7 +28,7 @@ Feature: Price attribute manipulation
     And the JSON nodes should be equal to:
       | id                  | @attribute_id@ |
       | type                | PRICE          |
-      | multilingual        | true           |
+      | scope               | local          |
       | parameters.currency | PLN            |
 
   Scenario: Create price attribute without required currency parameter
@@ -36,6 +37,7 @@ Feature: Price attribute manipulation
       {
         "code": "PRICE_@@random_code@@",
         "type": "PRICE",
+        "scope": "local",
         "groups": []
       }
       """
@@ -48,6 +50,7 @@ Feature: Price attribute manipulation
         "code": "PRICE_@@random_code@@",
         "type": "PRICE",
         "groups": [],
+        "scope": "local",
         "parameters":
         {
           "currency": null
@@ -61,6 +64,7 @@ Feature: Price attribute manipulation
       """
       {
         "groups": [],
+        "scope": "local",
         "parameters": {"currency": "PLN"}
       }
       """

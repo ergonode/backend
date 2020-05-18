@@ -50,6 +50,7 @@ Feature: Condition module
       {
           "code": "CONDITION_@@random_code@@",
           "type": "TEXT",
+          "scope": "local",
           "label": {"pl_PL": "Atrybut tekstowy", "en": "Text attribute"},
           "groups": [],
           "parameters": []

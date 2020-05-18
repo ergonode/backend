@@ -10,9 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -27,7 +28,7 @@ abstract class AbstractNumericAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      *
      * @throws \Exception
      */
@@ -37,9 +38,9 @@ abstract class AbstractNumericAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual
+        AttributeScope $scope
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, $multilingual);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
     /**

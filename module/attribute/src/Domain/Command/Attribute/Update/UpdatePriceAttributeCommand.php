@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Command\Attribute\Update;
 
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractUpdateAttributeCommand;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Money\Currency;
@@ -30,17 +31,16 @@ class UpdatePriceAttributeCommand extends AbstractUpdateAttributeCommand
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param Currency           $currency
      * @param array              $groups
-     *
      */
     public function __construct(
         AttributeId $id,
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         Currency $currency,
         array $groups = []
     ) {
@@ -49,7 +49,7 @@ class UpdatePriceAttributeCommand extends AbstractUpdateAttributeCommand
             $label,
             $hint,
             $placeholder,
-            $multilingual,
+            $scope,
             $groups
         );
 

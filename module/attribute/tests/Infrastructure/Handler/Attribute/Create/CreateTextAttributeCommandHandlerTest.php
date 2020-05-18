@@ -7,13 +7,13 @@
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler\Attribute\Create;
 
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Attribute\Infrastructure\Handler\Attribute\Create\CreateTextAttributeCommandHandler;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand;
-use Ergonode\Attribute\Infrastructure\Handler\Attribute\Create\CreateTextAttributeCommandHandler;
 
 /**
  */
@@ -48,7 +48,7 @@ class CreateTextAttributeCommandHandlerTest extends TestCase
 
     /**
      */
-    public function testUpdate(): void
+    public function testHandleCommand(): void
     {
         $this->repository->method('load')->willReturn($this->attribute);
         $this->repository->expects($this->once())->method('save');
