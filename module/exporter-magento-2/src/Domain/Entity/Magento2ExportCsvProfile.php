@@ -70,4 +70,20 @@ class Magento2ExportCsvProfile extends AbstractExportProfile
     {
         return $this->defaultLanguage;
     }
+
+    /**
+     * @param string $filename
+     */
+    public function setFilename(string $filename): void
+    {
+        $this->filename = $filename;
+    }
+
+    /**
+     * @param Language $defaultLanguage
+     */
+    public function setDefaultLanguage(Language $defaultLanguage): void
+    {
+        $this->defaultLanguage = $defaultLanguage;
+    }
 }

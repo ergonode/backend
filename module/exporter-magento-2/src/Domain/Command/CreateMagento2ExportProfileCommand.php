@@ -6,56 +6,58 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Exporter\Domain\Command\ExportProfile;
+namespace Ergonode\ExporterMagento2\Domain\Command;
 
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 
 /**
  */
-class UpdateExportProfileCommand implements DomainCommandInterface
+class CreateMagento2ExportProfileCommand implements DomainCommandInterface
 {
     /**
-     * @var ExportProfileId
+     * @var  ExportProfileId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId")
      */
-    private ExportProfileId $id;
+    protected ExportProfileId $id;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private string $name;
+    protected string $name;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
      */
-    private string $type;
+    private string $filename;
 
     /**
-     * @var array
+     * @var Language
      *
-     * @JMS\Type("array")
+     * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
-    private array $parameters;
+    private Language $defaultLanguage;
 
     /**
      * @param ExportProfileId $id
      * @param string          $name
-     * @param string          $type
-     * @param array           $parameters
+     * @param string          $filename
+     * @param Language        $defaultLanguage
      */
-    public function __construct(ExportProfileId $id, string $name, string $type, array $parameters)
+    public function __construct(ExportProfileId $id, string $name, string $filename, Language $defaultLanguage)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->type = $type;
-        $this->parameters = $parameters;
+        $this->filename = $filename;
+        $this->defaultLanguage = $defaultLanguage;
     }
+
 
     /**
      * @return ExportProfileId
@@ -76,16 +78,16 @@ class UpdateExportProfileCommand implements DomainCommandInterface
     /**
      * @return string
      */
-    public function getType(): string
+    public function getFilename(): string
     {
-        return $this->type;
+        return $this->filename;
     }
 
     /**
-     * @return array
+     * @return Language
      */
-    public function getParameters(): array
+    public function getDefaultLanguage(): Language
     {
-        return $this->parameters;
+        return $this->defaultLanguage;
     }
 }

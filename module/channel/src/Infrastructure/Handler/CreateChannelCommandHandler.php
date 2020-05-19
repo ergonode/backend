@@ -47,7 +47,7 @@ class CreateChannelCommandHandler
         $channel = $this->factory->create(
             $command->getId(),
             $command->getName(),
-            $command->getSegmentId()
+            $command->getExportProfileId()
         );
 
         $this->repository->save($channel);

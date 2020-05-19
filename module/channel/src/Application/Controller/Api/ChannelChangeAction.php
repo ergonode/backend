@@ -15,9 +15,7 @@ use Ergonode\Channel\Application\Form\ChannelUpdateForm;
 use Ergonode\Channel\Application\Model\ChannelUpdateFormModel;
 use Ergonode\Channel\Domain\Command\UpdateChannelCommand;
 use Ergonode\Channel\Domain\Entity\Channel;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -118,8 +116,7 @@ class ChannelChangeAction
                 $data = $form->getData();
                 $command = new UpdateChannelCommand(
                     $channel->getId(),
-                    new TranslatableString($data->name),
-                    new SegmentId($data->segmentId)
+                    $data->name
                 );
                 $this->commandBus->dispatch($command);
 

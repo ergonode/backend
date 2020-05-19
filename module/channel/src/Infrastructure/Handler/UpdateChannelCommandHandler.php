@@ -42,7 +42,6 @@ class UpdateChannelCommandHandler
         Assert::notNull($channel, sprintf('Can\'t fid channel "%s"', $command->getId()->getValue()));
 
         $channel->changeName($command->getName());
-        $channel->changeSegment($command->getSegmentId());
 
         $this->repository->save($channel);
     }

@@ -16,27 +16,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ChannelUpdateFormModel
 {
     /**
-     * @var array
-     *
-     * @Assert\All({
-     *     @Assert\NotBlank(),
-     *     @Assert\Length(max=32, maxMessage="Channel name is to long, It should have {{ limit }} character or less.")
-     * })
-     */
-    public array $name;
-
-    /**
      * @var string
      *
-     * @Assert\NotBlank(message="Sgement is required")
+     * @Assert\NotBlank(),
+     * @Assert\Length(max=255, maxMessage="Channel name is to long, It should have {{ limit }} character or less.")
      */
-    public ?string $segmentId;
+    public ?string $name;
 
     /**
      */
     public function __construct()
     {
-        $this->name = [];
-        $this->segmentId = null;
+        $this->name = null;
     }
 }
