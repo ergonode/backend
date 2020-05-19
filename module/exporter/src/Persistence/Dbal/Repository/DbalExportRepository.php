@@ -25,6 +25,7 @@ class DbalExportRepository implements ExportRepositoryInterface
         'id',
         'status',
         'channel_id',
+        'export_profile_id',
         'started_at',
         'ended_at',
     ];

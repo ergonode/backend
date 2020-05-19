@@ -85,6 +85,7 @@ final class Version20200122064958 extends AbstractErgonodeMigration
                 id uuid NOT NULL,
                 status VARCHAR(16) NOT NULL,
                 channel_id uuid NOT NULL,
+                export_profile_id uuid NOT NULL,
                 created_at timestamp NOT NULL,
                 updated_at timestamp NOT NULL,
                 started_at timestamp NULL,
