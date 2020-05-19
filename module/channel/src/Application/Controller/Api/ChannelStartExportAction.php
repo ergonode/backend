@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     name="ergonode_channel_change",
+ *     name="ergonode_channel_start",
  *     path="/channels/{channel}/start",
  *     methods={"POST"},
  *     requirements={"channel" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
