@@ -11,6 +11,7 @@ namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
+use Ergonode\Attribute\Application\Form\AttributeTypeForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -111,22 +112,31 @@ class AttributeCreateAction
     public function __invoke(Request $request): Response
     {
         $type = $request->request->get('type');
-        $request->request->remove('type');
-        $class = $this->formProvider->provide($type);
-        try {
-            $form = $this->formFactory->create($class, null, ['validation_groups' => ['Default', 'Create']]);
-            $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $command = $this->factoryProvider->provide($type)->create($form);
-                $this->commandBus->dispatch($command);
+        $typeForm = $this->formFactory->create(AttributeTypeForm::class);
+        $typeForm->submit(['type' => $type]);
 
-                return new CreatedResponse($command->getId());
+
+        if ($typeForm->isSubmitted() && $typeForm->isValid()) {
+            $request->request->remove('type');
+
+            $class = $this->formProvider->provide($type);
+            try {
+                $form = $this->formFactory->create($class, null, ['validation_groups' => ['Default', 'Create']]);
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $command = $this->factoryProvider->provide($type)->create($form);
+                    $this->commandBus->dispatch($command);
+
+                    return new CreatedResponse($command->getId());
+                }
+            } catch (InvalidPropertyPathException $exception) {
+                throw new BadRequestHttpException('Invalid JSON format');
             }
-        } catch (InvalidPropertyPathException $exception) {
-            throw new BadRequestHttpException('Invalid JSON format');
-        }
 
-        throw new FormValidationHttpException($form);
+            throw new FormValidationHttpException($form);
+        }
+        throw new FormValidationHttpException($typeForm);
     }
 }
