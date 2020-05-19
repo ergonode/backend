@@ -8,22 +8,19 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Infrastructure\Handler\Export;
 
+use Ergonode\Exporter\Domain\Command\Export\StartChannelExportCommand;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Exporter\Domain\Command\Export\StartExportCommand;
+use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Exporter\Domain\Repository\ChannelConfigurationRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
-use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorProvider;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class StartExportCommandHandler
+class StartExportChannelCommandHandler
 {
-    /**
-     * @var ExportRepositoryInterface
-     */
-    private ExportRepositoryInterface $exportRepository;
-
     /**
      * @var ChannelConfigurationRepositoryInterface
      */
@@ -35,44 +32,54 @@ class StartExportCommandHandler
     private ExportProfileRepositoryInterface $exportProfileRepository;
 
     /**
-     * @var ExportProcessorProvider
+     * @var ExportRepositoryInterface
      */
-    private ExportProcessorProvider $provider;
+    private ExportRepositoryInterface $exportRepository;
 
     /**
-     * @param ExportRepositoryInterface               $exportRepository
+     * @var CommandBusInterface
+     */
+    private CommandBusInterface $commandBus;
+
+    /**
      * @param ChannelConfigurationRepositoryInterface $channelConfigurationRepository
      * @param ExportProfileRepositoryInterface        $exportProfileRepository
-     * @param ExportProcessorProvider                 $provider
+     * @param ExportRepositoryInterface               $exportRepository
+     * @param CommandBusInterface                     $commandBus
      */
     public function __construct(
-        ExportRepositoryInterface $exportRepository,
         ChannelConfigurationRepositoryInterface $channelConfigurationRepository,
         ExportProfileRepositoryInterface $exportProfileRepository,
-        ExportProcessorProvider $provider
+        ExportRepositoryInterface $exportRepository,
+        CommandBusInterface $commandBus
     ) {
-        $this->exportRepository = $exportRepository;
         $this->channelConfigurationRepository = $channelConfigurationRepository;
         $this->exportProfileRepository = $exportProfileRepository;
-        $this->provider = $provider;
+        $this->exportRepository = $exportRepository;
+        $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param StartExportCommand $command
-     *
-     * @throws \ReflectionException
-     */
-    public function __invoke(StartExportCommand $command)
-    {
-        $export = $this->exportRepository->load($command->getExportId());
-        Assert::notNull($export);
-        $exportProfile = $this->exportProfileRepository->load($export->getExportProfileId());
-        Assert::notNull($exportProfile);
 
-        $export->start();
+    /**
+     * @param StartChannelExportCommand $command
+     */
+    public function __invoke(StartChannelExportCommand $command)
+    {
+        $channelConfiguration = $this->channelConfigurationRepository->exists($command->getChannelId());
+        Assert::true($channelConfiguration);
+        $exportProfile = $this->exportProfileRepository->exists($command->getExportProfileId());
+        Assert::true($exportProfile);
+
+        $export = new Export(
+            $command->getExportId(),
+            $command->getChannelId(),
+            $command->getExportProfileId()
+        );
+
         $this->exportRepository->save($export);
 
-        $processor = $this->provider->provide($exportProfile->getType());
-        $processor->run($export);
+        $this->commandBus->dispatch(
+            new StartExportCommand($export->getId())
+        );
     }
 }
