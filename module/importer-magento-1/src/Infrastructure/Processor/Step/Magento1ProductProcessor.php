@@ -33,6 +33,7 @@ use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Importer\Infrastructure\Action\ProductImportAction;
+use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 
 /**
  */
@@ -146,6 +147,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
         $record = new Record();
 
         foreach ($default as $field => $value) {
+            $translation = [];
             if ($transformer->hasAttribute($field)) {
                 $type = $transformer->getAttributeType($field);
                 $isMultilingual = $transformer->isAttributeMultilingual($field);
@@ -153,10 +155,45 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                 if (null === $value) {
                     $record->setValue($field, null);
                 } else {
-                    if (SelectAttribute::TYPE === $type || MultiSelectAttribute::TYPE === $type) {
+                    if (SelectAttribute::TYPE === $type) {
                         $optionKey = new OptionKey($value);
                         $optionId = $this->optionQuery->findIdByAttributeIdAndCode($attributeId->getId(), $optionKey);
-                        $record->setValue($field, new Stringvalue($optionId->getValue()));
+                        $translation[$source->getDefaultLanguage()->getCode()] = $optionId->getValue();
+                        foreach ($source->getLanguages() as $key => $language) {
+                            if ($product->has($key)) {
+                                $translatedVer = $product->get($key);
+                                if (array_key_exists($field, $translatedVer) && null !== $translatedVer[$field]) {
+                                    $optionKey = new OptionKey($translatedVer[$field]);
+                                    $optionId = $this->optionQuery->findIdByAttributeIdAndCode(
+                                        $attributeId->getId(),
+                                        $optionKey
+                                    );
+                                    $translation[$source->getDefaultLanguage()->getCode()] = $optionId->getValue();
+                                    $translation[$language->getCode()] = $translatedVer[$field];
+                                }
+                            }
+                        }
+
+                        $record->setValue($field, new TranslatableStringValue(new TranslatableString($translation)));
+                    } elseif (MultiSelectAttribute::TYPE === $type) {
+                        $optionKey = new OptionKey($value);
+                        $optionId = $this->optionQuery->findIdByAttributeIdAndCode($attributeId->getId(), $optionKey);
+                        $translation[$source->getDefaultLanguage()->getCode()] = $optionId->getValue();
+                        foreach ($source->getLanguages() as $key => $language) {
+                            if ($product->has($key)) {
+                                $translatedVer = $product->get($key);
+                                if (array_key_exists($field, $translatedVer) && null !== $translatedVer[$field]) {
+                                    $optionKey = new OptionKey($translatedVer[$field]);
+                                    $optionId = $this->optionQuery->findIdByAttributeIdAndCode(
+                                        $attributeId->getId(),
+                                        $optionKey
+                                    );
+                                    $translation[$language->getCode()] = $optionId->getValue();
+                                }
+                            }
+                        }
+
+                        $record->setValue($field, new StringCollectionValue($translation));
                     } elseif (ImageAttribute::TYPE === $type) {
                         if ($source->import(Magento1CsvSource::MULTIMEDIA)) {
                             $url = sprintf('%s/media/catalog/product%s', $source->getHost(), $value);
