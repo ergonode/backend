@@ -67,17 +67,20 @@ class TemplateGrid extends AbstractGrid
         ));
         $this->addColumn('_links', new LinkColumn('hal', [
             'get' => [
-                'route' => 'ergonode_condition_conditionset_read',
-                'parameters' => ['language' => $language->getCode(), 'conditionSet' => '{id}'],
+                'route' => 'ergonode_designer_template_read',
+                'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
+                'privilege' => 'TEMPLATE_DESIGNER_READ',
             ],
             'edit' => [
-                'route' => 'ergonode_condition_conditionset_change',
-                'parameters' => ['language' => $language->getCode(), 'conditionSet' => '{id}'],
+                'route' => 'ergonode_designer_template_change',
+                'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
+                'privilege' => 'TEMPLATE_DESIGNER_UPDATE',
                 'method' => Request::METHOD_PUT,
             ],
             'delete' => [
-                'route' => 'ergonode_condition_conditionset_delete',
-                'parameters' => ['language' => $language->getCode(), 'conditionSet' => '{id}'],
+                'route' => 'ergonode_designer_template_delete',
+                'parameters' => ['language' => $language->getCode(), 'template' => '{id}'],
+                'privilege' => 'TEMPLATE_DESIGNER_DELETE',
                 'method' => Request::METHOD_DELETE,
             ],
         ]));
