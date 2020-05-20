@@ -15,16 +15,6 @@ use Ergonode\Core\Domain\ValueObject\Language;
  */
 abstract class AbstractGrid
 {
-    public const PARAMETER_ALLOW_COLUMN_RESIZE = 'allow_column_resize';
-    public const PARAMETER_ALLOW_COLUMN_EDIT = 'allow_column_edit';
-    public const PARAMETER_ALLOW_COLUMN_MOVE = 'allow_column_move';
-
-    public const DEFAULT = [
-        self::PARAMETER_ALLOW_COLUMN_RESIZE => false,
-        self::PARAMETER_ALLOW_COLUMN_EDIT => false,
-        self::PARAMETER_ALLOW_COLUMN_MOVE => false,
-    ];
-
     /**
      * @var ColumnInterface[]
      */
@@ -34,11 +24,6 @@ abstract class AbstractGrid
      * @var ActionInterface[]
      */
     private array $actions = [];
-
-    /**
-     * @var array
-     */
-    private array $configuration = [];
 
     /**
      * @var string|null
@@ -75,14 +60,6 @@ abstract class AbstractGrid
         $this->order = $order;
     }
 
-    /**
-     * @param string      $name
-     * @param string|bool $value
-     */
-    public function setConfiguration(string $name, $value): void
-    {
-        $this->configuration[$name] = $value;
-    }
 
     /**
      * @param string          $name
@@ -107,14 +84,6 @@ abstract class AbstractGrid
     public function getColumns(): array
     {
         return $this->columns;
-    }
-
-    /**
-     * @return array
-     */
-    public function getConfiguration(): array
-    {
-        return array_merge(self::DEFAULT, $this->configuration);
     }
 
     /**

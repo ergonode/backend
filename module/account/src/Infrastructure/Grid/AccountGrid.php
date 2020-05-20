@@ -17,10 +17,10 @@ use Ergonode\Grid\Column\BoolColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Ergonode\Grid\Filter\Option\LabelFilterOption;
 
 /**
  */
@@ -82,7 +82,5 @@ class AccountGrid extends AbstractGrid
                 'method' => Request::METHOD_PUT,
             ],
         ]));
-
-        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }

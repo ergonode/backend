@@ -14,10 +14,10 @@ use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\LabelColumn;
 use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Filter\MultiSelectFilter;
+use Ergonode\Grid\Filter\Option\FilterOption;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -87,7 +87,5 @@ class TransitionGrid extends AbstractGrid
                 'method' => Request::METHOD_DELETE,
             ],
         ]));
-
-        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }
