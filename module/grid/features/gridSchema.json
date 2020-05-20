@@ -5,63 +5,11 @@
   "title": "The Root Schema",
   "description": "The root schema comprises the entire JSON document.",
   "required": [
-    "configuration",
     "columns",
     "collection",
     "info"
   ],
   "properties": {
-    "configuration": {
-      "$id": "#/properties/configuration",
-      "type": "object",
-      "title": "The Configuration Schema",
-      "description": "An explanation about the purpose of this instance.",
-      "default": {},
-      "examples": [
-        {
-          "allow_column_resize": true,
-          "allow_column_edit": false,
-          "allow_column_move": false
-        }
-      ],
-      "required": [
-        "allow_column_resize",
-        "allow_column_edit",
-        "allow_column_move"
-      ],
-      "properties": {
-        "allow_column_resize": {
-          "$id": "#/properties/configuration/properties/allow_column_resize",
-          "type": "boolean",
-          "title": "The Allow_column_resize Schema",
-          "description": "An explanation about the purpose of this instance.",
-          "default": false,
-          "examples": [
-            true
-          ]
-        },
-        "allow_column_edit": {
-          "$id": "#/properties/configuration/properties/allow_column_edit",
-          "type": "boolean",
-          "title": "The Allow_column_edit Schema",
-          "description": "An explanation about the purpose of this instance.",
-          "default": false,
-          "examples": [
-            false
-          ]
-        },
-        "allow_column_move": {
-          "$id": "#/properties/configuration/properties/allow_column_move",
-          "type": "boolean",
-          "title": "The Allow_column_move Schema",
-          "description": "An explanation about the purpose of this instance.",
-          "default": false,
-          "examples": [
-            false
-          ]
-        }
-      }
-    },
     "columns": {
       "$id": "#/properties/columns",
       "type": "array",

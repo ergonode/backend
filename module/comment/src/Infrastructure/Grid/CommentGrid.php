@@ -78,6 +78,5 @@ class CommentGrid extends AbstractGrid
         $this->addColumn('_links', new LinkColumn('hal', $links));
 
         $this->orderBy('created_at', 'DESC');
-        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }

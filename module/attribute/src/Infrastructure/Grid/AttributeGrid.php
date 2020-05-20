@@ -107,6 +107,5 @@ class AttributeGrid extends AbstractGrid
             ],
         ]));
         $this->orderBy('index', 'DESC');
-        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }

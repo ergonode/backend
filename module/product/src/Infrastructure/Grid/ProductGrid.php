@@ -44,9 +44,6 @@ class ProductGrid extends AbstractGrid
             $this->addColumn($key, $column);
         }
 
-        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
-        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_MOVE, true);
-        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_EDIT, true);
         $this->orderBy('index', 'DESC');
     }
 }

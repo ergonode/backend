@@ -77,7 +77,6 @@ class GridRenderer
         );
 
         if (GridConfigurationInterface::VIEW_GRID === $configuration->getView()) {
-            $result['configuration'] = $grid->getConfiguration();
             $result['columns'] = $this->columnRenderer->render($grid, $configuration);
 
             // todo temporary hax - waiting for frontend changes
