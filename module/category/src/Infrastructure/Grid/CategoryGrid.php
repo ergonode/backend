@@ -63,6 +63,5 @@ class CategoryGrid extends AbstractGrid
         ]));
 
         $this->orderBy('sequence', 'DESC');
-        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
     }
 }

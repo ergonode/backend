@@ -13,16 +13,6 @@ use Ergonode\Grid\Request\RequestColumn;
  */
 interface GridConfigurationInterface
 {
-    public const PARAMETER_ALLOW_COLUMN_RESIZE = 'allow_column_resize';
-    public const PARAMETER_ALLOW_COLUMN_EDIT = 'allow_column_edit';
-    public const PARAMETER_ALLOW_COLUMN_MOVE = 'allow_column_move';
-
-    public const DEFAULT_PARAMETERS = [
-        self::PARAMETER_ALLOW_COLUMN_RESIZE => false,
-        self::PARAMETER_ALLOW_COLUMN_EDIT => false,
-        self::PARAMETER_ALLOW_COLUMN_MOVE => false,
-    ];
-
     public const VIEW_GRID = 'grid';
     public const VIEW_LIST = 'list';
 

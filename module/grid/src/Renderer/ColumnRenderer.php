@@ -48,7 +48,7 @@ class ColumnRenderer
     {
         $result = [];
         foreach ($grid->getColumns() as $id => $column) {
-            $result[] = $this->renderColumn($id, $column, $configuration, $grid->getConfiguration());
+            $result[] = $this->renderColumn($id, $column, $configuration);
         }
 
         return $result;
@@ -58,15 +58,13 @@ class ColumnRenderer
      * @param string                     $id
      * @param ColumnInterface            $column
      * @param GridConfigurationInterface $gridConfiguration
-     * @param array                      $configuration
      *
      * @return array
      */
     public function renderColumn(
         string $id,
         ColumnInterface $column,
-        GridConfigurationInterface $gridConfiguration,
-        array $configuration
+        GridConfigurationInterface $gridConfiguration
     ): array {
         $result = [];
 
@@ -80,22 +78,8 @@ class ColumnRenderer
         $result['type'] = $column->getType();
         $result['label'] = $column->getLabel() ? $this->translator->trans($column->getLabel(), [], 'grid') : null;
         $result['visible'] = $column->isVisible();
-
-        if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) &&
-            $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true
-        ) {
-            $result['editable'] = $column->isEditable();
-        } else {
-            $result['editable'] = false;
-        }
-
-        if (isset($configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT]) &&
-            $configuration[AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT] === true
-        ) {
-            $result['deletable'] = $column->isDeletable();
-        } else {
-            $result['deletable'] = false;
-        }
+        $result['editable'] = $column->isEditable();
+        $result['deletable'] = $column->isDeletable();
 
         if ($column->getFilter()) {
             $result['filter'] =
