@@ -119,7 +119,8 @@ class ProductGridColumnBuilder
                 $language = $column->getLanguage() ?: $defaultLanguage;
 
                 if (in_array($code, $codes, true)
-                    && $user->hasReadLanguagePrivilege($language)) {
+                    && $user->hasReadLanguagePrivilege($language)
+                    && $this->languageQuery->getLanguageNodeInfo($language)) {
                     $id = AttributeId::fromKey((new AttributeCode($code))->getValue());
                     $attribute = $this->repository->load($id);
                     Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));

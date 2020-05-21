@@ -87,33 +87,31 @@ class ProductValueAddedEventProjector
      */
     private function insert(string $productId, string $attributeId, string $value, string $language = null): void
     {
-        if ('' !== $value) {
-            $valueId = Uuid::uuid5(ValueInterface::NAMESPACE, implode('|', [$value, $language]));
+        $valueId = Uuid::uuid5(ValueInterface::NAMESPACE, implode('|', [$value, $language]));
 
-            $qb = $this->connection->createQueryBuilder();
-            $result = $qb->select('*')
-                ->from(self::TABLE_VALUE_TRANSLATION)
-                ->where($qb->expr()->eq('id', ':id'))
-                ->setParameter(':id', $valueId->toString())
-                ->execute()
-                ->fetch();
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('*')
+            ->from(self::TABLE_VALUE_TRANSLATION)
+            ->where($qb->expr()->eq('id', ':id'))
+            ->setParameter(':id', $valueId->toString())
+            ->execute()
+            ->fetch();
 
-            if (false === $result) {
-                $this->connection->executeQuery(
-                    'INSERT INTO value_translation (id, value_id, value, language) '.
-                    ' VALUES (?, ?, ?, ?) ON CONFLICT DO NOTHING',
-                    [$valueId->toString(), $valueId->toString(), $value, $language ?: null]
-                );
-            }
-
-            $this->connection->insert(
-                self::TABLE_PRODUCT_VALUE,
-                [
-                    'product_id' => $productId,
-                    'attribute_id' => $attributeId,
-                    'value_id' => $valueId,
-                ]
+        if (false === $result) {
+            $this->connection->executeQuery(
+                'INSERT INTO value_translation (id, value_id, value, language) '.
+                ' VALUES (?, ?, ?, ?) ON CONFLICT DO NOTHING',
+                [$valueId->toString(), $valueId->toString(), $value, $language ?: null]
             );
         }
+
+        $this->connection->insert(
+            self::TABLE_PRODUCT_VALUE,
+            [
+                'product_id' => $productId,
+                'attribute_id' => $attributeId,
+                'value_id' => $valueId,
+            ]
+        );
     }
 }
