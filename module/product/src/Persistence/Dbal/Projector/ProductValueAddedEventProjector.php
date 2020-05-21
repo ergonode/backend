@@ -87,7 +87,7 @@ class ProductValueAddedEventProjector
      */
     private function insert(string $productId, string $attributeId, string $value, string $language = null): void
     {
-        if ('' !== $value) {
+
             $valueId = Uuid::uuid5(ValueInterface::NAMESPACE, implode('|', [$value, $language]));
 
             $qb = $this->connection->createQueryBuilder();
@@ -115,5 +115,4 @@ class ProductValueAddedEventProjector
                 ]
             );
         }
-    }
 }
