@@ -20,6 +20,11 @@ Feature: Draft edit and inheritance value for product draft with text attribute
     Then the response status code should be 200
     And store response param "id" as "language_id_fr"
 
+  Scenario: Get language de
+    When I send a GET request to "/api/v1/en/languages/de"
+    Then the response status code should be 200
+    And store response param "id" as "language_id_de"
+
   Scenario: Update Tree
     When I send a PUT request to "/api/v1/en/language/tree" with body:
       """
@@ -34,6 +39,10 @@ Feature: Draft edit and inheritance value for product draft with text attribute
                 },
                 {
                   "language_id":"@language_id_fr@",
+                  "children":[]
+                },
+                {
+                  "language_id":"@language_id_de@",
                   "children":[]
                 }
               ]

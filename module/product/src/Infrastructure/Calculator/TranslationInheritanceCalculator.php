@@ -47,15 +47,18 @@ class TranslationInheritanceCalculator
         if ($value instanceof TranslatableStringValue || $value instanceof StringCollectionValue) {
             $translations = $value->getValue();
             $find = false;
+            $setUp = false;
             if ($attribute->getScope()->isLocal()) {
                 foreach ($languagesPath as $inheritance) {
                     if ($inheritance->isEqual($language)) {
                         $find = true;
                     }
                     if ($find
+                        && false === $setUp
                         && null === $calculatedValue
                         && array_key_exists($inheritance->getCode(), $translations)) {
                         $calculatedValue = $translations[$inheritance->getCode()];
+                        $setUp = true;
                     }
                 }
             }
@@ -71,7 +74,7 @@ class TranslationInheritanceCalculator
         }
 
         if ($value instanceof StringCollectionValue) {
-            if ('' !== $calculatedValue) {
+            if ('' !== $calculatedValue && null !== $calculatedValue) {
                 $calculatedValue = explode(',', $calculatedValue);
             } else {
                 $calculatedValue = [];
