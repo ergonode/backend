@@ -85,12 +85,12 @@ class ProductValueChangedEventProjector
     /**
      * @param string      $productId
      * @param string      $attributeId
-     * @param string      $value
+     * @param string|null $value
      * @param string|null $language
      *
      * @throws DBALException
      */
-    private function insert(string $productId, string $attributeId, string $value, string $language = null): void
+    private function insert(string $productId, string $attributeId, ?string $value, ?string $language = null): void
     {
         $valueId = Uuid::uuid5(ValueInterface::NAMESPACE, implode('|', [$value, $language]));
 

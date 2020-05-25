@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -14,15 +13,31 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class AttributeTypeValid extends Constraint
+class TypeOrEmpty extends Constraint
 {
     /**
      * @var string
      */
-    public string $message = 'Attribute {{ value }} not valid.';
+    public string $message = 'This value should be of type {{ type }}.';
 
     /**
      * @var string|null
      */
     public ?string $type = null;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefaultOption()
+    {
+        return 'type';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRequiredOptions()
+    {
+        return ['type'];
+    }
 }

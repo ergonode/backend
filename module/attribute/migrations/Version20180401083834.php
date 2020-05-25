@@ -64,7 +64,7 @@ final class Version20180401083834 extends AbstractErgonodeMigration
                 id UUID NOT NULL,
                 value_id UUID NOT NULL, 
                 language VARCHAR(5) DEFAULT NULL,
-                value TEXT NOT NULL,                                                   
+                value TEXT,                                                   
                 PRIMARY KEY(id)
             )
         ');
@@ -171,6 +171,7 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             'Ergonode\Attribute\Domain\Event\Option\OptionLabelChangedEvent' => 'Attribute option label changed',
             'Ergonode\Attribute\Domain\Event\Option\OptionCodeChangedEvent' => 'Attribute option code changed',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeDeletedEvent' => 'Attribute deleted',
+            'Ergonode\Attribute\Domain\Event\Attribute\AttributeScopeChangedEvent' => 'Attribute scope changed',
         ]);
     }
 

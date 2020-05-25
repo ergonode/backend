@@ -101,13 +101,13 @@ class ProductDraftValueChangedEventProjector
     /**
      * @param string      $draftId
      * @param string      $elementId
-     * @param string      $value
+     * @param string|null $value
      * @param string|null $language
      *
      * @throws DBALException
      * @throws \Exception
      */
-    private function insert(string $draftId, string $elementId, string $value, string $language = null): void
+    private function insert(string $draftId, string $elementId, ?string $value, ?string $language = null): void
     {
         $this->connection->insert(
             self::DRAFT_VALUE_TABLE,

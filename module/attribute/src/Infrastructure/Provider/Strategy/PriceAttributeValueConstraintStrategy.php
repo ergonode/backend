@@ -12,10 +12,10 @@ namespace Ergonode\Attribute\Infrastructure\Provider\Strategy;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Infrastructure\Provider\AttributeValueConstraintStrategyInterface;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
+use Ergonode\Attribute\Infrastructure\Validator\TypeOrEmpty;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\PositiveOrZero;
-use Symfony\Component\Validator\Constraints\Type;
 
 /**
  */
@@ -40,7 +40,7 @@ class PriceAttributeValueConstraintStrategy implements AttributeValueConstraintS
     {
         return new Collection([
             'value' => [
-                new Type(['type' => 'numeric']),
+                new TypeOrEmpty(['type' => 'numeric']),
                 new PositiveOrZero(),
             ],
         ]);
