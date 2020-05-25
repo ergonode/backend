@@ -9,15 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeScopeChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
@@ -49,9 +50,9 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     protected TranslatableString $hint;
 
     /**
-     * @var bool
+     * @var AttributeScope $scope
      */
-    protected bool $multilingual;
+    protected AttributeScope $scope;
 
     /**
      * @var TranslatableString
@@ -74,7 +75,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param array              $parameters
      *
      * @throws \Exception
@@ -85,7 +86,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         array $parameters = []
     ) {
         $this->apply(
@@ -95,12 +96,10 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
                 $label,
                 $hint,
                 $placeholder,
-                $multilingual,
+                $scope,
                 $this->getType(),
                 \get_class($this),
                 $parameters,
-                $this->isEditable(),
-                $this->isDeletable(),
                 $this->isSystem()
             )
         );
@@ -131,11 +130,11 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
-     * @return bool
+     * @return AttributeScope
      */
-    public function isMultilingual(): bool
+    public function getScope(): AttributeScope
     {
-        return $this->multilingual;
+        return $this->scope;
     }
 
     /**
@@ -163,13 +162,21 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
+     * @return bool
+     */
+    public function isMultilingual(): bool
+    {
+        return true;
+    }
+
+    /**
      * @param TranslatableString $label
      *
      * @throws \Exception
      */
     public function changeLabel(TranslatableString $label): void
     {
-        if ($this->label->getTranslations() !== $label->getTranslations()) {
+        if (!$label->isEqual($this->label)) {
             $this->apply(new AttributeLabelChangedEvent($this->id, $this->label, $label));
         }
     }
@@ -181,7 +188,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      */
     public function changeHint(TranslatableString $hint): void
     {
-        if ($this->hint->getTranslations() !== $hint->getTranslations()) {
+        if (!$hint->isEqual($this->hint)) {
             $this->apply(new AttributeHintChangedEvent($this->id, $this->hint, $hint));
         }
     }
@@ -193,8 +200,20 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
      */
     public function changePlaceholder(TranslatableString $placeholder): void
     {
-        if ($this->placeholder->getTranslations() !== $placeholder->getTranslations()) {
+        if (!$placeholder->isEqual($this->placeholder)) {
             $this->apply(new AttributePlaceholderChangedEvent($this->id, $this->placeholder, $placeholder));
+        }
+    }
+
+    /**
+     * @param AttributeScope $scope
+     *
+     * @throws \Exception
+     */
+    public function changeScope(AttributeScope $scope): void
+    {
+        if (!$scope->isEqual($this->scope)) {
+            $this->apply(new AttributeScopeChangedEvent($this->id, $this->scope, $scope));
         }
     }
 
@@ -223,11 +242,11 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
-     * @return ArrayCollection|AttributeGroupId[]
+     * @return AttributeGroupId[]
      */
-    public function getGroups(): ArrayCollection
+    public function getGroups(): array
     {
-        return new ArrayCollection($this->groups);
+        return array_values($this->groups);
     }
 
     /**
@@ -292,16 +311,6 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    protected function hasParameter(string $name): bool
-    {
-        return isset($this->parameters[$name]);
-    }
-
-    /**
      * @param AttributeCreatedEvent $event
      */
     protected function applyAttributeCreatedEvent(AttributeCreatedEvent $event): void
@@ -311,7 +320,7 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
         $this->label = $event->getLabel();
         $this->groups = [];
         $this->hint = $event->getHint();
-        $this->multilingual = $event->isMultilingual();
+        $this->scope = $event->getScope();
         $this->placeholder = $event->getPlaceholder();
         $this->parameters = $event->getParameters();
     }
@@ -354,6 +363,14 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     protected function applyAttributePlaceholderChangedEvent(AttributePlaceholderChangedEvent $event): void
     {
         $this->placeholder = $event->getTo();
+    }
+
+    /**
+     * @param AttributeScopeChangedEvent $event
+     */
+    protected function applyAttributeScopeChangedEvent(AttributeScopeChangedEvent $event): void
+    {
+        $this->scope = $event->getTo();
     }
 
     /**

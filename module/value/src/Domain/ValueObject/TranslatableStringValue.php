@@ -11,6 +11,7 @@ namespace Ergonode\Value\Domain\ValueObject;
 
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
@@ -44,11 +45,21 @@ class TranslatableStringValue implements ValueInterface
     }
 
     /**
-     * @return TranslatableString
+     * @return array
      */
-    public function getValue(): TranslatableString
+    public function getValue(): array
     {
-        return $this->value;
+        return $this->value->getTranslations();
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return string|null
+     */
+    public function getTranslation(Language $language): ?string
+    {
+        return $this->value->get($language);
     }
 
     /**

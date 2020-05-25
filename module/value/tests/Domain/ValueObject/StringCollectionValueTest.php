@@ -20,12 +20,11 @@ class StringCollectionValueTest extends TestCase
      */
     public function testValueCreation(): void
     {
-        $value = ['value1', 'value2'];
+        $value = ['pl' => 'value1', 'en' => 'value2'];
 
         $valueObject = new StringCollectionValue($value);
 
         $this->assertSame($value, $valueObject->getValue());
         $this->assertSame(StringCollectionValue::TYPE, $valueObject->getType());
-        $this->assertSame('value1,value2', (string) $valueObject);
     }
 }

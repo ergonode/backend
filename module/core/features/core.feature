@@ -107,7 +107,7 @@ Feature: Core module
     When I send a PUT request to "/api/v1/en/languages" with body:
     """
       {
-        "collection":["en","pl_PL","de"]
+        "collection":["en","pl_PL","pl","fr","uk","de"]
       }
     """
     Then the response status code should be 204

@@ -12,6 +12,7 @@ Feature: Date attribute manipulation
         "code": "DATE_@@random_code@@",
         "type": "DATE",
         "groups": [],
+        "scope": "local",
         "parameters":
         {
           "format": "yyyy-MM-dd"
@@ -31,6 +32,15 @@ Feature: Date attribute manipulation
       }
       """
     Then the response status code should be 400
+
+  Scenario: Get created date attribute
+    And I send a "GET" request to "/api/v1/EN/attributes/@attribute_id@"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | id                | @attribute_id@ |
+      | type              | DATE           |
+      | scope             | local          |
+      | parameters.format | yyyy-MM-dd     |
 
   Scenario: Create date attribute with invalid format parameter
     And I send a "POST" request to "/api/v1/en/attributes" with body:
@@ -52,6 +62,7 @@ Feature: Date attribute manipulation
       """
       {
         "groups": [],
+        "scope": "local",
         "parameters": {"format": "yyyy-MM-dd"}
       }
       """

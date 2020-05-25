@@ -13,9 +13,9 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Importer\Domain\Command\Import\EndImportCommand;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
-use Ergonode\Transformer\Infrastructure\Provider\ImportActionProvider;
 use Doctrine\DBAL\DBALException;
 use Webmozart\Assert\Assert;
+use Ergonode\Importer\Infrastructure\Provider\ImportActionProvider;
 
 /**
  */

@@ -8,6 +8,7 @@ Feature: Product edit feature
       """
       {
         "code": "TEXT_@@random_code@@",
+        "scope": "local",
         "type": "TEXT",
         "groups": []
       }
@@ -23,6 +24,7 @@ Feature: Product edit feature
       """
       {
         "code": "TEXT_AREA_@@random_code@@",
+        "scope": "local",
         "type": "TEXT_AREA",
         "groups": []
       }
@@ -38,6 +40,7 @@ Feature: Product edit feature
       """
       {
         "code": "SELECT_@@random_code@@",
+        "scope": "local",
         "type": "SELECT",
         "groups": []
       }
@@ -110,6 +113,7 @@ Feature: Product edit feature
       {
         "code": "MULTI_SELECT_@@random_code@@",
         "type": "MULTI_SELECT",
+        "scope": "local",
         "groups": []
       }
       """
@@ -195,6 +199,7 @@ Feature: Product edit feature
       {
         "code": "UNIT_@@random_code@@",
         "type": "UNIT",
+        "scope": "local",
         "groups": [],
         "parameters": {
           "unit":"@unit_id@"
@@ -213,6 +218,7 @@ Feature: Product edit feature
       {
         "code": "PRICE_@@random_code@@",
         "type": "PRICE",
+        "scope": "local",
         "groups": [],
         "parameters": {
           "currency":"EUR"
@@ -231,6 +237,7 @@ Feature: Product edit feature
       {
         "code": "DATE_@@random_code@@",
         "type": "DATE",
+        "scope": "local",
         "groups": [],
         "parameters": {
           "format":"yyyy-MM-dd"

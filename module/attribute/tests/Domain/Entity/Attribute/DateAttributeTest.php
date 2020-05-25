@@ -8,11 +8,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Entity\Attribute;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -51,6 +52,11 @@ class DateAttributeTest extends TestCase
     private $format;
 
     /**
+     * @var AttributeScope|MockObject
+     */
+    private AttributeScope $scope;
+
+    /**
      */
     protected function setUp(): void
     {
@@ -60,6 +66,7 @@ class DateAttributeTest extends TestCase
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
         $this->format = new DateFormat(DateFormat::MMMM_DD_YYYY);
+        $this->scope = $this->createMock(AttributeScope::class);
     }
 
     /**
@@ -73,6 +80,7 @@ class DateAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
+            $this->scope,
             $this->format
         );
         $this->assertEquals($this->format, $attribute->getFormat());
@@ -81,6 +89,7 @@ class DateAttributeTest extends TestCase
         $this->assertEquals($this->label, $attribute->getLabel());
         $this->assertEquals($this->hint, $attribute->getHint());
         $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
+        $this->assertEquals($this->scope, $attribute->getScope());
     }
 
     /**
@@ -95,6 +104,7 @@ class DateAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
+            $this->scope,
             $this->format
         );
         $attribute->changeFormat($format);

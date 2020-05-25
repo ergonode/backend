@@ -21,12 +21,12 @@ class TranslatableStringValueTest extends TestCase
      */
     public function testValueCreation(): void
     {
-        $value = new TranslatableString(['en' => 'english', 'pl_PL' => 'polish']);
+        $array = ['en' => 'english', 'pl_PL' => 'polish'];
+        $value = new TranslatableString($array);
 
         $valueObject = new TranslatableStringValue($value);
 
-        $this->assertSame($value, $valueObject->getValue());
+        $this->assertSame($array, $valueObject->getValue());
         $this->assertSame(TranslatableStringValue::TYPE, $valueObject->getType());
-        $this->assertSame('english,polish', (string) $valueObject);
     }
 }

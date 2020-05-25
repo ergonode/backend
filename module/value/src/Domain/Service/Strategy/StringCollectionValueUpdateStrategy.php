@@ -40,6 +40,8 @@ class StringCollectionValueUpdateStrategy implements ValueUpdateStrategyInterfac
             throw new \InvalidArgumentException(\sprintf('New value must be type %s', StringCollectionValue::class));
         }
 
-        return new StringCollectionValue($newValue->getValue());
+        $calculatedTranslation = array_merge($oldValue->getValue(), $newValue->getValue());
+
+        return new StringCollectionValue($calculatedTranslation);
     }
 }

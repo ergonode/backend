@@ -12,6 +12,7 @@ namespace Ergonode\Attribute\Domain\Entity\Attribute;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
@@ -30,6 +31,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
+     * @param AttributeScope     $scope
      * @param UnitId             $unitId
      *
      * @throws \Exception
@@ -40,6 +42,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
+        AttributeScope $scope,
         UnitId $unitId
     ) {
         parent::__construct(
@@ -48,7 +51,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
             $label,
             $hint,
             $placeholder,
-            false,
+            $scope,
             [self::UNIT => $unitId->getValue()]
         );
     }

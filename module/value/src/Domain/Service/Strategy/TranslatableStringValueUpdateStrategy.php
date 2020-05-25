@@ -53,9 +53,7 @@ class TranslatableStringValueUpdateStrategy implements ValueUpdateStrategyInterf
             );
         }
 
-        $oldTranslation = $oldValue->getValue()->getTranslations();
-        $newTranslation = $newValue->getValue()->getTranslations();
-        $calculatedTranslation = array_merge($oldTranslation, $newTranslation);
+        $calculatedTranslation = array_merge($oldValue->getValue(), $newValue->getValue());
 
         return new TranslatableStringValue(new TranslatableString($calculatedTranslation));
     }

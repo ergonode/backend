@@ -26,9 +26,9 @@ class CompletenessElementReadModelTest extends TestCase
         $attributeId = $this->createMock(AttributeId::class);
         $name = 'Any Name';
         $required = false;
-        $value = 'Any Value';
+        $filled = true;
 
-        $model = new CompletenessElementReadModel($attributeId, $name, $required, $value);
+        $model = new CompletenessElementReadModel($attributeId, $name, $required, $filled);
 
         $this->assertEquals($attributeId, $model->getId());
         $this->assertEquals($name, $model->getName());

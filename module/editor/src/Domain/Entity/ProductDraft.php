@@ -145,16 +145,10 @@ class ProductDraft extends AbstractAggregateRoot
             throw new \RuntimeException('Value note exists');
         }
 
-        if ((string) $this->attributes[$attributeCode->getValue()] !== (string) $new) {
-            $this
-                ->apply(
-                    new ProductDraftValueChanged(
-                        $this->id,
-                        $attributeCode,
-                        $this->attributes[$attributeCode->getValue()],
-                        $new
-                    )
-                );
+        $old = $this->attributes[$attributeCode->getValue()];
+
+        if (!$new->isEqual($old)) {
+            $this->apply(new ProductDraftValueChanged($this->id, $attributeCode, $old, $new));
         }
     }
 

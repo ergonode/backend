@@ -44,6 +44,6 @@ class StringValueUpdateStrategy implements ValueUpdateStrategyInterface
             );
         }
 
-        return new StringValue($newValue->getValue());
+        return $newValue;
     }
 }

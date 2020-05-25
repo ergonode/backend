@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 use Money\Currency;
 
@@ -30,6 +31,7 @@ abstract class AbstractPriceAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
+     * @param AttributeScope     $scope
      * @param Currency           $format
      *
      * @throws \Exception
@@ -40,9 +42,18 @@ abstract class AbstractPriceAttribute extends AbstractAttribute
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
+        AttributeScope $scope,
         Currency $format
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, [self::CURRENCY => $format->getCode()]);
+        parent::__construct(
+            $id,
+            $code,
+            $label,
+            $hint,
+            $placeholder,
+            $scope,
+            [self::CURRENCY => $format->getCode()]
+        );
     }
 
     /**

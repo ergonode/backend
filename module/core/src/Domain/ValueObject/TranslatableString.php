@@ -134,7 +134,7 @@ class TranslatableString implements \IteratorAggregate
      *
      * @return array
      */
-    private function merge(array $array, Language $language, string $value): array
+    private function merge(array $array, Language $language, ?string $value): array
     {
         return array_merge($array, [$language->getCode() => $value]);
     }

@@ -100,7 +100,7 @@ class CompletenessReadAction
     {
         $draft = $this->provider->provide($product);
         $attributeCode = new AttributeCode(TemplateSystemAttribute::CODE);
-        $templateId = new TemplateId($product->getAttribute($attributeCode)->getValue());
+        $templateId = new TemplateId((string) $product->getAttribute($attributeCode));
         $template = $this->repository->load($templateId);
         Assert::notNull($template, sprintf('Can\'t find template %s', $templateId->getValue()));
 

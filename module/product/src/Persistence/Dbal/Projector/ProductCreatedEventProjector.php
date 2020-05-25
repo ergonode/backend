@@ -90,10 +90,12 @@ class ProductCreatedEventProjector
     private function insertValue(string $productId, string $attributeId, ValueInterface $value): void
     {
         if ($value instanceof StringValue) {
-            $this->insert($productId, $attributeId, $value->getValue());
+            $array = $value->getValue();
+            $phrase = reset($array);
+            $this->insert($productId, $attributeId, $phrase);
         } elseif ($value instanceof StringCollectionValue) {
-            foreach ($value->getValue() as $phrase) {
-                $this->insert($productId, $attributeId, $phrase);
+            foreach ($value->getValue() as $language => $phrase) {
+                $this->insert($productId, $attributeId, $phrase, $language);
             }
         } elseif ($value instanceof TranslatableStringValue) {
             $translation = $value->getValue();

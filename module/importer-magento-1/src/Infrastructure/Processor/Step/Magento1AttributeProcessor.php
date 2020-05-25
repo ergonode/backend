@@ -17,14 +17,11 @@ use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Transformer\Infrastructure\Action\AttributeImportAction;
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 use Doctrine\DBAL\DBALException;
+use Ergonode\Importer\Infrastructure\Action\AttributeImportAction;
 
 /**
  */
@@ -67,21 +64,15 @@ class Magento1AttributeProcessor implements Magento1ProcessorStepInterface
         Progress $steps
     ): void {
         $result = [];
-
         foreach ($transformer->getAttributes() as $field => $converter) {
             $attributeCode = new AttributeCode($field);
             $type = $transformer->getAttributeType($field);
             $record = new Record();
-            $record->set('code', new StringValue($attributeCode->getValue()));
-            $record->set('type', new StringValue($type));
+            $record->set('code', $attributeCode->getValue());
+            $record->set('type', $type);
             $multilingual = $transformer->isAttributeMultilingual($field) ? '1' : '0';
-            $record->set('multilingual', new StringValue($multilingual));
-            $record->set(
-                'label',
-                new TranslatableStringValue(
-                    new TranslatableString([$source->getDefaultLanguage()->getCode() => $field])
-                )
-            );
+            $record->set('multilingual', $multilingual);
+            $record->set('label', $field, $source->getDefaultLanguage());
 
             $result[] = $record;
         }

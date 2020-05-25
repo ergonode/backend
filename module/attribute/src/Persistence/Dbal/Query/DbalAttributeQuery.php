@@ -21,7 +21,6 @@ use Ergonode\Attribute\Domain\ValueObject\OptionValue\StringOption;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
 use Ergonode\Attribute\Domain\View\Factory\AttributeViewModelFactory;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
@@ -67,7 +66,7 @@ class DbalAttributeQuery implements AttributeQueryInterface
         $qb = $this->getQuery();
 
         $result = $qb
-            ->addSelect('label', 'hint', 'placeholder', 'multilingual')
+            ->addSelect('label', 'hint', 'placeholder', 'scope')
             ->where($qb->expr()->eq('id', ':id'))
             ->setParameter(':id', $attributeId->getValue())
             ->execute()

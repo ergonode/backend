@@ -10,17 +10,18 @@ declare(strict_types = 1);
 namespace Ergonode\Value\Domain\ValueObject;
 
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\Core\Domain\ValueObject\Language;
 
 /**
  */
 class StringCollectionValue implements ValueInterface
 {
-    public const TYPE = 'string_collection';
+    public const TYPE = 'collection';
 
     /**
      * @var string[]
      *
-     * @JMS\Type("array<string>")
+     * @JMS\Type("array<string, string>")
      */
     private array $value;
 
@@ -48,6 +49,16 @@ class StringCollectionValue implements ValueInterface
     public function getValue(): array
     {
         return $this->value;
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return string|null
+     */
+    public function getTranslation(Language $language): ?string
+    {
+        return $this->value[$language->getCode()] ?? null;
     }
 
     /**

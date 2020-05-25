@@ -22,6 +22,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DbalLanguageQuery implements LanguageQueryInterface
 {
     private const TABLE = 'language';
+    private const TABLE_TREE = 'language_tree';
     private const ALL_FIELDS = [
         'id',
         'iso AS code',
@@ -76,6 +77,66 @@ class DbalLanguageQuery implements LanguageQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getLanguageNodeInfo(Language $language): ?array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $result = $qb->select('code, lft, rgt')
+            ->from(self::TABLE_TREE)
+            ->where($qb->expr()->eq('code', ':code'))
+            ->setParameter(':code', $language->getCode())
+            ->execute()
+            ->fetch();
+        if (is_array($result)) {
+            return $result;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return Language[]
+     */
+    public function getInheritancePath(Language $language): array
+    {
+        $result = [];
+        $qb = $this->connection->createQueryBuilder();
+        $position = $qb->select('lft, rgt')
+            ->from(self::TABLE_TREE)
+            ->where($qb->expr()->eq('code', ':code'))
+            ->setParameter(':code', $language->getCode())
+            ->execute()
+            ->fetch();
+
+        if ($position) {
+            $qb = $this->connection->createQueryBuilder();
+            $records = $qb->select('code')
+                ->from(self::TABLE_TREE)
+                ->orderBy('lft', 'ASC')
+                ->where($qb->expr()->lt('lft', ':lft'))
+                ->andWhere($qb->expr()->gt('rgt', ':rgt'))
+                ->setParameter(':lft', $position['lft'])
+                ->setParameter(':rgt', $position['rgt'])
+                ->execute()
+                ->fetchAll(\PDO::FETCH_COLUMN);
+
+            foreach ($records as $record) {
+                $result[] = new Language($record);
+            }
+        }
+
+        $result[] = $language;
+
+        return array_reverse($result);
     }
 
     /**
@@ -220,6 +281,21 @@ class DbalLanguageQuery implements LanguageQueryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @return Language
+     */
+    public function getRootLanguage(): Language
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $result = $qb->select('lt.code')
+            ->from(self::TABLE_TREE, 'lt')
+            ->where($qb->expr()->eq('lft', 1))
+            ->execute()
+            ->fetch(\PDO::FETCH_COLUMN);
+
+        return new Language($result);
     }
 
     /**

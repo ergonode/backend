@@ -29,7 +29,6 @@ class SegmentProductsGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
-        $this->setConfiguration(self::PARAMETER_ALLOW_COLUMN_RESIZE, true);
         $this->orderBy('sku', 'DESC');
     }
 }

@@ -9,13 +9,15 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class CreatedBySystemAttribute extends TextAttribute
+class CreatedBySystemAttribute extends TextAttribute implements AttributeInterface
 {
     public const TYPE = 'TEXT';
     public const CODE = 'esa_created_by';
@@ -34,8 +36,9 @@ class CreatedBySystemAttribute extends TextAttribute
     ) {
         $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code->getValue());
+        $scope = new AttributeScope(AttributeScope::GLOBAL);
 
-        parent::__construct($id, $code, $label, $hint, $placeholder, false);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
     /**
@@ -58,6 +61,14 @@ class CreatedBySystemAttribute extends TextAttribute
      * @return bool
      */
     public function isEditable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultilingual(): bool
     {
         return false;
     }
