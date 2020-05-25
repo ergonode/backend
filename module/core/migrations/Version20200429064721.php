@@ -31,10 +31,17 @@ final class Version20200429064721 extends AbstractErgonodeMigration
                 PRIMARY KEY(id)
             )
         ');
-        
+
         $this->addSql(
             'INSERT INTO language_tree (id, lft, rgt, code)
-                    SELECT id, 1, 2, iso FROM "language" WHERE iso=\'en\''
+                    SELECT id, 1, 4, iso FROM "language" WHERE iso=\'en\''
+        );
+
+        $this->addSql(
+            'INSERT INTO language_tree (id, lft, rgt, code, parent_id)
+                    SELECT child.id, 2, 3, child.iso, parent.id
+                    FROM "language" child, "language" parent
+                    WHERE child.iso=\'pl\' AND parent.iso=\'en\''
         );
     }
 }
