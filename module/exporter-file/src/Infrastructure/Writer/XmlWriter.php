@@ -11,14 +11,36 @@ namespace Ergonode\ExporterFile\Infrastructure\Writer;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class XmlWriter implements WriterInterface
 {
     public const TYPE = 'xml';
+
+    /**
+     * @var TranslationInheritanceCalculator
+     */
+    private TranslationInheritanceCalculator $calculator;
+
+    /**
+     * @var AttributeRepositoryInterface
+     */
+    private AttributeRepositoryInterface $repository;
+
+    /**
+     * @param TranslationInheritanceCalculator $calculator
+     * @param AttributeRepositoryInterface     $repository
+     */
+    public function __construct(TranslationInheritanceCalculator $calculator, AttributeRepositoryInterface $repository)
+    {
+        $this->calculator = $calculator;
+        $this->repository = $repository;
+    }
 
     /**
      * @param string $type
@@ -83,9 +105,8 @@ class XmlWriter implements WriterInterface
      *
      * @return string[]
      */
-    public function end(
-        array $attributes
-    ): array {
+    public function end(array $attributes): array
+    {
         return [
             $this->add('</products>', 2),
         ];
@@ -112,13 +133,17 @@ class XmlWriter implements WriterInterface
     private function getValue(AbstractProduct $product, AttributeCode $code, Language $language): ?string
     {
         if ($product->hasAttribute($code)) {
+            $attributeId = AttributeId::fromKey($code->getValue());
+            $attribute = $this->repository->load($attributeId);
+            Assert::notNull($attribute);
             $value = $product->getAttribute($code);
-            if ($value instanceof TranslatableStringValue) {
-                return $value->getValue()->get($language);
+
+            $result = $this->calculator->calculate($attribute, $value, $language);
+            if (is_array($result)) {
+                $result = implode(',', $result);
             }
-            if ($value instanceof StringCollectionValue) {
-                return implode(',', $value->getValue());
-            }
+
+            return $result;
         }
 
         return null;

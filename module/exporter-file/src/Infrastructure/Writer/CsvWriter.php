@@ -11,14 +11,36 @@ namespace Ergonode\ExporterFile\Infrastructure\Writer;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Product\Infrastructure\Calculator\TranslationInheritanceCalculator;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Webmozart\Assert\Assert;
 
 /**
  */
 class CsvWriter implements WriterInterface
 {
     public const TYPE = 'csv';
+
+    /**
+     * @var TranslationInheritanceCalculator
+     */
+    private TranslationInheritanceCalculator $calculator;
+
+    /**
+     * @var AttributeRepositoryInterface
+     */
+    private AttributeRepositoryInterface $repository;
+
+    /**
+     * @param TranslationInheritanceCalculator $calculator
+     * @param AttributeRepositoryInterface     $repository
+     */
+    public function __construct(TranslationInheritanceCalculator $calculator, AttributeRepositoryInterface $repository)
+    {
+        $this->calculator = $calculator;
+        $this->repository = $repository;
+    }
 
     /**
      * @param string $type
@@ -69,18 +91,8 @@ class CsvWriter implements WriterInterface
                 $language->getCode(),
             ];
             $record = [];
-            foreach ($attributes as $attribute) {
-                $code = new AttributeCode($attribute);
-                $record[$attribute] = null;
-                if ($product->hasAttribute($code)) {
-                    $value = $product->getAttribute($code);
-                    if ($value instanceof TranslatableStringValue) {
-                        $record[$attribute] = $value->getValue()->get($language);
-                    }
-                    if ($value instanceof StringCollectionValue) {
-                        $record[$attribute] = implode(',', $value->getValue());
-                    }
-                }
+            foreach ($attributes as $attributeCode) {
+                $record[$attributeCode] = $this->getValue($product, new AttributeCode($attributeCode), $language);
             }
             $data = array_merge($system, $record);
             $result[] = $this->getLine($data);
@@ -115,5 +127,31 @@ class CsvWriter implements WriterInterface
         fclose($buffer);
 
         return $csv;
+    }
+
+    /**
+     * @param AbstractProduct $product
+     * @param AttributeCode   $code
+     * @param Language        $language
+     *
+     * @return string|null
+     */
+    private function getValue(AbstractProduct $product, AttributeCode $code, Language $language): ?string
+    {
+        if ($product->hasAttribute($code)) {
+            $attributeId = AttributeId::fromKey($code->getValue());
+            $attribute = $this->repository->load($attributeId);
+            Assert::notNull($attribute);
+            $value = $product->getAttribute($code);
+
+            $result = $this->calculator->calculate($attribute, $value, $language);
+            if (is_array($result)) {
+                $result = implode(',', $result);
+            }
+
+            return $result;
+        }
+
+        return null;
     }
 }
