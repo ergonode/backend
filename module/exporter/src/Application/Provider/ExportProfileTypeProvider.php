@@ -18,7 +18,7 @@ class ExportProfileTypeProvider
     private array $types;
 
     /**
-     * @param string[] $classes
+     * @param string ...$classes
      *
      * @throws \ReflectionException
      */

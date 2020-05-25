@@ -36,7 +36,8 @@ class CreateFileExportProfileCommandHandler
     {
         $exportProfile = new FileExportProfile(
             $command->getId(),
-            $command->getName()
+            $command->getName(),
+            $command->getFormat()
         );
 
         $this->repository->save($exportProfile);

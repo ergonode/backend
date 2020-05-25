@@ -31,13 +31,22 @@ class CreateFileExportProfileCommand implements DomainCommandInterface
     protected string $name;
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
+    protected string $format;
+
+    /**
      * @param ExportProfileId $id
      * @param string          $name
+     * @param string          $format
      */
-    public function __construct(ExportProfileId $id, string $name)
+    public function __construct(ExportProfileId $id, string $name, string $format)
     {
         $this->id = $id;
         $this->name = $name;
+        $this->format = $format;
     }
 
 
@@ -55,5 +64,13 @@ class CreateFileExportProfileCommand implements DomainCommandInterface
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormat(): string
+    {
+        return $this->format;
     }
 }

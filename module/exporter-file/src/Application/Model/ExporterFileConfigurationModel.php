@@ -23,6 +23,8 @@ class ExporterFileConfigurationModel
      */
     public ?string $name = null;
 
+    public ?string $format = null;
+
     /**
      * @param FileExportProfile|null $exportProfile
      */
@@ -30,6 +32,7 @@ class ExporterFileConfigurationModel
     {
         if ($exportProfile) {
             $this->name = $exportProfile->getName();
+            $this->format = $exportProfile->getFormat();
         }
     }
 }

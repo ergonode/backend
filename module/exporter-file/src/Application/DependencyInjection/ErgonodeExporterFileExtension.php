@@ -13,6 +13,8 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Ergonode\ExporterFile\Infrastructure\Writer\WriterInterface;
+use Ergonode\ExporterFile\Application\DependencyInjection\CompilerPass\FileWriterCompilerPass;
 
 /**
  */
@@ -30,6 +32,10 @@ class ErgonodeExporterFileExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../../Resources/config')
         );
+
+        $container
+            ->registerForAutoconfiguration(WriterInterface::class)
+            ->addTag(FileWriterCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

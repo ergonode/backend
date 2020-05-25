@@ -48,7 +48,7 @@ class ExportProfileIdHandler implements SubscribingHandlerInterface
 
     /**
      * @param SerializationVisitorInterface $visitor
-     * @param ExportProfileId                      $id
+     * @param ExportProfileId               $id
      * @param array                         $type
      * @param Context                       $context
      *

@@ -43,10 +43,12 @@ class CreateFileExportProfileCommandBuilder implements CreateExportProfileComman
         $data = $form->getData();
 
         $name = $data->name;
+        $format = $data->format;
 
         return new CreateFileExportProfileCommand(
             ExportProfileId::generate(),
-            $name
+            $name,
+            $format,
         );
     }
 }

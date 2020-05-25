@@ -29,7 +29,7 @@ class ExportProfileTypeDictionaryProvider
 
     /**
      * @param ExportProfileTypeProvider $provider
-     * @param TranslatorInterface             $translator
+     * @param TranslatorInterface       $translator
      */
     public function __construct(ExportProfileTypeProvider $provider, TranslatorInterface $translator)
     {

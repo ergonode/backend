@@ -38,6 +38,7 @@ class UpdateFileExportProfileCommandHandler
         /** @var FileExportProfile $exportProfile */
         $exportProfile = $this->repository->load($command->getId());
         $exportProfile->setName($command->getName());
+        $exportProfile->setFormat($command->getFormat());
 
         $this->repository->save($exportProfile);
     }

@@ -11,18 +11,18 @@ namespace Ergonode\Exporter\Application\DependencyInjection;
 
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\CreateExportProfileCommandBuilderCompilerPass;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileFormFactoryCompilerPass;
-use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ServiceExportCompilerPass;
+use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProcessCompilerPass;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\UpdateExportProfileCommandBuilderCompilerPass;
 use Ergonode\Exporter\Application\Provider\CreateExportProfileCommandBuilderInterface;
 use Ergonode\Exporter\Application\Provider\ExportProfileFormFactoryInterface;
 use Ergonode\Exporter\Application\Provider\UpdateExportProfileCommandBuilderInterface;
-use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\Exporter\Domain\Entity\Profile\ExportProfileInterface;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileTypeCompilerPass;
+use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
 
 /**
  */
@@ -59,7 +59,7 @@ class ErgonodeExporterExtension extends Extension
 
         $container
             ->registerForAutoconfiguration(ExportProcessorInterface::class)
-            ->addTag(ServiceExportCompilerPass::TAG);
+            ->addTag(ExportProcessCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

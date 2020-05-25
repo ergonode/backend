@@ -42,10 +42,12 @@ class UpdateFileExportProfileCommandBuilder implements UpdateExportProfileComman
         $data = $form->getData();
 
         $name = $data->name;
+        $format = $data->format;
 
         return new UpdateFileExportProfileCommand(
             $exportProfileId,
-            $name
+            $name,
+            $format,
         );
     }
 }
