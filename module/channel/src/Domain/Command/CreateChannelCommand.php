@@ -9,9 +9,8 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Domain\Command;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 
 /**
  */
@@ -25,30 +24,30 @@ class CreateChannelCommand implements DomainCommandInterface
     private ChannelId $id;
 
     /**
-     * @var TranslatableString
+     * @var string
      *
-     * @JMS\Type("Ergonode\Core\Domain\ValueObject\TranslatableString")
+     * @JMS\Type("string")
      */
-    private TranslatableString $name;
+    private string $name;
 
     /**
-     * @var SegmentId
+     * @var ExportProfileId
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\SegmentId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId")
      */
-    private SegmentId $segmentId;
+    private ExportProfileId $exportProfileId;
 
     /**
-     * @param TranslatableString $name
-     * @param SegmentId          $segmentId
+     * @param string          $name
+     * @param ExportProfileId $exportProfileId
      *
      * @throws \Exception
      */
-    public function __construct(TranslatableString $name, SegmentId $segmentId)
+    public function __construct(string $name, ExportProfileId $exportProfileId)
     {
         $this->id = ChannelId::generate();
         $this->name = $name;
-        $this->segmentId = $segmentId;
+        $this->exportProfileId = $exportProfileId;
     }
 
     /**
@@ -60,18 +59,18 @@ class CreateChannelCommand implements DomainCommandInterface
     }
 
     /**
-     * @return TranslatableString
+     * @return string
      */
-    public function getName(): TranslatableString
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @return SegmentId
+     * @return ExportProfileId
      */
-    public function getSegmentId(): SegmentId
+    public function getExportProfileId(): ExportProfileId
     {
-        return $this->segmentId;
+        return $this->exportProfileId;
     }
 }

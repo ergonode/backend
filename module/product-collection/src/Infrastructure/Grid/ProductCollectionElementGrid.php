@@ -63,7 +63,5 @@ class ProductCollectionElementGrid extends AbstractGrid
             ],
         ]));
         $this->orderBy('created_at', 'DESC');
-        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
-        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT, true);
     }
 }

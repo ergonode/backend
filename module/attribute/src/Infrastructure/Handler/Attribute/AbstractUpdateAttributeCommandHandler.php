@@ -29,6 +29,7 @@ abstract class AbstractUpdateAttributeCommandHandler
         $attribute->changeLabel($command->getLabel());
         $attribute->changeHint($command->getHint());
         $attribute->changePlaceholder($command->getPlaceholder());
+        $attribute->changeScope($command->getScope());
 
         foreach ($command->getGroups() as $group) {
             $groupId = new AttributeGroupId($group);

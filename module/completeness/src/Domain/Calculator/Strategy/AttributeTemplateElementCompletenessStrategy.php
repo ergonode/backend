@@ -71,7 +71,9 @@ class AttributeTemplateElementCompletenessStrategy implements TemplateElementCom
         $filled = false;
         if ($value) {
             $value = $this->calculator->calculate($attribute, $value, $language);
-            if ('' !== $value && [] !== $value) {
+            if ('' !== $value
+                && [] !== $value
+                && null !== $value) {
                 $filled = true;
             }
         }

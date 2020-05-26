@@ -44,10 +44,8 @@ class ChannelCreatedEventProjector
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'name' => $event->getName(),
-                'segment_id' => $event->getSegmentId()->getValue(),
+                'export_profile_id' => $event->getExportProfileId()->getValue(),
             ]
         );
-
-        $this->connection->commit();
     }
 }

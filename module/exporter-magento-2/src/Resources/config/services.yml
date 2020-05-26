@@ -7,9 +7,12 @@ services:
     Ergonode\ExporterMagento2\Application\:
         resource: '../../Application/*'
 
+    Ergonode\ExporterMagento2\Domain\:
+        resource: '../../Domain/*'
 
-    Ergonode\ExporterMagento2\Infrastructure\ExportProfile\Magento2ExportProfile:
-        autowire: true
+    Ergonode\ExporterMagento2\Infrastructure\:
+        resource: '../../Infrastructure/*'
 
-    Ergonode\ExporterMagento2\Domain\Factory\Magento2ExportCSVProfileFactory:
-        autowire: true
+    Ergonode\ExporterMagento2\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']

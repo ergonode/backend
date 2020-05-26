@@ -20,6 +20,11 @@ Feature: Draft edit and inheritance value for product draft with image attribute
     Then the response status code should be 200
     And store response param "id" as "language_id_fr"
 
+  Scenario: Get language de
+    When I send a GET request to "/api/v1/en/languages/de"
+    Then the response status code should be 200
+    And store response param "id" as "language_id_de"
+
   Scenario: Update Tree
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
@@ -38,6 +43,10 @@ Feature: Draft edit and inheritance value for product draft with image attribute
                 {
                   "language_id":"@language_id_fr@",
                   "children":[]
+                },
+                {
+                  "language_id":"@language_id_de@",
+                  "children":[]
                 }
               ]
             }
@@ -45,7 +54,7 @@ Feature: Draft edit and inheritance value for product draft with image attribute
         }
       """
     Then the response status code should be 204
-    
+
   Scenario: Create image attribute
     Given remember param "attribute_code" with value "image_@@random_code@@"
     When I send a POST request to "/api/v1/en/attributes" with body:
@@ -74,7 +83,7 @@ Feature: Draft edit and inheritance value for product draft with image attribute
       | upload | @multimedia.jpg |
     Then the response status code should be 201
     And the JSON node "id" should exist
-    And store response param "id" as "multimedia_2_id"    
+    And store response param "id" as "multimedia_2_id"
 
   Scenario: Create template
     When I send a POST request to "/api/v1/en/templates" with body:
@@ -134,6 +143,20 @@ Feature: Draft edit and inheritance value for product draft with image attribute
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | attributes.@attribute_code@ | @multimedia_1_id@ |
+
+  Scenario: Edit product image value in "de" language
+    When I send a PUT request to "api/v1/de/products/@product_id@/draft/@attribute_id@/value" with body:
+      """
+      {
+        "value": null
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Get draft values in "de" language
+    When I send a GET request to "api/v1/de/products/@product_id@/draft"
+    Then the response status code should be 200
+    And the JSON node attributes.@attribute_code@ should be null
 
   Scenario: Remove value for "pl" language
     When I send a DELETE request to "api/v1/pl/products/@product_id@/draft/@attribute_id@/value"

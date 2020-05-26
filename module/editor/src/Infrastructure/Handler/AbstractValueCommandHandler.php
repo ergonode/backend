@@ -19,6 +19,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
+use Ergonode\Value\Domain\ValueObject\NullValue;
 use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -37,9 +38,9 @@ abstract class AbstractValueCommandHandler
      */
     protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ValueInterface
     {
-        if (null === $value) {
-            $value = '';
-        }
+//        if (null === $value) {
+//            return new NullValue();
+//        }
 
         if ($attribute instanceof MultiSelectAttribute || $attribute instanceof GalleryAttribute) {
             return new StringCollectionValue([$language->getCode() => implode(',', $value)]);
@@ -50,7 +51,11 @@ abstract class AbstractValueCommandHandler
         }
 
         if ($attribute->isMultilingual()) {
-            return new TranslatableStringValue(new TranslatableString([$language->getCode() => (string) $value]));
+            return new TranslatableStringValue(
+                new TranslatableString(
+                    [$language->getCode() => $value ? (string) $value : null]
+                )
+            );
         }
 
         return new StringValue((string) $value);
