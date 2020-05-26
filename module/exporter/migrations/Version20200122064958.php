@@ -63,7 +63,8 @@ final class Version20200122064958 extends AbstractErgonodeMigration
         $this->addSql('
             CREATE TABLE exporter.export_profile (
                 id UUID NOT NULL,              
-                type VARCHAR(255) NOT NULL,                
+                type VARCHAR(255) NOT NULL,
+                class VARCHAR(255) NOT NULL,                    
                 name VARCHAR(255) NOT NULL,                
                 configuration JSON NOT NULL,                
                 created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,

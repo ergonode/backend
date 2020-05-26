@@ -10,6 +10,10 @@ namespace Ergonode\Exporter\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Exporter\Domain\Query\ExportProfileQueryInterface;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\DataSetInterface;
+use Ergonode\Grid\DbalDataSet;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
  */
@@ -31,6 +35,22 @@ class DbalExportProfileQuery implements ExportProfileQueryInterface
     }
 
     /**
+     * @param Language $language
+     *
+     * @return DataSetInterface
+     */
+    public function getDataSet(Language $language): DataSetInterface
+    {
+        $query = $this->getQuery();
+
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $query->getSQL()), 't');
+
+        return new DbalDataSet($result);
+    }
+
+    /**
      * @return array
      */
     public function getAllExportProfileIds(): array
@@ -46,5 +66,15 @@ class DbalExportProfileQuery implements ExportProfileQueryInterface
         }
 
         return [];
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    private function getQuery(): QueryBuilder
+    {
+        return $this->connection->createQueryBuilder()
+            ->select('*')
+            ->from(self::TABLE);
     }
 }
