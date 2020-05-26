@@ -11,7 +11,7 @@ namespace Ergonode\Channel\Application\Controller\Api;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Exporter\Domain\Command\Export\StartChannelExportCommand;
+use Ergonode\Channel\Domain\Command\StartChannelExportCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;

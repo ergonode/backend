@@ -100,7 +100,7 @@ class DbalProductQuery implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
-    public function getAllIds(): ?array
+    public function getAllIds(): array
     {
         $result = $this->connection->createQueryBuilder()
             ->select('id')
@@ -112,13 +112,13 @@ class DbalProductQuery implements ProductQueryInterface
             return $result;
         }
 
-        return null;
+        return [];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getAllSkus(): ?array
+    public function getAllSkus(): array
     {
         $result = $this->connection->createQueryBuilder()
             ->select('sku')
@@ -130,7 +130,7 @@ class DbalProductQuery implements ProductQueryInterface
             return $result;
         }
 
-        return null;
+        return [];
     }
 
     /**
