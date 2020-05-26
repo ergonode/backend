@@ -16,14 +16,11 @@ use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Transformer\Infrastructure\Action\TemplateImportAction;
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
-use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 use Doctrine\DBAL\DBALException;
+use Ergonode\Importer\Infrastructure\Action\TemplateImportAction;
 
 /**
  */
@@ -72,13 +69,7 @@ class Magento1TemplateProcessor implements Magento1ProcessorStepInterface
                 $type = $default['esa_template'];
                 if (!array_key_exists($type, $templates)) {
                     $templates[$type] = new Record();
-                    $templates[$type]->set('code', new StringValue($type));
-                    $templates[$type]->set(
-                        'name',
-                        new TranslatableStringValue(
-                            new TranslatableString([$source->getDefaultLanguage()->getCode() => $type])
-                        )
-                    );
+                    $templates[$type]->set('code', $type);
                 }
             }
         }

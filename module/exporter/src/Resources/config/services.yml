@@ -19,7 +19,7 @@ services:
 
     Ergonode\Exporter\Domain\:
         resource: '../../Domain/*'
-        exclude: '../../Domain/{Entity,ValueObject}'
+        exclude: '../../Domain/{ValueObject}'
 
     Ergonode\Exporter\Persistence\Dbal\Projector\:
         resource: '../../Persistence/Dbal/Projector/*'
@@ -34,5 +34,4 @@ services:
     Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalAttributeRepository'
     Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalExportProfileRepository'
     Ergonode\Exporter\Domain\Repository\TreeRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalTreeRepository'
-
     Ergonode\Exporter\Domain\Query\ExportProductQueryInterface: '@Ergonode\Exporter\Persistence\Dbal\Query\DbalExportProductQuery'

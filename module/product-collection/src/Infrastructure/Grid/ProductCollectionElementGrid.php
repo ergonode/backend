@@ -40,7 +40,7 @@ class ProductCollectionElementGrid extends AbstractGrid
         $productId->setVisible(false);
         $this->addColumn('id', $productId);
         $this->addColumn('created_at', new DateColumn('created_at', 'Date added', new DateFilter()));
-        $visible = new BoolColumn('visible', 'Product visible in collection');
+        $visible = new BoolColumn('visible', 'Collection visibility');
         $visible->setEditable(true);
         $this->addColumn('visible', $visible);
         $this->addColumn('_links', new LinkColumn('hal', [
@@ -63,7 +63,5 @@ class ProductCollectionElementGrid extends AbstractGrid
             ],
         ]));
         $this->orderBy('created_at', 'DESC');
-        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_RESIZE, true);
-        $this->setConfiguration(AbstractGrid::PARAMETER_ALLOW_COLUMN_EDIT, true);
     }
 }

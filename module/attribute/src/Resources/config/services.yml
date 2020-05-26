@@ -16,7 +16,7 @@ services:
 
     Ergonode\Attribute\Domain\:
         resource: '../../Domain/*'
-        exclude: '../../Domain/{Entity,ValueObject,Type}'
+        exclude: '../../Domain/{ValueObject,Type}'
 
     Ergonode\Attribute\Infrastructure\:
         resource: '../../Infrastructure/*'
@@ -57,6 +57,6 @@ services:
 
     Ergonode\Attribute\Application\Provider\AttributePropertyFormResolver:
         calls:
-            - ['set', ['PRICE','Ergonode\Attribute\Application\Form\Property\PriceAttributePropertyForm']]
-            - ['set', ['DATE','Ergonode\Attribute\Application\Form\Property\DateAttributePropertyForm']]
-            - ['set', ['UNIT','Ergonode\Attribute\Application\Form\Property\UnitAttributePropertyForm']]
+            - ['set', ['PRICE','Ergonode\Attribute\Application\Form\Attribute\Configuration\PriceAttributeConfigurationForm']]
+            - ['set', ['DATE','Ergonode\Attribute\Application\Form\Attribute\Configuration\DateAttributeConfigurationForm']]
+            - ['set', ['UNIT','Ergonode\Attribute\Application\Form\Attribute\Configuration\UnitAttributeConfigurationForm']]

@@ -26,10 +26,8 @@ class DbalAttributeGridQuery implements AttributeGridQueryInterface
         'a.index',
         'a.code',
         'a.type',
-        'a.multilingual',
         'a.system',
-        'a.editable',
-        'a.deletable',
+        'a.scope',
     ];
 
     /**

@@ -9,11 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Event\Attribute;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -70,11 +70,11 @@ class AttributeCreatedEvent implements DomainEventInterface
     private TranslatableString $placeholder;
 
     /**
-     * @var bool
+     * @var AttributeScope
      *
-     * @JMS\Type("boolean")
+     * @JMS\Type("Ergonode\Attribute\Domain\ValueObject\AttributeScope")
      */
-    private bool $multilingual;
+    private AttributeScope $scope;
 
     /**
      * @var array
@@ -91,31 +91,15 @@ class AttributeCreatedEvent implements DomainEventInterface
     private bool $system;
 
     /**
-     * @var bool
-     *
-     * @JMS\Type("bool")
-     */
-    private bool $editable;
-
-    /**
-     * @var bool
-     *
-     * @JMS\Type("bool")
-     */
-    private bool $deletable;
-
-    /**
      * @param AttributeId        $id
      * @param AttributeCode      $code
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
-     * @param bool               $multilingual
+     * @param AttributeScope     $scope
      * @param string             $type
      * @param string             $class
      * @param array              $parameters
-     * @param bool               $editable
-     * @param bool               $deletable
      * @param bool               $system
      */
     public function __construct(
@@ -124,12 +108,10 @@ class AttributeCreatedEvent implements DomainEventInterface
         TranslatableString $label,
         TranslatableString $hint,
         TranslatableString $placeholder,
-        bool $multilingual,
+        AttributeScope $scope,
         string $type,
         string $class,
         array $parameters = [],
-        bool $editable = true,
-        bool $deletable = true,
         bool $system = false
     ) {
         $this->id = $id;
@@ -138,12 +120,10 @@ class AttributeCreatedEvent implements DomainEventInterface
         $this->class = $class;
         $this->label = $label;
         $this->hint = $hint;
-        $this->multilingual = $multilingual;
+        $this->scope = $scope;
         $this->placeholder = $placeholder;
         $this->parameters = $parameters;
         $this->system = $system;
-        $this->editable = $editable;
-        $this->deletable = $deletable;
     }
 
     /**
@@ -203,11 +183,11 @@ class AttributeCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return bool
+     * @return AttributeScope
      */
-    public function isMultilingual(): bool
+    public function getScope(): AttributeScope
     {
-        return $this->multilingual;
+        return $this->scope;
     }
 
     /**
@@ -224,21 +204,5 @@ class AttributeCreatedEvent implements DomainEventInterface
     public function isSystem(): bool
     {
         return $this->system;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEditable(): bool
-    {
-        return $this->editable;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDeletable(): bool
-    {
-        return $this->deletable;
     }
 }

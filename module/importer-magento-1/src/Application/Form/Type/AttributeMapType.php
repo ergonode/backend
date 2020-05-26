@@ -67,7 +67,6 @@ class AttributeMapType extends AbstractType
     {
         $resolver->setDefaults([
             'translation_domain' => 'import',
-            'empty_data' => new AttributeMapModel(),
             'data_class' => AttributeMapModel::class,
         ]);
     }

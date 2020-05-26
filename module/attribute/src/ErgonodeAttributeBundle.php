@@ -9,10 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute;
 
-use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeFactoryInterfaceCompilerPass;
-use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeUpdaterInterfaceCompilerPass;
-// phpcs:ignore
-use Ergonode\Attribute\Application\DependencyInjection\CompilerPass\AttributeValueConstraintStrategyInterfaceCompilerPass;
+use Ergonode\Attribute\Application\DependencyInjection\CompilerPass as CompilerPass;
 use Ergonode\Core\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -28,8 +25,10 @@ class ErgonodeAttributeBundle extends AbstractModule
         parent::build($container);
 
         $container
-            ->addCompilerPass(new AttributeFactoryInterfaceCompilerPass())
-            ->addCompilerPass(new AttributeUpdaterInterfaceCompilerPass())
-            ->addCompilerPass(new AttributeValueConstraintStrategyInterfaceCompilerPass());
+            ->addCompilerPass(new CompilerPass\AttributeFormCompilerPass())
+            ->addCompilerPass(new CompilerPass\AttributeTypeCompilerPass())
+            ->addCompilerPass(new CompilerPass\CreateAttributeCommandFactoryProviderInterfaceCompilerPass())
+            ->addCompilerPass(new CompilerPass\UpdateAttributeCommandFactoryProviderInterfaceCompilerPass())
+            ->addCompilerPass(new CompilerPass\AttributeValueConstraintStrategyInterfaceCompilerPass());
     }
 }

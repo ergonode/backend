@@ -1,3 +1,11 @@
+parameters:
+    product_sentence:
+        'pl': "pl string value"
+        'en': "en string value"
+    product_paragraph:
+        'pl': "pl long string value"
+        'en': "en long string value"
+
 Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
     product_{1..1000}:
         __construct:
@@ -43,11 +51,11 @@ Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand:
             - []
             -
                 'image_attribute': '<stringValue(@product_image_*->id)>'
-                'code_1':  '<stringValue(<sentence(5)>)>'
-                'code_11':  '<stringValue(<paragraph(20)>)>'
-                'code_21':  '<stringValue(<randomFloat()>)>'
-                'code_26':  '<stringValue(<date(Y-m-d)>)>'
-                'code_31':  '<stringValue(<randomFloat(2)>)>'
-                'code_37':  '<stringValue(<randomFloat(2)>)>'
-                'code_41':  '<stringValue(@select_option_*->id)>'
-                'code_46':  '<stringCollectionValue(@multiselect_option_*->id)>'
+                'code_1':  '<translatableStringValue(<{product_sentence}>)>'
+                'code_11':  '<translatableStringValue(<{product_paragraph}>)>'
+#                'code_21':  '<translatableStringValue(<randomFloat()>)>'
+#                'code_26':  '<translatableStringValue(<date(Y-m-d)>)>'
+#                'code_31':  '<translatableStringValue(<randomFloat(2)>)>'
+#                'code_37':  '<translatableStringValue(<randomFloat(2)>)>'
+#                'code_41':  '<translatableStringValue(@select_option_*->id)>'
+#                'code_46':  '<translatableStringValue(@multiselect_option_*->id)>'

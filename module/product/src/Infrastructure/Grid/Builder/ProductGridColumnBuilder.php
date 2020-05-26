@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Grid\Builder;
 
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -21,8 +21,12 @@ use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
 use Ergonode\Grid\Request\RequestColumn;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\AttributeColumnProvider;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Security;
 use Webmozart\Assert\Assert;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 
 /**
  */
@@ -44,18 +48,34 @@ class ProductGridColumnBuilder
     private AttributeColumnProvider $provider;
 
     /**
+     * @var LanguageQueryInterface
+     */
+    private LanguageQueryInterface $languageQuery;
+
+    /**
+     * @var Security
+     */
+    private Security $security;
+
+    /**
      * @param AttributeQueryInterface      $attributeQuery
      * @param AttributeRepositoryInterface $repository
      * @param AttributeColumnProvider      $provider
+     * @param LanguageQueryInterface       $languageQuery
+     * @param Security                     $security
      */
     public function __construct(
         AttributeQueryInterface $attributeQuery,
         AttributeRepositoryInterface $repository,
-        AttributeColumnProvider $provider
+        AttributeColumnProvider $provider,
+        LanguageQueryInterface $languageQuery,
+        Security $security
     ) {
         $this->attributeQuery = $attributeQuery;
         $this->repository = $repository;
         $this->provider = $provider;
+        $this->languageQuery = $languageQuery;
+        $this->security = $security;
     }
 
     /**
@@ -70,6 +90,11 @@ class ProductGridColumnBuilder
     {
         $codes = $this->attributeQuery->getAllAttributeCodes();
 
+        /** @var User $user */
+        $user = $this->security->getUser();
+        if (!$user) {
+            throw new AuthenticationException();
+        }
         $result = [];
 
         /** @var RequestColumn[] $columns */
@@ -81,7 +106,6 @@ class ProductGridColumnBuilder
             ],
             $configuration->getColumns()
         );
-
         $id = new TextColumn('id', 'Id', new TextFilter());
         $id->setVisible(false);
         $result['id'] = $id;
@@ -93,7 +117,10 @@ class ProductGridColumnBuilder
                 $code = $column->getColumn();
                 $key = $column->getKey();
                 $language = $column->getLanguage() ?: $defaultLanguage;
-                if (in_array($code, $codes, true)) {
+
+                if (in_array($code, $codes, true)
+                    && $user->hasReadLanguagePrivilege($language)
+                    && $this->languageQuery->getLanguageNodeInfo($language)) {
                     $id = AttributeId::fromKey((new AttributeCode($code))->getValue());
                     $attribute = $this->repository->load($id);
                     Assert::notNull($attribute, sprintf('Can\'t find attribute with code "%s"', $code));
@@ -111,7 +138,15 @@ class ProductGridColumnBuilder
                     if ($column->getLanguage()) {
                         $new->setLanguage($column->getLanguage());
                     }
-
+                    if (!$user->hasEditLanguagePrivilege($language)) {
+                        $new->setEditable(false);
+                    }
+                    if ($attribute->getScope()->isGlobal()) {
+                        $rootLanguage = $this->languageQuery->getRootLanguage();
+                        if (!$rootLanguage->isEqual($language)) {
+                            $new->setEditable(false);
+                        }
+                    }
                     $result[$key] = $new;
                 }
             }

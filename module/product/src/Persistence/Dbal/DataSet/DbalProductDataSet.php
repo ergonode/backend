@@ -16,7 +16,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractDbalDataSet;
 use Ergonode\Grid\ColumnInterface;
 use Ergonode\Grid\Request\FilterValueCollection;
-use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilder;
+use Ergonode\Product\Infrastructure\Grid\Builder\DataSetQueryBuilderProvider;
 use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
@@ -32,9 +32,9 @@ class DbalProductDataSet extends AbstractDbalDataSet
     private Connection $connection;
 
     /**
-     * @var DataSetQueryBuilder
+     * @var DataSetQueryBuilderProvider
      */
-    private DataSetQueryBuilder $provider;
+    private DataSetQueryBuilderProvider $provider;
 
     /**
      * @var array
@@ -42,10 +42,10 @@ class DbalProductDataSet extends AbstractDbalDataSet
     private array $names;
 
     /**
-     * @param Connection          $connection
-     * @param DataSetQueryBuilder $provider
+     * @param Connection                  $connection
+     * @param DataSetQueryBuilderProvider $provider
      */
-    public function __construct(Connection $connection, DataSetQueryBuilder $provider)
+    public function __construct(Connection $connection, DataSetQueryBuilderProvider $provider)
     {
         $this->connection = $connection;
         $this->provider = $provider;
@@ -146,7 +146,8 @@ class DbalProductDataSet extends AbstractDbalDataSet
             if ($attribute) {
                 $hash = Uuid::uuid5(AbstractDbalDataSet::NAMESPACE, $key)->toString();
                 $this->names[$hash] = $key;
-                $this->provider->provide($query, $hash, $attribute, $language);
+                $builder = $this->provider->provide($attribute);
+                $builder->addSelect($query, $hash, $attribute, $language);
             }
         }
 

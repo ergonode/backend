@@ -22,7 +22,7 @@ class ExportProfileFormFactoryCompilerPass implements CompilerPassInterface
     /**
      * @param ContainerBuilder $container
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if ($container->has(ExportProfileFormFactoryProvider::class)) {
             $this->processServices($container);
@@ -32,7 +32,7 @@ class ExportProfileFormFactoryCompilerPass implements CompilerPassInterface
     /**
      * @param ContainerBuilder $container
      */
-    private function processServices(ContainerBuilder $container)
+    private function processServices(ContainerBuilder $container): void
     {
         $arguments = [];
         $definition = $container->findDefinition(ExportProfileFormFactoryProvider::class);

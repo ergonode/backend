@@ -37,8 +37,11 @@ class CategorySystemAttributeDataSetQueryBuilder implements AttributeDataSetQuer
     ): void {
         $query->addSelect(
             sprintf(
-                '(SELECT jsonb_agg(category_id) FROM product_category_product pcp '.
-                ' WHERE pcp . product_id = p . id LIMIT 1) AS "%s"',
+                '(
+                    SELECT jsonb_agg(category_id) 
+                    FROM product_category_product pcp 
+                    WHERE pcp.product_id = p.id LIMIT 1
+                ) AS "%s"',
                 $key
             )
         );

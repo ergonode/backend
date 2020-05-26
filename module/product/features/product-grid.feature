@@ -9,6 +9,7 @@ Feature: Product edit feature
       {
         "code": "TEXT_@@random_code@@",
         "type": "TEXT",
+        "scope": "local",
         "groups": []
       }
       """
@@ -24,6 +25,7 @@ Feature: Product edit feature
       {
         "code": "SELECT_@@random_code@@",
         "type": "SELECT",
+        "scope": "local",
         "groups": []
       }
       """
@@ -67,6 +69,8 @@ Feature: Product edit feature
       {
         "code": "MULTI_SELECT_@@random_code@@",
         "type": "MULTI_SELECT",
+        "scope": "local",
+        "multilingual": true,
         "groups": []
       }
       """
@@ -110,6 +114,7 @@ Feature: Product edit feature
       {
         "code": "LONG_COde_ATTRIBUTE_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_@@random_code@@",
         "type": "TEXT",
+        "scope": "local",
         "groups": []
       }
       """
@@ -126,6 +131,7 @@ Feature: Product edit feature
         "code": "DATE_@@random_code@@",
         "type": "DATE",
         "groups": [],
+        "scope": "local",
         "parameters": {"format":"yyyy-MM-dd"}
       }
       """
@@ -141,6 +147,7 @@ Feature: Product edit feature
       {
         "code": "NUMERIC_@@random_code@@",
         "type": "NUMERIC",
+        "scope": "local",
         "groups": []
       }
       """
@@ -157,6 +164,7 @@ Feature: Product edit feature
         "code": "PRICE_@@random_code@@",
         "type": "PRICE",
         "groups": [],
+        "scope": "local",
         "parameters": {
           "currency": "PLN"
         }
@@ -174,6 +182,7 @@ Feature: Product edit feature
       {
         "code": "IMAGE_@@random_code@@",
         "type": "IMAGE",
+        "scope": "local",
         "groups": []
       }
       """
@@ -302,7 +311,7 @@ Feature: Product edit feature
     When I send a PUT request to "api/v1/en/products/@product@/draft/@product_edit_multi_select_attribute@/value" with body:
       """
       {
-       "value":["@multi_select_option_2@"]
+       "value": ["@multi_select_option_2@"]
       }
       """
     Then the response status code should be 200
@@ -409,7 +418,6 @@ Feature: Product edit feature
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
     When I send a GET request to "api/v1/en/products?columns=@product_edit_multi_select_attribute_code@&filter=@product_edit_multi_select_attribute_code@=@multi_select_option_1@"
-    Then the response status code should be 200
     And the JSON node "info.filtered" should match "/1/"
     And the JSON node "columns[0].visible" should be true
     And the JSON node "columns[0].editable" should be true
@@ -456,7 +464,7 @@ Feature: Product edit feature
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_numeric_attribute_code@&filter=@product_edit_numeric_attribute_code@=10.99"
+    When I send a GET request to "api/v1/en/products?columns=@product_edit_numeric_attribute_code@:en&filter=@product_edit_numeric_attribute_code@:en=10.99"
     Then the response status code should be 200
     And the JSON node "info.filtered" should match "/1/"
     And the JSON node "columns[0].visible" should be true

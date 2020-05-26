@@ -1,0 +1,31 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\ExporterFile\Application\:
+        resource: '../../Application/*'
+
+#    Ergonode\ExporterFile\Application\Controller\Api\:
+#        resource: '../../Application/Controller/Api/*'
+#        tags: ['controller.service_arguments']
+
+    Ergonode\ExporterFile\Infrastructure\:
+        resource: '../../Infrastructure/*'
+        exclude: '../../Infrastructure/{Generator}'
+
+#    Ergonode\ExporterFile\Persistence\:
+#        resource: '../../Persistence/*'
+
+    Ergonode\ExporterFile\Domain\:
+        resource: '../../Domain/*'
+        exclude: '../../Domain/{ValueObject}'
+
+#    Ergonode\ExporterFile\Persistence\Dbal\Projector\:
+#        resource: '../../Persistence/Dbal/Projector/*'
+#        tags: ['messenger.message_handler']
+
+    Ergonode\ExporterFile\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']

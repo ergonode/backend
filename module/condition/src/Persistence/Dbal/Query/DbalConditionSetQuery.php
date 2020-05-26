@@ -14,6 +14,8 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Condition\Domain\Query\ConditionSetQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DbalDataSet;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 
 /**
  */
@@ -52,6 +54,32 @@ class DbalConditionSetQuery implements ConditionSetQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * @param AttributeId $attributeId
+     *
+     * @return array
+     */
+    public function findNumericConditionRelations(AttributeId $attributeId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        $records = $qb->select('id')
+            ->from(self::TABLE)
+            ->where($qb->expr()->eq('conditions->0->>\'type\'', ':type'))
+            ->where($qb->expr()->eq('conditions->0->>\'attribute\'', ':attribute_id'))
+            ->setParameter(':type', 'NUMERIC_ATTRIBUTE_VALUE_CONDITION')
+            ->setParameter(':attribute_id', $attributeId->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $result = [];
+        foreach ($records as $record) {
+            $result[] = new ConditionSetId($record);
+        }
+
+        return $result;
     }
 
     /**

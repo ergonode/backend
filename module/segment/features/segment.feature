@@ -9,6 +9,7 @@ Feature: Segment module
       {
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
+          "scope": "local",
           "label": {"pl_PL": "Atrybut tekstowy", "en": "Text attribute"},
           "groups": [],
           "parameters": []

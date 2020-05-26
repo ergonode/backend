@@ -12,3 +12,8 @@ ergonode_status_api:
     resource: '../../Application/Controller/Api/Status/*'
     type: 'annotation'
     prefix: '/api/v1/{language}'
+
+ergonode_product_workflow:
+    resource: '../../Application/Controller/Api/Product/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'

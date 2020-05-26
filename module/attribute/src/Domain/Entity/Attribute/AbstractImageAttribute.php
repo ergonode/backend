@@ -10,9 +10,10 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
@@ -26,6 +27,7 @@ abstract class AbstractImageAttribute extends AbstractAttribute
      * @param TranslatableString $label
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
+     * @param AttributeScope     $scope
      *
      * @throws \Exception
      */
@@ -34,9 +36,10 @@ abstract class AbstractImageAttribute extends AbstractAttribute
         AttributeCode $code,
         TranslatableString $label,
         TranslatableString $hint,
-        TranslatableString $placeholder
+        TranslatableString $placeholder,
+        AttributeScope $scope
     ) {
-        parent::__construct($id, $code, $label, $hint, $placeholder, false, []);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $scope, []);
     }
 
     /**

@@ -106,9 +106,9 @@ class CreateTreeCommand implements DomainCommandInterface
     private function createNode(TreeNodeFormModel $category): Node
     {
         $node = new Node(new CategoryId($category->categoryId));
-        foreach ($category->childrens as $children) {
-            $children = $this->createNode($children);
-            $node->addChildren($children);
+        foreach ($category->children as $child) {
+            $child = $this->createNode($child);
+            $node->addChild($child);
         }
 
         return $node;

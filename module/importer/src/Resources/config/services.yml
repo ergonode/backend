@@ -50,3 +50,10 @@ services:
             - '@Ergonode\Importer\Infrastructure\Proposal\Strategy\NumericProposalStrategy'
             - '@Ergonode\Importer\Infrastructure\Proposal\Strategy\MultiSelectProposalStrategy'
             - '@Ergonode\Importer\Infrastructure\Proposal\Strategy\TextProposalStrategy'
+
+    Ergonode\Importer\Infrastructure\Action\ProductImportAction:
+        arguments:
+            $builders:
+                - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductAttributeBuilder'
+                - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductCategoryBuilder'
+                - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductTemplateBuilder'

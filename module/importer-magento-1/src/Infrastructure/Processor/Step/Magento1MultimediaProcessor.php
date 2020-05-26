@@ -17,11 +17,10 @@ use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInte
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Importer\Domain\Command\Import\ProcessImportCommand;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Transformer\Infrastructure\Action\MultimediaImportAction;
 use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 use Ramsey\Uuid\Uuid;
+use Ergonode\Importer\Infrastructure\Action\MultimediaImportAction;
 
 /**
  */
@@ -79,9 +78,9 @@ class Magento1MultimediaProcessor implements Magento1ProcessorStepInterface
                     if (strpos($url, 'no_selection') === false) {
                         $uuid = Uuid::uuid5(self::NAMESPACE, $url);
                         $record = new Record();
-                        $record->set('name', new StringValue($image));
-                        $record->set('id', new StringValue($uuid->toString()));
-                        $record->set('url', new StringValue($url));
+                        $record->set('name', $image);
+                        $record->set('id', $uuid->toString());
+                        $record->set('url', $url);
                         $result[] = $record;
                     }
                 }

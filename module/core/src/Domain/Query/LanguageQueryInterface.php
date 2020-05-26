@@ -32,11 +32,35 @@ interface LanguageQueryInterface
     public function getDictionary(): array;
 
     /**
+     * @return array
+     */
+    public function getDictionaryActive(): array;
+
+    /**
      * @param string $code
      *
      * @return array
      */
     public function getLanguage(string $code): array;
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getLanguageNodeInfo(Language $language): ?array;
+
+    /**
+     * @param Language $language
+     *
+     * @return Language[]
+     */
+    public function getInheritancePath(Language $language): array;
+
+    /**
+     * @return Language
+     */
+    public function getRootLanguage(): Language;
 
     /**
      * @return DataSetInterface
@@ -57,4 +81,11 @@ interface LanguageQueryInterface
         string $field = null,
         ?string $order = 'ASC'
     ): array;
+
+    /**
+     * @param string $id
+     *
+     * @return array|null
+     */
+    public function getLanguageById(string $id): ?array;
 }

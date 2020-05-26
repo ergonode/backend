@@ -10,13 +10,15 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractOptionAttribute;
+use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class ProductCollectionSystemAttribute extends AbstractOptionAttribute
+class ProductCollectionSystemAttribute extends AbstractOptionAttribute implements AttributeInterface
 {
     public const TYPE = 'MULTI_SELECT';
     public const CODE = 'esa_product_collection';
@@ -43,8 +45,9 @@ class ProductCollectionSystemAttribute extends AbstractOptionAttribute
     ) {
         $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code->getValue());
+        $scope = new AttributeScope(AttributeScope::GLOBAL);
 
-        parent::__construct($id, $code, $label, $hint, $placeholder, false);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
     /**
@@ -59,6 +62,14 @@ class ProductCollectionSystemAttribute extends AbstractOptionAttribute
      * @return bool
      */
     public function isEditable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultilingual(): bool
     {
         return false;
     }

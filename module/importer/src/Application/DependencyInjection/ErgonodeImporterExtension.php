@@ -24,6 +24,10 @@ use Ergonode\Importer\Application\Provider\CreateSourceCommandBuilderInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\CreateSourceCommandBuilderCompilerPass;
 use Ergonode\Importer\Application\Provider\UpdateSourceCommandBuilderInterface;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\UpdateSourceCommandBuilderCompilerPass;
+use Ergonode\Importer\Infrastructure\Action\Process\AttributeImportProcessorStrategyInterface;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\AttributeActionProcessorCompilerPass;
+use Ergonode\Importer\Infrastructure\Action\ImportActionInterface;
+use Ergonode\Importer\Application\DependencyInjection\CompilerPass\ImportActionCompilerPass;
 
 /**
  */
@@ -62,6 +66,14 @@ class ErgonodeImporterExtension extends Extension
         $container
             ->registerForAutoconfiguration(SourceImportProcessorInterface::class)
             ->addTag(ServiceImportCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(AttributeImportProcessorStrategyInterface::class)
+            ->addTag(AttributeActionProcessorCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(ImportActionInterface::class)
+            ->addTag(ImportActionCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

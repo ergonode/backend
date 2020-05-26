@@ -22,7 +22,7 @@ class RecordTest extends TestCase
     public function testRecordManipulation(): void
     {
         $name = 'name';
-        $value = $this->createMock(ValueInterface::class);
+        $value = 'string value';
         $record = new Record();
         $this->assertFalse($record->has($name));
         $record->set($name, $value);

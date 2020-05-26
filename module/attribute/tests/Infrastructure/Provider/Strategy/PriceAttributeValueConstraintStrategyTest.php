@@ -22,12 +22,12 @@ class PriceAttributeValueConstraintStrategyTest extends TestCase
     /**
      * @var PriceAttributeValueConstraintStrategy|MockObject
      */
-    private $strategy;
+    private PriceAttributeValueConstraintStrategy $strategy;
 
     /**
      * @var PriceAttribute|MockObject
      */
-    private $attribute;
+    private PriceAttribute $attribute;
 
     /**
      */

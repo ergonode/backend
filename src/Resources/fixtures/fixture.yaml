@@ -251,7 +251,7 @@ Ergonode\Account\Domain\Entity\Role:
     __construct:
       - '<roleId("Category manager")>'
       - 'Category manager'
-      - 'Assures product data are correct and ready to publish. Manages product categories, verifies products statuses. Is responsible for product data completness.'
+      - 'Assures product data are correct and ready to publish. Manages product categories, verifies products statuses. Is responsible for product data completeness.'
       -
         - '<privilege("IMPORT_CREATE")>'
         - '<privilege("IMPORT_READ")>'
@@ -300,6 +300,7 @@ Ergonode\Account\Domain\Entity\User:
       - '<language(en)>'
       - '<password(GeyK6ku29LJhJf3htswrpu1eh68=)>' # abcd1234
       - '<roleId("Superadmin")>'
+      - '<languagePrivilegesCollection(true)>'
 
 Ergonode\Workflow\Domain\Command\Status\CreateStatusCommand:
   status_new:
@@ -433,7 +434,7 @@ Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
       - '<productCollectionTypeId("cross-sell")>'
       - '<productCollectionTypeCode("cross-sell")>'
       - '<translation(<{name_product_collection_type_cross-sell}>)>'
-    
+
 Ergonode\Core\Domain\Command\CreateUnitCommand:
   unit_metre:
     __construct:

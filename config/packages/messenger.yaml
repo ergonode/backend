@@ -32,8 +32,8 @@ framework:
             'Ergonode\Segment\Domain\Command\CalculateProductCommand': segment
             'Ergonode\Segment\Domain\Command\CalculateSegmentCommand': segment
             'Ergonode\Segment\Domain\Command\CalculateProductInSegmentCommand': segment
-            'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': core
-            'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': core
+#            'Ergonode\Attribute\Domain\Command\CreateAttributeCommand': core
+#            'Ergonode\Attribute\Domain\Command\UpdateAttributeCommand': core
             'Ergonode\Category\Domain\Command\CreateCategoryCommand': core
             'Ergonode\Category\Domain\Command\UpdateCategoryCommand': core
             'Ergonode\Designer\Domain\Command\CreateTemplateCommand': core

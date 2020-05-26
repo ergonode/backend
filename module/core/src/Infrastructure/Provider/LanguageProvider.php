@@ -11,7 +11,7 @@ namespace Ergonode\Core\Infrastructure\Provider;
 
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Ergonode\Core\Infrastructure\Mapper\LanguageMapper;
 
 /**
  */
@@ -23,18 +23,18 @@ class LanguageProvider implements LanguageProviderInterface
     private LanguageQueryInterface $query;
 
     /**
-     * @var TranslatorInterface
+     * @var LanguageMapper
      */
-    private TranslatorInterface $translator;
+    private LanguageMapper $mapper;
 
     /**
      * @param LanguageQueryInterface $query
-     * @param TranslatorInterface    $translator
+     * @param LanguageMapper         $mapper
      */
-    public function __construct(LanguageQueryInterface $query, TranslatorInterface $translator)
+    public function __construct(LanguageQueryInterface $query, LanguageMapper $mapper)
     {
         $this->query = $query;
-        $this->translator = $translator;
+        $this->mapper = $mapper;
     }
 
     /**
@@ -44,7 +44,7 @@ class LanguageProvider implements LanguageProviderInterface
      */
     public function getLanguages(Language $language): array
     {
-        return $this->map($language, $this->query->getAll());
+        return $this->mapper->map($language, $this->query->getAll());
     }
 
     /**
@@ -54,27 +54,6 @@ class LanguageProvider implements LanguageProviderInterface
      */
     public function getActiveLanguages(Language $language): array
     {
-        return $this->map($language, $this->query->getActive());
-    }
-
-    /**
-     * @param Language   $language
-     * @param Language[] $allLanguages
-     *
-     * @return array
-     */
-    private function map(Language $language, array $allLanguages): array
-    {
-        $result = [];
-        foreach ($allLanguages as $availableLanguage) {
-            $code = $availableLanguage->getCode();
-            $result[$code] = $this->translator->trans($code, [], 'language', $language->getCode());
-        }
-
-        asort($result);
-
-
-
-        return $result;
+        return $this->mapper->map($language, $this->query->getActive());
     }
 }

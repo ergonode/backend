@@ -11,6 +11,7 @@ Feature: Multi multi select attribute manipulation
       {
           "code": "MULTI_SELECT@@random_code@@",
           "type": "MULTI_SELECT",
+          "scope": "local",
           "groups": []
       }
       """

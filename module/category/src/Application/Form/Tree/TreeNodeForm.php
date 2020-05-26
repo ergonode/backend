@@ -35,7 +35,7 @@ class TreeNodeForm extends AbstractType
                 ]
             )
             ->add(
-                'childrens',
+                'children',
                 CollectionType::class,
                 [
                     'allow_add' => true,

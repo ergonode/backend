@@ -69,6 +69,7 @@ class DbalProductQuery implements ProductQueryInterface
         $qb->addSelect('(SELECT count(*) FROM collection_element'.
         ' WHERE product_collection_id = c.id) as elements_count');
         $qb->where($qb->expr()->eq('product_id', ':product_id'));
+        $qb->andWhere('visible=true');
 
         $result = $this->connection->createQueryBuilder();
 
@@ -99,7 +100,7 @@ class DbalProductQuery implements ProductQueryInterface
     /**
      * {@inheritDoc}
      */
-    public function getAllIds(): ?array
+    public function getAllIds(): array
     {
         $result = $this->connection->createQueryBuilder()
             ->select('id')
@@ -111,13 +112,13 @@ class DbalProductQuery implements ProductQueryInterface
             return $result;
         }
 
-        return null;
+        return [];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getAllSkus(): ?array
+    public function getAllSkus(): array
     {
         $result = $this->connection->createQueryBuilder()
             ->select('sku')
@@ -129,7 +130,7 @@ class DbalProductQuery implements ProductQueryInterface
             return $result;
         }
 
-        return null;
+        return [];
     }
 
     /**

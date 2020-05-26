@@ -9,16 +9,17 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Command;
 
-use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Account\Domain\Query\RoleQueryInterface;
-use Ergonode\SharedKernel\Domain\ValueObject\Email;
+use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
+use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  */
@@ -81,6 +82,8 @@ class CreateUserCommand extends Command
 
         $roleId = array_search($role, $this->query->getDictionary(), true);
 
+        $languagePrivilegesCollection = [$language->getCode() => new LanguagePrivileges(true, true)];
+
         if ($roleId) {
             $command = new \Ergonode\Account\Domain\Command\User\CreateUserCommand(
                 $firstName,
@@ -88,7 +91,8 @@ class CreateUserCommand extends Command
                 $email,
                 $language,
                 $password,
-                new RoleId($roleId)
+                new RoleId($roleId),
+                $languagePrivilegesCollection
             );
             $this->commandBus->dispatch($command);
 
