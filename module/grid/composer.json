@@ -16,10 +16,10 @@
         "ext-json": "*",
         "doctrine/collections": "^1.6",
         "doctrine/dbal": "^2.10",
-        "ergonode/attribute": "^0.7.0",
-        "ergonode/api": "^0.7.0",
-        "ergonode/core": "^0.7.0",
-        "ergonode/shared-kernel": "^0.7.0",
+        "ergonode/attribute": "^0.8.0",
+        "ergonode/api": "^0.8.0",
+        "ergonode/core": "^0.8.0",
+        "ergonode/shared-kernel": "^0.8.0",
         "symfony/http-foundation": "^4.4"
     },
     "require-dev": {

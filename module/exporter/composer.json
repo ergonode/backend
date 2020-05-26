@@ -14,11 +14,11 @@
     "require": {
         "php": "^7.4",
         "doctrine/dbal": "^2.10",
-        "ergonode/category": "^0.7.0",
-        "ergonode/core": "^0.7.0",
-        "ergonode/product": "^0.7.0",
-        "ergonode/shared-kernel": "^0.7.0",
-        "ergonode/value": "^0.7.0",
+        "ergonode/category": "^0.8.0",
+        "ergonode/core": "^0.8.0",
+        "ergonode/product": "^0.8.0",
+        "ergonode/shared-kernel": "^0.8.0",
+        "ergonode/value": "^0.8.0",
         "jms/serializer": "^3.4",
         "ramsey/uuid": "^3.8",
         "symfony/messenger": "^4.3"

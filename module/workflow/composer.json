@@ -14,12 +14,12 @@
     "require": {
         "php": "^7.4",
         "doctrine/dbal": "^2.10",
-        "ergonode/api": "^0.7.0",
-        "ergonode/core": "^0.7.0",
-        "ergonode/condition": "^0.7.0",
-        "ergonode/es": "^0.7.0",
-        "ergonode/grid": "^0.7.0",
-        "ergonode/shared-kernel": "^0.7.0",
+        "ergonode/api": "^0.8.0",
+        "ergonode/core": "^0.8.0",
+        "ergonode/condition": "^0.8.0",
+        "ergonode/es": "^0.8.0",
+        "ergonode/grid": "^0.8.0",
+        "ergonode/shared-kernel": "^0.8.0",
         "jms/serializer": "^3.4",
         "ramsey/uuid": "^3.8"
     },
