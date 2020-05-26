@@ -47,6 +47,7 @@ Feature: Variable product
       {
           "code": "SELECT_BIND_@@random_code@@",
           "type": "SELECT",
+          "scope": "local",
           "groups": []
       }
       """

@@ -12,6 +12,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
+use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 
 /**
  */
@@ -32,10 +33,11 @@ class ProductTypeSystemAttribute extends AbstractTextAttribute
         TranslatableString $hint,
         TranslatableString $placeholder
     ) {
+        $scope = new AttributeScope(AttributeScope::GLOBAL);
         $code = new AttributeCode(self::CODE);
         $id = AttributeId::fromKey($code->getValue());
 
-        parent::__construct($id, $code, $label, $hint, $placeholder, false);
+        parent::__construct($id, $code, $label, $hint, $placeholder, $scope);
     }
 
     /**
