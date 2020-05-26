@@ -1,5 +1,8 @@
 
-- feature [#504](https://github.com/ergonode/backend/issues/504) Language inheritance ()
+## CHANGELOG FOR 0.8.0
+- feature [#504](https://github.com/ergonode/backend/issues/504) Language inheritance (rprzedzik)
+- feature [#505](https://github.com/ergonode/backend/issues/505) Language privileges  (wiewiurdp)
+- feature [#502](https://github.com/ergonode/backend/issues/502) Language tree inheritance (wfajczyk)
 
 ## CHANGELOG FOR 0.7.0
 - feature [#343](https://github.com/ergonode/backend/issues/343) Add product collection module (wiewiurdp)
