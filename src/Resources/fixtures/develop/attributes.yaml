@@ -215,3 +215,10 @@ Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttrib
             - '@label_esa_product_collection'
             - '@empty'
             - '@empty'
+
+Ergonode\Product\Domain\Entity\Attribute\ProductTypeSystemAttribute:
+    attribute_esa_product_type:
+        __construct:
+            - '@label_esa_product_type'
+            - '@empty'
+            - '@empty'

@@ -24,19 +24,19 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 class PriceAttributeDataSetQueryBuilderTest extends TestCase
 {
     /**
-     * @var DateAttribute|MockObject
+     * @var PriceAttribute|MockObject
      */
-    private $attribute;
+    private PriceAttribute $attribute;
 
     /**
      * @var QueryBuilder|MockObject
      */
-    private $queryBuilder;
+    private QueryBuilder $queryBuilder;
 
     /**
      * @var Language|MockObject
      */
-    private $language;
+    private Language $language;
 
     /**
      * @var LanguageQueryInterface|MockObject

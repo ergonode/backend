@@ -38,6 +38,4 @@ framework:
             'Ergonode\Category\Domain\Command\UpdateCategoryCommand': core
             'Ergonode\Designer\Domain\Command\CreateTemplateCommand': core
             'Ergonode\Designer\Domain\Command\UpdateTemplateCommand': core
-            'Ergonode\Product\Domain\Command\CreateProductCommand': core
-            'Ergonode\Product\Domain\Command\UpdateProductCommand': core
 

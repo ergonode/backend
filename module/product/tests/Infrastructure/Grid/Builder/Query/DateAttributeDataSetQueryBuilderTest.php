@@ -25,17 +25,17 @@ class DateAttributeDataSetQueryBuilderTest extends TestCase
     /**
      * @var DateAttribute|MockObject
      */
-    private $attribute;
+    private DateAttribute $attribute;
 
     /**
      * @var QueryBuilder|MockObject
      */
-    private $queryBuilder;
+    private QueryBuilder $queryBuilder;
 
     /**
      * @var Language|MockObject
      */
-    private $language;
+    private Language $language;
 
     /**
      * @var LanguageQueryInterface|MockObject

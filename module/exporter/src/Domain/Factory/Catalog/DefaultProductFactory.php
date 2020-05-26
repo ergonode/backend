@@ -10,7 +10,6 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Domain\Factory\Catalog;
 
 use Ergonode\Exporter\Domain\Entity\Catalog\AbstractExportAttributeValue;
-use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategoryCode;
 use Ergonode\Exporter\Domain\Entity\Catalog\Product\DefaultExportProduct;
 use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
@@ -22,6 +21,7 @@ class DefaultProductFactory
     /**
      * @param Uuid                           $id
      * @param string                         $sku
+     * @param string                         $type
      * @param Uuid[]                         $categories
      * @param AbstractExportAttributeValue[] $attributes
      *
@@ -30,6 +30,7 @@ class DefaultProductFactory
     public function createFromEvent(
         Uuid $id,
         string $sku,
+        string $type,
         array $categories = [],
         array $attributes = []
     ): DefaultExportProduct {
@@ -39,6 +40,7 @@ class DefaultProductFactory
         return new DefaultExportProduct(
             $id,
             $sku,
+            $type,
             $categories,
             $attributes
         );

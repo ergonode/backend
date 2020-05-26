@@ -24,6 +24,13 @@ interface ProductRepositoryInterface
     public function load(ProductId $id): ?AbstractProduct;
 
     /**
+     * @param ProductId $id
+     *
+     * @return bool
+     */
+    public function exists(ProductId $id): bool;
+
+    /**
      * @param AbstractProduct $aggregateRoot
      */
     public function save(AbstractProduct $aggregateRoot): void;

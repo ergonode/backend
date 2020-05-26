@@ -32,6 +32,13 @@ abstract class AbstractExportProduct
     protected string $sku;
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
+    protected string $type;
+
+    /**
      * @var Uuid[]
      *
      * @JMS\Type("array<string, uuid>")
@@ -46,20 +53,23 @@ abstract class AbstractExportProduct
     protected array $attributes;
 
     /**
-     * @param Uuid                           $id
-     * @param string                         $sku
-     * @param Uuid[]                         $categories
-     * @param AbstractExportAttributeValue[] $attributes
+     * @param Uuid   $id
+     * @param string $sku
+     * @param string $type
+     * @param array  $categories
+     * @param array  $attributes
      */
-    public function __construct(Uuid $id, string $sku, array $categories = [], array $attributes = [])
+    public function __construct(Uuid $id, string $sku, string $type, array $categories = [], array $attributes = [])
     {
         Assert::Uuid($id);
         Assert::string($sku);
+        Assert::string($type);
         Assert::allIsInstanceOf($categories, Uuid::class);
         Assert::allIsInstanceOf($attributes, AbstractExportAttributeValue::class);
 
         $this->id = $id;
         $this->sku = $sku;
+        $this->type = $type;
         $this->categories = $categories;
         $this->attributes = $attributes;
     }
@@ -78,6 +88,14 @@ abstract class AbstractExportProduct
     public function getSku(): string
     {
         return $this->sku;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     /**

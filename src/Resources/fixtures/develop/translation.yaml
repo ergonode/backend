@@ -54,3 +54,7 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             -   'pl': 'Kolekcje produktów'
                 'en': 'Product collections'
+    label_esa_product_type:
+        __construct:
+            -   'pl': 'Typ produktu'
+                'en': 'Product type'

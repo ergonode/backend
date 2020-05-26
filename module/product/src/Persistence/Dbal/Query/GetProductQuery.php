@@ -64,6 +64,7 @@ class GetProductQuery implements GetProductQueryInterface
         return [
             'id' => $product->getId(),
             'sku' => $product->getSku(),
+            'type' => $product->getType(),
             'attributes' => $attributes,
             'categories' => $product->getCategories(),
             '_links' => [

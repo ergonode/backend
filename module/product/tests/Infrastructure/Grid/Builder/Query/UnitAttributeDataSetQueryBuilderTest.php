@@ -10,7 +10,6 @@ namespace Ergonode\Product\Tests\Infrastructure\Grid\Builder\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\UnitAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\UnitAttributeDataSetQueryBuilder;
@@ -24,19 +23,19 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 class UnitAttributeDataSetQueryBuilderTest extends TestCase
 {
     /**
-     * @var DateAttribute|MockObject
+     * @var UnitAttribute|MockObject
      */
-    private $attribute;
+    private UnitAttribute $attribute;
 
     /**
      * @var QueryBuilder|MockObject
      */
-    private $queryBuilder;
+    private QueryBuilder $queryBuilder;
 
     /**
      * @var Language|MockObject
      */
-    private $language;
+    private Language $language;
 
     /**
      * @var LanguageQueryInterface|MockObject
