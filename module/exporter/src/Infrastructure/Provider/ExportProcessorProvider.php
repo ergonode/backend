@@ -8,6 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Infrastructure\Provider;
 
+use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
+
 /**
  */
 class ExportProcessorProvider

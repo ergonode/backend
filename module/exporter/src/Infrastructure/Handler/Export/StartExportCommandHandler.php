@@ -9,7 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Infrastructure\Handler\Export;
 
 use Ergonode\Exporter\Domain\Command\Export\StartExportCommand;
-use Ergonode\Exporter\Domain\Repository\ChannelConfigurationRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorProvider;
@@ -25,11 +24,6 @@ class StartExportCommandHandler
     private ExportRepositoryInterface $exportRepository;
 
     /**
-     * @var ChannelConfigurationRepositoryInterface
-     */
-    private ChannelConfigurationRepositoryInterface $channelConfigurationRepository;
-
-    /**
      * @var ExportProfileRepositoryInterface
      */
     private ExportProfileRepositoryInterface $exportProfileRepository;
@@ -40,19 +34,16 @@ class StartExportCommandHandler
     private ExportProcessorProvider $provider;
 
     /**
-     * @param ExportRepositoryInterface               $exportRepository
-     * @param ChannelConfigurationRepositoryInterface $channelConfigurationRepository
-     * @param ExportProfileRepositoryInterface        $exportProfileRepository
-     * @param ExportProcessorProvider                 $provider
+     * @param ExportRepositoryInterface        $exportRepository
+     * @param ExportProfileRepositoryInterface $exportProfileRepository
+     * @param ExportProcessorProvider          $provider
      */
     public function __construct(
         ExportRepositoryInterface $exportRepository,
-        ChannelConfigurationRepositoryInterface $channelConfigurationRepository,
         ExportProfileRepositoryInterface $exportProfileRepository,
         ExportProcessorProvider $provider
     ) {
         $this->exportRepository = $exportRepository;
-        $this->channelConfigurationRepository = $channelConfigurationRepository;
         $this->exportProfileRepository = $exportProfileRepository;
         $this->provider = $provider;
     }
@@ -73,6 +64,6 @@ class StartExportCommandHandler
         $this->exportRepository->save($export);
 
         $processor = $this->provider->provide($exportProfile->getType());
-        $processor->run($export);
+        $processor->start($exportProfile);
     }
 }

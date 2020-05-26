@@ -11,29 +11,30 @@ namespace Ergonode\Exporter\Infrastructure\Provider;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Ergonode\Exporter\Application\Provider\ExportProfileTypeProvider;
 
 /**
  */
 class ExportProfileTypeDictionaryProvider
 {
     /**
+     * @var ExportProfileTypeProvider
+     */
+    private ExportProfileTypeProvider $provider;
+
+    /**
      * @var TranslatorInterface
      */
     private TranslatorInterface $translator;
 
     /**
-     * @var ExportProfileInterface ...$exportProfiles
+     * @param ExportProfileTypeProvider $provider
+     * @param TranslatorInterface       $translator
      */
-    private array $exportProfiles;
-
-    /**
-     * @param TranslatorInterface    $translator
-     * @param ExportProfileInterface ...$exportProfiles
-     */
-    public function __construct(TranslatorInterface $translator, ExportProfileInterface ...$exportProfiles)
+    public function __construct(ExportProfileTypeProvider $provider, TranslatorInterface $translator)
     {
+        $this->provider = $provider;
         $this->translator = $translator;
-        $this->exportProfiles = $exportProfiles;
     }
 
     /**
@@ -44,8 +45,7 @@ class ExportProfileTypeDictionaryProvider
     public function provide(Language $language): array
     {
         $result = [];
-        foreach ($this->exportProfiles as $profile) {
-            $type = $profile->getType();
+        foreach ($this->provider->provide() as $type) {
             $result[$type] = $this->translator->trans($type, [], 'export_profile', $language->getCode());
         }
 
