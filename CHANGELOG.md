@@ -3,6 +3,7 @@
 - feature [#504](https://github.com/ergonode/backend/issues/504) Language inheritance (rprzedzik)
 - feature [#505](https://github.com/ergonode/backend/issues/505) Language privileges  (wiewiurdp)
 - feature [#502](https://github.com/ergonode/backend/issues/502) Language tree inheritance (wfajczyk)
+- feature Adding tile grid functionality on template grid (wiewiurdp)
 
 ## CHANGELOG FOR 0.7.0
 - feature [#343](https://github.com/ergonode/backend/issues/343) Add product collection module (wiewiurdp)
