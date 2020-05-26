@@ -14,6 +14,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\Segment\Domain\Query\SegmentProductsQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
@@ -53,6 +54,22 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
         $result->from(sprintf('(%s)', $query->getSQL()), 't');
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * @param SegmentId $segmentId
+     *
+     * @return string[]
+     */
+    public function getProducts(SegmentId $segmentId): array
+    {
+        $qb = $this->getQuery();
+
+        return $qb->select('sp.product_id')
+            ->where($qb->expr()->eq('segment_id', ':segmentId'))
+            ->setParameter(':segmentId', $segmentId->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
     }
 
     /**

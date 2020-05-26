@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer\Infrastructure\Converter;
 
-use Ergonode\Value\Domain\ValueObject\ValueInterface;
-
 /**
  */
 interface ConverterInterface

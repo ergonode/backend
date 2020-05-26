@@ -10,9 +10,7 @@ namespace Ergonode\Product\Tests\Infrastructure\Grid\Builder\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\NumericAttributeDataSetQueryBuilder;
 use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
@@ -25,19 +23,19 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 class NumericAttributeDataSetQueryBuilderTest extends TestCase
 {
     /**
-     * @var DateAttribute|MockObject
+     * @var NumericAttribute|MockObject
      */
-    private $attribute;
+    private NumericAttribute $attribute;
 
     /**
      * @var QueryBuilder|MockObject
      */
-    private $queryBuilder;
+    private QueryBuilder $queryBuilder;
 
     /**
      * @var Language|MockObject
      */
-    private $language;
+    private Language $language;
 
     /**
      * @var LanguageQueryInterface|MockObject

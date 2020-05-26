@@ -11,7 +11,6 @@ namespace Ergonode\ProductCollection\Application\Model;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
-use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\ProductExists;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -60,10 +59,8 @@ class ProductCollectionElementCreateFormModel
     {
         /** @var ProductCollectionElementCreateFormModel $data */
         $data = $context->getValue();
-        if ($data->productId instanceof ProductId) {
-            if ($data->productCollection->hasElement($data->productId)) {
-                $context->addViolation('Element exists');
-            }
+        if (($data->productId instanceof ProductId) && $data->productCollection->hasElement($data->productId)) {
+            $context->addViolation('Element exists');
         }
     }
 }

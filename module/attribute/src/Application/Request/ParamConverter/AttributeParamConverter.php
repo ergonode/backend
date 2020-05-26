@@ -40,10 +40,14 @@ class AttributeParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $parameter = $request->get('attribute');
+        if ($configuration->getName()) {
+            $parameter = $request->get($configuration->getName());
+        } else {
+            $parameter = $request->get('attribute');
+        }
 
         if (null === $parameter) {
-            throw new BadRequestHttpException('Request parameter "attribute" is missing');
+            throw new BadRequestHttpException(sprintf('Request parameter "%s" is missing', $parameter));
         }
 
         if (!AttributeId::isValid($parameter)) {
