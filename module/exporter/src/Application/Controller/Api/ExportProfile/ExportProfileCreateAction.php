@@ -23,6 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
+ *     name="ergonode_export_profile_create",
  *     path="/export-profile",
  *     methods={"POST"}
  * )

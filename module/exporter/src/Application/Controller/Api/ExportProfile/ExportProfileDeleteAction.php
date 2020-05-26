@@ -24,6 +24,7 @@ use Swagger\Annotations as SWG;
 
 /**
  * @Route(
+ *     name="ergonode_export_profile_delete",
  *     path="/export-profile/{exportProfile}",
  *     methods={"DELETE"},
  *     requirements={"exportProfile"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
