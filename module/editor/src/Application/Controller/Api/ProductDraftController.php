@@ -206,11 +206,11 @@ class ProductDraftController extends AbstractController
      *     description="Language Code",
      * )
      * @SWG\Parameter(
-     *     name="body",
-     *     in="body",
-     *     description="Comment body",
+     *     name="value",
+     *     in="formData",
+     *     type="string",
+     *     description="Attribute value",
      *     required=true,
-     *     @SWG\Schema(ref="#/definitions/value")
      * )
      * @SWG\Response(
      *     response=200,

@@ -12,16 +12,27 @@ namespace Ergonode\Attribute\Application\Form\Attribute;
 use Ergonode\Attribute\Application\Form\Type\AttributeCodeType;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class GalleryAttributeForm extends AbstractType
+class GalleryAttributeForm extends AbstractType implements AttributeFormInterface
 {
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function supported(string $type): bool
+    {
+        return GalleryAttribute::TYPE === $type;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -50,17 +61,8 @@ class GalleryAttributeForm extends AbstractType
                 AttributeGroupType::class
             )
             ->add(
-                'multilingual',
-                CheckboxType::class,
-                [
-                    'false_values' => [
-                        '0',
-                        'false',
-                        '',
-                        false,
-                    ],
-                    'empty_data' => 'true',
-                ]
+                'scope',
+                TextType::class,
             );
     }
 

@@ -813,14 +813,6 @@ nelmio_api_doc:
                         required: true
                         description: name
                         example: channel1
-            value:
-                type: object
-                properties:
-                    value:
-                        type: string
-                        required: true
-                        description: comment text
-                        example: "d48a1e58-4bf1-5014-9cc6-b879e5f044d0"
     areas:
         path_patterns:
             - ^/api(?!/doc$)
