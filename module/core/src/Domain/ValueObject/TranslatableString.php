@@ -29,6 +29,7 @@ class TranslatableString implements \IteratorAggregate
     {
         $this->translations = [];
         foreach ($translations as $language => $translation) {
+            $translation = $translation ? (string) $translation : null;
             $this->translations = $this->merge($this->translations, new Language($language), $translation);
         }
     }
