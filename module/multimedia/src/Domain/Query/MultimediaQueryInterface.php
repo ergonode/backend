@@ -9,8 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Domain\Query;
 
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -29,4 +29,9 @@ interface MultimediaQueryInterface
      * @return MultimediaId|null
      */
     public function findIdByHash(Hash $hash): ?MultimediaId;
+
+    /**
+     * @return array
+     */
+    public function getMultimedia(): array;
 }
