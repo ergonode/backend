@@ -72,6 +72,6 @@ class ProcessExportCommandHandler
         Assert::notNull($product);
 
         $processor = $this->provider->provide($exportProfile->getType());
-        $processor->process($exportProfile, $product);
+        $processor->process($command->getExportId(), $exportProfile, $product);
     }
 }

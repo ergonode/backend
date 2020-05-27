@@ -10,6 +10,7 @@ namespace Ergonode\Exporter\Infrastructure\Processor;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**
  */
@@ -23,20 +24,23 @@ interface ExportProcessorInterface
     public function supported(string $type): bool;
 
     /**
+     * @param ExportId              $id
      * @param AbstractExportProfile $profile
      */
-    public function start(AbstractExportProfile $profile): void;
+    public function start(ExportId $id, AbstractExportProfile $profile): void;
 
     /**
+     * @param ExportId              $id
      * @param AbstractExportProfile $profile
      * @param AbstractProduct       $product
      *
      * @return mixed
      */
-    public function process(AbstractExportProfile $profile, AbstractProduct $product): void;
+    public function process(ExportId $id, AbstractExportProfile $profile, AbstractProduct $product): void;
 
     /**
+     * @param ExportId              $id
      * @param AbstractExportProfile $profile
      */
-    public function end(AbstractExportProfile $profile): void;
+    public function end(ExportId $id, AbstractExportProfile $profile): void;
 }
