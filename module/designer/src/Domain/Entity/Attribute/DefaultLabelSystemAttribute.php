@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -6,10 +7,9 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Domain\Entity\Attribute;
+namespace Ergonode\Designer\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
-use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -17,10 +17,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class EditedBySystemAttribute extends AbstractTextAttribute implements AttributeInterface
+class DefaultLabelSystemAttribute extends AbstractTextAttribute
 {
     public const TYPE = 'TEXT';
-    public const CODE = 'esa_edited_by';
+    public const CODE = 'esa_default_label';
+
 
     /**
      * @param TranslatableString $label

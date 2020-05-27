@@ -51,7 +51,15 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
     {
         $query = $this->getQuery();
         $query->andWhere($query->expr()->eq('product_collection_id', ':productCollectionId'));
-        $query->addSelect('created_at, pvtdt.value as system_name, sku, pvtdi.value as default_image');
+        $query->addSelect(
+            'created_at,
+         CASE
+           WHEN dtt.default_text IS NULL THEN ppt.sku::VARCHAR
+           WHEN dtt.default_text IS NOT NULL THEN pvtdt.value::VARCHAR
+           END as system_name,
+            sku, 
+            pvtdi.value as default_image'
+        );
         $query->join('ce', self::PUBLIC_PRODUCT_TABLE, 'ppt', 'ppt.id = ce.product_id');
         $query->join('ce', self::DESIGNER_PRODUCT_TABLE, 'dpt', 'dpt.product_id = ce.product_id');
         $query->join('dpt', self::DESIGNER_TEMPLATE_TABLE, 'dtt', 'dpt.template_id = dtt.id');

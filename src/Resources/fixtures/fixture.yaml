@@ -44,6 +44,12 @@ parameters:
   label_esa_product_collection:
     'pl': 'Kolekcje produktów'
     'en': 'Product collections'
+  label_esa_default_label:
+    'pl': 'Domyślna etykieta'
+    'en': 'Default label'
+  label_esa_default_image:
+    'pl': 'Domyślne zdjęcie'
+    'en': 'Default image'
   name_product_collection_type_up-sell:
     'pl': 'Up-sell'
     'en': 'Up-sell'
@@ -413,6 +419,19 @@ Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttrib
       - '<translation(<{empty}>)>'
       - '<translation(<{empty}>)>'
 
+Ergonode\Designer\Domain\Entity\Attribute\DefaultLabelSystemAttribute:
+  attribute_esa_default_label:
+    __construct:
+      - '<translation(<{label_esa_default_label}>)>'
+      - '<translation(<{empty}>)>'
+      - '<translation(<{empty}>)>'
+      
+Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute:
+  attribute_esa_default_image:
+    __construct:
+      - '<translation(<{label_esa_default_image}>)>'
+      - '<translation(<{empty}>)>'
+      - '<translation(<{empty}>)>'
 
 Ergonode\ProductCollection\Domain\Entity\ProductCollectionType:
   product_collection_type_up_sell:
