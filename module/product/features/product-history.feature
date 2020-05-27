@@ -22,6 +22,7 @@ Feature: Product history feature
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_edit_template@",
         "categoryIds": []
       }
@@ -46,7 +47,6 @@ Feature: Product history feature
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
     And the JSON node "collection[0].event:en" should exist
-
 
   Scenario: Get products history (filter by time)
     Given I am Authenticated as "test@ergonode.com"

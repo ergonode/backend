@@ -12,8 +12,7 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Exporter\Application\Provider\ExportProfileFormFactoryProvider;
-use Ergonode\Exporter\Domain\Command\ExportProfile\CreateExportProfileCommand;
-use Ergonode\Exporter\Domain\Command\ExportProfile\UpdateExportProfileCommand;
+use Ergonode\Exporter\Application\Provider\UpdateExportProfileCommandBuilderProvider;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -26,8 +25,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
+ *     name="ergonode_export_profile_change",
  *     path="/export-profile/{exportProfile}",
- *     methods={"POST"},
+ *     methods={"PUT"},
  *     requirements={"exportProfile"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
@@ -39,17 +39,27 @@ class ExportProfileChangeAction
     private ExportProfileFormFactoryProvider $provider;
 
     /**
+     * @var UpdateExportProfileCommandBuilderProvider
+     */
+    private UpdateExportProfileCommandBuilderProvider $commandProvider;
+
+    /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ExportProfileFormFactoryProvider $provider
-     * @param CommandBusInterface              $commandBus
+     * @param ExportProfileFormFactoryProvider          $provider
+     * @param UpdateExportProfileCommandBuilderProvider $commandProvider
+     * @param CommandBusInterface                       $commandBus
      */
-    public function __construct(ExportProfileFormFactoryProvider $provider, CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        ExportProfileFormFactoryProvider $provider,
+        UpdateExportProfileCommandBuilderProvider $commandProvider,
+        CommandBusInterface $commandBus
+    ) {
         $this->provider = $provider;
+        $this->commandProvider = $commandProvider;
         $this->commandBus = $commandBus;
     }
 
@@ -107,15 +117,9 @@ class ExportProfileChangeAction
             $form = $this->provider->provide($exportProfile->getType())->create($exportProfile);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-
-                /** @var CreateExportProfileCommand $data */
-                $data = $form->getData();
-
-                $command = new UpdateExportProfileCommand(
+                $command = $this->commandProvider->provide($exportProfile->getType())->build(
                     $exportProfile->getId(),
-                    $data->getName(),
-                    $data->getType(),
-                    $data->getParameters()
+                    $form
                 );
                 $this->commandBus->dispatch($command);
 

@@ -30,7 +30,7 @@ class UnitAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
      */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
-        $info = $this->query->getLanguageNodeInfo($language);
+        $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($attribute, $language));
 
         $query->addSelect(sprintf(
             '(

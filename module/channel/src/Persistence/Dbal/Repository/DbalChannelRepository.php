@@ -34,8 +34,6 @@ class DbalChannelRepository implements ChannelRepositoryInterface
     private EventBusInterface $eventBus;
 
     /**
-     * DbalChannelRepository constructor.
-     *
      * @param DomainEventStoreInterface $eventStore
      * @param EventBusInterface         $eventBus
      */

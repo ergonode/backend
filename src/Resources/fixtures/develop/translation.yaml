@@ -62,3 +62,7 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             -   'pl': 'Domyślna etykieta'
                 'en': 'Default label'
+    label_esa_product_type:
+        __construct:
+            -   'pl': 'Typ produktu'
+                'en': 'Product type'

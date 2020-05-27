@@ -13,10 +13,11 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\Exporter\Domain\Entity\Profile\ExportProfileInterface;
 
 /**
  */
-class Magento2ExportCsvProfile extends AbstractExportProfile
+class Magento2ExportCsvProfile extends AbstractExportProfile implements ExportProfileInterface
 {
     public const TYPE = 'magento-2-csv';
 
@@ -69,5 +70,21 @@ class Magento2ExportCsvProfile extends AbstractExportProfile
     public function getDefaultLanguage(): Language
     {
         return $this->defaultLanguage;
+    }
+
+    /**
+     * @param string $filename
+     */
+    public function setFilename(string $filename): void
+    {
+        $this->filename = $filename;
+    }
+
+    /**
+     * @param Language $defaultLanguage
+     */
+    public function setDefaultLanguage(Language $defaultLanguage): void
+    {
+        $this->defaultLanguage = $defaultLanguage;
     }
 }

@@ -20,6 +20,11 @@ Feature: Draft edit and inheritance value for product draft with unit attribute
     Then the response status code should be 200
     And store response param "id" as "language_id_fr"
 
+  Scenario: Get language de
+    When I send a GET request to "/api/v1/en/languages/de"
+    Then the response status code should be 200
+    And store response param "id" as "language_id_de"
+
   Scenario: Update Tree
     When I send a PUT request to "/api/v1/en/language/tree" with body:
       """
@@ -34,6 +39,10 @@ Feature: Draft edit and inheritance value for product draft with unit attribute
                 },
                 {
                   "language_id":"@language_id_fr@",
+                  "children":[]
+                },
+                {
+                  "language_id":"@language_id_de@",
                   "children":[]
                 }
               ]
@@ -53,7 +62,7 @@ Feature: Draft edit and inheritance value for product draft with unit attribute
       """
     Then the response status code should be 201
     And store response param "id" as "unit_id"
-    
+
   Scenario: Create unit attribute
     Given remember param "attribute_code" with value "unit_@@random_code@@"
     When I send a POST request to "/api/v1/en/attributes" with body:
@@ -112,6 +121,20 @@ Feature: Draft edit and inheritance value for product draft with unit attribute
       }
       """
     Then the response status code should be 200
+
+  Scenario: Edit product unit value in "de" language
+    When I send a PUT request to "api/v1/de/products/@product_id@/draft/@attribute_id@/value" with body:
+      """
+      {
+        "value": null
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Get draft values in "de" language
+    When I send a GET request to "api/v1/de/products/@product_id@/draft"
+    Then the response status code should be 200
+    And the JSON node attributes.@attribute_code@ should be null
 
   Scenario: Get draft values in "pl" language
     When I send a GET request to "api/v1/pl/products/@product_id@/draft"

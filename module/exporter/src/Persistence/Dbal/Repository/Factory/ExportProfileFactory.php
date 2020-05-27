@@ -36,7 +36,7 @@ class ExportProfileFactory
      */
     public function create(array $record): AbstractExportProfile
     {
-        $class = $record['type'];
+        $class = $record['class'];
         $data = $record['configuration'];
 
         return $this->serializer->deserialize($data, $class, 'json');

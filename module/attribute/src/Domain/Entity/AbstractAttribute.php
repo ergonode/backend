@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeScopeChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupRemovedEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -205,6 +206,18 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
+     * @param AttributeScope $scope
+     *
+     * @throws \Exception
+     */
+    public function changeScope(AttributeScope $scope): void
+    {
+        if (!$scope->isEqual($this->scope)) {
+            $this->apply(new AttributeScopeChangedEvent($this->id, $this->scope, $scope));
+        }
+    }
+
+    /**
      * @return TranslatableString
      */
     public function getLabel(): TranslatableString
@@ -350,6 +363,14 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     protected function applyAttributePlaceholderChangedEvent(AttributePlaceholderChangedEvent $event): void
     {
         $this->placeholder = $event->getTo();
+    }
+
+    /**
+     * @param AttributeScopeChangedEvent $event
+     */
+    protected function applyAttributeScopeChangedEvent(AttributeScopeChangedEvent $event): void
+    {
+        $this->scope = $event->getTo();
     }
 
     /**

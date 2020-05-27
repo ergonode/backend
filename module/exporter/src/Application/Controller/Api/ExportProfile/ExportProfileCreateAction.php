@@ -11,6 +11,7 @@ namespace Ergonode\Exporter\Application\Controller\Api\ExportProfile;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Exporter\Application\Provider\CreateExportProfileCommandBuilderProvider;
 use Ergonode\Exporter\Application\Provider\ExportProfileFormFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
@@ -22,6 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
+ *     name="ergonode_export_profile_create",
  *     path="/export-profile",
  *     methods={"POST"}
  * )
@@ -32,18 +34,29 @@ class ExportProfileCreateAction
      * @var ExportProfileFormFactoryProvider
      */
     private ExportProfileFormFactoryProvider $provider;
+
+    /**
+     * @var CreateExportProfileCommandBuilderProvider
+     */
+    private CreateExportProfileCommandBuilderProvider $commandProvider;
+
     /**
      * @var CommandBusInterface
      */
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ExportProfileFormFactoryProvider $provider
-     * @param CommandBusInterface              $commandBus
+     * @param ExportProfileFormFactoryProvider          $provider
+     * @param CreateExportProfileCommandBuilderProvider $commandProvider
+     * @param CommandBusInterface                       $commandBus
      */
-    public function __construct(ExportProfileFormFactoryProvider $provider, CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        ExportProfileFormFactoryProvider $provider,
+        CreateExportProfileCommandBuilderProvider $commandProvider,
+        CommandBusInterface $commandBus
+    ) {
         $this->provider = $provider;
+        $this->commandProvider = $commandProvider;
         $this->commandBus = $commandBus;
     }
 
@@ -92,7 +105,7 @@ class ExportProfileCreateAction
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $command = $form->getData();
+                $command = $this->commandProvider->provide($type)->build($form);
                 $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());

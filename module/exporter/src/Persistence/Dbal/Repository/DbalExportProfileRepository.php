@@ -25,6 +25,7 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
     private const FIELDS = [
         'id',
         'type',
+        'class',
         'name',
         'configuration',
     ];
@@ -141,7 +142,6 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
             [
                 'name' => $exportProfile->getName(),
                 'configuration' => $this->serializer->serialize($exportProfile, 'json'),
-                'type' => \get_class($exportProfile),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
@@ -164,7 +164,8 @@ class DbalExportProfileRepository implements ExportProfileRepositoryInterface
                 'id' => $exportProfile->getId()->getValue(),
                 'name' => $exportProfile->getName(),
                 'configuration' => $this->serializer->serialize($exportProfile, 'json'),
-                'type' => \get_class($exportProfile),
+                'class' => \get_class($exportProfile),
+                'type' => $exportProfile->getType(),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]

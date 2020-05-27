@@ -19,7 +19,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
-class SimpleProductFactory implements ProductFactoryInterface
+class SimpleProductFactory
 {
     /**
      * @param string $type

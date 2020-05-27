@@ -21,5 +21,8 @@ class AttributeTypeValid extends Constraint
      */
     public string $message = 'Attribute {{ value }} not valid.';
 
+    /**
+     * @var string|null
+     */
     public ?string $type = null;
 }

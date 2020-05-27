@@ -12,6 +12,7 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
 
 /**
  */
@@ -23,11 +24,18 @@ abstract class AbstractAttributeDataSetBuilder implements AttributeDataSetQueryB
     protected LanguageQueryInterface $query;
 
     /**
-     * @param LanguageQueryInterface $query
+     * @var ProductAttributeLanguageResolver
      */
-    public function __construct(LanguageQueryInterface $query)
+    protected ProductAttributeLanguageResolver $resolver;
+
+    /**
+     * @param LanguageQueryInterface           $query
+     * @param ProductAttributeLanguageResolver $resolver
+     */
+    public function __construct(LanguageQueryInterface $query, ProductAttributeLanguageResolver $resolver)
     {
         $this->query = $query;
+        $this->resolver = $resolver;
     }
 
     /**
@@ -38,7 +46,7 @@ abstract class AbstractAttributeDataSetBuilder implements AttributeDataSetQueryB
      */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
-        $info = $this->query->getLanguageNodeInfo($language);
+        $info = $this->query->getLanguageNodeInfo($this->resolver->resolve($attribute, $language));
 
         $query->addSelect(sprintf(
             '(

@@ -14,6 +14,7 @@ use Ergonode\Attribute\Domain\Entity\Attribute\DateAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Product\Infrastructure\Grid\Builder\Query\PriceAttributeDataSetQueryBuilder;
+use Ergonode\Product\Infrastructure\Strategy\ProductAttributeLanguageResolver;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
@@ -23,24 +24,29 @@ use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 class PriceAttributeDataSetQueryBuilderTest extends TestCase
 {
     /**
-     * @var DateAttribute|MockObject
+     * @var PriceAttribute|MockObject
      */
-    private $attribute;
+    private PriceAttribute $attribute;
 
     /**
      * @var QueryBuilder|MockObject
      */
-    private $queryBuilder;
+    private QueryBuilder $queryBuilder;
 
     /**
      * @var Language|MockObject
      */
-    private $language;
+    private Language $language;
 
     /**
      * @var LanguageQueryInterface|MockObject
      */
     private LanguageQueryInterface $query;
+
+    /**
+     * @var ProductAttributeLanguageResolver
+     */
+    private ProductAttributeLanguageResolver $resolver;
 
     /**
      */
@@ -51,13 +57,14 @@ class PriceAttributeDataSetQueryBuilderTest extends TestCase
         $this->language = $this->createMock(Language::class);
         $this->query = $this->createMock(LanguageQueryInterface::class);
         $this->query->method('getLanguageNodeInfo')->willReturn(['lft' => 1, 'rgt' => 10]);
+        $this->resolver = new ProductAttributeLanguageResolver($this->query);
     }
 
     /**
      */
     public function testIsSupported(): void
     {
-        $builder = new PriceAttributeDataSetQueryBuilder($this->query);
+        $builder = new PriceAttributeDataSetQueryBuilder($this->query, $this->resolver);
         $this->assertTrue($builder->supports($this->attribute));
     }
 
@@ -65,7 +72,7 @@ class PriceAttributeDataSetQueryBuilderTest extends TestCase
      */
     public function testIsNotSupported(): void
     {
-        $builder = new PriceAttributeDataSetQueryBuilder($this->query);
+        $builder = new PriceAttributeDataSetQueryBuilder($this->query, $this->resolver);
         $this->assertFalse($builder->supports($this->createMock(AbstractAttribute::class)));
     }
 
@@ -74,7 +81,7 @@ class PriceAttributeDataSetQueryBuilderTest extends TestCase
     public function testAddQuerySelect(): void
     {
         $this->queryBuilder->expects($this->once())->method('addSelect');
-        $builder = new PriceAttributeDataSetQueryBuilder($this->query);
+        $builder = new PriceAttributeDataSetQueryBuilder($this->query, $this->resolver);
         $builder->addSelect($this->queryBuilder, 'any key', $this->attribute, $this->language);
     }
 }

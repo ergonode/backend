@@ -10,9 +10,9 @@ namespace Ergonode\Multimedia\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -68,6 +68,19 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
             ->fetch(\PDO::FETCH_COLUMN);
 
         return $result ? new MultimediaId($result) : null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMultimedia(): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select('id')
+            ->from(self::TABLE, 'm')
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
     }
 
     /**

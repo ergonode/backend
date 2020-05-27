@@ -9,7 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterMagento2\Application\Form;
 
 use Ergonode\Core\Application\Form\Type\LanguageType;
-use Ergonode\Exporter\Domain\Command\ExportProfile\CreateExportProfileCommand;
 use Ergonode\ExporterMagento2\Application\Form\Model\ExporterMagento2CsvConfigurationModel;
 use Ergonode\ExporterMagento2\Domain\Entity\Magento2ExportCsvProfile;
 use Symfony\Component\Form\AbstractType;
@@ -45,29 +44,6 @@ class ExporterMagento2ConfigurationForm extends AbstractType
                     'property_path' => 'defaultLanguage',
                 ]
             );
-
-        $builder->addEventListener(FormEvents::SUBMIT, static function (FormEvent $event) {
-            /** @var ExporterMagento2CsvConfigurationModel $data */
-            $data = $event->getData();
-
-            if (!$data) {
-                return;
-            }
-
-            $name = $data->name;
-            $filename = $data->filename;
-            $language = $data->defaultLanguage->getCode();
-
-            $data = new CreateExportProfileCommand(
-                $name,
-                Magento2ExportCsvProfile::TYPE,
-                [
-                    'filename' => $filename,
-                    'defaultLanguage' => $language,
-                ]
-            );
-            $event->setData($data);
-        });
     }
 
     /**

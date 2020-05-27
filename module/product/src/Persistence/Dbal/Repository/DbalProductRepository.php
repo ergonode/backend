@@ -12,11 +12,13 @@ namespace Ergonode\Product\Persistence\Dbal\Repository;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Ergonode\Product\Domain\Event\ProductDeletedEvent;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
@@ -53,7 +55,12 @@ class DbalProductRepository implements ProductRepositoryInterface
 
         $result = null;
         if (0 !== count($eventStream)) {
-            $class = new \ReflectionClass(SimpleProduct::class);
+            /** @var DomainEventEnvelope $envelope */
+            $envelope = $eventStream->getIterator()->current();
+            /** @var ProductCreatedEvent $event */
+            $event = $envelope->getEvent();
+
+            $class = new \ReflectionClass($event->getClass());
             /** @var AbstractAggregateRoot $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
             if (!$aggregate instanceof AbstractProduct) {
@@ -79,6 +86,16 @@ class DbalProductRepository implements ProductRepositoryInterface
         foreach ($events as $envelope) {
             $this->eventBus->dispatch($envelope->getEvent());
         }
+    }
+
+    /**
+     * @param ProductId $id
+     *
+     * @return bool
+     */
+    public function exists(ProductId $id): bool
+    {
+        return $this->eventStore->load($id)->count() > 0;
     }
 
     /**

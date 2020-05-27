@@ -90,6 +90,7 @@ Feature: Product module
       """
       {
         "sku": <sku>,
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": []
       }
@@ -101,6 +102,14 @@ Feature: Product module
       | "      "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
       | "test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test testtest test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test testtest test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test testtest test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test testtest test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test testtest test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test testtest test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test testtest test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test" |
 
+  Scenario: Get product type dictionary
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a GET request to "/api/v1/en/dictionary/product-type"
+    Then the response status code should be 200
+    And the JSON node "SIMPLE-PRODUCT" should exist
+
   Scenario: Create product
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
@@ -109,6 +118,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": ["@product_category@"]
       }
@@ -124,6 +134,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@"
       }
       """
@@ -137,16 +148,15 @@ Feature: Product module
     When I send a POST request to "/api/v1/en/collections/type" with body:
       """
       {
-           "code": "TEXT_@@random_code@@",
-              "name": {
-                 "de": "Name de",
-                 "en": "Name en"
-                 }
+        "code": "TEXT_@@random_code@@",
+        "name": {
+          "de": "Name de",
+          "en": "Name en"
+        }
       }
       """
     Then the response status code should be 201
     And store response param "id" as "product_collection_type"
-
 
   Scenario: Create first product collection
     Given I am Authenticated as "test@ergonode.com"
@@ -195,6 +205,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "test",
         "categoryIds": ["@product_category@"]
       }
@@ -209,6 +220,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@@random_uuid@@",
         "categoryIds": ["@product_category@"]
       }
@@ -223,6 +235,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "categoryIds": ["@product_category@"]
       }
       """
@@ -236,6 +249,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": []
       }
@@ -250,6 +264,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@"
       }
       """
@@ -263,6 +278,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@",
         "categoryIds": ["test"]
       }
@@ -277,6 +293,7 @@ Feature: Product module
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_template@"
       }
       """
@@ -289,6 +306,7 @@ Feature: Product module
     When I send a PUT request to "/api/v1/en/products/@product_2@" with body:
       """
       {
+        "templateId": "@product_template@",
         "categoryIds": ["@product_category@", "@product_category_2@"]
       }
       """
@@ -310,6 +328,7 @@ Feature: Product module
     When I send a PUT request to "/api/v1/en/products/@product_2@" with body:
       """
       {
+        "templateId": "@product_template@",
         "categoryIds": ["@product_category_2@"]
       }
       """

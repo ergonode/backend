@@ -23,15 +23,12 @@ class CategoryGridTest extends TestCase
      */
     public function testGridInit(): void
     {
-        /** @var TranslatorInterface|MockObject $translator */
-        $translator = $this->createMock(TranslatorInterface::class);
-        $translator->method('trans')->willReturn('translated');
         /** @var GridConfigurationInterface $configuration */
         $configuration = $this->createMock(GridConfigurationInterface::class);
         /** @var Language $language */
         $language = $this->createMock(Language::class);
 
-        $grid = new CategoryGrid($translator);
+        $grid = new CategoryGrid();
         $grid->init($configuration, $language);
 
         $this->assertNotEmpty($grid->getColumns());

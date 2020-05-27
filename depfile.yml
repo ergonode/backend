@@ -103,6 +103,18 @@ layers:
     collectors:
       - type: className
         regex: .*Ergonode\\ProductCollection\\.*
+  - name: Exporter
+    collectors:
+      - type: className
+        regex: .*Ergonode\\Exporter\\.*
+  - name: ExporterFile
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ExporterFile\\.*
+  - name: ExporterMagento2
+    collectors:
+      - type: className
+        regex: .*Ergonode\\ExporterMagento2\\.*
 ruleset:
   Grid:
     - Core
@@ -260,3 +272,30 @@ ruleset:
     - Segment
     - Product
     - Attribute
+  Exporter:
+    - Api
+    - Core
+    - Grid
+    - EventSourcing
+    - Product
+    - Attribute
+    - Category
+    - Value
+  ExporterFile:
+    - Api
+    - Core
+    - Grid
+    - EventSourcing
+    - Exporter
+    - Product
+    - Attribute
+    - Value
+  ExporterMagento2:
+    - Api
+    - Core
+    - Grid
+    - EventSourcing
+    - Exporter
+    - Product
+    - Attribute
+    - Value

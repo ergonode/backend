@@ -11,9 +11,9 @@ namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -60,7 +60,7 @@ class ProductCreatedEventProjector
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'sku' => $event->getSku()->getValue(),
-                'status' => 'new',
+                'type' => $event->getType(),
             ]
         );
 
@@ -94,8 +94,8 @@ class ProductCreatedEventProjector
             $phrase = reset($array);
             $this->insert($productId, $attributeId, $phrase);
         } elseif ($value instanceof StringCollectionValue) {
-            foreach ($value->getValue() as $phrase) {
-                $this->insert($productId, $attributeId, $phrase);
+            foreach ($value->getValue() as $language => $phrase) {
+                $this->insert($productId, $attributeId, $phrase, $language);
             }
         } elseif ($value instanceof TranslatableStringValue) {
             $translation = $value->getValue();

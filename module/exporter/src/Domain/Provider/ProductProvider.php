@@ -52,6 +52,7 @@ class ProductProvider
     /**
      * @param Uuid   $id
      * @param string $sku
+     * @param string $type
      * @param array  $categories
      * @param array  $attributes
      *
@@ -60,12 +61,13 @@ class ProductProvider
     public function createFromEvent(
         Uuid $id,
         string $sku,
+        string $type,
         array $categories = [],
         array $attributes = []
     ): DefaultExportProduct {
         $categories = $this->categoryCodeFactory->createList($categories);
         $attributes = $this->attributeFactory->createList($attributes);
 
-        return $this->productFactory->createFromEvent($id, $sku, $categories, $attributes);
+        return $this->productFactory->createFromEvent($id, $sku, $type, $categories, $attributes);
     }
 }

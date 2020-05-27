@@ -9,11 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Persistence\Dbal\Projector\Product;
 
-use Doctrine\DBAL\Connection;
 use Ergonode\Exporter\Domain\Provider\ProductProvider;
 use Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
-use JMS\Serializer\SerializerInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -51,6 +49,7 @@ class ProductCreatedEventProjector
         $product = $this->provider->createFromEvent(
             $id,
             $event->getSku()->getValue(),
+            $event->getType(),
             $event->getCategories(),
             $event->getAttributes()
         );

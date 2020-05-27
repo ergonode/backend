@@ -84,13 +84,12 @@ class ProductCompletenessConditionCalculatorStrategy implements ConditionCalcula
     {
         $draft = $this->provider->provide($object);
 
-        $templateId = new TemplateId(
-            $object->getAttribute(
-                new AttributeCode(
-                    TemplateSystemAttribute::CODE
-                )
-            )->getValue()
+        $attribute = $object->getAttribute(
+            new AttributeCode(
+                TemplateSystemAttribute::CODE
+            )
         );
+        $templateId = new TemplateId($attribute->__toString());
 
         $template = $this->repository->load($templateId);
         Assert::notNull($template, sprintf('Can\'t find template %s', $templateId->getValue()));

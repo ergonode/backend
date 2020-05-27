@@ -11,6 +11,7 @@ namespace Ergonode\Segment\Domain\Query;
 
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
@@ -22,4 +23,11 @@ interface SegmentProductsQueryInterface
      * @return DataSetInterface
      */
     public function getDataSet(SegmentId $segmentId): DataSetInterface;
+
+    /**
+     * @param SegmentId $segmentId
+     *
+     * @return string[]
+     */
+    public function getProducts(SegmentId $segmentId): array;
 }

@@ -18,46 +18,40 @@ use Ergonode\Product\Domain\Event\ProductRemovedFromCategoryEvent;
 use Ergonode\Product\Domain\Event\ProductValueAddedEvent;
 use Ergonode\Product\Domain\Event\ProductValueChangedEvent;
 use Ergonode\Product\Domain\Event\ProductValueRemovedEvent;
-use Ergonode\Product\Domain\Event\ProductVersionIncreasedEvent;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 
 /**
  */
-abstract class AbstractProduct extends AbstractAggregateRoot
+abstract class AbstractProduct extends AbstractAggregateRoot implements ProductInterface
 {
     /**
      * @var ProductId
      */
-    private ProductId $id;
+    protected ProductId $id;
 
     /**
      * @var Sku
      */
-    private Sku $sku;
-
-    /**
-     * @var int
-     */
-    private int $version;
+    protected Sku $sku;
 
     /**
      * @var ValueInterface[]
      *
      * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
      */
-    private array $attributes;
+    protected array $attributes;
 
     /**
      * @var string[]
      *
      * @JMS\Type("array<string>")
      */
-    private array $categories;
+    protected array $categories;
 
     /**
      * @param ProductId $id
@@ -82,8 +76,16 @@ abstract class AbstractProduct extends AbstractAggregateRoot
             }
         );
 
-        $this->apply(new ProductCreatedEvent($id, $sku, $categories, $attributes));
+        $this->apply(new ProductCreatedEvent($id, $sku, $this->getType(), \get_class($this), $categories, $attributes));
     }
+
+    /**
+     * @JMS\VirtualProperty();
+     * @JMS\SerializedName("type")
+     *
+     * @return string
+     */
+    abstract public function getType(): string;
 
     /**
      * @return ProductId
@@ -264,7 +266,6 @@ abstract class AbstractProduct extends AbstractAggregateRoot
         $this->sku = $event->getSku();
         $this->attributes = [];
         $this->categories = [];
-        $this->version = 1;
         foreach ($event->getCategories() as $category) {
             $this->categories[$category->getValue()] = $category;
         }
@@ -311,13 +312,5 @@ abstract class AbstractProduct extends AbstractAggregateRoot
     protected function applyProductValueRemovedEvent(ProductValueRemovedEvent $event): void
     {
         unset($this->attributes[$event->getAttributeCode()->getValue()]);
-    }
-
-    /**
-     * @param ProductVersionIncreasedEvent $event
-     */
-    protected function applyProductVersionIncreasedEvent(ProductVersionIncreasedEvent $event): void
-    {
-        $this->version = $event->getTo();
     }
 }

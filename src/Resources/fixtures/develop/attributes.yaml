@@ -13,6 +13,15 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateImageAttributeCommand:
             - '@hint_1'
             - '@placeholder_1'
             - '<AttributeScope(local)>'
+            
+#Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand:
+#    attribute_gallery:
+#        __construct:
+#            - '<AttributeCode(gallery_attribute)>'
+#            - '@label_1'
+#            - '@hint_1'
+#            - '@placeholder_1'
+#            - '<AttributeScope(local)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand:
     attribute_{1..5}:
@@ -216,6 +225,13 @@ Ergonode\ProductCollection\Domain\Entity\Attribute\ProductCollectionSystemAttrib
             - '@empty'
             - '@empty'
 
+Ergonode\Product\Domain\Entity\Attribute\ProductTypeSystemAttribute:
+    attribute_esa_product_type:
+        __construct:
+            - '@label_esa_product_type'
+            - '@empty'
+            - '@empty'
+            
 Ergonode\Designer\Domain\Entity\Attribute\DefaultLabelSystemAttribute:
     attribute_esa_default_label:
         __construct:

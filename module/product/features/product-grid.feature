@@ -268,6 +268,7 @@ Feature: Product edit feature
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_edit_template@",
         "categoryIds": []
       }
@@ -283,6 +284,7 @@ Feature: Product edit feature
       """
       {
         "sku": "SKU_@@random_code@@",
+        "type": "SIMPLE-PRODUCT",
         "templateId": "@product_edit_template@",
         "categoryIds": []
       }
