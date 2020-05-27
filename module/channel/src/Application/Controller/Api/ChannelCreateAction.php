@@ -14,7 +14,6 @@ use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Channel\Application\Form\ChannelCreateForm;
 use Ergonode\Channel\Application\Model\ChannelCreateFormModel;
 use Ergonode\Channel\Domain\Command\CreateChannelCommand;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
