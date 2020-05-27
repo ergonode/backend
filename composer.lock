@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "056a45deeb1ff88c7daef82692615279",
+    "content-hash": "e3f8e2f7258f35b5e77ee4d71bb59020",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -6234,16 +6234,16 @@
         },
         {
             "name": "symfony/messenger",
-            "version": "v4.4.2",
+            "version": "v4.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/messenger.git",
-                "reference": "3dceeedd370e7b3b1616fd0818662904e25c7770"
+                "reference": "518595aaf10a177623685be49b585c09e96aedc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/messenger/zipball/3dceeedd370e7b3b1616fd0818662904e25c7770",
-                "reference": "3dceeedd370e7b3b1616fd0818662904e25c7770",
+                "url": "https://api.github.com/repos/symfony/messenger/zipball/518595aaf10a177623685be49b585c09e96aedc3",
+                "reference": "518595aaf10a177623685be49b585c09e96aedc3",
                 "shasum": ""
             },
             "require": {
@@ -6304,7 +6304,7 @@
             ],
             "description": "Symfony Messenger Component",
             "homepage": "https://symfony.com",
-            "time": "2019-12-16T14:00:54+00:00"
+            "time": "2020-04-15T15:56:18+00:00"
         },
         {
             "name": "symfony/mime",
@@ -7094,16 +7094,16 @@
         },
         {
             "name": "symfony/security",
-            "version": "v4.4.2",
+            "version": "v4.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security.git",
-                "reference": "c55a03e5ccb12b928a7970681363baf9197005d1"
+                "reference": "962860f9a8ac04863a1d1b3ee3911a89d690d7ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security/zipball/c55a03e5ccb12b928a7970681363baf9197005d1",
-                "reference": "c55a03e5ccb12b928a7970681363baf9197005d1",
+                "url": "https://api.github.com/repos/symfony/security/zipball/962860f9a8ac04863a1d1b3ee3911a89d690d7ec",
+                "reference": "962860f9a8ac04863a1d1b3ee3911a89d690d7ec",
                 "shasum": ""
             },
             "require": {
@@ -7176,7 +7176,7 @@
             ],
             "description": "Symfony Security Component",
             "homepage": "https://symfony.com",
-            "time": "2019-12-16T11:07:37+00:00"
+            "time": "2020-03-23T12:37:11+00:00"
         },
         {
             "name": "symfony/security-bundle",
@@ -12126,6 +12126,5 @@
         "ext-json": "*",
         "ext-pdo": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }

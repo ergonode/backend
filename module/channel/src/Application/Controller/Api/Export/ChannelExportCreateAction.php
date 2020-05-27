@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Channel\Application\Controller\Api;
+namespace Ergonode\Channel\Application\Controller\Api\Export;
 
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\Channel\Domain\Entity\Channel;
@@ -22,13 +22,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     name="ergonode_channel_start",
- *     path="/channels/{channel}/start",
+ *     name="ergonode_channel_export",
+ *     path="/channels/{channel}/exports",
  *     methods={"POST"},
  *     requirements={"channel" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class ChannelStartExportAction
+class ChannelExportCreateAction
 {
     /**
      * @var CommandBusInterface
