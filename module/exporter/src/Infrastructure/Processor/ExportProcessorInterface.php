@@ -11,6 +11,7 @@ namespace Ergonode\Exporter\Infrastructure\Processor;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 
 /**
  */
@@ -35,6 +36,8 @@ interface ExportProcessorInterface
      * @param AbstractProduct       $product
      *
      * @return mixed
+     *
+     * @throws ExportException
      */
     public function process(ExportId $id, AbstractExportProfile $profile, AbstractProduct $product): void;
 
