@@ -64,6 +64,6 @@ class StartExportCommandHandler
         $this->exportRepository->save($export);
 
         $processor = $this->provider->provide($exportProfile->getType());
-        $processor->start($exportProfile);
+        $processor->start($command->getExportId(), $exportProfile);
     }
 }
