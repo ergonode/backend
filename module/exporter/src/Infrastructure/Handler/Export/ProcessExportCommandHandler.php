@@ -14,6 +14,9 @@ use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorProvider;
 use Webmozart\Assert\Assert;
 use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
+use Ergonode\Exporter\Domain\Entity\ExportLine;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
@@ -23,6 +26,11 @@ class ProcessExportCommandHandler
      * @var ExportRepositoryInterface
      */
     private ExportRepositoryInterface $exportRepository;
+
+    /**
+     * @var ExportLineRepositoryInterface
+     */
+    private ExportLineRepositoryInterface $lineRepository;
 
     /**
      * @var ExportProfileRepositoryInterface
@@ -41,17 +49,20 @@ class ProcessExportCommandHandler
 
     /**
      * @param ExportRepositoryInterface        $exportRepository
+     * @param ExportLineRepositoryInterface    $lineRepository
      * @param ExportProfileRepositoryInterface $exportProfileRepository
      * @param ProductRepositoryInterface       $productRepository
      * @param ExportProcessorProvider          $provider
      */
     public function __construct(
         ExportRepositoryInterface $exportRepository,
+        ExportLineRepositoryInterface $lineRepository,
         ExportProfileRepositoryInterface $exportProfileRepository,
         ProductRepositoryInterface $productRepository,
         ExportProcessorProvider $provider
     ) {
         $this->exportRepository = $exportRepository;
+        $this->lineRepository = $lineRepository;
         $this->exportProfileRepository = $exportProfileRepository;
         $this->productRepository = $productRepository;
         $this->provider = $provider;
@@ -61,6 +72,7 @@ class ProcessExportCommandHandler
      * @param ProcessExportCommand $command
      *
      * @throws \ReflectionException
+     * @throws DBALException
      */
     public function __invoke(ProcessExportCommand $command)
     {
@@ -71,7 +83,15 @@ class ProcessExportCommandHandler
         $product = $this->productRepository->load($command->getProductId());
         Assert::notNull($product);
 
-        $processor = $this->provider->provide($exportProfile->getType());
-        $processor->process($command->getExportId(), $exportProfile, $product);
+        $line = new ExportLine($export->getId(), $product->getId());
+        try {
+            $processor = $this->provider->provide($exportProfile->getType());
+            $processor->process($command->getExportId(), $exportProfile, $product);
+            $line->process();
+        } catch (\Exception $exception) {
+            $line->addError($exception->getMessage());
+        }
+
+        $this->lineRepository->save($line);
     }
 }
