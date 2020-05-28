@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Fixture\Infrastructure\Faker;
 
-use Ergonode\SharedKernel\Domain\AbstractId;
 use Faker\Provider\Base as BaseProvider;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  */
@@ -22,12 +22,8 @@ class StringCollectionValueFaker extends BaseProvider
      *
      * @return StringCollectionValue
      */
-    public function stringCollectionValue($value): StringCollectionValue
+    public function stringCollectionValue(TranslatableString $value): StringCollectionValue
     {
-        if ($value instanceof AbstractId) {
-            return new StringCollectionValue([$value->getValue()]);
-        }
-
-        return new StringCollectionValue([(string) $value]);
+        return new StringCollectionValue($value->getTranslations());
     }
 }

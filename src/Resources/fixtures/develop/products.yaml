@@ -1,61 +1,85 @@
-parameters:
-    product_sentence:
-        'pl': "pl string value"
-        'en': "en string value"
-    product_paragraph:
-        'pl': "pl long string value"
-        'en': "en long string value"
+Ergonode\Core\Domain\ValueObject\TranslatableString:
+  translation_image_{1..10}:
+    __construct:
+      -
+        pl: '@product_image_*->id'
+        en: '@product_image_*->id'
+  translation_sentence_{1..10}:
+    __construct:
+      -
+        pl: <pl_PL:sentence(5)>
+        en: <en_EN:sentence(5)>
+  translation_paragraph_{1..10}:
+    __construct:
+      -
+        pl: <pl_PL:paragraph(20)>
+        en: <en_EN:paragraph(20)>
+  translation_float_{1..10}:
+    __construct:
+      -
+        pl: <pl_PL:randomFloat()>
+        en: <en_EN:randomFloat()>
+  translation_date_{1..10}:
+    __construct:
+      -
+        pl: '<pl_PL:date(Y-m-d)>'
+        en: '<en_EN:date(Y-m-d)>'
+  translation_option_{1..10}:
+    __construct:
+      -
+        pl: '@select_option_*->id'
+        en: '@select_option_*->id'
 
 Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
-    product_{1..1000}:
-        __construct:
-            - '<productId(SKU_<current()>)>'
-            - '<sku(SKU_<current()>)>'
-            - '@template->id'
-            - []
-            -
-                'image_attribute': '<stringValue(@product_image_*->id)>'
-                'code_1':  '<stringValue(<sentence(5)>)>'
-                'code_11':  '<stringValue(<paragraph(20)>)>'
-                'code_21':  '<stringValue(<randomFloat()>)>'
-                'code_26':  '<stringValue(<date(Y-m-d)>)>'
-                'code_31':  '<stringValue(<randomFloat(2)>)>'
-                'code_37':  '<stringValue(<randomFloat(2)>)>'
-                'code_41':  '<stringValue(@select_option_*->id)>'
-                'code_46':  '<stringCollectionValue(@multiselect_option_*->id)>'
+  product_{1..1000}:
+    __construct:
+      - '<productId(SKU_<current()>)>'
+      - '<sku(SKU_<current()>)>'
+      - '@template->id'
+      - []
+      -
+        'image_attribute': '<translatableStringValue(@translation_image_*)>'
+        'code_1':  '<translatableStringValue(@translation_sentence_*)>'
+        'code_11':  '<translatableStringValue(@translation_paragraph_*)>'
+        'code_21':  '<translatableStringValue(@translation_float_*)>'
+        'code_26':  '<translatableStringValue(@translation_date_*)>'
+        'code_31':  '<translatableStringValue(@translation_float_*)>'
+        'code_37':  '<translatableStringValue(@translation_float_*)>'
+        'code_41':  '<translatableStringValue(@translation_option_*)>'
+        'code_46':  '<stringCollectionValue(@translation_option_*)>'
 
 Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand:
-    product_{1001..1010}:
-        __construct:
-            - '<productId(SKU_<current()>)>'
-            - '<sku(SKU_<current()>)>'
-            - '@template->id'
-            - []
-            -
-                'image_attribute': '<stringValue(@product_image_*->id)>'
-                'code_1':  '<stringValue(<sentence(5)>)>'
-                'code_11':  '<stringValue(<paragraph(20)>)>'
-                'code_21':  '<stringValue(<randomFloat()>)>'
-                'code_26':  '<stringValue(<date(Y-m-d)>)>'
-                'code_31':  '<stringValue(<randomFloat(2)>)>'
-                'code_37':  '<stringValue(<randomFloat(2)>)>'
-                'code_41':  '<stringValue(@select_option_*->id)>'
-                'code_46':  '<stringCollectionValue(@multiselect_option_*->id)>'
+  product_{1001..1010}:
+    __construct:
+      - '<productId(SKU_<current()>)>'
+      - '<sku(SKU_<current()>)>'
+      - '@template->id'
+      - []
+      -
+        'image_attribute': '<translatableStringValue(@translation_image_*)>'
+        'code_1':  '<translatableStringValue(@translation_sentence_*)>'
+        'code_11':  '<translatableStringValue(@translation_paragraph_*)>'
+        'code_21':  '<translatableStringValue(@translation_float_*)>'
+        'code_26':  '<translatableStringValue(@translation_date_*)>'
+        'code_31':  '<translatableStringValue(@translation_float_*)>'
+        'code_37':  '<translatableStringValue(@translation_float_*)>'
+        'code_41':  '<translatableStringValue(@translation_option_*)>'
+        'code_46':  '<stringCollectionValue(@translation_option_*)>'
 
 Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand:
-    product_{1011..1020}:
-        __construct:
-            - '<productId(SKU_<current()>)>'
-            - '<sku(SKU_<current()>)>'
-            - '@template->id'
-            - []
-            -
-                'image_attribute': '<stringValue(@product_image_*->id)>'
-                'code_1':  '<translatableStringValue(<{product_sentence}>)>'
-                'code_11':  '<translatableStringValue(<{product_paragraph}>)>'
-#                'code_21':  '<translatableStringValue(<randomFloat()>)>'
-#                'code_26':  '<translatableStringValue(<date(Y-m-d)>)>'
-#                'code_31':  '<translatableStringValue(<randomFloat(2)>)>'
-#                'code_37':  '<translatableStringValue(<randomFloat(2)>)>'
-#                'code_41':  '<translatableStringValue(@select_option_*->id)>'
-#                'code_46':  '<translatableStringValue(@multiselect_option_*->id)>'
+  product_{1011..1020}:
+    __construct:
+      - '<productId(SKU_<current()>)>'
+      - '<sku(SKU_<current()>)>'
+      - '@template->id'
+      - []
+      -
+        'image_attribute': '<translatableStringValue(@translation_image_*)>'
+        'code_1':  '<translatableStringValue(@translation_sentence_*)>'
+        'code_11':  '<translatableStringValue(@translation_paragraph_*)>'
+        'code_21':  '<translatableStringValue(@translation_float_*)>'
+        'code_26':  '<translatableStringValue(@translation_date_*)>'
+        'code_31':  '<translatableStringValue(@translation_float_*)>'
+        'code_37':  '<translatableStringValue(@translation_float_*)>'
+        'code_41':  '<translatableStringValue(@translation_option_*)>'
+        'code_46':  '<stringCollectionValue(@translation_option_*)>'

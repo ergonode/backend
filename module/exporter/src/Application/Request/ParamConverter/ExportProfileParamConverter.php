@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  */
@@ -35,6 +36,7 @@ class ExportProfileParamConverter implements ParamConverterInterface
 
     /**
      * {@inheritDoc}
+     * @throws \ReflectionException
      */
     public function apply(Request $request, ParamConverter $configuration):void
     {
@@ -45,10 +47,14 @@ class ExportProfileParamConverter implements ParamConverterInterface
         }
 
         if (!ExportProfileId::isValid($parameter)) {
-            throw new BadRequestHttpException('Invalid Export Profile Id');
+            throw new BadRequestHttpException('Invalid Export profile Id');
         }
 
         $entity = $this->repository->load(new ExportProfileId($parameter));
+
+        if (null === $entity) {
+            throw new NotFoundHttpException(sprintf('Export profile by ID "%s" not found', $parameter));
+        }
 
         $request->attributes->set($configuration->getName(), $entity);
     }
