@@ -18,12 +18,12 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 class TranslatableStringValueFaker extends BaseProvider
 {
     /**
-     * @param array $values
+     * @param TranslatableString $values
      *
      * @return TranslatableStringValue
      */
-    public function translatableStringValue(array $values = []): TranslatableStringValue
+    public function translatableStringValue(TranslatableString $values): TranslatableStringValue
     {
-        return new TranslatableStringValue(new TranslatableString($values));
+        return new TranslatableStringValue($values);
     }
 }

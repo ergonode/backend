@@ -14,6 +14,7 @@ use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\ExporterFile\Infrastructure\Storage\FileStorage;
 use Ergonode\ExporterFile\Domain\Entity\FileExportProfile;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**
  */
@@ -23,6 +24,7 @@ class EndFileExportProcessTest extends TestCase
      */
     public function testProcess(): void
     {
+        $id = $this->createMock(ExportId::class);
         $provider = $this->createMock(WriterProvider::class);
         $query = $this->createMock(AttributeQueryInterface::class);
         $query->expects($this->once())->method('getDictionary');
@@ -33,6 +35,6 @@ class EndFileExportProcessTest extends TestCase
         $profile = $this->createMock(FileExportProfile::class);
 
         $processor = new EndFileExportProcess($query, $provider, $storage);
-        $processor->process($profile);
+        $processor->process($id, $profile);
     }
 }

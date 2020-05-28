@@ -15,6 +15,7 @@ use Ergonode\ExporterFile\Infrastructure\Processor\Process\ProcessFileExportProc
 use Ergonode\ExporterFile\Infrastructure\Processor\Process\EndFileExportProcess;
 use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**
  */
@@ -61,27 +62,30 @@ class FileExportProcessor implements ExportProcessorInterface
     }
 
     /**
+     * @param ExportId              $id
      * @param AbstractExportProfile $profile
      */
-    public function start(AbstractExportProfile $profile): void
+    public function start(ExportId $id, AbstractExportProfile $profile): void
     {
-        $this->startProcessor->process($profile);
+        $this->startProcessor->process($id, $profile);
     }
 
     /**
+     * @param ExportId              $id
      * @param AbstractExportProfile $profile
      * @param AbstractProduct       $product
      */
-    public function process(AbstractExportProfile $profile, AbstractProduct $product): void
+    public function process(ExportId $id, AbstractExportProfile $profile, AbstractProduct $product): void
     {
-        $this->processProcessor->process($profile, $product);
+        $this->processProcessor->process($id, $profile, $product);
     }
 
     /**
+     * @param ExportId              $id
      * @param AbstractExportProfile $profile
      */
-    public function end(AbstractExportProfile $profile): void
+    public function end(ExportId $id, AbstractExportProfile $profile): void
     {
-        $this->endProcessor->process($profile);
+        $this->endProcessor->process($id, $profile);
     }
 }

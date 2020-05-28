@@ -63,8 +63,6 @@ class ProductCreatedEvent implements DomainEventInterface
     private array $attributes;
 
     /**
-     * ProductCreatedEvent constructor.
-     *
      * @param ProductId $id
      * @param Sku       $sku
      * @param string    $type

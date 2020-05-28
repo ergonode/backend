@@ -14,6 +14,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "jms/serializer": "^3.4",
         "jms/serializer-bundle": "^3.4",
+        "league/flysystem-bundle": "^1.5",
         "lexik/jwt-authentication-bundle": "^2.6",
         "limenius/liform-bundle": "^0.15.0",
         "mhujer/jms-serializer-uuid": "^3.1",

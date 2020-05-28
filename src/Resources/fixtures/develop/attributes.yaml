@@ -13,15 +13,6 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateImageAttributeCommand:
             - '@hint_1'
             - '@placeholder_1'
             - '<AttributeScope(local)>'
-            
-#Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand:
-#    attribute_gallery:
-#        __construct:
-#            - '<AttributeCode(gallery_attribute)>'
-#            - '@label_1'
-#            - '@hint_1'
-#            - '@placeholder_1'
-#            - '<AttributeScope(local)>'
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand:
     attribute_{1..5}:
@@ -156,6 +147,15 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateMultiSelectAttributeCom
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - '<AttributeScope(global)>'
+
+Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand:
+    attribute_gallery:
+        __construct:
+            - '<AttributeCode(gallery_attribute)>'
+            - '@label_1'
+            - '@hint_1'
+            - '@placeholder_1'
+            - '<AttributeScope(local)>'
 
 Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand:
     select_option_{1..5}:

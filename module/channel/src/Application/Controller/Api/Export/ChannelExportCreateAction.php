@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     name="ergonode_channel_export",
+ *     name="ergonode_channel_export_create",
  *     path="/channels/{channel}/exports",
  *     methods={"POST"},
  *     requirements={"channel" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
