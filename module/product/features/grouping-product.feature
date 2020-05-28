@@ -44,6 +44,37 @@ Feature: Grouping product
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
+  Scenario: Create grouping product without template
+    When I send a POST request to "/api/v1/en/products" with body:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "type": "VARIABLE-PRODUCT"
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.templateId" should exist
+
+  Scenario: Update grouping product
+    When I send a PUT request to "/api/v1/en/products/@product_id@" with body:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "templateId": "@product_template_id@"
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Update grouping product without template
+    When I send a PUT request to "/api/v1/en/products/@product_id@" with body:
+      """
+      {
+        "templateId": null
+      }
+      """
+    Then the response status code should be 400
+    And the JSON node "errors.templateId" should exist
+
   Scenario: Add children product with invalid uuid
     When I send a POST request to "/api/v1/en/products/@product_id@/children" with body:
       """

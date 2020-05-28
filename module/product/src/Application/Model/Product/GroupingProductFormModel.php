@@ -38,10 +38,10 @@ class GroupingProductFormModel
     /**
      * @var string|null
      *
-     * @Assert\NotBlank(message="Template is required", groups={"Create"})
-     * @Assert\Uuid(groups={"Create"})
+     * @Assert\NotBlank(message="Template is required")
+     * @Assert\Uuid()
      *
-     * @TemplateExists(groups={"Create"})
+     * @TemplateExists()
      */
     public ?string $template = null;
 }
