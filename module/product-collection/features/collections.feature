@@ -10,7 +10,7 @@ Feature: Product collection module
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
           "scope": "local",
-          "label": {"pl_PL": "Atrybut tekstowy", "en": "Text attribute"},
+          "label": {"de": "Atrybut tekstowy", "en": "Text attribute"},
           "groups": [],
           "parameters": []
       }
@@ -26,6 +26,8 @@ Feature: Product collection module
       """
       {
         "name": "@@random_md5@@",
+        "defaultText": null,
+        "defaultImage": null,
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -129,11 +131,11 @@ Feature: Product collection module
         "code": "SEG_1_@@random_code@@",
         "condition_set_id": "@segment_conditionset@",
         "name": {
-          "pl_PL": "Segment",
+          "de": "Segment",
           "en": "Segment"
         },
         "description": {
-          "pl_PL": "Opis segmentu",
+          "de": "Opis segmentu",
           "en": "Segment description"
         }
       }
