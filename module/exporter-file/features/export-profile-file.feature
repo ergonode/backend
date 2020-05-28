@@ -50,6 +50,7 @@ Feature: Export Profile module
   Scenario: Run export for xml
     When I send a POST request to "/api/v1/en/channels/@channel_id@/exports"
     Then the response status code should be 201
+    And store response param "id" as "export_1_id"
 
   Scenario: Update File Export profile
     When I send a PUT request to "/api/v1/en/export-profile/@export_profile_id@" with body:
@@ -73,11 +74,32 @@ Feature: Export Profile module
   Scenario: Run export for csv
     When I send a POST request to "/api/v1/en/channels/@channel_id@/exports"
     Then the response status code should be 201
+    And store response param "id" as "export_2_id"
 
   Scenario: Get export grid for given channel
     When I send a GET request to "/api/v1/en/channels/@channel_id@/exports"
     Then the response status code should be 200
     And the JSON nodes should contain:
-      | collection[0].status | ENDED |
-      | collection[1].status | ENDED |
-      | info.count           | 2     |
+      | collection[0].status | ENDED         |
+      | collection[0].id     | @export_1_id@ |
+      | collection[1].status | ENDED         |
+      | collection[1].id     | @export_2_id@ |
+      | info.count           | 2             |
+
+  Scenario: Get first export information
+    When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_1_id@"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | id                | @export_1_id@       |
+      | channel_id        | @channel_id@        |
+      | export_profile_id | @export_profile_id@ |
+      | status            | ENDED               |
+
+  Scenario: Get second export information
+    When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_2_id@"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | id                | @export_2_id@       |
+      | channel_id        | @channel_id@        |
+      | export_profile_id | @export_profile_id@ |
+      | status            | ENDED               |
