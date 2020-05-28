@@ -48,11 +48,17 @@ class Export
     private ?\DateTime $endedAt;
 
     /**
+     * @var int
+     */
+    private int $items;
+
+    /**
      * @param ExportId        $exportId
      * @param ChannelId       $channelId
      * @param ExportProfileId $exportProfileId
+     * @param int             $items
      */
-    public function __construct(ExportId $exportId, ChannelId $channelId, ExportProfileId $exportProfileId)
+    public function __construct(ExportId $exportId, ChannelId $channelId, ExportProfileId $exportProfileId, int $items)
     {
         $this->id = $exportId;
         $this->channelId = $channelId;
@@ -60,6 +66,7 @@ class Export
         $this->status = new ExportStatus(ExportStatus::CREATED);
         $this->startedAt = null;
         $this->endedAt = null;
+        $this->items = $items;
     }
 
     /**
@@ -148,5 +155,13 @@ class Export
 
         $this->status = new ExportStatus(ExportStatus::ENDED);
         $this->endedAt = new \DateTime();
+    }
+
+    /**
+     * @return int
+     */
+    public function getItems(): int
+    {
+        return $this->items;
     }
 }

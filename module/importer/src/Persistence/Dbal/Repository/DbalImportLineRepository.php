@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Persistence\Dbal\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -184,48 +183,6 @@ class DbalImportLineRepository implements ImportLineRepositoryInterface
             self::TABLE,
             $importLineArray
         );
-    }
-
-    /**
-     * @param ImportId $id
-     *
-     * @return ArrayCollection
-     *
-     * @throws \ReflectionException
-     */
-    public function findCollectionByImport(ImportId $id): ArrayCollection
-    {
-        $qb = $this->getQuery();
-        $records = $qb->where($qb->expr()->eq('import_id', ':id'))
-            ->setParameter(':id', $id->getValue())
-            ->orderBy('line', 'ASC')
-            ->execute()
-            ->fetchAll();
-
-        $result = new ArrayCollection();
-        foreach ($records as $record) {
-            $result->add($this->factory->create($record));
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param ImportId $id
-     *
-     * @return array
-     */
-    public function getKeys(ImportId $id): array
-    {
-        $qb = $this->getQuery();
-        $record = $qb->where($qb->expr()->eq('import_id', ':id'))
-            ->setParameter(':id', $id->getValue())
-            ->orderBy('lp', 'ASC')
-            ->execute()
-            ->fetch();
-
-
-        return array_keys($record);
     }
 
     /**

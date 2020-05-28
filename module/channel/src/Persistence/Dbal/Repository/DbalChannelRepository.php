@@ -11,13 +11,11 @@ namespace Ergonode\Channel\Persistence\Dbal\Repository;
 
 use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\Channel\Domain\Event\ChannelCreatedEvent;
 use Ergonode\Channel\Domain\Event\ChannelDeletedEvent;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
-use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 
 /**
  */

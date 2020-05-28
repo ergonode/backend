@@ -11,13 +11,14 @@ namespace Ergonode\Channel\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Channel\Domain\Event\ChannelCreatedEvent;
+use Ergonode\Channel\Domain\Event\ChannelDeletedEvent;
 
 /**
  */
 class ChannelDeletedEventProjector
 {
     private const TABLE = 'exporter.channel';
+    private const TABLE_EXPORT = 'exporter.export_channel';
 
     /**
      * @var Connection
@@ -33,12 +34,19 @@ class ChannelDeletedEventProjector
     }
 
     /**
-     * @param ChannelCreatedEvent $event
+     * @param ChannelDeletedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ChannelCreatedEvent $event): void
+    public function __invoke(ChannelDeletedEvent $event): void
     {
+        $this->connection->delete(
+            self::TABLE_EXPORT,
+            [
+                'channel_id' =>  $event->getAggregateId()->getValue(),
+            ]
+        );
+
         $this->connection->delete(
             self::TABLE,
             [

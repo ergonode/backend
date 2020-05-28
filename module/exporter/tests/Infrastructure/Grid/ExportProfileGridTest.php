@@ -29,7 +29,7 @@ class ExportProfileGridTest extends TestCase
         $language = $this->createMock(Language::class);
         /** @var ExportProfileTypeDictionaryProvider|MockObject $provider */
         $provider = $this->createMock(ExportProfileTypeDictionaryProvider::class);
-        $provider->expects($this->once())->method('provide')->willReturn([]);
+        $provider->expects($this->once())->method('provide')->willReturn(['x' => 'y']);
         $grid = new ExportProfileGrid($provider);
         $grid->init($configuration, $language);
     }

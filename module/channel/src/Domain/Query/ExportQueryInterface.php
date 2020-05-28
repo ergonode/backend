@@ -22,4 +22,11 @@ interface ExportQueryInterface
      * @return DataSetInterface
      */
     public function getDataSet(ChannelId $channelId, Language $language): DataSetInterface;
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getProfileInfo(Language $language): array;
 }

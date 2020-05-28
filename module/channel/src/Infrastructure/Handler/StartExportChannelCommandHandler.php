@@ -70,17 +70,20 @@ class StartExportChannelCommandHandler
         $exportProfile = $this->exportProfileRepository->exists($command->getExportProfileId());
         Assert::true($exportProfile);
 
+        $ids = $this->productQuery->getAllIds();
+
         $export = new Export(
             $command->getExportId(),
             $command->getChannelId(),
-            $command->getExportProfileId()
+            $command->getExportProfileId(),
+            count($ids),
         );
 
         $this->exportRepository->save($export);
 
         $this->commandBus->dispatch(new StartExportCommand($export->getId()));
 
-        foreach ($this->productQuery->getAllIds() as $id) {
+        foreach ($ids as $id) {
             $this->commandBus->dispatch(new ProcessExportCommand($export->getId(), new ProductId($id)), true);
         }
 
