@@ -8,27 +8,26 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Persistence\Dbal\Repository\Factory;
 
-use Ergonode\Exporter\Domain\Entity\Export;
-use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
-use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Ergonode\Exporter\Domain\Entity\ExportLine;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
-class ExportFactory
+class ExportLineFactory
 {
     /**
      * @param array $record
      *
-     * @return Export
+     * @return ExportLine
      *
      * @throws \ReflectionException
+     * @throws \Exception
      */
-    public function create(array $record): Export
+    public function create(array $record): ExportLine
     {
-        $reflector = new \ReflectionClass(Export::class);
-        /** @var Export $object */
+        $reflector = new \ReflectionClass(ExportLine::class);
+        /** @var ExportLine $object */
         $object = $reflector->newInstanceWithoutConstructor();
 
         foreach ($this->getMap($record) as $key => $value) {
@@ -50,13 +49,10 @@ class ExportFactory
     private function getMap(array $record): array
     {
         return [
-            'id' => new ExportId($record['id']),
-            'status' => new ExportStatus($record['status']),
-            'channelId' => new ChannelId($record['channel_id']),
-            'exportProfileId' => new ExportProfileId($record['export_profile_id']),
-            'items' => $record['items'],
-            'startedAt' => $record['started_at'] ? new \DateTime($record['started_at']) : null,
-            'endedAt' => $record['ended_at'] ? new \DateTime($record['ended_at']) : null,
+            'exportId' => new ExportId($record['export_id']),
+            'objectId' => new AggregateId($record['object_id']),
+            'processedAt' => $record['processed_at'] ? new \DateTime($record['processed_at']) : null,
+            'error' => $record['message'],
         ];
     }
 }

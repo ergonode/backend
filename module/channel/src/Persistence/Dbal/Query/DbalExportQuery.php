@@ -22,6 +22,7 @@ use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 class DbalExportQuery implements ExportQueryInterface
 {
     private const TABLE = 'exporter.export';
+    private const TABLE_CHANNEL = 'exporter.channel';
 
     /**
      * @var Connection
@@ -53,6 +54,28 @@ class DbalExportQuery implements ExportQueryInterface
             ->setParameter(':channelId', $channelId->getValue());
 
         return new DbalDataSet($result);
+    }
+
+    /**
+     * @param Language $language
+     *
+     * @return array
+     */
+    public function getProfileInfo(Language $language): array
+    {
+        $query = $this->getQuery();
+
+        return $query
+            ->addSelect('ch.name, e.items')
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
+                                AND processed_at IS NOT NULL) as processed')
+            ->addSelect('(SELECT count(*) FROM exporter.export_line el WHERE el.export_id = e.id 
+                                AND processed_at IS NOT NULL AND message IS NOT NULL) as errors')
+            ->orderBy('started_at', 'DESC')
+            ->join('e', self::TABLE_CHANNEL, 'ch', 'ch.id = e.channel_id')
+            ->setMaxResults(10)
+            ->execute()
+            ->fetchAll();
     }
 
     /**

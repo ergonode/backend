@@ -7,3 +7,8 @@ ergonode_channel_export_api:
     resource: '../../Application/Controller/Api/Export/*'
     type: 'annotation'
     prefix: '/api/v1/{language}'
+
+ergonode_channel_notification_api:
+    resource: '../../Application/Controller/Api/Notification/*'
+    type: 'annotation'
+    prefix: '/api/v1/{language}'
