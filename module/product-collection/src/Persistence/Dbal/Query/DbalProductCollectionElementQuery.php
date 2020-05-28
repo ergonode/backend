@@ -55,8 +55,7 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
         Connection $connection,
         LanguageQueryInterface $query,
         ProductAttributeLanguageResolver $resolver
-    )
-    {
+    ) {
         $this->connection = $connection;
         $this->query = $query;
         $this->resolver = $resolver;
@@ -75,8 +74,12 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
 
         $query = $this->getQuery();
         $query->andWhere($query->expr()->eq('product_collection_id', ':productCollectionId'));
-        $query->andWhere(sprintf('(pltdi.lft <= %s AND pltdi.rgt >= %s) OR pltdi.lft IS NULL', $info['lft'], $info['rgt']));
-        $query->andWhere(sprintf('(pltdt.lft <= %s AND pltdt.rgt >= %s) OR pltdt.lft IS NULL', $info['lft'], $info['rgt']));
+        $query->andWhere(
+            sprintf('(pltdi.lft <= %s AND pltdi.rgt >= %s) OR pltdi.lft IS NULL', $info['lft'], $info['rgt'])
+        );
+        $query->andWhere(
+            sprintf('(pltdt.lft <= %s AND pltdt.rgt >= %s) OR pltdt.lft IS NULL', $info['lft'], $info['rgt'])
+        );
         $query->addSelect(
             'created_at,
          CASE
