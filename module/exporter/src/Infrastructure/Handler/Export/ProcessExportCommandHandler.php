@@ -17,6 +17,7 @@ use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\Exporter\Domain\Entity\ExportLine;
 use Doctrine\DBAL\DBALException;
+use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 
 /**
  */
@@ -88,8 +89,12 @@ class ProcessExportCommandHandler
             $processor = $this->provider->provide($exportProfile->getType());
             $processor->process($command->getExportId(), $exportProfile, $product);
             $line->process();
-        } catch (\Exception $exception) {
-            $line->addError($exception->getMessage());
+        } catch (ExportException $exception) {
+            $message = $exception->getMessage();
+            if ($exception->getPrevious()) {
+                sprintf('%s - (%s)', $message, $exception->getPrevious()->getMessage());
+            }
+            $line->addError($message);
         }
 
         $this->lineRepository->save($line);
