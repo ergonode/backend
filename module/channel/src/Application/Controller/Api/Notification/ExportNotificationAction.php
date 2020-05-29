@@ -48,6 +48,11 @@ class ExportNotificationAction
      *     description="Language Code",
      * )
      *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns export information",
+     * )
+     *
      * @param Language $language
      *
      * @return Response

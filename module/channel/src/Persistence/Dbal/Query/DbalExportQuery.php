@@ -16,12 +16,14 @@ use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**
  */
 class DbalExportQuery implements ExportQueryInterface
 {
     private const TABLE = 'exporter.export';
+    private const TABLE_LINE = 'exporter.export_line';
     private const TABLE_CHANNEL = 'exporter.channel';
 
     /**
@@ -52,6 +54,27 @@ class DbalExportQuery implements ExportQueryInterface
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't')
             ->setParameter(':channelId', $channelId->getValue());
+
+        return new DbalDataSet($result);
+    }
+
+    /**
+     * @param ExportId $exportId
+     * @param Language $language
+     *
+     * @return DataSetInterface
+     */
+    public function getErrorDataSet(ExportId $exportId, Language $language): DataSetInterface
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('object_id AS id, processed_at, message')
+            ->from(self::TABLE_LINE)
+            ->where($query->expr()->eq('export_id', ':exportId'));
+
+        $result = $this->connection->createQueryBuilder();
+        $result->select('*');
+        $result->from(sprintf('(%s)', $query->getSQL()), 't')
+            ->setParameter(':exportId', $exportId->getValue());
 
         return new DbalDataSet($result);
     }

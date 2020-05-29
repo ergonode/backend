@@ -95,6 +95,10 @@ Feature: Export Profile module
       | export_profile_id | @export_profile_id@ |
       | status            | ENDED               |
 
+  Scenario: Get first error export error list
+    When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_1_id@/errors"
+    Then the response status code should be 200
+
   Scenario: Get second export information
     When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_2_id@"
     Then the response status code should be 200
@@ -103,3 +107,7 @@ Feature: Export Profile module
       | channel_id        | @channel_id@        |
       | export_profile_id | @export_profile_id@ |
       | status            | ENDED               |
+
+  Scenario: Get second error export error list
+    When I send a GET request to "/api/v1/en/channels/@channel_id@/exports/@export_2_id@/errors"
+    Then the response status code should be 200
