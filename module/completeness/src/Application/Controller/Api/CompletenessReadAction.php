@@ -99,8 +99,8 @@ class CompletenessReadAction
     public function __invoke(AbstractProduct $product, Language $language): Response
     {
         $draft = $this->provider->provide($product);
-        $attributeCode = new AttributeCode(TemplateSystemAttribute::CODE);
-        $templateId = new TemplateId((string) $product->getAttribute($attributeCode));
+
+        $templateId = $product->getTemplateId();
         $template = $this->repository->load($templateId);
         Assert::notNull($template, sprintf('Can\'t find template %s', $templateId->getValue()));
 

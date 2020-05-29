@@ -10,9 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Infrastructure\Handler\Create;
 
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Product\Domain\Entity\Attribute\CreatedAtSystemAttribute;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Product\Domain\Entity\Attribute\CreatedBySystemAttribute;
@@ -63,10 +61,7 @@ class CreateVariableProductCommandHandler
     public function __invoke(CreateVariableProductCommand $command)
     {
         $attributes = $command->getAttributes();
-        $createdAt = new \DateTime();
 
-        $attributes[TemplateSystemAttribute::CODE] = new StringValue($command->getTemplateId()->getValue());
-        $attributes[CreatedAtSystemAttribute::CODE] = new StringValue($createdAt->format('Y-m-d H:i:s'));
         $token = $this->tokenStorage->getToken();
         if ($token) {
             /** @var User $user */
@@ -80,6 +75,7 @@ class CreateVariableProductCommandHandler
         $product = new VariableProduct(
             $command->getId(),
             $command->getSku(),
+            $command->getTemplateId(),
             $command->getCategories(),
             $attributes,
         );

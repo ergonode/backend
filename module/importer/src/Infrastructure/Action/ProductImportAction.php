@@ -77,7 +77,7 @@ class ProductImportAction implements ImportActionInterface
         }
 
         $productData = $this->productQuery->findBySku($sku);
-        $templateId = new TemplateId($importedProduct->attributes['esa_template']);
+        $templateId = new TemplateId($importedProduct->template);
 
         if (!$productData) {
             $command = new CreateSimpleProductCommand(

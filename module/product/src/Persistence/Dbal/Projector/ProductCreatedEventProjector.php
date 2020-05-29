@@ -55,11 +55,15 @@ class ProductCreatedEventProjector
      */
     public function __invoke(ProductCreatedEvent $event): void
     {
+        $createdAt = (new \DateTime())->format(\DateTime::W3C);
         $this->connection->insert(
             self::TABLE_PRODUCT,
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'sku' => $event->getSku()->getValue(),
+                'template_id' => $event->getTemplateId()->getValue(),
+                'created_at' => $createdAt,
+                'updated_at' => $createdAt,
                 'type' => $event->getType(),
             ]
         );
@@ -115,7 +119,7 @@ class ProductCreatedEventProjector
      * @param string      $value
      * @param string|null $language
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
     private function insert(string $productId, string $attributeId, string $value, string $language = null): void
     {
@@ -145,7 +149,7 @@ class ProductCreatedEventProjector
      *
      * @return bool
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
     private function provideValue(string $valueId, string $value, string $language = null): bool
     {

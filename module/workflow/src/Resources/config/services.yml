@@ -41,11 +41,6 @@ services:
     Ergonode\Workflow\Domain\Query\TransitionQueryInterface: '@Ergonode\Workflow\Persistence\Dbal\Query\DbalTransitionQuery'
     Ergonode\Workflow\Domain\Query\WorkflowQueryInterface: '@Ergonode\Workflow\Persistence\Dbal\Query\DbalWorkflowQuery'
 
-    Ergonode\Workflow\Domain\Factory\Decorator\StatusProductFactoryDecorator:
-        decorates: Ergonode\Product\Domain\Factory\SimpleProductFactory
-        arguments:
-            - '@Ergonode\Workflow\Domain\Factory\Decorator\StatusProductFactoryDecorator.inner'
-
     # Product Query Decorator
     Ergonode\Workflow\Infrastructure\Query\Decorator\WorkflowGetProductQueryDecorator:
         decorates: Ergonode\Product\Domain\Query\GetProductQueryInterface

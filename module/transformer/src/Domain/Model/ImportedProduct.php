@@ -30,11 +30,17 @@ class ImportedProduct
     public array $categories;
 
     /**
+     * @var string
+     */
+    public string $template;
+
+    /**
      * @param string $sku
      */
     public function __construct(string $sku)
     {
         $this->sku = $sku;
+        $this->template = null;
         $this->attributes = [];
         $this->categories = [];
     }
