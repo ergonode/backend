@@ -16,6 +16,7 @@ use Ergonode\ExporterFile\Infrastructure\Processor\Process\EndFileExportProcess;
 use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 
 /**
  */
@@ -74,6 +75,8 @@ class FileExportProcessor implements ExportProcessorInterface
      * @param ExportId              $id
      * @param AbstractExportProfile $profile
      * @param AbstractProduct       $product
+     *
+     * @throws ExportException
      */
     public function process(ExportId $id, AbstractExportProfile $profile, AbstractProduct $product): void
     {

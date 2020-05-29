@@ -76,6 +76,13 @@ class ProductAddBindingAction extends AbstractController
      *     default="en",
      *     description="Language Code",
      * )
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="body",
+     *     description="Add multiselect attribute binding",
+     *     required=true,
+     *     @SWG\Schema(ref="#/definitions/product_binding")
+     * )
      * @SWG\Response(
      *     response=200,
      *     description="Returns import",
