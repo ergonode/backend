@@ -7,17 +7,17 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Editor\Persistence\Projector;
+namespace Ergonode\Product\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Product\Domain\Event\ProductCreatedEvent;
+use Ergonode\Product\Domain\Event\ProductTemplateChangedEvent;
 
 /**
  */
-class ProductCreatedEventProjector
+class ProductTemplateChangedEventProjector
 {
-    private const TABLE = 'designer.product';
+    private const TABLE_PRODUCT = 'product';
 
     /**
      * @var Connection
@@ -33,17 +33,19 @@ class ProductCreatedEventProjector
     }
 
     /**
-     * @param ProductCreatedEvent $event
+     * @param ProductTemplateChangedEvent $event
      *
      * @throws DBALException
      */
-    public function __invoke(ProductCreatedEvent $event): void
+    public function __invoke(ProductTemplateChangedEvent $event): void
     {
-        $this->connection->insert(
-            self::TABLE,
+        $this->connection->update(
+            self::TABLE_PRODUCT,
             [
-                'product_id' => $event->getAggregateId()->getValue(),
                 'template_id' => $event->getTemplateId()->getValue(),
+            ],
+            [
+                'id' => $event->getAggregateId(),
             ]
         );
     }

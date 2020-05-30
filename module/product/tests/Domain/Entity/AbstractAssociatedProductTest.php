@@ -15,6 +15,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -30,12 +31,19 @@ class AbstractAssociatedProductTest extends TestCase
      */
     private Sku $sku;
 
+
+    /**
+     * @var TemplateId
+     */
+    private TemplateId $templateId;
+
     /**
      */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ProductId::class);
         $this->sku = $this->createMock(Sku::class);
+        $this->templateId = $this->createMock(TemplateId::class);
     }
 
     /**
@@ -73,7 +81,7 @@ class AbstractAssociatedProductTest extends TestCase
      */
     private function getClass(): AbstractAssociatedProduct
     {
-        return new class($this->id, $this->sku) extends AbstractAssociatedProduct {
+        return new class($this->id, $this->sku, $this->templateId) extends AbstractAssociatedProduct {
             /**
              * @return string
              */

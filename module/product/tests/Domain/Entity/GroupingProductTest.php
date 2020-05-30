@@ -13,6 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Product\Domain\Entity\GroupingProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -29,11 +30,17 @@ class GroupingProductTest extends TestCase
     private Sku $sku;
 
     /**
+     * @var templateId|MockObject
+     */
+    private TemplateId $templateId;
+
+    /**
      */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ProductId::class);
         $this->sku = $this->createMock(Sku::class);
+        $this->templateId = $this->createMock(TemplateId::class);
     }
 
     /**
@@ -41,7 +48,7 @@ class GroupingProductTest extends TestCase
      */
     public function testType(): void
     {
-        $product = new GroupingProduct($this->id, $this->sku);
+        $product = new GroupingProduct($this->id, $this->sku, $this->templateId);
         $this->assertSame(GroupingProduct::TYPE, $product->getType());
     }
 }
