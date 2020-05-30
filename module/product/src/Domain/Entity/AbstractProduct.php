@@ -24,6 +24,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\Product\Domain\Event\ProductTemplateChangedEvent;
 
 /**
  */
@@ -54,16 +56,25 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     protected array $categories;
 
     /**
-     * @param ProductId $id
-     * @param Sku       $sku
-     * @param array     $categories
-     * @param array     $attributes
+     * @var TemplateId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
+     */
+    protected TemplateId $templateId;
+
+    /**
+     * @param ProductId  $id
+     * @param Sku        $sku
+     * @param TemplateId $templateId
+     * @param array      $categories
+     * @param array      $attributes
      *
      * @throws \Exception
      */
     public function __construct(
         ProductId $id,
         Sku $sku,
+        TemplateId $templateId,
         array $categories = [],
         array $attributes = []
     ) {
@@ -76,7 +87,15 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
             }
         );
 
-        $this->apply(new ProductCreatedEvent($id, $sku, $this->getType(), \get_class($this), $categories, $attributes));
+        $this->apply(new ProductCreatedEvent(
+            $id,
+            $sku,
+            $this->getType(),
+            \get_class($this),
+            $templateId,
+            $categories,
+            $attributes
+        ));
     }
 
     /**
@@ -125,6 +144,18 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
             if (!$draft->hasAttribute($attributeCode)) {
                 $this->removeAttribute($attributeCode);
             }
+        }
+    }
+
+    /**
+     * @param TemplateId $templateId
+     *
+     * @throws \Exception
+     */
+    public function changeTemplate(TemplateId $templateId): void
+    {
+        if (!$this->templateId->isEqual($this->templateId)) {
+            $this->apply(new ProductTemplateChangedEvent($this->id, $templateId));
         }
     }
 
@@ -258,6 +289,14 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     }
 
     /**
+     * @return TemplateId
+     */
+    public function getTemplateId(): TemplateId
+    {
+        return $this->templateId;
+    }
+
+    /**
      * @param ProductCreatedEvent $event
      */
     protected function applyProductCreatedEvent(ProductCreatedEvent $event): void
@@ -266,6 +305,7 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
         $this->sku = $event->getSku();
         $this->attributes = [];
         $this->categories = [];
+        $this->templateId = $event->getTemplateId();
         foreach ($event->getCategories() as $category) {
             $this->categories[$category->getValue()] = $category;
         }
@@ -312,5 +352,13 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     protected function applyProductValueRemovedEvent(ProductValueRemovedEvent $event): void
     {
         unset($this->attributes[$event->getAttributeCode()->getValue()]);
+    }
+
+    /**
+     * @param ProductTemplateChangedEvent $event
+     */
+    protected function applyProductTemplateChangedEvent(ProductTemplateChangedEvent $event): void
+    {
+        $this->templateId = $event->getTemplateId();
     }
 }

@@ -15,6 +15,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -49,6 +50,13 @@ class ProductCreatedEvent implements DomainEventInterface
     private string $class;
 
     /**
+     * @var TemplateId
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\TemplateId")
+     */
+    private TemplateId $templateId;
+
+    /**
      * @var Categoryid[]
      *
      * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\CategoryId>")
@@ -63,18 +71,20 @@ class ProductCreatedEvent implements DomainEventInterface
     private array $attributes;
 
     /**
-     * @param ProductId $id
-     * @param Sku       $sku
-     * @param string    $type
-     * @param string    $class
-     * @param array     $categories
-     * @param array     $attributes
+     * @param ProductId  $id
+     * @param Sku        $sku
+     * @param string     $type
+     * @param string     $class
+     * @param TemplateId $templateId
+     * @param array      $categories
+     * @param array      $attributes
      */
     public function __construct(
         ProductId $id,
         Sku $sku,
         string $type,
         string $class,
+        TemplateId $templateId,
         array $categories = [],
         array $attributes = []
     ) {
@@ -82,6 +92,7 @@ class ProductCreatedEvent implements DomainEventInterface
         $this->sku = $sku;
         $this->type = $type;
         $this->class = $class;
+        $this->templateId = $templateId;
         $this->categories = $categories;
         $this->attributes = $attributes;
     }
@@ -118,6 +129,13 @@ class ProductCreatedEvent implements DomainEventInterface
         return $this->type;
     }
 
+    /**
+     * @return TemplateId
+     */
+    public function getTemplateId(): TemplateId
+    {
+        return $this->templateId;
+    }
 
     /**
      * @return CategoryId[]

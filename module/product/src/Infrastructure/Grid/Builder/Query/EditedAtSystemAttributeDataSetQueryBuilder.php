@@ -6,24 +6,23 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Designer\Infrastructure\Grid\Builder\Query;
+namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
-use Ergonode\Product\Infrastructure\Grid\Builder\Query\AttributeDataSetQueryBuilderInterface;
+use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
 
 /**
  */
-class TemplateSystemAttributeDataSetQueryBuilder implements AttributeDataSetQueryBuilderInterface
+class EditedAtSystemAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**
      * {@inheritDoc}
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute instanceof TemplateSystemAttribute;
+        return $attribute instanceof EditedAtSystemAttribute;
     }
 
     /**
@@ -31,7 +30,7 @@ class TemplateSystemAttributeDataSetQueryBuilder implements AttributeDataSetQuer
      */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
-        $sql = sprintf('p.template_id AS "%s"', $key);
+        $sql = sprintf('p.created_at AS "%s"', $key);
 
         $query->addSelect($sql);
     }
