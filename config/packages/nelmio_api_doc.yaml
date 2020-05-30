@@ -465,6 +465,22 @@ nelmio_api_doc:
                             type: string
                         required: false
                         description: Lista id kategorii
+            product_child:
+                type: object
+                properties:
+                    child_id:
+                        type: string
+                        required: true
+                        description: Product id
+                        example: d1b9b64a-fef6-440c-9560-cf73daa4b4d6
+            product_binding:
+                type: object
+                properties:
+                    bind_id:
+                        type: string
+                        required: true
+                        description: Multiselect attribute id
+                        example: d1b9b64a-fef6-440c-9560-cf73daa4b4d6
             template:
                 type: object
                 properties:

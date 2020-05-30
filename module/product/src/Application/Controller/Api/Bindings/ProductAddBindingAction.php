@@ -8,25 +8,25 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Controller\Api\Bindings;
 
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Ergonode\Core\Domain\ValueObject\Language;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
-use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Product\Domain\Command\Bindings\AddProductBindingCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Product\Application\Form\Product\Binding\ProductBindForm;
+use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
+use Ergonode\Product\Domain\Command\Bindings\AddProductBindingCommand;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Swagger\Annotations as SWG;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
@@ -75,6 +75,13 @@ class ProductAddBindingAction extends AbstractController
      *     required=true,
      *     default="en",
      *     description="Language Code",
+     * )
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="body",
+     *     description="Add multiselect attribute binding",
+     *     required=true,
+     *     @SWG\Schema(ref="#/definitions/product_binding")
      * )
      * @SWG\Response(
      *     response=200,

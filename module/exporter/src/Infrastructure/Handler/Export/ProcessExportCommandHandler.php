@@ -8,15 +8,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Infrastructure\Handler\Export;
 
+use Doctrine\DBAL\DBALException;
+use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
+use Ergonode\Exporter\Domain\Entity\ExportLine;
+use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
+use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorProvider;
-use Webmozart\Assert\Assert;
-use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\Exporter\Domain\Repository\ExportLineRepositoryInterface;
-use Ergonode\Exporter\Domain\Entity\ExportLine;
-use Doctrine\DBAL\DBALException;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -88,8 +89,12 @@ class ProcessExportCommandHandler
             $processor = $this->provider->provide($exportProfile->getType());
             $processor->process($command->getExportId(), $exportProfile, $product);
             $line->process();
-        } catch (\Exception $exception) {
-            $line->addError($exception->getMessage());
+        } catch (ExportException $exception) {
+            $message = $exception->getMessage();
+            if ($exception->getPrevious()) {
+                sprintf('%s - (%s)', $message, $exception->getPrevious()->getMessage());
+            }
+            $line->addError($message);
         }
 
         $this->lineRepository->save($line);

@@ -9,7 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\AbstractDateAttribute;
-use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
@@ -18,7 +17,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class EditedAtSystemAttribute extends AbstractDateAttribute implements AttributeInterface
+class EditedAtSystemAttribute extends AbstractDateAttribute
 {
     public const TYPE = 'DATE';
     public const CODE = 'esa_edited_at';

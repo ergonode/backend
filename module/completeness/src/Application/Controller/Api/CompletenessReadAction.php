@@ -10,11 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Completeness\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -99,8 +96,8 @@ class CompletenessReadAction
     public function __invoke(AbstractProduct $product, Language $language): Response
     {
         $draft = $this->provider->provide($product);
-        $attributeCode = new AttributeCode(TemplateSystemAttribute::CODE);
-        $templateId = new TemplateId((string) $product->getAttribute($attributeCode));
+
+        $templateId = $product->getTemplateId();
         $template = $this->repository->load($templateId);
         Assert::notNull($template, sprintf('Can\'t find template %s', $templateId->getValue()));
 

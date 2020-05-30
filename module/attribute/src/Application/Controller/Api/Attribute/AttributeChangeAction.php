@@ -11,8 +11,10 @@ namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Attribute\Application\Form\Model\UpdateAttributeFormModel;
+use Ergonode\Attribute\Application\Provider\AttributeFormProvider;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
+use Ergonode\Attribute\Infrastructure\Provider\UpdateAttributeCommandFactoryProvider;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -22,9 +24,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Attribute\Application\Provider\AttributeFormProvider;
-use Ergonode\Attribute\Infrastructure\Provider\UpdateAttributeCommandFactoryProvider;
 
 /**
  * @Route(
@@ -131,8 +130,6 @@ class AttributeChangeAction
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var UpdateAttributeFormModel $data */
-
                 $command = $this->factoryProvider->provide($attribute->getType())->create($attribute->getId(), $form);
                 $this->commandBus->dispatch($command);
 

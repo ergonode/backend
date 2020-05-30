@@ -8,13 +8,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
-use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\ExporterFile\Domain\Entity\FileExportProfile;
-use Ergonode\ExporterFile\Infrastructure\Processor\Process\StartFileExportProcess;
-use Ergonode\ExporterFile\Infrastructure\Processor\Process\ProcessFileExportProcess;
-use Ergonode\ExporterFile\Infrastructure\Processor\Process\EndFileExportProcess;
-use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
+use Ergonode\Exporter\Infrastructure\Exception\ExportException;
+use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
+use Ergonode\ExporterFile\Domain\Entity\FileExportProfile;
+use Ergonode\ExporterFile\Infrastructure\Processor\Process\EndFileExportProcess;
+use Ergonode\ExporterFile\Infrastructure\Processor\Process\ProcessFileExportProcess;
+use Ergonode\ExporterFile\Infrastructure\Processor\Process\StartFileExportProcess;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**
@@ -74,6 +75,8 @@ class FileExportProcessor implements ExportProcessorInterface
      * @param ExportId              $id
      * @param AbstractExportProfile $profile
      * @param AbstractProduct       $product
+     *
+     * @throws ExportException
      */
     public function process(ExportId $id, AbstractExportProfile $profile, AbstractProduct $product): void
     {

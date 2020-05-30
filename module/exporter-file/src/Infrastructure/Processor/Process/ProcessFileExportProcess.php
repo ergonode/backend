@@ -8,13 +8,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile\Infrastructure\Processor\Process;
 
-use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
-use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
+use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 use Ergonode\ExporterFile\Domain\Entity\FileExportProfile;
+use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
 use Ergonode\ExporterFile\Infrastructure\Storage\FileStorage;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**
@@ -63,18 +64,27 @@ class ProcessFileExportProcess
      * @param ExportId                                $id
      * @param AbstractExportProfile|FileExportProfile $profile
      * @param AbstractProduct                         $product
+     *
+     * @throws ExportException
      */
     public function process(ExportId $id, AbstractExportProfile $profile, AbstractProduct $product): void
     {
-        $writer = $this->provider->provide($profile->getFormat());
-        $languages = $this->languageQuery->getActive();
-        $attributes = array_values($this->attributeQuery->getDictionary());
-        sort($attributes);
+        try {
+            $writer = $this->provider->provide($profile->getFormat());
+            $languages = $this->languageQuery->getActive();
+            $attributes = array_values($this->attributeQuery->getDictionary());
+            sort($attributes);
 
-        $filename = sprintf('%s.%s', $id->getValue(), $writer->getType());
+            $filename = sprintf('%s.%s', $id->getValue(), $writer->getType());
 
-        $this->storage->open($filename);
-        $this->storage->append($writer->write($product, $languages, $attributes));
-        $this->storage->close();
+            $this->storage->open($filename);
+            $this->storage->append($writer->write($product, $languages, $attributes));
+            $this->storage->close();
+        } catch (\Exception $exception) {
+            throw new ExportException(
+                sprintf('Can\'t process export for %s', $product->getSku()->getValue()),
+                $exception
+            );
+        }
     }
 }

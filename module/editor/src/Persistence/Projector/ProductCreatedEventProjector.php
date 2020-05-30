@@ -11,7 +11,6 @@ namespace Ergonode\Editor\Persistence\Projector;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 
 /**
@@ -40,16 +39,11 @@ class ProductCreatedEventProjector
      */
     public function __invoke(ProductCreatedEvent $event): void
     {
-        $attributes = $event->getAttributes();
-        $value = $attributes[TemplateSystemAttribute::CODE]->getValue();
-
-        $templateId = reset($value);
-
         $this->connection->insert(
             self::TABLE,
             [
                 'product_id' => $event->getAggregateId()->getValue(),
-                'template_id' => $templateId,
+                'template_id' => $event->getTemplateId()->getValue(),
             ]
         );
     }

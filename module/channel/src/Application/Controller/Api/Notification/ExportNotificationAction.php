@@ -10,12 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Application\Controller\Api\Notification;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
+use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 
 /**
  * @Route("/profile/exports", methods={"GET"})
@@ -46,6 +46,11 @@ class ExportNotificationAction
      *     required=true,
      *     default="en",
      *     description="Language Code",
+     * )
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns export information",
      * )
      *
      * @param Language $language
