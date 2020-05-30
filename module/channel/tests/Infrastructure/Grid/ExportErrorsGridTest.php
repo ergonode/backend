@@ -8,10 +8,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Tests\Infrastructure\Grid;
 
-use PHPUnit\Framework\TestCase;
-use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGrid;
+use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Grid\GridConfigurationInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  */

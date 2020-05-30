@@ -12,6 +12,7 @@ namespace Ergonode\Product\Tests\Domain\Event;
 use Ergonode\Product\Domain\Event\ProductCreatedEvent;
 use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -31,11 +32,13 @@ class ProductCreatedEventTest extends TestCase
         $class = 'class';
         $categories = ['example1', 'example2'];
         $attributes = ['example1', 'example2'];
-        $event = new ProductCreatedEvent($id, $sku, $type, $class, $categories, $attributes);
+        $templateId = $this->createMock(TemplateId::class);
+        $event = new ProductCreatedEvent($id, $sku, $type, $class, $templateId, $categories, $attributes);
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($sku, $event->getSku());
         $this->assertEquals($type, $event->getType());
         $this->assertEquals($class, $event->getClass());
+        $this->assertEquals($templateId, $event->getTemplateId());
         $this->assertEquals($categories, $event->getCategories());
         $this->assertEquals($attributes, $event->getAttributes());
     }

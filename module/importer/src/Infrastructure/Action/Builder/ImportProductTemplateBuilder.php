@@ -8,10 +8,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Action\Builder;
 
+use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 use Ergonode\Transformer\Domain\Model\ImportedProduct;
 use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Value\Domain\ValueObject\StringValue;
-use Ergonode\Designer\Domain\Query\TemplateQueryInterface;
 
 /**
  */
@@ -44,7 +43,7 @@ class ImportProductTemplateBuilder implements ProductImportBuilderInterface
         $templateId = $this->query->findTemplateIdByCode($templateCode);
 
         if ($templateId) {
-            $product->attributes['esa_template'] = new StringValue($templateId->getValue());
+            $product->template = $templateId->getValue();
 
             return $product;
         }

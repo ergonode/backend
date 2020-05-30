@@ -25,7 +25,6 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
 {
     private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'collection_element';
     private const PUBLIC_PRODUCT_TABLE = 'public.product';
-    private const DESIGNER_PRODUCT_TABLE = 'designer.product';
     private const DESIGNER_TEMPLATE_TABLE = 'designer.template';
     private const PUBLIC_PRODUCT_VALUE_TABLE = 'public.product_value';
     private const PUBLIC_VALUE_TRANSLATION = 'public.value_translation';
@@ -81,7 +80,7 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
             sprintf('(pltdt.lft <= %s AND pltdt.rgt >= %s) OR pltdt.lft IS NULL', $info['lft'], $info['rgt'])
         );
         $query->addSelect(
-            'created_at,
+            'ce.created_at,
          CASE
            WHEN dtt.default_text IS NULL THEN ppt.sku::VARCHAR
            WHEN dtt.default_text IS NOT NULL THEN pvtdt.value::VARCHAR
@@ -90,8 +89,7 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
             pvtdi.value as default_image'
         );
         $query->join('ce', self::PUBLIC_PRODUCT_TABLE, 'ppt', 'ppt.id = ce.product_id');
-        $query->join('ce', self::DESIGNER_PRODUCT_TABLE, 'dpt', 'dpt.product_id = ce.product_id');
-        $query->join('dpt', self::DESIGNER_TEMPLATE_TABLE, 'dtt', 'dpt.template_id = dtt.id');
+        $query->join('ppt', self::DESIGNER_TEMPLATE_TABLE, 'dtt', 'ppt.template_id = dtt.id');
         $query->leftJoin(
             'dtt',
             self::PUBLIC_PRODUCT_VALUE_TABLE,

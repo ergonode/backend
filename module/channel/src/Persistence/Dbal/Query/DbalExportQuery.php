@@ -11,11 +11,11 @@ namespace Ergonode\Channel\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**

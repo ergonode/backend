@@ -11,9 +11,9 @@ namespace Ergonode\Channel\Infrastructure\Grid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\TextColumn;
+use Ergonode\Grid\Filter\DateFilter;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Ergonode\Grid\Filter\DateFilter;
 
 /**
  */

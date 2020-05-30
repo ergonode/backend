@@ -31,7 +31,7 @@ class TemplateSystemAttributeDataSetQueryBuilder implements AttributeDataSetQuer
      */
     public function addSelect(QueryBuilder $query, string $key, AbstractAttribute $attribute, Language $language): void
     {
-        $sql = sprintf('(SELECT template_id FROM designer.product dp WHERE dp.product_id = p.id) as "%s"', $key);
+        $sql = sprintf('p.template_id AS "%s"', $key);
 
         $query->addSelect($sql);
     }

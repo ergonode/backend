@@ -9,18 +9,18 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer\Infrastructure\Action;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Transformer\Domain\Model\ImportedProduct;
-use Ergonode\Transformer\Domain\Model\Record;
-use Ergonode\Importer\Infrastructure\Action\Builder\ProductImportBuilderInterface;
-use Webmozart\Assert\Assert;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\Importer\Infrastructure\Action\Builder\ProductImportBuilderInterface;
 use Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand;
 use Ergonode\Product\Domain\Command\Update\UpdateSimpleProductCommand;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\Transformer\Domain\Model\ImportedProduct;
+use Ergonode\Transformer\Domain\Model\Record;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -77,7 +77,7 @@ class ProductImportAction implements ImportActionInterface
         }
 
         $productData = $this->productQuery->findBySku($sku);
-        $templateId = new TemplateId($importedProduct->attributes['esa_template']);
+        $templateId = new TemplateId($importedProduct->template);
 
         if (!$productData) {
             $command = new CreateSimpleProductCommand(

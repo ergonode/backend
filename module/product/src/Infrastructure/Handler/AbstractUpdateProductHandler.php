@@ -8,15 +8,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Handler;
 
-use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
-use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
 use Ergonode\Account\Domain\Entity\User;
-use Ergonode\Value\Domain\ValueObject\StringValue;
+use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
+use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  */
@@ -80,15 +79,11 @@ abstract class AbstractUpdateProductHandler
     {
         $token = $this->tokenStorage->getToken();
         if ($token) {
-            $updatedAt = new \DateTime();
             $editedByCode = new AttributeCode(EditedBySystemAttribute::CODE);
-            $editedAtCode = new AttributeCode(EditedAtSystemAttribute::CODE);
             /** @var User $user */
             $user = $token->getUser();
             $editedByValue = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
-            $editedAtValue = new StringValue($updatedAt->format('Y-m-d H:i:s'));
             $this->attributeUpdate($product, $editedByCode, $editedByValue);
-            $this->attributeUpdate($product, $editedAtCode, $editedAtValue);
         }
 
         return $product;
