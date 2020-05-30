@@ -11,7 +11,6 @@ namespace Ergonode\Attribute\Application\Controller\Api\Attribute;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Attribute\Application\Form\Model\UpdateAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -131,8 +130,6 @@ class AttributeChangeAction
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var UpdateAttributeFormModel $data */
-
                 $command = $this->factoryProvider->provide($attribute->getType())->create($attribute->getId(), $form);
                 $this->commandBus->dispatch($command);
 

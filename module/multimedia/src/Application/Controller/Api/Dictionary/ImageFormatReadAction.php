@@ -10,27 +10,27 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Application\Controller\Api\Dictionary;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Multimedia\Infrastructure\Provider\ImageFormatProvider;
+use Ergonode\Multimedia\Infrastructure\Provider\MultimediaExtensionProvider;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/image_format", methods={"GET"})
+ * @Route("/dictionary/image_format", methods={"GET"})
  */
 class ImageFormatReadAction
 {
     /**
-     * @var ImageFormatProvider
+     * @var MultimediaExtensionProvider
      */
-    private ImageFormatProvider $imageFormatProvider;
+    private MultimediaExtensionProvider $provider;
 
     /**
-     * @param ImageFormatProvider $imageFormatProvider
+     * @param MultimediaExtensionProvider $provider
      */
-    public function __construct(ImageFormatProvider $imageFormatProvider)
+    public function __construct(MultimediaExtensionProvider $provider)
     {
-        $this->imageFormatProvider = $imageFormatProvider;
+        $this->provider = $provider;
     }
 
     /**
@@ -52,6 +52,6 @@ class ImageFormatReadAction
      */
     public function __invoke(): Response
     {
-        return new SuccessResponse($this->imageFormatProvider->dictionary());
+        return new SuccessResponse($this->provider->dictionary());
     }
 }
