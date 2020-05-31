@@ -29,6 +29,7 @@ class ImageFormat
         self::TIF,
         self::PNG,
         self::BMP,
+        'eps',
     ];
 
     /**
