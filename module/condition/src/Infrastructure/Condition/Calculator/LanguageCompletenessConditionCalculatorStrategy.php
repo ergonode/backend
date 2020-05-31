@@ -9,13 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Condition\Infrastructure\Condition\Calculator;
 
-use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Completeness\Domain\Calculator\CompletenessCalculator;
 use Ergonode\Condition\Domain\Condition\LanguageCompletenessCondition;
 use Ergonode\Condition\Domain\ConditionInterface;
 use Ergonode\Condition\Infrastructure\Condition\ConditionCalculatorStrategyInterface;
-use Ergonode\Designer\Domain\Entity\Attribute\TemplateSystemAttribute;
-use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Designer\Domain\Repository\TemplateRepositoryInterface;
 use Ergonode\Editor\Domain\Provider\DraftProvider;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -74,12 +71,8 @@ class LanguageCompletenessConditionCalculatorStrategy implements ConditionCalcul
     public function calculate(AbstractProduct $object, ConditionInterface $configuration): bool
     {
         $draft = $this->provider->provide($object);
-        $attribute = $object->getAttribute(
-            new AttributeCode(
-                TemplateSystemAttribute::CODE
-            )
-        );
-        $templateId = new TemplateId($attribute->__toString());
+
+        $templateId = $object->getTemplateId();
 
         $template = $this->repository->load($templateId);
         Assert::notNull($template, sprintf('Can\'t find template "%s"', $templateId->getValue()));

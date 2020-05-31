@@ -13,6 +13,8 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Multimedia\Domain\Query\MultimediaQueryInterface;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\Grid\DataSetInterface;
+use Ergonode\Grid\DbalDataSet;
 
 /**
  */
@@ -81,6 +83,21 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
             ->from(self::TABLE, 'm')
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
+    /**
+     * @return DataSetInterface
+     */
+    public function getDataSet(): DataSetInterface
+    {
+        $qb = $this->getQuery();
+        $qb->select('*')
+            ->addSelect('(size / 1024)::NUMERIC(10,2) as size')
+            ->addSelect('id AS image')
+            ->addSelect('0 AS relations')
+            ->addSelect('\'2000-01-01 00:00:00\' as created_at');
+
+        return new DbalDataSet($qb);
     }
 
     /**

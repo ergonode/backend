@@ -80,15 +80,11 @@ abstract class AbstractUpdateProductHandler
     {
         $token = $this->tokenStorage->getToken();
         if ($token) {
-            $updatedAt = new \DateTime();
             $editedByCode = new AttributeCode(EditedBySystemAttribute::CODE);
-            $editedAtCode = new AttributeCode(EditedAtSystemAttribute::CODE);
             /** @var User $user */
             $user = $token->getUser();
             $editedByValue = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
-            $editedAtValue = new StringValue($updatedAt->format('Y-m-d H:i:s'));
             $this->attributeUpdate($product, $editedByCode, $editedByValue);
-            $this->attributeUpdate($product, $editedAtCode, $editedAtValue);
         }
 
         return $product;

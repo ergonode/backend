@@ -44,7 +44,7 @@ class ImportProductTemplateBuilder implements ProductImportBuilderInterface
         $templateId = $this->query->findTemplateIdByCode($templateCode);
 
         if ($templateId) {
-            $product->attributes['esa_template'] = new StringValue($templateId->getValue());
+            $product->template = $templateId->getValue();
 
             return $product;
         }

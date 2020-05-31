@@ -17,6 +17,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -48,6 +49,11 @@ class AbstractProductTest extends TestCase
     private AttributeCode $code;
 
     /**
+     * @var TemplateId
+     */
+    private TemplateId $templateId;
+
+    /**
      */
     protected function setUp(): void
     {
@@ -57,6 +63,7 @@ class AbstractProductTest extends TestCase
         $this->code = $this->createMock(AttributeCode::class);
         $this->code->method('getValue')->willReturn('code');
         $this->attribute = $this->createMock(ValueInterface::class);
+        $this->templateId = $this->createMock(TemplateId::class);
     }
 
     /**
@@ -66,6 +73,7 @@ class AbstractProductTest extends TestCase
         $product = $this->getClass(
             $this->id,
             $this->sku,
+            $this->templateId,
             [$this->category],
             [$this->code->getValue() => $this->attribute]
         );
@@ -74,6 +82,7 @@ class AbstractProductTest extends TestCase
         $this->assertEquals([$this->category], $product->getCategories());
         $this->assertEquals([$this->code->getValue() => $this->attribute], $product->getAttributes());
         $this->assertEquals('TYPE', $product->getType());
+        $this->assertEquals($this->templateId, $product->getTemplateId());
     }
 
     /**
@@ -82,14 +91,14 @@ class AbstractProductTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $categories = [$this->createMock(\stdClass::class)];
-        $this->getClass($this->id, $this->sku, $categories, []);
+        $this->getClass($this->id, $this->sku, $this->templateId, $categories, []);
     }
 
     /**
      */
     public function testCategoryManipulation(): void
     {
-        $product = $this->getClass($this->id, $this->sku, [$this->category], []);
+        $product = $this->getClass($this->id, $this->sku, $this->templateId, [$this->category], []);
         $this->assertTrue($product->belongToCategory($this->category));
         $product->removeFromCategory($this->category);
         $this->assertFalse($product->belongToCategory($this->category));
@@ -105,6 +114,7 @@ class AbstractProductTest extends TestCase
         $product = $this->getClass(
             $this->id,
             $this->sku,
+            $this->templateId,
             [$this->category],
             [$this->code->getValue() => $this->attribute]
         );
@@ -127,6 +137,7 @@ class AbstractProductTest extends TestCase
         $product = $this->getClass(
             $this->id,
             $this->sku,
+            $this->templateId,
         );
         $product->removeAttribute($this->code);
     }
@@ -139,6 +150,7 @@ class AbstractProductTest extends TestCase
         $product = $this->getClass(
             $this->id,
             $this->sku,
+            $this->templateId,
             [],
             [$this->code->getValue() => $this->attribute]
         );
@@ -153,6 +165,7 @@ class AbstractProductTest extends TestCase
         $product = $this->getClass(
             $this->id,
             $this->sku,
+            $this->templateId,
             [],
             []
         );
@@ -167,21 +180,44 @@ class AbstractProductTest extends TestCase
         $product = $this->getClass(
             $this->id,
             $this->sku,
+            $this->templateId,
         );
         $product->getAttribute($this->code);
     }
 
     /**
-     * @param ProductId $id
-     * @param Sku       $sku
-     * @param array     $categories
-     * @param array     $attributes
+     * @throws \Exception
+     */
+    public function testChangeTemplate(): void
+    {
+        $templateId = $this->createMock(TemplateId::class);
+        $templateId->method('isEqual')->willReturn(false);
+        $product = $this->getClass(
+            $this->id,
+            $this->sku,
+            $this->templateId,
+        );
+        $product->changeTemplate($templateId);
+        $this->assertSame($templateId, $product->getTemplateId());
+    }
+
+    /**
+     * @param ProductId  $id
+     * @param Sku        $sku
+     * @param TemplateId $templateId
+     * @param array      $categories
+     * @param array      $attributes
      *
      * @return AbstractProduct
      */
-    private function getClass(ProductId $id, SKU $sku, array $categories = [], array $attributes = []): AbstractProduct
-    {
-        return new class($id, $sku, $categories, $attributes) extends AbstractProduct {
+    private function getClass(
+        ProductId $id,
+        Sku $sku,
+        TemplateId $templateId,
+        array $categories = [],
+        array $attributes = []
+    ): AbstractProduct {
+        return new class($id, $sku, $templateId, $categories, $attributes) extends AbstractProduct {
             /**
              * @return string
              */

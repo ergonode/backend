@@ -11,6 +11,7 @@ namespace Ergonode\Multimedia\Domain\Query;
 
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\Grid\DataSetInterface;
 
 /**
  */
@@ -34,4 +35,9 @@ interface MultimediaQueryInterface
      * @return array
      */
     public function getMultimedia(): array;
+
+    /**
+     * @return DataSetInterface
+     */
+    public function getDataSet(): DataSetInterface;
 }

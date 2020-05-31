@@ -15,6 +15,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
@@ -31,11 +32,17 @@ class VariableProductTest extends TestCase
     private Sku $sku;
 
     /**
+     * @var templateId|MockObject
+     */
+    private TemplateId $templateId;
+
+    /**
      */
     protected function setUp(): void
     {
         $this->id = $this->createMock(ProductId::class);
         $this->sku = $this->createMock(Sku::class);
+        $this->templateId = $this->createMock(TemplateId::class);
     }
 
     /**
@@ -48,7 +55,7 @@ class VariableProductTest extends TestCase
         $attribute2 = $this->createMock(SelectAttribute::class);
         $attribute2->method('getId')->willReturn(AttributeId::generate());
 
-        $product = new VariableProduct($this->id, $this->sku);
+        $product = new VariableProduct($this->id, $this->sku, $this->templateId);
         $this->assertFalse($product->hasBind($attribute1->getId()));
         $this->assertFalse($product->hasBind($attribute2->getId()));
         $product->addBind($attribute1);
