@@ -24,6 +24,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  *     name="ergonode_multimedia_read",
  *     path="/multimedia/{multimedia}",
  *     methods={"GET"},
+ *     requirements={"multimedia" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class GetMultimediaAction

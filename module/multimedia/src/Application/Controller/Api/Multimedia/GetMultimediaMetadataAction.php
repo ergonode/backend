@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *     requirements={"multimedia" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class GetMetadataMultimediaAction
+class GetMultimediaMetadataAction
 {
     /**
      * @var MetadataService
