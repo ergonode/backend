@@ -246,6 +246,7 @@ ruleset:
     - Core
     - Api
     - EventSourcing
+    - Grid
   TranslationDeepl:
     - Api
     - Core

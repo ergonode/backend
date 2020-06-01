@@ -16,6 +16,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -87,4 +88,11 @@ interface ProductQueryInterface
      * @return mixed
      */
     public function findProductIdByOptionId(AggregateId $id);
+
+    /**
+     * @param MultimediaId $id
+     *
+     * @return array
+     */
+    public function getMultimediaRelation(MultimediaId $id): array;
 }

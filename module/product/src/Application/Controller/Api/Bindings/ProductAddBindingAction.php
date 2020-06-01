@@ -22,11 +22,11 @@ use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Product\Domain\Command\Bindings\AddProductBindingCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
 use Ergonode\Product\Application\Form\Product\Binding\ProductBindForm;
+use Ergonode\Api\Application\Response\CreatedResponse;
 
 /**
  * @Route(
@@ -113,7 +113,7 @@ class ProductAddBindingAction extends AbstractController
                 );
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return new CreatedResponse($command->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');

@@ -11,6 +11,7 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -55,4 +56,11 @@ interface TemplateQueryInterface
      * @return TemplateId|null
      */
     public function findTemplateIdByCode(string $code): ?TemplateId;
+
+    /**
+     * @param MultimediaId $id
+     *
+     * @return array
+     */
+    public function getMultimediaRelation(MultimediaId $id): array;
 }

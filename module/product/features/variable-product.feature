@@ -193,7 +193,7 @@ Feature: Variable product
         "bind_id": "@attribute_id@"
       }
       """
-    Then the response status code should be 204
+    Then the response status code should be 201
 
   Scenario: Remove bind attribute
     When I send a DELETE request to "/api/v1/en/products/@product_id@/binding/@attribute_id@"
