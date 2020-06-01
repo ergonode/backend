@@ -30,19 +30,19 @@ class CreateDesignerTemplateCommandTest extends TestCase
         $elements->add($this->createMock(TemplateElement::class));
         /** @var MultimediaId $multimediaId */
         $multimediaId = $this->createMock(MultimediaId::class);
-        /** @var AttributeId $defaultText */
-        $defaultText = $this->createMock(AttributeId::class);
+        /** @var AttributeId $defaultLabel */
+        $defaultLabel = $this->createMock(AttributeId::class);
         /** @var AttributeId $defaultImage */
         $defaultImage = $this->createMock(AttributeId::class);
 
         /** @var TemplateId|MockObject $id */
         $id = $this->createMock(TemplateId::class);
-        $command = new CreateTemplateCommand($name, $elements, $defaultText, $defaultImage, $multimediaId);
+        $command = new CreateTemplateCommand($name, $elements, $defaultLabel, $defaultImage, $multimediaId);
         $this->assertInstanceOf(TemplateId::class, $id);
         $this->assertSame($name, $command->getName());
         $this->assertSame($elements, $command->getElements());
         $this->assertSame($multimediaId, $command->getImageId());
-        $this->assertSame($defaultText, $command->getDefaultText());
+        $this->assertSame($defaultLabel, $command->getDefaultLabel());
         $this->assertSame($defaultImage, $command->getDefaultImage());
         $this->assertNotNull($command->getId());
     }

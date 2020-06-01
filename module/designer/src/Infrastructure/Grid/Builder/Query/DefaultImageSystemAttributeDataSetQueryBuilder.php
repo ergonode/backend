@@ -58,20 +58,17 @@ class DefaultImageSystemAttributeDataSetQueryBuilder implements AttributeDataSet
 
         $sql = sprintf(
             '(
-       SELECT pvtdi.value
-FROM designer.product dp
-         INNER JOIN public.product pp ON pp.id = p.id
-         INNER JOIN designer.template dt ON dp.template_id = dt.id
-         LEFT JOIN public.product_value ppvdi
-                   ON ppvdi.product_id = p.id AND
-                      ppvdi.attribute_id = dt.default_image
-         LEFT JOIN public.value_translation pvtdi ON ppvdi.value_id = pvtdi.value_id
-         LEFT JOIN public.language_tree ppvlt ON ppvlt.code = pvtdi.language
-WHERE dp.product_id = p.id
-AND ppvlt.lft <= %s
-  AND ppvlt.rgt >= %s
-ORDER BY lft DESC NULLS LAST
-LIMIT 1) as "%s"',
+                SELECT pvtdi.value
+                FROM public.product pp
+                         INNER JOIN designer.template dt ON pp.template_id = dt.id
+                         LEFT JOIN public.product_value ppvdi
+                                   ON ppvdi.product_id = p.id AND
+                                      ppvdi.attribute_id = dt.default_image
+                         LEFT JOIN public.value_translation pvtdi ON ppvdi.value_id = pvtdi.value_id
+                         LEFT JOIN public.language_tree ppvlt ON ppvlt.code = pvtdi.language
+                WHERE ((ppvlt.lft <= %s AND ppvlt.rgt >= %s) OR ppvlt.lft IS NULL) AND pp.id = p.id     
+                ORDER BY lft DESC NULLS LAST
+                LIMIT 1) as "%s"',
             $info['lft'],
             $info['rgt'],
             $key

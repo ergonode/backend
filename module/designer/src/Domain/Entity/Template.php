@@ -14,9 +14,9 @@ use Ergonode\Designer\Domain\Event\TemplateCreatedEvent;
 use Ergonode\Designer\Domain\Event\TemplateDefaultImageAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateDefaultImageChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateDefaultImageRemovedEvent;
-use Ergonode\Designer\Domain\Event\TemplateDefaultTextAddedEvent;
-use Ergonode\Designer\Domain\Event\TemplateDefaultTextChangedEvent;
-use Ergonode\Designer\Domain\Event\TemplateDefaultTextRemovedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultLabelAddedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultLabelChangedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultLabelRemovedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementAddedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementChangedEvent;
 use Ergonode\Designer\Domain\Event\TemplateElementRemovedEvent;
@@ -60,7 +60,7 @@ class Template extends AbstractAggregateRoot
     /**
      * @var AttributeId | null
      */
-    private ?AttributeId $defaultText;
+    private ?AttributeId $defaultLabel;
 
     /**
      * @var AttributeId | null
@@ -78,7 +78,7 @@ class Template extends AbstractAggregateRoot
      * @param TemplateId        $id
      * @param TemplateGroupId   $groupId
      * @param string            $name
-     * @param AttributeId       $defaultText
+     * @param AttributeId       $defaultLabel
      * @param AttributeId       $defaultImage
      * @param MultimediaId|null $imageId
      *
@@ -88,11 +88,11 @@ class Template extends AbstractAggregateRoot
         TemplateId $id,
         TemplateGroupId $groupId,
         string $name,
-        ?AttributeId $defaultText = null,
+        ?AttributeId $defaultLabel = null,
         ?AttributeId $defaultImage = null,
         ?MultimediaId $imageId = null
     ) {
-        $this->apply(new TemplateCreatedEvent($id, $groupId, $name, $defaultText, $defaultImage, $imageId));
+        $this->apply(new TemplateCreatedEvent($id, $groupId, $name, $defaultLabel, $defaultImage, $imageId));
     }
 
     /**
@@ -122,46 +122,46 @@ class Template extends AbstractAggregateRoot
     /**
      * @return AttributeId | null
      */
-    public function getDefaultText(): ?AttributeId
+    public function getDefaultLabel(): ?AttributeId
     {
-        return $this->defaultText;
+        return $this->defaultLabel;
     }
 
     /**
-     * @param AttributeId $defaultText
+     * @param AttributeId $defaultLabel
      *
      * @throws \Exception
      */
-    public function addDefaultText(AttributeId $defaultText): void
+    public function addDefaultLabel(AttributeId $defaultLabel): void
     {
-        if ($this->defaultText) {
-            throw new \RuntimeException('Template default text already added');
+        if ($this->defaultLabel) {
+            throw new \RuntimeException('Template default label already added');
         }
 
-        $this->apply(new TemplateDefaultTextAddedEvent($this->id, $defaultText));
+        $this->apply(new TemplateDefaultLabelAddedEvent($this->id, $defaultLabel));
     }
 
     /**
      */
-    public function removeDefaultText(): void
+    public function removeDefaultLabel(): void
     {
-        if (!$this->defaultText) {
-            throw new \RuntimeException('Template default text not exists');
+        if (!$this->defaultLabel) {
+            throw new \RuntimeException('Template default label not exists');
         }
 
-        $this->apply(new TemplateDefaultTextRemovedEvent($this->id, $this->defaultText));
+        $this->apply(new TemplateDefaultLabelRemovedEvent($this->id, $this->defaultLabel));
     }
 
     /**
-     * @param AttributeId $newDefaultText
+     * @param AttributeId $newDefaultLabel
      */
-    public function changeDefaultText(AttributeId $newDefaultText): void
+    public function changeDefaultLabel(AttributeId $newDefaultLabel): void
     {
-        if (!$this->defaultText->isEqual($newDefaultText)) {
-            $this->apply(new TemplateDefaultTextChangedEvent(
+        if (!$this->defaultLabel->isEqual($newDefaultLabel)) {
+            $this->apply(new TemplateDefaultLabelChangedEvent(
                 $this->id,
-                $this->getDefaultText(),
-                $newDefaultText,
+                $this->getDefaultLabel(),
+                $newDefaultLabel,
             ));
         }
     }
@@ -412,7 +412,7 @@ class Template extends AbstractAggregateRoot
     {
         $this->id = $event->getAggregateId();
         $this->name = $event->getName();
-        $this->defaultText = $event->getDefaultText();
+        $this->defaultLabel = $event->getDefaultLabel();
         $this->defaultImage = $event->getDefaultImage();
         $this->imageId = $event->getImageId();
         $this->groupId = $event->getGroupId();
@@ -429,11 +429,11 @@ class Template extends AbstractAggregateRoot
 
 
     /**
-     * @param TemplateDefaultTextAddedEvent $event
+     * @param TemplateDefaultLabelAddedEvent $event
      */
-    protected function applyTemplateDefaultTextAddedEvent(TemplateDefaultTextAddedEvent $event): void
+    protected function applyTemplateDefaultLabelAddedEvent(TemplateDefaultLabelAddedEvent $event): void
     {
-        $this->defaultText = $event->getDefaultText();
+        $this->defaultLabel = $event->getDefaultLabel();
     }
 
     /**
@@ -461,11 +461,11 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param TemplateDefaultTextRemovedEvent $event
+     * @param TemplateDefaultLabelRemovedEvent $event
      */
-    protected function applyTemplateDefaultTextRemovedEvent(TemplateDefaultTextRemovedEvent $event): void
+    protected function applyTemplateDefaultLabelRemovedEvent(TemplateDefaultLabelRemovedEvent $event): void
     {
-        $this->defaultText = null;
+        $this->defaultLabel = null;
     }
 
     /**
@@ -477,12 +477,12 @@ class Template extends AbstractAggregateRoot
     }
 
     /**
-     * @param TemplateDefaultTextChangedEvent $event
+     * @param TemplateDefaultLabelChangedEvent $event
      */
-    protected function applyTemplateDefaultTextChangedEvent(
-        TemplateDefaultTextChangedEvent $event
+    protected function applyTemplateDefaultLabelChangedEvent(
+        TemplateDefaultLabelChangedEvent $event
     ): void {
-        $this->defaultText = $event->getTo();
+        $this->defaultLabel = $event->getTo();
     }
 
     /**
