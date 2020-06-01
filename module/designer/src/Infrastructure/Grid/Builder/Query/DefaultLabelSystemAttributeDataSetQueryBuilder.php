@@ -63,18 +63,15 @@ class DefaultLabelSystemAttributeDataSetQueryBuilder implements AttributeDataSet
            WHEN dt.default_text IS NULL THEN pp.sku::VARCHAR
            WHEN dt.default_text IS NOT NULL THEN pvtdt.value::VARCHAR
            END
-FROM designer.product dpt
-         INNER JOIN public.product pp ON pp.id = p.id
-         INNER JOIN designer.template dt ON dpt.template_id = dt.id
+FROM public.product pp
+         INNER JOIN designer.template dt ON pp.template_id = dt.id
          LEFT JOIN public.product_value ppvdt
                    ON ppvdt.product_id = p.id AND
                       ppvdt.attribute_id = dt.default_text
          LEFT JOIN public.value_translation pvtdt
                    ON ppvdt.value_id = pvtdt.value_id
          LEFT JOIN public.language_tree ppvlt ON ppvlt.code = pvtdt.language
-WHERE dpt.product_id = p.id
-  AND ppvlt.lft <= %s
-  AND ppvlt.rgt >= %s
+WHERE ((ppvlt.lft <= %s AND ppvlt.rgt >= %s) OR ppvlt.lft IS NULL) AND pp.id = p.id
 ORDER BY lft DESC NULLS LAST
 LIMIT 1 ) as "%s"',
             $info['lft'],

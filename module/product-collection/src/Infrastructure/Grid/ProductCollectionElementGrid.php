@@ -33,8 +33,8 @@ class ProductCollectionElementGrid extends AbstractGrid
      */
     public function init(GridConfigurationInterface $configuration, Language $language): void
     {
-        $this->addColumn('default_image', new ImageColumn('default_image', 'Image'));
-        $this->addColumn('system_name', new TextColumn('system_name', 'System name', new TextFilter()));
+        $this->addColumn('default_image', new ImageColumn('default_image', 'Default image'));
+        $this->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()));
         $this->addColumn('sku', new TextColumn('sku', 'Sku', new TextFilter()));
         $productId = new TextColumn('id', 'Id', new TextFilter());
         $productId->setVisible(false);

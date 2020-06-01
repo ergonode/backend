@@ -4,7 +4,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-  
+
   Scenario: Create text attribute
     When I send a POST request to "/api/v1/en/attributes" with body:
       """
@@ -601,14 +601,14 @@ Feature: Product collection module
     Then the response status code should be 200
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
-    And the JSON node "columns[1].id" should be equal to "system_name"
+    And the JSON node "columns[1].id" should be equal to "default_label"
 
   Scenario: Get product collection element (order by product_collection_id)
     When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?field=product_collection_id"
     Then the response status code should be 200
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
-    And the JSON node "columns[1].id" should be equal to "system_name"
+    And the JSON node "columns[1].id" should be equal to "default_label"
 
   Scenario: Get product collection element (filter by code)
     When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?limit=25&offset=0&filter=visible=true"
