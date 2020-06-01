@@ -9,12 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Tests\Domain\Entity;
 
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 

@@ -18,6 +18,7 @@ use Ergonode\Grid\DbalDataSet;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -167,6 +168,23 @@ class DbalTemplateQuery implements TemplateQueryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param MultimediaId $id
+     *
+     * @return array
+     */
+    public function getMultimediaRelation(MultimediaId $id): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb->select('id, name')
+            ->from('designer.template')
+            ->where($qb->expr()->eq('image_id', ':multimediaId'))
+            ->setParameter(':multimediaId', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
     /**

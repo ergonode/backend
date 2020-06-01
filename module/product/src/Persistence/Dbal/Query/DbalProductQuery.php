@@ -22,6 +22,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductCollectionId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -311,6 +312,28 @@ class DbalProductQuery implements ProductQueryInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param MultimediaId $id
+     *
+     * @return array
+     */
+    public function getMultimediaRelation(MultimediaId $id): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb
+            ->select('p.id, p.sku')
+            ->from('multimedia', 'm')
+            ->join('m', 'value_translation', 'vt', 'vt.value = m.id::TEXT')
+            ->join('vt', 'product_value', 'pv', 'pv.value_id = vt.id')
+            ->join('pv', 'product', 'p', 'p.id = pv.product_id')
+            ->groupBy('p.id, p.sku')
+            ->where($qb->expr()->eq('m.id', ':multimediaId'))
+            ->setParameter(':multimediaId', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
     /**
