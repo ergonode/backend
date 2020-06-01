@@ -56,7 +56,7 @@ class TemplateCommandFactory
         return new CreateTemplateCommand(
             $model->name,
             $this->createElements($model),
-            $model->defaultText,
+            $model->defaultLabel,
             $model->defaultImage,
             $model->image ? new MultimediaId($model->image) : null
         );
@@ -74,7 +74,7 @@ class TemplateCommandFactory
             $id,
             $model->name,
             $this->createElements($model),
-            $model->defaultText,
+            $model->defaultLabel,
             $model->defaultImage,
             $model->image ? new MultimediaId($model->image) : null
         );

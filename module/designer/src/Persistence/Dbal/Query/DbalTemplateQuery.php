@@ -30,7 +30,7 @@ class DbalTemplateQuery implements TemplateQueryInterface
         't.id',
         't.name',
         't.default_image',
-        't.default_text',
+        't.default_label',
         't.image_id',
         't.template_group_id AS group_id',
     ];
@@ -54,9 +54,9 @@ class DbalTemplateQuery implements TemplateQueryInterface
     public function getDataSet(): DataSetInterface
     {
         $qb = $this->getQuery();
-        $qb->addSelect('tet.code as default_text_attribute');
+        $qb->addSelect('tet.code as default_label_attribute');
         $qb->addSelect('tei.code as default_image_attribute');
-        $qb->leftJoin('t', self::ATTRIBUTE_TABLE, 'tet', 't.default_text = tet.id');
+        $qb->leftJoin('t', self::ATTRIBUTE_TABLE, 'tet', 't.default_label = tet.id');
         $qb->leftJoin('t', self::ATTRIBUTE_TABLE, 'tei', 't.default_image = tei.id');
         $result = $this->connection->createQueryBuilder();
         $result->select('*');

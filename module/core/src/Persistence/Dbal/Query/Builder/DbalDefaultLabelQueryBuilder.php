@@ -24,17 +24,17 @@ class DbalDefaultLabelQueryBuilder implements DefaultLabelQueryBuilderInterface
     {
         $sql = sprintf('(SELECT
              CASE
-                 WHEN dtt.default_text IS NULL THEN ppt.sku::VARCHAR
-                 WHEN dtt.default_text IS NOT NULL THEN pvtdt.value::VARCHAR
+                 WHEN dtt.default_label IS NULL THEN ppt.sku::VARCHAR
+                 WHEN dtt.default_label IS NOT NULL THEN pvtdl.value::VARCHAR
                  END       as default_label
                  FROM public.product ppdi
                INNER JOIN designer.template dtt ON ppdi.template_id = dtt.id
-               LEFT JOIN public.product_value ppvtdt
-                         ON ppvtdt.product_id = ppdi.id AND ppvtdt.attribute_id = dtt.default_text
-               LEFT JOIN public.value_translation pvtdt ON ppvtdt.value_id = pvtdt.value_id
-               LEFT JOIN public.language_tree pltdt ON pltdt.code = pvtdt.language
-        WHERE ((pltdt.lft <= %s AND pltdt.rgt >= %s) OR pltdt.lft IS NULL) AND ppdi.id = ppt.id 
-      ORDER BY pltdt.lft DESC NULLS LAST
+               LEFT JOIN public.product_value ppvtdl
+                         ON ppvtdl.product_id = ppdi.id AND ppvtdl.attribute_id = dtt.default_label
+               LEFT JOIN public.value_translation pvtdl ON ppvtdl.value_id = pvtdl.value_id
+               LEFT JOIN public.language_tree pltdl ON pltdl.code = pvtdl.language
+        WHERE ((pltdl.lft <= %s AND pltdl.rgt >= %s) OR pltdl.lft IS NULL) AND ppdi.id = ppt.id 
+      ORDER BY pltdl.lft DESC NULLS LAST
                 LIMIT 1)', $info['lft'], $info['rgt']);
         $query->addSelect($sql);
     }

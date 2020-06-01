@@ -36,7 +36,7 @@ class TemplateForm extends AbstractType
                 'image',
                 TextType::class
             )->add(
-                'defaultText',
+                'defaultLabel',
                 AttributeIdType::class
             )->add(
                 'defaultImage',

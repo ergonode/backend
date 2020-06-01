@@ -25,7 +25,7 @@ Feature: Product collection module
       """
       {
         "name": "@@random_md5@@",
-        "defaultText": null,
+        "defaultLabel": null,
         "defaultImage": null,
         "elements": [
           {

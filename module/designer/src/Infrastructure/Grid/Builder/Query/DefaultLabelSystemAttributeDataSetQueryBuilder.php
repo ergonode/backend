@@ -60,17 +60,17 @@ class DefaultLabelSystemAttributeDataSetQueryBuilder implements AttributeDataSet
         $sql = sprintf(
             '(SELECT 
            CASE
-           WHEN dt.default_text IS NULL THEN pp.sku::VARCHAR
-           WHEN dt.default_text IS NOT NULL THEN pvtdt.value::VARCHAR
+           WHEN dt.default_label IS NULL THEN pp.sku::VARCHAR
+           WHEN dt.default_label IS NOT NULL THEN pvtdl.value::VARCHAR
            END
 FROM public.product pp
          INNER JOIN designer.template dt ON pp.template_id = dt.id
-         LEFT JOIN public.product_value ppvdt
-                   ON ppvdt.product_id = p.id AND
-                      ppvdt.attribute_id = dt.default_text
-         LEFT JOIN public.value_translation pvtdt
-                   ON ppvdt.value_id = pvtdt.value_id
-         LEFT JOIN public.language_tree ppvlt ON ppvlt.code = pvtdt.language
+         LEFT JOIN public.product_value ppvdl
+                   ON ppvdl.product_id = p.id AND
+                      ppvdl.attribute_id = dt.default_label
+         LEFT JOIN public.value_translation pvtdl
+                   ON ppvdl.value_id = pvtdl.value_id
+         LEFT JOIN public.language_tree ppvlt ON ppvlt.code = pvtdl.language
 WHERE ((ppvlt.lft <= %s AND ppvlt.rgt >= %s) OR ppvlt.lft IS NULL) AND pp.id = p.id
 ORDER BY lft DESC NULLS LAST
 LIMIT 1 ) as "%s"',

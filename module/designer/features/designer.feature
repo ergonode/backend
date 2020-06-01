@@ -57,7 +57,7 @@ Feature: Designer module
       {
         "name": "@@random_md5@@",
         "image": "@multimedia_id@",
-        "defaultText": "@template_text_attribute@",
+        "defaultLabel": "@template_text_attribute@",
         "defaultImage": "@template_image_attribute@",
         "elements": [
           {
@@ -77,7 +77,7 @@ Feature: Designer module
     And store response param "id" as "template"
 
 
-  Scenario: Create template (wrong default text attribute)
+  Scenario: Create template (wrong default label attribute)
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
@@ -86,7 +86,7 @@ Feature: Designer module
       {
         "name": "@@random_md5@@",
         "image": "@multimedia_id@",
-        "defaultText": "@template_image_attribute@",
+        "defaultLabel": "@template_image_attribute@",
         "elements": [
           {
             "position": {"x": 0, "y": 0},
