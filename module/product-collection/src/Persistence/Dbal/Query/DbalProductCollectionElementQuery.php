@@ -91,8 +91,8 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
         $query = $this->getQuery();
         $query->andWhere($query->expr()->eq('product_collection_id', ':productCollectionId'));
         $query->join('ce', self::PUBLIC_PRODUCT_TABLE, 'ppt', 'ppt.id = ce.product_id');
-        $this->defaultLabelQueryBuilder->addSelect($query, $info);
-        $this->defaultImageQueryBuilder->addSelect($query, $info);
+        $this->defaultLabelQueryBuilder->addSelect($query, $info['lft'], $info['rgt']);
+        $this->defaultImageQueryBuilder->addSelect($query, $info['lft'], $info['rgt']);
         $result = $this->connection->createQueryBuilder();
         $result->select('*');
         $result->from(sprintf('(%s)', $query->getSQL()), 't');

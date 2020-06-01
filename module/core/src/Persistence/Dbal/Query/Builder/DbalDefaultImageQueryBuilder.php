@@ -19,9 +19,10 @@ class DbalDefaultImageQueryBuilder implements DefaultImageQueryBuilderInterface
 
     /**
      * @param QueryBuilder $query
-     * @param array        $info
+     * @param int          $lft
+     * @param int          $rgt
      */
-    public function addSelect(QueryBuilder $query, array $info): void
+    public function addSelect(QueryBuilder $query, int $lft, int $rgt): void
     {
 
         $sql = sprintf('(SELECT 
@@ -34,7 +35,7 @@ class DbalDefaultImageQueryBuilder implements DefaultImageQueryBuilderInterface
                LEFT JOIN public.language_tree pltdi ON pltdi.code = pvtdi.language
                WHERE ((pltdi.lft <= %s AND pltdi.rgt >= %s) OR pltdi.lft IS NULL) AND ppdi.id = ppt.id
       ORDER BY pltdi.lft DESC NULLS LAST
-                LIMIT 1)', $info['lft'], $info['rgt']);
+                LIMIT 1)', $lft, $rgt);
         $query->addSelect($sql);
     }
 }

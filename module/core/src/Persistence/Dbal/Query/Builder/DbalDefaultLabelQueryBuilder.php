@@ -18,9 +18,10 @@ class DbalDefaultLabelQueryBuilder implements DefaultLabelQueryBuilderInterface
 {
     /**
      * @param QueryBuilder $query
-     * @param array        $info
+     * @param int          $lft
+     * @param int          $rgt
      */
-    public function addSelect(QueryBuilder $query, array $info): void
+    public function addSelect(QueryBuilder $query, int $lft, int $rgt): void
     {
         $sql = sprintf('(SELECT
              CASE
@@ -35,7 +36,7 @@ class DbalDefaultLabelQueryBuilder implements DefaultLabelQueryBuilderInterface
                LEFT JOIN public.language_tree pltdl ON pltdl.code = pvtdl.language
         WHERE ((pltdl.lft <= %s AND pltdl.rgt >= %s) OR pltdl.lft IS NULL) AND ppdi.id = ppt.id 
       ORDER BY pltdl.lft DESC NULLS LAST
-                LIMIT 1)', $info['lft'], $info['rgt']);
+                LIMIT 1)', $lft, $rgt);
         $query->addSelect($sql);
     }
 }

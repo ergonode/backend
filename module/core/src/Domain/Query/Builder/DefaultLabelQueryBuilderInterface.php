@@ -17,7 +17,8 @@ interface DefaultLabelQueryBuilderInterface
 {
     /**
      * @param QueryBuilder $query
-     * @param array        $info
+     * @param int          $lft
+     * @param int          $rgt
      */
-    public function addSelect(QueryBuilder $query, array $info): void;
+    public function addSelect(QueryBuilder $query, int $lft, int $rgt): void;
 }
