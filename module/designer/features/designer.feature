@@ -18,7 +18,6 @@ Feature: Designer module
     Then the response status code should be 201
     And store response param "id" as "template_text_attribute"
 
-
   Scenario: Create image attribute
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
