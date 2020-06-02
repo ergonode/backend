@@ -1,6 +1,3 @@
-parameters:
-    multimedia_directory: '%kernel.project_dir%/public/multimedia/'
-
 services:
     _defaults:
             autowire: true

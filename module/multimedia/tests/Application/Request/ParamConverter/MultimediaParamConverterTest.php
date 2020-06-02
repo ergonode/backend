@@ -7,13 +7,12 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Tests\Multimedia\Application\Request\ParamConverter;
+namespace Ergonode\Multimedia\Tests\Application\Request\ParamConverter;
 
 use Ergonode\Multimedia\Application\Request\ParamConverter\MultimediaParamConverter;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
-use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
-use Ergonode\Multimedia\Infrastructure\Service\FileExistCheckService;
+use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -41,14 +40,9 @@ class MultimediaParamConverterTest extends TestCase
     private $repository;
 
     /**
-     * @var MultimediaFileProviderInterface|MockObject
+     * @var MultimediaStorageInterface|MockObject
      */
-    private $provider;
-
-    /**
-     * @var FileExistCheckService|MockObject
-     */
-    private $service;
+    private $storage;
 
     /**
      */
@@ -57,8 +51,7 @@ class MultimediaParamConverterTest extends TestCase
         $this->request = $this->createMock(Request::class);
         $this->configuration = $this->createMock(ParamConverter::class);
         $this->repository = $this->createMock(MultimediaRepositoryInterface::class);
-        $this->provider = $this->createMock(MultimediaFileProviderInterface::class);
-        $this->service = $this->createMock(FileExistCheckService::class);
+        $this->storage = $this->createMock(MultimediaStorageInterface::class);
     }
 
     /**
@@ -68,7 +61,7 @@ class MultimediaParamConverterTest extends TestCase
         $this->request->method('get')->willReturn(null);
         $this->configuration->method('getClass')->willReturn(Multimedia::class);
 
-        $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
+        $paramConverter = new MultimediaParamConverter($this->repository, $this->storage);
         $this->assertTrue($paramConverter->supports($this->configuration));
     }
 
@@ -79,7 +72,7 @@ class MultimediaParamConverterTest extends TestCase
         $this->request->method('get')->willReturn(null);
         $this->configuration->method('getClass')->willReturn('Any other class namespace');
 
-        $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
+        $paramConverter = new MultimediaParamConverter($this->repository, $this->storage);
         $this->assertFalse($paramConverter->supports($this->configuration));
     }
 
@@ -90,7 +83,7 @@ class MultimediaParamConverterTest extends TestCase
         $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn(null);
 
-        $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
+        $paramConverter = new MultimediaParamConverter($this->repository, $this->storage);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -101,7 +94,7 @@ class MultimediaParamConverterTest extends TestCase
         $this->expectException(\Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class);
         $this->request->method('get')->willReturn('incorrect uuid');
 
-        $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
+        $paramConverter = new MultimediaParamConverter($this->repository, $this->storage);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -112,7 +105,7 @@ class MultimediaParamConverterTest extends TestCase
         $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
 
-        $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
+        $paramConverter = new MultimediaParamConverter($this->repository, $this->storage);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -123,10 +116,9 @@ class MultimediaParamConverterTest extends TestCase
         $this->expectException(\Symfony\Component\HttpKernel\Exception\ConflictHttpException::class);
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
         $this->repository->method('load')->willReturn($this->createMock(Multimedia::class));
-        $this->provider->method('getFile')->willReturn('Some file url');
-        $this->service->method('check')->willReturn(false);
+        $this->storage->method('has')->willReturn(false);
 
-        $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
+        $paramConverter = new MultimediaParamConverter($this->repository, $this->storage);
         $paramConverter->apply($this->request, $this->configuration);
     }
 
@@ -138,9 +130,9 @@ class MultimediaParamConverterTest extends TestCase
         $this->repository->method('load')->willReturn($this->createMock(Multimedia::class));
         $this->request->attributes = $this->createMock(ParameterBag::class);
         $this->request->attributes->expects($this->once())->method('set');
-        $this->service->method('check')->willReturn(true);
+        $this->storage->method('has')->willReturn(true);
 
-        $paramConverter = new MultimediaParamConverter($this->repository, $this->provider, $this->service);
+        $paramConverter = new MultimediaParamConverter($this->repository, $this->storage);
         $paramConverter->apply($this->request, $this->configuration);
     }
 }
