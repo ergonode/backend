@@ -14,13 +14,13 @@ addons:
       - postgresql-10
       - postgresql-client-10
 before_script:
+  - yes | pecl install imagick,
   - psql -c "CREATE ROLE ergonode LOGIN  PASSWORD '123' CREATEDB" -U postgres
   - psql -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";' -U postgres --dbname template1
   - psql -c 'CREATE EXTENSION IF NOT EXISTS "ltree";' -U postgres --dbname template1
   - psql -c 'CREATE DATABASE ergonode_test OWNER ergonode' -U postgres
   - openssl genrsa -aes256 -passout pass:1234 -out "config/jwt/private.pem" 4096
   - openssl rsa -pubout -in "config/jwt/private.pem"  -passin pass:1234 -out "config/jwt/public.pem",
-   - yes | pecl install imagick
   
 env:
   global:
