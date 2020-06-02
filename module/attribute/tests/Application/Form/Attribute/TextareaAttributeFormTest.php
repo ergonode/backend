@@ -10,7 +10,7 @@ namespace Ergonode\Attribute\Tests\Application\Form\Attribute;
 
 use Ergonode\Attribute\Application\Form\Attribute\TextareaAttributeForm;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
-use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Application\Model\Attribute\TextareaAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\Query\AttributeGroupQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
@@ -60,9 +60,10 @@ class TextareaAttributeFormTest extends TypeTestCase
             'hint' => [],
             'scope' => 'local',
             'groups' => ['2ae47e1b-10c3-4dd6-ac70-41000125c29f'],
+            'parameters' => ["richTextEditorEnable" => true],
         ];
 
-        $object = new AttributeFormModel();
+        $object = new TextareaAttributeFormModel();
         $object->label = [];
         $object->placeholder = [];
         $object->hint = [];
@@ -70,7 +71,7 @@ class TextareaAttributeFormTest extends TypeTestCase
         $object->code = 'code';
         $object->groups = [new AttributeGroupId('2ae47e1b-10c3-4dd6-ac70-41000125c29f')];
 
-        $objectToCompare = new AttributeFormModel();
+        $objectToCompare = new TextareaAttributeFormModel();
         $form = $this->factory->create(TextareaAttributeForm::class, $objectToCompare);
         $form->submit($formData);
 

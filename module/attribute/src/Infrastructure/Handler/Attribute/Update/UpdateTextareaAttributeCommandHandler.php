@@ -39,10 +39,12 @@ class UpdateTextareaAttributeCommandHandler extends AbstractUpdateAttributeComma
      */
     public function __invoke(UpdateTextareaAttributeCommand $command): void
     {
+        /** @var TextareaAttribute $attribute */
         $attribute = $this->attributeRepository->load($command->getId());
 
         Assert::isInstanceOf($attribute, TextareaAttribute::class);
         $attribute = $this->update($command, $attribute);
+        $attribute->changeRichTextEditorEnabled($command->isRichTextEditorEnabled());
 
         $this->attributeRepository->save($attribute);
     }

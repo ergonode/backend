@@ -9,9 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Application\Form\Attribute;
 
+use Ergonode\Attribute\Application\Form\Attribute\Configuration\TextareaAttributeConfigurationForm;
 use Ergonode\Attribute\Application\Form\Type\AttributeCodeType;
 use Ergonode\Attribute\Application\Form\Type\AttributeGroupType;
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Application\Model\Attribute\TextareaAttributeFormModel;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
@@ -63,6 +65,10 @@ class TextareaAttributeForm extends AbstractType implements AttributeFormInterfa
             ->add(
                 'scope',
                 TextType::class,
+            )
+            ->add(
+                'parameters',
+                TextareaAttributeConfigurationForm::class
             );
     }
 
@@ -72,7 +78,8 @@ class TextareaAttributeForm extends AbstractType implements AttributeFormInterfa
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => AttributeFormModel::class,
+            'data_class' => TextareaAttributeFormModel::class,
+            'empty_data' => new TextareaAttributeFormModel(),
             'translation_domain' => 'attribute',
             'allow_extra_fields' => true,
         ]);

@@ -13,7 +13,10 @@ Feature: Text-area attribute manipulation
           "type": "TEXT_AREA",
           "groups": [],
           "scope": "local",
-          "parameters": []
+          "parameters":
+          {
+          "richTextEditorEnabled": true
+          }
       }
       """
     Then the response status code should be 201
@@ -25,7 +28,10 @@ Feature: Text-area attribute manipulation
       {
           "groups": [],
           "scope": "local",
-          "parameters": []
+          "parameters":
+           {
+          "richTextEditorEnabled": true
+          }
       }
       """
     Then the response status code should be 204

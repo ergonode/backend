@@ -51,6 +51,11 @@ class TextareaAttributeTest extends TestCase
     private AttributeScope $scope;
 
     /**
+     * @var bool
+     */
+    private bool $richTextEditorEnabled;
+
+    /**
      */
     protected function setUp(): void
     {
@@ -60,6 +65,7 @@ class TextareaAttributeTest extends TestCase
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
         $this->scope = $this->createMock(AttributeScope::class);
+        $this->richTextEditorEnabled = true;
     }
 
     /**
@@ -73,7 +79,8 @@ class TextareaAttributeTest extends TestCase
             $this->label,
             $this->placeholder,
             $this->hint,
-            $this->scope
+            $this->scope,
+            $this->richTextEditorEnabled
         );
         $this->assertEquals($this->id, $attribute->getId());
         $this->assertEquals($this->code, $attribute->getCode());
@@ -81,5 +88,6 @@ class TextareaAttributeTest extends TestCase
         $this->assertEquals($this->hint, $attribute->getHint());
         $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
         $this->assertEquals($this->scope, $attribute->getScope());
+        $this->assertEquals($this->richTextEditorEnabled, $attribute->isRichTextEditorEnabled());
     }
 }
