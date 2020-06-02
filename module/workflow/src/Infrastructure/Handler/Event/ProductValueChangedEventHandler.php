@@ -82,8 +82,10 @@ class ProductValueChangedEventHandler
         $attributeCode = $event->getAttributeCode();
         if ($attributeCode->getValue() === StatusSystemAttribute::CODE) {
             $workflow = $this->workflowProvider->provide();
-            $source = new StatusCode($event->getFrom()->getValue());
-            $destination = new StatusCode($event->getTo()->getValue());
+            $from = $event->getFrom()->getValue();
+            $to = $event->getTo()->getValue();
+            $source = new StatusCode(reset($from));
+            $destination = new StatusCode(reset($to));
             if ($workflow->hasTransition($source, $destination)) {
                 $transition = $workflow->getTransition($source, $destination);
                 if (!empty($transition->getRoleIds())) {
