@@ -17,6 +17,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Domain\Command\Update\UpdateVariableProductCommand;
 use Ergonode\Product\Infrastructure\Factory\Command\UpdateProductCommandFactoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
@@ -48,10 +49,16 @@ class UpdateVariableProductCommandFactory implements UpdateProductCommandFactory
             $categories[] = new CategoryId($category);
         }
 
+        $bindings = [];
+        foreach ($data->bindings as $binding) {
+            $bindings[] = new AttributeId($binding);
+        }
+
         return new UpdateVariableProductCommand(
             $productId,
             new TemplateId($data->template),
             $categories,
+            $bindings,
         );
     }
 }

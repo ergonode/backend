@@ -36,7 +36,7 @@ use Ergonode\Api\Application\Response\CreatedResponse;
  *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class ProductAddBindingAction extends AbstractController
+class AddProductAttributeBindingsAction extends AbstractController
 {
     /**
      * @var CommandBusInterface

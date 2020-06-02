@@ -72,11 +72,20 @@ Feature: Variable product
       {
         "sku": "SKU_@@random_code@@",
         "type": "VARIABLE-PRODUCT",
-        "templateId": "@product_template_id@"
+        "templateId": "@product_template_id@",
+        "bindings": [
+          "@attribute_id@"
+        ]
       }
       """
     Then the response status code should be 201
     And store response param "id" as "product_id"
+
+  Scenario: Get binded attributes
+    When I send a GET request to "/api/v1/en/products/@product_id@/bindings"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | [0] | @attribute_id@ |
 
   Scenario: Create variable product without template
     When I send a POST request to "/api/v1/en/products" with body:
@@ -94,10 +103,19 @@ Feature: Variable product
       """
       {
         "sku": "SKU_@@random_code@@",
-        "templateId": "@product_template_id@"
+        "templateId": "@product_template_id@",
+         "bindings": [
+            "@attribute_id@"
+        ]
       }
       """
     Then the response status code should be 204
+
+  Scenario: Get binded attributes
+    When I send a GET request to "/api/v1/en/products/@product_id@/bindings"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | [0] | @attribute_id@ |
 
   Scenario: Update variable product without template
     When I send a PUT request to "/api/v1/en/products/@product_id@" with body:
