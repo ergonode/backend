@@ -9,3 +9,7 @@ flysystem:
             adapter: 'local'
             options:
                 directory: '%kernel.project_dir%/var/storage/export'
+        multimedia.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/multimedia'

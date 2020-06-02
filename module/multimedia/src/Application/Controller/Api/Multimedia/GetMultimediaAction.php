@@ -10,14 +10,14 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
+use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
@@ -29,16 +29,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class GetMultimediaAction
 {
     /**
-     * @var MultimediaFileProviderInterface
+     * @var MultimediaStorageInterface
      */
-    private MultimediaFileProviderInterface $fileProvider;
+    private MultimediaStorageInterface $storage;
 
     /**
-     * @param MultimediaFileProviderInterface $fileProvider
+     * @param MultimediaStorageInterface $storage
      */
-    public function __construct(MultimediaFileProviderInterface $fileProvider)
+    public function __construct(MultimediaStorageInterface $storage)
     {
-        $this->fileProvider = $fileProvider;
+        $this->storage = $storage;
     }
 
     /**
@@ -70,7 +70,7 @@ class GetMultimediaAction
      */
     public function __invoke(Multimedia $multimedia): Response
     {
-        $file = $this->fileProvider->getFile($multimedia->getFileName());
+        $file = $this->storage->read($multimedia->getFileName());
 
         $response = new BinaryFileResponse($file);
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
