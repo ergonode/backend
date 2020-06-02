@@ -13,10 +13,9 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Ergonode\Designer\Infrastructure\Generator\TemplateGeneratorInterface;
-use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateGeneratorStrategyCompilerPass;
+use Ergonode\Multimedia\Infrastructure\Provider\MultimediaRelationInterface;
+use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MultimediaRelationCompilerPass;
 use Ergonode\Multimedia\Infrastructure\Service\Metadata\MetadataReaderInterface;
-use Ergonode\Multimedia\Infrastructure\Service\Metadata\MetadataReader;
 use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MetadataReaderCompilerPass;
 
 /**
@@ -35,6 +34,10 @@ class ErgonodeMultimediaExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../../Resources/config')
         );
+
+        $container
+            ->registerForAutoconfiguration(MultimediaRelationInterface::class)
+            ->addTag(MultimediaRelationCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(MetadataReaderInterface::class)

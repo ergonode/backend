@@ -25,6 +25,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -296,6 +297,28 @@ class DbalAttributeQuery implements AttributeQueryInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param MultimediaId $id
+     *
+     * @return array
+     */
+    public function getMultimediaRelation(MultimediaId $id): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+
+        return $qb
+            ->select('a.id, a.code')
+            ->from('multimedia', 'm')
+            ->join('m', 'value_translation', 'vt', 'vt.value = m.id::TEXT')
+            ->join('vt', 'product_value', 'pv', 'pv.value_id = vt.id')
+            ->join('pv', 'attribute', 'a', 'a.id = pv.attribute_id')
+            ->groupBy('a.id, a.code')
+            ->where($qb->expr()->eq('m.id', ':multimediaId'))
+            ->setParameter(':multimediaId', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_KEY_PAIR);
     }
 
     /**

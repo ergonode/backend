@@ -19,6 +19,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\SharedKernel\Domain\AggregateId;
 use Ramsey\Uuid\Uuid;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -145,5 +146,15 @@ class CacheProductQueryDecorator implements ProductQueryInterface
     public function findProductIdByOptionId(AggregateId $id)
     {
         return $this->query->findProductIdByOptionId($id);
+    }
+
+    /**
+     * @param MultimediaId $id
+     *
+     * @return array
+     */
+    public function getMultimediaRelation(MultimediaId $id): array
+    {
+        return $this->query->getMultimediaRelation($id);
     }
 }

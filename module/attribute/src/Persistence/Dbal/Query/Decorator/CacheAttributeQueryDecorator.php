@@ -15,10 +15,10 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeType;
 use Ergonode\Attribute\Domain\ValueObject\OptionInterface;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
 use Ergonode\Attribute\Domain\View\AttributeViewModel;
-use Ergonode\Core\Domain\ValueObject\Range;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -154,5 +154,15 @@ class CacheAttributeQueryDecorator implements AttributeQueryInterface
     public function findAttributeIdsByAttributeGroupId(AttributeGroupId $id): array
     {
         return $this->attributeQuery->findAttributeIdsByAttributeGroupId($id);
+    }
+
+    /**
+     * @param MultimediaId $id
+     *
+     * @return array
+     */
+    public function getMultimediaRelation(MultimediaId $id): array
+    {
+        return $this->attributeQuery->getMultimediaRelation($id);
     }
 }

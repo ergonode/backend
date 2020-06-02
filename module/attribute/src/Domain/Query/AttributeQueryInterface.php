@@ -15,6 +15,7 @@ use Ergonode\Attribute\Domain\View\AttributeViewModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 
 /**
  */
@@ -88,4 +89,11 @@ interface AttributeQueryInterface
      * @return array
      */
     public function findAttributeIdsByAttributeGroupId(AttributeGroupId $id): array;
+
+    /**
+     * @param MultimediaId $id
+     *
+     * @return array
+     */
+    public function getMultimediaRelation(MultimediaId $id): array;
 }
