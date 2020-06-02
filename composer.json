@@ -7,6 +7,8 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-pdo": "*",
+        "ext-exif": "*",
+        "ext-imagick": "*",
         "beberlei/assert": "2.x",
         "behat/symfony2-extension": "^2.1",
         "doctrine/migrations": "2.2.x",
