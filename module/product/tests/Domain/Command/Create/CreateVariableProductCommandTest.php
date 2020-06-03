@@ -25,8 +25,8 @@ class CreateVariableProductCommandTest extends TestCase
      * @param ProductId  $id
      * @param Sku        $sku
      * @param TemplateId $templateId
-     * @param array      $bindings
      * @param array      $categories
+     * @param array      $bindings
      * @param array      $attributes
      *
      * @dataProvider dataProvider

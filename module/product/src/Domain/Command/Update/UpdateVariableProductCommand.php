@@ -58,11 +58,11 @@ class UpdateVariableProductCommand implements DomainCommandInterface
     private array $attributes;
 
     /**
-     * @param ProductId     $productId
-     * @param TemplateId    $templateId
-     * @param AttributeId[] $bindings
-     * @param CategoryId[]  $categories
-     * @param array         $attributes
+     * @param ProductId  $productId
+     * @param TemplateId $templateId
+     * @param array      $categories
+     * @param array      $bindings
+     * @param array      $attributes
      */
     public function __construct(
         ProductId $productId,

@@ -54,7 +54,9 @@ class VariableProductFormModel
      * @Assert\All({
      *    @Assert\NotBlank(message="Bind attribute is required"),
      *    @Assert\Uuid(strict=true),
+     *
      *    @AttributeExists(),
+     *
      *    @AttributeTypeValid(type="SELECT")
      * })
      */

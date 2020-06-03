@@ -9,15 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Application\Form;
 
-use Ergonode\Core\Application\Form\Type\TranslationType;
-use Ergonode\ProductCollection\Application\Model\ProductCollectionTypeUpdateFormModel;
+use Ergonode\Segment\Application\Form\Type\SegmentType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ergonode\ProductCollection\Application\Model\ProductCollectionElementFromSegmentsFormModel;
 
 /**
  */
-class ProductCollectionTypeUpdateForm extends AbstractType
+class ProductCollectionElementFromSegmentsForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,8 +28,13 @@ class ProductCollectionTypeUpdateForm extends AbstractType
     {
         $builder
             ->add(
-                'name',
-                TranslationType::class
+                'segments',
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => SegmentType::class,
+                ]
             );
     }
 
@@ -38,7 +44,7 @@ class ProductCollectionTypeUpdateForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ProductCollectionTypeUpdateFormModel::class,
+            'data_class' => ProductCollectionElementFromSegmentsFormModel::class,
             'translation_domain' => 'product-collection',
         ]);
     }

@@ -47,10 +47,10 @@ class CreateVariableProductCommandHandler
     private WorkflowProvider $provider;
 
     /**
-     * @param ProductRepositoryInterface $productRepository
+     * @param ProductRepositoryInterface   $productRepository
      * @param AttributeRepositoryInterface $attributeRepository
-     * @param TokenStorageInterface $tokenStorage
-     * @param WorkflowProvider $provider
+     * @param TokenStorageInterface        $tokenStorage
+     * @param WorkflowProvider             $provider
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
@@ -93,7 +93,7 @@ class CreateVariableProductCommandHandler
 
         foreach ($command->getBindings() as $attributeId) {
             $attribute = $this->attributeRepository->load($attributeId);
-            Assert::isInstanceOf($attribute,SelectAttribute::class);
+            Assert::isInstanceOf($attribute, SelectAttribute::class);
             $product->addBind($attribute);
         }
 

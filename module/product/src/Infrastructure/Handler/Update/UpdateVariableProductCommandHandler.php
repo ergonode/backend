@@ -48,9 +48,9 @@ class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
         }
 
         foreach ($command->getBindings() as $attributeId) {
-            if(!$product->hasBind($attributeId)) {
+            if (!$product->hasBind($attributeId)) {
                 $attribute = $this->attributeRepository->load($attributeId);
-                Assert::isInstanceOf($attribute,SelectAttribute::class);
+                Assert::isInstanceOf($attribute, SelectAttribute::class);
                 $product->addBind($attribute);
             }
         }

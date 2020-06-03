@@ -39,9 +39,9 @@ abstract class AbstractUpdateProductHandler
     protected TokenStorageInterface $tokenStorage;
 
     /**
-     * @param ProductRepositoryInterface $productRepository
+     * @param ProductRepositoryInterface   $productRepository
      * @param AttributeRepositoryInterface $attributeRepository
-     * @param TokenStorageInterface $tokenStorage
+     * @param TokenStorageInterface        $tokenStorage
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,

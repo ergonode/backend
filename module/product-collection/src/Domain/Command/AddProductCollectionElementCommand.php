@@ -40,8 +40,6 @@ class AddProductCollectionElementCommand implements DomainCommandInterface
     private bool $visible;
 
     /**
-     * AddProductCollectionElementCommand constructor.
-     *
      * @param ProductCollectionId $productCollectionId
      * @param ProductId           $productId
      * @param bool                $visible

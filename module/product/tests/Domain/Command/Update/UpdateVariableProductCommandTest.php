@@ -21,11 +21,11 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 class UpdateVariableProductCommandTest extends TestCase
 {
     /**
-     * @param ProductId $id
+     * @param ProductId  $id
      * @param TemplateId $templateId
-     * @param array $categories
-     * @param array $bindings
-     * @param array $attributes
+     * @param array      $categories
+     * @param array      $bindings
+     * @param array      $attributes
      *
      * @dataProvider dataProvider
      */
