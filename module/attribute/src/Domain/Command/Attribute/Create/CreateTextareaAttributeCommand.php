@@ -24,7 +24,7 @@ class CreateTextareaAttributeCommand extends AbstractCreateAttributeCommand
      *
      * @JMS\Type("boolean")
      */
-    private bool $isRichTextEditorEnabled;
+    private bool $simpleHtml;
 
     /**
      * @param AttributeCode      $code
@@ -32,7 +32,7 @@ class CreateTextareaAttributeCommand extends AbstractCreateAttributeCommand
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param AttributeScope     $scope
-     * @param bool               $isRichTextEditorEnabled
+     * @param bool               $simpleHtml
      * @param array              $groups
      *
      * @throws \Exception
@@ -43,7 +43,7 @@ class CreateTextareaAttributeCommand extends AbstractCreateAttributeCommand
         TranslatableString $hint,
         TranslatableString $placeholder,
         AttributeScope $scope,
-        bool $isRichTextEditorEnabled,
+        bool $simpleHtml,
         array $groups = []
     ) {
         parent::__construct(
@@ -55,14 +55,14 @@ class CreateTextareaAttributeCommand extends AbstractCreateAttributeCommand
             $groups
         );
 
-        $this->isRichTextEditorEnabled = $isRichTextEditorEnabled;
+        $this->simpleHtml = $simpleHtml;
     }
 
     /**
      * @return bool
      */
-    public function isRichTextEditorEnabled(): bool
+    public function simplHtml(): bool
     {
-        return $this->isRichTextEditorEnabled;
+        return $this->simpleHtml;
     }
 }

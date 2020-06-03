@@ -15,7 +15,7 @@ Feature: Text-area attribute manipulation
           "scope": "local",
           "parameters":
           {
-          "richTextEditorEnabled": true
+          "simpleHtml": true
           }
       }
       """
@@ -30,7 +30,7 @@ Feature: Text-area attribute manipulation
           "scope": "local",
           "parameters":
            {
-          "richTextEditorEnabled": true
+          "simpleHtml": true
           }
       }
       """

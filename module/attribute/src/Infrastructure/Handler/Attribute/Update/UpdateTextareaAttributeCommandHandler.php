@@ -44,7 +44,7 @@ class UpdateTextareaAttributeCommandHandler extends AbstractUpdateAttributeComma
 
         Assert::isInstanceOf($attribute, TextareaAttribute::class);
         $attribute = $this->update($command, $attribute);
-        $attribute->changeRichTextEditorEnabled($command->isRichTextEditorEnabled());
+        $attribute->changeSimpleHtml($command->isSimpleHtml());
 
         $this->attributeRepository->save($attribute);
     }

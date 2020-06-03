@@ -45,7 +45,7 @@ class CreateTextareaAttributeCommandHandler
             $command->getHint(),
             $command->getPlaceholder(),
             $command->getScope(),
-            $command->isRichTextEditorEnabled(),
+            $command->simplHtml(),
         );
 
         foreach ($command->getGroups() as $group) {

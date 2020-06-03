@@ -51,7 +51,7 @@ class CreateTextareaAttributeCommandFactory implements CreateAttributeCommandFac
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
-            $data->parameters->richTextEditorEnabled,
+            $data->parameters->simpleHtml,
             $data->groups,
         );
     }

@@ -18,5 +18,5 @@ class TextareaAttributePropertyModel
     /**
      * @var bool|null
      */
-    public ?bool $richTextEditorEnabled = null;
+    public ?bool $simpleHtml = false;
 }

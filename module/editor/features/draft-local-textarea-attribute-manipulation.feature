@@ -63,7 +63,7 @@ Feature: Draft edit and inheritance value for product draft with text area attri
         "groups": [],
          "parameters":
           {
-          "richTextEditorEnabled": true
+          "simpleHtml": true
           }
       }
       """

@@ -22,7 +22,7 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractTextareaAttribute extends AbstractAttribute
 {
     public const TYPE = 'TEXT_AREA';
-    public const RICH_TEXT_EDITOR_ENABLED = 'rich_text_editor_enabled';
+    public const SIMPLE_HTML = 'simple_html';
 
     /**
      * @param AttributeId        $id
@@ -31,7 +31,7 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param AttributeScope     $scope
-     * @param bool               $richTextEditorEnabled
+     * @param bool               $simpleHtml
      *
      * @throws \Exception
      */
@@ -42,7 +42,7 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
         TranslatableString $hint,
         TranslatableString $placeholder,
         AttributeScope $scope,
-        bool $richTextEditorEnabled
+        bool $simpleHtml
     ) {
         parent::__construct(
             $id,
@@ -51,7 +51,7 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
             $hint,
             $placeholder,
             $scope,
-            [self::RICH_TEXT_EDITOR_ENABLED => $richTextEditorEnabled]
+            [self::SIMPLE_HTML => $simpleHtml]
         );
     }
 
@@ -69,9 +69,9 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
     /**
      * @return bool
      */
-    public function isRichTextEditorEnabled(): bool
+    public function isSimplHtml(): bool
     {
-        return $this->getParameter(self::RICH_TEXT_EDITOR_ENABLED);
+        return $this->getParameter(self::SIMPLE_HTML);
     }
 
     /**
@@ -79,13 +79,13 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
      *
      * @throws \Exception
      */
-    public function changeRichTextEditorEnabled(bool $new): void
+    public function changeSimpleHtml(bool $new): void
     {
-        if ($this->isRichTextEditorEnabled() !== $new) {
+        if ($this->isSimplHtml() !== $new) {
             $event = new AttributeParameterChangeEvent(
                 $this->id,
-                self::RICH_TEXT_EDITOR_ENABLED,
-                (string) $this->isRichTextEditorEnabled(),
+                self::SIMPLE_HTML,
+                (string) $this->isSimplHtml(),
                 (string) $new
             );
             $this->apply($event);

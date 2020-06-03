@@ -50,7 +50,7 @@ class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFac
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
-            $data->parameters->richTextEditorEnabled,
+            $data->parameters->simpleHtml,
             $data->groups,
         );
     }
