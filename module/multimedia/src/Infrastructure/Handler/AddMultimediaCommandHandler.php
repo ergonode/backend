@@ -10,22 +10,15 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Infrastructure\Handler;
 
 use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
-use Ergonode\Multimedia\Domain\Factory\MultimediaFactory;
+use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
-use Ergonode\Multimedia\Infrastructure\Service\Upload\MultimediaUploadService;
-use Symfony\Component\HttpFoundation\File\File;
-use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
+use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
 
 /**
  */
 class AddMultimediaCommandHandler
 {
-    /**
-     * @var MultimediaUploadService
-     */
-    private MultimediaUploadService $uploadService;
-
     /**
      * @var HashCalculationServiceInterface
      */
@@ -37,55 +30,61 @@ class AddMultimediaCommandHandler
     private MultimediaRepositoryInterface $repository;
 
     /**
-     * @var MultimediaFactory
+     * @var MultimediaStorageInterface
      */
-    private MultimediaFactory $factory;
+    private MultimediaStorageInterface $storage;
 
     /**
-     * @var MultimediaFileProviderInterface
-     */
-    private MultimediaFileProviderInterface $provider;
-
-    /**
-     * @param MultimediaUploadService         $uploadService
      * @param HashCalculationServiceInterface $hashService
      * @param MultimediaRepositoryInterface   $repository
-     * @param MultimediaFactory               $factory
-     * @param MultimediaFileProviderInterface $provider
+     * @param MultimediaStorageInterface      $storage
      */
     public function __construct(
-        MultimediaUploadService $uploadService,
         HashCalculationServiceInterface $hashService,
         MultimediaRepositoryInterface $repository,
-        MultimediaFactory $factory,
-        MultimediaFileProviderInterface $provider
+        MultimediaStorageInterface $storage
     ) {
-        $this->uploadService = $uploadService;
         $this->hashService = $hashService;
         $this->repository = $repository;
-        $this->factory = $factory;
-        $this->provider = $provider;
+        $this->storage = $storage;
     }
 
     /**
      * @param AddMultimediaCommand $command
      *
+     * @return mixed
+     *
      * @throws \Exception
      */
-    public function __invoke(AddMultimediaCommand $command)
+    public function __invoke(AddMultimediaCommand $command): void
     {
         $id = $command->getId();
         $file = $command->getFile();
         $hash = $this->hashService->calculateHash($file);
         $originalName = $file->getFilename();
-        $filename = sprintf('%s.%s', $hash->getValue(), $file->getExtension());
-        if (!$this->provider->hasFile($filename)) {
-            $file = $this->uploadService->upload($id, $file, $hash);
-        } else {
-            $file = new File($this->provider->getFile($filename));
+
+        $extension = $file->getExtension();
+        if (empty($extension) || '.' === $extension) {
+            $extension = $file->guessExtension();
         }
 
-        $multimedia = $this->factory->create($id, $originalName, $file, $hash);
+        $filename = sprintf('%s.%s', $hash->getValue(), $extension);
+
+        if (!$this->storage->has($filename)) {
+            $content = file_get_contents($file->getRealPath());
+            $this->storage->write($filename, $content);
+        }
+
+        $info = $this->storage->info($filename);
+
+        $multimedia = new Multimedia(
+            $id,
+            $originalName,
+            $extension,
+            $info['size'],
+            $hash,
+            $info['mime']
+        );
 
         $this->repository->save($multimedia);
     }

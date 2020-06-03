@@ -12,14 +12,13 @@ namespace Ergonode\Multimedia\Application\Request\ParamConverter;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
-use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
-use Ergonode\Multimedia\Infrastructure\Service\FileExistCheckService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
 
 /**
  */
@@ -29,28 +28,22 @@ class MultimediaParamConverter implements ParamConverterInterface
      * @var MultimediaRepositoryInterface
      */
     private MultimediaRepositoryInterface $repository;
+    
     /**
-     * @var MultimediaFileProviderInterface
+     * @var MultimediaStorageInterface
      */
-    private MultimediaFileProviderInterface $fileProvider;
-    /**
-     * @var FileExistCheckService
-     */
-    private FileExistCheckService $fileExistCheckService;
+    private MultimediaStorageInterface $storage;
 
     /**
-     * @param MultimediaRepositoryInterface   $repository
-     * @param MultimediaFileProviderInterface $fileProvider
-     * @param FileExistCheckService           $fileExistCheckService
+     * @param MultimediaRepositoryInterface $repository
+     * @param MultimediaStorageInterface    $storage
      */
     public function __construct(
         MultimediaRepositoryInterface $repository,
-        MultimediaFileProviderInterface $fileProvider,
-        FileExistCheckService $fileExistCheckService
+        MultimediaStorageInterface $storage
     ) {
         $this->repository = $repository;
-        $this->fileProvider = $fileProvider;
-        $this->fileExistCheckService = $fileExistCheckService;
+        $this->storage = $storage;
     }
 
     /**
@@ -74,9 +67,7 @@ class MultimediaParamConverter implements ParamConverterInterface
             throw new NotFoundHttpException(sprintf('Multimedia by ID "%s" not found', $parameter));
         }
 
-        $file = $this->fileProvider->getFile($entity->getFileName());
-
-        if (!$this->fileExistCheckService->check($file)) {
+        if (!$this->storage->has($entity->getFileName())) {
             throw new ConflictHttpException('The file does not exist.');
         }
 
