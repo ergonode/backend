@@ -54,7 +54,7 @@ class DbalTemplateQuery implements TemplateQueryInterface
     public function getDataSet(): DataSetInterface
     {
         $qb = $this->getQuery();
-        $qb->addSelect('tet.code as default_label_attribute');
+        $qb->addSelect('COALESCE(tet.code, \'SKU\') as default_label_attribute');
         $qb->addSelect('tei.code as default_image_attribute');
         $qb->leftJoin('t', self::ATTRIBUTE_TABLE, 'tet', 't.default_label = tet.id');
         $qb->leftJoin('t', self::ATTRIBUTE_TABLE, 'tei', 't.default_image = tei.id');
