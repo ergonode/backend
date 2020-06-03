@@ -22,6 +22,7 @@ before_script:
   - openssl rsa -pubout -in "config/jwt/private.pem"  -passin pass:1234 -out "config/jwt/public.pem"
   - pecl channel-update pecl.php.net
   - yes | pecl install imagick
+  - php --ri imagick
 env:
   global:
     - APP_ENV=test
