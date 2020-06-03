@@ -11,6 +11,7 @@
         "ext-imagick": "*",
         "beberlei/assert": "2.x",
         "behat/symfony2-extension": "^2.1",
+        "calcinai/php-imagick": "0.1.2",
         "doctrine/migrations": "2.2.x",
         "egulias/email-validator": "^2.1",
         "guzzlehttp/guzzle": "^6.3",
