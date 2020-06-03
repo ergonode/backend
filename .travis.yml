@@ -14,9 +14,6 @@ addons:
       - postgresql-10
       - postgresql-client-10
 before_script:
-  - pecl list
-  - php -i
-  - printf "\n" | pecl install imagick
   - psql -c "CREATE ROLE ergonode LOGIN  PASSWORD '123' CREATEDB" -U postgres
   - psql -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";' -U postgres --dbname template1
   - psql -c 'CREATE EXTENSION IF NOT EXISTS "ltree";' -U postgres --dbname template1

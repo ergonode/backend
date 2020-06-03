@@ -26,11 +26,11 @@ class MetadataReader
     }
 
     /**
-     * @param string $file
+     * @param resource $file
      *
      * @return array
      */
-    public function read(string $file): array
+    public function read($file): array
     {
         $result = [];
         foreach ($this->readers as $reader) {

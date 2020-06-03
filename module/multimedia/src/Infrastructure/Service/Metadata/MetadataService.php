@@ -9,32 +9,30 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Infrastructure\Service\Metadata;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Infrastructure\Provider\MultimediaFileProviderInterface;
+use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
 
 /**
  */
 class MetadataService
 {
     /**
-     * @var MultimediaFileProviderInterface
-     */
-    private MultimediaFileProviderInterface $provider;
-
-    /**
      * @var MetadataReader
      */
     private MetadataReader $reader;
 
     /**
-     * @param MultimediaFileProviderInterface $provider
-     * @param MetadataReader                  $reader
+     * @var MultimediaStorageInterface
      */
-    public function __construct(
-        MultimediaFileProviderInterface $provider,
-        MetadataReader $reader
-    ) {
-        $this->provider = $provider;
+    private MultimediaStorageInterface $storage;
+
+    /**
+     * @param MetadataReader             $reader
+     * @param MultimediaStorageInterface $storage
+     */
+    public function __construct(MetadataReader $reader, MultimediaStorageInterface $storage)
+    {
         $this->reader = $reader;
+        $this->storage = $storage;
     }
 
     /**
@@ -44,8 +42,8 @@ class MetadataService
      */
     public function getMetadata(Multimedia $multimedia): array
     {
-        $file = $this->provider->getFile($multimedia->getFileName());
+        $resource = $this->storage->readStream($multimedia->getFileName());
 
-        return $this->reader->read($file);
+        return $this->reader->read($resource);
     }
 }

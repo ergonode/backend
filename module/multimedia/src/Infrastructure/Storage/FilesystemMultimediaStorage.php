@@ -44,6 +44,18 @@ class FilesystemMultimediaStorage implements MultimediaStorageInterface
 
     /**
      * @param string $filename
+     *
+     * @return resource
+     *
+     * @throws FileNotFoundException
+     */
+    public function readStream(string $filename)
+    {
+        return $this->storage->readStream($filename);
+    }
+
+    /**
+     * @param string $filename
      * @param string $content
      *
      * @throws FileExistsException

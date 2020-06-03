@@ -15,11 +15,11 @@ use Ergonode\Multimedia\Infrastructure\Service\Metadata\MetadataReaderInterface;
 class XmpMetadataReader implements MetadataReaderInterface
 {
     /**
-     * @param string $file
+     * @param resource $file
      *
      * @return array
      */
-    public function read(string $file): array
+    public function read($file): array
     {
         $result = [];
         $xmp = $this->getProfile($file);
@@ -49,17 +49,14 @@ class XmpMetadataReader implements MetadataReaderInterface
     }
 
     /**
-     * @param     $filename
+     * @param resource $pointer
      *
      * @return null|string
      */
-    private function getProfile(string $filename): ?string
+    private function getProfile($pointer): ?string
     {
+        rewind($pointer);
         $chunkSize = 1024;
-
-        if (($pointer = fopen($filename, 'rb')) === false) {
-            throw new \RuntimeException('Could not open file for reading');
-        }
 
         $tag = '<x:xmpmeta';
         $buffer = false;

@@ -13,9 +13,9 @@ namespace Ergonode\Multimedia\Infrastructure\Service\Metadata;
 interface MetadataReaderInterface
 {
     /**
-     * @param string $file
+     * @param resource $file
      *
      * @return array
      */
-    public function read(string $file): array;
+    public function read($file): array;
 }

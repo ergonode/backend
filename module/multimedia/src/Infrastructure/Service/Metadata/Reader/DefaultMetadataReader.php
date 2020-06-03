@@ -9,22 +9,21 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Infrastructure\Service\Metadata\Reader;
 
 use Ergonode\Multimedia\Infrastructure\Service\Metadata\MetadataReaderInterface;
+use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
 
 /**
  */
 class DefaultMetadataReader implements MetadataReaderInterface
 {
     /**
-     * @param string $file
+     * @param resource $file
      *
      * @return array
-     *
-     * @throws \ImagickException
      */
-    public function read(string $file): array
+    public function read($file): array
     {
         $imagick = new \Imagick();
-        $imagick->readImage($file);
+        $imagick->readImageFile($file);
 
         $result = [];
         $result['width'] = $imagick->getImageWidth();
