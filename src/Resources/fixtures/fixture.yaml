@@ -44,6 +44,12 @@ parameters:
   label_esa_product_collection:
     'pl': 'Kolekcje produktów'
     'en': 'Product collections'
+  label_esa_default_label:
+    'pl': 'Domyślna etykieta'
+    'en': 'Default label'
+  label_esa_default_image:
+    'pl': 'Domyślne zdjęcie'
+    'en': 'Default image'
   label_esa_product_type:
     'pl': 'Typ produktu'
     'en': 'Product type'
@@ -420,6 +426,20 @@ Ergonode\Product\Domain\Entity\Attribute\ProductTypeSystemAttribute:
   attribute_esa_product_type:
     __construct:
       - '<translation(<{label_esa_product_type}>)>'
+      - '<translation(<{empty}>)>'
+      - '<translation(<{empty}>)>'
+      
+Ergonode\Designer\Domain\Entity\Attribute\DefaultLabelSystemAttribute:
+  attribute_esa_default_label:
+    __construct:
+      - '<translation(<{label_esa_default_label}>)>'
+      - '<translation(<{empty}>)>'
+      - '<translation(<{empty}>)>'
+      
+Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute:
+  attribute_esa_default_image:
+    __construct:
+      - '<translation(<{label_esa_default_image}>)>'
       - '<translation(<{empty}>)>'
       - '<translation(<{empty}>)>'
 
