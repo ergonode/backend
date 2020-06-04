@@ -63,7 +63,7 @@ interface ProductQueryInterface
     /**
      * @param Sku[] $skus
      *
-     * @return array
+     * @return ProductId[]
      */
     public function findProductIdsBySkus(array $skus): array;
 

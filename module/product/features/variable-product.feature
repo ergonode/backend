@@ -20,27 +20,6 @@ Feature: Variable product
     Then the response status code should be 201
     And store response param "id" as "product_template_id"
 
-  Scenario: Create condition set
-    Given I send a POST request to "/api/v1/en/conditionsets" with body:
-      """
-      {
-        "conditions": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "condition_set_id"
-
-  Scenario: Create segment
-    When I send a POST request to "/api/v1/en/segments" with body:
-      """
-      {
-        "code": "SEGMENT_@@random_md5@@",
-        "condition_set_id": "@condition_set_id@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "segment_id"
-
   Scenario: Create select attribute
     And I send a "POST" request to "/api/v1/en/attributes" with body:
       """
@@ -72,11 +51,20 @@ Feature: Variable product
       {
         "sku": "SKU_@@random_code@@",
         "type": "VARIABLE-PRODUCT",
-        "templateId": "@product_template_id@"
+        "templateId": "@product_template_id@",
+        "bindings": [
+          "@attribute_id@"
+        ]
       }
       """
     Then the response status code should be 201
     And store response param "id" as "product_id"
+
+  Scenario: Get binded attributes
+    When I send a GET request to "/api/v1/en/products/@product_id@/bindings"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | [0] | @attribute_id@ |
 
   Scenario: Create variable product without template
     When I send a POST request to "/api/v1/en/products" with body:
@@ -94,10 +82,19 @@ Feature: Variable product
       """
       {
         "sku": "SKU_@@random_code@@",
-        "templateId": "@product_template_id@"
+        "templateId": "@product_template_id@",
+         "bindings": [
+            "@attribute_id@"
+        ]
       }
       """
     Then the response status code should be 204
+
+  Scenario: Get binded attributes
+    When I send a GET request to "/api/v1/en/products/@product_id@/bindings"
+    Then the response status code should be 200
+    And the JSON nodes should contain:
+      | [0] | @attribute_id@ |
 
   Scenario: Update variable product without template
     When I send a PUT request to "/api/v1/en/products/@product_id@" with body:
@@ -158,15 +155,6 @@ Feature: Variable product
     Then the response status code should be 200
     And the JSON node "type" should be equal to "VARIABLE-PRODUCT"
     And the JSON node "id" should be equal to "@product_id@"
-
-  Scenario: Add children product from segments
-    When I send a POST request to "/api/v1/en/products/@product_id@/children/add-from-segment" with body:
-      """
-      {
-        "segments": ["@segment_id@"]
-      }
-      """
-    Then the response status code should be 204
 
   Scenario: Add bind attribute with invalid uuid
     When I send a POST request to "/api/v1/en/products/@product_id@/binding" with body:

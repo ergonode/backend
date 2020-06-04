@@ -17,6 +17,7 @@ use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
@@ -51,6 +52,13 @@ class CreateVariableProductCommand implements DomainCommandInterface
     private array $categories;
 
     /**
+     * @var AttributeId[]
+     *
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
+     */
+    private array $bindings;
+
+    /**
      * @var ValueInterface[]
      *
      * @JMS\Type("array<string, Ergonode\Value\Domain\ValueObject\ValueInterface>")
@@ -58,25 +66,29 @@ class CreateVariableProductCommand implements DomainCommandInterface
     private array $attributes;
 
     /**
-     * @param ProductId  $id
-     * @param Sku        $sku
-     * @param TemplateId $templateId
-     * @param array      $categories
-     * @param array      $attributes
+     * @param ProductId     $id
+     * @param Sku           $sku
+     * @param TemplateId    $templateId
+     * @param CategoryId[]  $categories
+     * @param AttributeId[] $bindings
+     * @param array         $attributes
      */
     public function __construct(
         ProductId $id,
         Sku $sku,
         TemplateId $templateId,
         array $categories = [],
+        array $bindings = [],
         array $attributes = []
     ) {
+        Assert::allIsInstanceOf($bindings, AttributeId::class);
         Assert::allIsInstanceOf($categories, CategoryId::class);
         Assert::allIsInstanceOf($attributes, ValueInterface::class);
 
         $this->id = $id;
         $this->sku = $sku;
         $this->templateId = $templateId;
+        $this->bindings = $bindings;
         $this->categories = $categories;
         $this->attributes = $attributes;
     }
@@ -111,6 +123,14 @@ class CreateVariableProductCommand implements DomainCommandInterface
     public function getCategories(): array
     {
         return $this->categories;
+    }
+
+    /**
+     * @return AttributeId[]
+     */
+    public function getBindings(): array
+    {
+        return $this->bindings;
     }
 
     /**

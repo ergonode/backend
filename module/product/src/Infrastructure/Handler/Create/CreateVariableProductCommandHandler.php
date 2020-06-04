@@ -18,6 +18,9 @@ use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Product\Domain\Entity\VariableProduct;
 use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Webmozart\Assert\Assert;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 
 /**
  */
@@ -27,6 +30,11 @@ class CreateVariableProductCommandHandler
      * @var ProductRepositoryInterface
      */
     private ProductRepositoryInterface $productRepository;
+
+    /**
+     * @var AttributeRepositoryInterface
+     */
+    private AttributeRepositoryInterface $attributeRepository;
 
     /**
      * @var TokenStorageInterface
@@ -39,16 +47,19 @@ class CreateVariableProductCommandHandler
     private WorkflowProvider $provider;
 
     /**
-     * @param ProductRepositoryInterface $productRepository
-     * @param TokenStorageInterface      $tokenStorage
-     * @param WorkflowProvider           $provider
+     * @param ProductRepositoryInterface   $productRepository
+     * @param AttributeRepositoryInterface $attributeRepository
+     * @param TokenStorageInterface        $tokenStorage
+     * @param WorkflowProvider             $provider
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
+        AttributeRepositoryInterface $attributeRepository,
         TokenStorageInterface $tokenStorage,
         WorkflowProvider $provider
     ) {
         $this->productRepository = $productRepository;
+        $this->attributeRepository = $attributeRepository;
         $this->tokenStorage = $tokenStorage;
         $this->provider = $provider;
     }
@@ -79,6 +90,12 @@ class CreateVariableProductCommandHandler
             $command->getCategories(),
             $attributes,
         );
+
+        foreach ($command->getBindings() as $attributeId) {
+            $attribute = $this->attributeRepository->load($attributeId);
+            Assert::isInstanceOf($attribute, SelectAttribute::class);
+            $product->addBind($attribute);
+        }
 
         $this->productRepository->save($product);
     }

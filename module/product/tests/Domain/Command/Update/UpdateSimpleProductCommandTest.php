@@ -13,6 +13,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 use Ergonode\Product\Domain\Command\Update\UpdateSimpleProductCommand;
+use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
 /**
  */
@@ -22,16 +23,18 @@ class UpdateSimpleProductCommandTest extends TestCase
      * @param ProductId  $id
      * @param TemplateId $templateId
      * @param array      $categories
+     * @param array      $attributes
      *
      * @dataProvider dataProvider
      */
-    public function testCreateCommand(ProductId $id, TemplateId $templateId, array $categories): void
+    public function testCreateCommand(ProductId $id, TemplateId $templateId, array $categories, array $attributes): void
     {
-        $command = new UpdateSimpleProductCommand($id, $templateId, $categories);
+        $command = new UpdateSimpleProductCommand($id, $templateId, $categories, $attributes);
 
         $this->assertSame($id, $command->getId());
-        $this->assertSame($categories, $command->getCategories());
         $this->assertSame($templateId, $command->getTemplateId());
+        $this->assertSame($categories, $command->getCategories());
+        $this->assertSame($attributes, $command->getAttributes());
     }
 
     /**
@@ -48,6 +51,10 @@ class UpdateSimpleProductCommandTest extends TestCase
                 [
                     $this->createMock(CategoryId::class),
                     $this->createMock(CategoryId::class),
+                ],
+                [
+                    'code1' => $this->createMock(ValueInterface::class),
+                    'code2' => $this->createMock(ValueInterface::class),
                 ],
             ],
         ];

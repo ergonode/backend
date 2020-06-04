@@ -11,7 +11,6 @@ namespace Ergonode\Segment\Domain\Query;
 
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */

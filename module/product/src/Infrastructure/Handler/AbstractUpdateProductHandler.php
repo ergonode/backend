@@ -17,6 +17,7 @@ use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
+use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 
 /**
  */
@@ -28,19 +29,27 @@ abstract class AbstractUpdateProductHandler
     protected ProductRepositoryInterface $productRepository;
 
     /**
+     * @var AttributeRepositoryInterface
+     */
+    protected AttributeRepositoryInterface $attributeRepository;
+
+    /**
      * @var TokenStorageInterface
      */
     protected TokenStorageInterface $tokenStorage;
 
     /**
-     * @param ProductRepositoryInterface $productRepository
-     * @param TokenStorageInterface      $tokenStorage
+     * @param ProductRepositoryInterface   $productRepository
+     * @param AttributeRepositoryInterface $attributeRepository
+     * @param TokenStorageInterface        $tokenStorage
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
+        AttributeRepositoryInterface $attributeRepository,
         TokenStorageInterface $tokenStorage
     ) {
         $this->productRepository = $productRepository;
+        $this->attributeRepository = $attributeRepository;
         $this->tokenStorage = $tokenStorage;
     }
 
