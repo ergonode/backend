@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Designer\Domain\Event\TemplateDefaultTextAddedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultLabelAddedEvent;
 
 /**
  */
@@ -34,12 +34,12 @@ class TemplateDefaultTextAddedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(TemplateDefaultTextAddedEvent $event): void
+    public function __invoke(TemplateDefaultLabelAddedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'default_text' => $event->getDefaultText()->getValue(),
+                'default_label' => $event->getDefaultLabel()->getValue(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

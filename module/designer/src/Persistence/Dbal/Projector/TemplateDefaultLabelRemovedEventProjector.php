@@ -10,11 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\Designer\Persistence\Dbal\Projector;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Designer\Domain\Event\TemplateDefaultTextRemovedEvent;
+use Ergonode\Designer\Domain\Event\TemplateDefaultLabelRemovedEvent;
 
 /**
  */
-class TemplateDefaultTextRemovedEventProjector
+class TemplateDefaultLabelRemovedEventProjector
 {
     private const TABLE = 'designer.template';
 
@@ -34,12 +34,12 @@ class TemplateDefaultTextRemovedEventProjector
     /**
      * {@inheritDoc}
      */
-    public function __invoke(TemplateDefaultTextRemovedEvent $event): void
+    public function __invoke(TemplateDefaultLabelRemovedEvent $event): void
     {
         $this->connection->update(
             self::TABLE,
             [
-                'default_text' => null,
+                'default_label' => null,
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class TemplateDefaultTextRemovedEvent implements DomainEventInterface
+class TemplateDefaultLabelAddedEvent implements DomainEventInterface
 {
     /**
      * @var TemplateId
@@ -30,16 +30,16 @@ class TemplateDefaultTextRemovedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private AttributeId $defaultText;
+    private AttributeId $defaultLabel;
 
     /**
      * @param TemplateId  $id
-     * @param AttributeId $defaultText
+     * @param AttributeId $defaultLabel
      */
-    public function __construct(TemplateId $id, AttributeId $defaultText)
+    public function __construct(TemplateId $id, AttributeId $defaultLabel)
     {
         $this->id = $id;
-        $this->defaultText = $defaultText;
+        $this->defaultLabel = $defaultLabel;
     }
 
     /**
@@ -53,8 +53,8 @@ class TemplateDefaultTextRemovedEvent implements DomainEventInterface
     /**
      * @return AttributeId
      */
-    public function getDefaultText(): AttributeId
+    public function getDefaultLabel(): AttributeId
     {
-        return $this->defaultText;
+        return $this->defaultLabel;
     }
 }
