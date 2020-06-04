@@ -69,14 +69,14 @@ class UpdateTemplateHandler
             $template->removeImage();
         }
 
-        if ($command->getDefaultText()) {
-            if ($template->getDefaultText()) {
-                $template->changeDefaultText($command->getDefaultText());
+        if ($command->getDefaultLabel()) {
+            if ($template->getDefaultLabel()) {
+                $template->changeDefaultLabel($command->getDefaultLabel());
             } else {
-                $template->addDefaultText($command->getDefaultText());
+                $template->addDefaultLabel($command->getDefaultLabel());
             }
-        } elseif ($template->getDefaultText()) {
-            $template->removeDefaultText();
+        } elseif ($template->getDefaultLabel()) {
+            $template->removeDefaultLabel();
         }
 
         if ($command->getDefaultImage()) {

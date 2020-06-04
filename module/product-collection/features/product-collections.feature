@@ -4,7 +4,7 @@ Feature: Product collection module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
-  
+
   Scenario: Create text attribute
     When I send a POST request to "/api/v1/en/attributes" with body:
       """
@@ -12,7 +12,7 @@ Feature: Product collection module
           "code": "TEXT_@@random_code@@",
           "type": "TEXT",
           "scope": "local",
-          "label": {"pl_PL": "Atrybut tekstowy", "en": "Text attribute"},
+          "label": {"de": "Atrybut tekstowy", "en": "Text attribute"},
           "groups": [],
           "parameters": []
       }
@@ -25,6 +25,8 @@ Feature: Product collection module
       """
       {
         "name": "@@random_md5@@",
+        "defaultLabel": null,
+        "defaultImage": null,
         "elements": [
           {
             "position": {"x": 0, "y": 0},
@@ -110,11 +112,11 @@ Feature: Product collection module
         "code": "SEG_1_@@random_code@@",
         "condition_set_id": "@segment_conditionset@",
         "name": {
-          "pl_PL": "Segment",
+          "de": "Segment",
           "en": "Segment"
         },
         "description": {
-          "pl_PL": "Opis segmentu",
+          "de": "Opis segmentu",
           "en": "Segment description"
         }
       }
@@ -599,14 +601,14 @@ Feature: Product collection module
     Then the response status code should be 200
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
-    And the JSON node "columns[1].id" should be equal to "system_name"
+    And the JSON node "columns[1].id" should be equal to "default_label"
 
   Scenario: Get product collection element (order by product_collection_id)
     When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?field=product_collection_id"
     Then the response status code should be 200
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/[^0]/"
-    And the JSON node "columns[1].id" should be equal to "system_name"
+    And the JSON node "columns[1].id" should be equal to "default_label"
 
   Scenario: Get product collection element (filter by code)
     When I send a GET request to "/api/v1/en/collections/@product_collection_1@/elements?limit=25&offset=0&filter=visible=true"

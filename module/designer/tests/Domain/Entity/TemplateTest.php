@@ -174,13 +174,13 @@ class TemplateTest extends TestCase
         $defaultText2->method('isEqual')->willReturn(false);
 
         $template = $this->getTemplate();
-        $this->assertNull($template->getDefaultText());
-        $template->addDefaultText($defaultText1);
-        $this->assertEquals($defaultText1, $template->getDefaultText());
-        $template->changeDefaultText($defaultText2);
-        $this->assertEquals($defaultText2, $template->getDefaultText());
-        $template->removeDefaultText();
-        $this->assertNull($template->getDefaultText());
+        $this->assertNull($template->getDefaultLabel());
+        $template->addDefaultLabel($defaultText1);
+        $this->assertEquals($defaultText1, $template->getDefaultLabel());
+        $template->changeDefaultLabel($defaultText2);
+        $this->assertEquals($defaultText2, $template->getDefaultLabel());
+        $template->removeDefaultLabel();
+        $this->assertNull($template->getDefaultLabel());
     }
 
     /**
@@ -191,10 +191,10 @@ class TemplateTest extends TestCase
         /** @var AttributeId|MockObject $defaultText */
         $defaultText = $this->createMock(AttributeId::class);
 
-        $template->addDefaultText($defaultText);
-        $this->assertEquals($template->getDefaultText(), $defaultText);
-        $template->removeDefaultText();
-        $this->assertEquals(null, $template->getDefaultText());
+        $template->addDefaultLabel($defaultText);
+        $this->assertEquals($template->getDefaultLabel(), $defaultText);
+        $template->removeDefaultLabel();
+        $this->assertEquals(null, $template->getDefaultLabel());
     }
 
     /**
@@ -204,7 +204,7 @@ class TemplateTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $template = $this->getTemplate();
         /** @var AttributeId|MockObject $defaultText */
-        $template->removeDefaultText();
+        $template->removeDefaultLabel();
     }
 
     /**
