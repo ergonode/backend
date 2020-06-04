@@ -47,6 +47,8 @@ services:
     Ergonode\Core\Domain\Repository\UnitRepositoryInterface: '@Ergonode\Core\Persistence\Dbal\Repository\DbalUnitRepository'
     Ergonode\Core\Application\Provider\DirectoryProviderInterface: '@Ergonode\Core\Application\Provider\SimpleDirectoryProvider'
     Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface: '@Ergonode\Core\Infrastructure\Resolver\RelationshipsResolver'
+    Ergonode\Core\Domain\Query\Builder\DefaultLabelQueryBuilderInterface: '@Ergonode\Core\Persistence\Dbal\Query\Builder\DbalDefaultLabelQueryBuilder'
+    Ergonode\Core\Domain\Query\Builder\DefaultImageQueryBuilderInterface: '@Ergonode\Core\Persistence\Dbal\Query\Builder\DbalDefaultImageQueryBuilder'
 
     Ergonode\Core\Infrastructure\JMS\Serializer\HandlerRegistry:
         decorates: 'jms_serializer.handler_registry'
