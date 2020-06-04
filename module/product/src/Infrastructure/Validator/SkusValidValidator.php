@@ -24,8 +24,6 @@ class SkusValidValidator extends ConstraintValidator
     private ProductQueryInterface $query;
 
     /**
-     * SkuExistsValidator constructor.
-     *
      * @param ProductQueryInterface $query
      */
     public function __construct(ProductQueryInterface $query)

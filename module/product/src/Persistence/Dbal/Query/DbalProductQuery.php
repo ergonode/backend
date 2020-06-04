@@ -190,7 +190,7 @@ class DbalProductQuery implements ProductQueryInterface
     /**
      * @param array $skus
      *
-     * @return array
+     * @return ProductId[]
      */
     public function findProductIdsBySkus(array $skus = []): array
     {

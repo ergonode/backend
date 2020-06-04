@@ -48,7 +48,7 @@ class ProductCollectionUpdateForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ProductCollectionUpdateFormModel::class,
-            'translation_domain' => 'collection',
+            'translation_domain' => 'product-collection',
         ]);
     }
 

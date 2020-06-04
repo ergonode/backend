@@ -9,15 +9,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Application\Model;
 
-use Ergonode\Product\Infrastructure\Validator\SkusValid;
-use Ergonode\ProductCollection\Infrastructure\Validator\Constraints\SegmentOrSkuAtLeastOne;
 use Ergonode\Segment\Infrastructure\Validator\ValidSegmentId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @SegmentOrSkuAtLeastOne()
  */
-class ProductCollectionElementMultipleCreateFormModel
+class ProductCollectionElementFromSegmentsFormModel
 {
     /**
      * @var array
@@ -32,17 +29,9 @@ class ProductCollectionElementMultipleCreateFormModel
     public array $segments;
 
     /**
-     * @var string|null
-     *
-     * @SkusValid()
-     */
-    public ?string $skus;
-
-    /**
      */
     public function __construct()
     {
         $this->segments = [];
-        $this->skus = null;
     }
 }

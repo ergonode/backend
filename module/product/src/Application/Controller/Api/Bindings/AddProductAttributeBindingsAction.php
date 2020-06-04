@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Product\Application\Controller\Api\Relations;
+namespace Ergonode\Product\Application\Controller\Api\Bindings;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,21 +22,21 @@ use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Product\Domain\Command\Relations\AddProductChildrenBySegmentsCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\SegmentId;
-use Ergonode\Product\Application\Form\Product\Relation\ProductChildBySegmentsForm;
-use Ergonode\Product\Application\Model\Product\Relation\ProductChildBySegmentsFormModel;
+use Ergonode\Product\Domain\Command\Bindings\AddProductBindingCommand;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Product\Application\Model\Product\Binding\ProductBindFormModel;
+use Ergonode\Product\Application\Form\Product\Binding\ProductBindForm;
+use Ergonode\Api\Application\Response\CreatedResponse;
 
 /**
  * @Route(
- *     name="ergonode_product_child_add_from_segment",
- *     path="products/{product}/children/add-from-segment",
+ *     name="ergonode_product_bind_add",
+ *     path="products/{product}/binding",
  *     methods={"POST"},
  *     requirements={"product"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class ProductAddChildFromSegmentAction extends AbstractController
+class AddProductAttributeBindingsAction extends AbstractController
 {
     /**
      * @var CommandBusInterface
@@ -76,12 +76,20 @@ class ProductAddChildFromSegmentAction extends AbstractController
      *     default="en",
      *     description="Language Code",
      * )
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="body",
+     *     description="Add multiselect attribute binding",
+     *     required=true,
+     *     @SWG\Schema(ref="#/definitions/product_binding")
+     * )
      * @SWG\Response(
      *     response=200,
      *     description="Returns import",
      * )
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
+     *
      *
      * @param Language        $language
      * @param AbstractProduct $product
@@ -92,24 +100,20 @@ class ProductAddChildFromSegmentAction extends AbstractController
     public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
     {
         try {
-            $model = new ProductChildBySegmentsFormModel();
-            $form = $this->formFactory->create(ProductChildBySegmentsForm::class, $model);
+            $model = new ProductBindFormModel();
+            $form = $this->formFactory->create(ProductBindForm::class, $model);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ProductChildBySegmentsFormModel $data */
+                /** @var ProductBindFormModel $data */
                 $data = $form->getData();
-                $segments = [];
-                foreach ($data->segments as $segment) {
-                    $segments[] = new SegmentId($segment);
-                }
-                $command = new AddProductChildrenBySegmentsCommand(
+                $command = new AddProductBindingCommand(
                     $product,
-                    $segments,
+                    new AttributeId($data->bindId),
                 );
                 $this->commandBus->dispatch($command);
 
-                return new EmptyResponse();
+                return new CreatedResponse($command->getId());
             }
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
