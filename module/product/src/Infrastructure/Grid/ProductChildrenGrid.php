@@ -11,6 +11,7 @@ namespace Ergonode\Product\Infrastructure\Grid;
 
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
+use Ergonode\Grid\Column\ImageColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
@@ -29,6 +30,8 @@ class ProductChildrenGrid extends AbstractGrid
         $id->setVisible(false);
         $this->addColumn('id', $id);
         $this->addColumn('sku', new TextColumn('code', 'Code', new TextFilter()));
+        $this->addColumn('default_image', new ImageColumn('default_image', 'Default image'));
+        $this->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()));
 
 //        $this->addColumn('_links', new LinkColumn('hal', [
 //            'get' => [
