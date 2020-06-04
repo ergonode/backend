@@ -46,7 +46,7 @@ class TemplateCreatedEvent implements DomainEventInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private ?AttributeId $defaultText;
+    private ?AttributeId $defaultLabel;
 
     /**
      * @var AttributeId | null
@@ -68,7 +68,7 @@ class TemplateCreatedEvent implements DomainEventInterface
      * @param TemplateId        $id
      * @param TemplateGroupId   $groupId
      * @param string            $name
-     * @param AttributeId|null  $defaultText
+     * @param AttributeId|null  $defaultLabel
      * @param AttributeId|null  $defaultImage
      * @param MultimediaId|null $imageId
      */
@@ -76,14 +76,14 @@ class TemplateCreatedEvent implements DomainEventInterface
         TemplateId $id,
         TemplateGroupId $groupId,
         string $name,
-        ?AttributeId $defaultText,
+        ?AttributeId $defaultLabel,
         ?AttributeId $defaultImage,
         ?MultimediaId $imageId
     ) {
         $this->id = $id;
         $this->groupId = $groupId;
         $this->name = $name;
-        $this->defaultText = $defaultText;
+        $this->defaultLabel = $defaultLabel;
         $this->defaultImage = $defaultImage;
         $this->imageId = $imageId;
     }
@@ -116,9 +116,9 @@ class TemplateCreatedEvent implements DomainEventInterface
     /**
      * @return null | AttributeId
      */
-    public function getDefaultText(): ?AttributeId
+    public function getDefaultLabel(): ?AttributeId
     {
-        return $this->defaultText;
+        return $this->defaultLabel;
     }
 
     /**

@@ -231,3 +231,17 @@ Ergonode\Product\Domain\Entity\Attribute\ProductTypeSystemAttribute:
             - '@label_esa_product_type'
             - '@empty'
             - '@empty'
+            
+Ergonode\Designer\Domain\Entity\Attribute\DefaultLabelSystemAttribute:
+    attribute_esa_default_label:
+        __construct:
+            - '@label_esa_default_label'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute:
+    attribute_esa_default_image:
+        __construct:
+            - '@label_esa_default_image'
+            - '@empty'
+            - '@empty'

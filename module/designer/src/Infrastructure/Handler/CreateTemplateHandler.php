@@ -59,7 +59,7 @@ class CreateTemplateHandler
             $command->getId(),
             $groupId,
             $command->getName(),
-            $command->getDefaultText(),
+            $command->getDefaultLabel(),
             $command->getDefaultImage(),
             $command->getElements()->toArray(),
             $command->getImageId()

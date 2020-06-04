@@ -39,7 +39,7 @@ class UpdateDesignerTemplateCommandTest extends TestCase
         $this->assertSame($id, $command->getId());
         $this->assertSame($name, $command->getName());
         $this->assertSame($multimediaId, $command->getImageId());
-        $this->assertSame($defaultText, $command->getDefaultText());
+        $this->assertSame($defaultText, $command->getDefaultLabel());
         $this->assertSame($defaultImage, $command->getDefaultImage());
         $this->assertSame($elements, $command->getElements());
     }

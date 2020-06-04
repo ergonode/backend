@@ -46,7 +46,7 @@ class TemplateFormModel
      * @AttributeTypeValid(type="TEXT")
      *
      */
-    public ?AttributeId $defaultText;
+    public ?AttributeId $defaultLabel;
 
     /**
      * @var AttributeId | null
@@ -71,7 +71,7 @@ class TemplateFormModel
     {
         $this->name = null;
         $this->image = null;
-        $this->defaultText = null;
+        $this->defaultLabel = null;
         $this->defaultImage = null;
         $this->elements = new ArrayCollection();
     }
