@@ -13,9 +13,6 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\ProductCollection\Application\Form\ProductCollectionElementMultipleCreateForm;
-use Ergonode\ProductCollection\Application\Model\ProductCollectionElementMultipleCreateFormModel;
-use Ergonode\ProductCollection\Domain\Command\AddMultipleProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -26,16 +23,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\ProductCollection\Application\Model\ProductCollectionElementFromSegmentsFormModel;
+use Ergonode\ProductCollection\Application\Form\ProductCollectionElementFromSegmentsForm;
+use Ergonode\ProductCollection\Domain\Command\AddProductCollectionElementsCommand;
 
 /**
  * @Route(
- *     name="ergonode_product_collection_element_multiple_create",
- *     path="/collections/{collection}/elements/multiple",
+ *     name="ergonode_product_collection_element_add_from_segments",
+ *     path="/collections/{collection}/elements/add-from-segments",
  *     methods={"POST"},
  *     requirements={"collection"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"},
  * )
  */
-class ProductCollectionElementMultipleCreateAction
+class AddProductCollectionElementFromSegmentsAction
 {
     /**
      * @var CommandBusInterface
@@ -115,26 +115,17 @@ class ProductCollectionElementMultipleCreateAction
     public function __invoke(ProductCollection $productCollection, Request $request): Response
     {
         try {
-            $model = new ProductCollectionElementMultipleCreateFormModel();
-            $form = $this->formFactory->create(ProductCollectionElementMultipleCreateForm::class, $model);
+            $model = new ProductCollectionElementFromSegmentsFormModel();
+            $form = $this->formFactory->create(ProductCollectionElementFromSegmentsForm::class, $model);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ProductCollectionElementMultipleCreateFormModel $data */
+                /** @var ProductCollectionElementFromSegmentsFormModel $data */
                 $data = $form->getData();
 
                 $productIds = $this->productQuery->findProductIdsBySegments($data->segments);
 
-                if ($data->skus) {
-                    $skus = array_map('trim', explode(',', $data->skus));
-                    $productIdsFromSkus = $this->productQuery->findProductIdsBySkus($skus);
-                    $productIds = array_unique(array_merge($productIds, $productIdsFromSkus));
-                }
-
-                $command = new AddMultipleProductCollectionElementCommand(
-                    $productCollection->getId(),
-                    $productIds
-                );
+                $command = new AddProductCollectionElementsCommand($productCollection->getId(), $productIds);
 
                 $this->commandBus->dispatch($command);
 
