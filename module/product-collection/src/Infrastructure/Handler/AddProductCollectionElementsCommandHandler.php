@@ -9,14 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Infrastructure\Handler;
 
-use Ergonode\ProductCollection\Domain\Command\AddMultipleProductCollectionElementCommand;
 use Ergonode\ProductCollection\Domain\Entity\ProductCollection;
 use Ergonode\ProductCollection\Domain\Repository\ProductCollectionRepositoryInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\ProductCollection\Domain\Command\AddProductCollectionElementsCommand;
 
 /**
  */
-class AddMultipleProductCollectionElementCommandHandler
+class AddProductCollectionElementsCommandHandler
 {
     /**
      * @var ProductCollectionRepositoryInterface
@@ -32,11 +32,11 @@ class AddMultipleProductCollectionElementCommandHandler
     }
 
     /**
-     * @param AddMultipleProductCollectionElementCommand $command
+     * @param AddProductCollectionElementsCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(AddMultipleProductCollectionElementCommand $command)
+    public function __invoke(AddProductCollectionElementsCommand $command)
     {
         /** @var ProductCollection $productCollection */
         $productCollection = $this->repository->load($command->getProductCollectionId());

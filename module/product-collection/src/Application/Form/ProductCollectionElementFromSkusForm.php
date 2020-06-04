@@ -9,15 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\ProductCollection\Application\Form;
 
-use Ergonode\Core\Application\Form\Type\TranslationType;
-use Ergonode\ProductCollection\Application\Model\ProductCollectionTypeUpdateFormModel;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ergonode\ProductCollection\Application\Model\ProductCollectionElementFromSkusFormModel;
 
 /**
  */
-class ProductCollectionTypeUpdateForm extends AbstractType
+class ProductCollectionElementFromSkusForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,8 +27,8 @@ class ProductCollectionTypeUpdateForm extends AbstractType
     {
         $builder
             ->add(
-                'name',
-                TranslationType::class
+                'skus',
+                TextareaType::class
             );
     }
 
@@ -38,7 +38,7 @@ class ProductCollectionTypeUpdateForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ProductCollectionTypeUpdateFormModel::class,
+            'data_class' => ProductCollectionElementFromSkusFormModel::class,
             'translation_domain' => 'product-collection',
         ]);
     }
