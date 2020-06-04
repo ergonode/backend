@@ -25,7 +25,7 @@ class TemplateFactory
      * @param TemplateId        $id
      * @param TemplateGroupId   $groupId
      * @param string            $name
-     * @param AttributeId|null  $defaultText
+     * @param AttributeId|null  $defaultLabel
      * @param AttributeId|null  $defaultImage
      * @param array             $elements
      * @param MultimediaId|null $imageId
@@ -38,7 +38,7 @@ class TemplateFactory
         TemplateId $id,
         TemplateGroupId $groupId,
         string $name,
-        ?AttributeId $defaultText = null,
+        ?AttributeId $defaultLabel = null,
         ?AttributeId $defaultImage = null,
         array $elements = [],
         ?MultimediaId $imageId = null
@@ -49,7 +49,7 @@ class TemplateFactory
             $id,
             $groupId,
             $name,
-            $defaultText,
+            $defaultLabel,
             $defaultImage,
             $imageId
         );

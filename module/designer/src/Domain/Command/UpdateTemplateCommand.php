@@ -48,7 +48,7 @@ class UpdateTemplateCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private ?AttributeId $defaultText;
+    private ?AttributeId $defaultLabel;
 
     /**
      * @var AttributeId|null
@@ -68,7 +68,7 @@ class UpdateTemplateCommand implements DomainCommandInterface
      * @param TemplateId        $id
      * @param string            $name
      * @param ArrayCollection   $elements
-     * @param AttributeId       $defaultText
+     * @param AttributeId       $defaultLabel
      * @param AttributeId       $defaultImage
      * @param MultimediaId|null $imageId
      */
@@ -76,7 +76,7 @@ class UpdateTemplateCommand implements DomainCommandInterface
         TemplateId $id,
         string $name,
         ArrayCollection $elements,
-        AttributeId $defaultText = null,
+        AttributeId $defaultLabel = null,
         AttributeId $defaultImage = null,
         ?MultimediaId $imageId = null
     ) {
@@ -85,7 +85,7 @@ class UpdateTemplateCommand implements DomainCommandInterface
         $this->id = $id;
         $this->name = $name;
         $this->elements = $elements;
-        $this->defaultText = $defaultText;
+        $this->defaultLabel = $defaultLabel;
         $this->defaultImage = $defaultImage;
         $this->imageId = $imageId;
     }
@@ -117,9 +117,9 @@ class UpdateTemplateCommand implements DomainCommandInterface
     /**
      * @return AttributeId|null
      */
-    public function getDefaultText(): ?AttributeId
+    public function getDefaultLabel(): ?AttributeId
     {
-        return $this->defaultText;
+        return $this->defaultLabel;
     }
 
     /**

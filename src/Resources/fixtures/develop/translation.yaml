@@ -54,6 +54,14 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
         __construct:
             -   'pl': 'Kolekcje produktów'
                 'en': 'Product collections'
+    label_esa_default_image:
+        __construct:
+            -   'pl': 'Domyślne zdjęcie'
+                'en': 'Default image'
+    label_esa_default_label:
+        __construct:
+            -   'pl': 'Domyślna etykieta'
+                'en': 'Default label'
     label_esa_product_type:
         __construct:
             -   'pl': 'Typ produktu'

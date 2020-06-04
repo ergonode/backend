@@ -48,7 +48,7 @@ class CreateTemplateCommand implements DomainCommandInterface
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
      */
-    private ?AttributeId $defaultText;
+    private ?AttributeId $defaultLabel;
 
     /**
      * @var AttributeId|null
@@ -69,7 +69,7 @@ class CreateTemplateCommand implements DomainCommandInterface
      *
      * @param string            $name
      * @param ArrayCollection   $elements
-     * @param AttributeId|null  $defaultText
+     * @param AttributeId|null  $defaultLabel
      * @param AttributeId|null  $defaultImage
      * @param MultimediaId|null $imageId
      *
@@ -78,7 +78,7 @@ class CreateTemplateCommand implements DomainCommandInterface
     public function __construct(
         string $name,
         ArrayCollection $elements,
-        ?AttributeId $defaultText = null,
+        ?AttributeId $defaultLabel = null,
         ?AttributeId $defaultImage = null,
         ?MultimediaId $imageId = null
     ) {
@@ -90,7 +90,7 @@ class CreateTemplateCommand implements DomainCommandInterface
 
         $this->templateId = TemplateId::generate();
         $this->name = $name;
-        $this->defaultText = $defaultText;
+        $this->defaultLabel = $defaultLabel;
         $this->defaultImage = $defaultImage;
         $this->elements = $elements;
         $this->imageId = $imageId;
@@ -115,9 +115,9 @@ class CreateTemplateCommand implements DomainCommandInterface
     /**
      * @return AttributeId|null
      */
-    public function getDefaultText(): ?AttributeId
+    public function getDefaultLabel(): ?AttributeId
     {
-        return $this->defaultText;
+        return $this->defaultLabel;
     }
 
     /**
