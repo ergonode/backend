@@ -27,10 +27,6 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
 {
     private const PRODUCT_COLLECTION_ELEMENT_TABLE = 'collection_element';
     private const PUBLIC_PRODUCT_TABLE = 'public.product';
-    private const DESIGNER_TEMPLATE_TABLE = 'designer.template';
-    private const PUBLIC_PRODUCT_VALUE_TABLE = 'public.product_value';
-    private const PUBLIC_VALUE_TRANSLATION = 'public.value_translation';
-    private const PUBLIC_LANGUAGE_TREE = 'public.language_tree';
 
     /**
      * @var Connection
@@ -41,11 +37,6 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
      * @var LanguageQueryInterface
      */
     protected LanguageQueryInterface $query;
-
-    /**
-     * @var ProductAttributeLanguageResolver
-     */
-    protected ProductAttributeLanguageResolver $resolver;
 
     /**
      * @var DefaultLabelQueryBuilderInterface
@@ -61,20 +52,17 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
     /**
      * @param Connection                        $connection
      * @param LanguageQueryInterface            $query
-     * @param ProductAttributeLanguageResolver  $resolver
      * @param DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder
      * @param DefaultImageQueryBuilderInterface $defaultImageQueryBuilder
      */
     public function __construct(
         Connection $connection,
         LanguageQueryInterface $query,
-        ProductAttributeLanguageResolver $resolver,
         DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder,
         DefaultImageQueryBuilderInterface $defaultImageQueryBuilder
     ) {
         $this->connection = $connection;
         $this->query = $query;
-        $this->resolver = $resolver;
         $this->defaultLabelQueryBuilder = $defaultLabelQueryBuilder;
         $this->defaultImageQueryBuilder = $defaultImageQueryBuilder;
     }
@@ -90,7 +78,6 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
         $info = $this->query->getLanguageNodeInfo($language);
         $query = $this->getQuery();
         $query->andWhere($query->expr()->eq('product_collection_id', ':productCollectionId'));
-        $query->join('ce', self::PUBLIC_PRODUCT_TABLE, 'ppt', 'ppt.id = ce.product_id');
         $this->defaultLabelQueryBuilder->addSelect($query, $info['lft'], $info['rgt']);
         $this->defaultImageQueryBuilder->addSelect($query, $info['lft'], $info['rgt']);
         $result = $this->connection->createQueryBuilder();
@@ -107,7 +94,8 @@ class DbalProductCollectionElementQuery implements ProductCollectionElementQuery
     private function getQuery(): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
-            ->select('ce.product_collection_id, ce.product_id as id, ce.visible, ce.created_at, ppt.sku')
-            ->from(self::PRODUCT_COLLECTION_ELEMENT_TABLE, 'ce');
+            ->select('ce.product_collection_id, ce.product_id as id, ce.visible, ce.created_at, p.sku')
+            ->from(self::PRODUCT_COLLECTION_ELEMENT_TABLE, 'ce')
+            ->join('ce', self::PUBLIC_PRODUCT_TABLE, 'p', 'p.id = ce.product_id');
     }
 }
