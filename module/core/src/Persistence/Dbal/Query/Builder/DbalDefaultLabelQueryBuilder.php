@@ -25,7 +25,7 @@ class DbalDefaultLabelQueryBuilder implements DefaultLabelQueryBuilderInterface
     {
         $sql = sprintf('(SELECT
              CASE
-                 WHEN dtt.default_label IS NULL THEN ppt.sku::VARCHAR
+                 WHEN dtt.default_label IS NULL THEN p.sku::VARCHAR
                  WHEN dtt.default_label IS NOT NULL THEN pvtdl.value::VARCHAR
                  END       as default_label
                  FROM public.product ppdi
@@ -34,7 +34,7 @@ class DbalDefaultLabelQueryBuilder implements DefaultLabelQueryBuilderInterface
                          ON ppvtdl.product_id = ppdi.id AND ppvtdl.attribute_id = dtt.default_label
                LEFT JOIN public.value_translation pvtdl ON ppvtdl.value_id = pvtdl.value_id
                LEFT JOIN public.language_tree pltdl ON pltdl.code = pvtdl.language
-        WHERE ((pltdl.lft <= %s AND pltdl.rgt >= %s) OR pltdl.lft IS NULL) AND ppdi.id = ppt.id 
+        WHERE ((pltdl.lft <= %s AND pltdl.rgt >= %s) OR pltdl.lft IS NULL) AND ppdi.id = p.id 
       ORDER BY pltdl.lft DESC NULLS LAST
                 LIMIT 1)', $lft, $rgt);
         $query->addSelect($sql);

@@ -73,6 +73,7 @@ Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand:
       - '<sku(SKU_<current()>)>'
       - '@template->id'
       - []
+      - []
       -
         'image_attribute': '<translatableStringValue(@translation_image_*)>'
         'code_1':  '<translatableStringValue(@translation_sentence_*)>'
