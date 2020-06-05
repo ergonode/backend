@@ -33,7 +33,7 @@ class DbalDefaultImageQueryBuilder implements DefaultImageQueryBuilderInterface
                          ON ppvtdi.product_id = ppdi.id AND ppvtdi.attribute_id = dtt.default_image
                LEFT JOIN public.value_translation pvtdi ON ppvtdi.value_id = pvtdi.value_id
                LEFT JOIN public.language_tree pltdi ON pltdi.code = pvtdi.language
-               WHERE ((pltdi.lft <= %s AND pltdi.rgt >= %s) OR pltdi.lft IS NULL) AND ppdi.id = ppt.id
+               WHERE ((pltdi.lft <= %s AND pltdi.rgt >= %s) OR pltdi.lft IS NULL) AND ppdi.id = p.id
       ORDER BY pltdi.lft DESC NULLS LAST
                 LIMIT 1)', $lft, $rgt);
         $query->addSelect($sql);
