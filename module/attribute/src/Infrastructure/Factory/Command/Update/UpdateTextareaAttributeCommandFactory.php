@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Update;
 
-use Ergonode\Attribute\Application\Model\Attribute\UnitAttributeFormModel;
+use Ergonode\Attribute\Application\Model\Attribute\TextareaAttributeFormModel;
 use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateTextareaAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
@@ -41,7 +41,7 @@ class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFac
      */
     public function create(AttributeId $id, FormInterface $form): DomainCommandInterface
     {
-        /** @var UnitAttributeFormModel $data */
+        /** @var TextareaAttributeFormModel $data */
         $data = $form->getData();
 
         return new UpdateTextareaAttributeCommand(
@@ -50,6 +50,7 @@ class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFac
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
+            $data->parameters->simpleHtml,
             $data->groups,
         );
     }
