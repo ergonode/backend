@@ -15,7 +15,7 @@ Feature: Text-area attribute manipulation
           "scope": "local",
           "parameters":
           {
-          "simpleHtml": true
+          "richEdit": true
           }
       }
       """
@@ -30,7 +30,7 @@ Feature: Text-area attribute manipulation
           "scope": "local",
           "parameters":
            {
-          "simpleHtml": true
+          "richEdit": true
           }
       }
       """
@@ -43,7 +43,7 @@ Feature: Text-area attribute manipulation
       | id                    | @attribute_id@ |
       | type                  | TEXT_AREA      |
       | scope                 | local          |
-      | parameters.simple_html | true           |
+      | parameters.rich_edit | true           |
 
   Scenario: Create textarea attribute with invalid format parameter
     And I send a "POST" request to "/api/v1/en/attributes" with body:
@@ -55,7 +55,7 @@ Feature: Text-area attribute manipulation
           "scope": "local",
           "parameters":
           {
-          "simpleHtml": "test"
+          "richEdit": "test"
           }
       }
       """

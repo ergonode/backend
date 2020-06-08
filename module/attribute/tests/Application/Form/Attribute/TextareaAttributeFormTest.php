@@ -60,7 +60,7 @@ class TextareaAttributeFormTest extends TypeTestCase
             'hint' => [],
             'scope' => 'local',
             'groups' => ['2ae47e1b-10c3-4dd6-ac70-41000125c29f'],
-            'parameters' => ["simple_html" => true],
+            'parameters' => ["rich_edit" => true],
         ];
 
         $object = new TextareaAttributeFormModel();

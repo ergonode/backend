@@ -29,7 +29,7 @@ Feature: Product edit feature
         "groups": [],
         "parameters":
           {
-          "simpleHtml": true
+          "richEdit": true
           }
       }
       """

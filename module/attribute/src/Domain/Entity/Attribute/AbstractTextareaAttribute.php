@@ -22,7 +22,7 @@ use JMS\Serializer\Annotation as JMS;
 abstract class AbstractTextareaAttribute extends AbstractAttribute
 {
     public const TYPE = 'TEXT_AREA';
-    public const SIMPLE_HTML = 'simple_html';
+    public const RICH_EDIT = 'rich_edit';
 
     /**
      * @param AttributeId        $id
@@ -31,7 +31,7 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param AttributeScope     $scope
-     * @param bool               $simpleHtml
+     * @param bool               $richEdit
      *
      * @throws \Exception
      */
@@ -42,7 +42,7 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
         TranslatableString $hint,
         TranslatableString $placeholder,
         AttributeScope $scope,
-        bool $simpleHtml
+        bool $richEdit
     ) {
         parent::__construct(
             $id,
@@ -51,7 +51,7 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
             $hint,
             $placeholder,
             $scope,
-            [self::SIMPLE_HTML => $simpleHtml]
+            [self::RICH_EDIT => $richEdit]
         );
     }
 
@@ -69,9 +69,9 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
     /**
      * @return bool
      */
-    public function isSimplHtml(): bool
+    public function isRichEdit(): bool
     {
-        return $this->getParameter(self::SIMPLE_HTML);
+        return $this->getParameter(self::RICH_EDIT);
     }
 
     /**
@@ -79,13 +79,13 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
      *
      * @throws \Exception
      */
-    public function changeSimpleHtml(bool $new): void
+    public function changeRichEdit(bool $new): void
     {
-        if ($this->isSimplHtml() !== $new) {
+        if ($this->isRichEdit() !== $new) {
             $event = new AttributeParameterChangeEvent(
                 $this->id,
-                self::SIMPLE_HTML,
-                (string) $this->isSimplHtml(),
+                self::RICH_EDIT,
+                (string) $this->isRichEdit(),
                 (string) $new
             );
             $this->apply($event);
