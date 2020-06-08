@@ -53,7 +53,7 @@ class TextareaAttributeTest extends TestCase
     /**
      * @var bool
      */
-    private bool $simpleHtml;
+    private bool $richEdit;
 
     /**
      */
@@ -65,7 +65,7 @@ class TextareaAttributeTest extends TestCase
         $this->hint = $this->createMock(TranslatableString::class);
         $this->placeholder = $this->createMock(TranslatableString::class);
         $this->scope = $this->createMock(AttributeScope::class);
-        $this->simpleHtml = true;
+        $this->richEdit = true;
     }
 
     /**
@@ -80,7 +80,7 @@ class TextareaAttributeTest extends TestCase
             $this->placeholder,
             $this->hint,
             $this->scope,
-            $this->simpleHtml
+            $this->richEdit
         );
         $this->assertEquals($this->id, $attribute->getId());
         $this->assertEquals($this->code, $attribute->getCode());
@@ -88,6 +88,6 @@ class TextareaAttributeTest extends TestCase
         $this->assertEquals($this->hint, $attribute->getHint());
         $this->assertEquals($this->placeholder, $attribute->getPlaceholder());
         $this->assertEquals($this->scope, $attribute->getScope());
-        $this->assertEquals($this->simpleHtml, $attribute->isSimplHtml());
+        $this->assertEquals($this->richEdit, $attribute->isRichEdit());
     }
 }

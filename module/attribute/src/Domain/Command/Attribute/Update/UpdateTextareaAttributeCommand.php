@@ -24,7 +24,7 @@ class UpdateTextareaAttributeCommand extends AbstractUpdateAttributeCommand
      *
      * @JMS\Type("boolean")
      */
-    private bool $simpleHtml;
+    private bool $richEdit;
 
     /**
      * @param AttributeId        $id
@@ -32,7 +32,7 @@ class UpdateTextareaAttributeCommand extends AbstractUpdateAttributeCommand
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param AttributeScope     $scope
-     * @param bool               $simpleHtml
+     * @param bool               $richEdit
      * @param array              $groups
      */
     public function __construct(
@@ -41,7 +41,7 @@ class UpdateTextareaAttributeCommand extends AbstractUpdateAttributeCommand
         TranslatableString $hint,
         TranslatableString $placeholder,
         AttributeScope $scope,
-        bool $simpleHtml,
+        bool $richEdit,
         array $groups = []
     ) {
         parent::__construct(
@@ -53,14 +53,14 @@ class UpdateTextareaAttributeCommand extends AbstractUpdateAttributeCommand
             $groups
         );
 
-        $this->simpleHtml = $simpleHtml;
+        $this->richEdit = $richEdit;
     }
 
     /**
      * @return bool
      */
-    public function isSimpleHtml(): bool
+    public function isRichEdit(): bool
     {
-        return $this->simpleHtml;
+        return $this->richEdit;
     }
 }

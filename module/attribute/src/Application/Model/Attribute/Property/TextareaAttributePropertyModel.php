@@ -17,6 +17,8 @@ class TextareaAttributePropertyModel
 {
     /**
      * @var bool|null
+     *
+     * @Assert\Type(type="bool")
      */
-    public ?bool $simpleHtml = false;
+    public ?bool $richEdit = false;
 }

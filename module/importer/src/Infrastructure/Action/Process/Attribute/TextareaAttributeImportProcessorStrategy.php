@@ -58,9 +58,9 @@ class TextareaAttributeImportProcessorStrategy implements AttributeImportProcess
 
         Assert::nullOrIsInstanceOf($attribute, TextareaAttribute::class);
 
-        $simpleHtml = true;
-        if ($record->has('simpleHtml')) {
-            $simpleHtml = $record->get('simpleHtml');
+        $richEdit = true;
+        if ($record->has('richEdit')) {
+            $richEdit = $record->get('richEdit');
         }
 
         if (null === $attribute) {
@@ -71,10 +71,10 @@ class TextareaAttributeImportProcessorStrategy implements AttributeImportProcess
                 $hint,
                 $placeholder,
                 $multilingual,
-                $simpleHtml
+                $richEdit
             );
         } else {
-            $attribute->changeSimpleHtml($simpleHtml);
+            $attribute->changeRichEdit($richEdit);
         }
 
         return $attribute;

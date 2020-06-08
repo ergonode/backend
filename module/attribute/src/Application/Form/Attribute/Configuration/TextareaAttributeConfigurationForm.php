@@ -26,7 +26,7 @@ class TextareaAttributeConfigurationForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'simpleHtml',
+            'richEdit',
             BooleanType::class,
         );
     }
