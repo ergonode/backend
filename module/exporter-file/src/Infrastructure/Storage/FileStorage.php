@@ -29,7 +29,7 @@ class FileStorage
      */
     public function __construct(KernelInterface $kernel)
     {
-        $this->directory = sprintf('%s/export/', $kernel->getProjectDir());
+        $this->directory = sprintf('%s/export', $kernel->getProjectDir());
     }
 
     /**
