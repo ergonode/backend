@@ -37,10 +37,6 @@ abstract class AbstractValueCommandHandler
      */
     protected function createValue(Language $language, AbstractAttribute $attribute, $value = null): ValueInterface
     {
-//        if (null === $value) {
-//            return new NullValue();
-//        }
-
         if ($attribute instanceof MultiSelectAttribute || $attribute instanceof GalleryAttribute) {
             return new StringCollectionValue([$language->getCode() => implode(',', $value)]);
         }
