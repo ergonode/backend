@@ -19,7 +19,6 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
-use Ergonode\Value\Domain\ValueObject\NullValue;
 use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
@@ -49,11 +48,10 @@ abstract class AbstractValueCommandHandler
         if ($attribute instanceof SelectAttribute) {
             return new TranslatableStringValue(new TranslatableString([$language->getCode() => (string) $value]));
         }
-
         if ($attribute->isMultilingual()) {
             return new TranslatableStringValue(
                 new TranslatableString(
-                    [$language->getCode() => $value ? (string) $value : null]
+                    [$language->getCode() => !is_null($value) ? (string) $value : null]
                 )
             );
         }
