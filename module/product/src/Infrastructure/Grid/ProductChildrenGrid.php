@@ -12,9 +12,11 @@ namespace Ergonode\Product\Infrastructure\Grid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\ImageColumn;
+use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
@@ -33,21 +35,17 @@ class ProductChildrenGrid extends AbstractGrid
         $this->addColumn('default_image', new ImageColumn('default_image', 'Default image'));
         $this->addColumn('default_label', new TextColumn('default_label', 'Default label', new TextFilter()));
 
-//        $this->addColumn('_links', new LinkColumn('hal', [
-//            'get' => [
-//                'route' => 'ergonode_product_collection_read',
-//                'parameters' => ['language' => $language->getCode(), 'collection' => '{id}'],
-//            ],
-//            'edit' => [
-//                'route' => 'ergonode_product_collection_change',
-//                'parameters' => ['language' => $language->getCode(), 'collection' => '{id}'],
-//                'method' => Request::METHOD_PUT,
-//            ],
-//            'delete' => [
-//                'route' => 'ergonode_product_collection_delete',
-//                'parameters' => ['language' => $language->getCode(), 'collection' => '{id}'],
-//                'method' => Request::METHOD_DELETE,
-//            ],
-//        ]));
+        $this->addColumn('_links', new LinkColumn('hal', [
+            'delete' => [
+                'route' => 'ergonode_product_child_remove',
+                'privilege' => 'PRODUCT_DELETE',
+                'parameters' => [
+                    'language' => $language->getCode(),
+                    'product' => '{product_id}',
+                    'child' => '{id}',
+                ],
+                'method' => Request::METHOD_DELETE,
+            ],
+        ]));
     }
 }
