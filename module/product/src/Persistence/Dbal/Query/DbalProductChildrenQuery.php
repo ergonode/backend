@@ -79,6 +79,7 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         $info = $this->query->getLanguageNodeInfo($language);
         $qb = $this->getQuery();
         $qb->andWhere($qb->expr()->eq('product_id', ':product_id'));
+        $qb->addSelect('product_id');
         $this->defaultLabelQueryBuilder->addSelect($qb, $info['lft'], $info['rgt']);
         $this->defaultImageQueryBuilder->addSelect($qb, $info['lft'], $info['rgt']);
         $result = $this->connection->createQueryBuilder();
