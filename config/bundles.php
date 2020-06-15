@@ -44,6 +44,7 @@ return [
     Ergonode\Exporter\ErgonodeExporterBundle::class => ['all' => true],
     Ergonode\ExporterFile\ErgonodeExporterFileBundle::class => ['all' => true],
     Ergonode\ExporterMagento2\ErgonodeExporterMagento2Bundle::class => ['all' => true],
+    Ergonode\ExporterShopware6\ErgonodeExporterShopware6Bundle::class => ['all' => true],
     Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],

@@ -1,0 +1,29 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ergonode\ExporterShopware6\Application\:
+        resource: '../../Application/*'
+
+    Ergonode\ExporterShopware6\Domain\:
+        resource: '../../Domain/*'
+
+    Ergonode\ExporterShopware6\Infrastructure\:
+        resource: '../../Infrastructure/*'
+
+    Ergonode\ExporterShopware6\Persistence\:
+        resource: '../../Persistence/*'
+
+    Ergonode\ExporterShopware6\Infrastructure\Handler\:
+        resource: '../../Infrastructure/Handler/*'
+        tags: ['messenger.message_handler']
+
+    # Mappers
+    Ergonode\ExporterShopware6\Infrastructure\Builder\ShopwareProductBuilder:
+        arguments:
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductSkuMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductNameMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductPriceMapper'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductCategoryMapper'
