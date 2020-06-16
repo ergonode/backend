@@ -58,9 +58,9 @@ class SkusValidValidator extends ConstraintValidator
                     ->setParameter('{{ value }}', $sku)
                     ->addViolation();
             } else {
-                $result = $this->query->findBySku(new \Ergonode\Product\Domain\ValueObject\Sku($sku));
+                $result = $this->query->findProductIdBySku(new \Ergonode\Product\Domain\ValueObject\Sku($sku));
 
-                if (empty($result)) {
+                if (!$result) {
                     $this->context->buildViolation($constraint->notExistsMessage)
                         ->setParameter('{{ value }}', $sku)
                         ->addViolation();

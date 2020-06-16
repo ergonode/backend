@@ -24,9 +24,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
 
 /**
  */
-class ProductImportAction implements ImportActionInterface
+class SimpleProductImportAction implements ImportActionInterface
 {
-    public const TYPE = 'PRODUCT';
+    public const TYPE = 'SIMPLE-PRODUCT';
 
     /**
      * @var ProductQueryInterface
@@ -76,10 +76,10 @@ class ProductImportAction implements ImportActionInterface
             $importedProduct = $builder->build($importedProduct, $record);
         }
 
-        $productData = $this->productQuery->findBySku($sku);
+        $productId = $this->productQuery->findProductIdBySku($sku);
         $templateId = new TemplateId($importedProduct->template);
 
-        if (!$productData) {
+        if (!$productId) {
             $command = new CreateSimpleProductCommand(
                 ProductId::generate(),
                 $sku,
@@ -89,7 +89,7 @@ class ProductImportAction implements ImportActionInterface
             );
         } else {
             $command = new UpdateSimpleProductCommand(
-                new ProductId($productData['id']),
+                $productId,
                 $templateId,
                 $importedProduct->categories,
                 $importedProduct->attributes,
