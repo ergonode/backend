@@ -48,8 +48,6 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     protected DefaultImageQueryBuilderInterface $defaultImageQueryBuilder;
 
     /**
-     * DbalProductChildrenQuery constructor.
-     *
      * @param Connection                        $connection
      * @param LanguageQueryInterface            $query
      * @param DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder
@@ -98,6 +96,6 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         return $this->connection->createQueryBuilder()
             ->select('p.id, p.sku')
             ->from(self::PRODUCT_CHILDREN_TABLE, 'pc')
-            ->join('pc', self::PRODUCT_TABLE, 'p', 'p.id = pc.child_id');
+            ->innerJoin('pc', self::PRODUCT_TABLE, 'p', 'p.id = pc.child_id');
     }
 }

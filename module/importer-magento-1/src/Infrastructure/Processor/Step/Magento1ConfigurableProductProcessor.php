@@ -32,12 +32,15 @@ use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Ergonode\Importer\Infrastructure\Action\ProductImportAction;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Importer\Infrastructure\Action\VariableProductImportAction;
+use Webmozart\Assert\Assert;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\Product\Domain\ValueObject\Sku;
 
 /**
  */
-class Magento1ProductProcessor implements Magento1ProcessorStepInterface
+class Magento1ConfigurableProductProcessor implements Magento1ProcessorStepInterface
 {
     private const NAMESPACE = 'e1f84ee9-14f2-4e52-981a-b6b82006ada8';
 
@@ -52,6 +55,11 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
     private AttributeQueryInterface $attributeQuery;
 
     /**
+     * @var ProductQueryInterface
+     */
+    private ProductQueryInterface $productQuery;
+
+    /**
      * @var ImportLineRepositoryInterface
      */
     private ImportLineRepositoryInterface $repository;
@@ -64,17 +72,20 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
     /**
      * @param OptionQueryInterface          $optionQuery
      * @param AttributeQueryInterface       $attributeQuery
+     * @param ProductQueryInterface         $productQuery
      * @param ImportLineRepositoryInterface $repository
      * @param CommandBusInterface           $commandBus
      */
     public function __construct(
         OptionQueryInterface $optionQuery,
         AttributeQueryInterface $attributeQuery,
+        ProductQueryInterface $productQuery,
         ImportLineRepositoryInterface $repository,
         CommandBusInterface $commandBus
     ) {
         $this->optionQuery = $optionQuery;
         $this->attributeQuery = $attributeQuery;
+        $this->productQuery = $productQuery;
         $this->repository = $repository;
         $this->commandBus = $commandBus;
     }
@@ -96,10 +107,10 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
         Progress $steps
     ): void {
         $i = 0;
-        $products = $this->getGroupedProducts($products);
-        $count = count($products['simple']);
+        $products = $this->getProducts($products);
+        $count = count($products);
         /** @var ProductModel $product */
-        foreach ($products['simple'] as $product) {
+        foreach ($products as $product) {
             $record = $this->getRecord($product, $transformer, $source);
             $i++;
             $records = new Progress($i, $count);
@@ -108,7 +119,7 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                 $steps,
                 $records,
                 $record,
-                ProductImportAction::TYPE
+                VariableProductImportAction::TYPE
             );
             $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
             $this->repository->save($line);
@@ -121,12 +132,14 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
      *
      * @return array
      */
-    private function getGroupedProducts(array $products): array
+    private function getProducts(array $products): array
     {
-        $result['simple'] = [];
+        $result = [];
         foreach ($products as $product) {
             $type = $product->get('default')['esa_type'];
-            $result[$type][] = $product;
+            if ('configurable' === $type) {
+                $result[] = $product;
+            }
         }
 
         return $result;
@@ -220,11 +233,86 @@ class Magento1ProductProcessor implements Magento1ProcessorStepInterface
                 }
             }
 
-            if (null !== $value && '' !== $value && $transformer->hasField($field)) {
+            $bindings = $this->getBindings($default);
+
+            if ($bindings) {
+                $record->set('bindings', $bindings);
+            }
+
+            $variants = $this->getVariants($default);
+
+            if ($variants) {
+                $record->set('variants', $variants);
+            }
+
+            if (null !== $value
+                && '' !== $value
+                && 'variants' !== $field
+                && 'bindings' !== $field
+                && $transformer->hasField($field)
+                && !$record->has($field)
+            ) {
                 $record->set($field, $value);
             }
         }
 
         return $record;
+    }
+
+    /**
+     * @param array $default
+     *
+     * @return null|string
+     */
+    private function getBindings(array $default): ?string
+    {
+        $result = [];
+
+        if (array_key_exists('bindings', $default)) {
+            $bindings = explode(',', $default['bindings']);
+            $bindings = array_unique($bindings);
+
+            foreach ($bindings as $binding) {
+                $code = new AttributeCode($binding);
+                $model = $this->attributeQuery->findAttributeByCode($code);
+                Assert::notNull($model, sprintf('Can\'t find attribute %s for binding', $code));
+                $result[] = $model->getId()->getValue();
+            }
+        }
+
+        if (!empty($result)) {
+            return implode(',', $result);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param array $default
+     *
+     * @return null|string
+     */
+    private function getVariants(array $default): ?string
+    {
+        $result = [];
+
+        if (array_key_exists('variants', $default)) {
+            $variants = explode(',', $default['variants']);
+            $variants = array_unique($variants);
+
+            foreach ($variants as $variant) {
+                $sku = new Sku($variant);
+                $productId = $this->productQuery->findProductIdBySku($sku);
+                if ($productId) {
+                    $result[] = $productId->getValue();
+                }
+            }
+        }
+
+        if (!empty($result)) {
+            return implode(',', $result);
+        }
+
+        return null;
     }
 }
