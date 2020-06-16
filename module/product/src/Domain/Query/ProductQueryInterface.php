@@ -33,9 +33,9 @@ interface ProductQueryInterface
     /**
      * @param Sku $sku
      *
-     * @return array|null
+     * @return ProductId|null
      */
-    public function findBySku(Sku $sku): ?array;
+    public function findProductIdBySku(Sku $sku): ?ProductId;
 
     /**
      * @return array
