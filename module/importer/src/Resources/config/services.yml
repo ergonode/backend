@@ -51,7 +51,14 @@ services:
             - '@Ergonode\Importer\Infrastructure\Proposal\Strategy\MultiSelectProposalStrategy'
             - '@Ergonode\Importer\Infrastructure\Proposal\Strategy\TextProposalStrategy'
 
-    Ergonode\Importer\Infrastructure\Action\ProductImportAction:
+    Ergonode\Importer\Infrastructure\Action\SimpleProductImportAction:
+        arguments:
+            $builders:
+                - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductAttributeBuilder'
+                - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductCategoryBuilder'
+                - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductTemplateBuilder'
+
+    Ergonode\Importer\Infrastructure\Action\VariableProductImportAction:
         arguments:
             $builders:
                 - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductAttributeBuilder'

@@ -113,6 +113,7 @@ class Magento1CsvReader
             }
         }
 
+
         foreach ($products as $sku => $product) {
             foreach ($product as $code => $version) {
                 foreach ($version as $field => $value) {

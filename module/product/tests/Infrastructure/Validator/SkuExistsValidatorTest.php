@@ -15,6 +15,7 @@ use Ergonode\Product\Infrastructure\Validator\SkuExists;
 use Ergonode\Product\Infrastructure\Validator\SkuExistsValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
@@ -62,9 +63,9 @@ class SkuExistsValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    public function testSkuExistsValidation(): void
+    public function testSkuNotExistsValidation(): void
     {
-        $this->query->method('findBySku')->willReturn([]);
+        $this->query->method('findProductIdBySku')->willReturn(null);
         $this->validator->validate(new Sku('Value'), new SkuExists());
 
         $this->assertNoViolation();
@@ -72,9 +73,10 @@ class SkuExistsValidatorTest extends ConstraintValidatorTestCase
 
     /**
      */
-    public function testSkuNotExistsValidation(): void
+    public function testSkuExistsValidation(): void
     {
-        $this->query->method('findBySku')->willReturn(['Value']);
+        $productId = $this->createMock(ProductId::class);
+        $this->query->method('findProductIdBySku')->willReturn($productId);
         $constraint = new SkuExists();
         $value = new Sku('Value');
         $this->validator->validate($value, $constraint);
