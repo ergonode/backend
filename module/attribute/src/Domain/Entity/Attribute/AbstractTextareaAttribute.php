@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeTextareaParameterChangeEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -82,11 +82,11 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
     public function changeRichEdit(bool $new): void
     {
         if ($this->isRichEdit() !== $new) {
-            $event = new AttributeParameterChangeEvent(
+            $event = new AttributeTextareaParameterChangeEvent(
                 $this->id,
                 self::RICH_EDIT,
-                (string) $this->isRichEdit(),
-                (string) $new
+                $this->isRichEdit(),
+                $new
             );
             $this->apply($event);
         }

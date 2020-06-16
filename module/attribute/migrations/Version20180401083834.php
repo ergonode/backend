@@ -161,6 +161,8 @@ final class Version20180401083834 extends AbstractErgonodeMigration
             'Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent' =>
                 'Attribute placeholder changed',
             'Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent' => 'Attribute parameter changed',
+            'Ergonode\Attribute\Domain\Event\Attribute\AttributeTextareaParameterChangeEvent' =>
+                'Attribute textarea parameter changed',
             'Ergonode\Attribute\Domain\Event\Group\AttributeGroupCreatedEvent' => 'Attribute group created',
             'Ergonode\Attribute\Domain\Event\Group\AttributeGroupDeletedEvent' => 'Attribute group removed',
             'Ergonode\Attribute\Domain\Event\Group\AttributeGroupNameChangedEvent' => 'Attribute group name changed',
