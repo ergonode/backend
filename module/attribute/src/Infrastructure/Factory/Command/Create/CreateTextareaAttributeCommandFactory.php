@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Create;
 
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Application\Model\Attribute\TextareaAttributeFormModel;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
@@ -41,7 +42,7 @@ class CreateTextareaAttributeCommandFactory implements CreateAttributeCommandFac
      */
     public function create(FormInterface $form): DomainCommandInterface
     {
-        /** @var AttributeFormModel $data */
+        /** @var TextareaAttributeFormModel $data */
         $data = $form->getData();
 
         return new CreateTextareaAttributeCommand(
@@ -50,6 +51,7 @@ class CreateTextareaAttributeCommandFactory implements CreateAttributeCommandFac
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
+            $data->parameters->richEdit,
             $data->groups,
         );
     }

@@ -38,6 +38,7 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeComman
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - '<AttributeScope(local)>'
+            -  true
     attribute_{16..20}:
         __construct:
             - '<AttributeCode(code_<current()>)>'
@@ -45,6 +46,7 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeComman
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - '<AttributeScope(global)>'
+            -  true
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateNumericAttributeCommand:
     attribute_{21..23}:
