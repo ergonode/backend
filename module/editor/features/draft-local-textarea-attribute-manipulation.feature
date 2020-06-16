@@ -60,7 +60,11 @@ Feature: Draft edit and inheritance value for product draft with text area attri
         "code": "@attribute_code@",
         "type": "TEXT_AREA",
         "scope": "local",
-        "groups": []
+        "groups": [],
+         "parameters":
+          {
+          "richEdit": true
+          }
       }
       """
     Then the response status code should be 201
