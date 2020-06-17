@@ -117,7 +117,6 @@ class GroupedProductImportAction implements ImportActionInterface
 
         $this->commandBus->dispatch($command, true);
 
-
         if (!empty($children)) {
             /** @var AbstractAssociatedProduct $product */
             $product = $this->productRepository->load($productId);

@@ -102,6 +102,9 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
                 $step->process($import, $result, $transformer, $source, $steps);
             }
         } catch (\Throwable $exception) {
+            echo print_r($exception->getMessage(), true);
+            echo print_r($exception->getTraceAsString(), true);
+            die('wefwef');
             throw $exception;
         }
     }
