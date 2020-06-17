@@ -133,7 +133,7 @@ class AttributeCreatedEventProjector
         );
 
         foreach ($event->getParameters() as $name => $value) {
-            if (!empty($value)) {
+            if (!is_null($value)) {
                 $this->connection->insert(
                     self::TABLE_PARAMETER,
                     [

@@ -45,7 +45,7 @@ Feature: Draft edit and inheritance value for product draft with textarea attrib
         }
       """
     Then the response status code should be 204
-    
+
   Scenario: Create textarea attribute
     Given remember param "attribute_code" with value "textarea_@@random_code@@"
     When I send a POST request to "/api/v1/en/attributes" with body:
@@ -54,7 +54,8 @@ Feature: Draft edit and inheritance value for product draft with textarea attrib
         "code": "@attribute_code@",
         "type": "TEXT_AREA",
         "scope": "global",
-        "groups": []
+        "groups": [],
+        "parameters":[]
       }
       """
     Then the response status code should be 201
