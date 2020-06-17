@@ -32,3 +32,4 @@ services:
           - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1OptionProcessor'
           - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1SimpleProductProcessor'
           - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1ConfigurableProductProcessor'
+          - '@Ergonode\ImporterMagento1\Infrastructure\Processor\Step\Magento1GroupedProductProcessor'

@@ -64,3 +64,10 @@ services:
                 - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductAttributeBuilder'
                 - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductCategoryBuilder'
                 - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductTemplateBuilder'
+
+    Ergonode\Importer\Infrastructure\Action\GroupedProductImportAction:
+        arguments:
+            $builders:
+                - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductAttributeBuilder'
+                - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductCategoryBuilder'
+                - '@Ergonode\Importer\Infrastructure\Action\Builder\ImportProductTemplateBuilder'
