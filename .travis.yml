@@ -5,9 +5,6 @@ php:
 before_install:
   - pecl channel-update pecl.php.net
   - yes | pecl install imagick
-  - php -m
-  - env
-  - php -i |grep ini
 
 install:
   - composer install
