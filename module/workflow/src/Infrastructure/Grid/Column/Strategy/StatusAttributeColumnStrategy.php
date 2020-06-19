@@ -16,7 +16,7 @@ use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Product\Infrastructure\Grid\Column\Provider\Strategy\AttributeColumnStrategyInterface;
 use Ergonode\Workflow\Domain\Entity\Attribute\StatusSystemAttribute;
 use Ergonode\Workflow\Domain\Query\StatusQueryInterface;
-use Ergonode\Grid\Filter\Option\LabelFilterOption;
+use Ergonode\Grid\Filter\Option\FilterOption;
 
 /**
  */
@@ -57,7 +57,7 @@ class StatusAttributeColumnStrategy implements AttributeColumnStrategyInterface
 
         $options = [];
         foreach ($statuses as $code => $status) {
-            $options[] = new LabelFilterOption($code, $status['name']);
+            $options[] = new FilterOption($code, $code, $status['name']);
         }
 
         return new LabelColumn(

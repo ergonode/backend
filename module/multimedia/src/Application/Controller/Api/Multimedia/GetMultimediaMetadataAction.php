@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -9,38 +8,37 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
-use Ergonode\Api\Application\Response\FileContentResponse;
+use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
+use Ergonode\Multimedia\Infrastructure\Service\Metadata\MetadataService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(
- *     name="ergonode_multimedia_read",
- *     path="/multimedia/{multimedia}",
+ *     name="ergonode_multimedia_metadata",
+ *     path="/{language}/multimedia/{multimedia}/metadata",
  *     methods={"GET"},
  *     requirements={"multimedia" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
-class GetMultimediaAction
+class GetMultimediaMetadataAction
 {
     /**
-     * @var MultimediaStorageInterface
+     * @var MetadataService
      */
-    private MultimediaStorageInterface $storage;
+    private MetadataService $service;
 
     /**
-     * @param MultimediaStorageInterface $storage
+     * @param MetadataService $service
      */
-    public function __construct(MultimediaStorageInterface $storage)
+    public function __construct(MetadataService $service)
     {
-        $this->storage = $storage;
+        $this->service = $service;
     }
 
     /**
@@ -53,27 +51,35 @@ class GetMultimediaAction
      *     type="string",
      *     description="Multimedia id",
      * )
+     * @SWG\Parameter(
+     *     name="language",
+     *     in="path",
+     *     type="string",
+     *     required=true,
+     *     default="en",
+     *     description="Language Code",
+     * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns multimedia file",
+     *     description="Returns multimedia metadata",
      * )
      * @SWG\Response(
      *     response=404,
      *     description="Not found",
      * )
      *
-     * @param Multimedia $multimedia
-     *
      * @ParamConverter(class="Ergonode\Multimedia\Domain\Entity\Multimedia")
+     *
+     * @param Multimedia $multimedia
+     * @param Request    $request
      *
      * @return Response
      *
-     * @throws \Exception
      */
-    public function __invoke(Multimedia $multimedia): Response
+    public function __invoke(Multimedia $multimedia, Request $request): Response
     {
-        $content = $this->storage->read($multimedia->getFileName());
+        $result = $this->service->getMetadata($multimedia);
 
-        return new FileContentResponse($content, $multimedia);
+        return new SuccessResponse($result);
     }
 }
