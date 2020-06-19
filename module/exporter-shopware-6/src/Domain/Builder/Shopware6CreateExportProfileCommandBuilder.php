@@ -52,6 +52,7 @@ class Shopware6CreateExportProfileCommandBuilder implements CreateExportProfileC
         $attributeProductStock = $data->attributeProductStock;
         $attributeProductPrice = $data->attributeProductPrice;
         $attributeProductTax = $data->attributeProductTax;
+        $categoryTree = $data->categoryTree;
 
         return new CreateShopware6ExportProfileCommand(
             ExportProfileId::generate(),
@@ -65,6 +66,7 @@ class Shopware6CreateExportProfileCommandBuilder implements CreateExportProfileC
             $attributeProductStock,
             $attributeProductPrice,
             $attributeProductTax,
+            $categoryTree,
             []
         );
     }

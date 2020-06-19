@@ -20,6 +20,14 @@ services:
         resource: '../../Infrastructure/Handler/*'
         tags: ['messenger.message_handler']
 
+    # Repository
+    Ergonode\ExporterShopware6\Domain\Repository\Shopwer6CategoryRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopwer6CategoryRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\Shopwer6CurrencyRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopwer6CurrencyRepository'
+    Ergonode\ExporterShopware6\Domain\Repository\Shopwer6TaxRepositoryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Repository\DbalShopwer6TaxRepository'
+
+    # Query
+    Ergonode\ExporterShopware6\Domain\Query\Shopwer6CategoryQueryInterface: '@Ergonode\ExporterShopware6\Persistence\Dbal\Query\DbalShopwer6CategoryQuery'
+
     # Mappers
     Ergonode\ExporterShopware6\Infrastructure\Builder\ShopwareProductBuilder:
         arguments:

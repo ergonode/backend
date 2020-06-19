@@ -48,6 +48,7 @@ class UpdateShopware6ExportProfileCommandHandler
         $exportProfile->setProductStock($command->getProductStock());
         $exportProfile->setProductPrice($command->getProductPrice());
         $exportProfile->setProductTax($command->getProductTax());
+        $exportProfile->setCategoryTree($command->getCategoryTree());
         $exportProfile->setAttributes($command->getAttributes());
 
         $this->repository->save($exportProfile);

@@ -80,7 +80,7 @@ class Shopware6ProductPriceMapper implements Shopware6ProductMapperInterface
         Shopware6ExportApiProfile $profile
     ): Shopware6Product {
 
-        if ($product instanceof CreateShopwareProduct) {
+        if ($shopware6Product instanceof CreateShopwareProduct) {
             $tax = $this->tax($profile, $product);
 
             $shopware6Product->addPrice($this->price($profile, $product, $tax));

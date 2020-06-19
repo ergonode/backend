@@ -51,6 +51,7 @@ class Shopware6UpdateExportProfileCommandBuilder implements UpdateExportProfileC
         $attributeProductStock = $data->attributeProductStock;
         $attributeProductPrice = $data->attributeProductPrice;
         $attributeProductTax = $data->attributeProductTax;
+        $categoryTree = $data->categoryTree;
 
         return new UpdateShopware6ExportProfileCommand(
             $exportProfileId,
@@ -64,6 +65,7 @@ class Shopware6UpdateExportProfileCommandBuilder implements UpdateExportProfileC
             $attributeProductStock,
             $attributeProductPrice,
             $attributeProductTax,
+            $categoryTree,
             []
         );
     }

@@ -25,6 +25,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     export_profile_id uuid NOT NULL,
                     category_id uuid NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
+                    update_at timestamp without time zone NOT NULL,
                     PRIMARY KEY (export_profile_id, category_id)
                 )'
         );
@@ -34,6 +35,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     export_profile_id uuid NOT NULL,
                     tax  DECIMAL (5, 2) NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
+                    update_at timestamp without time zone NOT NULL,
                     PRIMARY KEY (export_profile_id, tax)
                 )'
         );
@@ -43,6 +45,7 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     export_profile_id uuid NOT NULL,
                     iso varchar(255) NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
+                    update_at timestamp without time zone NOT NULL,
                     PRIMARY KEY (export_profile_id, iso)
                 )'
         );

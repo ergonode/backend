@@ -106,6 +106,7 @@ class UpdateShopware6ExportProfileCommandTest extends TestCase
             $this->productStock,
             $this->productPrice,
             $this->productTax,
+            null,
             []
         );
 

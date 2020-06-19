@@ -137,10 +137,28 @@ class Shopware6Product
      */
     public function addCategoryId(string $categoryId): void
     {
-        $this->categories[] = [
-            'id' => $categoryId,
-        ];
-        $this->modified = true;
+        if (!$this->hasCategory($categoryId)) {
+            $this->categories[] = [
+                'id' => $categoryId,
+            ];
+            $this->modified = true;
+        }
+    }
+
+    /**
+     * @param string $categoryId
+     *
+     * @return bool
+     */
+    public function hasCategory(string $categoryId): bool
+    {
+        foreach ($this->getCategories() as $category) {
+            if ($category['id'] === $categoryId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

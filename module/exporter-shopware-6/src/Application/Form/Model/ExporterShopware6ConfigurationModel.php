@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Application\Form\Model;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -92,6 +93,11 @@ class ExporterShopware6ConfigurationModel
     public ?AttributeId $attributeProductTax = null;
 
     /**
+     * @var CategoryTreeId|null
+     */
+    public ?CategoryTreeId $categoryTree = null;
+
+    /**
      * @param Shopware6ExportApiProfile|null $exportProfile
      */
     public function __construct(Shopware6ExportApiProfile $exportProfile = null)
@@ -107,6 +113,7 @@ class ExporterShopware6ConfigurationModel
             $this->attributeProductStock = $exportProfile->getProductStock();
             $this->attributeProductPrice = $exportProfile->getProductPrice();
             $this->attributeProductTax = $exportProfile->getProductTax();
+            $this->categoryTree = $exportProfile->getCategoryTree();
         }
     }
 }

@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ExporterShopware6\Persistence\Repository;
+namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategory;
@@ -131,14 +131,16 @@ class DbalShopwer6CategoryRepository implements Shopwer6CategoryRepositoryInterf
      */
     private function update(ExportProfileId $exportProfileId, CategoryId $categoryId, string $shopwareId): void
     {
+        $now = new \DateTimeImmutable();
         $this->connection->update(
             self::TABLE,
             [
-                'shopware6_id' => $shopwareId,
-            ],
-            [
                 'category_id' => $categoryId->getValue(),
                 'export_profile_id' => $exportProfileId->getValue(),
+                'update_at' => $now->format('Y-m-d H:i:s'),
+            ],
+            [
+                'shopware6_id' => $shopwareId,
             ]
         );
     }
@@ -158,6 +160,7 @@ class DbalShopwer6CategoryRepository implements Shopwer6CategoryRepositoryInterf
                 'shopware6_id' => $shopwareId,
                 'category_id' => $categoryId->getValue(),
                 'export_profile_id' => $exportProfileId->getValue(),
+                'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
             ]
         );
     }

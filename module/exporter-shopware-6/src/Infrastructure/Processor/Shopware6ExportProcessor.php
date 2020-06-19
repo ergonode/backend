@@ -9,7 +9,6 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor;
 
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
-use Ergonode\Exporter\Infrastructure\Exception\ExportException;
 use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\EndShopware6ExportProcess;

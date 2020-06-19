@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor\Process;
 
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
+use Ergonode\ExporterShopware6\Infrastructure\Synchronize\CategorySynchronize;
 use Ergonode\ExporterShopware6\Infrastructure\Synchronize\CurrencySynchronize;
 use Ergonode\ExporterShopware6\Infrastructure\Synchronize\TaxSynchronize;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
@@ -28,13 +29,23 @@ class StartShopware6ExportProcess
     private CurrencySynchronize $currencySynchronize;
 
     /**
+     * @var CategorySynchronize
+     */
+    private CategorySynchronize $categorySynchronize;
+
+    /**
      * @param TaxSynchronize      $taxSynchronize
      * @param CurrencySynchronize $currencySynchronize
+     * @param CategorySynchronize $categorySynchronize
      */
-    public function __construct(TaxSynchronize $taxSynchronize, CurrencySynchronize $currencySynchronize)
-    {
+    public function __construct(
+        TaxSynchronize $taxSynchronize,
+        CurrencySynchronize $currencySynchronize,
+        CategorySynchronize $categorySynchronize
+    ) {
         $this->taxSynchronize = $taxSynchronize;
         $this->currencySynchronize = $currencySynchronize;
+        $this->categorySynchronize = $categorySynchronize;
     }
 
     /**
@@ -45,5 +56,6 @@ class StartShopware6ExportProcess
     {
         $this->taxSynchronize->synchronize($id, $profile);
         $this->currencySynchronize->synchronize($id, $profile);
+        $this->categorySynchronize->synchronize($id, $profile);
     }
 }

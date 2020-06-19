@@ -12,6 +12,7 @@ use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 
@@ -50,6 +51,11 @@ class AttributeTranslationInheritanceCalculator
             }
 
             return $translations[$language->getCode()];
+        }
+        if ($value instanceof StringValue) {
+            $array = $value->getValue();
+
+            return reset($array);
         }
 
         return $value->getValue();

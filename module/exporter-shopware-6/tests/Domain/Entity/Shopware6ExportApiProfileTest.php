@@ -106,6 +106,7 @@ class Shopware6ExportApiProfileTest extends TestCase
             $this->productStock,
             $this->productPrice,
             $this->productTax,
+            null,
             []
         );
 
@@ -140,6 +141,7 @@ class Shopware6ExportApiProfileTest extends TestCase
             $this->productStock,
             $this->productPrice,
             $this->productTax,
+            null,
             []
         );
 

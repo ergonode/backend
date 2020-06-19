@@ -21,6 +21,7 @@ use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
 /**
+ * @deprecated
  */
 class CategoryTreeMapper
 {

@@ -13,9 +13,9 @@ use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\Exporter\Domain\Entity\Profile\ExportProfileInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use JMS\Serializer\Annotation as JMS;
-use Webmozart\Assert\Assert;
 
 /**
  */
@@ -87,6 +87,13 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
     private AttributeId $productTax;
 
     /**
+     * @var CategoryTreeId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
+     */
+    private ?CategoryTreeId $categoryTree;
+
+    /**
      * @var AttributeId[]
      *
      * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
@@ -105,6 +112,7 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
      * @param AttributeId         $productStock
      * @param AttributeId         $productPrice
      * @param AttributeId         $productTax
+     * @param CategoryTreeId|null $categoryTree
      * @param array|AttributeId[] $attributes
      */
     public function __construct(
@@ -119,6 +127,7 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
         AttributeId $productStock,
         AttributeId $productPrice,
         AttributeId $productTax,
+        ?CategoryTreeId $categoryTree,
         array $attributes
     ) {
         parent::__construct($id, $name);
@@ -132,6 +141,7 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
         $this->productStock = $productStock;
         $this->productPrice = $productPrice;
         $this->productTax = $productTax;
+        $this->categoryTree = $categoryTree;
         $this->attributes = $attributes;
     }
 
@@ -213,6 +223,14 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
     public function getProductTax(): AttributeId
     {
         return $this->productTax;
+    }
+
+    /**
+     * @return CategoryTreeId|null
+     */
+    public function getCategoryTree(): ?CategoryTreeId
+    {
+        return $this->categoryTree;
     }
 
     /**
@@ -301,6 +319,14 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
     public function setProductTax(AttributeId $productTax): void
     {
         $this->productTax = $productTax;
+    }
+
+    /**
+     * @param CategoryTreeId|null $categoryTree
+     */
+    public function setCategoryTree(?CategoryTreeId $categoryTree): void
+    {
+        $this->categoryTree = $categoryTree;
     }
 
     /**

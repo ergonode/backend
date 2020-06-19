@@ -35,7 +35,6 @@ class PostProductAction extends AbstractAction implements ActionInterface, Heade
         $this->product = $product;
     }
 
-
     /**
      * @return Request
      */

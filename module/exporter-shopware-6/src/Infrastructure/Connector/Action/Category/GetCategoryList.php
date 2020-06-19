@@ -21,16 +21,27 @@ class GetCategoryList extends AbstractAction implements ActionInterface, HeaderP
     private const URI = '/api/v1/category?%s';
 
     /**
-     * @var int
+     * @var array|array[]
      */
-    private int $limit;
+    private array $query;
+
 
     /**
-     * @param int $limit
+     * @param array    $query
+     * @param int|null $limit
+     * @param int|null $page
      */
-    public function __construct(int $limit = 500)
+    public function __construct(array $query = [], int $limit = 500, int $page = null)
     {
-        $this->limit = $limit;
+        $this->query = [
+            'query' => $query ? $query : [],
+        ];
+        if ($limit > 0) {
+            $this->query['limit'] = $limit;
+        }
+        if ($page > 0) {
+            $this->query['page'] = $page;
+        }
     }
 
     /**
@@ -71,10 +82,6 @@ class GetCategoryList extends AbstractAction implements ActionInterface, HeaderP
      */
     private function getUri(): string
     {
-        $query = [
-            'limit' => $this->limit,
-        ];
-
-        return rtrim(sprintf(self::URI, http_build_query($query)), '?');
+        return rtrim(sprintf(self::URI, http_build_query($this->query)), '?');
     }
 }

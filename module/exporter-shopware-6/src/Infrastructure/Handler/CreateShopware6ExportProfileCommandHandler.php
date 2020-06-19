@@ -47,6 +47,7 @@ class CreateShopware6ExportProfileCommandHandler
             $command->getProductStock(),
             $command->getProductPrice(),
             $command->getProductTax(),
+            $command->getCategoryTree(),
             $command->getAttributes()
         );
 

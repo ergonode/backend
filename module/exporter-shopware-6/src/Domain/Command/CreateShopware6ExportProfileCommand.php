@@ -11,6 +11,7 @@ namespace Ergonode\ExporterShopware6\Domain\Command;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use JMS\Serializer\Annotation as JMS;
 
@@ -95,6 +96,13 @@ class CreateShopware6ExportProfileCommand implements DomainCommandInterface
     private AttributeId $productTax;
 
     /**
+     * @var CategoryTreeId|null
+     *
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId")
+     */
+    private ?CategoryTreeId $categoryTree;
+
+    /**
      * @var AttributeId[]
      *
      * @JMS\Type("array<string, Ergonode\SharedKernel\Domain\Aggregate\AttributeId>")
@@ -113,6 +121,7 @@ class CreateShopware6ExportProfileCommand implements DomainCommandInterface
      * @param AttributeId         $productStock
      * @param AttributeId         $productPrice
      * @param AttributeId         $productTax
+     * @param CategoryTreeId|null $categoryTree
      * @param array|AttributeId[] $attributes
      */
     public function __construct(
@@ -127,6 +136,7 @@ class CreateShopware6ExportProfileCommand implements DomainCommandInterface
         AttributeId $productStock,
         AttributeId $productPrice,
         AttributeId $productTax,
+        ?CategoryTreeId $categoryTree,
         array $attributes
     ) {
         $this->id = $id;
@@ -140,6 +150,7 @@ class CreateShopware6ExportProfileCommand implements DomainCommandInterface
         $this->productStock = $productStock;
         $this->productPrice = $productPrice;
         $this->productTax = $productTax;
+        $this->categoryTree = $categoryTree;
         $this->attributes = $attributes;
     }
 
@@ -229,6 +240,14 @@ class CreateShopware6ExportProfileCommand implements DomainCommandInterface
     public function getProductTax(): AttributeId
     {
         return $this->productTax;
+    }
+
+    /**
+     * @return CategoryTreeId|null
+     */
+    public function getCategoryTree(): ?CategoryTreeId
+    {
+        return $this->categoryTree;
     }
 
     /**

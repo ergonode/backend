@@ -53,7 +53,9 @@ class ProcessShopware6ExportProcess
 
         if ($shopwareProduct) {
             $this->builder->build($shopwareProduct, $product, $profile);
-            $this->productClient->update($profile, $shopwareProduct);
+            if ($shopwareProduct->isModified()) {
+                $this->productClient->update($profile, $shopwareProduct);
+            }
         } else {
             $shopwareProduct = new CreateShopwareProduct();
             $this->builder->build($shopwareProduct, $product, $profile);

@@ -69,10 +69,12 @@ class GetProductList extends AbstractAction implements ActionInterface, HeaderPr
         if (count($data['data']) > 0) {
             foreach ($data['data'] as $row) {
                 $category = [];
-                foreach ($row['attributes']['categoryTree'] as $attributeCategory) {
-                    $category[] = [
-                        'id' => $attributeCategory,
-                    ];
+                if ($row['attributes']['categoryTree']) {
+                    foreach ($row['attributes']['categoryTree'] as $attributeCategory) {
+                        $category[] = [
+                            'id' => $attributeCategory,
+                        ];
+                    }
                 }
 
                 $result[] = new Shopware6Product(
