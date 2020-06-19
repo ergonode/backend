@@ -29,17 +29,24 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Importer\Infrastructure\Action\SimpleProductImportAction;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
+use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Importer\Infrastructure\Action\GroupedProductImportAction;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class Magento1SimpleProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
+class Magento1GroupedProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
     /**
      * @var AttributeQueryInterface
      */
     private AttributeQueryInterface $attributeQuery;
+
+    /**
+     * @var ProductQueryInterface
+     */
+    private ProductQueryInterface $productQuery;
 
     /**
      * @var ImportLineRepositoryInterface
@@ -54,20 +61,22 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
     /**
      * @param OptionQueryInterface          $optionQuery
      * @param AttributeQueryInterface       $attributeQuery
+     * @param ProductQueryInterface         $productQuery
      * @param ImportLineRepositoryInterface $repository
      * @param CommandBusInterface           $commandBus
      */
     public function __construct(
         OptionQueryInterface $optionQuery,
         AttributeQueryInterface $attributeQuery,
+        ProductQueryInterface $productQuery,
         ImportLineRepositoryInterface $repository,
         CommandBusInterface $commandBus
     ) {
+        parent::__construct($optionQuery);
         $this->attributeQuery = $attributeQuery;
+        $this->productQuery = $productQuery;
         $this->repository = $repository;
         $this->commandBus = $commandBus;
-
-        parent::__construct($optionQuery);
     }
 
     /**
@@ -87,7 +96,7 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
         Progress $steps
     ): void {
         $i = 0;
-        $products = $this->getProducts($products, 'simple');
+        $products = $this->getProducts($products, 'grouped');
         $count = count($products);
         /** @var ProductModel $product */
         foreach ($products as $product) {
@@ -99,7 +108,7 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
                 $steps,
                 $records,
                 $record,
-                SimpleProductImportAction::TYPE
+                GroupedProductImportAction::TYPE
             );
             $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
             $this->repository->save($line);
@@ -154,11 +163,51 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
                 }
             }
 
-            if (null !== $value && '' !== $value && $transformer->hasField($field)) {
+            $children = $this->getChildren($default);
+
+            if ($children) {
+                $record->set('children', $children);
+            }
+
+            if (null !== $value
+                && '' !== $value
+                && 'children' !== $field
+                && $transformer->hasField($field)
+                && !$record->has($field)
+            ) {
                 $record->set($field, $value);
             }
         }
 
         return $record;
+    }
+
+    /**
+     * @param array $default
+     *
+     * @return null|string
+     */
+    private function getChildren(array $default): ?string
+    {
+        $result = [];
+
+        if (array_key_exists('relations', $default)) {
+            $children = explode(',', $default['relations']);
+            $children = array_unique($children);
+
+            foreach ($children as $variant) {
+                $sku = new Sku($variant);
+                $productId = $this->productQuery->findProductIdBySku($sku);
+                if ($productId) {
+                    $result[] = $productId->getValue();
+                }
+            }
+        }
+
+        if (!empty($result)) {
+            return implode(',', $result);
+        }
+
+        return null;
     }
 }
