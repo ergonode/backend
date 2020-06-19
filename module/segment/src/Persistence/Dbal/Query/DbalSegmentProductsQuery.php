@@ -67,6 +67,8 @@ class DbalSegmentProductsQuery implements SegmentProductsQueryInterface
 
         return $qb->select('sp.product_id')
             ->where($qb->expr()->eq('segment_id', ':segmentId'))
+            ->andWhere($qb->expr()->eq('available', ':available'))
+            ->setParameter(':available', true)
             ->setParameter(':segmentId', $segmentId->getValue())
             ->execute()
             ->fetchAll(\PDO::FETCH_COLUMN);

@@ -11,6 +11,9 @@ namespace Ergonode\Product\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Ergonode\Core\Domain\Query\Builder\DefaultImageQueryBuilderInterface;
+use Ergonode\Core\Domain\Query\Builder\DefaultLabelQueryBuilderInterface;
+use Ergonode\Core\Domain\Query\LanguageQueryInterface;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\DataSetInterface;
 use Ergonode\Grid\DbalDataSet;
@@ -30,12 +33,38 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     private Connection $connection;
 
     /**
-     * @param Connection $connection
+     * @var LanguageQueryInterface
      */
-    public function __construct(Connection $connection)
-    {
+    protected LanguageQueryInterface $query;
+
+    /**
+     * @var DefaultLabelQueryBuilderInterface
+     */
+    protected DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder;
+
+    /**
+     * @var DefaultImageQueryBuilderInterface
+     */
+    protected DefaultImageQueryBuilderInterface $defaultImageQueryBuilder;
+
+    /**
+     * @param Connection                        $connection
+     * @param LanguageQueryInterface            $query
+     * @param DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder
+     * @param DefaultImageQueryBuilderInterface $defaultImageQueryBuilder
+     */
+    public function __construct(
+        Connection $connection,
+        LanguageQueryInterface $query,
+        DefaultLabelQueryBuilderInterface $defaultLabelQueryBuilder,
+        DefaultImageQueryBuilderInterface $defaultImageQueryBuilder
+    ) {
         $this->connection = $connection;
+        $this->query = $query;
+        $this->defaultLabelQueryBuilder = $defaultLabelQueryBuilder;
+        $this->defaultImageQueryBuilder = $defaultImageQueryBuilder;
     }
+
 
     /**
      * @param ProductId $productId
@@ -45,9 +74,12 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
      */
     public function getDataSet(ProductId $productId, Language $language): DataSetInterface
     {
+        $info = $this->query->getLanguageNodeInfo($language);
         $qb = $this->getQuery();
         $qb->andWhere($qb->expr()->eq('product_id', ':product_id'));
-
+        $qb->addSelect('product_id');
+        $this->defaultLabelQueryBuilder->addSelect($qb, $info['lft'], $info['rgt']);
+        $this->defaultImageQueryBuilder->addSelect($qb, $info['lft'], $info['rgt']);
         $result = $this->connection->createQueryBuilder();
         $result->setParameter(':product_id', $productId->getValue());
         $result->select('*');
@@ -64,6 +96,6 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
         return $this->connection->createQueryBuilder()
             ->select('p.id, p.sku')
             ->from(self::PRODUCT_CHILDREN_TABLE, 'pc')
-            ->join('pc', self::PRODUCT_TABLE, 'p', 'p.id = pc.child_id');
+            ->innerJoin('pc', self::PRODUCT_TABLE, 'p', 'p.id = pc.child_id');
     }
 }

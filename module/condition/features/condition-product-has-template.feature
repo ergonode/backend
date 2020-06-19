@@ -11,7 +11,7 @@ Feature: Condition Product has template
       {
         "name": "@@random_md5@@",
         "image": null,
-        "defaultText": null,
+        "defaultLabel": null,
         "defaultImage": null,
         "elements": [
         ]

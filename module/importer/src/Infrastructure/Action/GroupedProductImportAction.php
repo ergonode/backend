@@ -18,15 +18,18 @@ use Ergonode\Importer\Infrastructure\Action\Builder\ProductImportBuilderInterfac
 use Webmozart\Assert\Assert;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
-use Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand;
-use Ergonode\Product\Domain\Command\Update\UpdateSimpleProductCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
+use Ergonode\Product\Domain\Command\Relations\AddProductChildrenCommand;
+use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
+use Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand;
+use Ergonode\Product\Domain\Command\Update\UpdateGroupingProductCommand;
 
 /**
  */
-class ProductImportAction implements ImportActionInterface
+class GroupedProductImportAction implements ImportActionInterface
 {
-    public const TYPE = 'PRODUCT';
+    public const TYPE = 'GROUPED-PRODUCT';
 
     /**
      * @var ProductQueryInterface
@@ -44,18 +47,26 @@ class ProductImportAction implements ImportActionInterface
     private array $builders;
 
     /**
+     * @var ProductRepositoryInterface
+     */
+    private ProductRepositoryInterface $productRepository;
+
+    /**
      * @param ProductQueryInterface                 $productQuery
      * @param CommandBusInterface                   $commandBus
      * @param array|ProductImportBuilderInterface[] $builders
+     * @param ProductRepositoryInterface            $productRepository
      */
     public function __construct(
         ProductQueryInterface $productQuery,
         CommandBusInterface $commandBus,
-        $builders
+        $builders,
+        ProductRepositoryInterface $productRepository
     ) {
         $this->productQuery = $productQuery;
         $this->commandBus = $commandBus;
         $this->builders = $builders;
+        $this->productRepository = $productRepository;
     }
 
     /**
@@ -68,6 +79,13 @@ class ProductImportAction implements ImportActionInterface
     {
         $sku = $record->get('sku') ? new Sku($record->get('sku')) : null;
 
+        $children = [];
+        if ($record->has('children')) {
+            foreach (explode(',', $record->get('children')) as $child) {
+                $children[] = new ProductId($child);
+            }
+        }
+
         Assert::notNull($sku, 'product import required "sku" field not exists');
 
         $importedProduct = new ImportedProduct($sku->getValue());
@@ -76,20 +94,21 @@ class ProductImportAction implements ImportActionInterface
             $importedProduct = $builder->build($importedProduct, $record);
         }
 
-        $productData = $this->productQuery->findBySku($sku);
+        $productId = $this->productQuery->findProductIdBySku($sku);
         $templateId = new TemplateId($importedProduct->template);
 
-        if (!$productData) {
-            $command = new CreateSimpleProductCommand(
-                ProductId::generate(),
+        if (!$productId) {
+            $productId = ProductId::generate();
+            $command = new CreateGroupingProductCommand(
+                $productId,
                 $sku,
                 $templateId,
                 $importedProduct->categories,
                 $importedProduct->attributes,
             );
         } else {
-            $command = new UpdateSimpleProductCommand(
-                new ProductId($productData['id']),
+            $command = new UpdateGroupingProductCommand(
+                $productId,
                 $templateId,
                 $importedProduct->categories,
                 $importedProduct->attributes,
@@ -97,6 +116,13 @@ class ProductImportAction implements ImportActionInterface
         }
 
         $this->commandBus->dispatch($command, true);
+
+        if (!empty($children)) {
+            /** @var AbstractAssociatedProduct $product */
+            $product = $this->productRepository->load($productId);
+            $command = new AddProductChildrenCommand($product, $children);
+            $this->commandBus->dispatch($command, true);
+        }
     }
 
     /**

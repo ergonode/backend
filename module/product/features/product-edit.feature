@@ -26,7 +26,11 @@ Feature: Product edit feature
         "code": "TEXT_AREA_@@random_code@@",
         "scope": "local",
         "type": "TEXT_AREA",
-        "groups": []
+        "groups": [],
+        "parameters":
+          {
+          "richEdit": true
+          }
       }
       """
     Then the response status code should be 201

@@ -45,7 +45,7 @@ Feature: Draft edit and inheritance value for product draft with numeric attribu
         }
       """
     Then the response status code should be 204
-    
+
   Scenario: Create numeric attribute
     Given remember param "attribute_code" with value "numeric_@@random_code@@"
     When I send a POST request to "/api/v1/en/attributes" with body:
@@ -143,3 +143,18 @@ Feature: Draft edit and inheritance value for product draft with numeric attribu
     Then the response status code should be 200
     And the JSON nodes should be equal to:
       | attributes.@attribute_code@ | 200 |
+
+  Scenario: Edit product numeric value (zero) in "en" language
+    When I send a PUT request to "api/v1/en/products/@product_id@/draft/@attribute_id@/value" with body:
+      """
+      {
+        "value": 0
+      }
+      """
+    Then the response status code should be 200
+
+  Scenario: Get draft values in "en" language
+    When I send a GET request to "api/v1/en/products/@product_id@/draft"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@ | 0 |

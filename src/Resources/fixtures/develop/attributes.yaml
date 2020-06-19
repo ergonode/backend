@@ -38,6 +38,7 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeComman
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - '<AttributeScope(local)>'
+            -  true
     attribute_{16..20}:
         __construct:
             - '<AttributeCode(code_<current()>)>'
@@ -45,6 +46,7 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeComman
             - '@hint_<current()>'
             - '@placeholder_<current()>'
             - '<AttributeScope(global)>'
+            -  true
 
 Ergonode\Attribute\Domain\Command\Attribute\Create\CreateNumericAttributeCommand:
     attribute_{21..23}:
@@ -148,14 +150,14 @@ Ergonode\Attribute\Domain\Command\Attribute\Create\CreateMultiSelectAttributeCom
             - '@placeholder_<current()>'
             - '<AttributeScope(global)>'
 
-Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand:
-    attribute_gallery:
-        __construct:
-            - '<AttributeCode(gallery_attribute)>'
-            - '@label_1'
-            - '@hint_1'
-            - '@placeholder_1'
-            - '<AttributeScope(local)>'
+#Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand:
+#    attribute_gallery:
+#        __construct:
+#            - '<AttributeCode(gallery_attribute)>'
+#            - '@label_1'
+#            - '@hint_1'
+#            - '@placeholder_1'
+#            - '<AttributeScope(local)>'
 
 Ergonode\Attribute\Domain\Command\Option\CreateOptionCommand:
     select_option_{1..5}:
@@ -229,5 +231,19 @@ Ergonode\Product\Domain\Entity\Attribute\ProductTypeSystemAttribute:
     attribute_esa_product_type:
         __construct:
             - '@label_esa_product_type'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Designer\Domain\Entity\Attribute\DefaultLabelSystemAttribute:
+    attribute_esa_default_label:
+        __construct:
+            - '@label_esa_default_label'
+            - '@empty'
+            - '@empty'
+
+Ergonode\Designer\Domain\Entity\Attribute\DefaultImageSystemAttribute:
+    attribute_esa_default_image:
+        __construct:
+            - '@label_esa_default_image'
             - '@empty'
             - '@empty'

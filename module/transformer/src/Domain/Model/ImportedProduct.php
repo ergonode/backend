@@ -30,9 +30,9 @@ class ImportedProduct
     public array $categories;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public string $template;
+    public ?string $template;
 
     /**
      * @param string $sku

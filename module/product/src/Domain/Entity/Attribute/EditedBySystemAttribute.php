@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\AbstractTextAttribute;
 use Ergonode\Attribute\Domain\Entity\AttributeInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
@@ -17,7 +17,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**
  */
-class EditedBySystemAttribute extends TextAttribute implements AttributeInterface
+class EditedBySystemAttribute extends AbstractTextAttribute implements AttributeInterface
 {
     public const TYPE = 'TEXT';
     public const CODE = 'esa_edited_by';

@@ -24,8 +24,6 @@ class SkusValidValidator extends ConstraintValidator
     private ProductQueryInterface $query;
 
     /**
-     * SkuExistsValidator constructor.
-     *
      * @param ProductQueryInterface $query
      */
     public function __construct(ProductQueryInterface $query)
@@ -60,9 +58,9 @@ class SkusValidValidator extends ConstraintValidator
                     ->setParameter('{{ value }}', $sku)
                     ->addViolation();
             } else {
-                $result = $this->query->findBySku(new \Ergonode\Product\Domain\ValueObject\Sku($sku));
+                $result = $this->query->findProductIdBySku(new \Ergonode\Product\Domain\ValueObject\Sku($sku));
 
-                if (empty($result)) {
+                if (!$result) {
                     $this->context->buildViolation($constraint->notExistsMessage)
                         ->setParameter('{{ value }}', $sku)
                         ->addViolation();
