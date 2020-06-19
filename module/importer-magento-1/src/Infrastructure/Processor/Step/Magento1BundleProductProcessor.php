@@ -29,24 +29,17 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Ergonode\Product\Domain\ValueObject\Sku;
 use Ergonode\Importer\Infrastructure\Action\GroupedProductImportAction;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class Magento1GroupedProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
+class Magento1BundleProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
     /**
      * @var AttributeQueryInterface
      */
     private AttributeQueryInterface $attributeQuery;
-
-    /**
-     * @var ProductQueryInterface
-     */
-    private ProductQueryInterface $productQuery;
 
     /**
      * @var ImportLineRepositoryInterface
@@ -61,20 +54,17 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
     /**
      * @param OptionQueryInterface          $optionQuery
      * @param AttributeQueryInterface       $attributeQuery
-     * @param ProductQueryInterface         $productQuery
      * @param ImportLineRepositoryInterface $repository
      * @param CommandBusInterface           $commandBus
      */
     public function __construct(
         OptionQueryInterface $optionQuery,
         AttributeQueryInterface $attributeQuery,
-        ProductQueryInterface $productQuery,
         ImportLineRepositoryInterface $repository,
         CommandBusInterface $commandBus
     ) {
         parent::__construct($optionQuery);
         $this->attributeQuery = $attributeQuery;
-        $this->productQuery = $productQuery;
         $this->repository = $repository;
         $this->commandBus = $commandBus;
     }
@@ -96,7 +86,7 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
         Progress $steps
     ): void {
         $i = 0;
-        $products = $this->getProducts($products, 'grouped');
+        $products = $this->getProducts($products, 'bundle');
         $count = count($products);
         /** @var ProductModel $product */
         foreach ($products as $product) {
@@ -163,15 +153,8 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
                 }
             }
 
-            $children = $this->getChildren($default);
-
-            if ($children) {
-                $record->set('children', $children);
-            }
-
             if (null !== $value
                 && '' !== $value
-                && 'children' !== $field
                 && $transformer->hasField($field)
                 && !$record->has($field)
             ) {
@@ -180,34 +163,5 @@ class Magento1GroupedProductProcessor extends AbstractProductProcessor implement
         }
 
         return $record;
-    }
-
-    /**
-     * @param array $default
-     *
-     * @return null|string
-     */
-    private function getChildren(array $default): ?string
-    {
-        $result = [];
-
-        if (array_key_exists('relations', $default)) {
-            $children = explode(',', $default['relations']);
-            $children = array_unique($children);
-
-            foreach ($children as $variant) {
-                $sku = new Sku($variant);
-                $productId = $this->productQuery->findProductIdBySku($sku);
-                if ($productId) {
-                    $result[] = $productId->getValue();
-                }
-            }
-        }
-
-        if (!empty($result)) {
-            return implode(',', $result);
-        }
-
-        return null;
     }
 }
