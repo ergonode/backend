@@ -34,7 +34,7 @@ Feature: Multimedia
 
   Scenario: Upload new multimedia with empty file
     When I send a POST request to "/api/v1/multimedia/upload" with params:
-      | key    | value                      |
+      | key    | value                            |
       | upload | @multimedia-test-empty-image.png |
     Then the response status code should be 400
 
@@ -44,7 +44,7 @@ Feature: Multimedia
 
   Scenario: Download uploaded multimedia file with invalid uuid
     And I send a GET request to "api/v1/multimedia/aaa-aa-aaa"
-    Then the response status code should be 400
+    Then the response status code should be 404
 
   Scenario: Download uploaded multimedia file with with not existing uuid
     And I send a GET request to "api/v1/multimedia/01730e8d-fb8d-5afe-aaaa-b621bacbbaaa"

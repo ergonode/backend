@@ -23,6 +23,13 @@ interface MultimediaStorageInterface
     /**
      * @param string $filename
      *
+     * @return resource
+     */
+    public function readStream(string $filename);
+
+    /**
+     * @param string $filename
+     *
      * @return bool
      */
     public function has(string $filename): bool;
