@@ -24,7 +24,6 @@ use Ergonode\Importer\Domain\Repository\ImportLineRepositoryInterface;
 use Ergonode\Importer\Domain\Entity\ImportLine;
 use Doctrine\DBAL\DBALException;
 use Ergonode\Importer\Infrastructure\Action\OptionImportAction;
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 
 /**
@@ -75,6 +74,19 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
                     $columns[$key][] = $item;
                 }
             }
+            foreach ($source->getLanguages() as $store => $language) {
+                if ($product->has($store)) {
+                    foreach ($product->get($store) as $key => $item) {
+                        if ('_' !== $key[0] && false === strpos($key, 'esa_')) {
+                            $columns[$key][] = $item;
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($columns as $key => $array) {
+            $columns[$key] = array_unique($array);
         }
 
         foreach ($transformer->getAttributes() as $field => $converter) {
@@ -97,14 +109,14 @@ class Magento1OptionProcessor implements Magento1ProcessorStepInterface
 
         $i = 0;
         $count = count($result);
-        foreach ($result as $attribute) {
+        foreach ($result as $option) {
             $i++;
             $records = new Progress($i, $count);
             $command = new ProcessImportCommand(
                 $import->getId(),
                 $steps,
                 $records,
-                $attribute,
+                $option,
                 OptionImportAction::TYPE
             );
             $line = new ImportLine($import->getId(), $steps->getPosition(), $i);

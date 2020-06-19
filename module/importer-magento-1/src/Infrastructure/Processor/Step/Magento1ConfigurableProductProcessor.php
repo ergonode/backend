@@ -22,17 +22,13 @@ use Ergonode\Importer\Domain\ValueObject\Progress;
 use Ergonode\ImporterMagento1\Domain\Entity\Magento1CsvSource;
 use Ergonode\ImporterMagento1\Infrastructure\Model\ProductModel;
 use Ergonode\ImporterMagento1\Infrastructure\Processor\Magento1ProcessorStepInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\Transformer\Domain\Entity\Transformer;
 use Ergonode\Transformer\Domain\Model\Record;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
-use Ramsey\Uuid\Uuid;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Attribute\Domain\ValueObject\OptionKey;
-use Ergonode\Value\Domain\ValueObject\StringCollectionValue;
 use Ergonode\Importer\Infrastructure\Action\VariableProductImportAction;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
@@ -40,15 +36,8 @@ use Ergonode\Product\Domain\ValueObject\Sku;
 
 /**
  */
-class Magento1ConfigurableProductProcessor implements Magento1ProcessorStepInterface
+class Magento1ConfigurableProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
-    private const NAMESPACE = 'e1f84ee9-14f2-4e52-981a-b6b82006ada8';
-
-    /**
-     * @var OptionQueryInterface
-     */
-    private OptionQueryInterface $optionQuery;
-
     /**
      * @var AttributeQueryInterface
      */
@@ -83,7 +72,7 @@ class Magento1ConfigurableProductProcessor implements Magento1ProcessorStepInter
         ImportLineRepositoryInterface $repository,
         CommandBusInterface $commandBus
     ) {
-        $this->optionQuery = $optionQuery;
+        parent::__construct($optionQuery);
         $this->attributeQuery = $attributeQuery;
         $this->productQuery = $productQuery;
         $this->repository = $repository;
@@ -107,7 +96,7 @@ class Magento1ConfigurableProductProcessor implements Magento1ProcessorStepInter
         Progress $steps
     ): void {
         $i = 0;
-        $products = $this->getProducts($products);
+        $products = $this->getProducts($products, 'configurable');
         $count = count($products);
         /** @var ProductModel $product */
         foreach ($products as $product) {
@@ -125,24 +114,6 @@ class Magento1ConfigurableProductProcessor implements Magento1ProcessorStepInter
             $this->repository->save($line);
             $this->commandBus->dispatch($command, true);
         }
-    }
-
-    /**
-     * @param ProductModel[] $products
-     *
-     * @return array
-     */
-    private function getProducts(array $products): array
-    {
-        $result = [];
-        foreach ($products as $product) {
-            $type = $product->get('default')['esa_type'];
-            if ('configurable' === $type) {
-                $result[] = $product;
-            }
-        }
-
-        return $result;
     }
 
     /**
@@ -164,58 +135,17 @@ class Magento1ConfigurableProductProcessor implements Magento1ProcessorStepInter
             if ($transformer->hasAttribute($field)) {
                 $type = $transformer->getAttributeType($field);
                 $isMultilingual = $transformer->isAttributeMultilingual($field);
-                $attributeId = $this->attributeQuery->findAttributeByCode(new AttributeCode($field));
+                $attribute = $this->attributeQuery->findAttributeByCode(new AttributeCode($field));
+                Assert::notNull($attribute);
                 if (null === $value) {
                     $record->setValue($field, null);
                 } else {
                     if (SelectAttribute::TYPE === $type) {
-                        $optionKey = new OptionKey($value);
-                        $optionId = $this->optionQuery->findIdByAttributeIdAndCode($attributeId->getId(), $optionKey);
-                        $translation[$source->getDefaultLanguage()->getCode()] = $optionId->getValue();
-                        foreach ($source->getLanguages() as $key => $language) {
-                            if ($product->has($key)) {
-                                $translatedVer = $product->get($key);
-                                if (array_key_exists($field, $translatedVer) && null !== $translatedVer[$field]) {
-                                    $optionKey = new OptionKey($translatedVer[$field]);
-                                    $optionId = $this->optionQuery->findIdByAttributeIdAndCode(
-                                        $attributeId->getId(),
-                                        $optionKey
-                                    );
-                                    $translation[$source->getDefaultLanguage()->getCode()] = $optionId->getValue();
-                                    $translation[$language->getCode()] = $translatedVer[$field];
-                                }
-                            }
-                        }
-
-                        $record->setValue($field, new TranslatableStringValue(new TranslatableString($translation)));
+                        $this->buildSelect($attribute->getId(), $field, $value, $record, $product, $source);
                     } elseif (MultiSelectAttribute::TYPE === $type) {
-                        $optionKey = new OptionKey($value);
-                        $optionId = $this->optionQuery->findIdByAttributeIdAndCode($attributeId->getId(), $optionKey);
-                        $translation[$source->getDefaultLanguage()->getCode()] = $optionId->getValue();
-                        foreach ($source->getLanguages() as $key => $language) {
-                            if ($product->has($key)) {
-                                $translatedVer = $product->get($key);
-                                if (array_key_exists($field, $translatedVer) && null !== $translatedVer[$field]) {
-                                    $optionKey = new OptionKey($translatedVer[$field]);
-                                    $optionId = $this->optionQuery->findIdByAttributeIdAndCode(
-                                        $attributeId->getId(),
-                                        $optionKey
-                                    );
-                                    $translation[$language->getCode()] = $optionId->getValue();
-                                }
-                            }
-                        }
-
-                        $record->setValue($field, new StringCollectionValue($translation));
+                        $this->buildMultiSelect($attribute->getId(), $field, $value, $record, $product, $source);
                     } elseif (ImageAttribute::TYPE === $type) {
-                        if ($source->import(Magento1CsvSource::MULTIMEDIA)) {
-                            $url = sprintf('%s/media/catalog/product%s', $source->getHost(), $value);
-                            if (strpos($url, 'no_selection') === false) {
-                                $uuid = Uuid::uuid5(self::NAMESPACE, $url)->toString();
-                                $multimediaId = new MultimediaId($uuid);
-                                $record->setValue($field, new Stringvalue($multimediaId->getValue()));
-                            }
-                        }
+                        $this->buildImage($field, $value, $record, $source);
                     } elseif ($isMultilingual) {
                         $translation[$source->getDefaultLanguage()->getCode()] = $value;
                         foreach ($source->getLanguages() as $key => $language) {

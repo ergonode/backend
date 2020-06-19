@@ -29,12 +29,12 @@ use Ergonode\Value\Domain\ValueObject\TranslatableStringValue;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Importer\Infrastructure\Action\SimpleProductImportAction;
+use Ergonode\Importer\Infrastructure\Action\GroupedProductImportAction;
 use Webmozart\Assert\Assert;
 
 /**
  */
-class Magento1SimpleProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
+class Magento1BundleProductProcessor extends AbstractProductProcessor implements Magento1ProcessorStepInterface
 {
     /**
      * @var AttributeQueryInterface
@@ -63,11 +63,10 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
         ImportLineRepositoryInterface $repository,
         CommandBusInterface $commandBus
     ) {
+        parent::__construct($optionQuery);
         $this->attributeQuery = $attributeQuery;
         $this->repository = $repository;
         $this->commandBus = $commandBus;
-
-        parent::__construct($optionQuery);
     }
 
     /**
@@ -87,7 +86,7 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
         Progress $steps
     ): void {
         $i = 0;
-        $products = $this->getProducts($products, 'simple');
+        $products = $this->getProducts($products, 'bundle');
         $count = count($products);
         /** @var ProductModel $product */
         foreach ($products as $product) {
@@ -99,7 +98,7 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
                 $steps,
                 $records,
                 $record,
-                SimpleProductImportAction::TYPE
+                GroupedProductImportAction::TYPE
             );
             $line = new ImportLine($import->getId(), $steps->getPosition(), $i);
             $this->repository->save($line);
@@ -154,7 +153,11 @@ class Magento1SimpleProductProcessor extends AbstractProductProcessor implements
                 }
             }
 
-            if (null !== $value && '' !== $value && $transformer->hasField($field)) {
+            if (null !== $value
+                && '' !== $value
+                && $transformer->hasField($field)
+                && !$record->has($field)
+            ) {
                 $record->set($field, $value);
             }
         }

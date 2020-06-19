@@ -83,6 +83,7 @@ class ProcessImportCommandHandler
                 }
             } catch (\Throwable $exception) {
                 $line->addError($exception->getMessage());
+                throw $exception;
             }
 
             $this->repository->save($line);

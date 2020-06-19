@@ -65,6 +65,7 @@ class Magento1ProductTransformerGenerator implements TransformerGeneratorStrateg
         $transformer->addField('esa_type', new TextConverter('_type'));
         $transformer->addField('bindings', new TextConverter('_super_attribute_code'));
         $transformer->addField('variants', new TextConverter('_super_products_sku'));
+        $transformer->addField('relations', new TextConverter('_associated_sku'));
 
         // attributes
         foreach ($source->getAttributes() as $code => $attributeId) {

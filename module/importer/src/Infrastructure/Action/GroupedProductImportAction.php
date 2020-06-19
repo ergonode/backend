@@ -19,18 +19,17 @@ use Webmozart\Assert\Assert;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ImportId;
 use Ergonode\SharedKernel\Domain\Aggregate\TemplateId;
-use Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand;
-use Ergonode\Product\Domain\Command\Update\UpdateVariableProductCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\Product\Domain\Command\Relations\AddProductChildrenCommand;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
+use Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand;
+use Ergonode\Product\Domain\Command\Update\UpdateGroupingProductCommand;
 
 /**
  */
-class VariableProductImportAction implements ImportActionInterface
+class GroupedProductImportAction implements ImportActionInterface
 {
-    public const TYPE = 'VARIABLE-PRODUCT';
+    public const TYPE = 'GROUPED-PRODUCT';
 
     /**
      * @var ProductQueryInterface
@@ -79,17 +78,11 @@ class VariableProductImportAction implements ImportActionInterface
     public function action(ImportId $importId, Record $record): void
     {
         $sku = $record->get('sku') ? new Sku($record->get('sku')) : null;
-        $bindings = [];
-        if ($record->has('bindings')) {
-            foreach (explode(',', $record->get('bindings')) as $binding) {
-                $bindings[] = new AttributeId($binding);
-            }
-        }
 
-        $variants = [];
-        if ($record->has('variants')) {
-            foreach (explode(',', $record->get('variants')) as $variant) {
-                $variants[] = new ProductId($variant);
+        $children = [];
+        if ($record->has('children')) {
+            foreach (explode(',', $record->get('children')) as $child) {
+                $children[] = new ProductId($child);
             }
         }
 
@@ -106,30 +99,28 @@ class VariableProductImportAction implements ImportActionInterface
 
         if (!$productId) {
             $productId = ProductId::generate();
-            $command = new CreateVariableProductCommand(
+            $command = new CreateGroupingProductCommand(
                 $productId,
                 $sku,
                 $templateId,
                 $importedProduct->categories,
-                $bindings,
                 $importedProduct->attributes,
             );
         } else {
-            $command = new UpdateVariableProductCommand(
+            $command = new UpdateGroupingProductCommand(
                 $productId,
                 $templateId,
                 $importedProduct->categories,
-                $bindings,
                 $importedProduct->attributes,
             );
         }
 
         $this->commandBus->dispatch($command, true);
 
-        if (!empty($variants)) {
+        if (!empty($children)) {
             /** @var AbstractAssociatedProduct $product */
             $product = $this->productRepository->load($productId);
-            $command = new AddProductChildrenCommand($product, $variants);
+            $command = new AddProductChildrenCommand($product, $children);
             $this->commandBus->dispatch($command, true);
         }
     }
