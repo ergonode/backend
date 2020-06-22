@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -9,25 +8,25 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Event\Attribute;
 
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeTextareaParameterChangeEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEvent;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class AttributeTextareaParameterChangeEventTest extends TestCase
+class AttributeStringParameterChangeEventTest extends TestCase
 {
     /**
      * @param AttributeId $id
      * @param string      $name
-     * @param bool        $from
-     * @param bool        $to
+     * @param string      $from
+     * @param string      $to
      *
      * @dataProvider dataProvider
      */
-    public function testCreateEvent(AttributeId $id, string $name, bool $from, bool $to): void
+    public function testCreateEvent(AttributeId $id, string $name, string $from, string $to): void
     {
-        $event = new AttributeTextareaParameterChangeEvent($id, $name, $from, $to);
+        $event = new AttributeStringParameterChangeEvent($id, $name, $from, $to);
         $this->assertSame($id, $event->getAggregateId());
         $this->assertSame($name, $event->getName());
         $this->assertSame($from, $event->getFrom());
@@ -45,8 +44,8 @@ class AttributeTextareaParameterChangeEventTest extends TestCase
             [
                 $this->createMock(AttributeId::class),
                 'name',
-                true,
-                false,
+                'from',
+                'to',
             ],
         ];
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -8,25 +9,25 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Tests\Domain\Event\Attribute;
 
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeBoolParameterChangeEvent;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class AttributeParameterChangeEventTest extends TestCase
+class AttributeBoolParameterChangeEventTest extends TestCase
 {
     /**
      * @param AttributeId $id
      * @param string      $name
-     * @param string      $from
-     * @param string      $to
+     * @param bool        $from
+     * @param bool        $to
      *
      * @dataProvider dataProvider
      */
-    public function testCreateEvent(AttributeId $id, string $name, string $from, string $to): void
+    public function testCreateEvent(AttributeId $id, string $name, bool $from, bool $to): void
     {
-        $event = new AttributeParameterChangeEvent($id, $name, $from, $to);
+        $event = new AttributeBoolParameterChangeEvent($id, $name, $from, $to);
         $this->assertSame($id, $event->getAggregateId());
         $this->assertSame($name, $event->getName());
         $this->assertSame($from, $event->getFrom());
@@ -44,8 +45,8 @@ class AttributeParameterChangeEventTest extends TestCase
             [
                 $this->createMock(AttributeId::class),
                 'name',
-                'from',
-                'to',
+                true,
+                false,
             ],
         ];
     }

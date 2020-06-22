@@ -11,12 +11,12 @@ namespace Ergonode\Attribute\Persistence\Dbal\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
+use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
  */
-class AttributeParameterChangeEventProjector
+abstract class AbstractAttributeParameterChangeEventProjector
 {
     private const TABLE_PARAMETER = 'attribute_parameter';
 
@@ -41,11 +41,11 @@ class AttributeParameterChangeEventProjector
     }
 
     /**
-     * @param AttributeParameterChangeEvent $event
+     * @param DomainEventInterface $event
      *
      * @throws DBALException
      */
-    public function __invoke(AttributeParameterChangeEvent $event): void
+    protected function project(DomainEventInterface $event): void
     {
         if (!empty($event->getTo())) {
             $this->connection->update(

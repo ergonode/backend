@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AttributeParameterChangeEvent implements DomainEventInterface
+class AttributeStringParameterChangeEvent implements DomainEventInterface
 {
     /**
      * @var AttributeId

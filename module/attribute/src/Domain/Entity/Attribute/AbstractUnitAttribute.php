@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -83,7 +83,7 @@ abstract class AbstractUnitAttribute extends AbstractAttribute
     public function changeUnit(UnitId $new): void
     {
         if ($this->getUnitId()->getValue() !== $new->getValue()) {
-            $event = new AttributeParameterChangeEvent(
+            $event = new AttributeStringParameterChangeEvent(
                 $this->id,
                 self::UNIT,
                 $this->getUnitId()->getValue(),

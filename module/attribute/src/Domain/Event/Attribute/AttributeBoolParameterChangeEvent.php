@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AttributeTextareaParameterChangeEvent implements DomainEventInterface
+class AttributeBoolParameterChangeEvent implements DomainEventInterface
 {
     /**
      * @var AttributeId
