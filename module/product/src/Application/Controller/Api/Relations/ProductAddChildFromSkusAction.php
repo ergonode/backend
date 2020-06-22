@@ -13,8 +13,8 @@ use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Product\Application\Form\Product\Relation\ProductChildBySkuCollectionForm;
-use Ergonode\Product\Application\Model\Product\Relation\ProductChildBySkuCollectionFormModel;
+use Ergonode\Product\Application\Form\Product\Relation\ProductChildBySkusForm;
+use Ergonode\Product\Application\Model\Product\Relation\ProductChildBySkusFormModel;
 use Ergonode\Product\Domain\Command\Relations\AddProductChildrenCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
@@ -103,16 +103,15 @@ class ProductAddChildFromSkusAction extends AbstractController
     public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
     {
         try {
-            $model = new ProductChildBySkuCollectionFormModel();
-            $form = $this->formFactory->create(ProductChildBySkuCollectionForm::class, $model);
+            $model = new ProductChildBySkusFormModel();
+            $form = $this->formFactory->create(ProductChildBySkusForm::class, $model);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ProductChildBySkuCollectionFormModel $data */
+                /** @var ProductChildBySkusFormModel $data */
                 $data = $form->getData();
 
-                $skus = array_map('trim', explode(',', $data->skus));
-                $productIds = $this->query->findProductIdsBySkus($skus);
+                $productIds = $this->query->findProductIdsBySkus($data->skus);
 
                 $command = new AddProductChildrenCommand($product, $productIds);
 

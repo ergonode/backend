@@ -11,11 +11,20 @@ namespace Ergonode\Product\Application\Model\Product\Relation;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Product\Infrastructure\Validator\ProductExists;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\Product\Infrastructure\Validator\ProductChild;
+use Ergonode\Product\Infrastructure\Validator\ProductType;
 
 /**
+ * @ProductChild
  */
 class ProductChildFormModel
 {
+    /**
+     * @var ProductId $parentId
+     */
+    private ProductId $parentId;
+
     /**
      * @var string|null
      *
@@ -23,6 +32,24 @@ class ProductChildFormModel
      * @Assert\Uuid(strict=true)
      *
      * @ProductExists()
+     *
+     * @ProductType(type="SIMPLE-PRODUCT")
      */
     public ?string $childId = null;
+
+    /**
+     * @param ProductId $parentId
+     */
+    public function __construct(ProductId $parentId)
+    {
+        $this->parentId = $parentId;
+    }
+
+    /**
+     * @return ProductId
+     */
+    public function getParentId(): ProductId
+    {
+        return $this->parentId;
+    }
 }

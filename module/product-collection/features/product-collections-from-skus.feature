@@ -49,7 +49,7 @@ Feature: Product collection adding elements by skus
     When I send a POST request to "/api/v1/en/collections/@product_collection_id@/elements/add-from-skus" with body:
       """
       {
-        "skus": "@product_sku@"
+        "skus": ["@product_sku@"]
       }
       """
     Then the response status code should be 201
@@ -70,16 +70,18 @@ Feature: Product collection adding elements by skus
       """
     Then the response status code should be 400
 
-  Scenario: Add multiple product collection element (wrong segment)
+  Scenario: Add multiple product collection element not valid sku
     When I send a POST request to "/api/v1/en/collections/@product_collection_id@/elements/add-from-skus" with body:
       """
       {
-        "skus": ["@@random_uuid@@"]
+        "skus": ["abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"]
       }
       """
     Then the response status code should be 400
+    And the JSON nodes should contain:
+      | errors.skus.element-0[0] | Sku is not valid. |
 
-  Scenario: Add multiple product collection element (wrong segment not uuid)
+  Scenario: Add multiple product collection element not exist sku
     When I send a POST request to "/api/v1/en/collections/@product_collection_id@/elements/add-from-skus" with body:
       """
       {
@@ -87,3 +89,5 @@ Feature: Product collection adding elements by skus
       }
       """
     Then the response status code should be 400
+    And the JSON nodes should contain:
+      | errors.skus.element-0[0] | Product sku not exists. |

@@ -7,7 +7,6 @@
 
 namespace Ergonode\Attribute\Tests\Infrastructure\Handler;
 
-use Ergonode\Attribute\Domain\AttributeFactoryInterface;
 use Ergonode\Attribute\Domain\Command\DeleteAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
