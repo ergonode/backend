@@ -9,12 +9,12 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Tests\Domain\Event\Attribute;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEvent;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class AttributeParameterChangeEventTest extends TestCase
+class AttributeStringParameterChangeEventTest extends TestCase
 {
     /**
      * @param AttributeId $id
@@ -26,7 +26,7 @@ class AttributeParameterChangeEventTest extends TestCase
      */
     public function testCreateEvent(AttributeId $id, string $name, string $from, string $to): void
     {
-        $event = new AttributeParameterChangeEvent($id, $name, $from, $to);
+        $event = new AttributeStringParameterChangeEvent($id, $name, $from, $to);
         $this->assertSame($id, $event->getAggregateId());
         $this->assertSame($name, $event->getName());
         $this->assertSame($from, $event->getFrom());

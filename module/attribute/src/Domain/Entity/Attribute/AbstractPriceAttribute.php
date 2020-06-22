@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
@@ -85,7 +85,7 @@ abstract class AbstractPriceAttribute extends AbstractAttribute
         if ($this->getCurrency()->getCode() !== $new->getCode()) {
             $this
                 ->apply(
-                    new AttributeParameterChangeEvent(
+                    new AttributeStringParameterChangeEvent(
                         $this->id,
                         self::CURRENCY,
                         $this->getCurrency()->getCode(),
