@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEvent;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Attribute\Domain\ValueObject\DateFormat;
@@ -83,7 +83,7 @@ abstract class AbstractDateAttribute extends AbstractAttribute
     public function changeFormat(DateFormat $new): void
     {
         if ($this->getFormat()->getFormat() !== $new->getFormat()) {
-            $event = new AttributeParameterChangeEvent(
+            $event = new AttributeStringParameterChangeEvent(
                 $this->id,
                 self::FORMAT,
                 $this->getFormat()->getFormat(),
