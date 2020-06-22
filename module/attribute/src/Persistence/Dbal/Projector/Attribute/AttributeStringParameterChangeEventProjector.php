@@ -20,6 +20,6 @@ class AttributeStringParameterChangeEventProjector extends AbstractAttributePara
      */
     public function __invoke(AttributeStringParameterChangeEvent $event)
     {
-        $this->project($event);
+        $this->projection($event->getAggregateId(), $event->getName(), $event->getTo());
     }
 }

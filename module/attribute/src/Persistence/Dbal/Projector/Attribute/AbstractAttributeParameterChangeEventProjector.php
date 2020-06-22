@@ -11,7 +11,7 @@ namespace Ergonode\Attribute\Persistence\Dbal\Projector\Attribute;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
-use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -41,21 +41,23 @@ abstract class AbstractAttributeParameterChangeEventProjector
     }
 
     /**
-     * @param DomainEventInterface $event
+     * @param AttributeId $attributeId
+     * @param string      $name
+     * @param             $value
      *
      * @throws DBALException
      */
-    protected function project(DomainEventInterface $event): void
+    protected function projection(AttributeId $attributeId, string $name, $value): void
     {
-        if (!empty($event->getTo())) {
+        if (!empty($value)) {
             $this->connection->update(
                 self::TABLE_PARAMETER,
                 [
-                    'value' => $this->serializer->serialize($event->getTo(), 'json'),
+                    'value' => $this->serializer->serialize($value, 'json'),
                 ],
                 [
-                    'attribute_id' => $event->getAggregateId()->getValue(),
-                    'type' => $event->getName(),
+                    'attribute_id' => $attributeId->getValue(),
+                    'type' => $name,
                 ]
             );
         }

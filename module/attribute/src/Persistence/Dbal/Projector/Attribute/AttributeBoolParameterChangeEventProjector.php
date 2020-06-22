@@ -21,6 +21,6 @@ class AttributeBoolParameterChangeEventProjector extends AbstractAttributeParame
      */
     public function __invoke(AttributeBoolParameterChangeEvent $event): void
     {
-        $this->project($event);
+        $this->projection($event->getAggregateId(), $event->getName(), $event->getTo());
     }
 }
