@@ -9,14 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter\Persistence\Dbal\Projector\Attribute;
 
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEvent;
 use Ergonode\Exporter\Domain\Exception\AttributeNotFoundException;
 use Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface;
 use Ramsey\Uuid\Uuid;
 
 /**
  */
-class AttributeParameterChangeEventProjector
+class AttributeStringParameterChangeEventProjector
 {
     /**
      * @var AttributeRepositoryInterface
@@ -32,11 +32,11 @@ class AttributeParameterChangeEventProjector
     }
 
     /**
-     * @param AttributeParameterChangeEvent $event
+     * @param AttributeStringParameterChangeEvent $event
      *
      * @throws AttributeNotFoundException
      */
-    public function __invoke(AttributeParameterChangeEvent $event): void
+    public function __invoke(AttributeStringParameterChangeEvent $event): void
     {
         $id = Uuid::fromString($event->getAggregateId()->getValue());
         $attribute = $this->repository->load($id);

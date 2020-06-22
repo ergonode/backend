@@ -22,7 +22,21 @@ Feature: Text-area attribute manipulation
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
 
-  Scenario: Update textarea attribute
+  Scenario: Update textarea attribute first time
+    And I send a "PUT" request to "/api/v1/en/attributes/@attribute_id@" with body:
+      """
+      {
+          "groups": [],
+          "scope": "local",
+          "parameters":
+           {
+          "richEdit": false
+          }
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Update textarea attribute second time
     And I send a "PUT" request to "/api/v1/en/attributes/@attribute_id@" with body:
       """
       {

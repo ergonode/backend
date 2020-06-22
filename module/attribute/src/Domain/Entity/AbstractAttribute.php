@@ -9,10 +9,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Entity;
 
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeBoolParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeCreatedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeHintChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeLabelChangedEvent;
-use Ergonode\Attribute\Domain\Event\Attribute\AttributeParameterChangeEvent;
+use Ergonode\Attribute\Domain\Event\Attribute\AttributeStringParameterChangeEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributePlaceholderChangedEvent;
 use Ergonode\Attribute\Domain\Event\Attribute\AttributeScopeChangedEvent;
 use Ergonode\Attribute\Domain\Event\AttributeGroupAddedEvent;
@@ -374,9 +375,17 @@ abstract class AbstractAttribute extends AbstractAggregateRoot
     }
 
     /**
-     * @param AttributeParameterChangeEvent $event
+     * @param AttributeStringParameterChangeEvent $event
      */
-    protected function applyAttributeParameterChangeEvent(AttributeParameterChangeEvent $event): void
+    protected function applyAttributeStringParameterChangeEvent(AttributeStringParameterChangeEvent $event): void
+    {
+        $this->setParameter($event->getName(), $event->getTo());
+    }
+
+    /**
+     * @param AttributeBoolParameterChangeEvent $event
+     */
+    protected function applyAttributeBoolParameterChangeEvent(AttributeBoolParameterChangeEvent $event): void
     {
         $this->setParameter($event->getName(), $event->getTo());
     }
