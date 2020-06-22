@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
+use Ergonode\Api\Application\Response\FileContentResponse;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -24,6 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *     name="ergonode_multimedia_read",
  *     path="/multimedia/{multimedia}",
  *     methods={"GET"},
+ *     requirements={"multimedia" = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"}
  * )
  */
 class GetMultimediaAction
@@ -70,11 +72,8 @@ class GetMultimediaAction
      */
     public function __invoke(Multimedia $multimedia): Response
     {
-        $file = $this->storage->read($multimedia->getFileName());
+        $content = $this->storage->read($multimedia->getFileName());
 
-        $response = new BinaryFileResponse($file);
-        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
-
-        return $response;
+        return new FileContentResponse($content, $multimedia);
     }
 }

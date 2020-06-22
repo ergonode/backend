@@ -12,6 +12,7 @@ namespace Ergonode\Multimedia;
 use Ergonode\Core\Application\AbstractModule;
 use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MultimediaRelationCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MetadataReaderCompilerPass;
 
 /**
  */
@@ -24,6 +25,7 @@ class ErgonodeMultimediaBundle extends AbstractModule
     {
         parent::build($container);
 
+        $container->addCompilerPass(new MetadataReaderCompilerPass());
         $container->addCompilerPass(new MultimediaRelationCompilerPass());
     }
 }

@@ -13,6 +13,8 @@ use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Command\Update\UpdateVariableProductCommand;
 use Ergonode\Product\Infrastructure\Handler\AbstractUpdateProductHandler;
+use Ergonode\Product\Domain\Entity\VariableProduct;
+use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 
 /**
  */
@@ -25,8 +27,9 @@ class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
      */
     public function __invoke(UpdateVariableProductCommand $command)
     {
+        /** @var VariableProduct $product */
         $product = $this->productRepository->load($command->getId());
-        Assert::notNull($product);
+        Assert::isInstanceOf($product, VariableProduct::class);
 
         foreach ($command->getAttributes() as $code => $attribute) {
             $attributeCode = new AttributeCode($code);
@@ -41,6 +44,25 @@ class UpdateVariableProductCommandHandler extends AbstractUpdateProductHandler
             $attributeCode = new AttributeCode($code);
             if (!array_key_exists($code, $command->getAttributes())) {
                 $product->removeAttribute($attributeCode);
+            }
+        }
+
+        foreach ($command->getBindings() as $attributeId) {
+            if (!$product->hasBind($attributeId)) {
+                $attribute = $this->attributeRepository->load($attributeId);
+                Assert::isInstanceOf($attribute, SelectAttribute::class);
+                $product->addBind($attribute);
+            }
+        }
+
+        $bindings  = [];
+        foreach ($command->getBindings() as $binding) {
+            $bindings[$binding->getValue()] = $binding;
+        }
+
+        foreach ($product->getBindings() as $attributeId) {
+            if (!array_key_exists($attributeId->getValue(), $bindings)) {
+                $product->removeBind($attributeId);
             }
         }
 

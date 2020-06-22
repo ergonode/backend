@@ -14,8 +14,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaRelationInterface;
-use Ergonode\Multimedia\Infrastructure\Provider\MultimediaRelationProvider;
 use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MultimediaRelationCompilerPass;
+use Ergonode\Multimedia\Infrastructure\Service\Metadata\MetadataReaderInterface;
+use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MetadataReaderCompilerPass;
 
 /**
  */
@@ -37,6 +38,10 @@ class ErgonodeMultimediaExtension extends Extension
         $container
             ->registerForAutoconfiguration(MultimediaRelationInterface::class)
             ->addTag(MultimediaRelationCompilerPass::TAG);
+
+        $container
+            ->registerForAutoconfiguration(MetadataReaderInterface::class)
+            ->addTag(MetadataReaderCompilerPass::TAG);
 
         $loader->load('services.yml');
     }

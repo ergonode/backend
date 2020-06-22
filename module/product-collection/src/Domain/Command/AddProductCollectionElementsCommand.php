@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class AddMultipleProductCollectionElementCommand implements DomainCommandInterface
+class AddProductCollectionElementsCommand implements DomainCommandInterface
 {
     /**
      * @var ProductCollectionId
@@ -33,8 +33,6 @@ class AddMultipleProductCollectionElementCommand implements DomainCommandInterfa
     private array $productIds;
 
     /**
-     * AddMultipleProductCollectionElementCommand constructor.
-     *
      * @param ProductCollectionId $productCollectionId
      * @param array|ProductId[]   $productIds
      */

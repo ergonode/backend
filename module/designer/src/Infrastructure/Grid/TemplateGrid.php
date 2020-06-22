@@ -55,9 +55,9 @@ class TemplateGrid extends AbstractGrid
         $this->addColumn('name', new TextColumn('name', 'Name', new TextFilter()));
         $this->addColumn('image_id', new ImageColumn('image_id', 'Template image'));
         $this->addColumn('group_id', new SelectColumn('group_id', 'Group', new MultiSelectFilter($collection)));
-        $this->addColumn('default_text_attribute', new TextColumn(
-            'default_text_attribute',
-            'Default text attribute',
+        $this->addColumn('default_label_attribute', new TextColumn(
+            'default_label_attribute',
+            'Default label attribute',
             new TextFilter()
         ));
         $this->addColumn('default_image_attribute', new TextColumn(

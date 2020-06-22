@@ -71,7 +71,7 @@ abstract class AbstractTextareaAttribute extends AbstractAttribute
      */
     public function isRichEdit(): bool
     {
-        return $this->getParameter(self::RICH_EDIT);
+        return (bool) $this->getParameter(self::RICH_EDIT);
     }
 
     /**

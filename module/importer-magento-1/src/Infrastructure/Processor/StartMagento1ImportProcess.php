@@ -77,32 +77,28 @@ class StartMagento1ImportProcess implements SourceImportProcessorInterface
      */
     public function start(Import $import): void
     {
-        try {
-            /** @var Magento1CsvSource $source */
-            $source = $this->sourceRepository->load($import->getSourceId());
-            Assert::notNull($source);
-            $transformer = $this->transformerRepository->load($import->getTransformerId());
-            Assert::notNull($transformer);
+        /** @var Magento1CsvSource $source */
+        $source = $this->sourceRepository->load($import->getSourceId());
+        Assert::notNull($source);
+        $transformer = $this->transformerRepository->load($import->getTransformerId());
+        Assert::notNull($transformer);
 
-            $products = $this->reader->read($source, $import, $transformer);
+        $products = $this->reader->read($source, $import, $transformer);
 
-            $result = [];
-            foreach ($products as $sku => $product) {
-                $result[$sku] = new ProductModel();
-                foreach ($product as $code => $version) {
-                    $result[$sku]->set($code, $version);
-                }
+        $result = [];
+        foreach ($products as $sku => $product) {
+            $result[$sku] = new ProductModel();
+            foreach ($product as $code => $version) {
+                $result[$sku]->set($code, $version);
             }
+        }
 
-            $count = count($this->steps);
-            $i = 0;
-            foreach ($this->steps as $step) {
-                $i++;
-                $steps = new Progress($i, $count);
-                $step->process($import, $result, $transformer, $source, $steps);
-            }
-        } catch (\Throwable $exception) {
-            throw $exception;
+        $count = count($this->steps);
+        $i = 0;
+        foreach ($this->steps as $step) {
+            $i++;
+            $steps = new Progress($i, $count);
+            $step->process($import, $result, $transformer, $source, $steps);
         }
     }
 }
