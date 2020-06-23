@@ -18,12 +18,14 @@ class FilterValueCollection implements \IteratorAggregate
     public const DELIMITER = ';';
     public const LANGUAGE_SEPARATOR = ':';
     public const COMPARISON = '=';
+    public const NEGATION = '!';
     public const GREATER = '>';
     public const LOWER = '<';
     public const SEPARATOR = ',';
 
     public const MAP = [
         self::DELIMITER => '%3B',
+        self::NEGATION => '%21',
         self::COMPARISON => '%3D',
         self::SEPARATOR => '%2C',
         self::GREATER => '',
