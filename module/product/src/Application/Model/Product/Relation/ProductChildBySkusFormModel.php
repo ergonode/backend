@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\ProductCollection\Application\Model;
+namespace Ergonode\Product\Application\Model\Product\Relation;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\Product\Infrastructure\Validator\Sku;
@@ -15,10 +15,10 @@ use Ergonode\Product\Infrastructure\Validator\ProductSkuExists;
 
 /**
  */
-class ProductCollectionElementFromSkusFormModel
+class ProductChildBySkusFormModel
 {
     /**
-     * @var string[]
+     * @var string[]|null
      *
      * @Assert\All({
      *     @Assert\NotBlank(),

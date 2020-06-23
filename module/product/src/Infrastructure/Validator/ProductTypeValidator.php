@@ -9,36 +9,37 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Infrastructure\Validator;
 
-use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  */
-class SkuExistsValidator extends ConstraintValidator
+class ProductTypeValidator extends ConstraintValidator
 {
     /**
-     * @var ProductQueryInterface
+     * @var ProductRepositoryInterface
      */
-    private ProductQueryInterface $query;
+    private ProductRepositoryInterface $repository;
 
     /**
-     * @param ProductQueryInterface $query
+     * @param ProductRepositoryInterface $repository
      */
-    public function __construct(ProductQueryInterface $query)
+    public function __construct(ProductRepositoryInterface $repository)
     {
-        $this->query = $query;
+        $this->repository = $repository;
     }
 
     /**
-     * @param mixed                $value
-     * @param SkuExists|Constraint $constraint
+     * @param mixed                  $value
+     * @param ProductType|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof SkuExists) {
-            throw new UnexpectedTypeException($constraint, SkuExists::class);
+        if (!$constraint instanceof ProductType) {
+            throw new UnexpectedTypeException($constraint, ProductType::class);
         }
 
         if (null === $value || '' === $value) {
@@ -51,14 +52,12 @@ class SkuExistsValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        if (!\Ergonode\Product\Domain\ValueObject\Sku::isValid($value)) {
-            return;
+        $product = null;
+        if (ProductId::isValid($value)) {
+            $product = $this->repository->load(new ProductId($value));
         }
 
-        $sku = new \Ergonode\Product\Domain\ValueObject\Sku($value);
-        $result = $this->query->findProductIdBySku($sku);
-
-        if ($result) {
+        if ($product && $product->getType() !== $constraint->type) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

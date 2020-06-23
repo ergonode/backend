@@ -8,26 +8,27 @@ namespace Ergonode\Product\Tests\Infrastructure\Validator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
-use Ergonode\Product\Infrastructure\Validator\ProductExistsValidator;
-use Ergonode\Product\Infrastructure\Validator\ProductExists;
-use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
+use Ergonode\Product\Infrastructure\Validator\ProductSkuExistsValidator;
+use Ergonode\Product\Infrastructure\Validator\ProductSkuExists;
 use PHPUnit\Framework\MockObject\MockObject;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ramsey\Uuid\Uuid;
+use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
-class ProductExistsValidatorTest extends ConstraintValidatorTestCase
+class ProductSkuExistsValidatorTest extends ConstraintValidatorTestCase
 {
     /**
-     * @var ProductRepositoryInterface|MockObject
+     * @var ProductQueryInterface|MockObject
      */
-    private ProductRepositoryInterface $repository;
+    private ProductQueryInterface $query;
 
     /**
      */
     protected function setUp(): void
     {
-        $this->repository = $this->createMock(ProductRepositoryInterface::class);
+        $this->query = $this->createMock(ProductQueryInterface::class);
         parent::setUp();
     }
 
@@ -36,7 +37,7 @@ class ProductExistsValidatorTest extends ConstraintValidatorTestCase
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
-        $this->validator->validate(new \stdClass(), new ProductExists());
+        $this->validator->validate(new \stdClass(), new ProductSkuExists());
     }
 
     /**
@@ -51,7 +52,7 @@ class ProductExistsValidatorTest extends ConstraintValidatorTestCase
      */
     public function testCorrectEmptyValidation(): void
     {
-        $this->validator->validate('', new ProductExists());
+        $this->validator->validate('', new ProductSkuExists());
 
         $this->assertNoViolation();
     }
@@ -60,7 +61,9 @@ class ProductExistsValidatorTest extends ConstraintValidatorTestCase
      */
     public function testCorrectValueValidation(): void
     {
-        $this->validator->validate('SKU', new ProductExists());
+        $uuid = Uuid::uuid4()->toString();
+        $this->query->method('findProductIdBySku')->willReturn(new ProductId($uuid));
+        $this->validator->validate('SKU', new ProductSkuExists());
 
         $this->assertNoViolation();
     }
@@ -69,8 +72,8 @@ class ProductExistsValidatorTest extends ConstraintValidatorTestCase
      */
     public function testInCorrectValueValidation(): void
     {
-        $constraint = new ProductExists();
-        $value = Uuid::uuid4()->toString();
+        $constraint = new ProductSkuExists();
+        $value = 'SKU';
         $this->validator->validate($value, $constraint);
 
         $assertion = $this->buildViolation($constraint->message);
@@ -79,10 +82,10 @@ class ProductExistsValidatorTest extends ConstraintValidatorTestCase
 
 
     /**
-     * @return ProductExistsValidator
+     * @return ProductSkuExistsValidator
      */
-    protected function createValidator(): ProductExistsValidator
+    protected function createValidator(): ProductSkuExistsValidator
     {
-        return new ProductExistsValidator($this->repository);
+        return new ProductSkuExistsValidator($this->query);
     }
 }

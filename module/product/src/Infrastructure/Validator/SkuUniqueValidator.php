@@ -10,13 +10,13 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Infrastructure\Validator;
 
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  */
-class SkusValidValidator extends ConstraintValidator
+class SkuUniqueValidator extends ConstraintValidator
 {
     /**
      * @var ProductQueryInterface
@@ -33,12 +33,12 @@ class SkusValidValidator extends ConstraintValidator
 
     /**
      * @param mixed                $value
-     * @param SkusValid|Constraint $constraint
+     * @param SkuUnique|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof SkusValid) {
-            throw new UnexpectedTypeException($constraint, SkusValid::class);
+        if (!$constraint instanceof SkuUnique) {
+            throw new UnexpectedTypeException($constraint, SkuUnique::class);
         }
 
         if (null === $value || '' === $value) {
@@ -50,22 +50,18 @@ class SkusValidValidator extends ConstraintValidator
         }
 
         $value = (string) $value;
-        $skus = array_map('trim', explode(',', $value));
 
-        foreach ($skus as $sku) {
-            if (!\Ergonode\Product\Domain\ValueObject\Sku::isValid($sku)) {
-                $this->context->buildViolation($constraint->invalidMessage)
-                    ->setParameter('{{ value }}', $sku)
-                    ->addViolation();
-            } else {
-                $result = $this->query->findProductIdBySku(new \Ergonode\Product\Domain\ValueObject\Sku($sku));
+        if (!\Ergonode\Product\Domain\ValueObject\Sku::isValid($value)) {
+            return;
+        }
 
-                if (!$result) {
-                    $this->context->buildViolation($constraint->notExistsMessage)
-                        ->setParameter('{{ value }}', $sku)
-                        ->addViolation();
-                }
-            }
+        $sku = new \Ergonode\Product\Domain\ValueObject\Sku($value);
+        $result = $this->query->findProductIdBySku($sku);
+
+        if ($result) {
+            $this->context->buildViolation($constraint->message)
+                ->setParameter('{{ value }}', $value)
+                ->addViolation();
         }
     }
 }

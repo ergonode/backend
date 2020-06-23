@@ -14,10 +14,15 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class Sku extends Constraint
+class ProductType extends Constraint
 {
     /**
      * @var string
      */
-    public string $message = 'Sku is not valid.';
+    public string $message = 'Incorrect product type.';
+
+    /**
+     * @var string|null
+     */
+    public ?string $type = null;
 }

@@ -46,6 +46,32 @@ Feature: Variable product
     Then the response status code should be 201
     And store response param "id" as "simple_product_id"
 
+  Scenario: Create second simple product
+    Given remember param "second_simple_product_sku" with value "SIMPLE_SKU_@@random_code@@"
+    When I send a POST request to "/api/v1/en/products" with body:
+      """
+      {
+        "sku": "@second_simple_product_sku@",
+        "type": "SIMPLE-PRODUCT",
+        "templateId": "@product_template_id@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "second_simple_product_id"
+
+  Scenario: Create grouping product
+    Given remember param "grouping_product_sku" with value "GROUPING_SKU_@@random_code@@"
+    When I send a POST request to "/api/v1/en/products" with body:
+      """
+      {
+        "sku": "@grouping_product_sku@",
+        "type": "GROUPING-PRODUCT",
+        "templateId": "@product_template_id@"
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "grouping_product_id"
+
   Scenario: Create variable product
     When I send a POST request to "/api/v1/en/products" with body:
       """
@@ -73,14 +99,30 @@ Feature: Variable product
     And the JSON node "type" should be equal to "VARIABLE-PRODUCT"
     And the JSON node "id" should be equal to "@product_id@"
 
-  Scenario: Add product collection element by skus
+  Scenario: Add product children by skus
     When I send a POST request to "/api/v1/en/products/@product_id@/children/add-from-skus" with body:
       """
       {
-        "skus": "@simple_product_sku@"
+        "skus": [
+          "@simple_product_sku@",
+          "@second_simple_product_sku@"
+        ]
       }
       """
     Then the response status code should be 204
+
+  Scenario: Add not exists children
+    When I send a POST request to "/api/v1/en/products/@product_id@/children/add-from-skus" with body:
+      """
+      {
+        "skus": [
+          "not _exists"
+        ]
+      }
+      """
+    Then the response status code should be 400
+    And the JSON nodes should contain:
+      | errors.skus.element-0[0] | Product sku not exists. |
 
   Scenario: Get product children element (checking multiple add)
     When I send a GET request to "/api/v1/en/products/@product_id@/children"
@@ -88,4 +130,5 @@ Feature: Variable product
     And the JSON nodes should be equal to:
       | collection[0].sku     | @simple_product_sku@ |
       | collection[0].id      | @simple_product_id@  |
-
+      | collection[1].sku     | @second_simple_product_sku@ |
+      | collection[1].id      | @second_simple_product_id@  |

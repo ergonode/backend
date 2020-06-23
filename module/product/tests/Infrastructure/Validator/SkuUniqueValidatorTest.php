@@ -11,15 +11,15 @@ namespace Ergonode\Product\Tests\Infrastructure\Validator;
 
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Product\Domain\ValueObject\Sku;
-use Ergonode\Product\Infrastructure\Validator\SkuExists;
-use Ergonode\Product\Infrastructure\Validator\SkuExistsValidator;
+use Ergonode\Product\Infrastructure\Validator\SkuUnique;
+use Ergonode\Product\Infrastructure\Validator\SkuUniqueValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
 /**
  */
-class SkuExistsValidatorTest extends ConstraintValidatorTestCase
+class SkuUniqueValidatorTest extends ConstraintValidatorTestCase
 {
     /**
      * @var ProductQueryInterface
@@ -39,7 +39,7 @@ class SkuExistsValidatorTest extends ConstraintValidatorTestCase
     public function testWrongValueProvided(): void
     {
         $this->expectException(\Symfony\Component\Validator\Exception\ValidatorException::class);
-        $this->validator->validate(new \stdClass(), new SkuExists());
+        $this->validator->validate(new \stdClass(), new SkuUnique());
     }
 
     /**
@@ -56,7 +56,7 @@ class SkuExistsValidatorTest extends ConstraintValidatorTestCase
      */
     public function testCorrectEmptyValidation(): void
     {
-        $this->validator->validate('', new SkuExists());
+        $this->validator->validate('', new SkuUnique());
 
         $this->assertNoViolation();
     }
@@ -66,18 +66,18 @@ class SkuExistsValidatorTest extends ConstraintValidatorTestCase
     public function testSkuNotExistsValidation(): void
     {
         $this->query->method('findProductIdBySku')->willReturn(null);
-        $this->validator->validate(new Sku('Value'), new SkuExists());
+        $this->validator->validate(new Sku('Value'), new SkuUnique());
 
         $this->assertNoViolation();
     }
 
     /**
      */
-    public function testSkuExistsValidation(): void
+    public function testSkuUniqueValidation(): void
     {
         $productId = $this->createMock(ProductId::class);
         $this->query->method('findProductIdBySku')->willReturn($productId);
-        $constraint = new SkuExists();
+        $constraint = new SkuUnique();
         $value = new Sku('Value');
         $this->validator->validate($value, $constraint);
 
@@ -86,10 +86,10 @@ class SkuExistsValidatorTest extends ConstraintValidatorTestCase
     }
 
     /**
-     * @return SkuExistsValidator
+     * @return SkuUniqueValidator
      */
-    protected function createValidator(): SkuExistsValidator
+    protected function createValidator(): SkuUniqueValidator
     {
-        return new SkuExistsValidator($this->query);
+        return new SkuUniqueValidator($this->query);
     }
 }
