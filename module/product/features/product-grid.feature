@@ -1,255 +1,66 @@
 Feature: Product edit feature
 
-  Scenario: Create text attribute
+  Background:
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     And I add "Accept" header equal to "application/json"
+
+  Scenario Outline: Create <type> attribute
     When I send a POST request to "/api/v1/en/attributes" with body:
       """
       {
-        "code": "TEXT_@@random_code@@",
-        "type": "TEXT",
+        "code": "<name>_@@random_code@@",
+        "type": "<type>",
         "scope": "local",
-        "groups": []
+        "parameters": <parameters>
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "product_edit_text_attribute"
+    And store response param "id" as "<code>_id"
+    Examples:
+      | name                                                                                  | code                   | type         | parameters              |
+      | TEXT                                                                                  | text_attribute         | TEXT         | null                    |
+      | LONG_CODE_ATTRIBUTE_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890 | text_attribute_long    | TEXT         | null                    |
+      | SELECT                                                                                | select_attribute       | SELECT       | null                    |
+      | MULTI_SELECT                                                                          | multi_select_attribute | MULTI_SELECT | null                    |
+      | DATE                                                                                  | date_attribute         | DATE         | {"format":"yyyy-MM-dd"} |
+      | NUMERIC                                                                               | numeric_attribute      | NUMERIC      | null                    |
+      | PRICE                                                                                 | price_attribute        | PRICE        | {"currency": "PLN"}     |
+      | IMAGE                                                                                 | image_attribute        | IMAGE        | null                    |
 
-  Scenario: Create select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/attributes" with body:
+  Scenario Outline: Create option <name> for select <code>
+    When I send a "POST" request to "/api/v1/en/attributes/@<code>_id@/options" with body:
       """
       {
-        "code": "SELECT_@@random_code@@",
-        "type": "SELECT",
-        "scope": "local",
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_edit_select_attribute"
-
-  Scenario: Create option 1 for select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/en/attributes/@product_edit_select_attribute@/options" with body:
-      """
-      {
-        "code": "key_1",
+        "code": "<value>",
         "label":  {}
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "select_option_1"
+    And store response param "id" as "<name>"
+    Examples:
+      | name                  | code                   | value  |
+      | select_option_1       | select_attribute       | key_1  |
+      | select_option_2       | select_attribute       | key_12 |
+      | multi_select_option_1 | multi_select_attribute | key_1  |
+      | multi_select_option_2 | multi_select_attribute | key_12 |
 
-  Scenario: Create option 2 for select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/en/attributes/@product_edit_select_attribute@/options" with body:
-      """
-      {
-        "code": "key_12",
-        "label":  {}
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "select_option_2"
 
-  Scenario: Create multi select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/attributes" with body:
-      """
-      {
-        "code": "MULTI_SELECT_@@random_code@@",
-        "type": "MULTI_SELECT",
-        "scope": "local",
-        "multilingual": true,
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_edit_multi_select_attribute"
-
-  Scenario: Create option 1 for multiselect attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/en/attributes/@product_edit_multi_select_attribute@/options" with body:
-      """
-      {
-        "code": "key_1",
-        "label":  {}
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "multi_select_option_1"
-
-  Scenario: Create option 2 for multiselect attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    And I send a "POST" request to "/api/v1/en/attributes/@product_edit_multi_select_attribute@/options" with body:
-      """
-      {
-        "code": "key_12",
-        "label":  {}
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "multi_select_option_2"
-
-  Scenario: Create text attribute with long code
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/attributes" with body:
-      """
-      {
-        "code": "LONG_COde_ATTRIBUTE_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890_@@random_code@@",
-        "type": "TEXT",
-        "scope": "local",
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_edit_text_attribute_long_code"
-
-  Scenario: Create date attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/attributes" with body:
-      """
-      {
-        "code": "DATE_@@random_code@@",
-        "type": "DATE",
-        "groups": [],
-        "scope": "local",
-        "parameters": {"format":"yyyy-MM-dd"}
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_edit_date_attribute_code"
-
-  Scenario: Create numeric attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/attributes" with body:
-      """
-      {
-        "code": "NUMERIC_@@random_code@@",
-        "type": "NUMERIC",
-        "scope": "local",
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_edit_numeric_attribute"
-
-  Scenario: Create price attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/attributes" with body:
-      """
-      {
-        "code": "PRICE_@@random_code@@",
-        "type": "PRICE",
-        "groups": [],
-        "scope": "local",
-        "parameters": {
-          "currency": "PLN"
-        }
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_edit_price_attribute"
-
-  Scenario: Create Image attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/attributes" with body:
-      """
-      {
-        "code": "IMAGE_@@random_code@@",
-        "type": "IMAGE",
-        "scope": "local",
-        "groups": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "product_edit_image_attribute"
-
-  Scenario: Get text attribute code
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/attributes/@product_edit_text_attribute@"
+  Scenario Outline: Get attribute <code> code
+    When I send a GET request to "/api/v1/en/attributes/@<code>_id@"
     Then the response status code should be 200
-    And store response param "code" as "product_edit_text_attribute_code"
-
-  Scenario: Get text attribute with long code code
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/attributes/@product_edit_text_attribute_long_code@"
-    Then the response status code should be 200
-    And store response param "code" as "product_edit_text_attribute_long_code_code"
-
-  Scenario: Get numeric attribute code
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/attributes/@product_edit_numeric_attribute@"
-    Then the response status code should be 200
-    And store response param "code" as "product_edit_numeric_attribute_code"
-
-  Scenario: Get price attribute code
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/attributes/@product_edit_price_attribute@"
-    Then the response status code should be 200
-    And store response param "code" as "product_edit_price_attribute_code"
-
-  Scenario: Get select attribute code
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/attributes/@product_edit_select_attribute@"
-    Then the response status code should be 200
-    And store response param "code" as "product_edit_select_attribute_code"
-
-  Scenario: Get multi select attribute code
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/attributes/@product_edit_multi_select_attribute@"
-    Then the response status code should be 200
-    And store response param "code" as "product_edit_multi_select_attribute_code"
-
-  Scenario: Get image attribute code
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "/api/v1/en/attributes/@product_edit_image_attribute@"
-    Then the response status code should be 200
-    And store response param "code" as "product_edit_image_attribute_code"
-
+    And store response param "code" as "<code>_code"
+    Examples:
+      | code                   |
+      | text_attribute         |
+      | text_attribute_long    |
+      | select_attribute       |
+      | multi_select_attribute |
+      | numeric_attribute      |
+      | price_attribute        |
+      | image_attribute        |
 
   Scenario: Create template
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en/templates" with body:
       """
       {
@@ -258,302 +69,176 @@ Feature: Product edit feature
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "product_edit_template"
+    And store response param "id" as "template_id"
 
-  Scenario: Create product
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
+  Scenario Outline: Create <product> product
     When I send a POST request to "/api/v1/en/products" with body:
       """
       {
         "sku": "SKU_@@random_code@@",
         "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_edit_template@",
-        "categoryIds": []
+        "templateId": "@template_id@"
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "product"
+    And store response param "id" as "<product>"
+    Examples:
+      | product      |
+      | product_1_id |
+      | product_2_id |
 
-  Scenario: Create product
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a POST request to "/api/v1/en/products" with body:
+  Scenario Outline: Add product <code> value
+    When I send a PUT request to "api/v1/en/products/@product_1_id@/draft/@<code>_id@/value" with body:
       """
       {
-        "sku": "SKU_@@random_code@@",
-        "type": "SIMPLE-PRODUCT",
-        "templateId": "@product_edit_template@",
-        "categoryIds": []
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "edit_product"
-
-  Scenario: Add to product select value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en/products/@product@/draft/@product_edit_select_attribute@/value" with body:
-      """
-      {
-       "value":"@select_option_2@"
+       "value": <value>
       }
       """
     Then the response status code should be 200
+    Examples:
+      | code                   | value                                 |
+      | text_attribute         | "text attribute value"                |
+      | text_attribute_long    | "text with long code attribute value" |
+      | select_attribute       | "@select_option_1@"                   |
+      | multi_select_attribute | ["@multi_select_option_1@"]           |
+      | numeric_attribute      | 10.99                                 |
+      | price_attribute        | 12.66                                 |
 
-  Scenario: Add to product multi select value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en/products/@product@/draft/@product_edit_multi_select_attribute@/value" with body:
-      """
-      {
-       "value": ["@multi_select_option_2@"]
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Edit product text value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_text_attribute@/value" with body:
-      """
-      {
-        "value": "text attribute value"
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Edit product text long code value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_text_attribute_long_code@/value" with body:
-      """
-      {
-        "value": "text with long code attribute value"
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Edit product select value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_select_attribute@/value" with body:
-      """
-      {
-       "value":"@select_option_1@"
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Edit product multi select value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_multi_select_attribute@/value" with body:
-      """
-      {
-       "value":["@multi_select_option_1@"]
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Edit product numeric value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_numeric_attribute@/value" with body:
-      """
-      {
-        "value": 10.99
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Edit product price value
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/@product_edit_price_attribute@/value" with body:
-      """
-      {
-        "value": 12.66
-      }
-      """
-    Then the response status code should be 200
-
-  Scenario: Apply edit product draft
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en/products/@edit_product@/draft/persist"
+  Scenario Outline: Apply edit <product>> draft
+    When I send a PUT request to "api/v1/en/products/<product>/draft/persist"
     Then the response status code should be 204
+    Examples:
+      | product        |
+      | @product_1_id@ |
+      | @product_2_id@ |
 
-  Scenario: Apply product draft
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a PUT request to "api/v1/en/products/@product@/draft/persist"
-    Then the response status code should be 204
-
-  Scenario: Request product grid filtered by select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_select_attribute_code@&filter=@product_edit_select_attribute_code@=@select_option_1@"
+  Scenario Outline: Request product grid filtered by <code> attribute
+    When I send a GET request to "api/v1/en/products?columns=<code>&filter=<code>=<filter>"
     Then the response status code should be 200
-    And the JSON node "info.filtered" should match "/1/"
-    And the JSON node "columns[0].visible" should be true
-    And the JSON node "columns[0].editable" should be true
-    And the JSON node "columns[0].deletable" should be true
+    And the JSON nodes should contain:
+      | columns[0].id         | <code>         |
+      | columns[0].type       | <type>         |
+      | columns[0].visible    | 1              |
+      | columns[0].editable   | 1              |
+      | columns[0].deletable  | 1              |
+      | collection[0].<field> | <result>       |
+      | collection[0].id      | @product_1_id@ |
+      | info.filtered         | 1              |
+    Examples:
+      | type         | field                            | code                          | filter                              | result                              |
+      | TEXT         | @text_attribute_code@            | @text_attribute_code@         | text attribute value                | text attribute value                |
+      | TEXT         | @text_attribute_long_code@       | @text_attribute_long_code@    | text with long code attribute value | text with long code attribute value |
+      | SELECT       | @select_attribute_code@          | @select_attribute_code@       | @select_option_1@                   | @select_option_1@                   |
+      | MULTI_SELECT | @multi_select_attribute_code@[0] | @multi_select_attribute_code@ | @multi_select_option_1@             | @multi_select_option_1@             |
+      | NUMERIC      | @numeric_attribute_code@         | @numeric_attribute_code@      | 10.99                               | 10.99                               |
+      | NUMERIC      | @price_attribute_code@           | @price_attribute_code@        | 12.66                               | 12.66                               |
 
-  Scenario: Request product grid filtered by multi select attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_multi_select_attribute_code@&filter=@product_edit_multi_select_attribute_code@=@multi_select_option_1@"
-    And the JSON node "info.filtered" should match "/1/"
-    And the JSON node "columns[0].visible" should be true
-    And the JSON node "columns[0].editable" should be true
-    And the JSON node "columns[0].deletable" should be true
-
-  Scenario: Request product grid filtered by text attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_text_attribute_code@&filter=@product_edit_text_attribute_code@=text"
+  Scenario Outline: Request product grid filtered by <code> attribute with extended flag
+    When I send a GET request to "api/v1/en/products?extended&columns=<code>&filter=<code>=<filter>"
     Then the response status code should be 200
-    And the JSON node "info.filtered" should match "/1/"
-    And the JSON node "columns[0].visible" should be true
-    And the JSON node "columns[0].editable" should be true
-    And the JSON node "columns[0].deletable" should be true
+    And the JSON nodes should contain:
+      | columns[0].id          | <code>         |
+      | columns[0].type        | <type>         |
+      | columns[0].visible     | 1              |
+      | columns[0].editable    | 1              |
+      | columns[0].deletable   | 1              |
+      | collection[0].<field>  | <result>       |
+      | collection[0].id.value | @product_1_id@ |
+      | info.filtered          | 1              |
+    Examples:
+      | type         | field                                  | code                          | filter                              | result                              |
+      | TEXT         | @text_attribute_code@.value            | @text_attribute_code@         | text attribute value                | text attribute value                |
+      | TEXT         | @text_attribute_long_code@.value       | @text_attribute_long_code@    | text with long code attribute value | text with long code attribute value |
+      | SELECT       | @select_attribute_code@.value          | @select_attribute_code@       | @select_option_1@                   | @select_option_1@                   |
+      | MULTI_SELECT | @multi_select_attribute_code@.value[0] | @multi_select_attribute_code@ | @multi_select_option_1@             | @multi_select_option_1@             |
+      | NUMERIC      | @numeric_attribute_code@.value         | @numeric_attribute_code@      | 10.99                               | 10.99                               |
+      | NUMERIC      | @price_attribute_code@.value           | @price_attribute_code@        | 12.66                               | 12.66                               |
 
-  Scenario: Request product grid filtered by text attribute with extended flag
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?extended&columns=@product_edit_text_attribute_code@&filter=@product_edit_text_attribute_code@=text"
+  Scenario Outline: Request product grid filtered by <code> attribute for null values
+    When I send a GET request to "api/v1/en/products?columns=<code>&filter=<code>="
     Then the response status code should be 200
-    And the JSON node "info.filtered" should match "/1/"
-    And the JSON node "columns[0].visible" should be true
-    And the JSON node "columns[0].editable" should be true
-    And the JSON node "columns[0].deletable" should be true
-    #And the response body matches:
-    #"""
-    #  /"value": "text attribute value"/
-    #"""
+    And the JSON nodes should contain:
+      | columns[0].id        | <code> |
+      | columns[0].type      | <type> |
+      | columns[0].visible   | 1      |
+      | columns[0].editable  | 1      |
+      | columns[0].deletable | 1      |
+      | collection[0].<code> |        |
+    Examples:
+      | type    | code                       |
+      | TEXT    | @text_attribute_code@      |
+      | TEXT    | @text_attribute_long_code@ |
+      | SELECT  | @select_attribute_code@    |
+      | NUMERIC | @numeric_attribute_code@   |
+      | NUMERIC | @price_attribute_code@     |
 
-  Scenario: Request product grid filtered by text attribute with long code
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_text_attribute_long_code_code@&filter=@product_edit_text_attribute_long_code_code@=text"
+  Scenario Outline: Request product grid filtered by <code> attribute for not null values
+    When I send a GET request to "api/v1/en/products?columns=<code>&filter=<code>!="
     Then the response status code should be 200
-    And the JSON node "info.filtered" should match "/1/"
-    And the JSON node "columns[0].visible" should be true
-    And the JSON node "columns[0].editable" should be true
-    And the JSON node "columns[0].deletable" should be true
-
-  Scenario: Request product grid filtered by numeric attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_numeric_attribute_code@:en&filter=@product_edit_numeric_attribute_code@:en=10.99"
-    Then the response status code should be 200
-    And the JSON node "info.filtered" should match "/1/"
-    And the JSON node "columns[0].visible" should be true
-    And the JSON node "columns[0].editable" should be true
-    And the JSON node "columns[0].deletable" should be true
-
-  Scenario: Request product grid filtered by numeric attribute with extended flag
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?extended&columns=@product_edit_numeric_attribute_code@&filter=@product_edit_numeric_attribute_code@=10.99"
-    Then the response status code should be 200
-    And the JSON node "info.filtered" should match "/1/"
-    And the JSON node "columns[0].visible" should be true
-    And the JSON node "columns[0].editable" should be true
-    And the JSON node "columns[0].deletable" should be true
-    #And the response body matches:
-    #"""
-    #  /"value": 10.99/
-    #"""
-
-  Scenario: Request product grid filtered by price attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_price_attribute_code@&filter=@product_edit_price_attribute_code@=12.66"
-    Then the response status code should be 200
-    And the JSON node "info.filtered" should match "/1/"
-    And the JSON node "columns[0].visible" should be true
-    And the JSON node "columns[0].editable" should be true
-    And the JSON node "columns[0].deletable" should be true
-
-  Scenario: Request product grid filtered by price attribute with extended flag
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?extended&columns=@product_edit_price_attribute_code@&filter=@product_edit_price_attribute_code@=12.66"
-    Then the response status code should be 200
-    And the JSON node "info.filtered" should match "/1/"
-    And the JSON node "columns[0].visible" should be true
-    And the JSON node "columns[0].editable" should be true
-    And the JSON node "columns[0].deletable" should be true
-    #And the response body matches:
-    #"""
-    #  /"value": 12.66/
-    #"""
-    #And the response body matches:
-    #"""
-    #  /"suffix": "PLN"/
-    #"""
+    And the JSON nodes should contain:
+      | columns[0].id         | <code>   |
+      | columns[0].type       | <type>   |
+      | columns[0].visible    | 1        |
+      | columns[0].editable   | 1        |
+      | columns[0].deletable  | 1        |
+      | collection[0].<code>  |          |
+      | collection[0].<field> | <result> |
+    Examples:
+      | type         | field                            | code                          | result                              |
+      | TEXT         | @text_attribute_code@            | @text_attribute_code@         | text attribute value                |
+      | TEXT         | @text_attribute_long_code@       | @text_attribute_long_code@    | text with long code attribute value |
+      | SELECT       | @select_attribute_code@          | @select_attribute_code@       | @select_option_1@                   |
+      | NUMERIC      | @numeric_attribute_code@         | @numeric_attribute_code@      | 10.99                               |
+      | NUMERIC      | @price_attribute_code@           | @price_attribute_code@        | 12.66                               |
 
   Scenario: Request product grid filtered by text attribute null
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_text_attribute_code@&filter=@product_edit_text_attribute_code@="
+    When I send a GET request to "api/v1/en/products?columns=@text_attribute_id@&filter=@text_attribute_id@="
     Then the response status code should be 200
 
   Scenario: Request product date range
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a GET request to "api/v1/en/products?columns=@product_edit_date_attribute_code@&filter=esa_created_aten%3E%3D2020-01-06%3Besa_created_aten%3C%3D2020-01-08"
     Then the response status code should be 200
 
   Scenario: Request product numeric range
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_numeric_attribute@&filter=@product_edit_numeric_attribute@%3E%3D1%3B@product_edit_numeric_attribute@%3C%3D3"
+    When I send a GET request to "api/v1/en/products?columns=@numeric_attribute_id@&filter=@numeric_attribute_id@%3E%3D1%3B@numeric_attribute_id@%3C%3D3"
     Then the response status code should be 200
 
   Scenario: Request product order by index
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_text_attribute_code@&,index&field=index&order=DESC"
+    When I send a GET request to "api/v1/en/products?columns=@text_attribute_id@&,index&field=index&order=DESC"
     Then the response status code should be 200
 
   Scenario: Request product order by attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_text_attribute_code@&,index&field=@product_edit_text_attribute_code@&order=DESC"
+    When I send a GET request to "api/v1/en/products?columns=@text_attribute_id@&,index&field=@text_attribute_id@&order=DESC"
     Then the response status code should be 200
 
   Scenario: Request product order by not exists attribute
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
-    When I send a GET request to "api/v1/en/products?columns=@product_edit_text_attribute_code@&,index&field=xxxxxxx@&order=DESC"
+    When I send a GET request to "api/v1/en/products?columns=@text_attribute_id@&,index&field=xxxxxxx@&order=DESC"
     Then the response status code should be 200
+
+  Scenario Outline: Delete products
+    When I send a DELETE request to "/api/v1/en/products/<product>"
+    Then the response status code should be 204
+    Examples:
+      | product        |
+      | @product_1_id@ |
+      | @product_2_id@ |
+
+  Scenario Outline: Delete attributes
+    When I send a DELETE request to "/api/v1/en/attributes/<attribute>"
+    Then the response status code should be 204
+    Examples:
+      | attribute                   |
+      | @text_attribute_id@         |
+      | @text_attribute_long_id@    |
+      | @select_attribute_id@       |
+      | @multi_select_attribute_id@ |
+      | @numeric_attribute_id@      |
+      | @price_attribute_id@        |
+      | @image_attribute_id@        |
+
+  Scenario Outline: Delete templates
+    When I send a DELETE request to "/api/v1/en/templates/<template>"
+    Then the response status code should be 204
+    Examples:
+      | template      |
+      | @template_id@ |

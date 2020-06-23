@@ -44,6 +44,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
                             $this->buildMultiSelectQuery(
                                 $query,
                                 $name,
+                                $filter->getOperator(),
                                 $filter->getValue()
                             );
                         } else {
@@ -59,38 +60,50 @@ abstract class AbstractDbalDataSet implements DataSetInterface
      * @param QueryBuilder $query
      * @param string       $field
      * @param string       $operator
-     * @param string|null  $value
-     */
-    private function buildTextQuery(QueryBuilder $query, string $field, string $operator, string $value = null): void
-    {
-        $query->andWhere($this->getExpresion($query, $field, $operator, $value));
-    }
-
-    /**
-     * @param QueryBuilder $query
-     * @param string       $field
      * @param string|null  $givenValue
      */
     private function buildMultiSelectQuery(
         QueryBuilder $query,
         string $field,
+        string $operator,
         string $givenValue = null
     ): void {
-        if (null !== $givenValue) {
-            $values = explode(',', $givenValue);
+        if ('=' ===  $operator) {
+            if (null !== $givenValue) {
+                $values = explode(',', $givenValue);
 
-            $fields = [];
-            foreach ($values as $value) {
-                $fields[] =
-                    sprintf(
-                        'jsonb_exists_any(to_json("%s")::jsonb, %s::text[])',
-                        $field,
-                        $query->createNamedParameter(sprintf('{%s}', $value))
-                    );
+                $fields = [];
+                foreach ($values as $value) {
+                    $fields[] =
+                        sprintf(
+                            'jsonb_exists_any(to_json("%s")::jsonb, %s::text[])',
+                            $field,
+                            $query->createNamedParameter(sprintf('{%s}', $value))
+                        );
+                }
+                $query->andWhere(implode(' OR ', $fields));
+            } else {
+                $query->andWhere($query->expr()->isNull(sprintf('"%s"', $field)));
             }
-            $query->andWhere(implode(' OR ', $fields));
-        } else {
-            $query->andWhere(sprintf('"%s"::TEXT = \'[]\'::TEXT', $field));
+        }
+
+        if ('!=' ===  $operator) {
+            if (null !== $givenValue) {
+                $values = explode(',', $givenValue);
+
+                $fields = [];
+                foreach ($values as $value) {
+                    $fields[] =
+                        sprintf(
+                            'NOT jsonb_exists_any(to_json("%s")::jsonb, %s::text[])',
+                            $field,
+                            $query->createNamedParameter(sprintf('{%s}', $value))
+                        );
+                }
+                $query->andWhere(implode(' AND ', $fields));
+            } else {
+                $query->andWhere($query->expr()->isNotNull(sprintf('"%s"', $field)));
+            }
         }
     }
 
@@ -109,6 +122,17 @@ abstract class AbstractDbalDataSet implements DataSetInterface
      * @param QueryBuilder $query
      * @param string       $field
      * @param string       $operator
+     * @param string|null  $value
+     */
+    private function buildTextQuery(QueryBuilder $query, string $field, string $operator, string $value = null): void
+    {
+        $query->andWhere($this->getExpresion($query, $field, $operator, $value));
+    }
+
+    /**
+     * @param QueryBuilder $query
+     * @param string       $field
+     * @param string       $operator
      * @param string       $value
      *
      * @return string
@@ -116,10 +140,6 @@ abstract class AbstractDbalDataSet implements DataSetInterface
     private function getExpresion(QueryBuilder $query, string $field, string $operator, ?string $value = null): string
     {
         $field = sprintf('"%s"', $field);
-
-        if (null === $value) {
-            return $query->expr()->isNull($field);
-        }
 
         if ('>=' === $operator) {
             return $query->expr()->gte($field, $query->createNamedParameter($value));
@@ -129,11 +149,27 @@ abstract class AbstractDbalDataSet implements DataSetInterface
             return $query->expr()->lte($field, $query->createNamedParameter($value));
         }
 
-        return \sprintf(
-            '%s::TEXT ILIKE %s',
-            $field,
-            $query->createNamedParameter(\sprintf('%%%s%%', $this->escape($value)))
-        );
+        if ('!=' === $operator) {
+            if (null !== $value) {
+                return \sprintf(
+                    '%s::TEXT NOT ILIKE %s',
+                    $field,
+                    $query->createNamedParameter(\sprintf('%%%s%%', $this->escape($value)))
+                );
+            }
+
+            return $query->expr()->isNotNull($field);
+        }
+
+        if (null !== $value) {
+            return \sprintf(
+                '%s::TEXT ILIKE %s',
+                $field,
+                $query->createNamedParameter(\sprintf('%%%s%%', $this->escape($value)))
+            );
+        }
+
+        return $query->expr()->isNull($field);
     }
 
     /**
