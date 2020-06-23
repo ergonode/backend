@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Tests\Domain\Event;
 
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\Account\Domain\Event\User\UserAvatarChangedEvent;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\AvatarId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -25,11 +25,11 @@ class UserAvatarChangedEventTest extends TestCase
     {
         /** @var UserId|MockObject $id */
         $id = $this->createMock(UserId::class);
-        $multimediaId = $this->createMock(MultimediaId::class);
+        $avatarId = $this->createMock(AvatarId::class);
 
-        $event = new UserAvatarChangedEvent($id, $multimediaId);
+        $event = new UserAvatarChangedEvent($id, $avatarId);
 
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($multimediaId, $event->getAvatarId());
+        $this->assertEquals($avatarId, $event->getAvatarId());
     }
 }

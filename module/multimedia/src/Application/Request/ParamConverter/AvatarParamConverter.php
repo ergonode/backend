@@ -9,10 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Application\Request\ParamConverter;
 
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
+use Ergonode\Multimedia\Domain\Entity\Avatar;
+use Ergonode\Multimedia\Domain\Repository\AvatarRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Storage\ResourceStorageInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\AvatarId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,28 +22,28 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  */
-class MultimediaParamConverter implements ParamConverterInterface
+class AvatarParamConverter implements ParamConverterInterface
 {
     /**
-     * @var MultimediaRepositoryInterface
+     * @var AvatarRepositoryInterface
      */
-    private MultimediaRepositoryInterface $repository;
+    private AvatarRepositoryInterface $repository;
 
     /**
      * @var ResourceStorageInterface
      */
-    private ResourceStorageInterface $multimediaStorage;
+    private ResourceStorageInterface $avatarStorage;
 
     /**
-     * @param MultimediaRepositoryInterface $repository
-     * @param ResourceStorageInterface      $multimediaStorage
+     * @param AvatarRepositoryInterface $repository
+     * @param ResourceStorageInterface  $avatarStorage
      */
     public function __construct(
-        MultimediaRepositoryInterface $repository,
-        ResourceStorageInterface $multimediaStorage
+        AvatarRepositoryInterface $repository,
+        ResourceStorageInterface $avatarStorage
     ) {
         $this->repository = $repository;
-        $this->multimediaStorage = $multimediaStorage;
+        $this->avatarStorage = $avatarStorage;
     }
 
     /**
@@ -51,23 +51,23 @@ class MultimediaParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration): void
     {
-        $parameter = $request->get('multimedia');
+        $parameter = $request->get('avatar');
 
         if (null === $parameter) {
-            throw new BadRequestHttpException('Request parameter "multimedia" is missing');
+            throw new BadRequestHttpException('Request parameter "avatar" is missing');
         }
 
-        if (!MultimediaId::isValid($parameter)) {
-            throw new BadRequestHttpException('Invalid multimedia ID');
+        if (!AvatarId::isValid($parameter)) {
+            throw new BadRequestHttpException('Invalid avatar ID');
         }
 
-        $entity = $this->repository->load(new MultimediaId($parameter));
+        $entity = $this->repository->load(new AvatarId($parameter));
 
         if (null === $entity) {
-            throw new NotFoundHttpException(sprintf('Multimedia by ID "%s" not found', $parameter));
+            throw new NotFoundHttpException(sprintf('Avatar by ID "%s" not found', $parameter));
         }
 
-        if (!$this->multimediaStorage->has($entity->getFileName())) {
+        if (!$this->avatarStorage->has($entity->getFileName())) {
             throw new ConflictHttpException('The file does not exist.');
         }
 
@@ -79,6 +79,6 @@ class MultimediaParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration): bool
     {
-        return Multimedia::class === $configuration->getClass();
+        return Avatar::class === $configuration->getClass();
     }
 }

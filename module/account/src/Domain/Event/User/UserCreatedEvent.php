@@ -13,7 +13,7 @@ use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\AvatarId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
@@ -66,11 +66,11 @@ class UserCreatedEvent implements DomainEventInterface
     private Language $language;
 
     /**
-     * @var MultimediaId|null
+     * @var AvatarId|null
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\MultimediaId")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AvatarId")
      */
-    private ?MultimediaId $avatarId;
+    private ?AvatarId $avatarId;
 
     /**
      * @var RoleId
@@ -103,7 +103,7 @@ class UserCreatedEvent implements DomainEventInterface
      * @param RoleId               $roleId
      * @param LanguagePrivileges[] $languagePrivilegesCollection
      * @param bool                 $isActive
-     * @param MultimediaId|null    $avatarId
+     * @param AvatarId|null        $avatarId
      */
     public function __construct(
         UserId $id,
@@ -115,7 +115,7 @@ class UserCreatedEvent implements DomainEventInterface
         RoleId $roleId,
         array $languagePrivilegesCollection,
         bool $isActive = true,
-        ?MultimediaId $avatarId = null
+        ?AvatarId $avatarId = null
     ) {
         $this->id = $id;
         $this->firstName = $firstName;
@@ -178,9 +178,9 @@ class UserCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return MultimediaId|null
+     * @return AvatarId|null
      */
-    public function getAvatarId(): ?MultimediaId
+    public function getAvatarId(): ?AvatarId
     {
         return $this->avatarId;
     }

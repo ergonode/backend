@@ -23,7 +23,7 @@ use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\AvatarId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
@@ -64,9 +64,9 @@ class User extends AbstractAggregateRoot implements UserInterface
     private Language $language;
 
     /**
-     * @var MultimediaId|null
+     * @var AvatarId|null
      */
-    private ?MultimediaId $avatarId;
+    private ?AvatarId $avatarId;
 
     /**
      * @var RoleId
@@ -92,7 +92,7 @@ class User extends AbstractAggregateRoot implements UserInterface
      * @param Password             $password
      * @param RoleId               $roleId
      * @param LanguagePrivileges[] $languagePrivilegesCollection
-     * @param MultimediaId|null    $avatarId
+     * @param AvatarId|null        $avatarId
      * @param bool                 $isActive
      *
      */
@@ -105,7 +105,7 @@ class User extends AbstractAggregateRoot implements UserInterface
         Password $password,
         RoleId $roleId,
         array $languagePrivilegesCollection,
-        ?MultimediaId $avatarId = null,
+        ?AvatarId $avatarId = null,
         bool $isActive = true
     ) {
         $this->apply(
@@ -197,9 +197,9 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @return MultimediaId|null
+     * @return AvatarId|null
      */
-    public function getAvatarId(): ?MultimediaId
+    public function getAvatarId(): ?AvatarId
     {
         return $this->avatarId;
     }
@@ -290,11 +290,11 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param MultimediaId|null $avatarId
+     * @param AvatarId|null $avatarId
      *
      * @throws \Exception
      */
-    public function changeAvatar(MultimediaId $avatarId = null): void
+    public function changeAvatar(AvatarId $avatarId = null): void
     {
         $this->apply(new UserAvatarChangedEvent($this->id, $avatarId));
     }

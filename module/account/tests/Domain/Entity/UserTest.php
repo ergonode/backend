@@ -13,7 +13,7 @@ use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\AvatarId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
@@ -45,9 +45,9 @@ class UserTest extends TestCase
     private $email;
 
     /**
-     * @var MultimediaId|MockObject
+     * @var AvatarId|MockObject
      */
-    private $multimediaId;
+    private $avatarId;
 
     /**
      * @var Language|MockObject
@@ -79,7 +79,7 @@ class UserTest extends TestCase
         $this->email = $this->createMock(Email::class);
         $this->password = $this->createMock(Password::class);
         $this->language = $this->createMock(Language::class);
-        $this->multimediaId = $this->createMock(MultimediaId::class);
+        $this->avatarId = $this->createMock(AvatarId::class);
         $this->roleId = $this->createMock(RoleId::class);
         $this->languagePrivilegesCollection = [];
     }
@@ -97,14 +97,14 @@ class UserTest extends TestCase
             $this->password,
             $this->roleId,
             $this->languagePrivilegesCollection,
-            $this->multimediaId
+            $this->avatarId
         );
         $this->assertEquals($this->userId, $user->getId());
         $this->assertEquals($this->firstName, $user->getFirstName());
         $this->assertEquals($this->lastName, $user->getLastName());
         $this->assertEquals($this->email, $user->getEmail());
         $this->assertEquals($this->language, $user->getLanguage());
-        $this->assertEquals($this->multimediaId, $user->getAvatarId());
+        $this->assertEquals($this->avatarId, $user->getAvatarId());
         $this->assertEquals($this->roleId, $user->getRoleId());
         $this->assertEquals($this->languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
     }
@@ -118,8 +118,8 @@ class UserTest extends TestCase
         /** @var Language|MockObject $language */
         $language = $this->createMock(Language::class);
         $language->method('isEqual')->willReturn(false);
-        /** @var MultimediaId|MockObject $multimediaId */
-        $multimediaId = $this->createMock(MultimediaId::class);
+        /** @var AvatarId|MockObject $avatarId */
+        $avatarId = $this->createMock(AvatarId::class);
         /** @var Password|MockObject $password */
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
@@ -138,19 +138,19 @@ class UserTest extends TestCase
             $this->password,
             $this->roleId,
             $this->languagePrivilegesCollection,
-            $this->multimediaId
+            $this->avatarId
         );
         $user->changeFirstName($firstName);
         $user->changeLastName($lastName);
         $user->changeLanguage($language);
-        $user->changeAvatar($multimediaId);
+        $user->changeAvatar($avatarId);
         $user->changePassword($password);
         $user->changeRole($roleId);
         $user->changeLanguagePrivilegesCollection($languagePrivilegesCollection);
         $this->assertEquals($firstName, $user->getFirstName());
         $this->assertEquals($lastName, $user->getLastName());
         $this->assertEquals($language, $user->getLanguage());
-        $this->assertEquals($multimediaId, $user->getAvatarId());
+        $this->assertEquals($avatarId, $user->getAvatarId());
         $this->assertEquals($roleId, $user->getRoleId());
         $this->assertEquals($languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
         $this->assertTrue($user->hasReadLanguagePrivilege(new Language('en')));

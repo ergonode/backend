@@ -9,9 +9,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Domain\Command\User;
 
-use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\AvatarId;
+use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 
 /**
  */
@@ -23,15 +23,15 @@ class ChangeUserAvatarCommand implements DomainCommandInterface
     private UserId $id;
 
     /**
-     * @var MultimediaId
+     * @var AvatarId
      */
-    private ?MultimediaId $avatarId;
+    private ?AvatarId $avatarId;
 
     /**
-     * @param UserId            $id
-     * @param MultimediaId|null $avatarId
+     * @param UserId        $id
+     * @param AvatarId|null $avatarId
      */
-    public function __construct(UserId $id, ?MultimediaId $avatarId = null)
+    public function __construct(UserId $id, ?AvatarId $avatarId = null)
     {
         $this->id = $id;
         $this->avatarId = $avatarId;
@@ -46,9 +46,9 @@ class ChangeUserAvatarCommand implements DomainCommandInterface
     }
 
     /**
-     * @return MultimediaId|null
+     * @return AvatarId|null
      */
-    public function getAvatarId(): ?MultimediaId
+    public function getAvatarId(): ?AvatarId
     {
         return $this->avatarId;
     }

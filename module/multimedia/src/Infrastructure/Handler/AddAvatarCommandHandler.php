@@ -9,15 +9,15 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Infrastructure\Handler;
 
-use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
+use Ergonode\Multimedia\Domain\Command\AddAvatarCommand;
+use Ergonode\Multimedia\Domain\Entity\Avatar;
+use Ergonode\Multimedia\Domain\Repository\AvatarRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use Ergonode\Multimedia\Infrastructure\Storage\ResourceStorageInterface;
 
 /**
  */
-class AddMultimediaCommandHandler
+class AddAvatarCommandHandler
 {
     /**
      * @var HashCalculationServiceInterface
@@ -25,43 +25,42 @@ class AddMultimediaCommandHandler
     private HashCalculationServiceInterface $hashService;
 
     /**
-     * @var MultimediaRepositoryInterface
+     * @var AvatarRepositoryInterface
      */
-    private MultimediaRepositoryInterface $repository;
+    private AvatarRepositoryInterface $repository;
 
     /**
      * @var ResourceStorageInterface
      */
-    private ResourceStorageInterface $multimediaStorage;
+    private ResourceStorageInterface $avatarStorage;
 
     /**
      * @param HashCalculationServiceInterface $hashService
-     * @param MultimediaRepositoryInterface   $repository
-     * @param ResourceStorageInterface        $multimediaStorage
+     * @param AvatarRepositoryInterface       $repository
+     * @param ResourceStorageInterface        $avatarStorage
      */
     public function __construct(
         HashCalculationServiceInterface $hashService,
-        MultimediaRepositoryInterface $repository,
-        ResourceStorageInterface $multimediaStorage
+        AvatarRepositoryInterface $repository,
+        ResourceStorageInterface $avatarStorage
     ) {
         $this->hashService = $hashService;
         $this->repository = $repository;
-        $this->multimediaStorage = $multimediaStorage;
+        $this->avatarStorage = $avatarStorage;
     }
 
     /**
-     * @param AddMultimediaCommand $command
+     * @param AddAvatarCommand $command
      *
      * @return mixed
      *
      * @throws \Exception
      */
-    public function __invoke(AddMultimediaCommand $command): void
+    public function __invoke(AddAvatarCommand $command): void
     {
         $id = $command->getId();
         $file = $command->getFile();
         $hash = $this->hashService->calculateHash($file);
-        $originalName = $file->getFilename();
 
         $extension = $file->getExtension();
         if (empty($extension) || '.' === $extension) {
@@ -70,22 +69,21 @@ class AddMultimediaCommandHandler
 
         $filename = sprintf('%s.%s', $hash->getValue(), $extension);
 
-        if (!$this->multimediaStorage->has($filename)) {
+        if (!$this->avatarStorage->has($filename)) {
             $content = file_get_contents($file->getRealPath());
-            $this->multimediaStorage->write($filename, $content);
+            $this->avatarStorage->write($filename, $content);
         }
 
-        $info = $this->multimediaStorage->info($filename);
+        $info = $this->avatarStorage->info($filename);
 
-        $multimedia = new Multimedia(
+        $avatar = new Avatar(
             $id,
-            $originalName,
             $extension,
             $info['size'],
             $hash,
             $info['mime']
         );
 
-        $this->repository->save($multimedia);
+        $this->repository->save($avatar);
     }
 }

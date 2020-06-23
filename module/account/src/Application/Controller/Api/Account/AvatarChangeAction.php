@@ -12,14 +12,14 @@ namespace Ergonode\Account\Application\Controller\Api\Account;
 use Ergonode\Account\Domain\Command\User\ChangeUserAvatarCommand;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AvatarId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 
 /**
  * @Route("/accounts/{user}/avatar", methods={"PUT"}, requirements={"user"="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"})
@@ -51,10 +51,10 @@ class AvatarChangeAction
      *     description="User ID"
      * )
      * @SWG\Parameter(
-     *     name="multimedia",
+     *     name="avatar",
      *     in="formData",
      *     type="string",
-     *     description="Multimedia ID"
+     *     description="Avatar ID"
      * )
      * @SWG\Parameter(
      *     name="language",
@@ -78,9 +78,9 @@ class AvatarChangeAction
      */
     public function __invoke(User $user, Request $request): Response
     {
-        $multimediaId = $request->request->get('multimedia');
-        $multimediaId = $multimediaId ? new MultimediaId($multimediaId) : null;
-        $command = new ChangeUserAvatarCommand($user->getId(), $multimediaId);
+        $avatarId = $request->request->get('avatar');
+        $avatarId = $avatarId ? new AvatarId($avatarId) : null;
+        $command = new ChangeUserAvatarCommand($user->getId(), $avatarId);
         $this->commandBus->dispatch($command);
 
         return new EmptyResponse();

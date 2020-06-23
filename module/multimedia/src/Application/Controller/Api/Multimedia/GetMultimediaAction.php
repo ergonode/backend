@@ -11,13 +11,11 @@ namespace Ergonode\Multimedia\Application\Controller\Api\Multimedia;
 
 use Ergonode\Api\Application\Response\FileContentResponse;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
+use Ergonode\Multimedia\Infrastructure\Storage\ResourceStorageInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -31,16 +29,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class GetMultimediaAction
 {
     /**
-     * @var MultimediaStorageInterface
+     * @var ResourceStorageInterface
      */
-    private MultimediaStorageInterface $storage;
+    private ResourceStorageInterface $multimediaStorage;
 
     /**
-     * @param MultimediaStorageInterface $storage
+     * @param ResourceStorageInterface $multimediaStorage
      */
-    public function __construct(MultimediaStorageInterface $storage)
+    public function __construct(ResourceStorageInterface $multimediaStorage)
     {
-        $this->storage = $storage;
+        $this->multimediaStorage = $multimediaStorage;
     }
 
     /**
@@ -72,7 +70,7 @@ class GetMultimediaAction
      */
     public function __invoke(Multimedia $multimedia): Response
     {
-        $content = $this->storage->read($multimedia->getFileName());
+        $content = $this->multimediaStorage->read($multimedia->getFileName());
 
         return new FileContentResponse($content, $multimedia);
     }

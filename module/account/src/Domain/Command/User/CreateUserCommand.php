@@ -12,7 +12,7 @@ namespace Ergonode\Account\Domain\Command\User;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\AvatarId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
@@ -27,9 +27,9 @@ class CreateUserCommand implements DomainCommandInterface
     private UserId $id;
 
     /**
-     * @var MultimediaId|null
+     * @var AvatarId|null
      */
-    private ?MultimediaId $avatarId;
+    private ?AvatarId $avatarId;
 
     /**
      * @var string
@@ -67,14 +67,14 @@ class CreateUserCommand implements DomainCommandInterface
     private bool $isActive;
 
     /**
-     * @param string            $firstName
-     * @param string            $lastName
-     * @param Email             $email
-     * @param Language          $language
-     * @param Password          $password
-     * @param RoleId            $roleId
-     * @param bool              $isActive
-     * @param MultimediaId|null $avatarId
+     * @param string        $firstName
+     * @param string        $lastName
+     * @param Email         $email
+     * @param Language      $language
+     * @param Password      $password
+     * @param RoleId        $roleId
+     * @param bool          $isActive
+     * @param AvatarId|null $avatarId
      */
     public function __construct(
         string $firstName,
@@ -84,7 +84,7 @@ class CreateUserCommand implements DomainCommandInterface
         Password $password,
         RoleId $roleId,
         bool $isActive = true,
-        ?MultimediaId $avatarId = null
+        ?AvatarId $avatarId = null
     ) {
         $this->id = UserId::generate();
         $this->avatarId = $avatarId;
@@ -106,9 +106,9 @@ class CreateUserCommand implements DomainCommandInterface
     }
 
     /**
-     * @return MultimediaId|null
+     * @return AvatarId|null
      */
-    public function getAvatarId(): ?MultimediaId
+    public function getAvatarId(): ?AvatarId
     {
         return $this->avatarId;
     }

@@ -12,7 +12,7 @@ namespace Ergonode\Account\Tests\Domain\Command\User;
 use Ergonode\Account\Domain\Command\User\CreateUserCommand;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\SharedKernel\Domain\Aggregate\AvatarId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -32,8 +32,8 @@ class CreateUserCommandTest extends TestCase
         /** @var Language|MockObject $language */
         $language = $this->createMock(Language::class);
         $language->method('isEqual')->willReturn(false);
-        /** @var MultimediaId|MockObject $multimediaId */
-        $multimediaId = $this->createMock(MultimediaId::class);
+        /** @var AvatarId|MockObject $avatarId */
+        $avatarId = $this->createMock(AvatarId::class);
         /** @var Password|MockObject $password */
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
@@ -46,14 +46,14 @@ class CreateUserCommandTest extends TestCase
             $password,
             $roleId,
             true,
-            $multimediaId
+            $avatarId
         );
 
         $this->assertNotNull($command->getId());
         $this->assertEquals($firstName, $command->getFirstName());
         $this->assertEquals($lastName, $command->getLastName());
         $this->assertEquals($language, $command->getLanguage());
-        $this->assertEquals($multimediaId, $command->getAvatarId());
+        $this->assertEquals($avatarId, $command->getAvatarId());
         $this->assertEquals($roleId, $command->getRoleId());
         $this->assertEquals($email, $command->getEmail());
         $this->assertEquals($password, $command->getPassword());

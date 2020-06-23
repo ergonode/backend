@@ -9,16 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia\Tests\Domain\Entity;
 
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
+use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\ValueObject\Hash;
+use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Multimedia\Domain\Entity\AbstractMultimedia;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
 
 /**
  */
-class AbstractMultimediaTest extends TestCase
+class MultimediaTest extends TestCase
 {
     /**
      * @var MultimediaId|MockObject
@@ -96,9 +96,9 @@ class AbstractMultimediaTest extends TestCase
     }
 
     /**
-     * @return AbstractMultimedia
+     * @return Multimedia
      */
-    private function getClass(): AbstractMultimedia
+    private function getClass(): Multimedia
     {
         return new class(
             $this->id,
@@ -107,7 +107,7 @@ class AbstractMultimediaTest extends TestCase
             $this->size,
             $this->hash,
             $this->mime
-        ) extends AbstractMultimedia {
+        ) extends Multimedia {
         };
     }
 }

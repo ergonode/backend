@@ -7,3 +7,8 @@ ergonode_multimedia_dictionary:
     resource: '../../Application/Controller/Api/Dictionary/*'
     type: 'annotation'
     prefix: '/api/v1/{language}'
+
+ergonode_avatar_api:
+    resource: '../../Application/Controller/Api/Avatar/*'
+    type: annotation
+    prefix: /api/v1

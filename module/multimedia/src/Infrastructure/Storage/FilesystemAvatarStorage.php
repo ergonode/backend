@@ -15,7 +15,7 @@ use League\Flysystem\FilesystemInterface;
 
 /**
  */
-class FilesystemMultimediaStorage implements ResourceStorageInterface
+class FilesystemAvatarStorage implements ResourceStorageInterface
 {
     /**
      * @var FilesystemInterface
@@ -23,11 +23,11 @@ class FilesystemMultimediaStorage implements ResourceStorageInterface
     private FilesystemInterface $storage;
 
     /**
-     * @param FilesystemInterface $multimediaStorage
+     * @param FilesystemInterface $avatarStorage
      */
-    public function __construct(FilesystemInterface $multimediaStorage)
+    public function __construct(FilesystemInterface $avatarStorage)
     {
-        $this->storage = $multimediaStorage;
+        $this->storage = $avatarStorage;
     }
 
     /**
@@ -40,18 +40,6 @@ class FilesystemMultimediaStorage implements ResourceStorageInterface
     public function read(string $filename): string
     {
         return $this->storage->read($filename);
-    }
-
-    /**
-     * @param string $filename
-     *
-     * @return resource
-     *
-     * @throws FileNotFoundException
-     */
-    public function readStream(string $filename)
-    {
-        return $this->storage->readStream($filename);
     }
 
     /**
@@ -75,7 +63,7 @@ class FilesystemMultimediaStorage implements ResourceStorageInterface
     public function info(string $filename): array
     {
         return [
-            'mime' =>  $this->storage->getMimetype($filename),
+            'mime' => $this->storage->getMimetype($filename),
             'size' => $this->storage->getSize($filename),
         ];
     }
@@ -88,5 +76,17 @@ class FilesystemMultimediaStorage implements ResourceStorageInterface
     public function has(string $filename): bool
     {
         return $this->storage->has($filename);
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return resource
+     *
+     * @throws FileNotFoundException
+     */
+    public function readStream(string $filename)
+    {
+        return $this->storage->readStream($filename);
     }
 }
