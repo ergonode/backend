@@ -47,7 +47,6 @@ class AddProductChildrenCommandHandler
             sprintf('Can\'t find associated product with id "%s"', $command->getId())
         );
 
-
         foreach ($command->getChildren() as $childId) {
             $child = $this->repository->load($childId);
             Assert::isInstanceOf(
@@ -56,7 +55,9 @@ class AddProductChildrenCommandHandler
                 sprintf('Can\'t find product with id "%s"', $command->getId())
             );
 
-            $product->addChild($child);
+            if (!$child->getId()->isEqual($product->getId())) {
+                $product->addChild($child);
+            }
         }
 
         $this->repository->save($product);

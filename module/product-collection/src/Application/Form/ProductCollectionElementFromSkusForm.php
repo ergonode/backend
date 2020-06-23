@@ -10,10 +10,11 @@ declare(strict_types = 1);
 namespace Ergonode\ProductCollection\Application\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Ergonode\ProductCollection\Application\Model\ProductCollectionElementFromSkusFormModel;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  */
@@ -28,7 +29,12 @@ class ProductCollectionElementFromSkusForm extends AbstractType
         $builder
             ->add(
                 'skus',
-                TextareaType::class
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => TextType::class,
+                ]
             );
     }
 
