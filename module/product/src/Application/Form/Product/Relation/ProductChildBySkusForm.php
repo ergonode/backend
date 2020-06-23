@@ -9,18 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Form\Product\Relation;
 
-use Ergonode\ProductCollection\Application\Model\ProductCollectionElementMultipleCreateFormModel;
-use Ergonode\Segment\Application\Form\Type\SegmentType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Ergonode\Product\Application\Model\Product\Relation\ProductChildBySkuCollectionFormModel;
+use Ergonode\Product\Application\Model\Product\Relation\ProductChildBySkusFormModel;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 /**
  */
-class ProductChildBySkuCollectionForm extends AbstractType
+class ProductChildBySkusForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -31,7 +29,12 @@ class ProductChildBySkuCollectionForm extends AbstractType
         $builder
             ->add(
                 'skus',
-                TextareaType::class
+                CollectionType::class,
+                [
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => TextType::class,
+                ]
             );
     }
 
@@ -41,7 +44,7 @@ class ProductChildBySkuCollectionForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ProductChildBySkuCollectionFormModel::class,
+            'data_class' => ProductChildBySkusFormModel::class,
             'translation_domain' => 'product',
         ]);
     }

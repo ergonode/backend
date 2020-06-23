@@ -11,7 +11,7 @@ namespace Ergonode\Product\Application\Model\Product;
 
 use Ergonode\Designer\Infrastructure\Validator\TemplateExists;
 use Ergonode\Product\Infrastructure\Validator\Sku;
-use Ergonode\Product\Infrastructure\Validator\SkuExists;
+use Ergonode\Product\Infrastructure\Validator\SkuUnique;
 use Symfony\Component\Validator\Constraints as Assert;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Attribute\Infrastructure\Validator\AttributeExists;
@@ -28,7 +28,7 @@ class VariableProductFormModel
      *
      * @Sku(groups={"Create"})
      *
-     * @SkuExists(groups={"Create"})
+     * @SkuUnique(groups={"Create"})
      */
     public ?string $sku = null;
 

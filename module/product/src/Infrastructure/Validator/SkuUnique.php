@@ -14,10 +14,10 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class Sku extends Constraint
+class SkuUnique extends Constraint
 {
     /**
      * @var string
      */
-    public string $message = 'Sku is not valid.';
+    public string $message = 'Sku {{ value }} already exists.';
 }

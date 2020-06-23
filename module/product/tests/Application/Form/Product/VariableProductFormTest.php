@@ -15,6 +15,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
 use Ergonode\Category\Domain\Query\CategoryQueryInterface;
 use Ergonode\Category\Application\Form\Type\CategoryType;
+use Ergonode\Product\Application\Form\Product\SimpleProductForm;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
+use Ergonode\Product\Domain\Entity\VariableProduct;
 
 /**
  */
@@ -36,6 +39,15 @@ class VariableProductFormTest extends TypeTestCase
         ]);
 
         parent::setUp();
+    }
+
+    /**
+     */
+    public function testSupported(): void
+    {
+        $form = new VariableProductForm();
+        $this->assertTrue($form->supported(VariableProduct::TYPE));
+        $this->assertFalse($form->supported('Any incorrect type'));
     }
 
     /**

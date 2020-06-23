@@ -60,6 +60,21 @@ Feature: Variable product
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
+  Scenario: Create second variable product
+    When I send a POST request to "/api/v1/en/products" with body:
+      """
+      {
+        "sku": "SKU_@@random_code@@",
+        "type": "VARIABLE-PRODUCT",
+        "templateId": "@product_template_id@",
+        "bindings": [
+          "@attribute_id@"
+        ]
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "second_product_id"
+
   Scenario: Get binded attributes
     When I send a GET request to "/api/v1/en/products/@product_id@/bindings"
     Then the response status code should be 200
@@ -132,6 +147,32 @@ Feature: Variable product
       }
       """
     Then the response status code should be 204
+
+  Scenario: Add parent as children product
+    When I send a POST request to "/api/v1/en/products/@product_id@/children" with body:
+      """
+      {
+        "child_id": "@product_id@"
+      }
+      """
+    Then the response status code should be 400
+    And the JSON nodes should contain:
+      | code               | 400                           |
+      | message            | Form validation error         |
+      | errors.child_id[0] | Can't add parent as children. |
+
+  Scenario: Add variable second as children product
+    When I send a POST request to "/api/v1/en/products/@product_id@/children" with body:
+      """
+      {
+        "child_id": "@second_product_id@"
+      }
+      """
+    Then the response status code should be 400
+    And the JSON nodes should contain:
+      | code               | 400                     |
+      | message            | Form validation error   |
+      | errors.child_id[0] | Incorrect product type. |
 
   Scenario: Request child grid filtered for given product
     When I send a GET request to "api/v1/en/products/@product_id@/children"

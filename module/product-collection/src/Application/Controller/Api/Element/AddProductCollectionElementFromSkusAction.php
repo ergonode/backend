@@ -123,8 +123,7 @@ class AddProductCollectionElementFromSkusAction
                 /** @var ProductCollectionElementFromSkusFormModel $data */
                 $data = $form->getData();
 
-                $skus = array_map('trim', explode(',', $data->skus));
-                $productIds = $this->productQuery->findProductIdsBySkus($skus);
+                $productIds = $this->productQuery->findProductIdsBySkus($data->skus);
 
                 $command = new AddProductCollectionElementsCommand($productCollection->getId(), $productIds);
 

@@ -100,7 +100,7 @@ class ProductAddChildAction extends AbstractController
     public function __invoke(Language $language, AbstractProduct $product, Request $request): Response
     {
         try {
-            $model = new ProductChildFormModel();
+            $model = new ProductChildFormModel($product->getId());
             $form = $this->formFactory->create(ProductChildForm::class, $model);
             $form->handleRequest($request);
 

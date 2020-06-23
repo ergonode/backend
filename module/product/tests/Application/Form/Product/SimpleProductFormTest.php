@@ -15,6 +15,7 @@ use Ergonode\Product\Application\Model\Product\SimpleProductFormModel;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
+use Ergonode\Product\Domain\Entity\SimpleProduct;
 
 /**
  */
@@ -36,6 +37,15 @@ class SimpleProductFormTest extends TypeTestCase
         ]);
 
         parent::setUp();
+    }
+
+    /**
+     */
+    public function testSupported(): void
+    {
+        $form = new SimpleProductForm();
+        $this->assertTrue($form->supported(SimpleProduct::TYPE));
+        $this->assertFalse($form->supported('Any incorrect type'));
     }
 
     /**

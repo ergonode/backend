@@ -12,24 +12,24 @@ namespace Ergonode\Product\Infrastructure\Validator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
+use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\Product\Domain\Query\ProductQueryInterface;
 
 /**
  */
-class ProductExistsValidator extends ConstraintValidator
+class ProductSkuExistsValidator extends ConstraintValidator
 {
     /**
-     * @var ProductRepositoryInterface
+     * @var ProductQueryInterface
      */
-    private ProductRepositoryInterface $repository;
+    private ProductQueryInterface $query;
 
     /**
-     * @param ProductRepositoryInterface $repository
+     * @param ProductQueryInterface $query
      */
-    public function __construct(ProductRepositoryInterface $repository)
+    public function __construct(ProductQueryInterface $query)
     {
-        $this->repository = $repository;
+        $this->query = $query;
     }
 
     /**
@@ -38,8 +38,8 @@ class ProductExistsValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof ProductExists) {
-            throw new UnexpectedTypeException($constraint, ProductExists::class);
+        if (!$constraint instanceof ProductSkuExists) {
+            throw new UnexpectedTypeException($constraint, ProductSkuExists::class);
         }
 
         if (null === $value || '' === $value) {
@@ -52,11 +52,11 @@ class ProductExistsValidator extends ConstraintValidator
 
         $value = (string) $value;
 
-        if (!ProductId::isValid($value)) {
+        if (!Sku::isValid($value)) {
             return;
         }
 
-        $result = $this->repository->exists(new ProductId($value));
+        $result = $this->query->findProductIdBySku(new Sku($value));
 
         if (!$result) {
             $this->context->buildViolation($constraint->message)

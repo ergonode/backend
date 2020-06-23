@@ -14,10 +14,18 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class SkuExists extends Constraint
+class ProductChild extends Constraint
 {
     /**
      * @var string
      */
-    public string $message = 'Sku {{ value }} already exists.';
+    public string $message = 'Can\'t add parent as children.';
+
+    /**
+     * @return array|string
+     */
+    public function getTargets()
+    {
+        return self::CLASS_CONSTRAINT;
+    }
 }
