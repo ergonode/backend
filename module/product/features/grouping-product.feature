@@ -109,8 +109,16 @@ Feature: Grouping product
       | collection[0].id | @simple_product_id@ |
       | info.count       | 1                   |
 
+  Scenario: Remove product which has parent product
+    When I send a DELETE request to "/api/v1/en/products/@simple_product_id@"
+    Then the response status code should be 409
+
   Scenario: Remove children product
     When I send a DELETE request to "/api/v1/en/products/@product_id@/children/@simple_product_id@"
+    Then the response status code should be 204
+
+  Scenario: Remove product which is removed from parent
+    When I send a DELETE request to "/api/v1/en/products/@simple_product_id@"
     Then the response status code should be 204
 
   Scenario: Request child grid filtered for given product
