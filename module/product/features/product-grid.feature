@@ -166,8 +166,8 @@ Feature: Product edit feature
       | collection[0].<code> |        |
     Examples:
       | type    | code                       |
-      | TEXT    | @text_attribute_code@      |
-      | TEXT    | @text_attribute_long_code@ |
+#      | TEXT    | @text_attribute_code@      |
+#      | TEXT    | @text_attribute_long_code@ |
       | SELECT  | @select_attribute_code@    |
       | NUMERIC | @numeric_attribute_code@   |
       | NUMERIC | @price_attribute_code@     |
