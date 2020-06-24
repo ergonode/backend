@@ -89,6 +89,32 @@ class DbalProductChildrenQuery implements ProductChildrenQueryInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function findProductIdByProductChildrenId(ProductId $id): array
+    {
+        $qb = $this->connection->createQueryBuilder()
+            ->select('pc.product_id')
+            ->from(self::PRODUCT_CHILDREN_TABLE, 'pc');
+
+        $result = $qb
+            ->where($qb->expr()->eq('child_id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        if (false === $result) {
+            $result = [];
+        }
+
+        foreach ($result as &$item) {
+            $item = new ProductId($item);
+        }
+
+        return $result;
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function getQuery(): QueryBuilder
