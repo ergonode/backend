@@ -49,15 +49,15 @@ abstract class AbstractAttributeParameterChangeEventProjector
      */
     protected function projection(AttributeId $attributeId, string $name, $value): void
     {
-        if (!empty($value)) {
+        if (null !== $value) {
             $this->connection->update(
                 self::TABLE_PARAMETER,
                 [
                     'value' => $this->serializer->serialize($value, 'json'),
+                    'type' => $name,
                 ],
                 [
                     'attribute_id' => $attributeId->getValue(),
-                    'type' => $name,
                 ]
             );
         }
