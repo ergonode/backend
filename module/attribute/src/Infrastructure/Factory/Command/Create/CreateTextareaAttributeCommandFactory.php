@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Factory\Command\Create;
 
-use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\Attribute\Application\Model\Attribute\TextareaAttributeFormModel;
 use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextareaAttributeCommand;
 use Ergonode\Attribute\Domain\Entity\Attribute\TextareaAttribute;
@@ -18,6 +17,7 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFact
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -45,6 +45,11 @@ class CreateTextareaAttributeCommandFactory implements CreateAttributeCommandFac
         /** @var TextareaAttributeFormModel $data */
         $data = $form->getData();
 
+        $groups = [];
+        foreach ($data->groups as $group) {
+            $groups[] = new AttributeGroupId($group);
+        }
+
         return new CreateTextareaAttributeCommand(
             new AttributeCode($data->code),
             new TranslatableString($data->label),
@@ -52,7 +57,7 @@ class CreateTextareaAttributeCommandFactory implements CreateAttributeCommandFac
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
             $data->parameters->richEdit,
-            $data->groups,
+            $groups,
         );
     }
 }

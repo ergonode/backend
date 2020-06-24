@@ -15,6 +15,8 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
+use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -75,8 +77,7 @@ abstract class AbstractCreateAttributeCommand implements DomainCommandInterface
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param AttributeScope     $scope
-     * @param array              $groups
-     *
+     * @param AttributeGroupId[] $groups
      */
     public function __construct(
         AttributeCode $code,
@@ -86,6 +87,7 @@ abstract class AbstractCreateAttributeCommand implements DomainCommandInterface
         AttributeScope $scope,
         array $groups = []
     ) {
+        Assert::allIsInstanceOf($groups, AttributeGroupId::class);
         $this->attributeId = AttributeId::fromKey($code->getValue());
         $this->code = $code;
         $this->label = $label;
@@ -120,7 +122,7 @@ abstract class AbstractCreateAttributeCommand implements DomainCommandInterface
     }
 
     /**
-     * @return array
+     * @return AttributeGroupId[]
      */
     public function getGroups(): array
     {
@@ -128,25 +130,25 @@ abstract class AbstractCreateAttributeCommand implements DomainCommandInterface
     }
 
     /**
-     * @return TranslatableString|null
+     * @return TranslatableString
      */
-    public function getLabel(): ?TranslatableString
+    public function getLabel(): TranslatableString
     {
         return $this->label;
     }
 
     /**
-     * @return TranslatableString|null
+     * @return TranslatableString
      */
-    public function getHint(): ?TranslatableString
+    public function getHint(): TranslatableString
     {
         return $this->hint;
     }
 
     /**
-     * @return TranslatableString|null
+     * @return TranslatableString
      */
-    public function getPlaceholder(): ?TranslatableString
+    public function getPlaceholder(): TranslatableString
     {
         return $this->placeholder;
     }

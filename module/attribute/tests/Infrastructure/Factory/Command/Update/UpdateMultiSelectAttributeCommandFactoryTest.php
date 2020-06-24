@@ -12,20 +12,20 @@ namespace Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Update;
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Attribute\Infrastructure\Factory\Command\Update\UpdateGalleryAttributeCommandFactory;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateGalleryAttributeCommand;
+use Ergonode\Attribute\Infrastructure\Factory\Command\Update\UpdateMultiSelectAttributeCommandFactory;
+use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateMultiSelectAttributeCommand;
 
 /**
  */
-class UpdateGalleryAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
+class UpdateMultiSelectAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
 {
     /**
      */
     public function testSupported(): void
     {
-        $commandFactory = new UpdateGalleryAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(GalleryAttribute::TYPE));
+        $commandFactory = new UpdateMultiSelectAttributeCommandFactory();
+        $this->assertTrue($commandFactory->support(MultiSelectAttribute::TYPE));
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
@@ -38,9 +38,9 @@ class UpdateGalleryAttributeCommandFactoryTest extends AbstractUpdateAttributeCo
         $form = $this->createMock(FormInterface::class);
         $form->method('getData')->willReturn($data);
 
-        $commandFactory = new UpdateGalleryAttributeCommandFactory();
+        $commandFactory = new UpdateMultiSelectAttributeCommandFactory();
 
-        /** @var UpdateGalleryAttributeCommand $result */
+        /** @var UpdateMultiSelectAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
         $this->assertAttributeFormModel($id, $data, $result);

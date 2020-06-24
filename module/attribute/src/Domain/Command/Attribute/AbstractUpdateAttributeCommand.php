@@ -14,6 +14,8 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -67,7 +69,7 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
      * @param TranslatableString $hint
      * @param TranslatableString $placeholder
      * @param AttributeScope     $scope
-     * @param array              $groups
+     * @param AttributeGroupId[] $groups
      */
     public function __construct(
         AttributeId $id,
@@ -77,6 +79,8 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
         AttributeScope $scope,
         array $groups = []
     ) {
+        Assert::allIsInstanceOf($groups, AttributeGroupId::class);
+
         $this->id = $id;
         $this->scope = $scope;
         $this->label = $label;
@@ -94,11 +98,27 @@ abstract class AbstractUpdateAttributeCommand implements DomainCommandInterface
     }
 
     /**
-     * @return array
+     * @return AttributeGroupId[]
      */
     public function getGroups(): array
     {
         return $this->groups;
+    }
+
+    /**
+     * @param AttributeGroupId $id
+     *
+     * @return bool
+     */
+    public function hasGroup(AttributeGroupId $id): bool
+    {
+        foreach ($this->groups as $group) {
+            if ($group->isEqual($id)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -17,6 +17,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -44,13 +45,18 @@ class UpdateTextAttributeCommandFactory implements UpdateAttributeCommandFactory
         /** @var UnitAttributeFormModel $data */
         $data = $form->getData();
 
+        $groups = [];
+        foreach ($data->groups as $group) {
+            $groups[] = new AttributeGroupId($group);
+        }
+
         return new UpdateTextAttributeCommand(
             $id,
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
-            $data->groups,
+            $groups,
         );
     }
 }
