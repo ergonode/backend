@@ -68,7 +68,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
         string $operator,
         string $givenValue = null
     ): void {
-        if ('=' ===  $operator) {
+        if ('=' === $operator) {
             if (null !== $givenValue) {
                 $values = explode(',', $givenValue);
 
@@ -83,11 +83,16 @@ abstract class AbstractDbalDataSet implements DataSetInterface
                 }
                 $query->andWhere(implode(' OR ', $fields));
             } else {
-                $query->andWhere($query->expr()->isNull(sprintf('"%s"', $field)));
+                $query->andWhere(
+                    $query->expr()->orX(
+                        $query->expr()->eq(sprintf('"%s"::TEXT', $field), '\'[]\''),
+                        $query->expr()->isNull(sprintf('"%s"', $field)),
+                    )
+                );
             }
         }
 
-        if ('!=' ===  $operator) {
+        if ('!=' === $operator) {
             if (null !== $givenValue) {
                 $values = explode(',', $givenValue);
 
@@ -102,7 +107,12 @@ abstract class AbstractDbalDataSet implements DataSetInterface
                 }
                 $query->andWhere(implode(' AND ', $fields));
             } else {
-                $query->andWhere($query->expr()->isNotNull(sprintf('"%s"', $field)));
+                $query->andWhere(
+                    $query->expr()->andX(
+                        $query->expr()->neq(sprintf('"%s"::TEXT', $field), '\'[]\''),
+                        $query->expr()->isNotNull(sprintf('"%s"', $field)),
+                    )
+                );
             }
         }
     }
