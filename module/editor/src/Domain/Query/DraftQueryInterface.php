@@ -6,6 +6,7 @@
 
 namespace Ergonode\Editor\Domain\Query;
 
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 
@@ -14,11 +15,11 @@ use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 interface DraftQueryInterface
 {
     /**
-     * @param ProductDraftId $templateId
+     * @param ProductDraftId $draftId
      *
      * @return array
      */
-    public function getDraftView(ProductDraftId $templateId): array;
+    public function getDraftView(ProductDraftId $draftId): array;
 
     /**
      * @param ProductId $productId
@@ -26,4 +27,11 @@ interface DraftQueryInterface
      * @return null|ProductDraftId
      */
     public function getActualDraftId(ProductId $productId): ?ProductDraftId;
+
+    /**
+     * @param AttributeId $attributeId
+     *
+     * @return ProductDraftId[]
+     */
+    public function getNotAppliedWithAttribute(AttributeId $attributeId): array;
 }

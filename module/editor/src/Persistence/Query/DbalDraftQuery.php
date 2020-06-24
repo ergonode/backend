@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Editor\Persistence\Query;
 
 use Doctrine\DBAL\Connection;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
 use Ergonode\Editor\Domain\Query\DraftQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
@@ -77,6 +78,34 @@ class DbalDraftQuery implements DraftQueryInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param AttributeId $attributeId
+     *
+     * @return ProductDraftId[]
+     */
+    public function getNotAppliedWithAttribute(AttributeId $attributeId): array
+    {
+        $qb = $this->connection->createQueryBuilder();
+        $data = $qb->select('d.id')
+            ->from('designer.draft_value', 'dv')
+            ->join('dv', 'designer.draft', 'd', 'd.id =dv.draft_id')
+            ->andWhere($qb->expr()->eq('d.applied', ':applied'))
+            ->andWhere($qb->expr()->eq('dv.element_id', ':attributeId'))
+            ->setParameter(':applied', false, \PDO::PARAM_BOOL)
+            ->setParameter(':attributeId', $attributeId->getValue())
+            ->execute()
+            ->fetchAll(\PDO::FETCH_COLUMN);
+
+        $result = [];
+        if ($data) {
+            foreach ($data as $productDraftId) {
+                $result[] = new ProductDraftId($productDraftId);
+            }
+        }
+
+        return $result;
     }
 
     /**
