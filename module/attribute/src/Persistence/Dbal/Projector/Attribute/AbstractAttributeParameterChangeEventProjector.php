@@ -54,10 +54,10 @@ abstract class AbstractAttributeParameterChangeEventProjector
                 self::TABLE_PARAMETER,
                 [
                     'value' => $this->serializer->serialize($value, 'json'),
-                    'type' => $name,
                 ],
                 [
                     'attribute_id' => $attributeId->getValue(),
+                    'type' => $name,
                 ]
             );
         }
