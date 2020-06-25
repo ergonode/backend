@@ -10,21 +10,21 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Create;
 
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand;
-use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreateGalleryAttributeCommandFactory;
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateTextAttributeCommand;
+use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreateTextAttributeCommandFactory;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
+use Ergonode\Attribute\Domain\Entity\Attribute\TextAttribute;
 
 /**
  */
-class CreateGalleryAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
+class CreateTextAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
 {
     /**
      */
     public function testSupported(): void
     {
-        $commandFactory = new CreateGalleryAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(GalleryAttribute::TYPE));
+        $commandFactory = new CreateTextAttributeCommandFactory();
+        $this->assertTrue($commandFactory->support(TextAttribute::TYPE));
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
@@ -36,9 +36,9 @@ class CreateGalleryAttributeCommandFactoryTest extends AbstractCreateAttributeCo
         $form = $this->createMock(FormInterface::class);
         $form->method('getData')->willReturn($data);
 
-        $commandFactory = new CreateGalleryAttributeCommandFactory();
+        $commandFactory = new CreateTextAttributeCommandFactory();
 
-        /** @var CreateGalleryAttributeCommand $result */
+        /** @var CreateTextAttributeCommand $result */
         $result = $commandFactory->create($form);
 
         $this->assertAttributeFormModel($data, $result);

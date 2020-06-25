@@ -10,21 +10,21 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Create;
 
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand;
-use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreateGalleryAttributeCommandFactory;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
+use Ergonode\Attribute\Infrastructure\Factory\Command\Create\CreateNumericAttributeCommandFactory;
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateNumericAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 
 /**
  */
-class CreateGalleryAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
+class CreateNumericAttributeCommandFactoryTest extends AbstractCreateAttributeCommandFactoryTest
 {
     /**
      */
     public function testSupported(): void
     {
-        $commandFactory = new CreateGalleryAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(GalleryAttribute::TYPE));
+        $commandFactory = new CreateNumericAttributeCommandFactory();
+        $this->assertTrue($commandFactory->support(NumericAttribute::TYPE));
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
@@ -32,13 +32,14 @@ class CreateGalleryAttributeCommandFactoryTest extends AbstractCreateAttributeCo
      */
     public function testCreation(): void
     {
+
         $data = $this->getAttributeFormModel(AttributeFormModel::class);
         $form = $this->createMock(FormInterface::class);
         $form->method('getData')->willReturn($data);
 
-        $commandFactory = new CreateGalleryAttributeCommandFactory();
+        $commandFactory = new CreateNumericAttributeCommandFactory();
 
-        /** @var CreateGalleryAttributeCommand $result */
+        /** @var CreateNumericAttributeCommand $result */
         $result = $commandFactory->create($form);
 
         $this->assertAttributeFormModel($data, $result);

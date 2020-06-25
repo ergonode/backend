@@ -12,20 +12,20 @@ namespace Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Update;
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Attribute\Infrastructure\Factory\Command\Update\UpdateGalleryAttributeCommandFactory;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateGalleryAttributeCommand;
+use Ergonode\Attribute\Infrastructure\Factory\Command\Update\UpdateImageAttributeCommandFactory;
+use Ergonode\Attribute\Domain\Entity\Attribute\ImageAttribute;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateImageAttributeCommand;
 
 /**
  */
-class UpdateGalleryAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
+class UpdateImageAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
 {
     /**
      */
     public function testSupported(): void
     {
-        $commandFactory = new UpdateGalleryAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(GalleryAttribute::TYPE));
+        $commandFactory = new UpdateImageAttributeCommandFactory();
+        $this->assertTrue($commandFactory->support(ImageAttribute::TYPE));
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
@@ -38,9 +38,9 @@ class UpdateGalleryAttributeCommandFactoryTest extends AbstractUpdateAttributeCo
         $form = $this->createMock(FormInterface::class);
         $form->method('getData')->willReturn($data);
 
-        $commandFactory = new UpdateGalleryAttributeCommandFactory();
+        $commandFactory = new UpdateImageAttributeCommandFactory();
 
-        /** @var UpdateGalleryAttributeCommand $result */
+        /** @var UpdateImageAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
         $this->assertAttributeFormModel($id, $data, $result);

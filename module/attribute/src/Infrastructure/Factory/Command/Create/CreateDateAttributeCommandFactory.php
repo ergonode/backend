@@ -18,6 +18,7 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFact
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -44,6 +45,11 @@ class CreateDateAttributeCommandFactory implements CreateAttributeCommandFactory
         /** @var DateAttributeFormModel $data */
         $data = $form->getData();
 
+        $groups = [];
+        foreach ($data->groups as $group) {
+            $groups[] = new AttributeGroupId($group);
+        }
+
         return new CreateDateAttributeCommand(
             new AttributeCode($data->code),
             new TranslatableString($data->label),
@@ -51,7 +57,7 @@ class CreateDateAttributeCommandFactory implements CreateAttributeCommandFactory
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
             new DateFormat(DateFormat::YYYY_MM_DD),
-            $data->groups,
+            $groups,
         );
     }
 }

@@ -18,6 +18,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -45,6 +46,11 @@ class CreateUnitAttributeCommandFactory implements CreateAttributeCommandFactory
         /** @var UnitAttributeFormModel $data */
         $data = $form->getData();
 
+        $groups = [];
+        foreach ($data->groups as $group) {
+            $groups[] = new AttributeGroupId($group);
+        }
+
         return new CreateUnitAttributeCommand(
             new AttributeCode($data->code),
             new TranslatableString($data->label),
@@ -52,7 +58,7 @@ class CreateUnitAttributeCommandFactory implements CreateAttributeCommandFactory
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
             new UnitId($data->parameters->unit),
-            $data->groups,
+            $groups,
         );
     }
 }

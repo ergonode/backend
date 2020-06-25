@@ -21,6 +21,8 @@ class AttributeTypeCompilerPass implements CompilerPassInterface
 
     /**
      * @param ContainerBuilder $container
+     *
+     * @throws \ReflectionException
      */
     public function process(ContainerBuilder $container): void
     {
@@ -31,6 +33,8 @@ class AttributeTypeCompilerPass implements CompilerPassInterface
 
     /**
      * @param ContainerBuilder $container
+     *
+     * @throws \ReflectionException
      */
     private function processHandler(ContainerBuilder $container): void
     {
@@ -39,7 +43,8 @@ class AttributeTypeCompilerPass implements CompilerPassInterface
 
         $arguments = [];
         foreach ($services as $id => $service) {
-            $arguments[] = $id;
+            $type = (new \ReflectionClass($id))->getConstant('TYPE');
+            $arguments[] = $type;
             $container->removeDefinition($id);
         }
 

@@ -17,6 +17,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -44,6 +45,11 @@ class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFac
         /** @var TextareaAttributeFormModel $data */
         $data = $form->getData();
 
+        $groups = [];
+        foreach ($data->groups as $group) {
+            $groups[] = new AttributeGroupId($group);
+        }
+
         return new UpdateTextareaAttributeCommand(
             $id,
             new TranslatableString($data->label),
@@ -51,7 +57,7 @@ class UpdateTextareaAttributeCommandFactory implements UpdateAttributeCommandFac
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
             $data->parameters->richEdit,
-            $data->groups,
+            $groups,
         );
     }
 }

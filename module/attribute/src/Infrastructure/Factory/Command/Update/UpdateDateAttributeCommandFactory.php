@@ -18,6 +18,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -45,6 +46,11 @@ class UpdateDateAttributeCommandFactory implements UpdateAttributeCommandFactory
         /** @var DateAttributeFormModel $data */
         $data = $form->getData();
 
+        $groups = [];
+        foreach ($data->groups as $group) {
+            $groups[] = new AttributeGroupId($group);
+        }
+
         return new UpdateDateAttributeCommand(
             $id,
             new TranslatableString($data->label),
@@ -52,7 +58,7 @@ class UpdateDateAttributeCommandFactory implements UpdateAttributeCommandFactory
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
             new DateFormat($data->parameters->format),
-            $data->groups,
+            $groups,
         );
     }
 }
