@@ -10,7 +10,6 @@ namespace Ergonode\Attribute\Infrastructure\Handler\Attribute;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Attribute\Domain\Command\Attribute\AbstractUpdateAttributeCommand;
-use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -31,15 +30,14 @@ abstract class AbstractUpdateAttributeCommandHandler
         $attribute->changePlaceholder($command->getPlaceholder());
         $attribute->changeScope($command->getScope());
 
-        foreach ($command->getGroups() as $group) {
-            $groupId = new AttributeGroupId($group);
+        foreach ($command->getGroups() as $groupId) {
             if (!$attribute->inGroup($groupId)) {
                 $attribute->addGroup($groupId);
             }
         }
 
         foreach ($attribute->getGroups() as $groupId) {
-            if (!\in_array($groupId->getValue(), $command->getGroups(), true)) {
+            if (!$command->hasGroup($groupId)) {
                 $attribute->removeGroup($groupId);
             }
         }

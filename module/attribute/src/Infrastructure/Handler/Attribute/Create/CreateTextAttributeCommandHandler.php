@@ -48,7 +48,7 @@ class CreateTextAttributeCommandHandler
         );
 
         foreach ($command->getGroups() as $group) {
-            $attribute->addGroup(new AttributeGroupId($group));
+            $attribute->addGroup($group);
         }
 
         $this->attributeRepository->save($attribute);

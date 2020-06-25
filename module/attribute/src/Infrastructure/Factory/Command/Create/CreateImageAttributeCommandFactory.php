@@ -17,6 +17,7 @@ use Ergonode\Attribute\Infrastructure\Factory\Command\CreateAttributeCommandFact
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -44,13 +45,18 @@ class CreateImageAttributeCommandFactory implements CreateAttributeCommandFactor
         /** @var AttributeFormModel $data */
         $data = $form->getData();
 
+        $groups = [];
+        foreach ($data->groups as $group) {
+            $groups[] = new AttributeGroupId($group);
+        }
+
         return new CreateImageAttributeCommand(
             new AttributeCode($data->code),
             new TranslatableString($data->label),
             new TranslatableString($data->hint),
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
-            $data->groups,
+            $groups,
         );
     }
 }

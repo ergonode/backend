@@ -10,22 +10,22 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute\Tests\Infrastructure\Factory\Command\Update;
 
 use Ergonode\Attribute\Application\Model\Attribute\AttributeFormModel;
+use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateNumericAttributeCommand;
+use Ergonode\Attribute\Infrastructure\Factory\Command\Update\UpdateNumericAttributeCommandFactory;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Symfony\Component\Form\FormInterface;
-use Ergonode\Attribute\Infrastructure\Factory\Command\Update\UpdateGalleryAttributeCommandFactory;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
-use Ergonode\Attribute\Domain\Command\Attribute\Update\UpdateGalleryAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\NumericAttribute;
 
 /**
  */
-class UpdateGalleryAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
+class UpdateNumericAttributeCommandFactoryTest extends AbstractUpdateAttributeCommandFactoryTest
 {
     /**
      */
     public function testSupported(): void
     {
-        $commandFactory = new UpdateGalleryAttributeCommandFactory();
-        $this->assertTrue($commandFactory->support(GalleryAttribute::TYPE));
+        $commandFactory = new UpdateNumericAttributeCommandFactory();
+        $this->assertTrue($commandFactory->support(NumericAttribute::TYPE));
         $this->assertFalse($commandFactory->support('Any other type'));
     }
 
@@ -38,9 +38,9 @@ class UpdateGalleryAttributeCommandFactoryTest extends AbstractUpdateAttributeCo
         $form = $this->createMock(FormInterface::class);
         $form->method('getData')->willReturn($data);
 
-        $commandFactory = new UpdateGalleryAttributeCommandFactory();
+        $commandFactory = new UpdateNumericAttributeCommandFactory();
 
-        /** @var UpdateGalleryAttributeCommand $result */
+        /** @var UpdateNumericAttributeCommand $result */
         $result = $commandFactory->create($id, $form);
 
         $this->assertAttributeFormModel($id, $data, $result);

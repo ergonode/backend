@@ -15,6 +15,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\UnitId;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -34,7 +35,7 @@ class UpdateUnitAttributeCommand extends AbstractUpdateAttributeCommand
      * @param TranslatableString $placeholder
      * @param AttributeScope     $scope
      * @param UnitId             $unitId
-     * @param array              $groups
+     * @param AttributeGroupId[] $groups
      */
     public function __construct(
         AttributeId $id,

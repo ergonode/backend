@@ -18,6 +18,7 @@ use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Money\Currency;
 use Symfony\Component\Form\FormInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeGroupId;
 
 /**
  */
@@ -45,6 +46,11 @@ class UpdatePriceAttributeCommandFactory implements UpdateAttributeCommandFactor
         /** @var PriceAttributeFormModel $data */
         $data = $form->getData();
 
+        $groups = [];
+        foreach ($data->groups as $group) {
+            $groups[] = new AttributeGroupId($group);
+        }
+
         return new UpdatePriceAttributeCommand(
             $id,
             new TranslatableString($data->label),
@@ -52,7 +58,7 @@ class UpdatePriceAttributeCommandFactory implements UpdateAttributeCommandFactor
             new TranslatableString($data->placeholder),
             new AttributeScope($data->scope),
             new Currency($data->parameters->currency),
-            $data->groups,
+            $groups,
         );
     }
 }
