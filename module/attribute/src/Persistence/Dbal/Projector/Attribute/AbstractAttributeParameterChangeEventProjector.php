@@ -49,7 +49,7 @@ abstract class AbstractAttributeParameterChangeEventProjector
      */
     protected function projection(AttributeId $attributeId, string $name, $value): void
     {
-        if (!empty($value)) {
+        if (null !== $value) {
             $this->connection->update(
                 self::TABLE_PARAMETER,
                 [
