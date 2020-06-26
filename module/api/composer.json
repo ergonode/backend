@@ -14,8 +14,8 @@
     "require": {
         "php": "^7.4",
         "doctrine/dbal": "^2.10",
-        "ergonode/core": "^0.8.0",
-        "ergonode/shared-kernel": "^0.8.0",
+        "ergonode/core": "^0.9.0",
+        "ergonode/shared-kernel": "^0.9.0",
         "jms/serializer": "^3.4",
         "nelmio/api-doc-bundle": "^3.6",
         "nelmio/cors-bundle": "^1.5 || ^2.0",
