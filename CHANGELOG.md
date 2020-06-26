@@ -5,6 +5,7 @@
 - feature [#574](https://github.com/ergonode/backend/issues/574) Refactoing: template id as product property  (rprzedzik)
 - experimental [#576](https://github.com/ergonode/backend/issues/576) Multimedia managment (rprzedzik)
 - fix [#585](https://github.com/ergonode/backend/issues/585) Workflow status changing error on product page (rprzedzik)
+- improvement [#374](https://github.com/ergonode/backend/issues/374) Export Profile (wfajczyk)
 
 ## CHANGELOG FOR 0.8.0
 - feature [#504](https://github.com/ergonode/backend/issues/504) Language inheritance (rprzedzik)
