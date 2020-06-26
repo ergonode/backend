@@ -33,6 +33,6 @@ class RoleProvider implements RoleProviderInterface
      */
     public function getRoles(): array
     {
-        $this->roleQuery->getDictionary();
+        return $this->roleQuery->getDictionary();
     }
 }

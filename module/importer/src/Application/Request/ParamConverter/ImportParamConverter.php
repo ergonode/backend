@@ -57,6 +57,8 @@ class ImportParamConverter implements ParamConverterInterface
         }
 
         $request->attributes->set($configuration->getName(), $entity);
+
+        return true;
     }
 
     /**

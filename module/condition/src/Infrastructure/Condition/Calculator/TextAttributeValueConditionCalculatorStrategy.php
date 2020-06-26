@@ -70,8 +70,8 @@ class TextAttributeValueConditionCalculatorStrategy implements ConditionCalculat
     }
 
     /**
-     * @param TranslatableString $value
-     * @param string             $expected
+     * @param array  $value
+     * @param string $expected
      *
      * @return bool
      */

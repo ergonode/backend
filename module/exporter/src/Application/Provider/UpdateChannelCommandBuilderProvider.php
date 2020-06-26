@@ -18,7 +18,7 @@ class UpdateChannelCommandBuilderProvider
     private array $builders;
 
     /**
-     * @param array|UpdateChannelCommandBuilderInterface ...$builders
+     * @param UpdateChannelCommandBuilderInterface ...$builders
      */
     public function __construct(UpdateChannelCommandBuilderInterface ...$builders)
     {

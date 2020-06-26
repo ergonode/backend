@@ -35,8 +35,6 @@ interface ExportProcessorInterface
      * @param AbstractExportProfile $profile
      * @param AbstractProduct       $product
      *
-     * @return mixed
-     *
      * @throws ExportException
      */
     public function process(ExportId $id, AbstractExportProfile $profile, AbstractProduct $product): void;

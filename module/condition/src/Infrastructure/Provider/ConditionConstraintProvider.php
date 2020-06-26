@@ -16,7 +16,7 @@ use Ergonode\Condition\Infrastructure\Condition\ConditionValidatorStrategyInterf
 class ConditionConstraintProvider
 {
     /**
-     * @var ConditionValidatorStrategyInterface ...$strategies
+     * @var ConditionValidatorStrategyInterface[] $strategies
      */
     private array $strategies;
 

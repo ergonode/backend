@@ -43,7 +43,7 @@ abstract class AbstractAttributeParameterChangeEventProjector
     /**
      * @param AttributeId $attributeId
      * @param string      $name
-     * @param             $value
+     * @param mixed       $value
      *
      * @throws DBALException
      */

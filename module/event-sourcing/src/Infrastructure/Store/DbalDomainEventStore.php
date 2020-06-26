@@ -82,8 +82,6 @@ class DbalDomainEventStore implements DomainEventStoreInterface
 
     /**
      * {@inheritDoc}
-     *
-     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function load(AggregateId $id, ?string $table = null): DomainEventStream
     {

@@ -29,7 +29,7 @@ abstract class AbstractDbalDataSet implements DataSetInterface
      */
     protected function buildFilters(QueryBuilder $query, FilterValueCollection $values, array $columns = []): void
     {
-        /** @var FilterValue $filter */
+        /** @var FilterValue[] $filters */
         foreach ($values as $name => $filters) {
             if (array_key_exists($name, $columns)) {
                 $columnFilter = $columns[$name]->getFilter();

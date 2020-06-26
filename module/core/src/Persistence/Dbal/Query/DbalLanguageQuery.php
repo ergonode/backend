@@ -299,11 +299,11 @@ class DbalLanguageQuery implements LanguageQueryInterface
     }
 
     /**
-     * @param $fields
+     * @param array $fields
      *
      * @return QueryBuilder
      */
-    private function getQuery($fields): QueryBuilder
+    private function getQuery(array $fields): QueryBuilder
     {
         return $this->connection->createQueryBuilder()
             ->select($fields)

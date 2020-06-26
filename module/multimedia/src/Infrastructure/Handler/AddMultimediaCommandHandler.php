@@ -52,8 +52,6 @@ class AddMultimediaCommandHandler
     /**
      * @param AddMultimediaCommand $command
      *
-     * @return mixed
-     *
      * @throws \Exception
      */
     public function __invoke(AddMultimediaCommand $command): void

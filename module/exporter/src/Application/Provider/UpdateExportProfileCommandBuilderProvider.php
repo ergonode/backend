@@ -18,7 +18,7 @@ class UpdateExportProfileCommandBuilderProvider
     private array $builders;
 
     /**
-     * @param array|UpdateExportProfileCommandBuilderInterface ...$builders
+     * @param UpdateExportProfileCommandBuilderInterface ...$builders
      */
     public function __construct(UpdateExportProfileCommandBuilderInterface ...$builders)
     {

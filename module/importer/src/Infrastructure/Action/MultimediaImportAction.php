@@ -111,10 +111,10 @@ class MultimediaImportAction implements ImportActionInterface
     }
 
     /**
-     * @param $dir
-     * @param $contents
+     * @param string $dir
+     * @param string $contents
      */
-    public function saveFile($dir, $contents): void
+    public function saveFile(string $dir, string $contents): void
     {
         $parts = explode('/', $dir);
         $file = array_pop($parts);

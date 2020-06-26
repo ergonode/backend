@@ -7,7 +7,6 @@
 
 namespace Ergonode\Attribute\Domain\Repository;
 
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\Attribute\Domain\Entity\AbstractOption;
 use Ergonode\SharedKernel\Domain\AggregateId;
 
@@ -18,7 +17,7 @@ interface OptionRepositoryInterface
     /**
      * @param AggregateId $id
      *
-     * @return AbstractAggregateRoot|AbstractOption
+     * @return AbstractOption|null
      */
     public function load(AggregateId $id): ?AbstractOption;
 

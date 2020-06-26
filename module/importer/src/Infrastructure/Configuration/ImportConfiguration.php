@@ -20,7 +20,7 @@ class ImportConfiguration
     private array $columns;
 
     /**
-     * @param array|ConfigurationColumnInterface ...$columns
+     * @param ConfigurationColumnInterface ...$columns
      */
     public function __construct(ConfigurationColumnInterface ...$columns)
     {
