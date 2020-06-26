@@ -42,7 +42,7 @@ class GroupedProductImportAction implements ImportActionInterface
     private CommandBusInterface $commandBus;
 
     /**
-     * @var ProductImportBuilderInterface ...$builders
+     * @var ProductImportBuilderInterface[] $builders
      */
     private array $builders;
 

@@ -118,7 +118,6 @@ class ImportUploadAction
         $form = $this->formFactory->create(UploadForm::class, $uploadModel);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadModel $data */
             $file = $this->uploadService->upload($uploadModel->upload);
             $command = new UploadFileCommand(
                 ImportId::generate(),

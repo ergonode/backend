@@ -11,12 +11,10 @@ namespace Ergonode\Editor\Persistence\Repository;
 
 use Ergonode\Editor\Domain\Entity\ProductDraft;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductDraftId;
-use Ergonode\Editor\Domain\Event\ProductDraftApplied;
 use Ergonode\Editor\Domain\Repository\ProductDraftRepositoryInterface;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
-use Ergonode\EventSourcing\Infrastructure\Stream\DomainEventStream;
 
 /**
  */
@@ -46,16 +44,14 @@ class DbalProductDraftRepository implements ProductDraftRepositoryInterface
      * @param ProductDraftId $id
      * @param bool           $draft
      *
-     * @return AbstractAggregateRoot
-     *
-     * @throws \ReflectionException
+     * @return ProductDraft
      */
-    public function load(ProductDraftId $id, bool $draft = false): AbstractAggregateRoot
+    public function load(ProductDraftId $id, bool $draft = false): ProductDraft
     {
         $eventStream = $this->eventStore->load($id);
 
         $class = new \ReflectionClass(ProductDraft::class);
-        /** @var AbstractAggregateRoot $aggregate */
+        /** @var ProductDraft $aggregate */
         $aggregate = $class->newInstanceWithoutConstructor();
         if (!$aggregate instanceof AbstractAggregateRoot) {
             throw new \LogicException(sprintf('Impossible to initialize "%s"', ProductDraft::class));
@@ -67,24 +63,11 @@ class DbalProductDraftRepository implements ProductDraftRepositoryInterface
     }
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param ProductDraft $aggregateRoot
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(ProductDraft $aggregateRoot): void
     {
         $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
-        }
-    }
-
-    /**
-     * @param AbstractAggregateRoot $aggregateRoot
-     */
-    public function remove(AbstractAggregateRoot $aggregateRoot)
-    {
-        $events = new DomainEventStream([new ProductDraftApplied($aggregateRoot->getId())]);
 
         $this->eventStore->append($aggregateRoot->getId(), $events);
         foreach ($events as $envelope) {

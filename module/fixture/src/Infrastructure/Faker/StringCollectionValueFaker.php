@@ -18,7 +18,7 @@ use Ergonode\Core\Domain\ValueObject\TranslatableString;
 class StringCollectionValueFaker extends BaseProvider
 {
     /**
-     * @param mixed $value
+     * @param TranslatableString $value
      *
      * @return StringCollectionValue
      */

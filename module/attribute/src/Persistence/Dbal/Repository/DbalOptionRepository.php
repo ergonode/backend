@@ -45,9 +45,7 @@ class DbalOptionRepository implements OptionRepositoryInterface
     /**
      * @param AggregateId $id
      *
-     * @return AbstractAggregateRoot|AbstractOption
-     *
-     * @throws \ReflectionException
+     * @return AbstractOption|null
      */
     public function load(AggregateId $id): ?AbstractOption
     {
@@ -55,7 +53,7 @@ class DbalOptionRepository implements OptionRepositoryInterface
 
         if (\count($eventStream) > 0) {
             $class = new \ReflectionClass(SimpleOption::class);
-            /** @var AbstractAggregateRoot $aggregate */
+            /** @var AbstractOption $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
             if (!$aggregate instanceof AbstractAggregateRoot) {
                 throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));

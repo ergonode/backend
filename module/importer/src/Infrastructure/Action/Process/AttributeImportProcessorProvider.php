@@ -18,7 +18,7 @@ class AttributeImportProcessorProvider
     private array $processors;
 
     /**
-     * @param array|AttributeImportProcessorStrategyInterface ...$processors
+     * @param AttributeImportProcessorStrategyInterface ...$processors
      */
     public function __construct(AttributeImportProcessorStrategyInterface ...$processors)
     {

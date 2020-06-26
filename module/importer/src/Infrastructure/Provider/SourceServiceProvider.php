@@ -13,7 +13,7 @@ namespace Ergonode\Importer\Infrastructure\Provider;
 class SourceServiceProvider
 {
     /**
-     * @var ImportSourceInterface ...$sources
+     * @var ImportSourceInterface[] $sources
      */
     private array $sources;
 

@@ -99,7 +99,6 @@ class TemplateCreateAction
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var TemplateFormModel $data */
             $command = $this->commandFactory->getCreateTemplateCommand($form->getData());
             $this->commandBus->dispatch($command);
 

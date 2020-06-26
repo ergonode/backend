@@ -36,7 +36,7 @@ class StatusDeletedEvent extends AbstractDeleteEvent
     /**
      * @return StatusId|AggregateId
      */
-    public function getAggregateId(): StatusId
+    public function getAggregateId(): AggregateId
     {
         return $this->id;
     }

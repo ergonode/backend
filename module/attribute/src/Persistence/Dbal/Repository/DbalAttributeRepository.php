@@ -17,6 +17,7 @@ use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
 use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
+use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 
 /**
  */
@@ -45,11 +46,11 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
     /**
      * {@inheritDoc}
      *
-     * @return AbstractAggregateRoot
+     * @return AbstractAttribute
      *
      * @throws \ReflectionException
      */
-    public function load(AttributeId $id): ?AbstractAggregateRoot
+    public function load(AttributeId $id): ?AbstractAttribute
     {
         $eventStream = $this->eventStore->load($id);
 
@@ -60,7 +61,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
             $event = $envelope->getEvent();
 
             $class = new \ReflectionClass($event->getClass());
-            /** @var AbstractAggregateRoot $aggregate */
+            /** @var AbstractAttribute $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
             if (!$aggregate instanceof AbstractAggregateRoot) {
                 throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));
@@ -77,7 +78,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void
+    public function save(AbstractAttribute $aggregateRoot): void
     {
         $events = $aggregateRoot->popEvents();
 
@@ -92,7 +93,7 @@ class DbalAttributeRepository implements AttributeRepositoryInterface
      *
      * @throws \Exception
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void
+    public function delete(AbstractAttribute $aggregateRoot): void
     {
         $aggregateRoot->apply(new AttributeDeletedEvent($aggregateRoot->getId()));
         $this->save($aggregateRoot);

@@ -15,7 +15,7 @@ use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
 class ExportProcessorProvider
 {
     /**
-     * @var ExportProcessorInterface ...$processors
+     * @var ExportProcessorInterface[] $processors
      */
     private array $processors;
 

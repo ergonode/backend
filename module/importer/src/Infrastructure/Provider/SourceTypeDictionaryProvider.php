@@ -21,13 +21,13 @@ class SourceTypeDictionaryProvider
     private TranslatorInterface $translator;
 
     /**
-     * @var ImportSourceInterface ...$sources
+     * @var ImportSourceInterface[] $sources
      */
     private array $sources;
 
     /**
-     * @param TranslatorInterface         $translator
-     * @param array|ImportSourceInterface ...$sources
+     * @param TranslatorInterface   $translator
+     * @param ImportSourceInterface ...$sources
      */
     public function __construct(TranslatorInterface $translator, ImportSourceInterface ...$sources)
     {

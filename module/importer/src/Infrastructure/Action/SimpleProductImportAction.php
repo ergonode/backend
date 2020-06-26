@@ -39,14 +39,14 @@ class SimpleProductImportAction implements ImportActionInterface
     private CommandBusInterface $commandBus;
 
     /**
-     * @var ProductImportBuilderInterface ...$builders
+     * @var ProductImportBuilderInterface[] $builders
      */
     private array $builders;
 
     /**
-     * @param ProductQueryInterface                 $productQuery
-     * @param CommandBusInterface                   $commandBus
-     * @param array|ProductImportBuilderInterface[] $builders
+     * @param ProductQueryInterface           $productQuery
+     * @param CommandBusInterface             $commandBus
+     * @param ProductImportBuilderInterface[] $builders
      */
     public function __construct(
         ProductQueryInterface $productQuery,

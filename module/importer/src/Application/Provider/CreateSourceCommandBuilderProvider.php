@@ -18,7 +18,7 @@ class CreateSourceCommandBuilderProvider
     private array $builders;
 
     /**
-     * @param array|CreateSourceCommandBuilderInterface ...$builders
+     * @param CreateSourceCommandBuilderInterface ...$builders
      */
     public function __construct(CreateSourceCommandBuilderInterface ...$builders)
     {

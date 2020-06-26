@@ -8,7 +8,6 @@ namespace Ergonode\Attribute\Domain\Repository;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
 
 /**
  */
@@ -17,17 +16,17 @@ interface AttributeRepositoryInterface
     /**
      * @param AttributeId $id
      *
-     * @return AbstractAggregateRoot|AbstractAttribute
+     * @return AbstractAttribute
      */
-    public function load(AttributeId $id): ?AbstractAggregateRoot;
+    public function load(AttributeId $id): ?AbstractAttribute;
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param AbstractAttribute $aggregateRoot
      */
-    public function save(AbstractAggregateRoot $aggregateRoot): void;
+    public function save(AbstractAttribute $aggregateRoot): void;
 
     /**
-     * @param AbstractAggregateRoot $aggregateRoot
+     * @param AbstractAttribute $aggregateRoot
      */
-    public function delete(AbstractAggregateRoot $aggregateRoot): void;
+    public function delete(AbstractAttribute $aggregateRoot): void;
 }

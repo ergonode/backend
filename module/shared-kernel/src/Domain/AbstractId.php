@@ -27,7 +27,7 @@ abstract class AbstractId
     /**
      * @param string $value
      */
-    public function __construct(string $value)
+    final public function __construct(string $value)
     {
         if (!Uuid::isValid($value)) {
             throw new \InvalidArgumentException(sprintf(

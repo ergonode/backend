@@ -18,7 +18,7 @@ class CreateExportProfileCommandBuilderProvider
     private array $builders;
 
     /**
-     * @param array|CreateExportProfileCommandBuilderInterface ...$builders
+     * @param CreateExportProfileCommandBuilderInterface ...$builders
      */
     public function __construct(CreateExportProfileCommandBuilderInterface ...$builders)
     {

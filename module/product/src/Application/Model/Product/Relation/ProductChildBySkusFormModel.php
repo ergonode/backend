@@ -18,7 +18,7 @@ use Ergonode\Product\Infrastructure\Validator\ProductSkuExists;
 class ProductChildBySkusFormModel
 {
     /**
-     * @var string[]|null
+     * @var string[]
      *
      * @Assert\All({
      *     @Assert\NotBlank(),

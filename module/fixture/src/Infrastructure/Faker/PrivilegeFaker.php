@@ -17,7 +17,7 @@ use Faker\Provider\Base as BaseProvider;
 class PrivilegeFaker extends BaseProvider
 {
     /**
-     * @param string|null $code
+     * @param string $code
      *
      * @return Privilege
      *

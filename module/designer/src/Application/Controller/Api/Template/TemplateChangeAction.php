@@ -113,7 +113,6 @@ class TemplateChangeAction
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var TemplateFormModel $data */
             $command = $this->commandFactory->getUpdateTemplateCommand($template->getId(), $form->getData());
             $this->commandBus->dispatch($command);
 

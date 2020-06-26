@@ -57,6 +57,8 @@ class SourceParamConverter implements ParamConverterInterface
         }
 
         $request->attributes->set($configuration->getName(), $entity);
+
+        return true;
     }
 
     /**
