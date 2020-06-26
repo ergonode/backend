@@ -24,4 +24,11 @@ interface ProductChildrenQueryInterface
      * @return DataSetInterface
      */
     public function getDataSet(ProductId $productId, Language $language): DataSetInterface;
+
+    /**
+     * @param ProductId $id
+     *
+     * @return array
+     */
+    public function findProductIdByProductChildrenId(ProductId $id): array;
 }
