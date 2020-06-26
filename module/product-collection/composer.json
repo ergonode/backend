@@ -13,12 +13,12 @@
     },
     "require": {
         "php": "^7.4",
-        "ergonode/api": "^0.8.0",
-        "ergonode/product": "^0.8.0",
-        "ergonode/core": "^0.8.0",
-        "ergonode/es": "^0.8.0",
-        "ergonode/segment": "^0.8.0",
-        "ergonode/shared-kernel": "^0.8.0"
+        "ergonode/api": "^0.9.0",
+        "ergonode/product": "^0.9.0",
+        "ergonode/core": "^0.9.0",
+        "ergonode/es": "^0.9.0",
+        "ergonode/segment": "^0.9.0",
+        "ergonode/shared-kernel": "^0.9.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9"
