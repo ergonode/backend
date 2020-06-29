@@ -91,11 +91,12 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
     public function getDataSet(): DataSetInterface
     {
         $qb = $this->getQuery();
-        $qb->select('*')
-            ->addSelect('(size / 1024)::NUMERIC(10,2) as size')
-            ->addSelect('id AS image')
-            ->addSelect('0 AS relations')
-            ->addSelect('\'2000-01-01 00:00:00\' as created_at');
+        $qb->select('m.*')
+            ->addSelect('(m.size / 1024)::NUMERIC(10,2) AS size')
+            ->addSelect('m.id AS image')
+            ->addSelect('(SELECT count(*) FROM product_value pv 
+                                JOIN Value_translation vt ON vt.value_id = pv.value_id 
+                                WHERE vt.value = m.id::TEXT) AS relations');
 
         return new DbalDataSet($qb);
     }
@@ -108,6 +109,6 @@ class DbalMultimediaQuery implements MultimediaQueryInterface
         return $this
             ->connection
             ->createQueryBuilder()
-            ->from(self::TABLE);
+            ->from(self::TABLE, 'm');
     }
 }

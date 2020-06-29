@@ -51,6 +51,7 @@ class MultimediaCreatedEventProjector
                 'size' => $event->getSize(),
                 'mime' => $event->getMime(),
                 'hash' => $event->getHash(),
+                'created_at' => (new \DateTime())->format('Y-m-d H:i:s'),
             ]
         );
     }
