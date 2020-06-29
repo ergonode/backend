@@ -55,8 +55,8 @@ Feature: Draft edit and inheritance value for product draft with file attribute
       """
     Then the response status code should be 204
 
-  Scenario: Create gallery attribute
-    Given remember param "attribute_code" with value "gallery_@@random_code@@"
+  Scenario: Create file attribute
+    Given remember param "attribute_code" with value "file_@@random_code@@"
     When I send a POST request to "/api/v1/en/attributes" with body:
       """
       {
@@ -108,7 +108,7 @@ Feature: Draft edit and inheritance value for product draft with file attribute
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product gallery value in "en" language
+  Scenario: Edit product file value in "en" language
     When I send a PUT request to "api/v1/en/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
@@ -117,7 +117,7 @@ Feature: Draft edit and inheritance value for product draft with file attribute
       """
     Then the response status code should be 200
 
-  Scenario: Edit product gallery value in "pl" language
+  Scenario: Edit product file value in "pl" language
     When I send a PUT request to "api/v1/pl/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
@@ -144,7 +144,7 @@ Feature: Draft edit and inheritance value for product draft with file attribute
     And the JSON nodes should be equal to:
       | attributes.@attribute_code@[0] | @multimedia_1_id@ |
 
-  Scenario: Edit product gallery value in "de" language
+  Scenario: Edit product file value in "de" language
     When I send a PUT request to "api/v1/de/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
