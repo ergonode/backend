@@ -9,13 +9,13 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Infrastructure\Handler\Attribute\Create;
 
-use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateGalleryAttributeCommand;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
+use Ergonode\Attribute\Domain\Command\Attribute\Create\CreateFileAttributeCommand;
+use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
 /**
  */
-class CreateGalleryAttributeCommandHandler
+class CreateFileAttributeCommandHandler
 {
     /**
      * @var AttributeRepositoryInterface
@@ -31,13 +31,13 @@ class CreateGalleryAttributeCommandHandler
     }
 
     /**
-     * @param CreateGalleryAttributeCommand $command
+     * @param CreateFileAttributeCommand $command
      *
      * @throws \Exception
      */
-    public function __invoke(CreateGalleryAttributeCommand $command): void
+    public function __invoke(CreateFileAttributeCommand $command): void
     {
-        $attribute = new GalleryAttribute(
+        $attribute = new FileAttribute(
             $command->getId(),
             $command->getCode(),
             $command->getLabel(),

@@ -9,10 +9,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Attribute\Domain\Entity\Attribute;
 
-use Ergonode\Attribute\Domain\Entity\AttributeInterface;
-
 /**
  */
-class TextareaAttribute extends AbstractTextareaAttribute implements AttributeInterface
+class TextareaAttribute extends AbstractTextareaAttribute
 {
 }
