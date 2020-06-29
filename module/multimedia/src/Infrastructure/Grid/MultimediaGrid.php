@@ -16,13 +16,13 @@ use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Ergonode\Grid\Filter\MultiSelectFilter;
 use Ergonode\Multimedia\Infrastructure\Provider\MultimediaExtensionProvider;
 use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Filter\NumericFilter;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  */

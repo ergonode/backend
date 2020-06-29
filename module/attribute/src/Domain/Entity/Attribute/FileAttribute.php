@@ -13,12 +13,12 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  */
-class MultiSelectAttribute extends AbstractOptionAttribute
+class FileAttribute extends AbstractCollectionAttribute
 {
-    public const TYPE = 'MULTI_SELECT';
+    public const TYPE = 'FILE';
 
     /**
-     * @JMS\VirtualProperty();
+     * @JMS\virtualProperty();
      * @JMS\SerializedName("type")
      *
      * @return string
