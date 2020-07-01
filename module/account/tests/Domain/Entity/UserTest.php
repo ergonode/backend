@@ -45,9 +45,9 @@ class UserTest extends TestCase
     private $email;
 
     /**
-     * @var MultimediaId|MockObject
+     * @var string
      */
-    private $multimediaId;
+    private string $filename;
 
     /**
      * @var Language|MockObject
@@ -67,7 +67,7 @@ class UserTest extends TestCase
     /**
      * @var array
      */
-    private $languagePrivilegesCollection;
+    private array $languagePrivilegesCollection;
 
     /**
      */
@@ -79,7 +79,7 @@ class UserTest extends TestCase
         $this->email = $this->createMock(Email::class);
         $this->password = $this->createMock(Password::class);
         $this->language = $this->createMock(Language::class);
-        $this->multimediaId = $this->createMock(MultimediaId::class);
+        $this->filename = 'filename.jpg';
         $this->roleId = $this->createMock(RoleId::class);
         $this->languagePrivilegesCollection = [];
     }
@@ -97,14 +97,14 @@ class UserTest extends TestCase
             $this->password,
             $this->roleId,
             $this->languagePrivilegesCollection,
-            $this->multimediaId
+            $this->filename
         );
         $this->assertEquals($this->userId, $user->getId());
         $this->assertEquals($this->firstName, $user->getFirstName());
         $this->assertEquals($this->lastName, $user->getLastName());
         $this->assertEquals($this->email, $user->getEmail());
         $this->assertEquals($this->language, $user->getLanguage());
-        $this->assertEquals($this->multimediaId, $user->getAvatarId());
+        $this->assertEquals($this->filename, $user->getAvatarFilename());
         $this->assertEquals($this->roleId, $user->getRoleId());
         $this->assertEquals($this->languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
     }
@@ -118,8 +118,7 @@ class UserTest extends TestCase
         /** @var Language|MockObject $language */
         $language = $this->createMock(Language::class);
         $language->method('isEqual')->willReturn(false);
-        /** @var MultimediaId|MockObject $multimediaId */
-        $multimediaId = $this->createMock(MultimediaId::class);
+        $multimediaId = 'filename.jpg';
         /** @var Password|MockObject $password */
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
@@ -138,7 +137,7 @@ class UserTest extends TestCase
             $this->password,
             $this->roleId,
             $this->languagePrivilegesCollection,
-            $this->multimediaId
+            $this->filename
         );
         $user->changeFirstName($firstName);
         $user->changeLastName($lastName);
@@ -150,7 +149,7 @@ class UserTest extends TestCase
         $this->assertEquals($firstName, $user->getFirstName());
         $this->assertEquals($lastName, $user->getLastName());
         $this->assertEquals($language, $user->getLanguage());
-        $this->assertEquals($multimediaId, $user->getAvatarId());
+        $this->assertEquals($multimediaId, $user->getAvatarFilename());
         $this->assertEquals($roleId, $user->getRoleId());
         $this->assertEquals($languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
         $this->assertTrue($user->hasReadLanguagePrivilege(new Language('en')));
