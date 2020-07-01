@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Api\Application\Response;
 
-use Ergonode\Multimedia\Domain\Entity\Multimedia;
+use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -18,17 +18,19 @@ class FileContentResponse extends AbstractResponse
 {
 
     /**
-     * @param            $content
-     * @param Multimedia $multimedia
+     * @param string                     $filename
+     * @param MultimediaStorageInterface $storage
      */
-    public function __construct($content, Multimedia $multimedia)
+    public function __construct(string $filename, MultimediaStorageInterface $storage)
     {
+        $info = $storage->info($filename);
+
         $headers = [
             'Cache-Control' => 'private',
-            'Content-type' => $multimedia->getMime(),
-            'Content-Disposition' => 'attachment; filename="'.basename($multimedia->getFileName()).'";',
-            'Content-length' => $multimedia->getSize(),
+            'Content-type' => $info['mime'],
+            'Content-Disposition' => 'attachment; filename="'.basename($filename).'";',
+            'Content-length' => $info['size'],
         ];
-        parent::__construct($content, Response::HTTP_OK, $headers);
+        parent::__construct($storage->read($filename), Response::HTTP_OK, $headers);
     }
 }

@@ -72,8 +72,6 @@ class GetMultimediaAction
      */
     public function __invoke(Multimedia $multimedia): Response
     {
-        $content = $this->storage->read($multimedia->getFileName());
-
-        return new FileContentResponse($content, $multimedia);
+        return new FileContentResponse($multimedia->getFileName(), $this->storage);
     }
 }

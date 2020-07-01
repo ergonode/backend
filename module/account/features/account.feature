@@ -11,7 +11,7 @@ Feature: Account module
     And the JSON node last_name should exist
     And the JSON node email should exist
     And the JSON node language should exist
-    And the JSON node avatar_id should exist
+    And the JSON node avatar_filename should exist
     And the JSON node role should exist
     And the JSON node privileges should exist
     And the JSON node language_privileges should exist
@@ -1418,4 +1418,50 @@ Feature: Account module
     When I send a GET request to "/api/v1/en/accounts"
     Then the response status code should be 401
 
-  # TODO Check user avatar change action with correct and incorrect file
+  Scenario: Upload avatar image
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en/accounts/@user@/avatar" with params:
+      | key    | value                      |
+      | upload | @multimedia-test-image.png |
+    Then the response status code should be 204
+
+  Scenario: Upload new avatar image with unsupported extension
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en/accounts/@user@/avatar" with params:
+      | key    | value                      |
+      | upload | @multimedia-test-image.abc |
+    Then the response status code should be 400
+
+  Scenario: Upload new avatar image without uploaded file
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en/accounts/@user@/avatar"
+    Then the response status code should be 400
+
+  Scenario: Upload new avatar with empty file
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    When I send a PUT request to "/api/v1/en/accounts/@user@/avatar" with params:
+      | key    | value                            |
+      | upload | @multimedia-test-empty-image.png |
+    Then the response status code should be 400
+
+  Scenario: Download uploaded avatar image
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    When I send a GET request to "/api/v1/en/accounts/@user@/avatar"
+    Then the response status code should be 200
+
+  Scenario: Download uploaded avatar image with invalid uuid
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    When I send a GET request to "/api/v1/en/accounts/aaa-aa-aaa/avatar"
+    Then the response status code should be 405
+
+  Scenario: Download uploaded avatar image with with not existing uuid
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I send a GET request to "api/v1/accounts/01730e8d-fb8d-5afe-aaaa-b621bacbbaaa/avatar"
+    Then the response status code should be 404

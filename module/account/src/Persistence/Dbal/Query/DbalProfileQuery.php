@@ -66,7 +66,7 @@ class DbalProfileQuery implements ProfileQueryInterface
                  u.last_name, 
                  u.username AS email,
                  u.language,
-                 u.avatar_id,
+                 u.avatar_filename,
                  u.language_privileges_collection AS language_privileges,
                  r.name AS role, 
                  r.privileges'

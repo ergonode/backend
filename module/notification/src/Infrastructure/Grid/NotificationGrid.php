@@ -45,7 +45,7 @@ class NotificationGrid extends AbstractGrid
         $column = new TextColumn('author', 'Author', new TextFilter());
         $this->addColumn('author', $column);
 
-        $column = new ImageColumn('avatar_id');
-        $this->addColumn('avatar_id', $column);
+        $column = new ImageColumn('avatar_filename');
+        $this->addColumn('avatar_filename', $column);
     }
 }

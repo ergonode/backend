@@ -23,7 +23,6 @@ use Ergonode\Account\Domain\ValueObject\LanguagePrivileges;
 use Ergonode\Account\Domain\ValueObject\Password;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\SharedKernel\Domain\Aggregate\MultimediaId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\SharedKernel\Domain\Aggregate\UserId;
 use Ergonode\SharedKernel\Domain\ValueObject\Email;
@@ -64,9 +63,9 @@ class User extends AbstractAggregateRoot implements UserInterface
     private Language $language;
 
     /**
-     * @var MultimediaId|null
+     * @var string|null
      */
-    private ?MultimediaId $avatarId;
+    private ?string $avatarFilename;
 
     /**
      * @var RoleId
@@ -92,7 +91,7 @@ class User extends AbstractAggregateRoot implements UserInterface
      * @param Password             $password
      * @param RoleId               $roleId
      * @param LanguagePrivileges[] $languagePrivilegesCollection
-     * @param MultimediaId|null    $avatarId
+     * @param string|null          $avatarFilename
      * @param bool                 $isActive
      *
      */
@@ -105,7 +104,7 @@ class User extends AbstractAggregateRoot implements UserInterface
         Password $password,
         RoleId $roleId,
         array $languagePrivilegesCollection,
-        ?MultimediaId $avatarId = null,
+        ?string $avatarFilename = null,
         bool $isActive = true
     ) {
         $this->apply(
@@ -119,7 +118,7 @@ class User extends AbstractAggregateRoot implements UserInterface
                 $roleId,
                 $languagePrivilegesCollection,
                 $isActive,
-                $avatarId
+                $avatarFilename
             )
         );
     }
@@ -197,11 +196,11 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @return MultimediaId|null
+     * @return string|null
      */
-    public function getAvatarId(): ?MultimediaId
+    public function getAvatarFilename(): ?string
     {
-        return $this->avatarId;
+        return $this->avatarFilename;
     }
 
     /**
@@ -290,13 +289,13 @@ class User extends AbstractAggregateRoot implements UserInterface
     }
 
     /**
-     * @param MultimediaId|null $avatarId
+     * @param string|null $avatarFilename
      *
      * @throws \Exception
      */
-    public function changeAvatar(MultimediaId $avatarId = null): void
+    public function changeAvatar(string $avatarFilename = null): void
     {
-        $this->apply(new UserAvatarChangedEvent($this->id, $avatarId));
+        $this->apply(new UserAvatarChangedEvent($this->id, $avatarFilename));
     }
 
     /**
@@ -394,7 +393,7 @@ class User extends AbstractAggregateRoot implements UserInterface
         $this->email = $event->getEmail();
         $this->language = $event->getLanguage();
         $this->password = $event->getPassword();
-        $this->avatarId = $event->getAvatarId();
+        $this->avatarFilename = $event->getAvatarFilename();
         $this->roleId = $event->getRoleId();
         $this->languagePrivilegesCollection = $event->getLanguagePrivilegesCollection();
         $this->isActive = $event->isActive();
@@ -405,7 +404,7 @@ class User extends AbstractAggregateRoot implements UserInterface
      */
     protected function applyUserAvatarChangedEvent(UserAvatarChangedEvent $event): void
     {
-        $this->avatarId = $event->getAvatarId();
+        $this->avatarFilename = $event->getAvatarFilename();
     }
 
     /**
