@@ -1458,7 +1458,7 @@ Feature: Account module
     Given I am Authenticated as "test@ergonode.com"
     And I add "Content-Type" header equal to "application/json"
     When I send a GET request to "/api/v1/en/accounts/aaa-aa-aaa/avatar"
-    Then the response status code should be 405
+    Then the response status code should be 404
 
   Scenario: Download uploaded avatar image with with not existing uuid
     Given I am Authenticated as "test@ergonode.com"
