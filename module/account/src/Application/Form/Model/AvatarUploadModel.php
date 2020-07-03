@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Application\Form\Model;
 
-use Ergonode\Account\Application\Validator\Constraints\AvatarExtensionSupported;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -20,11 +19,13 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class AvatarUploadModel
 {
     /**
-     * @Assert\File(maxSize="100M")
+     * @Assert\File(
+     *     maxSize="5M",
+     *     mimeTypes={"image/png", "image/jpg", "image/jpeg", "image/gif"},
+     *     mimeTypesMessage="Please upload a valid image (png, gif, jpg, jpeg)"
+     * )
      *
      * @Vich\UploadableField(mapping="attachment", fileNameProperty="fileName", size="fileSize")
-     *
-     * @AvatarExtensionSupported()
      *
      * @var null|UploadedFile
      */

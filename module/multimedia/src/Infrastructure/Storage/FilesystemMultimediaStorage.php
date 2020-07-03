@@ -15,7 +15,7 @@ use League\Flysystem\FileExistsException;
 
 /**
  */
-class FilesystemMultimediaStorage implements MultimediaStorageInterface
+class FilesystemMultimediaStorage implements ResourceStorageInterface
 {
     /**
      * @var FilesystemInterface

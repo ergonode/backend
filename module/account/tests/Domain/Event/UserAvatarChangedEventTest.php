@@ -24,11 +24,11 @@ class UserAvatarChangedEventTest extends TestCase
     {
         /** @var UserId|MockObject $id */
         $id = $this->createMock(UserId::class);
-        $multimediaId = 'filename.jpg';
+        $avatarFilename = 'filename.jpg';
 
-        $event = new UserAvatarChangedEvent($id, $multimediaId);
+        $event = new UserAvatarChangedEvent($id, $avatarFilename);
 
         $this->assertEquals($id, $event->getAggregateId());
-        $this->assertEquals($multimediaId, $event->getAvatarFilename());
+        $this->assertEquals($avatarFilename, $event->getAvatarFilename());
     }
 }

@@ -13,7 +13,7 @@ use Ergonode\Multimedia\Domain\Command\AddMultimediaCommand;
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
+use Ergonode\Multimedia\Infrastructure\Storage\ResourceStorageInterface;
 
 /**
  */
@@ -30,19 +30,19 @@ class AddMultimediaCommandHandler
     private MultimediaRepositoryInterface $repository;
 
     /**
-     * @var MultimediaStorageInterface
+     * @var ResourceStorageInterface
      */
-    private MultimediaStorageInterface $storage;
+    private ResourceStorageInterface $storage;
 
     /**
      * @param HashCalculationServiceInterface $hashService
      * @param MultimediaRepositoryInterface   $repository
-     * @param MultimediaStorageInterface      $storage
+     * @param ResourceStorageInterface        $storage
      */
     public function __construct(
         HashCalculationServiceInterface $hashService,
         MultimediaRepositoryInterface $repository,
-        MultimediaStorageInterface $storage
+        ResourceStorageInterface $storage
     ) {
         $this->hashService = $hashService;
         $this->repository = $repository;

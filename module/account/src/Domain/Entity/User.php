@@ -63,11 +63,6 @@ class User extends AbstractAggregateRoot implements UserInterface
     private Language $language;
 
     /**
-     * @var string|null
-     */
-    private ?string $avatarFilename;
-
-    /**
      * @var RoleId
      */
     private RoleId $roleId;
@@ -91,7 +86,6 @@ class User extends AbstractAggregateRoot implements UserInterface
      * @param Password             $password
      * @param RoleId               $roleId
      * @param LanguagePrivileges[] $languagePrivilegesCollection
-     * @param string|null          $avatarFilename
      * @param bool                 $isActive
      *
      */
@@ -104,7 +98,6 @@ class User extends AbstractAggregateRoot implements UserInterface
         Password $password,
         RoleId $roleId,
         array $languagePrivilegesCollection,
-        ?string $avatarFilename = null,
         bool $isActive = true
     ) {
         $this->apply(
@@ -118,7 +111,6 @@ class User extends AbstractAggregateRoot implements UserInterface
                 $roleId,
                 $languagePrivilegesCollection,
                 $isActive,
-                $avatarFilename
             )
         );
     }
@@ -193,14 +185,6 @@ class User extends AbstractAggregateRoot implements UserInterface
     public function getLanguagePrivilegesCollection(): array
     {
         return $this->languagePrivilegesCollection;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAvatarFilename(): ?string
-    {
-        return $this->avatarFilename;
     }
 
     /**
@@ -393,18 +377,9 @@ class User extends AbstractAggregateRoot implements UserInterface
         $this->email = $event->getEmail();
         $this->language = $event->getLanguage();
         $this->password = $event->getPassword();
-        $this->avatarFilename = $event->getAvatarFilename();
         $this->roleId = $event->getRoleId();
         $this->languagePrivilegesCollection = $event->getLanguagePrivilegesCollection();
         $this->isActive = $event->isActive();
-    }
-
-    /**
-     * @param UserAvatarChangedEvent $event
-     */
-    protected function applyUserAvatarChangedEvent(UserAvatarChangedEvent $event): void
-    {
-        $this->avatarFilename = $event->getAvatarFilename();
     }
 
     /**

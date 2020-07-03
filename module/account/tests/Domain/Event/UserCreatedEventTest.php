@@ -34,7 +34,7 @@ class UserCreatedEventTest extends TestCase
         /** @var Language|MockObject $language */
         $language = $this->createMock(Language::class);
         $language->method('isEqual')->willReturn(false);
-        $multimediaId = 'filename.jpg';
+        $avatarFilename = 'filename.jpg';
         /** @var Password|MockObject $password */
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
@@ -51,14 +51,14 @@ class UserCreatedEventTest extends TestCase
             $roleId,
             $languagePrivilegesCollection,
             true,
-            $multimediaId
+            $avatarFilename
         );
 
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($firstName, $event->getFirstName());
         $this->assertEquals($lastName, $event->getLastName());
         $this->assertEquals($language, $event->getLanguage());
-        $this->assertEquals($multimediaId, $event->getAvatarFilename());
+        $this->assertEquals($avatarFilename, $event->getAvatarFilename());
         $this->assertEquals($roleId, $event->getRoleId());
         $this->assertEquals($languagePrivilegesCollection, $event->getLanguagePrivilegesCollection());
         $this->assertEquals($email, $event->getEmail());

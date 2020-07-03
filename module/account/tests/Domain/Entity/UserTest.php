@@ -79,7 +79,6 @@ class UserTest extends TestCase
         $this->email = $this->createMock(Email::class);
         $this->password = $this->createMock(Password::class);
         $this->language = $this->createMock(Language::class);
-        $this->filename = 'filename.jpg';
         $this->roleId = $this->createMock(RoleId::class);
         $this->languagePrivilegesCollection = [];
     }
@@ -97,14 +96,12 @@ class UserTest extends TestCase
             $this->password,
             $this->roleId,
             $this->languagePrivilegesCollection,
-            $this->filename
         );
         $this->assertEquals($this->userId, $user->getId());
         $this->assertEquals($this->firstName, $user->getFirstName());
         $this->assertEquals($this->lastName, $user->getLastName());
         $this->assertEquals($this->email, $user->getEmail());
         $this->assertEquals($this->language, $user->getLanguage());
-        $this->assertEquals($this->filename, $user->getAvatarFilename());
         $this->assertEquals($this->roleId, $user->getRoleId());
         $this->assertEquals($this->languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
     }
@@ -118,11 +115,11 @@ class UserTest extends TestCase
         /** @var Language|MockObject $language */
         $language = $this->createMock(Language::class);
         $language->method('isEqual')->willReturn(false);
-        $multimediaId = 'filename.jpg';
         /** @var Password|MockObject $password */
         $password = $this->createMock(Password::class);
         /** @var RoleId|MockObject $roleId */
         $roleId = $this->createMock(RoleId::class);
+        $avatarFilename = 'filename.jpg';
         $languagePrivileges = $this->createMock(LanguagePrivileges::class);
         $languagePrivileges->method('isReadable')->willReturn(true);
         $languagePrivileges->method('isEditable')->willReturn(false);
@@ -137,19 +134,17 @@ class UserTest extends TestCase
             $this->password,
             $this->roleId,
             $this->languagePrivilegesCollection,
-            $this->filename
         );
         $user->changeFirstName($firstName);
         $user->changeLastName($lastName);
         $user->changeLanguage($language);
-        $user->changeAvatar($multimediaId);
+        $user->changeAvatar($avatarFilename);
         $user->changePassword($password);
         $user->changeRole($roleId);
         $user->changeLanguagePrivilegesCollection($languagePrivilegesCollection);
         $this->assertEquals($firstName, $user->getFirstName());
         $this->assertEquals($lastName, $user->getLastName());
         $this->assertEquals($language, $user->getLanguage());
-        $this->assertEquals($multimediaId, $user->getAvatarFilename());
         $this->assertEquals($roleId, $user->getRoleId());
         $this->assertEquals($languagePrivilegesCollection, $user->getLanguagePrivilegesCollection());
         $this->assertTrue($user->hasReadLanguagePrivilege(new Language('en')));

@@ -9,14 +9,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\Account\Infrastructure\Storage;
 
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
+use Ergonode\Multimedia\Infrastructure\Storage\ResourceStorageInterface;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 
 /**
  */
-class FilesystemAvatarStorage implements MultimediaStorageInterface
+class FilesystemAvatarStorage implements ResourceStorageInterface
 {
     /**
      * @var FilesystemInterface
@@ -90,5 +90,18 @@ class FilesystemAvatarStorage implements MultimediaStorageInterface
     public function has(string $filename): bool
     {
         return $this->storage->has($filename);
+    }
+
+    /**
+     * @param string $path
+     * @param        $contents
+     *
+     * @return bool
+     *
+     * @throws FileNotFoundException
+     */
+    public function update(string $path, $contents): bool
+    {
+        return $this->storage->update($path, $contents);
     }
 }

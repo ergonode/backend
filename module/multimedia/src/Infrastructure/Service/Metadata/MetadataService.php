@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Multimedia\Infrastructure\Service\Metadata;
 
 use Ergonode\Multimedia\Domain\Entity\Multimedia;
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
+use Ergonode\Multimedia\Infrastructure\Storage\ResourceStorageInterface;
 
 /**
  */
@@ -21,15 +21,15 @@ class MetadataService
     private MetadataReader $reader;
 
     /**
-     * @var MultimediaStorageInterface
+     * @var ResourceStorageInterface
      */
-    private MultimediaStorageInterface $storage;
+    private ResourceStorageInterface $storage;
 
     /**
-     * @param MetadataReader             $reader
-     * @param MultimediaStorageInterface $storage
+     * @param MetadataReader           $reader
+     * @param ResourceStorageInterface $storage
      */
-    public function __construct(MetadataReader $reader, MultimediaStorageInterface $storage)
+    public function __construct(MetadataReader $reader, ResourceStorageInterface $storage)
     {
         $this->reader = $reader;
         $this->storage = $storage;

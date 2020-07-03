@@ -13,6 +13,7 @@ use Ergonode\Account\Domain\Command\User\ChangeUserAvatarCommand;
 use Ergonode\Account\Domain\Repository\UserRepositoryInterface;
 use Ergonode\Account\Infrastructure\Storage\FilesystemAvatarStorage;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Webmozart\Assert\Assert;
 
 /**
@@ -25,27 +26,19 @@ class ChangeUserAvatarCommandHandler
     private UserRepositoryInterface $repository;
 
     /**
-     * @var HashCalculationServiceInterface
-     */
-    private HashCalculationServiceInterface $hashService;
-
-    /**
      * @var FilesystemAvatarStorage
      */
     private FilesystemAvatarStorage $storage;
 
     /**
-     * @param UserRepositoryInterface         $repository
-     * @param HashCalculationServiceInterface $hashService
-     * @param FilesystemAvatarStorage         $storage
+     * @param UserRepositoryInterface $repository
+     * @param FilesystemAvatarStorage $storage
      */
     public function __construct(
         UserRepositoryInterface $repository,
-        HashCalculationServiceInterface $hashService,
         FilesystemAvatarStorage $storage
     ) {
         $this->repository = $repository;
-        $this->hashService = $hashService;
         $this->storage = $storage;
     }
 
@@ -61,18 +54,17 @@ class ChangeUserAvatarCommandHandler
         Assert::notNull($user);
 
         $file = $command->getFile();
-        $hash = $this->hashService->calculateHash($file);
+        $content = file_get_contents($file->getRealPath());
+        imagepng(imagecreatefromstring($content), $file->getRealPath());
+        imagedestroy(imagecreatefromstring($content));
+        $contentPng = file_get_contents($file->getRealPath());
 
-        $extension = $file->getExtension();
-        if (empty($extension) || '.' === $extension) {
-            $extension = $file->guessExtension();
-        }
+        $filename = sprintf('%s.%s', $user->getId()->getValue(), 'png');
 
-        $filename = sprintf('%s.%s', $hash->getValue(), $extension);
-
-        if (!$this->storage->has($filename)) {
-            $content = file_get_contents($file->getRealPath());
-            $this->storage->write($filename, $content);
+        if ($this->storage->has($filename)) {
+            $this->storage->update($filename, $contentPng);
+        } else {
+            $this->storage->write($filename, $contentPng);
         }
 
         $user->changeAvatar($filename);

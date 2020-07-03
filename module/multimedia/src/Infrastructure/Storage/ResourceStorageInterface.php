@@ -11,7 +11,7 @@ namespace Ergonode\Multimedia\Infrastructure\Storage;
 
 /**
  */
-interface MultimediaStorageInterface
+interface ResourceStorageInterface
 {
     /**
      * @param string $filename
