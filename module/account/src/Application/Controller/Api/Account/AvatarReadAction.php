@@ -79,7 +79,7 @@ class AvatarReadAction
      */
     public function __invoke(User $user, Request $request): Response
     {
-        $filename = $filename = sprintf('%s.%s', $user->getId()->getValue(), 'png');
+        $filename = sprintf('%s.%s', $user->getId()->getValue(), 'png');
 
         return new FileContentResponse($filename, $this->avatarStorage);
     }

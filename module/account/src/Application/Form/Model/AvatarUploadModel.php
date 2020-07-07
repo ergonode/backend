@@ -22,7 +22,7 @@ class AvatarUploadModel
      * @Assert\File(
      *     maxSize="5M",
      *     mimeTypes={"image/png", "image/jpg", "image/jpeg", "image/gif"},
-     *     mimeTypesMessage="Please upload a valid image (png, gif, jpg, jpeg)"
+     *     mimeTypesMessage="Upload valid image format (png, gif, jpg, jpeg)"
      * )
      *
      * @Vich\UploadableField(mapping="attachment", fileNameProperty="fileName", size="fileSize")
