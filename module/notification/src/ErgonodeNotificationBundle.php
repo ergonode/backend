@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Notification;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Notification\Application\DependencyInjection\CompilerPass\NotificationStrategyInterfaceCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

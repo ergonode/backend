@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Core\Application;
+namespace Ergonode\SharedKernel\Application;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

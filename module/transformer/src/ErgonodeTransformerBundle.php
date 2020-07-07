@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Transformer;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\ConverterMapperCompilerPass;
 use Ergonode\Transformer\Application\DependencyInjection\CompilerPass\TransformerGeneratorProviderStrategyCompilerPass;

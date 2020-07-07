@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Segment;
 
 use Ergonode\Condition\Application\DependencyInjection\CompilerPass\ProvideConditionDictionaryCompilerPass;
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Segment\Application\DependencyInjection\ErgonodeSegmentExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

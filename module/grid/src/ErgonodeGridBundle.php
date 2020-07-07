@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Grid;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Grid\Application\DependencyInjection\CompilerPass\ColumnRendererCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
