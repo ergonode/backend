@@ -11,11 +11,10 @@ namespace Ergonode\EventSourcing\Infrastructure\Envelope;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\AggregateId;
-use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  */
-class DomainEventEnvelope extends Event
+class DomainEventEnvelope
 {
     /**
      * @var AggregateId
@@ -88,26 +87,10 @@ class DomainEventEnvelope extends Event
     }
 
     /**
-     * @param \DateTime $recordedAt
-     */
-    public function setRecordedAt(\DateTime $recordedAt): void
-    {
-        $this->recordedAt = $recordedAt;
-    }
-
-    /**
      * @return string
      */
     public function getType(): string
     {
         return get_class($this->event);
-    }
-
-    /**
-     * @return DomainEventInterface
-     */
-    public function getPayload(): DomainEventInterface
-    {
-        return $this->event;
     }
 }

@@ -11,6 +11,7 @@ namespace Ergonode\EventSourcing\Infrastructure\Provider;
 
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Psr\Cache\InvalidArgumentException;
 
 /**
  */
@@ -37,10 +38,11 @@ class DomainEventProvider implements DomainEventProviderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $eventClass
      *
-     * @throws \Psr\Cache\InvalidArgumentException
-     * @throws \RuntimeException
+     * @return string
+     *
+     * @throws InvalidArgumentException
      */
     public function provideEventId(string $eventClass): string
     {
