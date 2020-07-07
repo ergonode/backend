@@ -14,26 +14,28 @@ use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
-interface DomainEventStoreInterface
+interface DomainEventStorageInterface
 {
     /**
      * @param AggregateId $id
-     * @param string|null $table
+     * @param int         $sequence
      *
-     * @return DomainEventStream
+     * @param string|null $name
+     *
+     * @return array
      */
-    public function load(AggregateId $id, ?string $table = null): DomainEventStream;
+    public function load(AggregateId $id, int $sequence = 0, string $name = null): array;
 
     /**
      * @param AggregateId       $id
      * @param DomainEventStream $stream
-     * @param string|null       $table
+     * @param string|null       $name
      */
-    public function append(AggregateId $id, DomainEventStream $stream, ?string $table = null): void;
+    public function append(AggregateId $id, DomainEventStream $stream, string $name = null): void;
 
     /**
      * @param AggregateId $id
-     * @param string|null $table
+     * @param string|null $name
      */
-    public function delete(AggregateId $id, ?string $table = null): void;
+    public function delete(AggregateId $id, string $name = null): void;
 }
