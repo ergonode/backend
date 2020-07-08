@@ -19,6 +19,11 @@ Ergonode\Core\Domain\ValueObject\TranslatableString:
       -
         pl: <pl_PL:randomFloat()>
         en: <en_EN:randomFloat()>
+  translation_tax_number_{1..10}:
+    __construct:
+      -
+        pl: <pl_PL:randomElement([4,5,7,8,19,23])>
+        en: <en_EN:randomElement([4,5,7,8,19,23])>
   translation_date_{1..10}:
     __construct:
       -
@@ -40,12 +45,13 @@ Ergonode\Product\Domain\Command\Create\CreateSimpleProductCommand:
       - '<productId(SKU_<current()>)>'
       - '<sku(SKU_<current()>)>'
       - '@template->id'
-      - []
+      - ['<categoryId(code_4)>']
       -
         'image_attribute': '<translatableStringValue(@translation_image_*)>'
         'code_1':  '<translatableStringValue(@translation_sentence_*)>'
         'code_11':  '<translatableStringValue(@translation_paragraph_*)>'
         'code_21':  '<translatableStringValue(@translation_float_*)>'
+        'code_22':  '<translatableStringValue(@translation_tax_number*)>'
         'code_26':  '<translatableStringValue(@translation_date_*)>'
         'code_31':  '<translatableStringValue(@translation_float_*)>'
         'code_37':  '<translatableStringValue(@translation_float_*)>'
@@ -64,6 +70,7 @@ Ergonode\Product\Domain\Command\Create\CreateGroupingProductCommand:
         'code_1':  '<translatableStringValue(@translation_sentence_*)>'
         'code_11':  '<translatableStringValue(@translation_paragraph_*)>'
         'code_21':  '<translatableStringValue(@translation_float_*)>'
+        'code_22':  '<translatableStringValue(@translation_tax_number*)>'
         'code_26':  '<translatableStringValue(@translation_date_*)>'
         'code_31':  '<translatableStringValue(@translation_float_*)>'
         'code_37':  '<translatableStringValue(@translation_float_*)>'
@@ -83,6 +90,7 @@ Ergonode\Product\Domain\Command\Create\CreateVariableProductCommand:
         'code_1':  '<translatableStringValue(@translation_sentence_*)>'
         'code_11':  '<translatableStringValue(@translation_paragraph_*)>'
         'code_21':  '<translatableStringValue(@translation_float_*)>'
+        'code_22':  '<translatableStringValue(@translation_tax_number*)>'
         'code_26':  '<translatableStringValue(@translation_date_*)>'
         'code_31':  '<translatableStringValue(@translation_float_*)>'
         'code_37':  '<translatableStringValue(@translation_float_*)>'

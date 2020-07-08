@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Domain\Query;
+namespace Ergonode\Product\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 

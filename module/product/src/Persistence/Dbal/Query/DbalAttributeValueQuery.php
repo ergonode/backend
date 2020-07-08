@@ -6,10 +6,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Persistence\Dbal\Query;
+namespace Ergonode\Product\Persistence\Dbal\Query;
 
 use Doctrine\DBAL\Connection;
-use Ergonode\Attribute\Domain\Query\AttributeValueQueryInterface;
+use Ergonode\Product\Domain\Query\AttributeValueQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 
 /**

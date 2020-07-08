@@ -10,7 +10,6 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
-use Ergonode\Attribute\Domain\Query\AttributeValueQueryInterface;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
@@ -19,6 +18,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax\GetTaxList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax\PostTaxCreate;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Tax;
+use Ergonode\Product\Domain\Query\AttributeValueQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 
 /**
