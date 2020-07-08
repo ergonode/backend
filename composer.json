@@ -9,6 +9,7 @@
         "ext-pdo": "*",
         "ext-exif": "*",
         "ext-imagick": "*",
+        "ext-gd": "*",
         "beberlei/assert": "2.x",
         "behat/symfony2-extension": "^2.1",
         "doctrine/migrations": "2.2.x",

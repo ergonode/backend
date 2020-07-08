@@ -7,15 +7,16 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Multimedia\Infrastructure\Storage;
+namespace Ergonode\Account\Infrastructure\Storage;
 
-use League\Flysystem\FilesystemInterface;
-use League\Flysystem\FileNotFoundException;
+use Ergonode\Multimedia\Infrastructure\Storage\ResourceStorageInterface;
 use League\Flysystem\FileExistsException;
+use League\Flysystem\FileNotFoundException;
+use League\Flysystem\FilesystemInterface;
 
 /**
  */
-class FilesystemMultimediaStorage implements ResourceStorageInterface
+class FilesystemAvatarStorage implements ResourceStorageInterface
 {
     /**
      * @var FilesystemInterface
@@ -23,11 +24,11 @@ class FilesystemMultimediaStorage implements ResourceStorageInterface
     private FilesystemInterface $storage;
 
     /**
-     * @param FilesystemInterface $multimediaStorage
+     * @param FilesystemInterface $avatarStorage
      */
-    public function __construct(FilesystemInterface $multimediaStorage)
+    public function __construct(FilesystemInterface $avatarStorage)
     {
-        $this->storage = $multimediaStorage;
+        $this->storage = $avatarStorage;
     }
 
     /**
@@ -40,6 +41,18 @@ class FilesystemMultimediaStorage implements ResourceStorageInterface
     public function read(string $filename): string
     {
         return $this->storage->read($filename);
+    }
+
+
+    /**
+     * @param string $filename
+     * @param string $content
+     *
+     * @throws FileExistsException
+     */
+    public function write(string $filename, string $content): void
+    {
+        $this->storage->write($filename, $content);
     }
 
     /**
@@ -56,17 +69,6 @@ class FilesystemMultimediaStorage implements ResourceStorageInterface
 
     /**
      * @param string $filename
-     * @param string $content
-     *
-     * @throws FileExistsException
-     */
-    public function write(string $filename, string $content): void
-    {
-        $this->storage->write($filename, $content);
-    }
-
-    /**
-     * @param string $filename
      *
      * @return array
      *
@@ -75,7 +77,7 @@ class FilesystemMultimediaStorage implements ResourceStorageInterface
     public function info(string $filename): array
     {
         return [
-            'mime' =>  $this->storage->getMimetype($filename),
+            'mime' => $this->storage->getMimetype($filename),
             'size' => $this->storage->getSize($filename),
         ];
     }
@@ -88,5 +90,18 @@ class FilesystemMultimediaStorage implements ResourceStorageInterface
     public function has(string $filename): bool
     {
         return $this->storage->has($filename);
+    }
+
+    /**
+     * @param string $path
+     * @param        $contents
+     *
+     * @return bool
+     *
+     * @throws FileNotFoundException
+     */
+    public function update(string $path, $contents): bool
+    {
+        return $this->storage->update($path, $contents);
     }
 }

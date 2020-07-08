@@ -7,11 +7,13 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Multimedia\Infrastructure\Storage;
+namespace Ergonode\Account\Infrastructure\Storage;
+
+use League\Flysystem\FileNotFoundException;
 
 /**
  */
-interface MultimediaStorageInterface
+interface AvatarStorageInterface
 {
     /**
      * @param string $filename
@@ -19,13 +21,6 @@ interface MultimediaStorageInterface
      * @return string
      */
     public function read(string $filename): string;
-
-    /**
-     * @param string $filename
-     *
-     * @return resource
-     */
-    public function readStream(string $filename);
 
     /**
      * @param string $filename

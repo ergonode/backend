@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
+use Ergonode\Multimedia\Infrastructure\Storage\ResourceStorageInterface;
 
 /**
  */
@@ -28,19 +28,19 @@ class MultimediaParamConverter implements ParamConverterInterface
      * @var MultimediaRepositoryInterface
      */
     private MultimediaRepositoryInterface $repository;
-    
+
     /**
-     * @var MultimediaStorageInterface
+     * @var ResourceStorageInterface
      */
-    private MultimediaStorageInterface $storage;
+    private ResourceStorageInterface $storage;
 
     /**
      * @param MultimediaRepositoryInterface $repository
-     * @param MultimediaStorageInterface    $storage
+     * @param ResourceStorageInterface      $storage
      */
     public function __construct(
         MultimediaRepositoryInterface $repository,
-        MultimediaStorageInterface $storage
+        ResourceStorageInterface $storage
     ) {
         $this->repository = $repository;
         $this->storage = $storage;
