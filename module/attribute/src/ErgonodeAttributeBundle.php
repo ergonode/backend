@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Attribute;
 
 use Ergonode\Attribute\Application\DependencyInjection\CompilerPass as CompilerPass;
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**

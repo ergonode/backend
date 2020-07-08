@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterFile;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\ExporterFile\Application\DependencyInjection\CompilerPass\FileWriterCompilerPass;
 

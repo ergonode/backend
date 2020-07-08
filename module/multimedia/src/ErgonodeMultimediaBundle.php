@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Multimedia;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MultimediaRelationCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Multimedia\Application\DependencyInjection\CompilerPass\MetadataReaderCompilerPass;

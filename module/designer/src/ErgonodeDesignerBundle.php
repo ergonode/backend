@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Designer;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateElementProviderCompilerPass;
 use Ergonode\Designer\Application\DependencyInjection\CompilerPass\TemplateGeneratorStrategyCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
