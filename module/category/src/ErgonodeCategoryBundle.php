@@ -26,6 +26,7 @@ class ErgonodeCategoryBundle extends AbstractModule
 
         $container
             ->addCompilerPass(new CompilerPass\CategoryFormCompilerPass())
+            ->addCompilerPass(new CompilerPass\CategoryTypeCompilerPass())
             ->addCompilerPass(new CompilerPass\CreateCategoryCommandFactoryProviderInterfaceCompilerPass())
             ->addCompilerPass(new CompilerPass\UpdateCategoryCommandFactoryProviderInterfaceCompilerPass());
     }

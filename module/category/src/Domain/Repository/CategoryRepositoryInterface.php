@@ -26,7 +26,7 @@ interface CategoryRepositoryInterface
     /**
      * @param CategoryId $id
      *
-     * @return AbstractCategory|AbstractCategory
+     * @return AbstractCategory
      */
     public function load(CategoryId $id): ?AbstractCategory;
 

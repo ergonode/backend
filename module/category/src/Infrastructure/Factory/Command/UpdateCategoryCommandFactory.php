@@ -23,7 +23,7 @@ class UpdateCategoryCommandFactory implements UpdateCategoryCommandFactoryInterf
 {
     /**
      * @param string $type
-     *ogle m
+     *
      * @return bool
      */
     public function support(string $type): bool

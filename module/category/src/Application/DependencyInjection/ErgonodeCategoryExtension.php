@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Application\DependencyInjection;
 
 use Ergonode\Category\Application\Form\CategoryFormInterface;
+use Ergonode\Category\Domain\Entity\CategoryInterface;
 use Ergonode\Category\Infrastructure\Factory\Command\CreateCategoryCommandFactoryInterface;
 use Ergonode\Category\Infrastructure\Factory\Command\UpdateCategoryCommandFactoryInterface;
 use Symfony\Component\Config\FileLocator;
@@ -33,6 +34,10 @@ class ErgonodeCategoryExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../../Resources/config')
         );
+
+        $container
+            ->registerForAutoconfiguration(CategoryInterface::class)
+            ->addTag(CompilerPass\CategoryTypeCompilerPass::TAG);
 
         $container
             ->registerForAutoconfiguration(CategoryFormInterface::class)
