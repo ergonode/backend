@@ -28,6 +28,7 @@ final class Version20180619083800 extends AbstractErgonodeMigration
                id UUID NOT NULL,
                name JSONB NOT NULL, 
                code VARCHAR(255) DEFAULT NULL, 
+               type VARCHAR(128) NOT NULL,
                sequence SERIAL, 
                PRIMARY KEY(id)
             )

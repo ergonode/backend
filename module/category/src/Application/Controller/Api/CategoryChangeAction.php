@@ -11,11 +11,9 @@ namespace Ergonode\Category\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Category\Application\Form\CategoryUpdateForm;
-use Ergonode\Category\Application\Model\CategoryUpdateFormModel;
-use Ergonode\Category\Domain\Command\UpdateCategoryCommand;
-use Ergonode\Category\Domain\Entity\Category;
-use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\Category\Application\Provider\CategoryFormProvider;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
+use Ergonode\Category\Infrastructure\Provider\UpdateCategoryCommandFactoryProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -48,14 +46,33 @@ class CategoryChangeAction
     private FormFactoryInterface $formFactory;
 
     /**
-     * @param CommandBusInterface  $commandBus
-     * @param FormFactoryInterface $formFactory
+     * @var CategoryFormProvider
      */
-    public function __construct(CommandBusInterface $commandBus, FormFactoryInterface $formFactory)
-    {
+    private CategoryFormProvider $formProvider;
+
+    /**
+     * @var UpdateCategoryCommandFactoryProvider
+     */
+    private UpdateCategoryCommandFactoryProvider $factoryProvider;
+
+    /**
+     * @param CommandBusInterface                  $commandBus
+     * @param FormFactoryInterface                 $formFactory
+     * @param CategoryFormProvider                 $formProvider
+     * @param UpdateCategoryCommandFactoryProvider $factoryProvider
+     */
+    public function __construct(
+        CommandBusInterface $commandBus,
+        FormFactoryInterface $formFactory,
+        CategoryFormProvider $formProvider,
+        UpdateCategoryCommandFactoryProvider $factoryProvider
+    ) {
         $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
+        $this->formProvider = $formProvider;
+        $this->factoryProvider = $factoryProvider;
     }
+
 
     /**
      * @IsGranted("CATEGORY_UPDATE")
@@ -94,26 +111,25 @@ class CategoryChangeAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\Category")
+     * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
      *
-     * @param Category $category
-     * @param Request  $request
+     * @param AbstractCategory $category
+     * @param Request          $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(Category $category, Request $request): Response
+    public function __invoke(AbstractCategory $category, Request $request): Response
     {
+        $formClass = $this->formProvider->provide($category->getType());
+
         try {
-            $model = new CategoryUpdateFormModel();
-            $form = $this->formFactory->create(CategoryUpdateForm::class, $model, ['method' => Request::METHOD_PUT]);
+            $form = $this->formFactory->create($formClass, null, ['method' => Request::METHOD_PUT]);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var CategoryUpdateFormModel $data */
-                $data = $form->getData();
-                $command = new UpdateCategoryCommand($category->getId(), new TranslatableString($data->name));
+                $command = $this->factoryProvider->provide($category->getType())->create($category->getId(), $form);
                 $this->commandBus->dispatch($command);
 
                 return new EmptyResponse();

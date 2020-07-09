@@ -8,8 +8,8 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Tests\Application\Form;
 
-use Ergonode\Category\Application\Form\CategoryUpdateForm;
-use Ergonode\Category\Application\Model\CategoryUpdateFormModel;
+use Ergonode\Category\Application\Form\CategoryForm;
+use Ergonode\Category\Application\Model\CategoryFormModel;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
@@ -24,11 +24,11 @@ class CategoryUpdateFormTest extends TypeTestCase
             'name' => ['pl_PL' =>  'Any Name'],
         ];
 
-        $object = new CategoryUpdateFormModel();
+        $object = new CategoryFormModel();
         $object->name = ['pl_PL' =>  'Any Name'];
 
-        $objectToCompare = new CategoryUpdateFormModel();
-        $form = $this->factory->create(CategoryUpdateForm::class, $objectToCompare);
+        $objectToCompare = new CategoryFormModel();
+        $form = $this->factory->create(CategoryForm::class, $objectToCompare);
         $form->submit($formData);
 
         $this->assertTrue($form->isSynchronized());
