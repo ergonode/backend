@@ -68,7 +68,7 @@ class CategoryTypeConfigurationAction
      * )
      * @SWG\Response(
      *     response=200,
-     *     description="Returns Config Export Profile",
+     *     description="Returns category form configuration",
      * )
      * @SWG\Response(
      *     response=400,
