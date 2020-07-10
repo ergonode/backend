@@ -9,6 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Application\Form\Model;
 
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\ExporterShopware6\Application\Form\Model\Type\AttributeModel;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
@@ -103,6 +104,20 @@ class ExporterShopware6ConfigurationModel
     public ?CategoryTreeId $categoryTree = null;
 
     /**
+     * @var AttributeModel[]
+     *
+     * @Assert\Valid()
+     */
+    public array $propertyGroup = [];
+
+    /**
+     * @var AttributeModel[]
+     *
+     * @Assert\Valid()
+     */
+    public array $customField = [];
+
+    /**
      * @param Shopware6ExportApiProfile|null $exportProfile
      */
     public function __construct(Shopware6ExportApiProfile $exportProfile = null)
@@ -120,6 +135,14 @@ class ExporterShopware6ConfigurationModel
             $this->attributeProductTax = $exportProfile->getProductTax();
             $this->attributeProductDescription = $exportProfile->getProductDescription();
             $this->categoryTree = $exportProfile->getCategoryTree();
+
+            foreach ($exportProfile->getPropertyGroup() as $attributeId) {
+                $this->propertyGroup[] = new AttributeModel($attributeId->getValue());
+            }
+
+            foreach ($exportProfile->getCustomField() as $attributeId) {
+                $this->customField[] = new AttributeModel($attributeId->getValue());
+            }
         }
     }
 }

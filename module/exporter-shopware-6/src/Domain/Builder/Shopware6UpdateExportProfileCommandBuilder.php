@@ -13,6 +13,7 @@ use Ergonode\Exporter\Application\Provider\UpdateExportProfileCommandBuilderInte
 use Ergonode\ExporterShopware6\Application\Form\Model\ExporterShopware6ConfigurationModel;
 use Ergonode\ExporterShopware6\Domain\Command\UpdateShopware6ExportProfileCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
+use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Symfony\Component\Form\FormInterface;
 
@@ -54,6 +55,16 @@ class Shopware6UpdateExportProfileCommandBuilder implements UpdateExportProfileC
         $attributeProductDescription = $data->attributeProductDescription;
         $categoryTree = $data->categoryTree;
 
+        $propertyGroup = [];
+        foreach ($data->propertyGroup as $attribute) {
+            $propertyGroup[] = new AttributeId($attribute->id);
+        }
+
+        $customField = [];
+        foreach ($data->customField as $attribute) {
+            $customField[] = new AttributeId($attribute->id);
+        }
+
         return new UpdateShopware6ExportProfileCommand(
             $exportProfileId,
             $name,
@@ -68,8 +79,8 @@ class Shopware6UpdateExportProfileCommandBuilder implements UpdateExportProfileC
             $attributeProductTax,
             $attributeProductDescription,
             $categoryTree,
-            [],
-            []
+            $propertyGroup,
+            $customField
         );
     }
 }

@@ -6,7 +6,7 @@ Feature: Export Profile Shopware 6 API
     And I add "Accept" header equal to "application/json"
 
   Scenario: Get configuration with Shopware 6 API
-    When I send a GET request to "/api/v1/EN/export-profile/shopware-6-api/configuration"
+    When I send a GET request to "/api/v1/en/export-profile/shopware-6-api/configuration"
     Then the response status code should be 200
 
   Scenario: Create numeric attribute
@@ -86,7 +86,19 @@ Feature: Export Profile Shopware 6 API
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
           "attribute_product_price" : "@attribute_price_id@",
-          "attribute_product_tax" : "@attribute_numeric_id@"
+          "attribute_product_tax" : "@attribute_numeric_id@",
+          "attribute_product_description" : "@attribute_text_id@",
+          "property_group": [
+            {
+              "id": "@attribute_text_id@"
+            }
+          ],
+          "custom_field": [
+            {
+              "id": "@attribute_text_id@"
+            }
+          ]
+
         }
       """
     Then the response status code should be 204

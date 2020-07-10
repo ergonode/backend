@@ -12,7 +12,9 @@ use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
 use Ergonode\Core\Application\Form\Type\LanguageType;
 use Ergonode\ExporterShopware6\Application\Form\Model\ExporterShopware6ConfigurationModel;
+use Ergonode\ExporterShopware6\Application\Form\Type\AttributeMapType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -108,7 +110,7 @@ class ExporterShopware6ConfigurationForm extends AbstractType
                 'attribute_product_price',
                 AttributeIdType::class,
                 [
-                    'label' => 'attributeProductPrice',
+                    'label' => 'Attribute Product Price',
                     'choices' => array_flip($dictionary),
                     'property_path' => 'attributeProductPrice',
                 ]
@@ -121,7 +123,41 @@ class ExporterShopware6ConfigurationForm extends AbstractType
                     'choices' => array_flip($dictionary),
                     'property_path' => 'attributeProductTax',
                 ]
-            );
+            )
+            ->add(
+                'attribute_product_description',
+                AttributeIdType::class,
+                [
+                    'label' => 'Attribute Product Description',
+                    'choices' => array_flip($dictionary),
+                    'property_path' => 'attributeProductDescription',
+                ]
+            )
+            ->add(
+                'property_group',
+                CollectionType::class,
+                [
+                    'property_path' => 'propertyGroup',
+                    'label' => 'List Property Group to Export',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => AttributeMapType::class,
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'custom_field',
+                CollectionType::class,
+                [
+                    'property_path' => 'customField',
+                    'label' => 'List custom field to export',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => AttributeMapType::class,
+                    'required' => false,
+                ]
+            )
+        ;
     }
 
     /**
