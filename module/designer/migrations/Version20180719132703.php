@@ -158,7 +158,7 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         $id = new TemplateGroupId($uuid);
         $this->addSql(
             'INSERT INTO designer.template_group (id, name, custom) VALUES (?, ?, ?)',
-            [$id, $name, (int)$custom]
+            [$id, $name, (int) $custom]
         );
 
         return $id;
@@ -181,8 +181,7 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         int $minHeight = 1,
         int $maxWidth = 4,
         int $maxHeight = 1
-    ): void
-    {
+    ): void {
         $this
             ->addSql(
                 \sprintf(
