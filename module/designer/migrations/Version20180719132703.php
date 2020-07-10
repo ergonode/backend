@@ -102,8 +102,8 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         $this->addType('IMAGE', 'attribute', 'Image', 1, 1, 4, 10);
         $this->addType('PRICE', 'attribute', 'Price');
         $this->addType('UNIT', 'attribute', 'Unit');
-        $this->addType('GALLERY', 'attribute', 'Gallery');
-        $this->addType('FILE', 'attribute', 'File');
+        $this->addType('GALLERY', 'attribute', 'Gallery', 1, 1, 4, 10);
+        $this->addType('FILE', 'attribute', 'File', 1, 1, 4, 10);
         $this->addType('SECTION', 'ui', 'Section');
 
         $this->addGroup('418c48d3-d2c3-4c30-b627-93850c38d59c', 'Suggested');
@@ -158,7 +158,7 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         $id = new TemplateGroupId($uuid);
         $this->addSql(
             'INSERT INTO designer.template_group (id, name, custom) VALUES (?, ?, ?)',
-            [$id, $name, (int) $custom]
+            [$id, $name, (int)$custom]
         );
 
         return $id;
@@ -181,7 +181,8 @@ final class Version20180719132703 extends AbstractErgonodeMigration
         int $minHeight = 1,
         int $maxWidth = 4,
         int $maxHeight = 1
-    ): void {
+    ): void
+    {
         $this
             ->addSql(
                 \sprintf(
