@@ -10,9 +10,9 @@ namespace Ergonode\Product\Domain\Command\Bindings;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
-use JMS\Serializer\Annotation as JMS;
 use Ergonode\Product\Domain\Entity\AbstractAssociatedProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  */
