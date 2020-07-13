@@ -17,6 +17,7 @@ default:
                 - module/event-sourcing/features
                 - module/exporter/features
                 - module/exporter-magento-2/features
+                - module/exporter-shopware-6/features
                 - module/exporter-file/features
                 - module/fixture/features
                 - module/generator/features
