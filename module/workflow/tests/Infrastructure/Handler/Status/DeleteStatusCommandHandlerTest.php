@@ -6,11 +6,10 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Fixture\Tests\Infrastructure\Handler\Status;
+namespace Ergonode\Workflow\Tests\Infrastructure\Handler\Status;
 
 use Ergonode\Workflow\Infrastructure\Handler\Status\DeleteStatusCommandHandler;
 use PHPUnit\Framework\TestCase;
-use Ergonode\Workflow\Domain\Factory\StatusFactory;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Ergonode\Workflow\Domain\Command\Status\DeleteStatusCommand;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;

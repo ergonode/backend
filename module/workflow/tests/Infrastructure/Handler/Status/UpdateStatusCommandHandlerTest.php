@@ -6,7 +6,7 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Fixture\Tests\Infrastructure\Handler\Status;
+namespace Ergonode\Workflow\Tests\Infrastructure\Handler\Status;
 
 use Ergonode\Workflow\Infrastructure\Handler\Status\UpdateStatusCommandHandler;
 use PHPUnit\Framework\TestCase;
