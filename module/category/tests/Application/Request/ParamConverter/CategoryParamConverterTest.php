@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Tests\Application\Request\ParamConverter;
 
 use Ergonode\Category\Application\Request\ParamConverter\CategoryParamConverter;
-use Ergonode\Category\Domain\Entity\Category;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -51,7 +51,7 @@ class CategoryParamConverterTest extends TestCase
     public function testSupportedClass(): void
     {
         $this->request->method('get')->willReturn(null);
-        $this->configuration->method('getClass')->willReturn(Category::class);
+        $this->configuration->method('getClass')->willReturn(AbstractCategory::class);
 
         $paramConverter = new CategoryParamConverter($this->repository);
         $this->assertTrue($paramConverter->supports($this->configuration));
@@ -106,7 +106,7 @@ class CategoryParamConverterTest extends TestCase
     public function testEntityExists(): void
     {
         $this->request->method('get')->willReturn(Uuid::uuid4()->toString());
-        $this->repository->method('load')->willReturn($this->createMock(Category::class));
+        $this->repository->method('load')->willReturn($this->createMock(AbstractCategory::class));
         $this->request->attributes = $this->createMock(ParameterBag::class);
         $this->request->attributes->expects($this->once())->method('set');
 

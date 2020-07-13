@@ -56,7 +56,7 @@ abstract class AbstractAggregateRoot
     {
         foreach ($stream as $event) {
             $this->sequence++;
-            $this->handle($event->getPayload(), $event->getRecordedAt());
+            $this->handle($event->getEvent(), $event->getRecordedAt());
         }
     }
 

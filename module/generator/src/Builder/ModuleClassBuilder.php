@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Generator\Builder;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Nette\PhpGenerator\PhpFile;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

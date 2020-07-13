@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Importer;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceFormFactoryCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ergonode\Importer\Application\DependencyInjection\CompilerPass\SourceCompilerPass;

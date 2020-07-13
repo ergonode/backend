@@ -8,7 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Completeness;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 
 /**
  *

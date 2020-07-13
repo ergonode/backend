@@ -18,7 +18,7 @@ interface DomainEventStoreInterface
 {
     /**
      * @param AggregateId $id
-     * @param string      $table
+     * @param string|null $table
      *
      * @return DomainEventStream
      */
@@ -27,7 +27,7 @@ interface DomainEventStoreInterface
     /**
      * @param AggregateId       $id
      * @param DomainEventStream $stream
-     * @param string            $table
+     * @param string|null       $table
      */
     public function append(AggregateId $id, DomainEventStream $stream, ?string $table = null): void;
 

@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Domain\Factory;
 
+use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
@@ -26,14 +27,14 @@ class CategoryFactory
      * @param TranslatableString $name
      * @param array              $attributes
      *
-     * @return Category
+     * @return AbstractCategory
      */
     public function create(
         CategoryId $id,
         CategoryCode $code,
         TranslatableString $name,
         array $attributes = []
-    ): Category {
+    ): AbstractCategory {
 
         Assert::allIsInstanceOf($attributes, ValueInterface::class);
 

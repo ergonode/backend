@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Exporter;
 
-use Ergonode\Core\Application\AbstractModule;
+use Ergonode\SharedKernel\Application\AbstractModule;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\CreateExportProfileCommandBuilderCompilerPass;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileTypeCompilerPass;
 use Ergonode\Exporter\Application\DependencyInjection\CompilerPass\ExportProfileFormFactoryCompilerPass;
