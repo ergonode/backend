@@ -17,7 +17,6 @@ use Ergonode\Workflow\Application\Form\Model\TransitionChangeFormModel;
 use Ergonode\Workflow\Application\Form\TransitionChangeForm;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Workflow\Domain\Entity\Workflow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -28,6 +27,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  * @Route(
@@ -103,14 +103,14 @@ class TransitionChangeAction
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="source")
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
      *
-     * @param Workflow $workflow
+     * @param AbstractWorkflow $workflow
      * @param Status   $source
      * @param Status   $destination
      * @param Request  $request
      *
      * @return Response
      */
-    public function __invoke(Workflow $workflow, Status $source, Status $destination, Request $request): Response
+    public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination, Request $request): Response
     {
         try {
             $model = new TransitionChangeFormModel();
@@ -128,8 +128,8 @@ class TransitionChangeAction
 
                 $command = new UpdateWorkflowTransitionCommand(
                     $workflow->getId(),
-                    $source->getCode(),
-                    $destination->getCode(),
+                    $source->getId(),
+                    $destination->getId(),
                     $roles,
                     $data->conditionSet ? new ConditionSetId($data->conditionSet) : null
                 );

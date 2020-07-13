@@ -12,6 +12,7 @@ namespace Ergonode\Workflow\Infrastructure\Handler\Status;
 use Ergonode\Workflow\Domain\Command\Status\UpdateStatusCommand;
 use Ergonode\Workflow\Domain\Repository\StatusRepositoryInterface;
 use Webmozart\Assert\Assert;
+use Ergonode\Workflow\Domain\Entity\Status;
 
 /**
  */
@@ -39,7 +40,7 @@ class UpdateStatusCommandHandler
     {
         $status = $this->repository->load($command->getId());
 
-        Assert::notNull($status);
+        Assert::isInstanceOf($status, Status::class);
 
         $status->changeName($command->getName());
         $status->changeDescription($command->getDescription());

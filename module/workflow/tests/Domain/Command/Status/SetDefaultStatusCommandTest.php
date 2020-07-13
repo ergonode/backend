@@ -11,9 +11,9 @@ namespace Ergonode\Workflow\Tests\Domain\Command\Status;
 
 use Ergonode\Workflow\Domain\Command\Status\SetDefaultStatusCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -26,12 +26,12 @@ class SetDefaultStatusCommandTest extends TestCase
         /** @var  WorkflowId | MockObject $workflowId */
         $workflowId = $this->createMock(WorkflowId::class);
 
-        /** @var StatusCode | MockObject $statusCode */
-        $statusCode = $this->createMock(StatusCode::class);
+        /** @var StatusId | MockObject $statusId */
+        $statusId = $this->createMock(StatusId::class);
 
-        $command = new SetDefaultStatusCommand($workflowId, $statusCode);
+        $command = new SetDefaultStatusCommand($workflowId, $statusId);
 
         $this->assertSame($workflowId, $command->getWorkflowId());
-        $this->assertSame($statusCode, $command->getStatusCode());
+        $this->assertSame($statusId, $command->getStatusId());
     }
 }

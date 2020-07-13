@@ -11,8 +11,8 @@ namespace Ergonode\Workflow\Domain\Command\Status;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -26,20 +26,20 @@ class SetDefaultStatusCommand implements DomainCommandInterface
     private WorkflowId $workflowId;
 
     /**
-     * @var StatusCode
+     * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\Entity\StatusCode")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
-    private StatusCode $statusCode;
+    private StatusId $statusId;
 
     /**
      * @param WorkflowId $workflowId
-     * @param StatusCode $statusCode
+     * @param StatusId   $statusId
      */
-    public function __construct(WorkflowId $workflowId, StatusCode $statusCode)
+    public function __construct(WorkflowId $workflowId, StatusId $statusId)
     {
         $this->workflowId = $workflowId;
-        $this->statusCode = $statusCode;
+        $this->statusId = $statusId;
     }
 
     /**
@@ -51,10 +51,10 @@ class SetDefaultStatusCommand implements DomainCommandInterface
     }
 
     /**
-     * @return StatusCode
+     * @return StatusId
      */
-    public function getStatusCode(): StatusCode
+    public function getStatusId(): StatusId
     {
-        return $this->statusCode;
+        return $this->statusId;
     }
 }

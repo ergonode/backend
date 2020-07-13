@@ -14,10 +14,10 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class StatusNotExists extends Constraint
+class StatusCodeUnique extends Constraint
 {
     /**
      * @var string
      */
-    public string $message = 'Status {{ value }} not exists';
+    public string $message = 'Status {{ value }} is not unique';
 }

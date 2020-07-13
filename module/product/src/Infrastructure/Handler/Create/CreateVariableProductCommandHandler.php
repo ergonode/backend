@@ -80,6 +80,7 @@ class CreateVariableProductCommandHandler
             $value = new StringValue(sprintf('%s %s', $user->getFirstName(), $user->getLastName()));
             $attributes[CreatedBySystemAttribute::CODE] = $value;
         }
+
         $workflow = $this->provider->provide();
         $attributes[StatusSystemAttribute::CODE] = new StringValue($workflow->getDefaultStatus()->getValue());
 

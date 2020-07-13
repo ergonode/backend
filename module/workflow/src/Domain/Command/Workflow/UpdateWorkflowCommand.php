@@ -11,9 +11,9 @@ namespace Ergonode\Workflow\Domain\Command\Workflow;
 
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
 use Webmozart\Assert\Assert;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -27,20 +27,20 @@ class UpdateWorkflowCommand implements DomainCommandInterface
     private WorkflowId $id;
 
     /**
-     * @var StatusCode[]
+     * @var StatusId[]
      *
-     * @JMS\Type("array<Ergonode\Workflow\Domain\ValueObject\StatusCode>")
+     * @JMS\Type("array<Ergonode\SharedKernel\Domain\Aggregate\StatusId>")
      */
     private array $statuses;
 
 
     /**
      * @param WorkflowId $id
-     * @param array      $statuses
+     * @param StatusId[] $statuses
      */
     public function __construct(WorkflowId $id, array $statuses = [])
     {
-        Assert::allIsInstanceOf($statuses, StatusCode::class);
+        Assert::allIsInstanceOf($statuses, StatusId::class);
 
         $this->id = $id;
         $this->statuses = $statuses;
@@ -55,7 +55,7 @@ class UpdateWorkflowCommand implements DomainCommandInterface
     }
 
     /**
-     * @return StatusCode[]
+     * @return StatusId[]
      */
     public function getStatuses(): array
     {

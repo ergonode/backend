@@ -15,8 +15,8 @@ use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Workflow\Domain\Entity\Transition;
 use Ergonode\SharedKernel\Domain\Aggregate\TransitionId;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -28,14 +28,14 @@ class TransitionTest extends TestCase
     private TransitionId $id;
 
     /**
-     * @var StatusCode
+     * @var StatusId
      */
-    private StatusCode $from;
+    private StatusId $from;
 
     /**
-     * @var StatusCode
+     * @var StatusId
      */
-    private StatusCode $to;
+    private StatusId $to;
 
     /**
      * @var ConditionSetId
@@ -58,8 +58,8 @@ class TransitionTest extends TestCase
     {
         $this->id = $this->createMock(TransitionId::class);
         $this->id->method('isEqual')->willReturn(true);
-        $this->from = $this->createMock(StatusCode::class);
-        $this->to = $this->createMock(StatusCode::class);
+        $this->from = $this->createMock(StatusId::class);
+        $this->to = $this->createMock(StatusId::class);
         $this->roleIds = [$this->createMock(RoleId::class), $this->createMock(RoleId::class)];
         $this->conditionSetId = $this->createMock(ConditionSetId::class);
         $this->aggregateRoot = $this->createMock(AbstractAggregateRoot::class);

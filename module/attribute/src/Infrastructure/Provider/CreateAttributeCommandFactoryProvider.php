@@ -41,10 +41,7 @@ class CreateAttributeCommandFactoryProvider
         }
 
         throw new \RuntimeException(
-            sprintf(
-                'Can\'t find create attribute command factory for type %s',
-                get_class($this->factories[0])
-            )
+            sprintf('Can\'t find create attribute command factory for type %s', $type)
         );
     }
 }

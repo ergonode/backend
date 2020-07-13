@@ -111,11 +111,15 @@ final class Version20180619083830 extends AbstractErgonodeMigration
                 ADD CONSTRAINT product_category_product_category_id_fk
                     FOREIGN KEY (category_id) REFERENCES public.category on update cascade on delete cascade');
 
-        $this->addSql('CREATE TABLE product_status (code VARCHAR(32), name VARCHAR(64), PRIMARY KEY(code))');
-        $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['DRAFT', 'Draft']);
-        $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['ACCEPTED', 'Accepted']);
-        $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['TO_ACCEPTED', 'To accept']);
-        $this->addSql('INSERT INTO product_status (code, name) VALUES(?, ?)', ['TO_CORRECT', 'To correct']);
+
+        $this->addSql('CREATE TABLE product_workflow_status
+            (
+                product_id UUID NOT NULL,
+                status_id UUID NOT NULL,
+                language VARCHAR(5) NOT NULL,
+                PRIMARY KEY(product_id, status_id, language)
+            )
+        ');
 
         $this->addSql(
             'INSERT INTO privileges (id, code, area) VALUES (?, ?, ?)',
