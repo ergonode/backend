@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Tests\Infrastructure\Handler;
 
 use Ergonode\Category\Domain\Command\DeleteCategoryCommand;
-use Ergonode\Category\Domain\Entity\Category;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Category\Infrastructure\Handler\DeleteCategoryCommandHandler;
 use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
@@ -52,7 +52,7 @@ class DeleteCategoryCommandHandlerTest extends TestCase
         $collection = $this->createMock(RelationshipCollection::class);
         $collection->method('isEmpty')->willReturn(true);
         $this->resolver->expects($this->once())->method('resolve')->willReturn($collection);
-        $category = $this->createMock(Category::class);
+        $category = $this->createMock(AbstractCategory::class);
         $this->repository->expects($this->once())->method('load')->willReturn($category);
         $this->repository->expects($this->once())->method('delete');
 
@@ -68,7 +68,7 @@ class DeleteCategoryCommandHandlerTest extends TestCase
         $collection = $this->createMock(RelationshipCollection::class);
         $collection->method('isEmpty')->willReturn(false);
         $this->resolver->expects($this->once())->method('resolve')->willReturn($collection);
-        $category = $this->createMock(Category::class);
+        $category = $this->createMock(AbstractCategory::class);
         $this->repository->expects($this->once())->method('load')->willReturn($category);
         $this->repository->expects($this->never())->method('delete');
 

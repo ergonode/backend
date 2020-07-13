@@ -10,6 +10,7 @@ Feature: Category module
       """
       {
         "code": "CATEGORY_@@random_uuid@@",
+        "type": "DEFAULT",
         "name": {
           "de": "Test de",
           "en": "Test en"
@@ -44,6 +45,7 @@ Feature: Category module
       """
       {
         "code": "TREE_CAT_@@random_code@@",
+        "type": "DEFAULT",
         "name": {
           "de": "",
           "en": "Test en"
@@ -234,3 +236,14 @@ Feature: Category module
     When I send a GET request to "/api/v1/en/categories?limit=25&offset=0&filter=elements_count>=8888888;elements_count<=9999999"
     Then the JSON should be valid according to the schema "module/grid/features/gridSchema.json"
     And the JSON node "info.filtered" should match "/0/"
+
+  Scenario: Get category configuration
+    When I send a GET request to "/api/v1/en/categories/DEFAULT/configuration"
+    Then the response status code should be 200
+    And the JSON node "properties.code" should exist
+    And the JSON node "properties.name" should exist
+
+  Scenario: Get attribute types dictionary
+    And I send a "GET" request to "/api/v1/en/dictionary/categories/types"
+    Then the response status code should be 200
+    And the JSON node "DEFAULT" should exist
