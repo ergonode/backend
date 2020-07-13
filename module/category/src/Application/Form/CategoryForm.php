@@ -10,7 +10,8 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Application\Form;
 
 use Ergonode\Category\Application\Form\Type\CategoryCodeType;
-use Ergonode\Category\Application\Model\CategoryCreateFormModel;
+use Ergonode\Category\Application\Model\CategoryFormModel;
+use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Core\Application\Form\Type\TranslationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,8 +19,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  */
-class CategoryCreateForm extends AbstractType
+class CategoryForm extends AbstractType implements CategoryFormInterface
 {
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    public function supported(string $type): bool
+    {
+        return Category::TYPE === $type;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -34,8 +45,7 @@ class CategoryCreateForm extends AbstractType
             ->add(
                 'name',
                 TranslationType::class
-            )
-          ;
+            );
     }
 
     /**
@@ -44,8 +54,9 @@ class CategoryCreateForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => CategoryCreateFormModel::class,
+            'data_class' => CategoryFormModel::class,
             'translation_domain' => 'category',
+            'allow_extra_fields' => true,
         ]);
     }
 

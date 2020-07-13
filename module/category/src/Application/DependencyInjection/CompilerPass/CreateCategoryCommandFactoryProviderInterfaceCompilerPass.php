@@ -7,25 +7,25 @@
 
 declare(strict_types = 1);
 
-namespace Ergonode\Attribute\Application\DependencyInjection\CompilerPass;
+namespace Ergonode\Category\Application\DependencyInjection\CompilerPass;
 
+use Ergonode\Category\Infrastructure\Provider\CreateCategoryCommandFactoryProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Ergonode\Attribute\Infrastructure\Provider\UpdateAttributeCommandFactoryProvider;
 
 /**
  */
-class UpdateAttributeCommandFactoryProviderInterfaceCompilerPass implements CompilerPassInterface
+class CreateCategoryCommandFactoryProviderInterfaceCompilerPass implements CompilerPassInterface
 {
-    public const TAG = 'component.attribute.update_attribute_command_factory_interface';
+    public const TAG = 'component.category.create_category_command_factory_interface';
 
     /**
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container): void
     {
-        if ($container->has(UpdateAttributeCommandFactoryProvider::class)) {
+        if ($container->has(CreateCategoryCommandFactoryProvider::class)) {
             $this->processProvider($container);
         }
     }
@@ -36,7 +36,7 @@ class UpdateAttributeCommandFactoryProviderInterfaceCompilerPass implements Comp
     private function processProvider(ContainerBuilder $container): void
     {
         $arguments = [];
-        $definition = $container->findDefinition(UpdateAttributeCommandFactoryProvider::class);
+        $definition = $container->findDefinition(CreateCategoryCommandFactoryProvider::class);
         $strategies = $container->findTaggedServiceIds(self::TAG);
 
         foreach ($strategies as $id => $strategy) {

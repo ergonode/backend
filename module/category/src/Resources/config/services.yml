@@ -34,6 +34,9 @@ services:
     Ergonode\Category\Infrastructure\JMS\Serializer\Handler\:
         resource: '../../Infrastructure/JMS/Serializer/Handler/*'
         tags: ['jms_serializer.subscribing_handler']
+        
+    Ergonode\Category\Domain\Entity\Category:
+        autowire: true
 
     Ergonode\Category\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\Category\Persistence\Dbal\Repository\DbalCategoryRepository'
     Ergonode\Category\Domain\Query\CategoryQueryInterface: '@Ergonode\Category\Persistence\Dbal\Query\DbalCategoryQuery'

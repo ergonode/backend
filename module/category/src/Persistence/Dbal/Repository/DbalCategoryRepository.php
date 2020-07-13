@@ -9,7 +9,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Category\Persistence\Dbal\Repository;
 
-use Ergonode\Category\Domain\Entity\Category;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
+use Ergonode\Category\Domain\Event\CategoryCreatedEvent;
+use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
+use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Category\Domain\Event\CategoryDeletedEvent;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
@@ -53,15 +56,21 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
      *
      * @throws \ReflectionException
      */
-    public function load(CategoryId $id): ?Category
+    public function load(CategoryId $id): ?AbstractCategory
     {
         $eventStream = $this->eventStore->load($id);
+
         if ($eventStream->count() > 0) {
-            $class = new \ReflectionClass(Category::class);
-            /** @var Category $aggregate */
+            /** @var DomainEventEnvelope $envelope */
+            $envelope = $eventStream->getIterator()->current();
+            /** @var CategoryCreatedEvent $event */
+            $event = $envelope->getEvent();
+
+            $class = new \ReflectionClass($event->getClass());
+            /** @var AbstractAggregateRoot $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof Category) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', Category::class));
+            if (!$aggregate instanceof AbstractCategory) {
+                throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));
             }
             $aggregate->initialize($eventStream);
 
@@ -74,7 +83,7 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function save(Category $aggregateRoot): void
+    public function save(AbstractCategory $aggregateRoot): void
     {
         $events = $aggregateRoot->popEvents();
 
@@ -89,7 +98,7 @@ class DbalCategoryRepository implements CategoryRepositoryInterface
      *
      * @throws \Exception
      */
-    public function delete(Category $category): void
+    public function delete(AbstractCategory $category): void
     {
         $category->apply(new CategoryDeletedEvent($category->getId()));
         $this->save($category);

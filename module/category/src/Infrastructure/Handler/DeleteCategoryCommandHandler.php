@@ -10,7 +10,7 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Infrastructure\Handler;
 
 use Ergonode\Category\Domain\Command\DeleteCategoryCommand;
-use Ergonode\Category\Domain\Entity\Category;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Domain\Repository\CategoryRepositoryInterface;
 use Ergonode\Core\Infrastructure\Exception\ExistingRelationshipsException;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
@@ -52,7 +52,7 @@ class DeleteCategoryCommandHandler
         $category = $this->repository->load($command->getId());
         Assert::isInstanceOf(
             $category,
-            Category::class,
+            AbstractCategory::class,
             sprintf('Can\'t find category with id "%s"', $command->getId())
         );
 

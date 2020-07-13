@@ -10,17 +10,17 @@ declare(strict_types = 1);
 namespace Ergonode\Category\Tests\Domain\Entity;
 
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
-use Ergonode\Category\Domain\Entity\Category;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  */
-class CategoryTest extends TestCase
+class AbstractCategoryTest extends TestCase
 {
     /**
      * @var CategoryId|MockObject
@@ -66,13 +66,15 @@ class CategoryTest extends TestCase
         /** @var AttributeCode|MockObject $attributeCode */
         $attributeCode = $this->createMock(AttributeCode::class);
         $attributeCode->method('getValue')->willReturn('bbb');
-        /** @var ValueInterface|MockObject $attribute */
-        $attribute = $this->createMock(ValueInterface::class);
-
+        /** @var ValueInterface|MockObject $attributeValue1 */
+        $attributeValue1 = $this->createMock(ValueInterface::class);
+        /** @var ValueInterface|MockObject $attributeValue2 */
+        $attributeValue2 = $this->createMock(ValueInterface::class);
         /** @var TranslatableString|MockObject $name */
         $name = $this->createMock(TranslatableString::class);
 
-        $entity = new Category($this->id, $this->code, $this->name, $this->attributes);
+        $entity = $this->getClass();
+
         $this->assertEquals($this->id, $entity->getId());
         $this->assertEquals($this->name, $entity->getName());
         $this->assertEquals($this->code, $entity->getCode());
@@ -80,10 +82,38 @@ class CategoryTest extends TestCase
 
         $this->assertTrue($entity->hasAttribute($this->attributeCode));
         $this->assertEquals(reset($this->attributes), $entity->getAttribute($this->attributeCode));
-        $entity->addAttribute($attributeCode, $attribute);
+        $entity->addAttribute($attributeCode, $attributeValue1);
         $this->assertTrue($entity->hasAttribute($attributeCode));
+        $this->assertEquals($entity->getAttribute($attributeCode), $attributeValue1);
+        $entity->changeAttribute($attributeCode, $attributeValue2);
+        $this->assertEquals($entity->getAttribute($attributeCode), $attributeValue2);
+        $this->assertArrayHasKey('aaa', ($entity->getAttributes()));
+        $this->assertArrayHasKey('bbb', ($entity->getAttributes()));
+        $entity->removeAttribute($attributeCode);
+        $this->assertFalse($entity->hasAttribute($attributeCode));
 
         $entity->changeName($name);
         $this->assertEquals($name, $entity->getName());
+    }
+
+    /**
+     * @return AbstractCategory
+     */
+    private function getClass()
+    {
+        return new class(
+            $this->id,
+            $this->code,
+            $this->name,
+            $this->attributes,
+        ) extends AbstractCategory {
+            /**
+             * @return string
+             */
+            public function getType(): string
+            {
+                return 'TYPE';
+            }
+        };
     }
 }

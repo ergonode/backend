@@ -15,21 +15,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  */
-class CategoryCreateFormModel
+class CategoryFormModel
 {
     /**
      * @var CategoryCode
      *
-     * @Assert\NotBlank(message="Category code is required")
-     * @Assert\Length(max=64)
+     * @Assert\NotBlank(
+     *     message="Category code is required",
+     *     groups={"Create"}
+     *     )
+     * @Assert\Length(
+     *     max=64,
+     *     maxMessage="Maximum number of characters is 64",
+     *     groups={"Create"}
+     *     )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9-_]+$\b/i",
-     *     message="Category code can have only letters, digits or underscore symbol"
+     *     message="Category code can have only letters, digits or underscore symbol",
+     *     groups={"Create"}
      *  )
      *
      * @CategoryAssert\CategoryCode();
      */
-    public ?CategoryCode $code;
+    public ?CategoryCode $code = null;
 
     /**
      * @var array
@@ -39,13 +47,5 @@ class CategoryCreateFormModel
      *     @Assert\Length(max=32, maxMessage="Category name is to long, It should have {{ limit }} character or less.")
      * })
      */
-    public array $name;
-
-    /**
-     */
-    public function __construct()
-    {
-        $this->name = [];
-        $this->code = null;
-    }
+    public array $name = [];
 }
