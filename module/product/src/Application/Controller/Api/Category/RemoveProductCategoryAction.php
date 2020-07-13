@@ -9,9 +9,8 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Application\Controller\Api\Category;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Category\Domain\Entity\Category;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\Product\Domain\Command\Category\AddProductCategoryCommand;
 use Ergonode\Product\Domain\Command\Category\RemoveProductCategoryCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -72,7 +71,7 @@ class RemoveProductCategoryAction
      *
      * @SWG\Response(
      *     response=204,
-     *     description="Product removed category",
+     *     description="Category removed from product",
      * )
      * @SWG\Response(
      *     response=400,
@@ -81,14 +80,14 @@ class RemoveProductCategoryAction
      * )
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\Category")
+     * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
      *
-     * @param AbstractProduct $product
-     * @param Category        $category
+     * @param AbstractProduct  $product
+     * @param AbstractCategory $category
      *
      * @return Response
      */
-    public function __invoke(AbstractProduct $product, Category $category): Response
+    public function __invoke(AbstractProduct $product, AbstractCategory $category): Response
     {
         $command = new RemoveProductCategoryCommand($product->getId(), $category->getId());
 

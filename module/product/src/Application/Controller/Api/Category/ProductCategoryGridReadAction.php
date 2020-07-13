@@ -8,14 +8,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\Product\Application\Controller\Api\Category;
 
-use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Category\Domain\Entity\Category;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Grid\Renderer\GridRenderer;
 use Ergonode\Grid\RequestGridConfiguration;
-use Ergonode\Product\Domain\Command\Category\AddProductCategoryCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Product\Domain\Query\ProductCategoryQueryInterface;
 use Ergonode\Product\Infrastructure\Grid\ProductCategoryGrid;

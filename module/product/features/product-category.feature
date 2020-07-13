@@ -32,7 +32,8 @@ Feature: Product edit feature
     When I send a POST request to "/api/v1/en/categories" with body:
       """
       {
-        "code": "CATEGORY_@@random_uuid@@",
+        "code": "CATEGORY_TEST_AND_DELETE",
+        "type": "DEFAULT",
         "name": {"en": "Test Category 1"}
       }
       """
@@ -44,6 +45,7 @@ Feature: Product edit feature
       """
       {
         "code": "CATEGORY_@@random_uuid@@",
+        "type": "DEFAULT",
         "name": {"en": "Test Category 2"}
       }
       """
@@ -79,4 +81,25 @@ Feature: Product edit feature
         "category": "@category2@"
       }
       """
+    Then the response status code should be 204
+
+  Scenario: Get product category grid
+    When I send a GET request to "/api/v1/en/products/@product@/category"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | collection[0].id   | @category1@              |
+      | collection[0].code | CATEGORY_TEST_AND_DELETE |
+      | collection[0].name | Test Category 1          |
+
+  Scenario: Remove Category1 from product
+    When I send a DELETE request to "/api/v1/en/products/@product@/category" with body:
+      """
+      {
+        "category": "@category1@"
+      }
+      """
+    Then the response status code should be 204
+
+  Scenario: Delete category
+    When I send a DELETE request to "/api/v1/en/categories/@category1@"
     Then the response status code should be 204

@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Application\Controller\Api\Category;
 
 use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Category\Domain\Entity\Category;
+use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Product\Domain\Command\Category\AddProductCategoryCommand;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
@@ -71,7 +71,7 @@ class AddProductCategoryAction
      *
      * @SWG\Response(
      *     response=204,
-     *     description="Product added category",
+     *     description="Category added to product",
      * )
      * @SWG\Response(
      *     response=400,
@@ -80,14 +80,14 @@ class AddProductCategoryAction
      * )
      *
      * @ParamConverter(class="Ergonode\Product\Domain\Entity\AbstractProduct")
-     * @ParamConverter(class="Ergonode\Category\Domain\Entity\Category")
+     * @ParamConverter(class="Ergonode\Category\Domain\Entity\AbstractCategory")
      *
-     * @param AbstractProduct $product
-     * @param Category        $category
+     * @param AbstractProduct  $product
+     * @param AbstractCategory $category
      *
      * @return Response
      */
-    public function __invoke(AbstractProduct $product, Category $category): Response
+    public function __invoke(AbstractProduct $product, AbstractCategory $category): Response
     {
         $command = new AddProductCategoryCommand($product->getId(), $category->getId());
         $this->commandBus->dispatch($command);
