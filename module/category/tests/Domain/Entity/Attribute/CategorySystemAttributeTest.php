@@ -31,5 +31,6 @@ class CategorySystemAttributeTest extends TestCase
         $this->assertTrue($attribute->isSystem());
         $this->assertFalse($attribute->isEditable());
         $this->assertTrue($attribute->isDeletable());
+        $this->assertFalse($attribute->isMultilingual());
     }
 }

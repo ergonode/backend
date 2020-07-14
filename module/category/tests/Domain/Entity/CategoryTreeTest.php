@@ -60,13 +60,16 @@ class CategoryTreeTest extends TestCase
     public function testAddingCategory(): void
     {
         $root = CategoryId::generate();
-        $category = CategoryId::generate();
+        $category1 = CategoryId::generate();
+        $category2 = CategoryId::generate();
 
         $tree = new CategoryTree($this->id, $this->code, $this->name);
         $tree->addCategory($root);
         $this->assertTrue($tree->hasCategory($root));
-        $tree->addCategory($category, $root);
-        $this->assertTrue($tree->hasCategory($category));
+        $tree->addCategory($category1, $root);
+        $this->assertTrue($tree->hasCategory($category1));
+        $tree->addCategory($category2, $category1);
+        $this->assertTrue($tree->hasCategory($category2));
     }
 
     /**
