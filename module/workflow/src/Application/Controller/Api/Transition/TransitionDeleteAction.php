@@ -84,8 +84,8 @@ class TransitionDeleteAction
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
      *
      * @param AbstractWorkflow $workflow
-     * @param Status   $source
-     * @param Status   $destination
+     * @param Status           $source
+     * @param Status           $destination
      *
      * @return Response
      *

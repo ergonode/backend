@@ -87,7 +87,7 @@ class TransitionCreateAction
      * )
      *
      * @param AbstractWorkflow $workflow
-     * @param Request  $request
+     * @param Request          $request
      *
      * @return Response
      *

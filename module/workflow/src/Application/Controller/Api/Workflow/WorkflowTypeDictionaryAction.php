@@ -37,7 +37,7 @@ class WorkflowTypeDictionaryAction
 
     /**
      * @param WorkflowTypeProvider $provider
-     * @param TranslatorInterface $translator
+     * @param TranslatorInterface  $translator
      */
     public function __construct(WorkflowTypeProvider $provider, TranslatorInterface $translator)
     {

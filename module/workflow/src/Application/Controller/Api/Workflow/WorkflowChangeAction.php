@@ -54,10 +54,10 @@ class WorkflowChangeAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param FormFactoryInterface $formFactory
-     * @param WorkflowFormProvider $formProvider
+     * @param FormFactoryInterface                 $formFactory
+     * @param WorkflowFormProvider                 $formProvider
      * @param UpdateWorkflowCommandFactoryProvider $commandProvider
-     * @param CommandBusInterface $commandBus
+     * @param CommandBusInterface                  $commandBus
      */
     public function __construct(
         FormFactoryInterface $formFactory,

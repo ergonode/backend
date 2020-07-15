@@ -77,6 +77,7 @@ class ProductWorkflowQuery
             Assert::notNull($status, sprintf('status %s not exists', $statusId->getValue()));
             $result['status'] = [
                 'attribute_id' => AttributeId::fromKey((new AttributeCode(StatusSystemAttribute::CODE))->getValue()),
+                'id' => $status->getId()->getValue(),
                 'name' => $status->getName()->get($language),
                 'code' => $status->getCode()->getValue(),
                 'color' => $status->getColor(),
@@ -89,8 +90,8 @@ class ProductWorkflowQuery
                     $destinationStatus = $this->statusRepository->load($transition->getTo());
                     Assert::notNull($destinationStatus);
                     $result['workflow'][] = [
+                        'id' => $destinationStatus->getId()->getValue(),
                         'name' => $destinationStatus->getName()->get($language),
-                        'transition' => '',
                         'code' => $destinationStatus->getCode(),
                         'color' => $destinationStatus->getColor(),
                     ];

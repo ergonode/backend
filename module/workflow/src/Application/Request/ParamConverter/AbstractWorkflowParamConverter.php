@@ -38,15 +38,13 @@ class AbstractWorkflowParamConverter implements ParamConverterInterface
      *
      * @throws \Exception
      */
-    public function apply(Request $request, ParamConverter $configuration): void
+    public function apply(Request $request, ParamConverter $configuration): bool
     {
         $entity = $this->provider->provide();
 
-        if (null === $entity) {
-            throw new NotFoundHttpException('Default Workflow not found');
-        }
-
         $request->attributes->set($configuration->getName(), $entity);
+
+        return true;
     }
 
     /**

@@ -20,7 +20,7 @@ class WorkflowFormProvider
     private array $forms;
 
     /**
-     * @param array|WorkflowFormInterface ...$forms
+     * @param WorkflowFormInterface ...$forms
      */
     public function __construct(WorkflowFormInterface ...$forms)
     {

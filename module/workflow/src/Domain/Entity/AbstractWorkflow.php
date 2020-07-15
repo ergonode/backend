@@ -62,7 +62,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     /**
      * @var StatusId|null
      */
-    private ?StatusId $defaultStatus;
+    private ?StatusId $defaultId;
 
     /**
      * @param WorkflowId $id
@@ -75,7 +75,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     {
         Assert::allIsInstanceOf($statuses, StatusId::class);
 
-        $this->apply(new WorkflowCreatedEvent($id, get_class($this), $code,  array_values($statuses)));
+        $this->apply(new WorkflowCreatedEvent($id, get_class($this), $code, array_values($statuses)));
     }
 
     /**
@@ -121,7 +121,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
             throw  new \RuntimeException(sprintf('Status "%s" not exists', $id->getValue()));
         }
 
-        if ($this->defaultStatus && !$id->isEqual($this->defaultStatus)) {
+        if ($this->defaultId && !$id->isEqual($this->defaultId)) {
             $this->apply(new WorkflowDefaultStatusSetEvent($this->id, $id));
         }
     }
@@ -131,7 +131,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
      */
     public function hasDefaultStatus(): bool
     {
-        return null !== $this->defaultStatus;
+        return null !== $this->defaultId;
     }
 
     /**
@@ -143,7 +143,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
             throw  new \RuntimeException('Default status not exists');
         }
 
-        return $this->defaultStatus;
+        return $this->defaultId;
     }
 
     /**
@@ -347,10 +347,10 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
         $this->code = $event->getCode();
         $this->statuses = [];
         $this->transitions = [];
-        $this->defaultStatus = null;
+        $this->defaultId = null;
         foreach ($event->getStatuses() as $status) {
-            if (null === $this->defaultStatus) {
-                $this->defaultStatus = $status;
+            if (null === $this->defaultId) {
+                $this->defaultId = $status;
             }
             $this->statuses[$status->getValue()] = $status;
         }
@@ -363,8 +363,8 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     {
         $this->statuses[$event->getStatusId()->getValue()] = $event->getStatusId();
 
-        if (null === $this->defaultStatus) {
-            $this->defaultStatus = $event->getStatusId();
+        if (null === $this->defaultId) {
+            $this->defaultId = $event->getStatusId();
         }
     }
 
@@ -375,12 +375,12 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
     {
         unset($this->statuses[$event->getStatusId()->getValue()]);
 
-        if ($this->defaultStatus->isEqual($event->getStatusId())) {
-            $this->defaultStatus = null;
+        if ($this->defaultId->isEqual($event->getStatusId())) {
+            $this->defaultId = null;
         }
 
         if (!empty($this->statuses)) {
-            $this->defaultStatus = reset($this->statuses);
+            $this->defaultId = reset($this->statuses);
         }
     }
 
@@ -411,7 +411,7 @@ abstract class AbstractWorkflow extends AbstractAggregateRoot implements Workflo
      */
     protected function applyWorkflowDefaultStatusSetEvent(WorkflowDefaultStatusSetEvent $event): void
     {
-        $this->defaultStatus = $event->getStatusId();
+        $this->defaultId = $event->getStatusId();
     }
 
     /**

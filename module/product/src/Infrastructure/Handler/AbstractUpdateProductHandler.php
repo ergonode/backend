@@ -11,7 +11,6 @@ namespace Ergonode\Product\Infrastructure\Handler;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Product\Domain\Entity\Attribute\EditedBySystemAttribute;
-use Ergonode\Product\Domain\Entity\Attribute\EditedAtSystemAttribute;
 use Ergonode\Account\Domain\Entity\User;
 use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Product\Domain\Repository\ProductRepositoryInterface;

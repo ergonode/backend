@@ -16,6 +16,8 @@ use Ergonode\Core\Infrastructure\Model\RelationshipCollection;
 use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\Core\Infrastructure\Resolver\RelationshipsResolverInterface;
 
+/**
+ */
 class DeleteWorkflowCommandHandlerTest extends TestCase
 {
     /**

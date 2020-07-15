@@ -42,7 +42,7 @@ class StatusParamConverter implements ParamConverterInterface
      * @throws \ReflectionException
      * @throws \Exception
      */
-    public function apply(Request $request, ParamConverter $configuration): void
+    public function apply(Request $request, ParamConverter $configuration): bool
     {
         if ($configuration->getName()) {
             $parameter = $request->get($configuration->getName());
@@ -68,6 +68,8 @@ class StatusParamConverter implements ParamConverterInterface
         }
 
         $request->attributes->set($configuration->getName(), $entity);
+
+        return true;
     }
 
     /**

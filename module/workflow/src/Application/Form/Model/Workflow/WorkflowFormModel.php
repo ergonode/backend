@@ -35,6 +35,7 @@ class WorkflowFormModel
      *
      * @Assert\All({
      *     @Assert\NotBlank(),
+     *
      *     @StatusIdNotExists(),
      * })
      */

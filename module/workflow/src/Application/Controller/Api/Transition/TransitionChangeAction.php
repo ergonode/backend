@@ -104,14 +104,18 @@ class TransitionChangeAction
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
      *
      * @param AbstractWorkflow $workflow
-     * @param Status   $source
-     * @param Status   $destination
-     * @param Request  $request
+     * @param Status           $source
+     * @param Status           $destination
+     * @param Request          $request
      *
      * @return Response
      */
-    public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination, Request $request): Response
-    {
+    public function __invoke(
+        AbstractWorkflow $workflow,
+        Status $source,
+        Status $destination,
+        Request $request
+    ): Response {
         try {
             $model = new TransitionChangeFormModel();
             $form = $this->formFactory->create(TransitionChangeForm::class, $model, ['method' => Request::METHOD_PUT]);

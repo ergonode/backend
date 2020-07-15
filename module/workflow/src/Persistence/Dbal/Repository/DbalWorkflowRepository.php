@@ -18,6 +18,7 @@ use Ergonode\Workflow\Domain\Repository\WorkflowRepositoryInterface;
 use Ergonode\EventSourcing\Infrastructure\Envelope\DomainEventEnvelope;
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowCreatedEvent;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  */
@@ -59,7 +60,7 @@ class DbalWorkflowRepository implements WorkflowRepositoryInterface
             $event = $envelope->getEvent();
 
             $class = new \ReflectionClass($event->getClass());
-            /** @var AbstractAttribute $aggregate */
+            /** @var AbstractWorkflow $aggregate */
             $aggregate = $class->newInstanceWithoutConstructor();
             if (!$aggregate instanceof AbstractAggregateRoot) {
                 throw new \LogicException(sprintf('Impossible to initialize "%s"', $class));

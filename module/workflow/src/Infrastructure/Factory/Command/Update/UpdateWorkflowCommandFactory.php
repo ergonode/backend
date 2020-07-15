@@ -32,7 +32,7 @@ class UpdateWorkflowCommandFactory implements UpdateWorkflowCommandFactoryInterf
     }
 
     /**
-     * @param WorkflowId   $id
+     * @param WorkflowId    $id
      * @param FormInterface $form
      *
      * @return DomainCommandInterface
