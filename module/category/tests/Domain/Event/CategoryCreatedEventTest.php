@@ -33,5 +33,7 @@ class CategoryCreatedEventTest extends TestCase
         $this->assertEquals($id, $event->getAggregateId());
         $this->assertEquals($code, $event->getCode());
         $this->assertEquals($name, $event->getName());
+        $this->assertEquals($class, $event->getClass());
+        $this->assertEquals($type, $event->getType());
     }
 }

@@ -14,9 +14,11 @@ use Ergonode\Category\Domain\Entity\AbstractCategory;
 use Ergonode\Category\Domain\ValueObject\CategoryCode;
 use Ergonode\Core\Domain\ValueObject\TranslatableString;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
+use Ergonode\Value\Domain\ValueObject\StringValue;
 use Ergonode\Value\Domain\ValueObject\ValueInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\MakerBundle\Str;
 
 /**
  */
@@ -67,11 +69,11 @@ class AbstractCategoryTest extends TestCase
         $attributeCode = $this->createMock(AttributeCode::class);
         $attributeCode->method('getValue')->willReturn('bbb');
         /** @var ValueInterface|MockObject $attributeValue1 */
-        $attributeValue1 = $this->createMock(ValueInterface::class);
+        $attributeValue1 = new StringValue('test1');
         /** @var ValueInterface|MockObject $attributeValue2 */
-        $attributeValue2 = $this->createMock(ValueInterface::class);
+        $attributeValue2 = new StringValue('test2');
         /** @var TranslatableString|MockObject $name */
-        $name = $this->createMock(TranslatableString::class);
+        $name = new TranslatableString(['en' => 'test']);
 
         $entity = $this->getClass();
 
@@ -94,6 +96,51 @@ class AbstractCategoryTest extends TestCase
 
         $entity->changeName($name);
         $this->assertEquals($name, $entity->getName());
+    }
+
+    /**
+     */
+    public function testAttributeNotFound(): void
+    {
+        $entity = $this->getClass();
+
+        $this->expectException(\RuntimeException::class);
+        $attributeCode = $this->createMock(AttributeCode::class);
+        $entity->getAttribute($attributeCode);
+    }
+
+    /**
+     */
+    public function testAttributeAlreadyExist(): void
+    {
+        $entity = $this->getClass();
+
+        $this->expectException(\RuntimeException::class);
+        $value = $this->createMock(ValueInterface::class);
+        $entity->addAttribute($this->attributeCode, $value);
+    }
+
+    /**
+     */
+    public function testChangingNotExistingAttribute(): void
+    {
+        $entity = $this->getClass();
+
+        $this->expectException(\RuntimeException::class);
+        $attributeCode = $this->createMock(AttributeCode::class);
+        $value = $this->createMock(ValueInterface::class);
+        $entity->changeAttribute($attributeCode, $value);
+    }
+
+    /**
+     */
+    public function testRemovingNotExistingAttribute(): void
+    {
+        $entity = $this->getClass();
+
+        $this->expectException(\RuntimeException::class);
+        $attributeCode = $this->createMock(AttributeCode::class);
+        $entity->removeAttribute($attributeCode);
     }
 
     /**
