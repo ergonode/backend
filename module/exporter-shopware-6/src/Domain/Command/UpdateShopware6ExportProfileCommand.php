@@ -59,6 +59,14 @@ class UpdateShopware6ExportProfileCommand implements DomainCommandInterface
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $defaultLanguage;
+
+    /**
+     * @var Language[]
+     *
+     * @JMS\Type("array")
+     */
+    private array $languages;
+
     /**
      * @var AttributeId
      *
@@ -129,6 +137,7 @@ class UpdateShopware6ExportProfileCommand implements DomainCommandInterface
      * @param string              $clientId
      * @param string              $clientKey
      * @param Language            $defaultLanguage
+     * @param array               $languages
      * @param AttributeId         $productName
      * @param AttributeId         $productActive
      * @param AttributeId         $productStock
@@ -146,6 +155,7 @@ class UpdateShopware6ExportProfileCommand implements DomainCommandInterface
         string $clientId,
         string $clientKey,
         Language $defaultLanguage,
+        array $languages,
         AttributeId $productName,
         AttributeId $productActive,
         AttributeId $productStock,
@@ -162,6 +172,7 @@ class UpdateShopware6ExportProfileCommand implements DomainCommandInterface
         $this->clientId = $clientId;
         $this->clientKey = $clientKey;
         $this->defaultLanguage = $defaultLanguage;
+        $this->languages = $languages;
         $this->productName = $productName;
         $this->productActive = $productActive;
         $this->productStock = $productStock;
@@ -219,6 +230,14 @@ class UpdateShopware6ExportProfileCommand implements DomainCommandInterface
     public function getDefaultLanguage(): Language
     {
         return $this->defaultLanguage;
+    }
+
+    /**
+     * @return Language[]
+     */
+    public function getLanguages(): array
+    {
+        return $this->languages;
     }
 
     /**

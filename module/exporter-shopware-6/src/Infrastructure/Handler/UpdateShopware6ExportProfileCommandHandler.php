@@ -43,6 +43,7 @@ class UpdateShopware6ExportProfileCommandHandler
         $exportProfile->setClientId($command->getClientId());
         $exportProfile->setClientKey($command->getClientKey());
         $exportProfile->setDefaultLanguage($command->getDefaultLanguage());
+        $exportProfile->setLanguages($command->getLanguages());
         $exportProfile->setProductName($command->getProductName());
         $exportProfile->setProductActive($command->getProductActive());
         $exportProfile->setProductStock($command->getProductStock());

@@ -52,6 +52,14 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
     private Language $defaultLanguage;
 
     /**
+     * @var Language[]
+     *
+     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
+     *
+     */
+    private array $languages;
+
+    /**
      * @var AttributeId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
@@ -121,6 +129,7 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
      * @param string              $clientId
      * @param string              $clientKey
      * @param Language            $defaultLanguage
+     * @param array               $languages
      * @param AttributeId         $productName
      * @param AttributeId         $productActive
      * @param AttributeId         $productStock
@@ -138,6 +147,7 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
         string $clientId,
         string $clientKey,
         Language $defaultLanguage,
+        array $languages,
         AttributeId $productName,
         AttributeId $productActive,
         AttributeId $productStock,
@@ -154,6 +164,7 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
         $this->clientId = $clientId;
         $this->clientKey = $clientKey;
         $this->defaultLanguage = $defaultLanguage;
+        $this->languages = $languages;
         $this->productName = $productName;
         $this->productActive = $productActive;
         $this->productStock = $productStock;
@@ -203,6 +214,14 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
     public function getDefaultLanguage(): Language
     {
         return $this->defaultLanguage;
+    }
+
+    /**
+     * @return array|Language[]
+     */
+    public function getLanguages(): array
+    {
+        return $this->languages;
     }
 
     /**
@@ -315,6 +334,14 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
     public function setDefaultLanguage(Language $defaultLanguage): void
     {
         $this->defaultLanguage = $defaultLanguage;
+    }
+
+    /**
+     * @param array $languages
+     */
+    public function setLanguages(array $languages): void
+    {
+        $this->languages = $languages;
     }
 
     /**

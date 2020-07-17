@@ -52,6 +52,24 @@ Feature: Export Profile Shopware 6 API
     Then the response status code should be 201
     And store response param "id" as "attribute_text_id"
 
+  Scenario: Create category tree
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
+    When I send a POST request to "/api/v1/en/trees" with body:
+      """
+      {
+        "code": "TREE_@@random_code@@",
+        "name": {
+          "de": "Test tree1 de",
+          "en": "Test tree1 en",
+          "pl_PL": "Test tree1 PL"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "category_tree"
+
   Scenario: Post Create Export profile to Shopware 6 API
     When I send a POST request to "/api/v1/en/export-profile" with body:
       """
@@ -62,11 +80,13 @@ Feature: Export Profile Shopware 6 API
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
           "default_language": "en",
+          "languages": ["en"],
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
           "attribute_product_price" : "@attribute_price_id@",
-          "attribute_product_tax" : "@attribute_numeric_id@"
+          "attribute_product_tax" : "@attribute_numeric_id@",
+          "category_tree" : "@category_tree@"
         }
       """
     Then the response status code should be 201
@@ -82,12 +102,14 @@ Feature: Export Profile Shopware 6 API
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
           "default_language": "en",
+          "languages": ["pl", "en"],
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
           "attribute_product_price" : "@attribute_price_id@",
           "attribute_product_tax" : "@attribute_numeric_id@",
           "attribute_product_description" : "@attribute_text_id@",
+          "category_tree" : "@category_tree@",
           "property_group": [
             {
               "id": "@attribute_text_id@"

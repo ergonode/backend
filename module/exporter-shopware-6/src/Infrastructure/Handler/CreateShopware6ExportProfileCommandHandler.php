@@ -42,6 +42,7 @@ class CreateShopware6ExportProfileCommandHandler
             $command->getClientId(),
             $command->getClientKey(),
             $command->getDefaultLanguage(),
+            $command->getLanguages(),
             $command->getProductName(),
             $command->getProductActive(),
             $command->getProductStock(),

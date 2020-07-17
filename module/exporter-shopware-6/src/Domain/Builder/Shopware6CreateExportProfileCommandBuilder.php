@@ -47,7 +47,8 @@ class Shopware6CreateExportProfileCommandBuilder implements CreateExportProfileC
         $host = $data->host;
         $clientId = $data->clientId;
         $clientKey = $data->clientKey;
-        $language = $data->defaultLanguage;
+        $defaultLanguage = $data->defaultLanguage;
+        $languages = $data->languages;
         $attributeProductName = $data->attributeProductName;
         $attributeProductActive = $data->attributeProductActive;
         $attributeProductStock = $data->attributeProductStock;
@@ -73,7 +74,8 @@ class Shopware6CreateExportProfileCommandBuilder implements CreateExportProfileC
             $host,
             $clientId,
             $clientKey,
-            $language,
+            $defaultLanguage,
+            $languages,
             $attributeProductName,
             $attributeProductActive,
             $attributeProductStock,

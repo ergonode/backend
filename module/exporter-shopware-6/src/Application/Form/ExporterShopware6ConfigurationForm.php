@@ -10,7 +10,8 @@ namespace Ergonode\ExporterShopware6\Application\Form;
 
 use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Core\Application\Form\Type\LanguageType;
+use Ergonode\Category\Application\Form\Type\CategoryTreeIdType;
+use Ergonode\Core\Application\Form\Type\ActiveLanguageType;
 use Ergonode\ExporterShopware6\Application\Form\Model\ExporterShopware6ConfigurationModel;
 use Ergonode\ExporterShopware6\Application\Form\Type\AttributeMapType;
 use Symfony\Component\Form\AbstractType;
@@ -74,9 +75,20 @@ class ExporterShopware6ConfigurationForm extends AbstractType
             )
             ->add(
                 'default_language',
-                LanguageType::class,
+                ActiveLanguageType::class,
                 [
                     'property_path' => 'defaultLanguage',
+                ]
+            )
+            ->add(
+                'languages',
+                CollectionType::class,
+                [
+                    'label' => 'List of languages',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_type' => ActiveLanguageType::class,
+                    'property_path' => 'languages',
                 ]
             )
             ->add(
@@ -157,7 +169,13 @@ class ExporterShopware6ConfigurationForm extends AbstractType
                     'required' => false,
                 ]
             )
-        ;
+            ->add(
+                'category_tree',
+                CategoryTreeIdType::class,
+                [
+                    'property_path' => 'categoryTree',
+                ]
+            );
     }
 
     /**

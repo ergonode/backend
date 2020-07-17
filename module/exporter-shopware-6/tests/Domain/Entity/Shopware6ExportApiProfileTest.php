@@ -50,6 +50,11 @@ class Shopware6ExportApiProfileTest extends TestCase
     private Language $defaultLanguage;
 
     /**
+     * @var Language[]|MockObject
+     */
+    private array $languages;
+
+    /**
      * @var AttributeId|MockObject
      */
     private AttributeId $productName;
@@ -94,6 +99,7 @@ class Shopware6ExportApiProfileTest extends TestCase
         $this->clientId = 'Any Client ID';
         $this->clientKey = 'Any Client KEY';
         $this->defaultLanguage = $this->createMock(Language::class);
+        $this->languages = [$this->createMock(Language::class)];
         $this->productName = $this->createMock(AttributeId::class);
         $this->productActive = $this->createMock(AttributeId::class);
         $this->productStock = $this->createMock(AttributeId::class);
@@ -114,6 +120,7 @@ class Shopware6ExportApiProfileTest extends TestCase
             $this->clientId,
             $this->clientKey,
             $this->defaultLanguage,
+            $this->languages,
             $this->productName,
             $this->productActive,
             $this->productStock,
@@ -132,6 +139,7 @@ class Shopware6ExportApiProfileTest extends TestCase
         $this->assertEquals($this->clientId, $entity->getClientId());
         $this->assertEquals($this->clientKey, $entity->getClientKey());
         $this->assertEquals($this->defaultLanguage, $entity->getDefaultLanguage());
+        $this->assertEquals($this->languages, $entity->getLanguages());
         $this->assertEquals($this->productName, $entity->getProductName());
         $this->assertEquals($this->productActive, $entity->getProductActive());
         $this->assertEquals($this->productStock, $entity->getProductStock());
@@ -154,6 +162,7 @@ class Shopware6ExportApiProfileTest extends TestCase
             $this->clientId,
             $this->clientKey,
             $this->defaultLanguage,
+            $this->languages,
             $this->productName,
             $this->productActive,
             $this->productStock,
@@ -171,6 +180,7 @@ class Shopware6ExportApiProfileTest extends TestCase
         $clientId = 'New Client ID';
         $clientKey = 'New Client KEY';
         $defaultLanguage = $this->createMock(Language::class);
+        $languages = [$this->createMock(Language::class)];
         $productName = $this->createMock(AttributeId::class);
         $productActive = $this->createMock(AttributeId::class);
         $productStock = $this->createMock(AttributeId::class);
@@ -179,12 +189,12 @@ class Shopware6ExportApiProfileTest extends TestCase
         $productDescription = $this->createMock(AttributeId::class);
         $categoryTreeId = $this->createMock(CategoryTreeId::class);
 
-
         $entity->setName($name);
         $entity->setHost($host);
         $entity->setClientId($clientId);
         $entity->setClientKey($clientKey);
         $entity->setDefaultLanguage($defaultLanguage);
+        $entity->setLanguages($languages);
         $entity->setProductName($productName);
         $entity->setProductActive($productActive);
         $entity->setProductStock($productStock);
@@ -195,13 +205,13 @@ class Shopware6ExportApiProfileTest extends TestCase
         $entity->setPropertyGroup([]);
         $entity->setCustomField([]);
 
-
         $this->assertEquals($id, $entity->getId());
         $this->assertEquals($name, $entity->getName());
         $this->assertEquals($host, $entity->getHost());
         $this->assertEquals($clientId, $entity->getClientId());
         $this->assertEquals($clientKey, $entity->getClientKey());
         $this->assertEquals($defaultLanguage, $entity->getDefaultLanguage());
+        $this->assertEquals($languages, $entity->getLanguages());
         $this->assertEquals($productName, $entity->getProductName());
         $this->assertEquals($productActive, $entity->getProductActive());
         $this->assertEquals($productStock, $entity->getProductStock());
