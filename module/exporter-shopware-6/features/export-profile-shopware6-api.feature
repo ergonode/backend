@@ -53,9 +53,6 @@ Feature: Export Profile Shopware 6 API
     And store response param "id" as "attribute_text_id"
 
   Scenario: Create category tree
-    Given I am Authenticated as "test@ergonode.com"
-    And I add "Content-Type" header equal to "application/json"
-    And I add "Accept" header equal to "application/json"
     When I send a POST request to "/api/v1/en/trees" with body:
       """
       {
@@ -80,7 +77,6 @@ Feature: Export Profile Shopware 6 API
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
           "default_language": "en",
-          "languages": ["en"],
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",

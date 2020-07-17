@@ -60,8 +60,6 @@ class ExporterShopware6ConfigurationModel
 
     /**
      * @var Language[]|null
-     *
-     * @Assert\NotBlank()
      */
     public ?array $languages = [];
 

@@ -63,7 +63,7 @@ class CreateShopware6ExportProfileCommand implements DomainCommandInterface
     /**
      * @var Language[]
      *
-     * @JMS\Type("array")
+     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $languages;
 

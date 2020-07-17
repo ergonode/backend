@@ -129,7 +129,7 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
      * @param string              $clientId
      * @param string              $clientKey
      * @param Language            $defaultLanguage
-     * @param array               $languages
+     * @param Language[]          $languages
      * @param AttributeId         $productName
      * @param AttributeId         $productActive
      * @param AttributeId         $productStock
@@ -337,7 +337,7 @@ class Shopware6ExportApiProfile extends AbstractExportProfile implements ExportP
     }
 
     /**
-     * @param array $languages
+     * @param Language[] $languages
      */
     public function setLanguages(array $languages): void
     {
