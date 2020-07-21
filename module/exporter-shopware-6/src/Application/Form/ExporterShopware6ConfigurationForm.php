@@ -10,7 +10,6 @@ namespace Ergonode\ExporterShopware6\Application\Form;
 
 use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Core\Application\Form\Type\ActiveLanguageType;
 use Ergonode\ExporterShopware6\Application\Form\Model\ExporterShopware6ConfigurationModel;
 use Ergonode\ExporterShopware6\Application\Form\Type\AttributeMapType;
 use Symfony\Component\Form\AbstractType;
