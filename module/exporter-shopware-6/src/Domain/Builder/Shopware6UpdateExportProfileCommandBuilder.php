@@ -8,6 +8,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Domain\Builder;
 
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\Exporter\Application\Provider\UpdateExportProfileCommandBuilderInterface;
 use Ergonode\ExporterShopware6\Application\Form\Model\ExporterShopware6ConfigurationModel;
@@ -67,14 +68,19 @@ class Shopware6UpdateExportProfileCommandBuilder implements UpdateExportProfileC
             $customField[] = new AttributeId($attribute->id);
         }
 
+        $languageObjects = [];
+        foreach ($languages as $language) {
+            $languageObjects[] = new Language($language);
+        }
+
         return new UpdateShopware6ExportProfileCommand(
             $exportProfileId,
             $name,
             $host,
             $clientId,
             $clientKey,
-            $defaultLanguage,
-            $languages,
+            new Language($defaultLanguage),
+            $languageObjects,
             $attributeProductName,
             $attributeProductActive,
             $attributeProductStock,

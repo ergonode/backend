@@ -10,7 +10,6 @@ namespace Ergonode\ExporterShopware6\Application\Form;
 
 use Ergonode\Attribute\Application\Form\Type\AttributeIdType;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Category\Application\Form\Type\CategoryTreeIdType;
 use Ergonode\Core\Application\Form\Type\ActiveLanguageType;
 use Ergonode\ExporterShopware6\Application\Form\Model\ExporterShopware6ConfigurationModel;
 use Ergonode\ExporterShopware6\Application\Form\Type\AttributeMapType;
@@ -75,7 +74,7 @@ class ExporterShopware6ConfigurationForm extends AbstractType
             )
             ->add(
                 'default_language',
-                ActiveLanguageType::class,
+                TextType::class,
                 [
                     'property_path' => 'defaultLanguage',
                 ]
@@ -87,7 +86,7 @@ class ExporterShopware6ConfigurationForm extends AbstractType
                     'label' => 'List of languages',
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'entry_type' => ActiveLanguageType::class,
+                    'entry_type' => TextType::class,
                     'property_path' => 'languages',
                 ]
             )

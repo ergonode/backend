@@ -52,14 +52,14 @@ class ExporterShopware6ConfigurationModel
     public ?string $clientKey = null;
 
     /**
-     * @var Language|null
+     * @var string|null
      *
      * @Assert\NotBlank()
      */
-    public ?Language $defaultLanguage = null;
+    public ?string $defaultLanguage = null;
 
     /**
-     * @var Language[]|null
+     * @var array|null
      */
     public ?array $languages = [];
 
@@ -132,7 +132,7 @@ class ExporterShopware6ConfigurationModel
             $this->host = $exportProfile->getHost();
             $this->clientId = $exportProfile->getClientId();
             $this->clientKey = $exportProfile->getClientKey();
-            $this->defaultLanguage = $exportProfile->getDefaultLanguage();
+            $this->defaultLanguage = $exportProfile->getDefaultLanguage()->getCode();
             $this->languages = $exportProfile->getLanguages();
             $this->attributeProductName = $exportProfile->getProductName();
             $this->attributeProductActive = $exportProfile->getProductActive();

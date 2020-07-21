@@ -41,7 +41,7 @@ class Shopware6UpdateExportProfileCommandBuilderTest extends TestCase
         $model->host = 'host';
         $model->clientId = 'client_id';
         $model->clientKey = 'client_key';
-        $model->defaultLanguage = $this->createMock(Language::class);
+        $model->defaultLanguage = 'en';
         $model->attributeProductName = $this->createMock(AttributeId::class);
         $model->attributeProductActive = $this->createMock(AttributeId::class);
         $model->attributeProductStock = $this->createMock(AttributeId::class);
