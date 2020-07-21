@@ -14,6 +14,7 @@ use Ergonode\ExporterShopware6\Application\Form\Model\ExporterShopware6Configura
 use Ergonode\ExporterShopware6\Domain\Command\CreateShopware6ExportProfileCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Symfony\Component\Form\FormInterface;
 
@@ -67,7 +68,6 @@ class Shopware6CreateExportProfileCommandBuilder implements CreateExportProfileC
             $customField[] = new AttributeId($attribute->id);
         }
 
-
         return new CreateShopware6ExportProfileCommand(
             ExportProfileId::generate(),
             $name,
@@ -82,7 +82,7 @@ class Shopware6CreateExportProfileCommandBuilder implements CreateExportProfileC
             $attributeProductPrice,
             $attributeProductTax,
             $attributeProductDescription,
-            $categoryTree,
+            new CategoryTreeId($categoryTree),
             $propertyGroup,
             $customField
         );

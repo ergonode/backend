@@ -14,6 +14,7 @@ use Ergonode\ExporterShopware6\Application\Form\Model\ExporterShopware6Configura
 use Ergonode\ExporterShopware6\Domain\Command\UpdateShopware6ExportProfileCommand;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Symfony\Component\Form\FormInterface;
 
@@ -80,7 +81,7 @@ class Shopware6UpdateExportProfileCommandBuilder implements UpdateExportProfileC
             $attributeProductPrice,
             $attributeProductTax,
             $attributeProductDescription,
-            $categoryTree,
+            new CategoryTreeId($categoryTree),
             $propertyGroup,
             $customField
         );

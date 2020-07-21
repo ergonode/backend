@@ -104,9 +104,9 @@ class ExporterShopware6ConfigurationModel
     public ?AttributeId $attributeProductDescription = null;
 
     /**
-     * @var CategoryTreeId|null
+     * @var string |null
      */
-    public ?CategoryTreeId $categoryTree = null;
+    public ?string $categoryTree = null;
 
     /**
      * @var AttributeModel[]
@@ -140,7 +140,7 @@ class ExporterShopware6ConfigurationModel
             $this->attributeProductPrice = $exportProfile->getProductPrice();
             $this->attributeProductTax = $exportProfile->getProductTax();
             $this->attributeProductDescription = $exportProfile->getProductDescription();
-            $this->categoryTree = $exportProfile->getCategoryTree();
+            $this->categoryTree = $exportProfile->getCategoryTree()->getValue();
 
             foreach ($exportProfile->getPropertyGroup() as $attributeId) {
                 $this->propertyGroup[] = new AttributeModel($attributeId->getValue());

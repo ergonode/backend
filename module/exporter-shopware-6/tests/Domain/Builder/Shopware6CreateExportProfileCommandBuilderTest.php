@@ -45,6 +45,7 @@ class Shopware6CreateExportProfileCommandBuilderTest extends TestCase
         $model->attributeProductStock = $this->createMock(AttributeId::class);
         $model->attributeProductPrice = $this->createMock(AttributeId::class);
         $model->attributeProductTax = $this->createMock(AttributeId::class);
+        $model->categoryTree = '0b0df351-dc46-4051-b0d2-166215e8283c';
 
 
         $form = $this->createMock(FormInterface::class);
@@ -65,5 +66,6 @@ class Shopware6CreateExportProfileCommandBuilderTest extends TestCase
         $this->assertEquals($model->attributeProductStock, $result->getProductStock());
         $this->assertEquals($model->attributeProductPrice, $result->getProductPrice());
         $this->assertEquals($model->attributeProductTax, $result->getProductTax());
+        $this->assertEquals($model->categoryTree, $result->getCategoryTree()->getValue());
     }
 }

@@ -171,7 +171,7 @@ class ExporterShopware6ConfigurationForm extends AbstractType
             )
             ->add(
                 'category_tree',
-                CategoryTreeIdType::class,
+                TextType::class,
                 [
                     'property_path' => 'categoryTree',
                 ]
