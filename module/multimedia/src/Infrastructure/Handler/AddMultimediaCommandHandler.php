@@ -14,6 +14,7 @@ use Ergonode\Multimedia\Domain\Entity\Multimedia;
 use Ergonode\Multimedia\Domain\Repository\MultimediaRepositoryInterface;
 use Ergonode\Multimedia\Infrastructure\Service\HashCalculationServiceInterface;
 use Ergonode\Multimedia\Infrastructure\Storage\MultimediaStorageInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  */
@@ -59,9 +60,10 @@ class AddMultimediaCommandHandler
     public function __invoke(AddMultimediaCommand $command): void
     {
         $id = $command->getId();
+        /** @var UploadedFile $file */
         $file = $command->getFile();
         $hash = $this->hashService->calculateHash($file);
-        $originalName = $file->getFilename();
+        $originalName = $file->getClientOriginalName();
 
         $extension = $file->getExtension();
         if (empty($extension) || '.' === $extension) {
