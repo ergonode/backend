@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6CustomFieldQueryInterface;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CustomFieldRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
@@ -17,6 +17,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Client\Shopware6CustomFieldClient;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -69,35 +70,36 @@ class CustomFieldSynchronizer implements SynchronizerInterface
     }
 
     /**
-     * @param ExportId                  $id
-     * @param Shopware6ExportApiProfile $profile
+     * @param ExportId         $id
+     * @param Shopware6Channel $channel
      */
-    public function synchronize(ExportId $id, Shopware6ExportApiProfile $profile): void
+    public function synchronize(ExportId $id, Shopware6Channel $channel): void
     {
-        $this->synchronizeShopware($profile);
-        $this->synchronizeCustomField($profile);
+        $this->synchronizeShopware($channel);
+        $this->synchronizeCustomField($channel);
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      */
-    private function synchronizeCustomField(Shopware6ExportApiProfile $profile): void
+    private function synchronizeCustomField(Shopware6Channel $channel): void
     {
-        $attributes = $profile->getCustomField();
+        $attributes = $channel->getCustomField();
         foreach ($attributes as $attributeId) {
-            $this->checkExistOrCreate($profile, $attributeId);
+            $this->checkExistOrCreate($channel, $attributeId);
         }
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param AttributeId               $attributeId
+     * @param Shopware6Channel $channel
+     * @param AttributeId      $attributeId
      */
-    private function checkExistOrCreate(Shopware6ExportApiProfile $profile, AttributeId $attributeId): void
+    private function checkExistOrCreate(Shopware6Channel $channel, AttributeId $attributeId): void
     {
         $attribute = $this->attributeRepository->load($attributeId);
+        Assert::notNull($attribute);
 
-        $isset = $this->customFieldRepository->exists($profile->getId(), $attribute->getId());
+        $isset = $this->customFieldRepository->exists($channel->getId(), $attribute->getId());
         if ($isset) {
             return;
         }
@@ -114,30 +116,30 @@ class CustomFieldSynchronizer implements SynchronizerInterface
             ]
         );
 
-        $this->client->insert($profile, $customField);
+        $this->client->insert($channel, $customField);
 
-        $new = $this->client->findByCode($profile, $code);
+        $new = $this->client->findByCode($channel, $code);
 
-        $this->customFieldRepository->save($profile->getId(), $attributeId, $new->getId());
+        $this->customFieldRepository->save($channel->getId(), $attributeId, $new->getId());
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      */
-    private function synchronizeShopware(Shopware6ExportApiProfile $profile): void
+    private function synchronizeShopware(Shopware6Channel $channel): void
     {
         $start = new \DateTimeImmutable();
-        $customFieldList = $this->client->load($profile);
+        $customFieldList = $this->client->load($channel);
 
         foreach ($customFieldList as $customField) {
             $attributeId = $this->customFieldQuery->loadByShopwareId(
-                $profile->getId(),
+                $channel->getId(),
                 $customField->getId()
             );
             if ($attributeId) {
-                $this->customFieldRepository->save($profile->getId(), $attributeId, $customField->getId());
+                $this->customFieldRepository->save($channel->getId(), $attributeId, $customField->getId());
             }
         }
-        $this->customFieldQuery->clearBefore($profile->getId(), $start);
+        $this->customFieldQuery->clearBefore($channel->getId(), $start);
     }
 }

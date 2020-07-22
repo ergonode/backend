@@ -9,12 +9,13 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
+use Webmozart\Assert\Assert;
 
 /**
  */
@@ -43,9 +44,9 @@ class Shopware6ProductNameMapper implements Shopware6ProductMapperInterface
     }
 
     /**
-     * @param Shopware6Product          $shopware6Product
-     * @param AbstractProduct           $product
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Product $shopware6Product
+     * @param AbstractProduct  $product
+     * @param Shopware6Channel $channel
      *
      * @return Shopware6Product
      *
@@ -54,10 +55,11 @@ class Shopware6ProductNameMapper implements Shopware6ProductMapperInterface
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6ExportApiProfile $profile
+        Shopware6Channel $channel
     ): Shopware6Product {
 
-        $attribute = $this->repository->load($profile->getProductName());
+        $attribute = $this->repository->load($channel->getProductName());
+        Assert::notNull($attribute);
 
         if (false === $product->hasAttribute($attribute->getCode())) {
             throw new Shopware6ExporterMapperException(
@@ -66,7 +68,7 @@ class Shopware6ProductNameMapper implements Shopware6ProductMapperInterface
         }
 
         $value = $product->getAttribute($attribute->getCode());
-        $shopware6Product->setName($this->calculator->calculate($attribute, $value, $profile->getDefaultLanguage()));
+        $shopware6Product->setName($this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage()));
 
         return $shopware6Product;
     }

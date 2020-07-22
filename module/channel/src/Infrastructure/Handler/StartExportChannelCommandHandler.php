@@ -12,22 +12,22 @@ use Ergonode\Channel\Domain\Command\StartChannelExportCommand;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 use Ergonode\Exporter\Domain\Command\Export\StartExportCommand;
 use Ergonode\Exporter\Domain\Entity\Export;
-use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Webmozart\Assert\Assert;
 use Ergonode\Product\Domain\Query\ProductQueryInterface;
 use Ergonode\Exporter\Domain\Command\Export\ProcessExportCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\ProductId;
 use Ergonode\Exporter\Domain\Command\Export\EndExportCommand;
+use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
 /**
  */
 class StartExportChannelCommandHandler
 {
     /**
-     * @var ExportProfileRepositoryInterface
+     * @var ChannelRepositoryInterface
      */
-    private ExportProfileRepositoryInterface $exportProfileRepository;
+    private ChannelRepositoryInterface $chanelRepository;
 
     /**
      * @var ExportRepositoryInterface
@@ -45,18 +45,18 @@ class StartExportChannelCommandHandler
     private CommandBusInterface $commandBus;
 
     /**
-     * @param ExportProfileRepositoryInterface $exportProfileRepository
-     * @param ExportRepositoryInterface        $exportRepository
-     * @param ProductQueryInterface            $productQuery
-     * @param CommandBusInterface              $commandBus
+     * @param ChannelRepositoryInterface $chanelRepository
+     * @param ExportRepositoryInterface  $exportRepository
+     * @param ProductQueryInterface      $productQuery
+     * @param CommandBusInterface        $commandBus
      */
     public function __construct(
-        ExportProfileRepositoryInterface $exportProfileRepository,
+        ChannelRepositoryInterface $chanelRepository,
         ExportRepositoryInterface $exportRepository,
         ProductQueryInterface $productQuery,
         CommandBusInterface $commandBus
     ) {
-        $this->exportProfileRepository = $exportProfileRepository;
+        $this->chanelRepository = $chanelRepository;
         $this->exportRepository = $exportRepository;
         $this->productQuery = $productQuery;
         $this->commandBus = $commandBus;
@@ -67,15 +67,14 @@ class StartExportChannelCommandHandler
      */
     public function __invoke(StartChannelExportCommand $command)
     {
-        $exportProfile = $this->exportProfileRepository->exists($command->getExportProfileId());
-        Assert::true($exportProfile);
+        $channel = $this->chanelRepository->exists($command->getChannelId());
+        Assert::true($channel);
 
         $ids = $this->productQuery->getAllIds();
 
         $export = new Export(
             $command->getExportId(),
             $command->getChannelId(),
-            $command->getExportProfileId(),
             count($ids),
         );
 

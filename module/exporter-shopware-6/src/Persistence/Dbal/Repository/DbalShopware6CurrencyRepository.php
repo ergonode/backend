@@ -10,7 +10,8 @@ namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
 
 use Doctrine\DBAL\Connection;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
@@ -19,7 +20,7 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
 
     private const TABLE = 'exporter.shopware6_currency';
     private const FIELDS = [
-        'export_profile_id',
+        'channel_id',
         'iso',
         'shopware6_id',
     ];
@@ -38,20 +39,20 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $iso
+     * @param ChannelId $channel
+     * @param string    $iso
      *
      * @return string|null
      */
-    public function load(ExportProfileId $exportProfileId, string $iso): ?string
+    public function load(ChannelId $channel, string $iso): ?string
     {
 
         $query = $this->connection->createQueryBuilder();
         $record = $query
             ->select(self::FIELDS)
             ->from(self::TABLE, 'c')
-            ->where($query->expr()->eq('export_profile_id', ':exportProfileId'))
-            ->setParameter(':exportProfileId', $exportProfileId->getValue())
+            ->where($query->expr()->eq('channel_id', ':channelId'))
+            ->setParameter(':channelId', $channel->getValue())
             ->andWhere($query->expr()->eq('c.iso', ':iso'))
             ->setParameter(':iso', $iso)
             ->execute()
@@ -65,36 +66,36 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $iso
-     * @param string          $shopwareId
+     * @param ChannelId $channel
+     * @param string    $iso
+     * @param string    $shopwareId
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
-    public function save(ExportProfileId $exportProfileId, string $iso, string $shopwareId): void
+    public function save(ChannelId $channel, string $iso, string $shopwareId): void
     {
-        if ($this->exists($exportProfileId, $iso)) {
-            $this->update($exportProfileId, $iso, $shopwareId);
+        if ($this->exists($channel, $iso)) {
+            $this->update($channel, $iso, $shopwareId);
         } else {
-            $this->insert($exportProfileId, $iso, $shopwareId);
+            $this->insert($channel, $iso, $shopwareId);
         }
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $iso
+     * @param ChannelId $channel
+     * @param string    $iso
      *
      * @return bool
      */
     public function exists(
-        ExportProfileId $exportProfileId,
+        ChannelId $channel,
         string $iso
     ): bool {
         $query = $this->connection->createQueryBuilder();
         $result = $query->select(1)
             ->from(self::TABLE)
-            ->where($query->expr()->eq('export_profile_id', ':exportProfileId'))
-            ->setParameter(':exportProfileId', $exportProfileId->getValue())
+            ->where($query->expr()->eq('channel_id', ':channelId'))
+            ->setParameter(':channelId', $channel->getValue())
             ->andWhere($query->expr()->eq('iso', ':iso'))
             ->setParameter(':iso', $iso)
             ->execute()
@@ -108,13 +109,13 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $iso
-     * @param string          $shopwareId
+     * @param ChannelId $channel
+     * @param string    $iso
+     * @param string    $shopwareId
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
-    private function update(ExportProfileId $exportProfileId, string $iso, string $shopwareId): void
+    private function update(ChannelId $channel, string $iso, string $shopwareId): void
     {
         $this->connection->update(
             self::TABLE,
@@ -124,26 +125,26 @@ class DbalShopware6CurrencyRepository implements Shopware6CurrencyRepositoryInte
             ],
             [
                 'iso' => $iso,
-                'export_profile_id' => $exportProfileId->getValue(),
+                'channel_id' => $channel->getValue(),
             ]
         );
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $iso
-     * @param string          $shopwareId
+     * @param ChannelId $channel
+     * @param string    $iso
+     * @param string    $shopwareId
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
-    private function insert(ExportProfileId $exportProfileId, string $iso, string $shopwareId): void
+    private function insert(ChannelId $channel, string $iso, string $shopwareId): void
     {
         $this->connection->insert(
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
                 'iso' => $iso,
-                'export_profile_id' => $exportProfileId->getValue(),
+                'channel_id' => $channel->getValue(),
                 'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
             ]
         );

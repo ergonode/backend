@@ -8,14 +8,14 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Processor;
 
-use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\EndShopware6ExportProcess;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\ProcessShopware6ExportProcess;
 use Ergonode\ExporterShopware6\Infrastructure\Processor\Process\StartShopware6ExportProcess;
 use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 /**
  */
@@ -56,30 +56,30 @@ class Shopware6ExportProcessor implements ExportProcessorInterface
      */
     public function supported(string $type): bool
     {
-        return Shopware6ExportApiProfile::TYPE === $type;
+        return Shopware6Channel::TYPE === $type;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function start(ExportId $id, AbstractExportProfile $profile): void
+    public function start(ExportId $id, AbstractChannel $channel): void
     {
-        $this->startProcess->process($id, $profile);
+        $this->startProcess->process($id, $channel);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function process(ExportId $id, AbstractExportProfile $profile, AbstractProduct $product): void
+    public function process(ExportId $id, AbstractChannel $channel, AbstractProduct $product): void
     {
-        $this->processProcess->process($id, $profile, $product);
+        $this->processProcess->process($id, $channel, $product);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function end(ExportId $id, AbstractExportProfile $profile): void
+    public function end(ExportId $id, AbstractChannel $channel): void
     {
-        $this->endProcess->process($id, $profile);
+        $this->endProcess->process($id, $channel);
     }
 }

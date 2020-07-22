@@ -44,7 +44,7 @@ class ChannelCreatedEventProjector
             [
                 'id' => $event->getAggregateId()->getValue(),
                 'name' => $event->getName(),
-                'export_profile_id' => $event->getExportProfileId()->getValue(),
+                'type' => $event->getType(),
             ]
         );
     }

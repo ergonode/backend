@@ -10,32 +10,32 @@ namespace Ergonode\ExporterShopware6\Domain\Repository;
 
 use Ergonode\ExporterShopware6\Domain\Entity\Catalog\Shopware6Category;
 use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
  */
 interface Shopware6CategoryRepositoryInterface
 {
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param CategoryId      $categoryId
+     * @param ChannelId  $channelId
+     * @param CategoryId $categoryId
      *
      * @return Shopware6Category|null
      */
-    public function load(ExportProfileId $exportProfileId, CategoryId $categoryId): ?Shopware6Category;
+    public function load(ChannelId $channelId, CategoryId $categoryId): ?Shopware6Category;
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param CategoryId      $categoryId
-     * @param string          $shopwareId
+     * @param ChannelId  $channelId
+     * @param CategoryId $categoryId
+     * @param string     $shopwareId
      */
-    public function save(ExportProfileId $exportProfileId, CategoryId $categoryId, string $shopwareId): void;
+    public function save(ChannelId $channelId, CategoryId $categoryId, string $shopwareId): void;
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param CategoryId      $categoryId
+     * @param ChannelId  $channelId
+     * @param CategoryId $categoryId
      *
      * @return bool
      */
-    public function exists(ExportProfileId $exportProfileId, CategoryId $categoryId): bool;
+    public function exists(ChannelId $channelId, CategoryId $categoryId): bool;
 }

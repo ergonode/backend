@@ -8,32 +8,32 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Domain\Repository;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
  */
 interface Shopware6TaxRepositoryInterface
 {
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param float           $tax
+     * @param ChannelId $channelId
+     * @param float     $tax
      *
      * @return string|null
      */
-    public function load(ExportProfileId $exportProfileId, float $tax): ?string;
+    public function load(ChannelId $channelId, float $tax): ?string;
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param float           $tax
-     * @param string          $shopwareId
+     * @param ChannelId $channelId
+     * @param float     $tax
+     * @param string    $shopwareId
      */
-    public function save(ExportProfileId $exportProfileId, float $tax, string $shopwareId): void;
+    public function save(ChannelId $channelId, float $tax, string $shopwareId): void;
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param float           $tax
+     * @param ChannelId $channelId
+     * @param float     $tax
      *
      * @return bool
      */
-    public function exists(ExportProfileId $exportProfileId, float $tax): bool;
+    public function exists(ChannelId $channelId, float $tax): bool;
 }
