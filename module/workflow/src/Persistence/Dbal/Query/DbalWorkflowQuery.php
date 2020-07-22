@@ -47,10 +47,6 @@ class DbalWorkflowQuery implements WorkflowQueryInterface
 
         $result = $query->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
-        if (false === $result) {
-            $result = [];
-        }
-
         foreach ($result as &$item) {
             $item = new WorkflowId($item);
         }

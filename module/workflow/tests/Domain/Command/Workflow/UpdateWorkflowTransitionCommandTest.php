@@ -13,9 +13,9 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\SharedKernel\Domain\Aggregate\RoleId;
 use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowTransitionCommand;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -29,11 +29,11 @@ class UpdateWorkflowTransitionCommandTest extends TestCase
         /** @var WorkflowId $workflowId */
         $workflowId = $this->createMock(WorkflowId::class);
 
-        /** @var StatusCode | MockObject $source */
-        $source = $this->createMock(StatusCode::class);
+        /** @var StatusId | MockObject $source */
+        $source = $this->createMock(StatusId::class);
 
-        /** @var StatusCode | MockObject $destination */
-        $destination = $this->createMock(StatusCode::class);
+        /** @var StatusId | MockObject $destination */
+        $destination = $this->createMock(StatusId::class);
 
         /** @var RoleId[] | MockObject[] $roleIds */
         $roleIds = [$this->createMock(RoleId::class)];

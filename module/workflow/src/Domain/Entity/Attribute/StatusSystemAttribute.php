@@ -56,12 +56,4 @@ class StatusSystemAttribute extends AbstractAttribute implements AttributeInterf
     {
         return true;
     }
-
-    /**
-     * @return bool
-     */
-    public function isMultilingual(): bool
-    {
-        return false;
-    }
 }

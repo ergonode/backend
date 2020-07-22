@@ -24,7 +24,7 @@ class StatusCreateFormModel
      * @Assert\Length(max=100, maxMessage="Status code is to long, It should have {{ limit }} character or less.")
      * @Assert\Regex(pattern="/^[a-zA-Z0-9-_ ]+$\b/i")
      *
-     * @ErgoAssert\StatusExists()
+     * @ErgoAssert\StatusCodeUnique()
      */
     public ?string $code;
 

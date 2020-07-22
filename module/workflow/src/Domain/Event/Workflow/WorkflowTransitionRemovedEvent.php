@@ -11,8 +11,8 @@ namespace Ergonode\Workflow\Domain\Event\Workflow;
 
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use JMS\Serializer\Annotation as JMS;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -26,25 +26,25 @@ class WorkflowTransitionRemovedEvent implements DomainEventInterface
     private WorkflowId $id;
 
     /**
-     * @var StatusCode
+     * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
-    private StatusCode $source;
+    private StatusId $source;
 
     /**
-     * @var StatusCode
+     * @var StatusId
      *
-     * @JMS\Type("Ergonode\Workflow\Domain\ValueObject\StatusCode")
+     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\StatusId")
      */
-    private StatusCode $destination;
+    private StatusId $destination;
 
     /**
      * @param WorkflowId $id
-     * @param StatusCode $source
-     * @param StatusCode $destination
+     * @param StatusId   $source
+     * @param StatusId   $destination
      */
-    public function __construct(WorkflowId $id, StatusCode $source, StatusCode $destination)
+    public function __construct(WorkflowId $id, StatusId $source, StatusId $destination)
     {
         $this->id = $id;
         $this->source = $source;
@@ -61,17 +61,17 @@ class WorkflowTransitionRemovedEvent implements DomainEventInterface
 
 
     /**
-     * @return StatusCode
+     * @return StatusId
      */
-    public function getSource(): StatusCode
+    public function getSource(): StatusId
     {
         return $this->source;
     }
 
     /**
-     * @return StatusCode
+     * @return StatusId
      */
-    public function getDestination(): StatusCode
+    public function getDestination(): StatusId
     {
         return $this->destination;
     }

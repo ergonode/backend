@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  */
-class StatusNotExistsValidator extends ConstraintValidator
+class StatusCodeUniqueValidator extends ConstraintValidator
 {
     /**
      * @var StatusRepositoryInterface
@@ -42,8 +42,8 @@ class StatusNotExistsValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof StatusNotExists) {
-            throw new UnexpectedTypeException($constraint, StatusNotExists::class);
+        if (!$constraint instanceof StatusCodeUnique) {
+            throw new UnexpectedTypeException($constraint, StatusCodeUnique::class);
         }
 
         if (null === $value || '' === $value) {
@@ -61,7 +61,7 @@ class StatusNotExistsValidator extends ConstraintValidator
             $status = $this->repository->load(StatusId::fromCode((new StatusCode($value))->getValue()));
         }
 
-        if (!$status) {
+        if ($status) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();

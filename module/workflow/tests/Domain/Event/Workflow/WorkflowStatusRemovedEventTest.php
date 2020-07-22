@@ -11,9 +11,9 @@ namespace Ergonode\Workflow\Tests\Domain\Event\Workflow;
 
 use Ergonode\SharedKernel\Domain\Aggregate\WorkflowId;
 use Ergonode\Workflow\Domain\Event\Workflow\WorkflowStatusRemovedEvent;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
 
 /**
  */
@@ -26,12 +26,12 @@ class WorkflowStatusRemovedEventTest extends TestCase
         /** @var WorkflowId | MockObject $id */
         $id = $this->createMock(WorkflowId::class);
 
-        /** @var StatusCode | MockObject $code */
-        $code = $this->createMock(StatusCode::class);
+        /** @var StatusId | MockObject $statusId */
+        $statusId = $this->createMock(StatusId::class);
 
-        $event = new WorkflowStatusRemovedEvent($id, $code);
+        $event = new WorkflowStatusRemovedEvent($id, $statusId);
 
         $this->assertSame($id, $event->getAggregateId());
-        $this->assertSame($code, $event->getCode());
+        $this->assertSame($statusId, $event->getStatusId());
     }
 }

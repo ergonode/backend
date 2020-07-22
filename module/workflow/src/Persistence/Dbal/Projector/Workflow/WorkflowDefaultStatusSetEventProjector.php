@@ -43,7 +43,7 @@ class WorkflowDefaultStatusSetEventProjector
         $this->connection->update(
             self::TABLE,
             [
-                'default_status' => StatusId::fromCode($event->getCode()->getValue())->getValue(),
+                'default_status' => $event->getStatusId()->getValue(),
             ],
             [
                 'id' => $event->getAggregateId()->getValue(),

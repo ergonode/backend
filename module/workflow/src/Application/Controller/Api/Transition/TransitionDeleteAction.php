@@ -12,13 +12,13 @@ namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 use Ergonode\Api\Application\Response\EmptyResponse;
 use Ergonode\Workflow\Domain\Command\Workflow\DeleteWorkflowTransitionCommand;
 use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Workflow\Domain\Entity\Workflow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  * @Route(
@@ -83,17 +83,16 @@ class TransitionDeleteAction
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="source")
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
      *
-     * @param Workflow $workflow
-     * @param Status   $source
-     * @param Status   $destination
+     * @param AbstractWorkflow $workflow
+     * @param Status           $source
+     * @param Status           $destination
      *
      * @return Response
      *
      */
-    public function __invoke(Workflow $workflow, Status $source, Status $destination): Response
+    public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): Response
     {
-        // @todo add validation
-        $command = new DeleteWorkflowTransitionCommand($workflow->getId(), $source->getCode(), $destination->getCode());
+        $command = new DeleteWorkflowTransitionCommand($workflow->getId(), $source->getId(), $destination->getId());
         $this->commandBus->dispatch($command);
 
         return new EmptyResponse();

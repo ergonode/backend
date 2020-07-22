@@ -11,13 +11,13 @@ namespace Ergonode\Workflow\Application\Controller\Api\Transition;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Workflow\Domain\Entity\Status;
-use Ergonode\Workflow\Domain\Entity\Workflow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  * @Route(
@@ -63,20 +63,19 @@ class TransitionReadAction
      *     description="Not found",
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="source")
      * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Status", name="destination")
      *
-     * @param Workflow $workflow
-     * @param Status   $source
-     * @param Status   $destination
+     * @param AbstractWorkflow $workflow
+     * @param Status           $source
+     * @param Status           $destination
      *
      * @return Response
      */
-    public function __invoke(Workflow $workflow, Status $source, Status $destination): Response
+    public function __invoke(AbstractWorkflow $workflow, Status $source, Status $destination): Response
     {
-        if ($workflow->hasTransition($source->getCode(), $destination->getCode())) {
-            return new SuccessResponse($workflow->getTransition($source->getCode(), $destination->getCode()));
+        if ($workflow->hasTransition($source->getId(), $destination->getId())) {
+            return new SuccessResponse($workflow->getTransition($source->getId(), $destination->getId()));
         }
 
         throw new NotFoundHttpException();

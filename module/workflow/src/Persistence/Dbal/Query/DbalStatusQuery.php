@@ -78,15 +78,15 @@ class DbalStatusQuery implements StatusQueryInterface
     {
         $qb = $this->connection->createQueryBuilder();
 
-        $records = $qb->select(sprintf('code, color, name->>\'%s\' as name', $language->getCode()))
+        $records = $qb->select(sprintf('id, code, color, name->>\'%s\' as name', $language->getCode()))
             ->from(self::STATUS_TABLE, 'a')
             ->execute()
             ->fetchAll();
 
         $result = [];
         foreach ($records as $record) {
-            $result[$record['code']]['color'] = $record['color'];
-            $result[$record['code']]['name'] = $record['name'];
+            $result[$record['id']]['color'] = $record['color'];
+            $result[$record['id']]['name'] = $record['name'];
         }
 
         return $result;

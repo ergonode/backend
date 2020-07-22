@@ -80,22 +80,23 @@ abstract class AbstractProduct extends AbstractAggregateRoot implements ProductI
     ) {
         Assert::allIsInstanceOf($categories, CategoryId::class);
 
-        $attributes = array_filter(
-            $attributes,
-            function ($value) {
-                return $value !== null;
-            }
-        );
-
         $this->apply(new ProductCreatedEvent(
             $id,
             $sku,
             $this->getType(),
             \get_class($this),
-            $templateId,
-            $categories,
-            $attributes
+            $templateId
         ));
+
+        foreach ($categories as $categoryId) {
+            $this->addToCategory($categoryId);
+        }
+
+        foreach ($attributes as $code => $value) {
+            if ($value) {
+                $this->addAttribute(new AttributeCode($code), $value);
+            }
+        }
     }
 
     /**

@@ -16,8 +16,6 @@ use Ergonode\SharedKernel\Domain\Aggregate\ConditionSetId;
 use Ergonode\Workflow\Application\Form\Model\TransitionCreateFormModel;
 use Ergonode\Workflow\Application\Form\TransitionCreateForm;
 use Ergonode\Workflow\Domain\Command\Workflow\AddWorkflowTransitionCommand;
-use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\Workflow\Domain\ValueObject\StatusCode;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -28,6 +26,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\StatusId;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 
 /**
  * @Route(
@@ -86,16 +86,14 @@ class TransitionCreateAction
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
      *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
-     *
-     * @param Workflow $workflow
-     * @param Request  $request
+     * @param AbstractWorkflow $workflow
+     * @param Request          $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(Workflow $workflow, Request $request): Response
+    public function __invoke(AbstractWorkflow $workflow, Request $request): Response
     {
         try {
             $model = new TransitionCreateFormModel($workflow);
@@ -113,8 +111,8 @@ class TransitionCreateAction
 
                 $command = new AddWorkflowTransitionCommand(
                     $workflow->getId(),
-                    new StatusCode($data->source),
-                    new StatusCode($data->destination),
+                    new StatusId($data->source),
+                    new StatusId($data->destination),
                     $roles,
                     $data->conditionSet ? new ConditionSetId($data->conditionSet) : null
                 );

@@ -50,10 +50,10 @@ class TransitionGrid extends AbstractGrid
             $codes[] = new FilterOption($code, $code, $status['name']);
         }
 
-        $code = new LabelColumn('source', 'From', $statuses, new MultiSelectFilter($codes));
+        $code = new LabelColumn('source', 'From', new MultiSelectFilter($codes));
         $this->addColumn('source', $code);
 
-        $code = new LabelColumn('destination', 'To', $statuses, new MultiSelectFilter($codes));
+        $code = new LabelColumn('destination', 'To', new MultiSelectFilter($codes));
         $this->addColumn('destination', $code);
 
         $this->addColumn('_links', new LinkColumn('hal', [

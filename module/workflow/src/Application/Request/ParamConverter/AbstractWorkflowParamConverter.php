@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Request\ParamConverter;
 
-use Ergonode\Workflow\Domain\Entity\Workflow;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
 use Ergonode\Workflow\Domain\Provider\WorkflowProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  */
-class WorkflowParamConverter implements ParamConverterInterface
+class AbstractWorkflowParamConverter implements ParamConverterInterface
 {
     /**
      * @var WorkflowProvider
@@ -38,15 +38,13 @@ class WorkflowParamConverter implements ParamConverterInterface
      *
      * @throws \Exception
      */
-    public function apply(Request $request, ParamConverter $configuration): void
+    public function apply(Request $request, ParamConverter $configuration): bool
     {
         $entity = $this->provider->provide();
 
-        if (null === $entity) {
-            throw new NotFoundHttpException('Default Workflow not found');
-        }
-
         $request->attributes->set($configuration->getName(), $entity);
+
+        return true;
     }
 
     /**
@@ -54,6 +52,6 @@ class WorkflowParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration): bool
     {
-        return Workflow::class === $configuration->getClass();
+        return AbstractWorkflow::class === $configuration->getClass();
     }
 }

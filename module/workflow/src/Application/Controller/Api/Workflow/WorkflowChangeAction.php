@@ -9,20 +9,20 @@ declare(strict_types = 1);
 
 namespace Ergonode\Workflow\Application\Controller\Api\Workflow;
 
-use Ergonode\Api\Application\Exception\ViolationsHttpException;
-use Ergonode\Api\Application\Response\EmptyResponse;
-use Ergonode\Workflow\Domain\Command\Workflow\UpdateWorkflowCommand;
-use Ergonode\Workflow\Domain\Entity\Workflow;
-use Ergonode\Workflow\Infrastructure\Builder\WorkflowValidatorBuilder;
-use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
+use Symfony\Component\Form\FormFactoryInterface;
+use Ergonode\Workflow\Application\Provider\WorkflowFormProvider;
+use Ergonode\Api\Application\Response\CreatedResponse;
+use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Ergonode\Api\Application\Exception\FormValidationHttpException;
+use Ergonode\Workflow\Domain\Entity\AbstractWorkflow;
+use Ergonode\Workflow\Infrastructure\Provider\UpdateWorkflowCommandFactoryProvider;
 
 /**
  * @Route(
@@ -34,19 +34,19 @@ use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
 class WorkflowChangeAction
 {
     /**
-     * @var WorkflowValidatorBuilder
+     * @var FormFactoryInterface
      */
-    private WorkflowValidatorBuilder $builder;
+    private FormFactoryInterface $formFactory;
 
     /**
-     * @var ValidatorInterface
+     * @var WorkflowFormProvider
      */
-    private ValidatorInterface $validator;
+    private WorkflowFormProvider $formProvider;
 
     /**
-     * @var SerializerInterface
+     * @var UpdateWorkflowCommandFactoryProvider
      */
-    private SerializerInterface $serializer;
+    private UpdateWorkflowCommandFactoryProvider $commandProvider;
 
     /**
      * @var CommandBusInterface
@@ -54,20 +54,20 @@ class WorkflowChangeAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param WorkflowValidatorBuilder $builder
-     * @param ValidatorInterface       $validator
-     * @param SerializerInterface      $serializer
-     * @param CommandBusInterface      $commandBus
+     * @param FormFactoryInterface                 $formFactory
+     * @param WorkflowFormProvider                 $formProvider
+     * @param UpdateWorkflowCommandFactoryProvider $commandProvider
+     * @param CommandBusInterface                  $commandBus
      */
     public function __construct(
-        WorkflowValidatorBuilder $builder,
-        ValidatorInterface $validator,
-        SerializerInterface $serializer,
+        FormFactoryInterface $formFactory,
+        WorkflowFormProvider $formProvider,
+        UpdateWorkflowCommandFactoryProvider $commandProvider,
         CommandBusInterface $commandBus
     ) {
-        $this->builder = $builder;
-        $this->validator = $validator;
-        $this->serializer = $serializer;
+        $this->formFactory = $formFactory;
+        $this->formProvider = $formProvider;
+        $this->commandProvider = $commandProvider;
         $this->commandBus = $commandBus;
     }
 
@@ -99,30 +99,30 @@ class WorkflowChangeAction
      *     description="Validation error",
      *     @SWG\Schema(ref="#/definitions/validation_error_response")
      * )
-     *
-     * @ParamConverter(class="Ergonode\Workflow\Domain\Entity\Workflow")
-     *
-     * @param Workflow $workflow
-     * @param Request  $request
+     * @param AbstractWorkflow $workflow
+     * @param Request          $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function __invoke(Workflow $workflow, Request $request): Response
+    public function __invoke(AbstractWorkflow $workflow, Request $request): Response
     {
-        $data = $request->request->all();
+        $class = $this->formProvider->provide($workflow->getType());
+        try {
+            $form = $this->formFactory->create($class, null, ['method' => Request::METHOD_PUT]);
+            $form->handleRequest($request);
 
-        $violations = $this->validator->validate($data, $this->builder->build($data));
-        if (0 === $violations->count()) {
-            $data['id'] = $workflow->getId()->getValue();
-            $command = $this->serializer->fromArray($data, UpdateWorkflowCommand::class);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $command = $this->commandProvider->provide($workflow->getType())->create($workflow->getId(), $form);
+                $this->commandBus->dispatch($command);
 
-            $this->commandBus->dispatch($command);
-
-            return new EmptyResponse();
+                return new CreatedResponse($command->getId());
+            }
+        } catch (InvalidPropertyPathException $exception) {
+            throw new BadRequestHttpException('Invalid JSON format');
         }
 
-        throw new ViolationsHttpException($violations);
+        throw new FormValidationHttpException($form);
     }
 }
