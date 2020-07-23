@@ -12,7 +12,6 @@ namespace Ergonode\Multimedia\Infrastructure\Grid;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Grid\AbstractGrid;
 use Ergonode\Grid\Column\ImageColumn;
-use Ergonode\Grid\Column\LinkColumn;
 use Ergonode\Grid\Column\TextColumn;
 use Ergonode\Grid\Filter\TextFilter;
 use Ergonode\Grid\GridConfigurationInterface;
@@ -22,7 +21,6 @@ use Ergonode\Grid\Filter\Option\LabelFilterOption;
 use Ergonode\Grid\Column\NumericColumn;
 use Ergonode\Grid\Column\SelectColumn;
 use Ergonode\Grid\Filter\NumericFilter;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  */
@@ -65,11 +63,11 @@ class MultimediaGrid extends AbstractGrid
         $this->addColumn('relations', new NumericColumn('relations', 'Relations', new NumericFilter()));
         $this->addColumn('created_at', new TextColumn('created_at', 'Creation date', new TextFilter()));
 
-        $links = [
-            'get' => [
-                'route' => 'ergonode_multimedia_read',
-                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
-            ],
+//        $links = [
+//            'get' => [
+//                'route' => 'ergonode_multimedia_read',
+//                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
+//            ],
 //            'edit' => [
 //                'route' => 'ergonode_multimedia_change',
 //                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
@@ -80,7 +78,7 @@ class MultimediaGrid extends AbstractGrid
 //                'parameters' => ['language' => $language->getCode(), 'multimedia' => '{id}'],
 //                'method' => Request::METHOD_DELETE,
 //            ],
-        ];
-        $this->addColumn('_links', new LinkColumn('hal', $links));
+//        ];
+//        $this->addColumn('_links', new LinkColumn('hal', $links));
     }
 }
