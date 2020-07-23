@@ -7,10 +7,6 @@ services:
     Ergonode\Exporter\Application\:
         resource: '../../Application/*'
 
-    Ergonode\Exporter\Application\Controller\Api\:
-        resource: '../../Application/Controller/Api/*'
-        tags: ['controller.service_arguments']
-
     Ergonode\Exporter\Infrastructure\:
         resource: '../../Infrastructure/*'
 

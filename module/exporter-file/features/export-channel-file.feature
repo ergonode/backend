@@ -73,7 +73,6 @@ Feature: Export Profile module
     And the JSON nodes should contain:
       | id         | @export_1_id@ |
       | channel_id | @channel_id@  |
-      | channel_id | @channel_id@  |
       | status     | ENDED         |
 
   Scenario: Get first error export error list
@@ -85,7 +84,6 @@ Feature: Export Profile module
     Then the response status code should be 200
     And the JSON nodes should contain:
       | id         | @export_2_id@ |
-      | channel_id | @channel_id@  |
       | channel_id | @channel_id@  |
       | status     | ENDED         |
 
