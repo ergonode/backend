@@ -8,11 +8,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\GetCustomFieldSetList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\CustomField\PostCustomFieldSetAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6CustomField;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 /**
  */
@@ -33,35 +33,35 @@ class Shopware6CustomFieldClient
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      *
      * @return array|null
      */
-    public function load(Shopware6ExportApiProfile $profile): ?array
+    public function load(Shopware6Channel $channel): ?array
     {
         $action = new GetCustomFieldSetList();
 
-        return $this->connector->execute($profile, $action);
+        return $this->connector->execute($channel, $action);
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param Shopware6CustomField      $customField
+     * @param Shopware6Channel     $channel
+     * @param Shopware6CustomField $customField
      */
-    public function insert(Shopware6ExportApiProfile $profile, Shopware6CustomField $customField): void
+    public function insert(Shopware6Channel $channel, Shopware6CustomField $customField): void
     {
         $action = new PostCustomFieldSetAction($customField);
 
-        $this->connector->execute($profile, $action);
+        $this->connector->execute($channel, $action);
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param string                    $code
+     * @param Shopware6Channel $channel
+     * @param string           $code
      *
      * @return Shopware6CustomField|null
      */
-    public function findByCode(Shopware6ExportApiProfile $profile, string $code):?Shopware6CustomField
+    public function findByCode(Shopware6Channel $channel, string $code):?Shopware6CustomField
     {
         $query = [
             [
@@ -78,7 +78,7 @@ class Shopware6CustomFieldClient
         ];
         $action = new GetCustomFieldSetList($query, 1);
 
-        $customFieldList = $this->connector->execute($profile, $action);
+        $customFieldList = $this->connector->execute($channel, $action);
         if (is_array($customFieldList) && count($customFieldList) > 0) {
             return $customFieldList[0];
         }

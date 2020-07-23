@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Application\Request\ParamConverter;
 
-use Ergonode\Channel\Domain\Entity\Channel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -17,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInte
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 /**
  */
@@ -64,6 +64,6 @@ class ChannelParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration): bool
     {
-        return Channel::class === $configuration->getClass();
+        return AbstractChannel::class === $configuration->getClass();
     }
 }

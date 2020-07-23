@@ -12,7 +12,6 @@ use Ergonode\Attribute\Domain\Entity\Attribute\MultiSelectAttribute;
 use Ergonode\Attribute\Domain\Entity\Attribute\SelectAttribute;
 use Ergonode\Attribute\Domain\Query\OptionQueryInterface;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6TaxRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax\GetTaxList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Tax\PostTaxCreate;
@@ -20,6 +19,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Tax;
 use Ergonode\Product\Domain\Query\AttributeValueQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 /**
  */
@@ -73,59 +73,59 @@ class TaxSynchronizer implements SynchronizerInterface
 
 
     /**
-     * @param ExportId                  $id
-     * @param Shopware6ExportApiProfile $profile
+     * @param ExportId         $id
+     * @param Shopware6Channel $channel
      */
-    public function synchronize(ExportId $id, Shopware6ExportApiProfile $profile): void
+    public function synchronize(ExportId $id, Shopware6Channel $channel): void
     {
-        $this->synchronizeShopware($profile);
-        $this->checkExistOrCreate($profile);
+        $this->synchronizeShopware($channel);
+        $this->checkExistOrCreate($channel);
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      */
-    private function synchronizeShopware(Shopware6ExportApiProfile $profile): void
+    private function synchronizeShopware(Shopware6Channel $channel): void
     {
-        $taxList = $this->getShopwareTax($profile);
+        $taxList = $this->getShopwareTax($channel);
         foreach ($taxList as $taxRow) {
-            $this->taxRepository->save($profile->getId(), $taxRow->getRate(), $taxRow->getId());
+            $this->taxRepository->save($channel->getId(), $taxRow->getRate(), $taxRow->getId());
         }
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      *
      * @return array|Shopware6Tax[]
      */
-    private function getShopwareTax(Shopware6ExportApiProfile $profile): array
+    private function getShopwareTax(Shopware6Channel $channel): array
     {
         $action = new GetTaxList();
 
-        return $this->connector->execute($profile, $action);
+        return $this->connector->execute($channel, $action);
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      */
-    private function checkExistOrCreate(Shopware6ExportApiProfile $profile): void
+    private function checkExistOrCreate(Shopware6Channel $channel): void
     {
         $value = [];
-        $attribute = $this->attributeRepository->load($profile->getProductTax());
+        $attribute = $this->attributeRepository->load($channel->getProductTax());
         if ($attribute instanceof SelectAttribute || $attribute instanceof MultiSelectAttribute) {
             $data = $this->optionQuery->getAll($attribute->getId());
             foreach ($data as $row) {
-                $value[] = floatval($row['code']);
+                $value[] = (float) $row['code'];
             }
         } else {
             $data = $this->attributeValueQuery->getUniqueValue($attribute->getId());
             foreach ($data as $row) {
-                $value[] = floatval($row);
+                $value[] = (float) $row;
             }
         }
         $update = false;
         foreach ($value as $tax) {
-            $isset = $this->taxRepository->exists($profile->getId(), $tax);
+            $isset = $this->taxRepository->exists($channel->getId(), $tax);
             if ($isset) {
                 continue;
             }
@@ -136,12 +136,12 @@ class TaxSynchronizer implements SynchronizerInterface
                     $tax.'%'
                 )
             );
-            $this->connector->execute($profile, $action);
+            $this->connector->execute($channel, $action);
             $update = true;
         }
 
         if ($update) {
-            $this->synchronizeShopware($profile);
+            $this->synchronizeShopware($channel);
         }
     }
 }

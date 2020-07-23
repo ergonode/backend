@@ -44,7 +44,7 @@ class Shopware6CategoryTest extends TestCase
             $this->category
         );
 
-        $this->assertEquals($this->id, $entity->getId());
-        $this->assertEquals($this->category, $entity->getCategory());
+        self::assertEquals($this->id, $entity->getId());
+        self::assertEquals($this->category, $entity->getCategory());
     }
 }

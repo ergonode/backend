@@ -12,8 +12,8 @@ use Doctrine\DBAL\Connection;
 use Ergonode\Exporter\Domain\Entity\Catalog\ExportCategory;
 use Ergonode\ExporterShopware6\Domain\Entity\Catalog\Shopware6Category;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6CategoryQueryInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use JMS\Serializer\SerializerInterface;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
  */
@@ -22,7 +22,7 @@ class DbalShopware6CategoryQuery implements Shopware6CategoryQueryInterface
     private const TABLE = 'exporter.shopware6_category';
     private const TABLE_CATEGORY = 'exporter.category';
     private const FIELDS = [
-        'export_profile_id',
+        'channel_id',
         'c.category_id',
         'cs.shopware6_id',
     ];
@@ -48,20 +48,20 @@ class DbalShopware6CategoryQuery implements Shopware6CategoryQueryInterface
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $shopwareId
+     * @param ChannelId $channel
+     * @param string    $shopwareId
      *
      * @return Shopware6Category|null
      */
-    public function loadByShopwareId(ExportProfileId $exportProfileId, string $shopwareId): ?Shopware6Category
+    public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?Shopware6Category
     {
         $query = $this->connection->createQueryBuilder();
         $record = $query
             ->select('*')
             ->from(self::TABLE, 'cs')
             ->leftJoin('cs', self::TABLE_CATEGORY, 'c', 'c.id = cs.category_id')
-            ->where($query->expr()->eq('export_profile_id', ':exportProfileId'))
-            ->setParameter(':exportProfileId', $exportProfileId->getValue())
+            ->where($query->expr()->eq('channel_id', ':channelId'))
+            ->setParameter(':channelId', $channel->getValue())
             ->andWhere($query->expr()->eq('cs.shopware6_id', ':shopware6Id'))
             ->setParameter(':shopware6Id', $shopwareId)
             ->execute()
@@ -78,15 +78,15 @@ class DbalShopware6CategoryQuery implements Shopware6CategoryQueryInterface
     }
 
     /**
-     * @param ExportProfileId    $exportProfileId
+     * @param ChannelId          $channel
      * @param \DateTimeImmutable $dateTime
      */
-    public function clearBefore(ExportProfileId $exportProfileId, \DateTimeImmutable $dateTime): void
+    public function clearBefore(ChannelId $channel, \DateTimeImmutable $dateTime): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete(self::TABLE, 'cs')
-            ->where($query->expr()->eq('export_profile_id', ':exportProfileId'))
-            ->setParameter(':exportProfileId', $exportProfileId->getValue())
+            ->where($query->expr()->eq('channel_id', ':channelId'))
+            ->setParameter(':channelId', $channel->getValue())
             ->andWhere($query->expr()->lt('cs.update_at', ':updateAt'))
             ->setParameter(':updateAt', $dateTime->format('Y-m-d H:i:s'))
             ->execute();

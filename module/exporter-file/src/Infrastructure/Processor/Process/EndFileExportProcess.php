@@ -10,10 +10,10 @@ namespace Ergonode\ExporterFile\Infrastructure\Processor\Process;
 
 use Ergonode\ExporterFile\Infrastructure\Provider\WriterProvider;
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
-use Ergonode\ExporterFile\Domain\Entity\FileExportProfile;
 use Ergonode\ExporterFile\Infrastructure\Storage\FileStorage;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -47,12 +47,12 @@ class EndFileExportProcess
     }
 
     /**
-     * @param ExportId                                $id
-     * @param AbstractExportProfile|FileExportProfile $profile
+     * @param ExportId                          $id
+     * @param AbstractChannel|FileExportChannel $channel
      */
-    public function process(ExportId $id, AbstractExportProfile $profile): void
+    public function process(ExportId $id, AbstractChannel $channel): void
     {
-        $writer = $this->provider->provide($profile->getFormat());
+        $writer = $this->provider->provide($channel->getFormat());
         $attributes = array_values($this->query->getDictionary());
         sort($attributes);
         

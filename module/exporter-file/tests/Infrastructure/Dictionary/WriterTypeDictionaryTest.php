@@ -28,6 +28,6 @@ class WriterTypeDictionaryTest extends TestCase
 
         $dictionary = new WriterTypeDictionary($provider, $translator);
         $result = $dictionary->dictionary();
-        $this->assertSame(['type' => 'translated'], $result);
+        self::assertSame(['type' => 'translated'], $result);
     }
 }

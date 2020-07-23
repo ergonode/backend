@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
-use Ergonode\Channel\Domain\Entity\Channel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -17,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Exporter\Domain\Entity\Export;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 /**
  * @Route(
@@ -94,16 +94,16 @@ class ChannelExportAction
      *     description="Returns export collection",
      * )
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Export")
      *
-     * @param Language $language
-     * @param Channel  $channel
-     * @param Export   $export
+     * @param Language        $language
+     * @param AbstractChannel $channel
+     * @param Export          $export
      *
      * @return Response
      */
-    public function __invoke(Language $language, Channel $channel, Export $export): Response
+    public function __invoke(Language $language, AbstractChannel $channel, Export $export): Response
     {
         return new SuccessResponse($export);
     }

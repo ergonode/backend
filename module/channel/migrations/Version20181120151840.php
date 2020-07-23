@@ -23,7 +23,11 @@ final class Version20181120151840 extends AbstractErgonodeMigration
             'CREATE TABLE exporter.channel(
                     id uuid NOT NULL,
                     name VARCHAR(255) NOT NULL,
-                    export_profile_id UUID NOT NULL,
+                    type VARCHAR(255) NOT NULL,
+                    class VARCHAR(255) NOT NULL, 
+                    configuration JSONB not null,
+                    created_at timestamp without time zone NOT NULL,
+                    updated_at timestamp without time zone DEFAULT NULL,
                     PRIMARY KEY (id)
                  )'
         );

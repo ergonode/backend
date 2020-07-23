@@ -7,10 +7,6 @@ services:
     Ergonode\Exporter\Application\:
         resource: '../../Application/*'
 
-    Ergonode\Exporter\Application\Controller\Api\:
-        resource: '../../Application/Controller/Api/*'
-        tags: ['controller.service_arguments']
-
     Ergonode\Exporter\Infrastructure\:
         resource: '../../Infrastructure/*'
 
@@ -32,6 +28,5 @@ services:
     Ergonode\Exporter\Domain\Repository\ProductRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalProductRepository'
     Ergonode\Exporter\Domain\Repository\CategoryRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalCategoryRepository'
     Ergonode\Exporter\Domain\Repository\AttributeRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalAttributeRepository'
-    Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalExportProfileRepository'
     Ergonode\Exporter\Domain\Repository\TreeRepositoryInterface: '@Ergonode\Exporter\Persistence\Dbal\Repository\DbalTreeRepository'
     Ergonode\Exporter\Domain\Query\ExportProductQueryInterface: '@Ergonode\Exporter\Persistence\Dbal\Query\DbalExportProductQuery'
