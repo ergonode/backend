@@ -1,4 +1,4 @@
-Feature: Draft edit and inheritance value for product draft with text area attribute
+Feature: Draft edit and inheritance value for product draft with file attribute
 
   Background:
     Given I am Authenticated as "test@ergonode.com"
@@ -26,6 +26,9 @@ Feature: Draft edit and inheritance value for product draft with text area attri
     And store response param "id" as "language_id_de"
 
   Scenario: Update Tree
+    Given I am Authenticated as "test@ergonode.com"
+    And I add "Content-Type" header equal to "application/json"
+    And I add "Accept" header equal to "application/json"
     When I send a PUT request to "/api/v1/en/language/tree" with body:
       """
         {
@@ -52,23 +55,35 @@ Feature: Draft edit and inheritance value for product draft with text area attri
       """
     Then the response status code should be 204
 
-  Scenario: Create textarea attribute
-    Given remember param "attribute_code" with value "textarea_@@random_code@@"
+  Scenario: Create file attribute
+    Given remember param "attribute_code" with value "file_@@random_code@@"
     When I send a POST request to "/api/v1/en/attributes" with body:
       """
       {
         "code": "@attribute_code@",
-        "type": "TEXT_AREA",
+        "type": "FILE",
         "scope": "local",
-        "groups": [],
-         "parameters":
-          {
-          "richEdit": true
-          }
+        "groups": []
       }
       """
     Then the response status code should be 201
     And store response param "id" as "attribute_id"
+
+  Scenario: Upload new first multimedia file
+    When I send a POST request to "/api/v1/multimedia/upload" with params:
+      | key    | value                      |
+      | upload | @multimedia.png |
+    Then the response status code should be 201
+    And the JSON node "id" should exist
+    And store response param "id" as "multimedia_1_id"
+
+  Scenario: Upload new first multimedia file
+    When I send a POST request to "/api/v1/multimedia/upload" with params:
+      | key    | value                      |
+      | upload | @multimedia.jpg |
+    Then the response status code should be 201
+    And the JSON node "id" should exist
+    And store response param "id" as "multimedia_2_id"
 
   Scenario: Create template
     When I send a POST request to "/api/v1/en/templates" with body:
@@ -93,25 +108,43 @@ Feature: Draft edit and inheritance value for product draft with text area attri
     Then the response status code should be 201
     And store response param "id" as "product_id"
 
-  Scenario: Edit product text value in "en" language
+  Scenario: Edit product file value in "en" language
     When I send a PUT request to "api/v1/en/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
-        "value": "text attribute value in english"
+        "value": ["@multimedia_1_id@"]
       }
       """
     Then the response status code should be 200
 
-  Scenario: Edit product text value in "pl" language
+  Scenario: Edit product file value in "pl" language
     When I send a PUT request to "api/v1/pl/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
-        "value": "text attribute value in polish"
+        "value": ["@multimedia_2_id@"]
       }
       """
     Then the response status code should be 200
 
-  Scenario: Edit product text value in "de" language
+  Scenario: Get draft values in "pl" language
+    When I send a GET request to "api/v1/pl/products/@product_id@/draft"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@[0] | @multimedia_2_id@ |
+
+  Scenario: Get draft values in "en" language
+    When I send a GET request to "api/v1/en/products/@product_id@/draft"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@[0] | @multimedia_1_id@ |
+
+  Scenario: Get draft values in "fr" language
+    When I send a GET request to "api/v1/fr/products/@product_id@/draft"
+    Then the response status code should be 200
+    And the JSON nodes should be equal to:
+      | attributes.@attribute_code@[0] | @multimedia_1_id@ |
+
+  Scenario: Edit product file value in "de" language
     When I send a PUT request to "api/v1/de/products/@product_id@/draft/@attribute_id@/value" with body:
       """
       {
@@ -119,29 +152,6 @@ Feature: Draft edit and inheritance value for product draft with text area attri
       }
       """
     Then the response status code should be 200
-
-  Scenario: Get draft values in "de" language
-    When I send a GET request to "api/v1/de/products/@product_id@/draft"
-    Then the response status code should be 200
-    And the JSON node "attributes.@attribute_code@" should be null
-
-  Scenario: Get draft values in "pl" language
-    When I send a GET request to "api/v1/pl/products/@product_id@/draft"
-    Then the response status code should be 200
-    And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in polish |
-
-  Scenario: Get draft values in "en" language
-    When I send a GET request to "api/v1/en/products/@product_id@/draft"
-    Then the response status code should be 200
-    And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english |
-
-  Scenario: Get draft values in "fr" language
-    When I send a GET request to "api/v1/fr/products/@product_id@/draft"
-    Then the response status code should be 200
-    And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english |
 
   Scenario: Remove value for "pl" language
     When I send a DELETE request to "api/v1/pl/products/@product_id@/draft/@attribute_id@/value"
@@ -151,4 +161,4 @@ Feature: Draft edit and inheritance value for product draft with text area attri
     When I send a GET request to "api/v1/pl/products/@product_id@/draft"
     Then the response status code should be 200
     And the JSON nodes should be equal to:
-      | attributes.@attribute_code@ | text attribute value in english |
+      | attributes.@attribute_code@[0] | @multimedia_1_id@ |

@@ -10,20 +10,20 @@ declare(strict_types = 1);
 namespace Ergonode\Product\Infrastructure\Grid\Builder\Query;
 
 use Ergonode\Attribute\Domain\Entity\AbstractAttribute;
-use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ergonode\Core\Domain\ValueObject\Language;
+use Ergonode\Attribute\Domain\Entity\Attribute\FileAttribute;
 
 /**
  */
-class GalleryAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
+class FileAttributeDataSetQueryBuilder extends AbstractAttributeDataSetBuilder
 {
     /**
      * {@inheritDoc}
      */
     public function supports(AbstractAttribute $attribute): bool
     {
-        return $attribute instanceof GalleryAttribute;
+        return $attribute instanceof FileAttribute;
     }
 
     /**
