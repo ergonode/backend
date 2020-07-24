@@ -11,13 +11,13 @@ namespace Ergonode\Migration;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
- * Auto-generated Ergonode Migration Class:
- */
+* Auto-generated Ergonode Migration Class:
+*/
 final class Version20200608120319 extends AbstractErgonodeMigration
 {
     /**
-     * @param Schema $schema
-     */
+    * @param Schema $schema
+    */
     public function up(Schema $schema): void
     {
         $this->addSql(
