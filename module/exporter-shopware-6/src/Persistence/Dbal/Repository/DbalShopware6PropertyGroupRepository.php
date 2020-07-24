@@ -11,7 +11,8 @@ namespace Ergonode\ExporterShopware6\Persistence\Dbal\Repository;
 use Doctrine\DBAL\Connection;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6PropertyGroupRepositoryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
+use Doctrine\DBAL\DBALException;
 
 /**
  */
@@ -19,7 +20,7 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
 {
     private const TABLE = 'exporter.shopware6_property_group';
     private const FIELDS = [
-        'export_profile_id',
+        'channel_id',
         'attribute_id',
         'shopware6_id',
     ];
@@ -38,19 +39,19 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param AttributeId     $attributeId
+     * @param ChannelId   $channelId
+     * @param AttributeId $attributeId
      *
      * @return string|null
      */
-    public function load(ExportProfileId $exportProfileId, AttributeId $attributeId): ?string
+    public function load(ChannelId $channelId, AttributeId $attributeId): ?string
     {
         $query = $this->connection->createQueryBuilder();
         $record = $query
             ->select(self::FIELDS)
             ->from(self::TABLE, 'pg')
-            ->where($query->expr()->eq('export_profile_id', ':exportProfileId'))
-            ->setParameter(':exportProfileId', $exportProfileId->getValue())
+            ->where($query->expr()->eq('channel_id', ':channelId'))
+            ->setParameter(':channelId', $channelId->getValue())
             ->andWhere($query->expr()->eq('pg.attribute_id', ':attributeId'))
             ->setParameter(':attributeId', $attributeId->getValue())
             ->execute()
@@ -64,34 +65,34 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param AttributeId     $attributeId
-     * @param string          $shopwareId
+     * @param ChannelId   $channelId
+     * @param AttributeId $attributeId
+     * @param string      $shopwareId
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
-    public function save(ExportProfileId $exportProfileId, AttributeId $attributeId, string $shopwareId): void
+    public function save(ChannelId $channelId, AttributeId $attributeId, string $shopwareId): void
     {
-        if ($this->exists($exportProfileId, $attributeId)) {
-            $this->update($exportProfileId, $attributeId, $shopwareId);
+        if ($this->exists($channelId, $attributeId)) {
+            $this->update($channelId, $attributeId, $shopwareId);
         } else {
-            $this->insert($exportProfileId, $attributeId, $shopwareId);
+            $this->insert($channelId, $attributeId, $shopwareId);
         }
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param AttributeId     $attributeId
+     * @param ChannelId   $channelId
+     * @param AttributeId $attributeId
      *
      * @return bool
      */
-    public function exists(ExportProfileId $exportProfileId, AttributeId $attributeId): bool
+    public function exists(ChannelId $channelId, AttributeId $attributeId): bool
     {
         $query = $this->connection->createQueryBuilder();
         $result = $query->select(1)
             ->from(self::TABLE)
-            ->where($query->expr()->eq('export_profile_id', ':exportProfileId'))
-            ->setParameter(':exportProfileId', $exportProfileId->getValue())
+            ->where($query->expr()->eq('channel_id', ':channelId'))
+            ->setParameter(':channelId', $channelId->getValue())
             ->andWhere($query->expr()->eq('attribute_id', ':attributeId'))
             ->setParameter(':attributeId', $attributeId->getValue())
             ->execute()
@@ -105,13 +106,13 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param AttributeId     $attributeId
-     * @param string          $shopwareId
+     * @param ChannelId   $channelId
+     * @param AttributeId $attributeId
+     * @param string      $shopwareId
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
-    private function update(ExportProfileId $exportProfileId, AttributeId $attributeId, string $shopwareId): void
+    private function update(ChannelId $channelId, AttributeId $attributeId, string $shopwareId): void
     {
         $this->connection->update(
             self::TABLE,
@@ -121,26 +122,26 @@ class DbalShopware6PropertyGroupRepository implements Shopware6PropertyGroupRepo
             ],
             [
                 'attribute_id' => $attributeId->getValue(),
-                'export_profile_id' => $exportProfileId->getValue(),
+                'channel_id' => $channelId->getValue(),
             ]
         );
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param AttributeId     $attributeId
-     * @param string          $shopwareId
+     * @param ChannelId   $channelId
+     * @param AttributeId $attributeId
+     * @param string      $shopwareId
      *
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
-    private function insert(ExportProfileId $exportProfileId, AttributeId $attributeId, string $shopwareId): void
+    private function insert(ChannelId $channelId, AttributeId $attributeId, string $shopwareId): void
     {
         $this->connection->insert(
             self::TABLE,
             [
                 'shopware6_id' => $shopwareId,
                 'attribute_id' => $attributeId->getValue(),
-                'export_profile_id' => $exportProfileId->getValue(),
+                'channel_id' => $channelId->getValue(),
                 'update_at' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
             ]
         );

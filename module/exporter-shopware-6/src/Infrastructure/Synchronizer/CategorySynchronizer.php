@@ -22,6 +22,7 @@ use Ergonode\SharedKernel\Domain\Aggregate\CategoryId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 /**
  */
@@ -74,126 +75,126 @@ class CategorySynchronizer implements SynchronizerInterface
     }
 
     /**
-     * @param ExportId                  $id
-     * @param Shopware6ExportApiProfile $profile
+     * @param ExportId         $id
+     * @param Shopware6Channel $channel
      */
-    public function synchronize(ExportId $id, Shopware6ExportApiProfile $profile): void
+    public function synchronize(ExportId $id, Shopware6Channel $channel): void
     {
-        $this->synchronizeShopware($profile);
-        $this->synchronizeTree($profile);
+        $this->synchronizeShopware($channel);
+        $this->synchronizeTree($channel);
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      */
-    private function synchronizeTree(Shopware6ExportApiProfile $profile): void
+    private function synchronizeTree(Shopware6Channel $channel): void
     {
-        $treeId = $profile->getCategoryTree();
+        $treeId = $channel->getCategoryTree();
         if ($treeId) {
             $tree = $this->treeRepository->load(Uuid::fromString($treeId->getValue()));
             Assert::notNull($tree, sprintf('Tree %s not exists', $treeId));
 
             foreach ($tree->getCategories() as $node) {
-                $this->buildStep($profile, $node);
+                $this->buildStep($channel, $node);
             }
         }
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param Node                      $node
-     * @param string|null               $parentId
+     * @param Shopware6Channel $channel
+     * @param Node             $node
+     * @param string|null      $parentId
      */
-    private function buildStep(Shopware6ExportApiProfile $profile, Node $node, string $parentId = null): void
+    private function buildStep(Shopware6Channel $channel, Node $node, string $parentId = null): void
     {
         $newParent = null;
-        if ($this->categoryShopwareRepository->exists($profile->getId(), $node->getCategoryId())) {
-            $newParent = $this->update($profile, $node->getCategoryId(), $parentId);
+        if ($this->categoryShopwareRepository->exists($channel->getId(), $node->getCategoryId())) {
+            $newParent = $this->update($channel, $node->getCategoryId(), $parentId);
         } else {
-            $newParent = $this->create($profile, $node->getCategoryId(), $parentId);
-            $this->categoryShopwareRepository->save($profile->getId(), $node->getCategoryId(), $newParent);
+            $newParent = $this->create($channel, $node->getCategoryId(), $parentId);
+            $this->categoryShopwareRepository->save($channel->getId(), $node->getCategoryId(), $newParent);
         }
 
         foreach ($node->getChildren() as $child) {
-            $this->buildStep($profile, $child, $newParent);
+            $this->buildStep($channel, $child, $newParent);
         }
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param CategoryId                $categoryId
-     * @param string|null               $parentId
+     * @param Shopware6Channel $channel
+     * @param CategoryId       $categoryId
+     * @param string|null      $parentId
      *
      * @return string
      */
     private function create(
-        Shopware6ExportApiProfile $profile,
+        Shopware6Channel $channel,
         CategoryId $categoryId,
         ?string $parentId = null
     ): string {
         $category = $this->categoryRepository->load(Uuid::fromString($categoryId));
 
-        $name = $category->getName()->get($profile->getDefaultLanguage());
+        $name = $category->getName()->get($channel->getDefaultLanguage());
         $name = $name ? $name : $category->getCode();
 
         $action = new PostCategoryCreate($name, $parentId);
-        $this->connector->execute($profile, $action);
+        $this->connector->execute($channel, $action);
 
-        $shopwareCategory = $this->getShopwareCategory($profile, $name);
+        $shopwareCategory = $this->getShopwareCategory($channel, $name);
 
         return $shopwareCategory['id'];
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param CategoryId                $categoryId
-     * @param string|null               $parentId
+     * @param Shopware6Channel $channel
+     * @param CategoryId       $categoryId
+     * @param string|null      $parentId
      *
      * @return string
      */
     private function update(
-        Shopware6ExportApiProfile $profile,
+        Shopware6Channel $channel,
         CategoryId $categoryId,
         ?string $parentId = null
     ): string {
-        $categoryShopware = $this->categoryShopwareRepository->load($profile->getId(), $categoryId);
+        $categoryShopware = $this->categoryShopwareRepository->load($channel->getId(), $categoryId);
 
-        $name = $categoryShopware->getCategory()->getName()->get($profile->getDefaultLanguage());
+        $name = $categoryShopware->getCategory()->getName()->get($channel->getDefaultLanguage());
         $name = $name ? $name : $categoryShopware->getCategory()->getCode();
 
         $action = new PatchCategoryUpdate($categoryShopware->getId(), $name, $parentId);
-        $this->connector->execute($profile, $action);
+        $this->connector->execute($channel, $action);
 
         return $categoryShopware->getId();
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      */
-    private function synchronizeShopware(Shopware6ExportApiProfile $profile): void
+    private function synchronizeShopware(Shopware6Channel $channel): void
     {
         $start = new \DateTimeImmutable();
-        $categoryList = $this->getShopwareCategoryList($profile);
+        $categoryList = $this->getShopwareCategoryList($channel);
         foreach ($categoryList as $category) {
-            $categoryShopware = $this->categoryShopwareQuery->loadByShopwareId($profile->getId(), $category['id']);
+            $categoryShopware = $this->categoryShopwareQuery->loadByShopwareId($channel->getId(), $category['id']);
             if ($categoryShopware) {
                 $this->categoryShopwareRepository->save(
-                    $profile->getId(),
+                    $channel->getId(),
                     CategoryId::createFromUuid($categoryShopware->getCategory()->getId()),
                     $categoryShopware->getId()
                 );
             }
         }
-        $this->categoryShopwareQuery->clearBefore($profile->getId(), $start);
+        $this->categoryShopwareQuery->clearBefore($channel->getId(), $start);
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param string                    $name
+     * @param Shopware6Channel $channel
+     * @param string           $name
      *
      * @return array|null
      */
-    private function getShopwareCategory(Shopware6ExportApiProfile $profile, string $name): ?array
+    private function getShopwareCategory(Shopware6Channel $channel, string $name): ?array
     {
         $query = [
             [
@@ -206,7 +207,7 @@ class CategorySynchronizer implements SynchronizerInterface
         ];
         $action = new GetCategoryList($query);
 
-        $categoryList = $this->connector->execute($profile, $action);
+        $categoryList = $this->connector->execute($channel, $action);
         if (is_array($categoryList) && count($categoryList) > 0) {
             return reset($categoryList);
         }
@@ -216,14 +217,14 @@ class CategorySynchronizer implements SynchronizerInterface
 
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      *
      * @return array
      */
-    private function getShopwareCategoryList(Shopware6ExportApiProfile $profile): array
+    private function getShopwareCategoryList(Shopware6Channel $channel): array
     {
         $action = new GetCategoryList();
 
-        return $this->connector->execute($profile, $action);
+        return $this->connector->execute($channel, $action);
     }
 }

@@ -9,92 +9,173 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Persistence\Dbal\Repository;
 
-use Ergonode\Channel\Domain\Entity\Channel;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\Channel\Domain\Event\ChannelDeletedEvent;
 use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
-use Ergonode\EventSourcing\Domain\AbstractAggregateRoot;
-use Ergonode\EventSourcing\Infrastructure\Bus\EventBusInterface;
-use Ergonode\EventSourcing\Infrastructure\DomainEventStoreInterface;
+use Doctrine\DBAL\Connection;
+use Ergonode\Channel\Persistence\Dbal\Repository\Factory\ChannelFactory;
+use Ergonode\Channel\Persistence\Dbal\Repository\Mapper\ChannelMapper;
+use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception\InvalidArgumentException;
 
 /**
  */
 class DbalChannelRepository implements ChannelRepositoryInterface
 {
-    /**
-     * @var DomainEventStoreInterface
-     */
-    private DomainEventStoreInterface $eventStore;
+    private const TABLE = 'exporter.channel';
+    private const FIELDS = [
+        'id',
+        'type',
+        'class',
+        'name',
+        'configuration',
+    ];
 
     /**
-     * @var EventBusInterface
+     * @var Connection
      */
-    private EventBusInterface $eventBus;
+    private Connection $connection;
 
     /**
-     * @param DomainEventStoreInterface $eventStore
-     * @param EventBusInterface         $eventBus
+     * @var ChannelFactory
      */
-    public function __construct(DomainEventStoreInterface $eventStore, EventBusInterface $eventBus)
+    private ChannelFactory $factory;
+
+    /**
+     * @var ChannelMapper
+     */
+    private ChannelMapper $mapper;
+
+    /**
+     * @param Connection     $connection
+     * @param ChannelFactory $factory
+     * @param ChannelMapper  $mapper
+     */
+    public function __construct(Connection $connection, ChannelFactory $factory, ChannelMapper $mapper)
     {
-        $this->eventStore = $eventStore;
-        $this->eventBus = $eventBus;
+        $this->connection = $connection;
+        $this->factory = $factory;
+        $this->mapper = $mapper;
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function exists(ChannelId $id) : bool
-    {
-        return $this->eventStore->load($id)->count() > 0;
-    }
-
-    /**
-     * {@inheritDoc}
+     * @param ChannelId $id
      *
-     * @throws \ReflectionException
+     * @return AbstractChannel|null
      */
-    public function load(ChannelId $id): ?AbstractAggregateRoot
+    public function load(ChannelId $id): ?AbstractChannel
     {
-        $eventStream = $this->eventStore->load($id);
-        if ($eventStream->count() > 0) {
-            $class = new \ReflectionClass(Channel::class);
-            /** @var AbstractAggregateRoot $aggregate */
-            $aggregate = $class->newInstanceWithoutConstructor();
-            if (!$aggregate instanceof AbstractAggregateRoot) {
-                throw new \LogicException(sprintf('Impossible to initialize "%s"', Channel::class));
-            }
-            $aggregate->initialize($eventStream);
+        $qb = $this->getQuery();
+        $record = $qb->where($qb->expr()->eq('id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->fetch();
 
-            return $aggregate;
+        if ($record) {
+            return $this->factory->create($record);
         }
 
         return null;
     }
 
     /**
-     * {@inheritDoc}
+     * @param AbstractChannel $channel
+     *
+     * @throws DBALException
      */
-    public function save(Channel $aggregateRoot): void
+    public function save(AbstractChannel $channel): void
     {
-        $events = $aggregateRoot->popEvents();
-
-        $this->eventStore->append($aggregateRoot->getId(), $events);
-        foreach ($events as $envelope) {
-            $this->eventBus->dispatch($envelope->getEvent());
+        if ($this->exists($channel->getId())) {
+            $this->update($channel);
+        } else {
+            $this->insert($channel);
         }
     }
 
     /**
-     * {@inheritDoc}
+     * @param ChannelId $id
      *
-     * @throws \Exception
+     * @return bool
      */
-    public function delete(Channel $aggregateRoot): void
+    public function exists(ChannelId $id): bool
     {
-        $aggregateRoot->apply(new ChannelDeletedEvent($aggregateRoot->getId()));
-        $this->save($aggregateRoot);
+        $query = $this->connection->createQueryBuilder();
+        $result = $query->select(1)
+            ->from(self::TABLE)
+            ->where($query->expr()->eq('id', ':id'))
+            ->setParameter(':id', $id->getValue())
+            ->execute()
+            ->rowCount();
 
-        $this->eventStore->delete($aggregateRoot->getId());
+        if ($result) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param AbstractChannel $channel
+     *
+     * @throws DBALException
+     * @throws InvalidArgumentException
+     */
+    public function delete(AbstractChannel $channel): void
+    {
+        $this->connection->delete(
+            self::TABLE,
+            [
+                'id' => $channel->getId()->getValue(),
+            ]
+        );
+    }
+
+
+    /**
+     * @param AbstractChannel $channel
+     *
+     * @throws DBALException
+     */
+    private function update(AbstractChannel $channel): void
+    {
+        $data = $this->mapper->map($channel);
+        $data['updated_at'] = date('Y-m-d H:i:s');
+
+        $this->connection->update(
+            self::TABLE,
+            $data,
+            [
+                'id' => $channel->getId()->getValue(),
+            ]
+        );
+    }
+
+    /**
+     * @param AbstractChannel $channel
+     *
+     * @throws DBALException
+     */
+    private function insert(AbstractChannel $channel): void
+    {
+        $date = date('Y-m-d H:i:s');
+        $data = $this->mapper->map($channel);
+        $data['created_at'] = $date;
+        $data['updated_at'] = $date;
+
+        $this->connection->insert(
+            self::TABLE,
+            $data
+        );
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    private function getQuery(): QueryBuilder
+    {
+        return $this->connection->createQueryBuilder()
+            ->select(self::FIELDS)
+            ->from(self::TABLE);
     }
 }

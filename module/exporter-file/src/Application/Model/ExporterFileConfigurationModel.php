@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterFile\Application\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Ergonode\ExporterFile\Domain\Entity\FileExportProfile;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -26,13 +26,13 @@ class ExporterFileConfigurationModel
     public ?string $format = null;
 
     /**
-     * @param FileExportProfile|null $exportProfile
+     * @param FileExportChannel|null $channel
      */
-    public function __construct(FileExportProfile $exportProfile = null)
+    public function __construct(FileExportChannel $channel = null)
     {
-        if ($exportProfile) {
-            $this->name = $exportProfile->getName();
-            $this->format = $exportProfile->getFormat();
+        if ($channel) {
+            $this->name = $channel->getName();
+            $this->format = $channel->getFormat();
         }
     }
 }

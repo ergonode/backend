@@ -12,7 +12,6 @@ use Ergonode\Exporter\Domain\Entity\Export;
 use PHPUnit\Framework\TestCase;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -31,11 +30,6 @@ class ExportTest extends TestCase
     private ChannelId $channelId;
 
     /**
-     * @var ExportProfileId|MockObject
-     */
-    private ExportProfileId $profileId;
-
-    /**
      * @var int
      */
     private int $items;
@@ -46,7 +40,6 @@ class ExportTest extends TestCase
     {
         $this->id = $this->createMock(ExportId::class);
         $this->channelId = $this->createMock(ChannelId::class);
-        $this->profileId = $this->createMock(ExportProfileId::class);
         $this->items = 0;
     }
 
@@ -54,29 +47,28 @@ class ExportTest extends TestCase
      */
     public function testEntityCreation(): void
     {
-        $entity = new Export($this->id, $this->channelId, $this->profileId, $this->items);
-        $this->assertSame($this->id, $entity->getId());
-        $this->assertEquals($this->channelId, $entity->getChannelId());
-        $this->assertEquals($this->profileId, $entity->getExportProfileId());
-        $this->assertSame($this->items, $entity->getItems());
-        $this->assertSame(ExportStatus::CREATED, $entity->getStatus()->getValue());
-        $this->assertNull($entity->getStartedAt());
-        $this->assertNull($entity->getEndedAt());
+        $entity = new Export($this->id, $this->channelId, $this->items);
+        self::assertSame($this->id, $entity->getId());
+        self::assertEquals($this->channelId, $entity->getChannelId());
+        self::assertSame($this->items, $entity->getItems());
+        self::assertSame(ExportStatus::CREATED, $entity->getStatus()->getValue());
+        self::assertNull($entity->getStartedAt());
+        self::assertNull($entity->getEndedAt());
     }
 
     /**
      */
     public function testExportStatus(): void
     {
-        $entity = new Export($this->id, $this->channelId, $this->profileId, $this->items);
+        $entity = new Export($this->id, $this->channelId, $this->items);
         $entity->start();
-        $this->assertSame(ExportStatus::PRECESSED, $entity->getStatus()->getValue());
-        $this->assertNotNull($entity->getStartedAt());
+        self::assertSame(ExportStatus::PRECESSED, $entity->getStatus()->getValue());
+        self::assertNotNull($entity->getStartedAt());
         $entity->end();
-        $this->assertSame(ExportStatus::ENDED, $entity->getStatus()->getValue());
-        $this->assertNotNull($entity->getEndedAt());
+        self::assertSame(ExportStatus::ENDED, $entity->getStatus()->getValue());
+        self::assertNotNull($entity->getEndedAt());
         $entity->stop();
-        $this->assertSame(ExportStatus::STOPPED, $entity->getStatus()->getValue());
+        self::assertSame(ExportStatus::STOPPED, $entity->getStatus()->getValue());
     }
 
     /**
@@ -84,7 +76,7 @@ class ExportTest extends TestCase
     public function testInvalidEndStatusChange(): void
     {
         $this->expectException(\LogicException::class);
-        $entity = new Export($this->id, $this->channelId, $this->profileId, $this->items);
+        $entity = new Export($this->id, $this->channelId, $this->items);
         $entity->end();
     }
 
@@ -93,7 +85,7 @@ class ExportTest extends TestCase
     public function testInvalidStartStatusChange(): void
     {
         $this->expectException(\LogicException::class);
-        $entity = new Export($this->id, $this->channelId, $this->profileId, $this->items);
+        $entity = new Export($this->id, $this->channelId, $this->items);
         $entity->start();
         $entity->start();
     }
@@ -103,7 +95,7 @@ class ExportTest extends TestCase
     public function testInvalidStopStatusChange(): void
     {
         $this->expectException(\LogicException::class);
-        $entity = new Export($this->id, $this->channelId, $this->profileId, $this->items);
+        $entity = new Export($this->id, $this->channelId, $this->items);
         $entity->stop();
         $entity->stop();
     }

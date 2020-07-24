@@ -9,7 +9,7 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Infrastructure\Mapper\Product;
 
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Shopware6ProductMapperInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Model\CreateShopware6Product;
@@ -45,23 +45,23 @@ class Shopware6ProductStockMapper implements Shopware6ProductMapperInterface
     /**
      * @param Shopware6Product|CreateShopware6Product $shopware6Product
      * @param AbstractProduct                         $product
-     * @param Shopware6ExportApiProfile               $profile
+     * @param Shopware6Channel                        $channel
      *
      * @return Shopware6Product
      */
     public function map(
         Shopware6Product $shopware6Product,
         AbstractProduct $product,
-        Shopware6ExportApiProfile $profile
+        Shopware6Channel $channel
     ): Shopware6Product {
         if ($shopware6Product instanceof CreateShopware6Product) {
-            $attribute = $this->repository->load($profile->getProductStock());
+            $attribute = $this->repository->load($channel->getProductStock());
             if (false === $product->hasAttribute($attribute->getCode())) {
                 return $shopware6Product;
             }
 
             $value = $product->getAttribute($attribute->getCode());
-            $calculateValue = $this->calculator->calculate($attribute, $value, $profile->getDefaultLanguage());
+            $calculateValue = $this->calculator->calculate($attribute, $value, $channel->getDefaultLanguage());
             if (is_numeric($calculateValue)) {
                 $shopware6Product->setStock((int) $calculateValue);
             }

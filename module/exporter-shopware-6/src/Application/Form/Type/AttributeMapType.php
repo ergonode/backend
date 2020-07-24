@@ -9,11 +9,11 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Application\Form\Type;
 
 use Ergonode\Attribute\Domain\Query\AttributeQueryInterface;
-use Ergonode\ExporterShopware6\Application\Form\Model\Type\AttributeModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ergonode\ExporterShopware6\Application\Model\Type\AttributeModel;
 
 /**
  */

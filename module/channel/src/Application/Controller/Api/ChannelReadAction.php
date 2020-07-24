@@ -10,12 +10,12 @@ declare(strict_types = 1);
 namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Response\SuccessResponse;
-use Ergonode\Channel\Domain\Entity\Channel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 /**
  * @Route(
@@ -54,13 +54,13 @@ class ChannelReadAction
      *     description="Not found",
      * )
      *
-     * @param Channel $channel
+     * @param AbstractChannel $channel
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      *
      * @return Response
      */
-    public function __invoke(Channel $channel): Response
+    public function __invoke(AbstractChannel $channel): Response
     {
         return new SuccessResponse($channel);
     }

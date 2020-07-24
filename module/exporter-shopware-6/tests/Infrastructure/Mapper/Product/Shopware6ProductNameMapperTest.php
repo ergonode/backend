@@ -13,7 +13,6 @@ use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
 use Ergonode\Attribute\Domain\ValueObject\AttributeCode;
 use Ergonode\Attribute\Domain\ValueObject\AttributeScope;
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\ExporterShopware6\Infrastructure\Calculator\AttributeTranslationInheritanceCalculator;
 use Ergonode\ExporterShopware6\Infrastructure\Mapper\Product\Shopware6ProductNameMapper;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
@@ -21,6 +20,8 @@ use Ergonode\Product\Domain\Entity\AbstractProduct;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
+use Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException;
 
 /**
  */
@@ -45,9 +46,9 @@ class Shopware6ProductNameMapperTest extends TestCase
     private AbstractProduct $product;
 
     /**
-     * @var Shopware6ExportApiProfile|MockObject
+     * @var Shopware6Channel|MockObject
      */
-    private Shopware6ExportApiProfile $profile;
+    private Shopware6Channel $channel;
 
     /**
      */
@@ -63,10 +64,10 @@ class Shopware6ProductNameMapperTest extends TestCase
         $this->attributeRepository->method('load')
             ->willReturn($textAttribute);
 
-        $this->profile = $this->createMock(Shopware6ExportApiProfile::class);
-        $this->profile->method('getProductName')
+        $this->channel = $this->createMock(Shopware6Channel::class);
+        $this->channel->method('getProductName')
             ->willReturn(AttributeId::fromKey(self::CODE));
-        $this->profile->method('getDefaultLanguage')
+        $this->channel->method('getDefaultLanguage')
             ->willReturn(new Language('en'));
 
         $this->calculator = $this->createMock(AttributeTranslationInheritanceCalculator::class);
@@ -79,9 +80,9 @@ class Shopware6ProductNameMapperTest extends TestCase
     }
 
     /**
-     * @throws \Ergonode\ExporterShopware6\Infrastructure\Exception\Shopware6ExporterMapperException
+     * @throws Shopware6ExporterMapperException
      */
-    public function testMapper()
+    public function testMapper(): void
     {
         $mapper = new Shopware6ProductNameMapper(
             $this->attributeRepository,
@@ -89,8 +90,8 @@ class Shopware6ProductNameMapperTest extends TestCase
         );
 
         $shopware6Product = new Shopware6Product();
-        $mapper->map($shopware6Product, $this->product, $this->profile);
+        $mapper->map($shopware6Product, $this->product, $this->channel);
 
-        $this->assertEquals(self::NAME, $shopware6Product->getName());
+        self::assertEquals(self::NAME, $shopware6Product->getName());
     }
 }

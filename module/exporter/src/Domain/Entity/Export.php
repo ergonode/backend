@@ -11,7 +11,6 @@ namespace Ergonode\Exporter\Domain\Entity;
 use Ergonode\Exporter\Domain\ValueObject\ExportStatus;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 
 /**
  */
@@ -26,11 +25,6 @@ class Export
      * @var ChannelId
      */
     private ChannelId $channelId;
-
-    /**
-     * @var ExportProfileId
-     */
-    private ExportProfileId $exportProfileId;
 
     /**
      * @var ExportStatus
@@ -53,16 +47,14 @@ class Export
     private int $items;
 
     /**
-     * @param ExportId        $exportId
-     * @param ChannelId       $channelId
-     * @param ExportProfileId $exportProfileId
-     * @param int             $items
+     * @param ExportId  $exportId
+     * @param ChannelId $channelId
+     * @param int       $items
      */
-    public function __construct(ExportId $exportId, ChannelId $channelId, ExportProfileId $exportProfileId, int $items)
+    public function __construct(ExportId $exportId, ChannelId $channelId, int $items)
     {
         $this->id = $exportId;
         $this->channelId = $channelId;
-        $this->exportProfileId = $exportProfileId;
         $this->status = new ExportStatus(ExportStatus::CREATED);
         $this->startedAt = null;
         $this->endedAt = null;
@@ -83,14 +75,6 @@ class Export
     public function getChannelId(): ChannelId
     {
         return $this->channelId;
-    }
-
-    /**
-     * @return ExportProfileId
-     */
-    public function getExportProfileId(): ExportProfileId
-    {
-        return $this->exportProfileId;
     }
 
     /**

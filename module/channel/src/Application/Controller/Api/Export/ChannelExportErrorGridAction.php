@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\Channel\Application\Controller\Api\Export;
 
-use Ergonode\Channel\Domain\Entity\Channel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -21,6 +20,7 @@ use Ergonode\Api\Application\Response\SuccessResponse;
 use Ergonode\Channel\Domain\Query\ExportQueryInterface;
 use Ergonode\Exporter\Domain\Entity\Export;
 use Ergonode\Channel\Infrastructure\Grid\ExportErrorsGrid;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
 
 /**
  * @Route(
@@ -125,12 +125,12 @@ class ChannelExportErrorGridAction
      *     description="Returns export collection",
      * )
      *
-     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\Channel")
+     * @ParamConverter(class="Ergonode\Channel\Domain\Entity\AbstractChannel")
      * @ParamConverter(class="Ergonode\Exporter\Domain\Entity\Export")
      * @ParamConverter(class="Ergonode\Grid\RequestGridConfiguration")
      *
      * @param Language                 $language
-     * @param Channel                  $channel
+     * @param AbstractChannel          $channel
      * @param Export                   $export
      * @param RequestGridConfiguration $configuration
      *
@@ -138,7 +138,7 @@ class ChannelExportErrorGridAction
      */
     public function __invoke(
         Language $language,
-        Channel $channel,
+        AbstractChannel $channel,
         Export $export,
         RequestGridConfiguration $configuration
     ): Response {

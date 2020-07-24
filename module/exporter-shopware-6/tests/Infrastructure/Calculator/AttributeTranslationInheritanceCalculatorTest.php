@@ -50,7 +50,7 @@ class AttributeTranslationInheritanceCalculatorTest extends TestCase
         $language = new Language('pl');
 
         $newValue = $calculator->calculate($attribute, $value, $language);
-        $this->assertIsString($newValue);
+        self::assertIsString($newValue);
     }
 
     /**
@@ -66,7 +66,7 @@ class AttributeTranslationInheritanceCalculatorTest extends TestCase
         $language = new Language('pl');
 
         $newValue = $calculator->calculate($attribute, $value, $language);
-        $this->assertIsString($newValue);
+        self::assertIsString($newValue);
     }
 
     /**
@@ -81,6 +81,6 @@ class AttributeTranslationInheritanceCalculatorTest extends TestCase
         $language = new Language('pl');
 
         $newValue = $calculator->calculate($attribute, $value, $language);
-        $this->assertIsString($newValue);
+        self::assertIsString($newValue);
     }
 }
