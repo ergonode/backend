@@ -9,32 +9,32 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Domain\Repository;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
  */
 interface Shopware6LanguageRepositoryInterface
 {
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $name
+     * @param ChannelId $channelId
+     * @param string    $name
      *
      * @return string|null
      */
-    public function load(ExportProfileId $exportProfileId, string $name): ?string;
+    public function load(ChannelId $channelId, string $name): ?string;
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $name
-     * @param string          $shopwareId
+     * @param ChannelId $channelId
+     * @param string    $name
+     * @param string    $shopwareId
      */
-    public function save(ExportProfileId $exportProfileId, string $name, string $shopwareId): void;
+    public function save(ChannelId $channelId, string $name, string $shopwareId): void;
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $name
+     * @param ChannelId $channelId
+     * @param string    $name
      *
      * @return bool
      */
-    public function exists(ExportProfileId $exportProfileId, string $name): bool;
+    public function exists(ChannelId $channelId, string $name): bool;
 }

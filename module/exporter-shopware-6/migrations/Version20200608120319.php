@@ -11,14 +11,14 @@ namespace Ergonode\Migration;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
-* Auto-generated Ergonode Migration Class:
-*/
+ * Auto-generated Ergonode Migration Class:
+ */
 final class Version20200608120319 extends AbstractErgonodeMigration
 {
     /**
-    * @param Schema $schema
-    */
-    public function up(Schema $schema) : void
+     * @param Schema $schema
+     */
+    public function up(Schema $schema): void
     {
         $this->addSql(
             'CREATE TABLE exporter.shopware6_category(
@@ -68,6 +68,16 @@ final class Version20200608120319 extends AbstractErgonodeMigration
                     update_at timestamp without time zone NOT NULL,
                     PRIMARY KEY (channel_id, attribute_id)
                 )'
+        );
+
+        $this->addSql(
+            'CREATE TABLE exporter . shopware6_language(
+                    channel_id uuid NOT null,
+	                name varchar(36) NOT null,
+	                shopware6_id varchar(36) NOT null,
+	                update_at timestamp NOT null,
+	                PRIMARY KEY(channel_id, name)
+	            )'
         );
     }
 }
