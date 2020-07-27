@@ -59,10 +59,11 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
      * @JMS\Type("Ergonode\Core\Domain\ValueObject\Language")
      */
     private Language $defaultLanguage;
+
     /**
-     * @var array
+     * @var Language[]
      *
-     * @JMS\Type("array")
+     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $languages;
 
@@ -136,7 +137,7 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
      * @param string              $clientId
      * @param string              $clientKey
      * @param Language            $defaultLanguage
-     * @param array               $languages
+     * @param Language[]          $languages
      * @param AttributeId         $productName
      * @param AttributeId         $productActive
      * @param AttributeId         $productStock
@@ -232,7 +233,7 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
     }
 
     /**
-     * @return array
+     * @return Language[]
      */
     public function getLanguages(): array
     {

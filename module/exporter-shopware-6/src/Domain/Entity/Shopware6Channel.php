@@ -51,10 +51,9 @@ class Shopware6Channel extends AbstractChannel
     private Language $defaultLanguage;
 
     /**
-     * @var array
+     * @var Language[]
      *
-     * @JMS\Type("array")
-     *
+     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
      */
     private array $languages;
 
@@ -128,7 +127,7 @@ class Shopware6Channel extends AbstractChannel
      * @param string              $clientId
      * @param string              $clientKey
      * @param Language            $defaultLanguage
-     * @param array               $languages
+     * @param Language[]          $languages
      * @param AttributeId         $productName
      * @param AttributeId         $productActive
      * @param AttributeId         $productStock
@@ -216,7 +215,7 @@ class Shopware6Channel extends AbstractChannel
     }
 
     /**
-     * @return array
+     * @return array|Language[]
      */
     public function getLanguages(): array
     {
@@ -328,7 +327,7 @@ class Shopware6Channel extends AbstractChannel
     }
 
     /**
-     * @param array $languages
+     * @param Language[] $languages
      */
     public function setLanguages(array $languages): void
     {

@@ -70,6 +70,11 @@ class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilde
             $customField[] = new AttributeId($attribute->id);
         }
 
+        $languageObjects = [];
+        foreach ($languages as $language) {
+            $languageObjects[] = new Language($language);
+        }
+
         return new CreateShopware6ChannelCommand(
             ChannelId::generate(),
             $name,
@@ -77,7 +82,7 @@ class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilde
             $clientId,
             $clientKey,
             new Language($defaultLanguage),
-            $languages,
+            $languageObjects,
             $attributeProductName,
             $attributeProductActive,
             $attributeProductStock,
