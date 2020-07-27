@@ -25,12 +25,12 @@ class PostCurrencyCreateTest extends TestCase
         $action = new PostCurrencyCreate('RUB');
         $request = $action->getRequest();
 
-        $this->assertInstanceOf(Request::class, $request);
-        $this->assertSame('', $request->getHeaderLine('Accept'));
-        $this->assertSame('', $request->getHeaderLine('Cache-Control'));
-        $this->assertSame('', $request->getHeaderLine('Content-Type'));
-        $this->assertSame(HttpRequest::METHOD_POST, $request->getMethod());
-        $this->assertInstanceOf(Uri::class, $request->getUri());
-        $this->assertNull($action->parseContent(null));
+        self::assertInstanceOf(Request::class, $request);
+        self::assertSame('', $request->getHeaderLine('Accept'));
+        self::assertSame('', $request->getHeaderLine('Cache-Control'));
+        self::assertSame('', $request->getHeaderLine('Content-Type'));
+        self::assertSame(HttpRequest::METHOD_POST, $request->getMethod());
+        self::assertInstanceOf(Uri::class, $request->getUri());
+        self::assertNull($action->parseContent(null));
     }
 }

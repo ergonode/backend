@@ -9,23 +9,23 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Domain\Query;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
  */
 interface Shopware6CustomFieldQueryInterface
 {
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $shopwareId
+     * @param ChannelId $channel
+     * @param string    $shopwareId
      *
      * @return AttributeId|null
      */
-    public function loadByShopwareId(ExportProfileId $exportProfileId, string $shopwareId): ?AttributeId;
+    public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?AttributeId;
 
     /**
-     * @param ExportProfileId    $exportProfileId
+     * @param ChannelId          $channel
      * @param \DateTimeImmutable $dateTime
      */
-    public function clearBefore(ExportProfileId $exportProfileId, \DateTimeImmutable $dateTime): void;
+    public function clearBefore(ChannelId $channel, \DateTimeImmutable $dateTime): void;
 }

@@ -45,7 +45,7 @@ class ExportProductChannelCommandTest extends TestCase
             $this->productId
         );
 
-        $this->assertEquals($this->id, $command->getChannelId());
-        $this->assertEquals($this->productId, $command->getProductId());
+        self::assertEquals($this->id, $command->getChannelId());
+        self::assertEquals($this->productId, $command->getProductId());
     }
 }

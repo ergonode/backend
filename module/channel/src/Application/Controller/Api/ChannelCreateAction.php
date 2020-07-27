@@ -11,19 +11,16 @@ namespace Ergonode\Channel\Application\Controller\Api;
 
 use Ergonode\Api\Application\Exception\FormValidationHttpException;
 use Ergonode\Api\Application\Response\CreatedResponse;
-use Ergonode\Channel\Application\Form\ChannelCreateForm;
-use Ergonode\Channel\Application\Model\ChannelCreateFormModel;
-use Ergonode\Channel\Domain\Command\CreateChannelCommand;
 use Ergonode\EventSourcing\Infrastructure\Bus\CommandBusInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Swagger\Annotations as SWG;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
 use Symfony\Component\Routing\Annotation\Route;
+use Ergonode\Channel\Application\Provider\ChannelFormFactoryProvider;
+use Ergonode\Channel\Application\Provider\CreateChannelCommandBuilderProvider;
 
 /**
  * @Route("/channels", methods={"POST"})
@@ -31,9 +28,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChannelCreateAction
 {
     /**
-     * @var FormFactoryInterface
+     * @var ChannelFormFactoryProvider
      */
-    private FormFactoryInterface $formFactory;
+    private ChannelFormFactoryProvider $provider;
+
+    /**
+     * @var CreateChannelCommandBuilderProvider
+     */
+    private CreateChannelCommandBuilderProvider $commandProvider;
 
     /**
      * @var CommandBusInterface
@@ -41,12 +43,17 @@ class ChannelCreateAction
     private CommandBusInterface $commandBus;
 
     /**
-     * @param FormFactoryInterface $formFactory
-     * @param CommandBusInterface  $commandBus
+     * @param ChannelFormFactoryProvider          $provider
+     * @param CreateChannelCommandBuilderProvider $commandProvider
+     * @param CommandBusInterface                 $commandBus
      */
-    public function __construct(FormFactoryInterface $formFactory, CommandBusInterface $commandBus)
-    {
-        $this->formFactory = $formFactory;
+    public function __construct(
+        ChannelFormFactoryProvider $provider,
+        CreateChannelCommandBuilderProvider $commandProvider,
+        CommandBusInterface $commandBus
+    ) {
+        $this->provider = $provider;
+        $this->commandProvider = $commandProvider;
         $this->commandBus = $commandBus;
     }
 
@@ -94,19 +101,14 @@ class ChannelCreateAction
      */
     public function __invoke(Request $request): Response
     {
+        $type = $request->get('type');
+
         try {
-            $model = new ChannelCreateFormModel();
-            $form = $this->formFactory->create(ChannelCreateForm::class, $model);
+            $form = $this->provider->provide($type)->create();
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ChannelCreateFormModel $data */
-                $data = $form->getData();
-                $command = new CreateChannelCommand(
-                    $data->name,
-                    new ExportProfileId($data->exportProfileId)
-                );
-
+                $command = $this->commandProvider->provide($type)->build($form);
                 $this->commandBus->dispatch($command);
 
                 return new CreatedResponse($command->getId());
@@ -114,7 +116,6 @@ class ChannelCreateAction
         } catch (InvalidPropertyPathException $exception) {
             throw new BadRequestHttpException('Invalid JSON format');
         }
-
         throw new FormValidationHttpException($form);
     }
 }

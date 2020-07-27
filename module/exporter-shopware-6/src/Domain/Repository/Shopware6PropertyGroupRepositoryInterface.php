@@ -9,32 +9,32 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterShopware6\Domain\Repository;
 
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
  */
 interface Shopware6PropertyGroupRepositoryInterface
 {
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param AttributeId     $attributeId
+     * @param ChannelId   $channelId
+     * @param AttributeId $attributeId
      *
      * @return string|null
      */
-    public function load(ExportProfileId $exportProfileId, AttributeId $attributeId): ?string;
+    public function load(ChannelId $channelId, AttributeId $attributeId): ?string;
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param AttributeId     $attributeId
-     * @param string          $shopwareId
+     * @param ChannelId   $channelId
+     * @param AttributeId $attributeId
+     * @param string      $shopwareId
      */
-    public function save(ExportProfileId $exportProfileId, AttributeId $attributeId, string $shopwareId): void;
+    public function save(ChannelId $channelId, AttributeId $attributeId, string $shopwareId): void;
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param AttributeId     $attributeId
+     * @param ChannelId   $channelId
+     * @param AttributeId $attributeId
      *
      * @return bool
      */
-    public function exists(ExportProfileId $exportProfileId, AttributeId $attributeId): bool;
+    public function exists(ChannelId $channelId, AttributeId $attributeId): bool;
 }

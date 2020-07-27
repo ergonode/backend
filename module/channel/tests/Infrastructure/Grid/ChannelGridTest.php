@@ -27,6 +27,6 @@ class ChannelGridTest extends TestCase
         $language = $this->createMock(Language::class);
         $grid = new ChannelGrid();
         $grid->init($configuration, $language);
-        $this->assertNotEmpty($grid->getColumns());
+        self::assertNotEmpty($grid->getColumns());
     }
 }

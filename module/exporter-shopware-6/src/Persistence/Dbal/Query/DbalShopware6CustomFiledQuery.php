@@ -11,7 +11,7 @@ namespace Ergonode\ExporterShopware6\Persistence\Dbal\Query;
 use Doctrine\DBAL\Connection;
 use Ergonode\ExporterShopware6\Domain\Query\Shopware6CustomFieldQueryInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
  */
@@ -19,7 +19,7 @@ class DbalShopware6CustomFiledQuery implements Shopware6CustomFieldQueryInterfac
 {
     private const TABLE = 'exporter.shopware6_custom_field';
     private const FIELDS = [
-        'export_profile_id',
+        'channel_id',
         'attribute_id',
         'shopware6_id',
     ];
@@ -38,19 +38,19 @@ class DbalShopware6CustomFiledQuery implements Shopware6CustomFieldQueryInterfac
     }
 
     /**
-     * @param ExportProfileId $exportProfileId
-     * @param string          $shopwareId
+     * @param ChannelId $channel
+     * @param string    $shopwareId
      *
      * @return AttributeId|null
      */
-    public function loadByShopwareId(ExportProfileId $exportProfileId, string $shopwareId): ?AttributeId
+    public function loadByShopwareId(ChannelId $channel, string $shopwareId): ?AttributeId
     {
         $query = $this->connection->createQueryBuilder();
         $record = $query
             ->select(self::FIELDS)
             ->from(self::TABLE, 'pg')
-            ->where($query->expr()->eq('export_profile_id', ':exportProfileId'))
-            ->setParameter(':exportProfileId', $exportProfileId->getValue())
+            ->where($query->expr()->eq('channel_id', ':channelId'))
+            ->setParameter(':channelId', $channel->getValue())
             ->andWhere($query->expr()->eq('shopware6_id', ':shopware6Id'))
             ->setParameter(':shopware6Id', $shopwareId)
             ->execute()
@@ -64,15 +64,15 @@ class DbalShopware6CustomFiledQuery implements Shopware6CustomFieldQueryInterfac
     }
 
     /**
-     * @param ExportProfileId    $exportProfileId
+     * @param ChannelId          $channel
      * @param \DateTimeImmutable $dateTime
      */
-    public function clearBefore(ExportProfileId $exportProfileId, \DateTimeImmutable $dateTime): void
+    public function clearBefore(ChannelId $channel, \DateTimeImmutable $dateTime): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete(self::TABLE, 'pg')
-            ->where($query->expr()->eq('export_profile_id', ':exportProfileId'))
-            ->setParameter(':exportProfileId', $exportProfileId->getValue())
+            ->where($query->expr()->eq('channel_id', ':channelId'))
+            ->setParameter(':channelId', $channel->getValue())
             ->andWhere($query->expr()->lt('pg.update_at', ':updateAt'))
             ->setParameter(':updateAt', $dateTime->format('Y-m-d H:i:s'))
             ->execute();

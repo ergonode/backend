@@ -8,12 +8,12 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Tests\Infrastructure\Connector\Action;
 
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\PostAccessToken;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 /**
  */
@@ -21,17 +21,17 @@ class PostAccessTokenTest extends TestCase
 {
     /**
      */
-    public function testAction()
+    public function testAction(): void
     {
-        $profile = $this->createMock(Shopware6ExportApiProfile::class);
-        $action = new PostAccessToken($profile);
+        $channel = $this->createMock(Shopware6Channel::class);
+        $action = new PostAccessToken($channel);
         $request = $action->getRequest();
 
-        $this->assertInstanceOf(Request::class, $request);
-        $this->assertSame('', $request->getHeaderLine('Accept'));
-        $this->assertSame('', $request->getHeaderLine('Cache-Control'));
-        $this->assertSame('', $request->getHeaderLine('Content-Type'));
-        $this->assertSame(HttpRequest::METHOD_POST, $request->getMethod());
-        $this->assertInstanceOf(Uri::class, $request->getUri());
+        self::assertInstanceOf(Request::class, $request);
+        self::assertSame('', $request->getHeaderLine('Accept'));
+        self::assertSame('', $request->getHeaderLine('Cache-Control'));
+        self::assertSame('', $request->getHeaderLine('Content-Type'));
+        self::assertSame(HttpRequest::METHOD_POST, $request->getMethod());
+        self::assertInstanceOf(Uri::class, $request->getUri());
     }
 }

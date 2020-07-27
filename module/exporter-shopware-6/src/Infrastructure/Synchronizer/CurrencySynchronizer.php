@@ -10,7 +10,7 @@ namespace Ergonode\ExporterShopware6\Infrastructure\Synchronizer;
 
 use Ergonode\Attribute\Domain\Entity\Attribute\PriceAttribute;
 use Ergonode\Attribute\Domain\Repository\AttributeRepositoryInterface;
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Domain\Repository\Shopware6CurrencyRepositoryInterface;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\GetCurrencyList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Currency\PostCurrencyCreate;
@@ -52,55 +52,55 @@ class CurrencySynchronizer implements SynchronizerInterface
     }
 
     /**
-     * @param ExportId                  $id
-     * @param Shopware6ExportApiProfile $profile
+     * @param ExportId         $id
+     * @param Shopware6Channel $channel
      */
-    public function synchronize(ExportId $id, Shopware6ExportApiProfile $profile): void
+    public function synchronize(ExportId $id, Shopware6Channel $channel): void
     {
-        $this->synchronizeShopware($profile);
-        $this->checkExistOrCreate($profile);
+        $this->synchronizeShopware($channel);
+        $this->checkExistOrCreate($channel);
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      */
-    private function synchronizeShopware(Shopware6ExportApiProfile $profile): void
+    private function synchronizeShopware(Shopware6Channel $channel): void
     {
-        $currencyList = $this->getShopwareCurrency($profile);
+        $currencyList = $this->getShopwareCurrency($channel);
         foreach ($currencyList as $currency) {
-            $this->currencyRepository->save($profile->getId(), $currency['iso'], $currency['id']);
+            $this->currencyRepository->save($channel->getId(), $currency['iso'], $currency['id']);
         }
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      *
      * @return array
      */
-    private function getShopwareCurrency(Shopware6ExportApiProfile $profile): array
+    private function getShopwareCurrency(Shopware6Channel $channel): array
     {
         $action = new GetCurrencyList();
 
-        return $this->connector->execute($profile, $action);
+        return $this->connector->execute($channel, $action);
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
+     * @param Shopware6Channel $channel
      */
-    private function checkExistOrCreate(Shopware6ExportApiProfile $profile): void
+    private function checkExistOrCreate(Shopware6Channel $channel): void
     {
         /** @var PriceAttribute $attribute */
-        $attribute = $this->attributeRepository->load($profile->getProductPrice());
+        $attribute = $this->attributeRepository->load($channel->getProductPrice());
         $iso = $attribute->getCurrency()->getCode();
 
-        $isset = $this->currencyRepository->exists($profile->getId(), $iso);
+        $isset = $this->currencyRepository->exists($channel->getId(), $iso);
         if ($isset) {
             return;
         }
 
         $action = new PostCurrencyCreate($iso);
-        $this->connector->execute($profile, $action);
+        $this->connector->execute($channel, $action);
 
-        $this->synchronizeShopware($profile);
+        $this->synchronizeShopware($channel);
     }
 }

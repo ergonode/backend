@@ -9,19 +9,19 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterMagento2\Tests\Domain\Entity;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\ExporterMagento2\Domain\Entity\Magento2ExportCsvProfile;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Ergonode\ExporterMagento2\Domain\Entity\Magento2CsvChannel;
+use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 
 /**
  */
 class Magento2ExportCsvProfileTest extends TestCase
 {
     /**
-     * @var ExportProfileId|MockObject
+     * @var ChannelId|MockObject
      */
-    private ExportProfileId $id;
+    private ChannelId $id;
 
     /**
      * @var string
@@ -41,7 +41,7 @@ class Magento2ExportCsvProfileTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->id = $this->createMock(ExportProfileId::class);
+        $this->id = $this->createMock(ChannelId::class);
         $this->name = 'Any Name';
         $this->filename = 'anyfile.csv';
         $this->defaultLanguage = $this->createMock(Language::class);
@@ -51,32 +51,33 @@ class Magento2ExportCsvProfileTest extends TestCase
      */
     public function testCreateEntity(): void
     {
-        $entity = new Magento2ExportCsvProfile(
+        $entity = new Magento2CsvChannel(
             $this->id,
             $this->name,
             $this->filename,
             $this->defaultLanguage
         );
 
-        $this->assertEquals($this->id, $entity->getId());
-        $this->assertEquals('magento-2-csv', $entity->getType());
-        $this->assertEquals($this->name, $entity->getName());
-        $this->assertEquals($this->filename, $entity->getFilename());
-        $this->assertEquals($this->defaultLanguage, $entity->getDefaultLanguage());
+        self::assertEquals($this->id, $entity->getId());
+        self::assertEquals('magento-2-csv', $entity->getType());
+        self::assertEquals($this->name, $entity->getName());
+        self::assertEquals($this->filename, $entity->getFilename());
+        self::assertEquals($this->defaultLanguage, $entity->getDefaultLanguage());
     }
 
     /**
+     * @throws \Exception
      */
     public function testSetEntity(): void
     {
-        $entity = new Magento2ExportCsvProfile(
+        $entity = new Magento2CsvChannel(
             $this->id,
             $this->name,
             $this->filename,
             $this->defaultLanguage
         );
 
-        $id = $this->createMock(ExportProfileId::class);
+        $id = $this->createMock(ChannelId::class);
         $name = 'New Name';
         $filename = 'new_file_name';
         $defaultLanguage = $this->createMock(Language::class);
@@ -86,9 +87,9 @@ class Magento2ExportCsvProfileTest extends TestCase
         $entity->setDefaultLanguage($defaultLanguage);
 
 
-        $this->assertEquals($id, $entity->getId());
-        $this->assertEquals($name, $entity->getName());
-        $this->assertEquals($filename, $entity->getFilename());
-        $this->assertEquals($defaultLanguage, $entity->getDefaultLanguage());
+        self::assertEquals($id, $entity->getId());
+        self::assertEquals($name, $entity->getName());
+        self::assertEquals($filename, $entity->getFilename());
+        self::assertEquals($defaultLanguage, $entity->getDefaultLanguage());
     }
 }

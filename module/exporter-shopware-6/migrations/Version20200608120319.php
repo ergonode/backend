@@ -22,51 +22,51 @@ final class Version20200608120319 extends AbstractErgonodeMigration
     {
         $this->addSql(
             'CREATE TABLE exporter.shopware6_category(
-                    export_profile_id uuid NOT NULL,
+                    channel_id uuid NOT NULL,
                     category_id uuid NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
                     update_at timestamp without time zone NOT NULL,
-                    PRIMARY KEY (export_profile_id, category_id)
+                    PRIMARY KEY (channel_id, category_id)
                 )'
         );
 
         $this->addSql(
             'CREATE TABLE exporter.shopware6_tax(
-                    export_profile_id uuid NOT NULL,
+                    channel_id uuid NOT NULL,
                     tax  DECIMAL (5, 2) NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
                     update_at timestamp without time zone NOT NULL,
-                    PRIMARY KEY (export_profile_id, tax)
+                    PRIMARY KEY (channel_id, tax)
                 )'
         );
 
         $this->addSql(
             'CREATE TABLE exporter.shopware6_currency(
-                    export_profile_id uuid NOT NULL,
+                    channel_id uuid NOT NULL,
                     iso varchar(255) NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
                     update_at timestamp without time zone NOT NULL,
-                    PRIMARY KEY (export_profile_id, iso)
+                    PRIMARY KEY (channel_id, iso)
                 )'
         );
 
         $this->addSql(
             'CREATE TABLE exporter.shopware6_property_group(
-                    export_profile_id uuid NOT NULL,
+                    channel_id uuid NOT NULL,
                     attribute_id uuid NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
                     update_at timestamp without time zone NOT NULL,
-                    PRIMARY KEY (export_profile_id, attribute_id)
+                    PRIMARY KEY (channel_id, attribute_id)
                 )'
         );
 
         $this->addSql(
             'CREATE TABLE exporter.shopware6_custom_field(
-                    export_profile_id uuid NOT NULL,
+                    channel_id uuid NOT NULL,
                     attribute_id uuid NOT NULL,
                     shopware6_id varchar(36) NOT NULL,
                     update_at timestamp without time zone NOT NULL,
-                    PRIMARY KEY (export_profile_id, attribute_id)
+                    PRIMARY KEY (channel_id, attribute_id)
                 )'
         );
     }

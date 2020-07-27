@@ -9,8 +9,8 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterMagento2\Application\Form\Model;
 
 use Ergonode\Core\Domain\ValueObject\Language;
-use Ergonode\ExporterMagento2\Domain\Entity\Magento2ExportCsvProfile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\ExporterMagento2\Domain\Entity\Magento2CsvChannel;
 
 /**
  */
@@ -40,14 +40,14 @@ class ExporterMagento2CsvConfigurationModel
     public ?Language $defaultLanguage = null;
 
     /**
-     * @param Magento2ExportCsvProfile|null $exportProfile
+     * @param Magento2CsvChannel|null $channel
      */
-    public function __construct(Magento2ExportCsvProfile $exportProfile = null)
+    public function __construct(Magento2CsvChannel $channel = null)
     {
-        if ($exportProfile) {
-            $this->name = $exportProfile->getName();
-            $this->filename = $exportProfile->getFilename();
-            $this->defaultLanguage = $exportProfile->getDefaultLanguage();
+        if ($channel) {
+            $this->name = $channel->getName();
+            $this->filename = $channel->getFilename();
+            $this->defaultLanguage = $channel->getDefaultLanguage();
         }
     }
 }
