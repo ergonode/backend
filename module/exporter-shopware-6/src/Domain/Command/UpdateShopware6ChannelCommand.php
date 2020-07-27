@@ -136,7 +136,7 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
      * @param string              $clientId
      * @param string              $clientKey
      * @param Language            $defaultLanguage
-     * @param Language []         $languages
+     * @param array               $languages
      * @param AttributeId         $productName
      * @param AttributeId         $productActive
      * @param AttributeId         $productStock
@@ -232,7 +232,7 @@ class UpdateShopware6ChannelCommand implements DomainCommandInterface
     }
 
     /**
-     * @return Language[]
+     * @return array
      */
     public function getLanguages(): array
     {

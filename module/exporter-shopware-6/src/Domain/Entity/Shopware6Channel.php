@@ -128,7 +128,7 @@ class Shopware6Channel extends AbstractChannel
      * @param string              $clientId
      * @param string              $clientKey
      * @param Language            $defaultLanguage
-     * @param Language[]          $languages
+     * @param array               $languages
      * @param AttributeId         $productName
      * @param AttributeId         $productActive
      * @param AttributeId         $productStock
@@ -216,7 +216,7 @@ class Shopware6Channel extends AbstractChannel
     }
 
     /**
-     * @return array|Language[]
+     * @return array
      */
     public function getLanguages(): array
     {

@@ -50,7 +50,7 @@ class Shopware6ChannelTest extends TestCase
     private Language $defaultLanguage;
 
     /**
-     * @var Language[]|MockObject
+     * @var array|MockObject
      */
     private array $languages;
 

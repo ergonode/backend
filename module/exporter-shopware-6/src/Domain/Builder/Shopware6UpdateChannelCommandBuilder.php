@@ -68,11 +68,6 @@ class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilde
             $customField[] = new AttributeId($attribute->id);
         }
 
-        $languageObjects = [];
-        foreach ($languages as $language) {
-            $languageObjects[] = new Language($language);
-        }
-
         return new UpdateShopware6ChannelCommand(
             $id,
             $name,
@@ -80,7 +75,7 @@ class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilde
             $clientId,
             $clientKey,
             new Language($defaultLanguage),
-            $languageObjects,
+            $languages,
             $attributeProductName,
             $attributeProductActive,
             $attributeProductStock,
