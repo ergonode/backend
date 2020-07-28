@@ -8,8 +8,10 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Domain\Builder;
 
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\Channel\Application\Provider\UpdateChannelCommandBuilderInterface;
@@ -46,7 +48,8 @@ class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilde
         $host = $data->host;
         $clientId = $data->clientId;
         $clientKey = $data->clientKey;
-        $language = $data->defaultLanguage;
+        $defaultLanguage = $data->defaultLanguage;
+        $languages = $data->languages;
         $attributeProductName = $data->attributeProductName;
         $attributeProductActive = $data->attributeProductActive;
         $attributeProductStock = $data->attributeProductStock;
@@ -65,20 +68,26 @@ class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilde
             $customField[] = new AttributeId($attribute->id);
         }
 
+        $languageObjects = [];
+        foreach ($languages as $language) {
+            $languageObjects[] = new Language($language);
+        }
+
         return new UpdateShopware6ChannelCommand(
             $id,
             $name,
             $host,
             $clientId,
             $clientKey,
-            $language,
+            new Language($defaultLanguage),
+            $languageObjects,
             $attributeProductName,
             $attributeProductActive,
             $attributeProductStock,
             $attributeProductPrice,
             $attributeProductTax,
             $attributeProductDescription,
-            $categoryTree,
+            new CategoryTreeId($categoryTree),
             $propertyGroup,
             $customField
         );

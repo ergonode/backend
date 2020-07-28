@@ -41,6 +41,7 @@ class CreateShopware6ChannelCommandHandler
             $command->getClientId(),
             $command->getClientKey(),
             $command->getDefaultLanguage(),
+            $command->getLanguages(),
             $command->getProductName(),
             $command->getProductActive(),
             $command->getProductStock(),

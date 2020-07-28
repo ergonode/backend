@@ -61,6 +61,13 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
     private Language $defaultLanguage;
 
     /**
+     * @var Language[]
+     *
+     * @JMS\Type("array<string, Ergonode\Core\Domain\ValueObject\Language>")
+     */
+    private array $languages;
+
+    /**
      * @var AttributeId
      *
      * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\AttributeId")
@@ -130,6 +137,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
      * @param string              $clientId
      * @param string              $clientKey
      * @param Language            $defaultLanguage
+     * @param Language[]          $languages
      * @param AttributeId         $productName
      * @param AttributeId         $productActive
      * @param AttributeId         $productStock
@@ -147,6 +155,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
         string $clientId,
         string $clientKey,
         Language $defaultLanguage,
+        array $languages,
         AttributeId $productName,
         AttributeId $productActive,
         AttributeId $productStock,
@@ -163,6 +172,7 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
         $this->clientId = $clientId;
         $this->clientKey = $clientKey;
         $this->defaultLanguage = $defaultLanguage;
+        $this->languages = $languages;
         $this->productName = $productName;
         $this->productActive = $productActive;
         $this->productStock = $productStock;
@@ -220,6 +230,14 @@ class CreateShopware6ChannelCommand implements DomainCommandInterface
     public function getDefaultLanguage(): Language
     {
         return $this->defaultLanguage;
+    }
+
+    /**
+     * @return Language[]
+     */
+    public function getLanguages(): array
+    {
+        return $this->languages;
     }
 
     /**

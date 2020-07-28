@@ -43,6 +43,7 @@ class UpdateShopware6ChannelCommandHandler
         $channel->setClientId($command->getClientId());
         $channel->setClientKey($command->getClientKey());
         $channel->setDefaultLanguage($command->getDefaultLanguage());
+        $channel->setLanguages($command->getLanguages());
         $channel->setProductName($command->getProductName());
         $channel->setProductActive($command->getProductActive());
         $channel->setProductStock($command->getProductStock());

@@ -8,10 +8,9 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Application\Model;
 
-use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
-use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
 use Symfony\Component\Validator\Constraints as Assert;
+use Ergonode\Core\Infrastructure\Validator\Constraint as CoreAssert;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\ExporterShopware6\Application\Model\Type\AttributeModel;
 
@@ -52,11 +51,28 @@ class Shopware6ChannelFormModel
     public ?string $clientKey = null;
 
     /**
-     * @var Language|null
+     * @var string|null
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(),
+     *
+     * @CoreAssert\LanguageCodeExists()
+     * @CoreAssert\LanguageCodeActive()
+     *
      */
-    public ?Language $defaultLanguage = null;
+    public ?string $defaultLanguage = null;
+
+    /**
+     * @var array|null
+     *
+     * @Assert\NotBlank(),
+
+     * @Assert\All({
+     *
+     *     @CoreAssert\LanguageCodeExists(),
+     *     @CoreAssert\LanguageCodeActive()
+     * })
+     */
+    public ?array $languages = [];
 
     /**
      * @var AttributeId|null
@@ -99,9 +115,9 @@ class Shopware6ChannelFormModel
     public ?AttributeId $attributeProductDescription = null;
 
     /**
-     * @var CategoryTreeId|null
+     * @var string |null
      */
-    public ?CategoryTreeId $categoryTree = null;
+    public ?string $categoryTree = null;
 
     /**
      * @var AttributeModel[]
@@ -127,14 +143,15 @@ class Shopware6ChannelFormModel
             $this->host = $channel->getHost();
             $this->clientId = $channel->getClientId();
             $this->clientKey = $channel->getClientKey();
-            $this->defaultLanguage = $channel->getDefaultLanguage();
+            $this->defaultLanguage = $channel->getDefaultLanguage()->getCode();
+            $this->languages = $channel->getLanguages();
             $this->attributeProductName = $channel->getProductName();
             $this->attributeProductActive = $channel->getProductActive();
             $this->attributeProductStock = $channel->getProductStock();
             $this->attributeProductPrice = $channel->getProductPrice();
             $this->attributeProductTax = $channel->getProductTax();
             $this->attributeProductDescription = $channel->getProductDescription();
-            $this->categoryTree = $channel->getCategoryTree();
+            $this->categoryTree = $channel->getCategoryTree()->getValue();
 
             foreach ($channel->getPropertyGroup() as $attributeId) {
                 $this->propertyGroup[] = new AttributeModel($attributeId->getValue());

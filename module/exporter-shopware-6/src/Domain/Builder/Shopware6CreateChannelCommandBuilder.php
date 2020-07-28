@@ -8,8 +8,11 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Domain\Builder;
 
+use Ergonode\Core\Domain\ValueObject\Language;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\AttributeId;
+use Ergonode\SharedKernel\Domain\Aggregate\CategoryTreeId;
+use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use Symfony\Component\Form\FormInterface;
 use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 use Ergonode\Channel\Application\Provider\CreateChannelCommandBuilderInterface;
@@ -47,7 +50,8 @@ class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilde
         $host = $data->host;
         $clientId = $data->clientId;
         $clientKey = $data->clientKey;
-        $language = $data->defaultLanguage;
+        $defaultLanguage = $data->defaultLanguage;
+        $languages = $data->languages;
         $attributeProductName = $data->attributeProductName;
         $attributeProductActive = $data->attributeProductActive;
         $attributeProductStock = $data->attributeProductStock;
@@ -66,6 +70,10 @@ class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilde
             $customField[] = new AttributeId($attribute->id);
         }
 
+        $languageObjects = [];
+        foreach ($languages as $language) {
+            $languageObjects[] = new Language($language);
+        }
 
         return new CreateShopware6ChannelCommand(
             ChannelId::generate(),
@@ -73,14 +81,15 @@ class Shopware6CreateChannelCommandBuilder implements CreateChannelCommandBuilde
             $host,
             $clientId,
             $clientKey,
-            $language,
+            new Language($defaultLanguage),
+            $languageObjects,
             $attributeProductName,
             $attributeProductActive,
             $attributeProductStock,
             $attributeProductPrice,
             $attributeProductTax,
             $attributeProductDescription,
-            $categoryTree,
+            new CategoryTreeId($categoryTree),
             $propertyGroup,
             $customField
         );
