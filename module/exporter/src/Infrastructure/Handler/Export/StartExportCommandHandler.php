@@ -9,10 +9,10 @@ declare(strict_types = 1);
 namespace Ergonode\Exporter\Infrastructure\Handler\Export;
 
 use Ergonode\Exporter\Domain\Command\Export\StartExportCommand;
-use Ergonode\Exporter\Domain\Repository\ExportProfileRepositoryInterface;
 use Ergonode\Exporter\Domain\Repository\ExportRepositoryInterface;
 use Ergonode\Exporter\Infrastructure\Provider\ExportProcessorProvider;
 use Webmozart\Assert\Assert;
+use Ergonode\Channel\Domain\Repository\ChannelRepositoryInterface;
 
 /**
  */
@@ -24,9 +24,9 @@ class StartExportCommandHandler
     private ExportRepositoryInterface $exportRepository;
 
     /**
-     * @var ExportProfileRepositoryInterface
+     * @var ChannelRepositoryInterface
      */
-    private ExportProfileRepositoryInterface $exportProfileRepository;
+    private ChannelRepositoryInterface $channelRepository;
 
     /**
      * @var ExportProcessorProvider
@@ -34,36 +34,34 @@ class StartExportCommandHandler
     private ExportProcessorProvider $provider;
 
     /**
-     * @param ExportRepositoryInterface        $exportRepository
-     * @param ExportProfileRepositoryInterface $exportProfileRepository
-     * @param ExportProcessorProvider          $provider
+     * @param ExportRepositoryInterface  $exportRepository
+     * @param ChannelRepositoryInterface $channelRepository
+     * @param ExportProcessorProvider    $provider
      */
     public function __construct(
         ExportRepositoryInterface $exportRepository,
-        ExportProfileRepositoryInterface $exportProfileRepository,
+        ChannelRepositoryInterface $channelRepository,
         ExportProcessorProvider $provider
     ) {
         $this->exportRepository = $exportRepository;
-        $this->exportProfileRepository = $exportProfileRepository;
+        $this->channelRepository = $channelRepository;
         $this->provider = $provider;
     }
 
     /**
      * @param StartExportCommand $command
-     *
-     * @throws \ReflectionException
      */
     public function __invoke(StartExportCommand $command)
     {
         $export = $this->exportRepository->load($command->getExportId());
         Assert::notNull($export);
-        $exportProfile = $this->exportProfileRepository->load($export->getExportProfileId());
-        Assert::notNull($exportProfile);
+        $channel = $this->channelRepository->load($export->getChannelId());
+        Assert::notNull($channel);
 
         $export->start();
         $this->exportRepository->save($export);
 
-        $processor = $this->provider->provide($exportProfile->getType());
-        $processor->start($command->getExportId(), $exportProfile);
+        $processor = $this->provider->provide($channel->getType());
+        $processor->start($command->getExportId(), $channel);
     }
 }

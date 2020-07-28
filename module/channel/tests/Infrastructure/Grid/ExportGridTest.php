@@ -27,6 +27,6 @@ class ExportGridTest extends TestCase
         $language = $this->createMock(Language::class);
         $grid = new ExportGrid();
         $grid->init($configuration, $language);
-        $this->assertNotEmpty($grid->getColumns());
+        self::assertNotEmpty($grid->getColumns());
     }
 }

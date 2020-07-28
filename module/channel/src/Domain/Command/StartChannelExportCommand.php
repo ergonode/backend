@@ -11,7 +11,6 @@ namespace Ergonode\Channel\Domain\Command;
 use Ergonode\EventSourcing\Infrastructure\DomainCommandInterface;
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -33,22 +32,13 @@ class StartChannelExportCommand implements DomainCommandInterface
     private ChannelId $channelId;
 
     /**
-     * @var ExportProfileId
-     *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId")
+     * @param ExportId  $exportId
+     * @param ChannelId $channelId
      */
-    private ExportProfileId $exportProfileId;
-
-    /**
-     * @param ExportId        $exportId
-     * @param ChannelId       $channelId
-     * @param ExportProfileId $exportProfileId
-     */
-    public function __construct(ExportId $exportId, ChannelId $channelId, ExportProfileId $exportProfileId)
+    public function __construct(ExportId $exportId, ChannelId $channelId)
     {
         $this->exportId = $exportId;
         $this->channelId = $channelId;
-        $this->exportProfileId = $exportProfileId;
     }
 
     /**
@@ -65,13 +55,5 @@ class StartChannelExportCommand implements DomainCommandInterface
     public function getChannelId(): ChannelId
     {
         return $this->channelId;
-    }
-
-    /**
-     * @return ExportProfileId
-     */
-    public function getExportProfileId(): ExportProfileId
-    {
-        return $this->exportProfileId;
     }
 }

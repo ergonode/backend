@@ -6,7 +6,7 @@ Feature: Export Profile Shopware 6 API
     And I add "Accept" header equal to "application/json"
 
   Scenario: Get configuration with Shopware 6 API
-    When I send a GET request to "/api/v1/en/export-profile/shopware-6-api/configuration"
+    When I send a GET request to "/api/v1/en/channels/shopware-6-api/configuration"
     Then the response status code should be 200
 
   Scenario: Create numeric attribute
@@ -52,8 +52,23 @@ Feature: Export Profile Shopware 6 API
     Then the response status code should be 201
     And store response param "id" as "attribute_text_id"
 
-  Scenario: Post Create Export profile to Shopware 6 API
-    When I send a POST request to "/api/v1/en/export-profile" with body:
+  Scenario: Create category tree
+    When I send a POST request to "/api/v1/en/trees" with body:
+      """
+      {
+        "code": "TREE_@@random_code@@",
+        "name": {
+          "de": "Test tree1 de",
+          "en": "Test tree1 en",
+          "pl_PL": "Test tree1 PL"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "category_tree"
+
+  Scenario: Post Create Channel to Shopware 6 API
+    When I send a POST request to "/api/v1/en/channels" with body:
       """
         {
           "type": "shopware-6-api",
@@ -62,18 +77,113 @@ Feature: Export Profile Shopware 6 API
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
           "default_language": "en",
+          "languages": ["pl", "en"],
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
           "attribute_product_price" : "@attribute_price_id@",
-          "attribute_product_tax" : "@attribute_numeric_id@"
+          "attribute_product_tax" : "@attribute_numeric_id@",
+          "category_tree" : "@category_tree@"
         }
       """
     Then the response status code should be 201
-    And store response param "id" as "export_profile_id"
+    And store response param "id" as "channel_id"
 
-  Scenario: Update Export Profile
-    When I send a PUT request to "/api/v1/en/export-profile/@export_profile_id@" with body:
+  Scenario: Post Create Channel to Shopware 6 API (wrong languages not active)
+    When I send a POST request to "/api/v1/en/channels" with body:
+      """
+        {
+          "type": "shopware-6-api",
+          "name": "Shopware 6 api",
+          "host": "http://192.168.1.100:8000",
+          "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
+          "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
+          "default_language": "en",
+          "languages": ["es", "en"],
+          "attribute_product_name" : "@attribute_text_id@",
+          "attribute_product_active" : "@attribute_numeric_id@",
+          "attribute_product_stock" : "@attribute_numeric_id@",
+          "attribute_product_price" : "@attribute_price_id@",
+          "attribute_product_tax" : "@attribute_numeric_id@",
+          "category_tree" : "@category_tree@"
+        }
+      """
+    Then the response status code should be 400
+    And the JSON nodes should contain:
+      | errors.languages.element-0[0] | Language code es is not active |
+
+  Scenario: Post Create Channel to Shopware 6 API (wrong languages invalid)
+    When I send a POST request to "/api/v1/en/channels" with body:
+      """
+        {
+          "type": "shopware-6-api",
+          "name": "Shopware 6 api",
+          "host": "http://192.168.1.100:8000",
+          "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
+          "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
+          "default_language": "en",
+          "languages": ["ps", "en"],
+          "attribute_product_name" : "@attribute_text_id@",
+          "attribute_product_active" : "@attribute_numeric_id@",
+          "attribute_product_stock" : "@attribute_numeric_id@",
+          "attribute_product_price" : "@attribute_price_id@",
+          "attribute_product_tax" : "@attribute_numeric_id@",
+          "category_tree" : "@category_tree@"
+        }
+      """
+    Then the response status code should be 400
+    And the JSON nodes should contain:
+      | errors.languages.element-0[0] | Language code ps is not active |
+
+
+  Scenario: Post Create Channel to Shopware 6 API (wrong default language not active)
+    When I send a POST request to "/api/v1/en/channels" with body:
+      """
+        {
+          "type": "shopware-6-api",
+          "name": "Shopware 6 api",
+          "host": "http://192.168.1.100:8000",
+          "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
+          "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
+          "default_language": "es",
+          "languages": ["pl", "en"],
+          "attribute_product_name" : "@attribute_text_id@",
+          "attribute_product_active" : "@attribute_numeric_id@",
+          "attribute_product_stock" : "@attribute_numeric_id@",
+          "attribute_product_price" : "@attribute_price_id@",
+          "attribute_product_tax" : "@attribute_numeric_id@",
+          "category_tree" : "@category_tree@"
+        }
+      """
+    Then the response status code should be 400
+    And the JSON nodes should contain:
+      | errors.default_language[0] | Language code es is not active |
+
+  Scenario: Post Create Channel to Shopware 6 API (wrong  default language invalid)
+    When I send a POST request to "/api/v1/en/channels" with body:
+      """
+        {
+          "type": "shopware-6-api",
+          "name": "Shopware 6 api",
+          "host": "http://192.168.1.100:8000",
+          "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
+          "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
+          "default_language": "ps",
+          "languages": ["pl", "en"],
+          "attribute_product_name" : "@attribute_text_id@",
+          "attribute_product_active" : "@attribute_numeric_id@",
+          "attribute_product_stock" : "@attribute_numeric_id@",
+          "attribute_product_price" : "@attribute_price_id@",
+          "attribute_product_tax" : "@attribute_numeric_id@",
+          "category_tree" : "@category_tree@"
+        }
+      """
+    Then the response status code should be 400
+    And the JSON nodes should contain:
+      | errors.default_language[0] | Language code ps is not active |
+
+  Scenario: Update shopware 6 channel
+    When I send a PUT request to "/api/v1/en/channels/@channel_id@" with body:
       """
         {
           "type": "shopware-6-api",
@@ -82,12 +192,14 @@ Feature: Export Profile Shopware 6 API
           "client_id": "SWIAMURTYTK0R2RQEFBVUNPDTQ",
           "client_key": "Mml6ZkJoRVdGSlZhbDNwMjZEcDFRMUQ0a1JRNUJKWDFKMWNnV08",
           "default_language": "en",
+          "languages": ["en"],
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
           "attribute_product_price" : "@attribute_price_id@",
           "attribute_product_tax" : "@attribute_numeric_id@",
           "attribute_product_description" : "@attribute_text_id@",
+          "category_tree" : "@category_tree@",
           "property_group": [
             {
               "id": "@attribute_text_id@"
@@ -102,14 +214,3 @@ Feature: Export Profile Shopware 6 API
         }
       """
     Then the response status code should be 204
-
-  Scenario: Create channel to Shopware6
-    When I send a POST request to "/api/v1/en/channels" with body:
-      """
-      {
-        "name": "Shopware 6 Default",
-        "export_profile_id": "@export_profile_id@"
-      }
-      """
-    Then the response status code should be 201
-    And store response param "id" as "channel"

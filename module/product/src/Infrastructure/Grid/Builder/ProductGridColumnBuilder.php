@@ -27,6 +27,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Webmozart\Assert\Assert;
 use Ergonode\Core\Domain\Query\LanguageQueryInterface;
+use Ergonode\Attribute\Domain\Entity\Attribute\GalleryAttribute;
 
 /**
  */

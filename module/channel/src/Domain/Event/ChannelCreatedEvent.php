@@ -11,7 +11,6 @@ namespace Ergonode\Channel\Domain\Event;
 
 use Ergonode\SharedKernel\Domain\Aggregate\ChannelId;
 use Ergonode\EventSourcing\Infrastructure\DomainEventInterface;
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -33,25 +32,35 @@ class ChannelCreatedEvent implements DomainEventInterface
     private string $name;
 
     /**
-     * @var ExportProfileId
+     * @var string
      *
-     * @JMS\Type("Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId")
+     * @JMS\Type("string")
      */
-    private ExportProfileId $exportProfileId;
+    private string $class;
 
     /**
-     * @param ChannelId       $channelId
-     * @param string          $name
-     * @param ExportProfileId $exportProfileId
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
+    private string $type;
+
+    /**
+     * @param ChannelId $channelId
+     * @param string    $name
+     * @param string    $class
+     * @param string    $type
      */
     public function __construct(
         ChannelId $channelId,
         string $name,
-        ExportProfileId $exportProfileId
+        string $class,
+        string $type
     ) {
         $this->id = $channelId;
         $this->name = $name;
-        $this->exportProfileId = $exportProfileId;
+        $this->class = $class;
+        $this->type = $type;
     }
 
     /**
@@ -71,10 +80,18 @@ class ChannelCreatedEvent implements DomainEventInterface
     }
 
     /**
-     * @return ExportProfileId
+     * @return string
      */
-    public function getExportProfileId(): ExportProfileId
+    public function getClass(): string
     {
-        return $this->exportProfileId;
+        return $this->class;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
     }
 }

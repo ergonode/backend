@@ -17,7 +17,7 @@ services:
 
     Ergonode\Channel\Domain\:
         resource: '../../Domain/*'
-        exclude: '../../Domain/{Entity,ValueObject}'
+        exclude: '../../Domain/{ValueObject}'
 
     Ergonode\Channel\Persistence\:
         resource: '../../Persistence/*'

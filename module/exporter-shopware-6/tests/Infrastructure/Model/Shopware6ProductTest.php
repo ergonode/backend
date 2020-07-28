@@ -52,11 +52,11 @@ class Shopware6ProductTest extends TestCase
     {
         $model = new Shopware6Product($this->id, $this->sku, $this->name, null, $this->categories);
 
-        $this->assertEquals($this->id, $model->getId());
-        $this->assertEquals($this->sku, $model->getSku());
-        $this->assertEquals($this->name, $model->getName());
-        $this->assertEquals($this->categories, $model->getCategories());
-        $this->assertNotTrue($model->isModified());
+        self::assertEquals($this->id, $model->getId());
+        self::assertEquals($this->sku, $model->getSku());
+        self::assertEquals($this->name, $model->getName());
+        self::assertEquals($this->categories, $model->getCategories());
+        self::assertNotTrue($model->isModified());
     }
 
     /**
@@ -68,9 +68,9 @@ class Shopware6ProductTest extends TestCase
         $model->setName($this->name);
         $model->addCategoryId('any_category_id');
 
-        $this->assertEquals($this->sku, $model->getSku());
-        $this->assertEquals($this->name, $model->getName());
-        $this->assertEquals($this->categories, $model->getCategories());
-        $this->assertTrue($model->isModified());
+        self::assertEquals($this->sku, $model->getSku());
+        self::assertEquals($this->name, $model->getName());
+        self::assertEquals($this->categories, $model->getCategories());
+        self::assertTrue($model->isModified());
     }
 }

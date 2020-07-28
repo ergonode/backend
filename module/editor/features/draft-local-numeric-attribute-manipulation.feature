@@ -119,7 +119,7 @@ Feature: Draft edit and inheritance value for product draft with numeric attribu
   Scenario: Get draft values in "de" language
     When I send a GET request to "api/v1/de/products/@product_id@/draft"
     Then the response status code should be 200
-    And the JSON node attributes.@attribute_code@ should be null
+    And the JSON node "attributes.@attribute_code@" should be null
 
 
   Scenario: Get draft values in "pl" language

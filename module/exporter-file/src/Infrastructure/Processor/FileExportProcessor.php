@@ -9,14 +9,14 @@ declare(strict_types = 1);
 namespace Ergonode\ExporterFile\Infrastructure\Processor;
 
 use Ergonode\Product\Domain\Entity\AbstractProduct;
-use Ergonode\ExporterFile\Domain\Entity\FileExportProfile;
 use Ergonode\ExporterFile\Infrastructure\Processor\Process\StartFileExportProcess;
 use Ergonode\ExporterFile\Infrastructure\Processor\Process\ProcessFileExportProcess;
 use Ergonode\ExporterFile\Infrastructure\Processor\Process\EndFileExportProcess;
 use Ergonode\Exporter\Infrastructure\Processor\ExportProcessorInterface;
-use Ergonode\Exporter\Domain\Entity\Profile\AbstractExportProfile;
 use Ergonode\SharedKernel\Domain\Aggregate\ExportId;
 use Ergonode\Exporter\Infrastructure\Exception\ExportException;
+use Ergonode\Channel\Domain\Entity\AbstractChannel;
+use Ergonode\ExporterFile\Domain\Entity\FileExportChannel;
 
 /**
  */
@@ -59,36 +59,36 @@ class FileExportProcessor implements ExportProcessorInterface
      */
     public function supported(string $type): bool
     {
-        return FileExportProfile::TYPE === $type;
+        return FileExportChannel::TYPE === $type;
     }
 
     /**
-     * @param ExportId              $id
-     * @param AbstractExportProfile $profile
+     * @param ExportId        $id
+     * @param AbstractChannel $channel
      */
-    public function start(ExportId $id, AbstractExportProfile $profile): void
+    public function start(ExportId $id, AbstractChannel $channel): void
     {
-        $this->startProcessor->process($id, $profile);
+        $this->startProcessor->process($id, $channel);
     }
 
     /**
-     * @param ExportId              $id
-     * @param AbstractExportProfile $profile
-     * @param AbstractProduct       $product
+     * @param ExportId        $id
+     * @param AbstractChannel $channel
+     * @param AbstractProduct $product
      *
      * @throws ExportException
      */
-    public function process(ExportId $id, AbstractExportProfile $profile, AbstractProduct $product): void
+    public function process(ExportId $id, AbstractChannel $channel, AbstractProduct $product): void
     {
-        $this->processProcessor->process($id, $profile, $product);
+        $this->processProcessor->process($id, $channel, $product);
     }
 
     /**
-     * @param ExportId              $id
-     * @param AbstractExportProfile $profile
+     * @param ExportId        $id
+     * @param AbstractChannel $channel
      */
-    public function end(ExportId $id, AbstractExportProfile $profile): void
+    public function end(ExportId $id, AbstractChannel $channel): void
     {
-        $this->endProcessor->process($id, $profile);
+        $this->endProcessor->process($id, $channel);
     }
 }

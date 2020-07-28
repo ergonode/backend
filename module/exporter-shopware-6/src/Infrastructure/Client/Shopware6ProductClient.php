@@ -8,7 +8,6 @@ declare(strict_types = 1);
 
 namespace Ergonode\ExporterShopware6\Infrastructure\Client;
 
-use Ergonode\ExporterShopware6\Domain\Entity\Shopware6ExportApiProfile;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\GetProductList;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PatchProductAction;
 use Ergonode\ExporterShopware6\Infrastructure\Connector\Action\Product\PostProductAction;
@@ -16,6 +15,7 @@ use Ergonode\ExporterShopware6\Infrastructure\Connector\Shopware6Connector;
 use Ergonode\ExporterShopware6\Infrastructure\Model\CreateShopware6Product;
 use Ergonode\ExporterShopware6\Infrastructure\Model\Shopware6Product;
 use Ergonode\Product\Domain\ValueObject\Sku;
+use Ergonode\ExporterShopware6\Domain\Entity\Shopware6Channel;
 
 /**
  */
@@ -35,12 +35,12 @@ class Shopware6ProductClient
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param Sku                       $sku
+     * @param Shopware6Channel $channel
+     * @param Sku              $sku
      *
      * @return Shopware6Product|null
      */
-    public function findBySKU(Shopware6ExportApiProfile $profile, Sku $sku): ?Shopware6Product
+    public function findBySKU(Shopware6Channel $channel, Sku $sku): ?Shopware6Product
     {
         try {
             $query = [
@@ -54,7 +54,7 @@ class Shopware6ProductClient
             ];
             $action = new GetProductList($query, 1);
 
-            $productList = $this->connector->execute($profile, $action);
+            $productList = $this->connector->execute($channel, $action);
             if (is_array($productList) && count($productList) > 0) {
                 return $productList[0];
             }
@@ -67,28 +67,28 @@ class Shopware6ProductClient
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param CreateShopware6Product    $product
+     * @param Shopware6Channel       $channel
+     * @param CreateShopware6Product $product
      *
      * @return array|object|string|null
      */
-    public function insert(Shopware6ExportApiProfile $profile, CreateShopware6Product $product)
+    public function insert(Shopware6Channel $channel, CreateShopware6Product $product)
     {
         $action = new PostProductAction($product);
 
-        return $this->connector->execute($profile, $action);
+        return $this->connector->execute($channel, $action);
     }
 
     /**
-     * @param Shopware6ExportApiProfile $profile
-     * @param Shopware6Product          $product
+     * @param Shopware6Channel $channel
+     * @param Shopware6Product $product
      *
      * @return array|object|string|null
      */
-    public function update(Shopware6ExportApiProfile $profile, Shopware6Product $product)
+    public function update(Shopware6Channel $channel, Shopware6Product $product)
     {
         $action = new PatchProductAction($product);
 
-        return $this->connector->execute($profile, $action);
+        return $this->connector->execute($channel, $action);
     }
 }
