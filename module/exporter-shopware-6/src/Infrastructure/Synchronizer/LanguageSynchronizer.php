@@ -72,7 +72,6 @@ class LanguageSynchronizer implements SynchronizerInterface
                 $shopwareLanguage['id'],
                 $shopwareLanguage['name'],
                 $shopwareLanguage['locale_id'],
-
             );
         }
         $this->languageShopwareQuery->cleanData($channel->getId(), $start);
