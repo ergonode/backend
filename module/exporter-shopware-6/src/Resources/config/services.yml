@@ -40,6 +40,7 @@ services:
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CategorySynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\PropertyGroupSynchronizer'
             - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\CustomFieldSynchronizer'
+            - '@Ergonode\ExporterShopware6\Infrastructure\Synchronizer\LanguageSynchronizer'
 
     # Mappers
     Ergonode\ExporterShopware6\Infrastructure\Builder\Shopware6ProductBuilder:

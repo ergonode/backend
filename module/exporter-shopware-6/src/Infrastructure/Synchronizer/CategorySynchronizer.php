@@ -185,7 +185,7 @@ class CategorySynchronizer implements SynchronizerInterface
                 );
             }
         }
-        $this->categoryShopwareQuery->clearBefore($channel->getId(), $start);
+        $this->categoryShopwareQuery->cleanData($channel->getId(), $start);
     }
 
     /**
