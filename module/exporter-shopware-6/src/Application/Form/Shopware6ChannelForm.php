@@ -117,12 +117,21 @@ class Shopware6ChannelForm extends AbstractType
                 ]
             )
             ->add(
-                'attribute_product_price',
+                'attribute_product_price_gross',
                 AttributeIdType::class,
                 [
-                    'label' => 'Attribute Product Price',
+                    'label' => 'Attribute Product Price Gross',
                     'choices' => array_flip($dictionary),
-                    'property_path' => 'attributeProductPrice',
+                    'property_path' => 'attributeProductPriceGross',
+                ]
+            )
+            ->add(
+                'attribute_product_price_net',
+                AttributeIdType::class,
+                [
+                    'label' => 'Attribute Product Price Net',
+                    'choices' => array_flip($dictionary),
+                    'property_path' => 'attributeProductPriceNet',
                 ]
             )
             ->add(

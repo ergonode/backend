@@ -22,11 +22,11 @@ Feature: Export Profile Shopware 6 API
     Then the response status code should be 201
     And store response param "id" as "attribute_numeric_id"
 
-  Scenario: Create price attribute
+  Scenario: Create gross price attribute
     And I send a "POST" request to "/api/v1/en/attributes" with body:
       """
       {
-        "code": "shopware_6_PRICE_@@random_code@@",
+        "code": "shopware_6_PRICE_gross_@@random_code@@",
         "type": "PRICE",
         "groups": [],
         "scope": "local",
@@ -37,7 +37,24 @@ Feature: Export Profile Shopware 6 API
       }
       """
     Then the response status code should be 201
-    And store response param "id" as "attribute_price_id"
+    And store response param "id" as "attribute_price_gross_id"
+
+  Scenario: Create net price attribute
+    And I send a "POST" request to "/api/v1/en/attributes" with body:
+      """
+      {
+        "code": "shopware_6_PRICE_net_@@random_code@@",
+        "type": "PRICE",
+        "groups": [],
+        "scope": "local",
+        "parameters":
+        {
+          "currency": "PLN"
+        }
+      }
+      """
+    Then the response status code should be 201
+    And store response param "id" as "attribute_price_net_id"
 
   Scenario: Create text attribute
     And I send a "POST" request to "/api/v1/en/attributes" with body:
@@ -81,7 +98,8 @@ Feature: Export Profile Shopware 6 API
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
-          "attribute_product_price" : "@attribute_price_id@",
+          "attribute_product_price_gross" : "@attribute_price_gross_id@",
+          "attribute_product_price_net" : "@attribute_price_net_id@",
           "attribute_product_tax" : "@attribute_numeric_id@",
           "category_tree" : "@category_tree@"
         }
@@ -103,7 +121,8 @@ Feature: Export Profile Shopware 6 API
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
-          "attribute_product_price" : "@attribute_price_id@",
+          "attribute_product_price_gross" : "@attribute_price_gross_id@",
+          "attribute_product_price_net" : "@attribute_price_net_id@",
           "attribute_product_tax" : "@attribute_numeric_id@",
           "category_tree" : "@category_tree@"
         }
@@ -126,7 +145,8 @@ Feature: Export Profile Shopware 6 API
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
-          "attribute_product_price" : "@attribute_price_id@",
+          "attribute_product_price_gross" : "@attribute_price_gross_id@",
+          "attribute_product_price_net" : "@attribute_price_net_id@",
           "attribute_product_tax" : "@attribute_numeric_id@",
           "category_tree" : "@category_tree@"
         }
@@ -150,7 +170,8 @@ Feature: Export Profile Shopware 6 API
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
-          "attribute_product_price" : "@attribute_price_id@",
+          "attribute_product_price_gross" : "@attribute_price_gross_id@",
+          "attribute_product_price_net" : "@attribute_price_net_id@",
           "attribute_product_tax" : "@attribute_numeric_id@",
           "category_tree" : "@category_tree@"
         }
@@ -173,7 +194,8 @@ Feature: Export Profile Shopware 6 API
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
-          "attribute_product_price" : "@attribute_price_id@",
+          "attribute_product_price_gross" : "@attribute_price_gross_id@",
+          "attribute_product_price_net" : "@attribute_price_net_id@",
           "attribute_product_tax" : "@attribute_numeric_id@",
           "category_tree" : "@category_tree@"
         }
@@ -196,7 +218,8 @@ Feature: Export Profile Shopware 6 API
           "attribute_product_name" : "@attribute_text_id@",
           "attribute_product_active" : "@attribute_numeric_id@",
           "attribute_product_stock" : "@attribute_numeric_id@",
-          "attribute_product_price" : "@attribute_price_id@",
+          "attribute_product_price_gross" : "@attribute_price_gross_id@",
+          "attribute_product_price_net" : "@attribute_price_net_id@",
           "attribute_product_tax" : "@attribute_numeric_id@",
           "attribute_product_description" : "@attribute_text_id@",
           "category_tree" : "@category_tree@",

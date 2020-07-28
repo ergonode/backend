@@ -53,7 +53,8 @@ class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilde
         $attributeProductName = $data->attributeProductName;
         $attributeProductActive = $data->attributeProductActive;
         $attributeProductStock = $data->attributeProductStock;
-        $attributeProductPrice = $data->attributeProductPrice;
+        $attributeProductPriceGross = $data->attributeProductPriceGross;
+        $attributeProductPriceNet = $data->attributeProductPriceNet;
         $attributeProductTax = $data->attributeProductTax;
         $attributeProductDescription = $data->attributeProductDescription;
         $categoryTree = $data->categoryTree;
@@ -84,7 +85,8 @@ class Shopware6UpdateChannelCommandBuilder implements UpdateChannelCommandBuilde
             $attributeProductName,
             $attributeProductActive,
             $attributeProductStock,
-            $attributeProductPrice,
+            $attributeProductPriceGross,
+            $attributeProductPriceNet,
             $attributeProductTax,
             $attributeProductDescription,
             new CategoryTreeId($categoryTree),

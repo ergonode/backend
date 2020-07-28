@@ -31,7 +31,8 @@ class UpdateShopware6ChannelCommandHandlerTest extends TestCase
         $channel->expects(self::once())->method('setProductName');
         $channel->expects(self::once())->method('setProductActive');
         $channel->expects(self::once())->method('setProductStock');
-        $channel->expects(self::once())->method('setProductPrice');
+        $channel->expects(self::once())->method('setProductPriceGross');
+        $channel->expects(self::once())->method('setProductPriceNet');
         $channel->expects(self::once())->method('setProductTax');
         $channel->expects(self::once())->method('setPropertyGroup');
         $channel->expects(self::once())->method('setCustomField');

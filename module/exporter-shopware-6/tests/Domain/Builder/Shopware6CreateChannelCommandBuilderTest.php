@@ -44,7 +44,8 @@ class Shopware6CreateChannelCommandBuilderTest extends TestCase
         $model->attributeProductName = $this->createMock(AttributeId::class);
         $model->attributeProductActive = $this->createMock(AttributeId::class);
         $model->attributeProductStock = $this->createMock(AttributeId::class);
-        $model->attributeProductPrice = $this->createMock(AttributeId::class);
+        $model->attributeProductPriceGross = $this->createMock(AttributeId::class);
+        $model->attributeProductPriceNet = $this->createMock(AttributeId::class);
         $model->attributeProductTax = $this->createMock(AttributeId::class);
         $model->categoryTree = '0b0df351-dc46-4051-b0d2-166215e8283c';
 
@@ -65,7 +66,8 @@ class Shopware6CreateChannelCommandBuilderTest extends TestCase
         self::assertEquals($model->attributeProductName, $result->getProductName());
         self::assertEquals($model->attributeProductActive, $result->getProductActive());
         self::assertEquals($model->attributeProductStock, $result->getProductStock());
-        self::assertEquals($model->attributeProductPrice, $result->getProductPrice());
+        self::assertEquals($model->attributeProductPriceGross, $result->getProductPriceGross());
+        self::assertEquals($model->attributeProductPriceGross, $result->getProductPriceNet());
         self::assertEquals($model->attributeProductTax, $result->getProductTax());
         self::assertEquals($model->categoryTree, $result->getCategoryTree()->getValue());
     }

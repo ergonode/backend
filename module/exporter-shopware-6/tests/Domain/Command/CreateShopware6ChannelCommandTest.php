@@ -72,7 +72,12 @@ class CreateShopware6ChannelCommandTest extends TestCase
     /**
      * @var AttributeId|MockObject
      */
-    private AttributeId $productPrice;
+    private AttributeId $productPriceGross;
+
+    /**
+     * @var AttributeId|MockObject
+     */
+    private AttributeId $productPriceNet;
 
     /**
      * @var AttributeId|MockObject
@@ -103,7 +108,8 @@ class CreateShopware6ChannelCommandTest extends TestCase
         $this->productName = $this->createMock(AttributeId::class);
         $this->productActive = $this->createMock(AttributeId::class);
         $this->productStock = $this->createMock(AttributeId::class);
-        $this->productPrice = $this->createMock(AttributeId::class);
+        $this->productPriceGross = $this->createMock(AttributeId::class);
+        $this->productPriceNet = $this->createMock(AttributeId::class);
         $this->productTax = $this->createMock(AttributeId::class);
         $this->productDescription = $this->createMock(AttributeId::class);
         $this->categoryTreeId = $this->createMock(CategoryTreeId::class);
@@ -124,7 +130,8 @@ class CreateShopware6ChannelCommandTest extends TestCase
             $this->productName,
             $this->productActive,
             $this->productStock,
-            $this->productPrice,
+            $this->productPriceGross,
+            $this->productPriceNet,
             $this->productTax,
             $this->productDescription,
             $this->categoryTreeId,
@@ -142,7 +149,8 @@ class CreateShopware6ChannelCommandTest extends TestCase
         self::assertEquals($this->productName, $command->getProductName());
         self::assertEquals($this->productActive, $command->getProductActive());
         self::assertEquals($this->productStock, $command->getProductStock());
-        self::assertEquals($this->productPrice, $command->getProductPrice());
+        self::assertEquals($this->productPriceGross, $command->getProductPriceGross());
+        self::assertEquals($this->productPriceGross, $command->getProductPriceNet());
         self::assertEquals($this->productTax, $command->getProductTax());
         self::assertEquals($this->productDescription, $command->getProductDescription());
         self::assertEquals($this->categoryTreeId, $command->getCategoryTree());
